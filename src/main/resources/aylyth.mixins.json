@@ -4,8 +4,9 @@
   "package": "moriyashiine.aylyth.mixin",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
+    "TrunkPlacerTypeAccessor"
   ],
   "injectors": {
-	"defaultRequire": 1
+    "defaultRequire": 1
   }
 }
