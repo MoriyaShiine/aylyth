@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "aylyth",
+  "version": "${version}",
+  "name": "Aylyth",
+  "description": "cyber we need a description waaaa",
+  "authors": [
+	"MoriyaShiine",
+	"cybercat5555",
+	"Aelpecyem",
+	"Voddak",
+	"Assasingus14"
+  ],
+  "contact": {
+	"homepage": "https://www.curseforge.com/minecraft/mc-mods/aylyth",
+	"sources": "https://github.com/MoriyaShiine/aylyth"
+  },
+  "license": "CC BY-NC-ND 4.0",
+  "icon": "assets/aylyth/icon.png",
+  "environment": "*",
+  "entrypoints": {
+	"main": [
+	  "moriyashiine.aylyth.common.Aylyth"
+	]
+  },
+  "mixins": [
+	"aylyth.mixins.json"
+  ],
+  "depends": {
+	"fabricloader": "*",
+	"fabric": "*",
+	"minecraft": "1.17.x",
+	"java": ">=16"
+  }
+}
