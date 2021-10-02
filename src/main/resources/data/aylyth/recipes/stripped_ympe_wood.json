@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "bark",
+  "pattern": [
+	"##",
+	"##"
+  ],
+  "key": {
+	"#": {
+	  "item": "aylyth:stripped_ympe_log"
+	}
+  },
+  "result": {
+	"item": "aylyth:stripped_ympe_wood",
+	"count": 3
+  }
+}

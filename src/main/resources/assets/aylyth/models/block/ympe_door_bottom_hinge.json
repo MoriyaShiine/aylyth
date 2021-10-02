@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_bottom_rh",
+  "textures": {
+	"top": "aylyth:block/ympe_door_top",
+	"bottom": "aylyth:block/ympe_door_bottom"
+  }
+}

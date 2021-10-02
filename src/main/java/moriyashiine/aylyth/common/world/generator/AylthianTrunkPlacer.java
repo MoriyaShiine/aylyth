@@ -1,7 +1,6 @@
-package moriyashiine.aylyth.common.worldgen;
+package moriyashiine.aylyth.common.world.generator;
 
 import com.google.common.collect.Lists;
-import com.mojang.datafixers.util.Function3;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import moriyashiine.aylyth.common.registry.ModWorldGenerators;
@@ -20,43 +19,43 @@ import java.util.function.BiConsumer;
 
 public class AylthianTrunkPlacer extends GiantTrunkPlacer {
 	public static final Codec<AylthianTrunkPlacer> CODEC = RecordCodecBuilder.create((instance) -> fillTrunkPlacerFields(instance).apply(instance, AylthianTrunkPlacer::new));
-
+	
 	public AylthianTrunkPlacer(int heightMin, int width, int heightMax) {
 		super(heightMin, width, heightMax);
 	}
-
+	
 	public AylthianTrunkPlacer() {
 		this(12, 2, 18);
 	}
-
+	
 	@Override
 	protected TrunkPlacerType<AylthianTrunkPlacer> getType() {
 		return ModWorldGenerators.AYLYTHIAN_TRUNK_PLACER;
 	}
-
+	
 	@Override
 	public List<FoliagePlacer.TreeNode> generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, int height, BlockPos startPos, TreeFeatureConfig config) {
 		List<FoliagePlacer.TreeNode> list = Lists.newArrayList();
 		list.addAll(super.generate(world, replacer, random, height, startPos, config));
-		for(int y = height; y > height / 3; y --) {
+		for (int y = height; y > height / 3; y--) {
 			int branchLength = y >= height - height / 4F ? 7 : 6;
 			while (random.nextInt(3) == 0) {
 				float radianAngle = random.nextFloat() * 6.2831855F;
 				int x = 0;
 				int z = 0;
-
-				for(int l = 0; l < branchLength; ++l) {
-					x = (int)(1.5F + MathHelper.cos(radianAngle) * (float)l);
-					z = (int)(1.5F + MathHelper.sin(radianAngle) * (float)l);
+				
+				for (int l = 0; l < branchLength; ++l) {
+					x = (int) (1.5F + MathHelper.cos(radianAngle) * (float) l);
+					z = (int) (1.5F + MathHelper.sin(radianAngle) * (float) l);
 					BlockPos blockPos = startPos.add(x, y - 3 + l / 2, z);
 					getAndSetState(world, replacer, random, blockPos, config);
 				}
-
+				
 				list.add(new FoliagePlacer.TreeNode(startPos.add(x, y + 1, z), 0, false));
-
+				
 			}
 		}
-
+		
 		return list;
 	}
 }

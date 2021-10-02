@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/leaves",
+  "textures": {
+	"all": "aylyth:block/ympe_leaves"
+  }
+}

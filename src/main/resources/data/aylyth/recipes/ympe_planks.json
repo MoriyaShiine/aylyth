@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "planks",
+  "ingredients": [
+	{
+	  "tag": "aylyth:ympe_logs"
+	}
+  ],
+  "result": {
+	"item": "aylyth:ympe_planks",
+	"count": 4
+  }
+}

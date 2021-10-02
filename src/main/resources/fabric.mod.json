@@ -21,6 +21,9 @@
   "entrypoints": {
 	"main": [
 	  "moriyashiine.aylyth.common.Aylyth"
+	],
+	"client": [
+	  "moriyashiine.aylyth.client.AylythClient"
 	]
   },
   "mixins": [
