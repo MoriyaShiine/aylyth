@@ -5,8 +5,10 @@ import moriyashiine.aylyth.common.world.generator.AylthianTrunkPlacer;
 import moriyashiine.aylyth.common.world.generator.BigYmpeTrunkPlacer;
 import moriyashiine.aylyth.common.world.generator.YmpeTrunkPlacer;
 import moriyashiine.aylyth.mixin.TrunkPlacerTypeAccessor;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.collection.DataPool;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
@@ -16,7 +18,9 @@ import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
 import net.minecraft.world.gen.foliage.BushFoliagePlacer;
 import net.minecraft.world.gen.foliage.DarkOakFoliagePlacer;
+import net.minecraft.world.gen.stateprovider.RandomizedIntBlockStateProvider;
 import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
+import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
 import net.minecraft.world.gen.trunk.TrunkPlacerType;
 
 public class ModWorldGenerators {
@@ -25,7 +29,7 @@ public class ModWorldGenerators {
 	public static final TrunkPlacerType<BigYmpeTrunkPlacer> BIG_YMPE_TRUNK_PLACER = TrunkPlacerTypeAccessor.callRegister(Aylyth.MOD_ID + ":big_ympe_trunk_placer", BigYmpeTrunkPlacer.CODEC);
 	
 	public static final ConfiguredFeature<TreeFeatureConfig, ?> AYLYTHIAN_DARK_OAK = Feature.TREE.configure(new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.DARK_OAK_LOG.getDefaultState()), new AylthianTrunkPlacer(), new SimpleBlockStateProvider(Blocks.DARK_OAK_LEAVES.getDefaultState()), new SimpleBlockStateProvider(Blocks.DARK_OAK_SAPLING.getDefaultState()), new DarkOakFoliagePlacer(ConstantIntProvider.create(1), ConstantIntProvider.create(0)), new TwoLayersFeatureSize(1, 1, 2)).ignoreVines().build());
-	public static final ConfiguredFeature<TreeFeatureConfig, ?> YMPE_TREE = Feature.TREE.configure(new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(ModBlocks.YMPE_LOG.getDefaultState()), new YmpeTrunkPlacer(), new SimpleBlockStateProvider(ModBlocks.YMPE_LEAVES.getDefaultState()), new SimpleBlockStateProvider(ModBlocks.YMPE_SAPLING.getDefaultState()), new BushFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(1), 2), new TwoLayersFeatureSize(1, 1, 1)).ignoreVines().build());
+	public static final ConfiguredFeature<TreeFeatureConfig, ?> YMPE_TREE = Feature.TREE.configure(new TreeFeatureConfig.Builder(new WeightedBlockStateProvider(DataPool.<BlockState>builder().add(ModBlocks.YMPE_LOG.getDefaultState(), 20).add(ModBlocks.FRUIT_BEARING_YMPE_LOG.getDefaultState(), 1).build()), new YmpeTrunkPlacer(), new SimpleBlockStateProvider(ModBlocks.YMPE_LEAVES.getDefaultState()), new SimpleBlockStateProvider(ModBlocks.YMPE_SAPLING.getDefaultState()), new BushFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(1), 2), new TwoLayersFeatureSize(1, 1, 1)).ignoreVines().build());
 	public static final ConfiguredFeature<TreeFeatureConfig, ?> BIG_YMPE_TREE = Feature.TREE.configure(new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(ModBlocks.YMPE_LOG.getDefaultState()), new BigYmpeTrunkPlacer(), new SimpleBlockStateProvider(ModBlocks.YMPE_LEAVES.getDefaultState()), new SimpleBlockStateProvider(ModBlocks.YMPE_SAPLING.getDefaultState()), new BushFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(1), 2), new TwoLayersFeatureSize(1, 1, 1)).ignoreVines().build());
 	
 	public static void init() {

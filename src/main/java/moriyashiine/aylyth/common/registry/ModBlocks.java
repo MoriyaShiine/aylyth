@@ -4,6 +4,7 @@ import com.terraformersmc.terraform.sign.block.TerraformSignBlock;
 import com.terraformersmc.terraform.sign.block.TerraformWallSignBlock;
 import com.terraformersmc.terraform.wood.block.*;
 import moriyashiine.aylyth.common.Aylyth;
+import moriyashiine.aylyth.common.block.FruitBearingYmpeLogBlock;
 import moriyashiine.aylyth.common.block.ModSaplingBlock;
 import moriyashiine.aylyth.mixin.BlocksAccessor;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
@@ -24,6 +25,7 @@ public class ModBlocks {
 	public static final Block STRIPPED_YMPE_LOG = new PillarBlock(copyOf(Blocks.OAK_LOG));
 	public static final Block STRIPPED_YMPE_WOOD = new PillarBlock(copyOf(STRIPPED_YMPE_LOG));
 	public static final Block YMPE_LOG = new StrippableLogBlock(() -> STRIPPED_YMPE_LOG, MapColor.BROWN, copyOf(STRIPPED_YMPE_LOG));
+	public static final Block FRUIT_BEARING_YMPE_LOG = new FruitBearingYmpeLogBlock();
 	public static final Block YMPE_WOOD = new StrippableLogBlock(() -> STRIPPED_YMPE_WOOD, MapColor.BROWN, copyOf(STRIPPED_YMPE_LOG));
 	public static final Block YMPE_LEAVES = BlocksAccessor.callCreateLeavesBlock(BlockSoundGroup.GRASS);
 	public static Block YMPE_SAPLING = new ModSaplingBlock(new LargeTreeSaplingGenerator() {
@@ -56,6 +58,7 @@ public class ModBlocks {
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "stripped_ympe_log"), STRIPPED_YMPE_LOG);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "stripped_ympe_wood"), STRIPPED_YMPE_WOOD);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "ympe_log"), YMPE_LOG);
+		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "fruit_bearing_ympe_log"), FRUIT_BEARING_YMPE_LOG);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "ympe_wood"), YMPE_WOOD);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "ympe_leaves"), YMPE_LEAVES);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "ympe_sapling"), YMPE_SAPLING);

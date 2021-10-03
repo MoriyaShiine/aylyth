@@ -3,6 +3,7 @@
   "block.aylyth.stripped_ympe_log": "Stripped Ympe Log",
   "block.aylyth.stripped_ympe_wood": "Stripped Ympe Wood",
   "block.aylyth.ympe_log": "Ympe Log",
+  "block.aylyth.fruit_bearing_ympe_log": "Fruit Bearing Ympe Log",
   "block.aylyth.ympe_wood": "Ympe Wood",
   "block.aylyth.ympe_leaves": "Ympe Leaves",
   "block.aylyth.ympe_sapling": "Ympe Sapling",
@@ -18,5 +19,6 @@
   "block.aylyth.ympe_door": "Ympe Door",
   "block.aylyth.ympe_sign": "Ympe Sign",
   "item.aylyth.ympe_boat": "Ympe Boat",
+  "item.aylyth.ympe_fruit": "Ympe Fruit",
   "entity.aylyth.ympe_boat": "Ympe Boat"
 }

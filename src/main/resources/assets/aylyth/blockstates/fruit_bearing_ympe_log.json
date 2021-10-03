@@ -1,0 +1,64 @@
+{
+  "variants": {
+	  "age=0,axis=x": {
+		  "model": "aylyth:block/fruit_bearing_ympe_log/0",
+		  "x": 90,
+		  "y": 90
+	  },
+	  "age=0,axis=y": {
+		  "model": "aylyth:block/fruit_bearing_ympe_log/0"
+	  },
+	  "age=0,axis=z": {
+		  "model": "aylyth:block/fruit_bearing_ympe_log/0",
+		  "x": 90
+	  },
+	  "age=1,axis=x": {
+		  "model": "aylyth:block/fruit_bearing_ympe_log/1",
+		  "x": 90,
+		  "y": 90
+	  },
+	  "age=1,axis=y": {
+		  "model": "aylyth:block/fruit_bearing_ympe_log/1"
+	  },
+	  "age=1,axis=z": {
+		  "model": "aylyth:block/fruit_bearing_ympe_log/1",
+		  "x": 90
+	  },
+	  "age=2,axis=x": {
+		  "model": "aylyth:block/fruit_bearing_ympe_log/2",
+		  "x": 90,
+		  "y": 90
+	  },
+	  "age=2,axis=y": {
+		  "model": "aylyth:block/fruit_bearing_ympe_log/2"
+	  },
+	  "age=2,axis=z": {
+		  "model": "aylyth:block/fruit_bearing_ympe_log/2",
+		  "x": 90
+	  },
+	  "age=3,axis=x": {
+		  "model": "aylyth:block/fruit_bearing_ympe_log/3",
+		  "x": 90,
+		  "y": 90
+	  },
+	  "age=3,axis=y": {
+		  "model": "aylyth:block/fruit_bearing_ympe_log/3"
+	  },
+	  "age=3,axis=z": {
+		  "model": "aylyth:block/fruit_bearing_ympe_log/3",
+		  "x": 90
+	  },
+	  "age=4,axis=x": {
+		  "model": "aylyth:block/fruit_bearing_ympe_log/4",
+		  "x": 90,
+		  "y": 90
+	  },
+	  "age=4,axis=y": {
+		  "model": "aylyth:block/fruit_bearing_ympe_log/4"
+	  },
+	  "age=4,axis=z": {
+		  "model": "aylyth:block/fruit_bearing_ympe_log/4",
+		  "x": 90
+	  }
+  }
+}

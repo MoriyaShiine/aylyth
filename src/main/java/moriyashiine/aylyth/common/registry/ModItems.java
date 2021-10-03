@@ -11,10 +11,13 @@ import net.minecraft.util.registry.Registry;
 
 public class ModItems {
 	public static final ItemGroup GROUP = FabricItemGroupBuilder.build(new Identifier(Aylyth.MOD_ID, Aylyth.MOD_ID), () -> new ItemStack(Items.COBBLESTONE));
-	
+
+	public static final Item YMPE_FRUIT = new Item(settings());
+
 	public static final Item STRIPPED_YMPE_LOG = new BlockItem(ModBlocks.STRIPPED_YMPE_LOG, settings());
 	public static final Item STRIPPED_YMPE_WOOD = new BlockItem(ModBlocks.STRIPPED_YMPE_WOOD, settings());
 	public static final Item YMPE_LOG = new BlockItem(ModBlocks.YMPE_LOG, settings());
+	public static final Item FRUIT_BEARING_YMPE_LOG = new BlockItem(ModBlocks.FRUIT_BEARING_YMPE_LOG, settings());
 	public static final Item YMPE_WOOD = new BlockItem(ModBlocks.YMPE_WOOD, settings());
 	public static final Item YMPE_LEAVES = new BlockItem(ModBlocks.YMPE_LEAVES, settings());
 	public static final Item YMPE_SAPLING = new BlockItem(ModBlocks.YMPE_SAPLING, settings());
@@ -28,15 +31,18 @@ public class ModItems {
 	public static final Item YMPE_TRAPDOOR = new BlockItem(ModBlocks.YMPE_TRAPDOOR, settings());
 	public static final Item YMPE_DOOR = new TallBlockItem(ModBlocks.YMPE_DOOR, settings());
 	public static final Item YMPE_SIGN = new SignItem(settings().maxCount(16), ModBlocks.YMPE_SIGN, ModBlocks.YMPE_WALL_SIGN);
-	
+
 	private static Item.Settings settings() {
 		return new FabricItemSettings().group(GROUP);
 	}
 	
 	public static void init() {
+		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_fruit"), YMPE_FRUIT);
+
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "stripped_ympe_log"), STRIPPED_YMPE_LOG);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "stripped_ympe_wood"), STRIPPED_YMPE_WOOD);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_log"), YMPE_LOG);
+		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "fruit_bearing_ympe_log"), FRUIT_BEARING_YMPE_LOG);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_wood"), YMPE_WOOD);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_leaves"), YMPE_LEAVES);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_sapling"), YMPE_SAPLING);
