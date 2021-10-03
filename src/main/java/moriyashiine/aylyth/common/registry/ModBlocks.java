@@ -6,6 +6,7 @@ import com.terraformersmc.terraform.wood.block.*;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.block.ModSaplingBlock;
 import moriyashiine.aylyth.mixin.BlocksAccessor;
+import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.minecraft.block.*;
 import net.minecraft.block.sapling.SaplingGenerator;
 import net.minecraft.sound.BlockSoundGroup;
@@ -64,5 +65,16 @@ public class ModBlocks {
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "ympe_door"), YMPE_DOOR);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "ympe_sign"), YMPE_SIGN);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "ympe_wall_sign"), YMPE_WALL_SIGN);
+		FlammableBlockRegistry flammableRegistry = FlammableBlockRegistry.getDefaultInstance();
+		flammableRegistry.add(STRIPPED_YMPE_LOG, 5, 5);
+		flammableRegistry.add(STRIPPED_YMPE_WOOD, 5, 5);
+		flammableRegistry.add(YMPE_LOG, 5, 5);
+		flammableRegistry.add(YMPE_WOOD, 5, 5);
+		flammableRegistry.add(YMPE_LEAVES, 30, 60);
+		flammableRegistry.add(YMPE_PLANKS, 5, 20);
+		flammableRegistry.add(YMPE_STAIRS, 5, 20);
+		flammableRegistry.add(YMPE_SLAB, 5, 20);
+		flammableRegistry.add(YMPE_FENCE, 5, 20);
+		flammableRegistry.add(YMPE_FENCE_GATE, 5, 20);
 	}
 }
