@@ -9,7 +9,6 @@ import moriyashiine.aylyth.mixin.BlocksAccessor;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.minecraft.block.*;
 import net.minecraft.block.sapling.LargeTreeSaplingGenerator;
-import net.minecraft.block.sapling.SaplingGenerator;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
