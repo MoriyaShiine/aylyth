@@ -27,6 +27,7 @@ public class Aylyth implements ModInitializer {
 		ModRecipeTypes.init();
 		ModWorldGenerators.init();
 		ModBoatTypes.init();
+		ModBiomes.init();
 		ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register((world, entity, killedEntity) -> {
 			if (entity instanceof LivingEntity living && living.getMainHandStack().isOf(ModItems.YMPE_DAGGER)) {
 				boolean shucked = false;
