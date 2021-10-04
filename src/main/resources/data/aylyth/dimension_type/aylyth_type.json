@@ -1,7 +1,7 @@
 {
   "name": "aylyth",
   "height": 272,
-  "logical_height" : 256,
+  "logical_height": 256,
   "min_y": 0,
   "ultrawarm": false,
   "natural": false,
@@ -10,8 +10,8 @@
   "has_skylight": true,
   "has_ceiling": false,
   "infiniburn": "minecraft:infiniburn_overworld",
-  "has_raids" : false,
+  "has_raids": false,
   "respawn_anchor_works": false,
-  "bed_works" : false,
-  "piglin_safe" : false
+  "bed_works": false,
+  "piglin_safe": false
 }

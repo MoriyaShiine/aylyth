@@ -5,12 +5,11 @@ import moriyashiine.aylyth.common.recipe.ShuckingRecipe;
 import moriyashiine.aylyth.common.recipe.YmpeDaggerDropRecipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
-import net.minecraft.recipe.SpecialRecipeSerializer;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 public class ModRecipeTypes {
-	public static final RecipeSerializer<ShuckingRecipe> SHUCKING_RECIPE_SERIALIZER = new SpecialRecipeSerializer<>(ShuckingRecipe::new);
+	public static final RecipeSerializer<ShuckingRecipe> SHUCKING_RECIPE_SERIALIZER = new ShuckingRecipe.Serializer();
 	
 	public static final RecipeSerializer<YmpeDaggerDropRecipe> YMPE_DAGGER_DROP_RECIPE_SERIALIZER = new YmpeDaggerDropRecipe.Serializer();
 	public static final RecipeType<YmpeDaggerDropRecipe> YMPE_DAGGER_DROP_RECIPE_TYPE = new RecipeType<>() {

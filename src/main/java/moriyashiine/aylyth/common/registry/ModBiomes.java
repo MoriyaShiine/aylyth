@@ -10,22 +10,22 @@ import net.minecraft.world.biome.BiomeEffects;
 import net.minecraft.world.biome.GenerationSettings;
 import net.minecraft.world.biome.SpawnSettings;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.ConfiguredFeatures;
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
 import net.minecraft.world.gen.surfacebuilder.ConfiguredSurfaceBuilders;
 
 public class ModBiomes {
 	public static final Biome AYLYTHIAN_FOREST = createForest(0.1F, 0.2F, new SpawnSettings.Builder());
+	
 	public static void init() {
 		Registry.register(BuiltinRegistries.BIOME, new Identifier(Aylyth.MOD_ID, "aylythian_forest"), AYLYTHIAN_FOREST);
 	}
-
+	
 	private static Biome createForest(float depth, float scale, SpawnSettings.Builder spawnSettings) {
 		GenerationSettings.Builder builder = (new GenerationSettings.Builder()).surfaceBuilder(ConfiguredSurfaceBuilders.GRASS);
 		DefaultBiomeFeatures.addLandCarvers(builder);
 		DefaultBiomeFeatures.addDefaultLakes(builder);
 		DefaultBiomeFeatures.addForestFlowers(builder);
-
+		
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModWorldGenerators.AYLYTHIAN_TREES);
 		DefaultBiomeFeatures.addDefaultFlowers(builder);
 		DefaultBiomeFeatures.addPlainsTallGrass(builder);
