@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+	"item": "aylyth:ympe_sapling"
+  },
+  "addition": {
+	"item": "minecraft:netherite_ingot"
+  },
+  "result": {
+	"item": "aylyth:ympe_dagger"
+  }
+}

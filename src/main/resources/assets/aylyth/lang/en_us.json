@@ -19,6 +19,11 @@
   "block.aylyth.ympe_door": "Ympe Door",
   "block.aylyth.ympe_sign": "Ympe Sign",
   "item.aylyth.ympe_boat": "Ympe Boat",
+  "item.aylyth.ympe_dagger": "Ympe Dagger",
   "item.aylyth.ympe_fruit": "Ympe Fruit",
-  "entity.aylyth.ympe_boat": "Ympe Boat"
+  "item.aylyth.shucked_ympe_fruit": "Shucked Ympe Fruit",
+  "entity.aylyth.ympe_boat": "Ympe Boat",
+  "aylyth.subtitles.block.ympe_log.pick_fruit": "Fruit picked",
+  "aylyth.subtitles.entity.generic.shucked": "Entity shucked",
+  "rei.aylyth.ympe_dagger_drops": "Ympe Dagger Drops"
 }

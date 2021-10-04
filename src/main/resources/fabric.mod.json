@@ -24,6 +24,9 @@
 	],
 	"client": [
 	  "moriyashiine.aylyth.client.AylythClient"
+	],
+	"rei_plugins": [
+	  "moriyashiine.aylyth.client.integration.rei.ModREIPlugin"
 	]
   },
   "mixins": [

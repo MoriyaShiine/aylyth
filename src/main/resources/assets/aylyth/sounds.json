@@ -1,0 +1,17 @@
+{
+  "block.ympe_log.pick_fruit": {
+	"sounds": [
+	  {
+		"name": "block.sweet_berry_bush.pick_berries",
+		"type": "event",
+		"pitch": 0.6
+	  }
+	],
+	"subtitle": "subtitles.block.ympe_log.pick_fruit"
+  },
+  "entity.generic.shucked": {
+	"sounds": [
+	],
+	"subtitle": "subtitles.entity.generic.shucked"
+  }
+}

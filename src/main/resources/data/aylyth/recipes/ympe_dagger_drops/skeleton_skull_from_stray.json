@@ -1,0 +1,8 @@
+{
+  "type": "aylyth:ympe_dagger_drop",
+  "entity_type": "minecraft:stray",
+  "result": {
+	"item": "minecraft:skeleton_skull"
+  },
+  "chance": 0.2
+}

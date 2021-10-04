@@ -1,0 +1,8 @@
+{
+  "type": "aylyth:ympe_dagger_drop",
+  "entity_type": "minecraft:player",
+  "result": {
+	"item": "minecraft:player_head"
+  },
+  "chance": 0.2
+}

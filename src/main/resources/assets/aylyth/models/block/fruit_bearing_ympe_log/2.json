@@ -1,10 +1,10 @@
 {
-	"credit": "Made with Blockbench",
-	"parent": "aylyth:block/fruit_bearing_ympe_log/base",
-	"textures": {
-		"side": "aylyth:block/ympe_fruit_bearing_log_side",
-		"fruit": "aylyth:block/ympe_fruit_unripe",
-		"top": "aylyth:block/ympe_log_top",
-		"particle": "aylyth:block/ympe_fruit_bearing_log_side"
-	}
+  "credit": "Made with Blockbench",
+  "parent": "aylyth:block/fruit_bearing_ympe_log/base",
+  "textures": {
+	"side": "aylyth:block/ympe_fruit_bearing_log_side",
+	"fruit": "aylyth:block/ympe_fruit_unripe",
+	"top": "aylyth:block/ympe_log_top",
+	"particle": "aylyth:block/ympe_fruit_bearing_log_side"
+  }
 }

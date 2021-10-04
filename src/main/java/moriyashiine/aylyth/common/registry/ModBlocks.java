@@ -5,7 +5,7 @@ import com.terraformersmc.terraform.sign.block.TerraformWallSignBlock;
 import com.terraformersmc.terraform.wood.block.*;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.block.FruitBearingYmpeLogBlock;
-import moriyashiine.aylyth.common.block.ModSaplingBlock;
+import moriyashiine.aylyth.common.block.util.ModSaplingBlock;
 import moriyashiine.aylyth.mixin.BlocksAccessor;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.minecraft.block.*;
@@ -34,7 +34,7 @@ public class ModBlocks {
 		protected ConfiguredFeature<TreeFeatureConfig, ?> getLargeTreeFeature(Random random) {
 			return ModWorldGenerators.BIG_YMPE_TREE;
 		}
-
+		
 		@Nullable
 		@Override
 		protected ConfiguredFeature<TreeFeatureConfig, ?> getTreeFeature(Random random, boolean bees) {

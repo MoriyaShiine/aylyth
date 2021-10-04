@@ -1,0 +1,14 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+	"layer0": "aylyth:item/shucked_ympe_fruit"
+  },
+  "overrides": [
+	{
+	  "predicate": {
+		"aylyth:variant": 1
+	  },
+	  "model": "aylyth:item/shucked_ympe_fruit_variant"
+	}
+  ]
+}
