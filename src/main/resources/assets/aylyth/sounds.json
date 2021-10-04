@@ -7,11 +7,11 @@
 		"pitch": 0.6
 	  }
 	],
-	"subtitle": "subtitles.block.ympe_log.pick_fruit"
+	"subtitle": "aylyth.subtitles.block.ympe_log.pick_fruit"
   },
   "entity.generic.shucked": {
 	"sounds": [
 	],
-	"subtitle": "subtitles.entity.generic.shucked"
+	"subtitle": "aylyth.subtitles.entity.generic.shucked"
   }
 }
