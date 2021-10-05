@@ -1,6 +1,7 @@
 package moriyashiine.aylyth.common.registry;
 
 import moriyashiine.aylyth.common.Aylyth;
+import moriyashiine.aylyth.common.item.AylythianHeartItem;
 import moriyashiine.aylyth.common.item.ShuckedYmpeFruitItem;
 import moriyashiine.aylyth.common.item.YmpeDaggerItem;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
@@ -37,6 +38,8 @@ public class ModItems {
 	public static final Item YMPE_FRUIT = new Item(settings().food(ModFoodComponents.YMPE_FRUIT));
 	public static final Item SHUCKED_YMPE_FRUIT = new ShuckedYmpeFruitItem(settings().maxCount(1));
 	
+	public static final Item AYLYTHIAN_HEART = new AylythianHeartItem(settings());
+	
 	private static Item.Settings settings() {
 		return new FabricItemSettings().group(GROUP);
 	}
@@ -63,6 +66,8 @@ public class ModItems {
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_dagger"), YMPE_DAGGER);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_fruit"), YMPE_FRUIT);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "shucked_ympe_fruit"), SHUCKED_YMPE_FRUIT);
+		
+		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "aylythian_heart"), AYLYTHIAN_HEART);
 		
 		FuelRegistry fuelRegistry = FuelRegistry.INSTANCE;
 		fuelRegistry.add(YMPE_FENCE, 300);
