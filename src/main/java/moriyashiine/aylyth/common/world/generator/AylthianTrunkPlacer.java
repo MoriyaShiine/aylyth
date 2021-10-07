@@ -20,12 +20,12 @@ import java.util.function.BiConsumer;
 public class AylthianTrunkPlacer extends GiantTrunkPlacer {
 	public static final Codec<AylthianTrunkPlacer> CODEC = RecordCodecBuilder.create((instance) -> fillTrunkPlacerFields(instance).apply(instance, AylthianTrunkPlacer::new));
 	
-	public AylthianTrunkPlacer(int heightMin, int width, int heightMax) {
-		super(heightMin, width, heightMax);
+	public AylthianTrunkPlacer(int baseHeight, int firstRandomHeight, int secondRandomHeight) {
+		super(baseHeight, firstRandomHeight, secondRandomHeight);
 	}
 	
 	public AylthianTrunkPlacer() {
-		this(12, 2, 18);
+		this(12, 2, 5);
 	}
 	
 	@Override
@@ -38,7 +38,7 @@ public class AylthianTrunkPlacer extends GiantTrunkPlacer {
 		List<FoliagePlacer.TreeNode> list = Lists.newArrayList();
 		list.addAll(super.generate(world, replacer, random, height, startPos, config));
 		for (int y = height; y > height / 3; y--) {
-			int branchLength = y >= height - height / 4F ? 7 : 6;
+			int branchLength = y >= height - height / 4F ? (baseHeight > 12 ? 8 : 7) : 6;
 			while (random.nextInt(3) == 0) {
 				float radianAngle = random.nextFloat() * 6.2831855F;
 				int x = 0;

@@ -4,9 +4,7 @@
 	"seed": 0,
 	"type": "minecraft:noise",
 	"biome_source": {
-	  "seed": 0,
-	  "type": "minecraft:fixed",
-	  "biome": "aylyth:aylythian_forest"
+	  "type": "aylyth:aylyth_biome_provider"
 	},
 	"settings": {
 	  "bedrock_floor_position": 0,
