@@ -4,17 +4,24 @@ import moriyashiine.aylyth.client.network.packet.SpawnShuckParticlesPacket;
 import moriyashiine.aylyth.common.recipe.YmpeDaggerDropRecipe;
 import moriyashiine.aylyth.common.registry.*;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
 import net.fabricmc.fabric.api.entity.event.v1.ServerEntityCombatEvents;
+import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.TeleportTarget;
 
 public class Aylyth implements ModInitializer {
 	public static final String MOD_ID = "aylyth";
@@ -64,6 +71,19 @@ public class Aylyth implements ModInitializer {
 					}
 				}
 			}
+		});
+		ServerPlayerEvents.ALLOW_DEATH.register((player, damageSource, damageAmount) -> {
+			if (player.getOffHandStack().isOf(ModItems.AYLYTHIAN_HEART) && player.world.getRegistryKey() != ModDimensions.AYLYTH) {
+				FabricDimensions.teleport(player, player.world.getServer().getWorld(ModDimensions.AYLYTH), new TeleportTarget(Vec3d.of(AylythUtil.getSafePosition(player.world, player.getBlockPos().mutableCopy(), 0).add(0.5, 0, 0.5)), Vec3d.ZERO, player.headYaw, player.getPitch()));
+				player.setHealth(player.getMaxHealth() / 2);
+				player.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 200));
+				player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 200));
+				if (!player.isCreative()) {
+					player.getOffHandStack().decrement(1);
+				}
+				return false;
+			}
+			return true;
 		});
 	}
 }
