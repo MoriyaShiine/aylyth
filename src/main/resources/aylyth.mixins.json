@@ -3,8 +3,12 @@
   "minVersion": "0.8",
   "package": "moriyashiine.aylyth.mixin",
   "compatibilityLevel": "JAVA_16",
-  "mixins": ["BiomeLayerSamplerAccessor", "BlocksAccessor", "TrunkPlacerTypeAccessor"],
+  "mixins": [
+	"BiomeLayerSamplerAccessor",
+	"BlocksAccessor",
+	"TrunkPlacerTypeAccessor"
+  ],
   "injectors": {
-    "defaultRequire": 1
+	"defaultRequire": 1
   }
 }

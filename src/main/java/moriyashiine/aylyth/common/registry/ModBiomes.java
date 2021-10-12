@@ -31,7 +31,7 @@ public class ModBiomes {
 	public static final Biome CONIFEROUS_FOREST = createTest(0x5e3e0e);
 	public static final Biome DEEP_CONIFEROUS_FOREST = createTest(0x661b0c);
 	public static final Biome BOWELS = createTest(0xAAAAAA);
-
+	
 	public static void init() {
 		Registry.register(BuiltinRegistries.BIOME, CLEARING_ID, CLEARING);
 		Registry.register(BuiltinRegistries.BIOME, OVERGROWN_CLEARING_ID, OVERGROWN_CLEARING);
@@ -42,11 +42,10 @@ public class ModBiomes {
 		Registry.register(BuiltinRegistries.BIOME, DEEP_CONIFEROUS_FOREST_ID, DEEP_CONIFEROUS_FOREST);
 		Registry.register(BuiltinRegistries.BIOME, BOWELS_ID, BOWELS);
 	}
-
+	
 	private static Biome createTest(int grassColor) {
 		GenerationSettings.Builder builder = (new GenerationSettings.Builder()).surfaceBuilder(ConfiguredSurfaceBuilders.GRASS);
-		return (new Biome.Builder()).precipitation(Biome.Precipitation.RAIN).category(Biome.Category.FOREST).depth(0.5F).scale(0.5F).temperature(0.7F).downfall(0.8F)
-				.effects((new BiomeEffects.Builder()).foliageColor(grassColor).grassColor(grassColor).waterColor(4159204).waterFogColor(329011).fogColor(12638463).skyColor(0x000000).moodSound(BiomeMoodSound.CAVE).build()).spawnSettings(new SpawnSettings.Builder().build()).generationSettings(builder.build()).build();
+		return (new Biome.Builder()).precipitation(Biome.Precipitation.RAIN).category(Biome.Category.FOREST).depth(0.5F).scale(0.5F).temperature(0.7F).downfall(0.8F).effects((new BiomeEffects.Builder()).foliageColor(grassColor).grassColor(grassColor).waterColor(4159204).waterFogColor(329011).fogColor(12638463).skyColor(0x000000).moodSound(BiomeMoodSound.CAVE).build()).spawnSettings(new SpawnSettings.Builder().build()).generationSettings(builder.build()).build();
 	}
 	
 	private static Biome createForest(boolean deep, SpawnSettings.Builder spawnSettings) {

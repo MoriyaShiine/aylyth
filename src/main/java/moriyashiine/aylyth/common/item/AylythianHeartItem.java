@@ -1,6 +1,5 @@
 package moriyashiine.aylyth.common.item;
 
-import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.AylythUtil;
 import moriyashiine.aylyth.common.registry.ModDimensions;
 import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
@@ -9,12 +8,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsage;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.TeleportTarget;
 import net.minecraft.world.World;
