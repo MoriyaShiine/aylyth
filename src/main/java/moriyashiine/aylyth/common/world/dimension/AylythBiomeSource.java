@@ -3,8 +3,11 @@ package moriyashiine.aylyth.common.world.dimension;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import moriyashiine.aylyth.common.Aylyth;
+import moriyashiine.aylyth.common.registry.ModBiomes;
 import moriyashiine.aylyth.common.world.dimension.layer.AylythBaseLayer;
+import moriyashiine.aylyth.common.world.dimension.layer.ClearingLayer;
 import moriyashiine.aylyth.common.world.dimension.layer.DeepForestLayer;
+import moriyashiine.aylyth.common.world.dimension.layer.ForestLayer;
 import moriyashiine.aylyth.mixin.BiomeLayerSamplerAccessor;
 import net.minecraft.SharedConstants;
 import net.minecraft.util.Identifier;
@@ -42,25 +45,30 @@ public class AylythBiomeSource extends BiomeSource {
 				.equals(Aylyth.MOD_ID)).map(Map.Entry::getValue).collect(Collectors.toList()));
 		this.seed = seed;
 		this.registry = biomeRegistry;
-		this.biomeSampler = build(seed, 4, 4);
+		this.biomeSampler = build(seed);
 		AylythBiomeSource.biomeRegistry = registry;
 	}
 
-	public static BiomeLayerSampler build(long seed, int biomeSize, int riverSize) {
-		LayerFactory<CachingLayerSampler> layerFactory = build(biomeSize, riverSize, (salt) -> new CachingLayerContext(25, seed, salt));
+	public static BiomeLayerSampler build(long seed) {
+		LayerFactory<CachingLayerSampler> layerFactory = build((salt) -> new CachingLayerContext(25, seed, salt));
 		return new BiomeLayerSampler(layerFactory);
 	}
 
-	private static <T extends LayerSampler, C extends LayerSampleContext<T>> LayerFactory<T> build(int biomeSize, int riverSize, LongFunction<C> contextProvider) {
+	private static <T extends LayerSampler, C extends LayerSampleContext<T>> LayerFactory<T> build(LongFunction<C> contextProvider) {
 		LayerFactory<T> layer = AylythBaseLayer.INSTANCE.create(contextProvider.apply(1L));
-		layer = DeepForestLayer.INSTANCE.create(contextProvider.apply(3110L), layer);
+		layer = ForestLayer.NORMAL.create(contextProvider.apply(777L), layer);
+		layer = ForestLayer.CONIFEROUS.create(contextProvider.apply(888L), layer);
 		layer = ScaleLayer.NORMAL.create(contextProvider.apply(666L), layer);
-		layer = ScaleLayer.FUZZY.create(contextProvider.apply(919L), layer);
-		layer = ScaleLayer.NORMAL.create(contextProvider.apply(166L), layer);
-		layer = ScaleLayer.NORMAL.create(contextProvider.apply(616L), layer);
-		layer = ScaleLayer.NORMAL.create(contextProvider.apply(661L), layer);
-
-		//add more and more layers to add depth to the world
+		layer = DeepForestLayer.CONIFEROUS.create(contextProvider.apply(3111L), layer);
+		layer = DeepForestLayer.NORMAL.create(contextProvider.apply(3110L), layer);
+		layer = ScaleLayer.NORMAL.create(contextProvider.apply(6606L), layer);
+		layer = ForestLayer.NORMAL.create(contextProvider.apply(194L), layer);
+		layer = ForestLayer.CONIFEROUS.create(contextProvider.apply(1188L), layer);
+		layer = ScaleLayer.NORMAL.create(contextProvider.apply(6663L), layer);
+		layer = ScaleLayer.NORMAL.create(contextProvider.apply(6261L), layer);
+		layer = ClearingLayer.INSTANCE.create(contextProvider.apply(9909L), layer);
+		layer = ScaleLayer.FUZZY.create(contextProvider.apply(60660L), layer);
+		layer = ScaleLayer.NORMAL.create(contextProvider.apply(50160L), layer);
 		return layer;
 	}
 
@@ -89,6 +97,9 @@ public class AylythBiomeSource extends BiomeSource {
 
 	@Override
 	public Biome getBiomeForNoiseGen(int biomeX, int biomeY, int biomeZ) {
+		if (biomeY < 13) {
+			return registry.get(ModBiomes.BOWELS_ID);
+		}
 		int biomeId = ((BiomeLayerSamplerAccessor) biomeSampler).aylyth_getSampler().sample(biomeX, biomeZ);
 		Biome biome = registry.get(biomeId);
 		if (biome == null) {

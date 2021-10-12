@@ -8,17 +8,28 @@ import net.minecraft.world.biome.layer.util.LayerSampleContext;
 import net.minecraft.world.biome.layer.util.LayerSampler;
 
 public enum DeepForestLayer implements CrossSamplingLayer {
-	INSTANCE;
+	CONIFEROUS {
+		@Override
+		int getDeepForestId() {
+			return AylythBiomeSource.getId(ModBiomes.DEEP_CONIFEROUS_FOREST_ID);
+		}
+
+		@Override
+		int getForestId() {
+			return AylythBiomeSource.getId(ModBiomes.CONIFEROUS_FOREST_ID);
+		}
+	},
+	NORMAL;
 
 	@Override
 	public int sample(LayerSampleContext<?> context, LayerSampler parent, int x, int z) {
-		return Math.abs(context.getNoiseSampler().sample(x, 0, z)) % 0.1D < 0.08D ? parent.sample(x, z) : CrossSamplingLayer.super.sample(context, parent, x, z);
+		return Math.abs(context.getNoiseSampler().sample(x, 0, z)) % 0.1D < 0.03D ? parent.sample(x, z) : CrossSamplingLayer.super.sample(context, parent, x, z);
 	}
 
 	@Override
 	public int sample(LayerRandomnessSource context, int n, int e, int s, int w, int center) {
-		int forestId = AylythBiomeSource.getId(ModBiomes.AYLYTHIAN_FOREST_ID);
-		int deepForestId = AylythBiomeSource.getId(ModBiomes.DEEP_AYLYTHIAN_FOREST_ID);
+		int forestId = getForestId();
+		int deepForestId = getDeepForestId();
 		int[] sides = {n, e, s, w};
 		int sidesCount = 0;
 		if (center == forestId) {
@@ -27,10 +38,18 @@ public enum DeepForestLayer implements CrossSamplingLayer {
 					sidesCount++;
 				}
 			}
-			if (sidesCount >= 3) {
+			if (sidesCount > 3) {
 				return deepForestId;
 			}
 		}
 		return center;
+	}
+
+	int getDeepForestId() {
+		return AylythBiomeSource.getId(ModBiomes.DEEP_FOREST_ID);
+	}
+
+	int getForestId() {
+		return AylythBiomeSource.getId(ModBiomes.FOREST_ID);
 	}
 }
