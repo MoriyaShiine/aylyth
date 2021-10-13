@@ -1,5 +1,6 @@
 package moriyashiine.aylyth.common.entity;
 
+import moriyashiine.aylyth.common.registry.ModBlocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.*;
@@ -9,6 +10,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.world.World;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -64,5 +66,14 @@ public class AylythianEntity extends HostileEntity implements IAnimatable {
 	@Override
 	public boolean tryAttack(Entity target) {
 		return super.tryAttack(target);
+	}
+	
+	@Override
+	public void onDeath(DamageSource source) {
+		super.onDeath(source);
+		if (!world.isClient && world.getBlockState(getBlockPos()).getMaterial().isReplaceable() && ModBlocks.YMPE_SAPLING.getDefaultState().canPlaceAt(world, getBlockPos())) {
+			world.setBlockState(getBlockPos(), ModBlocks.YMPE_SAPLING.getDefaultState());
+			playSound(SoundEvents.BLOCK_GRASS_PLACE, getSoundVolume(), getSoundPitch());
+		}
 	}
 }
