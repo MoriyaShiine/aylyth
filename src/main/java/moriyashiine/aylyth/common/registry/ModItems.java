@@ -40,6 +40,8 @@ public class ModItems {
 	
 	public static final Item AYLYTHIAN_HEART = new AylythianHeartItem(settings());
 	
+	public static Item AYLYTHIAN_SPAWN_EGG = new SpawnEggItem(ModEntityTypes.AYLYTHIAN, 0x6A4831, 0xE58E03, settings());
+	
 	private static Item.Settings settings() {
 		return new FabricItemSettings().group(GROUP);
 	}
@@ -68,6 +70,8 @@ public class ModItems {
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "shucked_ympe_fruit"), SHUCKED_YMPE_FRUIT);
 		
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "aylythian_heart"), AYLYTHIAN_HEART);
+		
+		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "aylythian_spawn_egg"), AYLYTHIAN_SPAWN_EGG);
 		
 		FuelRegistry fuelRegistry = FuelRegistry.INSTANCE;
 		fuelRegistry.add(YMPE_FENCE, 300);

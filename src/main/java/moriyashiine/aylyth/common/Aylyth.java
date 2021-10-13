@@ -20,14 +20,17 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.TeleportTarget;
+import software.bernie.geckolib3.GeckoLib;
 
 public class Aylyth implements ModInitializer {
 	public static final String MOD_ID = "aylyth";
 	
 	@Override
 	public void onInitialize() {
+		GeckoLib.initialize();
 		ModBlocks.init();
 		ModItems.init();
+		ModEntityTypes.init();
 		ModSoundEvents.init();
 		ModRecipeTypes.init();
 		ModWorldGenerators.init();

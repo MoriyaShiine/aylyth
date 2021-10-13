@@ -20,6 +20,10 @@ repositories {
         url "https://maven.terraformersmc.com"
     }
     maven {
+        name "geckolib"
+        url "https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/"
+    }
+    maven {
         name "rei"
         url "https://maven.shedaniel.me"
     }
@@ -36,6 +40,7 @@ dependencies {
 
     modImplementation "net.fabricmc:fabric-loader:${loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
+    modImplementation "software.bernie.geckolib:geckolib-fabric-${geckolib_version}"
 
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${rei_version}"
     modRuntime "me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"
