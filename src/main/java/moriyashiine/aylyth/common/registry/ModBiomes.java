@@ -51,6 +51,7 @@ public class ModBiomes {
 			builder.feature(GenerationStep.Feature.LAKES, ModWorldGenerators.SPRING);
 			builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModWorldGenerators.OVERGROWTH_CLEARING_TREES);
 			builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.PATCH_TALL_GRASS);
+			builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModWorldGenerators.BUSHES);
 		}
 		DefaultBiomeFeatures.addSprings(builder);
 		DefaultBiomeFeatures.addFrozenTopLayer(builder);
@@ -65,6 +66,7 @@ public class ModBiomes {
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, deep ? ModWorldGenerators.DEEP_FOREST_TREES : ModWorldGenerators.FOREST_TREES);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.PATCH_GRASS_TAIGA);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.PATCH_TALL_GRASS);
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModWorldGenerators.BUSHES);
 		if (deep) {
 			builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.PATCH_TALL_GRASS_2);
 			DefaultBiomeFeatures.addLargeFerns(builder);

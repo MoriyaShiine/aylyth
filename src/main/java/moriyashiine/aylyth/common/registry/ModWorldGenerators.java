@@ -1,6 +1,7 @@
 package moriyashiine.aylyth.common.registry;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.world.dimension.AylythBiomeSource;
 import moriyashiine.aylyth.common.world.generator.AylthianTrunkPlacer;
@@ -26,6 +27,7 @@ import net.minecraft.world.gen.foliage.BushFoliagePlacer;
 import net.minecraft.world.gen.foliage.DarkOakFoliagePlacer;
 import net.minecraft.world.gen.heightprovider.ConstantHeightProvider;
 import net.minecraft.world.gen.heightprovider.UniformHeightProvider;
+import net.minecraft.world.gen.placer.SimpleBlockPlacer;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
@@ -54,7 +56,7 @@ public class ModWorldGenerators extends DefaultBiomeFeatures {
 
 	public static final SpringFeature SPRING_FEATURE = new SpringFeature();
 	public static final ConfiguredFeature<?, ?> SPRING = SPRING_FEATURE.configure(new SingleStateFeatureConfig(Blocks.WATER.getDefaultState())).range(Decorators.TOP_TO_BOTTOM).spreadHorizontally().applyChance(8);
-
+	public static final ConfiguredFeature<?, ?> BUSHES = Feature.RANDOM_PATCH.configure(new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(ModBlocks.AYLYTH_BUSH.getDefaultState()), SimpleBlockPlacer.INSTANCE).tries(32).whitelist(ImmutableSet.of(Blocks.GRASS_BLOCK)).cannotProject().build());
 	//public static final ConfiguredFeature<?, ?> CLEARING_FLOWERS = todo flower generators
 
 	public static void init() {
@@ -72,6 +74,7 @@ public class ModWorldGenerators extends DefaultBiomeFeatures {
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(Aylyth.MOD_ID, "deep_coniferous_forest_trees"), DEEP_CONIFEROUS_FOREST_TREES);
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(Aylyth.MOD_ID, "overgrowth_clearing_trees"), OVERGROWTH_CLEARING_TREES);
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(Aylyth.MOD_ID, "spring"), SPRING);
+		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(Aylyth.MOD_ID, "bushes"), BUSHES);
 		Registry.register(Registry.BIOME_SOURCE, new Identifier(Aylyth.MOD_ID, "aylyth_biome_provider"), AylythBiomeSource.CODEC);
 	}
 	

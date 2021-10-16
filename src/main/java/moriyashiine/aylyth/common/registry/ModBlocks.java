@@ -4,6 +4,7 @@ import com.terraformersmc.terraform.sign.block.TerraformSignBlock;
 import com.terraformersmc.terraform.sign.block.TerraformWallSignBlock;
 import com.terraformersmc.terraform.wood.block.*;
 import moriyashiine.aylyth.common.Aylyth;
+import moriyashiine.aylyth.common.block.BushBlock;
 import moriyashiine.aylyth.common.block.FruitBearingYmpeLogBlock;
 import moriyashiine.aylyth.common.block.util.ModSaplingBlock;
 import moriyashiine.aylyth.mixin.BlocksAccessor;
@@ -53,7 +54,9 @@ public class ModBlocks {
 	public static final Block YMPE_DOOR = new TerraformDoorBlock(copyOf(Blocks.OAK_DOOR));
 	public static final TerraformSignBlock YMPE_SIGN = new TerraformSignBlock(new Identifier(Aylyth.MOD_ID, "entity/sign/ympe"), copyOf(Blocks.OAK_SIGN));
 	public static final Block YMPE_WALL_SIGN = new TerraformWallSignBlock(YMPE_SIGN.getTexture(), copyOf(Blocks.OAK_WALL_SIGN));
-	
+
+	public static final Block AYLYTH_BUSH = new BushBlock();
+
 	public static void init() {
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "stripped_ympe_log"), STRIPPED_YMPE_LOG);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "stripped_ympe_wood"), STRIPPED_YMPE_WOOD);
@@ -74,6 +77,7 @@ public class ModBlocks {
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "ympe_door"), YMPE_DOOR);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "ympe_sign"), YMPE_SIGN);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "ympe_wall_sign"), YMPE_WALL_SIGN);
+		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "aylyth_bush"), AYLYTH_BUSH);
 		FlammableBlockRegistry flammableRegistry = FlammableBlockRegistry.getDefaultInstance();
 		flammableRegistry.add(STRIPPED_YMPE_LOG, 5, 5);
 		flammableRegistry.add(STRIPPED_YMPE_WOOD, 5, 5);
