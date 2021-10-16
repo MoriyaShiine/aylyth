@@ -8,6 +8,9 @@
 	"BlocksAccessor",
 	"TrunkPlacerTypeAccessor"
   ],
+  "client": [
+    "client.ParticleManagerMixin"
+  ],
   "injectors": {
 	"defaultRequire": 1
   }
