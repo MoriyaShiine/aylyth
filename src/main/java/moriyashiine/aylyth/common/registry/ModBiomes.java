@@ -17,50 +17,78 @@ import net.minecraft.world.gen.surfacebuilder.ConfiguredSurfaceBuilders;
 public class ModBiomes {
 	public static final Identifier CLEARING_ID = new Identifier(Aylyth.MOD_ID, "clearing");
 	public static final Identifier OVERGROWN_CLEARING_ID = new Identifier(Aylyth.MOD_ID, "overgrown_clearing");
-	public static final Identifier OVERGROWN_CONIFEROUS_CLEARING_ID = new Identifier(Aylyth.MOD_ID, "overgrown_coniferous_clearing");
 	public static final Identifier FOREST_ID = new Identifier(Aylyth.MOD_ID, "forest");
 	public static final Identifier DEEP_FOREST_ID = new Identifier(Aylyth.MOD_ID, "deep_forest");
 	public static final Identifier CONIFEROUS_FOREST_ID = new Identifier(Aylyth.MOD_ID, "coniferous_forest");
 	public static final Identifier DEEP_CONIFEROUS_FOREST_ID = new Identifier(Aylyth.MOD_ID, "deep_coniferous_forest");
-	public static final Identifier BOWELS_ID = new Identifier(Aylyth.MOD_ID, "bowels");
-	public static final Biome CLEARING = createTest(0x69db27);
-	public static final Biome OVERGROWN_CLEARING = createTest(0xc8ce16);
-	public static final Biome OVERGROWN_CONIFEROUS_CLEARING = createTest(0x4f510d);
-	public static final Biome FOREST = createTest(0xce8516); //createForest(false, new SpawnSettings.Builder());
-	public static final Biome DEEP_FOREST = createTest(0xce3516);
-	public static final Biome CONIFEROUS_FOREST = createTest(0x5e3e0e);
-	public static final Biome DEEP_CONIFEROUS_FOREST = createTest(0x661b0c);
-	public static final Biome BOWELS = createTest(0xAAAAAA);
-	
+	public static final Biome CLEARING = createClearing(false, new SpawnSettings.Builder());
+	public static final Biome OVERGROWN_CLEARING = createClearing(true, new SpawnSettings.Builder());
+	public static final Biome FOREST = createForest(false, new SpawnSettings.Builder());
+	public static final Biome DEEP_FOREST = createForest(true, new SpawnSettings.Builder());
+	public static final Biome CONIFEROUS_FOREST = createConiferousForest(false, new SpawnSettings.Builder());
+	public static final Biome DEEP_CONIFEROUS_FOREST = createConiferousForest(true, new SpawnSettings.Builder());
+	private static final int AYLYITHAN_FOLIAGE_COLOR = 0x627F38;
+	private static final int DEEP_AYLYITHAN_FOLIAGE_COLOR = 0x9E811A;
+	private static final int WATER_COLOR = 4159204;
+	private static final int UNDERWATER_COLOR = 329011;
+	private static final int FOG_COLOR = 0xcc6506;
+	private static final int SKY_COLOR = 0x000000;
+
 	public static void init() {
 		Registry.register(BuiltinRegistries.BIOME, CLEARING_ID, CLEARING);
 		Registry.register(BuiltinRegistries.BIOME, OVERGROWN_CLEARING_ID, OVERGROWN_CLEARING);
-		Registry.register(BuiltinRegistries.BIOME, OVERGROWN_CONIFEROUS_CLEARING_ID, OVERGROWN_CONIFEROUS_CLEARING);
 		Registry.register(BuiltinRegistries.BIOME, FOREST_ID, FOREST);
 		Registry.register(BuiltinRegistries.BIOME, DEEP_FOREST_ID, DEEP_FOREST);
 		Registry.register(BuiltinRegistries.BIOME, CONIFEROUS_FOREST_ID, CONIFEROUS_FOREST);
 		Registry.register(BuiltinRegistries.BIOME, DEEP_CONIFEROUS_FOREST_ID, DEEP_CONIFEROUS_FOREST);
-		Registry.register(BuiltinRegistries.BIOME, BOWELS_ID, BOWELS);
 	}
-	
-	private static Biome createTest(int grassColor) {
+
+	private static Biome createClearing(boolean overgrown, SpawnSettings.Builder spawnSettings) {
 		GenerationSettings.Builder builder = (new GenerationSettings.Builder()).surfaceBuilder(ConfiguredSurfaceBuilders.GRASS);
-		return (new Biome.Builder()).precipitation(Biome.Precipitation.RAIN).category(Biome.Category.FOREST).depth(0.5F).scale(0.5F).temperature(0.7F).downfall(0.8F).effects((new BiomeEffects.Builder()).foliageColor(grassColor).grassColor(grassColor).waterColor(4159204).waterFogColor(329011).fogColor(12638463).skyColor(0x000000).moodSound(BiomeMoodSound.CAVE).build()).spawnSettings(new SpawnSettings.Builder().build()).generationSettings(builder.build()).build();
+		//DefaultBiomeFeatures.addLandCarvers(builder);
+		//builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModWorldGenerators.CLEARING_FLOWERS);
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.PATCH_GRASS_PLAIN);
+		if (overgrown) {
+			builder.feature(GenerationStep.Feature.LAKES, ModWorldGenerators.SPRING);
+			builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModWorldGenerators.OVERGROWTH_CLEARING_TREES);
+			builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.PATCH_TALL_GRASS);
+		}
+		DefaultBiomeFeatures.addSprings(builder);
+		DefaultBiomeFeatures.addFrozenTopLayer(builder);
+		return new Biome.Builder().precipitation(Biome.Precipitation.RAIN).category(Biome.Category.PLAINS).depth(0.1F).scale(0.5F).temperature(0.7F).downfall(0.8F).effects(new BiomeEffects.Builder().foliageColor(AYLYITHAN_FOLIAGE_COLOR).grassColor(overgrown ? 0xBC953A : 0xA1BA48).waterColor(WATER_COLOR).waterFogColor(UNDERWATER_COLOR).fogColor(FOG_COLOR).skyColor(SKY_COLOR).moodSound(BiomeMoodSound.CAVE).build()).spawnSettings(spawnSettings.build()).generationSettings(builder.build()).build();
 	}
-	
+
 	private static Biome createForest(boolean deep, SpawnSettings.Builder spawnSettings) {
 		GenerationSettings.Builder builder = (new GenerationSettings.Builder()).surfaceBuilder(ConfiguredSurfaceBuilders.GRASS);
-		DefaultBiomeFeatures.addLandCarvers(builder);
-		DefaultBiomeFeatures.addDefaultLakes(builder);
-		DefaultBiomeFeatures.addForestFlowers(builder);
+		//DefaultBiomeFeatures.addLandCarvers(builder);
+		builder.feature(GenerationStep.Feature.LAKES, ModWorldGenerators.SPRING);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, deep ? ModWorldGenerators.DEEP_ROOF_TREES : ModWorldGenerators.ROOF_TREES);
-		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModWorldGenerators.FOREST_TREES);
-		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.PATCH_GRASS_PLAIN);
-		DefaultBiomeFeatures.addLargeFerns(builder);
-		DefaultBiomeFeatures.addPlainsTallGrass(builder);
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, deep ? ModWorldGenerators.DEEP_FOREST_TREES : ModWorldGenerators.FOREST_TREES);
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.PATCH_GRASS_TAIGA);
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.PATCH_TALL_GRASS);
+		if (deep) {
+			builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.PATCH_TALL_GRASS_2);
+			DefaultBiomeFeatures.addLargeFerns(builder);
+		}
 		DefaultBiomeFeatures.addDefaultMushrooms(builder);
 		DefaultBiomeFeatures.addSprings(builder);
 		DefaultBiomeFeatures.addFrozenTopLayer(builder);
-		return (new Biome.Builder()).precipitation(Biome.Precipitation.RAIN).category(Biome.Category.FOREST).depth(deep ? 0.4F : 0.3F).scale(deep ? 0.3F : 0.2F).temperature(0.7F).downfall(0.8F).effects((new BiomeEffects.Builder()).foliageColor(deep ? 0x9E811A : 0x627F38).grassColor(0xB5883B).waterColor(4159204).waterFogColor(329011).fogColor(12638463).skyColor(0x000000).moodSound(BiomeMoodSound.CAVE).build()).spawnSettings(spawnSettings.build()).generationSettings(builder.build()).build();
+		return new Biome.Builder().precipitation(Biome.Precipitation.RAIN).category(Biome.Category.FOREST).depth(deep ? 0.5F : 0.3F).scale(deep ? 0.3F : 0.2F).temperature(0.7F).downfall(0.8F).effects((new BiomeEffects.Builder()).foliageColor(deep ? DEEP_AYLYITHAN_FOLIAGE_COLOR : AYLYITHAN_FOLIAGE_COLOR).grassColor(deep ? 0xAD6903 : 0xB5883B).waterColor(WATER_COLOR).waterFogColor(UNDERWATER_COLOR).fogColor(FOG_COLOR).skyColor(SKY_COLOR).moodSound(BiomeMoodSound.CAVE).build()).spawnSettings(spawnSettings.build()).generationSettings(builder.build()).build();
+	}
+
+	private static Biome createConiferousForest(boolean deep, SpawnSettings.Builder spawnSettings) {
+		GenerationSettings.Builder builder = (new GenerationSettings.Builder()).surfaceBuilder(ConfiguredSurfaceBuilders.GRASS);
+		//DefaultBiomeFeatures.addLandCarvers(builder);
+		DefaultBiomeFeatures.addForestFlowers(builder);
+		builder.feature(GenerationStep.Feature.LAKES, ModWorldGenerators.SPRING);
+		if (deep) {
+			builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModWorldGenerators.DEEP_CONIFEROUS_ROOF_TREES);
+			DefaultBiomeFeatures.addLargeFerns(builder);
+		}builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, deep ? ModWorldGenerators.DEEP_CONIFEROUS_FOREST_TREES : ModWorldGenerators.CONIFEROUS_FOREST_TREES);
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.PATCH_GRASS_TAIGA);
+		DefaultBiomeFeatures.addDefaultMushrooms(builder);
+		DefaultBiomeFeatures.addSprings(builder);
+		DefaultBiomeFeatures.addFrozenTopLayer(builder);
+		return new Biome.Builder().precipitation(Biome.Precipitation.RAIN).category(Biome.Category.FOREST).depth(deep ? 0.4F : 0.3F).scale(deep ? 0.3F : 0.2F).temperature(0.7F).downfall(0.8F).effects((new BiomeEffects.Builder()).foliageColor(deep ? DEEP_AYLYITHAN_FOLIAGE_COLOR : AYLYITHAN_FOLIAGE_COLOR).grassColor(deep ? 0x3E682B : 0x4D7C44).waterColor(WATER_COLOR).waterFogColor(UNDERWATER_COLOR).fogColor(FOG_COLOR).skyColor(SKY_COLOR).moodSound(BiomeMoodSound.CAVE).build()).spawnSettings(spawnSettings.build()).generationSettings(builder.build()).build();
 	}
 }
