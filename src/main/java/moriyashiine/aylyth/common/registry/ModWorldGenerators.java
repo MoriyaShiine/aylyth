@@ -53,7 +53,7 @@ public class ModWorldGenerators extends DefaultBiomeFeatures {
 	
 	public static final SpringFeature SPRING_FEATURE = new SpringFeature();
 	public static final ConfiguredFeature<?, ?> SPRING = SPRING_FEATURE.configure(new SingleStateFeatureConfig(Blocks.WATER.getDefaultState())).range(Decorators.TOP_TO_BOTTOM).spreadHorizontally().applyChance(8);
-	public static final ConfiguredFeature<?, ?> BUSHES = Feature.RANDOM_PATCH.configure(new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(ModBlocks.AYLYTH_BUSH.getDefaultState()), SimpleBlockPlacer.INSTANCE).tries(32).whitelist(ImmutableSet.of(Blocks.GRASS_BLOCK)).cannotProject().build());
+	public static final ConfiguredFeature<?, ?> BUSHES = Feature.RANDOM_PATCH.configure(new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(ModBlocks.AYLYTH_BUSH.getDefaultState()), SimpleBlockPlacer.INSTANCE).tries(32).whitelist(ImmutableSet.of(Blocks.GRASS_BLOCK, ModBlocks.AYLYTH_BUSH)).cannotProject().build()).decorate(Decorators.SQUARE_HEIGHTMAP);
 	//public static final ConfiguredFeature<?, ?> CLEARING_FLOWERS = todo flower generators
 	
 	public static void init() {
@@ -80,5 +80,6 @@ public class ModWorldGenerators extends DefaultBiomeFeatures {
 		private static final ConfiguredDecorator<?> HEIGHTMAP_OCEAN_FLOOR = Decorator.HEIGHTMAP.configure(new HeightmapDecoratorConfig(Heightmap.Type.OCEAN_FLOOR));
 		private static final ConfiguredDecorator<?> HEIGHTMAP_OCEAN_FLOOR_NO_WATER = HEIGHTMAP_OCEAN_FLOOR.decorate(Decorator.WATER_DEPTH_THRESHOLD.configure(new WaterDepthThresholdDecoratorConfig(0)));
 		private static final ConfiguredDecorator<?> SQUARE_HEIGHTMAP_OCEAN_FLOOR_NO_WATER = HEIGHTMAP_OCEAN_FLOOR_NO_WATER.spreadHorizontally();
+		private static final ConfiguredDecorator<?> SQUARE_HEIGHTMAP = Decorator.HEIGHTMAP.configure(new HeightmapDecoratorConfig(Heightmap.Type.MOTION_BLOCKING)).spreadHorizontally();
 	}
 }
