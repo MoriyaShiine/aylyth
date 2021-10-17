@@ -21,15 +21,13 @@ import java.util.List;
 @Environment(EnvType.CLIENT)
 @Mixin(ParticleManager.class)
 public class ParticleManagerMixin {
-    @Mutable
-    @Final
-    @Shadow
-    private static List<ParticleTextureSheet> PARTICLE_TEXTURE_SHEETS;
-
-    @Inject(at = @At("RETURN"), method = "<init>")
-    private void addTypes(ClientWorld world, TextureManager textureManager, CallbackInfo ci) {
-        PARTICLE_TEXTURE_SHEETS = ImmutableList.<ParticleTextureSheet>builder().addAll(PARTICLE_TEXTURE_SHEETS)
-                .add(ModParticles.ParticleTextureSheets.GLOWING)
-                .build();
-    }
+	@Mutable
+	@Final
+	@Shadow
+	private static List<ParticleTextureSheet> PARTICLE_TEXTURE_SHEETS;
+	
+	@Inject(at = @At("RETURN"), method = "<init>")
+	private void addTypes(ClientWorld world, TextureManager textureManager, CallbackInfo ci) {
+		PARTICLE_TEXTURE_SHEETS = ImmutableList.<ParticleTextureSheet>builder().addAll(PARTICLE_TEXTURE_SHEETS).add(ModParticles.ParticleTextureSheets.GLOWING).build();
+	}
 }

@@ -1,7 +1,6 @@
 package moriyashiine.aylyth.common.registry;
 
 import moriyashiine.aylyth.common.Aylyth;
-import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.BiomeMoodSound;
 import net.minecraft.util.Identifier;
@@ -32,7 +31,7 @@ public class ModBiomes {
 	private static final int UNDERWATER_COLOR = 329011;
 	private static final int FOG_COLOR = 0xcc6506;
 	private static final int SKY_COLOR = 0x000000;
-
+	
 	public static void init() {
 		Registry.register(BuiltinRegistries.BIOME, CLEARING_ID, CLEARING);
 		Registry.register(BuiltinRegistries.BIOME, OVERGROWN_CLEARING_ID, OVERGROWN_CLEARING);
@@ -41,7 +40,7 @@ public class ModBiomes {
 		Registry.register(BuiltinRegistries.BIOME, CONIFEROUS_FOREST_ID, CONIFEROUS_FOREST);
 		Registry.register(BuiltinRegistries.BIOME, DEEP_CONIFEROUS_FOREST_ID, DEEP_CONIFEROUS_FOREST);
 	}
-
+	
 	private static Biome createClearing(boolean overgrown, SpawnSettings.Builder spawnSettings) {
 		GenerationSettings.Builder builder = (new GenerationSettings.Builder()).surfaceBuilder(ConfiguredSurfaceBuilders.GRASS);
 		//DefaultBiomeFeatures.addLandCarvers(builder);
@@ -57,7 +56,7 @@ public class ModBiomes {
 		DefaultBiomeFeatures.addFrozenTopLayer(builder);
 		return new Biome.Builder().precipitation(Biome.Precipitation.RAIN).category(Biome.Category.PLAINS).depth(0.1F).scale(0.5F).temperature(0.7F).downfall(0.8F).effects(new BiomeEffects.Builder().foliageColor(AYLYITHAN_FOLIAGE_COLOR).grassColor(overgrown ? 0xBC953A : 0xA1BA48).waterColor(WATER_COLOR).waterFogColor(UNDERWATER_COLOR).fogColor(FOG_COLOR).skyColor(SKY_COLOR).moodSound(BiomeMoodSound.CAVE).particleConfig(new BiomeParticleConfig(ModParticles.PILOT_LIGHT, 0.0025F)).build()).spawnSettings(spawnSettings.build()).generationSettings(builder.build()).build();
 	}
-
+	
 	private static Biome createForest(boolean deep, SpawnSettings.Builder spawnSettings) {
 		GenerationSettings.Builder builder = (new GenerationSettings.Builder()).surfaceBuilder(ConfiguredSurfaceBuilders.GRASS);
 		//DefaultBiomeFeatures.addLandCarvers(builder);
@@ -76,7 +75,7 @@ public class ModBiomes {
 		DefaultBiomeFeatures.addFrozenTopLayer(builder);
 		return new Biome.Builder().precipitation(Biome.Precipitation.RAIN).category(Biome.Category.FOREST).depth(deep ? 0.5F : 0.3F).scale(deep ? 0.3F : 0.2F).temperature(0.7F).downfall(0.8F).effects((new BiomeEffects.Builder()).foliageColor(deep ? DEEP_AYLYITHAN_FOLIAGE_COLOR : AYLYITHAN_FOLIAGE_COLOR).grassColor(deep ? 0xAD6903 : 0xB5883B).waterColor(WATER_COLOR).waterFogColor(UNDERWATER_COLOR).fogColor(FOG_COLOR).skyColor(SKY_COLOR).moodSound(BiomeMoodSound.CAVE).particleConfig(new BiomeParticleConfig(ParticleTypes.MYCELIUM, deep ? 0.1F : 0.025F)).build()).spawnSettings(spawnSettings.build()).generationSettings(builder.build()).build();
 	}
-
+	
 	private static Biome createConiferousForest(boolean deep, SpawnSettings.Builder spawnSettings) {
 		GenerationSettings.Builder builder = (new GenerationSettings.Builder()).surfaceBuilder(ConfiguredSurfaceBuilders.GRASS);
 		//DefaultBiomeFeatures.addLandCarvers(builder);
@@ -85,7 +84,8 @@ public class ModBiomes {
 		if (deep) {
 			builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModWorldGenerators.DEEP_CONIFEROUS_ROOF_TREES);
 			DefaultBiomeFeatures.addLargeFerns(builder);
-		}builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, deep ? ModWorldGenerators.DEEP_CONIFEROUS_FOREST_TREES : ModWorldGenerators.CONIFEROUS_FOREST_TREES);
+		}
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, deep ? ModWorldGenerators.DEEP_CONIFEROUS_FOREST_TREES : ModWorldGenerators.CONIFEROUS_FOREST_TREES);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.PATCH_GRASS_TAIGA);
 		DefaultBiomeFeatures.addDefaultMushrooms(builder);
 		DefaultBiomeFeatures.addSprings(builder);

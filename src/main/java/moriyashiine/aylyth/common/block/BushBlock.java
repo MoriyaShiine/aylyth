@@ -13,12 +13,12 @@ public class BushBlock extends PlantBlock {
 	public BushBlock() {
 		super(Settings.copy(Blocks.OAK_SAPLING));
 	}
-
+	
 	@Override
 	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
-		entity.slowMovement(state, new Vec3d(0.95D, 0.95, 0.95D));
+		entity.slowMovement(state, new Vec3d(0.95, 0.95, 0.95));
 	}
-
+	
 	@Override
 	protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
 		return floor.getBlock() instanceof BushBlock || super.canPlantOnTop(floor, world, pos);

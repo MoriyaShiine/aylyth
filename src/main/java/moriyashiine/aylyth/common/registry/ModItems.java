@@ -32,8 +32,9 @@ public class ModItems {
 	public static final Item YMPE_TRAPDOOR = new BlockItem(ModBlocks.YMPE_TRAPDOOR, settings());
 	public static final Item YMPE_DOOR = new TallBlockItem(ModBlocks.YMPE_DOOR, settings());
 	public static final Item YMPE_SIGN = new SignItem(settings().maxCount(16), ModBlocks.YMPE_SIGN, ModBlocks.YMPE_WALL_SIGN);
+	
 	public static final Item AYLYTH_BUSH = new BlockItem(ModBlocks.AYLYTH_BUSH, settings());
-
+	
 	public static final Item YMPE_DAGGER = new YmpeDaggerItem(ToolMaterials.NETHERITE, 1, -2, settings());
 	
 	public static final Item YMPE_FRUIT = new Item(settings().food(ModFoodComponents.YMPE_FRUIT));
@@ -65,9 +66,9 @@ public class ModItems {
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_trapdoor"), YMPE_TRAPDOOR);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_door"), YMPE_DOOR);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_sign"), YMPE_SIGN);
-
+		
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "aylyth_bush"), AYLYTH_BUSH);
-
+		
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_dagger"), YMPE_DAGGER);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_fruit"), YMPE_FRUIT);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "shucked_ympe_fruit"), SHUCKED_YMPE_FRUIT);

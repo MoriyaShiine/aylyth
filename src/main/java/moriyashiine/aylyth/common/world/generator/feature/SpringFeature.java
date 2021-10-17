@@ -18,7 +18,7 @@ public class SpringFeature extends Feature<SingleStateFeatureConfig> {
 	public SpringFeature() {
 		super(SingleStateFeatureConfig.CODEC);
 	}
-
+	
 	@Override
 	public boolean generate(FeatureContext<SingleStateFeatureConfig> context) {
 		BlockPos origin = context.getOrigin();
@@ -32,7 +32,7 @@ public class SpringFeature extends Feature<SingleStateFeatureConfig> {
 		if (origin.getY() <= world.getBottomY() + 30) {
 			return false;
 		}
-	//	fillShapeWithBlocks(origin, world, blocks, 0, context.getGenerator().getBlockSource().get(origin));
+		//	fillShapeWithBlocks(origin, world, blocks, 0, context.getGenerator().getBlockSource().get(origin));
 		fillShape(blocks);
 		for (int y = 0; y < depth; y++) {
 			blocks = shrink(random, y, blocks);
@@ -40,7 +40,7 @@ public class SpringFeature extends Feature<SingleStateFeatureConfig> {
 		}
 		return true;
 	}
-
+	
 	private void fillShapeWithBlocks(BlockPos origin, StructureWorldAccess world, boolean[][] blocks, int y, BlockState state) {
 		for (int x = 0; x < blocks.length; x++) {
 			for (int z = 0; z < blocks[x].length; z++) {
@@ -50,7 +50,7 @@ public class SpringFeature extends Feature<SingleStateFeatureConfig> {
 			}
 		}
 	}
-
+	
 	@NotNull
 	private BlockPos findPosition(BlockPos origin, StructureWorldAccess world, boolean[][] blocks) {
 		while (origin.getY() > world.getBottomY() + 30) {
@@ -62,7 +62,7 @@ public class SpringFeature extends Feature<SingleStateFeatureConfig> {
 						break;
 					}
 				}
-				if (invalid){
+				if (invalid) {
 					break;
 				}
 			}
@@ -73,7 +73,7 @@ public class SpringFeature extends Feature<SingleStateFeatureConfig> {
 		}
 		return origin;
 	}
-
+	
 	private boolean[][] shrink(Random random, int y, boolean[][] blocks) {
 		boolean[][] newBlocks = new boolean[blocks.length][blocks[blocks.length - 1].length];
 		for (int x = 0; x < blocks.length; x++) {
@@ -85,11 +85,11 @@ public class SpringFeature extends Feature<SingleStateFeatureConfig> {
 		}
 		return (y > 0 && y < 3) ? shrink(random, y + 1, newBlocks) : newBlocks;
 	}
-
+	
 	private void defineShape(Random random, int nodes, int minRadius, int maxRadius, boolean[][] blocks) {
 		double angleStep = Math.PI * 2 / nodes;
 		List<Pair<Integer, Integer>> nodeList = new ArrayList<>();
-		for(int i = 0; i < nodes; ++i) {
+		for (int i = 0; i < nodes; ++i) {
 			double targetAngle = angleStep * i;
 			double angle = targetAngle + (random.nextDouble() - 0.5) * angleStep * 0.25; // add a random factor to the angle, which is +- 25% of the angle step
 			double radius = minRadius + random.nextDouble() * (maxRadius - minRadius); // make the radius random but within minRadius to maxRadius
@@ -111,9 +111,8 @@ public class SpringFeature extends Feature<SingleStateFeatureConfig> {
 				blocks[x][startY + (int) (((x - start) / (float) diff) * yDiff)] = true;
 			}
 		}
-
 	}
-
+	
 	private void fillShape(boolean[][] blocks) {
 		//fill the space
 		for (boolean[] row : blocks) {
@@ -139,14 +138,9 @@ public class SpringFeature extends Feature<SingleStateFeatureConfig> {
 			}
 		}
 	}
-
+	
 	private int getFilledNeighbors(int x, int z, boolean[][] blocks) {
-		boolean[] directions = {
-				z + 1 < blocks[x].length && blocks[z][z + 1],
-				z - 1 > 0 && blocks[x][z - 1],
-				x + 1 < blocks.length && blocks[x + 1][z],
-				x - 1 > 0 && blocks[x - 1][z]
-		};
+		boolean[] directions = {z + 1 < blocks[x].length && blocks[z][z + 1], z - 1 > 0 && blocks[x][z - 1], x + 1 < blocks.length && blocks[x + 1][z], x - 1 > 0 && blocks[x - 1][z]};
 		int count = 0;
 		for (boolean direction : directions) {
 			if (direction) {

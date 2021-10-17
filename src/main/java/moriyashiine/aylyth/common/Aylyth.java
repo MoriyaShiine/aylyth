@@ -28,6 +28,7 @@ public class Aylyth implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		GeckoLib.initialize();
+		ModParticles.init();
 		ModBlocks.init();
 		ModItems.init();
 		ModEntityTypes.init();
@@ -36,7 +37,6 @@ public class Aylyth implements ModInitializer {
 		ModWorldGenerators.init();
 		ModBoatTypes.init();
 		ModBiomes.init();
-		ModParticles.init();
 		ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register((world, entity, killedEntity) -> {
 			if (entity instanceof LivingEntity living && living.getMainHandStack().isOf(ModItems.YMPE_DAGGER)) {
 				boolean shucked = false;

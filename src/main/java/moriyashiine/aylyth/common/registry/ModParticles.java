@@ -21,10 +21,11 @@ import org.lwjgl.opengl.GL11;
 
 public class ModParticles {
 	public static final DefaultParticleType PILOT_LIGHT = FabricParticleTypes.simple(true);
+	
 	public static void init() {
 		Registry.register(Registry.PARTICLE_TYPE, new Identifier(Aylyth.MOD_ID, "pilot_light"), PILOT_LIGHT);
 	}
-
+	
 	@Environment(EnvType.CLIENT)
 	public static class ParticleTextureSheets {
 		public static final ParticleTextureSheet GLOWING = new ParticleTextureSheet() {
@@ -38,17 +39,16 @@ public class ModParticles {
 				tex.setFilter(true, false);
 				bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR_LIGHT);
 			}
-
+			
 			@Override
 			public void draw(Tessellator tessellator) {
-				AbstractTexture tex = MinecraftClient.getInstance().getTextureManager()
-						.getTexture(SpriteAtlasTexture.PARTICLE_ATLAS_TEXTURE);
+				AbstractTexture tex = MinecraftClient.getInstance().getTextureManager().getTexture(SpriteAtlasTexture.PARTICLE_ATLAS_TEXTURE);
 				tex.setFilter(false, false);
 				tessellator.draw();
 				RenderSystem.disableBlend();
 				RenderSystem.depthMask(true);
 			}
-
+			
 			@Override
 			public String toString() {
 				return Aylyth.MOD_ID + ":glowing";

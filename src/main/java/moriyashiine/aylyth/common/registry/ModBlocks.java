@@ -54,9 +54,9 @@ public class ModBlocks {
 	public static final Block YMPE_DOOR = new TerraformDoorBlock(copyOf(Blocks.OAK_DOOR));
 	public static final TerraformSignBlock YMPE_SIGN = new TerraformSignBlock(new Identifier(Aylyth.MOD_ID, "entity/sign/ympe"), copyOf(Blocks.OAK_SIGN));
 	public static final Block YMPE_WALL_SIGN = new TerraformWallSignBlock(YMPE_SIGN.getTexture(), copyOf(Blocks.OAK_WALL_SIGN));
-
+	
 	public static final Block AYLYTH_BUSH = new BushBlock();
-
+	
 	public static void init() {
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "stripped_ympe_log"), STRIPPED_YMPE_LOG);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "stripped_ympe_wood"), STRIPPED_YMPE_WOOD);

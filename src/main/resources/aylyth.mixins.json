@@ -9,7 +9,7 @@
 	"TrunkPlacerTypeAccessor"
   ],
   "client": [
-    "client.ParticleManagerMixin"
+	"client.ParticleManagerMixin"
   ],
   "injectors": {
 	"defaultRequire": 1

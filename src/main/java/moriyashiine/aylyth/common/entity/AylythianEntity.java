@@ -9,10 +9,8 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Arm;
-import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -24,7 +22,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 public class AylythianEntity extends HostileEntity implements IAnimatable {
 	private final AnimationFactory factory = new AnimationFactory(this);
-	private int handSwingAnimTicks = 0;
+	
 	public AylythianEntity(EntityType<? extends HostileEntity> entityType, World world) {
 		super(entityType, world);
 		this.setCanPickUpLoot(true);
@@ -44,13 +42,14 @@ public class AylythianEntity extends HostileEntity implements IAnimatable {
 				case WALK -> builder.addAnimation("walk", true);
 				case STALK -> builder.addAnimation("stalk", true);
 			};
-		}else {
+		}
+		else {
 			builder.addAnimation("idle", true);
 		}
 		event.getController().setAnimation(builder);
 		return PlayState.CONTINUE;
 	}
-
+	
 	private <E extends IAnimatable> PlayState armPredicate(AnimationEvent<E> event) {
 		AnimationBuilder builder = new AnimationBuilder();
 		if (handSwingTicks > 0 && !isDead()) {
@@ -59,7 +58,7 @@ public class AylythianEntity extends HostileEntity implements IAnimatable {
 		}
 		return PlayState.STOP;
 	}
-
+	
 	@Override
 	public void registerControllers(AnimationData animationData) {
 		animationData.addAnimationController(new AnimationController<>(this, "controller", 10, this::predicate));
@@ -87,12 +86,7 @@ public class AylythianEntity extends HostileEntity implements IAnimatable {
 	public boolean damage(DamageSource source, float amount) {
 		return super.damage(source, source.isFire() ? amount * 2 : amount);
 	}
-
-	@Override
-	protected boolean prefersNewEquipment(ItemStack newStack, ItemStack oldStack) {
-		return super.prefersNewEquipment(newStack, oldStack);
-	}
-
+	
 	@Override
 	public void onDeath(DamageSource source) {
 		super.onDeath(source);
@@ -101,10 +95,8 @@ public class AylythianEntity extends HostileEntity implements IAnimatable {
 			playSound(SoundEvents.BLOCK_GRASS_PLACE, getSoundVolume(), getSoundPitch());
 		}
 	}
-
+	
 	enum MoveState {
-		WALK,
-		RUN,
-		STALK
+		WALK, RUN, STALK
 	}
 }
