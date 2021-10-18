@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.common.entity;
+package moriyashiine.aylyth.common.entity.mob;
 
 import moriyashiine.aylyth.common.registry.ModBlocks;
 import net.minecraft.entity.EntityType;
@@ -80,6 +80,14 @@ public class AylythianEntity extends HostileEntity implements IAnimatable {
 		goalSelector.add(3, new LookAroundGoal(this));
 		targetSelector.add(0, new RevengeGoal(this));
 		targetSelector.add(1, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
+	}
+	
+	@Override
+	public void tick() {
+		super.tick();
+		if (age % 200 == 0) {
+			heal(1);
+		}
 	}
 	
 	@Override

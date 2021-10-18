@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.client.renderer.entity.living.layer;
 
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.entity.AylythianEntity;
+import moriyashiine.aylyth.common.entity.mob.AylythianEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.VertexConsumerProvider;

@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.registry;
 
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.entity.AylythianEntity;
+import moriyashiine.aylyth.common.entity.mob.AylythianEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.EntityDimensions;
