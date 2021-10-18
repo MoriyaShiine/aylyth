@@ -71,8 +71,8 @@ public class ElderAylythianEntity extends HostileEntity implements IAnimatable {
 	
 	@Override
 	public void registerControllers(AnimationData animationData) {
-		animationData.addAnimationController(new AnimationController<>(this, "controller", 10, this::predicate));
-		animationData.addAnimationController(new AnimationController<>(this, "arms", 0, this::armPredicate));
+		//animationData.addAnimationController(new AnimationController<>(this, "controller", 10, this::predicate));
+		//animationData.addAnimationController(new AnimationController<>(this, "arms", 0, this::armPredicate));
 	}
 	
 	@Override
