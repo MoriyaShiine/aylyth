@@ -5,6 +5,7 @@ import com.terraformersmc.terraform.sign.SpriteIdentifierRegistry;
 import moriyashiine.aylyth.client.network.packet.SpawnShuckParticlesPacket;
 import moriyashiine.aylyth.client.particle.PilotLightParticle;
 import moriyashiine.aylyth.client.renderer.entity.living.AylythianEntityRenderer;
+import moriyashiine.aylyth.client.renderer.entity.living.ElderAylythianEntityRenderer;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.ModEntityTypes;
@@ -44,6 +45,7 @@ public class AylythClient implements ClientModInitializer {
 		}, ModBlocks.AYLYTH_BUSH);
 		FabricModelPredicateProviderRegistry.register(ModItems.SHUCKED_YMPE_FRUIT, new Identifier(Aylyth.MOD_ID, "variant"), (stack, world, entity, seed) -> stack.hasNbt() && stack.getNbt().contains("StoredEntity") ? 1 : 0);
 		EntityRendererRegistry.register(ModEntityTypes.AYLYTHIAN, AylythianEntityRenderer::new);
+		EntityRendererRegistry.register(ModEntityTypes.ELDER_AYLYTHIAN, ElderAylythianEntityRenderer::new);
 		TerraformBoatClientHelper.registerModelLayer(new Identifier(Aylyth.MOD_ID, "ympe"));
 	}
 }

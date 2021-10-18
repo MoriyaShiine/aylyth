@@ -13,7 +13,7 @@ import software.bernie.geckolib3.renderers.geo.IGeoRenderer;
 
 @Environment(EnvType.CLIENT)
 public class AylythianGlowLayerRenderer extends GeoLayerRenderer<AylythianEntity> {
-	private static final Identifier TEXTURE_LOCATION = new Identifier(Aylyth.MOD_ID, "textures/entity/aylythian/glow.png");
+	private static final Identifier TEXTURE_LOCATION = new Identifier(Aylyth.MOD_ID, "textures/entity/aylythian_eyes.png");
 	
 	public AylythianGlowLayerRenderer(IGeoRenderer<AylythianEntity> entityRendererIn) {
 		super(entityRendererIn);
