@@ -6,8 +6,8 @@ import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 
-public class MortechusStatusEffect extends StatusEffect {
-	public MortechusStatusEffect() {
+public class MortechisStatusEffect extends StatusEffect {
+	public MortechisStatusEffect() {
 		super(StatusEffectCategory.BENEFICIAL, 0x870043);
 	}
 
