@@ -41,7 +41,9 @@ public class ModItems {
 	public static final Item SHUCKED_YMPE_FRUIT = new ShuckedYmpeFruitItem(settings().maxCount(1));
 	
 	public static final Item AYLYTHIAN_HEART = new AylythianHeartItem(settings());
-	
+
+	public static final Item NYSIAN_GRAPES = new Item(settings().food(ModFoodComponents.NYSIAN_GRAPES));
+
 	public static Item AYLYTHIAN_SPAWN_EGG = new SpawnEggItem(ModEntityTypes.AYLYTHIAN, 0x6A4831, 0xE58E03, settings());
 	public static Item ELDER_AYLYTHIAN_SPAWN_EGG = new SpawnEggItem(ModEntityTypes.ELDER_AYLYTHIAN, 0x513425, 0xFFDC9B, settings());
 	
@@ -67,6 +69,8 @@ public class ModItems {
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_trapdoor"), YMPE_TRAPDOOR);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_door"), YMPE_DOOR);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_sign"), YMPE_SIGN);
+
+		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "nysian_grapes"), NYSIAN_GRAPES);
 		
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "aylyth_bush"), AYLYTH_BUSH);
 		

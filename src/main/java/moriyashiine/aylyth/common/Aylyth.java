@@ -31,6 +31,7 @@ public class Aylyth implements ModInitializer {
 		ModParticles.init();
 		ModBlocks.init();
 		ModItems.init();
+		ModPotions.init();
 		ModEntityTypes.init();
 		ModSoundEvents.init();
 		ModRecipeTypes.init();
