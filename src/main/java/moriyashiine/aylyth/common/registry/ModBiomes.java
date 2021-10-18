@@ -29,7 +29,7 @@ public class ModBiomes {
 	private static final int DEEP_AYLYITHAN_FOLIAGE_COLOR = 0x9E811A;
 	private static final int WATER_COLOR = 4159204;
 	private static final int UNDERWATER_COLOR = 329011;
-	private static final int FOG_COLOR = 0xcc6506;
+	private static final int FOG_COLOR = 0x666666;
 	private static final int SKY_COLOR = 0x000000;
 	
 	public static void init() {

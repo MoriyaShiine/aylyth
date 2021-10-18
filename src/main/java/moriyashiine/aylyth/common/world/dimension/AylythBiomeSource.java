@@ -58,6 +58,7 @@ public class AylythBiomeSource extends BiomeSource {
 		layer = DeepForestLayer.CONIFEROUS.create(contextProvider.apply(3111L), layer);
 		layer = DeepForestLayer.NORMAL.create(contextProvider.apply(3110L), layer);
 		layer = ScaleLayer.NORMAL.create(contextProvider.apply(6606L), layer);
+		layer = ScaleLayer.NORMAL.create(contextProvider.apply(656L), layer);
 		layer = ForestLayer.NORMAL.create(contextProvider.apply(194L), layer);
 		layer = ForestLayer.CONIFEROUS.create(contextProvider.apply(1188L), layer);
 		layer = ScaleLayer.NORMAL.create(contextProvider.apply(6663L), layer);
