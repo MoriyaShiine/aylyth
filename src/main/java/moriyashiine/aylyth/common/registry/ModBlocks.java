@@ -6,10 +6,14 @@ import com.terraformersmc.terraform.wood.block.*;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.block.BushBlock;
 import moriyashiine.aylyth.common.block.FruitBearingYmpeLogBlock;
+import moriyashiine.aylyth.common.block.SeepBlock;
+import moriyashiine.aylyth.common.block.entity.SeepBlockEntity;
 import moriyashiine.aylyth.common.block.util.ModSaplingBlock;
 import moriyashiine.aylyth.mixin.BlocksAccessor;
+import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.minecraft.block.*;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.sapling.LargeTreeSaplingGenerator;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
@@ -56,7 +60,10 @@ public class ModBlocks {
 	public static final Block YMPE_WALL_SIGN = new TerraformWallSignBlock(YMPE_SIGN.getTexture(), copyOf(Blocks.OAK_WALL_SIGN));
 	
 	public static final Block AYLYTH_BUSH = new BushBlock();
-	
+
+	public static final Block OAK_SEEP = new SeepBlock(Blocks.OAK_LOG);
+	public static final BlockEntityType<SeepBlockEntity> SEEP_BLOCK_ENTITY_TYPE = FabricBlockEntityTypeBuilder.create(SeepBlockEntity::new, OAK_SEEP).build();
+
 	public static void init() {
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "stripped_ympe_log"), STRIPPED_YMPE_LOG);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "stripped_ympe_wood"), STRIPPED_YMPE_WOOD);
@@ -78,6 +85,8 @@ public class ModBlocks {
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "ympe_sign"), YMPE_SIGN);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "ympe_wall_sign"), YMPE_WALL_SIGN);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "aylyth_bush"), AYLYTH_BUSH);
+		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "oak_seep"), OAK_SEEP);
+		Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier(Aylyth.MOD_ID, "seep"), SEEP_BLOCK_ENTITY_TYPE);
 		FlammableBlockRegistry flammableRegistry = FlammableBlockRegistry.getDefaultInstance();
 		flammableRegistry.add(STRIPPED_YMPE_LOG, 5, 5);
 		flammableRegistry.add(STRIPPED_YMPE_WOOD, 5, 5);
