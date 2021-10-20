@@ -1,9 +1,9 @@
 {
-	"credit": "Made with Blockbench",
-	"parent": "aylyth:block/seep_log_single",
-	"textures": {
-		"1": "minecraft:block/spruce_log",
-		"2": "minecraft:block/spruce_log_top",
-		"particle": "minecraft:block/spruce_log"
-	}
+  "credit": "Made with Blockbench",
+  "parent": "aylyth:block/seep_log_single",
+  "textures": {
+	"1": "minecraft:block/spruce_log",
+	"2": "minecraft:block/spruce_log_top",
+	"particle": "minecraft:block/spruce_log"
+  }
 }

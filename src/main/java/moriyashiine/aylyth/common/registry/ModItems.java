@@ -82,7 +82,7 @@ public class ModItems {
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "dark_oak_seep"), DARK_OAK_SEEP);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "spruce_seep"), SPRUCE_SEEP);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_seep"), YMPE_SEEP);
-
+		
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_dagger"), YMPE_DAGGER);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_fruit"), YMPE_FRUIT);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "shucked_ympe_fruit"), SHUCKED_YMPE_FRUIT);

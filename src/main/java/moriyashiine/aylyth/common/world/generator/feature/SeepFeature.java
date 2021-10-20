@@ -16,7 +16,7 @@ public class SeepFeature extends Feature<SeepFeature.SeepFeatureConfig> {
 	public SeepFeature() {
 		super(SeepFeatureConfig.CODEC);
 	}
-
+	
 	@Override
 	public boolean generate(FeatureContext<SeepFeatureConfig> context) {
 		StructureWorldAccess world = context.getWorld();
@@ -39,12 +39,12 @@ public class SeepFeature extends Feature<SeepFeature.SeepFeatureConfig> {
 		}
 		return false;
 	}
-
+	
 	public static class SeepFeatureConfig implements FeatureConfig {
 		public static final Codec<SeepFeatureConfig> CODEC = RecordCodecBuilder.create((instance) -> instance.group(BlockState.CODEC.fieldOf("state").forGetter((treeFeatureConfig) -> treeFeatureConfig.state), BlockState.CODEC.fieldOf("seep_state").forGetter((treeFeatureConfig) -> treeFeatureConfig.seepState)).apply(instance, (SeepFeatureConfig::new)));
 		public final BlockState state;
 		public final BlockState seepState;
-
+		
 		public SeepFeatureConfig(BlockState state, BlockState seepState) {
 			this.state = state;
 			this.seepState = seepState;

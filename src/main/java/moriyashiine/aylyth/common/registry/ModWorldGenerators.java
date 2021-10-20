@@ -59,12 +59,12 @@ public class ModWorldGenerators extends DefaultBiomeFeatures {
 	public static final SeepFeature SEEP_FEATURE = new SeepFeature();
 	public static final ConfiguredFeature<?, ?> SPRING = SPRING_FEATURE.configure(new SingleStateFeatureConfig(Blocks.WATER.getDefaultState())).range(Decorators.TOP_TO_BOTTOM).spreadHorizontally().applyChance(8);
 	public static final ConfiguredFeature<?, ?> BUSHES = Feature.RANDOM_PATCH.configure(new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(ModBlocks.AYLYTH_BUSH.getDefaultState()), SimpleBlockPlacer.INSTANCE).tries(32).whitelist(ImmutableSet.of(Blocks.GRASS_BLOCK, ModBlocks.AYLYTH_BUSH)).cannotProject().build()).decorate(Decorators.SQUARE_HEIGHTMAP);
-
+	
 	public static final ConfiguredFeature<?, ?> OAK_SEEP = SEEP_FEATURE.configure(new SeepFeature.SeepFeatureConfig(Blocks.OAK_LOG.getDefaultState(), ModBlocks.OAK_SEEP.getDefaultState())).spreadHorizontally().applyChance(10).repeatRandomly(4);
 	public static final ConfiguredFeature<?, ?> DARK_OAK_SEEP = SEEP_FEATURE.configure(new SeepFeature.SeepFeatureConfig(Blocks.DARK_OAK_LOG.getDefaultState(), ModBlocks.DARK_OAK_SEEP.getDefaultState())).spreadHorizontally().applyChance(12).repeatRandomly(2);
 	public static final ConfiguredFeature<?, ?> SPRUCE_SEEP = SEEP_FEATURE.configure(new SeepFeature.SeepFeatureConfig(Blocks.SPRUCE_LOG.getDefaultState(), ModBlocks.SPRUCE_SEEP.getDefaultState())).spreadHorizontally().applyChance(12).repeatRandomly(2);
 	public static final ConfiguredFeature<?, ?> YMPE_SEEP = SEEP_FEATURE.configure(new SeepFeature.SeepFeatureConfig(ModBlocks.YMPE_LOG.getDefaultState(), ModBlocks.YMPE_SEEP.getDefaultState())).spreadHorizontally().applyChance(4).repeatRandomly(4);
-
+	
 	//public static final ConfiguredFeature<?, ?> CLEARING_FLOWERS = todo flower generators
 	
 	public static void init() {
@@ -89,7 +89,7 @@ public class ModWorldGenerators extends DefaultBiomeFeatures {
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(Aylyth.MOD_ID, "spruce_seep"), SPRUCE_SEEP);
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(Aylyth.MOD_ID, "ympe_seep"), YMPE_SEEP);
 		Registry.register(Registry.BIOME_SOURCE, new Identifier(Aylyth.MOD_ID, "aylyth_biome_provider"), AylythBiomeSource.CODEC);
-
+		
 		BiomeModifications.addProperties(biomeContext -> biomeContext.getProperties().getCategory() == Biome.Category.FOREST, (biomeContext, mutable) -> {
 			mutable.getGenerationProperties().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, OAK_SEEP);
 			mutable.getGenerationProperties().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, DARK_OAK_SEEP);
