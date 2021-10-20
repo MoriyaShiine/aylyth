@@ -1,0 +1,9 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "aylyth:block/seep_log_single",
+	"textures": {
+		"1": "aylyth:block/ympe_log_side",
+		"2": "aylyth:block/ympe_log_top",
+		"particle": "aylyth:block/ympe_log_side"
+	}
+}
