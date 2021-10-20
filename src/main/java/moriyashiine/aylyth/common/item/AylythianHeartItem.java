@@ -8,6 +8,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsage;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
@@ -36,7 +37,8 @@ public class AylythianHeartItem extends Item {
 	public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
 		if (!world.isClient && user instanceof PlayerEntity player && world.getRegistryKey() != ModDimensions.AYLYTH) {
 			if (player.isCreative() || player.experienceLevel >= 5) {
-				FabricDimensions.teleport(user, world.getServer().getWorld(ModDimensions.AYLYTH), new TeleportTarget(Vec3d.of(AylythUtil.getSafePosition(world, user.getBlockPos().mutableCopy(), 0).add(0.5, 0, 0.5)), Vec3d.ZERO, user.headYaw, user.getPitch()));
+				ServerWorld toWorld = world.getServer().getWorld(ModDimensions.AYLYTH);
+				FabricDimensions.teleport(user, toWorld, new TeleportTarget(Vec3d.of(AylythUtil.getSafePosition(toWorld, user.getBlockPos().mutableCopy(), 0)), Vec3d.ZERO, user.headYaw, user.getPitch()));
 				if (!player.isCreative()) {
 					player.addExperience(-55);
 					stack.decrement(1);

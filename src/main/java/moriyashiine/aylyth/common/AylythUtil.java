@@ -10,13 +10,16 @@ public class AylythUtil {
 		if (tries >= 8) {
 			return ((ServerWorld) world).getSpawnPos();
 		}
-		//		while (pos.getY() >= world.getBottomY()) {
-		//			BlockState state = world.getBlockState(pos);
-		//			if (state.shouldSuffocate(world, pos) && !BlockTags.LOGS.contains(state.getBlock())) {
-		//				return pos.up();
-		//			}
-		//			pos.setY(pos.getY() - 1);
-		//		}
-		return getSafePosition(world, pos.set(MathHelper.nextInt(world.random, pos.getX() - 32, pos.getX() + 32) + 0.5, world.getTopY(), MathHelper.nextInt(world.random, pos.getZ() - 32, pos.getZ() + 32) + 0.5), ++tries);
+		pos.setY(world.getTopY() - 1);
+		while (world.isInBuildLimit(pos) && !world.getBlockState(pos).shouldSuffocate(world, pos)) {
+			pos.setY(pos.getY() - 1);
+		}
+		while (world.isInBuildLimit(pos) && world.getBlockState(pos).shouldSuffocate(world, pos)) {
+			pos.setY(pos.getY() + 1);
+		}
+		if (!world.getBlockState(pos).shouldSuffocate(world, pos)) {
+			return pos.toImmutable();
+		}
+		return getSafePosition(world, pos.set(MathHelper.nextInt(world.random, pos.getX() - 32, pos.getX() + 32) + 0.5, world.getTopY() - 1, MathHelper.nextInt(world.random, pos.getZ() - 32, pos.getZ() + 32) + 0.5), ++tries);
 	}
 }

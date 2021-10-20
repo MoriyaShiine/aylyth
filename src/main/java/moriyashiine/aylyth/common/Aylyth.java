@@ -17,6 +17,7 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.TeleportTarget;
@@ -78,7 +79,8 @@ public class Aylyth implements ModInitializer {
 		});
 		ServerPlayerEvents.ALLOW_DEATH.register((player, damageSource, damageAmount) -> {
 			if (player.getOffHandStack().isOf(ModItems.AYLYTHIAN_HEART) && player.world.getRegistryKey() != ModDimensions.AYLYTH) {
-				FabricDimensions.teleport(player, player.world.getServer().getWorld(ModDimensions.AYLYTH), new TeleportTarget(Vec3d.of(AylythUtil.getSafePosition(player.world, player.getBlockPos().mutableCopy(), 0).add(0.5, 0, 0.5)), Vec3d.ZERO, player.headYaw, player.getPitch()));
+				ServerWorld toWorld = player.world.getServer().getWorld(ModDimensions.AYLYTH);
+				FabricDimensions.teleport(player, toWorld, new TeleportTarget(Vec3d.of(AylythUtil.getSafePosition(toWorld, player.getBlockPos().mutableCopy(), 0)), Vec3d.ZERO, player.headYaw, player.getPitch()));
 				player.setHealth(player.getMaxHealth() / 2);
 				player.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 200));
 				player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 200));
