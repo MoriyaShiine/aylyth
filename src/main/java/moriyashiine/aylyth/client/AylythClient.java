@@ -7,6 +7,7 @@ import moriyashiine.aylyth.client.particle.PilotLightParticle;
 import moriyashiine.aylyth.client.renderer.block.SeepBlockEntityRenderer;
 import moriyashiine.aylyth.client.renderer.entity.living.AylythianEntityRenderer;
 import moriyashiine.aylyth.client.renderer.entity.living.ElderAylythianEntityRenderer;
+import moriyashiine.aylyth.client.renderer.entity.living.PilotLightEntityRenderer;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.registry.*;
 import net.fabricmc.api.ClientModInitializer;
@@ -44,6 +45,7 @@ public class AylythClient implements ClientModInitializer {
 		}, ModBlocks.AYLYTH_BUSH);
 		FabricModelPredicateProviderRegistry.register(ModItems.SHUCKED_YMPE_FRUIT, new Identifier(Aylyth.MOD_ID, "variant"), (stack, world, entity, seed) -> stack.hasNbt() && stack.getNbt().contains("StoredEntity") ? 1 : 0);
 		BlockEntityRendererRegistry.register(ModBlockEntityTypes.SEEP_BLOCK_ENTITY_TYPE, SeepBlockEntityRenderer::new);
+		EntityRendererRegistry.register(ModEntityTypes.PILOT_LIGHT, PilotLightEntityRenderer::new);
 		EntityRendererRegistry.register(ModEntityTypes.AYLYTHIAN, AylythianEntityRenderer::new);
 		EntityRendererRegistry.register(ModEntityTypes.ELDER_AYLYTHIAN, ElderAylythianEntityRenderer::new);
 		TerraformBoatClientHelper.registerModelLayer(new Identifier(Aylyth.MOD_ID, "ympe"));

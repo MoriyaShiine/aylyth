@@ -46,6 +46,7 @@ public class ModItems {
 	
 	public static final Item AYLYTHIAN_HEART = new AylythianHeartItem(settings());
 	
+	public static Item PILOT_LIGHT_SPAWN_EGG = new SpawnEggItem(ModEntityTypes.PILOT_LIGHT, 0xFFD972, 0x9FD9F6, settings());
 	public static Item AYLYTHIAN_SPAWN_EGG = new SpawnEggItem(ModEntityTypes.AYLYTHIAN, 0x6A4831, 0xE58E03, settings());
 	public static Item ELDER_AYLYTHIAN_SPAWN_EGG = new SpawnEggItem(ModEntityTypes.ELDER_AYLYTHIAN, 0x513425, 0xFFDC9B, settings());
 	
@@ -84,6 +85,7 @@ public class ModItems {
 		
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "aylythian_heart"), AYLYTHIAN_HEART);
 		
+		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "pilot_light_spawn_egg"), PILOT_LIGHT_SPAWN_EGG);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "aylythian_spawn_egg"), AYLYTHIAN_SPAWN_EGG);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "elder_aylythian_spawn_egg"), ELDER_AYLYTHIAN_SPAWN_EGG);
 		
