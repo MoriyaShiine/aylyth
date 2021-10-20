@@ -2,11 +2,13 @@ package moriyashiine.aylyth.common.registry;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
+import dev.architectury.registry.level.biome.BiomeModifications;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.world.dimension.AylythBiomeSource;
 import moriyashiine.aylyth.common.world.generator.AylthianTrunkPlacer;
 import moriyashiine.aylyth.common.world.generator.BigYmpeTrunkPlacer;
 import moriyashiine.aylyth.common.world.generator.YmpeTrunkPlacer;
+import moriyashiine.aylyth.common.world.generator.feature.SeepFeature;
 import moriyashiine.aylyth.common.world.generator.feature.SpringFeature;
 import moriyashiine.aylyth.mixin.TrunkPlacerTypeAccessor;
 import net.minecraft.block.BlockState;
@@ -17,6 +19,8 @@ import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.Heightmap;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.YOffset;
 import net.minecraft.world.gen.decorator.*;
 import net.minecraft.world.gen.feature.*;
@@ -52,12 +56,20 @@ public class ModWorldGenerators extends DefaultBiomeFeatures {
 	public static final ConfiguredFeature<?, ?> OVERGROWTH_CLEARING_TREES = Feature.RANDOM_SELECTOR.configure(new RandomFeatureConfig(ImmutableList.of(YMPE_TREE.withChance(0.5F)), ConfiguredFeatures.SPRUCE)).decorate(Decorators.SQUARE_HEIGHTMAP_OCEAN_FLOOR_NO_WATER).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(1, 0.5F, 2)));
 	
 	public static final SpringFeature SPRING_FEATURE = new SpringFeature();
+	public static final SeepFeature SEEP_FEATURE = new SeepFeature();
 	public static final ConfiguredFeature<?, ?> SPRING = SPRING_FEATURE.configure(new SingleStateFeatureConfig(Blocks.WATER.getDefaultState())).range(Decorators.TOP_TO_BOTTOM).spreadHorizontally().applyChance(8);
 	public static final ConfiguredFeature<?, ?> BUSHES = Feature.RANDOM_PATCH.configure(new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(ModBlocks.AYLYTH_BUSH.getDefaultState()), SimpleBlockPlacer.INSTANCE).tries(32).whitelist(ImmutableSet.of(Blocks.GRASS_BLOCK, ModBlocks.AYLYTH_BUSH)).cannotProject().build()).decorate(Decorators.SQUARE_HEIGHTMAP);
+
+	public static final ConfiguredFeature<?, ?> OAK_SEEP = SEEP_FEATURE.configure(new SeepFeature.SeepFeatureConfig(Blocks.OAK_LOG.getDefaultState(), ModBlocks.OAK_SEEP.getDefaultState())).spreadHorizontally().applyChance(10).repeatRandomly(4);
+	public static final ConfiguredFeature<?, ?> DARK_OAK_SEEP = SEEP_FEATURE.configure(new SeepFeature.SeepFeatureConfig(Blocks.DARK_OAK_LOG.getDefaultState(), ModBlocks.DARK_OAK_SEEP.getDefaultState())).spreadHorizontally().applyChance(12).repeatRandomly(2);
+	public static final ConfiguredFeature<?, ?> SPRUCE_SEEP = SEEP_FEATURE.configure(new SeepFeature.SeepFeatureConfig(Blocks.SPRUCE_LOG.getDefaultState(), ModBlocks.SPRUCE_SEEP.getDefaultState())).spreadHorizontally().applyChance(12).repeatRandomly(2);
+	public static final ConfiguredFeature<?, ?> YMPE_SEEP = SEEP_FEATURE.configure(new SeepFeature.SeepFeatureConfig(ModBlocks.YMPE_LOG.getDefaultState(), ModBlocks.YMPE_SEEP.getDefaultState())).spreadHorizontally().applyChance(4).repeatRandomly(4);
+
 	//public static final ConfiguredFeature<?, ?> CLEARING_FLOWERS = todo flower generators
 	
 	public static void init() {
 		Registry.register(Registry.FEATURE, new Identifier(Aylyth.MOD_ID, "spring"), SPRING_FEATURE);
+		Registry.register(Registry.FEATURE, new Identifier(Aylyth.MOD_ID, "seep"), SEEP_FEATURE);
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(Aylyth.MOD_ID, "aylythian_dark_oak"), AYLYTHIAN_DARK_OAK);
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(Aylyth.MOD_ID, "aylythian_mega_dark_oak"), AYLYTHIAN_MEGA_DARK_OAK);
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(Aylyth.MOD_ID, "ympe_tree"), YMPE_TREE);
@@ -72,7 +84,17 @@ public class ModWorldGenerators extends DefaultBiomeFeatures {
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(Aylyth.MOD_ID, "overgrowth_clearing_trees"), OVERGROWTH_CLEARING_TREES);
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(Aylyth.MOD_ID, "spring"), SPRING);
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(Aylyth.MOD_ID, "bushes"), BUSHES);
+		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(Aylyth.MOD_ID, "oak_seep"), OAK_SEEP);
+		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(Aylyth.MOD_ID, "dark_oak_seep"), DARK_OAK_SEEP);
+		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(Aylyth.MOD_ID, "spruce_seep"), SPRUCE_SEEP);
+		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(Aylyth.MOD_ID, "ympe_seep"), YMPE_SEEP);
 		Registry.register(Registry.BIOME_SOURCE, new Identifier(Aylyth.MOD_ID, "aylyth_biome_provider"), AylythBiomeSource.CODEC);
+
+		BiomeModifications.addProperties(biomeContext -> biomeContext.getProperties().getCategory() == Biome.Category.FOREST, (biomeContext, mutable) -> {
+			mutable.getGenerationProperties().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, OAK_SEEP);
+			mutable.getGenerationProperties().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, DARK_OAK_SEEP);
+			mutable.getGenerationProperties().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, SPRUCE_SEEP);
+		});
 	}
 	
 	static class Decorators {
