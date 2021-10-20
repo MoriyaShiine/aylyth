@@ -8,11 +8,7 @@ import moriyashiine.aylyth.client.renderer.block.SeepBlockEntityRenderer;
 import moriyashiine.aylyth.client.renderer.entity.living.AylythianEntityRenderer;
 import moriyashiine.aylyth.client.renderer.entity.living.ElderAylythianEntityRenderer;
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.block.entity.SeepBlockEntity;
-import moriyashiine.aylyth.common.registry.ModBlocks;
-import moriyashiine.aylyth.common.registry.ModEntityTypes;
-import moriyashiine.aylyth.common.registry.ModItems;
-import moriyashiine.aylyth.common.registry.ModParticles;
+import moriyashiine.aylyth.common.registry.*;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -29,8 +25,6 @@ import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.color.world.FoliageColors;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.TexturedRenderLayers;
-import net.minecraft.client.render.block.entity.BlockEntityRenderer;
-import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.item.BlockItem;
 import net.minecraft.util.Identifier;
@@ -49,9 +43,9 @@ public class AylythClient implements ClientModInitializer {
 			return MinecraftClient.getInstance().getBlockColors().getColor(blockState, null, null, tintIndex);
 		}, ModBlocks.AYLYTH_BUSH);
 		FabricModelPredicateProviderRegistry.register(ModItems.SHUCKED_YMPE_FRUIT, new Identifier(Aylyth.MOD_ID, "variant"), (stack, world, entity, seed) -> stack.hasNbt() && stack.getNbt().contains("StoredEntity") ? 1 : 0);
+		BlockEntityRendererRegistry.register(ModBlockEntityTypes.SEEP_BLOCK_ENTITY_TYPE, SeepBlockEntityRenderer::new);
 		EntityRendererRegistry.register(ModEntityTypes.AYLYTHIAN, AylythianEntityRenderer::new);
 		EntityRendererRegistry.register(ModEntityTypes.ELDER_AYLYTHIAN, ElderAylythianEntityRenderer::new);
-		BlockEntityRendererRegistry.register(ModBlocks.SEEP_BLOCK_ENTITY_TYPE, SeepBlockEntityRenderer::new);
 		TerraformBoatClientHelper.registerModelLayer(new Identifier(Aylyth.MOD_ID, "ympe"));
 	}
 }

@@ -3,11 +3,16 @@
   "minVersion": "0.8",
   "package": "moriyashiine.aylyth.mixin",
   "compatibilityLevel": "JAVA_16",
-  "mixins": ["BiomeLayerSamplerAccessor", "BlocksAccessor", "BrewingRecipeRegistryAccessor", "TrunkPlacerTypeAccessor"],
+  "mixins": [
+	"BiomeLayerSamplerAccessor",
+	"BlocksAccessor",
+	"BrewingRecipeRegistryAccessor",
+	"TrunkPlacerTypeAccessor"
+  ],
   "client": [
-    "client.ParticleManagerMixin"
+	"client.ParticleManagerMixin"
   ],
   "injectors": {
-    "defaultRequire": 1
+	"defaultRequire": 1
   }
 }

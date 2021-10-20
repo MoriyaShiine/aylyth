@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.common.status_effect;
+package moriyashiine.aylyth.common.statuseffect;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
@@ -10,8 +10,7 @@ public class MortechisStatusEffect extends StatusEffect {
 	public MortechisStatusEffect() {
 		super(StatusEffectCategory.BENEFICIAL, 0x870043);
 	}
-
-
+	
 	@Override
 	public void applyUpdateEffect(LivingEntity entity, int amplifier) {
 		if (!entity.world.isClient && entity.age % 10 == 0) {
@@ -24,7 +23,7 @@ public class MortechisStatusEffect extends StatusEffect {
 			}
 		}
 	}
-
+	
 	@Override
 	public boolean canApplyUpdateEffect(int duration, int amplifier) {
 		return true;

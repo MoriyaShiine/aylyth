@@ -6,8 +6,8 @@
 	"connection=up": {
 	  "model": "aylyth:block/seep_log_bottom"
 	},
-    "connection=down": {
+	"connection=down": {
 	  "model": "aylyth:block/seep_log_top"
-    }
+	}
   }
 }

@@ -31,13 +31,14 @@ public class Aylyth implements ModInitializer {
 		ModParticles.init();
 		ModBlocks.init();
 		ModItems.init();
-		ModPotions.init();
+		ModBlockEntityTypes.init();
 		ModEntityTypes.init();
+		ModPotions.init();
 		ModSoundEvents.init();
 		ModRecipeTypes.init();
 		ModWorldGenerators.init();
-		ModBoatTypes.init();
 		ModBiomes.init();
+		ModBoatTypes.init();
 		ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register((world, entity, killedEntity) -> {
 			if (entity instanceof LivingEntity living && living.getMainHandStack().isOf(ModItems.YMPE_DAGGER)) {
 				boolean shucked = false;
