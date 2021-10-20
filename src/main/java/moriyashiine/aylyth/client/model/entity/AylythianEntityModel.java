@@ -13,7 +13,7 @@ import software.bernie.geckolib3.model.provider.data.EntityModelData;
 @Environment(EnvType.CLIENT)
 public class AylythianEntityModel extends AnimatedGeoModel<AylythianEntity> {
 	private static final Identifier MODEL_LOCATION = new Identifier(Aylyth.MOD_ID, "geo/aylythian.geo.json");
-	private static final Identifier TEXTURE_LOCATION = new Identifier(Aylyth.MOD_ID, "textures/entity/aylythian.png");
+	private static final Identifier TEXTURE_LOCATION = new Identifier(Aylyth.MOD_ID, "textures/entity/living/aylythian.png");
 	private static final Identifier ANIMATION_FILE_LOCATION = new Identifier(Aylyth.MOD_ID, "animations/entity/aylythian.animation.json");
 	
 	@Override

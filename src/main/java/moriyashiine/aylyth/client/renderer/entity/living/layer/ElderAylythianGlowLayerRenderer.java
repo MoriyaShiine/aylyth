@@ -24,7 +24,7 @@ public class ElderAylythianGlowLayerRenderer extends GeoLayerRenderer<ElderAylyt
 		if (TEXTURE_LOCATIONS == null) {
 			TEXTURE_LOCATIONS = new Identifier[ElderAylythianEntity.VARIANTS];
 			for (int i = 0; i < ElderAylythianEntity.VARIANTS; i++) {
-				TEXTURE_LOCATIONS[i] = new Identifier(Aylyth.MOD_ID, "textures/entity/elder_aylythian/" + i + "_eyes.png");
+				TEXTURE_LOCATIONS[i] = new Identifier(Aylyth.MOD_ID, "textures/entity/living/elder_aylythian/" + i + "_eyes.png");
 			}
 		}
 		renderModel((GeoModelProvider<ElderAylythianEntity>) getEntityModel(), TEXTURE_LOCATIONS[elderAylythian.getDataTracker().get(ElderAylythianEntity.VARIANT)], matrixStackIn, bufferIn, 0xF000F0, elderAylythian, partialTicks, 1, 1, 1);

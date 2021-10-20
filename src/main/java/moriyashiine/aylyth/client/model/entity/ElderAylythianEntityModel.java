@@ -26,7 +26,7 @@ public class ElderAylythianEntityModel extends AnimatedGeoModel<ElderAylythianEn
 		if (TEXTURE_LOCATIONS == null) {
 			TEXTURE_LOCATIONS = new Identifier[ElderAylythianEntity.VARIANTS];
 			for (int i = 0; i < ElderAylythianEntity.VARIANTS; i++) {
-				TEXTURE_LOCATIONS[i] = new Identifier(Aylyth.MOD_ID, "textures/entity/elder_aylythian/" + i + ".png");
+				TEXTURE_LOCATIONS[i] = new Identifier(Aylyth.MOD_ID, "textures/entity/living/elder_aylythian/" + i + ".png");
 			}
 		}
 		return TEXTURE_LOCATIONS[object.getDataTracker().get(ElderAylythianEntity.VARIANT)];
