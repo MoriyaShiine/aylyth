@@ -11,13 +11,14 @@ import net.minecraft.util.math.MathHelper;
 @Environment(EnvType.CLIENT)
 public class PilotLightParticle extends AbstractSlowingParticle {
 	protected boolean fadeIn = true;
-	
+	protected float targetScale;
 	protected PilotLightParticle(ClientWorld clientWorld, double x, double y, double z, float r, float g, float b) {
 		super(clientWorld, x, y, z, 0, Math.max(0.01F, clientWorld.random.nextFloat() / 50), 0);
 		colorAlpha = 0;
 		colorRed = r;
 		colorGreen = g;
 		colorBlue = b;
+		this.targetScale = 0.5F;
 		maxAge = 40 + clientWorld.random.nextInt(40);
 	}
 	
@@ -34,7 +35,11 @@ public class PilotLightParticle extends AbstractSlowingParticle {
 	public void tick() {
 		super.tick();
 		float lifeRatio = (float) this.age / (float) this.maxAge;
-		this.colorAlpha = fadeIn ? (lifeRatio >= 0.5F ? 1 - (lifeRatio - 0.5F) * 2 : lifeRatio * 2) : 1 - lifeRatio;
+		if (lifeRatio >= 0.5F) {
+			scale(0.95F);
+		} else {
+			this.colorAlpha = lifeRatio * 2;
+		}
 		if (lifeRatio >= 1) {
 			markDead();
 		}
@@ -54,20 +59,40 @@ public class PilotLightParticle extends AbstractSlowingParticle {
 	}
 	
 	@Environment(EnvType.CLIENT)
-	public static class Factory implements ParticleFactory<DefaultParticleType> {
+	public static class AmbientFactory implements ParticleFactory<DefaultParticleType> {
 		private final SpriteProvider spriteProvider;
 		
-		public Factory(SpriteProvider spriteProvider) {
+		public AmbientFactory(SpriteProvider spriteProvider) {
 			this.spriteProvider = spriteProvider;
 		}
 		
 		public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double x, double y, double z, double velX, double velY, double velZ) {
 			PilotLightParticle particle = new PilotLightParticle(clientWorld, x, y, z, MathHelper.nextFloat(clientWorld.random, 0.8F, 1F), MathHelper.nextFloat(clientWorld.random, 0.5F, 0.6F), MathHelper.nextFloat(clientWorld.random, 0.05F, 0.1F));
-			particle.scale(MathHelper.nextFloat(clientWorld.random, 0.5F, 0.75F));
+			particle.targetScale = MathHelper.nextFloat(clientWorld.random, 0.5F, 0.75F);
+			particle.scale(particle.targetScale);
 			particle.velocityX = velX;
 			particle.velocityY = velY;
 			particle.velocityZ = velZ;
-			particle.fadeIn = false;
+			particle.setSpriteForAge(this.spriteProvider);
+			return particle;
+		}
+	}
+
+	@Environment(EnvType.CLIENT)
+	public static class Factory implements ParticleFactory<DefaultParticleType> {
+		private final SpriteProvider spriteProvider;
+
+		public Factory(SpriteProvider spriteProvider) {
+			this.spriteProvider = spriteProvider;
+		}
+
+		public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double x, double y, double z, double velX, double velY, double velZ) {
+			PilotLightParticle particle = new PilotLightParticle(clientWorld, x, y, z, MathHelper.nextFloat(clientWorld.random, 0.8F, 1F), MathHelper.nextFloat(clientWorld.random, 0.5F, 0.6F), MathHelper.nextFloat(clientWorld.random, 0.05F, 0.1F));
+			particle.targetScale = MathHelper.nextFloat(clientWorld.random, 1F, 1.5F);
+			particle.scale(particle.targetScale);
+			particle.colorRed = (float) velX;
+			particle.colorGreen = (float) velY;
+			particle.colorBlue = (float) velZ;
 			particle.setSpriteForAge(this.spriteProvider);
 			return particle;
 		}
