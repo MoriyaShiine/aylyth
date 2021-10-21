@@ -4,12 +4,17 @@
   "package": "moriyashiine.aylyth.mixin",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
-    "BiomeLayerSamplerAccessor", "BlocksAccessor", "BrewingRecipeRegistryAccessor", "TrunkPlacerTypeAccessor"
+	"BiomeLayerSamplerAccessor",
+	"BlocksAccessor",
+	"BrewingRecipeRegistryAccessor",
+	"TrunkPlacerTypeAccessor"
   ],
   "client": [
-    "client.BackgroundRendererMixin", "client.ParticleManagerMixin", "client.WorldRendererMixin"
+	"client.BackgroundRendererMixin",
+	"client.ParticleManagerMixin",
+	"client.WorldRendererMixin"
   ],
   "injectors": {
-    "defaultRequire": 1
+	"defaultRequire": 1
   }
 }

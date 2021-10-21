@@ -71,18 +71,6 @@ public class AylythianEntity extends HostileEntity implements IAnimatable {
 	}
 	
 	@Override
-	protected void initGoals() {
-		super.initGoals();
-		goalSelector.add(0, new SwimGoal(this));
-		goalSelector.add(1, new MeleeAttackGoal(this, 1.2F, false));
-		goalSelector.add(2, new WanderAroundFarGoal(this, 0.5F));
-		goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 8));
-		goalSelector.add(3, new LookAroundGoal(this));
-		targetSelector.add(0, new RevengeGoal(this));
-		targetSelector.add(1, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
-	}
-	
-	@Override
 	public void tick() {
 		super.tick();
 		if (age % 200 == 0) {
@@ -102,6 +90,18 @@ public class AylythianEntity extends HostileEntity implements IAnimatable {
 			world.setBlockState(getBlockPos(), ModBlocks.YMPE_SAPLING.getDefaultState());
 			playSound(SoundEvents.BLOCK_GRASS_PLACE, getSoundVolume(), getSoundPitch());
 		}
+	}
+	
+	@Override
+	protected void initGoals() {
+		super.initGoals();
+		goalSelector.add(0, new SwimGoal(this));
+		goalSelector.add(1, new MeleeAttackGoal(this, 1.2F, false));
+		goalSelector.add(2, new WanderAroundFarGoal(this, 0.5F));
+		goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 8));
+		goalSelector.add(3, new LookAroundGoal(this));
+		targetSelector.add(0, new RevengeGoal(this));
+		targetSelector.add(1, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
 	}
 	
 	enum MoveState {

@@ -79,43 +79,6 @@ public class ElderAylythianEntity extends HostileEntity implements IAnimatable {
 		return factory;
 	}
 	
-	@Nullable
-	@Override
-	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
-		dataTracker.set(VARIANT, random.nextInt(VARIANTS));
-		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
-	}
-	
-	@Override
-	protected void initGoals() {
-		super.initGoals();
-		goalSelector.add(0, new SwimGoal(this));
-		goalSelector.add(1, new MeleeAttackGoal(this, 1.2F, false));
-		goalSelector.add(2, new WanderAroundFarGoal(this, 0.5F));
-		goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 8));
-		goalSelector.add(3, new LookAroundGoal(this));
-		targetSelector.add(0, new RevengeGoal(this));
-		targetSelector.add(1, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
-	}
-	
-	@Override
-	public void readCustomDataFromNbt(NbtCompound nbt) {
-		super.readCustomDataFromNbt(nbt);
-		dataTracker.set(VARIANT, nbt.getInt("Variant"));
-	}
-	
-	@Override
-	public void writeCustomDataToNbt(NbtCompound nbt) {
-		super.writeCustomDataToNbt(nbt);
-		nbt.putInt("Variant", dataTracker.get(VARIANT));
-	}
-	
-	@Override
-	protected void initDataTracker() {
-		super.initDataTracker();
-		dataTracker.startTracking(VARIANT, 0);
-	}
-	
 	@Override
 	public boolean damage(DamageSource source, float amount) {
 		setPersistent();
@@ -145,6 +108,43 @@ public class ElderAylythianEntity extends HostileEntity implements IAnimatable {
 		if (item != null) {
 			item.setCovetedItem();
 		}
+	}
+	
+	@Nullable
+	@Override
+	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
+		dataTracker.set(VARIANT, random.nextInt(VARIANTS));
+		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+	}
+	
+	@Override
+	protected void initGoals() {
+		super.initGoals();
+		goalSelector.add(0, new SwimGoal(this));
+		goalSelector.add(1, new MeleeAttackGoal(this, 1.2F, false));
+		goalSelector.add(2, new WanderAroundFarGoal(this, 0.5F));
+		goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 8));
+		goalSelector.add(3, new LookAroundGoal(this));
+		targetSelector.add(0, new RevengeGoal(this));
+		targetSelector.add(1, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
+	}
+	
+	@Override
+	protected void initDataTracker() {
+		super.initDataTracker();
+		dataTracker.startTracking(VARIANT, 0);
+	}
+	
+	@Override
+	public void readCustomDataFromNbt(NbtCompound nbt) {
+		super.readCustomDataFromNbt(nbt);
+		dataTracker.set(VARIANT, nbt.getInt("Variant"));
+	}
+	
+	@Override
+	public void writeCustomDataToNbt(NbtCompound nbt) {
+		super.writeCustomDataToNbt(nbt);
+		nbt.putInt("Variant", dataTracker.get(VARIANT));
 	}
 	
 	enum MoveState {

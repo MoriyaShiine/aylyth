@@ -12,6 +12,7 @@ import net.minecraft.util.math.MathHelper;
 public class PilotLightParticle extends AbstractSlowingParticle {
 	protected boolean fadeIn = true;
 	protected float targetScale;
+	
 	protected PilotLightParticle(ClientWorld clientWorld, double x, double y, double z, float r, float g, float b) {
 		super(clientWorld, x, y, z, 0, Math.max(0.01F, clientWorld.random.nextFloat() / 50), 0);
 		colorAlpha = 0;
@@ -37,7 +38,8 @@ public class PilotLightParticle extends AbstractSlowingParticle {
 		float lifeRatio = (float) this.age / (float) this.maxAge;
 		if (lifeRatio >= 0.5F) {
 			scale(0.95F);
-		} else {
+		}
+		else {
 			this.colorAlpha = lifeRatio * 2;
 		}
 		if (lifeRatio >= 1) {
@@ -77,15 +79,15 @@ public class PilotLightParticle extends AbstractSlowingParticle {
 			return particle;
 		}
 	}
-
+	
 	@Environment(EnvType.CLIENT)
 	public static class Factory implements ParticleFactory<DefaultParticleType> {
 		private final SpriteProvider spriteProvider;
-
+		
 		public Factory(SpriteProvider spriteProvider) {
 			this.spriteProvider = spriteProvider;
 		}
-
+		
 		public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double x, double y, double z, double velX, double velY, double velZ) {
 			PilotLightParticle particle = new PilotLightParticle(clientWorld, x, y, z, MathHelper.nextFloat(clientWorld.random, 0.8F, 1F), MathHelper.nextFloat(clientWorld.random, 0.5F, 0.6F), MathHelper.nextFloat(clientWorld.random, 0.05F, 0.1F));
 			particle.targetScale = MathHelper.nextFloat(clientWorld.random, 1F, 1.5F);

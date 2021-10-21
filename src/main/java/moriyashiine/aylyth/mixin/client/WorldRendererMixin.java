@@ -18,9 +18,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(WorldRenderer.class)
 @Environment(EnvType.CLIENT)
 public class WorldRendererMixin {
-	@Shadow private ClientWorld world;
-	@Shadow @Final private MinecraftClient client;
-
+	@Shadow
+	private ClientWorld world;
+	@Shadow
+	@Final
+	private MinecraftClient client;
+	
 	@Inject(method = "renderSky", at = @At("HEAD"))
 	private void renderSkyPre(MatrixStack matrices, Matrix4f matrix4f, float f, Runnable runnable, CallbackInfo ci) {
 		if (world.getTime() % 20 == 0) {
