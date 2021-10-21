@@ -14,5 +14,5 @@ public class ModDimensions {
 	
 	public static RegistryKey<World> AYLYTH = RegistryKey.of(Registry.WORLD_KEY, AYLYTH_DIMENSION_KEY.getValue());
 	
-	private static final RegistryKey<DimensionType> AYLTH_DIMENSION_TYPE = RegistryKey.of(Registry.DIMENSION_TYPE_KEY, new Identifier(Aylyth.MOD_ID, "aylyth_type"));
+	public static final RegistryKey<DimensionType> AYLTH_DIMENSION_TYPE = RegistryKey.of(Registry.DIMENSION_TYPE_KEY, new Identifier(Aylyth.MOD_ID, "aylyth_type"));
 }
