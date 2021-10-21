@@ -36,6 +36,7 @@
 	"fabricloader": "*",
 	"fabric": "*",
 	"minecraft": "1.17.x",
+	"geckolib3": "*",
 	"java": ">=16"
   }
 }
