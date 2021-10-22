@@ -1,7 +1,6 @@
 package moriyashiine.aylyth.common.registry;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
 import dev.architectury.registry.level.biome.BiomeModifications;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.world.dimension.AylythBiomeSource;
@@ -29,7 +28,6 @@ import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
 import net.minecraft.world.gen.foliage.BushFoliagePlacer;
 import net.minecraft.world.gen.foliage.DarkOakFoliagePlacer;
 import net.minecraft.world.gen.heightprovider.ConstantHeightProvider;
-import net.minecraft.world.gen.placer.SimpleBlockPlacer;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
@@ -59,7 +57,7 @@ public class ModWorldGenerators extends DefaultBiomeFeatures {
 	public static final SpringFeature SPRING_FEATURE = new SpringFeature();
 	public static final SeepFeature SEEP_FEATURE = new SeepFeature();
 	public static final BushFeature BUSH_FEATURE = new BushFeature();
-
+	
 	public static final ConfiguredFeature<?, ?> SPRING = SPRING_FEATURE.configure(new SingleStateFeatureConfig(Blocks.WATER.getDefaultState())).range(Decorators.TOP_TO_BOTTOM).spreadHorizontally().applyChance(8);
 	public static final ConfiguredFeature<?, ?> BUSHES = BUSH_FEATURE.configure(FeatureConfig.DEFAULT).decorate(Decorators.FOLIAGE_PLACEMENT).applyChance(2).repeatRandomly(5);
 	
