@@ -20,7 +20,8 @@ public class AylythDimensionRenderer {
 		RenderSystem.setShaderFogEnd(currentFogStrength);
 		if (goalFogStrength < currentFogStrength) {
 			currentFogStrength -= 0.1F;
-		} else if (goalFogStrength > currentFogStrength) {
+		}
+		else if (goalFogStrength > currentFogStrength) {
 			currentFogStrength += 0.1F;
 		}
 	}
@@ -30,9 +31,11 @@ public class AylythDimensionRenderer {
 			Identifier biomeId = world.getRegistryManager().get(Registry.BIOME_KEY).getId(biome);
 			if (biomeId == ModBiomes.CLEARING_ID) {
 				goalFogStrength = 40;
-			} else if (biomeId == ModBiomes.OVERGROWN_CLEARING_ID) {
+			}
+			else if (biomeId == ModBiomes.OVERGROWN_CLEARING_ID) {
 				goalFogStrength = 24;
-			}else {
+			}
+			else {
 				goalFogStrength = 16;
 			}
 		}
