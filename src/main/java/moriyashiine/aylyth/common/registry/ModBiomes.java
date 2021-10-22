@@ -14,8 +14,8 @@ import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
 import net.minecraft.world.gen.surfacebuilder.ConfiguredSurfaceBuilders;
 
 public class ModBiomes {
-	public static final SpawnSettings.Builder DEEP_FOREST_MOBS = new SpawnSettings.Builder().spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(ModEntityTypes.AYLYTHIAN, 10, 1, 3)).spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(ModEntityTypes.ELDER_AYLYTHIAN, 5, 1, 1)).spawn(SpawnGroup.AMBIENT, new SpawnSettings.SpawnEntry(ModEntityTypes.PILOT_LIGHT, 10, 1, 1));
-	public static final SpawnSettings.Builder FOREST_MOBS = new SpawnSettings.Builder().spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(ModEntityTypes.AYLYTHIAN, 10, 1, 3)).spawn(SpawnGroup.AMBIENT, new SpawnSettings.SpawnEntry(ModEntityTypes.PILOT_LIGHT, 1, 1, 1)).creatureSpawnProbability(0.5F);
+	public static final SpawnSettings.Builder DEEP_FOREST_MOBS = new SpawnSettings.Builder().spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(ModEntityTypes.AYLYTHIAN, 50, 1, 3)).spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(ModEntityTypes.ELDER_AYLYTHIAN, 1, 1, 1)).spawn(SpawnGroup.AMBIENT, new SpawnSettings.SpawnEntry(ModEntityTypes.PILOT_LIGHT, 10, 1, 1)).creatureSpawnProbability(0.25F);
+	public static final SpawnSettings.Builder FOREST_MOBS = new SpawnSettings.Builder().spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(ModEntityTypes.AYLYTHIAN, 50, 1, 2)).spawn(SpawnGroup.AMBIENT, new SpawnSettings.SpawnEntry(ModEntityTypes.PILOT_LIGHT, 5, 1, 1)).creatureSpawnProbability(0.125F);
 	
 	public static final Identifier CLEARING_ID = new Identifier(Aylyth.MOD_ID, "clearing");
 	public static final Identifier OVERGROWN_CLEARING_ID = new Identifier(Aylyth.MOD_ID, "overgrown_clearing");
@@ -24,7 +24,7 @@ public class ModBiomes {
 	public static final Identifier CONIFEROUS_FOREST_ID = new Identifier(Aylyth.MOD_ID, "coniferous_forest");
 	public static final Identifier DEEP_CONIFEROUS_FOREST_ID = new Identifier(Aylyth.MOD_ID, "deep_coniferous_forest");
 	public static final Biome CLEARING = createClearing(false, new SpawnSettings.Builder());
-	public static final Biome OVERGROWN_CLEARING = createClearing(true, new SpawnSettings.Builder().spawn(SpawnGroup.AMBIENT, new SpawnSettings.SpawnEntry(ModEntityTypes.PILOT_LIGHT, 1, 1, 1)));
+	public static final Biome OVERGROWN_CLEARING = createClearing(true, new SpawnSettings.Builder().spawn(SpawnGroup.AMBIENT, new SpawnSettings.SpawnEntry(ModEntityTypes.PILOT_LIGHT, 1, 1, 1)).creatureSpawnProbability(0.1F));
 	public static final Biome FOREST = createForest(false, FOREST_MOBS);
 	public static final Biome DEEP_FOREST = createForest(true, DEEP_FOREST_MOBS);
 	public static final Biome CONIFEROUS_FOREST = createConiferousForest(false, FOREST_MOBS);
