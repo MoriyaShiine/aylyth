@@ -96,9 +96,8 @@ public class ElderAylythianEntity extends HostileEntity implements IAnimatable {
 	public void onDeath(DamageSource source) {
 		super.onDeath(source);
 		if (!world.isClient) {
-			//todo place 2x2 centered on bounding box
-			int xOffset = Math.sin(bodyYaw) > 0 ? 1 : -1;
-			int zOffset = Math.cos(bodyYaw) > 0 ? 1 : -1;
+			int xOffset = Math.sin(bodyYaw * 0.017453292F) > 0 ? 1 : -1;
+			int zOffset = Math.cos(bodyYaw * 0.017453292F) > 0 ? 1 : -1;
 			BlockPos[] checkPoses = {getBlockPos(), getBlockPos().add(xOffset, 0, 0), getBlockPos().add(0, 0, zOffset), getBlockPos().add(xOffset, 0, zOffset)};
 			for(BlockPos checkPos : checkPoses) {
 				if (world.getBlockState(checkPos).getMaterial().isReplaceable() && ModBlocks.YMPE_SAPLING.getDefaultState().canPlaceAt(world, checkPos)) {
