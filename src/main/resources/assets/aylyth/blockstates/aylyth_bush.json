@@ -1,7 +1,10 @@
 {
   "variants": {
-	"": {
+	"bushy=false": {
 	  "model": "aylyth:block/aylyth_bush"
+	},
+	"bushy=true": {
+	  "model": "aylyth:block/aylyth_bushy_leaves"
 	}
   }
 }

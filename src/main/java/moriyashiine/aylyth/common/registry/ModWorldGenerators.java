@@ -8,6 +8,7 @@ import moriyashiine.aylyth.common.world.dimension.AylythBiomeSource;
 import moriyashiine.aylyth.common.world.generator.AylthianTrunkPlacer;
 import moriyashiine.aylyth.common.world.generator.BigYmpeTrunkPlacer;
 import moriyashiine.aylyth.common.world.generator.YmpeTrunkPlacer;
+import moriyashiine.aylyth.common.world.generator.feature.BushFeature;
 import moriyashiine.aylyth.common.world.generator.feature.SeepFeature;
 import moriyashiine.aylyth.common.world.generator.feature.SpringFeature;
 import moriyashiine.aylyth.mixin.TrunkPlacerTypeAccessor;
@@ -57,8 +58,10 @@ public class ModWorldGenerators extends DefaultBiomeFeatures {
 	
 	public static final SpringFeature SPRING_FEATURE = new SpringFeature();
 	public static final SeepFeature SEEP_FEATURE = new SeepFeature();
+	public static final BushFeature BUSH_FEATURE = new BushFeature();
+
 	public static final ConfiguredFeature<?, ?> SPRING = SPRING_FEATURE.configure(new SingleStateFeatureConfig(Blocks.WATER.getDefaultState())).range(Decorators.TOP_TO_BOTTOM).spreadHorizontally().applyChance(8);
-	public static final ConfiguredFeature<?, ?> BUSHES = Feature.RANDOM_PATCH.configure(new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(ModBlocks.AYLYTH_BUSH.getDefaultState()), SimpleBlockPlacer.INSTANCE).tries(32).whitelist(ImmutableSet.of(Blocks.GRASS_BLOCK)).cannotProject().build()).decorate(Decorators.SQUARE_HEIGHTMAP);
+	public static final ConfiguredFeature<?, ?> BUSHES = BUSH_FEATURE.configure(FeatureConfig.DEFAULT).decorate(Decorators.FOLIAGE_PLACEMENT).applyChance(2).repeatRandomly(5);
 	
 	public static final ConfiguredFeature<?, ?> OAK_SEEP = SEEP_FEATURE.configure(new SeepFeature.SeepFeatureConfig(Blocks.OAK_LOG.getDefaultState(), ModBlocks.OAK_SEEP.getDefaultState())).spreadHorizontally().applyChance(10).repeatRandomly(4);
 	public static final ConfiguredFeature<?, ?> DARK_OAK_SEEP = SEEP_FEATURE.configure(new SeepFeature.SeepFeatureConfig(Blocks.DARK_OAK_LOG.getDefaultState(), ModBlocks.DARK_OAK_SEEP.getDefaultState())).spreadHorizontally().applyChance(12).repeatRandomly(2);
@@ -70,6 +73,7 @@ public class ModWorldGenerators extends DefaultBiomeFeatures {
 	public static void init() {
 		Registry.register(Registry.FEATURE, new Identifier(Aylyth.MOD_ID, "spring"), SPRING_FEATURE);
 		Registry.register(Registry.FEATURE, new Identifier(Aylyth.MOD_ID, "seep"), SEEP_FEATURE);
+		Registry.register(Registry.FEATURE, new Identifier(Aylyth.MOD_ID, "bush"), BUSH_FEATURE);
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(Aylyth.MOD_ID, "aylythian_dark_oak"), AYLYTHIAN_DARK_OAK);
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(Aylyth.MOD_ID, "aylythian_mega_dark_oak"), AYLYTHIAN_MEGA_DARK_OAK);
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(Aylyth.MOD_ID, "ympe_tree"), YMPE_TREE);
@@ -102,6 +106,6 @@ public class ModWorldGenerators extends DefaultBiomeFeatures {
 		private static final ConfiguredDecorator<?> HEIGHTMAP_OCEAN_FLOOR = Decorator.HEIGHTMAP.configure(new HeightmapDecoratorConfig(Heightmap.Type.OCEAN_FLOOR));
 		private static final ConfiguredDecorator<?> HEIGHTMAP_OCEAN_FLOOR_NO_WATER = HEIGHTMAP_OCEAN_FLOOR.decorate(Decorator.WATER_DEPTH_THRESHOLD.configure(new WaterDepthThresholdDecoratorConfig(0)));
 		private static final ConfiguredDecorator<?> SQUARE_HEIGHTMAP_OCEAN_FLOOR_NO_WATER = HEIGHTMAP_OCEAN_FLOOR_NO_WATER.spreadHorizontally();
-		private static final ConfiguredDecorator<?> SQUARE_HEIGHTMAP = Decorator.HEIGHTMAP.configure(new HeightmapDecoratorConfig(Heightmap.Type.MOTION_BLOCKING)).spreadHorizontally();
+		private static final ConfiguredDecorator<?> FOLIAGE_PLACEMENT = Decorator.HEIGHTMAP_SPREAD_DOUBLE.configure(new HeightmapDecoratorConfig(Heightmap.Type.MOTION_BLOCKING)).spreadHorizontally();
 	}
 }

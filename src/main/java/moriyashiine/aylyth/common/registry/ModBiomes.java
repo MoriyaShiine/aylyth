@@ -65,11 +65,11 @@ public class ModBiomes {
 		GenerationSettings.Builder builder = (new GenerationSettings.Builder()).surfaceBuilder(ConfiguredSurfaceBuilders.GRASS);
 		//DefaultBiomeFeatures.addLandCarvers(builder);
 		builder.feature(GenerationStep.Feature.LAKES, ModWorldGenerators.SPRING);
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModWorldGenerators.BUSHES);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, deep ? ModWorldGenerators.DEEP_ROOF_TREES : ModWorldGenerators.ROOF_TREES);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, deep ? ModWorldGenerators.DEEP_FOREST_TREES : ModWorldGenerators.FOREST_TREES);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.PATCH_GRASS_TAIGA);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.PATCH_TALL_GRASS);
-		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModWorldGenerators.BUSHES);
 		if (deep) {
 			builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.PATCH_TALL_GRASS_2);
 			DefaultBiomeFeatures.addLargeFerns(builder);
