@@ -33,10 +33,12 @@ public class ModParticles {
 		public static final ParticleTextureSheet GLOWING = new ParticleTextureSheet() {
 			@Override
 			public void begin(BufferBuilder bufferBuilder, TextureManager textureManager) {
+				MinecraftClient.getInstance().gameRenderer.getLightmapTextureManager().enable();
+				RenderSystem.enableDepthTest();
 				RenderSystem.depthMask(false);
 				RenderSystem.enableBlend();
 				RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
-				textureManager.bindTexture(SpriteAtlasTexture.PARTICLE_ATLAS_TEXTURE);
+				RenderSystem.setShaderTexture(0, SpriteAtlasTexture.PARTICLE_ATLAS_TEXTURE);
 				AbstractTexture tex = textureManager.getTexture(SpriteAtlasTexture.PARTICLE_ATLAS_TEXTURE);
 				tex.setFilter(true, false);
 				bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR_LIGHT);

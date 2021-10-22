@@ -15,7 +15,6 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.Arm;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
@@ -42,14 +41,15 @@ public class ElderAylythianEntity extends HostileEntity implements IAnimatable {
 	public static DefaultAttributeContainer.Builder createAttributes() {
 		return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 100).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 13).add(EntityAttributes.GENERIC_ARMOR, 6).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32);
 	}
-
+	
 	private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
 		float limbSwingAmount = Math.abs(event.getLimbSwingAmount());
 		AnimationBuilder builder = new AnimationBuilder();
 		if (limbSwingAmount > 0.01F) {
 			if (limbSwingAmount > 0.6F) {
 				builder.addAnimation("run", true);
-			} else {
+			}
+			else {
 				builder.addAnimation("walk", true);
 			}
 		}
@@ -59,7 +59,7 @@ public class ElderAylythianEntity extends HostileEntity implements IAnimatable {
 		event.getController().setAnimation(builder);
 		return PlayState.CONTINUE;
 	}
-
+	
 	private <E extends IAnimatable> PlayState armPredicate(AnimationEvent<E> event) {
 		AnimationBuilder builder = new AnimationBuilder();
 		if (handSwingTicks > 0 && !isDead()) {
@@ -68,7 +68,7 @@ public class ElderAylythianEntity extends HostileEntity implements IAnimatable {
 		}
 		return PlayState.STOP;
 	}
-
+	
 	@Override
 	public void registerControllers(AnimationData animationData) {
 		animationData.addAnimationController(new AnimationController<>(this, "controller", 10, this::predicate));
@@ -99,7 +99,7 @@ public class ElderAylythianEntity extends HostileEntity implements IAnimatable {
 			int xOffset = Math.sin(bodyYaw * 0.017453292F) > 0 ? 1 : -1;
 			int zOffset = Math.cos(bodyYaw * 0.017453292F) > 0 ? 1 : -1;
 			BlockPos[] checkPoses = {getBlockPos(), getBlockPos().add(xOffset, 0, 0), getBlockPos().add(0, 0, zOffset), getBlockPos().add(xOffset, 0, zOffset)};
-			for(BlockPos checkPos : checkPoses) {
+			for (BlockPos checkPos : checkPoses) {
 				if (world.getBlockState(checkPos).getMaterial().isReplaceable() && ModBlocks.YMPE_SAPLING.getDefaultState().canPlaceAt(world, checkPos)) {
 					world.setBlockState(checkPos, ModBlocks.YMPE_SAPLING.getDefaultState());
 				}
