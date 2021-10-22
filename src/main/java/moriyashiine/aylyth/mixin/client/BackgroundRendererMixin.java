@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class BackgroundRendererMixin {
 	@Inject(method = "applyFog", at = @At("HEAD"), cancellable = true)
 	private static void applyFog(Camera camera, BackgroundRenderer.FogType fogType, float viewDistance, boolean thickFog, CallbackInfo ci) {
-		if (AylythDimensionRenderer.aylythDepth > 0) {
+		if (AylythDimensionRenderer.goalFogStrength > 0) {
 			AylythDimensionRenderer.renderFog();
 			ci.cancel();
 		}
