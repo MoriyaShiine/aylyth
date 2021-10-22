@@ -16,6 +16,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Arm;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
@@ -23,6 +24,7 @@ import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
+import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
@@ -40,17 +42,16 @@ public class ElderAylythianEntity extends HostileEntity implements IAnimatable {
 	public static DefaultAttributeContainer.Builder createAttributes() {
 		return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 100).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 13).add(EntityAttributes.GENERIC_ARMOR, 6).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32);
 	}
-	
+
 	private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
 		float limbSwingAmount = Math.abs(event.getLimbSwingAmount());
 		AnimationBuilder builder = new AnimationBuilder();
 		if (limbSwingAmount > 0.01F) {
-			MoveState state = limbSwingAmount > 0.3F ? limbSwingAmount > 0.6F ? MoveState.RUN : MoveState.WALK : MoveState.STALK;
-			builder = switch (state) {
-				case RUN -> builder.addAnimation("run", true);
-				case WALK -> builder.addAnimation("walk", true);
-				case STALK -> builder.addAnimation("stalk", true);
-			};
+			if (limbSwingAmount > 0.6F) {
+				builder.addAnimation("run", true);
+			} else {
+				builder.addAnimation("walk", true);
+			}
 		}
 		else {
 			builder.addAnimation("idle", true);
@@ -58,20 +59,20 @@ public class ElderAylythianEntity extends HostileEntity implements IAnimatable {
 		event.getController().setAnimation(builder);
 		return PlayState.CONTINUE;
 	}
-	
+
 	private <E extends IAnimatable> PlayState armPredicate(AnimationEvent<E> event) {
 		AnimationBuilder builder = new AnimationBuilder();
 		if (handSwingTicks > 0 && !isDead()) {
-			event.getController().setAnimation(builder.addAnimation(getMainArm() == Arm.RIGHT ? "clawswipe_right" : "clawswipe_left", true));
+			event.getController().setAnimation(builder.addAnimation("clawswipe", true));
 			return PlayState.CONTINUE;
 		}
 		return PlayState.STOP;
 	}
-	
+
 	@Override
 	public void registerControllers(AnimationData animationData) {
-		//animationData.addAnimationController(new AnimationController<>(this, "controller", 10, this::predicate));
-		//animationData.addAnimationController(new AnimationController<>(this, "arms", 0, this::armPredicate));
+		animationData.addAnimationController(new AnimationController<>(this, "controller", 10, this::predicate));
+		animationData.addAnimationController(new AnimationController<>(this, "arms", 0, this::armPredicate));
 	}
 	
 	@Override
@@ -96,7 +97,14 @@ public class ElderAylythianEntity extends HostileEntity implements IAnimatable {
 		super.onDeath(source);
 		if (!world.isClient) {
 			//todo place 2x2 centered on bounding box
-			world.setBlockState(getBlockPos(), ModBlocks.YMPE_SAPLING.getDefaultState());
+			int xOffset = Math.sin(bodyYaw) > 0 ? 1 : -1;
+			int zOffset = Math.cos(bodyYaw) > 0 ? 1 : -1;
+			BlockPos[] checkPoses = {getBlockPos(), getBlockPos().add(xOffset, 0, 0), getBlockPos().add(0, 0, zOffset), getBlockPos().add(xOffset, 0, zOffset)};
+			for(BlockPos checkPos : checkPoses) {
+				if (world.getBlockState(checkPos).getMaterial().isReplaceable() && ModBlocks.YMPE_SAPLING.getDefaultState().canPlaceAt(world, checkPos)) {
+					world.setBlockState(checkPos, ModBlocks.YMPE_SAPLING.getDefaultState());
+				}
+			}
 			playSound(SoundEvents.BLOCK_GRASS_PLACE, getSoundVolume(), getSoundPitch());
 		}
 	}
@@ -145,9 +153,5 @@ public class ElderAylythianEntity extends HostileEntity implements IAnimatable {
 	public void writeCustomDataToNbt(NbtCompound nbt) {
 		super.writeCustomDataToNbt(nbt);
 		nbt.putInt("Variant", dataTracker.get(VARIANT));
-	}
-	
-	enum MoveState {
-		WALK, RUN, STALK
 	}
 }
