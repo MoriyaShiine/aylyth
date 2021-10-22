@@ -15,7 +15,7 @@ import net.minecraft.util.registry.Registry;
 public class ModEntityTypes {
 	public static final EntityType<PilotLightEntity> PILOT_LIGHT = FabricEntityTypeBuilder.create(SpawnGroup.AMBIENT, PilotLightEntity::new).dimensions(EntityDimensions.fixed(0.5F, 0.5F)).build();
 	public static final EntityType<AylythianEntity> AYLYTHIAN = FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, AylythianEntity::new).dimensions(EntityDimensions.fixed(0.6F, 2.3F)).build();
-	public static final EntityType<ElderAylythianEntity> ELDER_AYLYTHIAN = FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, ElderAylythianEntity::new).dimensions(EntityDimensions.fixed(0.6F, 2.3F)).build();
+	public static final EntityType<ElderAylythianEntity> ELDER_AYLYTHIAN = FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, ElderAylythianEntity::new).dimensions(EntityDimensions.fixed(1.4F, 2.3F)).build();
 	
 	public static void init() {
 		FabricDefaultAttributeRegistry.register(PILOT_LIGHT, PilotLightEntity.createAttributes());
