@@ -22,7 +22,6 @@ public class BushFeature extends Feature<DefaultFeatureConfig> {
 		Random random = context.getRandom();
 		StructureWorldAccess structureWorldAccess = context.getWorld();
 		BlockPos blockPos = structureWorldAccess.getTopPosition(Heightmap.Type.WORLD_SURFACE_WG, context.getOrigin());
-		System.out.println(blockPos);
 		int clusters = 2 + random.nextInt(2);
 		for (int i = 0; i < clusters; ++i) {
 			int j = random.nextInt(2);
