@@ -1,10 +1,11 @@
 package moriyashiine.aylyth.common.item;
 
+import moriyashiine.aylyth.common.registry.ModComponents;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
@@ -38,13 +39,13 @@ public class ShuckedYmpeFruitItem extends Item {
 			if (!world.isClient) {
 				NbtCompound entityCompound = stack.getNbt().getCompound("StoredEntity");
 				BlockPos pos = context.getBlockPos().offset(context.getSide());
-				LivingEntity entity = (LivingEntity) Registry.ENTITY_TYPE.get(new Identifier(entityCompound.getString("id"))).create((ServerWorld) world, null, null, null, pos, SpawnReason.SPAWN_EGG, true, false);
-				if (entity != null) {
-					double x = entity.getX(), y = entity.getY(), z = entity.getZ();
-					entity.readNbt(entityCompound);
-					entity.setUuid(UUID.randomUUID());
-					entity.teleport(x, y, z);
-					world.spawnEntity(entity);
+				if (Registry.ENTITY_TYPE.get(new Identifier(entityCompound.getString("id"))).create((ServerWorld) world, null, null, null, pos, SpawnReason.SPAWN_EGG, true, false) instanceof MobEntity mob) {
+					double x = mob.getX(), y = mob.getY(), z = mob.getZ();
+					mob.readNbt(entityCompound);
+					mob.setUuid(UUID.randomUUID());
+					mob.teleport(x, y, z);
+					ModComponents.PREVENT_DROPS.get(mob).setPreventsDrops(false);
+					world.spawnEntity(mob);
 					world.playSound(null, pos, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 1, 1);
 					if (context.getPlayer() == null || !context.getPlayer().isCreative()) {
 						stack.decrement(1);

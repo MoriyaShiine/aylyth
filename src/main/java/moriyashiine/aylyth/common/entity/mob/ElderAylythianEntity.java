@@ -93,8 +93,8 @@ public class ElderAylythianEntity extends HostileEntity implements IAnimatable {
 	}
 	
 	@Override
-	public void onDeath(DamageSource source) {
-		super.onDeath(source);
+	protected void dropEquipment(DamageSource source, int lootingMultiplier, boolean allowDrops) {
+		super.dropEquipment(source, lootingMultiplier, allowDrops);
 		if (!world.isClient) {
 			int xOffset = Math.sin(bodyYaw * 0.017453292F) > 0 ? 1 : -1;
 			int zOffset = Math.cos(bodyYaw * 0.017453292F) > 0 ? 1 : -1;
@@ -106,11 +106,6 @@ public class ElderAylythianEntity extends HostileEntity implements IAnimatable {
 			}
 			playSound(SoundEvents.BLOCK_GRASS_PLACE, getSoundVolume(), getSoundPitch());
 		}
-	}
-	
-	@Override
-	protected void dropEquipment(DamageSource source, int lootingMultiplier, boolean allowDrops) {
-		super.dropEquipment(source, lootingMultiplier, allowDrops);
 		ItemEntity item = dropItem(ModItems.AYLYTHIAN_HEART);
 		if (item != null) {
 			item.setCovetedItem();

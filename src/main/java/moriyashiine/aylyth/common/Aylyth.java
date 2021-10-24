@@ -13,7 +13,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Hand;
@@ -41,7 +41,7 @@ public class Aylyth implements ModInitializer {
 		ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register((world, entity, killedEntity) -> {
 			if (entity instanceof LivingEntity living && living.getMainHandStack().isOf(ModItems.YMPE_DAGGER)) {
 				boolean shucked = false;
-				if (!(killedEntity instanceof PlayerEntity)) {
+				if (killedEntity instanceof MobEntity mob) {
 					ItemStack offhand = living.getOffHandStack();
 					if (offhand.isOf(ModItems.SHUCKED_YMPE_FRUIT)) {
 						if (!offhand.hasNbt() || !offhand.getNbt().contains("StoredEntity")) {
@@ -52,6 +52,7 @@ public class Aylyth implements ModInitializer {
 							killedEntity.setVelocity(Vec3d.ZERO);
 							killedEntity.fallDistance = 0;
 							killedEntity.knockbackVelocity = 0;
+							ModComponents.PREVENT_DROPS.get(mob).setPreventsDrops(true);
 							PlayerLookup.tracking(killedEntity).forEach(trackingPlayer -> SpawnShuckParticlesPacket.send(trackingPlayer, killedEntity));
 							world.playSound(null, killedEntity.getBlockPos(), ModSoundEvents.ENTITY_GENERIC_SHUCKED, killedEntity.getSoundCategory(), 1, killedEntity.getSoundPitch());
 							NbtCompound entityCompound = new NbtCompound();

@@ -25,6 +25,9 @@
 	"client": [
 	  "moriyashiine.aylyth.client.AylythClient"
 	],
+	"cardinal-components-entity": [
+	  "moriyashiine.aylyth.common.registry.ModComponents"
+	],
 	"rei_plugins": [
 	  "moriyashiine.aylyth.client.integration.rei.ModREIPlugin"
 	]
@@ -38,5 +41,10 @@
 	"minecraft": "1.17.x",
 	"geckolib3": "*",
 	"java": ">=16"
+  },
+  "custom": {
+	"cardinal-components": [
+	  "aylyth:prevent_drops"
+	]
   }
 }
