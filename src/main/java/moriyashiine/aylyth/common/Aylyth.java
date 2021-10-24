@@ -4,7 +4,6 @@ import moriyashiine.aylyth.client.network.packet.SpawnShuckParticlesPacket;
 import moriyashiine.aylyth.common.recipe.YmpeDaggerDropRecipe;
 import moriyashiine.aylyth.common.registry.*;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
 import net.fabricmc.fabric.api.entity.event.v1.ServerEntityCombatEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
@@ -17,10 +16,9 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.TeleportTarget;
 import software.bernie.geckolib3.GeckoLib;
 
 public class Aylyth implements ModInitializer {
@@ -78,16 +76,18 @@ public class Aylyth implements ModInitializer {
 			}
 		});
 		ServerPlayerEvents.ALLOW_DEATH.register((player, damageSource, damageAmount) -> {
-			if (player.getOffHandStack().isOf(ModItems.AYLYTHIAN_HEART) && player.world.getRegistryKey() != ModDimensions.AYLYTH) {
-				ServerWorld toWorld = player.world.getServer().getWorld(ModDimensions.AYLYTH);
-				FabricDimensions.teleport(player, toWorld, new TeleportTarget(Vec3d.of(AylythUtil.getSafePosition(toWorld, player.getBlockPos().mutableCopy(), 0)), Vec3d.ZERO, player.headYaw, player.getPitch()));
-				player.setHealth(player.getMaxHealth() / 2);
-				player.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 200));
-				player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 200));
-				if (!player.isCreative()) {
-					player.getOffHandStack().decrement(1);
+			for (Hand hand : Hand.values()) {
+				ItemStack stack = player.getStackInHand(hand);
+				if (stack.isOf(ModItems.AYLYTHIAN_HEART) && player.world.getRegistryKey() != ModDimensions.AYLYTH) {
+					AylythUtil.teleportToAylyth(player);
+					player.setHealth(player.getMaxHealth() / 2);
+					player.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 200));
+					player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 200));
+					if (!player.isCreative()) {
+						stack.decrement(1);
+					}
+					return false;
 				}
-				return false;
 			}
 			return true;
 		});
