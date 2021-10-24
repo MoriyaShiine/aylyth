@@ -2,8 +2,7 @@
   "credit": "Made with Blockbench",
   "parent": "aylyth:block/seep_log_bottom",
   "textures": {
-	"1": "aylyth:block/ympe_log_side",
-	"2": "aylyth:block/ympe_log_top",
-	"particle": "aylyth:block/ympe_log_side"
+	"end": "aylyth:block/ympe_log_top",
+	"side": "aylyth:block/ympe_log"
   }
 }

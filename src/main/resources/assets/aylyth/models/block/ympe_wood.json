@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/cube_column",
   "textures": {
-	"end": "aylyth:block/ympe_log_side",
-	"side": "aylyth:block/ympe_log_side"
+	"end": "aylyth:block/ympe_log",
+	"side": "aylyth:block/ympe_log"
   }
 }
