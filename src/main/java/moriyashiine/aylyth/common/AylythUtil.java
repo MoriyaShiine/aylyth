@@ -14,8 +14,10 @@ import net.minecraft.world.TeleportTarget;
 import net.minecraft.world.World;
 
 public class AylythUtil {
+	public static final int MAX_TRIES = 8;
+	
 	public static BlockPos getSafePosition(World world, BlockPos.Mutable pos, int tries) {
-		if (tries >= 8) {
+		if (tries >= MAX_TRIES) {
 			return ((ServerWorld) world).getSpawnPos();
 		}
 		pos.setY(world.getTopY() - 1);
@@ -31,10 +33,10 @@ public class AylythUtil {
 		return getSafePosition(world, pos.set(MathHelper.nextInt(world.random, pos.getX() - 32, pos.getX() + 32) + 0.5, world.getTopY() - 1, MathHelper.nextInt(world.random, pos.getZ() - 32, pos.getZ() + 32) + 0.5), ++tries);
 	}
 	
-	public static void teleportTo(RegistryKey<World> world, LivingEntity living) {
+	public static void teleportTo(RegistryKey<World> world, LivingEntity living, int tries) {
 		living.world.playSoundFromEntity(living instanceof PlayerEntity player ? player : null, living, ModSoundEvents.ENTITY_GENERIC_SHUCKED, SoundCategory.PLAYERS, 1, living.getSoundPitch());
 		ServerWorld toWorld = living.world.getServer().getWorld(world);
-		FabricDimensions.teleport(living, toWorld, new TeleportTarget(Vec3d.of(AylythUtil.getSafePosition(toWorld, living.getBlockPos().mutableCopy(), 0)), Vec3d.ZERO, living.headYaw, living.getPitch()));
+		FabricDimensions.teleport(living, toWorld, new TeleportTarget(Vec3d.of(AylythUtil.getSafePosition(toWorld, living.getBlockPos().mutableCopy(), tries)), Vec3d.ZERO, living.headYaw, living.getPitch()));
 		toWorld.playSoundFromEntity(null, living, ModSoundEvents.ENTITY_GENERIC_SHUCKED, SoundCategory.PLAYERS, 1, living.getSoundPitch());
 	}
 }

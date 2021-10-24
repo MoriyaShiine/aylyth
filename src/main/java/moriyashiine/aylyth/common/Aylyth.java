@@ -130,7 +130,7 @@ public class Aylyth implements ModInitializer {
 				toWorld = World.NETHER;
 			}
 			if (toWorld != null) {
-				AylythUtil.teleportTo(toWorld, player);
+				AylythUtil.teleportTo(toWorld, player, toWorld == World.NETHER ? AylythUtil.MAX_TRIES : 0);
 				player.setHealth(player.getMaxHealth() / 2);
 				player.clearStatusEffects();
 				player.extinguish();

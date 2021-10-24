@@ -33,7 +33,7 @@ public class AylythianHeartItem extends Item {
 	public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
 		if (!world.isClient && user instanceof PlayerEntity player && world.getRegistryKey() != ModDimensions.AYLYTH) {
 			if (player.isCreative() || player.experienceLevel >= 5) {
-				AylythUtil.teleportTo(ModDimensions.AYLYTH, player);
+				AylythUtil.teleportTo(ModDimensions.AYLYTH, player, 0);
 				if (!player.isCreative()) {
 					player.addExperience(-55);
 					stack.decrement(1);
