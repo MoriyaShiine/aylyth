@@ -99,5 +99,6 @@ public class ModBlocks {
 		flammableRegistry.add(YMPE_SLAB, 5, 20);
 		flammableRegistry.add(YMPE_FENCE, 5, 20);
 		flammableRegistry.add(YMPE_FENCE_GATE, 5, 20);
+		flammableRegistry.add(AYLYTH_BUSH, 60, 100);
 	}
 }

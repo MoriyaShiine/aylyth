@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+	"aylyth:aylyth_bush",
 	"aylyth:oak_seep",
 	"aylyth:spruce_seep",
 	"aylyth:dark_oak_seep",
