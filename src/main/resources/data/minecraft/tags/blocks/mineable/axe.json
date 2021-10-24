@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
-	"aylyth:oak_seep"
+	"aylyth:oak_seep",
+	"aylyth:spruce_seep",
+	"aylyth:dark_oak_seep",
+	"aylyth:ympe_seep"
   ]
 }

@@ -59,8 +59,8 @@ public class ModBlocks {
 	public static final Block AYLYTH_BUSH = new BushBlock();
 	
 	public static final Block OAK_SEEP = new SeepBlock(Blocks.OAK_LOG);
-	public static final Block DARK_OAK_SEEP = new SeepBlock(Blocks.DARK_OAK_LOG);
 	public static final Block SPRUCE_SEEP = new SeepBlock(Blocks.SPRUCE_LOG);
+	public static final Block DARK_OAK_SEEP = new SeepBlock(Blocks.DARK_OAK_LOG);
 	public static final Block YMPE_SEEP = new SeepBlock(YMPE_LOG);
 	
 	public static void init() {
@@ -85,8 +85,8 @@ public class ModBlocks {
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "ympe_wall_sign"), YMPE_WALL_SIGN);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "aylyth_bush"), AYLYTH_BUSH);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "oak_seep"), OAK_SEEP);
-		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "dark_oak_seep"), DARK_OAK_SEEP);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "spruce_seep"), SPRUCE_SEEP);
+		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "dark_oak_seep"), DARK_OAK_SEEP);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "ympe_seep"), YMPE_SEEP);
 		FlammableBlockRegistry flammableRegistry = FlammableBlockRegistry.getDefaultInstance();
 		flammableRegistry.add(STRIPPED_YMPE_LOG, 5, 5);

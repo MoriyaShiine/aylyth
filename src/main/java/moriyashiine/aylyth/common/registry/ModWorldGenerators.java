@@ -1,7 +1,6 @@
 package moriyashiine.aylyth.common.registry;
 
 import com.google.common.collect.ImmutableList;
-import dev.architectury.registry.level.biome.BiomeModifications;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.world.dimension.AylythBiomeSource;
 import moriyashiine.aylyth.common.world.generator.AylthianTrunkPlacer;
@@ -11,6 +10,10 @@ import moriyashiine.aylyth.common.world.generator.feature.BushFeature;
 import moriyashiine.aylyth.common.world.generator.feature.SeepFeature;
 import moriyashiine.aylyth.common.world.generator.feature.SpringFeature;
 import moriyashiine.aylyth.mixin.TrunkPlacerTypeAccessor;
+import net.fabricmc.fabric.api.biome.v1.BiomeModification;
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.Identifier;
@@ -62,8 +65,8 @@ public class ModWorldGenerators extends DefaultBiomeFeatures {
 	public static final ConfiguredFeature<?, ?> BUSHES = BUSH_FEATURE.configure(FeatureConfig.DEFAULT).decorate(Decorators.FOLIAGE_PLACEMENT).applyChance(2).repeatRandomly(5);
 	
 	public static final ConfiguredFeature<?, ?> OAK_SEEP = SEEP_FEATURE.configure(new SeepFeature.SeepFeatureConfig(Blocks.OAK_LOG.getDefaultState(), ModBlocks.OAK_SEEP.getDefaultState())).spreadHorizontally().applyChance(10).repeatRandomly(4);
-	public static final ConfiguredFeature<?, ?> DARK_OAK_SEEP = SEEP_FEATURE.configure(new SeepFeature.SeepFeatureConfig(Blocks.DARK_OAK_LOG.getDefaultState(), ModBlocks.DARK_OAK_SEEP.getDefaultState())).spreadHorizontally().applyChance(12).repeatRandomly(2);
 	public static final ConfiguredFeature<?, ?> SPRUCE_SEEP = SEEP_FEATURE.configure(new SeepFeature.SeepFeatureConfig(Blocks.SPRUCE_LOG.getDefaultState(), ModBlocks.SPRUCE_SEEP.getDefaultState())).spreadHorizontally().applyChance(12).repeatRandomly(2);
+	public static final ConfiguredFeature<?, ?> DARK_OAK_SEEP = SEEP_FEATURE.configure(new SeepFeature.SeepFeatureConfig(Blocks.DARK_OAK_LOG.getDefaultState(), ModBlocks.DARK_OAK_SEEP.getDefaultState())).spreadHorizontally().applyChance(12).repeatRandomly(2);
 	public static final ConfiguredFeature<?, ?> YMPE_SEEP = SEEP_FEATURE.configure(new SeepFeature.SeepFeatureConfig(ModBlocks.YMPE_LOG.getDefaultState(), ModBlocks.YMPE_SEEP.getDefaultState())).spreadHorizontally().applyChance(4).repeatRandomly(4);
 	
 	//public static final ConfiguredFeature<?, ?> CLEARING_FLOWERS = todo flower generators
@@ -92,11 +95,10 @@ public class ModWorldGenerators extends DefaultBiomeFeatures {
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(Aylyth.MOD_ID, "ympe_seep"), YMPE_SEEP);
 		Registry.register(Registry.BIOME_SOURCE, new Identifier(Aylyth.MOD_ID, "aylyth_biome_provider"), AylythBiomeSource.CODEC);
 		
-		BiomeModifications.addProperties(biomeContext -> biomeContext.getProperties().getCategory() == Biome.Category.FOREST, (biomeContext, mutable) -> {
-			mutable.getGenerationProperties().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, OAK_SEEP);
-			mutable.getGenerationProperties().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, DARK_OAK_SEEP);
-			mutable.getGenerationProperties().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, SPRUCE_SEEP);
-		});
+		BiomeModification worldGen = BiomeModifications.create(new Identifier(Aylyth.MOD_ID, "world_features"));
+		worldGen.add(ModificationPhase.ADDITIONS, BiomeSelectors.categories(Biome.Category.FOREST, Biome.Category.TAIGA), context -> context.getGenerationSettings().addBuiltInFeature(GenerationStep.Feature.VEGETAL_DECORATION, OAK_SEEP));
+		worldGen.add(ModificationPhase.ADDITIONS, BiomeSelectors.categories(Biome.Category.FOREST, Biome.Category.TAIGA), context -> context.getGenerationSettings().addBuiltInFeature(GenerationStep.Feature.VEGETAL_DECORATION, SPRUCE_SEEP));
+		worldGen.add(ModificationPhase.ADDITIONS, BiomeSelectors.categories(Biome.Category.FOREST, Biome.Category.TAIGA), context -> context.getGenerationSettings().addBuiltInFeature(GenerationStep.Feature.VEGETAL_DECORATION, DARK_OAK_SEEP));
 	}
 	
 	static class Decorators {
