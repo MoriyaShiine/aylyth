@@ -11,14 +11,19 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.WitchEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemScatterer;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.biome.Biome;
 import software.bernie.geckolib3.GeckoLib;
 
 public class Aylyth implements ModInitializer {
@@ -77,20 +82,73 @@ public class Aylyth implements ModInitializer {
 			}
 		});
 		ServerPlayerEvents.ALLOW_DEATH.register((player, damageSource, damageAmount) -> {
-			for (Hand hand : Hand.values()) {
-				ItemStack stack = player.getStackInHand(hand);
-				if (stack.isOf(ModItems.AYLYTHIAN_HEART) && player.world.getRegistryKey() != ModDimensions.AYLYTH) {
-					AylythUtil.teleportToAylyth(player);
-					player.setHealth(player.getMaxHealth() / 2);
-					player.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 200));
-					player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 200));
-					if (!player.isCreative()) {
-						stack.decrement(1);
-					}
-					return false;
+			if (damageSource.isOutOfWorld()) {
+				return true;
+			}
+			boolean teleport = false;
+			if (player.world.getRegistryKey() != ModDimensions.AYLYTH) {
+				float chance = 0;
+				switch (player.world.getDifficulty()) {
+					case EASY -> chance = 0.1f;
+					case NORMAL -> chance = 0.2f;
+					case HARD -> chance = 0.3f;
 				}
+				if (player.getRandom().nextFloat() <= chance) {
+					if (damageSource.getAttacker() instanceof WitchEntity) {
+						teleport = true;
+					}
+					if (!teleport) {
+						Biome.Category category = player.world.getBiome(player.getBlockPos()).getCategory();
+						if (category == Biome.Category.TAIGA || category == Biome.Category.FOREST) {
+							if (damageSource.isFromFalling() || damageSource == DamageSource.DROWN) {
+								teleport = true;
+							}
+						}
+					}
+					teleport |= isNearSeep(player);
+				}
+				if (!teleport) {
+					for (Hand hand : Hand.values()) {
+						ItemStack stack = player.getStackInHand(hand);
+						if (stack.isOf(ModItems.AYLYTHIAN_HEART)) {
+							teleport = true;
+							if (!player.isCreative()) {
+								stack.decrement(1);
+							}
+							break;
+						}
+					}
+				}
+			}
+			if (teleport) {
+				AylythUtil.teleportToAylyth(player);
+				player.setHealth(player.getMaxHealth() / 2);
+				player.clearStatusEffects();
+				player.extinguish();
+				player.setFrozenTicks(0);
+				player.setVelocity(Vec3d.ZERO);
+				player.fallDistance = 0;
+				player.knockbackVelocity = 0;
+				player.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 200));
+				player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 200));
+				return false;
 			}
 			return true;
 		});
+	}
+	
+	private static boolean isNearSeep(PlayerEntity player) {
+		BlockPos.Mutable mutable = new BlockPos.Mutable();
+		int radius = 8;
+		for (int x = -radius; x <= radius; x++) {
+			for (int y = -radius; y <= radius; y++) {
+				for (int z = -radius; z <= radius; z++) {
+					if (ModTags.SEEPS.contains(player.world.getBlockState(mutable.set(player.getX() + x, player.getY() + y, player.getZ() + z)).getBlock())) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
 	}
 }
