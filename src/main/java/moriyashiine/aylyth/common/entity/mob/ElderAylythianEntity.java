@@ -93,6 +93,14 @@ public class ElderAylythianEntity extends HostileEntity implements IAnimatable {
 	}
 	
 	@Override
+	public void setTarget(@Nullable LivingEntity target) {
+		if (AylythianEntity.isTargetInBush(target)) {
+			target = null;
+		}
+		super.setTarget(target);
+	}
+	
+	@Override
 	protected void dropEquipment(DamageSource source, int lootingMultiplier, boolean allowDrops) {
 		super.dropEquipment(source, lootingMultiplier, allowDrops);
 		if (!world.isClient) {

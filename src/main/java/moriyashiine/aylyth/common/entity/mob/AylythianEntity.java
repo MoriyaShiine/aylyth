@@ -2,6 +2,7 @@ package moriyashiine.aylyth.common.entity.mob;
 
 import moriyashiine.aylyth.common.registry.ModBlocks;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -12,6 +13,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Arm;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -84,6 +86,14 @@ public class AylythianEntity extends HostileEntity implements IAnimatable {
 	}
 	
 	@Override
+	public void setTarget(@Nullable LivingEntity target) {
+		if (isTargetInBush(target)) {
+			target = null;
+		}
+		super.setTarget(target);
+	}
+	
+	@Override
 	protected void dropEquipment(DamageSource source, int lootingMultiplier, boolean allowDrops) {
 		super.dropEquipment(source, lootingMultiplier, allowDrops);
 		if (!world.isClient && world.getBlockState(getBlockPos()).getMaterial().isReplaceable() && ModBlocks.YMPE_SAPLING.getDefaultState().canPlaceAt(world, getBlockPos())) {
@@ -102,6 +112,18 @@ public class AylythianEntity extends HostileEntity implements IAnimatable {
 		goalSelector.add(3, new LookAroundGoal(this));
 		targetSelector.add(0, new RevengeGoal(this));
 		targetSelector.add(1, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
+	}
+	
+	public static boolean isTargetInBush(LivingEntity target) {
+		if (target != null && target.isSneaking()) {
+			for (int i = 0; i <= target.getHeight(); i++) {
+				if (target.world.getBlockState(target.getBlockPos().up(i)).getBlock() != ModBlocks.AYLYTH_BUSH) {
+					return false;
+				}
+			}
+			return true;
+		}
+		return false;
 	}
 	
 	enum MoveState {
