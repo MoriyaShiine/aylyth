@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.mixin.client;
 
-import moriyashiine.aylyth.client.renderer.AylythDimensionRenderer;
+import moriyashiine.aylyth.client.render.AylythDimensionRenderer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
@@ -15,8 +15,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(WorldRenderer.class)
 @Environment(EnvType.CLIENT)
+@Mixin(WorldRenderer.class)
 public class WorldRendererMixin {
 	@Shadow
 	private ClientWorld world;

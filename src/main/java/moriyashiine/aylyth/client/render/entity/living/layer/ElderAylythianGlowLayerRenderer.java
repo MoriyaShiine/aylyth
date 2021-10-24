@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.client.renderer.entity.living.layer;
+package moriyashiine.aylyth.client.render.entity.living.layer;
 
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.entity.mob.ElderAylythianEntity;

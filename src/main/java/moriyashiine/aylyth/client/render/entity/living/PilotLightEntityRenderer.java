@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.client.renderer.entity.living;
+package moriyashiine.aylyth.client.render.entity.living;
 
 import moriyashiine.aylyth.common.entity.passive.PilotLightEntity;
 import net.fabricmc.api.EnvType;

@@ -13,6 +13,7 @@
   "client": [
 	"client.BackgroundRendererMixin",
 	"client.ParticleManagerMixin",
+	"client.PlayerEntityRendererMixin",
 	"client.WorldRendererMixin"
   ],
   "injectors": {

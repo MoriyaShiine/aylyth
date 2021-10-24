@@ -1,7 +1,7 @@
-package moriyashiine.aylyth.client.renderer.entity.living;
+package moriyashiine.aylyth.client.render.entity.living;
 
 import moriyashiine.aylyth.client.model.entity.AylythianEntityModel;
-import moriyashiine.aylyth.client.renderer.entity.living.layer.AylythianGlowLayerRenderer;
+import moriyashiine.aylyth.client.render.entity.living.layer.AylythianGlowLayerRenderer;
 import moriyashiine.aylyth.common.entity.mob.AylythianEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.client.renderer.block;
+package moriyashiine.aylyth.client.render.block;
 
 import moriyashiine.aylyth.common.block.entity.SeepBlockEntity;
 import net.fabricmc.api.EnvType;

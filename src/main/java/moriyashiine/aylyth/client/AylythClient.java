@@ -2,12 +2,13 @@ package moriyashiine.aylyth.client;
 
 import com.terraformersmc.terraform.boat.api.client.TerraformBoatClientHelper;
 import com.terraformersmc.terraform.sign.SpriteIdentifierRegistry;
+import moriyashiine.aylyth.client.model.YmpeInfestationModel;
 import moriyashiine.aylyth.client.network.packet.SpawnShuckParticlesPacket;
 import moriyashiine.aylyth.client.particle.PilotLightParticle;
-import moriyashiine.aylyth.client.renderer.block.SeepBlockEntityRenderer;
-import moriyashiine.aylyth.client.renderer.entity.living.AylythianEntityRenderer;
-import moriyashiine.aylyth.client.renderer.entity.living.ElderAylythianEntityRenderer;
-import moriyashiine.aylyth.client.renderer.entity.living.PilotLightEntityRenderer;
+import moriyashiine.aylyth.client.render.block.SeepBlockEntityRenderer;
+import moriyashiine.aylyth.client.render.entity.living.AylythianEntityRenderer;
+import moriyashiine.aylyth.client.render.entity.living.ElderAylythianEntityRenderer;
+import moriyashiine.aylyth.client.render.entity.living.PilotLightEntityRenderer;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.registry.*;
 import net.fabricmc.api.ClientModInitializer;
@@ -18,6 +19,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.client.model.FabricModelPredicateProviderRegistry;
 import net.minecraft.block.BlockState;
@@ -26,12 +28,15 @@ import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.color.world.FoliageColors;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.TexturedRenderLayers;
+import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.item.BlockItem;
 import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
 public class AylythClient implements ClientModInitializer {
+	public static final EntityModelLayer YMPE_INFESTATION_MODEL_LAYER = new EntityModelLayer(new Identifier(Aylyth.MOD_ID, "ympe_infestation"), "main");
+	
 	@Override
 	public void onInitializeClient() {
 		ClientPlayNetworking.registerGlobalReceiver(SpawnShuckParticlesPacket.ID, SpawnShuckParticlesPacket::receive);
@@ -49,6 +54,7 @@ public class AylythClient implements ClientModInitializer {
 		EntityRendererRegistry.register(ModEntityTypes.PILOT_LIGHT, PilotLightEntityRenderer::new);
 		EntityRendererRegistry.register(ModEntityTypes.AYLYTHIAN, AylythianEntityRenderer::new);
 		EntityRendererRegistry.register(ModEntityTypes.ELDER_AYLYTHIAN, ElderAylythianEntityRenderer::new);
+		EntityModelLayerRegistry.registerModelLayer(YMPE_INFESTATION_MODEL_LAYER, YmpeInfestationModel::getTexturedModelData);
 		TerraformBoatClientHelper.registerModelLayer(new Identifier(Aylyth.MOD_ID, "ympe"));
 	}
 }
