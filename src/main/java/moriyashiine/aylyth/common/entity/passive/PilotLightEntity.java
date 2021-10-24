@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.common.entity.mob;
+package moriyashiine.aylyth.common.entity.passive;
 
 import moriyashiine.aylyth.common.registry.ModDimensions;
 import moriyashiine.aylyth.common.registry.ModParticles;

@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.client.renderer.entity.living;
 
-import moriyashiine.aylyth.common.entity.mob.PilotLightEntity;
+import moriyashiine.aylyth.common.entity.passive.PilotLightEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.Frustum;
