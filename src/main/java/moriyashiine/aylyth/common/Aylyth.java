@@ -23,6 +23,8 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import software.bernie.geckolib3.GeckoLib;
 
@@ -85,8 +87,9 @@ public class Aylyth implements ModInitializer {
 			if (damageSource.isOutOfWorld()) {
 				return true;
 			}
-			boolean teleport = false;
+			RegistryKey<World> toWorld = null;
 			if (player.world.getRegistryKey() != ModDimensions.AYLYTH) {
+				boolean teleport = false;
 				float chance = 0;
 				switch (player.world.getDifficulty()) {
 					case EASY -> chance = 0.1f;
@@ -119,9 +122,15 @@ public class Aylyth implements ModInitializer {
 						}
 					}
 				}
+				if (teleport) {
+					toWorld = ModDimensions.AYLYTH;
+				}
 			}
-			if (teleport) {
-				AylythUtil.teleportToAylyth(player);
+			else if (!damageSource.isFire()) {
+				toWorld = World.NETHER;
+			}
+			if (toWorld != null) {
+				AylythUtil.teleportTo(toWorld, player);
 				player.setHealth(player.getMaxHealth() / 2);
 				player.clearStatusEffects();
 				player.extinguish();
