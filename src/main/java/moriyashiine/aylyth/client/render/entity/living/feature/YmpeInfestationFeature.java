@@ -21,14 +21,17 @@ import net.minecraft.util.Identifier;
 public class YmpeInfestationFeature extends FeatureRenderer<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>> {
 	private static final Identifier TEXTURE = new Identifier(Aylyth.MOD_ID, "textures/entity/living/scion_overlay.png");
 	private static final YmpeInfestationModel[] MODELS = new YmpeInfestationModel[5];
-	
-	public YmpeInfestationFeature(FeatureRendererContext<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>> context, EntityModelLoader loader) {
+	private final boolean slim;
+	public YmpeInfestationFeature(FeatureRendererContext<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>> context, EntityModelLoader loader, boolean slim) {
 		super(context);
-		MODELS[0] = new YmpeInfestationModel(loader.getModelPart(AylythClient.YMPE_INFESTATION_STAGE_1_MODEL_LAYER));
-		MODELS[1] = new YmpeInfestationModel(loader.getModelPart(AylythClient.YMPE_INFESTATION_STAGE_2_MODEL_LAYER));
-		MODELS[2] = new YmpeInfestationModel(loader.getModelPart(AylythClient.YMPE_INFESTATION_STAGE_3_MODEL_LAYER));
-		MODELS[3] = new YmpeInfestationModel(loader.getModelPart(AylythClient.YMPE_INFESTATION_STAGE_4_MODEL_LAYER));
-		MODELS[4] = new YmpeInfestationModel(loader.getModelPart(AylythClient.YMPE_INFESTATION_STAGE_5_MODEL_LAYER));
+		this.slim = slim;
+		if (MODELS[0] == null) {
+			MODELS[0] = new YmpeInfestationModel(loader.getModelPart(AylythClient.YMPE_INFESTATION_STAGE_1_MODEL_LAYER));
+			MODELS[1] = new YmpeInfestationModel(loader.getModelPart(AylythClient.YMPE_INFESTATION_STAGE_2_MODEL_LAYER));
+			MODELS[2] = new YmpeInfestationModel(loader.getModelPart(AylythClient.YMPE_INFESTATION_STAGE_3_MODEL_LAYER));
+			MODELS[3] = new YmpeInfestationModel(loader.getModelPart(AylythClient.YMPE_INFESTATION_STAGE_4_MODEL_LAYER));
+			MODELS[4] = new YmpeInfestationModel(loader.getModelPart(AylythClient.YMPE_INFESTATION_STAGE_5_MODEL_LAYER));
+		}
 	}
 	
 	@Override
@@ -37,6 +40,7 @@ public class YmpeInfestationFeature extends FeatureRenderer<AbstractClientPlayer
 		if (stage > 0) {
 			YmpeInfestationModel model = MODELS[Math.min(4, stage - 1)];
 			getContextModel().setAttributes(model);
+			model.adjustArmPivots(slim);
 			model.render(matrices, vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(TEXTURE)), light, OverlayTexture.DEFAULT_UV, 1, 1, 1, 1);
 		}
 	}
