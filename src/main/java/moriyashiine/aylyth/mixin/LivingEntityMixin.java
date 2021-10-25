@@ -28,10 +28,10 @@ public class LivingEntityMixin {
 		if ((LivingEntity) (Object) this instanceof PlayerEntity player && ModTags.YMPE_FOODS.contains(stack.getItem())) {
 			ModComponents.YMPE_INFESTATION.maybeGet(player).ifPresent(ympeInfestationComponent -> {
 				if (ympeInfestationComponent.getStage() > 0) {
-					ympeInfestationComponent.setStage(ympeInfestationComponent.getStage() - 1);
+					ympeInfestationComponent.setStage((byte) (ympeInfestationComponent.getStage() - 1));
 				}
 				else if (ympeInfestationComponent.getInfestationTimer() > 0) {
-					ympeInfestationComponent.setInfestationTimer(0);
+					ympeInfestationComponent.setInfestationTimer((short) 0);
 				}
 			});
 		}

@@ -12,11 +12,11 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 
 public class YmpeInfestationComponent implements AutoSyncedComponent, ServerTickingComponent {
-	private static final int TIME_UNTIL_STAGE_INCREASES = 6000;
+	public static final int TIME_UNTIL_STAGE_INCREASES = 6000;
 	
 	private final PlayerEntity obj;
-	private int stage = 0;
-	private int infestationTimer = 0;
+	private byte stage = 0;
+	private short infestationTimer = 0;
 	
 	public YmpeInfestationComponent(PlayerEntity obj) {
 		this.obj = obj;
@@ -24,14 +24,14 @@ public class YmpeInfestationComponent implements AutoSyncedComponent, ServerTick
 	
 	@Override
 	public void readFromNbt(NbtCompound tag) {
-		setStage(tag.getInt("Stage"));
-		setInfestationTimer(tag.getInt("InfestationTimer"));
+		setStage(tag.getByte("Stage"));
+		setInfestationTimer(tag.getShort("InfestationTimer"));
 	}
 	
 	@Override
 	public void writeToNbt(NbtCompound tag) {
-		tag.putInt("Stage", getStage());
-		tag.putInt("InfestationTimer", getInfestationTimer());
+		tag.putByte("Stage", getStage());
+		tag.putShort("InfestationTimer", getInfestationTimer());
 	}
 	
 	@Override
@@ -40,40 +40,41 @@ public class YmpeInfestationComponent implements AutoSyncedComponent, ServerTick
 			return;
 		}
 		if (obj.world.getRegistryKey() == ModDimensions.AYLYTH) {
-			setInfestationTimer(getInfestationTimer() + 1);
+			setInfestationTimer((short) (getInfestationTimer() + 1));
 		}
 		else if (obj.age % 20 == 0) {
 			if (getStage() > 0) {
-				setStage(getStage() - 1);
+				setStage((byte) (getStage() - 1));
 			}
 			if (getInfestationTimer() > 0) {
-				setInfestationTimer(0);
+				setInfestationTimer((short) 0);
 			}
 		}
 		if (getInfestationTimer() >= TIME_UNTIL_STAGE_INCREASES) {
 			obj.world.playSoundFromEntity(null, obj, ModSoundEvents.ENTITY_PLAYER_INCREASE_YMPE_INFESTATION_STAGE, SoundCategory.PLAYERS, 1, obj.getSoundPitch());
-			setStage(getStage() + 1);
-			setInfestationTimer(Math.max(0, getInfestationTimer() - TIME_UNTIL_STAGE_INCREASES));
+			setStage((byte) (getStage() + 1));
+			setInfestationTimer((short) 0);
 			if (getStage() >= 6) {
 				obj.damage(ModDamageSources.YMPE, Float.MAX_VALUE);
 			}
 		}
 	}
 	
-	public int getStage() {
+	public byte getStage() {
 		return stage;
 	}
 	
-	public void setStage(int stage) {
+	public void setStage(byte stage) {
 		this.stage = stage;
 		ModComponents.YMPE_INFESTATION.sync(obj);
 	}
 	
-	public int getInfestationTimer() {
+	public short getInfestationTimer() {
 		return infestationTimer;
 	}
 	
-	public void setInfestationTimer(int infestationTimer) {
+	public void setInfestationTimer(short infestationTimer) {
 		this.infestationTimer = infestationTimer;
+		ModComponents.YMPE_INFESTATION.sync(obj);
 	}
 }

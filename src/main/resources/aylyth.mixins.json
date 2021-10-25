@@ -13,6 +13,7 @@
   "client": [
 	"client.BackgroundRendererMixin",
 	"client.GameRendererMixin",
+	"client.InGameHudMixin",
 	"client.ParticleManagerMixin",
 	"client.PlayerEntityRendererMixin",
 	"client.RenderLayerAccessor",
