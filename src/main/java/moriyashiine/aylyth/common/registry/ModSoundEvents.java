@@ -10,7 +10,7 @@ public class ModSoundEvents {
 	
 	public static final SoundEvent ENTITY_GENERIC_SHUCKED = new SoundEvent(new Identifier(Aylyth.MOD_ID, "entity.generic.shucked"));
 	public static final SoundEvent AMBIENT_FOREST_ADDITIONS = new SoundEvent(new Identifier(Aylyth.MOD_ID, "ambient.forest.additions"));
-
+	
 	public static void init() {
 		Registry.register(Registry.SOUND_EVENT, BLOCK_YMPE_LOG_PICK_FRUIT.getId(), BLOCK_YMPE_LOG_PICK_FRUIT);
 		Registry.register(Registry.SOUND_EVENT, ENTITY_GENERIC_SHUCKED.getId(), ENTITY_GENERIC_SHUCKED);

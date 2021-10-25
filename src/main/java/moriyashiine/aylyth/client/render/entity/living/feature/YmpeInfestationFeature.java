@@ -17,7 +17,7 @@ import net.minecraft.util.Identifier;
 public class YmpeInfestationFeature extends FeatureRenderer<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>> {
 	private static final Identifier TEXTURE = new Identifier(Aylyth.MOD_ID, "textures/entity/living/scion_overlay.png");
 	private static YmpeInfestationModel[] MODELS = new YmpeInfestationModel[5];
-
+	
 	public YmpeInfestationFeature(FeatureRendererContext<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>> context, EntityModelLoader loader) {
 		super(context);
 		MODELS[0] = new YmpeInfestationModel(loader.getModelPart(AylythClient.YMPE_INFESTATION_STAGE_1_MODEL_LAYER));

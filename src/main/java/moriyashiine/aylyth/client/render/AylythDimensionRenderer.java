@@ -1,7 +1,6 @@
 package moriyashiine.aylyth.client.render;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.registry.ModBiomes;
 import moriyashiine.aylyth.common.registry.ModDimensions;
 import net.fabricmc.api.EnvType;
