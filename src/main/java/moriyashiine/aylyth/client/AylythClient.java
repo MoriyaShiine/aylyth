@@ -5,7 +5,7 @@ import com.terraformersmc.terraform.sign.SpriteIdentifierRegistry;
 import moriyashiine.aylyth.client.model.YmpeInfestationModel;
 import moriyashiine.aylyth.client.network.packet.SpawnShuckParticlesPacket;
 import moriyashiine.aylyth.client.particle.PilotLightParticle;
-import moriyashiine.aylyth.client.render.block.SeepBlockEntityRenderer;
+import moriyashiine.aylyth.client.render.block.entity.SeepBlockEntityRenderer;
 import moriyashiine.aylyth.client.render.entity.living.AylythianEntityRenderer;
 import moriyashiine.aylyth.client.render.entity.living.ElderAylythianEntityRenderer;
 import moriyashiine.aylyth.client.render.entity.living.PilotLightEntityRenderer;

@@ -35,6 +35,7 @@
   "mixins": [
 	"aylyth.mixins.json"
   ],
+  "accessWidener": "aylyth.accesswidener",
   "depends": {
 	"fabricloader": "*",
 	"fabric": "*",
