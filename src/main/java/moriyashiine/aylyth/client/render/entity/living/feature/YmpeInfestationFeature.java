@@ -22,6 +22,7 @@ public class YmpeInfestationFeature extends FeatureRenderer<AbstractClientPlayer
 	private static final Identifier TEXTURE = new Identifier(Aylyth.MOD_ID, "textures/entity/living/scion_overlay.png");
 	private static final YmpeInfestationModel[] MODELS = new YmpeInfestationModel[5];
 	private final boolean slim;
+	
 	public YmpeInfestationFeature(FeatureRendererContext<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>> context, EntityModelLoader loader, boolean slim) {
 		super(context);
 		this.slim = slim;
