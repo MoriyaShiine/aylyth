@@ -45,6 +45,7 @@
   },
   "custom": {
 	"cardinal-components": [
+	  "aylyth:ympe_infestation",
 	  "aylyth:prevent_drops"
 	]
   }

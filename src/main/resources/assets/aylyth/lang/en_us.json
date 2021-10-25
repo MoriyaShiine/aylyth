@@ -41,7 +41,10 @@
   "entity.aylyth.elder_aylythian": "Elder Aylythian",
   "entity.aylyth.ympe_boat": "Ympe Boat",
   "effect.aylyth.mortechis": "Mortechis",
+  "death.attack.ympe": "%1$s has gone to the trees",
+  "death.attack.ympe.player": "%1$s has gone to the trees whilst trying to escape %2$s",
   "aylyth.subtitles.block.ympe_log.pick_fruit": "Fruit picked",
+  "aylyth.subtitles.entity.player.increase_ympe_infestation_stage": "Branches spread",
   "aylyth.subtitles.entity.generic.shucked": "Entity shucked",
   "rei.aylyth.ympe_dagger_drops": "Ympe Dagger Drops"
 }

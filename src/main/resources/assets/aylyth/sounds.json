@@ -9,6 +9,15 @@
 	],
 	"subtitle": "aylyth.subtitles.block.ympe_log.pick_fruit"
   },
+  "entity.player.increase_ympe_infestation_stage": {
+	"sounds": [
+	  "aylyth:entity/increase_ympe_infestation_stage_1",
+	  "aylyth:entity/increase_ympe_infestation_stage_2",
+	  "aylyth:entity/increase_ympe_infestation_stage_3",
+	  "aylyth:entity/increase_ympe_infestation_stage_4"
+	],
+	"subtitle": "aylyth.subtitles.entity.player.increase_ympe_infestation_stage"
+  },
   "entity.generic.shucked": {
 	"sounds": [
 	],

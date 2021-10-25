@@ -10,7 +10,6 @@ import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.recipe.YmpeDaggerDropRecipe;
 import net.minecraft.util.Identifier;
 
-//todo shucked crafting
 public class ModREIPlugin implements REIClientPlugin {
 	public static final CategoryIdentifier<YmpeDaggerDropDisplay> YMPE_DAGGER_DROPS = CategoryIdentifier.of(new Identifier(Aylyth.MOD_ID, "ympe_dagger_drops"));
 	
