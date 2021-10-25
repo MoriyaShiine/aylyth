@@ -8,6 +8,7 @@ import moriyashiine.aylyth.common.registry.ModDimensions;
 import moriyashiine.aylyth.common.registry.ModSoundEvents;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 
 public class YmpeInfestationComponent implements AutoSyncedComponent, ServerTickingComponent {
@@ -35,7 +36,7 @@ public class YmpeInfestationComponent implements AutoSyncedComponent, ServerTick
 	
 	@Override
 	public void serverTick() {
-		if (obj.isDead()) {
+		if (obj.isDead() || !((ServerPlayerEntity) obj).interactionManager.getGameMode().isSurvivalLike()) {
 			return;
 		}
 		if (obj.world.getRegistryKey() == ModDimensions.AYLYTH) {
