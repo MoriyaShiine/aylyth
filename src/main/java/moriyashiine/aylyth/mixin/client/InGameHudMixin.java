@@ -50,13 +50,13 @@ public abstract class InGameHudMixin {
 		ModComponents.YMPE_INFESTATION.maybeGet(client.player).ifPresent(ympeInfestationComponent -> {
 			int stage = ympeInfestationComponent.getStage();
 			if (stage >= 3) {
-				renderOverlay(YMPE_OUTLINE_1_TEXTURE, stage == 3 ? Math.min(1, (float) ympeInfestationComponent.getInfestationTimer() / YmpeInfestationComponent.TIME_UNTIL_STAGE_INCREASES) : 1);
+				renderOverlay(YMPE_OUTLINE_1_TEXTURE, stage == 3 ? (float) ympeInfestationComponent.getInfestationTimer() / YmpeInfestationComponent.TIME_UNTIL_STAGE_INCREASES : 1);
 			}
 			if (stage >= 2) {
-				renderOverlay(YMPE_OUTLINE_0_TEXTURE, stage == 2 ? Math.min(1, (float) ympeInfestationComponent.getInfestationTimer() / YmpeInfestationComponent.TIME_UNTIL_STAGE_INCREASES) : 1);
+				renderOverlay(YMPE_OUTLINE_0_TEXTURE, stage == 2 ? (float) ympeInfestationComponent.getInfestationTimer() / YmpeInfestationComponent.TIME_UNTIL_STAGE_INCREASES : 1);
 			}
 			if (stage >= 5) {
-				renderOverlay(YMPE_OUTLINE_2_TEXTURE, stage == 5 ? Math.min(1, (float) ympeInfestationComponent.getInfestationTimer() / YmpeInfestationComponent.TIME_UNTIL_STAGE_INCREASES) : 1);
+				renderOverlay(YMPE_OUTLINE_2_TEXTURE, stage == 5 ? (float) ympeInfestationComponent.getInfestationTimer() / YmpeInfestationComponent.TIME_UNTIL_STAGE_INCREASES : 1);
 			}
 		});
 	}

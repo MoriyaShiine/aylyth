@@ -12,7 +12,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 
 public class YmpeInfestationComponent implements AutoSyncedComponent, ServerTickingComponent {
-	public static final int TIME_UNTIL_STAGE_INCREASES = 6000;
+	public static final int TIME_UNTIL_STAGE_INCREASES = 2400;
 	
 	private final PlayerEntity obj;
 	private byte stage = 0;

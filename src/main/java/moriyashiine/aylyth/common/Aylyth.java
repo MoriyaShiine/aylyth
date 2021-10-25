@@ -84,7 +84,7 @@ public class Aylyth implements ModInitializer {
 			}
 		});
 		ServerPlayerEvents.ALLOW_DEATH.register((player, damageSource, damageAmount) -> {
-			if (damageSource.isOutOfWorld()) {
+			if (damageSource.isOutOfWorld() && damageSource != ModDamageSources.YMPE) {
 				return true;
 			}
 			RegistryKey<World> toWorld = null;
