@@ -3,6 +3,7 @@ package moriyashiine.aylyth.client.render;
 import com.mojang.blaze3d.systems.RenderSystem;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.registry.ModBiomes;
+import moriyashiine.aylyth.common.registry.ModDimensions;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.world.ClientWorld;
@@ -27,7 +28,7 @@ public class AylythDimensionRenderer {
 	}
 	
 	public static void determineConditions(ClientWorld world, Biome biome) {
-		if (world.getDimension().getSkyProperties().getNamespace().equals(Aylyth.MOD_ID)) {
+		if (world.getRegistryKey() == ModDimensions.AYLYTH) {
 			Identifier biomeId = world.getRegistryManager().get(Registry.BIOME_KEY).getId(biome);
 			if (biomeId == ModBiomes.CLEARING_ID) {
 				goalFogStrength = 40;
