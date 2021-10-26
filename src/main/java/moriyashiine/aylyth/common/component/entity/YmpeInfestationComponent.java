@@ -12,7 +12,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 
 public class YmpeInfestationComponent implements AutoSyncedComponent, ServerTickingComponent {
-	public static final int TIME_UNTIL_STAGE_INCREASES = 2400;
+	public static final short TIME_UNTIL_STAGE_INCREASES = 2400;
 	
 	private final PlayerEntity obj;
 	private byte stage = 0;
@@ -42,12 +42,13 @@ public class YmpeInfestationComponent implements AutoSyncedComponent, ServerTick
 		if (obj.world.getRegistryKey() == ModDimensions.AYLYTH) {
 			setInfestationTimer((short) (getInfestationTimer() + 1));
 		}
-		else if (obj.age % 20 == 0) {
-			if (getStage() > 0) {
+		else {
+			if (getStage() > 0 && getInfestationTimer() <= 0) {
 				setStage((byte) (getStage() - 1));
+				setInfestationTimer(TIME_UNTIL_STAGE_INCREASES);
 			}
 			if (getInfestationTimer() > 0) {
-				setInfestationTimer((short) 0);
+				setInfestationTimer((short) Math.max(0, getInfestationTimer() - TIME_UNTIL_STAGE_INCREASES / 20));
 			}
 		}
 		if (getInfestationTimer() >= TIME_UNTIL_STAGE_INCREASES) {
