@@ -25,17 +25,20 @@ public class WorldRendererMixin {
 	@Shadow
 	@Final
 	private MinecraftClient client;
-
-	@Shadow @Nullable private VertexBuffer lightSkyBuffer;
-
-	@Shadow @Nullable private VertexBuffer starsBuffer;
-
+	
+	@Shadow
+	@Nullable
+	private VertexBuffer lightSkyBuffer;
+	
+	@Shadow
+	@Nullable
+	private VertexBuffer starsBuffer;
+	
 	@Inject(method = "renderSky", at = @At(value = "INVOKE", target = "Ljava/lang/Runnable;run()V", shift = At.Shift.AFTER))
-	private void renderSkyPre(MatrixStack matrices, Matrix4f matrix4f, float f, Runnable runnable, CallbackInfo ci) {
+	private void renderyAylythSky(MatrixStack matrices, Matrix4f matrix4f, float f, Runnable runnable, CallbackInfo ci) {
 		if (world.getTime() % 20 == 0) {
 			AylythDimensionRenderer.determineConditions(world, world.getBiome(client.player.getBlockPos()));
 		}
-
 		if (world.getSkyProperties() == AylythDimensionRenderer.SKY_PROPERTIES) {
 			AylythDimensionRenderer.renderSky(client, world, lightSkyBuffer, starsBuffer, matrices, matrix4f, f, runnable);
 		}

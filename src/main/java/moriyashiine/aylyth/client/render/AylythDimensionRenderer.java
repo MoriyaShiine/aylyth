@@ -13,14 +13,11 @@ import net.minecraft.client.render.*;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Matrix4f;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3f;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
-import org.jetbrains.annotations.Nullable;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
 public class AylythDimensionRenderer {
@@ -29,7 +26,7 @@ public class AylythDimensionRenderer {
 	public static final Identifier MOON = new Identifier(Aylyth.MOD_ID, "textures/environment/moon.png");
 	public static int goalFogStrength = 0;
 	private static float currentFogStrength;
-
+	
 	public static void renderFog() {
 		RenderSystem.setShaderFogStart(0F);
 		RenderSystem.setShaderFogEnd(currentFogStrength);
@@ -40,13 +37,13 @@ public class AylythDimensionRenderer {
 			currentFogStrength += 0.1F;
 		}
 	}
-
-	public static void renderSky(MinecraftClient client, ClientWorld world, VertexBuffer lightSkyBuffer, VertexBuffer starsBuffer, MatrixStack matrices, Matrix4f matrix4f, float ticks,  Runnable fogHandler) {
+	
+	public static void renderSky(MinecraftClient client, ClientWorld world, VertexBuffer lightSkyBuffer, VertexBuffer starsBuffer, MatrixStack matrices, Matrix4f matrix4f, float ticks, Runnable fogHandler) {
 		RenderSystem.disableTexture();
 		Vec3d vec3d = world.method_23777(client.gameRenderer.getCamera().getPos(), ticks);
-		float skyRed = (float)vec3d.x;
-		float skyGreen = (float)vec3d.y;
-		float skyBlue = (float)vec3d.z;
+		float skyRed = (float) vec3d.x;
+		float skyGreen = (float) vec3d.y;
+		float skyBlue = (float) vec3d.z;
 		BackgroundRenderer.setFogBlack();
 		BufferBuilder bufferBuilder = Tessellator.getInstance().getBuffer();
 		RenderSystem.depthMask(false);
@@ -55,7 +52,6 @@ public class AylythDimensionRenderer {
 		lightSkyBuffer.setShader(matrices.peek().getModel(), matrix4f, shader);
 		RenderSystem.enableBlend();
 		RenderSystem.defaultBlendFunc();
-
 		RenderSystem.enableTexture();
 		RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
 		matrices.push();
@@ -89,7 +85,6 @@ public class AylythDimensionRenderer {
 			starsBuffer.setShader(matrices.peek().getModel(), matrix4f, GameRenderer.getPositionShader());
 			fogHandler.run();
 		}
-
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 		RenderSystem.disableBlend();
 		matrices.pop();
@@ -99,7 +94,7 @@ public class AylythDimensionRenderer {
 		RenderSystem.enableTexture();
 		RenderSystem.depthMask(true);
 	}
-
+	
 	public static void determineConditions(ClientWorld world, Biome biome) {
 		if (world.getRegistryKey() == ModDimensions.AYLYTH) {
 			Identifier biomeId = world.getRegistryManager().get(Registry.BIOME_KEY).getId(biome);
@@ -117,24 +112,22 @@ public class AylythDimensionRenderer {
 			goalFogStrength = 0;
 		}
 	}
-
+	
 	private static class AylythSkyProperties extends SkyProperties {
-
 		public AylythSkyProperties() {
 			super(0, false, SkyType.NONE, false, true);
 		}
-
-		@Nullable
+		
 		@Override
 		public float[] getFogColorOverride(float skyAngle, float tickDelta) {
 			return super.getFogColorOverride(skyAngle, tickDelta);
 		}
-
+		
 		@Override
 		public Vec3d adjustFogColor(Vec3d color, float sunHeight) {
 			return color;
 		}
-
+		
 		@Override
 		public boolean useThickFog(int camX, int camY) {
 			return true;

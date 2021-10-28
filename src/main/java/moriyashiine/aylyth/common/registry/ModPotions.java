@@ -23,9 +23,9 @@ public class ModPotions {
 		Registry.register(Registry.POTION, new Identifier(Aylyth.MOD_ID, "mortechis"), MORTECHIS_POTION);
 		Registry.register(Registry.POTION, new Identifier(Aylyth.MOD_ID, "long_mortechis"), LONG_MORTECHIS_POTION);
 		Registry.register(Registry.POTION, new Identifier(Aylyth.MOD_ID, "strong_mortechis"), STRONG_MORTECHIS_POTION);
-		BrewingRecipeRegistryAccessor.invokeRegisterPotionRecipe(Potions.AWKWARD, ModItems.NYSIAN_GRAPES, MORTECHIS_POTION);
-		BrewingRecipeRegistryAccessor.invokeRegisterPotionRecipe(MORTECHIS_POTION, Items.FERMENTED_SPIDER_EYE, Potions.THICK);
-		BrewingRecipeRegistryAccessor.invokeRegisterPotionRecipe(MORTECHIS_POTION, Items.REDSTONE, LONG_MORTECHIS_POTION);
-		BrewingRecipeRegistryAccessor.invokeRegisterPotionRecipe(MORTECHIS_POTION, Items.GLOWSTONE_DUST, STRONG_MORTECHIS_POTION);
+		BrewingRecipeRegistryAccessor.callRegisterPotionRecipe(Potions.AWKWARD, ModItems.NYSIAN_GRAPES, MORTECHIS_POTION);
+		BrewingRecipeRegistryAccessor.callRegisterPotionRecipe(MORTECHIS_POTION, Items.FERMENTED_SPIDER_EYE, Potions.THICK);
+		BrewingRecipeRegistryAccessor.callRegisterPotionRecipe(MORTECHIS_POTION, Items.REDSTONE, LONG_MORTECHIS_POTION);
+		BrewingRecipeRegistryAccessor.callRegisterPotionRecipe(MORTECHIS_POTION, Items.GLOWSTONE_DUST, STRONG_MORTECHIS_POTION);
 	}
 }

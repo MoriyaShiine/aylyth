@@ -26,8 +26,8 @@ public class ParticleManagerMixin {
 	@Shadow
 	private static List<ParticleTextureSheet> PARTICLE_TEXTURE_SHEETS;
 	
-	@Inject(at = @At("RETURN"), method = "<init>")
-	private void addTypes(ClientWorld world, TextureManager textureManager, CallbackInfo ci) {
+	@Inject(method = "<init>", at = @At("RETURN"))
+	private void addAylythParticles(ClientWorld world, TextureManager textureManager, CallbackInfo ci) {
 		PARTICLE_TEXTURE_SHEETS = ImmutableList.<ParticleTextureSheet>builder().addAll(PARTICLE_TEXTURE_SHEETS).add(ModParticles.ParticleTextureSheets.GLOWING).build();
 	}
 }
