@@ -58,10 +58,10 @@ public class ModBlocks {
 	
 	public static final Block AYLYTH_BUSH = new BushBlock();
 	
-	public static final Block OAK_SEEP = new SeepBlock(Blocks.OAK_LOG);
-	public static final Block SPRUCE_SEEP = new SeepBlock(Blocks.SPRUCE_LOG);
-	public static final Block DARK_OAK_SEEP = new SeepBlock(Blocks.DARK_OAK_LOG);
-	public static final Block YMPE_SEEP = new SeepBlock(YMPE_LOG);
+	public static final Block OAK_SEEP = new SeepBlock();
+	public static final Block SPRUCE_SEEP = new SeepBlock();
+	public static final Block DARK_OAK_SEEP = new SeepBlock();
+	public static final Block YMPE_SEEP = new SeepBlock();
 	
 	public static void init() {
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "stripped_ympe_log"), STRIPPED_YMPE_LOG);
