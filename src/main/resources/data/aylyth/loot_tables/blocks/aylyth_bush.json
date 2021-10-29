@@ -6,13 +6,41 @@
 	  "bonus_rolls": 0.0,
 	  "entries": [
 		{
-		  "type": "minecraft:item",
-		  "name": "aylyth:aylyth_bush"
-		}
-	  ],
-	  "conditions": [
-		{
-		  "condition": "minecraft:survives_explosion"
+		  "type": "minecraft:alternatives",
+		  "children": [
+			{
+			  "type": "minecraft:item",
+			  "conditions": [
+				{
+				  "condition": "minecraft:match_tool",
+				  "predicate": {
+					"items": [
+					  "minecraft:shears"
+					]
+				  }
+				}
+			  ],
+			  "name": "aylyth:aylyth_bush"
+			},
+			{
+			  "type": "minecraft:item",
+			  "functions": [
+				{
+				  "function": "minecraft:set_count",
+				  "count": {
+					"type": "minecraft:uniform",
+					"min": 0.0,
+					"max": 2.0
+				  },
+				  "add": false
+				},
+				{
+				  "function": "minecraft:explosion_decay"
+				}
+			  ],
+			  "name": "minecraft:stick"
+			}
+		  ]
 		}
 	  ]
 	}
