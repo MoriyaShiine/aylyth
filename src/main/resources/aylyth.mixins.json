@@ -8,7 +8,8 @@
 	"BlocksAccessor",
 	"BrewingRecipeRegistryAccessor",
 	"LivingEntityMixin",
-	"TrunkPlacerTypeAccessor"
+	"TrunkPlacerTypeAccessor",
+	"VineBlockMixin"
   ],
   "client": [
 	"client.BackgroundRendererMixin",
