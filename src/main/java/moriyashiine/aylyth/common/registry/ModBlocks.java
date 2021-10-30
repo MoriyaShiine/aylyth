@@ -7,6 +7,7 @@ import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.block.BushBlock;
 import moriyashiine.aylyth.common.block.FruitBearingYmpeLogBlock;
 import moriyashiine.aylyth.common.block.SeepBlock;
+import moriyashiine.aylyth.common.block.util.ModPlantBlock;
 import moriyashiine.aylyth.common.block.util.ModSaplingBlock;
 import moriyashiine.aylyth.mixin.BlocksAccessor;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
@@ -57,6 +58,7 @@ public class ModBlocks {
 	public static final Block YMPE_WALL_SIGN = new TerraformWallSignBlock(YMPE_SIGN.getTexture(), copyOf(Blocks.OAK_WALL_SIGN));
 	
 	public static final Block AYLYTH_BUSH = new BushBlock();
+	public static final Block ANTLER_SHOOTS = new ModPlantBlock(copyOf(Blocks.GRASS));
 	
 	public static final Block OAK_SEEP = new SeepBlock();
 	public static final Block SPRUCE_SEEP = new SeepBlock();
@@ -84,6 +86,7 @@ public class ModBlocks {
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "ympe_sign"), YMPE_SIGN);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "ympe_wall_sign"), YMPE_WALL_SIGN);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "aylyth_bush"), AYLYTH_BUSH);
+		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "antler_shoots"), ANTLER_SHOOTS);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "oak_seep"), OAK_SEEP);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "spruce_seep"), SPRUCE_SEEP);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "dark_oak_seep"), DARK_OAK_SEEP);
