@@ -3,6 +3,7 @@ package moriyashiine.aylyth.common.entity.mob;
 import moriyashiine.aylyth.common.registry.ModBlocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -12,7 +13,8 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Arm;
-import net.minecraft.world.World;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.*;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -21,6 +23,8 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+
+import java.util.Random;
 
 public class AylythianEntity extends HostileEntity implements IAnimatable {
 	private final AnimationFactory factory = new AnimationFactory(this);
@@ -125,7 +129,26 @@ public class AylythianEntity extends HostileEntity implements IAnimatable {
 		}
 		return false;
 	}
-	
+
+	public float getPathfindingFavor(BlockPos pos, WorldView world) {
+		return 0.5F;
+	}
+
+	@Override
+	public int getLimitPerChunk() {
+		return 3;
+	}
+
+	@Override
+	public boolean spawnsTooManyForEachTry(int count) {
+		return count > 3;
+	}
+
+	public static boolean canSpawn(EntityType<? extends MobEntity> aylythianEntityEntityType, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos blockPos, Random random) {
+		return canMobSpawn(aylythianEntityEntityType, serverWorldAccess, spawnReason, blockPos, random) && serverWorldAccess.getDifficulty() != Difficulty.PEACEFUL && random.nextBoolean();
+	}
+
+
 	enum MoveState {
 		WALK, RUN, STALK
 	}

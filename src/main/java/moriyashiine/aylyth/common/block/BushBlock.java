@@ -12,6 +12,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 public class BushBlock extends PlantBlock {
 	public static final BooleanProperty BUSHY = BooleanProperty.of("bushy");
@@ -20,7 +21,14 @@ public class BushBlock extends PlantBlock {
 		super(Settings.copy(Blocks.GRASS));
 		setDefaultState(getDefaultState().with(BUSHY, false));
 	}
-	
+
+	@Nullable
+	@Override
+	public BlockState getPlacementState(ItemPlacementContext ctx) {
+		BlockState downState = ctx.getWorld().getBlockState(ctx.getBlockPos().down());
+		return getDefaultState().with(BUSHY, downState.getBlock() instanceof BushBlock);
+	}
+
 	@Override
 	protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
 		return floor.getBlock() instanceof BushBlock || super.canPlantOnTop(floor, world, pos);

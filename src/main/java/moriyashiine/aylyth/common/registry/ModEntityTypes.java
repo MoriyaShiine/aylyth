@@ -6,11 +6,14 @@ import moriyashiine.aylyth.common.entity.mob.ElderAylythianEntity;
 import moriyashiine.aylyth.common.entity.passive.PilotLightEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import net.fabricmc.fabric.mixin.object.builder.SpawnRestrictionAccessor;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
+import net.minecraft.entity.SpawnRestriction;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.Heightmap;
 
 public class ModEntityTypes {
 	public static final EntityType<PilotLightEntity> PILOT_LIGHT = FabricEntityTypeBuilder.create(SpawnGroup.AMBIENT, PilotLightEntity::new).dimensions(EntityDimensions.fixed(0.5F, 0.5F)).build();
@@ -24,5 +27,9 @@ public class ModEntityTypes {
 		Registry.register(Registry.ENTITY_TYPE, new Identifier(Aylyth.MOD_ID, "pilot_light"), PILOT_LIGHT);
 		Registry.register(Registry.ENTITY_TYPE, new Identifier(Aylyth.MOD_ID, "aylythian"), AYLYTHIAN);
 		Registry.register(Registry.ENTITY_TYPE, new Identifier(Aylyth.MOD_ID, "elder_aylythian"), ELDER_AYLYTHIAN);
+
+		SpawnRestrictionAccessor.callRegister(PILOT_LIGHT, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING, PilotLightEntity::canSpawn);
+		SpawnRestrictionAccessor.callRegister(AYLYTHIAN, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AylythianEntity::canSpawn);
+		SpawnRestrictionAccessor.callRegister(ELDER_AYLYTHIAN, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AylythianEntity::canSpawn);
 	}
 }

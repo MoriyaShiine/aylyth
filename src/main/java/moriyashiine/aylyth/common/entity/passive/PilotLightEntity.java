@@ -30,6 +30,8 @@ import net.minecraft.world.TeleportTarget;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Random;
+
 public class PilotLightEntity extends AmbientEntity implements Flutterer {
 	private static final TrackedData<Boolean> IS_BLUE = DataTracker.registerData(PilotLightEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 	
@@ -142,5 +144,14 @@ public class PilotLightEntity extends AmbientEntity implements Flutterer {
 	
 	private boolean isBlue() {
 		return dataTracker.get(IS_BLUE);
+	}
+
+	public static boolean canSpawn(EntityType<PilotLightEntity> pilotLightEntityEntityType, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos blockPos, Random random) {
+		return spawnReason != SpawnReason.NATURAL || random.nextInt(10) == 0;
+	}
+
+	@Override
+	public int getLimitPerChunk() {
+		return 2;
 	}
 }

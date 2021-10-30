@@ -19,6 +19,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -155,5 +156,20 @@ public class ElderAylythianEntity extends HostileEntity implements IAnimatable {
 	public void writeCustomDataToNbt(NbtCompound nbt) {
 		super.writeCustomDataToNbt(nbt);
 		nbt.putInt("Variant", dataTracker.get(VARIANT));
+	}
+
+
+	public float getPathfindingFavor(BlockPos pos, WorldView world) {
+		return 0.5F;
+	}
+
+	@Override
+	public int getLimitPerChunk() {
+		return 1;
+	}
+
+	@Override
+	public boolean spawnsTooManyForEachTry(int count) {
+		return count > 1;
 	}
 }

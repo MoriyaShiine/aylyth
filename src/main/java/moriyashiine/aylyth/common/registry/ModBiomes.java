@@ -15,8 +15,8 @@ import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
 import net.minecraft.world.gen.surfacebuilder.ConfiguredSurfaceBuilders;
 
 public class ModBiomes {
-	public static final SpawnSettings.Builder DEEP_FOREST_MOBS = new SpawnSettings.Builder().spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(ModEntityTypes.AYLYTHIAN, 50, 1, 3)).spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(ModEntityTypes.ELDER_AYLYTHIAN, 1, 1, 1)).spawn(SpawnGroup.AMBIENT, new SpawnSettings.SpawnEntry(ModEntityTypes.PILOT_LIGHT, 10, 1, 1)).creatureSpawnProbability(0.25F);
-	public static final SpawnSettings.Builder FOREST_MOBS = new SpawnSettings.Builder().spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(ModEntityTypes.AYLYTHIAN, 50, 1, 2)).spawn(SpawnGroup.AMBIENT, new SpawnSettings.SpawnEntry(ModEntityTypes.PILOT_LIGHT, 5, 1, 1)).creatureSpawnProbability(0.125F);
+	public static final SpawnSettings.Builder DEEP_FOREST_MOBS = new SpawnSettings.Builder().spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(ModEntityTypes.AYLYTHIAN, 25, 1, 3)).spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(ModEntityTypes.ELDER_AYLYTHIAN, 2, 1, 1)).spawn(SpawnGroup.AMBIENT, new SpawnSettings.SpawnEntry(ModEntityTypes.PILOT_LIGHT, 10, 1, 1));
+	public static final SpawnSettings.Builder FOREST_MOBS = new SpawnSettings.Builder().spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(ModEntityTypes.AYLYTHIAN, 20, 1, 2)).spawn(SpawnGroup.AMBIENT, new SpawnSettings.SpawnEntry(ModEntityTypes.PILOT_LIGHT, 5, 1, 1)).creatureSpawnProbability(0.5F);
 	public static final BiomeAdditionsSound FOREST_AMBIANCE = new BiomeAdditionsSound(ModSoundEvents.AMBIENT_FOREST_ADDITIONS, 0.005);
 	public static final BiomeAdditionsSound OVERGROWN_CLEARING_AMBIANCE = new BiomeAdditionsSound(ModSoundEvents.AMBIENT_FOREST_ADDITIONS, 0.001);
 	public static final Identifier CLEARING_ID = new Identifier(Aylyth.MOD_ID, "clearing");
