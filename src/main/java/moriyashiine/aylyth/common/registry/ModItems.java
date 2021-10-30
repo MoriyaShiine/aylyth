@@ -35,6 +35,7 @@ public class ModItems {
 	
 	public static final Item AYLYTH_BUSH = new BlockItem(ModBlocks.AYLYTH_BUSH, settings());
 	public static final Item ANTLER_SHOOTS = new BlockItem(ModBlocks.ANTLER_SHOOTS, settings());
+	public static final Item GRIPWEED = new BlockItem(ModBlocks.GRIPWEED, settings());
 	
 	public static final Item OAK_SEEP = new BlockItem(ModBlocks.OAK_SEEP, settings());
 	public static final Item SPRUCE_SEEP = new BlockItem(ModBlocks.SPRUCE_SEEP, settings());
@@ -79,6 +80,7 @@ public class ModItems {
 		
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "aylyth_bush"), AYLYTH_BUSH);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "antler_shoots"), ANTLER_SHOOTS);
+		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "gripweed"), GRIPWEED);
 		
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "oak_seep"), OAK_SEEP);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "spruce_seep"), SPRUCE_SEEP);
