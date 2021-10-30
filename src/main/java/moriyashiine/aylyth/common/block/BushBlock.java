@@ -5,6 +5,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.PlantBlock;
 import net.minecraft.entity.Entity;
+import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.math.BlockPos;
@@ -23,6 +24,11 @@ public class BushBlock extends PlantBlock {
 	@Override
 	protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
 		return floor.getBlock() instanceof BushBlock || super.canPlantOnTop(floor, world, pos);
+	}
+	
+	@Override
+	public boolean canReplace(BlockState state, ItemPlacementContext context) {
+		return false;
 	}
 	
 	@Override

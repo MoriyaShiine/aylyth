@@ -4,11 +4,7 @@ import com.terraformersmc.terraform.sign.block.TerraformSignBlock;
 import com.terraformersmc.terraform.sign.block.TerraformWallSignBlock;
 import com.terraformersmc.terraform.wood.block.*;
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.block.BushBlock;
-import moriyashiine.aylyth.common.block.FruitBearingYmpeLogBlock;
-import moriyashiine.aylyth.common.block.GripweedBlock;
-import moriyashiine.aylyth.common.block.SeepBlock;
-import moriyashiine.aylyth.common.block.util.ModPlantBlock;
+import moriyashiine.aylyth.common.block.*;
 import moriyashiine.aylyth.common.block.util.ModSaplingBlock;
 import moriyashiine.aylyth.mixin.BlocksAccessor;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
@@ -59,7 +55,7 @@ public class ModBlocks {
 	public static final Block YMPE_WALL_SIGN = new TerraformWallSignBlock(YMPE_SIGN.getTexture(), copyOf(Blocks.OAK_WALL_SIGN));
 	
 	public static final Block AYLYTH_BUSH = new BushBlock();
-	public static final Block ANTLER_SHOOTS = new ModPlantBlock(copyOf(Blocks.GRASS));
+	public static final Block ANTLER_SHOOTS = new AntlerShootsBlock();
 	public static final Block GRIPWEED = new GripweedBlock();
 	
 	public static final Block OAK_SEEP = new SeepBlock();
