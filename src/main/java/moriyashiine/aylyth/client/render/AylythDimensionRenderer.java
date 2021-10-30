@@ -85,11 +85,9 @@ public class AylythDimensionRenderer {
 			starsBuffer.setShader(matrices.peek().getModel(), matrix4f, GameRenderer.getPositionShader());
 			fogHandler.run();
 		}
-		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 		RenderSystem.disableBlend();
 		matrices.pop();
 		RenderSystem.disableTexture();
-		RenderSystem.setShaderColor(0.0F, 0.0F, 0.0F, 1.0F);
 		RenderSystem.setShaderColor(skyRed, skyGreen, skyBlue, 1.0F);
 		RenderSystem.enableTexture();
 		RenderSystem.depthMask(true);
