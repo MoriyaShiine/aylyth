@@ -14,7 +14,10 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Arm;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.*;
+import net.minecraft.world.Difficulty;
+import net.minecraft.world.ServerWorldAccess;
+import net.minecraft.world.World;
+import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -85,6 +88,21 @@ public class AylythianEntity extends HostileEntity implements IAnimatable {
 	}
 	
 	@Override
+	public boolean spawnsTooManyForEachTry(int count) {
+		return count > 3;
+	}
+	
+	@Override
+	public float getPathfindingFavor(BlockPos pos, WorldView world) {
+		return 0.5F;
+	}
+	
+	@Override
+	public int getLimitPerChunk() {
+		return 3;
+	}
+	
+	@Override
 	public boolean damage(DamageSource source, float amount) {
 		return super.damage(source, source.isFire() ? amount * 2 : amount);
 	}
@@ -118,6 +136,10 @@ public class AylythianEntity extends HostileEntity implements IAnimatable {
 		targetSelector.add(1, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
 	}
 	
+	public static boolean canSpawn(EntityType<? extends MobEntity> aylythianEntityEntityType, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos blockPos, Random random) {
+		return canMobSpawn(aylythianEntityEntityType, serverWorldAccess, spawnReason, blockPos, random) && serverWorldAccess.getDifficulty() != Difficulty.PEACEFUL && random.nextBoolean();
+	}
+	
 	public static boolean isTargetInBush(LivingEntity target) {
 		if (target != null && target.isSneaking()) {
 			for (int i = 0; i <= target.getHeight(); i++) {
@@ -129,26 +151,7 @@ public class AylythianEntity extends HostileEntity implements IAnimatable {
 		}
 		return false;
 	}
-
-	public float getPathfindingFavor(BlockPos pos, WorldView world) {
-		return 0.5F;
-	}
-
-	@Override
-	public int getLimitPerChunk() {
-		return 3;
-	}
-
-	@Override
-	public boolean spawnsTooManyForEachTry(int count) {
-		return count > 3;
-	}
-
-	public static boolean canSpawn(EntityType<? extends MobEntity> aylythianEntityEntityType, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos blockPos, Random random) {
-		return canMobSpawn(aylythianEntityEntityType, serverWorldAccess, spawnReason, blockPos, random) && serverWorldAccess.getDifficulty() != Difficulty.PEACEFUL && random.nextBoolean();
-	}
-
-
+	
 	enum MoveState {
 		WALK, RUN, STALK
 	}

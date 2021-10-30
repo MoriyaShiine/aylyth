@@ -82,6 +82,21 @@ public class ElderAylythianEntity extends HostileEntity implements IAnimatable {
 	}
 	
 	@Override
+	public boolean spawnsTooManyForEachTry(int count) {
+		return count > 1;
+	}
+	
+	@Override
+	public float getPathfindingFavor(BlockPos pos, WorldView world) {
+		return 0.5F;
+	}
+	
+	@Override
+	public int getLimitPerChunk() {
+		return 1;
+	}
+	
+	@Override
 	public boolean damage(DamageSource source, float amount) {
 		setPersistent();
 		return super.damage(source, source.isFire() ? amount * 2 : amount);
@@ -156,20 +171,5 @@ public class ElderAylythianEntity extends HostileEntity implements IAnimatable {
 	public void writeCustomDataToNbt(NbtCompound nbt) {
 		super.writeCustomDataToNbt(nbt);
 		nbt.putInt("Variant", dataTracker.get(VARIANT));
-	}
-
-
-	public float getPathfindingFavor(BlockPos pos, WorldView world) {
-		return 0.5F;
-	}
-
-	@Override
-	public int getLimitPerChunk() {
-		return 1;
-	}
-
-	@Override
-	public boolean spawnsTooManyForEachTry(int count) {
-		return count > 1;
 	}
 }

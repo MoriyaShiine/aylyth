@@ -68,7 +68,7 @@ public class ModWorldGenerators extends DefaultBiomeFeatures {
 	public static final ConfiguredFeature<?, ?> SPRING = SPRING_FEATURE.configure(new SingleStateFeatureConfig(Blocks.WATER.getDefaultState())).range(Decorators.TOP_TO_BOTTOM).spreadHorizontally().applyChance(8);
 	public static final ConfiguredFeature<?, ?> BUSHES = BUSH_FEATURE.configure(FeatureConfig.DEFAULT).decorate(Decorators.FOLIAGE_PLACEMENT).applyChance(2).repeatRandomly(5);
 	public static final ConfiguredFeature<?, ?> AYLYTH_WEEDS = Feature.RANDOM_PATCH.configure(new RandomPatchFeatureConfig.Builder(new WeightedBlockStateProvider(DataPool.<BlockState>builder().add(ModBlocks.ANTLER_SHOOTS.getDefaultState(), 5).add(ModBlocks.GRIPWEED.getDefaultState(), 2).build()), SimpleBlockPlacer.INSTANCE).tries(64).cannotProject().build()).decorate(Decorator.SPREAD_32_ABOVE.configure(NopeDecoratorConfig.INSTANCE).decorate(Decorators.FOLIAGE_PLACEMENT).repeat(7));
-
+	
 	public static final ConfiguredFeature<?, ?> OAK_SEEP = SEEP_FEATURE.configure(new SeepFeature.SeepFeatureConfig(Blocks.OAK_LOG.getDefaultState(), ModBlocks.OAK_SEEP.getDefaultState())).spreadHorizontally().applyChance(10).repeatRandomly(4);
 	public static final ConfiguredFeature<?, ?> SPRUCE_SEEP = SEEP_FEATURE.configure(new SeepFeature.SeepFeatureConfig(Blocks.SPRUCE_LOG.getDefaultState(), ModBlocks.SPRUCE_SEEP.getDefaultState())).spreadHorizontally().applyChance(12).repeatRandomly(2);
 	public static final ConfiguredFeature<?, ?> DARK_OAK_SEEP = SEEP_FEATURE.configure(new SeepFeature.SeepFeatureConfig(Blocks.DARK_OAK_LOG.getDefaultState(), ModBlocks.DARK_OAK_SEEP.getDefaultState())).spreadHorizontally().applyChance(12).repeatRandomly(2);
@@ -113,6 +113,5 @@ public class ModWorldGenerators extends DefaultBiomeFeatures {
 		private static final ConfiguredDecorator<?> HEIGHTMAP_OCEAN_FLOOR_NO_WATER = HEIGHTMAP_OCEAN_FLOOR.decorate(Decorator.WATER_DEPTH_THRESHOLD.configure(new WaterDepthThresholdDecoratorConfig(0)));
 		private static final ConfiguredDecorator<?> SQUARE_HEIGHTMAP_OCEAN_FLOOR_NO_WATER = HEIGHTMAP_OCEAN_FLOOR_NO_WATER.spreadHorizontally();
 		private static final ConfiguredDecorator<?> FOLIAGE_PLACEMENT = Decorator.HEIGHTMAP_SPREAD_DOUBLE.configure(new HeightmapDecoratorConfig(Heightmap.Type.MOTION_BLOCKING)).spreadHorizontally();
-
 	}
 }

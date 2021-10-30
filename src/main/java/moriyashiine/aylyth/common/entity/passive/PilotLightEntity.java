@@ -110,6 +110,11 @@ public class PilotLightEntity extends AmbientEntity implements Flutterer {
 	}
 	
 	@Override
+	public int getLimitPerChunk() {
+		return 2;
+	}
+	
+	@Override
 	protected void pushAway(Entity entity) {
 	}
 	
@@ -145,13 +150,8 @@ public class PilotLightEntity extends AmbientEntity implements Flutterer {
 	private boolean isBlue() {
 		return dataTracker.get(IS_BLUE);
 	}
-
+	
 	public static boolean canSpawn(EntityType<PilotLightEntity> pilotLightEntityEntityType, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos blockPos, Random random) {
 		return spawnReason != SpawnReason.NATURAL || random.nextInt(10) == 0;
-	}
-
-	@Override
-	public int getLimitPerChunk() {
-		return 2;
 	}
 }
