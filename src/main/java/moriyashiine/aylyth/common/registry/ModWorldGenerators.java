@@ -7,8 +7,10 @@ import moriyashiine.aylyth.common.world.generator.AylthianTrunkPlacer;
 import moriyashiine.aylyth.common.world.generator.BigYmpeTrunkPlacer;
 import moriyashiine.aylyth.common.world.generator.YmpeTrunkPlacer;
 import moriyashiine.aylyth.common.world.generator.feature.BushFeature;
+import moriyashiine.aylyth.common.world.generator.feature.GrapeVineDecorator;
 import moriyashiine.aylyth.common.world.generator.feature.SeepFeature;
 import moriyashiine.aylyth.common.world.generator.feature.SpringFeature;
+import moriyashiine.aylyth.mixin.TreeDecoratorTypeAccessor;
 import moriyashiine.aylyth.mixin.TrunkPlacerTypeAccessor;
 import net.fabricmc.fabric.api.biome.v1.BiomeModification;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
@@ -31,9 +33,11 @@ import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
 import net.minecraft.world.gen.foliage.BushFoliagePlacer;
 import net.minecraft.world.gen.foliage.DarkOakFoliagePlacer;
 import net.minecraft.world.gen.heightprovider.ConstantHeightProvider;
+import net.minecraft.world.gen.placer.SimpleBlockPlacer;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
+import net.minecraft.world.gen.treedecorator.TreeDecoratorType;
 import net.minecraft.world.gen.trunk.TrunkPlacerType;
 
 public class ModWorldGenerators extends DefaultBiomeFeatures {
@@ -41,9 +45,9 @@ public class ModWorldGenerators extends DefaultBiomeFeatures {
 	public static final TrunkPlacerType<AylthianTrunkPlacer> AYLYTHIAN_TRUNK_PLACER = TrunkPlacerTypeAccessor.callRegister(Aylyth.MOD_ID + ":aylythian_trunk_placer", AylthianTrunkPlacer.CODEC);
 	public static final TrunkPlacerType<YmpeTrunkPlacer> YMPE_TRUNK_PLACER = TrunkPlacerTypeAccessor.callRegister(Aylyth.MOD_ID + ":ympe_trunk_placer", YmpeTrunkPlacer.CODEC);
 	public static final TrunkPlacerType<BigYmpeTrunkPlacer> BIG_YMPE_TRUNK_PLACER = TrunkPlacerTypeAccessor.callRegister(Aylyth.MOD_ID + ":big_ympe_trunk_placer", BigYmpeTrunkPlacer.CODEC);
-	
-	public static final ConfiguredFeature<TreeFeatureConfig, ?> AYLYTHIAN_DARK_OAK = Feature.TREE.configure(new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.DARK_OAK_LOG.getDefaultState()), new AylthianTrunkPlacer(), new SimpleBlockStateProvider(Blocks.DARK_OAK_LEAVES.getDefaultState()), new SimpleBlockStateProvider(Blocks.DARK_OAK_SAPLING.getDefaultState()), new DarkOakFoliagePlacer(ConstantIntProvider.create(1), ConstantIntProvider.create(0)), new TwoLayersFeatureSize(1, 1, 2)).ignoreVines().build());
-	public static final ConfiguredFeature<TreeFeatureConfig, ?> AYLYTHIAN_MEGA_DARK_OAK = Feature.TREE.configure(new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.DARK_OAK_LOG.getDefaultState()), new AylthianTrunkPlacer(18, 6, 7), new SimpleBlockStateProvider(Blocks.DARK_OAK_LEAVES.getDefaultState()), new SimpleBlockStateProvider(Blocks.DARK_OAK_SAPLING.getDefaultState()), new DarkOakFoliagePlacer(ConstantIntProvider.create(1), ConstantIntProvider.create(0)), new TwoLayersFeatureSize(1, 1, 2)).ignoreVines().build());
+	public static final TreeDecoratorType<GrapeVineDecorator> GRAPE_VINE = TreeDecoratorTypeAccessor.register(Aylyth.MOD_ID + ":grape_vine_decorator", GrapeVineDecorator.CODEC);
+	public static final ConfiguredFeature<TreeFeatureConfig, ?> AYLYTHIAN_DARK_OAK = Feature.TREE.configure(new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.DARK_OAK_LOG.getDefaultState()), new AylthianTrunkPlacer(), new SimpleBlockStateProvider(Blocks.DARK_OAK_LEAVES.getDefaultState()), new SimpleBlockStateProvider(Blocks.DARK_OAK_SAPLING.getDefaultState()), new DarkOakFoliagePlacer(ConstantIntProvider.create(1), ConstantIntProvider.create(0)), new TwoLayersFeatureSize(1, 1, 2)).ignoreVines().decorators(ImmutableList.of(new GrapeVineDecorator())).build());
+	public static final ConfiguredFeature<TreeFeatureConfig, ?> AYLYTHIAN_MEGA_DARK_OAK = Feature.TREE.configure(new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.DARK_OAK_LOG.getDefaultState()), new AylthianTrunkPlacer(18, 6, 7), new SimpleBlockStateProvider(Blocks.DARK_OAK_LEAVES.getDefaultState()), new SimpleBlockStateProvider(Blocks.DARK_OAK_SAPLING.getDefaultState()), new DarkOakFoliagePlacer(ConstantIntProvider.create(1), ConstantIntProvider.create(0)), new TwoLayersFeatureSize(1, 1, 2)).decorators(ImmutableList.of(new GrapeVineDecorator())).ignoreVines().build());
 	public static final ConfiguredFeature<TreeFeatureConfig, ?> YMPE_TREE = Feature.TREE.configure(new TreeFeatureConfig.Builder(YMPE_LOG_PROVIDER, new YmpeTrunkPlacer(), new SimpleBlockStateProvider(ModBlocks.YMPE_LEAVES.getDefaultState()), new SimpleBlockStateProvider(ModBlocks.YMPE_SAPLING.getDefaultState()), new BushFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(1), 2), new TwoLayersFeatureSize(1, 1, 1)).ignoreVines().build());
 	public static final ConfiguredFeature<TreeFeatureConfig, ?> BIG_YMPE_TREE = Feature.TREE.configure(new TreeFeatureConfig.Builder(YMPE_LOG_PROVIDER, new BigYmpeTrunkPlacer(), new SimpleBlockStateProvider(ModBlocks.YMPE_LEAVES.getDefaultState()), new SimpleBlockStateProvider(ModBlocks.YMPE_SAPLING.getDefaultState()), new BushFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(1), 2), new TwoLayersFeatureSize(1, 1, 1)).ignoreVines().build());
 	public static final ConfiguredFeature<?, ?> ROOF_TREES = AYLYTHIAN_DARK_OAK.decorate(Decorators.SQUARE_HEIGHTMAP_OCEAN_FLOOR_NO_WATER).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(8, 0.3F, 2)));
@@ -63,7 +67,8 @@ public class ModWorldGenerators extends DefaultBiomeFeatures {
 	
 	public static final ConfiguredFeature<?, ?> SPRING = SPRING_FEATURE.configure(new SingleStateFeatureConfig(Blocks.WATER.getDefaultState())).range(Decorators.TOP_TO_BOTTOM).spreadHorizontally().applyChance(8);
 	public static final ConfiguredFeature<?, ?> BUSHES = BUSH_FEATURE.configure(FeatureConfig.DEFAULT).decorate(Decorators.FOLIAGE_PLACEMENT).applyChance(2).repeatRandomly(5);
-	
+	public static final ConfiguredFeature<?, ?> AYLYTH_WEEDS = Feature.RANDOM_PATCH.configure(new RandomPatchFeatureConfig.Builder(new WeightedBlockStateProvider(DataPool.<BlockState>builder().add(ModBlocks.ANTLER_SHOOTS.getDefaultState(), 5).add(ModBlocks.GRIPWEED.getDefaultState(), 2).build()), SimpleBlockPlacer.INSTANCE).tries(64).cannotProject().build()).decorate(Decorator.SPREAD_32_ABOVE.configure(NopeDecoratorConfig.INSTANCE).decorate(Decorators.FOLIAGE_PLACEMENT).repeat(7));
+
 	public static final ConfiguredFeature<?, ?> OAK_SEEP = SEEP_FEATURE.configure(new SeepFeature.SeepFeatureConfig(Blocks.OAK_LOG.getDefaultState(), ModBlocks.OAK_SEEP.getDefaultState())).spreadHorizontally().applyChance(10).repeatRandomly(4);
 	public static final ConfiguredFeature<?, ?> SPRUCE_SEEP = SEEP_FEATURE.configure(new SeepFeature.SeepFeatureConfig(Blocks.SPRUCE_LOG.getDefaultState(), ModBlocks.SPRUCE_SEEP.getDefaultState())).spreadHorizontally().applyChance(12).repeatRandomly(2);
 	public static final ConfiguredFeature<?, ?> DARK_OAK_SEEP = SEEP_FEATURE.configure(new SeepFeature.SeepFeatureConfig(Blocks.DARK_OAK_LOG.getDefaultState(), ModBlocks.DARK_OAK_SEEP.getDefaultState())).spreadHorizontally().applyChance(12).repeatRandomly(2);
@@ -93,6 +98,7 @@ public class ModWorldGenerators extends DefaultBiomeFeatures {
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(Aylyth.MOD_ID, "dark_oak_seep"), DARK_OAK_SEEP);
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(Aylyth.MOD_ID, "spruce_seep"), SPRUCE_SEEP);
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(Aylyth.MOD_ID, "ympe_seep"), YMPE_SEEP);
+		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(Aylyth.MOD_ID, "aylyth_weeds"), AYLYTH_WEEDS);
 		Registry.register(Registry.BIOME_SOURCE, new Identifier(Aylyth.MOD_ID, "aylyth_biome_provider"), AylythBiomeSource.CODEC);
 		
 		BiomeModification worldGen = BiomeModifications.create(new Identifier(Aylyth.MOD_ID, "world_features"));
@@ -107,5 +113,6 @@ public class ModWorldGenerators extends DefaultBiomeFeatures {
 		private static final ConfiguredDecorator<?> HEIGHTMAP_OCEAN_FLOOR_NO_WATER = HEIGHTMAP_OCEAN_FLOOR.decorate(Decorator.WATER_DEPTH_THRESHOLD.configure(new WaterDepthThresholdDecoratorConfig(0)));
 		private static final ConfiguredDecorator<?> SQUARE_HEIGHTMAP_OCEAN_FLOOR_NO_WATER = HEIGHTMAP_OCEAN_FLOOR_NO_WATER.spreadHorizontally();
 		private static final ConfiguredDecorator<?> FOLIAGE_PLACEMENT = Decorator.HEIGHTMAP_SPREAD_DOUBLE.configure(new HeightmapDecoratorConfig(Heightmap.Type.MOTION_BLOCKING)).spreadHorizontally();
+
 	}
 }

@@ -76,6 +76,7 @@ public class ModBiomes {
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, deep ? ModWorldGenerators.DEEP_FOREST_TREES : ModWorldGenerators.FOREST_TREES);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.PATCH_GRASS_TAIGA);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.PATCH_TALL_GRASS);
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModWorldGenerators.AYLYTH_WEEDS);
 		if (deep) {
 			builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.PATCH_TALL_GRASS_2);
 			DefaultBiomeFeatures.addLargeFerns(builder);
@@ -98,6 +99,7 @@ public class ModBiomes {
 		}
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, deep ? ModWorldGenerators.DEEP_CONIFEROUS_FOREST_TREES : ModWorldGenerators.CONIFEROUS_FOREST_TREES);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.PATCH_GRASS_TAIGA);
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModWorldGenerators.AYLYTH_WEEDS);
 		DefaultBiomeFeatures.addDefaultMushrooms(builder);
 		DefaultBiomeFeatures.addSprings(builder);
 		DefaultBiomeFeatures.addFrozenTopLayer(builder);
