@@ -20,7 +20,7 @@ public class VineBlockMixin {
 		}
 	}
 	
-	@Inject(method = "shouldConnectTo", at = @At("HEAD"))
+	@Inject(method = "shouldConnectTo", at = @At("HEAD"), cancellable = true)
 	private static void shouldNysianVineConnectTo(BlockView world, BlockPos pos, Direction direction, CallbackInfoReturnable<Boolean> cir) {
 		if (world.getBlockState(pos).getBlock() instanceof NysianGrapeVineBlock && direction == Direction.UP) {
 			cir.setReturnValue(false);
