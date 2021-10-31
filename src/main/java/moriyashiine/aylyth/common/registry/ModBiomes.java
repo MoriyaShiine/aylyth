@@ -85,7 +85,7 @@ public class ModBiomes {
 		DefaultBiomeFeatures.addSprings(builder);
 		DefaultBiomeFeatures.addFrozenTopLayer(builder);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModWorldGenerators.YMPE_SEEP);
-		return new Biome.Builder().precipitation(Biome.Precipitation.RAIN).category(Biome.Category.FOREST).depth(deep ? 0.5F : 0.3F).scale(deep ? 0.3F : 0.2F).temperature(0.7F).downfall(0.8F).effects((new BiomeEffects.Builder()).foliageColor(deep ? DEEP_AYLYITHAN_FOLIAGE_COLOR : AYLYITHAN_FOLIAGE_COLOR).grassColor(deep ? 0xAD6903 : 0xB5883B).waterColor(WATER_COLOR).waterFogColor(UNDERWATER_COLOR).fogColor(FOG_COLOR).skyColor(SKY_COLOR).moodSound(BiomeMoodSound.CAVE).particleConfig(new BiomeParticleConfig(ParticleTypes.MYCELIUM, deep ? 0.1F : 0.025F)).additionsSound(FOREST_AMBIANCE).build()).spawnSettings(spawnSettings.build()).generationSettings(builder.build()).build();
+		return new Biome.Builder().precipitation(Biome.Precipitation.RAIN).category(Biome.Category.FOREST).depth(deep ? 0.5F : 0.3F).scale(deep ? 0.3F : 0.2F).temperature(0.7F).downfall(0.8F).effects(new BiomeEffects.Builder().foliageColor(deep ? DEEP_AYLYITHAN_FOLIAGE_COLOR : AYLYITHAN_FOLIAGE_COLOR).grassColor(deep ? 0xAD6903 : 0xB5883B).waterColor(WATER_COLOR).waterFogColor(UNDERWATER_COLOR).fogColor(FOG_COLOR).skyColor(SKY_COLOR).moodSound(BiomeMoodSound.CAVE).particleConfig(new BiomeParticleConfig(ParticleTypes.MYCELIUM, deep ? 0.1F : 0.025F)).additionsSound(FOREST_AMBIANCE).build()).spawnSettings(spawnSettings.build()).generationSettings(builder.build()).build();
 	}
 	
 	private static Biome createConiferousForest(boolean deep, SpawnSettings.Builder spawnSettings) {
@@ -104,6 +104,6 @@ public class ModBiomes {
 		DefaultBiomeFeatures.addSprings(builder);
 		DefaultBiomeFeatures.addFrozenTopLayer(builder);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModWorldGenerators.YMPE_SEEP);
-		return new Biome.Builder().precipitation(Biome.Precipitation.RAIN).category(Biome.Category.FOREST).depth(deep ? 0.4F : 0.3F).scale(deep ? 0.3F : 0.2F).temperature(0.7F).downfall(0.8F).effects((new BiomeEffects.Builder()).foliageColor(deep ? DEEP_AYLYITHAN_FOLIAGE_COLOR : AYLYITHAN_FOLIAGE_COLOR).grassColor(deep ? 0x3E682B : 0x4D7C44).waterColor(WATER_COLOR).waterFogColor(UNDERWATER_COLOR).fogColor(FOG_COLOR).skyColor(SKY_COLOR).moodSound(BiomeMoodSound.CAVE).particleConfig(new BiomeParticleConfig(ParticleTypes.MYCELIUM, deep ? 0.1F : 0.025F)).additionsSound(FOREST_AMBIANCE).build()).spawnSettings(spawnSettings.build()).generationSettings(builder.build()).build();
+		return new Biome.Builder().precipitation(Biome.Precipitation.RAIN).category(Biome.Category.FOREST).depth(deep ? 0.4F : 0.3F).scale(deep ? 0.3F : 0.2F).temperature(0.7F).downfall(0.8F).effects(new BiomeEffects.Builder().foliageColor(deep ? DEEP_AYLYITHAN_FOLIAGE_COLOR : AYLYITHAN_FOLIAGE_COLOR).grassColor(deep ? 0x3E682B : 0x4D7C44).waterColor(WATER_COLOR).waterFogColor(UNDERWATER_COLOR).fogColor(FOG_COLOR).skyColor(SKY_COLOR).moodSound(BiomeMoodSound.CAVE).particleConfig(new BiomeParticleConfig(ParticleTypes.MYCELIUM, deep ? 0.1F : 0.025F)).additionsSound(FOREST_AMBIANCE).build()).spawnSettings(spawnSettings.build()).generationSettings(builder.build()).build();
 	}
 }
