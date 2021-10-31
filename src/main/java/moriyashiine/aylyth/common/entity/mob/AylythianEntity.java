@@ -1,6 +1,7 @@
 package moriyashiine.aylyth.common.entity.mob;
 
 import moriyashiine.aylyth.common.registry.ModBlocks;
+import moriyashiine.aylyth.common.registry.ModSoundEvents;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
@@ -11,6 +12,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Arm;
 import net.minecraft.util.math.BlockPos;
@@ -80,6 +82,22 @@ public class AylythianEntity extends HostileEntity implements IAnimatable {
 		if (age % 200 == 0) {
 			heal(1);
 		}
+	}
+	
+	@Nullable
+	@Override
+	protected SoundEvent getAmbientSound() {
+		return ModSoundEvents.ENTITY_AYLYTHIAN_AMBIENT;
+	}
+	
+	@Override
+	protected SoundEvent getHurtSound(DamageSource source) {
+		return ModSoundEvents.ENTITY_AYLYTHIAN_HURT;
+	}
+	
+	@Override
+	protected SoundEvent getDeathSound() {
+		return ModSoundEvents.ENTITY_AYLYTHIAN_DEATH;
 	}
 	
 	@Override

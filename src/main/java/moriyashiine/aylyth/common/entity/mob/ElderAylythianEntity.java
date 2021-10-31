@@ -2,6 +2,7 @@ package moriyashiine.aylyth.common.entity.mob;
 
 import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.ModItems;
+import moriyashiine.aylyth.common.registry.ModSoundEvents;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -14,6 +15,7 @@ import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.LocalDifficulty;
@@ -74,6 +76,22 @@ public class ElderAylythianEntity extends HostileEntity implements IAnimatable {
 	@Override
 	public AnimationFactory getFactory() {
 		return factory;
+	}
+	
+	@Nullable
+	@Override
+	protected SoundEvent getAmbientSound() {
+		return ModSoundEvents.ENTITY_ELDER_AYLYTHIAN_AMBIENT;
+	}
+	
+	@Override
+	protected SoundEvent getHurtSound(DamageSource source) {
+		return ModSoundEvents.ENTITY_ELDER_AYLYTHIAN_HURT;
+	}
+	
+	@Override
+	protected SoundEvent getDeathSound() {
+		return ModSoundEvents.ENTITY_ELDER_AYLYTHIAN_DEATH;
 	}
 	
 	@Override

@@ -49,5 +49,11 @@
   "aylyth.subtitles.block.ympe_log.pick_fruit": "Fruit picked",
   "aylyth.subtitles.entity.player.increase_ympe_infestation_stage": "Branches spread",
   "aylyth.subtitles.entity.generic.shucked": "Entity shucked",
+  "aylyth.subtitles.entity.aylythian.ambient": "Aylythian groans",
+  "aylyth.subtitles.entity.aylythian.hurt": "Aylythian hurts",
+  "aylyth.subtitles.entity.aylythian.death": "Aylythian dies",
+  "aylyth.subtitles.entity.elder_aylythian.ambient": "Elder Aylythian rumbles",
+  "aylyth.subtitles.entity.elder_aylythian.hurt": "Elder Aylythian hurts",
+  "aylyth.subtitles.entity.elder_aylythian.death": "Elder Aylythian dies",
   "rei.aylyth.ympe_dagger_drops": "Ympe Dagger Drops"
 }
