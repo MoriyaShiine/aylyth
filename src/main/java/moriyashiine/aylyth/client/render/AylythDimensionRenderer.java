@@ -117,11 +117,6 @@ public class AylythDimensionRenderer {
 		}
 		
 		@Override
-		public float[] getFogColorOverride(float skyAngle, float tickDelta) {
-			return super.getFogColorOverride(skyAngle, tickDelta);
-		}
-		
-		@Override
 		public Vec3d adjustFogColor(Vec3d color, float sunHeight) {
 			return color;
 		}
