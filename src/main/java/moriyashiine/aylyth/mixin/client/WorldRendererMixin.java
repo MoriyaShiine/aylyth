@@ -34,7 +34,7 @@ public class WorldRendererMixin {
 	@Nullable
 	private VertexBuffer starsBuffer;
 	
-	@Inject(method = "renderSky", at = @At(value = "INVOKE", target = "Ljava/lang/Runnable;run()V", shift = At.Shift.AFTER))
+	@Inject(method = "renderSky", at = @At(value = "INVOKE", target = "Ljava/lang/Runnable;run()V", shift = At.Shift.AFTER, ordinal = 0))
 	private void renderyAylythSky(MatrixStack matrices, Matrix4f matrix4f, float f, Runnable runnable, CallbackInfo ci) {
 		if (world.getSkyProperties() == AylythDimensionRenderer.SKY_PROPERTIES) {
 			AylythDimensionRenderer.renderSky(client, world, lightSkyBuffer, starsBuffer, matrices, matrix4f, f, runnable);
