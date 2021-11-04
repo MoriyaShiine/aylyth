@@ -51,6 +51,7 @@ public class ModParticles {
 				tessellator.draw();
 				RenderSystem.disableBlend();
 				RenderSystem.depthMask(true);
+				RenderSystem.disableDepthTest();
 			}
 			
 			@Override
