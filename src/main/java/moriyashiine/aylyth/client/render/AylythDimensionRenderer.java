@@ -21,7 +21,7 @@ import net.minecraft.world.biome.Biome;
 
 @Environment(EnvType.CLIENT)
 public class AylythDimensionRenderer {
-	public static final SkyProperties SKY_PROPERTIES = new AylythSkyProperties();
+	public static final DimensionEffects DIMENSION_EFFECTS = new AylythDimensionEffects();
 	public static final Identifier SUN = new Identifier(Aylyth.MOD_ID, "textures/environment/sun.png");
 	public static final Identifier MOON = new Identifier(Aylyth.MOD_ID, "textures/environment/moon.png");
 	public static int goalFogStrength = 0;
@@ -40,7 +40,7 @@ public class AylythDimensionRenderer {
 	
 	public static void renderSky(MinecraftClient client, ClientWorld world, VertexBuffer lightSkyBuffer, VertexBuffer starsBuffer, MatrixStack matrices, Matrix4f matrix4f, float ticks, Runnable fogHandler) {
 		RenderSystem.disableTexture();
-		Vec3d vec3d = world.method_23777(client.gameRenderer.getCamera().getPos(), ticks);
+		Vec3d vec3d = world.getSkyColor(client.gameRenderer.getCamera().getPos(), ticks);
 		float skyRed = (float) vec3d.x;
 		float skyGreen = (float) vec3d.y;
 		float skyBlue = (float) vec3d.z;
@@ -49,7 +49,7 @@ public class AylythDimensionRenderer {
 		RenderSystem.depthMask(false);
 		RenderSystem.setShaderColor(skyRed, skyGreen, skyBlue, 0.0F);
 		Shader shader = RenderSystem.getShader();
-		lightSkyBuffer.setShader(matrices.peek().getModel(), matrix4f, shader);
+		lightSkyBuffer.setShader(matrices.peek().getPositionMatrix(), matrix4f, shader);
 		RenderSystem.enableBlend();
 		RenderSystem.defaultBlendFunc();
 		RenderSystem.enableTexture();
@@ -58,7 +58,7 @@ public class AylythDimensionRenderer {
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 		matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(-90.0F));
 		matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(world.getSkyAngle(ticks) * 360.0F));
-		Matrix4f matrix4f3 = matrices.peek().getModel();
+		Matrix4f matrix4f3 = matrices.peek().getPositionMatrix();
 		float celestialSize = 60.0F;
 		RenderSystem.setShader(GameRenderer::getPositionTexShader);
 		RenderSystem.setShaderTexture(0, SUN);
@@ -81,8 +81,8 @@ public class AylythDimensionRenderer {
 		float starPower = world.method_23787(ticks);
 		if (starPower > 0.0F) {
 			RenderSystem.setShaderColor(starPower, starPower, starPower, starPower);
-			BackgroundRenderer.method_23792();
-			starsBuffer.setShader(matrices.peek().getModel(), matrix4f, GameRenderer.getPositionShader());
+			BackgroundRenderer.clearFog();
+			starsBuffer.setShader(matrices.peek().getPositionMatrix(), matrix4f, GameRenderer.getPositionShader());
 			fogHandler.run();
 		}
 		RenderSystem.disableBlend();
@@ -111,8 +111,8 @@ public class AylythDimensionRenderer {
 		}
 	}
 	
-	private static class AylythSkyProperties extends SkyProperties {
-		public AylythSkyProperties() {
+	private static class AylythDimensionEffects extends DimensionEffects {
+		public AylythDimensionEffects() {
 			super(0, false, SkyType.NONE, false, true);
 		}
 		

@@ -14,12 +14,12 @@
   ],
   "client": [
 	"client.BackgroundRendererMixin",
+	"client.DimensionEffectsAccessor",
 	"client.GameRendererMixin",
 	"client.InGameHudMixin",
 	"client.ParticleManagerMixin",
 	"client.PlayerEntityRendererMixin",
 	"client.RenderLayerAccessor",
-	"client.SkyPropertiesAccessor",
 	"client.WorldRendererMixin"
   ],
   "injectors": {

@@ -34,9 +34,9 @@ public class WorldRendererMixin {
 	@Nullable
 	private VertexBuffer starsBuffer;
 	
-	@Inject(method = "renderSky", at = @At(value = "INVOKE", target = "Ljava/lang/Runnable;run()V", shift = At.Shift.AFTER, ordinal = 0))
+	@Inject(method = "renderSky(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/util/math/Matrix4f;FLjava/lang/Runnable;)V", at = @At(value = "INVOKE", target = "Ljava/lang/Runnable;run()V", shift = At.Shift.AFTER, ordinal = 0))
 	private void renderyAylythSky(MatrixStack matrices, Matrix4f matrix4f, float f, Runnable runnable, CallbackInfo ci) {
-		if (world.getSkyProperties() == AylythDimensionRenderer.SKY_PROPERTIES) {
+		if (world.getDimensionEffects() == AylythDimensionRenderer.DIMENSION_EFFECTS) {
 			AylythDimensionRenderer.renderSky(client, world, lightSkyBuffer, starsBuffer, matrices, matrix4f, f, runnable);
 		}
 	}

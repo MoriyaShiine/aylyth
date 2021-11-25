@@ -12,7 +12,7 @@ import moriyashiine.aylyth.client.render.entity.living.ElderAylythianEntityRende
 import moriyashiine.aylyth.client.render.entity.living.PilotLightEntityRenderer;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.registry.*;
-import moriyashiine.aylyth.mixin.client.SkyPropertiesAccessor;
+import moriyashiine.aylyth.mixin.client.DimensionEffectsAccessor;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -46,7 +46,7 @@ public class AylythClient implements ClientModInitializer {
 	
 	@Override
 	public void onInitializeClient() {
-		SkyPropertiesAccessor.aylyth_getByIdentifier().put(ModDimensions.AYLYTH_DIMENSION_KEY.getValue(), AylythDimensionRenderer.SKY_PROPERTIES);
+		DimensionEffectsAccessor.aylyth_getByIdentifier().put(ModDimensions.AYLYTH_DIMENSION_KEY.getValue(), AylythDimensionRenderer.DIMENSION_EFFECTS);
 		ClientPlayNetworking.registerGlobalReceiver(SpawnShuckParticlesPacket.ID, SpawnShuckParticlesPacket::receive);
 		ParticleFactoryRegistry.getInstance().register(ModParticles.PILOT_LIGHT, PilotLightParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(ModParticles.AMBIENT_PILOT_LIGHT, PilotLightParticle.AmbientFactory::new);
