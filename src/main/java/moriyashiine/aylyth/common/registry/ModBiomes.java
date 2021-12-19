@@ -12,7 +12,8 @@ import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.ConfiguredFeatures;
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
-import net.minecraft.world.gen.surfacebuilder.ConfiguredSurfaceBuilders;
+import net.minecraft.world.gen.feature.VegetationPlacedFeatures;
+import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder;
 
 public class ModBiomes {
 	public static final SpawnSettings.Builder FOREST_MOBS = new SpawnSettings.Builder().spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(ModEntityTypes.AYLYTHIAN, 20, 1, 2)).spawn(SpawnGroup.AMBIENT, new SpawnSettings.SpawnEntry(ModEntityTypes.PILOT_LIGHT, 5, 1, 1)).creatureSpawnProbability(0.5F);
@@ -48,15 +49,15 @@ public class ModBiomes {
 	}
 	
 	private static Biome createClearing(boolean overgrown, SpawnSettings.Builder spawnSettings) {
-		GenerationSettings.Builder builder = (new GenerationSettings.Builder()).surfaceBuilder(ConfiguredSurfaceBuilders.GRASS);
+		GenerationSettings.Builder builder = new GenerationSettings.Builder();
 		//DefaultBiomeFeatures.addLandCarvers(builder);
-		//builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModWorldGenerators.CLEARING_FLOWERS);
-		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.PATCH_GRASS_PLAIN);
+		//builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModWorldGenerators.Placed.CLEARING_FLOWERS);
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_GRASS_PLAIN);
 		if (overgrown) {
-			builder.feature(GenerationStep.Feature.LAKES, ModWorldGenerators.SPRING);
-			builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModWorldGenerators.OVERGROWTH_CLEARING_TREES);
-			builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.PATCH_TALL_GRASS);
-			builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModWorldGenerators.BUSHES);
+			builder.feature(GenerationStep.Feature.LAKES, ModWorldGenerators.Placed.SPRING);
+			builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModWorldGenerators.Mixed.OVERGROWTH_CLEARING_TREES_PLACED);
+			builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_TALL_GRASS);
+			builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModWorldGenerators.Placed.BUSHES);
 		}
 		DefaultBiomeFeatures.addSprings(builder);
 		DefaultBiomeFeatures.addFrozenTopLayer(builder);
@@ -64,46 +65,46 @@ public class ModBiomes {
 		if (overgrown) {
 			effects = effects.additionsSound(OVERGROWN_CLEARING_AMBIANCE);
 		}
-		return new Biome.Builder().precipitation(Biome.Precipitation.RAIN).category(Biome.Category.PLAINS).depth(0.1F).scale(0.5F).temperature(0.7F).downfall(0.8F).effects(effects.build()).spawnSettings(spawnSettings.build()).generationSettings(builder.build()).build();
+		return new Biome.Builder().precipitation(Biome.Precipitation.RAIN).category(Biome.Category.PLAINS).temperature(0.7F).downfall(0.8F).effects(effects.build()).spawnSettings(spawnSettings.build()).generationSettings(builder.build()).build();
 	}
 	
 	private static Biome createForest(boolean deep, SpawnSettings.Builder spawnSettings) {
-		GenerationSettings.Builder builder = (new GenerationSettings.Builder()).surfaceBuilder(ConfiguredSurfaceBuilders.GRASS);
+		GenerationSettings.Builder builder = new GenerationSettings.Builder();
 		//DefaultBiomeFeatures.addLandCarvers(builder);
-		builder.feature(GenerationStep.Feature.LAKES, ModWorldGenerators.SPRING);
-		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModWorldGenerators.BUSHES);
-		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, deep ? ModWorldGenerators.DEEP_ROOF_TREES : ModWorldGenerators.ROOF_TREES);
-		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, deep ? ModWorldGenerators.DEEP_FOREST_TREES : ModWorldGenerators.FOREST_TREES);
-		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.PATCH_GRASS_TAIGA);
-		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.PATCH_TALL_GRASS);
-		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModWorldGenerators.AYLYTH_WEEDS);
+		builder.feature(GenerationStep.Feature.LAKES, ModWorldGenerators.Placed.SPRING);
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModWorldGenerators.Placed.BUSHES);
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, deep ? ModWorldGenerators.Mixed.DEEP_ROOF_TREES_PLACED : ModWorldGenerators.Placed.AYLYTHIAN_DARK_OAK);
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, deep ? ModWorldGenerators.Mixed.DEEP_FOREST_TREES_PLACED : ModWorldGenerators.Mixed.FOREST_TREES_PLACED);
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_GRASS_TAIGA);
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_TALL_GRASS);
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModWorldGenerators.Placed.AYLYTH_WEEDS);
 		if (deep) {
-			builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.PATCH_TALL_GRASS_2);
+			builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_TALL_GRASS_2);
 			DefaultBiomeFeatures.addLargeFerns(builder);
 		}
 		DefaultBiomeFeatures.addDefaultMushrooms(builder);
 		DefaultBiomeFeatures.addSprings(builder);
 		DefaultBiomeFeatures.addFrozenTopLayer(builder);
-		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModWorldGenerators.YMPE_SEEP);
-		return new Biome.Builder().precipitation(Biome.Precipitation.RAIN).category(Biome.Category.FOREST).depth(deep ? 0.5F : 0.3F).scale(deep ? 0.3F : 0.2F).temperature(0.7F).downfall(0.8F).effects(new BiomeEffects.Builder().foliageColor(deep ? DEEP_AYLYITHAN_FOLIAGE_COLOR : AYLYITHAN_FOLIAGE_COLOR).grassColor(deep ? 0xAD6903 : 0xB5883B).waterColor(WATER_COLOR).waterFogColor(UNDERWATER_COLOR).fogColor(FOG_COLOR).skyColor(SKY_COLOR).moodSound(BiomeMoodSound.CAVE).particleConfig(new BiomeParticleConfig(ParticleTypes.MYCELIUM, deep ? 0.1F : 0.025F)).additionsSound(FOREST_AMBIANCE).build()).spawnSettings(spawnSettings.build()).generationSettings(builder.build()).build();
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModWorldGenerators.Placed.YMPE_SEEP);
+		return new Biome.Builder().precipitation(Biome.Precipitation.RAIN).category(Biome.Category.FOREST).temperature(0.7F).downfall(0.8F).effects(new BiomeEffects.Builder().foliageColor(deep ? DEEP_AYLYITHAN_FOLIAGE_COLOR : AYLYITHAN_FOLIAGE_COLOR).grassColor(deep ? 0xAD6903 : 0xB5883B).waterColor(WATER_COLOR).waterFogColor(UNDERWATER_COLOR).fogColor(FOG_COLOR).skyColor(SKY_COLOR).moodSound(BiomeMoodSound.CAVE).particleConfig(new BiomeParticleConfig(ParticleTypes.MYCELIUM, deep ? 0.1F : 0.025F)).additionsSound(FOREST_AMBIANCE).build()).spawnSettings(spawnSettings.build()).generationSettings(builder.build()).build();
 	}
 	
 	private static Biome createConiferousForest(boolean deep, SpawnSettings.Builder spawnSettings) {
-		GenerationSettings.Builder builder = (new GenerationSettings.Builder()).surfaceBuilder(ConfiguredSurfaceBuilders.GRASS);
+		GenerationSettings.Builder builder = new GenerationSettings.Builder();
 		//DefaultBiomeFeatures.addLandCarvers(builder);
 		DefaultBiomeFeatures.addForestFlowers(builder);
-		builder.feature(GenerationStep.Feature.LAKES, ModWorldGenerators.SPRING);
+		builder.feature(GenerationStep.Feature.LAKES, ModWorldGenerators.Placed.SPRING);
 		if (deep) {
-			builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModWorldGenerators.DEEP_CONIFEROUS_ROOF_TREES);
+			builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModWorldGenerators.Mixed.DEEP_CONIFEROUS_ROOF_TREES_PLACED);
 			DefaultBiomeFeatures.addLargeFerns(builder);
 		}
-		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, deep ? ModWorldGenerators.DEEP_CONIFEROUS_FOREST_TREES : ModWorldGenerators.CONIFEROUS_FOREST_TREES);
-		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.PATCH_GRASS_TAIGA);
-		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModWorldGenerators.AYLYTH_WEEDS);
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, deep ? ModWorldGenerators.Mixed.DEEP_CONIFEROUS_FOREST_TREES_PLACED : ModWorldGenerators.Mixed.CONIFEROUS_FOREST_TREES_PLACED);
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_GRASS_TAIGA);
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModWorldGenerators.Placed.AYLYTH_WEEDS);
 		DefaultBiomeFeatures.addDefaultMushrooms(builder);
 		DefaultBiomeFeatures.addSprings(builder);
 		DefaultBiomeFeatures.addFrozenTopLayer(builder);
-		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModWorldGenerators.YMPE_SEEP);
-		return new Biome.Builder().precipitation(Biome.Precipitation.RAIN).category(Biome.Category.FOREST).depth(deep ? 0.4F : 0.3F).scale(deep ? 0.3F : 0.2F).temperature(0.7F).downfall(0.8F).effects(new BiomeEffects.Builder().foliageColor(deep ? DEEP_AYLYITHAN_FOLIAGE_COLOR : AYLYITHAN_FOLIAGE_COLOR).grassColor(deep ? 0x3E682B : 0x4D7C44).waterColor(WATER_COLOR).waterFogColor(UNDERWATER_COLOR).fogColor(FOG_COLOR).skyColor(SKY_COLOR).moodSound(BiomeMoodSound.CAVE).particleConfig(new BiomeParticleConfig(ParticleTypes.MYCELIUM, deep ? 0.1F : 0.025F)).additionsSound(FOREST_AMBIANCE).build()).spawnSettings(spawnSettings.build()).generationSettings(builder.build()).build();
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModWorldGenerators.Placed.YMPE_SEEP);
+		return new Biome.Builder().precipitation(Biome.Precipitation.RAIN).category(Biome.Category.FOREST).temperature(0.7F).downfall(0.8F).effects(new BiomeEffects.Builder().foliageColor(deep ? DEEP_AYLYITHAN_FOLIAGE_COLOR : AYLYITHAN_FOLIAGE_COLOR).grassColor(deep ? 0x3E682B : 0x4D7C44).waterColor(WATER_COLOR).waterFogColor(UNDERWATER_COLOR).fogColor(FOG_COLOR).skyColor(SKY_COLOR).moodSound(BiomeMoodSound.CAVE).particleConfig(new BiomeParticleConfig(ParticleTypes.MYCELIUM, deep ? 0.1F : 0.025F)).additionsSound(FOREST_AMBIANCE).build()).spawnSettings(spawnSettings.build()).generationSettings(builder.build()).build();
 	}
 }

@@ -4,25 +4,25 @@
   "package": "moriyashiine.aylyth.mixin",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
-	"BiomeLayerSamplerAccessor",
-	"BlocksAccessor",
-	"BrewingRecipeRegistryAccessor",
-	"LivingEntityMixin",
-	"TreeDecoratorTypeAccessor",
-	"TrunkPlacerTypeAccessor",
-	"VineBlockMixin"
+    "BlocksAccessor",
+    "BrewingRecipeRegistryAccessor",
+    "GeneratorOptionsMixin",
+    "LivingEntityMixin",
+    "TreeDecoratorTypeAccessor",
+    "TrunkPlacerTypeAccessor",
+    "VineBlockMixin"
   ],
   "client": [
-	"client.BackgroundRendererMixin",
-	"client.DimensionEffectsAccessor",
-	"client.GameRendererMixin",
-	"client.InGameHudMixin",
-	"client.ParticleManagerMixin",
-	"client.PlayerEntityRendererMixin",
-	"client.RenderLayerAccessor",
-	"client.WorldRendererMixin"
+    "client.BackgroundRendererMixin",
+    "client.DimensionEffectsAccessor",
+    "client.GameRendererMixin",
+    "client.InGameHudMixin",
+    "client.ParticleManagerMixin",
+    "client.PlayerEntityRendererMixin",
+    "client.RenderLayerAccessor",
+    "client.WorldRendererMixin"
   ],
   "injectors": {
-	"defaultRequire": 1
+    "defaultRequire": 1
   }
 }

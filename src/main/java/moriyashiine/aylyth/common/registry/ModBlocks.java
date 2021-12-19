@@ -32,13 +32,13 @@ public class ModBlocks {
 		@Nullable
 		@Override
 		protected ConfiguredFeature<TreeFeatureConfig, ?> getLargeTreeFeature(Random random) {
-			return ModWorldGenerators.BIG_YMPE_TREE;
+			return ModWorldGenerators.Configured.BIG_YMPE_TREE;
 		}
 		
 		@Nullable
 		@Override
 		protected ConfiguredFeature<TreeFeatureConfig, ?> getTreeFeature(Random random, boolean bees) {
-			return ModWorldGenerators.YMPE_TREE;
+			return ModWorldGenerators.Configured.YMPE_TREE;
 		}
 	});
 	public static final Block POTTED_YMPE_SAPLING = new FlowerPotBlock(YMPE_SAPLING, copyOf(Blocks.POTTED_OAK_SAPLING));

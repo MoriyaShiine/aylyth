@@ -1,95 +1,74 @@
 package moriyashiine.aylyth.common.world.dimension;
 
+import com.google.common.collect.ImmutableList;
+import com.mojang.datafixers.kinds.Applicative;
+import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.world.dimension.layer.AylythBaseLayer;
-import moriyashiine.aylyth.common.world.dimension.layer.ClearingLayer;
-import moriyashiine.aylyth.common.world.dimension.layer.DeepForestLayer;
-import moriyashiine.aylyth.common.world.dimension.layer.ForestLayer;
-import moriyashiine.aylyth.mixin.BiomeLayerSamplerAccessor;
-import net.minecraft.SharedConstants;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.Util;
+import moriyashiine.aylyth.common.registry.ModBiomes;
+import moriyashiine.aylyth.common.registry.ModWorldGenerators;
 import net.minecraft.util.dynamic.RegistryLookupCodec;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.noise.SimplexNoiseSampler;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BuiltinBiomes;
-import net.minecraft.world.biome.layer.ScaleLayer;
-import net.minecraft.world.biome.layer.util.CachingLayerContext;
-import net.minecraft.world.biome.layer.util.LayerFactory;
-import net.minecraft.world.biome.layer.util.LayerSampleContext;
-import net.minecraft.world.biome.layer.util.LayerSampler;
-import net.minecraft.world.biome.source.BiomeLayerSampler;
+import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.biome.source.BiomeSource;
+import net.minecraft.world.biome.source.TheEndBiomeSource;
+import net.minecraft.world.biome.source.util.MultiNoiseUtil;
+import net.minecraft.world.biome.source.util.VanillaBiomeParameters;
+import net.minecraft.world.gen.random.AtomicSimpleRandom;
+import net.minecraft.world.gen.random.ChunkRandom;
 
-import java.util.Map;
-import java.util.function.LongFunction;
-import java.util.stream.Collectors;
+import java.util.function.Supplier;
 
 public class AylythBiomeSource extends BiomeSource {
-	private static Registry<Biome> biomeRegistry; //static instance for layers to grab raw ids
-	public static final Codec<AylythBiomeSource> CODEC = RecordCodecBuilder.create((instance) -> instance.group(RegistryLookupCodec.of(Registry.BIOME_KEY).forGetter((source) -> source.registry)).apply(instance, instance.stable(AylythBiomeSource::new)));
-	private final BiomeLayerSampler biomeSampler;
-	private final Registry<Biome> registry;
-	
-	public AylythBiomeSource(Registry<Biome> biomeRegistry) {
-		this(0, biomeRegistry);
-	}
-	
-	public AylythBiomeSource(long seed, Registry<Biome> biomeRegistry) {
-		super(biomeRegistry.getEntries().stream().filter(entry -> entry.getKey().getValue().getNamespace().equals(Aylyth.MOD_ID)).map(Map.Entry::getValue).collect(Collectors.toList()));
-		this.registry = biomeRegistry;
-		this.biomeSampler = new BiomeLayerSampler(build(salt -> new CachingLayerContext(25, seed, salt)));
-		AylythBiomeSource.biomeRegistry = registry;
-	}
-	
-	private static <T extends LayerSampler, C extends LayerSampleContext<T>> LayerFactory<T> build(LongFunction<C> contextProvider) {
-		LayerFactory<T> layer = AylythBaseLayer.INSTANCE.create(contextProvider.apply(1L));
-		layer = ForestLayer.NORMAL.create(contextProvider.apply(777L), layer);
-		layer = ForestLayer.CONIFEROUS.create(contextProvider.apply(888L), layer);
-		layer = ScaleLayer.NORMAL.create(contextProvider.apply(666L), layer);
-		layer = DeepForestLayer.CONIFEROUS.create(contextProvider.apply(3111L), layer);
-		layer = DeepForestLayer.NORMAL.create(contextProvider.apply(3110L), layer);
-		layer = ScaleLayer.NORMAL.create(contextProvider.apply(6606L), layer);
-		layer = ScaleLayer.NORMAL.create(contextProvider.apply(656L), layer);
-		layer = ForestLayer.NORMAL.create(contextProvider.apply(194L), layer);
-		layer = ForestLayer.CONIFEROUS.create(contextProvider.apply(1188L), layer);
-		layer = ScaleLayer.NORMAL.create(contextProvider.apply(6663L), layer);
-		layer = ScaleLayer.NORMAL.create(contextProvider.apply(6261L), layer);
-		layer = ClearingLayer.INSTANCE.create(contextProvider.apply(9909L), layer);
-		layer = ScaleLayer.FUZZY.create(contextProvider.apply(60660L), layer);
-		layer = ScaleLayer.NORMAL.create(contextProvider.apply(50160L), layer);
-		return layer;
-	}
-	
-	public static int getId(Identifier biomeId) {
-		return biomeRegistry.getRawId(biomeRegistry.get(biomeId));
-	}
-	
-	protected Codec<? extends BiomeSource> getCodec() {
-		return CODEC;
-	}
-	
-	@Override
-	public BiomeSource withSeed(long seed) {
-		return new AylythBiomeSource(seed, registry);
-	}
-	
-	@Override
-	public Biome getBiomeForNoiseGen(int biomeX, int biomeY, int biomeZ) {
-		int biomeId = ((BiomeLayerSamplerAccessor) biomeSampler).aylyth_getSampler().sample(biomeX, biomeZ);
-		Biome biome = registry.get(biomeId);
-		if (biome == null) {
-			if (SharedConstants.isDevelopment) {
-				throw Util.throwOrPause(new IllegalStateException("Unknown biome id: " + biomeId));
-			}
-			else {
-				RegistryKey<Biome> backup = BuiltinBiomes.fromRawId(0);
-				return registry.get(backup);
-			}
-		}
-		return biome;
-	}
+    public static long SEED_HOLDER = 0L;
+    public static final Codec<AylythBiomeSource> CODEC =
+            RecordCodecBuilder.create((instance) -> instance.group(
+                    Codec.LONG.fieldOf("seed").orElseGet(() -> SEED_HOLDER).stable().forGetter(source -> source.seed),
+                    RegistryLookupCodec.of(Registry.BIOME_KEY).forGetter((biomeSource) -> biomeSource.biomeRegistry))
+                    .apply(instance, instance.stable(AylythBiomeSource::new)));
+    private final MultiNoiseUtil.Entries<Supplier<Biome>> biomeEntries;
+    private final Registry<Biome> biomeRegistry;
+    private final long seed;
+
+    public AylythBiomeSource(long seed, Registry<Biome> biomeRegistry) {
+        this(biomeRegistry, seed, getEntries(biomeRegistry));
+    }
+
+    private AylythBiomeSource(Registry<Biome> biomeRegistry, long seed, MultiNoiseUtil.Entries<Supplier<Biome>> biomeEntries) {
+        super(biomeEntries.getEntries().stream().map(Pair::getSecond));
+        this.biomeRegistry = biomeRegistry;
+        this.seed = seed;
+        this.biomeEntries = null;
+        ChunkRandom chunkRandom = new ChunkRandom(new AtomicSimpleRandom(seed));
+        chunkRandom.skip(17292);
+    }
+
+    private static MultiNoiseUtil.Entries<Supplier<Biome>> getEntries(Registry<Biome> registry) {
+        ImmutableList.Builder builder = ImmutableList.builder();
+       //do stuff
+        return new MultiNoiseUtil.Entries<Supplier<Biome>>(builder.build());
+    }
+
+    @Override
+    protected Codec<? extends BiomeSource> getCodec() {
+        return CODEC;
+    }
+
+    @Override
+    public BiomeSource withSeed(long seed) {
+        return new AylythBiomeSource(seed, this.biomeRegistry);
+    }
+
+    @Override
+    public Biome getBiome(int x, int y, int z, MultiNoiseUtil.MultiNoiseSampler noise) {
+        return this.biomeEntries.method_39530(noise.sample(x, y, z), () -> biomeRegistry.get(ModBiomes.FOREST_ID)).get();
+    }
+
+    public boolean matches(long seed) {
+        return this.seed == seed;
+    }
 }
