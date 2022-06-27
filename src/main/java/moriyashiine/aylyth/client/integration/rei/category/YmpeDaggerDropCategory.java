@@ -14,13 +14,12 @@ import moriyashiine.aylyth.client.integration.rei.display.YmpeDaggerDropDisplay;
 import moriyashiine.aylyth.common.registry.ModItems;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class YmpeDaggerDropCategory implements DisplayCategory<YmpeDaggerDropDisplay> {
-	public static final TranslatableText TITLE = new TranslatableText("rei.aylyth.ympe_dagger_drops");
+	public static final Text TITLE = Text.translatable("rei.aylyth.ympe_dagger_drops");
 	public static final EntryStack<ItemStack> ICON = EntryStacks.of(ModItems.YMPE_DAGGER);
 	
 	@Override

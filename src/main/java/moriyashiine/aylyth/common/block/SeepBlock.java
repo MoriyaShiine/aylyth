@@ -27,7 +27,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.TeleportTarget;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
-import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.world.dimension.DimensionTypes;
 import org.jetbrains.annotations.Nullable;
 
 public class SeepBlock extends Block implements BlockEntityProvider {
@@ -57,7 +57,7 @@ public class SeepBlock extends Block implements BlockEntityProvider {
 		if (world instanceof ServerWorld serverWorld) {
 			if (entity.getPos().distanceTo(new Vec3d(pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F)) < 0.6F) {
 				ServerWorld aylyth = serverWorld.getServer().getWorld(ModDimensions.AYLYTH);
-				ServerWorld toWorld = entity.world == aylyth ? serverWorld.getServer().getWorld(RegistryKey.of(Registry.WORLD_KEY, DimensionType.OVERWORLD_REGISTRY_KEY.getValue())) : aylyth;
+				ServerWorld toWorld = entity.world == aylyth ? serverWorld.getServer().getWorld(RegistryKey.of(Registry.WORLD_KEY, DimensionTypes.OVERWORLD_ID)) : aylyth;
 				FabricDimensions.teleport(entity, toWorld, new TeleportTarget(Vec3d.of(AylythUtil.getSafePosition(toWorld, entity.getBlockPos().mutableCopy(), 0)), Vec3d.ZERO, entity.getHeadYaw(), entity.getPitch()));
 			}
 		}

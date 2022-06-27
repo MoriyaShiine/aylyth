@@ -17,17 +17,17 @@ public class AylythianEntityModel extends AnimatedGeoModel<AylythianEntity> {
 	private static final Identifier ANIMATION_FILE_LOCATION = new Identifier(Aylyth.MOD_ID, "animations/entity/aylythian.animation.json");
 	
 	@Override
-	public Identifier getModelLocation(AylythianEntity object) {
+	public Identifier getModelResource(AylythianEntity object) {
 		return MODEL_LOCATION;
 	}
 	
 	@Override
-	public Identifier getTextureLocation(AylythianEntity object) {
+	public Identifier getTextureResource(AylythianEntity object) {
 		return TEXTURE_LOCATION;
 	}
 	
 	@Override
-	public Identifier getAnimationFileLocation(AylythianEntity animatable) {
+	public Identifier getAnimationResource(AylythianEntity animatable) {
 		return ANIMATION_FILE_LOCATION;
 	}
 	

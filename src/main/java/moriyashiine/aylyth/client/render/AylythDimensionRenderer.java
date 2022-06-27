@@ -17,6 +17,7 @@ import net.minecraft.util.math.Matrix4f;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3f;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.biome.Biome;
 
 @Environment(EnvType.CLIENT)
@@ -49,7 +50,7 @@ public class AylythDimensionRenderer {
 		RenderSystem.depthMask(false);
 		RenderSystem.setShaderColor(skyRed, skyGreen, skyBlue, 0.0F);
 		Shader shader = RenderSystem.getShader();
-		lightSkyBuffer.setShader(matrices.peek().getPositionMatrix(), matrix4f, shader);
+		lightSkyBuffer.draw(matrices.peek().getPositionMatrix(), matrix4f, shader);
 		RenderSystem.enableBlend();
 		RenderSystem.defaultBlendFunc();
 		RenderSystem.enableTexture();
@@ -67,22 +68,20 @@ public class AylythDimensionRenderer {
 		bufferBuilder.vertex(matrix4f3, celestialSize, 100.0F, -celestialSize).texture(1.0F, 0.0F).next();
 		bufferBuilder.vertex(matrix4f3, celestialSize, 100.0F, celestialSize).texture(1.0F, 1.0F).next();
 		bufferBuilder.vertex(matrix4f3, -celestialSize, 100.0F, celestialSize).texture(0.0F, 1.0F).next();
-		bufferBuilder.end();
-		BufferRenderer.draw(bufferBuilder);
+		BufferRenderer.drawWithShader(bufferBuilder.end());
 		RenderSystem.setShaderTexture(0, MOON);
 		bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
 		bufferBuilder.vertex(matrix4f3, -celestialSize, -100.0F, celestialSize).texture(0.0F, 0.0F).next();
 		bufferBuilder.vertex(matrix4f3, celestialSize, -100.0F, celestialSize).texture(1.0F, 0.0F).next();
 		bufferBuilder.vertex(matrix4f3, celestialSize, -100.0F, -celestialSize).texture(1.0F, 1.0F).next();
 		bufferBuilder.vertex(matrix4f3, -celestialSize, -100.0F, -celestialSize).texture(0.0F, 1.0F).next();
-		bufferBuilder.end();
-		BufferRenderer.draw(bufferBuilder);
+		BufferRenderer.drawWithShader(bufferBuilder.end());
 		RenderSystem.disableTexture();
 		float starPower = world.method_23787(ticks);
 		if (starPower > 0.0F) {
 			RenderSystem.setShaderColor(starPower, starPower, starPower, starPower);
 			BackgroundRenderer.clearFog();
-			starsBuffer.setShader(matrices.peek().getPositionMatrix(), matrix4f, GameRenderer.getPositionShader());
+			starsBuffer.draw(matrices.peek().getPositionMatrix(), matrix4f, GameRenderer.getPositionShader());
 			fogHandler.run();
 		}
 		RenderSystem.disableBlend();
@@ -93,9 +92,9 @@ public class AylythDimensionRenderer {
 		RenderSystem.depthMask(true);
 	}
 	
-	public static void determineConditions(ClientWorld world, Biome biome) {
+	public static void determineConditions(ClientWorld world, RegistryEntry<Biome> biome) {
 		if (world.getRegistryKey() == ModDimensions.AYLYTH) {
-			Identifier biomeId = world.getRegistryManager().get(Registry.BIOME_KEY).getId(biome);
+			Identifier biomeId = world.getRegistryManager().get(Registry.BIOME_KEY).getId(biome.value());
 			if (biomeId == ModBiomes.CLEARING_ID) {
 				goalFogStrength = 40;
 			}

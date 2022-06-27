@@ -5,11 +5,6 @@ import net.minecraft.block.PlantBlock;
 
 public class AntlerShootsBlock extends PlantBlock {
 	public AntlerShootsBlock() {
-		super(Settings.copy(Blocks.GRASS));
-	}
-	
-	@Override
-	public OffsetType getOffsetType() {
-		return OffsetType.XZ;
+		super(Settings.copy(Blocks.GRASS).offsetType(OffsetType.XZ));
 	}
 }

@@ -8,9 +8,10 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import moriyashiine.aylyth.common.registry.ModBiomes;
 import moriyashiine.aylyth.common.registry.ModWorldGenerators;
-import net.minecraft.util.dynamic.RegistryLookupCodec;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.noise.SimplexNoiseSampler;
+import net.minecraft.util.math.random.CheckedRandom;
+import net.minecraft.util.math.random.ChunkRandom;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeKeys;
@@ -18,8 +19,6 @@ import net.minecraft.world.biome.source.BiomeSource;
 import net.minecraft.world.biome.source.TheEndBiomeSource;
 import net.minecraft.world.biome.source.util.MultiNoiseUtil;
 import net.minecraft.world.biome.source.util.VanillaBiomeParameters;
-import net.minecraft.world.gen.random.AtomicSimpleRandom;
-import net.minecraft.world.gen.random.ChunkRandom;
 
 import java.util.function.Supplier;
 
@@ -43,7 +42,7 @@ public class AylythBiomeSource extends BiomeSource {
         this.biomeRegistry = biomeRegistry;
         this.seed = seed;
         this.biomeEntries = null;
-        ChunkRandom chunkRandom = new ChunkRandom(new AtomicSimpleRandom(seed));
+        ChunkRandom chunkRandom = new ChunkRandom(new CheckedRandom(seed));
         chunkRandom.skip(17292);
     }
 

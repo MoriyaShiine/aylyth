@@ -19,10 +19,12 @@ import net.minecraft.entity.mob.WitchEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.tag.BiomeTags;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
@@ -101,8 +103,8 @@ public class Aylyth implements ModInitializer {
 						teleport = true;
 					}
 					if (!teleport) {
-						Biome.Category category = player.world.getBiome(player.getBlockPos()).getCategory();
-						if (category == Biome.Category.TAIGA || category == Biome.Category.FOREST) {
+						RegistryEntry<Biome> biome = player.world.getBiome(player.getBlockPos());
+						if (biome.isIn(BiomeTags.IS_TAIGA) || biome.isIn(BiomeTags.IS_FOREST)) {
 							if (damageSource.isFromFalling() || damageSource == DamageSource.DROWN) {
 								teleport = true;
 							}
@@ -152,7 +154,7 @@ public class Aylyth implements ModInitializer {
 		for (int x = -radius; x <= radius; x++) {
 			for (int y = -radius; y <= radius; y++) {
 				for (int z = -radius; z <= radius; z++) {
-					if (ModTags.SEEPS.contains(player.world.getBlockState(mutable.set(player.getX() + x, player.getY() + y, player.getZ() + z)).getBlock())) {
+					if (player.world.getBlockState(mutable.set(player.getX() + x, player.getY() + y, player.getZ() + z)).isIn(ModTags.SEEPS)) {
 						return true;
 					}
 				}

@@ -1,17 +1,17 @@
 package moriyashiine.aylyth.common.registry;
 
 import moriyashiine.aylyth.common.Aylyth;
-import net.fabricmc.fabric.api.tag.TagFactory;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
-import net.minecraft.tag.Tag;
+import net.minecraft.tag.TagKey;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 
 public class ModTags {
-	public static final Tag<EntityType<?>> GRIPWEED_IMMUNE = TagFactory.ENTITY_TYPE.create(new Identifier(Aylyth.MOD_ID, "gripweed_immune"));
+	public static final TagKey<EntityType<?>> GRIPWEED_IMMUNE = TagKey.of(Registry.ENTITY_TYPE_KEY, new Identifier(Aylyth.MOD_ID, "gripweed_immune"));
 	
-	public static final Tag<Block> SEEPS = TagFactory.BLOCK.create(new Identifier(Aylyth.MOD_ID, "seeps"));
-	
-	public static final Tag<Item> YMPE_FOODS = TagFactory.ITEM.create(new Identifier(Aylyth.MOD_ID, "ympe_foods"));
+	public static final TagKey<Block> SEEPS = TagKey.of(Registry.BLOCK_KEY, new Identifier(Aylyth.MOD_ID, "seeps"));
+
+	public static final TagKey<Item> YMPE_FOODS = TagKey.of(Registry.ITEM_KEY, new Identifier(Aylyth.MOD_ID, "ympe_foods"));
 }

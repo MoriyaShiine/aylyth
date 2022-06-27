@@ -12,7 +12,8 @@ public class ModBoatTypes {
 	public static TerraformBoatType ympe;
 	
 	public static void init() {
-		Item ympe_boat = TerraformBoatItemHelper.registerBoatItem(new Identifier(Aylyth.MOD_ID, "ympe_boat"), () -> ympe, ModItems.GROUP);
+		//TODO: make a boat-with-chest variant
+		Item ympe_boat = TerraformBoatItemHelper.registerBoatItem(new Identifier(Aylyth.MOD_ID, "ympe_boat"), () -> ympe, false, ModItems.GROUP);
 		ympe = new TerraformBoatType.Builder().item(ympe_boat).build();
 		Registry.register(TerraformBoatTypeRegistry.INSTANCE, new Identifier(Aylyth.MOD_ID, "ympe"), ympe);
 	}

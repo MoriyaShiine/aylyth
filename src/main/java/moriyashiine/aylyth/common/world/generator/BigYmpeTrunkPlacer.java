@@ -11,6 +11,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.TestableWorld;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.foliage.FoliagePlacer;
+import net.minecraft.world.gen.treedecorator.TreeDecorator;
 import net.minecraft.world.gen.trunk.GiantTrunkPlacer;
 import net.minecraft.world.gen.trunk.TrunkPlacerType;
 
@@ -35,7 +36,7 @@ public class BigYmpeTrunkPlacer extends GiantTrunkPlacer {
 	}
 	
 	@Override
-	public List<FoliagePlacer.TreeNode> generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, int height, BlockPos startPos, TreeFeatureConfig config) {
+	public List<FoliagePlacer.TreeNode> generate(TreeDecorator.Generator generator) {
 		List<FoliagePlacer.TreeNode> list = Lists.newArrayList();
 		list.addAll(super.generate(world, replacer, random, height, startPos, config));
 		placeBranches(world, replacer, random, startPos, config, list, height, 0, 0, Direction.NORTH, Direction.WEST);

@@ -12,12 +12,12 @@ import net.minecraft.block.*;
 import net.minecraft.block.sapling.LargeTreeSaplingGenerator;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Random;
 
 import static net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings.copyOf;
 
@@ -31,13 +31,13 @@ public class ModBlocks {
 	public static Block YMPE_SAPLING = new ModSaplingBlock(new LargeTreeSaplingGenerator() {
 		@Nullable
 		@Override
-		protected ConfiguredFeature<TreeFeatureConfig, ?> getLargeTreeFeature(Random random) {
+		protected RegistryEntry<? extends ConfiguredFeature<?, ?>> getLargeTreeFeature(Random random) {
 			return ModWorldGenerators.Configured.BIG_YMPE_TREE;
 		}
 		
 		@Nullable
 		@Override
-		protected ConfiguredFeature<TreeFeatureConfig, ?> getTreeFeature(Random random, boolean bees) {
+		protected RegistryEntry<? extends ConfiguredFeature<?, ?>> getTreeFeature(Random random, boolean bees) {
 			return ModWorldGenerators.Configured.YMPE_TREE;
 		}
 	});

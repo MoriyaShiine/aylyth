@@ -10,6 +10,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.TestableWorld;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.foliage.FoliagePlacer;
+import net.minecraft.world.gen.treedecorator.TreeDecorator;
 import net.minecraft.world.gen.trunk.GiantTrunkPlacer;
 import net.minecraft.world.gen.trunk.TrunkPlacerType;
 
@@ -34,24 +35,25 @@ public class AylthianTrunkPlacer extends GiantTrunkPlacer {
 	}
 	
 	@Override
-	public List<FoliagePlacer.TreeNode> generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, int height, BlockPos startPos, TreeFeatureConfig config) {
+	public List<FoliagePlacer.TreeNode> generate(TreeDecorator.Generator generator) {
 		List<FoliagePlacer.TreeNode> list = Lists.newArrayList();
-		list.addAll(super.generate(world, replacer, random, height, startPos, config));
+		int height = getHeight(generator.getRandom());
+		list.addAll(super.generate(generator.getWorld(), generator::replace, generator.getRandom(), height, generator.getLogPositions().get(0), config));
 		for (int y = height; y > height / 3; y--) {
 			int branchLength = y >= height - height / 4F ? (baseHeight > 12 ? 8 : 7) : 6;
-			while (random.nextInt(3) == 0) {
-				float radianAngle = random.nextFloat() * 6.2831855F;
+			while (generator.getRandom().nextInt(3) == 0) {
+				float radianAngle = generator.getRandom().nextFloat() * 6.2831855F;
 				int x = 0;
 				int z = 0;
 				
 				for (int l = 0; l < branchLength; ++l) {
 					x = (int) (1.5F + MathHelper.cos(radianAngle) * (float) l);
 					z = (int) (1.5F + MathHelper.sin(radianAngle) * (float) l);
-					BlockPos blockPos = startPos.add(x, y - 3 + l / 2, z);
-					getAndSetState(world, replacer, random, blockPos, config);
+					BlockPos blockPos = generator.getLogPositions().get(0).add(x, y - 3 + l / 2, z);
+					getAndSetState(generator.getWorld(), generator::replace, generator.getRandom(), blockPos, config);
 				}
 				
-				list.add(new FoliagePlacer.TreeNode(startPos.add(x, y + 1, z), 0, false));
+				list.add(new FoliagePlacer.TreeNode(generator.getLogPositions().get(0).add(x, y + 1, z), 0, false));
 				
 			}
 		}
