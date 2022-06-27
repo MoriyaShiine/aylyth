@@ -8,6 +8,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.TestableWorld;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.foliage.FoliagePlacer;
@@ -16,7 +17,6 @@ import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
 import net.minecraft.world.gen.trunk.TrunkPlacerType;
 
 import java.util.List;
-import java.util.Random;
 import java.util.function.BiConsumer;
 
 public class YmpeTrunkPlacer extends StraightTrunkPlacer {
@@ -36,7 +36,7 @@ public class YmpeTrunkPlacer extends StraightTrunkPlacer {
 	}
 	
 	@Override
-	public List<FoliagePlacer.TreeNode> generate(TreeDecorator.Generator generator) {
+	public List<FoliagePlacer.TreeNode> generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, int height, BlockPos startPos, TreeFeatureConfig config) {
 		List<FoliagePlacer.TreeNode> list = Lists.newArrayList();
 		list.addAll(super.generate(world, replacer, random, height, startPos, config));
 		Direction lastDirection = Direction.DOWN;
