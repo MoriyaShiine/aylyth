@@ -43,14 +43,14 @@ public class ModBlocks {
 	});
 	public static final Block POTTED_YMPE_SAPLING = new FlowerPotBlock(YMPE_SAPLING, copyOf(Blocks.POTTED_OAK_SAPLING));
 	public static final Block YMPE_PLANKS = new Block(copyOf(Blocks.OAK_PLANKS));
-	public static final Block YMPE_STAIRS = new TerraformStairsBlock(YMPE_PLANKS, copyOf(Blocks.OAK_STAIRS));
+	public static final Block YMPE_STAIRS = new StairsBlock(YMPE_PLANKS.getDefaultState(), copyOf(Blocks.OAK_STAIRS));
 	public static final Block YMPE_SLAB = new SlabBlock(copyOf(Blocks.OAK_SLAB));
 	public static final Block YMPE_FENCE = new FenceBlock(copyOf(Blocks.OAK_FENCE));
 	public static final Block YMPE_FENCE_GATE = new FenceGateBlock(copyOf(Blocks.OAK_FENCE_GATE));
-	public static final Block YMPE_PRESSURE_PLATE = new TerraformPressurePlateBlock(copyOf(Blocks.OAK_PRESSURE_PLATE));
-	public static final Block YMPE_BUTTON = new TerraformButtonBlock(copyOf(Blocks.OAK_BUTTON));
-	public static final Block YMPE_TRAPDOOR = new TerraformTrapdoorBlock(copyOf(Blocks.OAK_TRAPDOOR));
-	public static final Block YMPE_DOOR = new TerraformDoorBlock(copyOf(Blocks.OAK_DOOR));
+	public static final Block YMPE_PRESSURE_PLATE = new PressurePlateBlock(PressurePlateBlock.ActivationRule.EVERYTHING, copyOf(Blocks.OAK_PRESSURE_PLATE));
+	public static final Block YMPE_BUTTON = new WoodenButtonBlock(copyOf(Blocks.OAK_BUTTON));
+	public static final Block YMPE_TRAPDOOR = new TrapdoorBlock(copyOf(Blocks.OAK_TRAPDOOR));
+	public static final Block YMPE_DOOR = new DoorBlock(copyOf(Blocks.OAK_DOOR));
 	public static final TerraformSignBlock YMPE_SIGN = new TerraformSignBlock(new Identifier(Aylyth.MOD_ID, "entity/sign/ympe"), copyOf(Blocks.OAK_SIGN));
 	public static final Block YMPE_WALL_SIGN = new TerraformWallSignBlock(YMPE_SIGN.getTexture(), copyOf(Blocks.OAK_WALL_SIGN));
 	
