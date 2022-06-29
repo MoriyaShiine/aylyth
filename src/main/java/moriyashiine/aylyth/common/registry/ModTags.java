@@ -16,7 +16,5 @@ public class ModTags {
 
 	public static final TagKey<Item> YMPE_FOODS = TagKey.of(Registry.ITEM_KEY, new Identifier(Aylyth.MOD_ID, "ympe_foods"));
 
-	public static final TagKey<Biome> GENERATES_OAK_SEEP = TagKey.of(Registry.BIOME_KEY, new Identifier(Aylyth.MOD_ID, "generates_oak_seep"));
-	public static final TagKey<Biome> GENERATES_SPRUCE_SEEP = TagKey.of(Registry.BIOME_KEY, new Identifier(Aylyth.MOD_ID, "generates_spruce_seep"));
-	public static final TagKey<Biome> GENERATES_DARK_OAK_SEEP = TagKey.of(Registry.BIOME_KEY, new Identifier(Aylyth.MOD_ID, "generates_dark_oak_seep"));
+	public static final TagKey<Biome> GENERATES_SEEP = TagKey.of(Registry.BIOME_KEY, new Identifier(Aylyth.MOD_ID, "generates_seep"));
 }
