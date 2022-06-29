@@ -112,7 +112,7 @@ public class AylythDimensionRenderer {
 	
 	private static class AylythDimensionEffects extends DimensionEffects {
 		public AylythDimensionEffects() {
-			super(0, false, SkyType.NONE, false, true);
+			super(-64, false, SkyType.NONE, false, true);
 		}
 		
 		@Override
