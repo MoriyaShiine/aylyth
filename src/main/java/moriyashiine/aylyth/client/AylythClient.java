@@ -3,7 +3,7 @@ package moriyashiine.aylyth.client;
 import com.terraformersmc.terraform.boat.api.client.TerraformBoatClientHelper;
 import com.terraformersmc.terraform.sign.SpriteIdentifierRegistry;
 import moriyashiine.aylyth.client.model.YmpeInfestationModel;
-import moriyashiine.aylyth.common.network.packet.SpawnShuckParticlesPacket;
+import moriyashiine.aylyth.client.network.packet.SpawnShuckParticlesPacket;
 import moriyashiine.aylyth.client.particle.PilotLightParticle;
 import moriyashiine.aylyth.client.render.AylythDimensionRenderer;
 import moriyashiine.aylyth.client.render.block.entity.SeepBlockEntityRenderer;
