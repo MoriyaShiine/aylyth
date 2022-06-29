@@ -1,0 +1,17 @@
+{
+  "type": "aylyth:seep",
+  "config": {
+    "seep_state": {
+      "Name": "aylyth:ympe_seep",
+      "Properties": {
+        "connection": "none"
+      }
+    },
+    "state": {
+      "Name": "aylyth:ympe_log",
+      "Properties": {
+        "axis": "y"
+      }
+    }
+  }
+}
