@@ -29,7 +29,7 @@
 	"cardinal-components-entity": [
 	  "moriyashiine.aylyth.common.registry.ModComponents"
 	],
-	"rei_plugins": [
+	"rei_client": [
 	  "moriyashiine.aylyth.client.integration.rei.ModREIPlugin"
 	]
   },
