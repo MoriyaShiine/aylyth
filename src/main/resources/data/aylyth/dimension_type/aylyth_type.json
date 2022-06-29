@@ -1,18 +1,26 @@
 {
-  "name": "aylyth",
+  "name": "aylyth:aylyth",
   "height": 272,
-  "logical_height": 256,
-  "min_y": 0,
+  "logical_height": 272,
+  "min_y": -64,
   "ultrawarm": false,
   "natural": false,
-  "coordinate_scale": 1,
+  "coordinate_scale": 1.0,
   "ambient_light": 0.0,
   "has_skylight": true,
   "has_ceiling": false,
-  "infiniburn": "minecraft:infiniburn_overworld",
+  "infiniburn": "#minecraft:infiniburn_overworld",
   "has_raids": false,
   "respawn_anchor_works": false,
   "bed_works": false,
   "piglin_safe": false,
-  "effects": "aylyth:aylyth"
+  "effects": "aylyth:aylyth",
+  "monster_spawn_block_light_limit": 0,
+  "monster_spawn_light_level": {
+    "type": "minecraft:uniform",
+    "value": {
+      "max_inclusive": 7,
+      "min_inclusive": 0
+    }
+  }
 }
