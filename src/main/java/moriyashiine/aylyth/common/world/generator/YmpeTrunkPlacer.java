@@ -3,7 +3,7 @@ package moriyashiine.aylyth.common.world.generator;
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import moriyashiine.aylyth.common.registry.ModWorldGenerators;
+import moriyashiine.aylyth.common.registry.ModVegetationFeatures;
 import net.minecraft.block.BlockState;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
@@ -12,7 +12,6 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.TestableWorld;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.foliage.FoliagePlacer;
-import net.minecraft.world.gen.treedecorator.TreeDecorator;
 import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
 import net.minecraft.world.gen.trunk.TrunkPlacerType;
 
@@ -32,7 +31,7 @@ public class YmpeTrunkPlacer extends StraightTrunkPlacer {
 	
 	@Override
 	protected TrunkPlacerType<YmpeTrunkPlacer> getType() {
-		return ModWorldGenerators.YMPE_TRUNK_PLACER;
+		return ModVegetationFeatures.YMPE_TRUNK_PLACER;
 	}
 	
 	@Override

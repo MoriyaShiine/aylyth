@@ -28,17 +28,17 @@ public class ModBlocks {
 	public static final Block FRUIT_BEARING_YMPE_LOG = new FruitBearingYmpeLogBlock();
 	public static final Block YMPE_WOOD = new StrippableLogBlock(() -> STRIPPED_YMPE_WOOD, MapColor.BROWN, copyOf(STRIPPED_YMPE_LOG));
 	public static final Block YMPE_LEAVES = BlocksAccessor.callCreateLeavesBlock(BlockSoundGroup.GRASS);
-	public static Block YMPE_SAPLING = new ModSaplingBlock(new LargeTreeSaplingGenerator() {
+	public static final Block YMPE_SAPLING = new ModSaplingBlock(new LargeTreeSaplingGenerator() {
 		@Nullable
 		@Override
 		protected RegistryEntry<? extends ConfiguredFeature<?, ?>> getLargeTreeFeature(Random random) {
-			return ModWorldGenerators.Configured.BIG_YMPE_TREE;
+			return ModConfiguredFeatures.BIG_YMPE_TREE;
 		}
-		
+
 		@Nullable
 		@Override
 		protected RegistryEntry<? extends ConfiguredFeature<?, ?>> getTreeFeature(Random random, boolean bees) {
-			return ModWorldGenerators.Configured.YMPE_TREE;
+			return ModConfiguredFeatures.YMPE_TREE;
 		}
 	});
 	public static final Block POTTED_YMPE_SAPLING = new FlowerPotBlock(YMPE_SAPLING, copyOf(Blocks.POTTED_OAK_SAPLING));

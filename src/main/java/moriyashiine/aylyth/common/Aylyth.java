@@ -1,12 +1,13 @@
 package moriyashiine.aylyth.common;
 
-import moriyashiine.aylyth.client.network.packet.SpawnShuckParticlesPacket;
+import moriyashiine.aylyth.common.network.packet.SpawnShuckParticlesPacket;
 import moriyashiine.aylyth.common.recipe.YmpeDaggerDropRecipe;
 import moriyashiine.aylyth.common.registry.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.entity.event.v1.ServerEntityCombatEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -44,7 +45,10 @@ public class Aylyth implements ModInitializer {
 		ModPotions.init();
 		ModSoundEvents.init();
 		ModRecipeTypes.init();
-		ModWorldGenerators.init();
+		ModDimensions.init();
+		ModConfiguredFeatures.init();
+		ModPlacedFeatures.init();
+		ModVegetationFeatures.init();
 		ModBiomes.init();
 		ModBoatTypes.init();
 		ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register((world, entity, killedEntity) -> {

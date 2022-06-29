@@ -2,22 +2,18 @@ package moriyashiine.aylyth.common.world.generator.feature;
 
 import com.mojang.serialization.Codec;
 import moriyashiine.aylyth.common.registry.ModBlocks;
-import moriyashiine.aylyth.common.registry.ModWorldGenerators;
-import net.minecraft.block.AbstractBlock;
+import moriyashiine.aylyth.common.registry.ModVegetationFeatures;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.VineBlock;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.Pair;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.world.TestableWorld;
-import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.treedecorator.TreeDecorator;
 import net.minecraft.world.gen.treedecorator.TreeDecoratorType;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.function.BiConsumer;
 
 public class GrapeVineDecorator extends TreeDecorator {
@@ -26,7 +22,7 @@ public class GrapeVineDecorator extends TreeDecorator {
 	
 	@Override
 	protected TreeDecoratorType<?> getType() {
-		return ModWorldGenerators.GRAPE_VINE;
+		return ModVegetationFeatures.GRAPE_VINE;
 	}
 	
 	@Override
