@@ -4,7 +4,7 @@
     "seed": 0,
     "type": "minecraft:noise",
     "biome_source": {
-      "type": "aylyth:aylyth_biome_provider",
+      "type": "minecraft:multi_noise",
       "biomes": [
         {
           "biome": "aylyth:clearing",
