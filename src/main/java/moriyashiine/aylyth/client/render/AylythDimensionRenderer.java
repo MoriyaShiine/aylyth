@@ -55,8 +55,8 @@ public class AylythDimensionRenderer {
 		RenderSystem.defaultBlendFunc();
 		RenderSystem.enableTexture();
 		RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
-		matrices.push();
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+		matrices.push();
 		matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(-90.0F));
 		matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(world.getSkyAngle(ticks) * 360.0F));
 		Matrix4f matrix4f3 = matrices.peek().getPositionMatrix();
@@ -65,27 +65,29 @@ public class AylythDimensionRenderer {
 		RenderSystem.setShaderTexture(0, SUN);
 		bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
 		bufferBuilder.vertex(matrix4f3, -celestialSize, 100.0F, -celestialSize).texture(0.0F, 0.0F).next();
-		bufferBuilder.vertex(matrix4f3, celestialSize, 100.0F, -celestialSize).texture(1.0F, 0.0F).next();
+		bufferBuilder.vertex(matrix4f3, celestialSize, 100.0F, -celestialSize).texture(0.0F, 1.0F).next();
 		bufferBuilder.vertex(matrix4f3, celestialSize, 100.0F, celestialSize).texture(1.0F, 1.0F).next();
-		bufferBuilder.vertex(matrix4f3, -celestialSize, 100.0F, celestialSize).texture(0.0F, 1.0F).next();
+		bufferBuilder.vertex(matrix4f3, -celestialSize, 100.0F, celestialSize).texture(1.0F, 0.0F).next();
 		BufferRenderer.drawWithShader(bufferBuilder.end());
 		RenderSystem.setShaderTexture(0, MOON);
 		bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
 		bufferBuilder.vertex(matrix4f3, -celestialSize, -100.0F, celestialSize).texture(0.0F, 0.0F).next();
-		bufferBuilder.vertex(matrix4f3, celestialSize, -100.0F, celestialSize).texture(1.0F, 0.0F).next();
+		bufferBuilder.vertex(matrix4f3, celestialSize, -100.0F, celestialSize).texture(0.0F, 1.0F).next();
 		bufferBuilder.vertex(matrix4f3, celestialSize, -100.0F, -celestialSize).texture(1.0F, 1.0F).next();
-		bufferBuilder.vertex(matrix4f3, -celestialSize, -100.0F, -celestialSize).texture(0.0F, 1.0F).next();
+		bufferBuilder.vertex(matrix4f3, -celestialSize, -100.0F, -celestialSize).texture(1.0F, 0.0F).next();
 		BufferRenderer.drawWithShader(bufferBuilder.end());
 		RenderSystem.disableTexture();
 		float starPower = world.method_23787(ticks);
 		if (starPower > 0.0F) {
 			RenderSystem.setShaderColor(starPower, starPower, starPower, starPower);
 			BackgroundRenderer.clearFog();
+			starsBuffer.bind();
 			starsBuffer.draw(matrices.peek().getPositionMatrix(), matrix4f, GameRenderer.getPositionShader());
+			VertexBuffer.unbind();
 			fogHandler.run();
 		}
-		RenderSystem.disableBlend();
 		matrices.pop();
+		RenderSystem.disableBlend();
 		RenderSystem.disableTexture();
 		RenderSystem.setShaderColor(skyRed, skyGreen, skyBlue, 1.0F);
 		RenderSystem.enableTexture();
