@@ -17,8 +17,6 @@ public class ModBiomeTagProvider extends BiomeTagProvider {
     protected void configure() {
         if (genVanilla)
             super.configure();
-        getOrCreateTagBuilder(BiomeTags.IS_FOREST).add(ModBiomes.FOREST.value(), ModBiomes.CONIFEROUS_FOREST.value(), ModBiomes.DEEP_CONIFEROUS_FOREST.value(), ModBiomes.DEEP_FOREST.value());
-        getOrCreateTagBuilder(BiomeTags.VILLAGE_PLAINS_HAS_STRUCTURE).add(ModBiomes.CLEARING.value(), ModBiomes.OVERGROWN_CLEARING.value());
         getOrCreateTagBuilder(ModTags.GENERATES_SEEP).addTag(BiomeTags.IS_FOREST).addTag(BiomeTags.IS_TAIGA);
     }
 }
