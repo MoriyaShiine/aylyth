@@ -10,7 +10,9 @@ import moriyashiine.aylyth.mixin.TreeDecoratorTypeAccessor;
 import moriyashiine.aylyth.mixin.TrunkPlacerTypeAccessor;
 import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.placementmodifier.BiomePlacementModifier;
 import net.minecraft.world.gen.placementmodifier.PlacementModifier;
+import net.minecraft.world.gen.placementmodifier.SquarePlacementModifier;
 import net.minecraft.world.gen.treedecorator.TreeDecoratorType;
 import net.minecraft.world.gen.trunk.TrunkPlacerType;
 
@@ -41,12 +43,20 @@ public class ModVegetationFeatures {
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> DEEP_CONIFEROUS_FOREST_TREES = registerConfigured("deep_coniferous_forest_trees", Feature.RANDOM_SELECTOR, new RandomFeatureConfig(List.of(new RandomFeatureEntry(PlacedFeatures.createEntry(ModConfiguredFeatures.YMPE_TREE), 0.25F), new RandomFeatureEntry(ModPlacedFeatures.BIG_YMPE_TREE, 0.25F)), TreePlacedFeatures.SPRUCE_CHECKED));
     public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> OVERGROWTH_CLEARING_TREES = registerConfigured("overgrowth_clearing_trees", Feature.RANDOM_SELECTOR, new RandomFeatureConfig(List.of(new RandomFeatureEntry(PlacedFeatures.createEntry(ModConfiguredFeatures.YMPE_TREE), 0.5F)), TreePlacedFeatures.SPRUCE_CHECKED));
 
-    public static final RegistryEntry<PlacedFeature> DEEP_ROOF_TREES_PLACED = registerPlaced("deep_roof_trees", DEEP_ROOF_TREES, VegetationPlacedFeatures.modifiers(PlacedFeatures.createCountExtraModifier(8, 0.5f, 3)));
-    public static final RegistryEntry<PlacedFeature> DEEP_CONIFEROUS_ROOF_TREES_PLACED = registerPlaced("deep_coniferous_roof_trees", DEEP_CONIFEROUS_ROOF_TREES, VegetationPlacedFeatures.modifiers(PlacedFeatures.createCountExtraModifier(7, 0.5f, 2)));
-    public static final RegistryEntry<PlacedFeature> FOREST_TREES_PLACED = registerPlaced("forest_trees", FOREST_TREES, VegetationPlacedFeatures.modifiers(PlacedFeatures.createCountExtraModifier(3, 0.1f, 1)));
-    public static final RegistryEntry<PlacedFeature> DEEP_FOREST_TREES_PLACED = registerPlaced("deep_forest_trees", DEEP_FOREST_TREES, VegetationPlacedFeatures.modifiers(PlacedFeatures.createCountExtraModifier(4, 0.25f, 2)));
-    public static final RegistryEntry<PlacedFeature> CONIFEROUS_FOREST_TREES_PLACED = registerPlaced("coniferous_forest_trees", CONIFEROUS_FOREST_TREES, VegetationPlacedFeatures.modifiers(PlacedFeatures.createCountExtraModifier(5, 0.25f, 2)));
-    public static final RegistryEntry<PlacedFeature> DEEP_CONIFEROUS_FOREST_TREES_PLACED = registerPlaced("deep_coniferous_forest_trees", DEEP_CONIFEROUS_FOREST_TREES, VegetationPlacedFeatures.modifiers(PlacedFeatures.createCountExtraModifier(4, 0.25f, 2)));
-    public static final RegistryEntry<PlacedFeature> OVERGROWTH_CLEARING_TREES_PLACED = registerPlaced("overgrowth_clearing_trees", OVERGROWTH_CLEARING_TREES, VegetationPlacedFeatures.modifiers(PlacedFeatures.createCountExtraModifier(1, 0.5f, 2)));
+    public static final RegistryEntry<PlacedFeature> DEEP_ROOF_TREES_PLACED = registerPlaced("deep_roof_trees", DEEP_ROOF_TREES, treesSurvive(8, 0.5F, 3));
+    public static final RegistryEntry<PlacedFeature> DEEP_CONIFEROUS_ROOF_TREES_PLACED = registerPlaced("deep_coniferous_roof_trees", DEEP_CONIFEROUS_ROOF_TREES, treesSurvive(7, 0.5F, 2));
+    public static final RegistryEntry<PlacedFeature> FOREST_TREES_PLACED = registerPlaced("forest_trees", FOREST_TREES, treesSurvive(3, 0.1F, 1));
+    public static final RegistryEntry<PlacedFeature> DEEP_FOREST_TREES_PLACED = registerPlaced("deep_forest_trees", DEEP_FOREST_TREES, treesSurvive(4, 0.25F, 2));
+    public static final RegistryEntry<PlacedFeature> CONIFEROUS_FOREST_TREES_PLACED = registerPlaced("coniferous_forest_trees", CONIFEROUS_FOREST_TREES, treesSurvive(5, 0.25F, 2));
+    public static final RegistryEntry<PlacedFeature> DEEP_CONIFEROUS_FOREST_TREES_PLACED = registerPlaced("deep_coniferous_forest_trees", DEEP_CONIFEROUS_FOREST_TREES, treesSurvive(4, 0.25F, 2));
+    public static final RegistryEntry<PlacedFeature> OVERGROWTH_CLEARING_TREES_PLACED = registerPlaced("overgrowth_clearing_trees", OVERGROWTH_CLEARING_TREES, treesSurvive(1, 0.5F, 2));
 
+    private static List<PlacementModifier> treesSurvive(int count, float extraChance, int extraCount) {
+        return List.of(PlacedFeatures.createCountExtraModifier(count, extraChance, extraCount),
+                SquarePlacementModifier.of(),
+                VegetationPlacedFeatures.NOT_IN_SURFACE_WATER_MODIFIER,
+                PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP,
+                BiomePlacementModifier.of(),
+                PlacedFeatures.wouldSurvive(ModBlocks.YMPE_SAPLING));
+    }
 }
