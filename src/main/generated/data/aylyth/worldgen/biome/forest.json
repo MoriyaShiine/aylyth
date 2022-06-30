@@ -49,10 +49,10 @@
       "minecraft:spring_lava"
     ],
     [
-      "aylyth:bushes",
       "aylyth:aylythian_dark_oak",
       "aylyth:forest_trees",
       "minecraft:patch_grass_taiga",
+      "aylyth:bushes",
       "minecraft:patch_tall_grass",
       "aylyth:aylyth_weeds",
       "minecraft:brown_mushroom_normal",

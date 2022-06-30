@@ -5,7 +5,10 @@
     "features": [
       {
         "chance": 0.25,
-        "feature": "aylyth:ympe_tree"
+        "feature": {
+          "feature": "aylyth:ympe_tree",
+          "placement": []
+        }
       }
     ]
   }

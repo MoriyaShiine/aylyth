@@ -50,8 +50,8 @@
     [
       "minecraft:patch_grass_plain",
       "aylyth:overgrowth_clearing_trees",
-      "minecraft:patch_tall_grass",
-      "aylyth:bushes"
+      "aylyth:bushes",
+      "minecraft:patch_tall_grass"
     ],
     [
       "minecraft:freeze_top_layer"

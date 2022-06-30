@@ -1,6 +1,6 @@
-// 1.19	2022-06-28T23:36:00.6422158	Tags for minecraft:worldgen/biome
+// 1.19	2022-06-30T12:23:45.5211773	Tags for minecraft:worldgen/biome
 d9ed5858de9992609f810870a5b07c039117179e data\minecraft\tags\worldgen\biome\has_closer_water_fog.json
-ee3b23d6e6ac4eb841d0ecfb25329be0b8f4ba87 data\minecraft\tags\worldgen\biome\is_forest.json
+6ef277760cd3e740a2e0cf73ac0ee2d951b6f95e data\minecraft\tags\worldgen\biome\is_forest.json
 a0644d7f87b20b80c17d6fb7fbb483d079ce1887 data\minecraft\tags\worldgen\biome\has_structure\desert_pyramid.json
 14c9a6e38047104d5c7dbd40466774040ea01b3b data\minecraft\tags\worldgen\biome\has_structure\pillager_outpost.json
 c8a94f0b18b98a43c8261ce50b00251a55d3a139 data\minecraft\tags\worldgen\biome\has_structure\ocean_ruin_cold.json
@@ -15,15 +15,13 @@ c559db9539becbcef408fe1e7e6eb07099d006af data\minecraft\tags\worldgen\biome\is_e
 c36f999b1a317af544c3cbedb04f3f260ac78b33 data\minecraft\tags\worldgen\biome\has_structure\ocean_monument.json
 01bcf28ecd5148d9012755e6ea18336d5a0d0a95 data\minecraft\tags\worldgen\biome\has_structure\nether_fortress.json
 d2a8cbeb3876699a20a458dec1755f256a131f22 data\minecraft\tags\worldgen\biome\reduce_water_ambient_spawns.json
-61bd4bce22c55c588232022a96b321cc8371d3fe data\minecraft\tags\worldgen\biome\has_structure\village_plains.json
-611c068569fe63dd0af5cfe102cf5c6a1c96e80a data\aylyth\tags\worldgen\biome\generates_spruce_seep.json
+f7881d91e65f3324674871c1ac3cf0438fbce28a data\minecraft\tags\worldgen\biome\has_structure\village_plains.json
 61f9daa79f2fb75681c2c5e5fb89e2fbba9e2cc9 data\minecraft\tags\worldgen\biome\mineshaft_blocking.json
 d9ed5858de9992609f810870a5b07c039117179e data\minecraft\tags\worldgen\biome\has_structure\ruined_portal_swamp.json
 85c39d767e49df328354e9e98ca0ea1624bd6ede data\minecraft\tags\worldgen\biome\produces_corals_from_bonemeal.json
 6152d71575089cdb5ba41393590fb80806040d52 data\minecraft\tags\worldgen\biome\has_structure\ruined_portal_standard.json
 aa0d3f4103ef4c35ac30a382b233ceac2b8bd5b6 data\minecraft\tags\worldgen\biome\has_structure\bastion_remnant.json
 61f9daa79f2fb75681c2c5e5fb89e2fbba9e2cc9 data\minecraft\tags\worldgen\biome\has_structure\ancient_city.json
-611c068569fe63dd0af5cfe102cf5c6a1c96e80a data\aylyth\tags\worldgen\biome\generates_dark_oak_seep.json
 037997c47dddb5a7c35dfa3fc0aca5783c2f4450 data\minecraft\tags\worldgen\biome\stronghold_biased_to.json
 9014e596ae9afe8b3918f5f87515a6541a7b5889 data\minecraft\tags\worldgen\biome\without_patrol_spawns.json
 4d3dcc2b591fb86e1e585271f9f17b59c10969f5 data\minecraft\tags\worldgen\biome\has_structure\ruined_portal_ocean.json
@@ -41,8 +39,8 @@ d9ed5858de9992609f810870a5b07c039117179e data\minecraft\tags\worldgen\biome\allo
 7ca4e5a8aa9330cdf6a3b54cead56ae8b52b09eb data\minecraft\tags\worldgen\biome\is_river.json
 61d29912c637647999b314c433613214ec0c5ca0 data\minecraft\tags\worldgen\biome\allows_tropical_fish_spawns_at_any_height.json
 681e44620c904c1cda483663ad62ad89e1898ae2 data\minecraft\tags\worldgen\biome\has_structure\end_city.json
+611c068569fe63dd0af5cfe102cf5c6a1c96e80a data\aylyth\tags\worldgen\biome\generates_seep.json
 f878f178d6f678b88c398657a631416f4be7d7ed data\minecraft\tags\worldgen\biome\has_structure\shipwreck_beached.json
-611c068569fe63dd0af5cfe102cf5c6a1c96e80a data\aylyth\tags\worldgen\biome\generates_oak_seep.json
 d2a8cbeb3876699a20a458dec1755f256a131f22 data\minecraft\tags\worldgen\biome\more_frequent_drowned_spawns.json
 1c7ccd626f3b758ab702887b22996a543df191a4 data\minecraft\tags\worldgen\biome\has_structure\woodland_mansion.json
 29e72fc399a54d7b7efafc95977fa11dbbec1ae2 data\minecraft\tags\worldgen\biome\has_structure\mineshaft_mesa.json
