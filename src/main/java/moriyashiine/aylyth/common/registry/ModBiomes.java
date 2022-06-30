@@ -68,10 +68,10 @@ public class ModBiomes {
 		GenerationSettings.Builder builder = new GenerationSettings.Builder();
 		DefaultBiomeFeatures.addLandCarvers(builder);
 //		builder.feature(GenerationStep.Feature.LAKES, ModPlacedFeatures.SPRING);
-		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.BUSHES);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, deep ? ModVegetationFeatures.DEEP_ROOF_TREES_PLACED : ModPlacedFeatures.AYLYTHIAN_DARK_OAK);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, deep ? ModVegetationFeatures.DEEP_FOREST_TREES_PLACED : ModVegetationFeatures.FOREST_TREES_PLACED);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_GRASS_TAIGA);
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.BUSHES);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_TALL_GRASS);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.AYLYTH_WEEDS);
 		if (deep) {
