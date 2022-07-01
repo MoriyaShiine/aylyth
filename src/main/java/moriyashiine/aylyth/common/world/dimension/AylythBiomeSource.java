@@ -47,8 +47,8 @@ public class AylythBiomeSource extends BiomeSource {
         //                                       temperature         humidity           continentalness   erosion                depth           weirdness          offset
         builder.add(Pair.of(createNoiseHypercube(of(-0.45F, -0.15F), of(-1.0F, -0.35F), of(-0.11F, 0.3F), of(-0.7799F, -0.375F), of(0.0F, 0.0F), of(-1.0F, -0.9333F), 0.0F), registry.getEntry(ModBiomes.CLEARING_ID).get()));
         builder.add(Pair.of(createNoiseHypercube(of(-0.45F, -0.15F), of(-1.0F, -0.35F), of(-0.11F, 0.3F), of(-0.7799F, -0.375F), of(0.0F, 0.0F), of(-1.0F, -0.9333F), 0.0F), registry.getEntry(ModBiomes.OVERGROWN_CLEARING_ID).get()));
-        builder.add(Pair.of(createNoiseHypercube(of(-0.45F, -0.15F), of(-0.1F, 0.1F), of(-0.11F, 0.3F), of(-0.7799F, -0.375F), of(0.0F, 0.0F), of(-1.0F, -0.9333F), 0.0F), registry.getEntry(ModBiomes.FOREST_ID).get()));
-        builder.add(Pair.of(createNoiseHypercube(of(-0.45F, -0.15F), of(-0.1F, 0.1F), of(-0.11F, 0.3F), of(-0.7799F, -0.375F), of(0.0F, 0.0F), of(-1.0F, -0.9333F), 0.0F), registry.getEntry(ModBiomes.DEEP_FOREST_ID).get()));
+        builder.add(Pair.of(createNoiseHypercube(of(-0.45F, -0.15F), of(-0.1F, 0.1F), of(-0.11F, 0.3F), of(-0.7799F, -0.375F), of(0.0F, 0.0F), of(-1.0F, -0.9333F), 0.0F), registry.getEntry(ModBiomes.COPSE_ID).get()));
+        builder.add(Pair.of(createNoiseHypercube(of(-0.45F, -0.15F), of(-0.1F, 0.1F), of(-0.11F, 0.3F), of(-0.7799F, -0.375F), of(0.0F, 0.0F), of(-1.0F, -0.9333F), 0.0F), registry.getEntry(ModBiomes.DEEPWOOD_ID).get()));
         builder.add(Pair.of(createNoiseHypercube(of(-1.0F, -0.45F), of(0.3F, 1.0F), of(-0.11F, 0.3F), of(-0.375F, -0.2225F), of(0.0F, 0.0F), of(-1.0F, -0.9333F), 0.0F), registry.getEntry(ModBiomes.CONIFEROUS_FOREST_ID).get()));
         builder.add(Pair.of(createNoiseHypercube(of(-1.0F, -0.45F), of(0.3F, 1.0F), of(-0.11F, 0.3F), of(-0.375F, -0.2225F), of(0.0F, 0.0F), of(-1.0F, -0.9333F), 0.0F), registry.getEntry(ModBiomes.DEEP_CONIFEROUS_FOREST_ID).get()));
         return new MultiNoiseUtil.Entries<>(builder.build());
