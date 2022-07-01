@@ -65,7 +65,12 @@
     ]
   ],
   "precipitation": "rain",
-  "spawn_costs": {},
+  "spawn_costs": {
+    "aylyth:aylythian": {
+      "charge": 3.0,
+      "energy_budget": 1.0
+    }
+  },
   "spawners": {
     "ambient": [
       {

@@ -35,7 +35,8 @@
     [],
     [
       "minecraft:lake_lava_underground",
-      "minecraft:lake_lava_surface"
+      "minecraft:lake_lava_surface",
+      "aylyth:spring"
     ],
     [],
     [],
@@ -63,7 +64,12 @@
     ]
   ],
   "precipitation": "rain",
-  "spawn_costs": {},
+  "spawn_costs": {
+    "aylyth:aylythian": {
+      "charge": 3.0,
+      "energy_budget": 1.0
+    }
+  },
   "spawners": {
     "ambient": [
       {

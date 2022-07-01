@@ -11,7 +11,7 @@
   "effects": {
     "additions_sound": {
       "sound": "aylyth:ambient.forest.additions",
-      "tick_chance": 0.005
+      "tick_chance": 0.0025
     },
     "fog_color": 6710886,
     "foliage_color": 6455096,
@@ -36,7 +36,8 @@
     [],
     [
       "minecraft:lake_lava_underground",
-      "minecraft:lake_lava_surface"
+      "minecraft:lake_lava_surface",
+      "aylyth:spring"
     ],
     [],
     [],
@@ -62,7 +63,12 @@
     ]
   ],
   "precipitation": "rain",
-  "spawn_costs": {},
+  "spawn_costs": {
+    "aylyth:aylythian": {
+      "charge": 2.0,
+      "energy_budget": 1.0
+    }
+  },
   "spawners": {
     "ambient": [
       {
