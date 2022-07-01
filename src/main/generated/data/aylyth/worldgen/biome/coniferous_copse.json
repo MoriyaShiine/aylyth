@@ -6,6 +6,7 @@
       "minecraft:canyon"
     ]
   },
+  "creature_spawn_probability": 0.5,
   "downfall": 0.8,
   "effects": {
     "additions_sound": {
@@ -13,8 +14,8 @@
       "tick_chance": 0.005
     },
     "fog_color": 6710886,
-    "foliage_color": 10387738,
-    "grass_color": 4089899,
+    "foliage_color": 6455096,
+    "grass_color": 5078084,
     "mood_sound": {
       "block_search_extent": 8,
       "offset": 2.0,
@@ -25,7 +26,7 @@
       "options": {
         "type": "minecraft:mycelium"
       },
-      "probability": 0.1
+      "probability": 0.025
     },
     "sky_color": 0,
     "water_color": 4159204,
@@ -52,9 +53,7 @@
       "minecraft:forest_flowers",
       "minecraft:patch_grass_taiga",
       "aylyth:aylyth_weeds",
-      "aylyth:deep_coniferous_roof_trees",
-      "minecraft:patch_large_fern",
-      "aylyth:deep_coniferous_forest_trees",
+      "aylyth:coniferous_copse_trees",
       "minecraft:brown_mushroom_normal",
       "minecraft:red_mushroom_normal",
       "aylyth:ympe_seep"
@@ -66,7 +65,7 @@
   "precipitation": "rain",
   "spawn_costs": {
     "aylyth:aylythian": {
-      "charge": 3.0,
+      "charge": 2.0,
       "energy_budget": 1.0
     }
   },
@@ -76,7 +75,7 @@
         "type": "aylyth:pilot_light",
         "maxCount": 1,
         "minCount": 1,
-        "weight": 10
+        "weight": 5
       }
     ],
     "axolotls": [],
@@ -85,15 +84,9 @@
     "monster": [
       {
         "type": "aylyth:aylythian",
-        "maxCount": 3,
+        "maxCount": 2,
         "minCount": 1,
-        "weight": 25
-      },
-      {
-        "type": "aylyth:elder_aylythian",
-        "maxCount": 1,
-        "minCount": 1,
-        "weight": 2
+        "weight": 20
       }
     ],
     "underground_water_creature": [],

@@ -1,5 +1,5 @@
 {
-  "feature": "aylyth:coniferous_forest_trees",
+  "feature": "aylyth:deepwood_trees",
   "placement": [
     {
       "type": "minecraft:count",
@@ -7,11 +7,11 @@
         "type": "minecraft:weighted_list",
         "distribution": [
           {
-            "data": 5,
+            "data": 4,
             "weight": 3
           },
           {
-            "data": 7,
+            "data": 6,
             "weight": 1
           }
         ]
