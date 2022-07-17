@@ -42,7 +42,7 @@
   "accessWidener": "aylyth.accesswidener",
   "depends": {
 	"fabricloader": "*",
-	"fabric": "*",
+	"fabric": ">=0.57.0",
 	"minecraft": "1.19",
 	"java": ">=17",
 	"geckolib3": "*"
