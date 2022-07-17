@@ -88,6 +88,7 @@ public class Aylyth implements ModInitializer {
 				}
 			}
 		});
+		ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, newPlayer, alive) -> AylythUtil.teleportTo(ModDimensions.AYLYTH, newPlayer, 0));
 		ServerPlayerEvents.ALLOW_DEATH.register((player, damageSource, damageAmount) -> {
 			if (damageSource.isOutOfWorld() && damageSource != ModDamageSources.YMPE) {
 				return true;
@@ -95,12 +96,12 @@ public class Aylyth implements ModInitializer {
 			RegistryKey<World> toWorld = null;
 			if (player.world.getRegistryKey() != ModDimensions.AYLYTH) {
 				boolean teleport = false;
-				float chance = 0;
-				switch (player.world.getDifficulty()) {
-					case EASY -> chance = 0.1f;
-					case NORMAL -> chance = 0.2f;
-					case HARD -> chance = 0.3f;
-				}
+				float chance = switch (player.world.getDifficulty()) {
+					case PEACEFUL -> 0;
+					case EASY -> 0.1f;
+					case NORMAL -> 0.2f;
+					case HARD -> 0.3f;
+				};
 				if (player.getRandom().nextFloat() <= chance) {
 					if (damageSource.getAttacker() instanceof WitchEntity) {
 						teleport = true;

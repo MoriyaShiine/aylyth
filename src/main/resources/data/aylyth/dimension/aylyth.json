@@ -3,6 +3,7 @@
   "generator": {
     "seed": 0,
     "type": "minecraft:noise",
+    "settings": "minecraft:overworld",
     "biome_source": {
       "type": "aylyth:aylyth_biome_provider",
       "biomes": [
@@ -169,7 +170,6 @@
           }
         }
       ]
-    },
-    "settings": "minecraft:overworld"
+    }
   }
 }
