@@ -10,11 +10,10 @@ import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.ShapelessRecipe;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
-
-import java.util.Random;
+import net.minecraft.util.math.random.Random;
 
 public class ShuckingRecipe extends ShapelessRecipe {
-	private static final Random RANDOM = new Random();
+	private static final Random RANDOM = Random.create();
 	
 	public ShuckingRecipe(ShapelessRecipe recipe) {
 		super(recipe.getId(), recipe.getGroup(), recipe.getOutput(), recipe.getIngredients());

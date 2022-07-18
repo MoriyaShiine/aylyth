@@ -17,12 +17,12 @@ public class ElderAylythianEntityModel extends AnimatedGeoModel<ElderAylythianEn
 	private static final Identifier ANIMATION_FILE_LOCATION = new Identifier(Aylyth.MOD_ID, "animations/entity/elder_aylythian.animation.json");
 	
 	@Override
-	public Identifier getModelLocation(ElderAylythianEntity object) {
+	public Identifier getModelResource(ElderAylythianEntity object) {
 		return MODEL_LOCATION;
 	}
 	
 	@Override
-	public Identifier getTextureLocation(ElderAylythianEntity object) {
+	public Identifier getTextureResource(ElderAylythianEntity object) {
 		if (TEXTURE_LOCATIONS == null) {
 			TEXTURE_LOCATIONS = new Identifier[ElderAylythianEntity.VARIANTS];
 			for (int i = 0; i < ElderAylythianEntity.VARIANTS; i++) {
@@ -33,7 +33,7 @@ public class ElderAylythianEntityModel extends AnimatedGeoModel<ElderAylythianEn
 	}
 	
 	@Override
-	public Identifier getAnimationFileLocation(ElderAylythianEntity animatable) {
+	public Identifier getAnimationResource(ElderAylythianEntity animatable) {
 		return ANIMATION_FILE_LOCATION;
 	}
 	

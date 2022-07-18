@@ -12,12 +12,12 @@ import net.minecraft.block.*;
 import net.minecraft.block.sapling.LargeTreeSaplingGenerator;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Random;
 
 import static net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings.copyOf;
 
@@ -28,29 +28,29 @@ public class ModBlocks {
 	public static final Block FRUIT_BEARING_YMPE_LOG = new FruitBearingYmpeLogBlock();
 	public static final Block YMPE_WOOD = new StrippableLogBlock(() -> STRIPPED_YMPE_WOOD, MapColor.BROWN, copyOf(STRIPPED_YMPE_LOG));
 	public static final Block YMPE_LEAVES = BlocksAccessor.callCreateLeavesBlock(BlockSoundGroup.GRASS);
-	public static Block YMPE_SAPLING = new ModSaplingBlock(new LargeTreeSaplingGenerator() {
+	public static final Block YMPE_SAPLING = new ModSaplingBlock(new LargeTreeSaplingGenerator() {
 		@Nullable
 		@Override
-		protected ConfiguredFeature<TreeFeatureConfig, ?> getLargeTreeFeature(Random random) {
-			return ModWorldGenerators.Configured.BIG_YMPE_TREE;
+		protected RegistryEntry<? extends ConfiguredFeature<?, ?>> getLargeTreeFeature(Random random) {
+			return ModConfiguredFeatures.BIG_YMPE_TREE;
 		}
-		
+
 		@Nullable
 		@Override
-		protected ConfiguredFeature<TreeFeatureConfig, ?> getTreeFeature(Random random, boolean bees) {
-			return ModWorldGenerators.Configured.YMPE_TREE;
+		protected RegistryEntry<? extends ConfiguredFeature<?, ?>> getTreeFeature(Random random, boolean bees) {
+			return ModConfiguredFeatures.YMPE_TREE;
 		}
 	});
 	public static final Block POTTED_YMPE_SAPLING = new FlowerPotBlock(YMPE_SAPLING, copyOf(Blocks.POTTED_OAK_SAPLING));
 	public static final Block YMPE_PLANKS = new Block(copyOf(Blocks.OAK_PLANKS));
-	public static final Block YMPE_STAIRS = new TerraformStairsBlock(YMPE_PLANKS, copyOf(Blocks.OAK_STAIRS));
+	public static final Block YMPE_STAIRS = new StairsBlock(YMPE_PLANKS.getDefaultState(), copyOf(Blocks.OAK_STAIRS));
 	public static final Block YMPE_SLAB = new SlabBlock(copyOf(Blocks.OAK_SLAB));
 	public static final Block YMPE_FENCE = new FenceBlock(copyOf(Blocks.OAK_FENCE));
 	public static final Block YMPE_FENCE_GATE = new FenceGateBlock(copyOf(Blocks.OAK_FENCE_GATE));
-	public static final Block YMPE_PRESSURE_PLATE = new TerraformPressurePlateBlock(copyOf(Blocks.OAK_PRESSURE_PLATE));
-	public static final Block YMPE_BUTTON = new TerraformButtonBlock(copyOf(Blocks.OAK_BUTTON));
-	public static final Block YMPE_TRAPDOOR = new TerraformTrapdoorBlock(copyOf(Blocks.OAK_TRAPDOOR));
-	public static final Block YMPE_DOOR = new TerraformDoorBlock(copyOf(Blocks.OAK_DOOR));
+	public static final Block YMPE_PRESSURE_PLATE = new PressurePlateBlock(PressurePlateBlock.ActivationRule.EVERYTHING, copyOf(Blocks.OAK_PRESSURE_PLATE));
+	public static final Block YMPE_BUTTON = new WoodenButtonBlock(copyOf(Blocks.OAK_BUTTON));
+	public static final Block YMPE_TRAPDOOR = new TrapdoorBlock(copyOf(Blocks.OAK_TRAPDOOR));
+	public static final Block YMPE_DOOR = new DoorBlock(copyOf(Blocks.OAK_DOOR));
 	public static final TerraformSignBlock YMPE_SIGN = new TerraformSignBlock(new Identifier(Aylyth.MOD_ID, "entity/sign/ympe"), copyOf(Blocks.OAK_SIGN));
 	public static final Block YMPE_WALL_SIGN = new TerraformWallSignBlock(YMPE_SIGN.getTexture(), copyOf(Blocks.OAK_WALL_SIGN));
 	

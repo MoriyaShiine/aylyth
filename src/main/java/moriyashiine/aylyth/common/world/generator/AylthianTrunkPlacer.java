@@ -3,10 +3,11 @@ package moriyashiine.aylyth.common.world.generator;
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import moriyashiine.aylyth.common.registry.ModWorldGenerators;
+import moriyashiine.aylyth.common.registry.ModVegetationFeatures;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.TestableWorld;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.foliage.FoliagePlacer;
@@ -14,7 +15,6 @@ import net.minecraft.world.gen.trunk.GiantTrunkPlacer;
 import net.minecraft.world.gen.trunk.TrunkPlacerType;
 
 import java.util.List;
-import java.util.Random;
 import java.util.function.BiConsumer;
 
 public class AylthianTrunkPlacer extends GiantTrunkPlacer {
@@ -30,9 +30,9 @@ public class AylthianTrunkPlacer extends GiantTrunkPlacer {
 	
 	@Override
 	protected TrunkPlacerType<AylthianTrunkPlacer> getType() {
-		return ModWorldGenerators.AYLYTHIAN_TRUNK_PLACER;
+		return ModVegetationFeatures.AYLYTHIAN_TRUNK_PLACER;
 	}
-	
+
 	@Override
 	public List<FoliagePlacer.TreeNode> generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, int height, BlockPos startPos, TreeFeatureConfig config) {
 		List<FoliagePlacer.TreeNode> list = Lists.newArrayList();

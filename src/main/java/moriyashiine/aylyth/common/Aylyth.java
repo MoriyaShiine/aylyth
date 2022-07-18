@@ -19,10 +19,12 @@ import net.minecraft.entity.mob.WitchEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.tag.BiomeTags;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
@@ -42,7 +44,10 @@ public class Aylyth implements ModInitializer {
 		ModPotions.init();
 		ModSoundEvents.init();
 		ModRecipeTypes.init();
-		ModWorldGenerators.init();
+		ModDimensions.init();
+		ModConfiguredFeatures.init();
+		ModPlacedFeatures.init();
+		ModVegetationFeatures.init();
 		ModBiomes.init();
 		ModBoatTypes.init();
 		ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register((world, entity, killedEntity) -> {
@@ -83,6 +88,7 @@ public class Aylyth implements ModInitializer {
 				}
 			}
 		});
+		ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, newPlayer, alive) -> AylythUtil.teleportTo(ModDimensions.AYLYTH, newPlayer, 0));
 		ServerPlayerEvents.ALLOW_DEATH.register((player, damageSource, damageAmount) -> {
 			if (damageSource.isOutOfWorld() && damageSource != ModDamageSources.YMPE) {
 				return true;
@@ -90,19 +96,19 @@ public class Aylyth implements ModInitializer {
 			RegistryKey<World> toWorld = null;
 			if (player.world.getRegistryKey() != ModDimensions.AYLYTH) {
 				boolean teleport = false;
-				float chance = 0;
-				switch (player.world.getDifficulty()) {
-					case EASY -> chance = 0.1f;
-					case NORMAL -> chance = 0.2f;
-					case HARD -> chance = 0.3f;
-				}
+				float chance = switch (player.world.getDifficulty()) {
+					case PEACEFUL -> 0;
+					case EASY -> 0.1f;
+					case NORMAL -> 0.2f;
+					case HARD -> 0.3f;
+				};
 				if (player.getRandom().nextFloat() <= chance) {
 					if (damageSource.getAttacker() instanceof WitchEntity) {
 						teleport = true;
 					}
 					if (!teleport) {
-						Biome.Category category = player.world.getBiome(player.getBlockPos()).getCategory();
-						if (category == Biome.Category.TAIGA || category == Biome.Category.FOREST) {
+						RegistryEntry<Biome> biome = player.world.getBiome(player.getBlockPos());
+						if (biome.isIn(BiomeTags.IS_TAIGA) || biome.isIn(BiomeTags.IS_FOREST)) {
 							if (damageSource.isFromFalling() || damageSource == DamageSource.DROWN) {
 								teleport = true;
 							}
@@ -126,11 +132,8 @@ public class Aylyth implements ModInitializer {
 					toWorld = ModDimensions.AYLYTH;
 				}
 			}
-			else if (!damageSource.isFire()) {
-				toWorld = World.NETHER;
-			}
 			if (toWorld != null) {
-				AylythUtil.teleportTo(toWorld, player, toWorld == World.NETHER ? AylythUtil.MAX_TRIES : 0);
+				AylythUtil.teleportTo(toWorld, player, 0);
 				player.setHealth(player.getMaxHealth() / 2);
 				player.clearStatusEffects();
 				player.extinguish();
@@ -152,7 +155,7 @@ public class Aylyth implements ModInitializer {
 		for (int x = -radius; x <= radius; x++) {
 			for (int y = -radius; y <= radius; y++) {
 				for (int z = -radius; z <= radius; z++) {
-					if (ModTags.SEEPS.contains(player.world.getBlockState(mutable.set(player.getX() + x, player.getY() + y, player.getZ() + z)).getBlock())) {
+					if (player.world.getBlockState(mutable.set(player.getX() + x, player.getY() + y, player.getZ() + z)).isIn(ModTags.SEEPS)) {
 						return true;
 					}
 				}

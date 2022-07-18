@@ -15,10 +15,10 @@ public class PilotLightParticle extends AbstractSlowingParticle {
 	
 	protected PilotLightParticle(ClientWorld clientWorld, double x, double y, double z, float r, float g, float b) {
 		super(clientWorld, x, y, z, 0, Math.max(0.01F, clientWorld.random.nextFloat() / 50), 0);
-		colorAlpha = 0;
-		colorRed = r;
-		colorGreen = g;
-		colorBlue = b;
+		alpha = 0;
+		red = r;
+		green = g;
+		blue = b;
 		this.targetScale = 0.5F;
 		maxAge = 40 + clientWorld.random.nextInt(40);
 	}
@@ -40,7 +40,7 @@ public class PilotLightParticle extends AbstractSlowingParticle {
 			scale(0.95F);
 		}
 		else {
-			this.colorAlpha = lifeRatio * 2;
+			this.alpha = lifeRatio * 2;
 		}
 		if (lifeRatio >= 1) {
 			markDead();
@@ -92,9 +92,9 @@ public class PilotLightParticle extends AbstractSlowingParticle {
 			PilotLightParticle particle = new PilotLightParticle(clientWorld, x, y, z, MathHelper.nextFloat(clientWorld.random, 0.8F, 1F), MathHelper.nextFloat(clientWorld.random, 0.5F, 0.6F), MathHelper.nextFloat(clientWorld.random, 0.05F, 0.1F));
 			particle.targetScale = MathHelper.nextFloat(clientWorld.random, 1F, 1.5F);
 			particle.scale(particle.targetScale);
-			particle.colorRed = (float) velX;
-			particle.colorGreen = (float) velY;
-			particle.colorBlue = (float) velZ;
+			particle.red = (float) velX;
+			particle.green = (float) velY;
+			particle.blue = (float) velZ;
 			particle.setSpriteForAge(this.spriteProvider);
 			return particle;
 		}

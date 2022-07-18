@@ -29,9 +29,12 @@
 	"cardinal-components-entity": [
 	  "moriyashiine.aylyth.common.registry.ModComponents"
 	],
-	"rei_plugins": [
+	"rei_client": [
 	  "moriyashiine.aylyth.client.integration.rei.ModREIPlugin"
-	]
+	],
+  "fabric-datagen" : [
+    "moriyashiine.aylyth.datagen.AylythDatagen"
+  ]
   },
   "mixins": [
 	"aylyth.mixins.json"
@@ -39,8 +42,8 @@
   "accessWidener": "aylyth.accesswidener",
   "depends": {
 	"fabricloader": "*",
-	"fabric": "*",
-	"minecraft": "1.18.x",
+	"fabric": ">=0.57.0",
+	"minecraft": "1.19",
 	"java": ">=17",
 	"geckolib3": "*"
   },

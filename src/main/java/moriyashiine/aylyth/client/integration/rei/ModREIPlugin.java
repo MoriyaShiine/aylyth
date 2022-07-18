@@ -17,7 +17,7 @@ public class ModREIPlugin implements REIClientPlugin {
 	public void registerCategories(CategoryRegistry registry) {
 		registry.add(new YmpeDaggerDropCategory());
 		registry.addWorkstations(YMPE_DAGGER_DROPS, YmpeDaggerDropCategory.ICON);
-		registry.removePlusButton(YMPE_DAGGER_DROPS);
+		registry.setPlusButtonArea(YMPE_DAGGER_DROPS, bounds -> null);
 	}
 	
 	@Override

@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '0.10-SNAPSHOT'
+    id 'fabric-loom' version '0.12-SNAPSHOT'
     id 'maven-publish'
 }
 
@@ -12,7 +12,21 @@ group = project.maven_group
 
 loom {
     accessWidenerPath = file("src/main/resources/aylyth.accesswidener")
+	
+	runs {
+		datagen {
+			server()
+ 
+			name "Minecraft Data"
+			vmArg "-Dfabric-api.datagen"
+			vmArg "-Dfabric-api.datagen.output-dir=${file("src/main/generated")}"
+ 
+			runDir "build/datagen"
+		}
+	}
 }
+
+sourceSets.main.resources.srcDirs += ['src/main/generated']
 
 repositories {
     maven {
@@ -42,10 +56,10 @@ dependencies {
     mappings "net.fabricmc:yarn:${yarn_mappings}:v2"
     modImplementation "net.fabricmc:fabric-loader:${loader_version}"
 
-    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:${cardinal_components_version}"
-    include "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:${cardinal_components_version}"
-    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:${cardinal_components_version}"
-    include "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:${cardinal_components_version}"
+    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-base:${cardinal_components_version}"
+    include "dev.onyxstudios.cardinal-components-api:cardinal-components-base:${cardinal_components_version}"
+    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${cardinal_components_version}"
+    include "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${cardinal_components_version}"
     modImplementation "com.jamieswhiteshirt:reach-entity-attributes:${reach_entity_attributes_version}"
     include "com.jamieswhiteshirt:reach-entity-attributes:${reach_entity_attributes_version}"
     modImplementation "com.terraformersmc.terraform-api:terraform-wood-api-v1:${terraform_wood_api_version}"
@@ -55,7 +69,7 @@ dependencies {
     modImplementation "software.bernie.geckolib:geckolib-fabric-${geckolib_version}"
 
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${rei_version}"
-    modRuntime "me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"
+    modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"
 }
 
 processResources {
@@ -69,6 +83,8 @@ processResources {
 tasks.withType(JavaCompile).configureEach {
     it.options.release = 17
 }
+
+assemble.dependsOn runDatagen
 
 java {
     withSourcesJar()

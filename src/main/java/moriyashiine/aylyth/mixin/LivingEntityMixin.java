@@ -25,7 +25,7 @@ public class LivingEntityMixin {
 	
 	@Inject(method = "eatFood", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;applyFoodEffects(Lnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/entity/LivingEntity;)V"))
 	private void decreaseYmpeInfestationStage(World world, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
-		if ((LivingEntity) (Object) this instanceof PlayerEntity player && ModTags.YMPE_FOODS.contains(stack.getItem())) {
+		if ((LivingEntity) (Object) this instanceof PlayerEntity player && stack.isIn(ModTags.YMPE_FOODS)) {
 			ModComponents.YMPE_INFESTATION.maybeGet(player).ifPresent(ympeInfestationComponent -> {
 				if (ympeInfestationComponent.getStage() > 0) {
 					ympeInfestationComponent.setStage((byte) (ympeInfestationComponent.getStage() - 1));

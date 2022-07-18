@@ -9,6 +9,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
@@ -17,22 +18,17 @@ public class GripweedBlock extends PlantBlock {
 	private static final VoxelShape SHAPE = createCuboidShape(0, 0, 0, 16, 11, 16);
 	
 	public GripweedBlock() {
-		super(Settings.copy(Blocks.GRASS));
+		super(Settings.copy(Blocks.GRASS).offsetType(OffsetType.XZ));
 	}
 	
 	@Override
 	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
 		return SHAPE;
 	}
-	
-	@Override
-	public AbstractBlock.OffsetType getOffsetType() {
-		return AbstractBlock.OffsetType.XZ;
-	}
-	
+
 	@Override
 	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
-		if (ModTags.GRIPWEED_IMMUNE.contains(entity.getType())) {
+		if (entity.getType().isIn(ModTags.GRIPWEED_IMMUNE)) {
 			return;
 		}
 		if (entity instanceof LivingEntity living && EnchantmentHelper.hasSoulSpeed(living)) {

@@ -31,7 +31,7 @@ public class GameRendererMixin {
 	@Inject(method = "renderWorld", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/GameRenderer;getFov(Lnet/minecraft/client/render/Camera;FZ)D"))
 	private void decreaseAylythRenderDistance(float tickDelta, long limitTime, MatrixStack matrix, CallbackInfo ci) {
 		if (AylythDimensionRenderer.goalFogStrength > 0) {
-			viewDistance = 10;
+			viewDistance = 30;
 		}
 	}
 	

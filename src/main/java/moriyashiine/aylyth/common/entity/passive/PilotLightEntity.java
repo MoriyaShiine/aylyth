@@ -24,13 +24,12 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.TeleportTarget;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Random;
 
 public class PilotLightEntity extends AmbientEntity implements Flutterer {
 	private static final TrackedData<Boolean> IS_BLUE = DataTracker.registerData(PilotLightEntity.class, TrackedDataHandlerRegistry.BOOLEAN);

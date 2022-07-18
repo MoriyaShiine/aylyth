@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "default": "aylyth:aylythian_mega_dark_oak",
+    "features": [
+      {
+        "chance": 0.25,
+        "feature": "aylyth:aylythian_dark_oak"
+      }
+    ]
+  }
+}

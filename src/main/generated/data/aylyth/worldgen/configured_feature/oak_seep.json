@@ -1,0 +1,17 @@
+{
+  "type": "aylyth:seep",
+  "config": {
+    "seep_state": {
+      "Name": "aylyth:oak_seep",
+      "Properties": {
+        "connection": "none"
+      }
+    },
+    "state": {
+      "Name": "minecraft:oak_log",
+      "Properties": {
+        "axis": "y"
+      }
+    }
+  }
+}
