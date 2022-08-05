@@ -14,6 +14,7 @@ import net.minecraft.world.biome.source.util.MultiNoiseUtil;
 import net.minecraft.world.gen.chunk.ChunkGeneratorSettings;
 import net.minecraft.world.gen.chunk.GenerationShapeConfig;
 import net.minecraft.world.gen.densityfunction.DensityFunction;
+import net.minecraft.world.gen.densityfunction.DensityFunctionTypes;
 import net.minecraft.world.gen.densityfunction.DensityFunctions;
 import net.minecraft.world.gen.noise.NoiseParametersKeys;
 import net.minecraft.world.gen.noise.NoiseRouter;
@@ -35,7 +36,7 @@ public class AylythNoiseSettings {
         var aquifers = false;
         var oreVeins = true;
         var legacyRandom = false;
-        return new ChunkGeneratorSettings(shapeConfig(), defaultState(Blocks.STONE), defaultState(Blocks.WATER), testRouter(), materialRules(), spawnTargets(), seaLevel, disableMobGen, aquifers, oreVeins, legacyRandom);
+        return new ChunkGeneratorSettings(shapeConfig(), defaultState(Blocks.STONE), defaultState(Blocks.WATER), noiseRouter(), materialRules(), spawnTargets(), seaLevel, disableMobGen, aquifers, oreVeins, legacyRandom);
     }
 
     static BlockState defaultState(Block block) {
@@ -69,11 +70,11 @@ public class AylythNoiseSettings {
                 zero(),  // temperature
                 zero(),  // vegetation
                 method_40502(noiseEntry(NoiseParametersKeys.CONTINENTALNESS), 1, 0.5),  // continents
-                noise(noiseEntry(NoiseParametersKeys.EROSION)),  // erosion
+                noise(NoiseParametersKeys.EROSION),  // erosion
                 BuiltinRegistries.DENSITY_FUNCTION.get(DensityFunctions.DEPTH_OVERWORLD),  // depth
                 zero(),  // ridges
                 initialDensity(),  // initialDensityWithoutJaggedness
-                zero(),  // finalDensity
+                finalDensity(),  // finalDensity
                 zero(),  // veinToggle
                 zero(),  // veinRidged
                 zero()); // veinGap
@@ -102,11 +103,31 @@ public class AylythNoiseSettings {
     }
 
     static DensityFunction finalDensity() {
-        return add(constant(0.1), interpolated(blendDensity(add(constant(0.05), mul(yClampedGradient(-64, 69, 0.1, 1), mul(yClampedGradient(60, 100, -0.1, -1), noise(noiseEntry(NoiseParametersKeys.SURFACE))))))).squeeze());
+        return add(
+                yClampedGradient(-64, 272, 1, -1),
+                add(
+                        add(
+                                yClampedGradient(60, 84, 1, -2),
+                                method_40502(noiseEntry(NoiseParametersKeys.GRAVEL), 1, 0.5)
+                        ),
+                        add(
+                                yClampedGradient(60, 84, 1, -2),
+                                method_40502(noiseEntry(NoiseParametersKeys.CONTINENTALNESS), 1, 0)
+                        )
+                )
+        );
+    }
+
+    static DensityFunction finalDensityOld() {
+        return add(constant(0.1), interpolated(blendDensity(add(constant(0.05), mul(yClampedGradient(-64, 69, 0.1, 1), mul(yClampedGradient(60, 100, -0.1, -1), noise(NoiseParametersKeys.SURFACE)))))).squeeze());
     }
 
     static RegistryEntry<DoublePerlinNoiseSampler.NoiseParameters> noiseEntry(RegistryKey<DoublePerlinNoiseSampler.NoiseParameters> key) {
         return BuiltinRegistries.NOISE_PARAMETERS.getEntry(key).get();
+    }
+
+    static DensityFunction noise(RegistryKey<DoublePerlinNoiseSampler.NoiseParameters> key) {
+        return DensityFunctionTypes.noise(noiseEntry(key));
     }
 
     static MaterialRules.MaterialRule materialRules() {
