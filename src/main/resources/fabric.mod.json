@@ -32,9 +32,9 @@
 	"rei_client": [
 	  "moriyashiine.aylyth.client.integration.rei.ModREIPlugin"
 	],
-  "fabric-datagen" : [
-    "moriyashiine.aylyth.datagen.AylythDatagen"
-  ]
+	"fabric-datagen" : [
+	  "moriyashiine.aylyth.datagen.AylythDatagen"
+	]
   },
   "mixins": [
 	"aylyth.mixins.json"
