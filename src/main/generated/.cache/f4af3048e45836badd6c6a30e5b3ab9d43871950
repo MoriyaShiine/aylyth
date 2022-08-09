@@ -1,4 +1,4 @@
-// 1.19	2022-08-05T18:26:25.5856039	Aylyth worldgen generator
+// 1.19	2022-08-09T15:26:09.4168687	Aylyth worldgen generator
 e38d87100c4597954814864944a34e4d1e0ede26 data\aylyth\worldgen\placed_feature\copse_trees.json
 85793845cf762ecbe362965c21f359f5c3fd6709 data\aylyth\worldgen\configured_feature\deepwood_trees.json
 ccab11ff615690a29da95ad6b1afff55821b8f28 data\aylyth\worldgen\configured_feature\overgrowth_clearing_trees.json
@@ -8,7 +8,7 @@ eb52ed5e4fb323f7996ae226a1b78fb4bf236e9e data\aylyth\worldgen\configured_feature
 5f5d2f0070cc25fea05257cd3e060e105f3c6950 data\aylyth\worldgen\configured_feature\spruce_seep.json
 baab7862fff0c3bb97001dec52a1dcd9fb382b4d data\aylyth\worldgen\biome\deepwood.json
 06685084807ee180aa54c1b4654db84aee73713f data\aylyth\worldgen\configured_feature\aylythian_mega_dark_oak.json
-127dc61b6feeb2431df29c20eb32bf3ed64a58c8 data\aylyth\worldgen\noise_settings\aylyth_settings.json
+2a3ce257d15925e296d22dea1b020b8a318abc64 data\aylyth\worldgen\noise_settings\aylyth_settings.json
 1b72e73878e18c0b5d50613daff1beb5e040124c data\aylyth\worldgen\biome\clearing.json
 bde346cb2cfa360479cdd7e6a571d3e2494863d5 data\aylyth\worldgen\placed_feature\overgrowth_clearing_trees.json
 2619bb068a0ae7b698448162fd93833e7e3fd7bb data\aylyth\worldgen\biome\coniferous_copse.json
