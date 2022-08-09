@@ -12,8 +12,10 @@ import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.GenerationStep;
+import net.minecraft.world.gen.carver.ConfiguredCarvers;
 import net.minecraft.world.gen.feature.ConfiguredFeatures;
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
+import net.minecraft.world.gen.feature.MiscPlacedFeatures;
 import net.minecraft.world.gen.feature.VegetationPlacedFeatures;
 import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder;
 
@@ -46,7 +48,7 @@ public class ModBiomes {
 	
 	private static Biome createClearing(boolean overgrown, SpawnSettings.Builder spawnSettings) {
 		GenerationSettings.Builder builder = new GenerationSettings.Builder();
-		DefaultBiomeFeatures.addLandCarvers(builder);
+		addLandCarversNotLavaLakes(builder);
 //		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.CLEARING_FLOWERS);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_GRASS_PLAIN);
 		if (overgrown) {
@@ -66,7 +68,7 @@ public class ModBiomes {
 	
 	private static Biome createForest(boolean deep, SpawnSettings.Builder spawnSettings) {
 		GenerationSettings.Builder builder = new GenerationSettings.Builder();
-		DefaultBiomeFeatures.addLandCarvers(builder);
+		addLandCarversNotLavaLakes(builder);
 		builder.feature(GenerationStep.Feature.LAKES, ModPlacedFeatures.SPRING);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, deep ? ModVegetationFeatures.DEEP_ROOF_TREES_PLACED : ModPlacedFeatures.AYLYTHIAN_DARK_OAK);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, deep ? ModVegetationFeatures.DEEPWOOD_TREES_PLACED : ModVegetationFeatures.COPSE_TREES_PLACED);
@@ -87,7 +89,7 @@ public class ModBiomes {
 	
 	private static Biome createConiferousForest(boolean deep, SpawnSettings.Builder spawnSettings) {
 		GenerationSettings.Builder builder = new GenerationSettings.Builder();
-		DefaultBiomeFeatures.addLandCarvers(builder);
+		addLandCarversNotLavaLakes(builder);
 		DefaultBiomeFeatures.addForestFlowers(builder);
 		builder.feature(GenerationStep.Feature.LAKES, ModPlacedFeatures.SPRING);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_GRASS_TAIGA);
@@ -102,5 +104,12 @@ public class ModBiomes {
 		DefaultBiomeFeatures.addFrozenTopLayer(builder);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.YMPE_SEEP);
 		return new Biome.Builder().precipitation(Biome.Precipitation.RAIN).temperature(0.7F).downfall(0.8F).effects(new BiomeEffects.Builder().foliageColor(deep ? DEEP_AYLYTHIAN_FOLIAGE_COLOR : AYLYTHIAN_FOLIAGE_COLOR).grassColor(deep ? 0x3E682B : 0x4D7C44).waterColor(WATER_COLOR).waterFogColor(UNDERWATER_COLOR).fogColor(FOG_COLOR).skyColor(SKY_COLOR).moodSound(BiomeMoodSound.CAVE).particleConfig(new BiomeParticleConfig(ParticleTypes.MYCELIUM, deep ? 0.1F : 0.025F)).additionsSound(FOREST_AMBIANCE).build()).spawnSettings(spawnSettings.build()).generationSettings(builder.build()).build();
+	}
+
+	private static void addLandCarversNotLavaLakes(GenerationSettings.Builder builder) {
+		builder.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.CAVE);
+		builder.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.CAVE_EXTRA_UNDERGROUND);
+		builder.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.CANYON);
+		builder.feature(GenerationStep.Feature.LAKES, MiscPlacedFeatures.LAKE_LAVA_UNDERGROUND);
 	}
 }
