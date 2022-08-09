@@ -89,10 +89,7 @@ public class AylythNoiseSettings {
 
     // This is the regular base terrain. Should be flatter, with gradual variations in the land
     static DensityFunction smallVariedFlatterLand() {
-        return mul(
-                scaledNoise(GRAVEL, 1, 0.5),
-                yClampedGradient(64, 84, 1.0, 0.0)
-        );
+        return scaledNoise(GRAVEL, 1, 0.5);
     }
 
     // This is for the uplands biome. These should be somewhat rare. Should be a large area created with a combination of mountainous terrain and plateaus.
@@ -122,6 +119,10 @@ public class AylythNoiseSettings {
 
     static DensityFunction gradient(int fromY, int toY, double fromValue, double toValue) {
         return yClampedGradient(fromY, toY, fromValue, toValue);
+    }
+
+    static DensityFunction condition(DensityFunction input, double minInclusive, double maxExclusive, DensityFunction whenInRange, DensityFunction whenOutOfRange) {
+        return rangeChoice(input, minInclusive, maxExclusive, whenInRange, whenOutOfRange);
     }
 
     static DensityFunction postProcess(DensityFunction densityFunction) {
