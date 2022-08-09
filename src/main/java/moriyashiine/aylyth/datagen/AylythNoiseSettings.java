@@ -23,6 +23,7 @@ import net.minecraft.world.gen.surfacebuilder.MaterialRules;
 import java.util.List;
 
 import static net.minecraft.world.gen.densityfunction.DensityFunctionTypes.*;
+import static net.minecraft.world.gen.noise.NoiseParametersKeys.*;
 
 public class AylythNoiseSettings {
 
@@ -36,7 +37,7 @@ public class AylythNoiseSettings {
         var aquifers = false;
         var oreVeins = true;
         var legacyRandom = false;
-        return new ChunkGeneratorSettings(shapeConfig(), defaultState(Blocks.STONE), defaultState(Blocks.WATER), noiseRouter(), materialRules(), spawnTargets(), seaLevel, disableMobGen, aquifers, oreVeins, legacyRandom);
+        return new ChunkGeneratorSettings(shapeConfig(), defaultState(Blocks.STONE), defaultState(Blocks.WATER), noiseRouter(), emptyRules(), spawnTargets(), seaLevel, disableMobGen, aquifers, oreVeins, legacyRandom);
     }
 
     static BlockState defaultState(Block block) {
@@ -44,21 +45,11 @@ public class AylythNoiseSettings {
     }
 
     static GenerationShapeConfig shapeConfig() {
-        var minY = -32;
-        var height = 128;
+        var minY = -64;
+        var height = 336;
         var horizontal = 1;
         var vertical = 1;
         return new GenerationShapeConfig(minY, height, horizontal, vertical);
-    }
-
-    static NoiseRouter testRouter() {
-        DensityFunction densityFunction2 = getFunctionRaw("shift_x");
-        DensityFunction densityFunction3 = getFunctionRaw("shift_z");
-        DensityFunction densityFunction4 = shiftedNoise(densityFunction2, densityFunction3, 0.25, BuiltinRegistries.NOISE_PARAMETERS.entryOf(NoiseParametersKeys.TEMPERATURE));
-        DensityFunction densityFunction5 = shiftedNoise(densityFunction2, densityFunction3, 0.25, BuiltinRegistries.NOISE_PARAMETERS.entryOf(NoiseParametersKeys.VEGETATION));
-        DensityFunction den = BuiltinRegistries.DENSITY_FUNCTION.get(new Identifier("overworld_amplified/sloped_cheese"));
-        DensityFunction densityFunction6 = postProcess(slide(den, -64, 200, 16, 0, -0.078125, 0, 24, 0.1171875));
-        return new NoiseRouter(zero(), zero(), zero(), zero(), densityFunction4, densityFunction5, zero(), zero(), zero(), zero(), zero(), densityFunction6, zero(), zero(), zero());
     }
 
     static NoiseRouter noiseRouter() {
@@ -67,9 +58,9 @@ public class AylythNoiseSettings {
                 zero(),  // fluidLevelFloodednessNoise
                 zero(),  // fluidLevelSpreadNoise
                 zero(),  // lavaNoise
-                zero(),  // temperature
-                zero(),  // vegetation
-                method_40502(noiseEntry(NoiseParametersKeys.CONTINENTALNESS), 1, 0.5),  // continents
+                noise(NoiseParametersKeys.TEMPERATURE),  // temperature
+                noise(NoiseParametersKeys.VEGETATION),  // vegetation
+                noise(NoiseParametersKeys.CONTINENTALNESS),  // continents
                 noise(NoiseParametersKeys.EROSION),  // erosion
                 BuiltinRegistries.DENSITY_FUNCTION.get(DensityFunctions.DEPTH_OVERWORLD),  // depth
                 zero(),  // ridges
@@ -84,17 +75,53 @@ public class AylythNoiseSettings {
         return cache2d(new RegistryEntryHolder(BuiltinRegistries.DENSITY_FUNCTION.getEntry(DensityFunctions.FACTOR_OVERWORLD).get()));
     }
 
+    static DensityFunction finalDensity() {
+        return postProcess(
+                add(
+                        yClampedGradient(-64, 272, 1.0, -1.0),
+                        add(
+                                smallVariedFlatterLand(),
+                                plateauedHills()
+                        )
+                )
+        );
+    }
+
+    // This is the regular base terrain. Should be flatter, with gradual variations in the land
+    static DensityFunction smallVariedFlatterLand() {
+        return mul(
+                scaledNoise(GRAVEL, 1, 0.5),
+                yClampedGradient(64, 84, 1.0, 0.0)
+        );
+    }
+
+    // This is for the uplands biome. These should be somewhat rare. Should be a large area created with a combination of mountainous terrain and plateaus.
+    static DensityFunction plateauedHills() {
+        return constant(0);
+//        return add(
+//                noise(CONTINENTALNESS),
+//                yClampedGradient(84, 150, 1, 0)
+//        );
+    }
+
     static DensityFunction getFunctionRaw(String id) {
         return BuiltinRegistries.DENSITY_FUNCTION.get(RegistryKey.of(Registry.DENSITY_FUNCTION_KEY, new Identifier(id)));
     }
 
-    static DensityFunction slide(DensityFunction densityFunction, int i, int j, int k, int l, double d, int m, int n, double e) {
-        DensityFunction densityFunction2 = densityFunction;
-        DensityFunction densityFunction3 = yClampedGradient(i + j - k, i + j - l, 1.0, 0.0);
-        densityFunction2 = method_40488(densityFunction3, constant(d), densityFunction2);
-        DensityFunction densityFunction4 = yClampedGradient(i + m, i + n, 0.0, 1.0);
-        densityFunction2 = method_40488(densityFunction4, constant(e), densityFunction2);
+    static DensityFunction slide(DensityFunction end, int minWorldHeight, int maxWorldHeight, int fromTopSlide, int toTopSlide, double topStart, int fromBottomSlide, int toBottomSlide, double bottomStart) {
+        DensityFunction densityFunction3 = gradient(minWorldHeight + maxWorldHeight - fromTopSlide, minWorldHeight + maxWorldHeight - toTopSlide, 1.0, 0.0);
+        DensityFunction densityFunction2 = lerp(densityFunction3, topStart, end);
+        DensityFunction densityFunction4 = gradient(minWorldHeight + fromBottomSlide, minWorldHeight + toBottomSlide, 0.0, 1.0);
+        densityFunction2 = lerp(densityFunction4, bottomStart, densityFunction2);
         return densityFunction2;
+    }
+
+    static DensityFunction lerp(DensityFunction delta, double start, DensityFunction end) {
+        return method_42359(delta, start, end);
+    }
+
+    static DensityFunction gradient(int fromY, int toY, double fromValue, double toValue) {
+        return yClampedGradient(fromY, toY, fromValue, toValue);
     }
 
     static DensityFunction postProcess(DensityFunction densityFunction) {
@@ -102,28 +129,12 @@ public class AylythNoiseSettings {
         return mul(interpolated(densityFunction2), constant(0.64)).squeeze();
     }
 
-    static DensityFunction finalDensity() {
-        return add(
-                yClampedGradient(-64, 272, 1, -1),
-                add(
-                        add(
-                                yClampedGradient(60, 84, 1, -2),
-                                method_40502(noiseEntry(NoiseParametersKeys.GRAVEL), 1, 0.5)
-                        ),
-                        add(
-                                yClampedGradient(60, 84, 1, -2),
-                                method_40502(noiseEntry(NoiseParametersKeys.CONTINENTALNESS), 1, 0)
-                        )
-                )
-        );
-    }
-
-    static DensityFunction finalDensityOld() {
-        return add(constant(0.1), interpolated(blendDensity(add(constant(0.05), mul(yClampedGradient(-64, 69, 0.1, 1), mul(yClampedGradient(60, 100, -0.1, -1), noise(NoiseParametersKeys.SURFACE)))))).squeeze());
-    }
-
     static RegistryEntry<DoublePerlinNoiseSampler.NoiseParameters> noiseEntry(RegistryKey<DoublePerlinNoiseSampler.NoiseParameters> key) {
         return BuiltinRegistries.NOISE_PARAMETERS.getEntry(key).get();
+    }
+
+    static DensityFunction scaledNoise(RegistryKey<DoublePerlinNoiseSampler.NoiseParameters> key, double xzScale, double yScale) {
+        return method_40502(noiseEntry(key), xzScale, yScale);
     }
 
     static DensityFunction noise(RegistryKey<DoublePerlinNoiseSampler.NoiseParameters> key) {
@@ -137,6 +148,10 @@ public class AylythNoiseSettings {
         var onFloor = MaterialRules.condition(MaterialRules.STONE_DEPTH_FLOOR, MaterialRules.sequence(onReplaceWaterWithGrass, dirt));
         var onUnderFloor = MaterialRules.condition(MaterialRules.STONE_DEPTH_FLOOR_WITH_SURFACE_DEPTH, dirt);
         return MaterialRules.sequence(onFloor, onUnderFloor);
+    }
+
+    static MaterialRules.MaterialRule emptyRules() {
+        return MaterialRules.block(Blocks.STONE.getDefaultState());
     }
 
     static List<MultiNoiseUtil.NoiseHypercube> spawnTargets() {
