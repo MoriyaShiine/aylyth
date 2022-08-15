@@ -12,7 +12,10 @@
       },
       {
         "chance": 0.25,
-        "feature": "aylyth:big_ympe_tree"
+        "feature": {
+          "feature": "aylyth:big_ympe_tree",
+          "placement": []
+        }
       }
     ]
   }
