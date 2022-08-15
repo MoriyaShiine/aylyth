@@ -1,4 +1,4 @@
-// 1.19	2022-08-09T17:23:09.1911946	Aylyth worldgen generator
+// 1.19	2022-08-15T16:18:38.7587866	Aylyth worldgen generator
 e38d87100c4597954814864944a34e4d1e0ede26 data\aylyth\worldgen\placed_feature\copse_trees.json
 85793845cf762ecbe362965c21f359f5c3fd6709 data\aylyth\worldgen\configured_feature\deepwood_trees.json
 ccab11ff615690a29da95ad6b1afff55821b8f28 data\aylyth\worldgen\configured_feature\overgrowth_clearing_trees.json
@@ -8,7 +8,7 @@ eb52ed5e4fb323f7996ae226a1b78fb4bf236e9e data\aylyth\worldgen\configured_feature
 5f5d2f0070cc25fea05257cd3e060e105f3c6950 data\aylyth\worldgen\configured_feature\spruce_seep.json
 baab7862fff0c3bb97001dec52a1dcd9fb382b4d data\aylyth\worldgen\biome\deepwood.json
 06685084807ee180aa54c1b4654db84aee73713f data\aylyth\worldgen\configured_feature\aylythian_mega_dark_oak.json
-42598646b834da842f3357240e715d1339ccab5d data\aylyth\worldgen\noise_settings\aylyth_settings.json
+d0ffb884b06fe4095f6c656ac7c91934d42d8d28 data\aylyth\worldgen\noise_settings\aylyth_settings.json
 1b72e73878e18c0b5d50613daff1beb5e040124c data\aylyth\worldgen\biome\clearing.json
 bde346cb2cfa360479cdd7e6a571d3e2494863d5 data\aylyth\worldgen\placed_feature\overgrowth_clearing_trees.json
 2619bb068a0ae7b698448162fd93833e7e3fd7bb data\aylyth\worldgen\biome\coniferous_copse.json
@@ -31,8 +31,8 @@ cede638e6cdc95de7c7952736451eaf7f7e6ee88 data\aylyth\worldgen\configured_feature
 694f0faf0443622b316544e408e8eb209adccb45 data\aylyth\worldgen\placed_feature\spruce_seep.json
 be5e712109cab04312738cae23ed93c8a811f575 data\aylyth\worldgen\placed_feature\aylythian_mega_dark_oak.json
 1e8569d2d427907b068907cad7654cc92812beda data\aylyth\worldgen\placed_feature\big_ympe_tree.json
-105b99804e752895f6193a1da52b88cd38dd1bb7 data\aylyth\worldgen\configured_feature\deep_roof_trees.json
-3e9da911249e94d62041829efd5294148797f577 data\aylyth\worldgen\configured_feature\coniferous_deep_roof_trees.json
+58849aeec278f7fcc5c3cc2bfc34b5700c7afe37 data\aylyth\worldgen\configured_feature\deep_roof_trees.json
+9e106bff88d1e0ed5a000aa7a59d7423bbd0ba8a data\aylyth\worldgen\configured_feature\coniferous_deep_roof_trees.json
 c1c9bab0068f6e3272940cf90a780b77184dc23a data\aylyth\worldgen\biome\coniferous_deepwood.json
 48faef71930b1908a105fe437319b1a767b000ae data\aylyth\worldgen\configured_feature\ympe_seep.json
 3a711c37a9f84097a31eb7027137bbc2d7701887 data\aylyth\worldgen\biome\copse.json
