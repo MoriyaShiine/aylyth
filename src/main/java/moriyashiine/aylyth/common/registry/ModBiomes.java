@@ -110,6 +110,5 @@ public class ModBiomes {
 		builder.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.CAVE);
 		builder.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.CAVE_EXTRA_UNDERGROUND);
 		builder.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.CANYON);
-		builder.feature(GenerationStep.Feature.LAKES, MiscPlacedFeatures.LAKE_LAVA_UNDERGROUND);
 	}
 }
