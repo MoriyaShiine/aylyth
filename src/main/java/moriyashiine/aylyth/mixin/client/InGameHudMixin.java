@@ -59,6 +59,7 @@ public abstract class InGameHudMixin {
 				renderOverlay(YMPE_OUTLINE_2_TEXTURE, stage == 5 ? (float) ympeInfestationComponent.getInfestationTimer() / YmpeInfestationComponent.TIME_UNTIL_STAGE_INCREASES : 1);
 			}
 		});
+		//TODO: render seep over screen when inside a seep block
 	}
 	
 	@Inject(method = "renderHealthBar", at = @At("HEAD"))
