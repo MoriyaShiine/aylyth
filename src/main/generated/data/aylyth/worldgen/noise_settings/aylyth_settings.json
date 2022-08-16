@@ -21,24 +21,14 @@
     "barrier": 0.0,
     "continents": {
       "type": "minecraft:noise",
-      "noise": "minecraft:continentalness",
+      "noise": "aylyth:continents",
       "xz_scale": 1.0,
       "y_scale": 1.0
     },
-    "depth": {
-      "type": "minecraft:add",
-      "argument1": {
-        "type": "minecraft:y_clamped_gradient",
-        "from_value": 1.5,
-        "from_y": -64,
-        "to_value": -1.5,
-        "to_y": 320
-      },
-      "argument2": "minecraft:overworld/offset"
-    },
+    "depth": 0.0,
     "erosion": {
       "type": "minecraft:noise",
-      "noise": "minecraft:erosion",
+      "noise": "aylyth:erosion",
       "xz_scale": 1.0,
       "y_scale": 1.0
     },
@@ -53,21 +43,201 @@
             "type": "minecraft:blend_density",
             "argument": {
               "type": "minecraft:add",
-              "argument1": {
-                "type": "minecraft:y_clamped_gradient",
-                "from_value": 1.0,
-                "from_y": -64,
-                "to_value": -1.0,
-                "to_y": 272
-              },
+              "argument1": 0.1171875,
               "argument2": {
-                "type": "minecraft:add",
-                "argument1": 0.0,
+                "type": "minecraft:mul",
+                "argument1": {
+                  "type": "minecraft:y_clamped_gradient",
+                  "from_value": 0.0,
+                  "from_y": -64,
+                  "to_value": 1.0,
+                  "to_y": -40
+                },
                 "argument2": {
-                  "type": "minecraft:noise",
-                  "noise": "minecraft:gravel",
-                  "xz_scale": 1.0,
-                  "y_scale": 0.5
+                  "type": "minecraft:add",
+                  "argument1": -0.1171875,
+                  "argument2": {
+                    "type": "minecraft:add",
+                    "argument1": -0.078125,
+                    "argument2": {
+                      "type": "minecraft:mul",
+                      "argument1": {
+                        "type": "minecraft:y_clamped_gradient",
+                        "from_value": 1.0,
+                        "from_y": 128,
+                        "to_value": 0.0,
+                        "to_y": 144
+                      },
+                      "argument2": {
+                        "type": "minecraft:add",
+                        "argument1": 0.078125,
+                        "argument2": {
+                          "type": "minecraft:range_choice",
+                          "input": {
+                            "type": "minecraft:add",
+                            "argument1": {
+                              "type": "minecraft:y_clamped_gradient",
+                              "from_value": 1.0,
+                              "from_y": -64,
+                              "to_value": 0.0,
+                              "to_y": 84
+                            },
+                            "argument2": {
+                              "type": "minecraft:add",
+                              "argument1": {
+                                "type": "minecraft:add",
+                                "argument1": {
+                                  "type": "minecraft:y_clamped_gradient",
+                                  "from_value": 1.0,
+                                  "from_y": 64,
+                                  "to_value": -2.0,
+                                  "to_y": 84
+                                },
+                                "argument2": {
+                                  "type": "minecraft:noise",
+                                  "noise": "aylyth:base_layer",
+                                  "xz_scale": 1.0,
+                                  "y_scale": 0.5
+                                }
+                              },
+                              "argument2": {
+                                "type": "minecraft:add",
+                                "argument1": {
+                                  "type": "minecraft:y_clamped_gradient",
+                                  "from_value": 3.0,
+                                  "from_y": 64,
+                                  "to_value": -1.0,
+                                  "to_y": 150
+                                },
+                                "argument2": {
+                                  "type": "minecraft:spline",
+                                  "spline": {
+                                    "coordinate": {
+                                      "type": "minecraft:noise",
+                                      "noise": "aylyth:continents",
+                                      "xz_scale": 1.0,
+                                      "y_scale": 1.0
+                                    },
+                                    "points": [
+                                      {
+                                        "derivative": 0.0,
+                                        "location": 0.3,
+                                        "value": 0.4
+                                      },
+                                      {
+                                        "derivative": 2.0,
+                                        "location": 0.5,
+                                        "value": 1.25
+                                      },
+                                      {
+                                        "derivative": 0.0,
+                                        "location": 0.65,
+                                        "value": 2.25
+                                      },
+                                      {
+                                        "derivative": 0.0,
+                                        "location": 1.0,
+                                        "value": 2.25
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "max_exclusive": 1.5,
+                          "min_inclusive": -100000.0,
+                          "when_in_range": {
+                            "type": "minecraft:add",
+                            "argument1": {
+                              "type": "minecraft:y_clamped_gradient",
+                              "from_value": 1.0,
+                              "from_y": -64,
+                              "to_value": 0.0,
+                              "to_y": 84
+                            },
+                            "argument2": {
+                              "type": "minecraft:add",
+                              "argument1": {
+                                "type": "minecraft:add",
+                                "argument1": {
+                                  "type": "minecraft:y_clamped_gradient",
+                                  "from_value": 1.0,
+                                  "from_y": 64,
+                                  "to_value": -2.0,
+                                  "to_y": 84
+                                },
+                                "argument2": {
+                                  "type": "minecraft:noise",
+                                  "noise": "aylyth:base_layer",
+                                  "xz_scale": 1.0,
+                                  "y_scale": 0.5
+                                }
+                              },
+                              "argument2": {
+                                "type": "minecraft:add",
+                                "argument1": {
+                                  "type": "minecraft:y_clamped_gradient",
+                                  "from_value": 3.0,
+                                  "from_y": 64,
+                                  "to_value": -1.0,
+                                  "to_y": 150
+                                },
+                                "argument2": {
+                                  "type": "minecraft:spline",
+                                  "spline": {
+                                    "coordinate": {
+                                      "type": "minecraft:noise",
+                                      "noise": "aylyth:continents",
+                                      "xz_scale": 1.0,
+                                      "y_scale": 1.0
+                                    },
+                                    "points": [
+                                      {
+                                        "derivative": 0.0,
+                                        "location": 0.3,
+                                        "value": 0.4
+                                      },
+                                      {
+                                        "derivative": 2.0,
+                                        "location": 0.5,
+                                        "value": 1.25
+                                      },
+                                      {
+                                        "derivative": 0.0,
+                                        "location": 0.65,
+                                        "value": 2.25
+                                      },
+                                      {
+                                        "derivative": 0.0,
+                                        "location": 1.0,
+                                        "value": 2.25
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "when_out_of_range": {
+                            "type": "minecraft:clamp",
+                            "input": {
+                              "type": "minecraft:add",
+                              "argument1": 0.27,
+                              "argument2": {
+                                "type": "minecraft:noise",
+                                "noise": "aylyth:cave_cheese",
+                                "xz_scale": 1.0,
+                                "y_scale": 1.0
+                              }
+                            },
+                            "max": 1.0,
+                            "min": -1.0
+                          }
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -77,21 +247,18 @@
     },
     "fluid_level_floodedness": 0.0,
     "fluid_level_spread": 0.0,
-    "initial_density_without_jaggedness": {
-      "type": "minecraft:cache_2d",
-      "argument": "minecraft:overworld/factor"
-    },
+    "initial_density_without_jaggedness": 0.0,
     "lava": 0.0,
     "ridges": 0.0,
     "temperature": {
       "type": "minecraft:noise",
-      "noise": "minecraft:temperature",
+      "noise": "aylyth:temperature",
       "xz_scale": 1.0,
       "y_scale": 1.0
     },
     "vegetation": {
       "type": "minecraft:noise",
-      "noise": "minecraft:vegetation",
+      "noise": "aylyth:vegetation",
       "xz_scale": 1.0,
       "y_scale": 1.0
     },
@@ -103,9 +270,82 @@
   "sea_level": 0,
   "spawn_target": [],
   "surface_rule": {
-    "type": "minecraft:block",
-    "result_state": {
-      "Name": "minecraft:stone"
-    }
+    "type": "minecraft:sequence",
+    "sequence": [
+      {
+        "type": "minecraft:condition",
+        "if_true": {
+          "type": "minecraft:vertical_gradient",
+          "false_at_and_above": {
+            "above_bottom": 5
+          },
+          "random_name": "aylyth:bedrock_layer",
+          "true_at_and_below": {
+            "above_bottom": 0
+          }
+        },
+        "then_run": {
+          "type": "minecraft:block",
+          "result_state": {
+            "Name": "minecraft:bedrock"
+          }
+        }
+      },
+      {
+        "type": "minecraft:condition",
+        "if_true": {
+          "type": "minecraft:stone_depth",
+          "add_surface_depth": false,
+          "offset": 0,
+          "secondary_depth_range": 0,
+          "surface_type": "floor"
+        },
+        "then_run": {
+          "type": "minecraft:sequence",
+          "sequence": [
+            {
+              "type": "minecraft:condition",
+              "if_true": {
+                "type": "minecraft:water",
+                "add_stone_depth": false,
+                "offset": -1,
+                "surface_depth_multiplier": 0
+              },
+              "then_run": {
+                "type": "minecraft:block",
+                "result_state": {
+                  "Name": "minecraft:grass_block",
+                  "Properties": {
+                    "snowy": "false"
+                  }
+                }
+              }
+            },
+            {
+              "type": "minecraft:block",
+              "result_state": {
+                "Name": "minecraft:dirt"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "minecraft:condition",
+        "if_true": {
+          "type": "minecraft:stone_depth",
+          "add_surface_depth": true,
+          "offset": 0,
+          "secondary_depth_range": 0,
+          "surface_type": "floor"
+        },
+        "then_run": {
+          "type": "minecraft:block",
+          "result_state": {
+            "Name": "minecraft:dirt"
+          }
+        }
+      }
+    ]
   }
 }
