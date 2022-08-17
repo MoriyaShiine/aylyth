@@ -1,4 +1,4 @@
-// 1.19	2022-08-15T22:06:28.594485	Aylyth worldgen generator
+// 1.19	2022-08-16T23:35:40.0135053	Aylyth worldgen generator
 e38d87100c4597954814864944a34e4d1e0ede26 data\aylyth\worldgen\placed_feature\copse_trees.json
 0b9f654b23136a3c52ef8b00e58fc4cc0ecda41a data\aylyth\worldgen\noise\temperature.json
 01f7ffb8c9f238015a0fb3c30a64d8862ca0a386 data\aylyth\worldgen\configured_feature\deepwood_trees.json
@@ -27,7 +27,7 @@ c22031f2591d20eb2dfcebf06f4a1874e93790e5 data\aylyth\worldgen\configured_feature
 ca16e3ca13710e559b82b2e65b5981554bb3ecd9 data\aylyth\worldgen\noise\continents.json
 eb52ed5e4fb323f7996ae226a1b78fb4bf236e9e data\aylyth\worldgen\configured_feature\coniferous_copse_trees.json
 5f5d2f0070cc25fea05257cd3e060e105f3c6950 data\aylyth\worldgen\configured_feature\spruce_seep.json
-f7c41dc7ee49c76f567f51277759b2aec4cca302 data\aylyth\worldgen\noise_settings\aylyth_settings.json
+f5cc8e0b20b40ffcb2fbbb82f480fa7e7df7ef42 data\aylyth\worldgen\noise_settings\aylyth_settings.json
 0783fccef867e6d52d5874dc7f2282b6f4f08f14 data\aylyth\worldgen\configured_feature\ympe_tree.json
 95466e2c6cc348ba116c29c97d375b226fbbb8e2 data\aylyth\worldgen\noise\base_layer.json
 db849fab72a9bf4189b8c17271631ab1e7fb4c1e data\aylyth\worldgen\placed_feature\oak_seep.json
