@@ -7,6 +7,7 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.entity.event.v1.ServerEntityCombatEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -32,6 +33,11 @@ import software.bernie.geckolib3.GeckoLib;
 
 public class Aylyth implements ModInitializer {
 	public static final String MOD_ID = "aylyth";
+
+	static final boolean DEBUG_MODE = true;
+	public static boolean isDebugMode() {
+		return DEBUG_MODE && FabricLoader.getInstance().isDevelopmentEnvironment();
+	}
 	
 	@Override
 	public void onInitialize() {
@@ -147,6 +153,7 @@ public class Aylyth implements ModInitializer {
 			}
 			return true;
 		});
+
 	}
 	
 	private static boolean isNearSeep(PlayerEntity player) {
