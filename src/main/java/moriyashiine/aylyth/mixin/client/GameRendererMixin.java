@@ -3,8 +3,10 @@ package moriyashiine.aylyth.mixin.client;
 import com.mojang.datafixers.util.Pair;
 import moriyashiine.aylyth.client.render.AylythDimensionRenderer;
 import moriyashiine.aylyth.client.render.block.entity.SeepBlockEntityRenderer;
+import moriyashiine.aylyth.common.Aylyth;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.gl.Program;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.Shader;
@@ -30,7 +32,7 @@ public class GameRendererMixin {
 	
 	@Inject(method = "renderWorld", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/GameRenderer;getFov(Lnet/minecraft/client/render/Camera;FZ)D"))
 	private void decreaseAylythRenderDistance(float tickDelta, long limitTime, MatrixStack matrix, CallbackInfo ci) {
-		if (AylythDimensionRenderer.goalFogStrength > 0) {
+		if (AylythDimensionRenderer.goalFogStrength > 0 && !Aylyth.isDebugMode()) {
 			viewDistance = 30;
 		}
 	}

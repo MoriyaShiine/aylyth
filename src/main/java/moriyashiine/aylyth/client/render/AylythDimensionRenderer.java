@@ -7,6 +7,7 @@ import moriyashiine.aylyth.common.registry.ModBiomes;
 import moriyashiine.aylyth.common.registry.ModDimensions;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.VertexBuffer;
 import net.minecraft.client.render.*;
@@ -29,12 +30,14 @@ public class AylythDimensionRenderer {
 	private static float currentFogStrength;
 
 	public static void renderFog() {
-		RenderSystem.setShaderFogStart(0F);
-		RenderSystem.setShaderFogEnd(currentFogStrength);
-		if (goalFogStrength < currentFogStrength) {
-			currentFogStrength -= 0.1F;
-		} else if (goalFogStrength > currentFogStrength) {
-			currentFogStrength += 0.1F;
+		if (!Aylyth.isDebugMode()) {
+			RenderSystem.setShaderFogStart(0F);
+			RenderSystem.setShaderFogEnd(currentFogStrength);
+			if (goalFogStrength < currentFogStrength) {
+				currentFogStrength -= 0.1F;
+			} else if (goalFogStrength > currentFogStrength) {
+				currentFogStrength += 0.1F;
+			}
 		}
 	}
 	
