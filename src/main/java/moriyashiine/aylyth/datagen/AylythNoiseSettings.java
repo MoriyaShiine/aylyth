@@ -93,7 +93,22 @@ public class AylythNoiseSettings {
     }
 
     static DensityFunction initialDensity() {
-        return zero();
+        return add(
+                constant(-0.01),
+                slide(
+                        add(
+                                yClampedGradient(-64, 84, 1.0, 0.0),
+                                add(
+                                        smallVariedFlatterLand(),
+                                        plateauedHills()
+                                )
+                        ),
+                        -64,
+                        272,
+                        80, 64, -0.078125,
+                        0, 24, 0.1171875
+                )
+        );
 //        return slide(
 //                add(
 //                        constant(-0.703125),
