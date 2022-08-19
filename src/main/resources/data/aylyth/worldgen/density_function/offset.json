@@ -1,0 +1,2481 @@
+{
+  "argument": {
+    "argument": {
+      "argument1": {
+        "argument1": {
+          "type": "minecraft:blend_offset"
+        },
+        "argument2": {
+          "argument1": 1,
+          "argument2": {
+            "argument1": -1,
+            "argument2": {
+              "argument": {
+                "type": "minecraft:blend_alpha"
+              },
+              "type": "minecraft:cache_once"
+            },
+            "type": "minecraft:mul"
+          },
+          "type": "minecraft:add"
+        },
+        "type": "minecraft:mul"
+      },
+      "argument2": {
+        "argument1": {
+          "argument1": -0.5037500262260437,
+          "argument2": {
+            "spline": {
+              "coordinate": "aylyth:continents",
+              "points": [
+                {
+                  "location": -1.1,
+                  "derivative": 0,
+                  "value": {
+                    "coordinate": "aylyth:erosion",
+                    "points": [
+                      {
+                        "location": -0.85,
+                        "derivative": 0,
+                        "value": {
+                          "coordinate": "aylyth:ridges",
+                          "points": [
+                            {
+                              "location": -0.002502462680753048,
+                              "value": 0.03506934471127279,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.002502462680753048,
+                              "value": 0.03506934471127279,
+                              "derivative": 0
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "location": -1.02,
+                  "derivative": 0,
+                  "value": {
+                    "coordinate": "aylyth:erosion",
+                    "points": [
+                      {
+                        "location": -0.85,
+                        "derivative": 0,
+                        "value": {
+                          "coordinate": "aylyth:ridges",
+                          "points": [
+                            {
+                              "location": -0.002502462680753048,
+                              "value": 0.09111569309500964,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.002502462680753048,
+                              "value": 0.09111569309500964,
+                              "derivative": 0
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "location": -0.51,
+                  "derivative": 0,
+                  "value": {
+                    "coordinate": "aylyth:erosion",
+                    "points": [
+                      {
+                        "location": -0.85,
+                        "derivative": 0,
+                        "value": {
+                          "coordinate": "aylyth:ridges",
+                          "points": [
+                            {
+                              "location": -0.002502462680753048,
+                              "value": 0.16417109360568027,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.002502462680753048,
+                              "value": 0.16417109360568027,
+                              "derivative": 0
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "location": -0.44,
+                  "derivative": 0,
+                  "value": {
+                    "coordinate": "aylyth:erosion",
+                    "points": [
+                      {
+                        "location": -0.85,
+                        "derivative": 0,
+                        "value": {
+                          "coordinate": "aylyth:ridges",
+                          "points": [
+                            {
+                              "location": -0.002502462680753048,
+                              "value": 0.22940270935960586,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.002502462680753048,
+                              "value": 0.22940270935960586,
+                              "derivative": 0
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "location": -0.18,
+                  "derivative": 0,
+                  "value": {
+                    "coordinate": "aylyth:erosion",
+                    "points": [
+                      {
+                        "location": -0.85,
+                        "derivative": 0,
+                        "value": {
+                          "coordinate": "aylyth:ridges",
+                          "points": [
+                            {
+                              "location": -0.002502462680753048,
+                              "value": 0.2966456280788178,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.002502462680753048,
+                              "value": 0.2966456280788178,
+                              "derivative": 0
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "location": -0.16,
+                  "derivative": 0,
+                  "value": {
+                    "coordinate": "aylyth:erosion",
+                    "points": [
+                      {
+                        "location": -0.85,
+                        "derivative": 0,
+                        "value": {
+                          "coordinate": "aylyth:ridges",
+                          "points": [
+                            {
+                              "location": -1.083819874392086,
+                              "value": 0.08061521966503271,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -1.083819874392086,
+                              "value": 0.08061521966503271,
+                              "derivative": 1.7427089930485968
+                            },
+                            {
+                              "location": -0.7603488537946785,
+                              "value": 0.683503588530867,
+                              "derivative": 2.1194961737672737
+                            },
+                            {
+                              "location": -0.7603488537946785,
+                              "value": 0.683503588530867,
+                              "derivative": -1.9754730014112176
+                            },
+                            {
+                              "location": -0.39614656780349233,
+                              "value": 0.08061521966503271,
+                              "derivative": -1.5769496352778398
+                            },
+                            {
+                              "location": -0.39614656780349233,
+                              "value": 0.08061521966503271,
+                              "derivative": -0.3500481674559379
+                            },
+                            {
+                              "location": -0.002502462680753048,
+                              "value": -0.07443219875756402,
+                              "derivative": -0.5996575709648867
+                            },
+                            {
+                              "location": -0.002502462680753048,
+                              "value": -0.07443219875756402,
+                              "derivative": 0.558339315829996
+                            },
+                            {
+                              "location": 0.39614656780349233,
+                              "value": 0.08061521966503271,
+                              "derivative": 0.3500481674559379
+                            },
+                            {
+                              "location": 0.39614656780349233,
+                              "value": 0.08061521966503271,
+                              "derivative": 1.5769496352778398
+                            },
+                            {
+                              "location": 0.7603488537946785,
+                              "value": 0.683503588530867,
+                              "derivative": 1.9754730014112176
+                            },
+                            {
+                              "location": 0.7603488537946785,
+                              "value": 0.683503588530867,
+                              "derivative": -2.1194961737672737
+                            },
+                            {
+                              "location": 1.083819874392086,
+                              "value": 0.08061521966503271,
+                              "derivative": -1.7427089930485968
+                            },
+                            {
+                              "location": 1.083819874392086,
+                              "value": 0.08061521966503271,
+                              "derivative": 0
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "location": -0.7,
+                        "derivative": 0,
+                        "value": {
+                          "coordinate": "aylyth:ridges",
+                          "points": [
+                            {
+                              "location": -1.083819874392086,
+                              "value": 0.08061521966503271,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -1.083819874392086,
+                              "value": 0.08061521966503271,
+                              "derivative": 1.7427089930485968
+                            },
+                            {
+                              "location": -0.7603488537946785,
+                              "value": 0.6202149430127908,
+                              "derivative": 2.1194961737672737
+                            },
+                            {
+                              "location": -0.7603488537946785,
+                              "value": 0.6202149430127908,
+                              "derivative": -1.9754730014112176
+                            },
+                            {
+                              "location": -0.39614656780349233,
+                              "value": 0.08061521966503271,
+                              "derivative": -1.5769496352778398
+                            },
+                            {
+                              "location": -0.39614656780349233,
+                              "value": 0.08061521966503271,
+                              "derivative": -0.3500481674559379
+                            },
+                            {
+                              "location": -0.002502462680753048,
+                              "value": -0.1289733778854038,
+                              "derivative": -0.5996575709648867
+                            },
+                            {
+                              "location": -0.002502462680753048,
+                              "value": -0.1289733778854038,
+                              "derivative": 0.558339315829996
+                            },
+                            {
+                              "location": 0.39614656780349233,
+                              "value": 0.08061521966503271,
+                              "derivative": 0.3500481674559379
+                            },
+                            {
+                              "location": 0.39614656780349233,
+                              "value": 0.08061521966503271,
+                              "derivative": 1.5769496352778398
+                            },
+                            {
+                              "location": 0.7603488537946785,
+                              "value": 0.6202149430127908,
+                              "derivative": 1.9754730014112176
+                            },
+                            {
+                              "location": 0.7603488537946785,
+                              "value": 0.6202149430127908,
+                              "derivative": -2.1194961737672737
+                            },
+                            {
+                              "location": 1.083819874392086,
+                              "value": 0.08061521966503271,
+                              "derivative": -1.7427089930485968
+                            },
+                            {
+                              "location": 1.083819874392086,
+                              "value": 0.08061521966503271,
+                              "derivative": 0
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "location": -0.4,
+                        "derivative": 0,
+                        "value": {
+                          "coordinate": "aylyth:ridges",
+                          "points": [
+                            {
+                              "location": -1.0807342870755594,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.7603488537946785,
+                              "value": 0.16061238408956324,
+                              "derivative": 0.28663006152101145
+                            },
+                            {
+                              "location": -0.7603488537946785,
+                              "value": 0.16061238408956324,
+                              "derivative": -0.23764866579540792
+                            },
+                            {
+                              "location": -0.42444159420336414,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.1310969751287,
+                              "value": -0.1824079143863871,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.002502462680753048,
+                              "value": -0.1824079143863871,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.002502462680753048,
+                              "value": -0.1824079143863871,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.1310969751287,
+                              "value": -0.1824079143863871,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.42444159420336414,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.7603488537946785,
+                              "value": 0.16061238408956324,
+                              "derivative": 0.23764866579540792
+                            },
+                            {
+                              "location": 0.7603488537946785,
+                              "value": 0.16061238408956324,
+                              "derivative": -0.28663006152101145
+                            },
+                            {
+                              "location": 1.0807342870755594,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "location": -0.35,
+                        "derivative": 0,
+                        "value": {
+                          "coordinate": "aylyth:ridges",
+                          "points": [
+                            {
+                              "location": -1.0807342870755594,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.7662009532111851,
+                              "value": 0.11445100447782183,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.42444159420336414,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.002502462680753048,
+                              "value": -0.1824079143863871,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.002502462680753048,
+                              "value": -0.1824079143863871,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.42444159420336414,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.7662009532111851,
+                              "value": 0.11445100447782183,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 1.0807342870755594,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "location": -0.1,
+                        "derivative": 0,
+                        "value": {
+                          "coordinate": "aylyth:ridges",
+                          "points": [
+                            {
+                              "location": -1.0807342870755594,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.9078178083694224,
+                              "value": 0.11445100447782183,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.7662009532111851,
+                              "value": 0.11445100447782183,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.6039808695412439,
+                              "value": 0.11445100447782183,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.42444159420336414,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.002502462680753048,
+                              "value": -0.08900473704905487,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.002502462680753048,
+                              "value": -0.08900473704905487,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.42444159420336414,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.6039808695412439,
+                              "value": 0.11445100447782183,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.7662009532111851,
+                              "value": 0.11445100447782183,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.9078178083694224,
+                              "value": 0.11445100447782183,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 1.0807342870755594,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "location": 0.2,
+                        "derivative": 0,
+                        "value": {
+                          "coordinate": "aylyth:ridges",
+                          "points": [
+                            {
+                              "location": -0.42444159420336414,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.002502462680753048,
+                              "value": -0.08900473704905487,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.002502462680753048,
+                              "value": -0.08900473704905487,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.42444159420336414,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "location": 0.7,
+                        "derivative": 0,
+                        "value": {
+                          "coordinate": "aylyth:ridges",
+                          "points": [
+                            {
+                              "location": -0.9723378976504794,
+                              "value": 0.0019617006685797023,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.6771853326606397,
+                              "value": 0.031838611176670695,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.3911693340582423,
+                              "value": 0.0019617006685797023,
+                              "derivative": -0.13333333333333333
+                            },
+                            {
+                              "location": 0.3911693340582423,
+                              "value": 0.0019617006685797023,
+                              "derivative": 0.13333333333333333
+                            },
+                            {
+                              "location": 0.6771853326606397,
+                              "value": 0.031838611176670695,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.9723378976504794,
+                              "value": 0.0019617006685797023,
+                              "derivative": 0
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "location": -0.15,
+                  "derivative": 0,
+                  "value": {
+                    "coordinate": "aylyth:erosion",
+                    "points": [
+                      {
+                        "location": -0.85,
+                        "derivative": 0,
+                        "value": {
+                          "coordinate": "aylyth:ridges",
+                          "points": [
+                            {
+                              "location": -1.083819874392086,
+                              "value": 0.08061521966503271,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -1.083819874392086,
+                              "value": 0.08061521966503271,
+                              "derivative": 2.150854666825919
+                            },
+                            {
+                              "location": -0.7603488537946785,
+                              "value": 0.7691675298726558,
+                              "derivative": 1.889826147811806
+                            },
+                            {
+                              "location": -0.7603488537946785,
+                              "value": 0.7691675298726558,
+                              "derivative": -1.1237125527160308
+                            },
+                            {
+                              "location": -0.002502462680753048,
+                              "value": -0.07443219875756402,
+                              "derivative": -1.106382832201143
+                            },
+                            {
+                              "location": -0.002502462680753048,
+                              "value": -0.07443219875756402,
+                              "derivative": 1.133857013883098
+                            },
+                            {
+                              "location": 0.7603488537946785,
+                              "value": 0.7691675298726558,
+                              "derivative": 1.1237125527160308
+                            },
+                            {
+                              "location": 0.7603488537946785,
+                              "value": 0.7691675298726558,
+                              "derivative": -1.889826147811806
+                            },
+                            {
+                              "location": 1.083819874392086,
+                              "value": 0.08061521966503271,
+                              "derivative": -2.150854666825919
+                            },
+                            {
+                              "location": 1.083819874392086,
+                              "value": 0.08061521966503271,
+                              "derivative": 0
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "location": -0.7,
+                        "derivative": 0,
+                        "value": {
+                          "coordinate": "aylyth:ridges",
+                          "points": [
+                            {
+                              "location": -1.083819874392086,
+                              "value": 0.08061521966503271,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -1.083819874392086,
+                              "value": 0.08061521966503271,
+                              "derivative": 2.150854666825919
+                            },
+                            {
+                              "location": -0.7603488537946785,
+                              "value": 0.683503588530867,
+                              "derivative": 1.889826147811806
+                            },
+                            {
+                              "location": -0.7603488537946785,
+                              "value": 0.683503588530867,
+                              "derivative": -1.1237125527160308
+                            },
+                            {
+                              "location": -0.002502462680753048,
+                              "value": -0.1289733778854038,
+                              "derivative": -1.106382832201143
+                            },
+                            {
+                              "location": -0.002502462680753048,
+                              "value": -0.1289733778854038,
+                              "derivative": 1.133857013883098
+                            },
+                            {
+                              "location": 0.7603488537946785,
+                              "value": 0.683503588530867,
+                              "derivative": 1.1237125527160308
+                            },
+                            {
+                              "location": 0.7603488537946785,
+                              "value": 0.683503588530867,
+                              "derivative": -1.889826147811806
+                            },
+                            {
+                              "location": 1.083819874392086,
+                              "value": 0.08061521966503271,
+                              "derivative": -2.150854666825919
+                            },
+                            {
+                              "location": 1.083819874392086,
+                              "value": 0.08061521966503271,
+                              "derivative": 0
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "location": -0.4,
+                        "derivative": 0,
+                        "value": {
+                          "coordinate": "aylyth:ridges",
+                          "points": [
+                            {
+                              "location": -1.0807342870755594,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.7603488537946785,
+                              "value": 0.16061238408956324,
+                              "derivative": 0.28663006152101145
+                            },
+                            {
+                              "location": -0.7603488537946785,
+                              "value": 0.16061238408956324,
+                              "derivative": -0.23764866579540792
+                            },
+                            {
+                              "location": -0.42444159420336414,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.1310969751287,
+                              "value": -0.1824079143863871,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.002502462680753048,
+                              "value": -0.1824079143863871,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.002502462680753048,
+                              "value": -0.1824079143863871,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.1310969751287,
+                              "value": -0.1824079143863871,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.42444159420336414,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.7603488537946785,
+                              "value": 0.16061238408956324,
+                              "derivative": 0.23764866579540792
+                            },
+                            {
+                              "location": 0.7603488537946785,
+                              "value": 0.16061238408956324,
+                              "derivative": -0.28663006152101145
+                            },
+                            {
+                              "location": 1.0807342870755594,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "location": -0.35,
+                        "derivative": 0,
+                        "value": {
+                          "coordinate": "aylyth:ridges",
+                          "points": [
+                            {
+                              "location": -1.0807342870755594,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.7662009532111851,
+                              "value": 0.11445100447782183,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.42444159420336414,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.002502462680753048,
+                              "value": -0.1824079143863871,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.002502462680753048,
+                              "value": -0.1824079143863871,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.42444159420336414,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.7662009532111851,
+                              "value": 0.11445100447782183,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 1.0807342870755594,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "location": -0.1,
+                        "derivative": 0,
+                        "value": {
+                          "coordinate": "aylyth:ridges",
+                          "points": [
+                            {
+                              "location": -1.0807342870755594,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.9078178083694224,
+                              "value": 0.11445100447782183,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.7662009532111851,
+                              "value": 0.11445100447782183,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.6039808695412439,
+                              "value": 0.11445100447782183,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.42444159420336414,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.002502462680753048,
+                              "value": -0.08900473704905487,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.002502462680753048,
+                              "value": -0.08900473704905487,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.42444159420336414,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.6039808695412439,
+                              "value": 0.11445100447782183,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.7662009532111851,
+                              "value": 0.11445100447782183,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.9078178083694224,
+                              "value": 0.11445100447782183,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 1.0807342870755594,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "location": 0.2,
+                        "derivative": 0,
+                        "value": {
+                          "coordinate": "aylyth:ridges",
+                          "points": [
+                            {
+                              "location": -0.42444159420336414,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.002502462680753048,
+                              "value": -0.08900473704905487,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.002502462680753048,
+                              "value": -0.08900473704905487,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.42444159420336414,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "location": 0.7,
+                        "derivative": 0,
+                        "value": {
+                          "coordinate": "aylyth:ridges",
+                          "points": [
+                            {
+                              "location": -0.9723378976504794,
+                              "value": 0.0019617006685797023,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.6771853326606397,
+                              "value": 0.031838611176670695,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.3911693340582423,
+                              "value": 0.0019617006685797023,
+                              "derivative": -0.13333333333333333
+                            },
+                            {
+                              "location": 0.3911693340582423,
+                              "value": 0.0019617006685797023,
+                              "derivative": 0.13333333333333333
+                            },
+                            {
+                              "location": 0.6771853326606397,
+                              "value": 0.031838611176670695,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.9723378976504794,
+                              "value": 0.0019617006685797023,
+                              "derivative": 0
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "location": -0.1,
+                  "derivative": 0,
+                  "value": {
+                    "coordinate": "aylyth:erosion",
+                    "points": [
+                      {
+                        "location": -0.85,
+                        "derivative": 0,
+                        "value": {
+                          "coordinate": "aylyth:ridges",
+                          "points": [
+                            {
+                              "location": -1.083819874392086,
+                              "value": 0.08061521966503271,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -1.083819874392086,
+                              "value": 0.08061521966503271,
+                              "derivative": 1.4897347452980867
+                            },
+                            {
+                              "location": -0.6176738365737638,
+                              "value": 0.775049168586023,
+                              "derivative": 1.5065656565656567
+                            },
+                            {
+                              "location": -0.6176738365737638,
+                              "value": 0.775049168586023,
+                              "derivative": -1.3511111111111112
+                            },
+                            {
+                              "location": -0.002502462680753048,
+                              "value": -0.07443219875756402,
+                              "derivative": -1.106382832201143
+                            },
+                            {
+                              "location": -0.002502462680753048,
+                              "value": -0.07443219875756402,
+                              "derivative": 1.133857013883098
+                            },
+                            {
+                              "location": 0.6176738365737638,
+                              "value": 0.775049168586023,
+                              "derivative": 1.3511111111111112
+                            },
+                            {
+                              "location": 0.6176738365737638,
+                              "value": 0.775049168586023,
+                              "derivative": -1.5065656565656567
+                            },
+                            {
+                              "location": 1.083819874392086,
+                              "value": 0.08061521966503271,
+                              "derivative": -1.4897347452980867
+                            },
+                            {
+                              "location": 1.083819874392086,
+                              "value": 0.08061521966503271,
+                              "derivative": 0
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "location": -0.7,
+                        "derivative": 0,
+                        "value": {
+                          "coordinate": "aylyth:ridges",
+                          "points": [
+                            {
+                              "location": -1.083819874392086,
+                              "value": 0.08061521966503271,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -1.083819874392086,
+                              "value": 0.08061521966503271,
+                              "derivative": 1.4897347452980867
+                            },
+                            {
+                              "location": -0.6176738365737638,
+                              "value": 0.6800392020466681,
+                              "derivative": 1.5065656565656567
+                            },
+                            {
+                              "location": -0.6176738365737638,
+                              "value": 0.6800392020466681,
+                              "derivative": -1.3511111111111112
+                            },
+                            {
+                              "location": -0.002502462680753048,
+                              "value": -0.1289733778854038,
+                              "derivative": -1.106382832201143
+                            },
+                            {
+                              "location": -0.002502462680753048,
+                              "value": -0.1289733778854038,
+                              "derivative": 1.133857013883098
+                            },
+                            {
+                              "location": 0.6176738365737638,
+                              "value": 0.6800392020466681,
+                              "derivative": 1.3511111111111112
+                            },
+                            {
+                              "location": 0.6176738365737638,
+                              "value": 0.6800392020466681,
+                              "derivative": -1.5065656565656567
+                            },
+                            {
+                              "location": 1.083819874392086,
+                              "value": 0.08061521966503271,
+                              "derivative": -1.4897347452980867
+                            },
+                            {
+                              "location": 1.083819874392086,
+                              "value": 0.08061521966503271,
+                              "derivative": 0
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "location": -0.4,
+                        "derivative": 0,
+                        "value": {
+                          "coordinate": "aylyth:ridges",
+                          "points": [
+                            {
+                              "location": -1.0807342870755594,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.7603488537946785,
+                              "value": 0.16061238408956324,
+                              "derivative": 0.28663006152101145
+                            },
+                            {
+                              "location": -0.7603488537946785,
+                              "value": 0.16061238408956324,
+                              "derivative": -0.23764866579540792
+                            },
+                            {
+                              "location": -0.42444159420336414,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.1310969751287,
+                              "value": -0.1824079143863871,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.002502462680753048,
+                              "value": -0.1824079143863871,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.002502462680753048,
+                              "value": -0.1824079143863871,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.1310969751287,
+                              "value": -0.1824079143863871,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.42444159420336414,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.7603488537946785,
+                              "value": 0.16061238408956324,
+                              "derivative": 0.23764866579540792
+                            },
+                            {
+                              "location": 0.7603488537946785,
+                              "value": 0.16061238408956324,
+                              "derivative": -0.28663006152101145
+                            },
+                            {
+                              "location": 1.0807342870755594,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "location": -0.35,
+                        "derivative": 0,
+                        "value": {
+                          "coordinate": "aylyth:ridges",
+                          "points": [
+                            {
+                              "location": -1.0807342870755594,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.7662009532111851,
+                              "value": 0.11445100447782183,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.42444159420336414,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.002502462680753048,
+                              "value": -0.1824079143863871,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.002502462680753048,
+                              "value": -0.1824079143863871,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.42444159420336414,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.7662009532111851,
+                              "value": 0.11445100447782183,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 1.0807342870755594,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "location": -0.1,
+                        "derivative": 0,
+                        "value": {
+                          "coordinate": "aylyth:ridges",
+                          "points": [
+                            {
+                              "location": -1.0807342870755594,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.9078178083694224,
+                              "value": 0.11445100447782183,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.7662009532111851,
+                              "value": 0.11445100447782183,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.6039808695412439,
+                              "value": 0.11445100447782183,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.42444159420336414,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.002502462680753048,
+                              "value": -0.08900473704905487,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.002502462680753048,
+                              "value": -0.08900473704905487,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.42444159420336414,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.6039808695412439,
+                              "value": 0.11445100447782183,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.7662009532111851,
+                              "value": 0.11445100447782183,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.9078178083694224,
+                              "value": 0.11445100447782183,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 1.0807342870755594,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "location": 0.2,
+                        "derivative": 0,
+                        "value": {
+                          "coordinate": "aylyth:ridges",
+                          "points": [
+                            {
+                              "location": -1.0807342870755594,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.7603488537946785,
+                              "value": 0.16061238408956324,
+                              "derivative": 0.28663006152101145
+                            },
+                            {
+                              "location": -0.7603488537946785,
+                              "value": 0.16061238408956324,
+                              "derivative": -0.23764866579540792
+                            },
+                            {
+                              "location": -0.42444159420336414,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.002502462680753048,
+                              "value": -0.03564268394999426,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.002502462680753048,
+                              "value": -0.03564268394999426,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.42444159420336414,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.7603488537946785,
+                              "value": 0.16061238408956324,
+                              "derivative": 0.23764866579540792
+                            },
+                            {
+                              "location": 0.7603488537946785,
+                              "value": 0.16061238408956324,
+                              "derivative": -0.28663006152101145
+                            },
+                            {
+                              "location": 1.0807342870755594,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "location": 0.7,
+                        "derivative": 0,
+                        "value": {
+                          "coordinate": "aylyth:ridges",
+                          "points": [
+                            {
+                              "location": -0.9723378976504794,
+                              "value": 0.0019617006685797023,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.7043190520126278,
+                              "value": 0.1190274033609747,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.3911693340582423,
+                              "value": 0.0019617006685797023,
+                              "derivative": -0.13333333333333333
+                            },
+                            {
+                              "location": 0.3911693340582423,
+                              "value": 0.0019617006685797023,
+                              "derivative": 0.13333333333333333
+                            },
+                            {
+                              "location": 0.7043190520126278,
+                              "value": 0.1190274033609747,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.9723378976504794,
+                              "value": 0.0019617006685797023,
+                              "derivative": 0
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "location": 0.25,
+                  "derivative": 0,
+                  "value": {
+                    "coordinate": "aylyth:erosion",
+                    "points": [
+                      {
+                        "location": -0.85,
+                        "derivative": 0,
+                        "value": {
+                          "coordinate": "aylyth:ridges",
+                          "points": [
+                            {
+                              "location": -1.083819874392086,
+                              "value": 0.08061521966503271,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -1.083819874392086,
+                              "value": 0.08061521966503271,
+                              "derivative": 1.4897347452980867
+                            },
+                            {
+                              "location": -0.6176738365737638,
+                              "value": 1.0119597692842521,
+                              "derivative": 1.5065656565656567
+                            },
+                            {
+                              "location": -0.6176738365737638,
+                              "value": 1.0119597692842521,
+                              "derivative": -1.3511111111111112
+                            },
+                            {
+                              "location": -0.002502462680753048,
+                              "value": 0.08061521966503271,
+                              "derivative": -1.106382832201143
+                            },
+                            {
+                              "location": -0.002502462680753048,
+                              "value": 0.08061521966503271,
+                              "derivative": 1.133857013883098
+                            },
+                            {
+                              "location": 0.6176738365737638,
+                              "value": 1.0119597692842521,
+                              "derivative": 1.3511111111111112
+                            },
+                            {
+                              "location": 0.6176738365737638,
+                              "value": 1.0119597692842521,
+                              "derivative": -1.5065656565656567
+                            },
+                            {
+                              "location": 1.083819874392086,
+                              "value": 0.08061521966503271,
+                              "derivative": -1.4897347452980867
+                            },
+                            {
+                              "location": 1.083819874392086,
+                              "value": 0.08061521966503271,
+                              "derivative": 0
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "location": -0.7,
+                        "derivative": 0,
+                        "value": {
+                          "coordinate": "aylyth:ridges",
+                          "points": [
+                            {
+                              "location": -1.083819874392086,
+                              "value": 0.08061521966503271,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -1.083819874392086,
+                              "value": 0.08061521966503271,
+                              "derivative": 1.5325514677216103
+                            },
+                            {
+                              "location": -0.6176738365737638,
+                              "value": 0.775049168586023,
+                              "derivative": 1.5065656565656567
+                            },
+                            {
+                              "location": -0.6176738365737638,
+                              "value": 0.775049168586023,
+                              "derivative": -1.1475597818421073
+                            },
+                            {
+                              "location": -0.002502462680753048,
+                              "value": 0.08061521966503271,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.002502462680753048,
+                              "value": 0.08061521966503271,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.6176738365737638,
+                              "value": 0.775049168586023,
+                              "derivative": 1.1475597818421073
+                            },
+                            {
+                              "location": 0.6176738365737638,
+                              "value": 0.775049168586023,
+                              "derivative": -1.5065656565656567
+                            },
+                            {
+                              "location": 1.083819874392086,
+                              "value": 0.08061521966503271,
+                              "derivative": -1.5325514677216103
+                            },
+                            {
+                              "location": 1.083819874392086,
+                              "value": 0.08061521966503271,
+                              "derivative": 0
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "location": -0.4,
+                        "derivative": 0,
+                        "value": {
+                          "coordinate": "aylyth:ridges",
+                          "points": [
+                            {
+                              "location": -1.083819874392086,
+                              "value": 0.08061521966503271,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -1.083819874392086,
+                              "value": 0.08061521966503271,
+                              "derivative": 1.5325514677216103
+                            },
+                            {
+                              "location": -0.6176738365737638,
+                              "value": 0.775049168586023,
+                              "derivative": 1.5065656565656567
+                            },
+                            {
+                              "location": -0.6176738365737638,
+                              "value": 0.775049168586023,
+                              "derivative": -1.1475597818421073
+                            },
+                            {
+                              "location": -0.2061796676162615,
+                              "value": 0.08061521966503271,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.2061796676162615,
+                              "value": 0.08061521966503271,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.6176738365737638,
+                              "value": 0.775049168586023,
+                              "derivative": 1.1475597818421073
+                            },
+                            {
+                              "location": 0.6176738365737638,
+                              "value": 0.775049168586023,
+                              "derivative": -1.5065656565656567
+                            },
+                            {
+                              "location": 1.083819874392086,
+                              "value": 0.08061521966503271,
+                              "derivative": -1.5325514677216103
+                            },
+                            {
+                              "location": 1.083819874392086,
+                              "value": 0.08061521966503271,
+                              "derivative": 0
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "location": -0.35,
+                        "derivative": 0,
+                        "value": {
+                          "coordinate": "aylyth:ridges",
+                          "points": [
+                            {
+                              "location": -1.1992976308462509,
+                              "value": 0.0802694688480158,
+                              "derivative": 0.000004237511019886685
+                            },
+                            {
+                              "location": -0.8351040338541934,
+                              "value": 0.7340582524602979,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.7263441424044057,
+                              "value": 0.7340582524602979,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.6268971424180872,
+                              "value": 0.8250152924803784,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.5283021405442745,
+                              "value": 0.734058158450936,
+                              "derivative": -0.0000012150253239904008
+                            },
+                            {
+                              "location": -0.4225260861424449,
+                              "value": 0.7340582524602979,
+                              "derivative": 0.000004237511019886685
+                            },
+                            {
+                              "location": -0.002502462680753048,
+                              "value": -0.11331686212434075,
+                              "derivative": -0.000004237511019886685
+                            },
+                            {
+                              "location": 0.4225260861424449,
+                              "value": 0.7340582524602979,
+                              "derivative": -0.000004237511019886685
+                            },
+                            {
+                              "location": 0.5283021405442745,
+                              "value": 0.734058158450936,
+                              "derivative": 0.0000012150253239904008
+                            },
+                            {
+                              "location": 0.6268971424180872,
+                              "value": 0.8250152924803784,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.7263441424044057,
+                              "value": 0.7340582524602979,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.8351040338541934,
+                              "value": 0.7340582524602979,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 1.1992976308462509,
+                              "value": 0.0802694688480158,
+                              "derivative": -0.000004237511019886685
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "location": -0.1,
+                        "derivative": 0,
+                        "value": {
+                          "coordinate": "aylyth:ridges",
+                          "points": [
+                            {
+                              "location": -1.1992976308462509,
+                              "value": 0.0802694688480158,
+                              "derivative": 0.000004237511019886685
+                            },
+                            {
+                              "location": -0.8351040338541934,
+                              "value": 0.7340582524602979,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.6220952234976052,
+                              "value": 0.7149843321561443,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.4225260861424449,
+                              "value": 0.7340582524602979,
+                              "derivative": 0.000004237511019886685
+                            },
+                            {
+                              "location": -0.002502462680753048,
+                              "value": -0.11331686212434075,
+                              "derivative": -0.000004237511019886685
+                            },
+                            {
+                              "location": 0.4225260861424449,
+                              "value": 0.7340582524602979,
+                              "derivative": -0.000004237511019886685
+                            },
+                            {
+                              "location": 0.6220952234976052,
+                              "value": 0.7149843321561443,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.8351040338541934,
+                              "value": 0.7340582524602979,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 1.1992976308462509,
+                              "value": 0.0802694688480158,
+                              "derivative": -0.000004237511019886685
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "location": 0.2,
+                        "derivative": 0,
+                        "value": {
+                          "coordinate": "aylyth:ridges",
+                          "points": [
+                            {
+                              "location": -1.0807342870755594,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.7603488537946785,
+                              "value": 0.16061238408956324,
+                              "derivative": 0.28663006152101145
+                            },
+                            {
+                              "location": -0.7603488537946785,
+                              "value": 0.16061238408956324,
+                              "derivative": -0.23764866579540792
+                            },
+                            {
+                              "location": -0.3911693340582423,
+                              "value": 0.1122480551485252,
+                              "derivative": 0.545977011494254
+                            },
+                            {
+                              "location": -0.3911693340582423,
+                              "value": 0.1122480551485252,
+                              "derivative": -0.5115384615384635
+                            },
+                            {
+                              "location": -0.002502462680753048,
+                              "value": -0.03564268394999426,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.002502462680753048,
+                              "value": -0.03564268394999426,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.3911693340582423,
+                              "value": 0.1122480551485252,
+                              "derivative": 0.5115384615384635
+                            },
+                            {
+                              "location": 0.3911693340582423,
+                              "value": 0.1122480551485252,
+                              "derivative": -0.545977011494254
+                            },
+                            {
+                              "location": 0.7603488537946785,
+                              "value": 0.16061238408956324,
+                              "derivative": 0.23764866579540792
+                            },
+                            {
+                              "location": 0.7603488537946785,
+                              "value": 0.16061238408956324,
+                              "derivative": -0.28663006152101145
+                            },
+                            {
+                              "location": 1.0807342870755594,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "location": 0.45,
+                        "derivative": 0,
+                        "value": {
+                          "coordinate": "aylyth:ridges",
+                          "points": [
+                            {
+                              "location": -1.0807342870755594,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.9619447869933229,
+                              "value": 0.2461134460725383,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.3911693340582423,
+                              "value": 0.2461134460725383,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.21435521563414794,
+                              "value": -0.030347687357485692,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.21435521563414794,
+                              "value": -0.030347687357485692,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.3911693340582423,
+                              "value": 0.2461134460725383,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.9619447869933229,
+                              "value": 0.2461134460725383,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 1.0807342870755594,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "location": 0.58,
+                        "derivative": 0,
+                        "value": {
+                          "coordinate": "aylyth:ridges",
+                          "points": [
+                            {
+                              "location": -1.0807342870755594,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.7603488537946785,
+                              "value": 0.16061238408956324,
+                              "derivative": 0.28663006152101145
+                            },
+                            {
+                              "location": -0.7603488537946785,
+                              "value": 0.16061238408956324,
+                              "derivative": -0.23764866579540792
+                            },
+                            {
+                              "location": -0.3911693340582423,
+                              "value": 0.1122480551485252,
+                              "derivative": 0.545977011494254
+                            },
+                            {
+                              "location": -0.3911693340582423,
+                              "value": 0.1122480551485252,
+                              "derivative": -0.5115384615384635
+                            },
+                            {
+                              "location": -0.002502462680753048,
+                              "value": -0.03564268394999426,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.002502462680753048,
+                              "value": -0.03564268394999426,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.3911693340582423,
+                              "value": 0.1122480551485252,
+                              "derivative": 0.5115384615384635
+                            },
+                            {
+                              "location": 0.3911693340582423,
+                              "value": 0.1122480551485252,
+                              "derivative": -0.545977011494254
+                            },
+                            {
+                              "location": 0.7603488537946785,
+                              "value": 0.16061238408956324,
+                              "derivative": 0.23764866579540792
+                            },
+                            {
+                              "location": 0.7603488537946785,
+                              "value": 0.16061238408956324,
+                              "derivative": -0.28663006152101145
+                            },
+                            {
+                              "location": 1.0807342870755594,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "location": 0.7,
+                        "derivative": 0,
+                        "value": {
+                          "coordinate": "aylyth:ridges",
+                          "points": [
+                            {
+                              "location": -0.9723378976504794,
+                              "value": 0.0019617006685797023,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.7043190520126278,
+                              "value": 0.1190274033609747,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.3911693340582423,
+                              "value": 0.0019617006685797023,
+                              "derivative": -0.13333333333333333
+                            },
+                            {
+                              "location": 0.3911693340582423,
+                              "value": 0.0019617006685797023,
+                              "derivative": 0.13333333333333333
+                            },
+                            {
+                              "location": 0.7043190520126278,
+                              "value": 0.1190274033609747,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.9723378976504794,
+                              "value": 0.0019617006685797023,
+                              "derivative": 0
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "location": 1,
+                  "derivative": 0,
+                  "value": {
+                    "coordinate": "aylyth:erosion",
+                    "points": [
+                      {
+                        "location": -0.85,
+                        "derivative": 0,
+                        "value": {
+                          "coordinate": "aylyth:ridges",
+                          "points": [
+                            {
+                              "location": -1.083819874392086,
+                              "value": 0.08061521966503271,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -1.083819874392086,
+                              "value": 0.08061521966503271,
+                              "derivative": 1.4897347452980867
+                            },
+                            {
+                              "location": -0.6176738365737638,
+                              "value": 1.0119597692842521,
+                              "derivative": 1.5065656565656567
+                            },
+                            {
+                              "location": -0.6176738365737638,
+                              "value": 1.0119597692842521,
+                              "derivative": -1.3511111111111112
+                            },
+                            {
+                              "location": -0.002502462680753048,
+                              "value": 0.20682668038027105,
+                              "derivative": -1.106382832201143
+                            },
+                            {
+                              "location": -0.002502462680753048,
+                              "value": 0.20682668038027105,
+                              "derivative": 1.133857013883098
+                            },
+                            {
+                              "location": 0.6176738365737638,
+                              "value": 1.0119597692842521,
+                              "derivative": 1.3511111111111112
+                            },
+                            {
+                              "location": 0.6176738365737638,
+                              "value": 1.0119597692842521,
+                              "derivative": -1.5065656565656567
+                            },
+                            {
+                              "location": 1.083819874392086,
+                              "value": 0.08061521966503271,
+                              "derivative": -1.4897347452980867
+                            },
+                            {
+                              "location": 1.083819874392086,
+                              "value": 0.08061521966503271,
+                              "derivative": 0
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "location": -0.7,
+                        "derivative": 0,
+                        "value": {
+                          "coordinate": "aylyth:ridges",
+                          "points": [
+                            {
+                              "location": -1.083819874392086,
+                              "value": 0.08061521966503271,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -1.083819874392086,
+                              "value": 0.08061521966503271,
+                              "derivative": 1.5325514677216103
+                            },
+                            {
+                              "location": -0.6176738365737638,
+                              "value": 0.8453606411401373,
+                              "derivative": 1.5065656565656567
+                            },
+                            {
+                              "location": -0.6176738365737638,
+                              "value": 0.8453606411401373,
+                              "derivative": -1.1475597818421073
+                            },
+                            {
+                              "location": -0.002502462680753048,
+                              "value": 0.08061521966503271,
+                              "derivative": -0.3196858574746377
+                            },
+                            {
+                              "location": -0.002502462680753048,
+                              "value": 0.08061521966503271,
+                              "derivative": 0.3085551064686026
+                            },
+                            {
+                              "location": 0.6176738365737638,
+                              "value": 0.8453606411401373,
+                              "derivative": 1.1475597818421073
+                            },
+                            {
+                              "location": 0.6176738365737638,
+                              "value": 0.8453606411401373,
+                              "derivative": -1.5065656565656567
+                            },
+                            {
+                              "location": 1.083819874392086,
+                              "value": 0.08061521966503271,
+                              "derivative": -1.5325514677216103
+                            },
+                            {
+                              "location": 1.083819874392086,
+                              "value": 0.08061521966503271,
+                              "derivative": 0
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "location": -0.4,
+                        "derivative": 0,
+                        "value": {
+                          "coordinate": "aylyth:ridges",
+                          "points": [
+                            {
+                              "location": -1.083819874392086,
+                              "value": 0.08061521966503271,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -1.083819874392086,
+                              "value": 0.08061521966503271,
+                              "derivative": 1.5325514677216103
+                            },
+                            {
+                              "location": -0.6176738365737638,
+                              "value": 0.8453606411401373,
+                              "derivative": 1.5065656565656567
+                            },
+                            {
+                              "location": -0.6176738365737638,
+                              "value": 0.8453606411401373,
+                              "derivative": -1.1475597818421073
+                            },
+                            {
+                              "location": -0.002502462680753048,
+                              "value": 0.08061521966503271,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.6176738365737638,
+                              "value": 0.8453606411401373,
+                              "derivative": 1.1475597818421073
+                            },
+                            {
+                              "location": 0.6176738365737638,
+                              "value": 0.8453606411401373,
+                              "derivative": -1.5065656565656567
+                            },
+                            {
+                              "location": 1.083819874392086,
+                              "value": 0.08061521966503271,
+                              "derivative": -1.5325514677216103
+                            },
+                            {
+                              "location": 1.083819874392086,
+                              "value": 0.08061521966503271,
+                              "derivative": 0
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "location": -0.35,
+                        "derivative": 0,
+                        "value": {
+                          "coordinate": "aylyth:ridges",
+                          "points": [
+                            {
+                              "location": -1.1992976308462509,
+                              "value": 0.0802694688480158,
+                              "derivative": 0.000004237511019886685
+                            },
+                            {
+                              "location": -0.8351040338541934,
+                              "value": 0.7340582524602979,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.7263441424044057,
+                              "value": 0.7340582524602979,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.6263617154817123,
+                              "value": 0.8541074434749318,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.5283021405442745,
+                              "value": 0.734058158450936,
+                              "derivative": -0.0000012150253239904008
+                            },
+                            {
+                              "location": -0.4225260861424449,
+                              "value": 0.7340582524602979,
+                              "derivative": 0.000004237511019886685
+                            },
+                            {
+                              "location": -0.002502462680753048,
+                              "value": -0.05757029681890852,
+                              "derivative": -0.000004237511019886685
+                            },
+                            {
+                              "location": 0.4225260861424449,
+                              "value": 0.7340582524602979,
+                              "derivative": -0.000004237511019886685
+                            },
+                            {
+                              "location": 0.5283021405442745,
+                              "value": 0.734058158450936,
+                              "derivative": 0.0000012150253239904008
+                            },
+                            {
+                              "location": 0.6263617154817123,
+                              "value": 0.8541074434749318,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.7263441424044057,
+                              "value": 0.7340582524602979,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.8351040338541934,
+                              "value": 0.7340582524602979,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 1.1992976308462509,
+                              "value": 0.0802694688480158,
+                              "derivative": -0.000004237511019886685
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "location": -0.1,
+                        "derivative": 0,
+                        "value": {
+                          "coordinate": "aylyth:ridges",
+                          "points": [
+                            {
+                              "location": -1.1992976308462509,
+                              "value": 0.0802694688480158,
+                              "derivative": 0.000004237511019886685
+                            },
+                            {
+                              "location": -0.8351040338541934,
+                              "value": 0.7340582524602979,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.6220952234976052,
+                              "value": 0.7149843321561443,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.4225260861424449,
+                              "value": 0.7340582524602979,
+                              "derivative": 0.000004237511019886685
+                            },
+                            {
+                              "location": -0.002502462680753048,
+                              "value": -0.05757029681890852,
+                              "derivative": -0.000004237511019886685
+                            },
+                            {
+                              "location": 0.4225260861424449,
+                              "value": 0.7340582524602979,
+                              "derivative": -0.000004237511019886685
+                            },
+                            {
+                              "location": 0.6220952234976052,
+                              "value": 0.7149843321561443,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.8351040338541934,
+                              "value": 0.7340582524602979,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 1.1992976308462509,
+                              "value": 0.0802694688480158,
+                              "derivative": -0.000004237511019886685
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "location": 0.2,
+                        "derivative": 0,
+                        "value": {
+                          "coordinate": "aylyth:ridges",
+                          "points": [
+                            {
+                              "location": -1.0807342870755594,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.7603488537946785,
+                              "value": 0.16061238408956324,
+                              "derivative": 0.28663006152101145
+                            },
+                            {
+                              "location": -0.7603488537946785,
+                              "value": 0.16061238408956324,
+                              "derivative": -0.23764866579540792
+                            },
+                            {
+                              "location": -0.3911693340582423,
+                              "value": 0.1122480551485252,
+                              "derivative": 0.545977011494254
+                            },
+                            {
+                              "location": -0.3911693340582423,
+                              "value": 0.1122480551485252,
+                              "derivative": -0.5115384615384635
+                            },
+                            {
+                              "location": -0.0040499594060283695,
+                              "value": -0.00763537978167822,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.0040499594060283695,
+                              "value": -0.00763537978167822,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.3911693340582423,
+                              "value": 0.1122480551485252,
+                              "derivative": 0.5115384615384635
+                            },
+                            {
+                              "location": 0.3911693340582423,
+                              "value": 0.1122480551485252,
+                              "derivative": -0.545977011494254
+                            },
+                            {
+                              "location": 0.7603488537946785,
+                              "value": 0.16061238408956324,
+                              "derivative": 0.23764866579540792
+                            },
+                            {
+                              "location": 0.7603488537946785,
+                              "value": 0.16061238408956324,
+                              "derivative": -0.28663006152101145
+                            },
+                            {
+                              "location": 1.0807342870755594,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "location": 0.45,
+                        "derivative": 0,
+                        "value": {
+                          "coordinate": "aylyth:ridges",
+                          "points": [
+                            {
+                              "location": -1.0807342870755594,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.9619447869933229,
+                              "value": 0.2461134460725383,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.3911693340582423,
+                              "value": 0.2461134460725383,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.19419791207727943,
+                              "value": -0.0009765129415100771,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.19419791207727943,
+                              "value": -0.0009765129415100771,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.3911693340582423,
+                              "value": 0.2461134460725383,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.9619447869933229,
+                              "value": 0.2461134460725383,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 1.0807342870755594,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "location": 0.58,
+                        "derivative": 0,
+                        "value": {
+                          "coordinate": "aylyth:ridges",
+                          "points": [
+                            {
+                              "location": -1.0807342870755594,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.7603488537946785,
+                              "value": 0.16061238408956324,
+                              "derivative": 0.28663006152101145
+                            },
+                            {
+                              "location": -0.7603488537946785,
+                              "value": 0.16061238408956324,
+                              "derivative": -0.23764866579540792
+                            },
+                            {
+                              "location": -0.3911693340582423,
+                              "value": 0.1122480551485252,
+                              "derivative": 0.545977011494254
+                            },
+                            {
+                              "location": -0.3911693340582423,
+                              "value": 0.1122480551485252,
+                              "derivative": -0.5115384615384635
+                            },
+                            {
+                              "location": -0.0040499594060283695,
+                              "value": -0.00763537978167822,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.0040499594060283695,
+                              "value": -0.00763537978167822,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.3911693340582423,
+                              "value": 0.1122480551485252,
+                              "derivative": 0.5115384615384635
+                            },
+                            {
+                              "location": 0.3911693340582423,
+                              "value": 0.1122480551485252,
+                              "derivative": -0.545977011494254
+                            },
+                            {
+                              "location": 0.7603488537946785,
+                              "value": 0.16061238408956324,
+                              "derivative": 0.23764866579540792
+                            },
+                            {
+                              "location": 0.7603488537946785,
+                              "value": 0.16061238408956324,
+                              "derivative": -0.28663006152101145
+                            },
+                            {
+                              "location": 1.0807342870755594,
+                              "value": 0.0797911543191899,
+                              "derivative": 0
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "location": 0.7,
+                        "derivative": 0,
+                        "value": {
+                          "coordinate": "aylyth:ridges",
+                          "points": [
+                            {
+                              "location": -0.9723378976504794,
+                              "value": 0.0019617006685797023,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.7043190520126278,
+                              "value": 0.1190274033609747,
+                              "derivative": 0
+                            },
+                            {
+                              "location": -0.47326832301447974,
+                              "value": 0.054641266880157496,
+                              "derivative": -0.13333333333333333
+                            },
+                            {
+                              "location": 0.47326832301447974,
+                              "value": 0.054641266880157496,
+                              "derivative": 0.13333333333333333
+                            },
+                            {
+                              "location": 0.7043190520126278,
+                              "value": 0.1190274033609747,
+                              "derivative": 0
+                            },
+                            {
+                              "location": 0.9723378976504794,
+                              "value": 0.0019617006685797023,
+                              "derivative": 0
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "type": "minecraft:spline"
+          },
+          "type": "minecraft:add"
+        },
+        "argument2": {
+          "argument": {
+            "type": "minecraft:blend_alpha"
+          },
+          "type": "minecraft:cache_once"
+        },
+        "type": "minecraft:mul"
+      },
+      "type": "minecraft:add"
+    },
+    "type": "minecraft:cache_2d"
+  },
+  "type": "minecraft:flat_cache"
+}
