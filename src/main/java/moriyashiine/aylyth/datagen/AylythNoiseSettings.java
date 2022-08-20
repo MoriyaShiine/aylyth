@@ -68,7 +68,7 @@ public class AylythNoiseSettings {
                 zero(),  // lavaNoise
                 zero(),  // temperature
                 zero(),  // vegetation
-                method_40502(noiseEntry(NoiseParametersKeys.CONTINENTALNESS), 1, 0.5),  // continents
+                noise(noiseEntry(NoiseParametersKeys.CONTINENTALNESS), 1, 0.5),  // continents
                 noise(noiseEntry(NoiseParametersKeys.EROSION)),  // erosion
                 BuiltinRegistries.DENSITY_FUNCTION.get(DensityFunctions.DEPTH_OVERWORLD),  // depth
                 zero(),  // ridges
@@ -90,9 +90,9 @@ public class AylythNoiseSettings {
     static DensityFunction slide(DensityFunction densityFunction, int i, int j, int k, int l, double d, int m, int n, double e) {
         DensityFunction densityFunction2 = densityFunction;
         DensityFunction densityFunction3 = yClampedGradient(i + j - k, i + j - l, 1.0, 0.0);
-        densityFunction2 = method_40488(densityFunction3, constant(d), densityFunction2);
+        densityFunction2 = lerp(densityFunction3, constant(d), densityFunction2);
         DensityFunction densityFunction4 = yClampedGradient(i + m, i + n, 0.0, 1.0);
-        densityFunction2 = method_40488(densityFunction4, constant(e), densityFunction2);
+        densityFunction2 = lerp(densityFunction4, constant(e), densityFunction2);
         return densityFunction2;
     }
 
