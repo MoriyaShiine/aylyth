@@ -46,11 +46,11 @@ public class AylythBiomeSource extends BiomeSource {
         // uses the first params I found for plains for the clearing types, forest for forest/deep forest, and taiga for the coniferous variants.
         //                                       temperature         humidity           continentalness   erosion                depth           weirdness          offset
         builder.add(Pair.of(createNoiseHypercube(of(-0.45F, -0.15F), of(-1.0F, -0.35F), of(-0.11F, 0.3F), of(-0.7799F, -0.375F), of(0.0F, 0.0F), of(-1.0F, -0.9333F), 0.0F), registry.getEntry(ModBiomes.CLEARING_ID).get()));
-        builder.add(Pair.of(createNoiseHypercube(of(-0.45F, -0.15F), of(-1.0F, -0.35F), of(-0.11F, 0.3F), of(-0.7799F, -0.375F), of(0.0F, 0.0F), of(-1.0F, -0.9333F), 0.0F), registry.getEntry(ModBiomes.OVERGROWN_CLEARING_ID).get()));
+        builder.add(Pair.of(createNoiseHypercube(of(-0.15F, 0.2F), of(-1.0F, -0.35F), of(-0.11F, 0.3F), of(-0.7799F, -0.375F), of(0.0F, 0.0F), of(-1.0F, -0.9333F), 0.0F), registry.getEntry(ModBiomes.OVERGROWN_CLEARING_ID).get()));
         builder.add(Pair.of(createNoiseHypercube(of(-0.45F, -0.15F), of(-0.1F, 0.1F), of(-0.11F, 0.3F), of(-0.7799F, -0.375F), of(0.0F, 0.0F), of(-1.0F, -0.9333F), 0.0F), registry.getEntry(ModBiomes.COPSE_ID).get()));
-        builder.add(Pair.of(createNoiseHypercube(of(-0.45F, -0.15F), of(-0.1F, 0.1F), of(-0.11F, 0.3F), of(-0.7799F, -0.375F), of(0.0F, 0.0F), of(-1.0F, -0.9333F), 0.0F), registry.getEntry(ModBiomes.DEEPWOOD_ID).get()));
+        builder.add(Pair.of(createNoiseHypercube(of(-0.15F, 0.2F), of(-0.1F, 0.1F), of(-0.11F, 0.3F), of(-0.7799F, -0.375F), of(0.0F, 0.0F), of(-1.0F, -0.9333F), 0.0F), registry.getEntry(ModBiomes.DEEPWOOD_ID).get()));
         builder.add(Pair.of(createNoiseHypercube(of(-1.0F, -0.45F), of(0.3F, 1.0F), of(-0.11F, 0.3F), of(-0.375F, -0.2225F), of(0.0F, 0.0F), of(-1.0F, -0.9333F), 0.0F), registry.getEntry(ModBiomes.CONIFEROUS_COPSE_ID).get()));
-        builder.add(Pair.of(createNoiseHypercube(of(-1.0F, -0.45F), of(0.3F, 1.0F), of(-0.11F, 0.3F), of(-0.375F, -0.2225F), of(0.0F, 0.0F), of(-1.0F, -0.9333F), 0.0F), registry.getEntry(ModBiomes.CONIFEROUS_DEEPWOOD_ID).get()));
+        builder.add(Pair.of(createNoiseHypercube(of(-0.45F, -0.15F), of(0.3F, 1.0F), of(-0.11F, 0.3F), of(-0.375F, -0.2225F), of(0.0F, 0.0F), of(-1.0F, -0.9333F), 0.0F), registry.getEntry(ModBiomes.CONIFEROUS_DEEPWOOD_ID).get()));
         return new MultiNoiseUtil.Entries<>(builder.build());
     }
 
@@ -61,7 +61,7 @@ public class AylythBiomeSource extends BiomeSource {
 
     @Override
     public RegistryEntry<Biome> getBiome(int x, int y, int z, MultiNoiseUtil.MultiNoiseSampler noise) {
-        return this.biomeEntries.method_39529(noise.sample(x, y, z));
+        return this.biomeEntries.get(noise.sample(x, y, z));
     }
 
     public boolean matches(long seed) {
