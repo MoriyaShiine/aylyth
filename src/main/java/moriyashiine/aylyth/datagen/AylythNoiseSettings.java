@@ -79,7 +79,7 @@ public class AylythNoiseSettings {
                 scaledNoise(CONTINENTS, 1, 1),  // continents
                 scaledNoise(EROSION, 1.0, 1.0),  // erosion
                 depth(),  // depth
-                zero(),  // ridges
+                ridges(),  // ridges
                 initialDensity(),  // initialDensityWithoutJaggedness
                 finalDensity(),  // finalDensity
                 zero(),  // veinToggle
@@ -88,6 +88,10 @@ public class AylythNoiseSettings {
     }
 
     static DensityFunction depth() {
+        return zero();
+    }
+
+    static DensityFunction ridges() {
         return zero();
     }
 
