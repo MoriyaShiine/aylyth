@@ -104,7 +104,7 @@ public class AylythNoiseSettings {
     }
 
     static DensityFunction scaledNoise(RegistryEntry<DoublePerlinNoiseSampler.NoiseParameters> noiseEntry, double xzScale, double yScale) {
-        return method_40502(noiseEntry, xzScale, yScale);
+        return noise(noiseEntry, xzScale, yScale);
     }
 
     static MaterialRules.MaterialRule materialRules() {
