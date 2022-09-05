@@ -62,7 +62,7 @@ public class AylythBiomeSource extends BiomeSource {
 
     @Override
     public RegistryEntry<Biome> getBiome(int x, int y, int z, MultiNoiseUtil.MultiNoiseSampler noise) {
-        return this.biomeEntries.method_39529(noise.sample(x, y, z));
+        return this.biomeEntries.get(noise.sample(x, y, z));
     }
 
     public boolean matches(long seed) {

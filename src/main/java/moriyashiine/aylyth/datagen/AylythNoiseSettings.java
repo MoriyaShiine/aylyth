@@ -30,8 +30,8 @@ import net.minecraft.world.gen.YOffset;
 import net.minecraft.world.gen.chunk.ChunkGeneratorSettings;
 import net.minecraft.world.gen.chunk.GenerationShapeConfig;
 import net.minecraft.world.gen.densityfunction.DensityFunction;
-import net.minecraft.world.gen.densityfunction.DensityFunctionTypes.Spline.class_7136;
-import net.minecraft.world.gen.densityfunction.DensityFunctionTypes.Spline.class_7135;
+import net.minecraft.world.gen.densityfunction.DensityFunctionTypes.Spline.SplinePos;
+import net.minecraft.world.gen.densityfunction.DensityFunctionTypes.Spline.DensityFunctionWrapper;
 import net.minecraft.world.gen.noise.NoiseParametersKeys;
 import net.minecraft.world.gen.noise.NoiseRouter;
 import net.minecraft.world.gen.surfacebuilder.MaterialRules;
@@ -102,12 +102,12 @@ public class AylythNoiseSettings {
         return BuiltinRegistries.add(BuiltinRegistries.DENSITY_FUNCTION, key, function);
     }
 
-    private static DensityFunction offset(class_7135 continentsCoordinate, class_7135 erosionCoordinate, class_7135 ridgesFoldedCoordinate) {
+    private static DensityFunction offset(DensityFunctionWrapper continentsCoordinate, DensityFunctionWrapper erosionCoordinate, DensityFunctionWrapper ridgesFoldedCoordinate) {
         return withBlending(
                 add(
                         constant(-0.50375f),
                         spline(
-                                VanillaTerrainParametersCreator.method_42056(continentsCoordinate, erosionCoordinate, ridgesFoldedCoordinate, false)
+                                VanillaTerrainParametersCreator.createOffsetSpline(continentsCoordinate, erosionCoordinate, ridgesFoldedCoordinate, false)
                         )
                 ),
                 blendOffset());
@@ -120,16 +120,16 @@ public class AylythNoiseSettings {
         );
     }
 
-    private static DensityFunction factor(class_7135 continentsCoordinate, class_7135 erosionCoordinate, class_7135 ridgesCoordinate, class_7135 ridgesFoldedCoordinate) {
+    private static DensityFunction factor(DensityFunctionWrapper continentsCoordinate, DensityFunctionWrapper erosionCoordinate, DensityFunctionWrapper ridgesCoordinate, DensityFunctionWrapper ridgesFoldedCoordinate) {
         return withBlending(
-                        spline(VanillaTerrainParametersCreator.method_42055(continentsCoordinate, erosionCoordinate, ridgesCoordinate, ridgesFoldedCoordinate, false)),
+                        spline(VanillaTerrainParametersCreator.createFactorSpline(continentsCoordinate, erosionCoordinate, ridgesCoordinate, ridgesFoldedCoordinate, false)),
                         constant(10)
                 );
     }
 
-    private static DensityFunction jaggedness(class_7135 continentsCoordinate, class_7135 erosionCoordinate, class_7135 ridgesCoordinate, class_7135 ridgesFoldedCoordinate) {
+    private static DensityFunction jaggedness(DensityFunctionWrapper continentsCoordinate, DensityFunctionWrapper erosionCoordinate, DensityFunctionWrapper ridgesCoordinate, DensityFunctionWrapper ridgesFoldedCoordinate) {
         return withBlending(
-                spline(VanillaTerrainParametersCreator.method_42058(continentsCoordinate, erosionCoordinate, ridgesCoordinate, ridgesFoldedCoordinate, false)),
+                spline(VanillaTerrainParametersCreator.createJaggednessSpline(continentsCoordinate, erosionCoordinate, ridgesCoordinate, ridgesFoldedCoordinate, false)),
                 constant(0)
         );
     }
@@ -143,7 +143,7 @@ public class AylythNoiseSettings {
                                         holderFunction(DEPTH_FUNCTION),
                                         mul(
                                                 holderFunction(JAGGEDNESS_FUNCTION),
-                                                noise(JAGGED_KEY).halfNegative()
+                                                noiseFromKey(JAGGED_KEY).halfNegative()
                                         )
                                 ),
                                 holderFunction(FACTOR_FUNCTION)
@@ -277,10 +277,10 @@ public class AylythNoiseSettings {
         RIDGES_FOLDED_FUNCTION = registerFunction(RIDGES_FOLDED_FUNCTION_KEY, function);
         CONTINENTS_FUNCTION = registerFunction(CONTINENTS_FUNCTION_KEY, flatCache(shiftedNoise(holderFunction(SHIFT_X), holderFunction(SHIFT_Z), 0.25, CONTINENTS)));
         EROSION_FUNCTION = registerFunction(EROSION_FUNCTION_KEY, flatCache(shiftedNoise(holderFunction(SHIFT_X), holderFunction(SHIFT_Z), 0.25, EROSION)));
-        class_7135 continentsCoordinate = new class_7135(CONTINENTS_FUNCTION);
-        class_7135 erosionCoordinate = new class_7135(EROSION_FUNCTION);
-        class_7135 ridgesCoordinate = new class_7135(RIDGES_FUNCTION);
-        class_7135 ridgesFoldedCoordinate = new class_7135(RIDGES_FOLDED_FUNCTION);
+        DensityFunctionWrapper continentsCoordinate = new DensityFunctionWrapper(CONTINENTS_FUNCTION);
+        DensityFunctionWrapper erosionCoordinate = new DensityFunctionWrapper(EROSION_FUNCTION);
+        DensityFunctionWrapper ridgesCoordinate = new DensityFunctionWrapper(RIDGES_FUNCTION);
+        DensityFunctionWrapper ridgesFoldedCoordinate = new DensityFunctionWrapper(RIDGES_FOLDED_FUNCTION);
         OFFSET_FUNCTION = registerFunction(OFFSET_FUNCTION_KEY, offset(continentsCoordinate, erosionCoordinate, ridgesFoldedCoordinate));
         FACTOR_FUNCTION = registerFunction(FACTOR_FUNCTION_KEY, factor(continentsCoordinate, erosionCoordinate, ridgesCoordinate, ridgesFoldedCoordinate));
         JAGGEDNESS_FUNCTION = registerFunction(JAGGEDNESS_FUNCTION_KEY, jaggedness(continentsCoordinate, erosionCoordinate, ridgesCoordinate, ridgesFoldedCoordinate));
@@ -334,7 +334,7 @@ public class AylythNoiseSettings {
                 holderFunction(DEPTH_FUNCTION),  // depth
                 holderFunction(RIDGES_FUNCTION),  // ridges
                 initialDensity(),  // initialDensityWithoutJaggedness
-                zero(),  // finalDensity
+                finalDensity(),  // finalDensity
                 zero(),  // veinToggle
                 zero(),  // veinRidged
                 zero()); // veinGap
@@ -445,7 +445,7 @@ public class AylythNoiseSettings {
     static DensityFunction smallVariedFlatterLand() {
         return add(
                 yClampedGradient(64, 84, 1.0, -2.0),
-                scaledNoise(BASE_LAYER, 1, 0.5)
+                noise(BASE_LAYER, 1, 0.5)
         );
 //        return add(
 //                yClampedGradient(64, 84, 1.0, -2.0),
@@ -457,14 +457,14 @@ public class AylythNoiseSettings {
     static DensityFunction plateauedHills() {
         return add(
                 yClampedGradient(64, 150, 3.0, -1.0),
-                spline(splineBuilder(scaledNoise(CONTINENTS, 1, 1))
+                spline(splineBuilder(noise(CONTINENTS, 1, 1))
                         .add(0.3f, 0.4f, 0.0f)
                         .add(0.5f, 1.25f, 2.0f)
                         .add(0.65f, 2.25f, 0.0f)
-                        .method_41294(1.0f, 2.25f).build())
+                        .add(1.0f, 2.25f).build())
         );
 //        return add(
-//                noise(CONTINENTALNESS),
+//                noiseFromKey(CONTINENTALNESS),
 //                yClampedGradient(84, 150, 1, 0)
 //        );
     }
@@ -472,7 +472,7 @@ public class AylythNoiseSettings {
     // This is to add some cheese caves
     static DensityFunction noiseCaves() {
         return add(
-                scaledNoise(CAVE_CHEESE, 1.0, 1.0),
+                noise(CAVE_CHEESE, 1.0, 1.0),
                 constant(0.27)
         ).clamp(-1.0, 1.0);
     }
@@ -484,9 +484,9 @@ public class AylythNoiseSettings {
     static DensityFunction slide(DensityFunction densityFunction, int i, int j, int k, int l, double d, int m, int n, double e) {
         DensityFunction densityFunction2 = densityFunction;
         DensityFunction densityFunction3 = yClampedGradient(i + j - k, i + j - l, 1.0, 0.0);
-        densityFunction2 = method_40488(densityFunction3, constant(d), densityFunction2);
+        densityFunction2 = lerp(densityFunction3, constant(d), densityFunction2);
         DensityFunction densityFunction4 = yClampedGradient(i + m, i + n, 0.0, 1.0);
-        densityFunction2 = method_40488(densityFunction4, constant(e), densityFunction2);
+        densityFunction2 = lerp(densityFunction4, constant(e), densityFunction2);
         return densityFunction2;
     }
 
@@ -504,7 +504,7 @@ public class AylythNoiseSettings {
     }
 
     static DensityFunction withBlending(DensityFunction end, DensityFunction start) {
-        return flatCache(cache2d(method_40488(blendAlpha(), start, end)));
+        return flatCache(cache2d(lerp(blendAlpha(), start, end)));
     }
 
     static RegistryEntry<DensityFunction> densityEntry(RegistryKey<DensityFunction> key) {
@@ -512,14 +512,10 @@ public class AylythNoiseSettings {
     }
 
     static DensityFunction scaledNoise(RegistryKey<NoiseParameters> key, double xzScale, double yScale) {
-        return method_40502(noiseEntry(key), xzScale, yScale);
+        return DensityFunctionTypes.noise(noiseEntry(key), xzScale, yScale);
     }
 
-    static DensityFunction scaledNoise(RegistryEntry<NoiseParameters> entry, double xzScale, double yScale) {
-        return method_40502(entry, xzScale, yScale);
-    }
-
-    static DensityFunction noise(RegistryKey<NoiseParameters> key) {
+    static DensityFunction noiseFromKey(RegistryKey<NoiseParameters> key) {
         return DensityFunctionTypes.noise(noiseEntry(key));
     }
 
@@ -531,8 +527,8 @@ public class AylythNoiseSettings {
         return new RegistryEntryHolder(functionEntry);
     }
 
-    static Spline.Builder<class_7136, class_7135> splineBuilder(DensityFunction function) {
-        return Spline.builder(new class_7135(RegistryEntry.of(function)));
+    static Spline.Builder<SplinePos, DensityFunctionWrapper> splineBuilder(DensityFunction function) {
+        return Spline.builder(new DensityFunctionWrapper(RegistryEntry.of(function)));
     }
 
     static MaterialRules.MaterialRule materialRules() {
