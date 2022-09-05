@@ -1,4 +1,4 @@
-// 1.19.2	2022-09-05T11:09:43.5311236	Aylyth worldgen generator
+// 1.19.2	2022-09-05T11:40:14.8637247	Aylyth worldgen generator
 8744a71e744467476695e7187e606ab49bc9fbb2 data\aylyth\worldgen\density_function\ridges_folded.json
 e38d87100c4597954814864944a34e4d1e0ede26 data\aylyth\worldgen\placed_feature\copse_trees.json
 0b9f654b23136a3c52ef8b00e58fc4cc0ecda41a data\aylyth\worldgen\noise\temperature.json
@@ -37,7 +37,7 @@ ca16e3ca13710e559b82b2e65b5981554bb3ecd9 data\aylyth\worldgen\noise\continents.j
 eb52ed5e4fb323f7996ae226a1b78fb4bf236e9e data\aylyth\worldgen\configured_feature\coniferous_copse_trees.json
 5f5d2f0070cc25fea05257cd3e060e105f3c6950 data\aylyth\worldgen\configured_feature\spruce_seep.json
 0143d0dc948e53762fe838506f4102a12962f23e data\aylyth\worldgen\biome\uplands.json
-c68be266fa3bbc1d37e5a1b64b2284cfdd69cbf7 data\aylyth\worldgen\noise_settings\aylyth_settings.json
+7d26c803e9ccb6b5a8a717ca22e5ee294460a95c data\aylyth\worldgen\noise_settings\aylyth_settings.json
 0783fccef867e6d52d5874dc7f2282b6f4f08f14 data\aylyth\worldgen\configured_feature\ympe_tree.json
 e3be7f2202ae1ac63432b170360505f45d0f1a73 data\aylyth\worldgen\density_function\shift_z.json
 95466e2c6cc348ba116c29c97d375b226fbbb8e2 data\aylyth\worldgen\noise\base_layer.json
