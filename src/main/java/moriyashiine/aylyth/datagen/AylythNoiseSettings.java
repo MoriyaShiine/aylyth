@@ -296,7 +296,7 @@ public class AylythNoiseSettings {
         var aquifers = false;
         var oreVeins = true;
         var legacyRandom = false;
-        return new ChunkGeneratorSettings(shapeConfig(), defaultState(Blocks.STONE), defaultState(Blocks.WATER), testRouter(), materialRules(), spawnTargets(), seaLevel, disableMobGen, aquifers, oreVeins, legacyRandom);
+        return new ChunkGeneratorSettings(shapeConfig(), defaultState(Blocks.STONE), defaultState(Blocks.WATER), noiseRouter(), materialRules(), spawnTargets(), seaLevel, disableMobGen, aquifers, oreVeins, legacyRandom);
     }
 
     static BlockState defaultState(Block block) {
