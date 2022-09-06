@@ -27,8 +27,8 @@ public class AylythNoiseTypes {
     public static final NoiseRegistryPair VEGETATION = register("vegetation", -8, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0);
     public static final NoiseRegistryPair EROSION = register("erosion", -9, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0);
     public static final NoiseRegistryPair BASE_LAYER = register("base_layer", -8, 1.0, 1.0, 1.0, 1.0);
+    public static final NoiseRegistryPair CAVE_LAYER = register("cave_layer", -8, 1.0);
     public static final NoiseRegistryPair CAVE_CHEESE = register("cave_cheese", -8, 0.5, 1.0, 2.0, 1.0, 2.0, 1.0, 0.0, 2.0, 0.0);
-    public static final NoiseRegistryPair CAVE_ENTRANCES = register("cave_entrances", -7, 0.4, 0.5, 1.0);
     public static final NoiseRegistryPair SPAGHETTI_2D = register("spaghetti_2d", -7, 1.0);
     public static final NoiseRegistryPair SPAGHETTI_2D_MODULATOR = register("spaghetti_2d_modulator", -11, 1.0);
     public static final NoiseRegistryPair SPAGHETTI_2D_ROUGHNESS = register("spaghetti_2d_roughness", -5, 1.0);
@@ -45,9 +45,10 @@ public class AylythNoiseTypes {
     public static final NoiseRegistryPair PILLAR = register("pillar", -7, 1.0, 1.0);
     public static final NoiseRegistryPair PILLAR_RARENESS = register("pillar_rareness", -8, 1.0);
     public static final NoiseRegistryPair PILLAR_THICKNESS = register("pillar_thickness", -8, 1.0);
+    public static final NoiseRegistryPair CAVE_ENTRANCES = register("cave_entrances", -7, 0.4, 0.5, 1.0);
 
     private static NoiseRegistryPair register(String id, int firstOctave, double... amplitudes) {
-        return NoiseRegistryPair.register(id, firstOctave, amplitudes);
+        return NoiseRegistryPair.createAndRegister(id, firstOctave, amplitudes);
     }
 
     static class NoiseRegistryPair implements RegistryEntry<DoublePerlinNoiseSampler.NoiseParameters> {
@@ -59,14 +60,11 @@ public class AylythNoiseTypes {
             this.registryEntry = registryEntry;
         }
 
-        static NoiseRegistryPair register(String id, int firstOctave, double... amplitudes) {
-            var registryKey = RegistryKey.of(Registry.NOISE_KEY, new Identifier(Aylyth.MOD_ID, id));
-            var noiseParams = new DoublePerlinNoiseSampler.NoiseParameters(firstOctave, DoubleList.of(amplitudes));
-            var registryEntry = BuiltinRegistries.add(BuiltinRegistries.NOISE_PARAMETERS, registryKey, noiseParams);
-            return new NoiseRegistryPair(registryKey, registryEntry);
+        static NoiseRegistryPair createAndRegister(String id, int firstOctave, double... amplitudes) {
+            return createAndRegister(new Identifier(Aylyth.MOD_ID, id), firstOctave, amplitudes);
         }
 
-        public static NoiseRegistryPair register(Identifier identifier, int firstOctave, double... amplitudes) {
+        public static NoiseRegistryPair createAndRegister(Identifier identifier, int firstOctave, double... amplitudes) {
             var registryKey = RegistryKey.of(Registry.NOISE_KEY, identifier);
             var noiseParams = new DoublePerlinNoiseSampler.NoiseParameters(firstOctave, DoubleList.of(amplitudes));
             var registryEntry = BuiltinRegistries.add(BuiltinRegistries.NOISE_PARAMETERS, registryKey, noiseParams);

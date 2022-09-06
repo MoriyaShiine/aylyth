@@ -139,13 +139,47 @@ public class AylythNoiseSettings {
         return min(
                 postProcess(
                         slide(
-                                yClampedGradient(
+                                rangeChoice(
                                         holderFunction(SLOPED_CHEESE_FUNCTION),
                                         -1000000.0,
                                         1.5625,
                                         holderFunction(SLOPED_CHEESE_FUNCTION),
                                         max(
-                                                
+                                                min(
+                                                        min(
+                                                                add(
+                                                                        mul(
+                                                                                constant(4.0),
+                                                                                noise(CAVE_LAYER, 1.0, 8.0)
+                                                                        ),
+                                                                        add(
+                                                                                add(
+                                                                                        constant(0.27),
+                                                                                        noise(CAVE_CHEESE, 1.0, 0.6666666666666666)
+                                                                                ).clamp(-1.0, 1.0),
+                                                                                add(
+                                                                                        constant(1.5),
+                                                                                        mul(
+                                                                                                constant(-0.64),
+                                                                                                holderFunction(SLOPED_CHEESE_FUNCTION)
+                                                                                        )
+                                                                                ).clamp(0.0, 0.5)
+                                                                        )
+                                                                ),
+                                                                holderFunction(CAVES_ENTRANCES_FUNCTION)
+                                                        ),
+                                                        add(
+                                                                holderFunction(CAVES_SPAGHETTI_2D_FUNCTION),
+                                                                holderFunction(CAVES_SPAGHETTI_ROUGHNESS_FUNCTION)
+                                                        )
+                                                ),
+                                                rangeChoice(
+                                                        holderFunction(CAVES_PILLARS_FUNCTION),
+                                                        -1000000.0,
+                                                        0.03,
+                                                        constant(-1000000.0),
+                                                        holderFunction(CAVES_PILLARS_FUNCTION)
+                                                )
                                         )
                                 ),
                                 -64,
