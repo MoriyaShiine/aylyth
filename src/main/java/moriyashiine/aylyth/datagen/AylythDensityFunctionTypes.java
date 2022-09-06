@@ -139,13 +139,13 @@ public class AylythDensityFunctionTypes {
     static DensityFunction slopedCheese() {
         return  add(
                 mul(
-                        constant(4),
+                        constant(4.0),
                         mul(
                                 add(
                                         holderFunction(DEPTH_FUNCTION),
                                         mul(
                                                 holderFunction(JAGGEDNESS_FUNCTION),
-                                                noiseFromKey(JAGGED_KEY).halfNegative()
+                                                noise(JAGGED, 1500.0, 0.0).halfNegative()
                                         )
                                 ),
                                 holderFunction(FACTOR_FUNCTION)
@@ -273,7 +273,7 @@ public class AylythDensityFunctionTypes {
                         ),
                         add(
                                 constant(-0.4),
-                                noise(SPAGHETTI_ROUGHNESS).abs()
+                                noise(SPAGHETTI_2D_ROUGHNESS).abs()
                         )
                 )
         );
