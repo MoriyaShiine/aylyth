@@ -18,8 +18,8 @@
               "argument": {
                 "type": "minecraft:noise",
                 "noise": "aylyth:jagged",
-                "xz_scale": 1.0,
-                "y_scale": 1.0
+                "xz_scale": 1500.0,
+                "y_scale": 0.0
               }
             }
           }
