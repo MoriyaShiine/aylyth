@@ -145,7 +145,7 @@ public class AylythNoiseSettings {
                                         1.5625,
                                         holderFunction(SLOPED_CHEESE_FUNCTION),
                                         max(
-
+                                                
                                         )
                                 ),
                                 -64,
