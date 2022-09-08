@@ -106,7 +106,7 @@ public class AylythDensityFunctionTypes {
 
     static DensityFunction depth() {
         return add(
-                yClampedGradient(-64, 272, -1.5, 1.5),
+                yClampedGradient(-64, 272, 1.5, -1.5),
                 holderFunction(OFFSET_FUNCTION)
         );
     }
