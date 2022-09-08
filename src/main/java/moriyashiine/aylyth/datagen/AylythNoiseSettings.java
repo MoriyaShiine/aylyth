@@ -1,38 +1,16 @@
 package moriyashiine.aylyth.datagen;
 
-import com.google.common.collect.Lists;
-import it.unimi.dsi.fastutil.doubles.DoubleList;
-import it.unimi.dsi.fastutil.floats.FloatArrayList;
-import it.unimi.dsi.fastutil.floats.FloatList;
 import moriyashiine.aylyth.common.Aylyth;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.noise.DoublePerlinNoiseSampler;
-import net.minecraft.util.Pair;
-import net.minecraft.util.math.Spline;
-import net.minecraft.util.math.VerticalSurfaceType;
-import net.minecraft.util.math.noise.DoublePerlinNoiseSampler.NoiseParameters;
-import net.minecraft.util.math.noise.InterpolatedNoiseSampler;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryEntry;
-import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.source.util.MultiNoiseUtil;
 import net.minecraft.world.gen.chunk.ChunkGeneratorSettings;
 import net.minecraft.world.gen.chunk.GenerationShapeConfig;
 import net.minecraft.world.gen.densityfunction.DensityFunction;
-import net.minecraft.world.gen.densityfunction.DensityFunctionTypes;
-import net.minecraft.world.gen.densityfunction.DensityFunctions;
-import net.minecraft.world.biome.source.util.VanillaTerrainParametersCreator;
-import net.minecraft.world.gen.YOffset;
-import net.minecraft.world.gen.chunk.ChunkGeneratorSettings;
-import net.minecraft.world.gen.chunk.GenerationShapeConfig;
-import net.minecraft.world.gen.densityfunction.DensityFunction;
-import net.minecraft.world.gen.densityfunction.DensityFunctionTypes.Spline.SplinePos;
-import net.minecraft.world.gen.densityfunction.DensityFunctionTypes.Spline.DensityFunctionWrapper;
-import net.minecraft.world.gen.noise.NoiseParametersKeys;
 import net.minecraft.world.gen.noise.NoiseRouter;
 import net.minecraft.world.gen.surfacebuilder.MaterialRules;
 
@@ -66,20 +44,10 @@ public class AylythNoiseSettings {
 
     static GenerationShapeConfig shapeConfig() {
         var minY = -32;
-        var height = 128;
+        var height = 272;
         var horizontal = 1;
         var vertical = 1;
         return new GenerationShapeConfig(minY, height, horizontal, vertical);
-    }
-
-    static NoiseRouter testRouter() {
-        DensityFunction densityFunction2 = getFunctionRaw("shift_x");
-        DensityFunction densityFunction3 = getFunctionRaw("shift_z");
-        DensityFunction densityFunction4 = shiftedNoise(densityFunction2, densityFunction3, 0.25, BuiltinRegistries.NOISE_PARAMETERS.entryOf(NoiseParametersKeys.TEMPERATURE));
-        DensityFunction densityFunction5 = shiftedNoise(densityFunction2, densityFunction3, 0.25, BuiltinRegistries.NOISE_PARAMETERS.entryOf(NoiseParametersKeys.VEGETATION));
-        DensityFunction den = BuiltinRegistries.DENSITY_FUNCTION.get(new Identifier("overworld_amplified/sloped_cheese"));
-        DensityFunction densityFunction6 = postProcess(slide(den, -64, 200, 16, 0, -0.078125, 0, 24, 0.1171875));
-        return new NoiseRouter(zero(), zero(), zero(), zero(), densityFunction4, densityFunction5, zero(), zero(), zero(), zero(), zero(), densityFunction6, zero(), zero(), zero());
     }
 
     static NoiseRouter noiseRouter() {
@@ -143,14 +111,20 @@ public class AylythNoiseSettings {
                                         holderFunction(SLOPED_CHEESE_FUNCTION),
                                         -1000000.0,
                                         1.5625,
-                                        holderFunction(SLOPED_CHEESE_FUNCTION),
+                                        min(
+                                                holderFunction(SLOPED_CHEESE_FUNCTION),
+                                                mul(
+                                                        constant(5.0),
+                                                        holderFunction(CAVES_ENTRANCES_FUNCTION)
+                                                )
+                                        ),
                                         max(
                                                 min(
                                                         min(
                                                                 add(
                                                                         mul(
                                                                                 constant(4.0),
-                                                                                noise(CAVE_LAYER, 1.0, 8.0)
+                                                                                noise(CAVE_LAYER, 1.0, 8.0).square()
                                                                         ),
                                                                         add(
                                                                                 add(
@@ -188,7 +162,7 @@ public class AylythNoiseSettings {
                                 0, 24, 0.1171875
                         )
                 ),
-                noiseCaves()
+                holderFunction(CAVES_NOODLE_FUNCTION)
         );
 //        return postProcess(
 //                slide(
@@ -263,6 +237,10 @@ public class AylythNoiseSettings {
         var onFloor = MaterialRules.condition(MaterialRules.STONE_DEPTH_FLOOR, MaterialRules.sequence(onReplaceWaterWithGrass, dirt));
         var onUnderFloor = MaterialRules.condition(MaterialRules.STONE_DEPTH_FLOOR_WITH_SURFACE_DEPTH, dirt);
         return MaterialRules.sequence(onFloor, onUnderFloor);
+    }
+
+    static MaterialRules.MaterialRule emptyRules() {
+        return MaterialRules.block(Blocks.STONE.getDefaultState());
     }
 
     static List<MultiNoiseUtil.NoiseHypercube> spawnTargets() {
