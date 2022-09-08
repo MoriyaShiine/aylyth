@@ -15,7 +15,7 @@
   "disable_mob_generation": false,
   "legacy_random_source": false,
   "noise": {
-    "height": 128,
+    "height": 272,
     "min_y": -32,
     "size_horizontal": 1,
     "size_vertical": 1
@@ -71,7 +71,15 @@
                             "input": "aylyth:sloped_cheese",
                             "max_exclusive": 1.5625,
                             "min_inclusive": -1000000.0,
-                            "when_in_range": "aylyth:sloped_cheese",
+                            "when_in_range": {
+                              "type": "minecraft:min",
+                              "argument1": "aylyth:sloped_cheese",
+                              "argument2": {
+                                "type": "minecraft:mul",
+                                "argument1": 5.0,
+                                "argument2": "aylyth:caves/entrances"
+                              }
+                            },
                             "when_out_of_range": {
                               "type": "minecraft:max",
                               "argument1": {
@@ -84,10 +92,13 @@
                                       "type": "minecraft:mul",
                                       "argument1": 4.0,
                                       "argument2": {
-                                        "type": "minecraft:noise",
-                                        "noise": "aylyth:cave_layer",
-                                        "xz_scale": 1.0,
-                                        "y_scale": 8.0
+                                        "type": "minecraft:square",
+                                        "argument": {
+                                          "type": "minecraft:noise",
+                                          "noise": "aylyth:cave_layer",
+                                          "xz_scale": 1.0,
+                                          "y_scale": 8.0
+                                        }
                                       }
                                     },
                                     "argument2": {
@@ -151,21 +162,7 @@
           }
         }
       },
-      "argument2": {
-        "type": "minecraft:clamp",
-        "input": {
-          "type": "minecraft:add",
-          "argument1": 0.27,
-          "argument2": {
-            "type": "minecraft:noise",
-            "noise": "aylyth:cave_cheese",
-            "xz_scale": 1.0,
-            "y_scale": 1.0
-          }
-        },
-        "max": 1.0,
-        "min": -1.0
-      }
+      "argument2": "aylyth:caves/noodle"
     },
     "fluid_level_floodedness": 0.0,
     "fluid_level_spread": 0.0,
