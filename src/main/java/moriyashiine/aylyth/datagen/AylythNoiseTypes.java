@@ -27,6 +27,7 @@ public class AylythNoiseTypes {
     public static final NoiseRegistryPair VEGETATION = register("vegetation", -8, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0);
     public static final NoiseRegistryPair EROSION = register("erosion", -9, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0);
     public static final NoiseRegistryPair BASE_LAYER = register("base_layer", -8, 1.0, 1.0, 1.0, 1.0);
+    public static final NoiseRegistryPair SURFACE = register("surface", -6, 1.0, 1.0, 1.0);
     public static final NoiseRegistryPair CAVE_LAYER = register("cave_layer", -8, 1.0);
     public static final NoiseRegistryPair CAVE_CHEESE = register("cave_cheese", -8, 0.5, 1.0, 2.0, 1.0, 2.0, 1.0, 0.0, 2.0, 0.0);
     public static final NoiseRegistryPair SPAGHETTI_2D = register("spaghetti_2d", -7, 1.0);

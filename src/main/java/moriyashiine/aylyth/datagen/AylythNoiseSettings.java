@@ -1,13 +1,16 @@
 package moriyashiine.aylyth.datagen;
 
 import moriyashiine.aylyth.common.Aylyth;
+import moriyashiine.aylyth.common.registry.ModBiomes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.VerticalSurfaceType;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.source.util.MultiNoiseUtil;
+import net.minecraft.world.gen.YOffset;
 import net.minecraft.world.gen.chunk.ChunkGeneratorSettings;
 import net.minecraft.world.gen.chunk.GenerationShapeConfig;
 import net.minecraft.world.gen.densityfunction.DensityFunction;
@@ -30,7 +33,7 @@ public class AylythNoiseSettings {
     public static final ChunkGeneratorSettings SETTINGS = Registry.register(BuiltinRegistries.CHUNK_GENERATOR_SETTINGS, new Identifier(Aylyth.MOD_ID, "aylyth_settings"), createSettings());
 
     static ChunkGeneratorSettings createSettings() {
-        var seaLevel = 0;
+        var seaLevel = -64;
         var disableMobGen = false;
         var aquifers = false;
         var oreVeins = true;
@@ -43,8 +46,8 @@ public class AylythNoiseSettings {
     }
 
     static GenerationShapeConfig shapeConfig() {
-        var minY = -32;
-        var height = 272;
+        var minY = -64;
+        var height = 304;
         var horizontal = 1;
         var vertical = 1;
         return new GenerationShapeConfig(minY, height, horizontal, vertical);
@@ -129,7 +132,7 @@ public class AylythNoiseSettings {
                                                                         add(
                                                                                 add(
                                                                                         constant(0.27),
-                                                                                        noise(CAVE_CHEESE, 1.0, 0.6666666666666666)
+                                                                                        noise(CAVE_CHEESE, 2.0, 0.95)
                                                                                 ).clamp(-1.0, 1.0),
                                                                                 add(
                                                                                         constant(1.5),
@@ -164,70 +167,6 @@ public class AylythNoiseSettings {
                 ),
                 holderFunction(CAVES_NOODLE_FUNCTION)
         );
-//        return postProcess(
-//                slide(
-//                        yClampedGradient(
-//                                add(
-//                                        yClampedGradient(-64, 84, 1.0, 0.0),
-//                                        add(
-//                                                smallVariedFlatterLand(),
-//                                                plateauedHills()
-//                                        )
-//                                ),
-//                                -100000.0,
-//                                1.5,
-//                                add(
-//                                        yClampedGradient(-64, 84, 1.0, 0.0),
-//                                        add(
-//                                                smallVariedFlatterLand(),
-//                                                plateauedHills()
-//                                        )
-//                                ),
-//                                noiseCaves()
-//
-//                        ),
-//                        -64,
-//                        272,
-//                        80, 64, -0.078125,
-//                        0, 24, 0.1171875
-//                )
-//        );
-    }
-
-    // This is the regular base terrain. Should be flatter, with gradual variations in the land
-    static DensityFunction smallVariedFlatterLand() {
-        return add(
-                yClampedGradient(64, 84, 1.0, -2.0),
-                noise(BASE_LAYER, 1, 0.5)
-        );
-//        return add(
-//                yClampedGradient(64, 84, 1.0, -2.0),
-//                scaledNoise(GRAVEL, 1, 0.5)
-//        );
-    }
-
-    // This is for the uplands biome. These should be somewhat rare. Should be a large area created with a combination of mountainous terrain and plateaus.
-    static DensityFunction plateauedHills() {
-        return add(
-                yClampedGradient(64, 150, 3.0, -1.0),
-                spline(splineBuilder(noise(CONTINENTS, 1, 1))
-                        .add(0.3f, 0.4f, 0.0f)
-                        .add(0.5f, 1.25f, 2.0f)
-                        .add(0.65f, 2.25f, 0.0f)
-                        .add(1.0f, 2.25f).build())
-        );
-//        return add(
-//                noiseFromKey(CONTINENTALNESS),
-//                yClampedGradient(84, 150, 1, 0)
-//        );
-    }
-
-    // This is to add some cheese caves
-    static DensityFunction noiseCaves() {
-        return add(
-                noise(CAVE_CHEESE, 1.0, 1.0),
-                constant(0.27)
-        ).clamp(-1.0, 1.0);
     }
 
     static MaterialRules.MaterialRule materialRules() {
@@ -236,7 +175,15 @@ public class AylythNoiseSettings {
         var onReplaceWaterWithGrass = MaterialRules.condition(MaterialRules.water(-1, 0), grass);
         var onFloor = MaterialRules.condition(MaterialRules.STONE_DEPTH_FLOOR, MaterialRules.sequence(onReplaceWaterWithGrass, dirt));
         var onUnderFloor = MaterialRules.condition(MaterialRules.STONE_DEPTH_FLOOR_WITH_SURFACE_DEPTH, dirt);
-        return MaterialRules.sequence(onFloor, onUnderFloor);
+        var onSurface = MaterialRules.condition(MaterialRules.stoneDepth(0, false, 0, VerticalSurfaceType.FLOOR), MaterialRules.sequence(onFloor, onUnderFloor));
+        var aboveBasicSurface = MaterialRules.condition(MaterialRules.surface(), onSurface);
+        var bedrock = MaterialRules.condition(MaterialRules.verticalGradient("aylyth:bedrock_layer", YOffset.BOTTOM, YOffset.aboveBottom(5)), MaterialRules.block(defaultState(Blocks.BEDROCK)));
+        var uplands = MaterialRules.condition(MaterialRules.biome(ModBiomes.UPLANDS_ID), MaterialRules.condition(MaterialRules.surface(), MaterialRules.condition(MaterialRules.stoneDepth(0, false, 0, VerticalSurfaceType.FLOOR), uplandsTerracotta())));
+        return MaterialRules.sequence(bedrock, uplands, aboveBasicSurface);
+    }
+
+    static MaterialRules.MaterialRule uplandsTerracotta() {
+        return MaterialRules.sequence(AylythMaterialRules.surfaceNoiseBlock(Blocks.DEEPSLATE, -2, -0.6), AylythMaterialRules.surfaceNoiseBlock(Blocks.BROWN_TERRACOTTA, -0.6, -0.15), AylythMaterialRules.surfaceNoiseBlock(Blocks.YELLOW_TERRACOTTA, -0.15, 0), AylythMaterialRules.surfaceNoiseBlock(Blocks.ORANGE_TERRACOTTA, 0, 0.3), AylythMaterialRules.surfaceNoiseBlock(Blocks.RED_TERRACOTTA, 0.3, 0.6), AylythMaterialRules.surfaceNoiseBlock(Blocks.TERRACOTTA, 0.6, 0.8), AylythMaterialRules.surfaceNoiseBlock(Blocks.DEEPSLATE, 0.8, 2.0));
     }
 
     static MaterialRules.MaterialRule emptyRules() {
