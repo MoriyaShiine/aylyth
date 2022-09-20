@@ -137,7 +137,7 @@ public class AylythDensityFunctionTypes {
     }
 
     static DensityFunction slopedCheese() {
-        return  add(
+        return add(
                 mul(
                         constant(4.0),
                         mul(
