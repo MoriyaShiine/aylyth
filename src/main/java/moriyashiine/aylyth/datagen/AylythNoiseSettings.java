@@ -172,18 +172,13 @@ public class AylythNoiseSettings {
     static MaterialRules.MaterialRule materialRules() {
         var dirt = MaterialRules.block(defaultState(Blocks.DIRT));
         var grass = MaterialRules.block(defaultState(Blocks.GRASS_BLOCK));
-        var onReplaceWaterWithGrass = MaterialRules.condition(MaterialRules.water(-1, 0), grass);
-        var onFloor = MaterialRules.condition(MaterialRules.STONE_DEPTH_FLOOR, MaterialRules.sequence(onReplaceWaterWithGrass, dirt));
-        var onUnderFloor = MaterialRules.condition(MaterialRules.STONE_DEPTH_FLOOR_WITH_SURFACE_DEPTH, dirt);
-        var onSurface = MaterialRules.condition(MaterialRules.stoneDepth(0, false, 0, VerticalSurfaceType.FLOOR), MaterialRules.sequence(onFloor, onUnderFloor));
-        var aboveBasicSurface = MaterialRules.condition(MaterialRules.surface(), onSurface);
+        var onReplaceWithGrass = MaterialRules.condition(MaterialRules.water(0, 0), grass);
+        var onSurface = MaterialRules.condition(MaterialRules.stoneDepth(0, false, 0, VerticalSurfaceType.FLOOR), MaterialRules.condition(MaterialRules.water(-1, 0), MaterialRules.sequence(onReplaceWithGrass, dirt)));
+        var onUnderSurface = MaterialRules.condition(MaterialRules.waterWithStoneDepth(-6, -1), MaterialRules.condition(MaterialRules.stoneDepth(0, true, 0, VerticalSurfaceType.FLOOR), dirt));
+        var aboveBasicSurface = MaterialRules.condition(MaterialRules.surface(), MaterialRules.sequence(onSurface, onUnderSurface));
         var bedrock = MaterialRules.condition(MaterialRules.verticalGradient("aylyth:bedrock_layer", YOffset.BOTTOM, YOffset.aboveBottom(5)), MaterialRules.block(defaultState(Blocks.BEDROCK)));
-        var uplands = MaterialRules.condition(MaterialRules.biome(ModBiomes.UPLANDS_ID), MaterialRules.condition(MaterialRules.surface(), MaterialRules.condition(MaterialRules.stoneDepth(0, false, 0, VerticalSurfaceType.FLOOR), uplandsTerracotta())));
+        var uplands = MaterialRules.condition(MaterialRules.biome(ModBiomes.UPLANDS_ID), MaterialRules.condition(MaterialRules.surface(), MaterialRules.condition(MaterialRules.stoneDepth(0, false, 0, VerticalSurfaceType.FLOOR), AylythMaterialRules.uplandsTerracotta())));
         return MaterialRules.sequence(bedrock, uplands, aboveBasicSurface);
-    }
-
-    static MaterialRules.MaterialRule uplandsTerracotta() {
-        return MaterialRules.sequence(AylythMaterialRules.surfaceNoiseBlock(Blocks.DEEPSLATE, -2, -0.6), AylythMaterialRules.surfaceNoiseBlock(Blocks.BROWN_TERRACOTTA, -0.6, -0.15), AylythMaterialRules.surfaceNoiseBlock(Blocks.YELLOW_TERRACOTTA, -0.15, 0), AylythMaterialRules.surfaceNoiseBlock(Blocks.ORANGE_TERRACOTTA, 0, 0.3), AylythMaterialRules.surfaceNoiseBlock(Blocks.RED_TERRACOTTA, 0.3, 0.6), AylythMaterialRules.surfaceNoiseBlock(Blocks.TERRACOTTA, 0.6, 0.8), AylythMaterialRules.surfaceNoiseBlock(Blocks.DEEPSLATE, 0.8, 2.0));
     }
 
     static MaterialRules.MaterialRule emptyRules() {

@@ -33,7 +33,9 @@
   },
   "features": [
     [],
-    [],
+    [
+      "aylyth:spring"
+    ],
     [],
     [],
     [],
