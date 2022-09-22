@@ -6,22 +6,16 @@
       "minecraft:canyon"
     ]
   },
-  "downfall": 0.8,
+  "downfall": 0.3,
   "effects": {
     "fog_color": 6710886,
     "foliage_color": 6455096,
-    "grass_color": 10598984,
+    "grass_color": 11896891,
     "mood_sound": {
       "block_search_extent": 8,
       "offset": 2.0,
       "sound": "minecraft:ambient.cave",
       "tick_delay": 6000
-    },
-    "particle": {
-      "options": {
-        "type": "aylyth:ambient_pilot_light"
-      },
-      "probability": 0.0025
     },
     "sky_color": 0,
     "water_color": 4159204,
@@ -46,15 +40,9 @@
     [
       "minecraft:spring_water",
       "minecraft:spring_lava"
-    ],
-    [
-      "minecraft:patch_grass_plain"
-    ],
-    [
-      "minecraft:freeze_top_layer"
     ]
   ],
-  "precipitation": "rain",
+  "precipitation": "none",
   "spawn_costs": {},
   "spawners": {
     "ambient": [],
@@ -66,5 +54,5 @@
     "water_ambient": [],
     "water_creature": []
   },
-  "temperature": 0.7
+  "temperature": 0.8
 }
