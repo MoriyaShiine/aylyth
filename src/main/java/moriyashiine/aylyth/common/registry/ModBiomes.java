@@ -15,6 +15,7 @@ import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.carver.ConfiguredCarvers;
 import net.minecraft.world.gen.feature.ConfiguredFeatures;
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
+import net.minecraft.world.gen.feature.OrePlacedFeatures;
 import net.minecraft.world.gen.feature.VegetationPlacedFeatures;
 import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder;
 
@@ -50,6 +51,7 @@ public class ModBiomes {
 	private static Biome createClearing(boolean overgrown, SpawnSettings.Builder spawnSettings) {
 		GenerationSettings.Builder builder = new GenerationSettings.Builder();
 		addLandCarversNotLavaLakes(builder);
+		addBasicVanillaOres(builder);
 //		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.CLEARING_FLOWERS);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_GRASS_PLAIN);
 		if (overgrown) {
@@ -70,6 +72,7 @@ public class ModBiomes {
 	private static Biome createForest(boolean deep, SpawnSettings.Builder spawnSettings) {
 		GenerationSettings.Builder builder = new GenerationSettings.Builder();
 		addLandCarversNotLavaLakes(builder);
+		addBasicVanillaOres(builder);
 		builder.feature(GenerationStep.Feature.LAKES, ModPlacedFeatures.SPRING);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, deep ? ModVegetationFeatures.DEEP_ROOF_TREES_PLACED : ModPlacedFeatures.AYLYTHIAN_DARK_OAK);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, deep ? ModVegetationFeatures.DEEPWOOD_TREES_PLACED : ModVegetationFeatures.COPSE_TREES_PLACED);
@@ -91,6 +94,7 @@ public class ModBiomes {
 	private static Biome createConiferousForest(boolean deep, SpawnSettings.Builder spawnSettings) {
 		GenerationSettings.Builder builder = new GenerationSettings.Builder();
 		addLandCarversNotLavaLakes(builder);
+		addBasicVanillaOres(builder);
 		DefaultBiomeFeatures.addForestFlowers(builder);
 		builder.feature(GenerationStep.Feature.LAKES, ModPlacedFeatures.SPRING);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_GRASS_TAIGA);
@@ -110,6 +114,7 @@ public class ModBiomes {
 	private static Biome createUplands(SpawnSettings.Builder spawnSettings) {
 		GenerationSettings.Builder builder = new GenerationSettings.Builder();
 		addLandCarversNotLavaLakes(builder);
+		addBasicVanillaOres(builder);
 		DefaultBiomeFeatures.addSprings(builder);
 		return new Biome.Builder().precipitation(Biome.Precipitation.NONE).temperature(0.8f).downfall(0.3f).effects(new BiomeEffects.Builder().foliageColor(AYLYTHIAN_FOLIAGE_COLOR).grassColor(0xB5883B).waterColor(WATER_COLOR).waterFogColor(UNDERWATER_COLOR).fogColor(FOG_COLOR).skyColor(SKY_COLOR).moodSound(BiomeMoodSound.CAVE).build()).spawnSettings(spawnSettings.build()).generationSettings(builder.build()).build();
 	}
@@ -118,5 +123,14 @@ public class ModBiomes {
 		builder.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.CAVE);
 		builder.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.CAVE_EXTRA_UNDERGROUND);
 		builder.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.CANYON);
+	}
+
+	private static void addBasicVanillaOres(GenerationSettings.Builder builder) {
+		builder.feature(GenerationStep.Feature.UNDERGROUND_ORES, OrePlacedFeatures.ORE_COAL_UPPER);
+		builder.feature(GenerationStep.Feature.UNDERGROUND_ORES, OrePlacedFeatures.ORE_COAL_LOWER);
+		builder.feature(GenerationStep.Feature.UNDERGROUND_ORES, OrePlacedFeatures.ORE_IRON_UPPER);
+		builder.feature(GenerationStep.Feature.UNDERGROUND_ORES, OrePlacedFeatures.ORE_IRON_MIDDLE);
+		builder.feature(GenerationStep.Feature.UNDERGROUND_ORES, OrePlacedFeatures.ORE_IRON_SMALL);
+		builder.feature(GenerationStep.Feature.UNDERGROUND_ORES, OrePlacedFeatures.ORE_COPPER);
 	}
 }
