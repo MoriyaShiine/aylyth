@@ -53,7 +53,7 @@ public class ModBiomes {
 //		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.CLEARING_FLOWERS);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_GRASS_PLAIN);
 		if (overgrown) {
-//			builder.feature(GenerationStep.Feature.LAKES, ModPlacedFeatures.SPRING);
+			builder.feature(GenerationStep.Feature.LAKES, ModPlacedFeatures.SPRING);
 			builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModVegetationFeatures.OVERGROWTH_CLEARING_TREES_PLACED);
 			builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.BUSHES);
 			builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_TALL_GRASS);
@@ -70,7 +70,7 @@ public class ModBiomes {
 	private static Biome createForest(boolean deep, SpawnSettings.Builder spawnSettings) {
 		GenerationSettings.Builder builder = new GenerationSettings.Builder();
 		addLandCarversNotLavaLakes(builder);
-//		builder.feature(GenerationStep.Feature.LAKES, ModPlacedFeatures.SPRING);
+		builder.feature(GenerationStep.Feature.LAKES, ModPlacedFeatures.SPRING);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, deep ? ModVegetationFeatures.DEEP_ROOF_TREES_PLACED : ModPlacedFeatures.AYLYTHIAN_DARK_OAK);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, deep ? ModVegetationFeatures.DEEPWOOD_TREES_PLACED : ModVegetationFeatures.COPSE_TREES_PLACED);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_GRASS_TAIGA);
@@ -92,7 +92,7 @@ public class ModBiomes {
 		GenerationSettings.Builder builder = new GenerationSettings.Builder();
 		addLandCarversNotLavaLakes(builder);
 		DefaultBiomeFeatures.addForestFlowers(builder);
-//		builder.feature(GenerationStep.Feature.LAKES, ModPlacedFeatures.SPRING);
+		builder.feature(GenerationStep.Feature.LAKES, ModPlacedFeatures.SPRING);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_GRASS_TAIGA);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.AYLYTH_WEEDS);
 		if (deep) {
