@@ -95,7 +95,7 @@ public class Aylyth implements ModInitializer {
 			}
 		});
 		ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, newPlayer, alive) -> {
-			if (oldPlayer.world.getRegistryKey().equals(ModDimensions.AYLYTH_DIMENSION_KEY)) {
+			if (oldPlayer.world.getRegistryKey().equals(ModDimensions.AYLYTH)) {
 				AylythUtil.teleportTo(ModDimensions.AYLYTH, newPlayer, 0);
 			}
 		});
