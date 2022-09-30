@@ -94,7 +94,11 @@ public class Aylyth implements ModInitializer {
 				}
 			}
 		});
-		ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, newPlayer, alive) -> AylythUtil.teleportTo(ModDimensions.AYLYTH, newPlayer, 0));
+		ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, newPlayer, alive) -> {
+			if (oldPlayer.world.getRegistryKey().equals(ModDimensions.AYLYTH_DIMENSION_KEY)) {
+				AylythUtil.teleportTo(ModDimensions.AYLYTH, newPlayer, 0);
+			}
+		});
 		ServerPlayerEvents.ALLOW_DEATH.register((player, damageSource, damageAmount) -> {
 			if (damageSource.isOutOfWorld() && damageSource != ModDamageSources.YMPE) {
 				return true;
