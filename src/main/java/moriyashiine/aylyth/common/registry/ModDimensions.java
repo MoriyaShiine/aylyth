@@ -21,7 +21,7 @@ public class ModDimensions {
 	//refer to json files in data
 	public static final RegistryKey<DimensionOptions> AYLYTH_DIMENSION_KEY = RegistryKey.of(Registry.DIMENSION_KEY, new Identifier(Aylyth.MOD_ID, "aylyth"));
 	
-	public static RegistryKey<World> AYLYTH = RegistryKey.of(Registry.WORLD_KEY, AYLYTH_DIMENSION_KEY.getValue());
+	public static final RegistryKey<World> AYLYTH = RegistryKey.of(Registry.WORLD_KEY, AYLYTH_DIMENSION_KEY.getValue());
 
 	static {
 		Registry.register(Registry.BIOME_SOURCE, new Identifier(Aylyth.MOD_ID, "aylyth_biome_provider"), AylythBiomeSource.CODEC);
