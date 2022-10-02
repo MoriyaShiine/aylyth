@@ -40,6 +40,7 @@ public class ModItems {
 	public static final Item CORIC_SEED = new Item(settings());
 	
 	public static final Item NYSIAN_GRAPE_VINE = new BlockItem(ModBlocks.NYSIAN_GRAPE_VINE, settings());
+	public static final Item MARIGOLD = new BlockItem(ModBlocks.MARIGOLD, settings());
 	
 	public static final Item OAK_SEEP = new BlockItem(ModBlocks.OAK_SEEP, settings());
 	public static final Item SPRUCE_SEEP = new BlockItem(ModBlocks.SPRUCE_SEEP, settings());
@@ -53,7 +54,7 @@ public class ModItems {
 	public static final Item SHUCKED_YMPE_FRUIT = new ShuckedYmpeFruitItem(settings().maxCount(1));
 	
 	public static final Item NYSIAN_GRAPES = new Item(settings().food(ModFoodComponents.NYSIAN_GRAPES));
-	
+
 	public static final Item AYLYTHIAN_HEART = new AylythianHeartItem(settings());
 	
 	public static Item PILOT_LIGHT_SPAWN_EGG = new SpawnEggItem(ModEntityTypes.PILOT_LIGHT, 0xFFD972, 0x9FD9F6, settings());
@@ -88,6 +89,7 @@ public class ModItems {
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "gripweed"), GRIPWEED);
 		
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "nysian_grape_vine"), NYSIAN_GRAPE_VINE);
+		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "marigolds"), MARIGOLD);
 		
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "oak_seep"), OAK_SEEP);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "spruce_seep"), SPRUCE_SEEP);
