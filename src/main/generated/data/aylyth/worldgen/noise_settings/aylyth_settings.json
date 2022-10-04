@@ -291,11 +291,10 @@
           "then_run": {
             "type": "minecraft:condition",
             "if_true": {
-              "type": "minecraft:stone_depth",
-              "add_surface_depth": false,
-              "offset": 0,
-              "secondary_depth_range": 0,
-              "surface_type": "floor"
+              "type": "minecraft:water",
+              "add_stone_depth": true,
+              "offset": 6,
+              "surface_depth_multiplier": 1
             },
             "then_run": {
               "type": "minecraft:sequence",
@@ -475,24 +474,36 @@
             {
               "type": "minecraft:condition",
               "if_true": {
-                "type": "minecraft:water",
-                "add_stone_depth": true,
-                "offset": -6,
-                "surface_depth_multiplier": -1
+                "type": "minecraft:not",
+                "invert": {
+                  "type": "minecraft:biome",
+                  "biome_is": [
+                    "aylyth:uplands"
+                  ]
+                }
               },
               "then_run": {
                 "type": "minecraft:condition",
                 "if_true": {
-                  "type": "minecraft:stone_depth",
-                  "add_surface_depth": true,
-                  "offset": 0,
-                  "secondary_depth_range": 0,
-                  "surface_type": "floor"
+                  "type": "minecraft:water",
+                  "add_stone_depth": true,
+                  "offset": -6,
+                  "surface_depth_multiplier": -1
                 },
                 "then_run": {
-                  "type": "minecraft:block",
-                  "result_state": {
-                    "Name": "minecraft:dirt"
+                  "type": "minecraft:condition",
+                  "if_true": {
+                    "type": "minecraft:stone_depth",
+                    "add_surface_depth": true,
+                    "offset": 0,
+                    "secondary_depth_range": 0,
+                    "surface_type": "floor"
+                  },
+                  "then_run": {
+                    "type": "minecraft:block",
+                    "result_state": {
+                      "Name": "minecraft:dirt"
+                    }
                   }
                 }
               }
