@@ -1,4 +1,4 @@
-// 1.19.2	2022-10-01T21:45:58.6354209	Aylyth worldgen generator
+// 1.19.2	2022-10-04T15:19:05.1813079	Aylyth worldgen generator
 8744a71e744467476695e7187e606ab49bc9fbb2 data\aylyth\worldgen\density_function\ridges_folded.json
 e38d87100c4597954814864944a34e4d1e0ede26 data\aylyth\worldgen\placed_feature\copse_trees.json
 0b9f654b23136a3c52ef8b00e58fc4cc0ecda41a data\aylyth\worldgen\noise\temperature.json
@@ -37,7 +37,7 @@ aa0b19fb4a1114631aaf05f9ed5b30dcdd6ccb71 data\aylyth\worldgen\configured_feature
 628a0fdb9dfa22e40e3f6e2cae7035260c893999 data\aylyth\worldgen\noise\spaghetti_2d_modulator.json
 288555a9268cf3404a3630578ced167bb1c1287d data\aylyth\worldgen\configured_feature\dark_oak_seep.json
 12727fb17687d77b8861bd8507703eb96c5b9826 data\aylyth\worldgen\density_function\depth.json
-072a9bf8d4ed9cc4fae7fa990580d83bfbbc7794 data\aylyth\worldgen\placed_feature\ympe_seep.json
+10d50eb8e76d7fd7e37b92a038bcd1a391e36e17 data\aylyth\worldgen\placed_feature\ympe_seep.json
 694f0faf0443622b316544e408e8eb209adccb45 data\aylyth\worldgen\placed_feature\spruce_seep.json
 0d1eec5ac7459e792b9f6bb63b89fb8aba0af9e5 data\aylyth\worldgen\placed_feature\big_ympe_tree.json
 dee3d1cb549513644a534b3d41b89380ace745a2 data\aylyth\worldgen\noise\pillar_rareness.json
@@ -59,7 +59,7 @@ eb52ed5e4fb323f7996ae226a1b78fb4bf236e9e data\aylyth\worldgen\configured_feature
 5f5d2f0070cc25fea05257cd3e060e105f3c6950 data\aylyth\worldgen\configured_feature\spruce_seep.json
 f819fb29070e13882767d5ea75439dde044abd17 data\aylyth\worldgen\noise\spaghetti_2d.json
 83456aba97ed7cc7ba9c75fae81d8cc7b5372802 data\aylyth\worldgen\biome\uplands.json
-084329b256f64dffdab34d9bdc04a69fd8441eb4 data\aylyth\worldgen\noise_settings\aylyth_settings.json
+61bfd3c63c828b0bfe3e8a3e862f9b1892a26383 data\aylyth\worldgen\noise_settings\aylyth_settings.json
 6d3163b5d765c759b3dbf6f993342db056dfaea9 data\aylyth\worldgen\noise\spaghetti_2d_roughness.json
 0783fccef867e6d52d5874dc7f2282b6f4f08f14 data\aylyth\worldgen\configured_feature\ympe_tree.json
 e3be7f2202ae1ac63432b170360505f45d0f1a73 data\aylyth\worldgen\density_function\shift_z.json
