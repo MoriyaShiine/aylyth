@@ -55,6 +55,7 @@
     ],
     [
       "minecraft:patch_grass_plain",
+      "aylyth:marigolds",
       "aylyth:overgrowth_clearing_trees",
       "aylyth:bushes",
       "minecraft:patch_tall_grass"

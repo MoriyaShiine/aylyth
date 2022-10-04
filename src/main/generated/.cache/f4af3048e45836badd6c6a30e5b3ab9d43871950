@@ -1,14 +1,16 @@
-// 1.19.2	2022-09-21T21:39:32.345054	Aylyth worldgen generator
+// 1.19.2	2022-10-01T21:45:58.6354209	Aylyth worldgen generator
 8744a71e744467476695e7187e606ab49bc9fbb2 data\aylyth\worldgen\density_function\ridges_folded.json
 e38d87100c4597954814864944a34e4d1e0ede26 data\aylyth\worldgen\placed_feature\copse_trees.json
 0b9f654b23136a3c52ef8b00e58fc4cc0ecda41a data\aylyth\worldgen\noise\temperature.json
 fddd402921f45097d2ae9120efc830996d646dee data\aylyth\worldgen\noise\cave_entrances.json
 90a8769283f5bc83c80b84d2c5f0d2e1e6d32803 data\aylyth\worldgen\density_function\erosion.json
 50956e75677f498365f09c173c61c2f1aaa9d89a data\aylyth\worldgen\noise\surface.json
+d42820a5bc85e178c9d9a8a37c7d8b2624083bb6 data\aylyth\worldgen\configured_feature\marigolds.json
 85793845cf762ecbe362965c21f359f5c3fd6709 data\aylyth\worldgen\configured_feature\deepwood_trees.json
 ccab11ff615690a29da95ad6b1afff55821b8f28 data\aylyth\worldgen\configured_feature\overgrowth_clearing_trees.json
 f819fb29070e13882767d5ea75439dde044abd17 data\aylyth\worldgen\noise\spaghetti_3d_1.json
 dee3d1cb549513644a534b3d41b89380ace745a2 data\aylyth\worldgen\noise\cave_layer.json
+85bd6a56b18fe2831f96fbf88b782e777d5f2258 data\aylyth\worldgen\placed_feature\marigolds.json
 a5def2bc5d88efc5e90a6567a844962e7d73c99b data\aylyth\worldgen\density_function\shift_x.json
 08c772dec04acd6340fda867542be50cf5f3544a data\aylyth\worldgen\configured_feature\spring.json
 134cce1d85277dade67a68993c494fddefff6fe7 data\aylyth\worldgen\density_function\caves\spaghetti_roughness.json
@@ -17,7 +19,7 @@ a5def2bc5d88efc5e90a6567a844962e7d73c99b data\aylyth\worldgen\density_function\s
 d6939b4c491a165e9e6ee72997a015405e8be1a3 data\aylyth\worldgen\noise\erosion.json
 144e6875c7c48ab4b4a0717436536cc121dc62da data\aylyth\worldgen\noise\vegetation.json
 6343377a381850f8af270ec96142795d72d4f00c data\aylyth\worldgen\density_function\caves\spaghetti_2d_thickness_modulator.json
-414cba2ddf397b803db026d57eccf49901b7c217 data\aylyth\worldgen\biome\clearing.json
+82915144bfe1fa4177a34c3879aa243855c51555 data\aylyth\worldgen\biome\clearing.json
 bde346cb2cfa360479cdd7e6a571d3e2494863d5 data\aylyth\worldgen\placed_feature\overgrowth_clearing_trees.json
 58153671f90d9c7dcd9ce141e6baf22c18f8d043 data\aylyth\worldgen\biome\coniferous_copse.json
 27561d2aa1531c9f22cf60d407e2404f8855fa4c data\aylyth\worldgen\placed_feature\aylythian_dark_oak.json
@@ -65,7 +67,7 @@ e3be7f2202ae1ac63432b170360505f45d0f1a73 data\aylyth\worldgen\density_function\s
 db849fab72a9bf4189b8c17271631ab1e7fb4c1e data\aylyth\worldgen\placed_feature\oak_seep.json
 37d431c14140eb20b3b6f667e7fca784777d73c9 data\aylyth\worldgen\density_function\sloped_cheese.json
 f5c8d87897004fb2b6b0022a4068608fc26c8a2e data\aylyth\worldgen\configured_feature\big_ympe_tree.json
-497f77ccc1f09d48c8d00d1937b7424f901f6380 data\aylyth\worldgen\biome\overgrown_clearing.json
+70a46a19ca208807ccd70c8ec7535a182b08d575 data\aylyth\worldgen\biome\overgrown_clearing.json
 b6a5314e9f81fc3a4b2fd924de9ddb5aff4e0aa2 data\aylyth\worldgen\configured_feature\bushes.json
 67b6e16d3e938ca21926a5b316d5a0533e9ad169 data\aylyth\worldgen\placed_feature\dark_oak_seep.json
 e1ed821bb4867aeb7821a25e0dc660f64cc974eb data\aylyth\worldgen\configured_feature\aylyth_weeds.json

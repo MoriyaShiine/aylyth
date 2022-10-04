@@ -54,6 +54,7 @@ public class ModBiomes {
 		addBasicVanillaOres(builder);
 //		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.CLEARING_FLOWERS);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_GRASS_PLAIN);
+		addMarigolds(builder);
 		if (overgrown) {
 			builder.feature(GenerationStep.Feature.LAKES, ModPlacedFeatures.SPRING);
 			builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModVegetationFeatures.OVERGROWTH_CLEARING_TREES_PLACED);
@@ -87,7 +88,7 @@ public class ModBiomes {
 		DefaultBiomeFeatures.addDefaultMushrooms(builder);
 		DefaultBiomeFeatures.addSprings(builder);
 		DefaultBiomeFeatures.addFrozenTopLayer(builder);
-		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.YMPE_SEEP);
+		builder.feature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, ModPlacedFeatures.YMPE_SEEP);
 		return new Biome.Builder().precipitation(Biome.Precipitation.RAIN).temperature(0.7F).downfall(0.8F).effects(new BiomeEffects.Builder().foliageColor(deep ? DEEP_AYLYTHIAN_FOLIAGE_COLOR : AYLYTHIAN_FOLIAGE_COLOR).grassColor(deep ? 0xAD6903 : 0xB5883B).waterColor(WATER_COLOR).waterFogColor(UNDERWATER_COLOR).fogColor(FOG_COLOR).skyColor(SKY_COLOR).moodSound(BiomeMoodSound.CAVE).particleConfig(new BiomeParticleConfig(ParticleTypes.MYCELIUM, deep ? 0.1F : 0.025F)).additionsSound(FOREST_AMBIANCE).build()).spawnSettings(spawnSettings.build()).generationSettings(builder.build()).build();
 	}
 	
@@ -107,7 +108,7 @@ public class ModBiomes {
 		DefaultBiomeFeatures.addDefaultMushrooms(builder);
 		DefaultBiomeFeatures.addSprings(builder);
 		DefaultBiomeFeatures.addFrozenTopLayer(builder);
-		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.YMPE_SEEP);
+		builder.feature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, ModPlacedFeatures.YMPE_SEEP);
 		return new Biome.Builder().precipitation(Biome.Precipitation.RAIN).temperature(0.7F).downfall(0.8F).effects(new BiomeEffects.Builder().foliageColor(deep ? DEEP_AYLYTHIAN_FOLIAGE_COLOR : AYLYTHIAN_FOLIAGE_COLOR).grassColor(deep ? 0x3E682B : 0x4D7C44).waterColor(WATER_COLOR).waterFogColor(UNDERWATER_COLOR).fogColor(FOG_COLOR).skyColor(SKY_COLOR).moodSound(BiomeMoodSound.CAVE).particleConfig(new BiomeParticleConfig(ParticleTypes.MYCELIUM, deep ? 0.1F : 0.025F)).additionsSound(FOREST_AMBIANCE).build()).spawnSettings(spawnSettings.build()).generationSettings(builder.build()).build();
 	}
 
@@ -132,5 +133,9 @@ public class ModBiomes {
 		builder.feature(GenerationStep.Feature.UNDERGROUND_ORES, OrePlacedFeatures.ORE_IRON_MIDDLE);
 		builder.feature(GenerationStep.Feature.UNDERGROUND_ORES, OrePlacedFeatures.ORE_IRON_SMALL);
 		builder.feature(GenerationStep.Feature.UNDERGROUND_ORES, OrePlacedFeatures.ORE_COPPER);
+	}
+
+	private static void addMarigolds(GenerationSettings.Builder builder) {
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.MARIGOLDS);
 	}
 }

@@ -48,7 +48,8 @@
       "minecraft:spring_lava"
     ],
     [
-      "minecraft:patch_grass_plain"
+      "minecraft:patch_grass_plain",
+      "aylyth:marigolds"
     ],
     [
       "minecraft:freeze_top_layer"
