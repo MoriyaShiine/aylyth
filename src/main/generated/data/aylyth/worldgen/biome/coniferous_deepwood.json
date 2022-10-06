@@ -34,15 +34,20 @@
   "features": [
     [],
     [
-      "minecraft:lake_lava_underground",
-      "minecraft:lake_lava_surface",
       "aylyth:spring"
     ],
     [],
     [],
     [],
     [],
-    [],
+    [
+      "minecraft:ore_coal_upper",
+      "minecraft:ore_coal_lower",
+      "minecraft:ore_iron_upper",
+      "minecraft:ore_iron_middle",
+      "minecraft:ore_iron_small",
+      "minecraft:ore_copper"
+    ],
     [],
     [
       "minecraft:spring_water",

@@ -12,8 +12,10 @@ import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.GenerationStep;
+import net.minecraft.world.gen.carver.ConfiguredCarvers;
 import net.minecraft.world.gen.feature.ConfiguredFeatures;
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
+import net.minecraft.world.gen.feature.OrePlacedFeatures;
 import net.minecraft.world.gen.feature.VegetationPlacedFeatures;
 import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder;
 
@@ -29,12 +31,14 @@ public class ModBiomes {
 	public static final RegistryKey<Biome> DEEPWOOD_ID = RegistryKey.of(Registry.BIOME_KEY, new Identifier(Aylyth.MOD_ID, "deepwood"));
 	public static final RegistryKey<Biome> CONIFEROUS_COPSE_ID = RegistryKey.of(Registry.BIOME_KEY, new Identifier(Aylyth.MOD_ID, "coniferous_copse"));
 	public static final RegistryKey<Biome> CONIFEROUS_DEEPWOOD_ID = RegistryKey.of(Registry.BIOME_KEY, new Identifier(Aylyth.MOD_ID, "coniferous_deepwood"));
+	public static final RegistryKey<Biome> UPLANDS_ID = RegistryKey.of(Registry.BIOME_KEY, new Identifier(Aylyth.MOD_ID, "uplands"));
 	public static final RegistryEntry<Biome> CLEARING = BuiltinRegistries.addCasted(BuiltinRegistries.BIOME, CLEARING_ID.getValue().toString(), createClearing(false, new SpawnSettings.Builder()));
 	public static final RegistryEntry<Biome> OVERGROWN_CLEARING = BuiltinRegistries.addCasted(BuiltinRegistries.BIOME, OVERGROWN_CLEARING_ID.getValue().toString(), createClearing(true, new SpawnSettings.Builder().spawn(SpawnGroup.AMBIENT, new SpawnSettings.SpawnEntry(ModEntityTypes.PILOT_LIGHT, 1, 1, 1)).creatureSpawnProbability(0.1F)));
 	public static final RegistryEntry<Biome> COPSE = BuiltinRegistries.addCasted(BuiltinRegistries.BIOME, COPSE_ID.getValue().toString(), createForest(false, COPSE_MOBS));
 	public static final RegistryEntry<Biome> DEEPWOOD = BuiltinRegistries.addCasted(BuiltinRegistries.BIOME, DEEPWOOD_ID.getValue().toString(), createForest(true, DEEPWOOD_MOBS));
 	public static final RegistryEntry<Biome> CONIFEROUS_COPSE = BuiltinRegistries.addCasted(BuiltinRegistries.BIOME, CONIFEROUS_COPSE_ID.getValue().toString(), createConiferousForest(false, COPSE_MOBS));
 	public static final RegistryEntry<Biome> CONIFEROUS_DEEPWOOD = BuiltinRegistries.addCasted(BuiltinRegistries.BIOME, CONIFEROUS_DEEPWOOD_ID.getValue().toString(), createConiferousForest(true, DEEPWOOD_MOBS));
+	public static final RegistryEntry<Biome> UPLANDS = BuiltinRegistries.addCasted(BuiltinRegistries.BIOME, UPLANDS_ID.getValue().toString(), createUplands(new SpawnSettings.Builder()));
 	private static final int AYLYTHIAN_FOLIAGE_COLOR = 0x627F38;
 	private static final int DEEP_AYLYTHIAN_FOLIAGE_COLOR = 0x9E811A;
 	private static final int WATER_COLOR = 4159204;
@@ -46,9 +50,11 @@ public class ModBiomes {
 	
 	private static Biome createClearing(boolean overgrown, SpawnSettings.Builder spawnSettings) {
 		GenerationSettings.Builder builder = new GenerationSettings.Builder();
-		DefaultBiomeFeatures.addLandCarvers(builder);
+		addLandCarversNotLavaLakes(builder);
+		addBasicVanillaOres(builder);
 //		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.CLEARING_FLOWERS);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_GRASS_PLAIN);
+		addMarigolds(builder);
 		if (overgrown) {
 			builder.feature(GenerationStep.Feature.LAKES, ModPlacedFeatures.SPRING);
 			builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModVegetationFeatures.OVERGROWTH_CLEARING_TREES_PLACED);
@@ -66,7 +72,8 @@ public class ModBiomes {
 	
 	private static Biome createForest(boolean deep, SpawnSettings.Builder spawnSettings) {
 		GenerationSettings.Builder builder = new GenerationSettings.Builder();
-		DefaultBiomeFeatures.addLandCarvers(builder);
+		addLandCarversNotLavaLakes(builder);
+		addBasicVanillaOres(builder);
 		builder.feature(GenerationStep.Feature.LAKES, ModPlacedFeatures.SPRING);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, deep ? ModVegetationFeatures.DEEP_ROOF_TREES_PLACED : ModPlacedFeatures.AYLYTHIAN_DARK_OAK);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, deep ? ModVegetationFeatures.DEEPWOOD_TREES_PLACED : ModVegetationFeatures.COPSE_TREES_PLACED);
@@ -87,7 +94,8 @@ public class ModBiomes {
 	
 	private static Biome createConiferousForest(boolean deep, SpawnSettings.Builder spawnSettings) {
 		GenerationSettings.Builder builder = new GenerationSettings.Builder();
-		DefaultBiomeFeatures.addLandCarvers(builder);
+		addLandCarversNotLavaLakes(builder);
+		addBasicVanillaOres(builder);
 		DefaultBiomeFeatures.addForestFlowers(builder);
 		builder.feature(GenerationStep.Feature.LAKES, ModPlacedFeatures.SPRING);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_GRASS_TAIGA);
@@ -102,5 +110,32 @@ public class ModBiomes {
 		DefaultBiomeFeatures.addFrozenTopLayer(builder);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.YMPE_SEEP);
 		return new Biome.Builder().precipitation(Biome.Precipitation.RAIN).temperature(0.7F).downfall(0.8F).effects(new BiomeEffects.Builder().foliageColor(deep ? DEEP_AYLYTHIAN_FOLIAGE_COLOR : AYLYTHIAN_FOLIAGE_COLOR).grassColor(deep ? 0x3E682B : 0x4D7C44).waterColor(WATER_COLOR).waterFogColor(UNDERWATER_COLOR).fogColor(FOG_COLOR).skyColor(SKY_COLOR).moodSound(BiomeMoodSound.CAVE).particleConfig(new BiomeParticleConfig(ParticleTypes.MYCELIUM, deep ? 0.1F : 0.025F)).additionsSound(FOREST_AMBIANCE).build()).spawnSettings(spawnSettings.build()).generationSettings(builder.build()).build();
+	}
+
+	private static Biome createUplands(SpawnSettings.Builder spawnSettings) {
+		GenerationSettings.Builder builder = new GenerationSettings.Builder();
+		addLandCarversNotLavaLakes(builder);
+		addBasicVanillaOres(builder);
+		DefaultBiomeFeatures.addSprings(builder);
+		return new Biome.Builder().precipitation(Biome.Precipitation.NONE).temperature(0.8f).downfall(0.3f).effects(new BiomeEffects.Builder().foliageColor(AYLYTHIAN_FOLIAGE_COLOR).grassColor(0xB5883B).waterColor(WATER_COLOR).waterFogColor(UNDERWATER_COLOR).fogColor(FOG_COLOR).skyColor(SKY_COLOR).moodSound(BiomeMoodSound.CAVE).build()).spawnSettings(spawnSettings.build()).generationSettings(builder.build()).build();
+	}
+
+	private static void addLandCarversNotLavaLakes(GenerationSettings.Builder builder) {
+		builder.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.CAVE);
+		builder.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.CAVE_EXTRA_UNDERGROUND);
+		builder.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.CANYON);
+	}
+
+	private static void addBasicVanillaOres(GenerationSettings.Builder builder) {
+		builder.feature(GenerationStep.Feature.UNDERGROUND_ORES, OrePlacedFeatures.ORE_COAL_UPPER);
+		builder.feature(GenerationStep.Feature.UNDERGROUND_ORES, OrePlacedFeatures.ORE_COAL_LOWER);
+		builder.feature(GenerationStep.Feature.UNDERGROUND_ORES, OrePlacedFeatures.ORE_IRON_UPPER);
+		builder.feature(GenerationStep.Feature.UNDERGROUND_ORES, OrePlacedFeatures.ORE_IRON_MIDDLE);
+		builder.feature(GenerationStep.Feature.UNDERGROUND_ORES, OrePlacedFeatures.ORE_IRON_SMALL);
+		builder.feature(GenerationStep.Feature.UNDERGROUND_ORES, OrePlacedFeatures.ORE_COPPER);
+	}
+
+	private static void addMarigolds(GenerationSettings.Builder builder) {
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.MARIGOLDS);
 	}
 }

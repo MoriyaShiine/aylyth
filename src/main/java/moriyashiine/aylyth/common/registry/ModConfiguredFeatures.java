@@ -48,6 +48,7 @@ public class ModConfiguredFeatures {
     public static final RegistryEntry<ConfiguredFeature<SingleStateFeatureConfig, ?>> SPRING = register("spring", SPRING_FEATURE, new SingleStateFeatureConfig(Blocks.WATER.getDefaultState()));
     public static final RegistryEntry<ConfiguredFeature<DefaultFeatureConfig, ?>> BUSHES = register("bushes", BUSH_FEATURE, FeatureConfig.DEFAULT);
     public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> AYLYTH_WEEDS = register("aylyth_weeds", Feature.FLOWER, createRandomPatchFeatureConfig(new WeightedBlockStateProvider(DataPool.<BlockState>builder().add(ModBlocks.ANTLER_SHOOTS.getDefaultState(), 5).add(ModBlocks.GRIPWEED.getDefaultState(), 2).build()), 64));
+    public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> MARIGOLDS = register("marigolds", Feature.FLOWER, createRandomPatchFeatureConfig(new WeightedBlockStateProvider(DataPool.<BlockState>builder().add(ModBlocks.MARIGOLD.getDefaultState(), 1).build()), 64));
     //public static final ConfiguredFeature<?, ?> CLEARING_FLOWERS = todo flower generators
 
     public static final RegistryEntry<ConfiguredFeature<SeepFeature.SeepFeatureConfig, ?>> OAK_SEEP = register("oak_seep", SEEP_FEATURE, new SeepFeature.SeepFeatureConfig(Blocks.OAK_LOG.getDefaultState(), ModBlocks.OAK_SEEP.getDefaultState()));

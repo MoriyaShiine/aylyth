@@ -2,6 +2,10 @@
   "feature": "aylyth:ympe_seep",
   "placement": [
     {
+      "type": "minecraft:count",
+      "count": 4
+    },
+    {
       "type": "minecraft:rarity_filter",
       "chance": 10
     },

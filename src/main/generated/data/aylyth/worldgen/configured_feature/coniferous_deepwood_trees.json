@@ -4,14 +4,14 @@
     "default": "minecraft:spruce_checked",
     "features": [
       {
-        "chance": 0.25,
+        "chance": 0.15,
         "feature": {
           "feature": "aylyth:ympe_tree",
           "placement": []
         }
       },
       {
-        "chance": 0.25,
+        "chance": 0.15,
         "feature": "aylyth:big_ympe_tree"
       }
     ]

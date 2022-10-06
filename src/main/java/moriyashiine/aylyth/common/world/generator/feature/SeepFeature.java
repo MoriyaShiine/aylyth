@@ -3,6 +3,8 @@ package moriyashiine.aylyth.common.world.generator.feature;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import moriyashiine.aylyth.common.block.SeepBlock;
+import moriyashiine.aylyth.common.registry.ModBlocks;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
@@ -32,6 +34,14 @@ public class SeepFeature extends Feature<SeepFeature.SeepFeatureConfig> {
 						world.setBlockState(origin, context.getConfig().seepState.with(SeepBlock.CONNECTION, doubleUp ? SeepBlock.Connection.UP : SeepBlock.Connection.NONE), Block.NOTIFY_LISTENERS);
 						if (doubleUp) {
 							world.setBlockState(origin.up(), context.getConfig().seepState.with(SeepBlock.CONNECTION, SeepBlock.Connection.DOWN), Block.NOTIFY_LISTENERS);
+						}
+						// Generate marigolds around seep within radius of 2 blocks away. Done here to avoid having this done by another feature that searches for seeps
+						for (int i = 1; i < 3; i++) {
+							var zOff = context.getRandom().nextInt(3);
+							origin = origin.add(i, 0, zOff);
+							if (context.getRandom().nextFloat() > 0.75F && world.testBlockState(origin, AbstractBlock.AbstractBlockState::isAir) && ModBlocks.MARIGOLD.getDefaultState().canPlaceAt(world, origin)) {
+								world.setBlockState(origin, ModBlocks.MARIGOLD.getDefaultState(), Block.NOTIFY_LISTENERS);
+							}
 						}
 						return true;
 					}

@@ -7,6 +7,7 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.entity.event.v1.ServerEntityCombatEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -32,6 +33,11 @@ import software.bernie.geckolib3.GeckoLib;
 
 public class Aylyth implements ModInitializer {
 	public static final String MOD_ID = "aylyth";
+
+	static final boolean DEBUG_MODE = true;
+	public static boolean isDebugMode() {
+		return DEBUG_MODE && FabricLoader.getInstance().isDevelopmentEnvironment();
+	}
 	
 	@Override
 	public void onInitialize() {
@@ -88,7 +94,11 @@ public class Aylyth implements ModInitializer {
 				}
 			}
 		});
-		ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, newPlayer, alive) -> AylythUtil.teleportTo(ModDimensions.AYLYTH, newPlayer, 0));
+		ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, newPlayer, alive) -> {
+			if (oldPlayer.world.getRegistryKey().equals(ModDimensions.AYLYTH)) {
+				AylythUtil.teleportTo(ModDimensions.AYLYTH, newPlayer, 0);
+			}
+		});
 		ServerPlayerEvents.ALLOW_DEATH.register((player, damageSource, damageAmount) -> {
 			if (damageSource.isOutOfWorld() && damageSource != ModDamageSources.YMPE) {
 				return true;
@@ -147,6 +157,7 @@ public class Aylyth implements ModInitializer {
 			}
 			return true;
 		});
+
 	}
 	
 	private static boolean isNearSeep(PlayerEntity player) {

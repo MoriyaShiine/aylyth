@@ -12,5 +12,6 @@ public class AylythDatagen implements DataGeneratorEntrypoint {
         fabricDataGenerator.addProvider(runClient, ModModelProvider::new);
         fabricDataGenerator.addProvider(runServer, ModBiomeTagProvider::new);
         fabricDataGenerator.addProvider(runServer, ModWorldgenProvider::new);
+        fabricDataGenerator.addProvider(runServer, RecipeDatagen::new);
     }
 }
