@@ -25,7 +25,7 @@ import static net.minecraft.world.gen.densityfunction.DensityFunctionTypes.*;
 
 public class AylythNoiseSettings {
 
-    public static void init() {
+    public static void datagenInit() {
         AylythNoiseTypes.init();
         AylythDensityFunctionTypes.init();
     }

@@ -1,0 +1,15 @@
+{
+  "type": "aylyth:strewn_leaves",
+  "config": {
+    "block": "aylyth:oak_strewn_leaves",
+    "range": 10,
+    "testState": {
+      "Name": "minecraft:dark_oak_leaves",
+      "Properties": {
+        "distance": "7",
+        "persistent": "false",
+        "waterlogged": "false"
+      }
+    }
+  }
+}

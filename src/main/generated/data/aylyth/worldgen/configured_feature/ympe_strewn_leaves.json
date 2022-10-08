@@ -1,0 +1,15 @@
+{
+  "type": "aylyth:strewn_leaves",
+  "config": {
+    "block": "aylyth:ympe_strewn_leaves",
+    "range": 10,
+    "testState": {
+      "Name": "aylyth:ympe_leaves",
+      "Properties": {
+        "distance": "7",
+        "persistent": "false",
+        "waterlogged": "false"
+      }
+    }
+  }
+}

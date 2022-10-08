@@ -14,7 +14,7 @@ import net.minecraft.util.registry.RegistryKey;
 
 import java.io.IOException;
 
-public record ModWorldgenProvider(FabricDataGenerator generator) implements DataProvider {
+public record AylythWorldgenProvider(FabricDataGenerator generator) implements DataProvider {
 
     @Override
     public void run(DataWriter writer) {

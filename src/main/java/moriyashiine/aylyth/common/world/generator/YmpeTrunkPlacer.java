@@ -3,6 +3,7 @@ package moriyashiine.aylyth.common.world.generator;
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import moriyashiine.aylyth.common.registry.ModFeatures;
 import moriyashiine.aylyth.common.registry.ModVegetationFeatures;
 import net.minecraft.block.BlockState;
 import net.minecraft.state.property.Properties;
@@ -31,7 +32,7 @@ public class YmpeTrunkPlacer extends StraightTrunkPlacer {
 	
 	@Override
 	protected TrunkPlacerType<YmpeTrunkPlacer> getType() {
-		return ModVegetationFeatures.YMPE_TRUNK_PLACER;
+		return ModFeatures.YMPE_TRUNK_PLACER;
 	}
 	
 	@Override

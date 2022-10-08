@@ -8,9 +8,9 @@ import net.minecraft.item.Items;
 
 import java.util.function.Consumer;
 
-public class RecipeDatagen extends FabricRecipeProvider {
+public class AylythRecipeProvider extends FabricRecipeProvider {
 
-    public RecipeDatagen(FabricDataGenerator dataGenerator) {
+    public AylythRecipeProvider(FabricDataGenerator dataGenerator) {
         super(dataGenerator);
     }
 

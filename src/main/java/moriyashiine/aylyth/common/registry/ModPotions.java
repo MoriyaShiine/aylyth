@@ -13,10 +13,10 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 public class ModPotions {
-	public static StatusEffect MORTECHIS_EFFECT = new MortechisStatusEffect();
-	public static Potion MORTECHIS_POTION = new Potion("mortechis", new StatusEffectInstance(MORTECHIS_EFFECT, 3600), new StatusEffectInstance(StatusEffects.NAUSEA, 100, 0), new StatusEffectInstance(StatusEffects.REGENERATION, 200, 0));
-	public static Potion LONG_MORTECHIS_POTION = new Potion("mortechis", new StatusEffectInstance(MORTECHIS_EFFECT, 9600), new StatusEffectInstance(StatusEffects.NAUSEA, 400, 0), new StatusEffectInstance(StatusEffects.REGENERATION, 400, 0));
-	public static Potion STRONG_MORTECHIS_POTION = new Potion("mortechis", new StatusEffectInstance(MORTECHIS_EFFECT, 1800, 1), new StatusEffectInstance(StatusEffects.NAUSEA, 200, 1), new StatusEffectInstance(StatusEffects.REGENERATION, 200, 0));
+	public static final StatusEffect MORTECHIS_EFFECT = new MortechisStatusEffect();
+	public static final Potion MORTECHIS_POTION = new Potion("mortechis", new StatusEffectInstance(MORTECHIS_EFFECT, 3600), new StatusEffectInstance(StatusEffects.NAUSEA, 100, 0), new StatusEffectInstance(StatusEffects.REGENERATION, 200, 0));
+	public static final Potion LONG_MORTECHIS_POTION = new Potion("mortechis", new StatusEffectInstance(MORTECHIS_EFFECT, 9600), new StatusEffectInstance(StatusEffects.NAUSEA, 400, 0), new StatusEffectInstance(StatusEffects.REGENERATION, 400, 0));
+	public static final Potion STRONG_MORTECHIS_POTION = new Potion("mortechis", new StatusEffectInstance(MORTECHIS_EFFECT, 1800, 1), new StatusEffectInstance(StatusEffects.NAUSEA, 200, 1), new StatusEffectInstance(StatusEffects.REGENERATION, 200, 0));
 	
 	public static void init() {
 		Registry.register(Registry.STATUS_EFFECT, new Identifier(Aylyth.MOD_ID, "mortechis"), MORTECHIS_EFFECT);
