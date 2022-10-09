@@ -1,10 +1,7 @@
 package moriyashiine.aylyth.common.world.generator.feature;
 
 import com.mojang.serialization.Codec;
-import moriyashiine.aylyth.common.block.StrewnLeavesBlock;
 import moriyashiine.aylyth.common.registry.ModBlocks;
-import moriyashiine.aylyth.common.registry.ModFeatures;
-import moriyashiine.aylyth.common.registry.ModVegetationFeatures;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.gen.treedecorator.TreeDecorator;
@@ -16,7 +13,7 @@ public class StrewnLeavesDecorator extends TreeDecorator {
 
     @Override
     protected TreeDecoratorType<?> getType() {
-        return ModFeatures.STREWN_LEAVES;
+        return null;
     }
 
     @Override
