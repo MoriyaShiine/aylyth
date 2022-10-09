@@ -58,7 +58,9 @@
       "aylyth:marigolds",
       "aylyth:overgrowth_clearing_trees",
       "aylyth:bushes",
-      "minecraft:patch_tall_grass"
+      "minecraft:patch_tall_grass",
+      "aylyth:oak_strewn_leaves",
+      "aylyth:ympe_strewn_leaves"
     ],
     [
       "minecraft:freeze_top_layer"

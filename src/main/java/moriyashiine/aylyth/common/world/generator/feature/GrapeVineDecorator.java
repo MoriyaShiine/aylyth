@@ -2,6 +2,7 @@ package moriyashiine.aylyth.common.world.generator.feature;
 
 import com.mojang.serialization.Codec;
 import moriyashiine.aylyth.common.registry.ModBlocks;
+import moriyashiine.aylyth.common.registry.ModFeatures;
 import moriyashiine.aylyth.common.registry.ModVegetationFeatures;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.VineBlock;
@@ -22,7 +23,7 @@ public class GrapeVineDecorator extends TreeDecorator {
 	
 	@Override
 	protected TreeDecoratorType<?> getType() {
-		return ModVegetationFeatures.GRAPE_VINE;
+		return ModFeatures.GRAPE_VINE;
 	}
 	
 	@Override

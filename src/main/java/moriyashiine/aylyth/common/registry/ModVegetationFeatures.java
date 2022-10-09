@@ -6,6 +6,7 @@ import moriyashiine.aylyth.common.world.generator.AylthianTrunkPlacer;
 import moriyashiine.aylyth.common.world.generator.BigYmpeTrunkPlacer;
 import moriyashiine.aylyth.common.world.generator.YmpeTrunkPlacer;
 import moriyashiine.aylyth.common.world.generator.feature.GrapeVineDecorator;
+import moriyashiine.aylyth.common.world.generator.feature.StrewnLeavesDecorator;
 import moriyashiine.aylyth.mixin.TreeDecoratorTypeAccessor;
 import moriyashiine.aylyth.mixin.TrunkPlacerTypeAccessor;
 import net.minecraft.util.registry.RegistryEntry;
@@ -20,12 +21,7 @@ import java.util.List;
 
 public class ModVegetationFeatures {
 
-    public static final TrunkPlacerType<AylthianTrunkPlacer> AYLYTHIAN_TRUNK_PLACER = TrunkPlacerTypeAccessor.callRegister(Aylyth.MOD_ID + ":aylythian_trunk_placer", AylthianTrunkPlacer.CODEC);
-    public static final TrunkPlacerType<YmpeTrunkPlacer> YMPE_TRUNK_PLACER = TrunkPlacerTypeAccessor.callRegister(Aylyth.MOD_ID + ":ympe_trunk_placer", YmpeTrunkPlacer.CODEC);
-    public static final TrunkPlacerType<BigYmpeTrunkPlacer> BIG_YMPE_TRUNK_PLACER = TrunkPlacerTypeAccessor.callRegister(Aylyth.MOD_ID + ":big_ympe_trunk_placer", BigYmpeTrunkPlacer.CODEC);
-    public static final TreeDecoratorType<GrapeVineDecorator> GRAPE_VINE = TreeDecoratorTypeAccessor.register(Aylyth.MOD_ID + ":grape_vine_decorator", GrapeVineDecorator.CODEC);
-
-    public static void init() {}
+    public static void datagenInit() {}
 
     private static <F extends Feature<C>, C extends FeatureConfig> RegistryEntry<ConfiguredFeature<C, ?>> registerConfigured(String id, F feature, C config) {
         return ConfiguredFeatures.register(Aylyth.MOD_ID + ":" + id, feature, config);
