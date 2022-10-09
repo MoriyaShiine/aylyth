@@ -6,12 +6,10 @@ import moriyashiine.aylyth.common.world.generator.AylthianTrunkPlacer;
 import moriyashiine.aylyth.common.world.generator.BigYmpeTrunkPlacer;
 import moriyashiine.aylyth.common.world.generator.YmpeTrunkPlacer;
 import moriyashiine.aylyth.common.world.generator.feature.*;
-import moriyashiine.aylyth.common.world.generator.feature.SpringFeature;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.collection.DataPool;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
@@ -40,8 +38,10 @@ public class ModConfiguredFeatures {
 
     public static final RegistryEntry<ConfiguredFeature<SingleStateFeatureConfig, ?>> SPRING = register("spring", ModFeatures.SPRING_FEATURE, new SingleStateFeatureConfig(Blocks.WATER.getDefaultState()));
     public static final RegistryEntry<ConfiguredFeature<DefaultFeatureConfig, ?>> BUSHES = register("bushes", ModFeatures.BUSH_FEATURE, FeatureConfig.DEFAULT);
-    public static final RegistryEntry<ConfiguredFeature<StrewnLeavesFeature.StrewnLeavesConfig, ?>> OAK_STREWN_LEAVES = register("oak_strewn_leaves", ModFeatures.STREWN_LEAVES_FEATURE, new StrewnLeavesFeature.StrewnLeavesConfig(Blocks.DARK_OAK_LEAVES.getDefaultState(), ModBlocks.OAK_STREWN_LEAVES, 10));
-    public static final RegistryEntry<ConfiguredFeature<StrewnLeavesFeature.StrewnLeavesConfig, ?>> YMPE_STREWN_LEAVES = register("ympe_strewn_leaves", ModFeatures.STREWN_LEAVES_FEATURE, new StrewnLeavesFeature.StrewnLeavesConfig(ModBlocks.YMPE_LEAVES.getDefaultState(), ModBlocks.YMPE_STREWN_LEAVES, 10));
+    public static final RegistryEntry<ConfiguredFeature<LeafPileFeature.LeafPileConfig, ?>> OAK_LEAF_PILE = register("oak_leaf_pile", ModFeatures.LEAF_PILE_FEATURE, new LeafPileFeature.LeafPileConfig(Blocks.DARK_OAK_LEAVES, ModBlocks.OAK_STREWN_LEAVES));
+    public static final RegistryEntry<ConfiguredFeature<LeafPileFeature.LeafPileConfig, ?>> YMPE_LEAF_PILE = register("ympe_leaf_pile", ModFeatures.LEAF_PILE_FEATURE, new LeafPileFeature.LeafPileConfig(ModBlocks.YMPE_LEAVES, ModBlocks.YMPE_STREWN_LEAVES));
+    public static final RegistryEntry<ConfiguredFeature<StrewnLeavesFeature.StrewnLeavesConfig, ?>> OAK_STREWN_LEAVES = register("oak_strewn_leaves", ModFeatures.STREWN_LEAVES_FEATURE, new StrewnLeavesFeature.StrewnLeavesConfig(Blocks.DARK_OAK_LEAVES, ModBlocks.OAK_STREWN_LEAVES.getDefaultState()));
+    public static final RegistryEntry<ConfiguredFeature<StrewnLeavesFeature.StrewnLeavesConfig, ?>> YMPE_STREWN_LEAVES = register("ympe_strewn_leaves", ModFeatures.STREWN_LEAVES_FEATURE, new StrewnLeavesFeature.StrewnLeavesConfig(ModBlocks.YMPE_LEAVES, ModBlocks.YMPE_STREWN_LEAVES.getDefaultState()));
     public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> AYLYTH_WEEDS = register("aylyth_weeds", Feature.FLOWER, createRandomPatchFeatureConfig(new WeightedBlockStateProvider(DataPool.<BlockState>builder().add(ModBlocks.ANTLER_SHOOTS.getDefaultState(), 5).add(ModBlocks.GRIPWEED.getDefaultState(), 2).build()), 64));
     public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> MARIGOLDS = register("marigolds", Feature.FLOWER, createRandomPatchFeatureConfig(new WeightedBlockStateProvider(DataPool.<BlockState>builder().add(ModBlocks.MARIGOLD.getDefaultState(), 1).build()), 64));
     //public static final ConfiguredFeature<?, ?> CLEARING_FLOWERS = todo flower generators

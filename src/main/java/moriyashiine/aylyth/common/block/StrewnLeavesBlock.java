@@ -44,6 +44,9 @@ public class StrewnLeavesBlock extends Block {
             if (blockItem.getBlock().equals(this) && state.get(LEAVES) < 7) {
                 world.setBlockState(pos, state.with(LEAVES, state.get(LEAVES)+1));
                 world.playSound(null, pos, getSoundGroup(state).getPlaceSound(), SoundCategory.BLOCKS, 1.0F, 1.0F);
+                if (!player.getAbilities().creativeMode) {
+                    player.getStackInHand(hand).decrement(1);
+                }
                 return ActionResult.success(world.isClient);
             }
         }
@@ -73,10 +76,11 @@ public class StrewnLeavesBlock extends Block {
         }
     }
 
+    @Deprecated
     @Override
     public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
         var downState = world.getBlockState(pos.down());
-        return downState.isFullCube(world, pos);
+        return downState.isFullCube(world, pos) || (state.get(LEAVES) == 0 && downState.getFluidState().isStill());
     }
 
     @Override

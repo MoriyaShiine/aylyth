@@ -61,11 +61,13 @@
       "minecraft:patch_tall_grass",
       "aylyth:aylyth_weeds",
       "minecraft:patch_tall_grass_2",
-      "aylyth:oak_strewn_leaves",
-      "aylyth:ympe_strewn_leaves",
+      "aylyth:oak_leaf_pile",
+      "aylyth:ympe_leaf_pile",
       "minecraft:patch_large_fern",
       "minecraft:brown_mushroom_normal",
       "minecraft:red_mushroom_normal",
+      "aylyth:oak_strewn_leaves",
+      "aylyth:ympe_strewn_leaves",
       "aylyth:ympe_seep"
     ],
     [

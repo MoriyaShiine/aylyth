@@ -15,59 +15,45 @@ import net.minecraft.world.gen.feature.FeatureConfig;
 import net.minecraft.world.gen.feature.util.FeatureContext;
 
 public class StrewnLeavesFeature extends Feature<StrewnLeavesFeature.StrewnLeavesConfig> {
+
     public StrewnLeavesFeature() {
         super(StrewnLeavesConfig.CODEC);
     }
 
     @Override
     public boolean generate(FeatureContext<StrewnLeavesConfig> context) {
-        var testState = context.getConfig().testState;
-        var block = context.getConfig().block;
-        var range = context.getConfig().range;
+        var testBlock = context.getConfig().testBlock;
+        var strewnState = context.getConfig().strewnState;
         var world = context.getWorld();
         var random = context.getRandom();
-        BlockPos origin;
-        origin = context.getOrigin();
-        origin = origin.withY(world.getTopY(Heightmap.Type.WORLD_SURFACE_WG, origin.getX(), origin.getZ()));
-        if (world.testBlockState(origin, AbstractBlock.AbstractBlockState::isAir)) {
-            for (int i = 0; i < 30; i++) {
-                if (world.testBlockState(origin.up(i), blockState -> blockState.getBlock() == testState.getBlock())) {
-                    if (random.nextFloat() > 0.75) {
-                        setBlockState(world, origin, block.getDefaultState().with(StrewnLeavesBlock.LEAVES, random.nextBetween(5, 7)));
-                        for (Direction dir : Direction.Type.HORIZONTAL) {
-                            var offset = origin.offset(dir, 1);
-                            var setState = block.getDefaultState().with(StrewnLeavesBlock.LEAVES, random.nextBetween(0, 5));
-                            if (world.isAir(offset) && block.canPlaceAt(setState, world, offset)) {
-                                setBlockState(world, offset, setState);
-                            }
-                        }
+        BlockPos origin = context.getOrigin();
+        for (BlockPos position : BlockPos.iterateRandomly(random, 10, origin, 3)) {
+            position = position.withY(world.getTopY(Heightmap.Type.WORLD_SURFACE_WG, position.getX(), position.getZ()));
+            if (world.testBlockState(position, AbstractBlock.AbstractBlockState::isAir)) {
+                for (int i = 0; i < 30; i++) {
+                    if (world.testBlockState(position.up(i), blockState -> blockState.getBlock() == testBlock)) {
+                        setBlockState(world, position, strewnState);
+                        break;
                     }
-                    break;
                 }
             }
         }
-        return false;
+        return true;
     }
 
     public static class StrewnLeavesConfig implements FeatureConfig {
         public static final Codec<StrewnLeavesConfig> CODEC = RecordCodecBuilder.create(strewnLeavesConfigInstance -> strewnLeavesConfigInstance
                 .group(
-                        BlockState.CODEC.fieldOf("testState").forGetter(strewnLeavesConfig -> strewnLeavesConfig.testState),
-                        Registry.BLOCK.getCodec().fieldOf("block").forGetter(strewnLeavesConfig -> strewnLeavesConfig.block),
-                        Codec.INT.fieldOf("range").forGetter(strewnLeavesConfig -> strewnLeavesConfig.range))
+                        Registry.BLOCK.getCodec().fieldOf("test_block").forGetter(strewnLeavesConfig -> strewnLeavesConfig.testBlock),
+                        BlockState.CODEC.fieldOf("block").forGetter(strewnLeavesConfig -> strewnLeavesConfig.strewnState)
+                )
                 .apply(strewnLeavesConfigInstance, StrewnLeavesConfig::new));
-        public final BlockState testState;
-        public final StrewnLeavesBlock block;
-        public final int range;
+        public final Block testBlock;
+        public final BlockState strewnState;
 
-        public StrewnLeavesConfig(BlockState testState, Block block, int range) {
-            if (block instanceof StrewnLeavesBlock strewnLeavesBlock) {
-                this.block = strewnLeavesBlock;
-            } else {
-                throw new IllegalArgumentException("%s is not a valid StrewnLeavesBlock.".formatted(block));
-            }
-            this.testState = testState;
-            this.range = range;
+        public StrewnLeavesConfig(Block testBlock, BlockState strewnState) {
+            this.strewnState = strewnState;
+            this.testBlock = testBlock;
         }
     }
 }

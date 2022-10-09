@@ -4,7 +4,6 @@ import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.ModTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
-import net.minecraft.block.Block;
 import net.minecraft.tag.BiomeTags;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.util.registry.Registry;

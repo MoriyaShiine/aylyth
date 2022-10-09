@@ -23,10 +23,10 @@ public class ModFeatures {
     public static final SpringFeature SPRING_FEATURE = Registry.register(Registry.FEATURE, Aylyth.MOD_ID + ":spring", new SpringFeature());
     public static final SeepFeature SEEP_FEATURE = Registry.register(Registry.FEATURE, Aylyth.MOD_ID + ":seep", new SeepFeature());
     public static final BushFeature BUSH_FEATURE = Registry.register(Registry.FEATURE, Aylyth.MOD_ID + ":bushes", new BushFeature());
+    public static final LeafPileFeature LEAF_PILE_FEATURE = Registry.register(Registry.FEATURE, Aylyth.MOD_ID + ":leaf_pile", new LeafPileFeature());
     public static final StrewnLeavesFeature STREWN_LEAVES_FEATURE = Registry.register(Registry.FEATURE, Aylyth.MOD_ID + ":strewn_leaves", new StrewnLeavesFeature());
     public static final TrunkPlacerType<AylthianTrunkPlacer> AYLYTHIAN_TRUNK_PLACER = TrunkPlacerTypeAccessor.callRegister(Aylyth.MOD_ID + ":aylythian_trunk_placer", AylthianTrunkPlacer.CODEC);
     public static final TrunkPlacerType<YmpeTrunkPlacer> YMPE_TRUNK_PLACER = TrunkPlacerTypeAccessor.callRegister(Aylyth.MOD_ID + ":ympe_trunk_placer", YmpeTrunkPlacer.CODEC);
     public static final TrunkPlacerType<BigYmpeTrunkPlacer> BIG_YMPE_TRUNK_PLACER = TrunkPlacerTypeAccessor.callRegister(Aylyth.MOD_ID + ":big_ympe_trunk_placer", BigYmpeTrunkPlacer.CODEC);
     public static final TreeDecoratorType<GrapeVineDecorator> GRAPE_VINE = TreeDecoratorTypeAccessor.register(Aylyth.MOD_ID + ":grape_vine_decorator", GrapeVineDecorator.CODEC);
-    public static final TreeDecoratorType<StrewnLeavesDecorator> STREWN_LEAVES = TreeDecoratorTypeAccessor.register(Aylyth.MOD_ID + ":strewn_leaves_decorator", StrewnLeavesDecorator.CODEC);
 }

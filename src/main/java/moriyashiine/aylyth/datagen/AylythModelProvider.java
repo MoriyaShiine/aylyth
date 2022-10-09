@@ -1,18 +1,23 @@
 package moriyashiine.aylyth.datagen;
 
 import com.google.common.collect.ImmutableList;
+import com.google.gson.JsonElement;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.block.StrewnLeavesBlock;
 import moriyashiine.aylyth.common.registry.ModBlocks;
+import moriyashiine.aylyth.common.registry.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.client.*;
+import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.BiConsumer;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public class AylythModelProvider extends FabricModelProvider {
@@ -53,7 +58,12 @@ public class AylythModelProvider extends FabricModelProvider {
 
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
+        generateStrewnLeavesItemModel(ModItems.OAK_STREWN_LEAVES, id("block/fallen_oak_leaves_01"), itemModelGenerator);
+        generateStrewnLeavesItemModel(ModItems.YMPE_STREWN_LEAVES, id("block/fallen_ympe_leaves_01"), itemModelGenerator);
+    }
 
+    private void generateStrewnLeavesItemModel(Item item, Identifier texture, ItemModelGenerator itemModelGenerator) {
+        Models.GENERATED.upload(ModelIds.getItemModelId(item), TextureMap.layer0(texture), itemModelGenerator.writer);
     }
 
     private void generateStrewnLeaves(BlockStateModelGenerator blockStateModelGenerator, Block strewnLeavesBlock, Block leavesBlock, Identifier... models) {

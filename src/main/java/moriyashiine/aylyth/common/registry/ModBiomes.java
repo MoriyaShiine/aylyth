@@ -8,16 +8,13 @@ import net.minecraft.sound.BiomeMoodSound;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.carver.ConfiguredCarvers;
-import net.minecraft.world.gen.feature.ConfiguredFeatures;
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
 import net.minecraft.world.gen.feature.OrePlacedFeatures;
 import net.minecraft.world.gen.feature.VegetationPlacedFeatures;
-import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder;
 
 //TODO: springs and clearing flowers still need fixed
 public class ModBiomes {
@@ -61,6 +58,7 @@ public class ModBiomes {
 			builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModVegetationFeatures.OVERGROWTH_CLEARING_TREES_PLACED);
 			builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.BUSHES);
 			builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_TALL_GRASS);
+			addStrewnLeaves(builder);
 		}
 		DefaultBiomeFeatures.addSprings(builder);
 		DefaultBiomeFeatures.addFrozenTopLayer(builder);
@@ -84,10 +82,11 @@ public class ModBiomes {
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.AYLYTH_WEEDS);
 		if (deep) {
 			builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_TALL_GRASS_2);
-			addStrewnLeaves(builder);
+			addLeafPiles(builder);
 			DefaultBiomeFeatures.addLargeFerns(builder);
 		}
 		DefaultBiomeFeatures.addDefaultMushrooms(builder);
+		addStrewnLeaves(builder);
 		DefaultBiomeFeatures.addSprings(builder);
 		DefaultBiomeFeatures.addFrozenTopLayer(builder);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.YMPE_SEEP);
@@ -104,11 +103,12 @@ public class ModBiomes {
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.AYLYTH_WEEDS);
 		if (deep) {
 			builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModVegetationFeatures.CONIFEROUS_DEEP_ROOF_TREES_PLACED);
-			addStrewnLeaves(builder);
+			addLeafPiles(builder);
 			DefaultBiomeFeatures.addLargeFerns(builder);
 		}
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, deep ? ModVegetationFeatures.CONIFEROUS_DEEPWOOD_TREES_PLACED : ModVegetationFeatures.CONIFEROUS_COPSE_TREES_PLACED);
 		DefaultBiomeFeatures.addDefaultMushrooms(builder);
+		addStrewnLeaves(builder);
 		DefaultBiomeFeatures.addSprings(builder);
 		DefaultBiomeFeatures.addFrozenTopLayer(builder);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.YMPE_SEEP);
@@ -140,6 +140,11 @@ public class ModBiomes {
 
 	private static void addMarigolds(GenerationSettings.Builder builder) {
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.MARIGOLDS);
+	}
+
+	private static void addLeafPiles(GenerationSettings.Builder builder) {
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.OAK_LEAF_PILE);
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.YMPE_LEAF_PILE);
 	}
 
 	private static void addStrewnLeaves(GenerationSettings.Builder builder) {

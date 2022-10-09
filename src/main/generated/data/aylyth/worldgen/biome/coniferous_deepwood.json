@@ -58,12 +58,14 @@
       "minecraft:patch_grass_taiga",
       "aylyth:aylyth_weeds",
       "aylyth:coniferous_deep_roof_trees",
-      "aylyth:oak_strewn_leaves",
-      "aylyth:ympe_strewn_leaves",
+      "aylyth:oak_leaf_pile",
+      "aylyth:ympe_leaf_pile",
       "minecraft:patch_large_fern",
       "aylyth:coniferous_deepwood_trees",
       "minecraft:brown_mushroom_normal",
       "minecraft:red_mushroom_normal",
+      "aylyth:oak_strewn_leaves",
+      "aylyth:ympe_strewn_leaves",
       "aylyth:ympe_seep"
     ],
     [
