@@ -20,11 +20,11 @@
     ],
     "subtitle": "aylyth.subtitles.block.strewn_leaves.step"
   },
-  "block.strewn_leaves.destroy": {
+  "block.strewn_leaves.pile_destroy": {
     "sounds": [
       "aylyth:block/strewn_leaves/place/placing_leaves_1"
     ],
-    "subtitle": "aylyth.subtitles.block.strewn_leaves.destroy"
+    "subtitle": "aylyth.subtitles.block.strewn_leaves.pile_destroy"
   },
   "block.strewn_leaves.pile_step": {
     "sounds": [
