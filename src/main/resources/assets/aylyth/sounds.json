@@ -9,6 +9,35 @@
 	],
 	"subtitle": "aylyth.subtitles.block.ympe_log.pick_fruit"
   },
+  "block.strewn_leaves.step": {
+    "sounds": [
+      "aylyth:block/strewn_leaves/step/step_on_leaf_1",
+      "aylyth:block/strewn_leaves/step/step_on_leaf_2",
+      "aylyth:block/strewn_leaves/step/step_on_leaf_3",
+      "aylyth:block/strewn_leaves/step/step_on_leaf_4",
+      "aylyth:block/strewn_leaves/step/step_on_leaf_5",
+      "aylyth:block/strewn_leaves/step/step_on_leaf_6"
+    ],
+    "subtitle": "aylyth.subtitles.block.strewn_leaves.step"
+  },
+  "block.strewn_leaves.destroy": {
+    "sounds": [
+      "aylyth:block/strewn_leaves/place/placing_leaves_1"
+    ],
+    "subtitle": "aylyth.subtitles.block.strewn_leaves.destroy"
+  },
+  "block.strewn_leaves.pile_step": {
+    "sounds": [
+      "aylyth:block/strewn_leaves/pile_step/step_1"
+    ],
+    "subtitle": "aylyth.subtitles.block.strewn_leaves.pile_step"
+  },
+  "block.stick_break": {
+    "sounds": [
+      "aylyth:block/stick_break_1"
+    ],
+    "subtitle": "aylyth.subtitles.block.stick_break"
+  },
   "entity.player.increase_ympe_infestation_stage": {
 	"sounds": [
 	  "aylyth:entity/player/increase_ympe_infestation_stage_1",

@@ -1,13 +1,23 @@
 package moriyashiine.aylyth.common.registry;
 
 import moriyashiine.aylyth.common.Aylyth;
+import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 public class ModSoundEvents {
 	public static final SoundEvent BLOCK_YMPE_LOG_PICK_FRUIT = new SoundEvent(new Identifier(Aylyth.MOD_ID, "block.ympe_log.pick_fruit"));
-	
+
+	public static final SoundEvent BLOCK_STREWN_LEAVES_STEP = new SoundEvent(new Identifier(Aylyth.MOD_ID, "block.strewn_leaves.step"));
+	public static final SoundEvent BLOCK_STREWN_LEAVES_DESTROY = new SoundEvent(new Identifier(Aylyth.MOD_ID, "block.strewn_leaves.destroy"));
+	public static final SoundEvent BLOCK_STREWN_LEAVES_PILE_STEP = new SoundEvent(new Identifier(Aylyth.MOD_ID, "block.strewn_leaves.pile_step"));
+	public static final SoundEvent BLOCK_STICK_BREAK = new SoundEvent(new Identifier(Aylyth.MOD_ID, "block.stick_break"));
+	public static final BlockSoundGroup STREWN_LEAVES = new BlockSoundGroup(1.0F, 1.0F, BLOCK_STREWN_LEAVES_STEP, BLOCK_STREWN_LEAVES_STEP, BLOCK_STREWN_LEAVES_STEP, BLOCK_STREWN_LEAVES_STEP, BLOCK_STREWN_LEAVES_DESTROY);
+	public static final BlockSoundGroup LEAF_PILES = new BlockSoundGroup(1.0F, 1.0F, BLOCK_STREWN_LEAVES_STEP, BLOCK_STREWN_LEAVES_PILE_STEP, BLOCK_STREWN_LEAVES_DESTROY, BLOCK_STREWN_LEAVES_STEP, BLOCK_STREWN_LEAVES_DESTROY);
+	public static final BlockSoundGroup STREWN_LEAVES_STICK = new BlockSoundGroup(1.0F, 1.0F, BLOCK_STREWN_LEAVES_STEP, BLOCK_STICK_BREAK, BLOCK_STREWN_LEAVES_STEP, BLOCK_STREWN_LEAVES_STEP, BLOCK_STREWN_LEAVES_DESTROY);
+	public static final BlockSoundGroup LEAF_PILES_STICK = new BlockSoundGroup(1.0F, 1.0F, BLOCK_STREWN_LEAVES_STEP, BLOCK_STICK_BREAK, BLOCK_STREWN_LEAVES_DESTROY, BLOCK_STREWN_LEAVES_STEP, BLOCK_STREWN_LEAVES_DESTROY);
+
 	public static final SoundEvent ENTITY_PLAYER_INCREASE_YMPE_INFESTATION_STAGE = new SoundEvent(new Identifier(Aylyth.MOD_ID, "entity.player.increase_ympe_infestation_stage"));
 	public static final SoundEvent ENTITY_GENERIC_SHUCKED = new SoundEvent(new Identifier(Aylyth.MOD_ID, "entity.generic.shucked"));
 	
