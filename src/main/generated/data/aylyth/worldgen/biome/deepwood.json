@@ -53,21 +53,21 @@
       "minecraft:spring_water"
     ],
     [
-      "aylyth:deep_roof_trees",
-      "aylyth:deepwood_trees",
-      "minecraft:patch_grass_taiga",
       "aylyth:bushes",
       "minecraft:patch_tall_grass",
+      "aylyth:oak_strewn_leaves",
+      "aylyth:ympe_strewn_leaves",
+      "minecraft:patch_grass_taiga",
       "aylyth:aylyth_weeds",
+      "minecraft:brown_mushroom_normal",
+      "minecraft:red_mushroom_normal",
+      "aylyth:ympe_seep",
+      "aylyth:deep_roof_trees",
+      "aylyth:deepwood_trees",
       "minecraft:patch_tall_grass_2",
       "aylyth:oak_leaf_pile",
       "aylyth:ympe_leaf_pile",
-      "minecraft:patch_large_fern",
-      "minecraft:brown_mushroom_normal",
-      "minecraft:red_mushroom_normal",
-      "aylyth:oak_strewn_leaves",
-      "aylyth:ympe_strewn_leaves",
-      "aylyth:ympe_seep"
+      "minecraft:patch_large_fern"
     ],
     [
       "minecraft:freeze_top_layer"

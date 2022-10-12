@@ -54,16 +54,16 @@
       "minecraft:spring_water"
     ],
     [
+      "aylyth:bushes",
+      "minecraft:patch_tall_grass",
+      "aylyth:oak_strewn_leaves",
+      "aylyth:ympe_strewn_leaves",
       "aylyth:aylythian_dark_oak",
       "aylyth:copse_trees",
       "minecraft:patch_grass_taiga",
-      "aylyth:bushes",
-      "minecraft:patch_tall_grass",
       "aylyth:aylyth_weeds",
       "minecraft:brown_mushroom_normal",
       "minecraft:red_mushroom_normal",
-      "aylyth:oak_strewn_leaves",
-      "aylyth:ympe_strewn_leaves",
       "aylyth:ympe_seep"
     ],
     [
