@@ -19,7 +19,7 @@ public class ModFeatures {
 
     public static void init() {}
 
-    public static final BlockStateProvider YMPE_LOG_PROVIDER = new WeightedBlockStateProvider(DataPool.<BlockState>builder().add(ModBlocks.YMPE_SUITE.log.block().getDefaultState(), 15).add(ModBlocks.FRUIT_BEARING_YMPE_LOG.getDefaultState(), 1).build());
+    public static final BlockStateProvider YMPE_LOG_PROVIDER = new WeightedBlockStateProvider(DataPool.<BlockState>builder().add(ModBlocks.YMPE_LOG.getDefaultState(), 15).add(ModBlocks.FRUIT_BEARING_YMPE_LOG.getDefaultState(), 1).build());
     public static final SpringFeature SPRING_FEATURE = Registry.register(Registry.FEATURE, Aylyth.MOD_ID + ":spring", new SpringFeature());
     public static final SeepFeature SEEP_FEATURE = Registry.register(Registry.FEATURE, Aylyth.MOD_ID + ":seep", new SeepFeature());
     public static final BushFeature BUSH_FEATURE = Registry.register(Registry.FEATURE, Aylyth.MOD_ID + ":bushes", new BushFeature());
