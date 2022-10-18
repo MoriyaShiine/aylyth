@@ -1,11 +1,13 @@
 package moriyashiine.aylyth.common.block;
 
+import moriyashiine.aylyth.common.registry.ModSoundEvents;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
+import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
@@ -19,7 +21,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 
-public class StrewnLeavesBlock extends Block {
+public class StrewnLeavesBlock extends Block implements IContextBlockSoundGroup {
 
     public static final IntProperty LEAVES = IntProperty.of("leaves", 0, 7);
     private static final VoxelShape[] SHAPE = new VoxelShape[] {
@@ -43,7 +45,7 @@ public class StrewnLeavesBlock extends Block {
         if (player.getStackInHand(hand).getItem() instanceof BlockItem blockItem) {
             if (blockItem.getBlock().equals(this) && state.get(LEAVES) < 7) {
                 world.setBlockState(pos, state.with(LEAVES, state.get(LEAVES)+1));
-                world.playSound(null, pos, getSoundGroup(state).getPlaceSound(), SoundCategory.BLOCKS, 1.0F, 1.0F);
+                world.playSound(null, pos, ModSoundEvents.BLOCK_STREWN_LEAVES_STEP, SoundCategory.BLOCKS, 1.0F, 1.0F);
                 if (!player.getAbilities().creativeMode) {
                     player.getStackInHand(hand).decrement(1);
                 }
@@ -54,11 +56,6 @@ public class StrewnLeavesBlock extends Block {
     }
 
     @Override
-    public void onSteppedOn(World world, BlockPos pos, BlockState state, Entity entity) {
-        super.onSteppedOn(world, pos, state, entity);
-    }
-
-    @Override
     public VoxelShape getCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         return VoxelShapes.empty();
     }
@@ -66,6 +63,11 @@ public class StrewnLeavesBlock extends Block {
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         return SHAPE[state.get(LEAVES)];
+    }
+
+    @Override
+    public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
+        super.onEntityCollision(state, world, pos, entity);
     }
 
     @Override
@@ -84,8 +86,19 @@ public class StrewnLeavesBlock extends Block {
     }
 
     @Override
+    public BlockSoundGroup getSoundGroup(BlockState state) {
+        return state.get(LEAVES) == 0 ? super.getSoundGroup(state) : ModSoundEvents.LEAF_PILES;
+    }
+
+    @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         super.appendProperties(builder);
         builder.add(LEAVES);
+    }
+
+    @Override
+    public BlockSoundGroup getBlockSoundGroup(BlockState state, BlockPos pos, BlockSoundGroup currentSoundGroup, Entity entity) {
+        var random = entity.world.random;
+        return random.nextFloat() < 0.025 ? state.get(LEAVES) > 0 ? ModSoundEvents.LEAF_PILES_STICK : ModSoundEvents.STREWN_LEAVES_STICK : state.get(LEAVES) > 0 ? ModSoundEvents.LEAF_PILES : ModSoundEvents.STREWN_LEAVES;
     }
 }

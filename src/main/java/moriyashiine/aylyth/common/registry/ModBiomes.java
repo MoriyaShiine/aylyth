@@ -13,6 +13,7 @@ import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.carver.ConfiguredCarvers;
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
+import net.minecraft.world.gen.feature.MiscPlacedFeatures;
 import net.minecraft.world.gen.feature.OrePlacedFeatures;
 import net.minecraft.world.gen.feature.VegetationPlacedFeatures;
 
@@ -60,7 +61,7 @@ public class ModBiomes {
 			builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, VegetationPlacedFeatures.PATCH_TALL_GRASS);
 			addStrewnLeaves(builder);
 		}
-		DefaultBiomeFeatures.addSprings(builder);
+		addWaterSprings(builder);
 		DefaultBiomeFeatures.addFrozenTopLayer(builder);
 		BiomeEffects.Builder effects = new BiomeEffects.Builder().foliageColor(AYLYTHIAN_FOLIAGE_COLOR).grassColor(overgrown ? 0xBC953A : 0xA1BA48).waterColor(WATER_COLOR).waterFogColor(UNDERWATER_COLOR).fogColor(FOG_COLOR).skyColor(SKY_COLOR).moodSound(BiomeMoodSound.CAVE).particleConfig(new BiomeParticleConfig(ModParticles.AMBIENT_PILOT_LIGHT, 0.0025F));
 		if (overgrown) {
@@ -87,7 +88,7 @@ public class ModBiomes {
 		}
 		DefaultBiomeFeatures.addDefaultMushrooms(builder);
 		addStrewnLeaves(builder);
-		DefaultBiomeFeatures.addSprings(builder);
+		addWaterSprings(builder);
 		DefaultBiomeFeatures.addFrozenTopLayer(builder);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.YMPE_SEEP);
 		return new Biome.Builder().precipitation(Biome.Precipitation.RAIN).temperature(0.7F).downfall(0.8F).effects(new BiomeEffects.Builder().foliageColor(deep ? DEEP_AYLYTHIAN_FOLIAGE_COLOR : AYLYTHIAN_FOLIAGE_COLOR).grassColor(deep ? 0xAD6903 : 0xB5883B).waterColor(WATER_COLOR).waterFogColor(UNDERWATER_COLOR).fogColor(FOG_COLOR).skyColor(SKY_COLOR).moodSound(BiomeMoodSound.CAVE).particleConfig(new BiomeParticleConfig(ParticleTypes.MYCELIUM, deep ? 0.1F : 0.025F)).additionsSound(FOREST_AMBIANCE).build()).spawnSettings(spawnSettings.build()).generationSettings(builder.build()).build();
@@ -109,7 +110,7 @@ public class ModBiomes {
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, deep ? ModVegetationFeatures.CONIFEROUS_DEEPWOOD_TREES_PLACED : ModVegetationFeatures.CONIFEROUS_COPSE_TREES_PLACED);
 		DefaultBiomeFeatures.addDefaultMushrooms(builder);
 		addStrewnLeaves(builder);
-		DefaultBiomeFeatures.addSprings(builder);
+		addWaterSprings(builder);
 		DefaultBiomeFeatures.addFrozenTopLayer(builder);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.YMPE_SEEP);
 		return new Biome.Builder().precipitation(Biome.Precipitation.RAIN).temperature(0.7F).downfall(0.8F).effects(new BiomeEffects.Builder().foliageColor(deep ? DEEP_AYLYTHIAN_FOLIAGE_COLOR : AYLYTHIAN_FOLIAGE_COLOR).grassColor(deep ? 0x3E682B : 0x4D7C44).waterColor(WATER_COLOR).waterFogColor(UNDERWATER_COLOR).fogColor(FOG_COLOR).skyColor(SKY_COLOR).moodSound(BiomeMoodSound.CAVE).particleConfig(new BiomeParticleConfig(ParticleTypes.MYCELIUM, deep ? 0.1F : 0.025F)).additionsSound(FOREST_AMBIANCE).build()).spawnSettings(spawnSettings.build()).generationSettings(builder.build()).build();
@@ -119,7 +120,7 @@ public class ModBiomes {
 		GenerationSettings.Builder builder = new GenerationSettings.Builder();
 		addLandCarversNotLavaLakes(builder);
 		addBasicVanillaOres(builder);
-		DefaultBiomeFeatures.addSprings(builder);
+		addWaterSprings(builder);
 		return new Biome.Builder().precipitation(Biome.Precipitation.NONE).temperature(0.8f).downfall(0.3f).effects(new BiomeEffects.Builder().foliageColor(AYLYTHIAN_FOLIAGE_COLOR).grassColor(0xB5883B).waterColor(WATER_COLOR).waterFogColor(UNDERWATER_COLOR).fogColor(FOG_COLOR).skyColor(SKY_COLOR).moodSound(BiomeMoodSound.CAVE).build()).spawnSettings(spawnSettings.build()).generationSettings(builder.build()).build();
 	}
 
@@ -127,6 +128,10 @@ public class ModBiomes {
 		builder.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.CAVE);
 		builder.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.CAVE_EXTRA_UNDERGROUND);
 		builder.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.CANYON);
+	}
+
+	private static void addWaterSprings(GenerationSettings.Builder builder) {
+		builder.feature(GenerationStep.Feature.FLUID_SPRINGS, MiscPlacedFeatures.SPRING_WATER);
 	}
 
 	private static void addBasicVanillaOres(GenerationSettings.Builder builder) {

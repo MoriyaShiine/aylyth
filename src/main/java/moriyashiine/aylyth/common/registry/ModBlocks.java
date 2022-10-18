@@ -66,8 +66,9 @@ public class ModBlocks {
 	public static final Block MARIGOLD = new FlowerBlock(ModPotions.MORTECHIS_EFFECT, 9, copyOf(Blocks.DANDELION));
 	public static final Block MARIGOLD_POTTED = new FlowerPotBlock(MARIGOLD, copyOf(Blocks.FLOWER_POT));
 
-	public static final Block OAK_STREWN_LEAVES = new StrewnLeavesBlock(FabricBlockSettings.of(STREWN_LEAVES).noCollision().sounds(BlockSoundGroup.STONE));
-	public static final Block YMPE_STREWN_LEAVES = new StrewnLeavesBlock(FabricBlockSettings.of(STREWN_LEAVES).noCollision().sounds(BlockSoundGroup.STONE));
+	// TODO: Replace sounds with proper sound groups
+	public static final Block OAK_STREWN_LEAVES = new StrewnLeavesBlock(FabricBlockSettings.of(STREWN_LEAVES).noCollision().sounds(ModSoundEvents.STREWN_LEAVES));
+	public static final Block YMPE_STREWN_LEAVES = new StrewnLeavesBlock(FabricBlockSettings.of(STREWN_LEAVES).noCollision().sounds(ModSoundEvents.STREWN_LEAVES));
 
 	public static final Block OAK_SEEP = new SeepBlock();
 	public static final Block SPRUCE_SEEP = new SeepBlock();

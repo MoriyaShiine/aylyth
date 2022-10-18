@@ -1,30 +1,31 @@
 {
-	"required": true,
-	"minVersion": "0.8",
-	"package": "moriyashiine.aylyth.mixin",
-	"compatibilityLevel": "JAVA_17",
-	"mixins": [
-		"BlocksAccessor",
-		"BrewingRecipeRegistryAccessor",
-		"GeneratorOptionsMixin",
-		"LivingEntityMixin",
-		"TreeDecoratorTypeAccessor",
-		"TrunkPlacerTypeAccessor",
-		"VineBlockMixin"
-	],
-	"client": [
-		"client.BackgroundRendererMixin",
-		"client.DimensionEffectsAccessor",
-		"client.GameRendererMixin",
-		"client.InGameHudMixin",
-		"client.ItemRendererMixin",
-		"client.LivingEntityRendererMixin",
-		"client.ParticleManagerMixin",
-		"client.PlayerEntityRendererMixin",
-		"client.RenderLayerAccessor",
-		"client.WorldRendererMixin"
-	],
-	"injectors": {
-		"defaultRequire": 1
+  "required": true,
+  "minVersion": "0.8",
+  "package": "moriyashiine.aylyth.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "BlocksAccessor",
+    "BrewingRecipeRegistryAccessor",
+    "EntityMixin",
+    "GeneratorOptionsMixin",
+    "LivingEntityMixin",
+    "TreeDecoratorTypeAccessor",
+    "TrunkPlacerTypeAccessor",
+    "VineBlockMixin"
+  ],
+  "client": [
+    "client.BackgroundRendererMixin",
+    "client.DimensionEffectsAccessor",
+    "client.GameRendererMixin",
+    "client.InGameHudMixin",
+    "client.ItemRendererMixin",
+    "client.LivingEntityRendererMixin",
+    "client.ParticleManagerMixin",
+    "client.PlayerEntityRendererMixin",
+    "client.RenderLayerAccessor",
+    "client.WorldRendererMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
 	}
 }
