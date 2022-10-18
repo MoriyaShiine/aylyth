@@ -3,6 +3,8 @@ package moriyashiine.aylyth.datagen;
 import com.mojang.datafixers.util.Either;
 import it.unimi.dsi.fastutil.doubles.DoubleList;
 import moriyashiine.aylyth.common.Aylyth;
+import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.noise.DoublePerlinNoiseSampler;
@@ -47,6 +49,8 @@ public class AylythNoiseTypes {
     public static final NoiseRegistryPair PILLAR_RARENESS = register("pillar_rareness", -8, 1.0);
     public static final NoiseRegistryPair PILLAR_THICKNESS = register("pillar_thickness", -8, 1.0);
     public static final NoiseRegistryPair CAVE_ENTRANCES = register("cave_entrances", -7, 0.4, 0.5, 1.0);
+    public static final NoiseRegistryPair PODZOL_COMMON = register("podzol_common", -4, 1.0, 1.0);
+    public static final NoiseRegistryPair PODZOL_RARE = register("podzol_rare", -5, 1.0, 1.0, 1.0);
 
     private static NoiseRegistryPair register(String id, int firstOctave, double... amplitudes) {
         return NoiseRegistryPair.createAndRegister(id, firstOctave, amplitudes);
@@ -67,8 +71,11 @@ public class AylythNoiseTypes {
 
         public static NoiseRegistryPair createAndRegister(Identifier identifier, int firstOctave, double... amplitudes) {
             var registryKey = RegistryKey.of(Registry.NOISE_KEY, identifier);
-            var noiseParams = new DoublePerlinNoiseSampler.NoiseParameters(firstOctave, DoubleList.of(amplitudes));
-            var registryEntry = BuiltinRegistries.add(BuiltinRegistries.NOISE_PARAMETERS, registryKey, noiseParams);
+            RegistryEntry<DoublePerlinNoiseSampler.NoiseParameters> registryEntry = null;
+            if (!FabricLoader.getInstance().getEntrypoints("fabric-datagen", DataGeneratorEntrypoint.class).isEmpty()) {
+                var noiseParams = new DoublePerlinNoiseSampler.NoiseParameters(firstOctave, DoubleList.of(amplitudes));
+                registryEntry = BuiltinRegistries.add(BuiltinRegistries.NOISE_PARAMETERS, registryKey, noiseParams);
+            }
             return new NoiseRegistryPair(registryKey, registryEntry);
         }
 
