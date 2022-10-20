@@ -1,54 +1,40 @@
 package moriyashiine.aylyth.datagen;
 
-import it.unimi.dsi.fastutil.doubles.DoubleList;
 import moriyashiine.aylyth.common.Aylyth;
+import moriyashiine.aylyth.common.registry.ModBiomes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Spline;
 import net.minecraft.util.math.VerticalSurfaceType;
-import net.minecraft.util.math.noise.DoublePerlinNoiseSampler;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryEntry;
-import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.source.util.MultiNoiseUtil;
 import net.minecraft.world.gen.YOffset;
 import net.minecraft.world.gen.chunk.ChunkGeneratorSettings;
 import net.minecraft.world.gen.chunk.GenerationShapeConfig;
 import net.minecraft.world.gen.densityfunction.DensityFunction;
-import net.minecraft.world.gen.densityfunction.DensityFunctionTypes;
-import net.minecraft.world.gen.densityfunction.DensityFunctions;
+import net.minecraft.world.gen.noise.NoiseParametersKeys;
 import net.minecraft.world.gen.noise.NoiseRouter;
 import net.minecraft.world.gen.surfacebuilder.MaterialRules;
 
 import java.util.List;
 
+import static moriyashiine.aylyth.datagen.AylythDensityFunctionTypes.*;
+import static moriyashiine.aylyth.datagen.AylythNoiseTypes.*;
 import static net.minecraft.world.gen.densityfunction.DensityFunctionTypes.*;
 
 public class AylythNoiseSettings {
 
-    public static void init() {}
-
-    public static final RegistryKey<DoublePerlinNoiseSampler.NoiseParameters> CONTINENTS_KEY = RegistryKey.of(Registry.NOISE_KEY, new Identifier(Aylyth.MOD_ID, "continents"));
-    public static final RegistryKey<DoublePerlinNoiseSampler.NoiseParameters> BASE_LAYER_KEY = RegistryKey.of(Registry.NOISE_KEY, new Identifier(Aylyth.MOD_ID, "base_layer"));
-    public static final RegistryKey<DoublePerlinNoiseSampler.NoiseParameters> CAVE_CHEESE_KEY = RegistryKey.of(Registry.NOISE_KEY, new Identifier(Aylyth.MOD_ID, "cave_cheese"));
-    public static final RegistryKey<DoublePerlinNoiseSampler.NoiseParameters> TEMPERATURE_KEY = RegistryKey.of(Registry.NOISE_KEY, new Identifier(Aylyth.MOD_ID, "temperature"));
-    public static final RegistryKey<DoublePerlinNoiseSampler.NoiseParameters> VEGETATION_KEY = RegistryKey.of(Registry.NOISE_KEY, new Identifier(Aylyth.MOD_ID, "vegetation"));
-    public static final RegistryKey<DoublePerlinNoiseSampler.NoiseParameters> EROSION_KEY = RegistryKey.of(Registry.NOISE_KEY, new Identifier(Aylyth.MOD_ID, "erosion"));
-
-    public static final RegistryEntry<DoublePerlinNoiseSampler.NoiseParameters> CONTINENTS = BuiltinRegistries.add(BuiltinRegistries.NOISE_PARAMETERS, CONTINENTS_KEY, new DoublePerlinNoiseSampler.NoiseParameters(-9, DoubleList.of(1.0, 1.0, 2.0, 2.0, 2.0, 1.0, 1.0, 1.0, 1.0)));
-    public static final RegistryEntry<DoublePerlinNoiseSampler.NoiseParameters> BASE_LAYER = BuiltinRegistries.add(BuiltinRegistries.NOISE_PARAMETERS, BASE_LAYER_KEY, new DoublePerlinNoiseSampler.NoiseParameters(-8, DoubleList.of(1.0, 1.0, 1.0, 1.0)));
-    public static final RegistryEntry<DoublePerlinNoiseSampler.NoiseParameters> CAVE_CHEESE = BuiltinRegistries.add(BuiltinRegistries.NOISE_PARAMETERS, CAVE_CHEESE_KEY, new DoublePerlinNoiseSampler.NoiseParameters(-8, DoubleList.of(0.5, 1.0, 2.0, 1.0, 2.0, 1.0, 0.0, 2.0, 0.0)));
-    public static final RegistryEntry<DoublePerlinNoiseSampler.NoiseParameters> TEMPERATURE = BuiltinRegistries.add(BuiltinRegistries.NOISE_PARAMETERS, TEMPERATURE_KEY, new DoublePerlinNoiseSampler.NoiseParameters(-10, DoubleList.of(1.5, 0.0, 1.0, 0.0, 0.0, 0.0)));
-    public static final RegistryEntry<DoublePerlinNoiseSampler.NoiseParameters> VEGETATION = BuiltinRegistries.add(BuiltinRegistries.NOISE_PARAMETERS, VEGETATION_KEY, new DoublePerlinNoiseSampler.NoiseParameters(-8, DoubleList.of(1.0, 1.0, 0.0, 0.0, 0.0, 0.0)));
-    public static final RegistryEntry<DoublePerlinNoiseSampler.NoiseParameters> EROSION = BuiltinRegistries.add(BuiltinRegistries.NOISE_PARAMETERS, EROSION_KEY, new DoublePerlinNoiseSampler.NoiseParameters(-9, DoubleList.of(1.0, 1.0, 0.0, 0.0, 1.0, 1.0)));
+    public static void datagenInit() {
+        AylythNoiseTypes.init();
+        AylythDensityFunctionTypes.init();
+    }
 
     public static final ChunkGeneratorSettings SETTINGS = Registry.register(BuiltinRegistries.CHUNK_GENERATOR_SETTINGS, new Identifier(Aylyth.MOD_ID, "aylyth_settings"), createSettings());
 
     static ChunkGeneratorSettings createSettings() {
-        var seaLevel = 0;
+        var seaLevel = -64;
         var disableMobGen = false;
         var aquifers = false;
         var oreVeins = true;
@@ -62,7 +48,7 @@ public class AylythNoiseSettings {
 
     static GenerationShapeConfig shapeConfig() {
         var minY = -64;
-        var height = 336;
+        var height = 304;
         var horizontal = 1;
         var vertical = 1;
         return new GenerationShapeConfig(minY, height, horizontal, vertical);
@@ -74,12 +60,12 @@ public class AylythNoiseSettings {
                 zero(),  // fluidLevelFloodednessNoise
                 zero(),  // fluidLevelSpreadNoise
                 zero(),  // lavaNoise
-                scaledNoise(TEMPERATURE, 1.0, 1.0),  // temperature
-                scaledNoise(VEGETATION, 1.0, 1.0),  // vegetation
-                scaledNoise(CONTINENTS, 1, 1),  // continents
-                scaledNoise(EROSION, 1.0, 1.0),  // erosion
-                depth(),  // depth
-                ridges(),  // ridges
+                shiftedNoise(holderFunction(SHIFT_X), holderFunction(SHIFT_Z), 0.25, TEMPERATURE),  // temperature
+                shiftedNoise(holderFunction(SHIFT_X), holderFunction(SHIFT_Z), 0.25, VEGETATION),  // vegetation
+                holderFunction(CONTINENTS_FUNCTION),  // continents
+                holderFunction(EROSION_FUNCTION),  // erosion
+                holderFunction(DEPTH_FUNCTION),  // depth
+                holderFunction(RIDGES_FUNCTION),  // ridges
                 initialDensity(),  // initialDensityWithoutJaggedness
                 finalDensity(),  // finalDensity
                 zero(),  // veinToggle
@@ -87,36 +73,122 @@ public class AylythNoiseSettings {
                 zero()); // veinGap
     }
 
-    static DensityFunction depth() {
-        return zero();
-    }
-
-    static DensityFunction ridges() {
-        return zero();
-    }
-
     static DensityFunction initialDensity() {
-        return zero();
+        return slide(
+                add(
+                        constant(-0.703125),
+                        mul(
+                                constant(4),
+                                mul(
+                                        holderFunction(DEPTH_FUNCTION),
+                                        cache2d(holderFunction(FACTOR_FUNCTION))
+                                ).quarterNegative()
+                        )
+                ).clamp(-64, 64),
+                -64,
+                272,
+                80, 64, -0.078125,
+                0, 24, 0.1171875
+        );
+//        return slide(
+//                add(
+//                        constant(-0.703125),
+//                        mul(
+//                                constant(4.0),
+//                                mul(
+//                                        ,
+//                                ).quarterNegative()
+//                        )
+//                ).clamp(-64.0, 64.0),
+//                -64,
+//                272,
+//                80, 64, -0.078125,
+//                0, 24, 0.1171875
+//        );
     }
 
     static DensityFunction finalDensity() {
-        return zero();
-    }
-
-    static DensityFunction scaledNoise(RegistryEntry<DoublePerlinNoiseSampler.NoiseParameters> noiseEntry, double xzScale, double yScale) {
-        return noise(noiseEntry, xzScale, yScale);
+        return min(
+                postProcess(
+                        slide(
+                                rangeChoice(
+                                        holderFunction(SLOPED_CHEESE_FUNCTION),
+                                        -1000000.0,
+                                        1.5625,
+                                        min(
+                                                holderFunction(SLOPED_CHEESE_FUNCTION),
+                                                mul(
+                                                        constant(5.0),
+                                                        holderFunction(CAVES_ENTRANCES_FUNCTION)
+                                                )
+                                        ),
+                                        max(
+                                                min(
+                                                        min(
+                                                                add(
+                                                                        mul(
+                                                                                constant(4.0),
+                                                                                noise(CAVE_LAYER, 1.0, 8.0).square()
+                                                                        ),
+                                                                        add(
+                                                                                add(
+                                                                                        constant(0.27),
+                                                                                        noise(CAVE_CHEESE, 2.0, 0.95)
+                                                                                ).clamp(-1.0, 1.0),
+                                                                                add(
+                                                                                        constant(1.5),
+                                                                                        mul(
+                                                                                                constant(-0.64),
+                                                                                                holderFunction(SLOPED_CHEESE_FUNCTION)
+                                                                                        )
+                                                                                ).clamp(0.0, 0.5)
+                                                                        )
+                                                                ),
+                                                                holderFunction(CAVES_ENTRANCES_FUNCTION)
+                                                        ),
+                                                        add(
+                                                                holderFunction(CAVES_SPAGHETTI_2D_FUNCTION),
+                                                                holderFunction(CAVES_SPAGHETTI_ROUGHNESS_FUNCTION)
+                                                        )
+                                                ),
+                                                rangeChoice(
+                                                        holderFunction(CAVES_PILLARS_FUNCTION),
+                                                        -1000000.0,
+                                                        0.03,
+                                                        constant(-1000000.0),
+                                                        holderFunction(CAVES_PILLARS_FUNCTION)
+                                                )
+                                        )
+                                ),
+                                -64,
+                                272,
+                                80, 64, -0.078125,
+                                0, 24, 0.1171875
+                        )
+                ),
+                holderFunction(CAVES_NOODLE_FUNCTION)
+        );
     }
 
     static MaterialRules.MaterialRule materialRules() {
-        var dirt = MaterialRules.block(defaultState(Blocks.DIRT));
-        var grass = MaterialRules.block(defaultState(Blocks.GRASS_BLOCK));
-        var onReplaceWaterWithGrass = MaterialRules.condition(MaterialRules.water(-1, 0), grass);
-        var onFloor = MaterialRules.condition(MaterialRules.STONE_DEPTH_FLOOR, MaterialRules.sequence(onReplaceWaterWithGrass, dirt));
-        var onUnderFloor = MaterialRules.condition(MaterialRules.STONE_DEPTH_FLOOR_WITH_SURFACE_DEPTH, dirt);
-        var onSurface = MaterialRules.condition(MaterialRules.stoneDepth(0, false, 0, VerticalSurfaceType.FLOOR), MaterialRules.sequence(onFloor, onUnderFloor));
-//        var aboveBasicSurface = MaterialRules.condition(MaterialRules.surface(), onSurface);
+        var dirt = AylythMaterialRules.block(Blocks.DIRT);
+        var grass = AylythMaterialRules.block(Blocks.GRASS_BLOCK);
+        var onReplaceWithGrass = MaterialRules.condition(MaterialRules.water(0, 0), grass);
+        var commonPodzol = AylythMaterialRules.podzol(PODZOL_COMMON, 0.5, Double.MAX_VALUE);
+        var rarePodzol = AylythMaterialRules.podzol(PODZOL_RARE, 0.95, Double.MAX_VALUE);
+        var podzolDecoCommon = MaterialRules.sequence(MaterialRules.condition(MaterialRules.biome(ModBiomes.DEEPWOOD_ID, ModBiomes.CONIFEROUS_DEEPWOOD_ID), commonPodzol));
+        var podzolDecoRare = MaterialRules.condition(MaterialRules.biome(ModBiomes.COPSE_ID, ModBiomes.OVERGROWN_CLEARING_ID), rarePodzol);
+        var onSurface = MaterialRules.condition(
+                MaterialRules.stoneDepth(0, false, 0, VerticalSurfaceType.FLOOR),
+                MaterialRules.condition(MaterialRules.water(-1, 0),
+                        MaterialRules.sequence(podzolDecoCommon, podzolDecoRare, onReplaceWithGrass, dirt)
+                )
+        );
+        var onUnderSurface = MaterialRules.condition(MaterialRules.not(MaterialRules.biome(ModBiomes.UPLANDS_ID)), MaterialRules.condition(MaterialRules.waterWithStoneDepth(-6, -1), MaterialRules.condition(MaterialRules.stoneDepth(0, true, 0, VerticalSurfaceType.FLOOR), dirt)));
+        var aboveBasicSurface = MaterialRules.condition(MaterialRules.surface(), MaterialRules.sequence(onSurface, onUnderSurface));
         var bedrock = MaterialRules.condition(MaterialRules.verticalGradient("aylyth:bedrock_layer", YOffset.BOTTOM, YOffset.aboveBottom(5)), MaterialRules.block(defaultState(Blocks.BEDROCK)));
-        return MaterialRules.sequence(bedrock, onSurface);
+        var uplands = MaterialRules.condition(MaterialRules.biome(ModBiomes.UPLANDS_ID), MaterialRules.condition(MaterialRules.surface(), MaterialRules.condition(MaterialRules.waterWithStoneDepth(-6, -1), AylythMaterialRules.uplandsTerracotta())));
+        return MaterialRules.sequence(bedrock, uplands, aboveBasicSurface);
     }
 
     static MaterialRules.MaterialRule emptyRules() {

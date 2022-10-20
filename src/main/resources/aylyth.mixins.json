@@ -6,6 +6,7 @@
   "mixins": [
     "BlocksAccessor",
     "BrewingRecipeRegistryAccessor",
+    "EntityMixin",
     "GeneratorOptionsMixin",
     "LivingEntityMixin",
     "TreeDecoratorTypeAccessor",
@@ -17,6 +18,8 @@
     "client.DimensionEffectsAccessor",
     "client.GameRendererMixin",
     "client.InGameHudMixin",
+    "client.ItemRendererMixin",
+    "client.LivingEntityRendererMixin",
     "client.ParticleManagerMixin",
     "client.PlayerEntityRendererMixin",
     "client.RenderLayerAccessor",
@@ -24,5 +27,5 @@
   ],
   "injectors": {
     "defaultRequire": 1
-  }
+	}
 }

@@ -3,6 +3,7 @@ package moriyashiine.aylyth.common.world.generator;
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import moriyashiine.aylyth.common.registry.ModFeatures;
 import moriyashiine.aylyth.common.registry.ModVegetationFeatures;
 import net.minecraft.block.BlockState;
 import net.minecraft.state.property.Properties;
@@ -18,6 +19,9 @@ import net.minecraft.world.gen.trunk.TrunkPlacerType;
 import java.util.List;
 import java.util.function.BiConsumer;
 
+// TODO: There is something "wrong" with this. Example warnings:
+//  [12:00:25] [Worker-Main-28/ERROR] (Minecraft) Detected setBlock in a far chunk [-1405, -2354], pos: Mutable{x=-22466, y=61, z=-37664}, status: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/placed_feature / aylyth:deepwood_trees]
+//  [11:57:31] [Worker-Main-41/ERROR] (Minecraft) Detected setBlock in a far chunk [-1566, -2361], pos: Mutable{x=-25044, y=56, z=-37775}, status: minecraft:features, currently generating: ResourceKey[minecraft:worldgen/placed_feature / aylyth:coniferous_deepwood_trees]
 public class BigYmpeTrunkPlacer extends GiantTrunkPlacer {
 	public static final Codec<BigYmpeTrunkPlacer> CODEC = RecordCodecBuilder.create((instance) -> fillTrunkPlacerFields(instance).apply(instance, BigYmpeTrunkPlacer::new));
 	
@@ -31,7 +35,7 @@ public class BigYmpeTrunkPlacer extends GiantTrunkPlacer {
 	
 	@Override
 	protected TrunkPlacerType<BigYmpeTrunkPlacer> getType() {
-		return ModVegetationFeatures.BIG_YMPE_TRUNK_PLACER;
+		return ModFeatures.BIG_YMPE_TRUNK_PLACER;
 	}
 	
 	@Override

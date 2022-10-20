@@ -41,11 +41,17 @@
     [],
     [],
     [],
-    [],
+    [
+      "minecraft:ore_coal_upper",
+      "minecraft:ore_coal_lower",
+      "minecraft:ore_iron_upper",
+      "minecraft:ore_iron_middle",
+      "minecraft:ore_iron_small",
+      "minecraft:ore_copper"
+    ],
     [],
     [
-      "minecraft:spring_water",
-      "minecraft:spring_lava"
+      "minecraft:spring_water"
     ],
     [
       "minecraft:forest_flowers",
@@ -54,6 +60,8 @@
       "aylyth:coniferous_copse_trees",
       "minecraft:brown_mushroom_normal",
       "minecraft:red_mushroom_normal",
+      "aylyth:oak_strewn_leaves",
+      "aylyth:ympe_strewn_leaves",
       "aylyth:ympe_seep"
     ],
     [

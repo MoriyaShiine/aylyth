@@ -3,6 +3,7 @@ package moriyashiine.aylyth.common.world.generator;
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import moriyashiine.aylyth.common.registry.ModFeatures;
 import moriyashiine.aylyth.common.registry.ModVegetationFeatures;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
@@ -30,7 +31,7 @@ public class AylthianTrunkPlacer extends GiantTrunkPlacer {
 	
 	@Override
 	protected TrunkPlacerType<AylthianTrunkPlacer> getType() {
-		return ModVegetationFeatures.AYLYTHIAN_TRUNK_PLACER;
+		return ModFeatures.AYLYTHIAN_TRUNK_PLACER;
 	}
 
 	@Override

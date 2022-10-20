@@ -40,11 +40,17 @@
     [],
     [],
     [],
-    [],
+    [
+      "minecraft:ore_coal_upper",
+      "minecraft:ore_coal_lower",
+      "minecraft:ore_iron_upper",
+      "minecraft:ore_iron_middle",
+      "minecraft:ore_iron_small",
+      "minecraft:ore_copper"
+    ],
     [],
     [
-      "minecraft:spring_water",
-      "minecraft:spring_lava"
+      "minecraft:spring_water"
     ],
     [
       "aylyth:deep_roof_trees",
@@ -54,9 +60,13 @@
       "minecraft:patch_tall_grass",
       "aylyth:aylyth_weeds",
       "minecraft:patch_tall_grass_2",
+      "aylyth:oak_leaf_pile",
+      "aylyth:ympe_leaf_pile",
       "minecraft:patch_large_fern",
       "minecraft:brown_mushroom_normal",
       "minecraft:red_mushroom_normal",
+      "aylyth:oak_strewn_leaves",
+      "aylyth:ympe_strewn_leaves",
       "aylyth:ympe_seep"
     ],
     [

@@ -40,17 +40,26 @@
     [],
     [],
     [],
-    [],
+    [
+      "minecraft:ore_coal_upper",
+      "minecraft:ore_coal_lower",
+      "minecraft:ore_iron_upper",
+      "minecraft:ore_iron_middle",
+      "minecraft:ore_iron_small",
+      "minecraft:ore_copper"
+    ],
     [],
     [
-      "minecraft:spring_water",
-      "minecraft:spring_lava"
+      "minecraft:spring_water"
     ],
     [
       "minecraft:patch_grass_plain",
+      "aylyth:marigolds",
       "aylyth:overgrowth_clearing_trees",
       "aylyth:bushes",
-      "minecraft:patch_tall_grass"
+      "minecraft:patch_tall_grass",
+      "aylyth:oak_strewn_leaves",
+      "aylyth:ympe_strewn_leaves"
     ],
     [
       "minecraft:freeze_top_layer"
