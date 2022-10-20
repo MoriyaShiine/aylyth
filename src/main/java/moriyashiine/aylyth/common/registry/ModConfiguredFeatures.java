@@ -43,8 +43,10 @@ public class ModConfiguredFeatures {
     public static final RegistryEntry<ConfiguredFeature<StrewnLeavesFeature.StrewnLeavesConfig, ?>> OAK_STREWN_LEAVES = register("oak_strewn_leaves", ModFeatures.STREWN_LEAVES_FEATURE, new StrewnLeavesFeature.StrewnLeavesConfig(Blocks.DARK_OAK_LEAVES, ModBlocks.OAK_STREWN_LEAVES.getDefaultState()));
     public static final RegistryEntry<ConfiguredFeature<StrewnLeavesFeature.StrewnLeavesConfig, ?>> YMPE_STREWN_LEAVES = register("ympe_strewn_leaves", ModFeatures.STREWN_LEAVES_FEATURE, new StrewnLeavesFeature.StrewnLeavesConfig(ModBlocks.YMPE_LEAVES, ModBlocks.YMPE_STREWN_LEAVES.getDefaultState()));
     public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> AYLYTH_WEEDS = register("aylyth_weeds", Feature.FLOWER, createRandomPatchFeatureConfig(new WeightedBlockStateProvider(DataPool.<BlockState>builder().add(ModBlocks.ANTLER_SHOOTS.getDefaultState(), 5).add(ModBlocks.GRIPWEED.getDefaultState(), 2).build()), 64));
-    public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> MARIGOLDS = register("marigolds", Feature.FLOWER, createRandomPatchFeatureConfig(new WeightedBlockStateProvider(DataPool.<BlockState>builder().add(ModBlocks.MARIGOLD.getDefaultState(), 1).build()), 64));
+    public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> MARIGOLDS = register("marigolds", Feature.FLOWER, createRandomPatchFeatureConfig(BlockStateProvider.of(ModBlocks.MARIGOLD), 64));
     //public static final ConfiguredFeature<?, ?> CLEARING_FLOWERS = todo flower generators
+
+    public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> GLOW_LICHEN = register("glow_lichen", Feature.RANDOM_PATCH, createRandomPatchFeatureConfig(BlockStateProvider.of(ModBlocks.MARIGOLD), 32));
 
     public static final RegistryEntry<ConfiguredFeature<SeepFeature.SeepFeatureConfig, ?>> OAK_SEEP = register("oak_seep", ModFeatures.SEEP_FEATURE, new SeepFeature.SeepFeatureConfig(Blocks.OAK_LOG.getDefaultState(), ModBlocks.OAK_SEEP.getDefaultState(), ModBlocks.MARIGOLD.getDefaultState(), 5, 0.5F));
     public static final RegistryEntry<ConfiguredFeature<SeepFeature.SeepFeatureConfig, ?>> SPRUCE_SEEP = register("spruce_seep", ModFeatures.SEEP_FEATURE, new SeepFeature.SeepFeatureConfig(Blocks.SPRUCE_LOG.getDefaultState(), ModBlocks.SPRUCE_SEEP.getDefaultState(), ModBlocks.MARIGOLD.getDefaultState(), 5, 0.5F));
@@ -52,6 +54,6 @@ public class ModConfiguredFeatures {
     public static final RegistryEntry<ConfiguredFeature<SeepFeature.SeepFeatureConfig, ?>> YMPE_SEEP = register("ympe_seep", ModFeatures.SEEP_FEATURE, new SeepFeature.SeepFeatureConfig(ModBlocks.YMPE_LOG.getDefaultState(), ModBlocks.YMPE_SEEP.getDefaultState(), ModBlocks.MARIGOLD.getDefaultState(), 5, 0.5F));
 
     private static RandomPatchFeatureConfig createRandomPatchFeatureConfig(BlockStateProvider block, int tries) {
-        return ConfiguredFeatures.createRandomPatchFeatureConfig(tries, PlacedFeatures.createEntry((Feature)Feature.SIMPLE_BLOCK, (FeatureConfig)(new SimpleBlockFeatureConfig(block))));
+        return ConfiguredFeatures.createRandomPatchFeatureConfig(tries, PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(block)));
     }
 }

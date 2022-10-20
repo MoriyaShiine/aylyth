@@ -14,6 +14,7 @@ import net.minecraft.world.gen.YOffset;
 import net.minecraft.world.gen.chunk.ChunkGeneratorSettings;
 import net.minecraft.world.gen.chunk.GenerationShapeConfig;
 import net.minecraft.world.gen.densityfunction.DensityFunction;
+import net.minecraft.world.gen.noise.NoiseParametersKeys;
 import net.minecraft.world.gen.noise.NoiseRouter;
 import net.minecraft.world.gen.surfacebuilder.MaterialRules;
 
@@ -170,10 +171,19 @@ public class AylythNoiseSettings {
     }
 
     static MaterialRules.MaterialRule materialRules() {
-        var dirt = MaterialRules.block(defaultState(Blocks.DIRT));
-        var grass = MaterialRules.block(defaultState(Blocks.GRASS_BLOCK));
+        var dirt = AylythMaterialRules.block(Blocks.DIRT);
+        var grass = AylythMaterialRules.block(Blocks.GRASS_BLOCK);
         var onReplaceWithGrass = MaterialRules.condition(MaterialRules.water(0, 0), grass);
-        var onSurface = MaterialRules.condition(MaterialRules.stoneDepth(0, false, 0, VerticalSurfaceType.FLOOR), MaterialRules.condition(MaterialRules.water(-1, 0), MaterialRules.sequence(onReplaceWithGrass, dirt)));
+        var commonPodzol = AylythMaterialRules.podzol(PODZOL_COMMON, 0.5, Double.MAX_VALUE);
+        var rarePodzol = AylythMaterialRules.podzol(PODZOL_RARE, 0.95, Double.MAX_VALUE);
+        var podzolDecoCommon = MaterialRules.sequence(MaterialRules.condition(MaterialRules.biome(ModBiomes.DEEPWOOD_ID, ModBiomes.CONIFEROUS_DEEPWOOD_ID), commonPodzol));
+        var podzolDecoRare = MaterialRules.condition(MaterialRules.biome(ModBiomes.COPSE_ID, ModBiomes.OVERGROWN_CLEARING_ID), rarePodzol);
+        var onSurface = MaterialRules.condition(
+                MaterialRules.stoneDepth(0, false, 0, VerticalSurfaceType.FLOOR),
+                MaterialRules.condition(MaterialRules.water(-1, 0),
+                        MaterialRules.sequence(podzolDecoCommon, podzolDecoRare, onReplaceWithGrass, dirt)
+                )
+        );
         var onUnderSurface = MaterialRules.condition(MaterialRules.not(MaterialRules.biome(ModBiomes.UPLANDS_ID)), MaterialRules.condition(MaterialRules.waterWithStoneDepth(-6, -1), MaterialRules.condition(MaterialRules.stoneDepth(0, true, 0, VerticalSurfaceType.FLOOR), dirt)));
         var aboveBasicSurface = MaterialRules.condition(MaterialRules.surface(), MaterialRules.sequence(onSurface, onUnderSurface));
         var bedrock = MaterialRules.condition(MaterialRules.verticalGradient("aylyth:bedrock_layer", YOffset.BOTTOM, YOffset.aboveBottom(5)), MaterialRules.block(defaultState(Blocks.BEDROCK)));
