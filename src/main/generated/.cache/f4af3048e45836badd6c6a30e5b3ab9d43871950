@@ -1,4 +1,4 @@
-// 1.19.2	2022-10-20T00:15:12.3845753	Aylyth worldgen generator
+// 1.19.2	2022-10-20T00:23:17.8417004	Aylyth worldgen generator
 e38d87100c4597954814864944a34e4d1e0ede26 data\aylyth\worldgen\placed_feature\copse_trees.json
 0b9f654b23136a3c52ef8b00e58fc4cc0ecda41a data\aylyth\worldgen\noise\temperature.json
 fddd402921f45097d2ae9120efc830996d646dee data\aylyth\worldgen\noise\cave_entrances.json
@@ -40,7 +40,7 @@ cede638e6cdc95de7c7952736451eaf7f7e6ee88 data\aylyth\worldgen\configured_feature
 7235299fc44bee2dc1b0de8c74b9c4421d53955b data\aylyth\worldgen\noise\cave_cheese.json
 dee3d1cb549513644a534b3d41b89380ace745a2 data\aylyth\worldgen\noise\noodle_thickness.json
 14e2b8fca08ea239e9751a9e82e600a363916c84 data\aylyth\worldgen\configured_feature\coniferous_deep_roof_trees.json
-9bcdb183ba895b207d7cbbfa731dd9799e3511c6 data\aylyth\worldgen\biome\coniferous_deepwood.json
+3f31551da6f1e91144969d138641a2c08dbaa449 data\aylyth\worldgen\biome\coniferous_deepwood.json
 dcf1f9c261564c28ce83d76054e44ab3665a6a83 data\aylyth\worldgen\configured_feature\ympe_seep.json
 f379cc8e47f4e1929199a113d10ca4480e2d4b6b data\aylyth\worldgen\biome\copse.json
 4f7bba30bdfb2f70600393a591ca44634150dd8a data\aylyth\worldgen\configured_feature\oak_seep.json

@@ -64,8 +64,8 @@
       "aylyth:ympe_leaf_pile",
       "minecraft:patch_large_fern",
       "minecraft:forest_flowers",
-      "aylyth:coniferous_deep_roof_trees",
-      "aylyth:coniferous_deepwood_trees"
+      "aylyth:coniferous_deepwood_trees",
+      "aylyth:coniferous_deep_roof_trees"
     ],
     [
       "minecraft:freeze_top_layer"

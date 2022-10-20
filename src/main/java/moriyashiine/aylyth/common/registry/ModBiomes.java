@@ -66,7 +66,9 @@ public class ModBiomes {
 							.add(ModBiomes::addLandCarversNotLavaLakes)
 							.add(ModBiomes::addBasicVanillaOres)
 							.vegetalDecoFeature(VegetationPlacedFeatures.PATCH_GRASS_PLAIN)
-							.add(ModBiomes::addMarigolds);
+							.add(ModBiomes::addMarigolds)
+							.add(ModBiomes::addWaterSprings)
+							.add(DefaultBiomeFeatures::addFrozenTopLayer);
 					if (overgrown) {
 						generationSettingsBuilder.lakesFeature(ModPlacedFeatures.SPRING)
 								.vegetalDecoFeature(ModVegetationFeatures.OVERGROWTH_CLEARING_TREES_PLACED)
@@ -74,8 +76,6 @@ public class ModBiomes {
 								.vegetalDecoFeature(VegetationPlacedFeatures.PATCH_TALL_GRASS)
 								.add(ModBiomes::addStrewnLeaves);
 					}
-					generationSettingsBuilder.add(ModBiomes::addWaterSprings)
-							.add(DefaultBiomeFeatures::addFrozenTopLayer);
 				}).build();
 	}
 	
@@ -98,17 +98,17 @@ public class ModBiomes {
 							.vegetalDecoFeature(VegetationPlacedFeatures.PATCH_GRASS_TAIGA)
 							.vegetalDecoFeature(ModPlacedFeatures.BUSHES)
 							.vegetalDecoFeature(VegetationPlacedFeatures.PATCH_TALL_GRASS)
-							.vegetalDecoFeature(ModPlacedFeatures.AYLYTH_WEEDS);
+							.vegetalDecoFeature(ModPlacedFeatures.AYLYTH_WEEDS)
+							.add(DefaultBiomeFeatures::addDefaultMushrooms)
+							.add(ModBiomes::addStrewnLeaves)
+							.add(ModBiomes::addWaterSprings)
+							.add(DefaultBiomeFeatures::addFrozenTopLayer)
+							.vegetalDecoFeature(ModPlacedFeatures.YMPE_SEEP);
 					if (deep) {
 						generationSettingsBuilder.vegetalDecoFeature(VegetationPlacedFeatures.PATCH_TALL_GRASS_2)
 								.add(ModBiomes::addLeafPiles)
 								.add(DefaultBiomeFeatures::addLargeFerns);
 					}
-					generationSettingsBuilder.add(DefaultBiomeFeatures::addDefaultMushrooms)
-							.add(ModBiomes::addStrewnLeaves)
-							.add(ModBiomes::addWaterSprings)
-							.add(DefaultBiomeFeatures::addFrozenTopLayer)
-							.vegetalDecoFeature(ModPlacedFeatures.YMPE_SEEP);
 				}).build();
 	}
 	
@@ -128,18 +128,18 @@ public class ModBiomes {
 							.add(DefaultBiomeFeatures::addForestFlowers)
 							.lakesFeature(ModPlacedFeatures.SPRING)
 							.vegetalDecoFeature(VegetationPlacedFeatures.PATCH_GRASS_TAIGA)
-							.vegetalDecoFeature(ModPlacedFeatures.AYLYTH_WEEDS);
-					if (deep) {
-						builder.vegetalDecoFeature(ModVegetationFeatures.CONIFEROUS_DEEP_ROOF_TREES_PLACED)
-								.add(ModBiomes::addLeafPiles)
-								.add(DefaultBiomeFeatures::addLargeFerns);
-					}
-					builder.vegetalDecoFeature(deep ? ModVegetationFeatures.CONIFEROUS_DEEPWOOD_TREES_PLACED : ModVegetationFeatures.CONIFEROUS_COPSE_TREES_PLACED)
+							.vegetalDecoFeature(ModPlacedFeatures.AYLYTH_WEEDS)
+							.vegetalDecoFeature(deep ? ModVegetationFeatures.CONIFEROUS_DEEPWOOD_TREES_PLACED : ModVegetationFeatures.CONIFEROUS_COPSE_TREES_PLACED)
 							.add(DefaultBiomeFeatures::addDefaultMushrooms)
 							.add(ModBiomes::addStrewnLeaves)
 							.add(ModBiomes::addWaterSprings)
 							.add(DefaultBiomeFeatures::addFrozenTopLayer)
 							.vegetalDecoFeature(ModPlacedFeatures.YMPE_SEEP);
+					if (deep) {
+						builder.vegetalDecoFeature(ModVegetationFeatures.CONIFEROUS_DEEP_ROOF_TREES_PLACED)
+								.add(ModBiomes::addLeafPiles)
+								.add(DefaultBiomeFeatures::addLargeFerns);
+					}
 				}).build();
 	}
 
