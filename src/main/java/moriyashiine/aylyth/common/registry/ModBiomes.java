@@ -19,7 +19,7 @@ import net.minecraft.world.gen.feature.MiscPlacedFeatures;
 import net.minecraft.world.gen.feature.OrePlacedFeatures;
 import net.minecraft.world.gen.feature.VegetationPlacedFeatures;
 
-//TODO: springs and clearing flowers still need fixed
+//TODO: clearing flowers still need fixed
 public class ModBiomes {
 	public static final SpawnSettings COPSE_MOBS = SpawnSettingsBuilder.builder().spawnCost(ModEntityTypes.AYLYTHIAN, 2, 1).monster(ModEntityTypes.AYLYTHIAN, 20, 1, 2).ambient(ModEntityTypes.PILOT_LIGHT, 5, 1, 1).spawnChance(0.5F).build();
 	public static final SpawnSettings DEEPWOOD_MOBS = SpawnSettingsBuilder.builder().spawnCost(ModEntityTypes.AYLYTHIAN, 3, 1).monster(ModEntityTypes.AYLYTHIAN, 25, 1, 3).monster(ModEntityTypes.ELDER_AYLYTHIAN, 2, 1, 1).ambient(ModEntityTypes.PILOT_LIGHT, 10, 1, 1).build();
@@ -99,7 +99,7 @@ public class ModBiomes {
 							.vegetalDecoFeature(ModPlacedFeatures.BUSHES)
 							.vegetalDecoFeature(VegetationPlacedFeatures.PATCH_TALL_GRASS)
 							.vegetalDecoFeature(ModPlacedFeatures.AYLYTH_WEEDS)
-							.add(DefaultBiomeFeatures::addDefaultMushrooms)
+							.add(deep ? ModBiomes::addMushroomsDeepwood : ModBiomes::addMushroomsCommon)
 							.add(ModBiomes::addStrewnLeaves)
 							.add(ModBiomes::addWaterSprings)
 							.add(DefaultBiomeFeatures::addFrozenTopLayer)
@@ -130,7 +130,7 @@ public class ModBiomes {
 							.vegetalDecoFeature(VegetationPlacedFeatures.PATCH_GRASS_TAIGA)
 							.vegetalDecoFeature(ModPlacedFeatures.AYLYTH_WEEDS)
 							.vegetalDecoFeature(deep ? ModVegetationFeatures.CONIFEROUS_DEEPWOOD_TREES_PLACED : ModVegetationFeatures.CONIFEROUS_COPSE_TREES_PLACED)
-							.add(DefaultBiomeFeatures::addDefaultMushrooms)
+							.add(deep ? ModBiomes::addMushroomsDeepwood : ModBiomes::addMushroomsCommon)
 							.add(ModBiomes::addStrewnLeaves)
 							.add(ModBiomes::addWaterSprings)
 							.add(DefaultBiomeFeatures::addFrozenTopLayer)
@@ -169,8 +169,6 @@ public class ModBiomes {
 	}
 
 	private static void addBasicVanillaOres(GenerationSettings.Builder builder) {
-		builder.feature(GenerationStep.Feature.UNDERGROUND_ORES, OrePlacedFeatures.ORE_COAL_UPPER);
-		builder.feature(GenerationStep.Feature.UNDERGROUND_ORES, OrePlacedFeatures.ORE_COAL_LOWER);
 		builder.feature(GenerationStep.Feature.UNDERGROUND_ORES, OrePlacedFeatures.ORE_IRON_UPPER);
 		builder.feature(GenerationStep.Feature.UNDERGROUND_ORES, OrePlacedFeatures.ORE_IRON_MIDDLE);
 		builder.feature(GenerationStep.Feature.UNDERGROUND_ORES, OrePlacedFeatures.ORE_IRON_SMALL);
@@ -189,5 +187,15 @@ public class ModBiomes {
 	private static void addStrewnLeaves(GenerationSettings.Builder builder) {
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.OAK_STREWN_LEAVES);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.YMPE_STREWN_LEAVES);
+	}
+
+	private static void addMushroomsCommon(GenerationSettings.Builder builder) {
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModVegetationFeatures.RED_MUSHROOM_PATCHES_PLACED);
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModVegetationFeatures.BROWN_MUSHROOM_PATCHES_PLACED);
+	}
+
+	private static void addMushroomsDeepwood(GenerationSettings.Builder builder) {
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModVegetationFeatures.RED_MUSHROOM_PATCHES_DEEPWOOD_PLACED);
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModVegetationFeatures.BROWN_MUSHROOM_PATCHES_DEEPWOOD_PLACED);
 	}
 }

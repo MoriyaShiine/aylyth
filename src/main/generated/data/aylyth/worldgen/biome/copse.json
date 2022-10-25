@@ -42,8 +42,6 @@
     [],
     [],
     [
-      "minecraft:ore_coal_upper",
-      "minecraft:ore_coal_lower",
       "minecraft:ore_iron_upper",
       "minecraft:ore_iron_middle",
       "minecraft:ore_iron_small",
@@ -62,8 +60,8 @@
       "aylyth:copse_trees",
       "minecraft:patch_grass_taiga",
       "aylyth:aylyth_weeds",
-      "minecraft:brown_mushroom_normal",
-      "minecraft:red_mushroom_normal",
+      "aylyth:red_mushroom_patch",
+      "aylyth:brown_mushroom_patch",
       "aylyth:ympe_seep"
     ],
     [
