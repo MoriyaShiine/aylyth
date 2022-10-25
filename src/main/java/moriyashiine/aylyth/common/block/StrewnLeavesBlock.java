@@ -1,16 +1,19 @@
 package moriyashiine.aylyth.common.block;
 
 import moriyashiine.aylyth.common.registry.ModSoundEvents;
+import net.fabricmc.fabric.api.tag.convention.v1.ConventionalEntityTypeTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.vehicle.BoatEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
+import net.minecraft.tag.EntityTypeTags;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -66,8 +69,16 @@ public class StrewnLeavesBlock extends Block implements IContextBlockSoundGroup 
     }
 
     @Override
+    public VoxelShape getCullingShape(BlockState state, BlockView world, BlockPos pos) {
+        return VoxelShapes.empty();
+    }
+
+    @Override
     public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
         super.onEntityCollision(state, world, pos, entity);
+        if (entity instanceof BoatEntity || entity.getType().isIn(ConventionalEntityTypeTags.BOATS)) {
+            world.breakBlock(pos, true, entity);
+        }
     }
 
     @Override
