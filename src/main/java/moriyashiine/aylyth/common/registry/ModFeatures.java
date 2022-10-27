@@ -25,6 +25,9 @@ public class ModFeatures {
     public static final BushFeature BUSH_FEATURE = Registry.register(Registry.FEATURE, Aylyth.MOD_ID + ":bushes", new BushFeature());
     public static final LeafPileFeature LEAF_PILE_FEATURE = Registry.register(Registry.FEATURE, Aylyth.MOD_ID + ":leaf_pile", new LeafPileFeature());
     public static final StrewnLeavesFeature STREWN_LEAVES_FEATURE = Registry.register(Registry.FEATURE, Aylyth.MOD_ID + ":strewn_leaves", new StrewnLeavesFeature());
+    public static final HorizontalFacingFeature HORIZONTAL_FACING_FEATURE = Registry.register(Registry.FEATURE, Aylyth.MOD_ID + ":horizontal_facing_feature", new HorizontalFacingFeature());
+//    public static final ShelfMushroomFeature SHELF_MUSHROOM_FEATURE = Registry.register(Registry.FEATURE, Aylyth.MOD_ID + ":shelf_mushroom", new ShelfMushroomFeature());
+
     public static final TrunkPlacerType<AylthianTrunkPlacer> AYLYTHIAN_TRUNK_PLACER = TrunkPlacerTypeAccessor.callRegister(Aylyth.MOD_ID + ":aylythian_trunk_placer", AylthianTrunkPlacer.CODEC);
     public static final TrunkPlacerType<YmpeTrunkPlacer> YMPE_TRUNK_PLACER = TrunkPlacerTypeAccessor.callRegister(Aylyth.MOD_ID + ":ympe_trunk_placer", YmpeTrunkPlacer.CODEC);
     public static final TrunkPlacerType<BigYmpeTrunkPlacer> BIG_YMPE_TRUNK_PLACER = TrunkPlacerTypeAccessor.callRegister(Aylyth.MOD_ID + ":big_ympe_trunk_placer", BigYmpeTrunkPlacer.CODEC);

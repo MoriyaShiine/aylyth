@@ -100,6 +100,7 @@ public class ModBiomes {
 							.vegetalDecoFeature(VegetationPlacedFeatures.PATCH_TALL_GRASS)
 							.vegetalDecoFeature(ModPlacedFeatures.AYLYTH_WEEDS)
 							.add(deep ? ModBiomes::addMushroomsDeepwood : ModBiomes::addMushroomsCommon)
+							.vegetalDecoFeature(ModVegetationFeatures.SHELF_JACK_O_LANTERN_MUSHROOM_PATCHES_PLACED)
 							.add(ModBiomes::addStrewnLeaves)
 							.add(ModBiomes::addWaterSprings)
 							.add(DefaultBiomeFeatures::addFrozenTopLayer)
@@ -137,6 +138,7 @@ public class ModBiomes {
 							.vegetalDecoFeature(ModPlacedFeatures.YMPE_SEEP);
 					if (deep) {
 						builder.vegetalDecoFeature(ModVegetationFeatures.CONIFEROUS_DEEP_ROOF_TREES_PLACED)
+								.vegetalDecoFeature(ModVegetationFeatures.SHELF_JACK_O_LANTERN_MUSHROOM_PATCHES_PLACED)
 								.add(ModBiomes::addLeafPiles)
 								.add(DefaultBiomeFeatures::addLargeFerns);
 					}

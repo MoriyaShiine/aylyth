@@ -1,5 +1,7 @@
-// 1.19.2	2022-10-20T00:23:17.8286971	Block Loot Tables
+// 1.19.2	2022-10-26T21:26:26.6910436	Block Loot Tables
 e0478af328ffa4cc93a0d1b6036021aba4dc5d5d data\aylyth\loot_tables\blocks\oak_strewn_leaves.json
 8b385c3b00d2353146b4bd32c892ad88964fc5ca data\aylyth\loot_tables\blocks\potted_marigolds.json
+5f7c99bb78ef9a7f0a69f415c96f072510d8490d data\aylyth\loot_tables\blocks\jack_o_lantern_mushroom.json
 86deab9a1b1c7db8102828891a8e177b1b67ed83 data\aylyth\loot_tables\blocks\marigolds.json
 23e490c5a11b977e026dd096f82cc56fa34618e6 data\aylyth\loot_tables\blocks\ympe_strewn_leaves.json
+51efb322de2752e87472b18a9936e80c48b8687e data\aylyth\loot_tables\blocks\shelf_jack_o_lantern_mushroom.json

@@ -1,11 +1,14 @@
 package moriyashiine.aylyth.datagen;
 
+import moriyashiine.aylyth.common.block.JackolanternMushroomBlock;
+import moriyashiine.aylyth.common.block.StagedMushroomPlantBlock;
 import moriyashiine.aylyth.common.block.StrewnLeavesBlock;
 import moriyashiine.aylyth.common.registry.ModBlocks;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.Items;
 import net.minecraft.loot.LootPool;
@@ -17,12 +20,16 @@ import net.minecraft.loot.condition.MatchToolLootCondition;
 import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.entry.AlternativeEntry;
 import net.minecraft.loot.entry.ItemEntry;
+import net.minecraft.loot.entry.LootPoolEntry;
 import net.minecraft.loot.function.SetCountLootFunction;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
 import net.minecraft.predicate.NumberRange;
 import net.minecraft.predicate.StatePredicate;
 import net.minecraft.predicate.item.EnchantmentPredicate;
 import net.minecraft.predicate.item.ItemPredicate;
+import net.minecraft.state.property.Property;
+
+import java.util.List;
 
 public class AylythLootTableProviders {
 
@@ -45,6 +52,18 @@ public class AylythLootTableProviders {
             addPottedPlantDrop(ModBlocks.MARIGOLD_POTTED);
             addDrop(ModBlocks.OAK_STREWN_LEAVES, this::strewnLeaves);
             addDrop(ModBlocks.YMPE_STREWN_LEAVES, this::strewnLeaves);
+            addDrop(ModBlocks.JACK_O_LANTERN_MUSHROOM, this::standingJackolantern);
+            addDrop(ModBlocks.SHELF_JACK_O_LANTERN_MUSHROOM);
+        }
+
+        private LootTable.Builder standingJackolantern(Block block) {
+            return LootTable.builder().pool(
+                    LootPool.builder()
+                            .with(AlternativeEntry.builder(JackolanternMushroomBlock.STAGE.getValues(), integer -> ItemEntry.builder(block)
+                                    .conditionally(BlockStatePropertyLootCondition.builder(block)
+                                            .properties(StatePredicate.Builder.create().exactMatch(StagedMushroomPlantBlock.STAGE, integer)))
+                                    .apply(SetCountLootFunction.builder(ConstantLootNumberProvider.create(integer)))))
+            );
         }
 
         private LootTable.Builder strewnLeaves(Block block) {
@@ -83,4 +102,6 @@ public class AylythLootTableProviders {
                     );
         }
     }
+
+    record StateEntryPair<T extends Comparable<T>>(Property<T> state, LootPoolEntry.Builder<?> entry) {}
 }
