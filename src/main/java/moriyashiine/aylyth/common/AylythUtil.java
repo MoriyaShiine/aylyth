@@ -1,7 +1,9 @@
 package moriyashiine.aylyth.common;
 
+import moriyashiine.aylyth.common.registry.ModPotions;
 import moriyashiine.aylyth.common.registry.ModSoundEvents;
 import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
+import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluids;
@@ -39,5 +41,9 @@ public class AylythUtil {
 		ServerWorld toWorld = living.world.getServer().getWorld(world);
 		FabricDimensions.teleport(living, toWorld, new TeleportTarget(Vec3d.of(AylythUtil.getSafePosition(toWorld, living.getBlockPos().mutableCopy(), tries)), Vec3d.ZERO, living.headYaw, living.getPitch()));
 		toWorld.playSoundFromEntity(null, living, ModSoundEvents.ENTITY_GENERIC_SHUCKED, SoundCategory.PLAYERS, 1, living.getSoundPitch());
+	}
+
+	public static boolean shouldUndeadAttack(LivingEntity target, LivingEntity attacker) {
+		return attacker.getAttacker() != target && target.hasStatusEffect(ModPotions.CIMMERIAN_EFFECT) && attacker.getGroup() == EntityGroup.UNDEAD;
 	}
 }

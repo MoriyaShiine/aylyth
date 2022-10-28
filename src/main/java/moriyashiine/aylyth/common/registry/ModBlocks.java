@@ -67,6 +67,7 @@ public class ModBlocks {
 	public static final Block MARIGOLD_POTTED = new FlowerPotBlock(MARIGOLD, copyOf(Blocks.FLOWER_POT));
 	public static final Block JACK_O_LANTERN_MUSHROOM = new JackolanternMushroomBlock(ModBlocks::wallSupplier, FabricBlockSettings.of(Material.PLANT).sounds(BlockSoundGroup.WART_BLOCK).noCollision().nonOpaque().ticksRandomly().luminance(state -> state.get(JackolanternShelfMushroomBlock.GLOWING) ? state.get(StagedMushroomPlantBlock.STAGE)+2 : 0));
 	public static final Block SHELF_JACK_O_LANTERN_MUSHROOM = new JackolanternShelfMushroomBlock(() -> JACK_O_LANTERN_MUSHROOM, FabricBlockSettings.of(Material.PLANT).sounds(BlockSoundGroup.WART_BLOCK).noCollision().nonOpaque().ticksRandomly().luminance(state -> state.get(JackolanternShelfMushroomBlock.GLOWING) ? 3 : 0));
+	public static final Block GHOSTCAP_MUSHROOM = new SpreadingPlantBlock(FabricBlockSettings.of(Material.PLANT).sounds(BlockSoundGroup.GLOW_LICHEN).noCollision().nonOpaque().ticksRandomly());
 
 	public static final Block OAK_STREWN_LEAVES = new StrewnLeavesBlock(FabricBlockSettings.of(STREWN_LEAVES).sounds(ModSoundEvents.STREWN_LEAVES));
 	public static final Block YMPE_STREWN_LEAVES = new StrewnLeavesBlock(FabricBlockSettings.of(STREWN_LEAVES).sounds(ModSoundEvents.STREWN_LEAVES));
@@ -104,6 +105,7 @@ public class ModBlocks {
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "potted_marigolds"), MARIGOLD_POTTED);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "jack_o_lantern_mushroom"), JACK_O_LANTERN_MUSHROOM);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "shelf_jack_o_lantern_mushroom"), SHELF_JACK_O_LANTERN_MUSHROOM);
+		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "ghostcap_mushroom"), GHOSTCAP_MUSHROOM);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "oak_strewn_leaves"), OAK_STREWN_LEAVES);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "ympe_strewn_leaves"), YMPE_STREWN_LEAVES);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "oak_seep"), OAK_SEEP);
@@ -124,7 +126,7 @@ public class ModBlocks {
 		flammableRegistry.add(AYLYTH_BUSH, 60, 100);
 	}
 
-	private static AbstractMushroomBlock wallSupplier() {
-		return (AbstractMushroomBlock) SHELF_JACK_O_LANTERN_MUSHROOM;
+	private static SpreadingPlantBlock wallSupplier() {
+		return (SpreadingPlantBlock) SHELF_JACK_O_LANTERN_MUSHROOM;
 	}
 }

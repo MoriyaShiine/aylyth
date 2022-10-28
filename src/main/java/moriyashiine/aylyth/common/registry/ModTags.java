@@ -14,6 +14,7 @@ public class ModTags {
 	
 	public static final TagKey<Block> SEEPS = TagKey.of(Registry.BLOCK_KEY, new Identifier(Aylyth.MOD_ID, "seeps"));
 	public static final TagKey<Block> JACK_O_LANTERN_GENERATE_ON = TagKey.of(Registry.BLOCK_KEY, new Identifier(Aylyth.MOD_ID, "jack_o_lantern_generate_on"));
+	public static final TagKey<Block> GHOSTCAP_REPLACEABLE = TagKey.of(Registry.BLOCK_KEY, new Identifier(Aylyth.MOD_ID, "ghostcap_replaceable"));
 
 	public static final TagKey<Item> YMPE_FOODS = TagKey.of(Registry.ITEM_KEY, new Identifier(Aylyth.MOD_ID, "ympe_foods"));
 

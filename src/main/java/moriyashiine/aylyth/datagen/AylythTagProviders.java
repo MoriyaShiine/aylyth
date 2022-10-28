@@ -41,6 +41,7 @@ public class AylythTagProviders {
         protected void generateTags() {
             getOrCreateTagBuilder(BlockTags.INSIDE_STEP_SOUND_BLOCKS).add(ModBlocks.OAK_STREWN_LEAVES, ModBlocks.YMPE_STREWN_LEAVES);
             getOrCreateTagBuilder(ModTags.JACK_O_LANTERN_GENERATE_ON).add(Blocks.DARK_OAK_LOG, Blocks.OAK_LOG);
+            getOrCreateTagBuilder(ModTags.GHOSTCAP_REPLACEABLE).add(Blocks.GRASS_BLOCK);
         }
     }
 

@@ -18,7 +18,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-public class ShelfMushroomBlock extends AbstractMushroomBlock {
+public class ShelfMushroomBlock extends SpreadingPlantBlock implements Fertilizable {
 
     public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
     public static final VoxelShape NORTH = VoxelShapes.cuboid(0, 0, 0.75, 1, 1, 1);

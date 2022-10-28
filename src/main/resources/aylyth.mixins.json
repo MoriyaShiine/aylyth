@@ -11,7 +11,12 @@
     "LivingEntityMixin",
     "TreeDecoratorTypeAccessor",
     "TrunkPlacerTypeAccessor",
-    "VineBlockMixin"
+    "VineBlockMixin",
+    "cimmerian.BowAttackGoalMixin",
+    "cimmerian.MeleeAttackGoalMixin",
+    "cimmerian.MobEntityMixin",
+    "cimmerian.TrackTargetGoalMixin",
+    "cimmerian.ZoglinEntityMixin"
   ],
   "client": [
     "client.BackgroundRendererMixin",

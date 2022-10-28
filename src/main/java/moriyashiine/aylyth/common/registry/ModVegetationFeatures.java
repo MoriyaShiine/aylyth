@@ -10,6 +10,8 @@ import moriyashiine.aylyth.common.world.generator.feature.StrewnLeavesDecorator;
 import moriyashiine.aylyth.mixin.TreeDecoratorTypeAccessor;
 import moriyashiine.aylyth.mixin.TrunkPlacerTypeAccessor;
 import net.minecraft.block.Blocks;
+import net.minecraft.util.math.VerticalSurfaceType;
+import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.placementmodifier.BiomePlacementModifier;
@@ -45,6 +47,7 @@ public class ModVegetationFeatures {
     public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> RED_MUSHROOM_PATCHES = registerConfigured("red_mushroom_patch", Feature.RANDOM_PATCH, ModConfiguredFeatures.createRandomPatchFeatureConfig(BlockStateProvider.of(Blocks.RED_MUSHROOM), 96));
     public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> BROWN_MUSHROOM_PATCHES = registerConfigured("brown_mushroom_patch", Feature.RANDOM_PATCH, ModConfiguredFeatures.createRandomPatchFeatureConfig(BlockStateProvider.of(Blocks.BROWN_MUSHROOM), 96));
     public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> SHELF_JACK_O_LANTERN_MUSHROOM_PATCHES = registerConfigured("shelf_jack_o_lantern_mushroom_patch", Feature.RANDOM_PATCH, ConfiguredFeatures.createRandomPatchFeatureConfig(96, PlacedFeatures.createEntry(ModConfiguredFeatures.SHELF_JACK_O_LANTERN_MUSHROOMS)));
+    public static final RegistryEntry<ConfiguredFeature<VegetationPatchFeatureConfig, ?>> GHOSTCAP_MUSHROOM_PATCHES = registerConfigured("ghostcap_mushroom_patch", Feature.VEGETATION_PATCH, new VegetationPatchFeatureConfig(ModTags.GHOSTCAP_REPLACEABLE, BlockStateProvider.of(Blocks.GRASS_BLOCK), PlacedFeatures.createEntry(ModConfiguredFeatures.GHOSTCAP_MUSHROOM), VerticalSurfaceType.FLOOR, ConstantIntProvider.create(1), 0, 1, 0.75f, ConstantIntProvider.create(3), 0));
 
     public static final RegistryEntry<PlacedFeature> DEEP_ROOF_TREES_PLACED = registerPlaced("deep_roof_trees", DEEP_ROOF_TREES, treesSurvive(8, 0.5F, 3));
     public static final RegistryEntry<PlacedFeature> CONIFEROUS_DEEP_ROOF_TREES_PLACED = registerPlaced("coniferous_deep_roof_trees", CONIFEROUS_DEEP_ROOF_TREES, treesSurvive(7, 0.5F, 2));
@@ -58,6 +61,7 @@ public class ModVegetationFeatures {
     public static final RegistryEntry<PlacedFeature> RED_MUSHROOM_PATCHES_DEEPWOOD_PLACED = registerPlaced("red_mushroom_patch_deepwood", RED_MUSHROOM_PATCHES, List.of(RarityFilterPlacementModifier.of(64), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of()));
     public static final RegistryEntry<PlacedFeature> BROWN_MUSHROOM_PATCHES_DEEPWOOD_PLACED = registerPlaced("brown_mushroom_patch_deepwood", BROWN_MUSHROOM_PATCHES, List.of(RarityFilterPlacementModifier.of(64), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of()));
     public static final RegistryEntry<PlacedFeature> SHELF_JACK_O_LANTERN_MUSHROOM_PATCHES_PLACED = registerPlaced("shelf_jack_o_lantern_mushroom_patch", SHELF_JACK_O_LANTERN_MUSHROOM_PATCHES, List.of(RarityFilterPlacementModifier.of(8), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of()));
+    public static final RegistryEntry<PlacedFeature> GHOSTCAP_MUSHROOM_PATCHES_PLACED = registerPlaced("ghostcap_mushroom_patch", GHOSTCAP_MUSHROOM_PATCHES, List.of(RarityFilterPlacementModifier.of(8), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of()));
 
     private static List<PlacementModifier> treesSurvive(int count, float extraChance, int extraCount) {
         return List.of(PlacedFeatures.createCountExtraModifier(count, extraChance, extraCount),

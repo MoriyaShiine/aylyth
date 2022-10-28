@@ -44,6 +44,7 @@ public class ModItems {
 	public static final Item OAK_STREWN_LEAVES = new BlockItem(ModBlocks.OAK_STREWN_LEAVES, settings());
 	public static final Item YMPE_STREWN_LEAVES = new BlockItem(ModBlocks.YMPE_STREWN_LEAVES, settings());
 	public static final Item JACK_O_LANTERN_MUSHROOM = new WallStandingBlockItem(ModBlocks.JACK_O_LANTERN_MUSHROOM, ModBlocks.SHELF_JACK_O_LANTERN_MUSHROOM, settings());
+	public static final Item GHOSTCAP_MUSHROOM = new BlockItem(ModBlocks.GHOSTCAP_MUSHROOM, settings().food(ModFoodComponents.GHOSTCAPS));
 	
 	public static final Item OAK_SEEP = new BlockItem(ModBlocks.OAK_SEEP, settings());
 	public static final Item SPRUCE_SEEP = new BlockItem(ModBlocks.SPRUCE_SEEP, settings());
@@ -96,6 +97,7 @@ public class ModItems {
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "oak_strewn_leaves"), OAK_STREWN_LEAVES);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_strewn_leaves"), YMPE_STREWN_LEAVES);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "jack_o_lantern_mushroom"), JACK_O_LANTERN_MUSHROOM);
+		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ghostcap_mushroom"), GHOSTCAP_MUSHROOM);
 
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "oak_seep"), OAK_SEEP);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "spruce_seep"), SPRUCE_SEEP);

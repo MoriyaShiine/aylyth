@@ -17,9 +17,9 @@ public class JackolanternMushroomBlock extends StagedMushroomPlantBlock {
 
     public static final BooleanProperty GLOWING = BooleanProperty.of("glowing");
 
-    private final Supplier<AbstractMushroomBlock> wallBlock;
+    private final Supplier<SpreadingPlantBlock> wallBlock;
 
-    public JackolanternMushroomBlock(Supplier<AbstractMushroomBlock> wallBlock, Settings settings) {
+    public JackolanternMushroomBlock(Supplier<SpreadingPlantBlock> wallBlock, Settings settings) {
         super(settings);
         this.wallBlock = wallBlock;
         setDefaultState(stateManager.getDefaultState().with(GLOWING, false));
