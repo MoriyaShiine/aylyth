@@ -2,6 +2,7 @@ package moriyashiine.aylyth.common;
 
 import moriyashiine.aylyth.common.registry.ModPotions;
 import moriyashiine.aylyth.common.registry.ModSoundEvents;
+import moriyashiine.aylyth.common.registry.ModTags;
 import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.LivingEntity;
@@ -45,5 +46,19 @@ public class AylythUtil {
 
 	public static boolean shouldUndeadAttack(LivingEntity target, LivingEntity attacker) {
 		return attacker.getAttacker() != target && target.hasStatusEffect(ModPotions.CIMMERIAN_EFFECT) && attacker.getGroup() == EntityGroup.UNDEAD;
+	}
+
+	public static boolean isNearSeep(LivingEntity livingEntity, int radius) {
+		BlockPos.Mutable mutable = new BlockPos.Mutable();
+		for (int x = -radius; x <= radius; x++) {
+			for (int y = -radius; y <= radius; y++) {
+				for (int z = -radius; z <= radius; z++) {
+					if (livingEntity.world.getBlockState(mutable.set(livingEntity.getX() + x, livingEntity.getY() + y, livingEntity.getZ() + z)).isIn(ModTags.SEEPS)) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
 	}
 }
