@@ -1,13 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_pomegranate_log": {
+    "has_logs": {
       "conditions": {
         "items": [
           {
-            "items": [
-              "aylyth:pomegranate_log"
-            ]
+            "tag": "aylyth:pomegranate_logs"
           }
         ]
       },
@@ -15,20 +13,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:pomegranate_planks_from_pomegranate_log"
+        "recipe": "aylyth:pomegranate_planks"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_pomegranate_log",
+      "has_logs",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:pomegranate_planks_from_pomegranate_log"
+      "aylyth:pomegranate_planks"
     ]
   }
 }

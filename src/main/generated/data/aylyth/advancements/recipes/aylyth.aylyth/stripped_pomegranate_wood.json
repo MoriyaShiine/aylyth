@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_stripped_pomegranate_log": {
+    "has_log": {
       "conditions": {
         "items": [
           {
@@ -15,20 +15,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:stripped_pomegranate_wood"
+        "recipe": "aylyth:stripped_pomegranate_wood"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_stripped_pomegranate_log",
+      "has_log",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:stripped_pomegranate_wood"
+      "aylyth:stripped_pomegranate_wood"
     ]
   }
 }

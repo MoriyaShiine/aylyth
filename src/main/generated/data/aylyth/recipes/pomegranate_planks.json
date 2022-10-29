@@ -3,7 +3,7 @@
   "group": "planks",
   "ingredients": [
     {
-      "item": "aylyth:pomegranate_log"
+      "tag": "aylyth:pomegranate_logs"
     }
   ],
   "result": {

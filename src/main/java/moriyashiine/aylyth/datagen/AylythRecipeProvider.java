@@ -1,6 +1,7 @@
 package moriyashiine.aylyth.datagen;
 
 import moriyashiine.aylyth.common.registry.ModItems;
+import moriyashiine.aylyth.common.registry.ModTags;
 import moriyashiine.aylyth.common.registry.util.ItemWoodSuite;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
@@ -27,9 +28,9 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
     }
 
     private void woodSuiteRecipes(Consumer<RecipeJsonProvider> exporter, ItemWoodSuite suite) {
-        createTwoByTwo(exporter, suite.strippedWood, 3, suite.strippedLog, "bark", getRecipeName(suite.strippedWood));
-        createTwoByTwo(exporter, suite.wood, 3, suite.log, "bark", getRecipeName(suite.wood));
-        offerShapelessRecipe(exporter, suite.planks, suite.log, "planks", 4);
+        offerBarkBlockRecipe(exporter, suite.strippedWood, suite.strippedLog);
+        offerBarkBlockRecipe(exporter, suite.wood, suite.log);
+        offerPlanksRecipe(exporter, suite.planks, ModTags.POMEGRANATE_LOGS_ITEM);
         createStairsRecipe(suite.stairs, Ingredient.ofItems(suite.planks)).group("wooden_stairs").criterion(RecipeProvider.hasItem(suite.planks), conditionsFromItem(suite.planks)).offerTo(exporter);
         createSlabRecipe(suite.slab, Ingredient.ofItems(suite.planks)).group("wooden_slab").criterion(RecipeProvider.hasItem(suite.planks), conditionsFromItem(suite.planks)).offerTo(exporter);
         createFenceRecipe(suite.fence, Ingredient.ofItems(suite.planks)).group("wooden_fence").criterion(RecipeProvider.hasItem(suite.planks), conditionsFromItem(suite.planks)).offerTo(exporter);
