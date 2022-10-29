@@ -3,14 +3,19 @@ package moriyashiine.aylyth.datagen;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonElement;
 import moriyashiine.aylyth.common.Aylyth;
+import moriyashiine.aylyth.common.block.PomegranateLeavesBlock;
 import moriyashiine.aylyth.common.block.StrewnLeavesBlock;
 import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.ModItems;
+import moriyashiine.aylyth.common.registry.util.WoodSuite;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.LeavesBlock;
 import net.minecraft.data.client.*;
+import net.minecraft.data.family.BlockFamilies;
+import net.minecraft.data.family.BlockFamily;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 
@@ -21,6 +26,8 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public class AylythModelProvider extends FabricModelProvider {
+
+    private static final BlockFamily POMEGRANATE = BlockFamilies.register(ModBlocks.POMEGRANATE_BLOCKS.planks).button(ModBlocks.POMEGRANATE_BLOCKS.button).fence(ModBlocks.POMEGRANATE_BLOCKS.fence).fenceGate(ModBlocks.POMEGRANATE_BLOCKS.fenceGate).pressurePlate(ModBlocks.POMEGRANATE_BLOCKS.pressurePlate).sign(ModBlocks.POMEGRANATE_BLOCKS.floorSign, ModBlocks.POMEGRANATE_BLOCKS.wallSign).slab(ModBlocks.POMEGRANATE_BLOCKS.slab).stairs(ModBlocks.POMEGRANATE_BLOCKS.stairs).door(ModBlocks.POMEGRANATE_BLOCKS.door).trapdoor(ModBlocks.POMEGRANATE_BLOCKS.trapdoor).group("wooden").unlockCriterionName("has_planks").build();
 
     private static final Identifier STREWN_LEAVES_TEMPLATE = new Identifier(Aylyth.MOD_ID, "block/strewn_leaves_template");
     private static final Identifier LEAF_PILE_1_TEMPLATE = new Identifier(Aylyth.MOD_ID, "block/leaf_pile_1");
@@ -44,6 +51,10 @@ public class AylythModelProvider extends FabricModelProvider {
         super(generator);
     }
 
+    private Identifier blockId(String id) {
+        return id("block/" + id);
+    }
+
     private Identifier id(String id) {
         return new Identifier(Aylyth.MOD_ID, id);
     }
@@ -54,12 +65,49 @@ public class AylythModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerFlowerPotPlant(ModBlocks.MARIGOLD, ModBlocks.MARIGOLD_POTTED, BlockStateModelGenerator.TintType.NOT_TINTED);
         generateStrewnLeaves(blockStateModelGenerator, ModBlocks.OAK_STREWN_LEAVES, Blocks.OAK_LEAVES, id("block/fallen_oak_leaves_01"), id("block/fallen_oak_leaves_02"), id("block/fallen_oak_leaves_03"), id("block/fallen_oak_leaves_04"), id("block/fallen_oak_leaves_05"), id("block/fallen_oak_leaves_06"), id("block/fallen_oak_leaves_07"), id("block/fallen_oak_leaves_08"), id("block/fallen_oak_leaves_09"), id("block/fallen_oak_leaves_10"));
         generateStrewnLeaves(blockStateModelGenerator, ModBlocks.YMPE_STREWN_LEAVES, ModBlocks.YMPE_LEAVES, id("block/fallen_ympe_leaves_01"), id("block/fallen_ympe_leaves_02"));
+        woodSuite(blockStateModelGenerator, ModBlocks.POMEGRANATE_BLOCKS);
+        fruitingLeaves(blockStateModelGenerator, ModBlocks.POMEGRANATE_LEAVES, blockId("pomegranate_leaves"), blockId("pomegranate_leaves_fruiting_0"), blockId("pomegranate_leaves_fruiting_1"), blockId("pomegranate_leaves_fruiting_2"));
+        TexturedModel.CUBE_ALL.upload(ModBlocks.POMEGRANATE_LEAVES, blockStateModelGenerator.modelCollector);
     }
 
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
         generateStrewnLeavesItemModel(ModItems.OAK_STREWN_LEAVES, id("block/fallen_oak_leaves_01"), itemModelGenerator);
         generateStrewnLeavesItemModel(ModItems.YMPE_STREWN_LEAVES, id("block/fallen_ympe_leaves_01"), itemModelGenerator);
+        itemModelGenerator.register(ModItems.POMEGRANATE, Models.GENERATED);
+        itemModelGenerator.register(ModItems.GHOSTCAP_MUSHROOM_SPORES, Models.GENERATED);
+        generated(itemModelGenerator, ModItems.POMEGRANATE_ITEMS.boat);
+        generated(itemModelGenerator, ModItems.POMEGRANATE_ITEMS.chestBoat);
+    }
+
+    private void fruitingLeaves(BlockStateModelGenerator generator, Block block, Identifier stage0, Identifier stage1, Identifier stage2, Identifier stage3) {
+        var variants = VariantsBlockStateSupplier.create(block)
+                .coordinate(BlockStateVariantMap.create(LeavesBlock.DISTANCE).register(integer -> BlockStateVariant.create().put(VariantSettings.MODEL, stage0)))
+                .coordinate(BlockStateVariantMap.create(LeavesBlock.PERSISTENT).register(aBoolean -> BlockStateVariant.create().put(VariantSettings.MODEL, stage0)))
+                .coordinate(BlockStateVariantMap.create(LeavesBlock.WATERLOGGED).register(aBoolean -> BlockStateVariant.create().put(VariantSettings.MODEL, stage0)))
+                .coordinate(BlockStateVariantMap.create(PomegranateLeavesBlock.FRUITING).register(0, BlockStateVariant.create().put(VariantSettings.MODEL, stage0)).register(1, BlockStateVariant.create().put(VariantSettings.MODEL, stage1)).register(2, BlockStateVariant.create().put(VariantSettings.MODEL, stage2)).register(3, BlockStateVariant.create().put(VariantSettings.MODEL, stage3)));
+        generator.blockStateCollector.accept(variants);
+    }
+
+    private void woodSuite(BlockStateModelGenerator generator, WoodSuite suite) {
+        generator.registerLog(suite.strippedLog).log(suite.strippedLog).wood(suite.strippedWood);
+        generator.registerLog(suite.log).log(suite.log).wood(suite.wood);
+        generator.registerFlowerPotPlant(suite.sapling, suite.pottedSapling, BlockStateModelGenerator.TintType.NOT_TINTED);
+        generator.registerCubeAllModelTexturePool(suite.planks)
+                .family(POMEGRANATE);
+    }
+
+    private void generated(ItemModelGenerator generator, Item item) {
+        generator.register(item, Models.GENERATED);
+    }
+
+    private void slab(BlockStateModelGenerator generator, Block block, Block slabBlock) {
+        TextureMap textureMap = TextureMap.all(block);
+        TextureMap textureMap2 = TextureMap.sideEnd(TextureMap.getSubId(slabBlock, "_side"), textureMap.getTexture(TextureKey.TOP));
+        Identifier identifier = Models.SLAB.upload(slabBlock, textureMap2, generator.modelCollector);
+        Identifier identifier2 = Models.SLAB_TOP.upload(slabBlock, textureMap2, generator.modelCollector);
+        Identifier identifier3 = Models.CUBE_COLUMN.uploadWithoutVariant(slabBlock, "_double", textureMap2, generator.modelCollector);
+        generator.blockStateCollector.accept(BlockStateModelGenerator.createSlabBlockState(slabBlock, identifier, identifier2, identifier3));
     }
 
     private void generateStrewnLeavesItemModel(Item item, Identifier texture, ItemModelGenerator itemModelGenerator) {
