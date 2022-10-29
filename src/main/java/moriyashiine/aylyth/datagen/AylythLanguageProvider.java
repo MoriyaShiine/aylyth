@@ -16,13 +16,16 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
 
     @Override
     public void generateTranslations(TranslationBuilder translationBuilder) {
-        translationBuilder.add(ModItems.GHOSTCAP_MUSHROOM, "Ghostcap Mushroom");
-        String pomegranate = "Pomegranate";
-        translationBuilder.add(ModItems.POMEGRANATE, pomegranate);
-        addWoodsuite(translationBuilder, ModBlocks.POMEGRANATE_BLOCKS, pomegranate);
-        boat(translationBuilder, ModItems.POMEGRANATE_ITEMS.boat, pomegranate);
-        chestBoat(translationBuilder, ModItems.POMEGRANATE_ITEMS.chestBoat, pomegranate);
-        leaves(translationBuilder, ModBlocks.POMEGRANATE_LEAVES, pomegranate);
+        // TODO: add all the other things :(
+        if (false) {
+            translationBuilder.add(ModItems.GHOSTCAP_MUSHROOM, "Ghostcap Mushroom");
+            String pomegranate = "Pomegranate";
+            translationBuilder.add(ModItems.POMEGRANATE, pomegranate);
+            addWoodsuite(translationBuilder, ModBlocks.POMEGRANATE_BLOCKS, pomegranate);
+            boat(translationBuilder, ModItems.POMEGRANATE_ITEMS.boat, pomegranate);
+            chestBoat(translationBuilder, ModItems.POMEGRANATE_ITEMS.chestBoat, pomegranate);
+            leaves(translationBuilder, ModBlocks.POMEGRANATE_LEAVES, pomegranate);
+        }
     }
 
     private void leaves(TranslationBuilder builder, Block block, String woodName) {
