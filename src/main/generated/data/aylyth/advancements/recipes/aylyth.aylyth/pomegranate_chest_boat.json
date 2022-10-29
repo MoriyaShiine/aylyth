@@ -1,13 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_jack_o_lantern_mushroom": {
+    "has_boat": {
       "conditions": {
         "items": [
           {
-            "items": [
-              "aylyth:jack_o_lantern_mushroom"
-            ]
+            "tag": "minecraft:boats"
           }
         ]
       },
@@ -15,20 +13,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:shroomlight_from_jack_o_lantern_mushroom"
+        "recipe": "aylyth:pomegranate_chest_boat"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_jack_o_lantern_mushroom",
+      "has_boat",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:shroomlight_from_jack_o_lantern_mushroom"
+      "aylyth:pomegranate_chest_boat"
     ]
   }
 }

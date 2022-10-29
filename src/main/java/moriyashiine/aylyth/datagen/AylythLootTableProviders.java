@@ -4,6 +4,7 @@ import moriyashiine.aylyth.common.block.JackolanternMushroomBlock;
 import moriyashiine.aylyth.common.block.StagedMushroomPlantBlock;
 import moriyashiine.aylyth.common.block.StrewnLeavesBlock;
 import moriyashiine.aylyth.common.registry.ModBlocks;
+import moriyashiine.aylyth.common.registry.util.WoodSuite;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
@@ -54,6 +55,28 @@ public class AylythLootTableProviders {
             addDrop(ModBlocks.YMPE_STREWN_LEAVES, this::strewnLeaves);
             addDrop(ModBlocks.JACK_O_LANTERN_MUSHROOM, this::standingJackolantern);
             addDrop(ModBlocks.SHELF_JACK_O_LANTERN_MUSHROOM);
+            woodSuiteDrops(ModBlocks.POMEGRANATE_BLOCKS);
+            leavesDrop(ModBlocks.POMEGRANATE_LEAVES, ModBlocks.POMEGRANATE_BLOCKS.sapling, 0.05f, 0.0625f, 0.083333336f, 0.1f);
+        }
+
+        private void woodSuiteDrops(WoodSuite suite) {
+            addDrop(suite.strippedLog);
+            addDrop(suite.strippedWood);
+            addDrop(suite.log);
+            addDrop(suite.wood);
+            addDrop(suite.sapling);
+            addPottedPlantDrop(suite.pottedSapling);
+            addDrop(suite.planks);
+            addDrop(suite.stairs);
+            slabDrops(suite.slab);
+            addDrop(suite.fence);
+            addDrop(suite.fenceGate);
+            addDrop(suite.pressurePlate);
+            addDrop(suite.button);
+            addDrop(suite.trapdoor);
+            addDrop(suite.door);
+            addDrop(suite.floorSign);
+            addDrop(suite.wallSign);
         }
 
         private LootTable.Builder standingJackolantern(Block block) {

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "planks",
+  "ingredients": [
+    {
+      "item": "aylyth:pomegranate_log"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "item": "aylyth:pomegranate_planks"
+  }
+}

@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_jack_o_lantern_mushroom": {
+    "has_pomegranate_planks": {
       "conditions": {
         "items": [
           {
             "items": [
-              "aylyth:jack_o_lantern_mushroom"
+              "aylyth:pomegranate_planks"
             ]
           }
         ]
@@ -15,20 +15,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:shroomlight_from_jack_o_lantern_mushroom"
+        "recipe": "aylyth:pomegranate_stairs"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_jack_o_lantern_mushroom",
+      "has_pomegranate_planks",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:shroomlight_from_jack_o_lantern_mushroom"
+      "aylyth:pomegranate_stairs"
     ]
   }
 }
