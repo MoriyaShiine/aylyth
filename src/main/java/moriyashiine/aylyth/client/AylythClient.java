@@ -59,6 +59,7 @@ public class AylythClient implements ClientModInitializer {
 		ParticleFactoryRegistry.getInstance().register(ModParticles.PILOT_LIGHT, PilotLightParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(ModParticles.AMBIENT_PILOT_LIGHT, PilotLightParticle.AmbientFactory::new);
 		SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, ModBlocks.YMPE_SIGN.getTexture()));
+		SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, ModBlocks.POMEGRANATE_BLOCKS.floorSign.getTexture()));
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), cutoutBlocks());
 		ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.getDefaultColor(), ModBlocks.AYLYTH_BUSH);
 		ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> world != null && pos != null && state != null && state.getBlock() instanceof StrewnLeavesBlock && state.get(StrewnLeavesBlock.LEAVES) > 0 ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.getDefaultColor(), ModBlocks.OAK_STREWN_LEAVES);
@@ -81,6 +82,8 @@ public class AylythClient implements ClientModInitializer {
 		EntityRendererRegistry.register(ModEntityTypes.YMPE_LANCE, YmpeLanceEntityRenderer::new);
 		TerraformBoatClientHelper.registerModelLayers(new Identifier(Aylyth.MOD_ID, "ympe"));
 		TerraformBoatClientHelper.registerModelLayers(new Identifier(Aylyth.MOD_ID, "ympe_chest"));
+		TerraformBoatClientHelper.registerModelLayers(new Identifier(Aylyth.MOD_ID, "pomegranate"));
+		TerraformBoatClientHelper.registerModelLayers(new Identifier(Aylyth.MOD_ID, "pomegranate_chest"));
 		ClientTickEvents.START_CLIENT_TICK.register(client -> {
 			if (client.world != null && client.player != null && client.world.getTime() % 20 == 0) {
 				AylythDimensionRenderer.determineConditions(client.world, client.world.getBiome(client.player.getBlockPos()));
@@ -103,6 +106,10 @@ public class AylythClient implements ClientModInitializer {
 				ModBlocks.POTTED_YMPE_SAPLING,
 				ModBlocks.YMPE_DOOR,
 				ModBlocks.YMPE_TRAPDOOR,
+				ModBlocks.POMEGRANATE_BLOCKS.sapling,
+				ModBlocks.POMEGRANATE_BLOCKS.pottedSapling,
+				ModBlocks.POMEGRANATE_BLOCKS.door,
+				ModBlocks.POMEGRANATE_BLOCKS.trapdoor,
 				ModBlocks.AYLYTH_BUSH,
 				ModBlocks.ANTLER_SHOOTS,
 				ModBlocks.GRIPWEED,
