@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:pomegranate_button_from_pomegranate_planks"
+        "recipe": "aylyth:pomegranate_button_from_pomegranate_planks"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:pomegranate_button_from_pomegranate_planks"
+      "aylyth:pomegranate_button_from_pomegranate_planks"
     ]
   }
 }

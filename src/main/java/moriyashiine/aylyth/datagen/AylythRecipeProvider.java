@@ -1,5 +1,6 @@
 package moriyashiine.aylyth.datagen;
 
+import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.registry.ModItems;
 import moriyashiine.aylyth.common.registry.ModTags;
 import moriyashiine.aylyth.common.registry.util.ItemWoodSuite;
@@ -8,9 +9,11 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.data.server.RecipeProvider;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
+import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.util.Identifier;
 
 import java.util.function.Consumer;
 
@@ -36,7 +39,7 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
         createFenceRecipe(suite.fence, Ingredient.ofItems(suite.planks)).group("wooden_fence").criterion(RecipeProvider.hasItem(suite.planks), conditionsFromItem(suite.planks)).offerTo(exporter);
         createFenceGateRecipe(suite.fenceGate, Ingredient.ofItems(suite.planks)).group("wooden_fence_gate").criterion(RecipeProvider.hasItem(suite.planks), conditionsFromItem(suite.planks)).offerTo(exporter);
         createPressurePlateRecipe(suite.pressurePlate, Ingredient.ofItems(suite.planks)).group("wooden_pressure_plate").criterion(RecipeProvider.hasItem(suite.planks), conditionsFromItem(suite.planks)).offerTo(exporter);
-        offerShapelessRecipe(exporter, suite.button, suite.planks, "wooden_button", 1);
+        shapeless(suite.button, 1).input(suite.planks).group("wooden_button").criterion(RecipeProvider.hasItem(suite.planks), conditionsFromItem(suite.planks)).offerTo(exporter, new Identifier(dataGenerator.getModId(), "pomegranate_button_from_pomegranate_planks"));
         createTrapdoorRecipe(suite.trapdoor, Ingredient.ofItems(suite.planks)).group("wooden_trapdoor").criterion(RecipeProvider.hasItem(suite.planks), conditionsFromItem(suite.planks)).offerTo(exporter);
         createDoorRecipe(suite.door, Ingredient.ofItems(suite.planks)).group("wooden_door").criterion(RecipeProvider.hasItem(suite.planks), conditionsFromItem(suite.planks)).offerTo(exporter);
         createSignRecipe(suite.sign, Ingredient.ofItems(suite.planks)).group("wooden_sign").criterion(RecipeProvider.hasItem(suite.planks), conditionsFromItem(suite.planks)).offerTo(exporter);
@@ -50,6 +53,10 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
 
     private void createTwoByTwo(Consumer<RecipeJsonProvider> exporter, ItemConvertible output, int outputCount, ItemConvertible input, String group, String fileId) {
         ShapedRecipeJsonBuilder.create(output, outputCount).input('#', input).pattern("## ").pattern("## ").group(group).criterion(RecipeProvider.hasItem(input), conditionsFromItem(input)).offerTo(exporter, fileId);
+    }
+
+    private ShapelessRecipeJsonBuilder shapeless(ItemConvertible output, int outputCount) {
+        return ShapelessRecipeJsonBuilder.create(output, outputCount);
     }
 
     private ShapedRecipeJsonBuilder shaped(ItemConvertible output, int outputCount) {
