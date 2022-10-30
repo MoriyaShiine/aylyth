@@ -460,7 +460,7 @@
                             "if_true": {
                               "type": "minecraft:noise_threshold",
                               "max_threshold": 1.7976931348623157E308,
-                              "min_threshold": 0.5,
+                              "min_threshold": 0.3,
                               "noise": "aylyth:podzol_common"
                             },
                             "then_run": {

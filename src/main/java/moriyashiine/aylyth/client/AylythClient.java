@@ -28,6 +28,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.*;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.color.world.BiomeColors;
@@ -63,7 +64,8 @@ public class AylythClient implements ClientModInitializer {
 		ParticleFactoryRegistry.getInstance().register(ModParticles.PILOT_LIGHT, PilotLightParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(ModParticles.AMBIENT_PILOT_LIGHT, PilotLightParticle.AmbientFactory::new);
 		SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, ModBlocks.YMPE_SIGN.getTexture()));
-		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), ModBlocks.YMPE_SAPLING, ModBlocks.POTTED_YMPE_SAPLING, ModBlocks.YMPE_DOOR, ModBlocks.YMPE_TRAPDOOR, ModBlocks.AYLYTH_BUSH, ModBlocks.ANTLER_SHOOTS, ModBlocks.GRIPWEED, ModBlocks.NYSIAN_GRAPE_VINE, ModBlocks.MARIGOLD, ModBlocks.MARIGOLD_POTTED, ModBlocks.OAK_SEEP, ModBlocks.SPRUCE_SEEP, ModBlocks.DARK_OAK_SEEP, ModBlocks.YMPE_SEEP, ModBlocks.OAK_STREWN_LEAVES, ModBlocks.YMPE_STREWN_LEAVES);
+		SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, ModBlocks.POMEGRANATE_BLOCKS.floorSign.getTexture()));
+		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), cutoutBlocks());
 		ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.getDefaultColor(), ModBlocks.AYLYTH_BUSH);
 		ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> world != null && pos != null && state != null && state.getBlock() instanceof StrewnLeavesBlock && state.get(StrewnLeavesBlock.LEAVES) > 0 ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.getDefaultColor(), ModBlocks.OAK_STREWN_LEAVES);
 		ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> world != null && pos != null ? BiomeColors.getGrassColor(world, pos) : FoliageColors.getDefaultColor(), ModBlocks.ANTLER_SHOOTS, ModBlocks.GRIPWEED);
@@ -87,6 +89,8 @@ public class AylythClient implements ClientModInitializer {
 		EntityRendererRegistry.register(ModEntityTypes.BONEFLY, BoneflyEntityRenderer::new);
 		TerraformBoatClientHelper.registerModelLayers(new Identifier(Aylyth.MOD_ID, "ympe"));
 		TerraformBoatClientHelper.registerModelLayers(new Identifier(Aylyth.MOD_ID, "ympe_chest"));
+		TerraformBoatClientHelper.registerModelLayers(new Identifier(Aylyth.MOD_ID, "pomegranate"));
+		TerraformBoatClientHelper.registerModelLayers(new Identifier(Aylyth.MOD_ID, "pomegranate_chest"));
 		ClientTickEvents.START_CLIENT_TICK.register(client -> {
 			if (client.world != null && client.player != null && client.world.getTime() % 20 == 0) {
 				AylythDimensionRenderer.determineConditions(client.world, client.world.getBiome(client.player.getBlockPos()));
@@ -121,5 +125,31 @@ public class AylythClient implements ClientModInitializer {
 			out.accept(new ModelIdentifier(glavieBigItemId + "_gui", "inventory"));
 			out.accept(new ModelIdentifier(glavieBigItemId + "_handheld", "inventory"));
 		});
+	}
+
+	private static Block[] cutoutBlocks() {
+		return new Block[] {
+				ModBlocks.YMPE_SAPLING,
+				ModBlocks.POTTED_YMPE_SAPLING,
+				ModBlocks.YMPE_DOOR,
+				ModBlocks.YMPE_TRAPDOOR,
+				ModBlocks.POMEGRANATE_BLOCKS.sapling,
+				ModBlocks.POMEGRANATE_BLOCKS.pottedSapling,
+				ModBlocks.POMEGRANATE_BLOCKS.door,
+				ModBlocks.POMEGRANATE_BLOCKS.trapdoor,
+				ModBlocks.AYLYTH_BUSH,
+				ModBlocks.ANTLER_SHOOTS,
+				ModBlocks.GRIPWEED,
+				ModBlocks.NYSIAN_GRAPE_VINE,
+				ModBlocks.MARIGOLD,
+				ModBlocks.MARIGOLD_POTTED,
+				ModBlocks.OAK_SEEP,
+				ModBlocks.SPRUCE_SEEP,
+				ModBlocks.DARK_OAK_SEEP,
+				ModBlocks.YMPE_SEEP,
+				ModBlocks.OAK_STREWN_LEAVES,
+				ModBlocks.YMPE_STREWN_LEAVES,
+				ModBlocks.GHOSTCAP_MUSHROOM
+		};
 	}
 }

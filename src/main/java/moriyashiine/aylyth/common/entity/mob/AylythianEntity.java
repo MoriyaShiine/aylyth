@@ -2,6 +2,7 @@ package moriyashiine.aylyth.common.entity.mob;
 
 import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.ModSoundEvents;
+import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
@@ -147,7 +148,12 @@ public class AylythianEntity extends HostileEntity implements IAnimatable {
 		targetSelector.add(0, new RevengeGoal(this));
 		targetSelector.add(1, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
 	}
-	
+
+	@Override
+	public EntityGroup getGroup() {
+		return EntityGroup.UNDEAD;
+	}
+
 	public static boolean canSpawn(EntityType<? extends MobEntity> aylythianEntityEntityType, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos blockPos, Random random) {
 		return canMobSpawn(aylythianEntityEntityType, serverWorldAccess, spawnReason, blockPos, random) && serverWorldAccess.getDifficulty() != Difficulty.PEACEFUL && random.nextBoolean();
 	}

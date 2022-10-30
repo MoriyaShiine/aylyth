@@ -35,8 +35,6 @@
     [],
     [],
     [
-      "minecraft:ore_coal_upper",
-      "minecraft:ore_coal_lower",
       "minecraft:ore_iron_upper",
       "minecraft:ore_iron_middle",
       "minecraft:ore_iron_small",
@@ -48,6 +46,7 @@
     ],
     [
       "minecraft:patch_grass_plain",
+      "aylyth:pomegranate_tree_placed",
       "aylyth:marigolds"
     ],
     [

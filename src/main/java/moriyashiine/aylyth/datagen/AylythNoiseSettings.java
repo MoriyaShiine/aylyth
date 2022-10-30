@@ -174,7 +174,7 @@ public class AylythNoiseSettings {
         var dirt = AylythMaterialRules.block(Blocks.DIRT);
         var grass = AylythMaterialRules.block(Blocks.GRASS_BLOCK);
         var onReplaceWithGrass = MaterialRules.condition(MaterialRules.water(0, 0), grass);
-        var commonPodzol = AylythMaterialRules.podzol(PODZOL_COMMON, 0.5, Double.MAX_VALUE);
+        var commonPodzol = AylythMaterialRules.podzol(PODZOL_COMMON, 0.3, Double.MAX_VALUE);
         var rarePodzol = AylythMaterialRules.podzol(PODZOL_RARE, 0.95, Double.MAX_VALUE);
         var podzolDecoCommon = MaterialRules.sequence(MaterialRules.condition(MaterialRules.biome(ModBiomes.DEEPWOOD_ID, ModBiomes.CONIFEROUS_DEEPWOOD_ID), commonPodzol));
         var podzolDecoRare = MaterialRules.condition(MaterialRules.biome(ModBiomes.COPSE_ID, ModBiomes.OVERGROWN_CLEARING_ID), rarePodzol);

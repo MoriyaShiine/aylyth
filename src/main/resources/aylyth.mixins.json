@@ -8,12 +8,15 @@
     "BrewingRecipeRegistryAccessor",
     "EntityAccessor",
     "EntityMixin",
+    "FoliagePlacerTypeAccessor",
     "GeneratorOptionsMixin",
     "LivingEntityMixin",
     "PlayerEntityMixin",
     "TreeDecoratorTypeAccessor",
     "TrunkPlacerTypeAccessor",
-    "VineBlockMixin"
+    "VineBlockMixin",
+    "cimmerian.MobEntityMixin",
+    "cimmerian.ZoglinEntityMixin"
   ],
   "client": [
     "client.BackgroundRendererMixin",

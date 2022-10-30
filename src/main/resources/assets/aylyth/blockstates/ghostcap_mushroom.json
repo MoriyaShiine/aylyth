@@ -1,0 +1,18 @@
+{
+  "variants": {
+	"": [
+    {
+      "model": "aylyth:block/ghostcap_mushroom_1"
+    },
+    {
+      "model": "aylyth:block/ghostcap_mushroom_2"
+    },
+    {
+      "model": "aylyth:block/ghostcap_mushroom_3"
+    },
+    {
+      "model": "aylyth:block/ghostcap_mushroom_4"
+    }
+  ]
+  }
+}

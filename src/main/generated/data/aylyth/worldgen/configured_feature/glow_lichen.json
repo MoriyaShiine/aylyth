@@ -8,7 +8,16 @@
           "to_place": {
             "type": "minecraft:simple_state_provider",
             "state": {
-              "Name": "aylyth:marigolds"
+              "Name": "minecraft:glow_lichen",
+              "Properties": {
+                "down": "false",
+                "east": "false",
+                "north": "false",
+                "south": "false",
+                "up": "false",
+                "waterlogged": "false",
+                "west": "false"
+              }
             }
           }
         }
