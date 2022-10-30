@@ -41,6 +41,9 @@
   "item.aylyth.pilot_light_spawn_egg": "Pilot Light Spawn Egg",
   "item.aylyth.aylythian_spawn_egg": "Aylythian Spawn Egg",
   "item.aylyth.elder_aylythian_spawn_egg": "Elder Aylythian Spawn Egg",
+  "item.aylyth.glaive": "Glaive",
+  "item.aylyth.soulmould": "Soulmould",
+  "item.aylyth.soultrap_effigy": "Soultrap Effigy",
   "item.minecraft.potion.effect.mortechis": "Potion of Mortechis",
   "item.minecraft.splash_potion.effect.mortechis": "Splash Potion of Mortechis",
   "item.minecraft.tipped_arrow.effect.mortechis": "Arrow of Mortechis",
@@ -51,6 +54,8 @@
   "entity.aylyth.ympe_boat": "Ympe Boat",
   "entity.aylyth.ympe_chest_boat": "Ympe Boat with Chest",
   "effect.aylyth.mortechis": "Mortechis",
+  "effect.aylyth.soulmould": "Soulmould",
+  "effect.aylyth.bonefly": "Bonefly",
   "death.attack.ympe": "%1$s has gone to the trees",
   "death.attack.ympe.player": "%1$s has gone to the trees whilst trying to escape %2$s",
   "aylyth.subtitles.block.ympe_log.pick_fruit": "Fruit picked",
@@ -62,5 +67,11 @@
   "aylyth.subtitles.entity.elder_aylythian.ambient": "Elder Aylythian rumbles",
   "aylyth.subtitles.entity.elder_aylythian.hurt": "Elder Aylythian hurts",
   "aylyth.subtitles.entity.elder_aylythian.death": "Elder Aylythian dies",
+
+  "aylyth.subtitles.entity.soulmould.ambient": "Soulmould groans",
+  "aylyth.subtitles.entity.soulmould.attack": "Soulmould attack",
+  "aylyth.subtitles.entity.soulmould.damage": "Soulmould hurt",
+  "aylyth.subtitles.entity.soulmould.death": "Soulmould dies",
+
   "rei.aylyth.ympe_dagger_drops": "Ympe Dagger Drops"
 }

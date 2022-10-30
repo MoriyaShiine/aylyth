@@ -1,3 +1,11 @@
-// 1.19.2	2022-10-17T23:18:25.1727041	Recipes
-fbd29b96fb8526145fa941ef46a76fad6b4534e5 data\aylyth\recipes\orange_dye_from_marigolds.json
-892d4c41baf6a7b3732ad0a9b6e891c5b3dd0cc0 data\aylyth\advancements\recipes\misc\orange_dye_from_marigolds.json
+// 1.19.2	2022-10-30T14:52:48.535978657	Recipes
+b07dcad6152385924ac667648d1fee5641a7e92c data/aylyth/recipes/glaive.json
+7bea363793be28d078513884a335a2870141db88 data/aylyth/recipes/soulmould.json
+f15cbaf344bddf2ba7cf4286fcd177c4bc60a91d data/aylyth/advancements/recipes/aylyth.aylyth/glaive.json
+c9407cfbb2a80684f571c7c164710434496430a0 data/aylyth/advancements/recipes/aylyth.aylyth/soultrap_effigy.json
+fbd29b96fb8526145fa941ef46a76fad6b4534e5 data/aylyth/recipes/orange_dye_from_marigolds.json
+ddf6b8bdac7592a3285df26ff4defda8325709fc data/aylyth/recipes/bonefly_skull.json
+0bfd0d7593363515964de55696e90cfa983e8569 data/aylyth/advancements/recipes/aylyth.aylyth/soulmould.json
+13a555d7e8be8e4b44f72dcbfe4dd8538651f6a5 data/aylyth/recipes/soultrap_effigy.json
+892d4c41baf6a7b3732ad0a9b6e891c5b3dd0cc0 data/aylyth/advancements/recipes/misc/orange_dye_from_marigolds.json
+310dfb880fdabdd86a15c07e82f9bff49c343c57 data/aylyth/advancements/recipes/aylyth.aylyth/bonefly_skull.json

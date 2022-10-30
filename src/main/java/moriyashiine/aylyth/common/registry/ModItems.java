@@ -1,21 +1,19 @@
 package moriyashiine.aylyth.common.registry;
 
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.item.AylythianHeartItem;
-import moriyashiine.aylyth.common.item.ShuckedYmpeFruitItem;
-import moriyashiine.aylyth.common.item.YmpeDaggerItem;
-import moriyashiine.aylyth.common.item.YmpeLanceItem;
+import moriyashiine.aylyth.common.item.*;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.minecraft.item.*;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Rarity;
 import net.minecraft.util.registry.Registry;
 
 public class ModItems {
 	public static final ItemGroup GROUP = FabricItemGroupBuilder.build(new Identifier(Aylyth.MOD_ID, Aylyth.MOD_ID), () -> new ItemStack(ModItems.YMPE_DAGGER));
-	
+
 	public static final Item STRIPPED_YMPE_LOG = new BlockItem(ModBlocks.STRIPPED_YMPE_LOG, settings());
 	public static final Item STRIPPED_YMPE_WOOD = new BlockItem(ModBlocks.STRIPPED_YMPE_WOOD, settings());
 	public static final Item YMPE_LOG = new BlockItem(ModBlocks.YMPE_LOG, settings());
@@ -33,40 +31,50 @@ public class ModItems {
 	public static final Item YMPE_TRAPDOOR = new BlockItem(ModBlocks.YMPE_TRAPDOOR, settings());
 	public static final Item YMPE_DOOR = new TallBlockItem(ModBlocks.YMPE_DOOR, settings());
 	public static final Item YMPE_SIGN = new SignItem(settings().maxCount(16), ModBlocks.YMPE_SIGN, ModBlocks.YMPE_WALL_SIGN);
-	
+
 	public static final Item AYLYTH_BUSH = new BlockItem(ModBlocks.AYLYTH_BUSH, settings());
 	public static final Item ANTLER_SHOOTS = new BlockItem(ModBlocks.ANTLER_SHOOTS, settings());
 	public static final Item GRIPWEED = new BlockItem(ModBlocks.GRIPWEED, settings());
 	public static final Item CORIC_SEED = new Item(settings());
-	
+
 	public static final Item NYSIAN_GRAPE_VINE = new BlockItem(ModBlocks.NYSIAN_GRAPE_VINE, settings());
 	public static final Item MARIGOLD = new BlockItem(ModBlocks.MARIGOLD, settings());
 	public static final Item OAK_STREWN_LEAVES = new BlockItem(ModBlocks.OAK_STREWN_LEAVES, settings());
 	public static final Item YMPE_STREWN_LEAVES = new BlockItem(ModBlocks.YMPE_STREWN_LEAVES, settings());
-	
+
 	public static final Item OAK_SEEP = new BlockItem(ModBlocks.OAK_SEEP, settings());
 	public static final Item SPRUCE_SEEP = new BlockItem(ModBlocks.SPRUCE_SEEP, settings());
 	public static final Item DARK_OAK_SEEP = new BlockItem(ModBlocks.DARK_OAK_SEEP, settings());
 	public static final Item YMPE_SEEP = new BlockItem(ModBlocks.YMPE_SEEP, settings());
-	
+
 	public static final Item YMPE_DAGGER = new YmpeDaggerItem(ToolMaterials.NETHERITE, 1, -2, settings());
 	public static final Item YMPE_LANCE = new YmpeLanceItem(312, settings());
-	
+
 	public static final Item YMPE_FRUIT = new Item(settings().food(ModFoodComponents.YMPE_FRUIT));
 	public static final Item SHUCKED_YMPE_FRUIT = new ShuckedYmpeFruitItem(settings().maxCount(1));
-	
+
 	public static final Item NYSIAN_GRAPES = new Item(settings().food(ModFoodComponents.NYSIAN_GRAPES));
 
 	public static final Item AYLYTHIAN_HEART = new AylythianHeartItem(settings());
-	
+
 	public static Item PILOT_LIGHT_SPAWN_EGG = new SpawnEggItem(ModEntityTypes.PILOT_LIGHT, 0xFFD972, 0x9FD9F6, settings());
 	public static Item AYLYTHIAN_SPAWN_EGG = new SpawnEggItem(ModEntityTypes.AYLYTHIAN, 0x6A4831, 0xE58E03, settings());
 	public static Item ELDER_AYLYTHIAN_SPAWN_EGG = new SpawnEggItem(ModEntityTypes.ELDER_AYLYTHIAN, 0x513425, 0xFFDC9B, settings());
-	
+
+	public static Item SOULTRAP_EFFIGY_ITEM =  new SoultrapEffigyItem((settings()).fireproof().rarity(Rarity.RARE).maxCount(1));
+	public static Item GLAIVE =  new GlaiveItem(4, -3.1F, (settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(1));
+
+	public static final Item SOULMOULD_ITEM = new SoulmouldItem((settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(16));
+
+	public static final  Item BONEFLY_SKULL =  new BoneflySkullItem((settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(16));
+
+
+
+
 	private static Item.Settings settings() {
 		return new FabricItemSettings().group(GROUP);
 	}
-	
+
 	public static void init() {
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "stripped_ympe_log"), STRIPPED_YMPE_LOG);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "stripped_ympe_wood"), STRIPPED_YMPE_WOOD);
@@ -85,11 +93,11 @@ public class ModItems {
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_trapdoor"), YMPE_TRAPDOOR);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_door"), YMPE_DOOR);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_sign"), YMPE_SIGN);
-		
+
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "aylyth_bush"), AYLYTH_BUSH);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "antler_shoots"), ANTLER_SHOOTS);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "gripweed"), GRIPWEED);
-		
+
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "nysian_grape_vine"), NYSIAN_GRAPE_VINE);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "marigolds"), MARIGOLD);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "oak_strewn_leaves"), OAK_STREWN_LEAVES);
@@ -99,22 +107,27 @@ public class ModItems {
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "spruce_seep"), SPRUCE_SEEP);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "dark_oak_seep"), DARK_OAK_SEEP);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_seep"), YMPE_SEEP);
-		
+
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_dagger"), YMPE_DAGGER);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_fruit"), YMPE_FRUIT);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "shucked_ympe_fruit"), SHUCKED_YMPE_FRUIT);
 
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_lance"), YMPE_LANCE);
-		
+
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "nysian_grapes"), NYSIAN_GRAPES);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "coric_seed"), CORIC_SEED);
-		
+
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "aylythian_heart"), AYLYTHIAN_HEART);
-		
+
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "pilot_light_spawn_egg"), PILOT_LIGHT_SPAWN_EGG);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "aylythian_spawn_egg"), AYLYTHIAN_SPAWN_EGG);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "elder_aylythian_spawn_egg"), ELDER_AYLYTHIAN_SPAWN_EGG);
-		
+
+		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "soultrap_effigy"), SOULTRAP_EFFIGY_ITEM);
+		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "glaive"), GLAIVE);
+		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "soulmould"), SOULMOULD_ITEM);
+		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "bonefly_skull"), BONEFLY_SKULL);
+
 		FuelRegistry fuelRegistry = FuelRegistry.INSTANCE;
 		fuelRegistry.add(YMPE_FENCE, 300);
 		fuelRegistry.add(YMPE_FENCE_GATE, 300);

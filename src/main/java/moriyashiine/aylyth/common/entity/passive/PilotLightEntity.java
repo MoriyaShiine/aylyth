@@ -25,10 +25,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.world.LocalDifficulty;
-import net.minecraft.world.ServerWorldAccess;
-import net.minecraft.world.TeleportTarget;
-import net.minecraft.world.World;
+import net.minecraft.world.*;
 import org.jetbrains.annotations.Nullable;
 
 public class PilotLightEntity extends AmbientEntity implements Flutterer {
@@ -116,7 +113,9 @@ public class PilotLightEntity extends AmbientEntity implements Flutterer {
 	@Override
 	protected void pushAway(Entity entity) {
 	}
-	
+
+
+
 	@Nullable
 	@Override
 	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
@@ -149,8 +148,9 @@ public class PilotLightEntity extends AmbientEntity implements Flutterer {
 	private boolean isBlue() {
 		return dataTracker.get(IS_BLUE);
 	}
-	
+
 	public static boolean canSpawn(EntityType<PilotLightEntity> pilotLightEntityEntityType, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos blockPos, Random random) {
 		return spawnReason != SpawnReason.NATURAL || random.nextInt(10) == 0;
 	}
+
 }

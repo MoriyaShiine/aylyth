@@ -8,9 +8,7 @@ import moriyashiine.aylyth.client.network.packet.SpawnShuckParticlesPacket;
 import moriyashiine.aylyth.client.particle.PilotLightParticle;
 import moriyashiine.aylyth.client.render.AylythDimensionRenderer;
 import moriyashiine.aylyth.client.render.block.entity.SeepBlockEntityRenderer;
-import moriyashiine.aylyth.client.render.entity.living.AylythianEntityRenderer;
-import moriyashiine.aylyth.client.render.entity.living.ElderAylythianEntityRenderer;
-import moriyashiine.aylyth.client.render.entity.living.PilotLightEntityRenderer;
+import moriyashiine.aylyth.client.render.entity.living.*;
 import moriyashiine.aylyth.client.render.entity.projectile.YmpeLanceEntityRenderer;
 import moriyashiine.aylyth.client.render.item.BigItemRenderer;
 import moriyashiine.aylyth.common.Aylyth;
@@ -78,6 +76,8 @@ public class AylythClient implements ClientModInitializer {
 		EntityRendererRegistry.register(ModEntityTypes.AYLYTHIAN, AylythianEntityRenderer::new);
 		EntityRendererRegistry.register(ModEntityTypes.ELDER_AYLYTHIAN, ElderAylythianEntityRenderer::new);
 		EntityRendererRegistry.register(ModEntityTypes.YMPE_LANCE, YmpeLanceEntityRenderer::new);
+		EntityRendererRegistry.register(ModEntityTypes.SOULMOULD, SoulmouldEntityRenderer::new);
+		EntityRendererRegistry.register(ModEntityTypes.BONEFLY, BoneflyEntityRenderer::new);
 		TerraformBoatClientHelper.registerModelLayers(new Identifier(Aylyth.MOD_ID, "ympe"));
 		TerraformBoatClientHelper.registerModelLayers(new Identifier(Aylyth.MOD_ID, "ympe_chest"));
 		ClientTickEvents.START_CLIENT_TICK.register(client -> {
@@ -86,13 +86,21 @@ public class AylythClient implements ClientModInitializer {
 			}
 		});
 
-		Identifier bigItemId = Registry.ITEM.getId(ModItems.YMPE_LANCE);
-		BigItemRenderer bigItemRenderer = new BigItemRenderer(bigItemId);
-		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(bigItemRenderer);
-		BuiltinItemRendererRegistry.INSTANCE.register(ModItems.YMPE_LANCE, bigItemRenderer);
+		Identifier ympeBigItemId = Registry.ITEM.getId(ModItems.YMPE_LANCE);
+		Identifier glavieBigItemId = Registry.ITEM.getId(ModItems.GLAIVE);
+		BigItemRenderer ympeBigItemRenderer = new BigItemRenderer(ympeBigItemId);
+		BigItemRenderer glaiveBigItemRenderer = new BigItemRenderer(glavieBigItemId);
+		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(ympeBigItemRenderer);
+		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(glaiveBigItemRenderer);
+		BuiltinItemRendererRegistry.INSTANCE.register(ModItems.YMPE_LANCE, ympeBigItemRenderer);
+		BuiltinItemRendererRegistry.INSTANCE.register(ModItems.GLAIVE, glaiveBigItemRenderer);
 		ModelLoadingRegistry.INSTANCE.registerModelProvider((manager, out) -> {
-			out.accept(new ModelIdentifier(bigItemId + "_gui", "inventory"));
-			out.accept(new ModelIdentifier(bigItemId + "_handheld", "inventory"));
+			out.accept(new ModelIdentifier(ympeBigItemId + "_gui", "inventory"));
+			out.accept(new ModelIdentifier(ympeBigItemId + "_handheld", "inventory"));
+		});
+		ModelLoadingRegistry.INSTANCE.registerModelProvider((manager, out) -> {
+			out.accept(new ModelIdentifier(glavieBigItemId + "_gui", "inventory"));
+			out.accept(new ModelIdentifier(glavieBigItemId + "_handheld", "inventory"));
 		});
 	}
 }

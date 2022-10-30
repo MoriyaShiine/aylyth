@@ -1,0 +1,6 @@
+{
+  "parent": "aylyth:item/handheld_rotated",
+  "textures": {
+    "layer0": "aylyth:item/soultrap_effigy"
+  }
+}
