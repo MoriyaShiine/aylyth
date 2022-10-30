@@ -82,10 +82,12 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
                 .add(EntityAttributes.GENERIC_ARMOR_TOUGHNESS, 6.0);
     }
 
+    @Override
     public boolean canHaveStatusEffect(StatusEffectInstance effect) {
         return false;
     }
 
+    @Override
     protected void initGoals() {
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.add(6, new LookAroundGoal(this));
@@ -132,6 +134,7 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
         }));
     }
 
+    @Override
     protected void initDataTracker() {
         super.initDataTracker();
         this.dataTracker.startTracking(ATTACK_STATE, 0);
@@ -143,14 +146,17 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
         this.dataTracker.startTracking(OWNER_UUID, Optional.of(UUID.fromString("1ece513b-8d36-4f04-9be2-f341aa8c9ee2")));
     }
 
+    @Override
     protected SoundEvent getHurtSound(DamageSource source) {
         return ModSoundEvents.ENTITY_SOULMOULD_HURT;
     }
 
+    @Override
     protected SoundEvent getDeathSound() {
         return ModSoundEvents.ENTITY_SOULMOULD_DEATH;
     }
 
+    @Override
     public boolean damage(DamageSource source, float amount) {
         if (!this.world.isClient() && source.isExplosive()) {
             amount = (float)((double)amount * 0.5);
@@ -159,10 +165,12 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
         return super.damage(source, amount);
     }
 
+    @Override
     public boolean canFreeze() {
         return false;
     }
 
+    @Override
     public void writeCustomDataToNbt(NbtCompound nbt) {
         super.writeCustomDataToNbt(nbt);
         if (this.getOwnerUuid() != null) {
@@ -181,6 +189,7 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
         nbt.putBoolean("Dormant", this.isDormant());
     }
 
+    @Override
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
         UUID ownerUUID;
@@ -212,14 +221,17 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
         this.setDormant(nbt.getBoolean("Dormant"));
     }
 
+    @Override
     public UUID getOwnerUuid() {
         return (UUID)((Optional)this.dataTracker.get(OWNER_UUID)).orElse(null);
     }
 
+    @Override
     public void setOwnerUuid(@Nullable UUID uuid) {
         this.dataTracker.set(OWNER_UUID, Optional.ofNullable(uuid));
     }
 
+    @Override
     public void setOwner(PlayerEntity player) {
         this.setTamed(true);
         this.setOwnerUuid(player.getUuid());
@@ -233,14 +245,17 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
         this.dataTracker.set(ATTACK_STATE, state);
     }
 
+    @Override
     public boolean cannotDespawn() {
         return true;
     }
 
+    @Override
     public boolean isPersistent() {
         return true;
     }
 
+    @Override
     @Nullable
     public LivingEntity getOwner() {
         try {
@@ -251,14 +266,17 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
         }
     }
 
+    @Override
     public boolean isOwner(LivingEntity entity) {
         return entity == this.getOwner();
     }
 
+    @Override
     public boolean isTamed() {
         return ((Byte)this.dataTracker.get(TAMEABLE) & 4) != 0;
     }
 
+    @Override
     public void setTamed(boolean tamed) {
         byte b = (Byte)this.dataTracker.get(TAMEABLE);
         if (tamed) {
@@ -270,15 +288,18 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
         this.onTamedChanged();
     }
 
+    @Override
     public void reset() {
         this.setTarget(null);
         this.navigation.stop();
     }
 
+    @Override
     public ItemStack getPickBlockStack() {
         return ModItems.SOULMOULD_ITEM.getDefaultStack();
     }
 
+    @Override
     protected ActionResult interactMob(PlayerEntity player, Hand hand) {
         if (player.getStackInHand(hand).isEmpty() && player.getUuid().equals(this.getOwnerUuid())) {
             if (player.isSneaking()) {
@@ -310,6 +331,7 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
 
     }
 
+    @Override
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityTag) {
         this.setDormantPos(this.getBlockPos());
         return super.initialize(world, difficulty, spawnReason, entityData, entityTag);
@@ -323,6 +345,7 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
         this.dataTracker.set(ACTION_STATE, i);
     }
 
+    @Override
     public void tick() {
         super.tick();
         if (this.getAttackState() == 2 && this.age % 2 == 0) {
@@ -378,6 +401,7 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
 
     }
 
+    @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
         World var4 = this.world;
         if (var4 instanceof ServerWorld server) {
@@ -386,6 +410,7 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
 
     }
 
+    @Override
     public void registerControllers(AnimationData animationData) {
         animationData.addAnimationController(new AnimationController<>(this, "controller", 5.0F, this::predicate));
     }
@@ -417,17 +442,21 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
         return Math.atan2(second.getZ() - first.getZ(), second.getX() - first.getX()) * 57.29577951308232 + 90.0;
     }
 
+    @Override
     public void pushAwayFrom(Entity entity) {
     }
 
+    @Override
     public boolean isCollidable() {
         return true;
     }
 
+    @Override
     public boolean canHit() {
         return !this.isRemoved();
     }
 
+    @Override
     public AnimationFactory getFactory() {
         return this.factory;
     }

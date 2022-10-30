@@ -59,6 +59,7 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
         this.setPersistent();
     }
 
+    @Override
     public boolean canHaveStatusEffect(StatusEffectInstance effect) {
         return false;
     }
@@ -73,6 +74,7 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
                 .add(EntityAttributes.GENERIC_ARMOR, 24.0);
     }
 
+    @Override
     protected void initDataTracker() {
         super.initDataTracker();
         this.dataTracker.startTracking(DORMANT, false);
@@ -80,20 +82,25 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
         this.dataTracker.startTracking(OWNER_UUID, Optional.of(UUID.fromString("1ece513b-8d36-4f04-9be2-f341aa8c9ee2")));
     }
 
+    @Override
     public boolean handleFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource) {
         return false;
     }
 
+    @Override
     protected void initGoals() {
     }
 
+    @Override
     protected void fall(double heightDifference, boolean onGround, BlockState landedState, BlockPos landedPosition) {
     }
 
+    @Override
     public boolean isClimbing() {
         return false;
     }
 
+    @Override
     public void writeCustomDataToNbt(NbtCompound nbt) {
         super.writeCustomDataToNbt(nbt);
         if (this.getOwnerUuid() != null) {
@@ -105,6 +112,7 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
         nbt.putInt("stabTicks", this.stabTicks);
     }
 
+    @Override
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
         UUID ownerUUID;
@@ -133,14 +141,17 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
         return (Boolean)this.getDataTracker().get(DORMANT);
     }
 
+    @Override
     protected void addFlapEffects() {
         this.playSound(SoundEvents.ENTITY_ENDER_DRAGON_FLAP, 1.0F, 1.0F);
     }
 
+    @Override
     protected boolean hasWings() {
         return this.isInAir();
     }
 
+    @Override
     public EntityGroup getGroup() {
         return EntityGroup.UNDEAD;
     }
@@ -157,6 +168,7 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
         this.getDataTracker().set(DORMANT, rest);
     }
 
+    @Override
     public void travel(Vec3d travelVector) {
         boolean flying = this.isInAir();
         float speed = (float)this.getAttributeValue(flying ? EntityAttributes.GENERIC_FLYING_SPEED : EntityAttributes.GENERIC_MOVEMENT_SPEED);
@@ -227,6 +239,7 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
         }
     }
 
+    @Override
     public void tick() {
         super.tick();
         if (this.age % 20 == 0 && this.getHealth() < this.getMaxHealth() && this.isDormant()) {
@@ -303,6 +316,7 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
         }
     }
 
+    @Override
     public boolean damage(DamageSource source, float amount) {
         if (!this.world.isClient() && source.getAttacker() != null) {
             Entity var4 = source.getAttacker();
@@ -333,6 +347,7 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
         return this.getY() - (double)mutable.getY() - 0.11;
     }
 
+    @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack stack = player.getStackInHand(hand);
         if ((stack.getItem().equals(Items.BONE_BLOCK) || stack.isIn(ItemTags.SOUL_FIRE_BASE_BLOCKS)) && this.getHealth() < this.getMaxHealth()) {
@@ -352,7 +367,7 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
         return super.interactMob(player, hand);
     }
 
-
+    @Override
     public void updatePassengerPosition(Entity passenger) {
         if (this.hasPassenger(passenger)) {
             if (this.getFirstPassenger() == passenger) {
@@ -371,6 +386,7 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
         }
     }
 
+    @Override
     public double getMountedHeightOffset() {
         return 2.3;
     }
@@ -440,23 +456,28 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
         return PlayState.CONTINUE;
     }
 
+    @Override
     public AnimationFactory getFactory() {
         return this.factory;
     }
 
+    @Override
     public UUID getOwnerUuid() {
         return (UUID)((Optional)this.dataTracker.get(OWNER_UUID)).orElse(null);
     }
 
+    @Override
     public void setOwnerUuid(@Nullable UUID uuid) {
         this.dataTracker.set(OWNER_UUID, Optional.ofNullable(uuid));
     }
 
+    @Override
     public void setOwner(PlayerEntity player) {
         this.setTamed(true);
         this.setOwnerUuid(player.getUuid());
     }
 
+    @Override
     @Nullable
     public LivingEntity getOwner() {
         try {
@@ -467,14 +488,17 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
         }
     }
 
+    @Override
     public boolean isOwner(LivingEntity entity) {
         return entity == this.getOwner();
     }
 
+    @Override
     public boolean isTamed() {
         return true;
     }
 
+    @Override
     public void setTamed(boolean tamed) {
     }
 
