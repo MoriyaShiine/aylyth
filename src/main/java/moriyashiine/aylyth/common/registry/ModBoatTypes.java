@@ -13,15 +13,21 @@ import java.util.function.Supplier;
 public class ModBoatTypes {
 	public static final TerraformBoatType YMPE_BOAT_TYPE;
 	public static final TerraformBoatType YMPE_CHEST_BOAT_TYPE;
+	public static final TerraformBoatType POMEGRANATE_BOAT_TYPE;
+	public static final TerraformBoatType POMEGRANATE_CHEST_BOAT_TYPE;
 	
 	public static void init() {}
 
 	static {
 		YMPE_BOAT_TYPE = new TerraformBoatType.Builder().item(TerraformBoatItemHelper.registerBoatItem(new Identifier(Aylyth.MOD_ID, "ympe_boat"), boatSupplier(), false, ModItems.GROUP)).build();
 		YMPE_CHEST_BOAT_TYPE = new TerraformBoatType.Builder().item(TerraformBoatItemHelper.registerBoatItem(new Identifier(Aylyth.MOD_ID, "ympe_chest_boat"), boatChestSupplier(), true, ModItems.GROUP)).chestItem(Items.CHEST).build();
+		POMEGRANATE_BOAT_TYPE = new TerraformBoatType.Builder().item(ModItems.POMEGRANATE_ITEMS.boat).build();
+		POMEGRANATE_CHEST_BOAT_TYPE = new TerraformBoatType.Builder().item(ModItems.POMEGRANATE_ITEMS.chestBoat).chestItem(Items.CHEST).build();
 
 		Registry.register(TerraformBoatTypeRegistry.INSTANCE, new Identifier(Aylyth.MOD_ID, "ympe"), YMPE_BOAT_TYPE);
 		Registry.register(TerraformBoatTypeRegistry.INSTANCE, new Identifier(Aylyth.MOD_ID, "ympe_chest"), YMPE_CHEST_BOAT_TYPE);
+		Registry.register(TerraformBoatTypeRegistry.INSTANCE, new Identifier(Aylyth.MOD_ID, "pomegranate"), POMEGRANATE_BOAT_TYPE);
+		Registry.register(TerraformBoatTypeRegistry.INSTANCE, new Identifier(Aylyth.MOD_ID, "pomegranate_chest"), POMEGRANATE_CHEST_BOAT_TYPE);
 	}
 
 	static Supplier<TerraformBoatType> boatSupplier() {

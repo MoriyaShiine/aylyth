@@ -42,8 +42,6 @@
     [],
     [],
     [
-      "minecraft:ore_coal_upper",
-      "minecraft:ore_coal_lower",
       "minecraft:ore_iron_upper",
       "minecraft:ore_iron_middle",
       "minecraft:ore_iron_small",
@@ -54,15 +52,16 @@
       "minecraft:spring_water"
     ],
     [
-      "minecraft:forest_flowers",
-      "minecraft:patch_grass_taiga",
-      "aylyth:aylyth_weeds",
-      "aylyth:coniferous_copse_trees",
-      "minecraft:brown_mushroom_normal",
-      "minecraft:red_mushroom_normal",
       "aylyth:oak_strewn_leaves",
       "aylyth:ympe_strewn_leaves",
-      "aylyth:ympe_seep"
+      "minecraft:patch_grass_taiga",
+      "aylyth:aylyth_weeds",
+      "aylyth:red_mushroom_patch",
+      "aylyth:brown_mushroom_patch",
+      "aylyth:ghostcap_mushroom_patch",
+      "aylyth:ympe_seep",
+      "minecraft:forest_flowers",
+      "aylyth:coniferous_copse_trees"
     ],
     [
       "minecraft:freeze_top_layer"

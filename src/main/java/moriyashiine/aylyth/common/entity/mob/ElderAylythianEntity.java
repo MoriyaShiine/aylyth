@@ -185,4 +185,9 @@ public class ElderAylythianEntity extends HostileEntity implements IAnimatable {
 		super.writeCustomDataToNbt(nbt);
 		nbt.putInt("Variant", dataTracker.get(VARIANT));
 	}
+
+	@Override
+	public EntityGroup getGroup() {
+		return EntityGroup.UNDEAD;
+	}
 }

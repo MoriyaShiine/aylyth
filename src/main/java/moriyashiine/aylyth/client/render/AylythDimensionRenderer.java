@@ -101,7 +101,7 @@ public class AylythDimensionRenderer {
 	public static void determineConditions(ClientWorld world, RegistryEntry<Biome> biome) {
 		if (world.getRegistryKey() == ModDimensions.AYLYTH) {
 			Identifier biomeId = world.getRegistryManager().get(Registry.BIOME_KEY).getId(biome.value());
-			if (biomeId == ModBiomes.CLEARING_ID.getValue()) {
+			if (biomeId == ModBiomes.CLEARING_ID.getValue() || biomeId == ModBiomes.UPLANDS_ID.getValue()) {
 				goalFogStrength = 40;
 			}
 			else if (biomeId == ModBiomes.OVERGROWN_CLEARING_ID.getValue()) {

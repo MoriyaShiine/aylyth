@@ -16,6 +16,7 @@ public class AylythDatagen implements DataGeneratorEntrypoint {
         ModDimensions.datagenInit();
         AylythNoiseSettings.datagenInit();
         fabricDataGenerator.addProvider(runClient, AylythModelProvider::new);
+        fabricDataGenerator.addProvider(runClient, AylythLanguageProvider::new);
         AylythTagProviders.registerTagProviders(fabricDataGenerator);
         AylythLootTableProviders.registerProviders(fabricDataGenerator);
         fabricDataGenerator.addProvider(runServer, AylythWorldgenProvider::new);

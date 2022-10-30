@@ -127,7 +127,7 @@ public class Aylyth implements ModInitializer {
 							}
 						}
 					}
-					teleport |= isNearSeep(player);
+					teleport |= AylythUtil.isNearSeep(player, 8);
 				}
 				if (!teleport) {
 					for (Hand hand : Hand.values()) {
@@ -168,20 +168,5 @@ public class Aylyth implements ModInitializer {
 		worldGen.add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(ModTags.GENERATES_SEEP), context -> context.getGenerationSettings().addBuiltInFeature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.OAK_SEEP.value()));
 		worldGen.add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(ModTags.GENERATES_SEEP), context -> context.getGenerationSettings().addBuiltInFeature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.SPRUCE_SEEP.value()));
 		worldGen.add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(ModTags.GENERATES_SEEP), context -> context.getGenerationSettings().addBuiltInFeature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.DARK_OAK_SEEP.value()));
-	}
-	
-	private static boolean isNearSeep(PlayerEntity player) {
-		BlockPos.Mutable mutable = new BlockPos.Mutable();
-		int radius = 8;
-		for (int x = -radius; x <= radius; x++) {
-			for (int y = -radius; y <= radius; y++) {
-				for (int z = -radius; z <= radius; z++) {
-					if (player.world.getBlockState(mutable.set(player.getX() + x, player.getY() + y, player.getZ() + z)).isIn(ModTags.SEEPS)) {
-						return true;
-					}
-				}
-			}
-		}
-		return false;
 	}
 }
