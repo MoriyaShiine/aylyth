@@ -3,13 +3,16 @@ package moriyashiine.aylyth.common.registry;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.world.generator.AylthianTrunkPlacer;
 import moriyashiine.aylyth.common.world.generator.BigYmpeTrunkPlacer;
+import moriyashiine.aylyth.common.world.generator.PomegranateTrunkPlacer;
 import moriyashiine.aylyth.common.world.generator.YmpeTrunkPlacer;
 import moriyashiine.aylyth.common.world.generator.feature.*;
+import moriyashiine.aylyth.mixin.FoliagePlacerTypeAccessor;
 import moriyashiine.aylyth.mixin.TreeDecoratorTypeAccessor;
 import moriyashiine.aylyth.mixin.TrunkPlacerTypeAccessor;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.collection.DataPool;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.gen.foliage.FoliagePlacerType;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
 import net.minecraft.world.gen.treedecorator.TreeDecoratorType;
@@ -31,5 +34,7 @@ public class ModFeatures {
     public static final TrunkPlacerType<AylthianTrunkPlacer> AYLYTHIAN_TRUNK_PLACER = TrunkPlacerTypeAccessor.callRegister(Aylyth.MOD_ID + ":aylythian_trunk_placer", AylthianTrunkPlacer.CODEC);
     public static final TrunkPlacerType<YmpeTrunkPlacer> YMPE_TRUNK_PLACER = TrunkPlacerTypeAccessor.callRegister(Aylyth.MOD_ID + ":ympe_trunk_placer", YmpeTrunkPlacer.CODEC);
     public static final TrunkPlacerType<BigYmpeTrunkPlacer> BIG_YMPE_TRUNK_PLACER = TrunkPlacerTypeAccessor.callRegister(Aylyth.MOD_ID + ":big_ympe_trunk_placer", BigYmpeTrunkPlacer.CODEC);
+    public static final TrunkPlacerType<PomegranateTrunkPlacer> POMEGRANATE_TRUNK_PLACER = TrunkPlacerTypeAccessor.callRegister(Aylyth.MOD_ID + ":pomegranate_trunk_placer", PomegranateTrunkPlacer.CODEC);
     public static final TreeDecoratorType<GrapeVineDecorator> GRAPE_VINE = TreeDecoratorTypeAccessor.register(Aylyth.MOD_ID + ":grape_vine_decorator", GrapeVineDecorator.CODEC);
+    public static final FoliagePlacerType<PomegranateFoliagePlacer> POMEGRANATE_FOLIAGE_PLACER = FoliagePlacerTypeAccessor.register(Aylyth.MOD_ID + ":pomegranate_foliage_placer", PomegranateFoliagePlacer.CODEC);
 }
