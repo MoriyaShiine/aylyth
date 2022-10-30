@@ -32,7 +32,7 @@ public class FruitBearingYmpeLogBlock extends StrippableLogBlock {
 	
 	@Override
 	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-		if (player.getStackInHand(hand).isEmpty() && isMature(state)) {
+		if (isMature(state)) {
 			if (!world.isClient) {
 				world.setBlockState(pos, state.with(AGE, 0));
 				world.playSound(null, pos, ModSoundEvents.BLOCK_YMPE_LOG_PICK_FRUIT, SoundCategory.BLOCKS, 1, 1);

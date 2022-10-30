@@ -63,7 +63,7 @@ public class ModBlocks {
 		@Nullable
 		@Override
 		protected RegistryEntry<? extends ConfiguredFeature<?, ?>> getTreeFeature(Random random, boolean bees) {
-			return null; //TODO: fix
+			return ModConfiguredFeatures.POMEGRANATE_TREE;
 		}
 	});
 	public static final Block POMEGRANATE_LEAVES = new PomegranateLeavesBlock(copyOf(Blocks.OAK_LEAVES));

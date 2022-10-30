@@ -55,7 +55,7 @@ public class SpreadingPlantBlock extends Block {
         return false;
     }
 
-    private boolean isValidLight(WorldAccess world, BlockPos pos) {
+    protected static boolean isValidLight(WorldAccess world, BlockPos pos) {
         return world.getBaseLightLevel(pos, 0) < 13;
     }
 

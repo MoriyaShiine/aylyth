@@ -9,6 +9,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.ActionResult;
@@ -25,19 +27,25 @@ public class PomegranateLeavesBlock extends LeavesBlock {
 
     public PomegranateLeavesBlock(Settings settings) {
         super(settings);
-        setDefaultState(stateManager.getDefaultState().with(FRUITING, 0));
+        this.setDefaultState(this.getDefaultState().with(FRUITING, 0));
     }
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (!world.isClient() && world instanceof ServerWorld serverWorld) {
-            if (state.get(FRUITING) == 3 && player.getStackInHand(hand).getItem() != Items.DEBUG_STICK) {
-                serverWorld.setBlockState(pos, state.with(FRUITING, 0));
-                ItemScatterer.spawn(world, pos.getX()+0.5, pos.getY()-0.15, pos.getZ()+0.5, new ItemStack(ModItems.POMEGRANATE));
-                return ActionResult.success(world.isClient());
+        if (state.get(FRUITING) == 3 && player.getStackInHand(hand).getItem() != Items.DEBUG_STICK) {
+            world.playSound(player, hit.getBlockPos(), SoundEvents.BLOCK_GRASS_BREAK, SoundCategory.BLOCKS, 1.0f, 1.0f);
+            if (!world.isClient()) {
+                world.setBlockState(pos, state.with(FRUITING, 0));
+                player.giveItemStack(new ItemStack(ModItems.POMEGRANATE));
             }
+            return ActionResult.success(world.isClient());
         }
         return super.onUse(state, world, pos, player, hand, hit);
+    }
+
+    @Override
+    public boolean hasRandomTicks(BlockState state) {
+        return super.hasRandomTicks(state) || state.get(FRUITING) < 3;
     }
 
     @Override

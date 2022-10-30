@@ -2,6 +2,7 @@ package moriyashiine.aylyth.common.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
@@ -10,6 +11,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -34,6 +36,17 @@ public class JackolanternShelfMushroomBlock extends ShelfMushroomBlock {
             return true;
         }
         return false;
+    }
+
+    @Nullable
+    @Override
+    public BlockState getPlacementState(ItemPlacementContext ctx) {
+        var state = super.getPlacementState(ctx);
+        if (state != null) {
+            var world = ctx.getWorld();
+            state = state.with(GLOWING, getLight(world, ctx.getBlockPos()) < 6);
+        }
+        return state;
     }
 
     @Override
