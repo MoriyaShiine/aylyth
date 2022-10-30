@@ -14,27 +14,13 @@ import net.minecraft.util.registry.Registry;
 public class ModItems {
 	public static final ItemGroup GROUP = FabricItemGroupBuilder.build(new Identifier(Aylyth.MOD_ID, Aylyth.MOD_ID), () -> new ItemStack(ModItems.YMPE_DAGGER));
 	
-	public static final Item STRIPPED_YMPE_LOG = new BlockItem(ModBlocks.STRIPPED_YMPE_LOG, settings());
-	public static final Item STRIPPED_YMPE_WOOD = new BlockItem(ModBlocks.STRIPPED_YMPE_WOOD, settings());
-	public static final Item YMPE_LOG = new BlockItem(ModBlocks.YMPE_LOG, settings());
 	public static final Item FRUIT_BEARING_YMPE_LOG = new BlockItem(ModBlocks.FRUIT_BEARING_YMPE_LOG, settings());
-	public static final Item YMPE_WOOD = new BlockItem(ModBlocks.YMPE_WOOD, settings());
 	public static final Item YMPE_LEAVES = new BlockItem(ModBlocks.YMPE_LEAVES, settings());
-	public static final Item YMPE_SAPLING = new BlockItem(ModBlocks.YMPE_SAPLING, settings());
-	public static final Item YMPE_PLANKS = new BlockItem(ModBlocks.YMPE_PLANKS, settings());
-	public static final Item YMPE_STAIRS = new BlockItem(ModBlocks.YMPE_STAIRS, settings());
-	public static final Item YMPE_SLAB = new BlockItem(ModBlocks.YMPE_SLAB, settings());
-	public static final Item YMPE_FENCE = new BlockItem(ModBlocks.YMPE_FENCE, settings());
-	public static final Item YMPE_FENCE_GATE = new BlockItem(ModBlocks.YMPE_FENCE_GATE, settings());
-	public static final Item YMPE_PRESSURE_PLATE = new BlockItem(ModBlocks.YMPE_PRESSURE_PLATE, settings());
-	public static final Item YMPE_BUTTON = new BlockItem(ModBlocks.YMPE_BUTTON, settings());
-	public static final Item YMPE_TRAPDOOR = new BlockItem(ModBlocks.YMPE_TRAPDOOR, settings());
-	public static final Item YMPE_DOOR = new TallBlockItem(ModBlocks.YMPE_DOOR, settings());
-	public static final Item YMPE_SIGN = new SignItem(settings().maxCount(16), ModBlocks.YMPE_SIGN, ModBlocks.YMPE_WALL_SIGN);
+	public static final ItemWoodSuite YMPE_ITEMS = ItemWoodSuite.of(new Identifier(Aylyth.MOD_ID, "ympe"), ModBlocks.YMPE_BLOCKS, new ItemWoodSuite.GroupedSettings(GROUP), Registry.ITEM, () -> ModBoatTypes.YMPE_BOAT_TYPE, () -> ModBoatTypes.YMPE_CHEST_BOAT_TYPE);
 
-	public static final ItemWoodSuite POMEGRANATE_ITEMS = ItemWoodSuite.of(new Identifier(Aylyth.MOD_ID, "pomegranate"), ModBlocks.POMEGRANATE_BLOCKS, new ItemWoodSuite.GroupedSettings(GROUP), Registry.ITEM, () -> ModBoatTypes.POMEGRANATE_BOAT_TYPE, () -> ModBoatTypes.POMEGRANATE_CHEST_BOAT_TYPE);
 	public static final Item POMEGRANATE_LEAVES = new BlockItem(ModBlocks.POMEGRANATE_LEAVES, settings());
-	
+	public static final ItemWoodSuite POMEGRANATE_ITEMS = ItemWoodSuite.of(new Identifier(Aylyth.MOD_ID, "pomegranate"), ModBlocks.POMEGRANATE_BLOCKS, new ItemWoodSuite.GroupedSettings(GROUP), Registry.ITEM, () -> ModBoatTypes.POMEGRANATE_BOAT_TYPE, () -> ModBoatTypes.POMEGRANATE_CHEST_BOAT_TYPE);
+
 	public static final Item AYLYTH_BUSH = new BlockItem(ModBlocks.AYLYTH_BUSH, settings());
 	public static final Item ANTLER_SHOOTS = new BlockItem(ModBlocks.ANTLER_SHOOTS, settings());
 	public static final Item GRIPWEED = new BlockItem(ModBlocks.GRIPWEED, settings());
@@ -73,24 +59,9 @@ public class ModItems {
 	}
 	
 	public static void init() {
-		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "stripped_ympe_log"), STRIPPED_YMPE_LOG);
-		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "stripped_ympe_wood"), STRIPPED_YMPE_WOOD);
-		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_log"), YMPE_LOG);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "fruit_bearing_ympe_log"), FRUIT_BEARING_YMPE_LOG);
-		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_wood"), YMPE_WOOD);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_leaves"), YMPE_LEAVES);
-		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_sapling"), YMPE_SAPLING);
-		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_planks"), YMPE_PLANKS);
-		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_stairs"), YMPE_STAIRS);
-		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_slab"), YMPE_SLAB);
-		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_fence"), YMPE_FENCE);
-		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_fence_gate"), YMPE_FENCE_GATE);
-		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_pressure_plate"), YMPE_PRESSURE_PLATE);
-		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_button"), YMPE_BUTTON);
-		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_trapdoor"), YMPE_TRAPDOOR);
-		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_door"), YMPE_DOOR);
-		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_sign"), YMPE_SIGN);
-
+		YMPE_ITEMS.register();
 		POMEGRANATE_ITEMS.register();
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "pomegranate_leaves"), POMEGRANATE_LEAVES);
 		
@@ -128,11 +99,11 @@ public class ModItems {
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "elder_aylythian_spawn_egg"), ELDER_AYLYTHIAN_SPAWN_EGG);
 		
 		FuelRegistry fuelRegistry = FuelRegistry.INSTANCE;
-		fuelRegistry.add(YMPE_FENCE, 300);
-		fuelRegistry.add(YMPE_FENCE_GATE, 300);
+		fuelRegistry.add(YMPE_ITEMS.fence, 300);
+		fuelRegistry.add(YMPE_ITEMS.fenceGate, 300);
 		CompostingChanceRegistry compostRegistry = CompostingChanceRegistry.INSTANCE;
 		compostRegistry.add(YMPE_LEAVES, 0.3f);
-		compostRegistry.add(YMPE_SAPLING, 0.3f);
+		compostRegistry.add(YMPE_ITEMS.sapling, 0.3f);
 		compostRegistry.add(OAK_STREWN_LEAVES, 0.3f);
 		compostRegistry.add(YMPE_STREWN_LEAVES, 0.3f);
 		compostRegistry.add(JACK_O_LANTERN_MUSHROOM, 0.3f);

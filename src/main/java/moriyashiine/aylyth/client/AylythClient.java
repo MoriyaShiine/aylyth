@@ -58,7 +58,7 @@ public class AylythClient implements ClientModInitializer {
 		ClientPlayNetworking.registerGlobalReceiver(SpawnShuckParticlesPacket.ID, SpawnShuckParticlesPacket::receive);
 		ParticleFactoryRegistry.getInstance().register(ModParticles.PILOT_LIGHT, PilotLightParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(ModParticles.AMBIENT_PILOT_LIGHT, PilotLightParticle.AmbientFactory::new);
-		SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, ModBlocks.YMPE_SIGN.getTexture()));
+		SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, ModBlocks.YMPE_BLOCKS.floorSign.getTexture()));
 		SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, ModBlocks.POMEGRANATE_BLOCKS.floorSign.getTexture()));
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), cutoutBlocks());
 		ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.getDefaultColor(), ModBlocks.AYLYTH_BUSH);
@@ -102,10 +102,10 @@ public class AylythClient implements ClientModInitializer {
 
 	private static Block[] cutoutBlocks() {
 		return new Block[] {
-				ModBlocks.YMPE_SAPLING,
-				ModBlocks.POTTED_YMPE_SAPLING,
-				ModBlocks.YMPE_DOOR,
-				ModBlocks.YMPE_TRAPDOOR,
+				ModBlocks.YMPE_BLOCKS.sapling,
+				ModBlocks.YMPE_BLOCKS.pottedSapling,
+				ModBlocks.YMPE_BLOCKS.door,
+				ModBlocks.YMPE_BLOCKS.trapdoor,
 				ModBlocks.POMEGRANATE_BLOCKS.sapling,
 				ModBlocks.POMEGRANATE_BLOCKS.pottedSapling,
 				ModBlocks.POMEGRANATE_BLOCKS.door,

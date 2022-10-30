@@ -26,7 +26,7 @@ public class FruitBearingYmpeLogBlock extends StrippableLogBlock {
 	private static final Property<Integer> AGE = IntProperty.of("age", 0, 4);
 	
 	public FruitBearingYmpeLogBlock() {
-		super(() -> ModBlocks.STRIPPED_YMPE_LOG, MapColor.BROWN, Settings.copy(ModBlocks.YMPE_LOG));
+		super(() -> ModBlocks.YMPE_BLOCKS.strippedLog, MapColor.BROWN, Settings.copy(ModBlocks.YMPE_BLOCKS.log));
 		setDefaultState(getDefaultState().with(AXIS, Direction.Axis.Y).with(AGE, 4));
 	}
 	
