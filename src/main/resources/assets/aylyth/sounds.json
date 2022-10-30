@@ -109,5 +109,32 @@
 	  "aylyth:ambient/wood_ambiance_5",
 	  "aylyth:ambient/wood_ambiance_6"
 	]
-  }
+  },
+	"entity.soulmould.ambient": {
+		"sounds": [
+			"aylyth:entity/soulmould/soulmould_ambient_1",
+			"aylyth:entity/soulmould/soulmould_ambient_2"
+		],
+		"subtitle": "aylyth.subtitles.entity.soulmould.ambient"
+	},
+	"entity.soulmould.attack": {
+		"sounds": [
+			"aylyth:entity/soulmould/soulmould_attack_1",
+			"aylyth:entity/soulmould/soulmould_attack_2",
+			"aylyth:entity/soulmould/soulmould_attack_3"
+		],
+		"subtitle": "aylyth.subtitles.entity.soulmould.attack"
+	},
+	"entity.soulmould.hurt": {
+		"sounds": [
+			"aylyth:entity/soulmould/soulmould_damage_1"
+		],
+		"subtitle": "aylyth.subtitles.entity.soulmould.hurt"
+	},
+	"entity.soulmould.death": {
+		"sounds": [
+			"aylyth:entity/soulmould/soulmould_death_1"
+		],
+		"subtitle": "aylyth.subtitles.entity.soulmould.death"
+	}
 }

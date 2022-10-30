@@ -1,5 +1,7 @@
 package moriyashiine.aylyth.common;
 
+import moriyashiine.aylyth.client.network.packet.UpdatePressingUpDownPacket;
+import moriyashiine.aylyth.common.network.packet.GlaivePacket;
 import moriyashiine.aylyth.client.network.packet.SpawnShuckParticlesPacket;
 import moriyashiine.aylyth.common.recipe.YmpeDaggerDropRecipe;
 import moriyashiine.aylyth.common.registry.*;
@@ -11,6 +13,7 @@ import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.fabricmc.fabric.api.entity.event.v1.ServerEntityCombatEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -35,7 +38,7 @@ import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStep;
-import software.bernie.geckolib3.GeckoLib;
+import software.bernie.example.GeckoLibMod;
 
 public class Aylyth implements ModInitializer {
 	public static final String MOD_ID = "aylyth";
@@ -47,7 +50,7 @@ public class Aylyth implements ModInitializer {
 	
 	@Override
 	public void onInitialize() {
-		GeckoLib.initialize();
+		GeckoLibMod.DISABLE_IN_DEV = true;
 		ModParticles.init();
 		ModBlocks.init();
 		ModItems.init();
@@ -59,6 +62,9 @@ public class Aylyth implements ModInitializer {
 		ModFeatures.init();
 		ModBoatTypes.init();
 		biomeModifications();
+		ServerPlayNetworking.registerGlobalReceiver(GlaivePacket.ID, GlaivePacket::handle);
+		ServerPlayNetworking.registerGlobalReceiver(UpdatePressingUpDownPacket.ID, UpdatePressingUpDownPacket::handle);
+
 		ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register((world, entity, killedEntity) -> {
 			if (entity instanceof LivingEntity living && living.getMainHandStack().isOf(ModItems.YMPE_DAGGER)) {
 				boolean shucked = false;

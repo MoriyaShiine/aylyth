@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "a": {
+      "item": "minecraft:netherite_scrap"
+    },
+    "d": {
+      "item": "minecraft:soul_soil"
+    },
+    "n": {
+      "item": "minecraft:netherite_ingot"
+    },
+    "s": {
+      "item": "aylyth:soulmould"
+    }
+  },
+  "pattern": [
+    "dnd",
+    "nsn",
+    "ada"
+  ],
+  "result": {
+    "item": "aylyth:soultrap_effigy"
+  }
+}

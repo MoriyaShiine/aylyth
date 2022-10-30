@@ -30,6 +30,12 @@ public class ModSoundEvents {
 	public static final SoundEvent ENTITY_ELDER_AYLYTHIAN_DEATH = new SoundEvent(new Identifier(Aylyth.MOD_ID, "entity.elder_aylythian.death"));
 	
 	public static final SoundEvent AMBIENT_FOREST_ADDITIONS = new SoundEvent(new Identifier(Aylyth.MOD_ID, "ambient.forest.additions"));
+
+	public static final SoundEvent ENTITY_SOULMOULD_AMBIENT = new SoundEvent(new Identifier(Aylyth.MOD_ID, "entity.soulmould.ambient"));
+	public static final SoundEvent ENTITY_SOULMOULD_ATTACK = new SoundEvent(new Identifier(Aylyth.MOD_ID, "entity.soulmould.attack"));
+	public static final SoundEvent ENTITY_SOULMOULD_HURT = new SoundEvent(new Identifier(Aylyth.MOD_ID, "entity.soulmould.hurt"));
+
+	public static final SoundEvent ENTITY_SOULMOULD_DEATH = new SoundEvent(new Identifier(Aylyth.MOD_ID, "entity.soulmould.death"));
 	
 	public static void init() {
 		Registry.register(Registry.SOUND_EVENT, BLOCK_YMPE_LOG_PICK_FRUIT.getId(), BLOCK_YMPE_LOG_PICK_FRUIT);
@@ -42,5 +48,10 @@ public class ModSoundEvents {
 		Registry.register(Registry.SOUND_EVENT, ENTITY_ELDER_AYLYTHIAN_HURT.getId(), ENTITY_ELDER_AYLYTHIAN_HURT);
 		Registry.register(Registry.SOUND_EVENT, ENTITY_ELDER_AYLYTHIAN_DEATH.getId(), ENTITY_ELDER_AYLYTHIAN_DEATH);
 		Registry.register(Registry.SOUND_EVENT, AMBIENT_FOREST_ADDITIONS.getId(), AMBIENT_FOREST_ADDITIONS);
+
+		Registry.register(Registry.SOUND_EVENT, ENTITY_SOULMOULD_AMBIENT.getId(), ENTITY_SOULMOULD_AMBIENT);
+		Registry.register(Registry.SOUND_EVENT, ENTITY_SOULMOULD_ATTACK.getId(), ENTITY_SOULMOULD_ATTACK);
+		Registry.register(Registry.SOUND_EVENT, ENTITY_SOULMOULD_HURT.getId(), ENTITY_SOULMOULD_HURT);
+		Registry.register(Registry.SOUND_EVENT, ENTITY_SOULMOULD_DEATH.getId(), ENTITY_SOULMOULD_DEATH);
 	}
 }
