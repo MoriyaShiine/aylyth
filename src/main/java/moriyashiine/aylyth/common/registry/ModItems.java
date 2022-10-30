@@ -101,12 +101,17 @@ public class ModItems {
 		FuelRegistry fuelRegistry = FuelRegistry.INSTANCE;
 		fuelRegistry.add(YMPE_ITEMS.fence, 300);
 		fuelRegistry.add(YMPE_ITEMS.fenceGate, 300);
+		fuelRegistry.add(POMEGRANATE_ITEMS.fence, 300);
+		fuelRegistry.add(POMEGRANATE_ITEMS.fenceGate, 300);
 		CompostingChanceRegistry compostRegistry = CompostingChanceRegistry.INSTANCE;
 		compostRegistry.add(YMPE_LEAVES, 0.3f);
 		compostRegistry.add(YMPE_ITEMS.sapling, 0.3f);
+		compostRegistry.add(POMEGRANATE_LEAVES, 0.3f);
+		compostRegistry.add(POMEGRANATE_ITEMS.sapling, 0.3f);
 		compostRegistry.add(OAK_STREWN_LEAVES, 0.3f);
 		compostRegistry.add(YMPE_STREWN_LEAVES, 0.3f);
 		compostRegistry.add(JACK_O_LANTERN_MUSHROOM, 0.3f);
 		compostRegistry.add(GHOSTCAP_MUSHROOM, 0.3f);
+		compostRegistry.add(POMEGRANATE, 0.3f);
 	}
 }
