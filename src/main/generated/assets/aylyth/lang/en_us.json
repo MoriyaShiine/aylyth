@@ -1,4 +1,8 @@
 {
+  "aylyth.subtitles.block.stick_break": "Stick cracks",
+  "aylyth.subtitles.block.strewn_leaves.pile_destroy": "Leaves scatter",
+  "aylyth.subtitles.block.strewn_leaves.pile_step": "Leaf pile crunches",
+  "aylyth.subtitles.block.strewn_leaves.step": "Leaves crunch",
   "aylyth.subtitles.block.ympe_log.pick_fruit": "Fruit picked",
   "aylyth.subtitles.entity.aylythian.ambient": "Aylythian groans",
   "aylyth.subtitles.entity.aylythian.death": "Aylythian dies",
@@ -11,7 +15,7 @@
   "block.aylyth.antler_shoots": "Antler Shoots",
   "block.aylyth.aylyth_bush": "Aylyth Bush",
   "block.aylyth.dark_oak_seep": "Dark Oak Seep",
-  "block.aylyth.fruit_bearing_ympe_log": "Fruit-bearing Ympe Log",
+  "block.aylyth.fruit_bearing_ympe_log": "Fruit Bearing Ympe Log",
   "block.aylyth.ghostcap_mushroom": "Ghostcap Mushroom Spores",
   "block.aylyth.gripweed": "Gripweed",
   "block.aylyth.jack_o_lantern_mushroom": "Jack O'Lantern Mushroom",
