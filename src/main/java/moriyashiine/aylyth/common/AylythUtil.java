@@ -22,14 +22,14 @@ public class AylythUtil {
 	
 	public static BlockPos getSafePosition(World world, BlockPos.Mutable pos, int tries) {
 		if (tries >= MAX_TRIES) {
-			return ((ServerWorld) world).getSpawnPos();
+			return world.getSpawnPos();
 		}
 		pos.setY(world.getTopY() - 1);
 		while (world.isInBuildLimit(pos) && !world.getBlockState(pos).shouldSuffocate(world, pos)) {
 			pos.setY(pos.getY() - 1);
 		}
 		while (world.isInBuildLimit(pos) && world.getBlockState(pos).shouldSuffocate(world, pos)) {
-			pos.setY(pos.getY() + 1);
+			pos.setY(pos.getY() + 2);
 		}
 		if (world.getBlockState(pos).getMaterial().isReplaceable() && world.getFluidState(pos).getFluid() == Fluids.EMPTY) {
 			return pos.toImmutable();
@@ -60,5 +60,20 @@ public class AylythUtil {
 			}
 		}
 		return false;
+	}
+
+	public static double distanceIfNearSeep(LivingEntity livingEntity, int radius) {
+		BlockPos.Mutable mutable = new BlockPos.Mutable();
+		for (int x = -radius; x <= radius; x++) {
+			for (int y = -radius; y <= radius; y++) {
+				for (int z = -radius; z <= radius; z++) {
+					mutable.set(livingEntity.getX() + x, livingEntity.getY() + y, livingEntity.getZ() + z);
+					if (livingEntity.world.getBlockState(mutable).isIn(ModTags.SEEPS)) {
+						return Math.sqrt(mutable.getSquaredDistance(livingEntity.getBlockPos().getX(), livingEntity.getBlockPos().getY(), livingEntity.getBlockPos().getZ()));
+					}
+				}
+			}
+		}
+		return -1;
 	}
 }
