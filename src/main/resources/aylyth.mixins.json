@@ -6,10 +6,12 @@
   "mixins": [
     "BlocksAccessor",
     "BrewingRecipeRegistryAccessor",
+    "EntityAccessor",
     "EntityMixin",
     "FoliagePlacerTypeAccessor",
     "GeneratorOptionsMixin",
     "LivingEntityMixin",
+    "PlayerEntityMixin",
     "TreeDecoratorTypeAccessor",
     "TrunkPlacerTypeAccessor",
     "VineBlockMixin",
@@ -26,7 +28,8 @@
     "client.ParticleManagerMixin",
     "client.PlayerEntityRendererMixin",
     "client.RenderLayerAccessor",
-    "client.WorldRendererMixin"
+    "client.WorldRendererMixin",
+    "client.MinecraftClientMixin"
   ],
   "injectors": {
     "defaultRequire": 1

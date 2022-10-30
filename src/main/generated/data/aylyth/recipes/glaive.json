@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "g": {
+      "item": "minecraft:gold_block"
+    },
+    "i": {
+      "item": "minecraft:stick"
+    },
+    "m": {
+      "item": "aylyth:soultrap_effigy"
+    },
+    "s": {
+      "item": "minecraft:netherite_sword"
+    }
+  },
+  "pattern": [
+    " gs",
+    " im",
+    "i  "
+  ],
+  "result": {
+    "item": "aylyth:glaive"
+  }
+}

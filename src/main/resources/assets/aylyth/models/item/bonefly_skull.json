@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "aylyth:item/bonefly_skull"
+  }
+}

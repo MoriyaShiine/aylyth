@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "d": {
+      "item": "minecraft:polished_deepslate"
+    },
+    "n": {
+      "item": "minecraft:netherite_ingot"
+    },
+    "s": {
+      "item": "minecraft:soul_sand"
+    }
+  },
+  "pattern": [
+    "dnd",
+    "nsn",
+    "ddd"
+  ],
+  "result": {
+    "item": "aylyth:soulmould"
+  }
+}
