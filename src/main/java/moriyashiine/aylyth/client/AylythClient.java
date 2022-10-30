@@ -4,6 +4,7 @@ import com.terraformersmc.terraform.boat.api.client.TerraformBoatClientHelper;
 import com.terraformersmc.terraform.sign.SpriteIdentifierRegistry;
 import moriyashiine.aylyth.client.model.YmpeInfestationModel;
 import moriyashiine.aylyth.client.model.YmpeThornRingModel;
+import moriyashiine.aylyth.client.model.entity.ScionEntityModel;
 import moriyashiine.aylyth.client.network.packet.SpawnShuckParticlesPacket;
 import moriyashiine.aylyth.client.network.packet.UpdatePressingUpDownPacket;
 import moriyashiine.aylyth.client.particle.PilotLightParticle;
@@ -91,6 +92,9 @@ public class AylythClient implements ClientModInitializer {
 				AylythDimensionRenderer.determineConditions(client.world, client.world.getBiome(client.player.getBlockPos()));
 			}
 		});
+
+		EntityModelLayerRegistry.registerModelLayer(ScionEntityModel.LAYER_LOCATION, ScionEntityModel::createBodyLayer);
+		EntityRendererRegistry.register(ModEntityTypes.SCION, ScionEntityRenderer::new);
 
 		DESCEND = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.aylyth.descend", InputUtil.Type.KEYSYM, 71, "category.aylyth.keybind"));
 		ClientTickEvents.END_CLIENT_TICK.register((world) -> {
