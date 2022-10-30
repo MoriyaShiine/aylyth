@@ -2,12 +2,15 @@ package moriyashiine.aylyth.common.registry;
 
 import com.google.common.collect.ImmutableList;
 import moriyashiine.aylyth.common.Aylyth;
+import moriyashiine.aylyth.common.block.PomegranateLeavesBlock;
 import moriyashiine.aylyth.common.world.generator.AylthianTrunkPlacer;
 import moriyashiine.aylyth.common.world.generator.BigYmpeTrunkPlacer;
+import moriyashiine.aylyth.common.world.generator.PomegranateTrunkPlacer;
 import moriyashiine.aylyth.common.world.generator.YmpeTrunkPlacer;
 import moriyashiine.aylyth.common.world.generator.feature.*;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.collection.DataPool;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.registry.RegistryEntry;
@@ -35,6 +38,7 @@ public class ModConfiguredFeatures {
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> AYLYTHIAN_MEGA_DARK_OAK = registerTree("aylythian_mega_dark_oak", new TreeFeatureConfig.Builder(SimpleBlockStateProvider.of(Blocks.DARK_OAK_LOG.getDefaultState()), new AylthianTrunkPlacer(18, 6, 7), SimpleBlockStateProvider.of(Blocks.DARK_OAK_LEAVES.getDefaultState()), new DarkOakFoliagePlacer(ConstantIntProvider.create(1), ConstantIntProvider.create(0)), new TwoLayersFeatureSize(1, 1, 2)).decorators(ImmutableList.of(new GrapeVineDecorator())).ignoreVines().build());
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> YMPE_TREE = registerTree("ympe_tree", new TreeFeatureConfig.Builder(ModFeatures.YMPE_LOG_PROVIDER, new YmpeTrunkPlacer(), SimpleBlockStateProvider.of(ModBlocks.YMPE_LEAVES.getDefaultState()), new BushFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(1), 2), new TwoLayersFeatureSize(1, 1, 1)).ignoreVines().build());
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> BIG_YMPE_TREE = registerTree("big_ympe_tree", new TreeFeatureConfig.Builder(ModFeatures.YMPE_LOG_PROVIDER, new BigYmpeTrunkPlacer(), SimpleBlockStateProvider.of(ModBlocks.YMPE_LEAVES.getDefaultState()), new BushFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(1), 2), new TwoLayersFeatureSize(1, 1, 1)).ignoreVines().build());
+    public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> POMEGRANATE_TREE = registerTree("pomegranate_tree", new TreeFeatureConfig.Builder(SimpleBlockStateProvider.of(ModBlocks.POMEGRANATE_BLOCKS.log), new PomegranateTrunkPlacer(5, 0, 0), SimpleBlockStateProvider.of(ModBlocks.POMEGRANATE_LEAVES.getDefaultState().with(Properties.PERSISTENT, false)), new PomegranateFoliagePlacer(ConstantIntProvider.create(1), ConstantIntProvider.create(0), 2), new TwoLayersFeatureSize(1, 1, 1)).ignoreVines().build());
 
     public static final RegistryEntry<ConfiguredFeature<SingleStateFeatureConfig, ?>> SPRING = register("spring", ModFeatures.SPRING_FEATURE, new SingleStateFeatureConfig(Blocks.WATER.getDefaultState()));
     public static final RegistryEntry<ConfiguredFeature<DefaultFeatureConfig, ?>> BUSHES = register("bushes", ModFeatures.BUSH_FEATURE, FeatureConfig.DEFAULT);
@@ -47,8 +51,6 @@ public class ModConfiguredFeatures {
     public static final RegistryEntry<ConfiguredFeature<HorizontalFacingFeature.HorizontalFacingBlockFeatureConfig, ?>> SHELF_JACK_O_LANTERN_MUSHROOMS = register("shelf_jack_o_lantern_mushrooms", ModFeatures.HORIZONTAL_FACING_FEATURE, new HorizontalFacingFeature.HorizontalFacingBlockFeatureConfig(ModBlocks.SHELF_JACK_O_LANTERN_MUSHROOM, ModTags.JACK_O_LANTERN_GENERATE_ON));
     public static final RegistryEntry<ConfiguredFeature<SimpleBlockFeatureConfig, ?>> GHOSTCAP_MUSHROOM = register("ghostcap_mushroom", Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(BlockStateProvider.of(ModBlocks.GHOSTCAP_MUSHROOM)));
     //public static final ConfiguredFeature<?, ?> CLEARING_FLOWERS = todo flower generators
-
-    public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> GLOW_LICHEN = register("glow_lichen", Feature.RANDOM_PATCH, createRandomPatchFeatureConfig(BlockStateProvider.of(ModBlocks.MARIGOLD), 32));
 
     public static final RegistryEntry<ConfiguredFeature<SeepFeature.SeepFeatureConfig, ?>> OAK_SEEP = register("oak_seep", ModFeatures.SEEP_FEATURE, new SeepFeature.SeepFeatureConfig(Blocks.OAK_LOG.getDefaultState(), ModBlocks.OAK_SEEP.getDefaultState(), ModBlocks.MARIGOLD.getDefaultState(), 5, 0.5F));
     public static final RegistryEntry<ConfiguredFeature<SeepFeature.SeepFeatureConfig, ?>> SPRUCE_SEEP = register("spruce_seep", ModFeatures.SEEP_FEATURE, new SeepFeature.SeepFeatureConfig(Blocks.SPRUCE_LOG.getDefaultState(), ModBlocks.SPRUCE_SEEP.getDefaultState(), ModBlocks.MARIGOLD.getDefaultState(), 5, 0.5F));

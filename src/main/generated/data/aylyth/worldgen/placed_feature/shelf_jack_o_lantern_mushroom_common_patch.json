@@ -1,16 +1,20 @@
 {
-  "feature": "aylyth:ghostcap_mushroom_patch",
+  "feature": "aylyth:shelf_jack_o_lantern_mushroom_patch",
   "placement": [
     {
       "type": "minecraft:rarity_filter",
-      "chance": 16
+      "chance": 8
+    },
+    {
+      "type": "minecraft:count",
+      "count": 2
     },
     {
       "type": "minecraft:in_square"
     },
     {
       "type": "minecraft:heightmap",
-      "heightmap": "MOTION_BLOCKING"
+      "heightmap": "WORLD_SURFACE_WG"
     },
     {
       "type": "minecraft:biome"

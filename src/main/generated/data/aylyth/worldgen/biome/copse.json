@@ -52,6 +52,7 @@
       "minecraft:spring_water"
     ],
     [
+      "aylyth:pomegranate_tree_placed",
       "aylyth:bushes",
       "minecraft:patch_tall_grass",
       "aylyth:oak_strewn_leaves",
@@ -62,7 +63,7 @@
       "aylyth:aylyth_weeds",
       "aylyth:red_mushroom_patch",
       "aylyth:brown_mushroom_patch",
-      "aylyth:shelf_jack_o_lantern_mushroom_patch",
+      "aylyth:shelf_jack_o_lantern_mushroom_common_patch",
       "aylyth:ghostcap_mushroom_patch",
       "aylyth:ympe_seep"
     ],
