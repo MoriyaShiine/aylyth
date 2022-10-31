@@ -2,6 +2,7 @@ package moriyashiine.aylyth.common.registry;
 
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.item.*;
+import moriyashiine.aylyth.common.registry.util.ItemWoodSuite;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
@@ -30,6 +31,8 @@ public class ModItems {
 	public static final Item MARIGOLD = new BlockItem(ModBlocks.MARIGOLD, settings());
 	public static final Item OAK_STREWN_LEAVES = new BlockItem(ModBlocks.OAK_STREWN_LEAVES, settings());
 	public static final Item YMPE_STREWN_LEAVES = new BlockItem(ModBlocks.YMPE_STREWN_LEAVES, settings());
+	public static final Item JACK_O_LANTERN_MUSHROOM = new WallStandingBlockItem(ModBlocks.JACK_O_LANTERN_MUSHROOM, ModBlocks.SHELF_JACK_O_LANTERN_MUSHROOM, settings());
+	public static final Item GHOSTCAP_MUSHROOM_SPORES = new BlockItem(ModBlocks.GHOSTCAP_MUSHROOM, settings());
 
 	public static final Item OAK_SEEP = new BlockItem(ModBlocks.OAK_SEEP, settings());
 	public static final Item SPRUCE_SEEP = new BlockItem(ModBlocks.SPRUCE_SEEP, settings());
@@ -43,15 +46,17 @@ public class ModItems {
 	public static final Item SHUCKED_YMPE_FRUIT = new ShuckedYmpeFruitItem(settings().maxCount(1));
 
 	public static final Item NYSIAN_GRAPES = new Item(settings().food(ModFoodComponents.NYSIAN_GRAPES));
+	public static final Item GHOSTCAP_MUSHROOM = new Item(settings().food(ModFoodComponents.GHOSTCAPS));
+	public static final Item POMEGRANATE = new PomegranateItem(settings().food(ModFoodComponents.POMEGRANATE));
 
 	public static final Item AYLYTHIAN_HEART = new AylythianHeartItem(settings());
 
-	public static Item PILOT_LIGHT_SPAWN_EGG = new SpawnEggItem(ModEntityTypes.PILOT_LIGHT, 0xFFD972, 0x9FD9F6, settings());
-	public static Item AYLYTHIAN_SPAWN_EGG = new SpawnEggItem(ModEntityTypes.AYLYTHIAN, 0x6A4831, 0xE58E03, settings());
-	public static Item ELDER_AYLYTHIAN_SPAWN_EGG = new SpawnEggItem(ModEntityTypes.ELDER_AYLYTHIAN, 0x513425, 0xFFDC9B, settings());
+	public static final Item PILOT_LIGHT_SPAWN_EGG = new SpawnEggItem(ModEntityTypes.PILOT_LIGHT, 0xFFD972, 0x9FD9F6, settings());
+	public static final Item AYLYTHIAN_SPAWN_EGG = new SpawnEggItem(ModEntityTypes.AYLYTHIAN, 0x6A4831, 0xE58E03, settings());
+	public static final Item ELDER_AYLYTHIAN_SPAWN_EGG = new SpawnEggItem(ModEntityTypes.ELDER_AYLYTHIAN, 0x513425, 0xFFDC9B, settings());
 
-	public static Item SOULTRAP_EFFIGY_ITEM =  new SoultrapEffigyItem((settings()).fireproof().rarity(Rarity.RARE).maxCount(1));
-	public static Item GLAIVE =  new GlaiveItem(4, -3.1F, (settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(1));
+	public static final Item SOULTRAP_EFFIGY_ITEM =  new SoultrapEffigyItem((settings()).fireproof().rarity(Rarity.RARE).maxCount(1));
+	public static final Item GLAIVE =  new GlaiveItem(4, -3.1F, (settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(1));
 
 	public static final Item SOULMOULD_ITEM = new SoulmouldItem((settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(16));
 
@@ -79,6 +84,8 @@ public class ModItems {
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "marigolds"), MARIGOLD);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "oak_strewn_leaves"), OAK_STREWN_LEAVES);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_strewn_leaves"), YMPE_STREWN_LEAVES);
+		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "jack_o_lantern_mushroom"), JACK_O_LANTERN_MUSHROOM);
+		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ghostcap_mushroom_spores"), GHOSTCAP_MUSHROOM_SPORES);
 
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "oak_seep"), OAK_SEEP);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "spruce_seep"), SPRUCE_SEEP);
@@ -92,6 +99,8 @@ public class ModItems {
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_lance"), YMPE_LANCE);
 
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "nysian_grapes"), NYSIAN_GRAPES);
+		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ghostcap_mushroom"), GHOSTCAP_MUSHROOM);
+		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "pomegranate"), POMEGRANATE);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "coric_seed"), CORIC_SEED);
 
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "aylythian_heart"), AYLYTHIAN_HEART);
