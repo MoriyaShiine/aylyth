@@ -35,7 +35,7 @@ public class WoodSuite {
     public final Block wallSign;
 
     WoodSuite(@NotNull Identifier identifier, @NotNull WoodSuite.BlockSettingsSet blockSettingsSet,
-              @NotNull Registry<Block> blockRegistry, @NotNull MapColor logColor, @NotNull BlockSoundGroup leavesSound,
+              @NotNull Registry<Block> blockRegistry, @NotNull MapColor logColor,
               @NotNull SaplingGenerator saplingGenerator, Block strippedLog, Block strippedWood,
               Block log, Block wood, Block sapling,
               Block pottedSapling, Block planks, Block stairs, Block slab,
@@ -65,8 +65,7 @@ public class WoodSuite {
     }
 
     WoodSuite(@NotNull Identifier identifier, @NotNull WoodSuite.BlockSettingsSet blockSettingsSet,
-              @NotNull Registry<Block> blockRegistry, @NotNull MapColor logColor, @NotNull BlockSoundGroup leavesSound,
-              @NotNull SaplingGenerator saplingGenerator) {
+              @NotNull Registry<Block> blockRegistry, @NotNull MapColor logColor, @NotNull SaplingGenerator saplingGenerator) {
         id = identifier;
         this.blockSettingsSet = blockSettingsSet;
         this.blockRegistry = blockRegistry;
@@ -92,8 +91,8 @@ public class WoodSuite {
 
     public static WoodSuite of(@NotNull Identifier identifier, @NotNull WoodSuite.BlockSettingsSet blockSettingsSet,
                                @NotNull Registry<Block> blockRegistry, @NotNull MapColor logColor,
-                               @NotNull BlockSoundGroup leavesSound, @NotNull SaplingGenerator saplingGenerator) {
-        return new WoodSuite(identifier, blockSettingsSet, blockRegistry, logColor, leavesSound, saplingGenerator);
+                               @NotNull SaplingGenerator saplingGenerator) {
+        return new WoodSuite(identifier, blockSettingsSet, blockRegistry, logColor, saplingGenerator);
     }
 
     public void register() {

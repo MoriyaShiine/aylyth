@@ -131,8 +131,8 @@ public class AylythianEntity extends HostileEntity implements IAnimatable {
 	@Override
 	protected void dropEquipment(DamageSource source, int lootingMultiplier, boolean allowDrops) {
 		super.dropEquipment(source, lootingMultiplier, allowDrops);
-		if (!world.isClient && world.getBlockState(getBlockPos()).getMaterial().isReplaceable() && ModBlocks.YMPE_SAPLING.getDefaultState().canPlaceAt(world, getBlockPos())) {
-			world.setBlockState(getBlockPos(), ModBlocks.YMPE_SAPLING.getDefaultState());
+		if (!world.isClient && world.getBlockState(getBlockPos()).getMaterial().isReplaceable() && ModBlocks.YMPE_BLOCKS.sapling.getDefaultState().canPlaceAt(world, getBlockPos())) {
+			world.setBlockState(getBlockPos(), ModBlocks.YMPE_BLOCKS.sapling.getDefaultState());
 			playSound(SoundEvents.BLOCK_GRASS_PLACE, getSoundVolume(), getSoundPitch());
 		}
 	}

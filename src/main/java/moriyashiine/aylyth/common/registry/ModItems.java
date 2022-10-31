@@ -2,6 +2,7 @@ package moriyashiine.aylyth.common.registry;
 
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.item.*;
+import moriyashiine.aylyth.common.registry.util.ItemWoodSuite;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
@@ -13,24 +14,13 @@ import net.minecraft.util.registry.Registry;
 
 public class ModItems {
 	public static final ItemGroup GROUP = FabricItemGroupBuilder.build(new Identifier(Aylyth.MOD_ID, Aylyth.MOD_ID), () -> new ItemStack(ModItems.YMPE_DAGGER));
-
-	public static final Item STRIPPED_YMPE_LOG = new BlockItem(ModBlocks.STRIPPED_YMPE_LOG, settings());
-	public static final Item STRIPPED_YMPE_WOOD = new BlockItem(ModBlocks.STRIPPED_YMPE_WOOD, settings());
-	public static final Item YMPE_LOG = new BlockItem(ModBlocks.YMPE_LOG, settings());
+	
 	public static final Item FRUIT_BEARING_YMPE_LOG = new BlockItem(ModBlocks.FRUIT_BEARING_YMPE_LOG, settings());
-	public static final Item YMPE_WOOD = new BlockItem(ModBlocks.YMPE_WOOD, settings());
 	public static final Item YMPE_LEAVES = new BlockItem(ModBlocks.YMPE_LEAVES, settings());
-	public static final Item YMPE_SAPLING = new BlockItem(ModBlocks.YMPE_SAPLING, settings());
-	public static final Item YMPE_PLANKS = new BlockItem(ModBlocks.YMPE_PLANKS, settings());
-	public static final Item YMPE_STAIRS = new BlockItem(ModBlocks.YMPE_STAIRS, settings());
-	public static final Item YMPE_SLAB = new BlockItem(ModBlocks.YMPE_SLAB, settings());
-	public static final Item YMPE_FENCE = new BlockItem(ModBlocks.YMPE_FENCE, settings());
-	public static final Item YMPE_FENCE_GATE = new BlockItem(ModBlocks.YMPE_FENCE_GATE, settings());
-	public static final Item YMPE_PRESSURE_PLATE = new BlockItem(ModBlocks.YMPE_PRESSURE_PLATE, settings());
-	public static final Item YMPE_BUTTON = new BlockItem(ModBlocks.YMPE_BUTTON, settings());
-	public static final Item YMPE_TRAPDOOR = new BlockItem(ModBlocks.YMPE_TRAPDOOR, settings());
-	public static final Item YMPE_DOOR = new TallBlockItem(ModBlocks.YMPE_DOOR, settings());
-	public static final Item YMPE_SIGN = new SignItem(settings().maxCount(16), ModBlocks.YMPE_SIGN, ModBlocks.YMPE_WALL_SIGN);
+	public static final ItemWoodSuite YMPE_ITEMS = ItemWoodSuite.of(new Identifier(Aylyth.MOD_ID, "ympe"), ModBlocks.YMPE_BLOCKS, new ItemWoodSuite.GroupedSettings(GROUP), Registry.ITEM, () -> ModBoatTypes.YMPE_BOAT_TYPE, () -> ModBoatTypes.YMPE_CHEST_BOAT_TYPE);
+
+	public static final Item POMEGRANATE_LEAVES = new BlockItem(ModBlocks.POMEGRANATE_LEAVES, settings());
+	public static final ItemWoodSuite POMEGRANATE_ITEMS = ItemWoodSuite.of(new Identifier(Aylyth.MOD_ID, "pomegranate"), ModBlocks.POMEGRANATE_BLOCKS, new ItemWoodSuite.GroupedSettings(GROUP), Registry.ITEM, () -> ModBoatTypes.POMEGRANATE_BOAT_TYPE, () -> ModBoatTypes.POMEGRANATE_CHEST_BOAT_TYPE);
 
 	public static final Item AYLYTH_BUSH = new BlockItem(ModBlocks.AYLYTH_BUSH, settings());
 	public static final Item ANTLER_SHOOTS = new BlockItem(ModBlocks.ANTLER_SHOOTS, settings());
@@ -41,6 +31,8 @@ public class ModItems {
 	public static final Item MARIGOLD = new BlockItem(ModBlocks.MARIGOLD, settings());
 	public static final Item OAK_STREWN_LEAVES = new BlockItem(ModBlocks.OAK_STREWN_LEAVES, settings());
 	public static final Item YMPE_STREWN_LEAVES = new BlockItem(ModBlocks.YMPE_STREWN_LEAVES, settings());
+	public static final Item JACK_O_LANTERN_MUSHROOM = new WallStandingBlockItem(ModBlocks.JACK_O_LANTERN_MUSHROOM, ModBlocks.SHELF_JACK_O_LANTERN_MUSHROOM, settings());
+	public static final Item GHOSTCAP_MUSHROOM_SPORES = new BlockItem(ModBlocks.GHOSTCAP_MUSHROOM, settings());
 
 	public static final Item OAK_SEEP = new BlockItem(ModBlocks.OAK_SEEP, settings());
 	public static final Item SPRUCE_SEEP = new BlockItem(ModBlocks.SPRUCE_SEEP, settings());
@@ -54,15 +46,17 @@ public class ModItems {
 	public static final Item SHUCKED_YMPE_FRUIT = new ShuckedYmpeFruitItem(settings().maxCount(1));
 
 	public static final Item NYSIAN_GRAPES = new Item(settings().food(ModFoodComponents.NYSIAN_GRAPES));
+	public static final Item GHOSTCAP_MUSHROOM = new Item(settings().food(ModFoodComponents.GHOSTCAPS));
+	public static final Item POMEGRANATE = new PomegranateItem(settings().food(ModFoodComponents.POMEGRANATE));
 
 	public static final Item AYLYTHIAN_HEART = new AylythianHeartItem(settings());
 
-	public static Item PILOT_LIGHT_SPAWN_EGG = new SpawnEggItem(ModEntityTypes.PILOT_LIGHT, 0xFFD972, 0x9FD9F6, settings());
-	public static Item AYLYTHIAN_SPAWN_EGG = new SpawnEggItem(ModEntityTypes.AYLYTHIAN, 0x6A4831, 0xE58E03, settings());
-	public static Item ELDER_AYLYTHIAN_SPAWN_EGG = new SpawnEggItem(ModEntityTypes.ELDER_AYLYTHIAN, 0x513425, 0xFFDC9B, settings());
+	public static final Item PILOT_LIGHT_SPAWN_EGG = new SpawnEggItem(ModEntityTypes.PILOT_LIGHT, 0xFFD972, 0x9FD9F6, settings());
+	public static final Item AYLYTHIAN_SPAWN_EGG = new SpawnEggItem(ModEntityTypes.AYLYTHIAN, 0x6A4831, 0xE58E03, settings());
+	public static final Item ELDER_AYLYTHIAN_SPAWN_EGG = new SpawnEggItem(ModEntityTypes.ELDER_AYLYTHIAN, 0x513425, 0xFFDC9B, settings());
 
-	public static Item SOULTRAP_EFFIGY_ITEM =  new SoultrapEffigyItem((settings()).fireproof().rarity(Rarity.RARE).maxCount(1));
-	public static Item GLAIVE =  new GlaiveItem(4, -3.1F, (settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(1));
+	public static final Item SOULTRAP_EFFIGY_ITEM =  new SoultrapEffigyItem((settings()).fireproof().rarity(Rarity.RARE).maxCount(1));
+	public static final Item GLAIVE =  new GlaiveItem(4, -3.1F, (settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(1));
 
 	public static final Item SOULMOULD_ITEM = new SoulmouldItem((settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(16));
 
@@ -76,24 +70,12 @@ public class ModItems {
 	}
 
 	public static void init() {
-		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "stripped_ympe_log"), STRIPPED_YMPE_LOG);
-		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "stripped_ympe_wood"), STRIPPED_YMPE_WOOD);
-		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_log"), YMPE_LOG);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "fruit_bearing_ympe_log"), FRUIT_BEARING_YMPE_LOG);
-		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_wood"), YMPE_WOOD);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_leaves"), YMPE_LEAVES);
-		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_sapling"), YMPE_SAPLING);
-		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_planks"), YMPE_PLANKS);
-		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_stairs"), YMPE_STAIRS);
-		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_slab"), YMPE_SLAB);
-		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_fence"), YMPE_FENCE);
-		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_fence_gate"), YMPE_FENCE_GATE);
-		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_pressure_plate"), YMPE_PRESSURE_PLATE);
-		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_button"), YMPE_BUTTON);
-		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_trapdoor"), YMPE_TRAPDOOR);
-		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_door"), YMPE_DOOR);
-		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_sign"), YMPE_SIGN);
-
+		YMPE_ITEMS.register();
+		POMEGRANATE_ITEMS.register();
+		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "pomegranate_leaves"), POMEGRANATE_LEAVES);
+		
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "aylyth_bush"), AYLYTH_BUSH);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "antler_shoots"), ANTLER_SHOOTS);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "gripweed"), GRIPWEED);
@@ -102,6 +84,8 @@ public class ModItems {
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "marigolds"), MARIGOLD);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "oak_strewn_leaves"), OAK_STREWN_LEAVES);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_strewn_leaves"), YMPE_STREWN_LEAVES);
+		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "jack_o_lantern_mushroom"), JACK_O_LANTERN_MUSHROOM);
+		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ghostcap_mushroom_spores"), GHOSTCAP_MUSHROOM_SPORES);
 
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "oak_seep"), OAK_SEEP);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "spruce_seep"), SPRUCE_SEEP);
@@ -115,6 +99,8 @@ public class ModItems {
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_lance"), YMPE_LANCE);
 
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "nysian_grapes"), NYSIAN_GRAPES);
+		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ghostcap_mushroom"), GHOSTCAP_MUSHROOM);
+		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "pomegranate"), POMEGRANATE);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "coric_seed"), CORIC_SEED);
 
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "aylythian_heart"), AYLYTHIAN_HEART);
@@ -129,10 +115,19 @@ public class ModItems {
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "bonefly_skull"), BONEFLY_SKULL);
 
 		FuelRegistry fuelRegistry = FuelRegistry.INSTANCE;
-		fuelRegistry.add(YMPE_FENCE, 300);
-		fuelRegistry.add(YMPE_FENCE_GATE, 300);
+		fuelRegistry.add(YMPE_ITEMS.fence, 300);
+		fuelRegistry.add(YMPE_ITEMS.fenceGate, 300);
+		fuelRegistry.add(POMEGRANATE_ITEMS.fence, 300);
+		fuelRegistry.add(POMEGRANATE_ITEMS.fenceGate, 300);
 		CompostingChanceRegistry compostRegistry = CompostingChanceRegistry.INSTANCE;
 		compostRegistry.add(YMPE_LEAVES, 0.3f);
-		compostRegistry.add(YMPE_SAPLING, 0.3f);
+		compostRegistry.add(YMPE_ITEMS.sapling, 0.3f);
+		compostRegistry.add(POMEGRANATE_LEAVES, 0.3f);
+		compostRegistry.add(POMEGRANATE_ITEMS.sapling, 0.3f);
+		compostRegistry.add(OAK_STREWN_LEAVES, 0.3f);
+		compostRegistry.add(YMPE_STREWN_LEAVES, 0.3f);
+		compostRegistry.add(JACK_O_LANTERN_MUSHROOM, 0.3f);
+		compostRegistry.add(GHOSTCAP_MUSHROOM, 0.3f);
+		compostRegistry.add(POMEGRANATE, 0.3f);
 	}
 }

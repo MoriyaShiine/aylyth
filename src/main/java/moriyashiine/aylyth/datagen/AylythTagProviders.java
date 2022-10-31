@@ -52,21 +52,8 @@ public class AylythTagProviders {
             getOrCreateTagBuilder(BlockTags.CLIMBABLE).add(ModBlocks.NYSIAN_GRAPE_VINE);
             getOrCreateTagBuilder(ModTags.JACK_O_LANTERN_GENERATE_ON).add(Blocks.DARK_OAK_LOG, Blocks.OAK_LOG);
             getOrCreateTagBuilder(ModTags.GHOSTCAP_REPLACEABLE).add(Blocks.GRASS_BLOCK);
-            getOrCreateTagBuilder(ModTags.YMPE_LOGS).add(ModBlocks.YMPE_LOG, ModBlocks.YMPE_WOOD, ModBlocks.STRIPPED_YMPE_LOG, ModBlocks.STRIPPED_YMPE_WOOD, ModBlocks.FRUIT_BEARING_YMPE_LOG);
-            getOrCreateTagBuilder(BlockTags.LOGS_THAT_BURN).addTag(ModTags.YMPE_LOGS);
-            getOrCreateTagBuilder(BlockTags.PLANKS).add(ModBlocks.YMPE_PLANKS);
-            getOrCreateTagBuilder(BlockTags.WOODEN_STAIRS).add(ModBlocks.YMPE_STAIRS);
-            getOrCreateTagBuilder(BlockTags.WOODEN_SLABS).add(ModBlocks.YMPE_SLAB);
-            getOrCreateTagBuilder(BlockTags.WOODEN_FENCES).add(ModBlocks.YMPE_FENCE);
-            getOrCreateTagBuilder(BlockTags.FENCE_GATES).add(ModBlocks.YMPE_FENCE_GATE);
-            getOrCreateTagBuilder(BlockTags.WOODEN_BUTTONS).add(ModBlocks.YMPE_BUTTON);
-            getOrCreateTagBuilder(BlockTags.WOODEN_PRESSURE_PLATES).add(ModBlocks.YMPE_PRESSURE_PLATE);
-            getOrCreateTagBuilder(BlockTags.WOODEN_DOORS).add(ModBlocks.YMPE_DOOR);
-            getOrCreateTagBuilder(BlockTags.WOODEN_TRAPDOORS).add(ModBlocks.YMPE_TRAPDOOR);
-            getOrCreateTagBuilder(BlockTags.STANDING_SIGNS).add(ModBlocks.YMPE_SIGN);
-            getOrCreateTagBuilder(BlockTags.WALL_SIGNS).add(ModBlocks.YMPE_WALL_SIGN);
-            getOrCreateTagBuilder(BlockTags.SAPLINGS).add(ModBlocks.YMPE_SAPLING);
-            getOrCreateTagBuilder(BlockTags.FLOWER_POTS).add(ModBlocks.POTTED_YMPE_SAPLING);
+            addSuite(ModBlocks.YMPE_BLOCKS, ModTags.YMPE_LOGS);
+            getOrCreateTagBuilder(ModTags.YMPE_LOGS).add(ModBlocks.FRUIT_BEARING_YMPE_LOG);
             addSuite(ModBlocks.POMEGRANATE_BLOCKS, ModTags.POMEGRANATE_LOGS);
             getOrCreateTagBuilder(BlockTags.LEAVES).add(ModBlocks.YMPE_LEAVES, ModBlocks.POMEGRANATE_LEAVES);
         }
@@ -99,8 +86,8 @@ public class AylythTagProviders {
 
         @Override
         protected void generateTags() {
-            getOrCreateTagBuilder(ItemTags.BOATS).add(ModBoatTypes.YMPE_BOAT_TYPE.getItem(), ModItems.POMEGRANATE_ITEMS.boat);
-            getOrCreateTagBuilder(ItemTags.CHEST_BOATS).add(ModBoatTypes.YMPE_CHEST_BOAT_TYPE.getItem(), ModItems.POMEGRANATE_ITEMS.chestBoat);
+            getOrCreateTagBuilder(ItemTags.BOATS).add(ModItems.YMPE_ITEMS.boat, ModItems.POMEGRANATE_ITEMS.boat);
+            getOrCreateTagBuilder(ItemTags.CHEST_BOATS).add(ModItems.YMPE_ITEMS.chestBoat, ModItems.POMEGRANATE_ITEMS.chestBoat);
             copy(ModTags.YMPE_LOGS, ModTags.YMPE_LOGS_ITEM);
             copy(ModTags.POMEGRANATE_LOGS, ModTags.POMEGRANATE_LOGS_ITEM);
             copy(BlockTags.LOGS_THAT_BURN, ItemTags.LOGS_THAT_BURN);

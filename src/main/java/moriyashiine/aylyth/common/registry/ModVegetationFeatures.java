@@ -62,7 +62,7 @@ public class ModVegetationFeatures {
     public static final RegistryEntry<PlacedFeature> SHELF_JACK_O_LANTERN_MUSHROOM_PATCHES_COMMON_PLACED = registerPlaced("shelf_jack_o_lantern_mushroom_common_patch", SHELF_JACK_O_LANTERN_MUSHROOM_PATCHES, List.of(RarityFilterPlacementModifier.of(8), CountPlacementModifier.of(2), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of()));
     public static final RegistryEntry<PlacedFeature> SHELF_JACK_O_LANTERN_MUSHROOM_PATCHES_DEEPWOOD_PLACED = registerPlaced("shelf_jack_o_lantern_mushroom_deepwood_patch", SHELF_JACK_O_LANTERN_MUSHROOM_PATCHES, List.of(RarityFilterPlacementModifier.of(4), CountPlacementModifier.of(8), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of()));
     public static final RegistryEntry<PlacedFeature> GHOSTCAP_MUSHROOM_PATCHES_PLACED = registerPlaced("ghostcap_mushroom_patch", GHOSTCAP_MUSHROOM_PATCHES, List.of(RarityFilterPlacementModifier.of(16), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of()));
-    public static final RegistryEntry<PlacedFeature> POMEGRANATE_TREE_VEG_PLACED = registerPlaced("pomegranate_tree_placed", ModConfiguredFeatures.POMEGRANATE_TREE, List.of(RarityFilterPlacementModifier.of(32), SquarePlacementModifier.of(), VegetationPlacedFeatures.NOT_IN_SURFACE_WATER_MODIFIER, PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP, BiomePlacementModifier.of(), PlacedFeatures.wouldSurvive(ModBlocks.YMPE_SAPLING)));
+    public static final RegistryEntry<PlacedFeature> POMEGRANATE_TREE_VEG_PLACED = registerPlaced("pomegranate_tree_placed", ModConfiguredFeatures.POMEGRANATE_TREE, List.of(RarityFilterPlacementModifier.of(32), SquarePlacementModifier.of(), VegetationPlacedFeatures.NOT_IN_SURFACE_WATER_MODIFIER, PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP, BiomePlacementModifier.of(), PlacedFeatures.wouldSurvive(ModBlocks.YMPE_BLOCKS.sapling)));
 
     private static List<PlacementModifier> treesSurvive(int count, float extraChance, int extraCount) {
         return List.of(PlacedFeatures.createCountExtraModifier(count, extraChance, extraCount),
@@ -70,7 +70,7 @@ public class ModVegetationFeatures {
                 VegetationPlacedFeatures.NOT_IN_SURFACE_WATER_MODIFIER,
                 PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP,
                 BiomePlacementModifier.of(),
-                PlacedFeatures.wouldSurvive(ModBlocks.YMPE_SAPLING));
+                PlacedFeatures.wouldSurvive(ModBlocks.YMPE_BLOCKS.sapling));
     }
 
     private static List<PlacementModifier> treesSurvive() {
@@ -78,6 +78,6 @@ public class ModVegetationFeatures {
                 VegetationPlacedFeatures.NOT_IN_SURFACE_WATER_MODIFIER,
                 PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP,
                 BiomePlacementModifier.of(),
-                PlacedFeatures.wouldSurvive(ModBlocks.YMPE_SAPLING));
+                PlacedFeatures.wouldSurvive(ModBlocks.YMPE_BLOCKS.sapling));
     }
 }
