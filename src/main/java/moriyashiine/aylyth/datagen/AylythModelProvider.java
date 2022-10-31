@@ -18,6 +18,7 @@ import net.minecraft.data.family.BlockFamilies;
 import net.minecraft.data.family.BlockFamily;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 
 import java.util.List;
 import java.util.Optional;
@@ -81,6 +82,8 @@ public class AylythModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.GHOSTCAP_MUSHROOM_SPORES, Models.GENERATED);
         generated(itemModelGenerator, ModItems.POMEGRANATE_ITEMS.boat);
         generated(itemModelGenerator, ModItems.POMEGRANATE_ITEMS.chestBoat);
+        generated(itemModelGenerator, ModItems.WRITHEWOOD_ITEMS.boat);
+        generated(itemModelGenerator, ModItems.WRITHEWOOD_ITEMS.chestBoat);
     }
 
     private void fruitingLeaves(BlockStateModelGenerator generator, Block block, Identifier stage0, Identifier stage1, Identifier stage2, Identifier stage3) {
@@ -102,7 +105,7 @@ public class AylythModelProvider extends FabricModelProvider {
 
     /** This just does a simple single model, not dependent on any states*/
     private void variantState(BlockStateModelGenerator generator, Block block) {
-        generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block));
+        generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block, BlockStateVariant.create().put(VariantSettings.MODEL, blockId(Registry.BLOCK.getId(block).getPath()))));
     }
 
     private void generated(ItemModelGenerator generator, Item item) {

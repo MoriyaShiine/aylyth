@@ -1,12 +1,12 @@
 {
 	"credit": "Made with Blockbench",
-	"parent": "writhewood_leaves",
+	"parent": "block/block",
 	"textures": {
-		"0": "Aylyth:blocks/writhewood_leaves",
-		"1": "Aylyth:blocks/writhewood_leaves_droop_long",
-		"2": "Aylyth:blocks/writhewood_leaves_droop_small",
-		"3": "Aylyth:blocks/writhewood_leaves_fringe",
-		"particle": "Aylyth:blocks/writhewood_leaves"
+		"0": "aylyth:block/writhewood_leaves",
+		"1": "aylyth:block/writhewood_leaves_droop_long",
+		"2": "aylyth:block/writhewood_leaves_droop_small",
+		"3": "aylyth:block/writhewood_leaves_fringe",
+		"particle": "aylyth:block/writhewood_leaves"
 	},
 	"elements": [
 		{
