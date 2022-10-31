@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "aylyth:ghostcap_spores_from_ghostcap_mushroom"
+        "recipe": "aylyth:ghostcap_mushroom_spores_from_ghostcap_mushroom"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "aylyth:ghostcap_spores_from_ghostcap_mushroom"
+      "aylyth:ghostcap_mushroom_spores_from_ghostcap_mushroom"
     ]
   }
 }
