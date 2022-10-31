@@ -195,7 +195,7 @@ public class SoulHearthBlock extends Block {
 
     static {
         HALF = Properties.DOUBLE_BLOCK_HALF;
-        CHARGES = IntProperty.of("charged", 0, 7);
+        CHARGES = IntProperty.of("charged", 0, 5);
         VALID_HORIZONTAL_SPAWN_OFFSETS = ImmutableList.of(new Vec3i(0, 0, -1), new Vec3i(-1, 0, 0), new Vec3i(0, 0, 1), new Vec3i(1, 0, 0), new Vec3i(-1, 0, -1), new Vec3i(1, 0, -1), new Vec3i(-1, 0, 1), new Vec3i(1, 0, 1));
         VALID_SPAWN_OFFSETS = new ImmutableList.Builder()
                 .addAll(VALID_HORIZONTAL_SPAWN_OFFSETS)
