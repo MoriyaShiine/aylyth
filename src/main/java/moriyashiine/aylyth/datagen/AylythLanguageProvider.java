@@ -56,6 +56,7 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add(ModItems.GHOSTCAP_MUSHROOM, "Ghostcap Mushroom");
         builder.add(ModItems.YMPE_DAGGER, "Ympe Dagger");
         builder.add(ModItems.YMPE_LANCE, "Ympe Lance");
+        builder.add(ModItems.GLAIVE, "Glaive");
         builder.add(ModItems.YMPE_FRUIT, "Ympe Fruit");
         builder.add(ModItems.SHUCKED_YMPE_FRUIT, "Shucked Ympe Fruit");
         builder.add(ModItems.NYSIAN_GRAPES, "Nysian Grapes");
@@ -64,6 +65,8 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add(ModItems.PILOT_LIGHT_SPAWN_EGG, "Pilot Light Spawn Egg");
         builder.add(ModItems.AYLYTHIAN_SPAWN_EGG, "Aylythian Spawn Egg");
         builder.add(ModItems.ELDER_AYLYTHIAN_SPAWN_EGG, "Elder Aylythian Spawn Egg");
+        builder.add(ModItems.SOULMOULD_ITEM, "Soulmould");
+        builder.add(ModItems.SOULTRAP_EFFIGY_ITEM, "Soultrap Effigy");
         potionSet(builder, "mortechis");
         potionSet(builder, "cimmerian");
         potionSet(builder, "wyrded");
@@ -97,11 +100,19 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add("aylyth.subtitles.entity.elder_aylythian.ambient", "Elder Aylythian rumbles");
         builder.add("aylyth.subtitles.entity.elder_aylythian.hurt", "Elder Aylythian hurts");
         builder.add("aylyth.subtitles.entity.elder_aylythian.death", "Elder Aylythian dies");
+        builder.add("aylyth.subtitles.entity.soulmould.ambient", "Soulmould groans");
+        builder.add("aylyth.subtitles.entity.soulmould.attack", "Soulmould attack");
+        builder.add("aylyth.subtitles.entity.soulmould.damage", "Soulmould hurt");
+        builder.add("aylyth.subtitles.entity.soulmould.death", "Soulmould dies");
         builder.add("aylyth.subtitles.block.stick_break", "Stick cracks");
         builder.add("aylyth.subtitles.block.strewn_leaves.step", "Leaves crunch");
         builder.add("aylyth.subtitles.block.strewn_leaves.pile_destroy", "Leaves scatter");
         builder.add("aylyth.subtitles.block.strewn_leaves.pile_step", "Leaf pile crunches");
 
+        // INFO
+
+        builder.add("info.tot.mould_activate", "Soulmould Active");
+        builder.add("info.tot.mould_deactivate", "Soulmould De-active");
 
         // COMPAT - REI
 
