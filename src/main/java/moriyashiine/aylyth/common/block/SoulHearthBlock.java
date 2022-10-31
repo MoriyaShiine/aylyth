@@ -108,9 +108,9 @@ public class SoulHearthBlock extends Block {
 
     public void genParticle(ParticleEffect particleEffect, World world, BlockPos pos, Random random){
         for(int i = 0; i < random.nextInt(1) + 1; ++i) {
-            double d = (double)pos.getX() + random.nextDouble();
-            double e = (double)pos.getY() - 0.5 + random.nextDouble();
-            double f = (double)pos.getZ() + random.nextDouble();
+            double d = (double)pos.getX() + 0.25 + random.nextDouble() / 2;
+            double e = (double)pos.getY() + random.nextDouble() / 2;
+            double f = (double)pos.getZ() + 0.25 + random.nextDouble() / 2;
             world.addParticle(particleEffect, d, e, f, 0.0, 0.0, 0.0);
         }
     }
