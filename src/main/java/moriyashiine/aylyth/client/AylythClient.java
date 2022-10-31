@@ -149,7 +149,8 @@ public class AylythClient implements ClientModInitializer {
 				ModBlocks.YMPE_SEEP,
 				ModBlocks.OAK_STREWN_LEAVES,
 				ModBlocks.YMPE_STREWN_LEAVES,
-				ModBlocks.GHOSTCAP_MUSHROOM
+				ModBlocks.GHOSTCAP_MUSHROOM,
+				ModBlocks.SOUL_HEARTH
 		};
 	}
 }

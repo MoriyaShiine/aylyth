@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "charged=true,half=upper": {
+      "model": "aylyth:block/empty"
+    },
+    "charged=false,half=upper": {
+      "model": "aylyth:block/empty"
+    },
+    "charged=true,half=lower": {
+      "model": "aylyth:block/soul_hearth_charged"
+    },
+    "charged=false,half=lower": {
+      "model": "aylyth:block/soul_hearth"
+    }
+  }
+}
