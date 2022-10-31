@@ -97,7 +97,7 @@ public class SoulHearthBlock extends Block {
     }
 
     private static boolean canCharge(BlockState state) {
-        return state.get(CHARGES) < 6;
+        return state.get(CHARGES) < 5;
     }
 
     public static void charge(World world, BlockPos pos, BlockState state) {
