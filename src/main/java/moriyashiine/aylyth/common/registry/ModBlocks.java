@@ -48,6 +48,15 @@ public class ModBlocks {
 	});
 	public static final Block POMEGRANATE_LEAVES = new PomegranateLeavesBlock(copyOf(Blocks.OAK_LEAVES));
 
+	public static final WoodSuite WRITHEWOOD_BLOCKS = WoodSuite.of(new Identifier(Aylyth.MOD_ID, "writhewood"), WoodSuite.CopySettingsSet.DEFAULT_SETTINGS_SET, Registry.BLOCK, MapColor.OAK_TAN, new SaplingGenerator() {
+		@Nullable
+		@Override
+		protected RegistryEntry<? extends ConfiguredFeature<?, ?>> getTreeFeature(Random random, boolean bees) {
+			return null; //TODO
+		}
+	});
+	public static final Block WRITHEWOOD_LEAVES = BlocksAccessor.callCreateLeavesBlock(BlockSoundGroup.GRASS);
+
 	public static final Block AYLYTH_BUSH = new BushBlock();
 	public static final Block ANTLER_SHOOTS = new AntlerShootsBlock();
 	public static final Block GRIPWEED = new GripweedBlock();
@@ -69,11 +78,13 @@ public class ModBlocks {
 	public static final Block YMPE_SEEP = new SeepBlock();
 	
 	public static void init() {
+		YMPE_BLOCKS.register();
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "fruit_bearing_ympe_log"), FRUIT_BEARING_YMPE_LOG);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "ympe_leaves"), YMPE_LEAVES);
-		YMPE_BLOCKS.register();
 		POMEGRANATE_BLOCKS.register();
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "pomegranate_leaves"), POMEGRANATE_LEAVES);
+		WRITHEWOOD_BLOCKS.register();
+		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "writhewood_leaves"), WRITHEWOOD_LEAVES);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "aylyth_bush"), AYLYTH_BUSH);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "antler_shoots"), ANTLER_SHOOTS);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "gripweed"), GRIPWEED);

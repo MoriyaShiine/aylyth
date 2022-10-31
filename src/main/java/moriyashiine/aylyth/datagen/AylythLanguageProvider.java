@@ -32,6 +32,9 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         String pomegranate = "Pomegranate";
         addWoodsuite(builder, ModBlocks.POMEGRANATE_BLOCKS, pomegranate);
         leaves(builder, ModBlocks.POMEGRANATE_LEAVES, pomegranate);
+        String writhewood = "Writhewood";
+        addWoodsuite(builder, ModBlocks.WRITHEWOOD_BLOCKS, writhewood);
+        leaves(builder, ModBlocks.WRITHEWOOD_LEAVES, writhewood);
         builder.add(ModBlocks.AYLYTH_BUSH, "Aylyth Bush");
         builder.add(ModBlocks.ANTLER_SHOOTS, "Antler Shoots");
         builder.add(ModBlocks.GRIPWEED, "Gripweed");
@@ -52,6 +55,8 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         chestBoat(builder, ModItems.YMPE_ITEMS.chestBoat, ympe);
         boat(builder, ModItems.POMEGRANATE_ITEMS.boat, pomegranate);
         chestBoat(builder, ModItems.POMEGRANATE_ITEMS.chestBoat, pomegranate);
+        boat(builder, ModItems.WRITHEWOOD_ITEMS.boat, writhewood);
+        chestBoat(builder, ModItems.WRITHEWOOD_ITEMS.chestBoat, writhewood);
         builder.add(ModItems.POMEGRANATE, pomegranate);
         builder.add(ModItems.GHOSTCAP_MUSHROOM, "Ghostcap Mushroom");
         builder.add(ModItems.YMPE_DAGGER, "Ympe Dagger");
@@ -67,6 +72,7 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add(ModItems.ELDER_AYLYTHIAN_SPAWN_EGG, "Elder Aylythian Spawn Egg");
         builder.add(ModItems.SOULMOULD_ITEM, "Soulmould");
         builder.add(ModItems.SOULTRAP_EFFIGY_ITEM, "Soultrap Effigy");
+        builder.add(ModItems.BONEFLY_SKULL, "Bonefly Skull");
         potionSet(builder, "mortechis");
         potionSet(builder, "cimmerian");
         potionSet(builder, "wyrded");

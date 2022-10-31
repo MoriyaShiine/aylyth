@@ -22,6 +22,9 @@ public class ModItems {
 	public static final Item POMEGRANATE_LEAVES = new BlockItem(ModBlocks.POMEGRANATE_LEAVES, settings());
 	public static final ItemWoodSuite POMEGRANATE_ITEMS = ItemWoodSuite.of(new Identifier(Aylyth.MOD_ID, "pomegranate"), ModBlocks.POMEGRANATE_BLOCKS, new ItemWoodSuite.GroupedSettings(GROUP), Registry.ITEM, () -> ModBoatTypes.POMEGRANATE_BOAT_TYPE, () -> ModBoatTypes.POMEGRANATE_CHEST_BOAT_TYPE);
 
+	public static final Item WRITHEWOOD_LEAVES = new BlockItem(ModBlocks.WRITHEWOOD_LEAVES, settings());
+	public static final ItemWoodSuite WRITHEWOOD_ITEMS = ItemWoodSuite.of(new Identifier(Aylyth.MOD_ID, "writhewood"), ModBlocks.WRITHEWOOD_BLOCKS, new ItemWoodSuite.GroupedSettings(GROUP), Registry.ITEM, () -> ModBoatTypes.WRITHEWOOD_BOAT_TYPE, () -> ModBoatTypes.WRITHEWOOD_CHEST_BOAT_TYPE);
+
 	public static final Item AYLYTH_BUSH = new BlockItem(ModBlocks.AYLYTH_BUSH, settings());
 	public static final Item ANTLER_SHOOTS = new BlockItem(ModBlocks.ANTLER_SHOOTS, settings());
 	public static final Item GRIPWEED = new BlockItem(ModBlocks.GRIPWEED, settings());
@@ -70,11 +73,13 @@ public class ModItems {
 	}
 
 	public static void init() {
+		YMPE_ITEMS.register();
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "fruit_bearing_ympe_log"), FRUIT_BEARING_YMPE_LOG);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_leaves"), YMPE_LEAVES);
-		YMPE_ITEMS.register();
 		POMEGRANATE_ITEMS.register();
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "pomegranate_leaves"), POMEGRANATE_LEAVES);
+		WRITHEWOOD_ITEMS.register();
+		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "writhewood_leaves"), WRITHEWOOD_LEAVES);
 		
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "aylyth_bush"), AYLYTH_BUSH);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "antler_shoots"), ANTLER_SHOOTS);
