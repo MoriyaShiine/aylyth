@@ -85,6 +85,7 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add(ModEntityTypes.AYLYTHIAN, "Aylythian");
         builder.add(ModEntityTypes.ELDER_AYLYTHIAN, "Elder Aylythian");
         builder.add(ModEntityTypes.YMPE_LANCE, "Ympe Lance");
+        builder.add(ModEntityTypes.SCION, "Scion");
 
         // DEATH MESSAGES
 
