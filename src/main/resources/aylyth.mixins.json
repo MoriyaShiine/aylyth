@@ -25,11 +25,11 @@
     "client.InGameHudMixin",
     "client.ItemRendererMixin",
     "client.LivingEntityRendererMixin",
+    "client.MinecraftClientMixin",
     "client.ParticleManagerMixin",
     "client.PlayerEntityRendererMixin",
     "client.RenderLayerAccessor",
-    "client.WorldRendererMixin",
-    "client.MinecraftClientMixin"
+    "client.WorldRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

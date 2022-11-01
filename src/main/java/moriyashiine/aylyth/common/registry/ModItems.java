@@ -115,6 +115,7 @@ public class ModItems {
 
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "pilot_light_spawn_egg"), PILOT_LIGHT_SPAWN_EGG);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "aylythian_spawn_egg"), AYLYTHIAN_SPAWN_EGG);
+		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "scion_spawn_egg"), SCION_SPAWN_EGG);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "elder_aylythian_spawn_egg"), ELDER_AYLYTHIAN_SPAWN_EGG);
 
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "soultrap_effigy"), SOULTRAP_EFFIGY_ITEM);
