@@ -12,9 +12,12 @@ import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.fabricmc.fabric.api.entity.event.v1.ServerEntityCombatEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
+import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.entity.CampfireBlockEntity;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -26,7 +29,10 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.WitchEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.recipe.CampfireCookingRecipe;
+import net.minecraft.stat.Stats;
 import net.minecraft.tag.BiomeTags;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.ItemScatterer;
@@ -165,6 +171,22 @@ public class Aylyth implements ModInitializer {
 			}
 			return true;
 		});
+
+
+		UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
+			if(hand == Hand.MAIN_HAND && world.getBlockState(hitResult.getBlockPos()).isOf(Blocks.SOUL_CAMPFIRE) && world.getBlockEntity(hitResult.getBlockPos()) instanceof CampfireBlockEntity campfireBlockEntity){
+				ItemStack itemStack = player.getMainHandStack();
+				if(itemStack.isOf(ModItems.AYLYTHIAN_HEART) || itemStack.isOf(ModItems.WRONGMEAT) || (itemStack.isOf(ModItems.SHUCKED_YMPE_FRUIT) && (itemStack.hasNbt() && itemStack.getNbt().contains("StoredEntity")))){
+					if (!world.isClient && campfireBlockEntity.addItem(player, itemStack,  Integer.MAX_VALUE)) {
+						player.incrementStat(Stats.INTERACT_WITH_CAMPFIRE);
+						return ActionResult.SUCCESS;
+					}
+				}
+			}
+			return ActionResult.PASS;
+		});
+
+
 
 	}
 

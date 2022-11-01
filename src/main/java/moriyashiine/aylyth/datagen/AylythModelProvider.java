@@ -76,6 +76,7 @@ public class AylythModelProvider extends FabricModelProvider {
         generated(itemModelGenerator, ModItems.POMEGRANATE_ITEMS.boat);
         generated(itemModelGenerator, ModItems.POMEGRANATE_ITEMS.chestBoat);
         itemModelGenerator.register(ModItems.DEBUG_WAND, Models.GENERATED);
+        itemModelGenerator.register(ModItems.WRONGMEAT, Models.GENERATED);
     }
 
     private void fruitingLeaves(BlockStateModelGenerator generator, Block block, Identifier stage0, Identifier stage1, Identifier stage2, Identifier stage3) {

@@ -69,6 +69,7 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add(ModItems.ELDER_AYLYTHIAN_SPAWN_EGG, "Elder Aylythian Spawn Egg");
         builder.add(ModItems.SOULMOULD_ITEM, "Soulmould");
         builder.add(ModItems.SOULTRAP_EFFIGY_ITEM, "Soultrap Effigy");
+        builder.add(ModItems.WRONGMEAT, "Wrongmeat");
         potionSet(builder, "mortechis");
         potionSet(builder, "cimmerian");
         potionSet(builder, "wyrded");

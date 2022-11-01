@@ -52,6 +52,7 @@ public class ModItems {
 	public static final Item POMEGRANATE = new PomegranateItem(settings().food(ModFoodComponents.POMEGRANATE));
 
 	public static final Item AYLYTHIAN_HEART = new AylythianHeartItem(settings());
+	public static final Item WRONGMEAT = new Item(settings());
 
 	public static final Item SOUL_HEARTH = new BlockItem(ModBlocks.SOUL_HEARTH, settings());
 
@@ -111,6 +112,7 @@ public class ModItems {
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "coric_seed"), CORIC_SEED);
 
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "aylythian_heart"), AYLYTHIAN_HEART);
+		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "wrongmeat"), WRONGMEAT);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "soul_hearth"), SOUL_HEARTH);
 
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "pilot_light_spawn_egg"), PILOT_LIGHT_SPAWN_EGG);
