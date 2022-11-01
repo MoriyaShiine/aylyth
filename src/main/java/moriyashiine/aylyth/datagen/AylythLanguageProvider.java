@@ -48,6 +48,7 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
 
         // ITEMS
 
+        builder.add(ModItems.DEBUG_WAND, "Debug Wand");
         boat(builder, ModItems.YMPE_ITEMS.boat, ympe);
         chestBoat(builder, ModItems.YMPE_ITEMS.chestBoat, ympe);
         boat(builder, ModItems.POMEGRANATE_ITEMS.boat, pomegranate);
@@ -63,6 +64,7 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add(ModItems.CORIC_SEED, "Coric Seed");
         builder.add(ModItems.AYLYTHIAN_HEART, "Aylythian Heart");
         builder.add(ModItems.PILOT_LIGHT_SPAWN_EGG, "Pilot Light Spawn Egg");
+        builder.add(ModItems.SCION_SPAWN_EGG, "Scion Spawn Egg");
         builder.add(ModItems.AYLYTHIAN_SPAWN_EGG, "Aylythian Spawn Egg");
         builder.add(ModItems.ELDER_AYLYTHIAN_SPAWN_EGG, "Elder Aylythian Spawn Egg");
         builder.add(ModItems.SOULMOULD_ITEM, "Soulmould");

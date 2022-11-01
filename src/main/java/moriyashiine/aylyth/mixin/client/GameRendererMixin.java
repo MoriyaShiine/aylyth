@@ -6,7 +6,6 @@ import moriyashiine.aylyth.client.render.block.entity.SeepBlockEntityRenderer;
 import moriyashiine.aylyth.common.Aylyth;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.gl.Program;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.Shader;

@@ -1,7 +1,6 @@
 package moriyashiine.aylyth.datagen;
 
 import moriyashiine.aylyth.common.registry.ModBlocks;
-import moriyashiine.aylyth.common.registry.ModBoatTypes;
 import moriyashiine.aylyth.common.registry.ModItems;
 import moriyashiine.aylyth.common.registry.ModTags;
 import moriyashiine.aylyth.common.registry.util.WoodSuite;

@@ -14,7 +14,9 @@ import net.minecraft.util.registry.Registry;
 
 public class ModItems {
 	public static final ItemGroup GROUP = FabricItemGroupBuilder.build(new Identifier(Aylyth.MOD_ID, Aylyth.MOD_ID), () -> new ItemStack(ModItems.YMPE_DAGGER));
-	
+
+	public static final Item DEBUG_WAND = new DebugWandItem(new FabricItemSettings());
+
 	public static final Item FRUIT_BEARING_YMPE_LOG = new BlockItem(ModBlocks.FRUIT_BEARING_YMPE_LOG, settings());
 	public static final Item YMPE_LEAVES = new BlockItem(ModBlocks.YMPE_LEAVES, settings());
 	public static final ItemWoodSuite YMPE_ITEMS = ItemWoodSuite.of(new Identifier(Aylyth.MOD_ID, "ympe"), ModBlocks.YMPE_BLOCKS, new ItemWoodSuite.GroupedSettings(GROUP), Registry.ITEM, () -> ModBoatTypes.YMPE_BOAT_TYPE, () -> ModBoatTypes.YMPE_CHEST_BOAT_TYPE);
@@ -56,13 +58,14 @@ public class ModItems {
 	public static final Item PILOT_LIGHT_SPAWN_EGG = new SpawnEggItem(ModEntityTypes.PILOT_LIGHT, 0xFFD972, 0x9FD9F6, settings());
 	public static final Item AYLYTHIAN_SPAWN_EGG = new SpawnEggItem(ModEntityTypes.AYLYTHIAN, 0x6A4831, 0xE58E03, settings());
 	public static final Item ELDER_AYLYTHIAN_SPAWN_EGG = new SpawnEggItem(ModEntityTypes.ELDER_AYLYTHIAN, 0x513425, 0xFFDC9B, settings());
+	public static final Item SCION_SPAWN_EGG = new SpawnEggItem(ModEntityTypes.SCION, 0x463428, 0xE58E03, settings());
 
 	public static final Item SOULTRAP_EFFIGY_ITEM =  new SoultrapEffigyItem((settings()).fireproof().rarity(Rarity.RARE).maxCount(1));
 	public static final Item GLAIVE =  new GlaiveItem(4, -3.1F, (settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(1));
 
 	public static final Item SOULMOULD_ITEM = new SoulmouldItem((settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(16));
 
-	public static final  Item BONEFLY_SKULL =  new BoneflySkullItem((settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(16));
+	public static final Item BONEFLY_SKULL =  new BoneflySkullItem((settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(16));
 
 
 
@@ -72,6 +75,8 @@ public class ModItems {
 	}
 
 	public static void init() {
+		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "debug_wand"), DEBUG_WAND);
+
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "fruit_bearing_ympe_log"), FRUIT_BEARING_YMPE_LOG);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_leaves"), YMPE_LEAVES);
 		YMPE_ITEMS.register();

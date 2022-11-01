@@ -1,18 +1,5 @@
 package moriyashiine.aylyth.common.world.generator.feature;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
-import moriyashiine.aylyth.common.block.ShelfMushroomBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.FeatureConfig;
-import net.minecraft.world.gen.feature.util.FeatureContext;
-
-import java.util.Optional;
-
 //public class ShelfMushroomFeature extends Feature<ShelfMushroomFeature.ShelfMushroomFeatureConfig> {
 //
 //    public ShelfMushroomFeature() {

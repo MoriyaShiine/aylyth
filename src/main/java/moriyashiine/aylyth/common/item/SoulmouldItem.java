@@ -2,7 +2,6 @@ package moriyashiine.aylyth.common.item;
 
 import moriyashiine.aylyth.common.entity.mob.SoulmouldEntity;
 import moriyashiine.aylyth.common.registry.ModEntityTypes;
-import moriyashiine.aylyth.common.registry.ModItems;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;

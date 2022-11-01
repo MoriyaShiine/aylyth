@@ -7,7 +7,6 @@ import moriyashiine.aylyth.common.registry.ModBiomes;
 import moriyashiine.aylyth.common.registry.ModDimensions;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.VertexBuffer;
 import net.minecraft.client.render.*;

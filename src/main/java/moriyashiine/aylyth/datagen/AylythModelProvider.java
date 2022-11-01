@@ -1,7 +1,6 @@
 package moriyashiine.aylyth.datagen;
 
 import com.google.common.collect.ImmutableList;
-import com.google.gson.JsonElement;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.block.PomegranateLeavesBlock;
 import moriyashiine.aylyth.common.block.StrewnLeavesBlock;
@@ -21,8 +20,6 @@ import net.minecraft.util.Identifier;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.function.BiConsumer;
-import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public class AylythModelProvider extends FabricModelProvider {
@@ -78,6 +75,7 @@ public class AylythModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.GHOSTCAP_MUSHROOM_SPORES, Models.GENERATED);
         generated(itemModelGenerator, ModItems.POMEGRANATE_ITEMS.boat);
         generated(itemModelGenerator, ModItems.POMEGRANATE_ITEMS.chestBoat);
+        itemModelGenerator.register(ModItems.DEBUG_WAND, Models.GENERATED);
     }
 
     private void fruitingLeaves(BlockStateModelGenerator generator, Block block, Identifier stage0, Identifier stage1, Identifier stage2, Identifier stage3) {

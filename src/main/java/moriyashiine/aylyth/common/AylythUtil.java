@@ -10,6 +10,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -75,5 +76,9 @@ public class AylythUtil {
 			}
 		}
 		return -1;
+	}
+
+	public static Identifier id(String string){
+		return new Identifier(Aylyth.MOD_ID, string);
 	}
 }
