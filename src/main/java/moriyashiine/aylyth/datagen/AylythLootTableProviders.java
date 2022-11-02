@@ -62,6 +62,8 @@ public class AylythLootTableProviders {
             addDrop(ModBlocks.GHOSTCAP_MUSHROOM, () -> ModItems.GHOSTCAP_MUSHROOM);
             woodSuiteDrops(ModBlocks.POMEGRANATE_BLOCKS);
             addDrop(ModBlocks.POMEGRANATE_LEAVES, block -> pomegranateLeavesDrop(block, ModBlocks.POMEGRANATE_BLOCKS.sapling, 0.05f, 0.0625f, 0.083333336f, 0.1f));
+            addDrop(ModBlocks.VITAL_THURIBLE);
+            addDrop(ModBlocks.SOUL_HEARTH);
         }
 
         private void woodSuiteDrops(WoodSuite suite) {

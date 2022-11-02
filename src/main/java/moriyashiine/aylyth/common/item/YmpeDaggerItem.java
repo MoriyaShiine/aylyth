@@ -7,7 +7,6 @@ import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.ModItems;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.CampfireBlockEntity;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
@@ -18,11 +17,9 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class YmpeDaggerItem extends SwordItem {
 	private static final EntityAttributeModifier REACH_MODIFIER = new EntityAttributeModifier(UUID.fromString("ccec5f1b-1597-4994-aa5f-c8848721897d"), "Weapon modifier", -0.5, EntityAttributeModifier.Operation.ADDITION);

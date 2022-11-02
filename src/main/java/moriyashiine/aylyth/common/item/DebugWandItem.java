@@ -1,5 +1,6 @@
 package moriyashiine.aylyth.common.item;
 
+import moriyashiine.aylyth.api.interfaces.Vital;
 import moriyashiine.aylyth.common.entity.mob.ScionEntity;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
@@ -21,7 +22,12 @@ public class DebugWandItem extends Item {
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         if(!world.isClient()){
-            ScionEntity.summonPlayerScion(user);
+            if(user.isSneaking()){
+                Vital.of(user).ifPresent(vital -> vital.setVital(!vital.hasVital()));
+            }else{
+                ScionEntity.summonPlayerScion(user);
+            }
+
         }
         return super.use(world, user, hand);
     }
@@ -29,6 +35,7 @@ public class DebugWandItem extends Item {
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
         tooltip.add(Text.literal("Use to Summon a Scion-copy of you"));
+        tooltip.add(Text.literal("Shift and Use to give you VitalThurible Buff"));
         super.appendTooltip(stack, world, tooltip, context);
     }
 }

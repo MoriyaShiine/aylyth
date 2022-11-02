@@ -1,5 +1,6 @@
-// 1.19.2	2022-11-02T13:12:19.991591699	Block Loot Tables
+// 1.19.2	2022-11-02T14:49:31.077932376	Block Loot Tables
 05e3dbc6cfd7eb77fad8f910abb2994f09d93477 data/aylyth/loot_tables/blocks/pomegranate_wall_sign.json
+b738fa0e036249892bc60edfe5b3d0d09c617d4c data/aylyth/loot_tables/blocks/soul_hearth.json
 8b385c3b00d2353146b4bd32c892ad88964fc5ca data/aylyth/loot_tables/blocks/potted_marigolds.json
 05e3dbc6cfd7eb77fad8f910abb2994f09d93477 data/aylyth/loot_tables/blocks/pomegranate_sign.json
 86deab9a1b1c7db8102828891a8e177b1b67ed83 data/aylyth/loot_tables/blocks/marigolds.json
@@ -9,6 +10,7 @@ ccbae07b027a5142dc5ba24bca534645921cb169 data/aylyth/loot_tables/blocks/pomegran
 0d3c736cf7f56ffba679112258e5fa8aab1fc3ed data/aylyth/loot_tables/blocks/stripped_pomegranate_wood.json
 523b80961c5750f4ac23f7922322f4bb9c380c6c data/aylyth/loot_tables/blocks/pomegranate_leaves.json
 668718708092b12e6e855b25f8ad540b98b1e7bd data/aylyth/loot_tables/blocks/pomegranate_slab.json
+6f6a3f3672a7b1cdcf32d023913bd70633415e36 data/aylyth/loot_tables/blocks/vital_thurible.json
 cd58f9ecebee1f2e0c8a751eca51944275c3662d data/aylyth/loot_tables/blocks/pomegranate_trapdoor.json
 412f2d6c3c0d82aaccb7c8ce5634d39fdc410e25 data/aylyth/loot_tables/blocks/pomegranate_fence_gate.json
 9584ce1d23be1387768e949c7deff2db8e889279 data/aylyth/loot_tables/blocks/pomegranate_wood.json
