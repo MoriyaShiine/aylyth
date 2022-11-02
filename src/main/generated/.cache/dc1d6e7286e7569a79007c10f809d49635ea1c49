@@ -1,4 +1,4 @@
-// 1.19.2	2022-10-30T22:13:53.2124175	Block Loot Tables
+// 1.19.2	2022-10-31T20:48:02.4656866	Block Loot Tables
 a63238f612b350424e1c4c9c488470945323582a data\aylyth\loot_tables\blocks\pomegranate_button.json
 7a14653c5ab5c21c6b79be69ed7c9a31a2f32629 data\aylyth\loot_tables\blocks\pomegranate_planks.json
 5b8fcc3c98b0b5ebd17a532e97c1284042b27b29 data\aylyth\loot_tables\blocks\writhewood_sign.json
@@ -28,10 +28,10 @@ e09f588635383f84bdd0465a212adcf86d319f1d data\aylyth\loot_tables\blocks\writhewo
 8b385c3b00d2353146b4bd32c892ad88964fc5ca data\aylyth\loot_tables\blocks\potted_marigolds.json
 05e3dbc6cfd7eb77fad8f910abb2994f09d93477 data\aylyth\loot_tables\blocks\pomegranate_sign.json
 0c4c058899d5deb9feffb85dc1de7516aec0747d data\aylyth\loot_tables\blocks\pomegranate_pressure_plate.json
-d5595a6195aaac6271625419d362c4fd4b419d53 data\aylyth\loot_tables\blocks\writhewood_door.json
+7ea3eba7a73118531e33f99db3898456d0ad1381 data\aylyth\loot_tables\blocks\writhewood_door.json
 5b8fcc3c98b0b5ebd17a532e97c1284042b27b29 data\aylyth\loot_tables\blocks\writhewood_wall_sign.json
 71d9cddf3cc349acfa93cc3c375c06b883d2c558 data\aylyth\loot_tables\blocks\potted_pomegranate_sapling.json
-4558aa51e620d92d98a77d7910f0780dada23a01 data\aylyth\loot_tables\blocks\pomegranate_door.json
+6a2ce91c2a4a56822f31c23f4d03d3cb743b0ee9 data\aylyth\loot_tables\blocks\pomegranate_door.json
 3ece57ab1b795b13e010c72f81ba6bfcab2eb188 data\aylyth\loot_tables\blocks\pomegranate_fence.json
 af7aef1f835719e61b42ac24781f011fdd73fa94 data\aylyth\loot_tables\blocks\writhewood_fence_gate.json
 0d3c736cf7f56ffba679112258e5fa8aab1fc3ed data\aylyth\loot_tables\blocks\stripped_pomegranate_wood.json

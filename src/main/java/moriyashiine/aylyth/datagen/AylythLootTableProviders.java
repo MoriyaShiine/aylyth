@@ -85,7 +85,7 @@ public class AylythLootTableProviders {
             addDrop(suite.pressurePlate);
             addDrop(suite.button);
             addDrop(suite.trapdoor);
-            addDrop(suite.door);
+            addDrop(suite.door, BlockLootTableGenerator::doorDrops);
             addDrop(suite.floorSign);
             addDrop(suite.wallSign);
         }
