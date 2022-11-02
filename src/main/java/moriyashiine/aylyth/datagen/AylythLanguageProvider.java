@@ -48,9 +48,13 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add(ModBlocks.SPRUCE_SEEP, "Spruce Seep");
         builder.add(ModBlocks.DARK_OAK_SEEP, "Dark Oak Seep");
         builder.add(ModBlocks.YMPE_SEEP, "Ympe Seep");
+        builder.add(ModBlocks.DARK_WOODS_TILES, "Dark Wood Tiles");
+        builder.add(ModBlocks.SOUL_HEARTH, "Soul Hearth");
+        builder.add(ModBlocks.VITAL_THURIBLE, "Vital Thurible");
 
         // ITEMS
 
+        builder.add(ModItems.DEBUG_WAND, "Debug Wand");
         boat(builder, ModItems.YMPE_ITEMS.boat, ympe);
         chestBoat(builder, ModItems.YMPE_ITEMS.chestBoat, ympe);
         boat(builder, ModItems.POMEGRANATE_ITEMS.boat, pomegranate);
@@ -68,11 +72,13 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add(ModItems.CORIC_SEED, "Coric Seed");
         builder.add(ModItems.AYLYTHIAN_HEART, "Aylythian Heart");
         builder.add(ModItems.PILOT_LIGHT_SPAWN_EGG, "Pilot Light Spawn Egg");
+        builder.add(ModItems.SCION_SPAWN_EGG, "Scion Spawn Egg");
         builder.add(ModItems.AYLYTHIAN_SPAWN_EGG, "Aylythian Spawn Egg");
         builder.add(ModItems.ELDER_AYLYTHIAN_SPAWN_EGG, "Elder Aylythian Spawn Egg");
         builder.add(ModItems.SOULMOULD_ITEM, "Soulmould");
         builder.add(ModItems.SOULTRAP_EFFIGY_ITEM, "Soultrap Effigy");
         builder.add(ModItems.BONEFLY_SKULL, "Bonefly Skull");
+        builder.add(ModItems.WRONGMEAT, "Wrongmeat");
         potionSet(builder, "mortechis");
         potionSet(builder, "cimmerian");
         potionSet(builder, "wyrded");
@@ -89,6 +95,7 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add(ModEntityTypes.AYLYTHIAN, "Aylythian");
         builder.add(ModEntityTypes.ELDER_AYLYTHIAN, "Elder Aylythian");
         builder.add(ModEntityTypes.YMPE_LANCE, "Ympe Lance");
+        builder.add(ModEntityTypes.SCION, "Scion");
 
         // ADVANCEMENTS
 

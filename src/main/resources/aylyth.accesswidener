@@ -9,3 +9,7 @@ extendable class net/minecraft/world/gen/foliage/FoliagePlacer$TreeNode
 
 accessible field net/minecraft/entity/Entity vehicle Lnet/minecraft/entity/Entity;
 accessible field net/minecraft/entity/Entity passengerList Lcom/google/common/collect/ImmutableList;
+accessible field net/minecraft/entity/mob/MobEntity handDropChances [F
+
+
+

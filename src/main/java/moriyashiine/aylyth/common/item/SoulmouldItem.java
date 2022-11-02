@@ -4,8 +4,10 @@ import moriyashiine.aylyth.common.entity.mob.SoulmouldEntity;
 import moriyashiine.aylyth.common.registry.ModEntityTypes;
 import moriyashiine.aylyth.common.registry.ModItems;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
@@ -28,6 +30,8 @@ public class SoulmouldItem extends Item {
             if (player != null) {
                 mould.setOwner(player);
             }
+            mould.equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModItems.GLAIVE));
+            mould.handDropChances[EquipmentSlot.MAINHAND.getEntitySlotId()] = 0.0F;
             ctx.getWorld().spawnEntity(mould);
             ctx.getStack().decrement(1);
         }

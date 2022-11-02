@@ -76,6 +76,11 @@ public class ModBlocks {
 	public static final Block SPRUCE_SEEP = new SeepBlock();
 	public static final Block DARK_OAK_SEEP = new SeepBlock();
 	public static final Block YMPE_SEEP = new SeepBlock();
+
+	public static final Block DARK_WOODS_TILES = new Block(copyOf(Blocks.DARK_OAK_PLANKS));
+
+	public static final Block SOUL_HEARTH = new SoulHearthBlock(copyOf(Blocks.DEEPSLATE));
+	public static final Block VITAL_THURIBLE = new VitalThuribleBlock(copyOf(Blocks.DEEPSLATE));
 	
 	public static void init() {
 		YMPE_BLOCKS.register();
@@ -100,6 +105,10 @@ public class ModBlocks {
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "spruce_seep"), SPRUCE_SEEP);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "dark_oak_seep"), DARK_OAK_SEEP);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "ympe_seep"), YMPE_SEEP);
+		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "dark_woods_tiles"), DARK_WOODS_TILES);
+		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "soul_hearth"), SOUL_HEARTH);
+		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "vital_thurible"), VITAL_THURIBLE);
+
 		FlammableBlockRegistry flammableRegistry = FlammableBlockRegistry.getDefaultInstance();
 		flammableRegistry.add(YMPE_BLOCKS.strippedLog, 5, 5);
 		flammableRegistry.add(YMPE_BLOCKS.strippedWood, 5, 5);

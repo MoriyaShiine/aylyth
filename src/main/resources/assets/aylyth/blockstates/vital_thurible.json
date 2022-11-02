@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "active=true": {
+      "model": "aylyth:block/vital_thurible_active"
+    },
+    "active=false": {
+      "model": "aylyth:block/vital_thurible"
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "variants": {
+    "charged=1,half=upper": {
+      "model": "aylyth:block/empty"
+    },
+    "charged=0,half=upper": {
+      "model": "aylyth:block/empty"
+    },
+    "charged=2,half=upper": {
+      "model": "aylyth:block/empty"
+    },
+    "charged=3,half=upper": {
+      "model": "aylyth:block/empty"
+    },
+    "charged=4,half=upper": {
+      "model": "aylyth:block/empty"
+    },
+    "charged=5,half=upper": {
+      "model": "aylyth:block/empty"
+    },
+    "charged=1,half=lower": {
+      "model": "aylyth:block/soul_hearth_charged"
+    },
+    "charged=0,half=lower": {
+      "model": "aylyth:block/soul_hearth"
+    },
+    "charged=2,half=lower": {
+      "model": "aylyth:block/soul_hearth_charged"
+    },
+    "charged=3,half=lower": {
+      "model": "aylyth:block/soul_hearth_charged"
+    },
+    "charged=4,half=lower": {
+      "model": "aylyth:block/soul_hearth_charged"
+    },
+    "charged=5,half=lower": {
+      "model": "aylyth:block/soul_hearth_charged"
+    }
+  }
+}

@@ -2,7 +2,6 @@ package moriyashiine.aylyth.client.network.packet;
 
 import io.netty.buffer.Unpooled;
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.component.entity.RiderComponent;
 import moriyashiine.aylyth.common.registry.ModComponents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;

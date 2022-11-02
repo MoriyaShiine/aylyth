@@ -13,8 +13,6 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.FeatureConfig;
 import net.minecraft.world.gen.feature.util.FeatureContext;
 
-import java.util.List;
-
 public class HorizontalFacingFeature extends Feature<HorizontalFacingFeature.HorizontalFacingBlockFeatureConfig> {
 
     public HorizontalFacingFeature() {
