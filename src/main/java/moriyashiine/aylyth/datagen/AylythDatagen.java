@@ -9,6 +9,9 @@ public class AylythDatagen implements DataGeneratorEntrypoint {
     public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
         fabricDataGenerator.addProvider(AylythModelProvider::new);
         fabricDataGenerator.addProvider(AylythLanguageProvider::new);
+
+
+
             ModConfiguredFeatures.datagenInit();
             ModPlacedFeatures.datagenInit();
             ModVegetationFeatures.datagenInit();
@@ -19,5 +22,6 @@ public class AylythDatagen implements DataGeneratorEntrypoint {
             AylythLootTableProviders.registerProviders(fabricDataGenerator);
         fabricDataGenerator.addProvider(AylythWorldgenProvider::new);
         fabricDataGenerator.addProvider(AylythRecipeProvider::new);
+        fabricDataGenerator.addProvider(AylythAdvancementProvider::new);
     }
 }

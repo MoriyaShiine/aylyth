@@ -90,6 +90,17 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add(ModEntityTypes.ELDER_AYLYTHIAN, "Elder Aylythian");
         builder.add(ModEntityTypes.YMPE_LANCE, "Ympe Lance");
 
+        // ADVANCEMENTS
+
+        builder.add("aylyth.advancements.aylyth.root.title", "Into the Unknown");
+        builder.add("aylyth.advancements.aylyth.root.desc", "In the midst of the journey of our life, I found myself in a dark wood without paths.");
+        builder.add("aylyth.advancements.aylyth.life_at_a_cost.title", "Life at a cost");
+        builder.add("aylyth.advancements.aylyth.life_at_a_cost.desc", "Obtain an Ympe Fruit, used to help subside the Branches, among other things.");
+        builder.add("aylyth.advancements.aylyth.cimmerianed.title", "Cimmerianed");
+        builder.add("aylyth.advancements.aylyth.cimmerianed.desc", "Play some hide and seek with the undead");
+        builder.add("aylyth.advancements.aylyth.wyrded.title", "Wyrded");
+        builder.add("aylyth.advancements.aylyth.wyrded.desc", "Try approaching a seep!");
+
         // DEATH MESSAGES
 
         builder.add("death.attack.ympe", "%1$s has gone to the trees");
