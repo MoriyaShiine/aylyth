@@ -45,6 +45,9 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add(ModBlocks.SPRUCE_SEEP, "Spruce Seep");
         builder.add(ModBlocks.DARK_OAK_SEEP, "Dark Oak Seep");
         builder.add(ModBlocks.YMPE_SEEP, "Ympe Seep");
+        builder.add(ModBlocks.DARK_WOODS_TILES, "Dark Wood Tiles");
+        builder.add(ModBlocks.SOUL_HEARTH, "Soul Hearth");
+        builder.add(ModBlocks.VITAL_THURIBLE, "Vital Thurible");
 
         // ITEMS
 

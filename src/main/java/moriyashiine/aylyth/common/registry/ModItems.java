@@ -55,6 +55,8 @@ public class ModItems {
 	public static final Item WRONGMEAT = new Item(settings());
 
 	public static final Item SOUL_HEARTH = new BlockItem(ModBlocks.SOUL_HEARTH, settings());
+	public static final Item VITAL_THURIBLE = new BlockItem(ModBlocks.VITAL_THURIBLE, settings());
+	public static final Item DARK_WOODS_TILES = new BlockItem(ModBlocks.DARK_WOODS_TILES, settings());
 
 	public static final Item PILOT_LIGHT_SPAWN_EGG = new SpawnEggItem(ModEntityTypes.PILOT_LIGHT, 0xFFD972, 0x9FD9F6, settings());
 	public static final Item AYLYTHIAN_SPAWN_EGG = new SpawnEggItem(ModEntityTypes.AYLYTHIAN, 0x6A4831, 0xE58E03, settings());
@@ -114,6 +116,8 @@ public class ModItems {
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "aylythian_heart"), AYLYTHIAN_HEART);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "wrongmeat"), WRONGMEAT);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "soul_hearth"), SOUL_HEARTH);
+		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "vital_thurible"), VITAL_THURIBLE);
+		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "dark_woods_tiles"), DARK_WOODS_TILES);
 
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "pilot_light_spawn_egg"), PILOT_LIGHT_SPAWN_EGG);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "aylythian_spawn_egg"), AYLYTHIAN_SPAWN_EGG);

@@ -17,7 +17,7 @@ public class ScionEntityRenderer extends BipedEntityRenderer<ScionEntity, BipedE
     public ScionEntityRenderer(EntityRendererFactory.Context ctx) {
         super(ctx, new ScionCoreEntityModel<>(ctx.getPart(EntityModelLayers.PLAYER)), 0.5f);
         addFeature(new ScionFeatureRenderer(this, ctx.getModelLoader()));
-        addFeature(new ArmorFeatureRenderer(this, new BipedEntityModel(ctx.getPart(EntityModelLayers.PLAYER_INNER_ARMOR)), new BipedEntityModel(ctx.getPart(EntityModelLayers.PLAYER_OUTER_ARMOR))));
+        addFeature(new ArmorFeatureRenderer<>(this, new BipedEntityModel<>(ctx.getPart(EntityModelLayers.PLAYER_INNER_ARMOR)), new BipedEntityModel<>(ctx.getPart(EntityModelLayers.PLAYER_OUTER_ARMOR))));
 
     }
 
@@ -27,8 +27,6 @@ public class ScionEntityRenderer extends BipedEntityRenderer<ScionEntity, BipedE
             PlayerEntity player = mobEntity.world.getPlayerByUuid(mobEntity.getStoredPlayerUUID());
             if(player instanceof AbstractClientPlayerEntity abstractClientPlayerEntity){
                 return abstractClientPlayerEntity.getSkinTexture();
-            }else{
-                return AylythUtil.id("textures/entity/living/scion/scion_npc_base.png");
             }
         }
         return AylythUtil.id("textures/entity/living/scion/scion_npc_base.png");
