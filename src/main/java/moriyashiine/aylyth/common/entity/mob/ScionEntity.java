@@ -3,6 +3,7 @@ package moriyashiine.aylyth.common.entity.mob;
 import com.mojang.serialization.Dynamic;
 import moriyashiine.aylyth.common.entity.ai.brain.ScionBrain;
 import moriyashiine.aylyth.common.registry.ModEntityTypes;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -12,10 +13,19 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.entity.passive.VillagerEntity;
+import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtHelper;
 import net.minecraft.predicate.entity.EntityPredicates;
+import net.minecraft.server.ServerConfigHandler;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.Difficulty;
@@ -47,6 +57,32 @@ public class ScionEntity extends HostileEntity {
         ScionBrain.updateActivities(this);
         super.mobTick();
     }
+
+
+    @Override
+    public void writeCustomDataToNbt(NbtCompound nbt) {
+        super.writeCustomDataToNbt(nbt);
+        if (this.getStoredPlayerUUID() != null) {
+            nbt.putUuid("uuid", this.getStoredPlayerUUID());
+        }
+    }
+
+    @Override
+    public void readCustomDataFromNbt(NbtCompound nbt) {
+        super.readCustomDataFromNbt(nbt);
+        UUID uUID;
+        if (nbt.containsUuid("uuid")) {
+            uUID = nbt.getUuid("uuid");
+        } else {
+            String string = nbt.getString("uuid");
+            uUID = ServerConfigHandler.getPlayerUuidByName(this.getServer(), string);
+        }
+
+        if (uUID != null) {
+            this.setStoredPlayerUUID(uUID);
+        }
+    }
+
 
     @Override
     protected Brain<?> deserializeBrain(Dynamic<?> dynamic) {

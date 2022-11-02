@@ -74,14 +74,13 @@ public class ScionEntityModel<T extends ScionEntity> extends BipedEntityModel<T>
 		ModelPartData cube_r8 = body.addChild("cube_r8", ModelPartBuilder.create().uv(0, 0).cuboid(0.0F, 0.0F, -2.0F, 2.0F, 0.0F, 2.0F, new Dilation(0.0F)), ModelTransform.of(2.5F, 5.5F, -2.5F, -1.4835F, 0.5236F, 1.0472F));
 		ModelPartData cube_r9 = body.addChild("cube_r9", ModelPartBuilder.create().uv(0, 0).cuboid(0.0F, 0.0F, -2.0F, 2.0F, 0.0F, 2.0F, new Dilation(0.0F)), ModelTransform.of(3.5F, 2.5F, -2.5F, -1.4835F, 0.5236F, 0.0F));
 		ModelPartData cube_r10 = body.addChild("cube_r10", ModelPartBuilder.create().uv(0, 4).cuboid(0.0F, 0.0F, -1.5F, 2.0F, 0.0F, 2.0F, new Dilation(0.0F)), ModelTransform.of(0.5F, 4.5F, -2.5F, -1.4835F, 0.5236F, -0.9599F));
-		ModelPartData leftArm = ModelPartData.addChild(EntityModelPartNames.LEFT_ARM, ModelPartBuilder.create().uv(108, 99).cuboid(0F, -2.5F, -2.5F, 5.0F, 13.0F, 5.0F, new Dilation(0.0F)), ModelTransform.pivot(4.0F, 2.0F, 0.0F));
 
-
-
+		ModelPartData leftArm = ModelPartData.addChild(EntityModelPartNames.LEFT_ARM, ModelPartBuilder.create().uv(108, 99).cuboid(-1.5F, -2.5F, -2.5F, 5.0F, 13.0F, 5.0F, new Dilation(0.0F)), ModelTransform.pivot(4.0F, 2.0F, 0.0F));
 		ModelPartData cube_r11 = leftArm.addChild("cube_r11", ModelPartBuilder.create().uv(0, 0).mirrored().cuboid(-0.25F, -0.5F, 0.0F, 2.0F, 2.0F, 0.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.of(3.25F, -3.0F, 1.5F, 0.0F, 0.0F, -1.9199F));
 		ModelPartData cube_r12 = leftArm.addChild("cube_r12", ModelPartBuilder.create().uv(0, 0).mirrored().cuboid(-0.25F, -0.25F, 0.0F, 2.0F, 2.0F, 0.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.of(4.5F, -1.0F, -0.5F, 0.0F, 0.0F, -0.9599F));
 		ModelPartData cube_r13 = leftArm.addChild("cube_r13", ModelPartBuilder.create().uv(0, 0).mirrored().cuboid(-0.25F, -0.25F, -0.25F, 2.0F, 2.0F, 0.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.of(1.5F, 6.0F, -2.5F, -0.3054F, 0.3054F, -1.789F));
-		ModelPartData rightArm = ModelPartData.addChild(EntityModelPartNames.RIGHT_ARM, ModelPartBuilder.create().uv(108, 79).cuboid(-4.5F, -2.5F, -2.5F, 5.0F, 13.0F, 5.0F, new Dilation(0.0F)), ModelTransform.pivot(-4.0F, 2.0F, 0.0F));
+
+		ModelPartData rightArm = ModelPartData.addChild(EntityModelPartNames.RIGHT_ARM, ModelPartBuilder.create().uv(108, 79).cuboid(-3.5F, -2.5F, -2.5F, 5.0F, 13.0F, 5.0F, new Dilation(0.0F)), ModelTransform.pivot(-4.0F, 2.0F, 0.0F));
 		ModelPartData cube_r14 = rightArm.addChild("cube_r14", ModelPartBuilder.create().uv(0, 0).cuboid(-1.5F, 0.0F, 0.0F, 2.0F, 2.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(-1.5F, 5.0F, -2.5F, -0.5236F, -0.6981F, -2.0944F));
 		ModelPartData cube_r15 = rightArm.addChild("cube_r15", ModelPartBuilder.create().uv(0, 0).cuboid(-1.5F, 0.0F, 0.0F, 2.0F, 2.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(-1.5F, 2.0F, -2.5F, -0.5236F, -0.6981F, -2.8798F));
 		ModelPartData cube_r16 = rightArm.addChild("cube_r16", ModelPartBuilder.create().uv(0, 4).cuboid(-1.75F, -0.25F, 0.0F, 2.0F, 2.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(-3.5F, 3.0F, -2.5F, -0.0436F, -0.5672F, 1.2654F));
@@ -90,9 +89,11 @@ public class ScionEntityModel<T extends ScionEntity> extends BipedEntityModel<T>
 		ModelPartData cube_r19 = rightArm.addChild("cube_r19", ModelPartBuilder.create().uv(0, 0).cuboid(-2.25F, 0.0F, 0.0F, 2.0F, 2.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(-3.0F, -2.0F, -2.0F, -0.0436F, 0.0F, 2.1817F));
 		ModelPartData cube_r20 = rightArm.addChild("cube_r20", ModelPartBuilder.create().uv(0, 0).cuboid(-1.75F, -0.25F, 0.0F, 2.0F, 2.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(-4.5F, 1.0F, -0.5F, 0.0F, 0.0F, 0.5236F));
 		ModelPartData cube_r21 = rightArm.addChild("cube_r21", ModelPartBuilder.create().uv(0, 4).cuboid(-2.25F, 0.0F, 0.0F, 2.0F, 2.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(-4.0F, -2.0F, 0.0F, 0.0F, 0.0F, 1.2654F));
+
 		ModelPartData leftLeg = ModelPartData.addChild(EntityModelPartNames.LEFT_LEG, ModelPartBuilder.create().uv(92, 6).cuboid(1.0F, 5.5F, -1.0F, 2.0F, 7.0F, 3.0F, new Dilation(0.0F)).uv(92, 8).cuboid(-1.0F, 7.5F, 2.0F, 4.0F, 5.0F, 1.0F, new Dilation(0.0F)).uv(92, 11).cuboid(-1.0F, 9.5F, -3.0F, 4.0F, 3.0F, 2.0F, new Dilation(0.0F)).uv(108, 58).cuboid(-2.2F, -0.5F, -2.5F, 5.0F, 13.0F, 5.0F, new Dilation(0.0F)), ModelTransform.pivot(2.0F, 12.0F, 0.0F));
 		ModelPartData cube_r22 = leftLeg.addChild("cube_r22", ModelPartBuilder.create().uv(0, 4).cuboid(-0.25F, 0.0F, -1.5F, 2.0F, 0.0F, 2.0F, new Dilation(0.0F)), ModelTransform.of(-0.25F, 4.5F, -2.5F, -1.2248F, 0.2848F, -0.8469F));
 		ModelPartData cube_r23 = leftLeg.addChild("cube_r23", ModelPartBuilder.create().uv(0, 4).cuboid(-0.25F, 0.0F, -1.5F, 2.0F, 0.0F, 2.0F, new Dilation(0.0F)), ModelTransform.of(2.75F, 2.5F, -1.5F, -0.9163F, -1.0036F, -0.1745F));
+
 		ModelPartData rightLeg = ModelPartData.addChild(EntityModelPartNames.RIGHT_LEG, ModelPartBuilder.create().uv(87, 5).cuboid(-3.0F, 5.5F, -1.0F, 4.0F, 7.0F, 4.0F, new Dilation(0.0F)).uv(104, 3).cuboid(-3.0F, 10.5F, -3.0F, 5.0F, 2.0F, 2.0F, new Dilation(0.0F)).uv(96, 10).cuboid(-3.0F, 7.5F, -3.0F, 3.0F, 3.0F, 2.0F, new Dilation(0.0F)).uv(84, 57).cuboid(-2.75F, -0.5F, -2.5F, 5.0F, 13.0F, 5.0F, new Dilation(0.0F)), ModelTransform.pivot(-2.0F, 12.0F, 0.0F));
 		ModelPartData cube_r24 = rightLeg.addChild("cube_r24", ModelPartBuilder.create().uv(0, 4).cuboid(-0.25F, 0.0F, -1.75F, 2.0F, 0.0F, 2.0F, new Dilation(0.0F)), ModelTransform.of(2.25F, 3.5F, 2.5F, -0.9599F, -2.9234F, 1.4835F));
 		ModelPartData cube_r25 = rightLeg.addChild("cube_r25", ModelPartBuilder.create().uv(0, 4).cuboid(-0.25F, 0.0F, -1.75F, 2.0F, 0.0F, 2.0F, new Dilation(0.0F)), ModelTransform.of(-0.75F, 4.5F, 2.5F, -0.9599F, -2.9234F, 1.1781F));

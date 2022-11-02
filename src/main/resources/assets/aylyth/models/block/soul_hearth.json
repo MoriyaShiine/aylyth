@@ -1,5 +1,4 @@
 {
-  "parent": "soul_hearth",
   "texture_size": [32, 32],
   "textures": {
     "0": "aylyth:block/soul_hearth_fire",
