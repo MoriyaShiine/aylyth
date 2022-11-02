@@ -6,10 +6,14 @@ import moriyashiine.aylyth.common.registry.ModTags;
 import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -19,6 +23,8 @@ import net.minecraft.world.World;
 
 public class AylythUtil {
 	public static final int MAX_TRIES = 8;
+	public static final TrackedData<Boolean> VITAL = DataTracker.registerData(PlayerEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+
 	
 	public static BlockPos getSafePosition(World world, BlockPos.Mutable pos, int tries) {
 		if (tries >= MAX_TRIES) {
@@ -75,5 +81,9 @@ public class AylythUtil {
 			}
 		}
 		return -1;
+	}
+
+	public static Identifier id(String string){
+		return new Identifier(Aylyth.MOD_ID, string);
 	}
 }

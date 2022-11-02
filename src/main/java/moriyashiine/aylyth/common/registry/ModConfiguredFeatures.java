@@ -2,7 +2,6 @@ package moriyashiine.aylyth.common.registry;
 
 import com.google.common.collect.ImmutableList;
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.block.PomegranateLeavesBlock;
 import moriyashiine.aylyth.common.world.generator.AylthianTrunkPlacer;
 import moriyashiine.aylyth.common.world.generator.BigYmpeTrunkPlacer;
 import moriyashiine.aylyth.common.world.generator.PomegranateTrunkPlacer;

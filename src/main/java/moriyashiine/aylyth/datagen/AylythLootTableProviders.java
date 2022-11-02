@@ -11,7 +11,6 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
 import net.minecraft.data.server.BlockLootTableGenerator;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.Items;
@@ -21,7 +20,6 @@ import net.minecraft.loot.condition.*;
 import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.entry.AlternativeEntry;
 import net.minecraft.loot.entry.ItemEntry;
-import net.minecraft.loot.entry.LeafEntry;
 import net.minecraft.loot.entry.LootPoolEntry;
 import net.minecraft.loot.function.SetCountLootFunction;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
@@ -31,8 +29,6 @@ import net.minecraft.predicate.StatePredicate;
 import net.minecraft.predicate.item.EnchantmentPredicate;
 import net.minecraft.predicate.item.ItemPredicate;
 import net.minecraft.state.property.Property;
-
-import java.util.List;
 
 public class AylythLootTableProviders {
 
@@ -66,6 +62,8 @@ public class AylythLootTableProviders {
             addDrop(ModBlocks.GHOSTCAP_MUSHROOM, () -> ModItems.GHOSTCAP_MUSHROOM);
             woodSuiteDrops(ModBlocks.POMEGRANATE_BLOCKS);
             addDrop(ModBlocks.POMEGRANATE_LEAVES, block -> pomegranateLeavesDrop(block, ModBlocks.POMEGRANATE_BLOCKS.sapling, 0.05f, 0.0625f, 0.083333336f, 0.1f));
+            addDrop(ModBlocks.VITAL_THURIBLE);
+            addDrop(ModBlocks.SOUL_HEARTH);
         }
 
         private void woodSuiteDrops(WoodSuite suite) {

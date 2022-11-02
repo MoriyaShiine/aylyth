@@ -2,6 +2,7 @@ package moriyashiine.aylyth.common.registry;
 
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.recipe.ShuckingRecipe;
+import moriyashiine.aylyth.common.recipe.SoulCampfireRecipe;
 import moriyashiine.aylyth.common.recipe.YmpeDaggerDropRecipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
@@ -16,6 +17,14 @@ public class ModRecipeTypes {
 		@Override
 		public String toString() {
 			return Aylyth.MOD_ID + ":ympe_dagger_drop";
+		}
+	};
+
+	public static final RecipeSerializer<SoulCampfireRecipe> SOULFIRE_RECIPE_SERIALIZER = new SoulCampfireRecipe.Serializer();
+	public static final RecipeType<SoulCampfireRecipe> SOULFIRE_RECIPE_TYPE = new RecipeType<>() {
+		@Override
+		public String toString() {
+			return Aylyth.MOD_ID + ":soul_fire";
 		}
 	};
 	

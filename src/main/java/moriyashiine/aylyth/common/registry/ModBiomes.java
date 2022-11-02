@@ -3,7 +3,6 @@ package moriyashiine.aylyth.common.registry;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.registry.biome.BiomeBuilder;
 import moriyashiine.aylyth.common.registry.biome.SpawnSettingsBuilder;
-import net.minecraft.entity.SpawnGroup;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.BiomeAdditionsSound;
 import net.minecraft.sound.BiomeMoodSound;
@@ -22,7 +21,7 @@ import net.minecraft.world.gen.feature.VegetationPlacedFeatures;
 //TODO: clearing flowers still need fixed
 public class ModBiomes {
 	public static final SpawnSettings COPSE_MOBS = SpawnSettingsBuilder.builder().spawnCost(ModEntityTypes.AYLYTHIAN, 2, 1).monster(ModEntityTypes.AYLYTHIAN, 20, 1, 2).ambient(ModEntityTypes.PILOT_LIGHT, 5, 1, 1).spawnChance(0.5F).build();
-	public static final SpawnSettings DEEPWOOD_MOBS = SpawnSettingsBuilder.builder().spawnCost(ModEntityTypes.AYLYTHIAN, 3, 1).monster(ModEntityTypes.AYLYTHIAN, 25, 1, 3).monster(ModEntityTypes.ELDER_AYLYTHIAN, 2, 1, 1).ambient(ModEntityTypes.PILOT_LIGHT, 10, 1, 1).build();
+	public static final SpawnSettings DEEPWOOD_MOBS = SpawnSettingsBuilder.builder().spawnCost(ModEntityTypes.AYLYTHIAN, 3, 1).monster(ModEntityTypes.AYLYTHIAN, 25, 1, 3).monster(ModEntityTypes.ELDER_AYLYTHIAN, 2, 1, 1).monster(ModEntityTypes.SCION, 15, 1, 1).ambient(ModEntityTypes.PILOT_LIGHT, 10, 1, 1).build();
 	public static final BiomeAdditionsSound OVERGROWN_CLEARING_AMBIANCE = new BiomeAdditionsSound(ModSoundEvents.AMBIENT_FOREST_ADDITIONS, 0.001);
 	public static final BiomeAdditionsSound FOREST_AMBIANCE = new BiomeAdditionsSound(ModSoundEvents.AMBIENT_FOREST_ADDITIONS, 0.005);
 	public static final RegistryKey<Biome> CLEARING_ID = RegistryKey.of(Registry.BIOME_KEY, new Identifier(Aylyth.MOD_ID, "clearing"));

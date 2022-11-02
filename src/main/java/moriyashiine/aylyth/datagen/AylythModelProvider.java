@@ -1,7 +1,6 @@
 package moriyashiine.aylyth.datagen;
 
 import com.google.common.collect.ImmutableList;
-import com.google.gson.JsonElement;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.block.PomegranateLeavesBlock;
 import moriyashiine.aylyth.common.block.StrewnLeavesBlock;
@@ -21,8 +20,6 @@ import net.minecraft.util.Identifier;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.function.BiConsumer;
-import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public class AylythModelProvider extends FabricModelProvider {
@@ -68,6 +65,7 @@ public class AylythModelProvider extends FabricModelProvider {
         woodSuite(blockStateModelGenerator, ModBlocks.POMEGRANATE_BLOCKS);
         fruitingLeaves(blockStateModelGenerator, ModBlocks.POMEGRANATE_LEAVES, blockId("pomegranate_leaves"), blockId("pomegranate_leaves_fruiting_0"), blockId("pomegranate_leaves_fruiting_1"), blockId("pomegranate_leaves_fruiting_2"));
         TexturedModel.CUBE_ALL.upload(ModBlocks.POMEGRANATE_LEAVES, blockStateModelGenerator.modelCollector);
+        blockStateModelGenerator.registerSingleton(ModBlocks.DARK_WOODS_TILES, TexturedModel.CUBE_ALL);
     }
 
     @Override
@@ -78,6 +76,8 @@ public class AylythModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.GHOSTCAP_MUSHROOM_SPORES, Models.GENERATED);
         generated(itemModelGenerator, ModItems.POMEGRANATE_ITEMS.boat);
         generated(itemModelGenerator, ModItems.POMEGRANATE_ITEMS.chestBoat);
+        itemModelGenerator.register(ModItems.DEBUG_WAND, Models.GENERATED);
+        itemModelGenerator.register(ModItems.WRONGMEAT, Models.GENERATED);
     }
 
     private void fruitingLeaves(BlockStateModelGenerator generator, Block block, Identifier stage0, Identifier stage1, Identifier stage2, Identifier stage3) {

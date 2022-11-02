@@ -104,6 +104,12 @@
         "maxCount": 1,
         "minCount": 1,
         "weight": 2
+      },
+      {
+        "type": "aylyth:scion",
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 15
       }
     ],
     "underground_water_creature": [],

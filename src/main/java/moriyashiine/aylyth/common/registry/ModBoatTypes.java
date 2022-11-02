@@ -2,13 +2,10 @@ package moriyashiine.aylyth.common.registry;
 
 import com.terraformersmc.terraform.boat.api.TerraformBoatType;
 import com.terraformersmc.terraform.boat.api.TerraformBoatTypeRegistry;
-import com.terraformersmc.terraform.boat.api.item.TerraformBoatItemHelper;
 import moriyashiine.aylyth.common.Aylyth;
 import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-
-import java.util.function.Supplier;
 
 public class ModBoatTypes {
 	public static final TerraformBoatType YMPE_BOAT_TYPE = new TerraformBoatType.Builder().item(ModItems.YMPE_ITEMS.boat).build();

@@ -9,7 +9,7 @@ import net.minecraft.client.render.entity.model.*;
 import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
-public class ScionEntityModel<T extends ScionEntity> extends BipedEntityModel<T> {
+public class ScionEntityModel<T extends ScionEntity> extends BipedEntityModel<T> implements ModelWithArms {
 	public static final EntityModelLayer LAYER_LOCATION = new EntityModelLayer(new Identifier(Aylyth.MOD_ID, "scion"), "main");
 	private final ModelPart head;
 	private final ModelPart body;
@@ -17,9 +17,13 @@ public class ScionEntityModel<T extends ScionEntity> extends BipedEntityModel<T>
 	private final ModelPart rightArm;
 	private final ModelPart leftLeg;
 	private final ModelPart rightLeg;
+	public ArmPose leftArmPose;
+	public ArmPose rightArmPose;
 
 	public ScionEntityModel(ModelPart root) {
 		super(root);
+		this.leftArmPose = ArmPose.CROSSBOW_HOLD;
+		this.rightArmPose = ArmPose.CROSSBOW_HOLD;
 		this.head = root.getChild(EntityModelPartNames.HEAD);
 		this.body = root.getChild(EntityModelPartNames.BODY);
 		this.leftArm = root.getChild(EntityModelPartNames.LEFT_ARM);
@@ -104,13 +108,11 @@ public class ScionEntityModel<T extends ScionEntity> extends BipedEntityModel<T>
 	@Override
 	public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
 		super.setAngles(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
+		CrossbowPosing.meleeAttack(this.leftArm, this.rightArm, this.isAttacking(entity), this.handSwingProgress, animationProgress);
 	}
 
 
-	private void copyRotation(ModelPart to, ModelPart from) {
-		to.pitch = from.pitch;
-		to.yaw = from.yaw;
-		to.roll = from.roll;
+	public boolean isAttacking(T entity) {
+		return true;
 	}
-
 }

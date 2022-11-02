@@ -1,17 +1,17 @@
-// 1.19.2	2022-10-30T20:41:32.0003727	Tags for minecraft:item
-38fc058d6d894b1bb20295d5e743051531159976 data\minecraft\tags\items\planks.json
-40548c100b913000d233ec42762c812ff5f0e7b6 data\aylyth\tags\items\ympe_logs.json
-73c7abe9252ddcb57c8e2faa3431ab2c40cdd3f0 data\minecraft\tags\items\boats.json
-66f34aeb46c859cf49a1102fa1bfa0a880b7ac4b data\minecraft\tags\items\wooden_fences.json
-f21eba01dd9e97fb579f8f46665cc5a2457673ee data\minecraft\tags\items\wooden_trapdoors.json
-4d68a00e1a27d7c2e27f15493924c3fccdb96145 data\minecraft\tags\items\signs.json
-2e93c8a86d952a99191a9983eb9730e8e18d5cb2 data\minecraft\tags\items\leaves.json
-83dc028770bf84d16e2e121f7c8a23f73ce84c88 data\minecraft\tags\items\wooden_buttons.json
-c3186402efd182a100e487d1cfc0c591ec7a4cb5 data\minecraft\tags\items\saplings.json
-adaf3414e1afb8d794ae0ef653bafff54e4e2e11 data\minecraft\tags\items\chest_boats.json
-0d84555ce7d87f79d1aeec8895622e9b4b7f2b72 data\minecraft\tags\items\wooden_slabs.json
-03a668bf7f7bfff140f3ba939b51b25900d8263b data\minecraft\tags\items\wooden_doors.json
-1d3f7bd36dd9aa8247b70fc3bb0aa7928d54c296 data\minecraft\tags\items\logs_that_burn.json
-a97930314f3ab13974bcca343f3dd84801828f48 data\minecraft\tags\items\wooden_stairs.json
-bdb57690229e062765b93d2ce6b75322aa9389cc data\minecraft\tags\items\wooden_pressure_plates.json
-b9f50de53426f914987241daebd8cd2c746a2b2a data\aylyth\tags\items\pomegranate_logs.json
+// 1.19.2	2022-11-02T14:49:31.089310196	Tags for minecraft:item
+0d84555ce7d87f79d1aeec8895622e9b4b7f2b72 data/minecraft/tags/items/wooden_slabs.json
+03a668bf7f7bfff140f3ba939b51b25900d8263b data/minecraft/tags/items/wooden_doors.json
+adaf3414e1afb8d794ae0ef653bafff54e4e2e11 data/minecraft/tags/items/chest_boats.json
+83dc028770bf84d16e2e121f7c8a23f73ce84c88 data/minecraft/tags/items/wooden_buttons.json
+1d3f7bd36dd9aa8247b70fc3bb0aa7928d54c296 data/minecraft/tags/items/logs_that_burn.json
+bdb57690229e062765b93d2ce6b75322aa9389cc data/minecraft/tags/items/wooden_pressure_plates.json
+73c7abe9252ddcb57c8e2faa3431ab2c40cdd3f0 data/minecraft/tags/items/boats.json
+4d68a00e1a27d7c2e27f15493924c3fccdb96145 data/minecraft/tags/items/signs.json
+2e93c8a86d952a99191a9983eb9730e8e18d5cb2 data/minecraft/tags/items/leaves.json
+66f34aeb46c859cf49a1102fa1bfa0a880b7ac4b data/minecraft/tags/items/wooden_fences.json
+b9f50de53426f914987241daebd8cd2c746a2b2a data/aylyth/tags/items/pomegranate_logs.json
+38fc058d6d894b1bb20295d5e743051531159976 data/minecraft/tags/items/planks.json
+a97930314f3ab13974bcca343f3dd84801828f48 data/minecraft/tags/items/wooden_stairs.json
+f21eba01dd9e97fb579f8f46665cc5a2457673ee data/minecraft/tags/items/wooden_trapdoors.json
+40548c100b913000d233ec42762c812ff5f0e7b6 data/aylyth/tags/items/ympe_logs.json
+c3186402efd182a100e487d1cfc0c591ec7a4cb5 data/minecraft/tags/items/saplings.json

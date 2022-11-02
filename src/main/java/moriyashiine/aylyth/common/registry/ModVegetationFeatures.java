@@ -1,14 +1,6 @@
 package moriyashiine.aylyth.common.registry;
 
-import com.google.common.collect.ImmutableList;
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.world.generator.AylthianTrunkPlacer;
-import moriyashiine.aylyth.common.world.generator.BigYmpeTrunkPlacer;
-import moriyashiine.aylyth.common.world.generator.YmpeTrunkPlacer;
-import moriyashiine.aylyth.common.world.generator.feature.GrapeVineDecorator;
-import moriyashiine.aylyth.common.world.generator.feature.StrewnLeavesDecorator;
-import moriyashiine.aylyth.mixin.TreeDecoratorTypeAccessor;
-import moriyashiine.aylyth.mixin.TrunkPlacerTypeAccessor;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.VerticalSurfaceType;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
@@ -16,9 +8,6 @@ import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.placementmodifier.*;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
-import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
-import net.minecraft.world.gen.treedecorator.TreeDecoratorType;
-import net.minecraft.world.gen.trunk.TrunkPlacerType;
 
 import java.util.List;
 
