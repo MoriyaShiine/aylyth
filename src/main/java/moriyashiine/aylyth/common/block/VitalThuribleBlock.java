@@ -45,7 +45,7 @@ public class VitalThuribleBlock extends Block {
         } else if (isActivateItem(itemStack) && !state.get(ACTIVE)) {
             if(!world.isClient()){
                 ModWorldState worldState = ModWorldState.get(world);
-                Pair<ServerWorld, BlockPos> existingVitalThurible = getPhylactery(player);
+                Pair<ServerWorld, BlockPos> existingVitalThurible = getVitalThurible(player);
                 if (existingVitalThurible != null) {
                     System.out.println("Break");
                     existingVitalThurible.getFirst().breakBlock(existingVitalThurible.getSecond(), true, player);
@@ -65,7 +65,7 @@ public class VitalThuribleBlock extends Block {
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
         if(!world.isClient() && state.getBlock() != newState.getBlock()){
             ModWorldState modWorldState = ModWorldState.get(world);
-            PlayerEntity player = world.getPlayerByUuid(VitalThuribleBlock.getPlayerForVital(modWorldState, pos));
+            PlayerEntity player = world.getPlayerByUuid(VitalThuribleBlock.getPlayerForVitalThurible(modWorldState, pos));
             if (player != null) {
                 modWorldState.removeVitalTurible(player);
                 if(world.getServer() != null){
@@ -99,7 +99,7 @@ public class VitalThuribleBlock extends Block {
         }
     }
 
-    public static UUID getPlayerForVital(ModWorldState worldState, BlockPos pos){
+    public static UUID getPlayerForVitalThurible(ModWorldState worldState, BlockPos pos){
         for (UUID uuid : worldState.vital_thurible.keySet()) {
             if (worldState.vital_thurible.get(uuid).equals(pos)) {
                 return uuid;
@@ -108,7 +108,7 @@ public class VitalThuribleBlock extends Block {
         return null;
     }
 
-    public static Pair<ServerWorld, BlockPos> getPhylactery(PlayerEntity player) {
+    public static Pair<ServerWorld, BlockPos> getVitalThurible(PlayerEntity player) {
         if (player.world instanceof ServerWorld) {
             for (ServerWorld serverWorld : player.world.getServer().getWorlds()) {
                 ModWorldState worldState = ModWorldState.get(serverWorld);
