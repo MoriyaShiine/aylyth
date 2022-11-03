@@ -4,12 +4,14 @@ import com.terraformersmc.terraform.boat.api.client.TerraformBoatClientHelper;
 import com.terraformersmc.terraform.sign.SpriteIdentifierRegistry;
 import moriyashiine.aylyth.client.model.YmpeInfestationModel;
 import moriyashiine.aylyth.client.model.YmpeThornRingModel;
+import moriyashiine.aylyth.client.model.entity.RootPropEntityModel;
 import moriyashiine.aylyth.client.model.entity.ScionEntityModel;
 import moriyashiine.aylyth.client.network.packet.SpawnShuckParticlesPacket;
 import moriyashiine.aylyth.client.network.packet.UpdatePressingUpDownPacket;
 import moriyashiine.aylyth.client.particle.PilotLightParticle;
 import moriyashiine.aylyth.client.render.AylythDimensionRenderer;
 import moriyashiine.aylyth.client.render.block.entity.SeepBlockEntityRenderer;
+import moriyashiine.aylyth.client.render.entity.RootPropEntityRenderer;
 import moriyashiine.aylyth.client.render.entity.living.*;
 import moriyashiine.aylyth.client.render.entity.projectile.YmpeLanceEntityRenderer;
 import moriyashiine.aylyth.client.render.item.BigItemRenderer;
@@ -37,6 +39,7 @@ import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.TexturedRenderLayers;
+import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.client.util.ModelIdentifier;
@@ -87,6 +90,7 @@ public class AylythClient implements ClientModInitializer {
 		EntityRendererRegistry.register(ModEntityTypes.YMPE_LANCE, YmpeLanceEntityRenderer::new);
 		EntityRendererRegistry.register(ModEntityTypes.SOULMOULD, SoulmouldEntityRenderer::new);
 		EntityRendererRegistry.register(ModEntityTypes.BONEFLY, BoneflyEntityRenderer::new);
+		EntityRendererRegistry.register(ModEntityTypes.ROOT_PROP, RootPropEntityRenderer::new);
 		TerraformBoatClientHelper.registerModelLayers(new Identifier(Aylyth.MOD_ID, "ympe"));
 		TerraformBoatClientHelper.registerModelLayers(new Identifier(Aylyth.MOD_ID, "ympe_chest"));
 		TerraformBoatClientHelper.registerModelLayers(new Identifier(Aylyth.MOD_ID, "pomegranate"));
@@ -98,6 +102,7 @@ public class AylythClient implements ClientModInitializer {
 		});
 
 		EntityModelLayerRegistry.registerModelLayer(ScionEntityModel.LAYER_LOCATION, ScionEntityModel::createBodyLayer);
+		EntityModelLayerRegistry.registerModelLayer(RootPropEntityModel.LAYER_LOCATION, RootPropEntityModel::createBodyLayer);
 		EntityRendererRegistry.register(ModEntityTypes.SCION, ScionEntityRenderer::new);
 
 		DESCEND = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.aylyth.descend", InputUtil.Type.KEYSYM, 71, "category.aylyth.keybind"));

@@ -1,6 +1,4 @@
 {
-	"credit": "Made with Blockbench",
-	"parent": "vital_thurible",
 	"textures": {
 		"0": "aylyth:block/vital_thurible_bowl",
 		"1": "aylyth:block/vital_thurible_main",
