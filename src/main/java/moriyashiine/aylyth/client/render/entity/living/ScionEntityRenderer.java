@@ -23,6 +23,7 @@ public class ScionEntityRenderer extends BipedEntityRenderer<ScionEntity, BipedE
     private final ScionCoreEntityModel normalModel;
     private final ScionCoreEntityModel slimModel;
 
+
     public ScionEntityRenderer(EntityRendererFactory.Context ctx) {
         super(ctx, new ScionCoreEntityModel(ctx.getPart(EntityModelLayers.PLAYER)), 0.5f);
         this.normalModel = (ScionCoreEntityModel) this.getModel();
@@ -36,6 +37,7 @@ public class ScionEntityRenderer extends BipedEntityRenderer<ScionEntity, BipedE
     public void render(@NotNull ScionEntity mobEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
         super.render(mobEntity, f, g, matrixStack, vertexConsumerProvider, i);
         this.model = getSlim(mobEntity) ? slimModel : normalModel;
+
     }
 
     public boolean getSlim(ScionEntity mobEntity){
