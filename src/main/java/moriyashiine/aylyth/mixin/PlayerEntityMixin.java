@@ -33,8 +33,10 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraft.world.explosion.Explosion;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArgs;
@@ -53,6 +55,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Vital {
     private static final EntityAttributeModifier VITAL_HEALTH_MODIFIER = new EntityAttributeModifier(UUID.fromString("2ee98b0b-7180-46ac-97ce-d8f7307bffb1"), "vital modifier", 20, EntityAttributeModifier.Operation.ADDITION);
 
 
+
     @Shadow
     protected boolean isSubmergedInWater;
 
@@ -65,6 +68,8 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Vital {
     protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
     }
+
+
 
     @Inject(method = "writeCustomDataToNbt", at = @At("TAIL"))
     private void writeAylythData(NbtCompound compoundTag, CallbackInfo info) {
@@ -132,15 +137,15 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Vital {
 
     }
 
-    @ModifyArgs(method = "damage", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;damage(Lnet/minecraft/entity/damage/DamageSource;F)Z"))
-    private void aylyth$onDamaged(Args args) {
-        DamageSource source = args.get(0);
-        float value = args.get(1);
-        if (this.getInventory().contains(ModItems.SOULTRAP_EFFIGY_ITEM.getDefaultStack()) && this.isSubmergedInWater && !this.isInvulnerableTo(source) && !this.isDead() && this.random.nextInt(6) == 1) {
-            args.set(1, value * 2.0F);
+    @Inject(method = "damage", at = @At("HEAD"))
+    private void submergedDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+        if(this.getInventory().contains(ModItems.SOULTRAP_EFFIGY_ITEM.getDefaultStack()) && this.isSubmergedInWater && !isInvulnerableTo(source) && !this.isDead() && random.nextInt(6) == 1) {
+            super.damage(source, amount);
+            this.timeUntilRegen = 0;
         }
-
     }
+
+
 
     @Override
     public void stopRiding() {

@@ -2,6 +2,7 @@ package moriyashiine.aylyth.common.registry;
 
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.entity.RootPropEntity;
+import moriyashiine.aylyth.common.entity.SoulExplosionEntity;
 import moriyashiine.aylyth.common.entity.mob.*;
 import moriyashiine.aylyth.common.entity.passive.PilotLightEntity;
 import moriyashiine.aylyth.common.entity.projectile.YmpeLanceEntity;
@@ -26,6 +27,9 @@ public class ModEntityTypes {
 
 	public static final EntityType<ScionEntity> SCION = FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, ScionEntity::new).dimensions(EntityDimensions.fixed(0.6F, 1.95F)).fireImmune().build();
 	public static final EntityType<RootPropEntity> ROOT_PROP = FabricEntityTypeBuilder.<RootPropEntity>create(SpawnGroup.MISC, RootPropEntity::new).dimensions(EntityDimensions.fixed(0.5F, 0.5F)).build();
+	public static final EntityType<RippedSoulEntity> RIPPED_SOUL = FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, RippedSoulEntity::new).dimensions(EntityDimensions.changing(0.9F, 0.9F)).fireImmune().build();
+	public static final EntityType<SoulExplosionEntity> SOUL_EXPLOSION = FabricEntityTypeBuilder.create(SpawnGroup.MISC, SoulExplosionEntity::new).trackRangeBlocks(10).dimensions(EntityDimensions.fixed(0.9f, 1.8F)).build();
+
 
 	public static void init() {
 		FabricDefaultAttributeRegistry.register(PILOT_LIGHT, PilotLightEntity.createAttributes());
@@ -34,6 +38,7 @@ public class ModEntityTypes {
 		FabricDefaultAttributeRegistry.register(SOULMOULD, SoulmouldEntity.createSoulmouldAttributes());
 		FabricDefaultAttributeRegistry.register(BONEFLY, BoneflyEntity.createBoneflyAttributes());
 		FabricDefaultAttributeRegistry.register(SCION, ScionEntity.createAttributes());
+		FabricDefaultAttributeRegistry.register(RIPPED_SOUL, RippedSoulEntity.createVexAttributes());
 		Registry.register(Registry.ENTITY_TYPE, new Identifier(Aylyth.MOD_ID, "pilot_light"), PILOT_LIGHT);
 		Registry.register(Registry.ENTITY_TYPE, new Identifier(Aylyth.MOD_ID, "aylythian"), AYLYTHIAN);
 		Registry.register(Registry.ENTITY_TYPE, new Identifier(Aylyth.MOD_ID, "elder_aylythian"), ELDER_AYLYTHIAN);
@@ -42,6 +47,8 @@ public class ModEntityTypes {
 		Registry.register(Registry.ENTITY_TYPE, new Identifier(Aylyth.MOD_ID, "bonefly"), BONEFLY);
 		Registry.register(Registry.ENTITY_TYPE, new Identifier(Aylyth.MOD_ID, "scion"), SCION);
 		Registry.register(Registry.ENTITY_TYPE, new Identifier(Aylyth.MOD_ID, "root_prop"), ROOT_PROP);
+		Registry.register(Registry.ENTITY_TYPE, new Identifier(Aylyth.MOD_ID, "ripped_soul"), RIPPED_SOUL);
+		Registry.register(Registry.ENTITY_TYPE, new Identifier(Aylyth.MOD_ID, "soul_explosion"), SOUL_EXPLOSION);
 		
 		SpawnRestriction.register(PILOT_LIGHT, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING, PilotLightEntity::canSpawn);
 		SpawnRestriction.register(AYLYTHIAN, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AylythianEntity::canSpawn);

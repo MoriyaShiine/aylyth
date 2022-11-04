@@ -74,6 +74,9 @@ dependencies {
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${rei_version}"
     // modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"
 	modRuntimeOnly "curse.maven:disablecustomworldsadvice-401978:3827588"
+
+    //Illuminations Compat
+    modImplementation "curse.maven:illuminations-292908:4046680"
 }
 
 processResources {
