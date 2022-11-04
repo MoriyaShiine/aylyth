@@ -31,18 +31,22 @@ public class ModDamageSources {
 			this.source = source;
 		}
 
+		@Override
 		public Entity getAttacker() {
 			return this.source;
 		}
 
+		@Override
 		public boolean isScaledWithDifficulty() {
 			return this.source instanceof LivingEntity && !(this.source instanceof PlayerEntity);
 		}
 
+		@Override
 		public @Nullable Vec3d getPosition() {
 			return this.source.getPos();
 		}
 
+		@Override
 		public String toString() {
 			return "EntityDamageSource (" + this.source + ")";
 		}
