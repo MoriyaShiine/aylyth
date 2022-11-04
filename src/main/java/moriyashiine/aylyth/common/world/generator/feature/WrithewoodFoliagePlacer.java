@@ -3,7 +3,6 @@ package moriyashiine.aylyth.common.world.generator.feature;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import moriyashiine.aylyth.common.registry.ModFeatures;
-import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -31,10 +30,14 @@ public class WrithewoodFoliagePlacer extends FoliagePlacer {
     @Override
     protected void generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, TreeFeatureConfig config, int trunkHeight, TreeNode treeNode, int foliageHeight, int radius, int offset) {
         var pos = treeNode.getCenter();
-        if (treeNode instanceof DirectionalTreeNode dirNode) {
+        if (treeNode instanceof WrithewoodTreeNode dirNode) {
             var dir = dirNode.dir;
-            generateBetween(world, replacer, random, config, pos.offset(dir.getOpposite()).offset(dir.rotateYCounterclockwise()), pos.offset(dir, 2).offset(dir.rotateYClockwise()));
-
+            generateBetween(world, replacer, random, config, pos.offset(dir.getOpposite()).offset(dir.rotateYCounterclockwise()), pos.offset(dir, 3).offset(dir.rotateYClockwise()));
+            generateBetween(world, replacer, random, config, pos.offset(dir, 3), pos.offset(dir, 5));
+            generateBetween(world, replacer, random, config, pos.offset(dir.rotateYCounterclockwise(), 2), pos.offset(dir, 2).offset(dir.rotateYCounterclockwise(), 2));
+            generateBetween(world, replacer, random, config, pos.offset(dir.rotateYClockwise(), 2), pos.offset(dir, 2).offset(dir.rotateYClockwise(), 2));
+            generateBetween(world, replacer, random, config, pos.offset(dir.getOpposite()).up(), pos.offset(dir, 2).up());
+            generateBetween(world, replacer, random, config, pos.offset(dir.getOpposite()).down(), pos.offset(dir, 2).down());
         } else {
             generateSquare(world, replacer, random, config, pos, radius, -2, false);
             generateSquare(world, replacer, random, config, pos, radius+1, -1, false);
@@ -57,5 +60,15 @@ public class WrithewoodFoliagePlacer extends FoliagePlacer {
     @Override
     protected boolean isInvalidForLeaves(Random random, int dx, int y, int dz, int radius, boolean giantTrunk) {
         return dx == radius && dz == radius;
+    }
+
+    public static class WrithewoodTreeNode extends DirectionalTreeNode {
+
+        public final int branchLength;
+
+        public WrithewoodTreeNode(BlockPos center, int foliageRadius, boolean giantTrunk, Direction dir, int branchlength) {
+            super(center, foliageRadius, giantTrunk, dir);
+            this.branchLength = branchlength;
+        }
     }
 }
