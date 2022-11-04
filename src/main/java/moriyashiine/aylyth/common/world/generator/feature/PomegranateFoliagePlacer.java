@@ -39,7 +39,7 @@ public class PomegranateFoliagePlacer extends FoliagePlacer {
     @Override
     protected void generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, TreeFeatureConfig config, int trunkHeight, TreeNode treeNode, int foliageHeight, int radius, int offset) {
         Set<BlockPos> positions = Sets.newHashSet();
-        if (treeNode instanceof PomegranateTreeNode pomeNode) {
+        if (treeNode instanceof DirectionalTreeNode pomeNode) {
             var dir = pomeNode.dir;
             var pos = pomeNode.getCenter().down().offset(dir.getOpposite()).offset(dir.rotateYCounterclockwise(), 2);
             placeIn(pos, pos.offset(dir, 2).offset(dir.rotateYClockwise(), 4), positions);
@@ -123,15 +123,5 @@ public class PomegranateFoliagePlacer extends FoliagePlacer {
     @Override
     protected boolean isInvalidForLeaves(Random random, int dx, int y, int dz, int radius, boolean giantTrunk) {
         return false;
-    }
-
-    public static class PomegranateTreeNode extends TreeNode {
-
-        public final Direction dir;
-
-        public PomegranateTreeNode(BlockPos center, int foliageRadius, boolean giantTrunk, Direction dir) {
-            super(center, foliageRadius, giantTrunk);
-            this.dir = dir;
-        }
     }
 }

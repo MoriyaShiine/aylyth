@@ -5,6 +5,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.ModFeatures;
+import moriyashiine.aylyth.common.world.generator.feature.DirectionalTreeNode;
 import moriyashiine.aylyth.common.world.generator.feature.PomegranateFoliagePlacer;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.PillarBlock;
@@ -64,7 +65,7 @@ public class PomegranateTrunkPlacer extends StraightTrunkPlacer {
             mutable.move(Direction.UP);
             getAndSetState(world, replacer, random, mutable, config);
         }
-        return new PomegranateFoliagePlacer.PomegranateTreeNode(mutable.move(Direction.UP).toImmutable(), 1, false, dir);
+        return new DirectionalTreeNode(mutable.move(Direction.UP).toImmutable(), 1, false, dir);
     }
 
     protected boolean getAndSetWoodState(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, BlockPos pos, TreeFeatureConfig config) {

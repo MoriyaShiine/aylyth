@@ -52,7 +52,7 @@ public class ModBlocks {
 		@Nullable
 		@Override
 		protected RegistryEntry<? extends ConfiguredFeature<?, ?>> getTreeFeature(Random random, boolean bees) {
-			return null; //TODO
+			return ModConfiguredFeatures.WRITHEWOOD_TREE;
 		}
 	});
 	public static final Block WRITHEWOOD_LEAVES = BlocksAccessor.callCreateLeavesBlock(BlockSoundGroup.GRASS);
