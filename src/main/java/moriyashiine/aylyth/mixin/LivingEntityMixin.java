@@ -1,6 +1,9 @@
 package moriyashiine.aylyth.mixin;
 
+import moriyashiine.aylyth.api.interfaces.Vital;
+import moriyashiine.aylyth.common.AylythUtil;
 import moriyashiine.aylyth.common.entity.mob.RippedSoulEntity;
+import moriyashiine.aylyth.common.item.YmpeDaggerItem;
 import moriyashiine.aylyth.common.registry.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -56,6 +59,10 @@ public abstract class LivingEntityMixin extends Entity {
 			}
 			soul.setPosition(this.getPos().add(0, 1, 0));
 			this.world.spawnEntity(soul);
+		}
+
+		if((LivingEntity) (Object) this instanceof PlayerEntity player && AylythUtil.isSourceYmpe(source)){
+			Vital.of(player).ifPresent(vital -> vital.setVitalThuribleLevel(0));
 		}
 	}
 }

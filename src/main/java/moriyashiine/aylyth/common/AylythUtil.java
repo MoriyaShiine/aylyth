@@ -1,5 +1,8 @@
 package moriyashiine.aylyth.common;
 
+import moriyashiine.aylyth.common.item.YmpeDaggerItem;
+import moriyashiine.aylyth.common.item.YmpeLanceItem;
+import moriyashiine.aylyth.common.registry.ModDamageSources;
 import moriyashiine.aylyth.common.registry.ModPotions;
 import moriyashiine.aylyth.common.registry.ModSoundEvents;
 import moriyashiine.aylyth.common.registry.ModTags;
@@ -8,6 +11,7 @@ import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -110,5 +114,12 @@ public class AylythUtil {
 		for(int i = 0; i < level; i++){
 			healthAttribute.addPersistentModifier(VITAL_ATTRIBUTES.get(i));
 		}
+	}
+
+	public static boolean isSourceYmpe(DamageSource source) {
+		if (source.getSource() instanceof LivingEntity livingEntity && (livingEntity.getMainHandStack().getItem() instanceof YmpeDaggerItem || livingEntity.getMainHandStack().getItem() instanceof YmpeLanceItem)) {
+			return true;
+		}
+		return source == ModDamageSources.YMPE || source == ModDamageSources.YMPE_ENTITY;
 	}
 }
