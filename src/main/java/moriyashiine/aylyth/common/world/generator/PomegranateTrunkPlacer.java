@@ -6,7 +6,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.ModFeatures;
 import moriyashiine.aylyth.common.world.generator.feature.DirectionalTreeNode;
-import moriyashiine.aylyth.common.world.generator.feature.PomegranateFoliagePlacer;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.PillarBlock;
 import net.minecraft.util.math.BlockPos;

@@ -9,7 +9,6 @@ import moriyashiine.aylyth.mixin.TrunkPlacerTypeAccessor;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.collection.DataPool;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.gen.foliage.FoliagePlacer;
 import net.minecraft.world.gen.foliage.FoliagePlacerType;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;

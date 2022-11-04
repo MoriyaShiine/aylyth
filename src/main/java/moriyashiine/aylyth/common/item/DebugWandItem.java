@@ -23,7 +23,13 @@ public class DebugWandItem extends Item {
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         if(!world.isClient()){
             if(user.isSneaking()){
-                Vital.of(user).ifPresent(vital -> vital.setVital(!vital.hasVital()));
+                Vital.of(user).ifPresent(vital -> {
+                    if(vital.getVitalThuribleLevel() == 0){
+                        vital.setVitalThuribleLevel(5);
+                    }else{
+                        vital.setVitalThuribleLevel(0);
+                    }
+                });
             }else{
                 ScionEntity.summonPlayerScion(user);
             }

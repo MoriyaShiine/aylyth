@@ -27,6 +27,8 @@ public class YmpeDaggerItem extends SwordItem {
 	public YmpeDaggerItem(ToolMaterial toolMaterial, int attackDamage, float attackSpeed, Settings settings) {
 		super(toolMaterial, attackDamage, attackSpeed, settings);
 	}
+
+
 	
 	@Override
 	public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot slot) {
