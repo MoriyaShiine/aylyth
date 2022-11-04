@@ -1,34 +1,47 @@
 package moriyashiine.aylyth.datagen;
 
+import com.google.common.collect.Maps;
 import moriyashiine.aylyth.common.block.JackolanternMushroomBlock;
 import moriyashiine.aylyth.common.block.PomegranateLeavesBlock;
 import moriyashiine.aylyth.common.block.StagedMushroomPlantBlock;
 import moriyashiine.aylyth.common.block.StrewnLeavesBlock;
 import moriyashiine.aylyth.common.registry.ModBlocks;
+import moriyashiine.aylyth.common.registry.ModEntityTypes;
 import moriyashiine.aylyth.common.registry.ModItems;
 import moriyashiine.aylyth.common.registry.util.WoodSuite;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
+import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
 import net.minecraft.block.Block;
 import net.minecraft.data.server.BlockLootTableGenerator;
 import net.minecraft.enchantment.Enchantments;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.condition.*;
 import net.minecraft.loot.context.LootContext;
-import net.minecraft.loot.entry.AlternativeEntry;
-import net.minecraft.loot.entry.ItemEntry;
-import net.minecraft.loot.entry.LootPoolEntry;
+import net.minecraft.loot.context.LootContextType;
+import net.minecraft.loot.context.LootContextTypes;
+import net.minecraft.loot.entry.*;
 import net.minecraft.loot.function.SetCountLootFunction;
+import net.minecraft.loot.provider.number.BinomialLootNumberProvider;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
+import net.minecraft.loot.provider.number.LootNumberProvider;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import net.minecraft.predicate.NumberRange;
 import net.minecraft.predicate.StatePredicate;
 import net.minecraft.predicate.item.EnchantmentPredicate;
 import net.minecraft.predicate.item.ItemPredicate;
 import net.minecraft.state.property.Property;
+import net.minecraft.util.Identifier;
+
+import java.util.Map;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
 
 public class AylythLootTableProviders {
 
@@ -40,6 +53,41 @@ public class AylythLootTableProviders {
 
     public static void registerProviders(FabricDataGenerator dataGenerator) {
         dataGenerator.addProvider(BlockLoot::new);
+        dataGenerator.addProvider(EntityLoot::new);
+    }
+
+    public static class EntityLoot extends SimpleFabricLootTableProvider {
+
+        private final Map<Identifier, LootTable.Builder> loot = Maps.newHashMap();
+
+        public EntityLoot(FabricDataGenerator dataGenerator) {
+            super(dataGenerator, LootContextTypes.ENTITY);
+        }
+
+        protected void generateLoot() {
+            addDrop(ModEntityTypes.SCION, this::scionLoot);
+        }
+
+        private LootTable.Builder scionLoot(EntityType<?> type) {
+            return LootTable.builder()
+                    .pool(LootPool.builder().with(AlternativeEntry.builder(GroupEntry.create(ItemEntry.builder(ModItems.POMEGRANATE), ItemEntry.builder(ModItems.NYSIAN_GRAPES)))))
+                    .pool(LootPool.builder().with(ItemEntry.builder(Items.ROTTEN_FLESH).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0, 3)))))
+                    .pool(LootPool.builder().with(ItemEntry.builder(ModItems.YMPE_ITEMS.sapling)));
+        }
+
+        public <T extends Entity> void addDrop(EntityType<T> type, Function<EntityType<T>, LootTable.Builder> function) {
+            loot.put(type.getLootTableId(), function.apply(type));
+        }
+
+        @Override
+        public void accept(BiConsumer<Identifier, LootTable.Builder> consumer) {
+            this.generateLoot();
+            for (Map.Entry<Identifier, LootTable.Builder> entry : loot.entrySet()) {
+                consumer.accept(entry.getKey(), entry.getValue());
+            }
+        }
+
+
     }
 
 
@@ -148,6 +196,4 @@ public class AylythLootTableProviders {
                     );
         }
     }
-
-    record StateEntryPair<T extends Comparable<T>>(Property<T> state, LootPoolEntry.Builder<?> entry) {}
 }
