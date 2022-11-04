@@ -55,7 +55,8 @@ public class AylythTagProviders {
             addSuite(ModBlocks.YMPE_BLOCKS, ModTags.YMPE_LOGS);
             getOrCreateTagBuilder(ModTags.YMPE_LOGS).add(ModBlocks.FRUIT_BEARING_YMPE_LOG);
             addSuite(ModBlocks.POMEGRANATE_BLOCKS, ModTags.POMEGRANATE_LOGS);
-            getOrCreateTagBuilder(BlockTags.LEAVES).add(ModBlocks.YMPE_LEAVES, ModBlocks.POMEGRANATE_LEAVES);
+            addSuite(ModBlocks.WRITHEWOOD_BLOCKS, ModTags.WRITHEWOOD_LOGS);
+            getOrCreateTagBuilder(BlockTags.LEAVES).add(ModBlocks.YMPE_LEAVES, ModBlocks.POMEGRANATE_LEAVES, ModBlocks.WRITHEWOOD_LEAVES);
         }
 
         private void addSuite(WoodSuite suite, TagKey<Block> logTag) {
@@ -86,10 +87,11 @@ public class AylythTagProviders {
 
         @Override
         protected void generateTags() {
-            getOrCreateTagBuilder(ItemTags.BOATS).add(ModItems.YMPE_ITEMS.boat, ModItems.POMEGRANATE_ITEMS.boat);
-            getOrCreateTagBuilder(ItemTags.CHEST_BOATS).add(ModItems.YMPE_ITEMS.chestBoat, ModItems.POMEGRANATE_ITEMS.chestBoat);
+            getOrCreateTagBuilder(ItemTags.BOATS).add(ModItems.YMPE_ITEMS.boat, ModItems.POMEGRANATE_ITEMS.boat, ModItems.WRITHEWOOD_ITEMS.boat);
+            getOrCreateTagBuilder(ItemTags.CHEST_BOATS).add(ModItems.YMPE_ITEMS.chestBoat, ModItems.POMEGRANATE_ITEMS.chestBoat, ModItems.WRITHEWOOD_ITEMS.chestBoat);
             copy(ModTags.YMPE_LOGS, ModTags.YMPE_LOGS_ITEM);
             copy(ModTags.POMEGRANATE_LOGS, ModTags.POMEGRANATE_LOGS_ITEM);
+            copy(ModTags.WRITHEWOOD_LOGS, ModTags.WRITHEWOOD_LOGS_ITEM);
             copy(BlockTags.LOGS_THAT_BURN, ItemTags.LOGS_THAT_BURN);
             copy(BlockTags.PLANKS, ItemTags.PLANKS);
             copy(BlockTags.WOODEN_STAIRS, ItemTags.WOODEN_STAIRS);

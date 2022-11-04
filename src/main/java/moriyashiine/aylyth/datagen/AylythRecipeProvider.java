@@ -28,7 +28,8 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
         offerSingleOutputShapelessRecipe(exporter, Items.ORANGE_DYE, ModItems.MARIGOLD, "");
         createTwoByTwo(exporter, Items.SHROOMLIGHT, 1, ModItems.JACK_O_LANTERN_MUSHROOM, "shroomlight_from_jack_o_lantern_mushroom");
         woodSuiteRecipes(exporter, ModItems.POMEGRANATE_ITEMS);
-        offerShapeless(exporter, ModItems.GHOSTCAP_MUSHROOM_SPORES, 1, ModItems.GHOSTCAP_MUSHROOM, null, "ghostcap_spores_from_ghostcap_mushroom");
+        woodSuiteRecipes(exporter, ModItems.WRITHEWOOD_ITEMS);
+        offerShapeless(exporter, ModItems.GHOSTCAP_MUSHROOM_SPORES, 1, ModItems.GHOSTCAP_MUSHROOM, null);
 
         ShapedRecipeJsonBuilder.create(ModItems.BONEFLY_SKULL)
                 .input('b', Items.BONE_MEAL)
@@ -41,13 +42,13 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
                 .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(ModItems.GLAIVE)
-                .input('s', ModItems.YMPE_DAGGER)
-                .input('g', ModItems.CORIC_SEED)
-                .input('i', ModItems.YMPE_ITEMS.sapling)
-                .pattern(" gs")
-                .pattern(" ii")
-                .pattern("i  ")
-                .criterion("has_ympe_dagger", conditionsFromItem(ModItems.YMPE_DAGGER))
+                .input('D', ModItems.YMPE_DAGGER)
+                .input('S', ModItems.YMPE_ITEMS.sapling)
+                .input('C', ModItems.CORIC_SEED)
+                .pattern(" CD")
+                .pattern(" SS")
+                .pattern("S  ")
+                .criterion("has_dagger", conditionsFromItem(ModItems.YMPE_DAGGER))
                 .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(ModItems.SOULMOULD_ITEM)
@@ -62,13 +63,36 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
 
         ShapedRecipeJsonBuilder.create(ModItems.SOULTRAP_EFFIGY_ITEM)
                 .input('d', Items.SOUL_SOIL)
-                .input('a', ModItems.YMPE_ITEMS.sapling)
+                .input('s', ModItems.YMPE_ITEMS.sapling)
                 .input('n', Items.NETHERITE_INGOT)
-                .input('s', ModItems.AYLYTHIAN_HEART)
+                .input('h', ModItems.AYLYTHIAN_HEART)
                 .pattern("dnd")
-                .pattern("nsn")
-                .pattern("ada")
-                .criterion("has_soulmould", conditionsFromItem(ModItems.SOULMOULD_ITEM))
+                .pattern("nhn")
+                .pattern("sds")
+                .criterion("has_heart", conditionsFromItem(ModItems.AYLYTHIAN_HEART))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(ModItems.VITAL_THURIBLE)
+                .input('S', Items.POLISHED_DEEPSLATE_SLAB)
+                .input('H', ModItems.AYLYTHIAN_HEART)
+                .input('P', Items.POLISHED_DEEPSLATE_WALL)
+                .input('N', Items.NETHERITE_INGOT)
+                .input('C', Items.SOUL_CAMPFIRE)
+                .pattern("SHS")
+                .pattern("PNP")
+                .pattern("PCP")
+                .criterion("has_heart", conditionsFromItem(ModItems.AYLYTHIAN_HEART))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(ModItems.SOUL_HEARTH)
+                .input('S', Items.POLISHED_DEEPSLATE_SLAB)
+                .input('W', Items.POLISHED_DEEPSLATE_WALL)
+                .input('C', Items.SOUL_CAMPFIRE)
+                .input('H', ModItems.AYLYTHIAN_HEART)
+                .pattern(" S ")
+                .pattern("WCW")
+                .pattern("WHW")
+                .criterion("has_heart", conditionsFromItem(ModItems.AYLYTHIAN_HEART))
                 .offerTo(exporter);
     }
 
@@ -81,7 +105,7 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
         createFenceRecipe(suite.fence, Ingredient.ofItems(suite.planks)).group("wooden_fence").criterion(RecipeProvider.hasItem(suite.planks), conditionsFromItem(suite.planks)).offerTo(exporter);
         createFenceGateRecipe(suite.fenceGate, Ingredient.ofItems(suite.planks)).group("wooden_fence_gate").criterion(RecipeProvider.hasItem(suite.planks), conditionsFromItem(suite.planks)).offerTo(exporter);
         createPressurePlateRecipe(suite.pressurePlate, Ingredient.ofItems(suite.planks)).group("wooden_pressure_plate").criterion(RecipeProvider.hasItem(suite.planks), conditionsFromItem(suite.planks)).offerTo(exporter);
-        shapeless(suite.button, 1).input(suite.planks).group("wooden_button").criterion(RecipeProvider.hasItem(suite.planks), conditionsFromItem(suite.planks)).offerTo(exporter, new Identifier(dataGenerator.getModId(), "pomegranate_button_from_pomegranate_planks"));
+        offerShapeless(exporter, suite.button, 1, suite.planks, "wooden_button");
         createTrapdoorRecipe(suite.trapdoor, Ingredient.ofItems(suite.planks)).group("wooden_trapdoor").criterion(RecipeProvider.hasItem(suite.planks), conditionsFromItem(suite.planks)).offerTo(exporter);
         createDoorRecipe(suite.door, Ingredient.ofItems(suite.planks)).group("wooden_door").criterion(RecipeProvider.hasItem(suite.planks), conditionsFromItem(suite.planks)).offerTo(exporter);
         createSignRecipe(suite.sign, Ingredient.ofItems(suite.planks)).group("wooden_sign").criterion(RecipeProvider.hasItem(suite.planks), conditionsFromItem(suite.planks)).offerTo(exporter);
@@ -95,6 +119,10 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
 
     private void createTwoByTwo(Consumer<RecipeJsonProvider> exporter, ItemConvertible output, int outputCount, ItemConvertible input, String group, String recipeId) {
         ShapedRecipeJsonBuilder.create(output, outputCount).input('#', input).pattern("## ").pattern("## ").group(group).criterion(RecipeProvider.hasItem(input), conditionsFromItem(input)).offerTo(exporter, recipeId);
+    }
+
+    private void offerShapeless(Consumer<RecipeJsonProvider> exporter, ItemConvertible output, int outputCount, ItemConvertible input, @Nullable String group) {
+        offerShapeless(exporter, output, outputCount, input, group, convertBetween(output, input));
     }
 
     private void offerShapeless(Consumer<RecipeJsonProvider> exporter, ItemConvertible output, int outputCount, ItemConvertible input, @Nullable String group, @Nullable String recipeId) {

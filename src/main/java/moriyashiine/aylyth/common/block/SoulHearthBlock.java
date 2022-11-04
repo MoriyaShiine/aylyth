@@ -138,6 +138,13 @@ public class SoulHearthBlock extends Block {
         world.setBlockState(blockPos, this.getDefaultState().with(CHARGES, world.getBlockState(pos).get(CHARGES)).with(HALF, DoubleBlockHalf.UPPER), Block.NOTIFY_ALL);
     }
 
+    @Override
+    public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+        if (!world.isClient && player.isCreative()) {
+            TallPlantBlock.onBreakInCreative(world, pos, state, player);
+        }
+        super.onBreak(world, pos, state, player);
+    }
 
     public static Optional<Vec3d> findRespawnPosition(EntityType<?> entity, CollisionView world, BlockPos pos) {
         Optional<Vec3d> optional = findRespawnPosition(entity, world, pos, true);

@@ -2,19 +2,18 @@ package moriyashiine.aylyth.common.registry;
 
 import com.google.common.collect.ImmutableList;
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.world.generator.AylthianTrunkPlacer;
-import moriyashiine.aylyth.common.world.generator.BigYmpeTrunkPlacer;
-import moriyashiine.aylyth.common.world.generator.PomegranateTrunkPlacer;
-import moriyashiine.aylyth.common.world.generator.YmpeTrunkPlacer;
+import moriyashiine.aylyth.common.world.generator.*;
 import moriyashiine.aylyth.common.world.generator.feature.*;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.collection.DataPool;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
+import net.minecraft.util.math.intprovider.IntProvider;
 import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
+import net.minecraft.world.gen.foliage.BlobFoliagePlacer;
 import net.minecraft.world.gen.foliage.BushFoliagePlacer;
 import net.minecraft.world.gen.foliage.DarkOakFoliagePlacer;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
@@ -38,6 +37,7 @@ public class ModConfiguredFeatures {
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> YMPE_TREE = registerTree("ympe_tree", new TreeFeatureConfig.Builder(ModFeatures.YMPE_LOG_PROVIDER, new YmpeTrunkPlacer(), SimpleBlockStateProvider.of(ModBlocks.YMPE_LEAVES.getDefaultState()), new BushFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(1), 2), new TwoLayersFeatureSize(1, 1, 1)).ignoreVines().build());
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> BIG_YMPE_TREE = registerTree("big_ympe_tree", new TreeFeatureConfig.Builder(ModFeatures.YMPE_LOG_PROVIDER, new BigYmpeTrunkPlacer(), SimpleBlockStateProvider.of(ModBlocks.YMPE_LEAVES.getDefaultState()), new BushFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(1), 2), new TwoLayersFeatureSize(1, 1, 1)).ignoreVines().build());
     public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> POMEGRANATE_TREE = registerTree("pomegranate_tree", new TreeFeatureConfig.Builder(SimpleBlockStateProvider.of(ModBlocks.POMEGRANATE_BLOCKS.log), new PomegranateTrunkPlacer(5, 0, 0), SimpleBlockStateProvider.of(ModBlocks.POMEGRANATE_LEAVES.getDefaultState().with(Properties.PERSISTENT, false)), new PomegranateFoliagePlacer(ConstantIntProvider.create(1), ConstantIntProvider.create(0), 2), new TwoLayersFeatureSize(1, 1, 1)).ignoreVines().build());
+    public static final RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> WRITHEWOOD_TREE = registerTree("writhewood_tree", new TreeFeatureConfig.Builder(SimpleBlockStateProvider.of(ModBlocks.WRITHEWOOD_BLOCKS.log), new WrithewoodTrunkPlacer(6, 4, 14), SimpleBlockStateProvider.of(ModBlocks.WRITHEWOOD_LEAVES), new WrithewoodFoliagePlacer(ConstantIntProvider.create(1), ConstantIntProvider.create(1)), new TwoLayersFeatureSize(2, 1, 1)).ignoreVines().build());
 
     public static final RegistryEntry<ConfiguredFeature<SingleStateFeatureConfig, ?>> SPRING = register("spring", ModFeatures.SPRING_FEATURE, new SingleStateFeatureConfig(Blocks.WATER.getDefaultState()));
     public static final RegistryEntry<ConfiguredFeature<DefaultFeatureConfig, ?>> BUSHES = register("bushes", ModFeatures.BUSH_FEATURE, FeatureConfig.DEFAULT);
