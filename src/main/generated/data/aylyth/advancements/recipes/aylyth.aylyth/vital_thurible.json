@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_dagger": {
+    "has_heart": {
       "conditions": {
         "items": [
           {
             "items": [
-              "aylyth:ympe_dagger"
+              "aylyth:aylythian_heart"
             ]
           }
         ]
@@ -15,20 +15,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "aylyth:glaive"
+        "recipe": "aylyth:vital_thurible"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_dagger",
+      "has_heart",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "aylyth:glaive"
+      "aylyth:vital_thurible"
     ]
   }
 }

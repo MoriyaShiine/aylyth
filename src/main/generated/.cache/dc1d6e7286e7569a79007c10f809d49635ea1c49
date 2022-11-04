@@ -1,4 +1,4 @@
-// 1.19.2	2022-11-03T20:47:52.1876161	Block Loot Tables
+// 1.19.2	2022-11-04T13:05:27.7648742	Block Loot Tables
 a63238f612b350424e1c4c9c488470945323582a data\aylyth\loot_tables\blocks\pomegranate_button.json
 7a14653c5ab5c21c6b79be69ed7c9a31a2f32629 data\aylyth\loot_tables\blocks\pomegranate_planks.json
 5b8fcc3c98b0b5ebd17a532e97c1284042b27b29 data\aylyth\loot_tables\blocks\writhewood_sign.json
@@ -10,7 +10,7 @@ e165453df6c519f6efcb4b60b4fd078b461b279c data\aylyth\loot_tables\blocks\pomegran
 1c6008dba47e7e4ef193d44f990b38fea2fb5b0d data\aylyth\loot_tables\blocks\stripped_pomegranate_log.json
 523b80961c5750f4ac23f7922322f4bb9c380c6c data\aylyth\loot_tables\blocks\pomegranate_leaves.json
 668718708092b12e6e855b25f8ad540b98b1e7bd data\aylyth\loot_tables\blocks\pomegranate_slab.json
-b738fa0e036249892bc60edfe5b3d0d09c617d4c data\aylyth\loot_tables\blocks\soul_hearth.json
+9807ea6adb28beec205e5e9d75e9e3a0260b7732 data\aylyth\loot_tables\blocks\soul_hearth.json
 d9cc56ee331c3ca48785f797a878863d26bd3156 data\aylyth\loot_tables\blocks\writhewood_sapling.json
 273574af82b351dfb6c81bc79be4b18a87ca052c data\aylyth\loot_tables\blocks\stripped_writhewood_log.json
 89846081f3c002925a2bd630bc37d083583d60f1 data\aylyth\loot_tables\blocks\writhewood_wood.json

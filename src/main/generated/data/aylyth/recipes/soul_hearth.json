@@ -1,25 +1,25 @@
 {
-	"type": "minecraft:crafting_shaped",
-	"pattern": [
-		" S ",
-		"DFD",
-		"DHD"
-	],
-	"key": {
-		"S": {
-			"item": "minecraft:polished_deepslate_slab"
-		},
-		"D": {
-			"item": "minecraft:polished_deepslate_wall"
-		},
-		"F": {
-			"item": "minecraft:soul_campfire"
-		},
-		"H": {
-			"item": "aylyth:aylythian_heart"
-		}
-	},
-	"result": {
-		"item": "aylyth:soul_hearth"
-	}
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "C": {
+      "item": "minecraft:soul_campfire"
+    },
+    "H": {
+      "item": "aylyth:aylythian_heart"
+    },
+    "S": {
+      "item": "minecraft:polished_deepslate_slab"
+    },
+    "W": {
+      "item": "minecraft:polished_deepslate_wall"
+    }
+  },
+  "pattern": [
+    " S ",
+    "WCW",
+    "WHW"
+  ],
+  "result": {
+    "item": "aylyth:soul_hearth"
+  }
 }

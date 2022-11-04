@@ -42,14 +42,13 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
                 .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(ModItems.GLAIVE)
-                .input('s', Items.NETHERITE_SWORD)
-                .input('g', Items.GOLD_BLOCK)
-                .input('i', Items.STICK)
-                .input('m', ModItems.SOULTRAP_EFFIGY_ITEM)
-                .pattern(" gs")
-                .pattern(" im")
-                .pattern("i  ")
-                .criterion("has_soultrap", conditionsFromItem(ModItems.SOULTRAP_EFFIGY_ITEM))
+                .input('D', ModItems.YMPE_DAGGER)
+                .input('S', ModItems.YMPE_ITEMS.sapling)
+                .input('C', ModItems.CORIC_SEED)
+                .pattern(" CD")
+                .pattern(" SS")
+                .pattern("S  ")
+                .criterion("has_dagger", conditionsFromItem(ModItems.YMPE_DAGGER))
                 .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(ModItems.SOULMOULD_ITEM)
@@ -64,13 +63,36 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
 
         ShapedRecipeJsonBuilder.create(ModItems.SOULTRAP_EFFIGY_ITEM)
                 .input('d', Items.SOUL_SOIL)
-                .input('a', Items.NETHERITE_SCRAP)
+                .input('s', ModItems.YMPE_ITEMS.sapling)
                 .input('n', Items.NETHERITE_INGOT)
-                .input('s', ModItems.SOULMOULD_ITEM)
+                .input('h', ModItems.AYLYTHIAN_HEART)
                 .pattern("dnd")
-                .pattern("nsn")
-                .pattern("ada")
-                .criterion("has_soulmould", conditionsFromItem(ModItems.SOULMOULD_ITEM))
+                .pattern("nhn")
+                .pattern("sds")
+                .criterion("has_heart", conditionsFromItem(ModItems.AYLYTHIAN_HEART))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(ModItems.VITAL_THURIBLE)
+                .input('S', Items.POLISHED_DEEPSLATE_SLAB)
+                .input('H', ModItems.AYLYTHIAN_HEART)
+                .input('P', Items.POLISHED_DEEPSLATE_WALL)
+                .input('N', Items.NETHERITE_INGOT)
+                .input('C', Items.SOUL_CAMPFIRE)
+                .pattern("SHS")
+                .pattern("PNP")
+                .pattern("PCP")
+                .criterion("has_heart", conditionsFromItem(ModItems.AYLYTHIAN_HEART))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(ModItems.SOUL_HEARTH)
+                .input('S', Items.POLISHED_DEEPSLATE_SLAB)
+                .input('W', Items.POLISHED_DEEPSLATE_WALL)
+                .input('C', Items.SOUL_CAMPFIRE)
+                .input('H', ModItems.AYLYTHIAN_HEART)
+                .pattern(" S ")
+                .pattern("WCW")
+                .pattern("WHW")
+                .criterion("has_heart", conditionsFromItem(ModItems.AYLYTHIAN_HEART))
                 .offerTo(exporter);
     }
 

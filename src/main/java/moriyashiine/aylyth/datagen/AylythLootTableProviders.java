@@ -56,41 +56,6 @@ public class AylythLootTableProviders {
         dataGenerator.addProvider(EntityLoot::new);
     }
 
-    public static class EntityLoot extends SimpleFabricLootTableProvider {
-
-        private final Map<Identifier, LootTable.Builder> loot = Maps.newHashMap();
-
-        public EntityLoot(FabricDataGenerator dataGenerator) {
-            super(dataGenerator, LootContextTypes.ENTITY);
-        }
-
-        protected void generateLoot() {
-            addDrop(ModEntityTypes.SCION, this::scionLoot);
-        }
-
-        private LootTable.Builder scionLoot(EntityType<?> type) {
-            return LootTable.builder()
-                    .pool(LootPool.builder().with(GroupEntry.create(ItemEntry.builder(ModItems.POMEGRANATE), ItemEntry.builder(ModItems.NYSIAN_GRAPES))))
-                    .pool(LootPool.builder().with(ItemEntry.builder(Items.ROTTEN_FLESH).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 3)))))
-                    .pool(LootPool.builder().with(ItemEntry.builder(ModItems.YMPE_ITEMS.sapling)));
-        }
-
-        public <T extends Entity> void addDrop(EntityType<T> type, Function<EntityType<T>, LootTable.Builder> function) {
-            loot.put(type.getLootTableId(), function.apply(type));
-        }
-
-        @Override
-        public void accept(BiConsumer<Identifier, LootTable.Builder> consumer) {
-            this.generateLoot();
-            for (Map.Entry<Identifier, LootTable.Builder> entry : loot.entrySet()) {
-                consumer.accept(entry.getKey(), entry.getValue());
-            }
-        }
-
-
-    }
-
-
     public static class BlockLoot extends FabricBlockLootTableProvider {
 
         private final LootCondition.Builder withSilkTouch = MatchToolLootCondition.builder(ItemPredicate.Builder.create().enchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, NumberRange.IntRange.atLeast(1))));
@@ -113,7 +78,7 @@ public class AylythLootTableProviders {
             woodSuiteDrops(ModBlocks.WRITHEWOOD_BLOCKS);
             addDrop(ModBlocks.WRITHEWOOD_LEAVES, block -> leavesDrop(block, ModBlocks.WRITHEWOOD_BLOCKS.sapling, 0.05f, 0.0625f, 0.083333336f, 0.1f));
             addDrop(ModBlocks.VITAL_THURIBLE);
-            addDrop(ModBlocks.SOUL_HEARTH);
+            addDrop(ModBlocks.SOUL_HEARTH, BlockLootTableGenerator::doorDrops);
         }
 
         private void woodSuiteDrops(WoodSuite suite) {
@@ -195,5 +160,39 @@ public class AylythLootTableProviders {
                                     )
                     );
         }
+    }
+
+    public static class EntityLoot extends SimpleFabricLootTableProvider {
+
+        private final Map<Identifier, LootTable.Builder> loot = Maps.newHashMap();
+
+        public EntityLoot(FabricDataGenerator dataGenerator) {
+            super(dataGenerator, LootContextTypes.ENTITY);
+        }
+
+        protected void generateLoot() {
+            addDrop(ModEntityTypes.SCION, this::scionLoot);
+        }
+
+        private LootTable.Builder scionLoot(EntityType<?> type) {
+            return LootTable.builder()
+                    .pool(LootPool.builder().with(GroupEntry.create(ItemEntry.builder(ModItems.POMEGRANATE), ItemEntry.builder(ModItems.NYSIAN_GRAPES))))
+                    .pool(LootPool.builder().with(ItemEntry.builder(Items.ROTTEN_FLESH).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 3)))))
+                    .pool(LootPool.builder().with(ItemEntry.builder(ModItems.YMPE_ITEMS.sapling)));
+        }
+
+        public <T extends Entity> void addDrop(EntityType<T> type, Function<EntityType<T>, LootTable.Builder> function) {
+            loot.put(type.getLootTableId(), function.apply(type));
+        }
+
+        @Override
+        public void accept(BiConsumer<Identifier, LootTable.Builder> consumer) {
+            this.generateLoot();
+            for (Map.Entry<Identifier, LootTable.Builder> entry : loot.entrySet()) {
+                consumer.accept(entry.getKey(), entry.getValue());
+            }
+        }
+
+
     }
 }
