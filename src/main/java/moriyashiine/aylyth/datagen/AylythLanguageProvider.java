@@ -32,6 +32,9 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         String pomegranate = "Pomegranate";
         addWoodsuite(builder, ModBlocks.POMEGRANATE_BLOCKS, pomegranate);
         leaves(builder, ModBlocks.POMEGRANATE_LEAVES, pomegranate);
+        String writhewood = "Writhewood";
+        addWoodsuite(builder, ModBlocks.WRITHEWOOD_BLOCKS, writhewood);
+        leaves(builder, ModBlocks.WRITHEWOOD_LEAVES, writhewood);
         builder.add(ModBlocks.AYLYTH_BUSH, "Aylyth Bush");
         builder.add(ModBlocks.ANTLER_SHOOTS, "Antler Shoots");
         builder.add(ModBlocks.GRIPWEED, "Gripweed");
@@ -56,6 +59,8 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         chestBoat(builder, ModItems.YMPE_ITEMS.chestBoat, ympe);
         boat(builder, ModItems.POMEGRANATE_ITEMS.boat, pomegranate);
         chestBoat(builder, ModItems.POMEGRANATE_ITEMS.chestBoat, pomegranate);
+        boat(builder, ModItems.WRITHEWOOD_ITEMS.boat, writhewood);
+        chestBoat(builder, ModItems.WRITHEWOOD_ITEMS.chestBoat, writhewood);
         builder.add(ModItems.POMEGRANATE, pomegranate);
         builder.add(ModItems.GHOSTCAP_MUSHROOM, "Ghostcap Mushroom");
         builder.add(ModItems.YMPE_DAGGER, "Ympe Dagger");
@@ -72,6 +77,7 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add(ModItems.ELDER_AYLYTHIAN_SPAWN_EGG, "Elder Aylythian Spawn Egg");
         builder.add(ModItems.SOULMOULD_ITEM, "Soulmould");
         builder.add(ModItems.SOULTRAP_EFFIGY_ITEM, "Soultrap Effigy");
+        builder.add(ModItems.BONEFLY_SKULL, "Bonefly Skull");
         builder.add(ModItems.WRONGMEAT, "Wrongmeat");
         potionSet(builder, "mortechis");
         potionSet(builder, "cimmerian");
@@ -90,6 +96,17 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add(ModEntityTypes.ELDER_AYLYTHIAN, "Elder Aylythian");
         builder.add(ModEntityTypes.YMPE_LANCE, "Ympe Lance");
         builder.add(ModEntityTypes.SCION, "Scion");
+
+        // ADVANCEMENTS
+
+        builder.add("aylyth.advancements.aylyth.root.title", "Into the Unknown");
+        builder.add("aylyth.advancements.aylyth.root.desc", "In the midst of the journey of our life, I found myself in a dark wood without paths.");
+        builder.add("aylyth.advancements.aylyth.life_at_a_cost.title", "Life at a cost");
+        builder.add("aylyth.advancements.aylyth.life_at_a_cost.desc", "Obtain an Ympe Fruit, used to help subside the Branches, among other things.");
+        builder.add("aylyth.advancements.aylyth.cimmerianed.title", "Cimmerianed");
+        builder.add("aylyth.advancements.aylyth.cimmerianed.desc", "Play some hide and seek with the undead");
+        builder.add("aylyth.advancements.aylyth.wyrded.title", "Wyrded");
+        builder.add("aylyth.advancements.aylyth.wyrded.desc", "Try approaching a seep!");
 
         // DEATH MESSAGES
 

@@ -11,5 +11,5 @@ accessible field net/minecraft/entity/Entity vehicle Lnet/minecraft/entity/Entit
 accessible field net/minecraft/entity/Entity passengerList Lcom/google/common/collect/ImmutableList;
 accessible field net/minecraft/entity/mob/MobEntity handDropChances [F
 
-
+accessible method net/minecraft/block/TallPlantBlock onBreakInCreative (Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;Lnet/minecraft/entity/player/PlayerEntity;)V
 

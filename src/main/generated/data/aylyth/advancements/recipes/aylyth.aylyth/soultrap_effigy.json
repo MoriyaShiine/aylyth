@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_soulmould": {
+    "has_heart": {
       "conditions": {
         "items": [
           {
             "items": [
-              "aylyth:soulmould"
+              "aylyth:aylythian_heart"
             ]
           }
         ]
@@ -22,7 +22,7 @@
   },
   "requirements": [
     [
-      "has_soulmould",
+      "has_heart",
       "has_the_recipe"
     ]
   ],
