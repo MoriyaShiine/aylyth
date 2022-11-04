@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "g": {
+      "item": "aylyth:coric_seed"
+    },
+    "i": {
+      "item": "aylyth:ympe_sapling"
+    },
+    "s": {
+      "item": "aylyth:ympe_dagger"
+    }
+  },
+  "pattern": [
+    " gs",
+    " ii",
+    "i  "
+  ],
+  "result": {
+    "item": "aylyth:glaive"
+  }
+}
