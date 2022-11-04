@@ -13,7 +13,6 @@ import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -33,20 +32,15 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraft.world.explosion.Explosion;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 import java.util.Objects;
 import java.util.Optional;
-import java.util.UUID;
 
 import static moriyashiine.aylyth.common.block.SoulHearthBlock.HALF;
 
@@ -91,11 +85,13 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Vital {
 
     @Override
     public void setVitalThuribleLevel(int vital) {
-        dataTracker.set(AylythUtil.VITAL, vital);
-        PlayerEntity player = (PlayerEntity) (Object) this;
-        EntityAttributeInstance healthAttribute = player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH);
-        int level = dataTracker.get(AylythUtil.VITAL);
-        AylythUtil.handleVital(healthAttribute, level);
+        if(dataTracker.get(AylythUtil.VITAL) + vital <= 10){
+            dataTracker.set(AylythUtil.VITAL, vital);
+            PlayerEntity player = (PlayerEntity) (Object) this;
+            EntityAttributeInstance healthAttribute = player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH);
+            int level = dataTracker.get(AylythUtil.VITAL);
+            AylythUtil.handleVital(healthAttribute, level);
+        }
     }
 
     @Inject(method = "initDataTracker()V", at = @At("TAIL"))

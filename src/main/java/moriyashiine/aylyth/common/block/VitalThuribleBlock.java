@@ -1,10 +1,8 @@
 package moriyashiine.aylyth.common.block;
 
-import com.mojang.datafixers.util.Pair;
 import moriyashiine.aylyth.common.block.entity.VitalThuribleBlockEntity;
 import moriyashiine.aylyth.common.registry.ModItems;
 import net.minecraft.block.*;
-import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
@@ -13,7 +11,6 @@ import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
@@ -29,8 +26,6 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.UUID;
 
 public class VitalThuribleBlock extends HorizontalFacingBlock implements BlockEntityProvider{
     public static final BooleanProperty ACTIVE = BooleanProperty.of("active");
