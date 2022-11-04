@@ -198,10 +198,7 @@ public class Aylyth implements ModInitializer {
 		if (oldPlayer.world.getRegistryKey().equals(ModDimensions.AYLYTH)) {
 			AylythUtil.teleportTo(ModDimensions.AYLYTH, newPlayer, 0);
 		}
-		Vital.of(newPlayer).ifPresent(vital -> vital.setVital(((Vital) oldPlayer).hasVital()));
-		if(VitalThuribleBlock.getVitalThurible(newPlayer) == null){
-			Vital.of(newPlayer).ifPresent(vital -> vital.setVital(false));
-		}
+		Vital.of(newPlayer).ifPresent(vital -> vital.setVitalThuribleLevel(((Vital) oldPlayer).getVitalThuribleLevel()));
 	}
 
 	private void biomeModifications() {

@@ -52,9 +52,6 @@ import static moriyashiine.aylyth.common.block.SoulHearthBlock.HALF;
 
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin extends LivingEntity implements Vital {
-    private static final EntityAttributeModifier VITAL_HEALTH_MODIFIER = new EntityAttributeModifier(UUID.fromString("2ee98b0b-7180-46ac-97ce-d8f7307bffb1"), "vital modifier", 20, EntityAttributeModifier.Operation.ADDITION);
-
-
 
     @Shadow
     protected boolean isSubmergedInWater;
@@ -74,7 +71,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Vital {
     @Inject(method = "writeCustomDataToNbt", at = @At("TAIL"))
     private void writeAylythData(NbtCompound compoundTag, CallbackInfo info) {
         NbtCompound tag = new NbtCompound();
-        tag.putBoolean("vital", hasVital());
+        tag.putInt("vital", getVitalThuribleLevel());
 
         compoundTag.put("aylyth_data", tag);
     }
@@ -83,33 +80,27 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Vital {
     public void readAylythData(NbtCompound compoundTag, CallbackInfo info) {
         NbtCompound tag = (NbtCompound) compoundTag.get("aylyth_data");
         if (tag != null) {
-            setVital(tag.getBoolean("vital"));
+            setVitalThuribleLevel(tag.getInt("vital"));
         }
     }
 
     @Override
-    public boolean hasVital() {
+    public int getVitalThuribleLevel() {
         return dataTracker.get(AylythUtil.VITAL);
     }
 
     @Override
-    public void setVital(boolean vital) {
+    public void setVitalThuribleLevel(int vital) {
         dataTracker.set(AylythUtil.VITAL, vital);
         PlayerEntity player = (PlayerEntity) (Object) this;
         EntityAttributeInstance healthAttribute = player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH);
-        if(healthAttribute != null){
-            if (healthAttribute.hasModifier(VITAL_HEALTH_MODIFIER)) {
-                healthAttribute.removeModifier(VITAL_HEALTH_MODIFIER);
-            }
-            if (vital && !healthAttribute.hasModifier(VITAL_HEALTH_MODIFIER)) {
-                healthAttribute.addPersistentModifier(VITAL_HEALTH_MODIFIER);
-            }
-        }
+        int level = dataTracker.get(AylythUtil.VITAL);
+        AylythUtil.handleVital(healthAttribute, level);
     }
 
     @Inject(method = "initDataTracker()V", at = @At("TAIL"))
     private void addAylythTrackers(CallbackInfo info) {
-        dataTracker.startTracking(AylythUtil.VITAL, false);
+        dataTracker.startTracking(AylythUtil.VITAL, 0);
     }
 
     @Inject(method = "findRespawnPosition", at = @At(value = "HEAD", target = "Lnet/minecraft/block/BlockState;getBlock()Lnet/minecraft/block/Block;"), cancellable = true)

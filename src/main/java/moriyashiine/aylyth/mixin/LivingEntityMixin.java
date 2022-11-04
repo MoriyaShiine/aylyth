@@ -1,6 +1,5 @@
 package moriyashiine.aylyth.mixin;
 
-import moriyashiine.aylyth.common.entity.SoulExplosionEntity;
 import moriyashiine.aylyth.common.entity.mob.RippedSoulEntity;
 import moriyashiine.aylyth.common.registry.*;
 import net.minecraft.entity.Entity;
@@ -27,36 +26,11 @@ public abstract class LivingEntityMixin extends Entity {
 		super(type, world);
 	}
 
-	@Unique
-	private int soultrapTicks;
-
 	@Inject(method = "drop", at = @At("HEAD"), cancellable = true)
 	private void shuckLogic(DamageSource source, CallbackInfo ci) {
 		if ((LivingEntity) (Object) this instanceof MobEntity mob && ModComponents.PREVENT_DROPS.get(mob).getPreventsDrops()) {
 			ci.cancel();
 		}
-	}
-
-
-
-	@Inject(method = "tryUseTotem", at = @At("HEAD"), cancellable = true)
-	private void tryUseTotem(DamageSource source, CallbackInfoReturnable<Boolean> cir) {
-		if((LivingEntity) (Object) this instanceof PlayerEntity player){
-			if (player.getInventory().contains(ModItems.SOULTRAP_EFFIGY_ITEM.getDefaultStack()) && (source.getAttacker() instanceof PlayerEntity || source.getSource() instanceof PlayerEntity) && !(soultrapTicks >= 10)) {
-				player.setHealth(1.0F);
-				player.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 400, 2, true, false));
-				++this.soultrapTicks;
-				cir.setReturnValue(true);
-			} else {
-				if(soultrapTicks >= 10) {
-					this.world.createExplosion(this, this.getX(), this.getY(), this.getZ(), 6.0f, Explosion.DestructionType.NONE);
-					SoulExplosionEntity entity = new SoulExplosionEntity(ModEntityTypes.SOUL_EXPLOSION, this.world);
-					entity.setPosition(this.getPos());
-					player.world.spawnEntity(entity);
-				}
-			}
-		}
-
 	}
 	
 	@Inject(method = "eatFood", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;applyFoodEffects(Lnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/entity/LivingEntity;)V"))
