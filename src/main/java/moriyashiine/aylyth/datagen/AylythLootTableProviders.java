@@ -71,7 +71,7 @@ public class AylythLootTableProviders {
         private LootTable.Builder scionLoot(EntityType<?> type) {
             return LootTable.builder()
                     .pool(LootPool.builder().with(AlternativeEntry.builder(GroupEntry.create(ItemEntry.builder(ModItems.POMEGRANATE), ItemEntry.builder(ModItems.NYSIAN_GRAPES)))))
-                    .pool(LootPool.builder().with(ItemEntry.builder(Items.ROTTEN_FLESH).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0, 3)))))
+                    .pool(LootPool.builder().with(ItemEntry.builder(Items.ROTTEN_FLESH).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 3)))))
                     .pool(LootPool.builder().with(ItemEntry.builder(ModItems.YMPE_ITEMS.sapling)));
         }
 
