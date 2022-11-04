@@ -10,8 +10,8 @@ public interface Vital {
         return Optional.empty();
     }
 
-    boolean hasVital();
+    int getVitalThuribleLevel();
 
-    void setVital(boolean vital);
+    void setVitalThuribleLevel(int vital);
 
 }

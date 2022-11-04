@@ -10,12 +10,19 @@ import javax.annotation.Nullable;
 
 public class ModDamageSources {
 	public static final DamageSource YMPE = new YmpeDamageSource("ympe");
+	public static final DamageSource YMPE_ENTITY = new YmpeEntityDamageSource("ympe_entity");
 	
 	private static class YmpeDamageSource extends DamageSource {
 		public YmpeDamageSource(String name) {
 			super(name);
 			setBypassesArmor();
 			setOutOfWorld();
+		}
+	}
+
+	private static class YmpeEntityDamageSource extends DamageSource {
+		public YmpeEntityDamageSource(String name) {
+			super(name);
 		}
 	}
 
