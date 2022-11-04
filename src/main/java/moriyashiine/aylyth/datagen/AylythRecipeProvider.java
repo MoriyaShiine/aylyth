@@ -41,14 +41,13 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
                 .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(ModItems.GLAIVE)
-                .input('s', Items.NETHERITE_SWORD)
-                .input('g', Items.GOLD_BLOCK)
-                .input('i', Items.STICK)
-                .input('m', ModItems.SOULTRAP_EFFIGY_ITEM)
+                .input('s', ModItems.YMPE_DAGGER)
+                .input('g', ModItems.CORIC_SEED)
+                .input('i', ModItems.YMPE_ITEMS.sapling)
                 .pattern(" gs")
-                .pattern(" im")
+                .pattern(" ii")
                 .pattern("i  ")
-                .criterion("has_soultrap", conditionsFromItem(ModItems.SOULTRAP_EFFIGY_ITEM))
+                .criterion("has_ympe_dagger", conditionsFromItem(ModItems.YMPE_DAGGER))
                 .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(ModItems.SOULMOULD_ITEM)
@@ -63,9 +62,9 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
 
         ShapedRecipeJsonBuilder.create(ModItems.SOULTRAP_EFFIGY_ITEM)
                 .input('d', Items.SOUL_SOIL)
-                .input('a', Items.NETHERITE_SCRAP)
+                .input('a', ModItems.YMPE_ITEMS.sapling)
                 .input('n', Items.NETHERITE_INGOT)
-                .input('s', ModItems.SOULMOULD_ITEM)
+                .input('s', ModItems.AYLYTHIAN_HEART)
                 .pattern("dnd")
                 .pattern("nsn")
                 .pattern("ada")

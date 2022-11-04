@@ -29,18 +29,20 @@ public abstract class MinecraftClientMixin {
     public MinecraftClientMixin() {
     }
 
-    @Inject(method = {"handleInputEvents"}, at = {@At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;doAttack()Z", ordinal = 0)})
-    public void aylyth$glaiveStab(CallbackInfo info) {
-        if (this.player != null && this.player.getStackInHand(this.player.getActiveHand()).isOf(ModItems.GLAIVE) && this.player.getAttackCooldownProgress(0.5F) == 1.0F && !this.player.getItemCooldownManager().isCoolingDown(this.player.getMainHandStack().getItem()) && this.crosshairTarget != null) {
-            GlaivePacket.send(this.crosshairTarget.getType() == HitResult.Type.ENTITY ? ((EntityHitResult)this.crosshairTarget).getEntity() : null);
-            if (this.crosshairTarget.getType() == HitResult.Type.BLOCK) {
-                this.player.resetLastAttackedTicks();
+    @Inject(method = "handleInputEvents", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;doAttack()Z", ordinal = 0))
+    public void glaiveStab(CallbackInfo info) {
+        if(player != null) {
+            if(player.getStackInHand(player.getActiveHand()).isOf(ModItems.GLAIVE)) {
+                if(player.getAttackCooldownProgress(0.5F) == 1F && (!player.getItemCooldownManager().isCoolingDown(player.getMainHandStack().getItem())) && crosshairTarget != null) {
+                    GlaivePacket.send(crosshairTarget.getType() == HitResult.Type.ENTITY ? ((EntityHitResult) crosshairTarget).getEntity() : null);
+
+                    if(crosshairTarget.getType() == HitResult.Type.BLOCK)
+                        player.resetLastAttackedTicks();
+                }
             }
         }
 
-        if (!info.isCancelled() && this.attackQueued) {
-            this.attackQueued = false;
-        }
-
+        if(!info.isCancelled() && attackQueued)
+            attackQueued = false;
     }
 }
