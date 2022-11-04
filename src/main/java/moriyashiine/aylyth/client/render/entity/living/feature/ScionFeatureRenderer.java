@@ -14,10 +14,12 @@ import net.minecraft.util.Identifier;
 
 public class ScionFeatureRenderer extends FeatureRenderer<ScionEntity, BipedEntityModel<ScionEntity>> {
     public final ScionEntityModel<ScionEntity> MODEL;
+    public final ScionEntityModel<ScionEntity> OVERLAY_MODEL;
 
     public ScionFeatureRenderer(FeatureRendererContext<ScionEntity, BipedEntityModel<ScionEntity>> context, EntityModelLoader loader) {
         super(context);
         MODEL = new ScionEntityModel<>(loader.getModelPart(ScionEntityModel.LAYER_LOCATION));
+        OVERLAY_MODEL = new ScionEntityModel<>(loader.getModelPart(ScionEntityModel.LAYER_LOCATION));
     }
 
     @Override
@@ -25,11 +27,17 @@ public class ScionFeatureRenderer extends FeatureRenderer<ScionEntity, BipedEnti
         matrices.push();
         this.getContextModel().setAttributes(MODEL);
         MODEL.child = false;
-        MODEL.render(matrices, vertexConsumers.getBuffer(RenderLayer.getEntityTranslucent(this.getPlayerSkinTexture())), light, OverlayTexture.DEFAULT_UV, 1,1,1,1);
+        MODEL.render(matrices, vertexConsumers.getBuffer(RenderLayer.getEntityTranslucent(this.getScionTexture())), light, OverlayTexture.DEFAULT_UV, 1,1,1,1);
+        if(entity.getStoredPlayerUUID() != null){
+            this.getContextModel().setAttributes(OVERLAY_MODEL);
+            OVERLAY_MODEL.child = false;
+            OVERLAY_MODEL.render(matrices, vertexConsumers.getBuffer(RenderLayer.getEntityTranslucent(AylythUtil.id("textures/entity/living/scion/scion_overlay.png"))), light, OverlayTexture.DEFAULT_UV, 1,1,1,1);
+
+        }
         matrices.pop();
     }
 
-    public Identifier getPlayerSkinTexture(){
+    public Identifier getScionTexture(){
         return AylythUtil.id("textures/entity/living/scion/scion.png");
     }
 }

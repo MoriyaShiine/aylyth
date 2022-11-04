@@ -1,6 +1,7 @@
 package moriyashiine.aylyth.common.registry;
 
 import moriyashiine.aylyth.common.Aylyth;
+import moriyashiine.aylyth.common.entity.RootPropEntity;
 import moriyashiine.aylyth.common.entity.mob.*;
 import moriyashiine.aylyth.common.entity.passive.PilotLightEntity;
 import moriyashiine.aylyth.common.entity.projectile.YmpeLanceEntity;
@@ -24,6 +25,7 @@ public class ModEntityTypes {
 	public static final EntityType<BoneflyEntity> BONEFLY = FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, BoneflyEntity::new).dimensions(EntityDimensions.fixed(1.4F, 2.1F)).fireImmune().build();
 
 	public static final EntityType<ScionEntity> SCION = FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, ScionEntity::new).dimensions(EntityDimensions.fixed(0.6F, 1.95F)).fireImmune().build();
+	public static final EntityType<RootPropEntity> ROOT_PROP = FabricEntityTypeBuilder.<RootPropEntity>create(SpawnGroup.MISC, RootPropEntity::new).dimensions(EntityDimensions.fixed(0.5F, 0.5F)).build();
 
 	public static void init() {
 		FabricDefaultAttributeRegistry.register(PILOT_LIGHT, PilotLightEntity.createAttributes());
@@ -39,6 +41,7 @@ public class ModEntityTypes {
 		Registry.register(Registry.ENTITY_TYPE, new Identifier(Aylyth.MOD_ID, "soulmould"), SOULMOULD);
 		Registry.register(Registry.ENTITY_TYPE, new Identifier(Aylyth.MOD_ID, "bonefly"), BONEFLY);
 		Registry.register(Registry.ENTITY_TYPE, new Identifier(Aylyth.MOD_ID, "scion"), SCION);
+		Registry.register(Registry.ENTITY_TYPE, new Identifier(Aylyth.MOD_ID, "root_prop"), ROOT_PROP);
 		
 		SpawnRestriction.register(PILOT_LIGHT, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING, PilotLightEntity::canSpawn);
 		SpawnRestriction.register(AYLYTHIAN, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AylythianEntity::canSpawn);

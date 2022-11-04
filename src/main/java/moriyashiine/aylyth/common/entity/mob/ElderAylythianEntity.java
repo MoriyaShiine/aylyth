@@ -1,5 +1,6 @@
 package moriyashiine.aylyth.common.entity.mob;
 
+import moriyashiine.aylyth.common.entity.ai.goal.RootPropAttack;
 import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.ModItems;
 import moriyashiine.aylyth.common.registry.ModSoundEvents;
@@ -114,7 +115,7 @@ public class ElderAylythianEntity extends HostileEntity implements IAnimatable {
 		setPersistent();
 		return super.damage(source, source.isFire() ? amount * 2 : amount);
 	}
-	
+
 	@Override
 	public boolean tryAttack(Entity target) {
 		setPersistent();
@@ -164,6 +165,7 @@ public class ElderAylythianEntity extends HostileEntity implements IAnimatable {
 		goalSelector.add(2, new WanderAroundFarGoal(this, 0.5F));
 		goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 8));
 		goalSelector.add(3, new LookAroundGoal(this));
+		goalSelector.add(4, new RootPropAttack(this));
 		targetSelector.add(0, new RevengeGoal(this));
 		targetSelector.add(1, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
 	}

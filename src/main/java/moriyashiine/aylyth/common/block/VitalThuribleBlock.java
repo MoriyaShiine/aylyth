@@ -47,7 +47,6 @@ public class VitalThuribleBlock extends Block {
                 ModWorldState worldState = ModWorldState.get(world);
                 Pair<ServerWorld, BlockPos> existingVitalThurible = getVitalThurible(player);
                 if (existingVitalThurible != null) {
-                    System.out.println("Break");
                     existingVitalThurible.getFirst().breakBlock(existingVitalThurible.getSecond(), true, player);
                 }
                 worldState.addVitalTurible(player, pos);

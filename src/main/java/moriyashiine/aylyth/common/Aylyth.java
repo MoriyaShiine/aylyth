@@ -2,6 +2,7 @@ package moriyashiine.aylyth.common;
 
 import moriyashiine.aylyth.api.interfaces.Vital;
 import moriyashiine.aylyth.client.network.packet.UpdatePressingUpDownPacket;
+import moriyashiine.aylyth.common.block.VitalThuribleBlock;
 import moriyashiine.aylyth.common.network.packet.GlaivePacket;
 import moriyashiine.aylyth.client.network.packet.SpawnShuckParticlesPacket;
 import moriyashiine.aylyth.common.recipe.YmpeDaggerDropRecipe;
@@ -76,7 +77,11 @@ public class Aylyth implements ModInitializer {
 		ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register(this::shucking);
 		ServerPlayerEvents.ALLOW_DEATH.register(this::allowDeath);
 		UseBlockCallback.EVENT.register(this::interactSoulCampfore);
+
+
 	}
+
+
 
 	private ActionResult interactSoulCampfore(PlayerEntity playerEntity, World world, Hand hand, BlockHitResult blockHitResult) {
 		if(hand == Hand.MAIN_HAND && world.getBlockState(blockHitResult.getBlockPos()).isOf(Blocks.SOUL_CAMPFIRE) && world.getBlockEntity(blockHitResult.getBlockPos()) instanceof CampfireBlockEntity campfireBlockEntity){
@@ -194,6 +199,9 @@ public class Aylyth implements ModInitializer {
 			AylythUtil.teleportTo(ModDimensions.AYLYTH, newPlayer, 0);
 		}
 		Vital.of(newPlayer).ifPresent(vital -> vital.setVital(((Vital) oldPlayer).hasVital()));
+		if(VitalThuribleBlock.getVitalThurible(newPlayer) == null){
+			Vital.of(newPlayer).ifPresent(vital -> vital.setVital(false));
+		}
 	}
 
 	private void biomeModifications() {
