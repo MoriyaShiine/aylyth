@@ -83,19 +83,21 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         potionSet(builder, "cimmerian");
         potionSet(builder, "wyrded");
 
-        // STATUS EFFECTS
-
-        builder.add(ModPotions.MORTECHIS_EFFECT, "Mortechis");
-        builder.add(ModPotions.CIMMERIAN_EFFECT, "Cimmerian");
-        builder.add(ModPotions.WYRDED_EFFECT, "Wyrded");
-
         // ENTITIES
 
         builder.add(ModEntityTypes.PILOT_LIGHT, "Pilot Light");
         builder.add(ModEntityTypes.AYLYTHIAN, "Aylythian");
         builder.add(ModEntityTypes.ELDER_AYLYTHIAN, "Elder Aylythian");
         builder.add(ModEntityTypes.YMPE_LANCE, "Ympe Lance");
+        builder.add(ModEntityTypes.SOULMOULD, "Mould of Souls");
+        builder.add(ModEntityTypes.BONEFLY, "Bonefly");
         builder.add(ModEntityTypes.SCION, "Scion");
+
+        // STATUS EFFECTS
+
+        builder.add(ModPotions.MORTECHIS_EFFECT, "Mortechis");
+        builder.add(ModPotions.CIMMERIAN_EFFECT, "Cimmerian");
+        builder.add(ModPotions.WYRDED_EFFECT, "Wyrded");
 
         // ADVANCEMENTS
 
