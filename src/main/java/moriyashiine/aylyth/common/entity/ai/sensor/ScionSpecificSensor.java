@@ -23,8 +23,8 @@ public class ScionSpecificSensor extends Sensor<LivingEntity> {
     public Set<MemoryModuleType<?>> getOutputMemoryModules() {
         return ImmutableSet.of(
                 MemoryModuleType.VISIBLE_MOBS,
-                MemoryModuleType.NEAREST_VISIBLE_NEMESIS,
-                MemoryModuleType.NEAREST_REPELLENT
+                MemoryModuleType.NEAREST_REPELLENT,
+                ModMemoryTypes.NEAREST_VISIBLE_PLAYER_NEMESIS
         );
     }
 
