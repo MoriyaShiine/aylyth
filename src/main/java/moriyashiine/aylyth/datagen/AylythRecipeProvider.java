@@ -31,16 +31,6 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
         woodSuiteRecipes(exporter, ModItems.WRITHEWOOD_ITEMS);
         offerShapeless(exporter, ModItems.GHOSTCAP_MUSHROOM_SPORES, 1, ModItems.GHOSTCAP_MUSHROOM, null);
 
-        ShapedRecipeJsonBuilder.create(ModItems.BONEFLY_SKULL)
-                .input('b', Items.BONE_MEAL)
-                .input('n', Items.BONE_BLOCK)
-                .input('s', Items.NETHERITE_BLOCK)
-                .pattern("nnn")
-                .pattern("nsn")
-                .pattern("bnb")
-                .criterion("has_bonemeal", conditionsFromItem(Items.BONE_MEAL))
-                .offerTo(exporter);
-
         ShapedRecipeJsonBuilder.create(ModItems.GLAIVE)
                 .input('D', ModItems.YMPE_DAGGER)
                 .input('S', ModItems.YMPE_ITEMS.sapling)

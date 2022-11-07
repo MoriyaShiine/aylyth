@@ -274,10 +274,10 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
             player.sendMessage(Text.translatable("amogus", world.getRegistryKey().getValue().getPath()).setStyle(Style.EMPTY.withColor(Formatting.DARK_RED).withObfuscated(true).withFont(new Identifier("minecraft", "default"))), true);
         } else if(getActionState() == 2) {
             setActionState(1);
-            player.sendMessage(Text.translatable("info.tot.mould_activate", world.getRegistryKey().getValue().getPath()).setStyle(Style.EMPTY.withColor(Formatting.AQUA)), true);
+            player.sendMessage(Text.translatable("info.aylyth.mould_activate", world.getRegistryKey().getValue().getPath()).setStyle(Style.EMPTY.withColor(Formatting.AQUA)), true);
         } else if(getActionState() == 1) {
             setActionState(0);
-            player.sendMessage(Text.translatable("info.tot.mould_deactivate", world.getRegistryKey().getValue().getPath()).setStyle(Style.EMPTY.withColor(Formatting.DARK_GRAY)), true);
+            player.sendMessage(Text.translatable("info.aylyth.mould_deactivate", world.getRegistryKey().getValue().getPath()).setStyle(Style.EMPTY.withColor(Formatting.DARK_GRAY)), true);
         }
     }
     @Override
@@ -419,7 +419,7 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
         boolean reassign = true;
         if (getDormantPos().isPresent()) {
             BlockPos pos = getDormantPos().get();
-            if (this.getNavigation().startMovingTo(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, 0.7)) {
+            if (this.getNavigation().startMovingTo(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, 0.5)) {
                 reassign = false;
             }
             reassign = false;
@@ -490,7 +490,7 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
                 } else if (distance > 16.0D * 16.0D) {
                     this.scrunkly += 5;
                 }
-                if (!this.mould.getNavigation().startMovingTo(target, 0.5D)) {
+                if (!this.mould.getNavigation().startMovingTo(target, 0.3D)) {
                     this.scrunkly += 15;
                 }
             }
