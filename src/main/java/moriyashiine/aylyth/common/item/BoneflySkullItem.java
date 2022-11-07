@@ -22,15 +22,15 @@ public class BoneflySkullItem extends Item {
         BlockPos pos = ctx.getBlockPos();
         Direction dir = ctx.getPlayerFacing();
         World world = ctx.getWorld();
-        if (world.getBlockState(pos).getBlock().equals(Blocks.BONE_BLOCK) && this.isValid(world, pos, dir) && player.getOffHandStack().getItem().equals(Items.PHANTOM_MEMBRANE) && player.getOffHandStack().getCount() > 15) {
+        if (player != null && world.getBlockState(pos).getBlock().equals(Blocks.BONE_BLOCK) && this.isValid(world, pos, dir) && player.getOffHandStack().getItem().equals(Items.PHANTOM_MEMBRANE) && player.getOffHandStack().getCount() > 15) {
             world.breakBlock(pos, false);
 
             int i;
-            for(i = 0; i < 7; ++i) {
+            for (i = 0; i < 7; ++i) {
                 world.breakBlock(pos.offset(dir, i), false);
             }
 
-            for(i = 0; i < 4; ++i) {
+            for (i = 0; i < 4; ++i) {
                 world.breakBlock(pos.offset(dir, i).offset(Direction.UP), false);
             }
 

@@ -126,7 +126,7 @@ public class WoodSuite {
         return new Identifier(id.getNamespace(), replacer.formatted(id.getPath()));
     }
 
-    public static record CopySettingsSet(Block log, Block wood, Block strippedLog, Block strippedWood, Block sapling,
+    public record CopySettingsSet(Block log, Block wood, Block strippedLog, Block strippedWood, Block sapling,
                                          Block pottedSapling, Block planks, Block stairs, Block slab, Block fence,
                                          Block fenceGate, Block pressurePlate, Block button, Block trapdoor,
                                          Block door, Block floorSign, Block wallSign) implements BlockSettingsSet {

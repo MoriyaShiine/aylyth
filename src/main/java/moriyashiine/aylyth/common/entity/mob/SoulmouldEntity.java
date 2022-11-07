@@ -182,7 +182,7 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
     }
     @Override
     public UUID getOwnerUuid() {
-        return (UUID) ((Optional) this.dataTracker.get(OWNER_UUID)).orElse(null);
+        return this.dataTracker.get(OWNER_UUID).orElse(null);
     }
 
     @Override
@@ -409,12 +409,10 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
     public void setDormantPos(BlockPos pos) {
         getDataTracker().set(DORMANT_POS, Optional.of(pos));
     }
+
     private boolean isAtDormantPos() {
         Optional<BlockPos> restPos = getDormantPos();
-        if(restPos.isPresent()) {
-            return restPos.get().isWithinDistance(this.getBlockPos(), 1.6f);
-        }
-        return false;
+        return restPos.map(blockPos -> blockPos.isWithinDistance(this.getBlockPos(), 1.6f)).orElse(false);
     }
 
     private void updateDormantPos() {
@@ -451,7 +449,7 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
     }
 
 
-    public class SoulmouldAttackLogicGoal extends Goal {
+    public static class SoulmouldAttackLogicGoal extends Goal {
         private final SoulmouldEntity mould;
         private int scrunkly;
         private double targetX;
@@ -507,7 +505,7 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
         }
 
     }
-    public class SoulmouldDashSlashGoal extends Goal {
+    public static class SoulmouldDashSlashGoal extends Goal {
         private final SoulmouldEntity mould;
         public SoulmouldDashSlashGoal(SoulmouldEntity entity) {
             this.mould = entity;
@@ -526,10 +524,12 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
             this.mould.lookAtEntity(this.mould.getTarget(), 80, 80);
             if(ticks == 9 || ticks == 12 || ticks == 15) {
                 Vec3d vec3d = this.mould.getVelocity();
-                Vec3d vec3d2 = new Vec3d(target.getX() - mould.getX(), 0.0, target.getZ() - this.mould.getZ());
-                vec3d2 = vec3d2.normalize().multiply(1).add(vec3d);
-
-                this.mould.setVelocity(vec3d2.x, 0, vec3d2.z);
+                Vec3d vec3d2 = null;
+                if (target != null) {
+                    vec3d2 = new Vec3d(target.getX() - mould.getX(), 0.0, target.getZ() - this.mould.getZ());
+                    vec3d2 = vec3d2.normalize().multiply(1).add(vec3d);
+                    this.mould.setVelocity(vec3d2.x, 0, vec3d2.z);
+                }
             }
             if(ticks == 10 || ticks == 13 || ticks == 15) {
                 mould.playSound(ModSoundEvents.ENTITY_SOULMOULD_ATTACK, 1f, 1f);
@@ -542,7 +542,7 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
             }
         }
     }
-    public class TamedAttackWithOwnerGoal<T extends TameableHostileEntity> extends TrackTargetGoal {
+    public static class TamedAttackWithOwnerGoal<T extends TameableHostileEntity> extends TrackTargetGoal {
         private final T tamed;
         private LivingEntity attacking;
         private int lastAttackTime;
@@ -578,7 +578,7 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
             super.start();
         }
     }
-    public class TamedTrackAttackerGoal extends TrackTargetGoal {
+    public static class TamedTrackAttackerGoal extends TrackTargetGoal {
         private final TameableHostileEntity tameable;
         private LivingEntity attacker;
         private int lastAttackedTime;
@@ -590,7 +590,7 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
         }
 
         public boolean canStart() {
-            if (this.tameable.isTamed() && (this.tameable != null)) {
+            if (this.tameable.isTamed()) {
                 LivingEntity livingEntity = this.tameable.getOwner();
                 if (livingEntity == null) {
                     return false;

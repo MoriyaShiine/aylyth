@@ -81,6 +81,7 @@ public class ScionEntity extends HostileEntity {
         return ScionBrain.create(this, dynamic);
     }
 
+    @SuppressWarnings("All")
     @Override
     public Brain<ScionEntity> getBrain() {
         return (Brain<ScionEntity>) super.getBrain();
