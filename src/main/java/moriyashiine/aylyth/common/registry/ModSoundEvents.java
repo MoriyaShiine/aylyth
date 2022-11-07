@@ -36,7 +36,12 @@ public class ModSoundEvents {
 	public static final SoundEvent ENTITY_SOULMOULD_HURT = new SoundEvent(new Identifier(Aylyth.MOD_ID, "entity.soulmould.hurt"));
 
 	public static final SoundEvent ENTITY_SOULMOULD_DEATH = new SoundEvent(new Identifier(Aylyth.MOD_ID, "entity.soulmould.death"));
-	
+
+	public static final SoundEvent ENTITY_SCION_AMBIENT = new SoundEvent(new Identifier(Aylyth.MOD_ID, "entity.scion.ambient"));
+	public static final SoundEvent ENTITY_SCION_HURT = new SoundEvent(new Identifier(Aylyth.MOD_ID, "entity.scion.hurt"));
+	public static final SoundEvent ENTITY_SCION_DEATH = new SoundEvent(new Identifier(Aylyth.MOD_ID, "entity.scion.death"));
+
+
 	public static void init() {
 		Registry.register(Registry.SOUND_EVENT, BLOCK_YMPE_LOG_PICK_FRUIT.getId(), BLOCK_YMPE_LOG_PICK_FRUIT);
 		Registry.register(Registry.SOUND_EVENT, ENTITY_PLAYER_INCREASE_YMPE_INFESTATION_STAGE.getId(), ENTITY_PLAYER_INCREASE_YMPE_INFESTATION_STAGE);

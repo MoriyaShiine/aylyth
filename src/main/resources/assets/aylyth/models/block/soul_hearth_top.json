@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "particle": "aylyth:block/soul_hearth",
+    "all": "aylyth:block/empty"
+  }
+}
