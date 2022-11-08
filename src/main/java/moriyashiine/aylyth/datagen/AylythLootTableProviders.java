@@ -1,10 +1,7 @@
 package moriyashiine.aylyth.datagen;
 
 import com.google.common.collect.Maps;
-import moriyashiine.aylyth.common.block.JackolanternMushroomBlock;
-import moriyashiine.aylyth.common.block.PomegranateLeavesBlock;
-import moriyashiine.aylyth.common.block.StagedMushroomPlantBlock;
-import moriyashiine.aylyth.common.block.StrewnLeavesBlock;
+import moriyashiine.aylyth.common.block.*;
 import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.ModEntityTypes;
 import moriyashiine.aylyth.common.registry.ModItems;
@@ -14,6 +11,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
 import net.minecraft.block.Block;
+import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.data.server.BlockLootTableGenerator;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
@@ -27,6 +25,7 @@ import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.loot.entry.*;
 import net.minecraft.loot.function.SetCountLootFunction;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
+import net.minecraft.loot.provider.number.LootNumberProvider;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import net.minecraft.predicate.NumberRange;
 import net.minecraft.predicate.StatePredicate;
@@ -74,6 +73,9 @@ public class AylythLootTableProviders {
             addDrop(ModBlocks.WRITHEWOOD_LEAVES, block -> leavesDrop(block, ModBlocks.WRITHEWOOD_BLOCKS.sapling, 0.05f, 0.0625f, 0.083333336f, 0.1f));
             addDrop(ModBlocks.VITAL_THURIBLE);
             addDrop(ModBlocks.SOUL_HEARTH, BlockLootTableGenerator::doorDrops);
+            addDrop(ModBlocks.WOODY_GROWTH_CACHE, block -> dropsNothing());
+            addDrop(ModBlocks.SMALL_WOODY_GROWTH);
+            addDrop(ModBlocks.LARGE_WOODY_GROWTH, this::woodyGrowths);
         }
 
         private void woodSuiteDrops(WoodSuite suite) {
@@ -94,6 +96,38 @@ public class AylythLootTableProviders {
             addDrop(suite.door, BlockLootTableGenerator::doorDrops);
             addDrop(suite.floorSign);
             addDrop(suite.wallSign);
+        }
+
+        private LootTable.Builder woodyGrowths(Block block) {
+            return LootTable.builder().pool(
+                    LootPool.builder().with(
+                            GroupEntry.create(ItemEntry.builder(Items.STICK),
+                                    ItemEntry.builder(Items.ROTTEN_FLESH),
+                                    ItemEntry.builder(Items.BONE),
+                                    ItemEntry.builder(Items.SKELETON_SKULL),
+                                    ItemEntry.builder(Items.REDSTONE),
+                                    ItemEntry.builder(ModItems.YMPE_ITEMS.sapling),
+                                    ItemEntry.builder(ModItems.YMPE_FRUIT),
+                                    ItemEntry.builder(ModItems.NYSIAN_GRAPES),
+                                    ItemEntry.builder(ModItems.POMEGRANATE))
+                                    .conditionally(BlockStatePropertyLootCondition.builder(block)
+                                            .properties(StatePredicate.Builder.create()
+                                                    .exactMatch(SmallWoodyGrowthBlock.NATURAL, true)
+                                            )
+                                    )
+                    ).conditionally(BlockStatePropertyLootCondition.builder(block)
+                            .properties(StatePredicate.Builder.create().exactMatch(LargeWoodyGrowthBlock.HALF, DoubleBlockHalf.LOWER))
+                    ).rolls(UniformLootNumberProvider.create(0, 3))
+            ).pool(LootPool.builder()
+                    .with(ItemEntry.builder(block))
+                    .conditionally(BlockStatePropertyLootCondition.builder(block)
+                            .properties(StatePredicate.Builder.create()
+                                    .exactMatch(SmallWoodyGrowthBlock.NATURAL, false)
+                            )
+                    ).conditionally(BlockStatePropertyLootCondition.builder(block)
+                            .properties(StatePredicate.Builder.create().exactMatch(LargeWoodyGrowthBlock.HALF, DoubleBlockHalf.LOWER))
+                    )
+            );
         }
 
         private LootTable.Builder pomegranateLeavesDrop(Block leaves, Block drop, float ... chance) {

@@ -1,6 +1,7 @@
 package moriyashiine.aylyth.common.block;
 
 import net.minecraft.block.*;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.enums.BlockHalf;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.entity.LivingEntity;
@@ -42,19 +43,30 @@ public class LargeWoodyGrowthBlock extends SmallWoodyGrowthBlock {
 
     @Override
     public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-        super.onBreak(world, pos, state, player);
         if (!world.isClient()) {
             if (player.isCreative()) {
                 TallPlantBlock.onBreakInCreative(world, pos, state, player);
+            } else {
+                BlockEntity be = null;
+                if (state.hasBlockEntity() && state.get(HALF) == DoubleBlockHalf.UPPER) {
+                    be = world.getBlockEntity(pos);
+                }
+                dropStacks(state, world, pos, be, player, player.getMainHandStack());
             }
         }
+        super.onBreak(world, pos, state, player);
+    }
+
+    @Override
+    public void afterBreak(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
+        super.afterBreak(world, player, pos, Blocks.AIR.getDefaultState(), blockEntity, stack);
     }
 
     @Override
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
-        var halfProperty = state.get(HALF);
-        if (direction == Direction.DOWN && halfProperty == DoubleBlockHalf.UPPER) {
-            return neighborState.isOf(this) && neighborState.get(HALF) == DoubleBlockHalf.LOWER ? state : Blocks.AIR.getDefaultState();
+        DoubleBlockHalf doubleBlockHalf = state.get(HALF);
+        if (direction.getAxis() == Direction.Axis.Y && doubleBlockHalf == DoubleBlockHalf.LOWER == (direction == Direction.UP) && (!neighborState.isOf(this) || neighborState.get(HALF) == doubleBlockHalf)) {
+            return neighborState.isOf(this) && neighborState.get(HALF) != doubleBlockHalf ? state.with(HALF, neighborState.get(HALF)) : Blocks.AIR.getDefaultState();
         }
         return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
     }

@@ -1,0 +1,100 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "block": "aylyth:large_woody_growth",
+          "condition": "minecraft:block_state_property",
+          "properties": {
+            "half": "lower"
+          }
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:group",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "name": "minecraft:stick"
+            },
+            {
+              "type": "minecraft:item",
+              "name": "minecraft:rotten_flesh"
+            },
+            {
+              "type": "minecraft:item",
+              "name": "minecraft:bone"
+            },
+            {
+              "type": "minecraft:item",
+              "name": "minecraft:skeleton_skull"
+            },
+            {
+              "type": "minecraft:item",
+              "name": "minecraft:redstone"
+            },
+            {
+              "type": "minecraft:item",
+              "name": "aylyth:ympe_sapling"
+            },
+            {
+              "type": "minecraft:item",
+              "name": "aylyth:ympe_fruit"
+            },
+            {
+              "type": "minecraft:item",
+              "name": "aylyth:nysian_grapes"
+            },
+            {
+              "type": "minecraft:item",
+              "name": "aylyth:pomegranate"
+            }
+          ],
+          "conditions": [
+            {
+              "block": "aylyth:large_woody_growth",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "natural": "true"
+              }
+            }
+          ]
+        }
+      ],
+      "rolls": {
+        "type": "minecraft:uniform",
+        "max": 3.0,
+        "min": 0.0
+      }
+    },
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "block": "aylyth:large_woody_growth",
+          "condition": "minecraft:block_state_property",
+          "properties": {
+            "natural": "false"
+          }
+        },
+        {
+          "block": "aylyth:large_woody_growth",
+          "condition": "minecraft:block_state_property",
+          "properties": {
+            "half": "lower"
+          }
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "aylyth:large_woody_growth"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}

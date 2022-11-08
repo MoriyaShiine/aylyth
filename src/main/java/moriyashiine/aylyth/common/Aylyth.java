@@ -99,6 +99,9 @@ public class Aylyth implements ModInitializer {
 		if (damageSource.isOutOfWorld() && damageSource != ModDamageSources.YMPE) {
 			return true;
 		}
+		if (damageSource == ModDamageSources.YMPE) {
+			
+		}
 		RegistryKey<World> toWorld = null;
 		if (player.world.getRegistryKey() != ModDimensions.AYLYTH) {
 			boolean teleport = false;

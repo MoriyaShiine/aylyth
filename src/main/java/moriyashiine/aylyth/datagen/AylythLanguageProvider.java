@@ -51,6 +51,9 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add(ModBlocks.DARK_WOODS_TILES, "Dark Wood Tiles");
         builder.add(ModBlocks.SOUL_HEARTH, "Soul Hearth");
         builder.add(ModBlocks.VITAL_THURIBLE, "Vital Thurible");
+        builder.add(ModBlocks.SMALL_WOODY_GROWTH, "Small Woody Growth");
+        builder.add(ModBlocks.LARGE_WOODY_GROWTH, "Large Woody Growth");
+        builder.add(ModBlocks.WOODY_GROWTH_CACHE, "Woody Growth Cache");
 
         // ITEMS
 
