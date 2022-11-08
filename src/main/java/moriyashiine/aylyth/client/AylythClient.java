@@ -12,6 +12,7 @@ import moriyashiine.aylyth.client.particle.PilotLightParticle;
 import moriyashiine.aylyth.client.render.AylythDimensionRenderer;
 import moriyashiine.aylyth.client.render.block.entity.SeepBlockEntityRenderer;
 import moriyashiine.aylyth.client.render.block.entity.VitalThuribleBlockEntityRenderer;
+import moriyashiine.aylyth.client.render.block.entity.WoodyGrowthBlockEntityRenderer;
 import moriyashiine.aylyth.client.render.entity.RootPropEntityRenderer;
 import moriyashiine.aylyth.client.render.entity.living.*;
 import moriyashiine.aylyth.client.render.entity.projectile.YmpeLanceEntityRenderer;
@@ -38,16 +39,20 @@ import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.color.world.FoliageColors;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.client.option.KeyBinding;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.TexturedRenderLayers;
+import net.minecraft.client.render.*;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
+import net.minecraft.client.render.model.BakedQuad;
+import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.client.util.SpriteIdentifier;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.ItemStack;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.registry.Registry;
 
 @Environment(EnvType.CLIENT)
@@ -81,6 +86,7 @@ public class AylythClient implements ClientModInitializer {
 		ModelPredicateProviderRegistry.register(ModItems.SHUCKED_YMPE_FRUIT, new Identifier(Aylyth.MOD_ID, "variant"), (stack, world, entity, seed) -> stack.hasNbt() && stack.getNbt().contains("StoredEntity") ? 1 : 0);
 		BlockEntityRendererRegistry.register(ModBlockEntityTypes.SEEP_BLOCK_ENTITY_TYPE, SeepBlockEntityRenderer::new);
 		BlockEntityRendererRegistry.register(ModBlockEntityTypes.VITAL_THURIBLE_BLOCK_ENTITY, VitalThuribleBlockEntityRenderer::new);
+		BlockEntityRendererRegistry.register(ModBlockEntityTypes.WOODY_GROWTH_CACHE_BLOCK_ENTITY, WoodyGrowthBlockEntityRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(YMPE_INFESTATION_STAGE_1_MODEL_LAYER, YmpeInfestationModel::getTexturedModelData1);
 		EntityModelLayerRegistry.registerModelLayer(YMPE_INFESTATION_STAGE_2_MODEL_LAYER, YmpeInfestationModel::getTexturedModelData2);
 		EntityModelLayerRegistry.registerModelLayer(YMPE_INFESTATION_STAGE_3_MODEL_LAYER, YmpeInfestationModel::getTexturedModelData3);
@@ -128,6 +134,7 @@ public class AylythClient implements ClientModInitializer {
 		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(glaiveBigItemRenderer);
 		BuiltinItemRendererRegistry.INSTANCE.register(ModItems.YMPE_LANCE, ympeBigItemRenderer);
 		BuiltinItemRendererRegistry.INSTANCE.register(ModItems.GLAIVE, glaiveBigItemRenderer);
+		BuiltinItemRendererRegistry.INSTANCE.register(ModItems.WOODY_GROWTH_CACHE, this::woodyGrowthCacheRenderer);
 		ModelLoadingRegistry.INSTANCE.registerModelProvider((manager, out) -> {
 			out.accept(new ModelIdentifier(ympeBigItemId + "_gui", "inventory"));
 			out.accept(new ModelIdentifier(ympeBigItemId + "_handheld", "inventory"));
@@ -136,6 +143,15 @@ public class AylythClient implements ClientModInitializer {
 			out.accept(new ModelIdentifier(glavieBigItemId + "_gui", "inventory"));
 			out.accept(new ModelIdentifier(glavieBigItemId + "_handheld", "inventory"));
 		});
+	}
+
+	private void woodyGrowthCacheRenderer(ItemStack stack, ModelTransformation.Mode mode, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
+		var rand = Random.create(42);
+		var model = MinecraftClient.getInstance().getBlockRenderManager().getModel(ModBlocks.WOODY_GROWTH_CACHE.getDefaultState());
+		var consumer = VertexConsumers.union(vertexConsumers.getBuffer(RenderTypes.TINT), vertexConsumers.getBuffer(RenderLayers.getItemLayer(stack, true)));
+		for (BakedQuad quad : model.getOverrides().apply(model, stack, MinecraftClient.getInstance().world, mode.isFirstPerson() ? MinecraftClient.getInstance().player : null, 42).getQuads(null, null, rand)) {
+			consumer.quad(matrices.peek(), quad, 1.0f, 1.0f, 1.0f, light, overlay);
+		}
 	}
 
 	private static Block[] cutoutBlocks() {
@@ -166,7 +182,8 @@ public class AylythClient implements ClientModInitializer {
 				ModBlocks.YMPE_STREWN_LEAVES,
 				ModBlocks.GHOSTCAP_MUSHROOM,
 				ModBlocks.SOUL_HEARTH,
-				ModBlocks.VITAL_THURIBLE
+				ModBlocks.VITAL_THURIBLE,
+				ModBlocks.LARGE_WOODY_GROWTH
 		};
 	}
 }

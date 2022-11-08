@@ -72,6 +72,10 @@ public class ModBlocks {
 	public static final Block OAK_STREWN_LEAVES = new StrewnLeavesBlock(FabricBlockSettings.of(STREWN_LEAVES).sounds(ModSoundEvents.STREWN_LEAVES));
 	public static final Block YMPE_STREWN_LEAVES = new StrewnLeavesBlock(FabricBlockSettings.of(STREWN_LEAVES).sounds(ModSoundEvents.STREWN_LEAVES));
 
+	public static final Block SMALL_WOODY_GROWTH = new SmallWoodyGrowthBlock(FabricBlockSettings.of(Material.WOOD).strength(2.0f).sounds(BlockSoundGroup.WOOD));
+	public static final Block LARGE_WOODY_GROWTH = new LargeWoodyGrowthBlock(FabricBlockSettings.of(Material.WOOD).strength(2.0f).sounds(BlockSoundGroup.WOOD));
+	public static final Block WOODY_GROWTH_CACHE = new WoodyGrowthCacheBlock(FabricBlockSettings.of(Material.WOOD).strength(2.0f).sounds(BlockSoundGroup.WOOD));
+
 	public static final Block OAK_SEEP = new SeepBlock();
 	public static final Block SPRUCE_SEEP = new SeepBlock();
 	public static final Block DARK_OAK_SEEP = new SeepBlock();
@@ -101,6 +105,9 @@ public class ModBlocks {
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "ghostcap_mushroom"), GHOSTCAP_MUSHROOM);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "oak_strewn_leaves"), OAK_STREWN_LEAVES);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "ympe_strewn_leaves"), YMPE_STREWN_LEAVES);
+		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "small_woody_growth"), SMALL_WOODY_GROWTH);
+		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "large_woody_growth"), LARGE_WOODY_GROWTH);
+		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "woody_growth_cache"), WOODY_GROWTH_CACHE);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "oak_seep"), OAK_SEEP);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "spruce_seep"), SPRUCE_SEEP);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "dark_oak_seep"), DARK_OAK_SEEP);
