@@ -15,6 +15,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.TridentItem;
 import net.minecraft.item.Vanishable;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -27,7 +28,7 @@ import net.minecraft.world.World;
 
 import java.util.UUID;
 
-public class YmpeLanceItem extends Item implements Vanishable {
+public class YmpeLanceItem extends TridentItem implements Vanishable {
 	private static final EntityAttributeModifier ATTACK_DAMAGE_MODIFIER = new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Weapon modifier", 7, EntityAttributeModifier.Operation.ADDITION);
 	private static final EntityAttributeModifier ATTACK_SPEED_MODIFIER = new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "Weapon modifier", -2.5, EntityAttributeModifier.Operation.ADDITION);
 	private static final EntityAttributeModifier REACH_MODIFIER = new EntityAttributeModifier(UUID.fromString("ccec5f1b-1597-4994-aa5f-c8848721897d"), "Weapon modifier", 1, EntityAttributeModifier.Operation.ADDITION);

@@ -118,6 +118,7 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
         this.setDormant(nbt.getBoolean("Dormant"));
         stabTicks = nbt.getInt("stabTicks");
     }
+
     public boolean isDormant() {
         return getDataTracker().get(DORMANT);
     }
