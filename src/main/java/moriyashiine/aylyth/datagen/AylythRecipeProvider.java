@@ -1,10 +1,12 @@
 package moriyashiine.aylyth.datagen;
 
+import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.ModItems;
 import moriyashiine.aylyth.common.registry.ModTags;
 import moriyashiine.aylyth.common.registry.util.ItemWoodSuite;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
+import net.minecraft.block.Blocks;
 import net.minecraft.data.server.RecipeProvider;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
@@ -31,14 +33,13 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
         woodSuiteRecipes(exporter, ModItems.WRITHEWOOD_ITEMS);
         offerShapeless(exporter, ModItems.GHOSTCAP_MUSHROOM_SPORES, 1, ModItems.GHOSTCAP_MUSHROOM, null);
 
-        ShapedRecipeJsonBuilder.create(ModItems.BONEFLY_SKULL)
-                .input('b', Items.BONE_MEAL)
-                .input('n', Items.BONE_BLOCK)
-                .input('s', Items.NETHERITE_BLOCK)
-                .pattern("nnn")
-                .pattern("nsn")
-                .pattern("bnb")
-                .criterion("has_bonemeal", conditionsFromItem(Items.BONE_MEAL))
+
+        ShapedRecipeJsonBuilder.create(ModBlocks.DARK_WOODS_TILES, 8)
+                .input('Y', ModBlocks.YMPE_BLOCKS.planks)
+                .input('W', ModBlocks.WRITHEWOOD_BLOCKS.planks)
+                .pattern("YW")
+                .pattern("WY")
+                .criterion("has_writhe", conditionsFromItem(ModBlocks.WRITHEWOOD_BLOCKS.planks))
                 .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(ModItems.GLAIVE)

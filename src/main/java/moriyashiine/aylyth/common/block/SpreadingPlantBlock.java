@@ -34,7 +34,7 @@ public class SpreadingPlantBlock extends Block {
             int xyRange = 2;
             for (BlockPos placePos : BlockPos.iterateRandomly(random, 3, pos.getX()-xyRange, pos.getY()-1, pos.getZ()-xyRange, pos.getX()+xyRange, pos.getY()+1, pos.getZ()+xyRange)) {
                 var sideStateOptional = findGrowState(world, placePos);
-                if (world.isAir(placePos) && this.isValidLight(world, placePos) && sideStateOptional.isPresent()) {
+                if (world.isAir(placePos) && isValidLight(world, placePos) && sideStateOptional.isPresent()) {
                     world.setBlockState(placePos, sideStateOptional.get());
                     return;
                 }

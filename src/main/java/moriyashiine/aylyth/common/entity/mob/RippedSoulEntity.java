@@ -81,7 +81,7 @@ public class RippedSoulEntity extends HostileEntity {
         this.goalSelector.add(8, new LookAtTargetGoal());
         this.goalSelector.add(9, new LookAtEntityGoal(this, PlayerEntity.class, 3.0f, 1.0f));
         this.goalSelector.add(10, new LookAtEntityGoal(this, MobEntity.class, 8.0f));
-        this.targetSelector.add(1, new RevengeGoal(this).setGroupRevenge(new Class[0]));
+        this.targetSelector.add(1, new RevengeGoal(this).setGroupRevenge());
         this.targetSelector.add(2, new TrackOwnerTargetGoal(this));
         this.targetSelector.add(3, new ActiveTargetGoal<>(this, PlayerEntity.class, true, player -> !isOwner(player)));
     }
@@ -156,31 +156,31 @@ public class RippedSoulEntity extends HostileEntity {
         return this.bounds;
     }
 
-    public void setBounds(@Nullable BlockPos bounds) {
-        this.bounds = bounds;
-    }
-
-    private boolean areFlagsSet(int mask) {
+    private boolean areFlagsSet() {
         byte i = this.dataTracker.get(VEX_FLAGS);
-        return (i & mask) != 0;
+        return (i & RippedSoulEntity.CHARGING_FLAG) != 0;
     }
 
-    private void setVexFlag(int mask, boolean value) {
-        int i = this.dataTracker.get(VEX_FLAGS).byteValue();
-        i = value ? (i |= mask) : (i &= ~mask);
+    private void setVexFlag(boolean value) {
+        int i = this.dataTracker.get(VEX_FLAGS);
+        if (value) {
+            i |= RippedSoulEntity.CHARGING_FLAG;
+        } else {
+            i &= ~RippedSoulEntity.CHARGING_FLAG;
+        }
         this.dataTracker.set(VEX_FLAGS, (byte)(i & 0xFF));
     }
 
     public boolean isCharging() {
-        return this.areFlagsSet(CHARGING_FLAG);
+        return this.areFlagsSet();
     }
 
     public void setCharging(boolean charging) {
-        this.setVexFlag(CHARGING_FLAG, charging);
+        this.setVexFlag(charging);
     }
 
     public UUID getOwnerUuid() {
-        return (UUID) ((Optional) this.dataTracker.get(OWNER_UUID)).orElse(null);
+        return this.dataTracker.get(OWNER_UUID).orElse(null);
     }
 
     public void setOwnerUuid(@javax.annotation.Nullable UUID uuid) {
@@ -224,9 +224,6 @@ public class RippedSoulEntity extends HostileEntity {
         return SoundEvents.ENTITY_VEX_HURT;
     }
 
-    public float method_5718() {
-        return 1.0F;
-    }
 
     class VexMoveControl
             extends MoveControl {
@@ -249,13 +246,12 @@ public class RippedSoulEntity extends HostileEntity {
                 if (RippedSoulEntity.this.getTarget() == null) {
                     Vec3d vec3d2 = RippedSoulEntity.this.getVelocity();
                     RippedSoulEntity.this.setYaw(-((float)MathHelper.atan2(vec3d2.x, vec3d2.z)) * 57.295776f);
-                    RippedSoulEntity.this.bodyYaw = RippedSoulEntity.this.getYaw();
                 } else {
                     double e = RippedSoulEntity.this.getTarget().getX() - RippedSoulEntity.this.getX();
                     double f = RippedSoulEntity.this.getTarget().getZ() - RippedSoulEntity.this.getZ();
                     RippedSoulEntity.this.setYaw(-((float)MathHelper.atan2(e, f)) * 57.295776f);
-                    RippedSoulEntity.this.bodyYaw = RippedSoulEntity.this.getYaw();
                 }
+                RippedSoulEntity.this.bodyYaw = RippedSoulEntity.this.getYaw();
             }
         }
     }

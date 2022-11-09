@@ -1,6 +1,7 @@
-// 1.19.2	2022-11-04T14:09:26.459049088	Aylyth worldgen generator
+// 1.19.2	2022-11-07T20:15:06.082074293	Aylyth worldgen generator
 7235299fc44bee2dc1b0de8c74b9c4421d53955b data/aylyth/worldgen/noise/cave_cheese.json
 f819fb29070e13882767d5ea75439dde044abd17 data/aylyth/worldgen/noise/spaghetti_3d_1.json
+a2d9c264796796035298947a98f0513b7a39fb03 data/aylyth/worldgen/placed_feature/writhewood_tree.json
 e96a956287d6168e4d4957383a76fd7db5e966e2 data/aylyth/worldgen/noise/offset.json
 85bd6a56b18fe2831f96fbf88b782e777d5f2258 data/aylyth/worldgen/placed_feature/marigolds.json
 298a6ae9271a3808e9da4ea9004ab18684eab5df data/aylyth/worldgen/placed_feature/coniferous_deepwood_trees.json
@@ -33,6 +34,7 @@ f37f0a4ff6acc5ba34d1fd4d564c99addbba6ed9 data/aylyth/worldgen/configured_feature
 d02cff139d6ad05c5e9d3d304a4f37713d059d85 data/aylyth/worldgen/density_function/offset.json
 fd7ed0c9ba8a5fc0fb2e52f2bd72d503849626ea data/aylyth/worldgen/noise/jagged.json
 dd0df681bcc8c22747243fa80505946e79621a91 data/aylyth/worldgen/placed_feature/coniferous_deep_roof_trees.json
+1781877491d5f050e7f68f4c815ba428fad593be data/aylyth/worldgen/configured_feature/writhewood_tree.json
 e38d87100c4597954814864944a34e4d1e0ede26 data/aylyth/worldgen/placed_feature/copse_trees.json
 9cab4a36311789db774edd95bb3ed24bc5227620 data/aylyth/worldgen/placed_feature/ympe_tree.json
 7ee30d29ad8335dd8c715f538c2fe86bed46dbb0 data/aylyth/worldgen/noise/ridge.json

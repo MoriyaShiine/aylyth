@@ -70,7 +70,9 @@ public class ShuckedYmpeFruitItem extends Item {
 			else {
 				name = Registry.ENTITY_TYPE.get(new Identifier(entityCompound.getString("id"))).getName();
 			}
-			tooltip.add(((MutableText) name).formatted(Formatting.GRAY));
+			if (name != null) {
+				tooltip.add(((MutableText) name).formatted(Formatting.GRAY));
+			}
 		}
 	}
 }

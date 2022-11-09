@@ -2,9 +2,11 @@ package moriyashiine.aylyth.common.block;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.UnmodifiableIterator;
+import moriyashiine.aylyth.common.block.entity.SoulHearthBlockEntity;
 import moriyashiine.aylyth.common.registry.ModDimensions;
 import moriyashiine.aylyth.common.registry.ModItems;
 import net.minecraft.block.*;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.entity.Dismounting;
 import net.minecraft.entity.EntityType;
@@ -37,7 +39,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-public class SoulHearthBlock extends Block {
+public class SoulHearthBlock extends Block implements BlockEntityProvider {
 
     public static final IntProperty CHARGES;
     private static final ImmutableList<Vec3i> VALID_HORIZONTAL_SPAWN_OFFSETS;
@@ -191,6 +193,12 @@ public class SoulHearthBlock extends Block {
         }else{
             return UPPER_SHAPES;
         }
+    }
+
+    @Nullable
+    @Override
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        return new SoulHearthBlockEntity(pos, state);
     }
 
     static {

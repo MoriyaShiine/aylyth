@@ -140,7 +140,7 @@ public class VitalThuribleBlockEntity extends BlockEntity implements Inventory {
         }
     }
 
-    public void onUse(World world, BlockPos pos, PlayerEntity player, Hand hand, Object o) {
+    public void onUse(PlayerEntity player, Hand hand) {
         ItemStack stack = player.getStackInHand(hand);
         if(stack.isOf(ModItems.WRONGMEAT) && inventory.get(0).getCount() < 5){
             targetUUID = player.getUuid();
