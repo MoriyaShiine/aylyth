@@ -49,7 +49,7 @@ public class LargeWoodyGrowthBlock extends SmallWoodyGrowthBlock {
             } else {
                 BlockEntity be = null;
                 if (state.hasBlockEntity() && state.get(HALF) == DoubleBlockHalf.UPPER) {
-                    be = world.getBlockEntity(pos);
+                    be = world.getBlockEntity(pos.down());
                 }
                 dropStacks(state, world, pos, be, player, player.getMainHandStack());
             }

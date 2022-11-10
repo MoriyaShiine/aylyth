@@ -83,19 +83,25 @@ public class WoodyGrowthCacheBlockEntity extends BlockEntity {
         return inventory.size();
     }
 
-    public int fill(Inventory inv) {
-        int i = 0;
+    public int fill(Inventory inv, int index) {
+        int i = index;
         while (inventory.size() < MAX_SIZE && i < inv.size()) {
-            inventory.add(inv.getStack(i++));
+            var stack = inv.removeStack(i++);
+            if (!stack.isEmpty()) {
+                inventory.add(stack);
+            }
         }
         markDirty();
         return i;
     }
 
-    public int fill(ItemStack... items) {
+    public int fill(List<ItemStack> items, int index) {
         int i = 0;
-        while (inventory.size() < MAX_SIZE && i < items.length) {
-            inventory.add(items[i++]);
+        while (inventory.size() < MAX_SIZE && i < items.size()) {
+            var stack = items.get(i++);
+            if (!stack.isEmpty()) {
+                inventory.add(stack);
+            }
         }
         markDirty();
         return i;

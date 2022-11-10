@@ -67,7 +67,7 @@
       }
     ],
     "half=upper": {
-      "model": "aylyth:block/empty"
+      "model": "aylyth:block/woody_growth_particles"
     }
   }
 }

@@ -1,9 +1,11 @@
 package moriyashiine.aylyth.common.item;
 
 import moriyashiine.aylyth.api.interfaces.Vital;
+import moriyashiine.aylyth.common.block.WoodyGrowthCacheBlock;
 import moriyashiine.aylyth.common.block.entity.WoodyGrowthCacheBlockEntity;
 import moriyashiine.aylyth.common.entity.mob.ScionEntity;
 import moriyashiine.aylyth.common.registry.ModBlocks;
+import moriyashiine.aylyth.common.registry.ModComponents;
 import moriyashiine.aylyth.common.registry.ModItems;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
@@ -32,12 +34,9 @@ public class DebugWandItem extends Item {
         var pos = context.getBlockPos();
         var player = context.getPlayer();
         if (player != null && player.getStackInHand(Hand.OFF_HAND).isOf(ModItems.WOODY_GROWTH_CACHE)) {
-            var bItem = (BlockItem) ModItems.WOODY_GROWTH_CACHE;
-            var ret = bItem.useOnBlock(context);
-            if (!world.isClient() && world.getBlockEntity(pos.offset(context.getSide())) instanceof WoodyGrowthCacheBlockEntity be) {
-                be.fill(Registry.ITEM.getRandom(world.random).map(itemRegistryEntry -> itemRegistryEntry.value().getDefaultStack()).orElse(ItemStack.EMPTY));
+            if (!world.isClient()) {
+                WoodyGrowthCacheBlock.spawnInventory(world, pos, player.getInventory());
             }
-            return ret;
         }
         return super.useOnBlock(context);
     }
@@ -54,7 +53,12 @@ public class DebugWandItem extends Item {
                     }
                 });
             }else{
-                ScionEntity.summonPlayerScion(user);
+                if (user.getOffHandStack().isOf(ModItems.YMPE_FRUIT)) {
+                    var optional = ModComponents.YMPE_INFESTATION.maybeGet(user);
+                    optional.ifPresent(ympeInfestationComponent -> ympeInfestationComponent.setStage((byte)(ympeInfestationComponent.getStage() + 1)));
+                } else {
+                    ScionEntity.summonPlayerScion(user);
+                }
             }
         }
         return super.use(world, user, hand);

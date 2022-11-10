@@ -74,6 +74,7 @@ public class AylythModelProvider extends FabricModelProvider {
         woodSuite(blockStateModelGenerator, ModBlocks.WRITHEWOOD_BLOCKS, WRITHEWOOD);
         variantState(blockStateModelGenerator, ModBlocks.WRITHEWOOD_LEAVES);
         blockStateModelGenerator.registerSingleton(ModBlocks.DARK_WOODS_TILES, TexturedModel.CUBE_ALL);
+        Models.PARTICLE.upload(blockId("woody_growth_particles"), TextureMap.particle(blockId("aylyth_bush_trunk")), blockStateModelGenerator.modelCollector);
         woodyGrowth(blockStateModelGenerator);
     }
 
@@ -122,7 +123,9 @@ public class AylythModelProvider extends FabricModelProvider {
                                         modelVariantWithYRotation(AylythUtil.id("block/large_woody_growth_4"), VariantSettings.Rotation.R270)
                                         )
                                 )
-                                .register(DoubleBlockHalf.UPPER, List.of(BlockStateVariant.create().put(VariantSettings.MODEL, AylythUtil.id("block/empty")))))
+                                .register(DoubleBlockHalf.UPPER, List.of(
+                                        BlockStateVariant.create().put(VariantSettings.MODEL, blockId("woody_growth_particles"))
+                                )))
         );
         generator.blockStateCollector.accept(
                 VariantsBlockStateSupplier.create(ModBlocks.WOODY_GROWTH_CACHE).
@@ -147,7 +150,9 @@ public class AylythModelProvider extends FabricModelProvider {
                                                 modelVariantWithYRotation(AylythUtil.id("block/large_woody_growth_4"), VariantSettings.Rotation.R270)
                                         )
                                 )
-                                .register(DoubleBlockHalf.UPPER, List.of(BlockStateVariant.create().put(VariantSettings.MODEL, AylythUtil.id("block/empty")))))
+                                .register(DoubleBlockHalf.UPPER, List.of(
+                                        BlockStateVariant.create().put(VariantSettings.MODEL, blockId("woody_growth_particles"))
+                                )))
         );
         generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(ModBlocks.SMALL_WOODY_GROWTH,
                 modelVariantWithYRotation(AylythUtil.id("block/small_woody_growth_1"), VariantSettings.Rotation.R90),
