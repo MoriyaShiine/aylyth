@@ -30,7 +30,7 @@ public class ModItems {
 	public static final Item AYLYTH_BUSH = new BlockItem(ModBlocks.AYLYTH_BUSH, settings());
 	public static final Item ANTLER_SHOOTS = new BlockItem(ModBlocks.ANTLER_SHOOTS, settings());
 	public static final Item GRIPWEED = new BlockItem(ModBlocks.GRIPWEED, settings());
-	public static final Item CORIC_SEED = new Item(settings());
+	public static final Item CORIC_SEED = new CoricSeedItem(settings());
 
 	public static final Item NYSIAN_GRAPE_VINE = new BlockItem(ModBlocks.NYSIAN_GRAPE_VINE, settings());
 	public static final Item MARIGOLD = new BlockItem(ModBlocks.MARIGOLD, settings());
@@ -58,7 +58,7 @@ public class ModItems {
 	public static final Item POMEGRANATE = new PomegranateItem(settings().food(ModFoodComponents.POMEGRANATE));
 
 	public static final Item AYLYTHIAN_HEART = new AylythianHeartItem(settings());
-	public static final Item WRONGMEAT = new Item(settings());
+	public static final Item WRONGMEAT = new Item(settings().food(ModFoodComponents.WRONGMEAT));
 
 	public static final Item SOUL_HEARTH = new BlockItem(ModBlocks.SOUL_HEARTH, settings());
 	public static final Item VITAL_THURIBLE = new BlockItem(ModBlocks.VITAL_THURIBLE, settings());
@@ -74,7 +74,6 @@ public class ModItems {
 
 	public static final Item SOULMOULD_ITEM = new SoulmouldItem((settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(16));
 
-	public static final Item BONEFLY_SKULL =  new BoneflySkullItem((settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(16));
 
 
 
@@ -85,7 +84,7 @@ public class ModItems {
 
 	public static void init() {
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "debug_wand"), DEBUG_WAND);
-		
+
 		YMPE_ITEMS.register();
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "fruit_bearing_ympe_log"), FRUIT_BEARING_YMPE_LOG);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_leaves"), YMPE_LEAVES);
@@ -138,7 +137,6 @@ public class ModItems {
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "soultrap_effigy"), SOULTRAP_EFFIGY_ITEM);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "glaive"), GLAIVE);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "soulmould"), SOULMOULD_ITEM);
-		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "bonefly_skull"), BONEFLY_SKULL);
 
 		FuelRegistry fuelRegistry = FuelRegistry.INSTANCE;
 		fuelRegistry.add(YMPE_ITEMS.fence, 300);

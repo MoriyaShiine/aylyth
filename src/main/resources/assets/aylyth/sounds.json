@@ -136,5 +136,32 @@
 			"aylyth:entity/soulmould/soulmould_death_1"
 		],
 		"subtitle": "aylyth.subtitles.entity.soulmould.death"
+	},
+
+
+
+	"entity.scion.ambient": {
+		"sounds": [
+			"aylyth:entity/scion/say1",
+			"aylyth:entity/scion/say2",
+			"aylyth:entity/scion/say3",
+			"aylyth:entity/scion/say4"
+		],
+		"subtitle": "aylyth.subtitles.entity.scion.ambient"
+	},
+	"entity.scion.hurt": {
+		"sounds": [
+			"aylyth:entity/scion/hurt1",
+			"aylyth:entity/scion/hurt2",
+			"aylyth:entity/scion/hurt3",
+			"aylyth:entity/scion/hurt4"
+		],
+		"subtitle": "aylyth.subtitles.entity.scion.hurt"
+	},
+	"entity.scion.death": {
+		"sounds": [
+			"aylyth:entity/scion/death"
+		],
+		"subtitle": "aylyth.subtitles.entity.scion.death"
 	}
 }

@@ -30,8 +30,7 @@ public interface TameableHostileEntity {
 
     default boolean canAttackWithOwner(LivingEntity target, LivingEntity owner) {
         if (!(target instanceof CreeperEntity) && !(target instanceof GhastEntity)) {
-            if (target instanceof TameableHostileEntity) {
-                TameableHostileEntity entity = (TameableHostileEntity)target;
+            if (target instanceof TameableHostileEntity entity) {
                 return !entity.isTamed() || entity.getOwner() != owner;
             } else if (target instanceof PlayerEntity && owner instanceof PlayerEntity && !((PlayerEntity)owner).shouldDamagePlayer((PlayerEntity)target)) {
                 return false;

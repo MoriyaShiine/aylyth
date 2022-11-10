@@ -27,6 +27,8 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Objects;
+
 public class VitalThuribleBlock extends HorizontalFacingBlock implements BlockEntityProvider{
     public static final BooleanProperty ACTIVE = BooleanProperty.of("active");
     private static final VoxelShape SHAPES;
@@ -42,11 +44,9 @@ public class VitalThuribleBlock extends HorizontalFacingBlock implements BlockEn
         if (hand == Hand.MAIN_HAND && !isActivateItem(itemStack) && isActivateItem(player.getStackInHand(Hand.OFF_HAND))) {
             return ActionResult.PASS;
         } else if (isActivateItem(itemStack) && !state.get(ACTIVE)) {
-            if(!world.isClient()){
-                ((VitalThuribleBlockEntity) world.getBlockEntity(pos)).onUse(world, pos, player, hand, null);
+            if(!world.isClient() && world.getBlockEntity(pos) != null){
+                ((VitalThuribleBlockEntity) Objects.requireNonNull(world.getBlockEntity(pos))).onUse(player, hand);
             }
-            // TODO activate(world, pos, state);
-
             return ActionResult.success(true);
         }
         return super.onUse(state, world, pos, player, hand, hit);

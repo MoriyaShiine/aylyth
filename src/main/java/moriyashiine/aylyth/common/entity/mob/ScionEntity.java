@@ -3,10 +3,12 @@ package moriyashiine.aylyth.common.entity.mob;
 import com.mojang.serialization.Dynamic;
 import moriyashiine.aylyth.common.entity.ai.brain.ScionBrain;
 import moriyashiine.aylyth.common.registry.ModEntityTypes;
+import moriyashiine.aylyth.common.registry.ModSoundEvents;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -18,6 +20,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.server.ServerConfigHandler;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.Difficulty;
@@ -81,6 +84,7 @@ public class ScionEntity extends HostileEntity {
         return ScionBrain.create(this, dynamic);
     }
 
+    @SuppressWarnings("All")
     @Override
     public Brain<ScionEntity> getBrain() {
         return (Brain<ScionEntity>) super.getBrain();
@@ -98,8 +102,8 @@ public class ScionEntity extends HostileEntity {
 
     public static DefaultAttributeContainer.Builder createAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 35)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 5)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 20)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 3)
                 .add(EntityAttributes.GENERIC_ARMOR, 2)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25);
     }
@@ -152,7 +156,21 @@ public class ScionEntity extends HostileEntity {
         }
     }
 
+    @Nullable
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return ModSoundEvents.ENTITY_SCION_AMBIENT;
+    }
 
+    @Override
+    protected SoundEvent getHurtSound(DamageSource source) {
+        return ModSoundEvents.ENTITY_SCION_HURT;
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return ModSoundEvents.ENTITY_SCION_DEATH;
+    }
 
     public static boolean canSpawn(EntityType<ScionEntity> scionEntityEntityType, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos blockPos, Random random) {
         return canMobSpawn(scionEntityEntityType, serverWorldAccess, spawnReason, blockPos, random) && serverWorldAccess.getDifficulty() != Difficulty.PEACEFUL && random.nextBoolean();

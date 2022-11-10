@@ -118,6 +118,7 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
         this.setDormant(nbt.getBoolean("Dormant"));
         stabTicks = nbt.getInt("stabTicks");
     }
+
     public boolean isDormant() {
         return getDataTracker().get(DORMANT);
     }
@@ -223,11 +224,10 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
                 if(!this.getWorld().isClient() && this.getWorld().getEntitiesByClass(LivingEntity.class, this.getBoundingBox().offset(0,-2,0).expand(1), entity -> entity != this).size() > 0 && this.getPassengerList().size() <= 1) {
                     LivingEntity livingEntity = this.getWorld().getClosestEntity(this.getWorld().getEntitiesByClass(LivingEntity.class, this.getBoundingBox().offset(0, -2, 0).expand(1), entity -> entity != this), TargetPredicate.createAttackable(), this, this.getX(), this.getY(), this.getZ());
                     if(livingEntity != null) {
-                        if(!(livingEntity instanceof PlayerEntity)) {
+                        if(!(livingEntity instanceof PlayerEntity player)) {
                             this.tryAttack(livingEntity);
                             livingEntity.startRiding(this, true);
                         } else {
-                            PlayerEntity player = (PlayerEntity) livingEntity;
                             this.tryAttack(livingEntity);
                             playerStartRiding(this, player);
                         }
@@ -405,7 +405,7 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
 
     @Override
     public UUID getOwnerUuid() {
-        return (UUID) ((Optional) this.dataTracker.get(OWNER_UUID)).orElse(null);
+        return  this.dataTracker.get(OWNER_UUID).orElse(null);
     }
 
     @Override
