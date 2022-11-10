@@ -1,14 +1,23 @@
 package moriyashiine.aylyth.common.item;
 
 import moriyashiine.aylyth.api.interfaces.Vital;
+import moriyashiine.aylyth.common.block.WoodyGrowthCacheBlock;
+import moriyashiine.aylyth.common.block.entity.WoodyGrowthCacheBlockEntity;
 import moriyashiine.aylyth.common.entity.mob.ScionEntity;
+import moriyashiine.aylyth.common.registry.ModBlocks;
+import moriyashiine.aylyth.common.registry.ModComponents;
+import moriyashiine.aylyth.common.registry.ModItems;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUsageContext;
 import net.minecraft.text.Text;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -17,6 +26,19 @@ import java.util.List;
 public class DebugWandItem extends Item {
     public DebugWandItem(Settings settings) {
         super(settings);
+    }
+
+    @Override
+    public ActionResult useOnBlock(ItemUsageContext context) {
+        var world = context.getWorld();
+        var pos = context.getBlockPos();
+        var player = context.getPlayer();
+        if (player != null && player.getStackInHand(Hand.OFF_HAND).isOf(ModItems.WOODY_GROWTH_CACHE)) {
+            if (!world.isClient()) {
+                WoodyGrowthCacheBlock.spawnInventory(world, pos, player.getInventory());
+            }
+        }
+        return super.useOnBlock(context);
     }
 
     @Override
@@ -31,9 +53,13 @@ public class DebugWandItem extends Item {
                     }
                 });
             }else{
-                ScionEntity.summonPlayerScion(user);
+                if (user.getOffHandStack().isOf(ModItems.YMPE_FRUIT)) {
+                    var optional = ModComponents.YMPE_INFESTATION.maybeGet(user);
+                    optional.ifPresent(ympeInfestationComponent -> ympeInfestationComponent.setStage((byte)(ympeInfestationComponent.getStage() + 1)));
+                } else {
+                    ScionEntity.summonPlayerScion(user);
+                }
             }
-
         }
         return super.use(world, user, hand);
     }

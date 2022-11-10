@@ -398,6 +398,11 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
     }
 
     @Override
+    public EntityGroup getGroup() {
+        return EntityGroup.UNDEAD;
+    }
+
+    @Override
     public AnimationFactory getFactory() {
         return factory;
     }
