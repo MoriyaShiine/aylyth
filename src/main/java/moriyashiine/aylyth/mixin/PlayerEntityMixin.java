@@ -85,7 +85,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Vital {
 
     @Override
     public void setVitalThuribleLevel(int vital) {
-        if(dataTracker.get(AylythUtil.VITAL) + vital <= 10){
+        if(vital <= 10){
             dataTracker.set(AylythUtil.VITAL, vital);
             PlayerEntity player = (PlayerEntity) (Object) this;
             EntityAttributeInstance healthAttribute = player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH);

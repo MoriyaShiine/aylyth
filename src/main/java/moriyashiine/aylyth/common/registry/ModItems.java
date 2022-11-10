@@ -55,7 +55,7 @@ public class ModItems {
 	public static final Item POMEGRANATE = new PomegranateItem(settings().food(ModFoodComponents.POMEGRANATE));
 
 	public static final Item AYLYTHIAN_HEART = new AylythianHeartItem(settings());
-	public static final Item WRONGMEAT = new Item(settings());
+	public static final Item WRONGMEAT = new Item(settings().food(ModFoodComponents.WRONGMEAT));
 
 	public static final Item SOUL_HEARTH = new BlockItem(ModBlocks.SOUL_HEARTH, settings());
 	public static final Item VITAL_THURIBLE = new BlockItem(ModBlocks.VITAL_THURIBLE, settings());
@@ -81,7 +81,7 @@ public class ModItems {
 
 	public static void init() {
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "debug_wand"), DEBUG_WAND);
-		
+
 		YMPE_ITEMS.register();
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "fruit_bearing_ympe_log"), FRUIT_BEARING_YMPE_LOG);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_leaves"), YMPE_LEAVES);
