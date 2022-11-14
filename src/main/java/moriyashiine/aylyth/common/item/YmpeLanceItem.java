@@ -28,7 +28,7 @@ import net.minecraft.world.World;
 
 import java.util.UUID;
 
-public class YmpeLanceItem extends TridentItem implements Vanishable {
+public class YmpeLanceItem extends Item implements Vanishable {
 	private static final EntityAttributeModifier ATTACK_DAMAGE_MODIFIER = new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Weapon modifier", 7, EntityAttributeModifier.Operation.ADDITION);
 	private static final EntityAttributeModifier ATTACK_SPEED_MODIFIER = new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "Weapon modifier", -2.5, EntityAttributeModifier.Operation.ADDITION);
 	private static final EntityAttributeModifier REACH_MODIFIER = new EntityAttributeModifier(UUID.fromString("ccec5f1b-1597-4994-aa5f-c8848721897d"), "Weapon modifier", 1, EntityAttributeModifier.Operation.ADDITION);
