@@ -38,6 +38,9 @@ public class ModItems {
 	public static final Item YMPE_STREWN_LEAVES = new BlockItem(ModBlocks.YMPE_STREWN_LEAVES, settings());
 	public static final Item JACK_O_LANTERN_MUSHROOM = new WallStandingBlockItem(ModBlocks.JACK_O_LANTERN_MUSHROOM, ModBlocks.SHELF_JACK_O_LANTERN_MUSHROOM, settings());
 	public static final Item GHOSTCAP_MUSHROOM_SPORES = new BlockItem(ModBlocks.GHOSTCAP_MUSHROOM, settings());
+	public static final Item SMALL_WOODY_GROWTH = new BlockItem(ModBlocks.SMALL_WOODY_GROWTH, settings());
+	public static final Item LARGE_WOODY_GROWTH = new BlockItem(ModBlocks.LARGE_WOODY_GROWTH, settings());
+	public static final Item WOODY_GROWTH_CACHE = new BlockItem(ModBlocks.WOODY_GROWTH_CACHE, settings());
 
 	public static final Item OAK_SEEP = new BlockItem(ModBlocks.OAK_SEEP, settings());
 	public static final Item SPRUCE_SEEP = new BlockItem(ModBlocks.SPRUCE_SEEP, settings());
@@ -100,6 +103,9 @@ public class ModItems {
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_strewn_leaves"), YMPE_STREWN_LEAVES);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "jack_o_lantern_mushroom"), JACK_O_LANTERN_MUSHROOM);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "ghostcap_mushroom_spores"), GHOSTCAP_MUSHROOM_SPORES);
+		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "small_woody_growth"), SMALL_WOODY_GROWTH);
+		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "large_woody_growth"), LARGE_WOODY_GROWTH);
+		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "woody_growth_cache"), WOODY_GROWTH_CACHE);
 
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "oak_seep"), OAK_SEEP);
 		Registry.register(Registry.ITEM, new Identifier(Aylyth.MOD_ID, "spruce_seep"), SPRUCE_SEEP);

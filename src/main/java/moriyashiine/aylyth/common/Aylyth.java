@@ -2,6 +2,8 @@ package moriyashiine.aylyth.common;
 
 import moriyashiine.aylyth.api.interfaces.Vital;
 import moriyashiine.aylyth.client.network.packet.UpdatePressingUpDownPacket;
+import moriyashiine.aylyth.common.block.WoodyGrowthCacheBlock;
+import moriyashiine.aylyth.common.block.entity.WoodyGrowthCacheBlockEntity;
 import moriyashiine.aylyth.common.network.packet.GlaivePacket;
 import moriyashiine.aylyth.client.network.packet.SpawnShuckParticlesPacket;
 import moriyashiine.aylyth.common.recipe.YmpeDaggerDropRecipe;
@@ -97,6 +99,10 @@ public class Aylyth implements ModInitializer {
 
 	private boolean allowDeath(ServerPlayerEntity player, DamageSource damageSource, float damageAmount) {
 		if (damageSource.isOutOfWorld() && damageSource != ModDamageSources.YMPE) {
+			return true;
+		}
+		if (damageSource == ModDamageSources.YMPE) {
+			WoodyGrowthCacheBlock.spawnInventory(player.world, player.getBlockPos(), player.getInventory());
 			return true;
 		}
 		RegistryKey<World> toWorld = null;

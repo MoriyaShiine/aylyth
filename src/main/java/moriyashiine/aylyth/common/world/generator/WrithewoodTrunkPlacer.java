@@ -6,7 +6,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.ModFeatures;
-import moriyashiine.aylyth.common.world.generator.feature.DirectionalTreeNode;
+import moriyashiine.aylyth.common.world.generator.feature.WrithewoodFoliagePlacer;
 import net.minecraft.block.BlockState;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
@@ -58,7 +58,8 @@ public class WrithewoodTrunkPlacer extends StraightTrunkPlacer {
                 continue;
             }
             branchLocations.add(pos);
-            var lastPos = pos.offset(dir, random.nextInt(3)+1);
+            var branchLength = random.nextInt(3)+1;
+            var lastPos = pos.offset(dir, branchLength);
             for (BlockPos branchPos : BlockPos.iterate(pos, lastPos)) {
                 getAndSetState(world, replacer, random, branchPos, config, state -> {
                     if (state.contains(Properties.AXIS)) {
@@ -67,7 +68,7 @@ public class WrithewoodTrunkPlacer extends StraightTrunkPlacer {
                     return state;
                 });
             }
-            builder.add(new DirectionalTreeNode(lastPos, 1, false, dir));
+            builder.add(new WrithewoodFoliagePlacer.WrithewoodTreeNode(lastPos, 1, false, dir, branchLength));
         }
         return builder.build();
     }
