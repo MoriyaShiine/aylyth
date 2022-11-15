@@ -2,8 +2,12 @@ package moriyashiine.aylyth.common.registry;
 
 import com.google.common.collect.ImmutableList;
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.world.generator.*;
+import moriyashiine.aylyth.common.block.SmallWoodyGrowthBlock;
 import moriyashiine.aylyth.common.world.generator.feature.*;
+import moriyashiine.aylyth.common.world.generator.foliageplacer.PomegranateFoliagePlacer;
+import moriyashiine.aylyth.common.world.generator.foliageplacer.WrithewoodFoliagePlacer;
+import moriyashiine.aylyth.common.world.generator.treedecorator.GrapeVineDecorator;
+import moriyashiine.aylyth.common.world.generator.trunkplacer.*;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.state.property.Properties;
@@ -47,6 +51,8 @@ public class ModConfiguredFeatures {
     public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> MARIGOLDS = register("marigolds", Feature.FLOWER, createRandomPatchFeatureConfig(BlockStateProvider.of(ModBlocks.MARIGOLD), 64));
     public static final RegistryEntry<ConfiguredFeature<HorizontalFacingFeature.HorizontalFacingBlockFeatureConfig, ?>> SHELF_JACK_O_LANTERN_MUSHROOMS = register("shelf_jack_o_lantern_mushrooms", ModFeatures.HORIZONTAL_FACING_FEATURE, new HorizontalFacingFeature.HorizontalFacingBlockFeatureConfig(ModBlocks.SHELF_JACK_O_LANTERN_MUSHROOM, ModTags.JACK_O_LANTERN_GENERATE_ON));
     public static final RegistryEntry<ConfiguredFeature<SimpleBlockFeatureConfig, ?>> GHOSTCAP_MUSHROOM = register("ghostcap_mushroom", Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(BlockStateProvider.of(ModBlocks.GHOSTCAP_MUSHROOM)));
+    public static final RegistryEntry<ConfiguredFeature<SimpleBlockFeatureConfig, ?>> SMALL_WOODY_GROWTH = register("small_woody_growth", Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(BlockStateProvider.of(ModBlocks.SMALL_WOODY_GROWTH.getDefaultState().with(SmallWoodyGrowthBlock.NATURAL, true))));
+    public static final RegistryEntry<ConfiguredFeature<SimpleBlockFeatureConfig, ?>> LARGE_WOODY_GROWTH = register("large_woody_growth", ModFeatures.DOUBLE_BLOCK_FEATURE, new SimpleBlockFeatureConfig(BlockStateProvider.of(ModBlocks.LARGE_WOODY_GROWTH.getDefaultState().with(SmallWoodyGrowthBlock.NATURAL, true))));
     //public static final ConfiguredFeature<?, ?> CLEARING_FLOWERS = todo flower generators
 
     public static final RegistryEntry<ConfiguredFeature<SeepFeature.SeepFeatureConfig, ?>> OAK_SEEP = register("oak_seep", ModFeatures.SEEP_FEATURE, new SeepFeature.SeepFeatureConfig(Blocks.OAK_LOG.getDefaultState(), ModBlocks.OAK_SEEP.getDefaultState(), ModBlocks.MARIGOLD.getDefaultState(), 5, 0.5F));
