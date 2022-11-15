@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.common.world.generator;
+package moriyashiine.aylyth.common.world.generator.trunkplacer;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Sets;
@@ -6,7 +6,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.ModFeatures;
-import moriyashiine.aylyth.common.world.generator.feature.WrithewoodFoliagePlacer;
+import moriyashiine.aylyth.common.world.generator.foliageplacer.WrithewoodFoliagePlacer;
 import net.minecraft.block.BlockState;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;

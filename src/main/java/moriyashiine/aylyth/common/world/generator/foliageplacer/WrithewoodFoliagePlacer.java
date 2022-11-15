@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.common.world.generator.feature;
+package moriyashiine.aylyth.common.world.generator.foliageplacer;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
