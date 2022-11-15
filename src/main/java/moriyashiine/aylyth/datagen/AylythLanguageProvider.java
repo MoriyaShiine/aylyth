@@ -139,8 +139,8 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
 
         // INFO
 
-        builder.add("info.tot.mould_activate", "Soulmould Active");
-        builder.add("info.tot.mould_deactivate", "Soulmould De-active");
+        builder.add("info.aylyth.mould_activate", "Soulmould Active");
+        builder.add("info.aylyth.mould_deactivate", "Soulmould De-active");
 
         // COMPAT - REI
 
