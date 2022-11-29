@@ -69,6 +69,8 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add(ModItems.YMPE_DAGGER, "Ympe Dagger");
         builder.add(ModItems.YMPE_LANCE, "Ympe Lance");
         builder.add(ModItems.GLAIVE, "Glaive");
+        builder.add("item.aylyth.glaive.desc_1", "\u00a76\u00a7oIt is the lament of the fallen");
+        builder.add("item.aylyth.glaive.desc_2", "\u00a76\u00a7owhich pushes the living onward.");
         builder.add(ModItems.YMPE_FRUIT, "Ympe Fruit");
         builder.add(ModItems.SHUCKED_YMPE_FRUIT, "Shucked Ympe Fruit");
         builder.add(ModItems.NYSIAN_GRAPES, "Nysian Grapes");
