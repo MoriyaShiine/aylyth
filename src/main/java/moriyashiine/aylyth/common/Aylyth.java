@@ -4,6 +4,7 @@ import moriyashiine.aylyth.api.interfaces.Vital;
 import moriyashiine.aylyth.client.network.packet.UpdatePressingUpDownPacket;
 import moriyashiine.aylyth.common.block.WoodyGrowthCacheBlock;
 import moriyashiine.aylyth.common.block.entity.WoodyGrowthCacheBlockEntity;
+import moriyashiine.aylyth.common.entity.mob.ScionEntity;
 import moriyashiine.aylyth.common.network.packet.GlaivePacket;
 import moriyashiine.aylyth.client.network.packet.SpawnShuckParticlesPacket;
 import moriyashiine.aylyth.common.recipe.YmpeDaggerDropRecipe;
@@ -190,6 +191,9 @@ public class Aylyth implements ModInitializer {
 						ItemStack drop = recipe.getOutput().copy();
 						if (recipe.entity_type == EntityType.PLAYER) {
 							drop.getOrCreateNbt().putString("SkullOwner", killedEntity.getName().getString());
+						}
+						if (recipe.entity_type == ModEntityTypes.SCION && entity instanceof ScionEntity scionEntity && scionEntity.getStoredPlayerUUID() != null) {
+							return;
 						}
 						int random = 1;
 						if(recipe.min <= recipe.max && recipe.min + recipe.max > 0){
