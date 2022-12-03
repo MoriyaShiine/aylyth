@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_dagger": {
+    "has_soulsand": {
       "conditions": {
         "items": [
           {
             "items": [
-              "aylyth:ympe_dagger"
+              "minecraft:soul_sand"
             ]
           }
         ]
@@ -15,20 +15,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "aylyth:glaive"
+        "recipe": "aylyth:ympemould"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_dagger",
+      "has_soulsand",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "aylyth:glaive"
+      "aylyth:ympemould"
     ]
   }
 }

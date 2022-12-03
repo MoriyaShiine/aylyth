@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "aylyth:soultrap_effigy"
+        "recipe": "aylyth:ympe_effigy"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "aylyth:soultrap_effigy"
+      "aylyth:ympe_effigy"
     ]
   }
 }

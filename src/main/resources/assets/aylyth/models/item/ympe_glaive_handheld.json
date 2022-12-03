@@ -1,7 +1,7 @@
 {
   "parent": "item/handheld",
   "textures": {
-    "layer0": "aylyth:item/glaive_handheld"
+    "layer0": "aylyth:item/ympe_glaive_handheld"
   },
   "display": {
     "thirdperson_righthand": {

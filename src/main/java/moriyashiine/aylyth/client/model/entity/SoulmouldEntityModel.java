@@ -17,7 +17,7 @@ public class SoulmouldEntityModel extends AnimatedTickingGeoModel<SoulmouldEntit
     }
 
     public Identifier getTextureResource(SoulmouldEntity object) {
-        return new Identifier(Aylyth.MOD_ID, "textures/entity/living/mould/soulmould.png");
+        return new Identifier(Aylyth.MOD_ID, "textures/entity/living/mould/ympemould.png");
     }
 
     public Identifier getAnimationResource(SoulmouldEntity animatable) {

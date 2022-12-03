@@ -251,7 +251,7 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
 
     @Override
     public ItemStack getPickBlockStack() {
-        return ModItems.SOULMOULD_ITEM.getDefaultStack();
+        return ModItems.YMPEMOULD_ITEM.getDefaultStack();
     }
 
     @Override
@@ -259,7 +259,7 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
         if(player.getStackInHand(hand).isEmpty() && player.getUuid().equals(this.getOwnerUuid())) {
             if(player.isSneaking()) {
                 if(!player.getAbilities().creativeMode)
-                    player.setStackInHand(hand, ModItems.SOULMOULD_ITEM.getDefaultStack());
+                    player.setStackInHand(hand, ModItems.YMPEMOULD_ITEM.getDefaultStack());
                 this.remove(RemovalReason.DISCARDED);
                 return ActionResult.SUCCESS;
             } else {
@@ -289,7 +289,7 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
 
     protected void initEquipment(Random random, LocalDifficulty localDifficulty) {
         super.initEquipment(random, localDifficulty);
-        this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModItems.GLAIVE));
+        this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModItems.YMPE_GLAIVE));
         this.handDropChances[EquipmentSlot.MAINHAND.getEntitySlotId()] = 0.0F;
     }
 

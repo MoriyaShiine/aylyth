@@ -20,6 +20,8 @@ import moriyashiine.aylyth.client.render.entity.projectile.YmpeLanceEntityRender
 import moriyashiine.aylyth.client.render.item.BigItemRenderer;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.block.StrewnLeavesBlock;
+import moriyashiine.aylyth.common.item.YmpeGlaiveItem;
+import moriyashiine.aylyth.common.item.YmpeLanceItem;
 import moriyashiine.aylyth.common.registry.*;
 import moriyashiine.aylyth.mixin.client.DimensionEffectsAccessor;
 import net.fabricmc.api.ClientModInitializer;
@@ -50,6 +52,7 @@ import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
@@ -128,23 +131,19 @@ public class AylythClient implements ClientModInitializer {
 
 		});
 
-		Identifier ympeBigItemId = Registry.ITEM.getId(ModItems.YMPE_LANCE);
-		Identifier glavieBigItemId = Registry.ITEM.getId(ModItems.GLAIVE);
-		BigItemRenderer ympeBigItemRenderer = new BigItemRenderer(ympeBigItemId);
-		BigItemRenderer glaiveBigItemRenderer = new BigItemRenderer(glavieBigItemId);
-		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(ympeBigItemRenderer);
-		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(glaiveBigItemRenderer);
-		BuiltinItemRendererRegistry.INSTANCE.register(ModItems.YMPE_LANCE, ympeBigItemRenderer);
-		BuiltinItemRendererRegistry.INSTANCE.register(ModItems.GLAIVE, glaiveBigItemRenderer);
+		for (Item item : ModItems.ITEMS.keySet()) {
+			if(item instanceof YmpeLanceItem || item instanceof YmpeGlaiveItem){
+				Identifier bigId = Registry.ITEM.getId(item);
+				BigItemRenderer bigItemRenderer = new BigItemRenderer(bigId);
+				ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(bigItemRenderer);
+				BuiltinItemRendererRegistry.INSTANCE.register(item, bigItemRenderer);
+				ModelLoadingRegistry.INSTANCE.registerModelProvider((manager, out) -> {
+					out.accept(new ModelIdentifier(bigId + "_gui", "inventory"));
+					out.accept(new ModelIdentifier(bigId + "_handheld", "inventory"));
+				});
+			}
+		}
 		BuiltinItemRendererRegistry.INSTANCE.register(ModItems.WOODY_GROWTH_CACHE, this::woodyGrowthCacheRenderer);
-		ModelLoadingRegistry.INSTANCE.registerModelProvider((manager, out) -> {
-			out.accept(new ModelIdentifier(ympeBigItemId + "_gui", "inventory"));
-			out.accept(new ModelIdentifier(ympeBigItemId + "_handheld", "inventory"));
-		});
-		ModelLoadingRegistry.INSTANCE.registerModelProvider((manager, out) -> {
-			out.accept(new ModelIdentifier(glavieBigItemId + "_gui", "inventory"));
-			out.accept(new ModelIdentifier(glavieBigItemId + "_handheld", "inventory"));
-		});
 	}
 
 	private void woodyGrowthCacheRenderer(ItemStack stack, ModelTransformation.Mode mode, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {

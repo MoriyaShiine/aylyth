@@ -1,0 +1,14 @@
+{
+  "parent": "item/handheld",
+  "base": {
+    "parent": "aylyth:item/ympe_glaive_handlheld"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "aylyth:item/ympe_glaive_gui"
+    },
+    "fixed": {
+      "parent": "aylyth:item/ympe_glaive_gui"
+    }
+  }
+}

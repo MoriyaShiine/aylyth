@@ -83,7 +83,6 @@ public class Aylyth implements ModInitializer {
 	}
 
 
-
 	private ActionResult interactSoulCampfore(PlayerEntity playerEntity, World world, Hand hand, BlockHitResult blockHitResult) {
 		if(hand == Hand.MAIN_HAND && world.getBlockState(blockHitResult.getBlockPos()).isOf(Blocks.SOUL_CAMPFIRE) && world.getBlockEntity(blockHitResult.getBlockPos()) instanceof CampfireBlockEntity campfireBlockEntity){
 			ItemStack itemStack = playerEntity.getMainHandStack();
@@ -192,7 +191,13 @@ public class Aylyth implements ModInitializer {
 						if (recipe.entity_type == EntityType.PLAYER) {
 							drop.getOrCreateNbt().putString("SkullOwner", killedEntity.getName().getString());
 						}
-						ItemScatterer.spawn(serverWorld, killedEntity.getX() + 0.5, killedEntity.getY() + 0.5, killedEntity.getZ() + 0.5, drop);
+						int random = 1;
+						if(recipe.min <= recipe.max && recipe.min + recipe.max > 0){
+							random = serverWorld.getRandom().nextBetween(recipe.min, recipe.max);
+						}
+						for(int i = 0; i < random; i++){
+							ItemScatterer.spawn(serverWorld, killedEntity.getX() + 0.5, killedEntity.getY() + 0.5, killedEntity.getZ() + 0.5, drop);
+						}
 					}
 				}
 			}

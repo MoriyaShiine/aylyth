@@ -274,7 +274,7 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
     @Override
     public boolean damage(DamageSource source, float amount) {
         if(!world.isClient()) {
-            if (source.getAttacker() != null && source.getAttacker() instanceof PlayerEntity player && player.isHolding(ModItems.SOULTRAP_EFFIGY_ITEM)) {
+            if (source.getAttacker() != null && source.getAttacker() instanceof PlayerEntity player && player.isHolding(ModItems.YMPE_EFFIGY_ITEM)) {
                 this.setOwner(player);
             }
         }
