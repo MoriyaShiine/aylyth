@@ -1,10 +1,7 @@
 package moriyashiine.aylyth.client.render.block.entity;
 
-import com.google.common.collect.Maps;
-import com.mojang.datafixers.util.Pair;
 import moriyashiine.aylyth.common.block.SoulHearthBlock;
 import moriyashiine.aylyth.common.block.entity.SoulHearthBlockEntity;
-import moriyashiine.aylyth.common.block.entity.VitalThuribleBlockEntity;
 import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.ModItems;
 import net.minecraft.block.enums.DoubleBlockHalf;
@@ -14,11 +11,7 @@ import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Util;
 import net.minecraft.util.math.Vec3f;
-
-import java.util.Map;
 
 public class SoulHearthBlockEntityRenderer implements BlockEntityRenderer<SoulHearthBlockEntity> {
 

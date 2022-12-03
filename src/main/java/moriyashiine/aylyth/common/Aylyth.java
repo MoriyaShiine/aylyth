@@ -3,7 +3,6 @@ package moriyashiine.aylyth.common;
 import moriyashiine.aylyth.api.interfaces.Vital;
 import moriyashiine.aylyth.client.network.packet.UpdatePressingUpDownPacket;
 import moriyashiine.aylyth.common.block.WoodyGrowthCacheBlock;
-import moriyashiine.aylyth.common.block.entity.WoodyGrowthCacheBlockEntity;
 import moriyashiine.aylyth.common.entity.mob.ScionEntity;
 import moriyashiine.aylyth.common.network.packet.GlaivePacket;
 import moriyashiine.aylyth.client.network.packet.SpawnShuckParticlesPacket;

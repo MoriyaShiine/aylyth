@@ -3,8 +3,6 @@ package moriyashiine.aylyth.common.entity.mob;
 import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.ModSoundEvents;
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.SaplingBlock;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -16,7 +14,6 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BoneMealItem;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.BlockTags;
@@ -149,13 +146,11 @@ public class AylythianEntity extends HostileEntity implements IAnimatable {
 	}
 
 	public void placeWoodyGrowths(World world, BlockPos blockPos){
-		Block largeWoodyGrowth = ModBlocks.LARGE_WOODY_GROWTH;
-		Block smallWoodyGrowth = ModBlocks.SMALL_WOODY_GROWTH;
 		List<BlockPos> listPos = new ArrayList<>();
 		int index = 0;
-		for(int x = -1; x < 2; x++){
-			for(int z = -1; z < 2; z++){
-				for(int y = -1; y < 2; y++){
+		for(int x = -1; x <= 1; x++){
+			for(int z = -1; z <= 1; z++){
+				for(int y = -1; y <= 1; y++){
 					if(!world.isClient && world.getBlockState(blockPos.add(x,y,z)).getMaterial().isReplaceable() && world.getBlockState(blockPos.add(x,y,z).down()).isIn(BlockTags.DIRT) ){
 						listPos.add(index, blockPos.add(x,y,z));
 						index++;
@@ -165,6 +160,7 @@ public class AylythianEntity extends HostileEntity implements IAnimatable {
 			}
 		}
 		int random = world.getRandom().nextBetween(1, 3);
+		Block largeWoodyGrowth = ModBlocks.LARGE_WOODY_GROWTH;
 		for(int i = 0; i < random; i++){
 			boolean littleBig = world.getRandom().nextBoolean();
 			if(listPos.size() >= i){
@@ -175,7 +171,7 @@ public class AylythianEntity extends HostileEntity implements IAnimatable {
 						playSound(SoundEvents.BLOCK_GRASS_PLACE, getSoundVolume(), getSoundPitch());
 					}
 				}else{
-					world.setBlockState(placePos, smallWoodyGrowth.getDefaultState());
+					world.setBlockState(placePos, ModBlocks.SMALL_WOODY_GROWTH.getDefaultState());
 					playSound(SoundEvents.BLOCK_GRASS_PLACE, getSoundVolume(), getSoundPitch());
 				}
 			}
