@@ -162,18 +162,16 @@ public class AylythianEntity extends HostileEntity implements IAnimatable {
 		int random = world.getRandom().nextBetween(1, 3);
 		Block largeWoodyGrowth = ModBlocks.LARGE_WOODY_GROWTH;
 		for(int i = 0; i < random; i++){
-			boolean littleBig = world.getRandom().nextBoolean();
 			if(listPos.size() >= i){
 				BlockPos placePos = listPos.get(world.getRandom().nextInt(listPos.size()));
-				if(littleBig){
+				if(world.getRandom().nextBoolean()){
 					if(largeWoodyGrowth.getDefaultState().canPlaceAt(world, placePos)){
 						world.setBlockState(placePos,largeWoodyGrowth.getDefaultState());
-						playSound(SoundEvents.BLOCK_GRASS_PLACE, getSoundVolume(), getSoundPitch());
 					}
 				}else{
 					world.setBlockState(placePos, ModBlocks.SMALL_WOODY_GROWTH.getDefaultState());
-					playSound(SoundEvents.BLOCK_GRASS_PLACE, getSoundVolume(), getSoundPitch());
 				}
+				playSound(SoundEvents.BLOCK_GRASS_PLACE, getSoundVolume(), getSoundPitch());
 			}
 
 		}
