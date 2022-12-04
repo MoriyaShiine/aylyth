@@ -6,7 +6,6 @@ import moriyashiine.aylyth.common.registry.ModTags;
 import moriyashiine.aylyth.common.registry.util.ItemWoodSuite;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
-import net.minecraft.block.Blocks;
 import net.minecraft.data.server.RecipeProvider;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
@@ -42,7 +41,7 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
                 .criterion("has_writhe", conditionsFromItem(ModBlocks.WRITHEWOOD_BLOCKS.planks))
                 .offerTo(exporter);
 
-        ShapedRecipeJsonBuilder.create(ModItems.GLAIVE)
+        ShapedRecipeJsonBuilder.create(ModItems.YMPE_GLAIVE)
                 .input('D', ModItems.YMPE_DAGGER)
                 .input('S', ModItems.YMPE_ITEMS.sapling)
                 .input('C', ModItems.CORIC_SEED)
@@ -52,7 +51,7 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
                 .criterion("has_dagger", conditionsFromItem(ModItems.YMPE_DAGGER))
                 .offerTo(exporter);
 
-        ShapedRecipeJsonBuilder.create(ModItems.SOULMOULD_ITEM)
+        ShapedRecipeJsonBuilder.create(ModItems.YMPEMOULD_ITEM)
                 .input('d', Items.POLISHED_DEEPSLATE)
                 .input('n', Items.NETHERITE_INGOT)
                 .input('s', Items.SOUL_SAND)
@@ -62,7 +61,7 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
                 .criterion("has_soulsand", conditionsFromItem(Items.SOUL_SAND))
                 .offerTo(exporter);
 
-        ShapedRecipeJsonBuilder.create(ModItems.SOULTRAP_EFFIGY_ITEM)
+        ShapedRecipeJsonBuilder.create(ModItems.YMPE_EFFIGY_ITEM)
                 .input('d', Items.SOUL_SOIL)
                 .input('s', ModItems.YMPE_ITEMS.sapling)
                 .input('n', Items.NETHERITE_INGOT)

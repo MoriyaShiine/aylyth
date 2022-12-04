@@ -3,7 +3,7 @@ package moriyashiine.aylyth.common;
 import moriyashiine.aylyth.api.interfaces.Vital;
 import moriyashiine.aylyth.client.network.packet.UpdatePressingUpDownPacket;
 import moriyashiine.aylyth.common.block.WoodyGrowthCacheBlock;
-import moriyashiine.aylyth.common.block.entity.WoodyGrowthCacheBlockEntity;
+import moriyashiine.aylyth.common.entity.mob.ScionEntity;
 import moriyashiine.aylyth.common.network.packet.GlaivePacket;
 import moriyashiine.aylyth.client.network.packet.SpawnShuckParticlesPacket;
 import moriyashiine.aylyth.common.recipe.YmpeDaggerDropRecipe;
@@ -14,6 +14,7 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.fabricmc.fabric.api.entity.event.v1.ServerEntityCombatEvents;
+import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
@@ -76,12 +77,11 @@ public class Aylyth implements ModInitializer {
 		ServerPlayNetworking.registerGlobalReceiver(UpdatePressingUpDownPacket.ID, UpdatePressingUpDownPacket::handle);
 		ServerPlayerEvents.AFTER_RESPAWN.register(this::afterRespawn);
 		ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register(this::shucking);
-		ServerPlayerEvents.ALLOW_DEATH.register(this::allowDeath);
+		ServerLivingEntityEvents.ALLOW_DEATH.register(this::allowDeath);
 		UseBlockCallback.EVENT.register(this::interactSoulCampfore);
 
 
 	}
-
 
 
 	private ActionResult interactSoulCampfore(PlayerEntity playerEntity, World world, Hand hand, BlockHitResult blockHitResult) {
@@ -97,65 +97,68 @@ public class Aylyth implements ModInitializer {
 		return ActionResult.PASS;
 	}
 
-	private boolean allowDeath(ServerPlayerEntity player, DamageSource damageSource, float damageAmount) {
-		if (damageSource.isOutOfWorld() && damageSource != ModDamageSources.YMPE) {
-			return true;
-		}
-		if (damageSource == ModDamageSources.YMPE) {
-			WoodyGrowthCacheBlock.spawnInventory(player.world, player.getBlockPos(), player.getInventory());
-			return true;
-		}
-		RegistryKey<World> toWorld = null;
-		if (player.world.getRegistryKey() != ModDimensions.AYLYTH) {
-			boolean teleport = false;
-			float chance = switch (player.world.getDifficulty()) {
-				case PEACEFUL -> 0;
-				case EASY -> 0.1f;
-				case NORMAL -> 0.2f;
-				case HARD -> 0.3f;
-			};
-			if (player.getRandom().nextFloat() <= chance) {
-				if (damageSource.getAttacker() instanceof WitchEntity) {
-					teleport = true;
+	private boolean allowDeath(LivingEntity livingEntity, DamageSource damageSource, float damageAmount) {
+		if(livingEntity instanceof ServerPlayerEntity player){
+			if (damageSource.isOutOfWorld() && damageSource != ModDamageSources.YMPE) {
+				return true;
+			}
+			if (damageSource == ModDamageSources.YMPE) {
+				WoodyGrowthCacheBlock.spawnInventory(player.world, player.getBlockPos(), player.getInventory());
+				return true;
+			}
+			RegistryKey<World> toWorld = null;
+			if (player.world.getRegistryKey() != ModDimensions.AYLYTH) {
+				boolean teleport = false;
+				float chance = switch (player.world.getDifficulty()) {
+					case PEACEFUL -> 0;
+					case EASY -> 0.1f;
+					case NORMAL -> 0.2f;
+					case HARD -> 0.3f;
+				};
+				if (player.getRandom().nextFloat() <= chance) {
+					if (damageSource.getAttacker() instanceof WitchEntity) {
+						teleport = true;
+					}
+					if (!teleport) {
+						RegistryEntry<Biome> biome = player.world.getBiome(player.getBlockPos());
+						if (biome.isIn(BiomeTags.IS_TAIGA) || biome.isIn(BiomeTags.IS_FOREST)) {
+							if (damageSource.isFromFalling() || damageSource == DamageSource.DROWN) {
+								teleport = true;
+							}
+						}
+					}
+					teleport |= AylythUtil.isNearSeep(player, 8);
 				}
 				if (!teleport) {
-					RegistryEntry<Biome> biome = player.world.getBiome(player.getBlockPos());
-					if (biome.isIn(BiomeTags.IS_TAIGA) || biome.isIn(BiomeTags.IS_FOREST)) {
-						if (damageSource.isFromFalling() || damageSource == DamageSource.DROWN) {
+					for (Hand hand : Hand.values()) {
+						ItemStack stack = player.getStackInHand(hand);
+						if (stack.isOf(ModItems.AYLYTHIAN_HEART)) {
 							teleport = true;
+							if (!player.isCreative()) {
+								stack.decrement(1);
+							}
+							break;
 						}
 					}
 				}
-				teleport |= AylythUtil.isNearSeep(player, 8);
-			}
-			if (!teleport) {
-				for (Hand hand : Hand.values()) {
-					ItemStack stack = player.getStackInHand(hand);
-					if (stack.isOf(ModItems.AYLYTHIAN_HEART)) {
-						teleport = true;
-						if (!player.isCreative()) {
-							stack.decrement(1);
-						}
-						break;
-					}
+				if (teleport) {
+					toWorld = ModDimensions.AYLYTH;
 				}
 			}
-			if (teleport) {
-				toWorld = ModDimensions.AYLYTH;
+			if (toWorld != null) {
+				AylythUtil.teleportTo(toWorld, player, 0);
+				player.setHealth(player.getMaxHealth() / 2);
+				player.clearStatusEffects();
+				player.extinguish();
+				player.setFrozenTicks(0);
+				player.setVelocity(Vec3d.ZERO);
+				player.fallDistance = 0;
+				player.knockbackVelocity = 0;
+				player.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 200));
+				player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 200));
+				return false;
 			}
-		}
-		if (toWorld != null) {
-			AylythUtil.teleportTo(toWorld, player, 0);
-			player.setHealth(player.getMaxHealth() / 2);
-			player.clearStatusEffects();
-			player.extinguish();
-			player.setFrozenTicks(0);
-			player.setVelocity(Vec3d.ZERO);
-			player.fallDistance = 0;
-			player.knockbackVelocity = 0;
-			player.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 200));
-			player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 200));
-			return false;
+			return true;
 		}
 		return true;
 	}
@@ -192,7 +195,16 @@ public class Aylyth implements ModInitializer {
 						if (recipe.entity_type == EntityType.PLAYER) {
 							drop.getOrCreateNbt().putString("SkullOwner", killedEntity.getName().getString());
 						}
-						ItemScatterer.spawn(serverWorld, killedEntity.getX() + 0.5, killedEntity.getY() + 0.5, killedEntity.getZ() + 0.5, drop);
+						if (recipe.entity_type == ModEntityTypes.SCION && entity instanceof ScionEntity scionEntity && scionEntity.getStoredPlayerUUID() != null) {
+							return;
+						}
+						int random = 1;
+						if(recipe.min <= recipe.max && recipe.min + recipe.max > 0){
+							random = serverWorld.getRandom().nextBetween(recipe.min, recipe.max);
+						}
+						for(int i = 0; i < random; i++){
+							ItemScatterer.spawn(serverWorld, killedEntity.getX() + 0.5, killedEntity.getY() + 0.5, killedEntity.getZ() + 0.5, drop);
+						}
 					}
 				}
 			}

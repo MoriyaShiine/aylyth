@@ -23,8 +23,8 @@ public class BigItemRenderer implements BuiltinItemRendererRegistry.DynamicItemR
 	private final Identifier id;
 	private final Identifier itemId;
 	private ItemRenderer itemRenderer;
-	private BakedModel inventoryScytheModel;
-	private BakedModel worldScytheModel;
+	private BakedModel inventoryModel;
+	private BakedModel worldModel;
 
 	public BigItemRenderer(Identifier id) {
 		this.id = new Identifier(id + "_renderer");
@@ -43,8 +43,8 @@ public class BigItemRenderer implements BuiltinItemRendererRegistry.DynamicItemR
 			applyProfiler.push("listener");
 			final MinecraftClient client = MinecraftClient.getInstance();
 			this.itemRenderer = client.getItemRenderer();
-			this.inventoryScytheModel = client.getBakedModelManager().getModel(new ModelIdentifier(this.itemId + "_gui", "inventory"));
-			this.worldScytheModel = client.getBakedModelManager().getModel(new ModelIdentifier(this.itemId + "_handheld", "inventory"));
+			this.inventoryModel = client.getBakedModelManager().getModel(new ModelIdentifier(this.itemId + "_gui", "inventory"));
+			this.worldModel = client.getBakedModelManager().getModel(new ModelIdentifier(this.itemId + "_handheld", "inventory"));
 			applyProfiler.pop();
 			applyProfiler.endTick();
 		}, applyExecutor);
@@ -56,14 +56,14 @@ public class BigItemRenderer implements BuiltinItemRendererRegistry.DynamicItemR
 		matrices.push();
 		if(itemRenderer != null) {
 			if (mode != ModelTransformation.Mode.FIRST_PERSON_LEFT_HAND && mode != ModelTransformation.Mode.FIRST_PERSON_RIGHT_HAND && mode != ModelTransformation.Mode.THIRD_PERSON_LEFT_HAND && mode != ModelTransformation.Mode.THIRD_PERSON_RIGHT_HAND && mode != ModelTransformation.Mode.NONE) {
-				itemRenderer.renderItem(stack, mode, false, matrices, vertexConsumers, light, overlay, this.inventoryScytheModel);
+				itemRenderer.renderItem(stack, mode, false, matrices, vertexConsumers, light, overlay, this.inventoryModel);
 			} else {
 				boolean leftHanded;
 				switch (mode) {
 					case FIRST_PERSON_LEFT_HAND, THIRD_PERSON_LEFT_HAND -> leftHanded = true;
 					default -> leftHanded = false;
 				}
-				itemRenderer.renderItem(stack, mode, leftHanded, matrices, vertexConsumers, light, overlay, this.worldScytheModel);
+				itemRenderer.renderItem(stack, mode, leftHanded, matrices, vertexConsumers, light, overlay, this.worldModel);
 			}
 		}
 	}

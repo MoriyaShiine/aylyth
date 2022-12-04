@@ -36,7 +36,7 @@ public class GlaivePacket {
     public static void handle(MinecraftServer server, PlayerEntity player, ServerPlayNetworkHandler network, PacketByteBuf buf, PacketSender sender) {
         int entityId = buf.isReadable() ? buf.readInt() : -1;
         server.execute(() -> {
-            if (player.getStackInHand(Hand.MAIN_HAND).getItem().equals(ModItems.GLAIVE)) {
+            if (player.getStackInHand(Hand.MAIN_HAND).getItem().equals(ModItems.YMPE_GLAIVE)) {
                 float f = (float)player.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
                 float g = EnchantmentHelper.getAttackDamage(player.getMainHandStack(), player.getGroup());
                 float h = player.getAttackCooldownProgress(0.5F);

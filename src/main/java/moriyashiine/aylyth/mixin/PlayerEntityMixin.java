@@ -126,7 +126,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Vital {
 
     @Inject(method = "damage", at = @At("HEAD"))
     private void submergedDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        if(this.getInventory().contains(ModItems.SOULTRAP_EFFIGY_ITEM.getDefaultStack()) && this.isSubmergedInWater && !isInvulnerableTo(source) && !this.isDead() && random.nextInt(6) == 1) {
+        if(this.getInventory().contains(ModItems.YMPE_EFFIGY_ITEM.getDefaultStack()) && this.isSubmergedInWater && !isInvulnerableTo(source) && !this.isDead() && random.nextInt(6) == 1) {
             super.damage(source, amount);
             this.timeUntilRegen = 0;
         }
@@ -146,22 +146,22 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Vital {
 
     @Override
     public EntityGroup getGroup() {
-        return this.getInventory().contains(ModItems.SOULTRAP_EFFIGY_ITEM.getDefaultStack()) ? EntityGroup.UNDEAD : super.getGroup();
+        return this.getInventory().contains(ModItems.YMPE_EFFIGY_ITEM.getDefaultStack()) ? EntityGroup.UNDEAD : super.getGroup();
     }
 
     @Override
     public boolean isUndead() {
-        return this.getInventory().contains(ModItems.SOULTRAP_EFFIGY_ITEM.getDefaultStack()) || super.isUndead();
+        return this.getInventory().contains(ModItems.YMPE_EFFIGY_ITEM.getDefaultStack()) || super.isUndead();
     }
 
     @Override
     public boolean hurtByWater() {
-        return this.getInventory().contains(ModItems.SOULTRAP_EFFIGY_ITEM.getDefaultStack()) && (this.getWorld().getBiome(this.getBlockPos()).isIn(BiomeTags.IS_RIVER) || this.isInFlowingFluid(FluidTags.WATER)) || super.hurtByWater();
+        return this.getInventory().contains(ModItems.YMPE_EFFIGY_ITEM.getDefaultStack()) && (this.getWorld().getBiome(this.getBlockPos()).isIn(BiomeTags.IS_RIVER) || this.isInFlowingFluid(FluidTags.WATER)) || super.hurtByWater();
     }
 
     @Override
     public boolean canHaveStatusEffect(StatusEffectInstance effect) {
-        if (!this.getInventory().contains(ModItems.SOULTRAP_EFFIGY_ITEM.getDefaultStack())) {
+        if (!this.getInventory().contains(ModItems.YMPE_EFFIGY_ITEM.getDefaultStack())) {
             return super.canHaveStatusEffect(effect);
         } else {
             return effect.getEffectType() == StatusEffects.WITHER || effect.getEffectType() == StatusEffects.INSTANT_DAMAGE || effect.getEffectType() == StatusEffects.INSTANT_HEALTH;

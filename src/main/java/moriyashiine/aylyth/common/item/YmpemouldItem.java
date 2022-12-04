@@ -13,8 +13,8 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 
-public class SoulmouldItem extends Item {
-    public SoulmouldItem(Settings settings) {
+public class YmpemouldItem extends Item {
+    public YmpemouldItem(Settings settings) {
         super(settings);
     }
 
@@ -30,7 +30,7 @@ public class SoulmouldItem extends Item {
             if (player != null) {
                 mould.setOwner(player);
             }
-            mould.equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModItems.GLAIVE));
+            mould.equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModItems.YMPE_GLAIVE));
             mould.handDropChances[EquipmentSlot.MAINHAND.getEntitySlotId()] = 0.0F;
             ctx.getWorld().spawnEntity(mould);
             ctx.getStack().decrement(1);

@@ -2,14 +2,11 @@ package moriyashiine.aylyth.common.item;
 
 import moriyashiine.aylyth.api.interfaces.Vital;
 import moriyashiine.aylyth.common.block.WoodyGrowthCacheBlock;
-import moriyashiine.aylyth.common.block.entity.WoodyGrowthCacheBlockEntity;
 import moriyashiine.aylyth.common.entity.mob.ScionEntity;
-import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.ModComponents;
 import moriyashiine.aylyth.common.registry.ModItems;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
@@ -17,7 +14,6 @@ import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 

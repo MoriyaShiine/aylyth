@@ -1,6 +1,5 @@
 package moriyashiine.aylyth.common.registry;
 
-import moriyashiine.aylyth.client.render.block.entity.SoulHearthBlockEntityRenderer;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.block.entity.SeepBlockEntity;
 import moriyashiine.aylyth.common.block.entity.SoulHearthBlockEntity;
