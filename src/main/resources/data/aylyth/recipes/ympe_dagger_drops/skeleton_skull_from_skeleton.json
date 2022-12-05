@@ -4,5 +4,7 @@
   "result": {
 	"item": "minecraft:skeleton_skull"
   },
-  "chance": 0.2
+  "chance": 0.2,
+  "min": 1,
+  "max": 1
 }

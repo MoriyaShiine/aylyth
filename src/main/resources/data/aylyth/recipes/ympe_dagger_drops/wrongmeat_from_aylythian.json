@@ -1,0 +1,10 @@
+{
+  "type": "aylyth:ympe_dagger_drop",
+  "entity_type": "aylyth:aylythian",
+  "result": {
+	"item": "aylyth:wrongmeat"
+  },
+  "chance": 0.15,
+  "min": 1,
+  "max": 2
+}

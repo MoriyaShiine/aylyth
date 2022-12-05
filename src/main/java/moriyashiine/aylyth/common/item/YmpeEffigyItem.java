@@ -6,8 +6,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class SoultrapEffigyItem extends Item {
-    public SoultrapEffigyItem(Item.Settings settings) {
+public class YmpeEffigyItem extends Item {
+    public YmpeEffigyItem(Item.Settings settings) {
         super(settings);
     }
 

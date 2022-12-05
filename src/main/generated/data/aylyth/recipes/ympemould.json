@@ -8,7 +8,7 @@
       "item": "minecraft:netherite_ingot"
     },
     "s": {
-      "item": "minecraft:soul_sand"
+      "item": "aylyth:coric_seed"
     }
   },
   "pattern": [
@@ -17,6 +17,6 @@
     "ddd"
   ],
   "result": {
-    "item": "aylyth:soulmould"
+    "item": "aylyth:ympemould"
   }
 }

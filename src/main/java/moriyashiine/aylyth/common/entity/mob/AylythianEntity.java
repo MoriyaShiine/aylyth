@@ -2,6 +2,7 @@ package moriyashiine.aylyth.common.entity.mob;
 
 import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.ModSoundEvents;
+import net.minecraft.block.Block;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -15,6 +16,7 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.tag.BlockTags;
 import net.minecraft.util.Arm;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
@@ -29,6 +31,9 @@ import software.bernie.geckolib3.core.builder.AnimationBuilder;
 import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AylythianEntity extends HostileEntity implements IAnimatable {
 	private final AnimationFactory factory = new AnimationFactory(this);
@@ -131,9 +136,44 @@ public class AylythianEntity extends HostileEntity implements IAnimatable {
 	@Override
 	protected void dropEquipment(DamageSource source, int lootingMultiplier, boolean allowDrops) {
 		super.dropEquipment(source, lootingMultiplier, allowDrops);
-		if (!world.isClient && world.getBlockState(getBlockPos()).getMaterial().isReplaceable() && ModBlocks.YMPE_BLOCKS.sapling.getDefaultState().canPlaceAt(world, getBlockPos())) {
+		double random = world.getRandom().nextDouble();
+		if (random <= 20 && !world.isClient && world.getBlockState(getBlockPos()).getMaterial().isReplaceable() && ModBlocks.YMPE_BLOCKS.sapling.getDefaultState().canPlaceAt(world, getBlockPos())) {
 			world.setBlockState(getBlockPos(), ModBlocks.YMPE_BLOCKS.sapling.getDefaultState());
 			playSound(SoundEvents.BLOCK_GRASS_PLACE, getSoundVolume(), getSoundPitch());
+		}else if(random <= 30){
+			placeWoodyGrowths(world, getBlockPos());
+		}
+	}
+
+	public void placeWoodyGrowths(World world, BlockPos blockPos){
+		List<BlockPos> listPos = new ArrayList<>();
+		int index = 0;
+		for(int x = -1; x <= 1; x++){
+			for(int z = -1; z <= 1; z++){
+				for(int y = -1; y <= 1; y++){
+					if(!world.isClient && world.getBlockState(blockPos.add(x,y,z)).getMaterial().isReplaceable() && world.getBlockState(blockPos.add(x,y,z).down()).isIn(BlockTags.DIRT) ){
+						listPos.add(index, blockPos.add(x,y,z));
+						index++;
+					}
+				}
+
+			}
+		}
+		int random = world.getRandom().nextBetween(1, 3);
+		Block largeWoodyGrowth = ModBlocks.LARGE_WOODY_GROWTH;
+		for(int i = 0; i < random; i++){
+			if(listPos.size() >= i){
+				BlockPos placePos = listPos.get(world.getRandom().nextInt(listPos.size()));
+				if(world.getRandom().nextBoolean()){
+					if(largeWoodyGrowth.getDefaultState().canPlaceAt(world, placePos)){
+						world.setBlockState(placePos,largeWoodyGrowth.getDefaultState());
+					}
+				}else{
+					world.setBlockState(placePos, ModBlocks.SMALL_WOODY_GROWTH.getDefaultState());
+				}
+				playSound(SoundEvents.BLOCK_GRASS_PLACE, getSoundVolume(), getSoundPitch());
+			}
+
 		}
 	}
 	

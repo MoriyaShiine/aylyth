@@ -68,7 +68,7 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add(ModItems.GHOSTCAP_MUSHROOM, "Ghostcap Mushroom");
         builder.add(ModItems.YMPE_DAGGER, "Ympe Dagger");
         builder.add(ModItems.YMPE_LANCE, "Ympe Lance");
-        builder.add(ModItems.GLAIVE, "Glaive");
+        builder.add(ModItems.YMPE_GLAIVE, "Ympe Glaive");
         builder.add("item.aylyth.glaive.desc_1", "\u00a76\u00a7oIt is the lament of the fallen");
         builder.add("item.aylyth.glaive.desc_2", "\u00a76\u00a7owhich pushes the living onward.");
         builder.add(ModItems.YMPE_FRUIT, "Ympe Fruit");
@@ -80,8 +80,8 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add(ModItems.SCION_SPAWN_EGG, "Scion Spawn Egg");
         builder.add(ModItems.AYLYTHIAN_SPAWN_EGG, "Aylythian Spawn Egg");
         builder.add(ModItems.ELDER_AYLYTHIAN_SPAWN_EGG, "Elder Aylythian Spawn Egg");
-        builder.add(ModItems.SOULMOULD_ITEM, "Soulmould");
-        builder.add(ModItems.SOULTRAP_EFFIGY_ITEM, "Soultrap Effigy");
+        builder.add(ModItems.YMPEMOULD_ITEM, "Ympemould");
+        builder.add(ModItems.YMPE_EFFIGY_ITEM, "Ympe Effigy");
         builder.add(ModItems.WRONGMEAT, "Wrongmeat");
         potionSet(builder, "mortechis");
         potionSet(builder, "cimmerian");

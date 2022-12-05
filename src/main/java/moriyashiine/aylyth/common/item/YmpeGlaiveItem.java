@@ -32,10 +32,10 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class GlaiveItem extends SwordItem {
+public class YmpeGlaiveItem extends SwordItem {
     private final float attackDamage;
     public final Multimap<EntityAttribute, EntityAttributeModifier> attributeModifiers;
-    public GlaiveItem(int attackDamage, float attackSpeed, Settings settings) {
+    public YmpeGlaiveItem(int attackDamage, float attackSpeed, Settings settings) {
         super(ToolMaterials.NETHERITE, attackDamage, attackSpeed, settings);
         this.attackDamage = ToolMaterials.NETHERITE.getAttackDamage() + attackDamage;
         ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableMultimap.builder();
@@ -70,7 +70,7 @@ public class GlaiveItem extends SwordItem {
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
         ItemStack stack = player.getStackInHand(hand);
-        if(!player.getItemCooldownManager().isCoolingDown(ModItems.GLAIVE)) {
+        if(!player.getItemCooldownManager().isCoolingDown(ModItems.YMPE_GLAIVE)) {
             float yaw = player.getYaw() * 0.017453292F;
             Vec3d pos = player.getPos().add(-MathHelper.sin(yaw) * 1.4D, player.getHeight() / 2D, MathHelper.cos(yaw) * 1.4D);
             List<LivingEntity> targets = player.world.getEntitiesByClass(LivingEntity.class, Box.from(pos).offset(-0.5D, -0.5D, -0.5D).expand(3D, 1D, 3D), EntityPredicates.EXCEPT_SPECTATOR);
@@ -87,7 +87,7 @@ public class GlaiveItem extends SwordItem {
             player.world.playSoundFromEntity(null, player, SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, player.getSoundCategory(), 1F, 1F);
             player.swingHand(hand);
             spawnSweepAttackParticles(player);
-            player.getItemCooldownManager().set(ModItems.GLAIVE, 35);
+            player.getItemCooldownManager().set(ModItems.YMPE_GLAIVE, 35);
             return TypedActionResult.success(stack);
         }
         return super.use(world, player, hand);

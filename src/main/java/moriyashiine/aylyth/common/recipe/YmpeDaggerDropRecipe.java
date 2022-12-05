@@ -20,12 +20,16 @@ public class YmpeDaggerDropRecipe implements Recipe<Inventory> {
 	public final EntityType<?> entity_type;
 	private final ItemStack output;
 	public final float chance;
+	public final int min;
+	public final int max;
 	
-	public YmpeDaggerDropRecipe(Identifier id, EntityType<?> entity_type, ItemStack output, float chance) {
+	public YmpeDaggerDropRecipe(Identifier id, EntityType<?> entity_type, ItemStack output, float chance, int min, int max) {
 		this.identifier = id;
 		this.entity_type = entity_type;
 		this.output = output;
 		this.chance = chance;
+		this.min = min;
+		this.max = max;
 	}
 	
 	@Override
@@ -66,12 +70,26 @@ public class YmpeDaggerDropRecipe implements Recipe<Inventory> {
 	public static class Serializer implements RecipeSerializer<YmpeDaggerDropRecipe> {
 		@Override
 		public YmpeDaggerDropRecipe read(Identifier id, JsonObject json) {
-			return new YmpeDaggerDropRecipe(id, Registry.ENTITY_TYPE.get(new Identifier(JsonHelper.getString(json, "entity_type"))), ShapedRecipe.outputFromJson(JsonHelper.getObject(json, "result")), JsonHelper.getFloat(json, "chance"));
+			return new YmpeDaggerDropRecipe(
+					id,
+					Registry.ENTITY_TYPE.get(new Identifier(JsonHelper.getString(json, "entity_type"))),
+					ShapedRecipe.outputFromJson(JsonHelper.getObject(json, "result")),
+					JsonHelper.getFloat(json, "chance"),
+					JsonHelper.getInt(json, "min"),
+					JsonHelper.getInt(json, "max")
+			);
 		}
 		
 		@Override
 		public YmpeDaggerDropRecipe read(Identifier id, PacketByteBuf buf) {
-			return new YmpeDaggerDropRecipe(id, Registry.ENTITY_TYPE.get(new Identifier(buf.readString())), buf.readItemStack(), buf.readFloat());
+			return new YmpeDaggerDropRecipe(
+					id,
+					Registry.ENTITY_TYPE.get(new Identifier(buf.readString())),
+					buf.readItemStack(),
+					buf.readFloat(),
+					buf.readInt(),
+					buf.readInt()
+			);
 		}
 		
 		@Override
@@ -79,6 +97,8 @@ public class YmpeDaggerDropRecipe implements Recipe<Inventory> {
 			buf.writeString(Registry.ENTITY_TYPE.getId(recipe.entity_type).toString());
 			buf.writeItemStack(recipe.getOutput());
 			buf.writeFloat(recipe.chance);
+			buf.writeInt(recipe.min);
+			buf.writeInt(recipe.max);
 		}
 	}
 }

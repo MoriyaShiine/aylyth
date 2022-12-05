@@ -2,7 +2,6 @@ package moriyashiine.aylyth.common.block;
 
 import com.google.common.collect.Lists;
 import moriyashiine.aylyth.common.block.entity.WoodyGrowthCacheBlockEntity;
-import moriyashiine.aylyth.common.registry.ModBlockEntityTypes;
 import moriyashiine.aylyth.common.registry.ModBlocks;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockRenderType;

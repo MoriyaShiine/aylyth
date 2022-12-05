@@ -1,6 +1,6 @@
 {
   "parent": "item/handheld",
   "textures": {
-    "layer0": "aylyth:item/glaive_gui"
+    "layer0": "aylyth:item/ympe_glaive_gui"
   }
 }

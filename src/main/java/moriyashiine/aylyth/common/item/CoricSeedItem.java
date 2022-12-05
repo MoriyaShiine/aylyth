@@ -11,7 +11,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.item.Items;
-import net.minecraft.tag.BlockTags;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -44,7 +43,7 @@ public class CoricSeedItem extends Item {
             SoulmouldEntity soulmouldEntity = new SoulmouldEntity(ModEntityTypes.SOULMOULD, world);
             soulmouldEntity.refreshPositionAndAngles(pos.down().down(), 0.0F, 0.0F);
             soulmouldEntity.setOwner(player);
-            soulmouldEntity.equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModItems.GLAIVE));
+            soulmouldEntity.equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModItems.YMPE_GLAIVE));
             soulmouldEntity.handDropChances[EquipmentSlot.MAINHAND.getEntitySlotId()] = 0.0F;
             world.spawnEntity(soulmouldEntity);
             stack.decrement(1);
