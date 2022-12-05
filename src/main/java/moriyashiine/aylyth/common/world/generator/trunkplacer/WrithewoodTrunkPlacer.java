@@ -48,7 +48,13 @@ public class WrithewoodTrunkPlacer extends StraightTrunkPlacer {
             mutable.move(Direction.UP);
         }
         placeOnCardinals(mutable, blockPos -> getAndSetState(world, replacer, random, blockPos, config, state -> ModBlocks.WRITHEWOOD_BLOCKS.wood.getDefaultState()));
-        var branches = random.nextBoolean() ? fifthHeight + random.nextInt(2) : fifthHeight - random.nextInt(2);
+
+        // branches
+        //  decide the number of branches on the height/5 give or take two.
+        //  iterate through the number of branches, deciding whether a branch is placed based on whether a branch is
+        //  near and if there is a branch existing on this side. If there is already a branch, we want to be biased
+        //  against placing a branch here.
+        var branches = fifthHeight + ((random.nextBoolean() ? 1 : -1) * random.nextInt(2));
         Set<BlockPos> branchLocations = Sets.newHashSet();
         for (int i = 0; i < branches; i++) {
             var blockHeight = MathHelper.clamp(random.nextInt(height), fifthHeight+random.nextInt(3)+2, height-random.nextInt(3)-5);

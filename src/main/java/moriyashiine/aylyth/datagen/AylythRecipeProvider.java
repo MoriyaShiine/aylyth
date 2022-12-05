@@ -10,9 +10,11 @@ import net.minecraft.data.server.RecipeProvider;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
 import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.tag.TagKey;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
@@ -28,8 +30,8 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
     protected void generateRecipes(Consumer<RecipeJsonProvider> exporter) {
         offerSingleOutputShapelessRecipe(exporter, Items.ORANGE_DYE, ModItems.MARIGOLD, "");
         createTwoByTwo(exporter, Items.SHROOMLIGHT, 1, ModItems.JACK_O_LANTERN_MUSHROOM, "shroomlight_from_jack_o_lantern_mushroom");
-        woodSuiteRecipes(exporter, ModItems.POMEGRANATE_ITEMS);
-        woodSuiteRecipes(exporter, ModItems.WRITHEWOOD_ITEMS);
+        woodSuiteRecipes(exporter, ModItems.POMEGRANATE_ITEMS, ModTags.POMEGRANATE_LOGS_ITEM);
+        woodSuiteRecipes(exporter, ModItems.WRITHEWOOD_ITEMS, ModTags.WRITHEWOOD_LOGS_ITEM);
         offerShapeless(exporter, ModItems.GHOSTCAP_MUSHROOM_SPORES, 1, ModItems.GHOSTCAP_MUSHROOM, null);
 
 
@@ -40,6 +42,14 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
                 .pattern("WY")
                 .criterion("has_writhe", conditionsFromItem(ModBlocks.WRITHEWOOD_BLOCKS.planks))
                 .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(ModBlocks.DARK_WOODS_TILES, 8)
+                .input('Y', ModBlocks.YMPE_BLOCKS.planks)
+                .input('W', ModBlocks.WRITHEWOOD_BLOCKS.planks)
+                .pattern("WY")
+                .pattern("YW")
+                .criterion("has_writhe", conditionsFromItem(ModBlocks.WRITHEWOOD_BLOCKS.planks))
+                .offerTo(exporter, "aylyth:dark_woods_tiles_2");
 
         ShapedRecipeJsonBuilder.create(ModItems.YMPE_GLAIVE)
                 .input('D', ModItems.YMPE_DAGGER)
@@ -54,7 +64,7 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
         ShapedRecipeJsonBuilder.create(ModItems.YMPEMOULD_ITEM)
                 .input('d', Items.POLISHED_DEEPSLATE)
                 .input('n', Items.NETHERITE_INGOT)
-                .input('s', Items.SOUL_SAND)
+                .input('s', ModItems.CORIC_SEED)
                 .pattern("dnd")
                 .pattern("nsn")
                 .pattern("ddd")
@@ -96,10 +106,10 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
                 .offerTo(exporter);
     }
 
-    private void woodSuiteRecipes(Consumer<RecipeJsonProvider> exporter, ItemWoodSuite suite) {
+    private void woodSuiteRecipes(Consumer<RecipeJsonProvider> exporter, ItemWoodSuite suite, TagKey<Item> logTag) {
         offerBarkBlockRecipe(exporter, suite.strippedWood, suite.strippedLog);
         offerBarkBlockRecipe(exporter, suite.wood, suite.log);
-        offerPlanksRecipe(exporter, suite.planks, ModTags.POMEGRANATE_LOGS_ITEM);
+        offerPlanksRecipe(exporter, suite.planks, logTag);
         createStairsRecipe(suite.stairs, Ingredient.ofItems(suite.planks)).group("wooden_stairs").criterion(RecipeProvider.hasItem(suite.planks), conditionsFromItem(suite.planks)).offerTo(exporter);
         createSlabRecipe(suite.slab, Ingredient.ofItems(suite.planks)).group("wooden_slab").criterion(RecipeProvider.hasItem(suite.planks), conditionsFromItem(suite.planks)).offerTo(exporter);
         createFenceRecipe(suite.fence, Ingredient.ofItems(suite.planks)).group("wooden_fence").criterion(RecipeProvider.hasItem(suite.planks), conditionsFromItem(suite.planks)).offerTo(exporter);
