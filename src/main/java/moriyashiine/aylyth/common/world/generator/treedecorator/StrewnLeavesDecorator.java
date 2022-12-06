@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.common.world.generator.feature;
+package moriyashiine.aylyth.common.world.generator.treedecorator;
 
 import com.mojang.serialization.Codec;
 import moriyashiine.aylyth.common.registry.ModBlocks;

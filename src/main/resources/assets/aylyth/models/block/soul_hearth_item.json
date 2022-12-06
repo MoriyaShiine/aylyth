@@ -2,9 +2,7 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [32, 32],
 	"textures": {
-		"0": "aylyth:block/soul_hearth_fire",
 		"1": "aylyth:block/soul_hearth",
-		"2": "aylyth:block/soul_hearth_petals",
 		"particle": "aylyth:block/soul_hearth"
 	},
 	"elements": [
@@ -345,60 +343,6 @@
 				"up": {"uv": [9.5, 10.5, 12, 11], "rotation": 270, "texture": "#1"},
 				"down": {"uv": [9, 12, 11.5, 12.5], "rotation": 90, "texture": "#1"}
 			}
-		},
-		{
-			"name": "flame01",
-			"from": [11, 7, -4],
-			"to": [11, 15, 4],
-			"rotation": {"angle": -45, "axis": "y", "origin": [0, 15, 0]},
-			"faces": {
-				"east": {"uv": [4, 0, 12, 8], "texture": "#0"},
-				"west": {"uv": [4, 0, 12, 8], "texture": "#0"}
-			}
-		},
-		{
-			"name": "flame02",
-			"from": [0, 7, 7],
-			"to": [0, 15, 15],
-			"rotation": {"angle": 45, "axis": "y", "origin": [0, 15, 0]},
-			"faces": {
-				"east": {"uv": [4, 0, 12, 8], "texture": "#0"},
-				"west": {"uv": [4, 0, 12, 8], "texture": "#0"}
-			}
-		},
-		{
-			"name": "flame03",
-			"from": [8, 8, 4],
-			"to": [8, 16, 12],
-			"rotation": {"angle": 0, "axis": "y", "origin": [0, 15, 0]},
-			"faces": {
-				"east": {"uv": [4, 0, 12, 8], "texture": "#0"},
-				"west": {"uv": [4, 0, 12, 8], "texture": "#0"}
-			}
-		},
-		{
-			"name": "flame04",
-			"from": [4, 8, 8],
-			"to": [12, 16, 8],
-			"rotation": {"angle": 0, "axis": "y", "origin": [0, 15, 0]},
-			"faces": {
-				"north": {"uv": [4, 0, 12, 8], "texture": "#0"},
-				"south": {"uv": [4, 0, 12, 8], "texture": "#0"}
-			}
-		},
-		{
-			"name": "petals",
-			"from": [-8, 0.2, -8],
-			"to": [24, 0.2, 24],
-			"rotation": {"angle": 45, "axis": "y", "origin": [8, 0, 8]},
-			"faces": {
-				"north": {"uv": [0, 0, 16, 0], "texture": "#2"},
-				"east": {"uv": [0, 0, 16, 0], "texture": "#2"},
-				"south": {"uv": [0, 0, 16, 0], "texture": "#2"},
-				"west": {"uv": [0, 0, 16, 0], "texture": "#2"},
-				"up": {"uv": [0, 0, 16, 16], "texture": "#2"},
-				"down": {"uv": [0, 16, 16, 0], "texture": "#2"}
-			}
 		}
 	],
 	"groups": [
@@ -460,10 +404,9 @@
 					"name": "flame",
 					"origin": [8, 8, 8],
 					"color": 0,
-					"children": [26, 27, 28, 29]
+					"children": []
 				}
 			]
-		},
-		30
+		}
 	]
 }

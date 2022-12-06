@@ -1,8 +1,11 @@
 package moriyashiine.aylyth.common.registry;
 
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.world.generator.*;
 import moriyashiine.aylyth.common.world.generator.feature.*;
+import moriyashiine.aylyth.common.world.generator.foliageplacer.PomegranateFoliagePlacer;
+import moriyashiine.aylyth.common.world.generator.foliageplacer.WrithewoodFoliagePlacer;
+import moriyashiine.aylyth.common.world.generator.treedecorator.GrapeVineDecorator;
+import moriyashiine.aylyth.common.world.generator.trunkplacer.*;
 import moriyashiine.aylyth.mixin.FoliagePlacerTypeAccessor;
 import moriyashiine.aylyth.mixin.TreeDecoratorTypeAccessor;
 import moriyashiine.aylyth.mixin.TrunkPlacerTypeAccessor;
@@ -26,6 +29,7 @@ public class ModFeatures {
     public static final LeafPileFeature LEAF_PILE_FEATURE = Registry.register(Registry.FEATURE, Aylyth.MOD_ID + ":leaf_pile", new LeafPileFeature());
     public static final StrewnLeavesFeature STREWN_LEAVES_FEATURE = Registry.register(Registry.FEATURE, Aylyth.MOD_ID + ":strewn_leaves", new StrewnLeavesFeature());
     public static final HorizontalFacingFeature HORIZONTAL_FACING_FEATURE = Registry.register(Registry.FEATURE, Aylyth.MOD_ID + ":horizontal_facing_feature", new HorizontalFacingFeature());
+    public static final DoubleBlockFeature DOUBLE_BLOCK_FEATURE = Registry.register(Registry.FEATURE, Aylyth.MOD_ID + ":double_block_feature", new DoubleBlockFeature());
 
     public static final TrunkPlacerType<AylthianTrunkPlacer> AYLYTHIAN_TRUNK_PLACER = TrunkPlacerTypeAccessor.callRegister(Aylyth.MOD_ID + ":aylythian_trunk_placer", AylthianTrunkPlacer.CODEC);
     public static final TrunkPlacerType<YmpeTrunkPlacer> YMPE_TRUNK_PLACER = TrunkPlacerTypeAccessor.callRegister(Aylyth.MOD_ID + ":ympe_trunk_placer", YmpeTrunkPlacer.CODEC);

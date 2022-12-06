@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.common.world.generator;
+package moriyashiine.aylyth.common.world.generator.trunkplacer;
 
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;

@@ -1,11 +1,6 @@
 {
 	"credit": "Made with Blockbench",
-	"parent": "block/block",
-	"textures": {
-		"0": "aylyth:block/aylyth_bush_trunk",
-		"1": "aylyth:block/woody_growth_details",
-		"particle": "aylyth:block/aylyth_bush_trunk"
-	},
+	"parent": "aylyth:block/large_woody_growth_base",
 	"elements": [
 		{
 			"from": [5, 0, 5],

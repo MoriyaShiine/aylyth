@@ -1,5 +1,5 @@
 {
-  "parent": "aylyth:block/soul_hearth",
+  "parent": "aylyth:block/soul_hearth_item",
   "display": {
     "thirdperson_righthand": {
       "translation": [0, -2.75, 0],
