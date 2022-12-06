@@ -1,8 +1,5 @@
 package moriyashiine.aylyth.mixin;
 
-import moriyashiine.aylyth.api.interfaces.Vital;
-import moriyashiine.aylyth.common.AylythUtil;
-import moriyashiine.aylyth.common.entity.mob.RippedSoulEntity;
 import moriyashiine.aylyth.common.registry.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -42,22 +39,6 @@ public abstract class LivingEntityMixin extends Entity {
 					ympeInfestationComponent.setInfestationTimer((short) 0);
 				}
 			});
-		}
-	}
-
-	@Inject(method = "onDeath", at = @At("HEAD"))
-	private void aylyth$onDeath(DamageSource source, CallbackInfo ci) {
-		if(!world.isClient && source instanceof ModDamageSources.SoulRipDamageSource ripSource) {
-			RippedSoulEntity soul = new RippedSoulEntity(ModEntityTypes.RIPPED_SOUL, this.getWorld());
-			if (ripSource.getAttacker() != null) {
-				soul.setOwner((PlayerEntity) ripSource.getAttacker());
-			}
-			soul.setPosition(this.getPos().add(0, 1, 0));
-			this.world.spawnEntity(soul);
-		}
-
-		if((LivingEntity) (Object) this instanceof PlayerEntity player && AylythUtil.isSourceYmpe(source)){
-			Vital.of(player).ifPresent(vital -> vital.setVitalThuribleLevel(0));
 		}
 	}
 }
