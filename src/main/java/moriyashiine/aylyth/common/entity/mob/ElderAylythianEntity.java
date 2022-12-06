@@ -134,8 +134,8 @@ public class ElderAylythianEntity extends HostileEntity implements IAnimatable {
 	protected void dropEquipment(DamageSource source, int lootingMultiplier, boolean allowDrops) {
 		super.dropEquipment(source, lootingMultiplier, allowDrops);
 		if (!world.isClient) {
-			int xOffset = Math.sin(bodyYaw * 0.017453292F) > 0 ? 1 : -1;
-			int zOffset = Math.cos(bodyYaw * 0.017453292F) > 0 ? 1 : -1;
+			int xOffset = Math.sin(bodyYaw * Math.PI / 180) > 0 ? 1 : -1;
+			int zOffset = Math.cos(bodyYaw * Math.PI / 180) > 0 ? 1 : -1;
 			BlockPos[] checkPoses = {getBlockPos(), getBlockPos().add(xOffset, 0, 0), getBlockPos().add(0, 0, zOffset), getBlockPos().add(xOffset, 0, zOffset)};
 			for (BlockPos checkPos : checkPoses) {
 				if (world.getBlockState(checkPos).getMaterial().isReplaceable() && ModBlocks.YMPE_BLOCKS.sapling.getDefaultState().canPlaceAt(world, checkPos)) {

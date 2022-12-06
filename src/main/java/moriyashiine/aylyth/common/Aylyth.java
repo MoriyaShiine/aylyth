@@ -3,6 +3,7 @@ package moriyashiine.aylyth.common;
 import moriyashiine.aylyth.api.interfaces.Vital;
 import moriyashiine.aylyth.client.network.packet.UpdatePressingUpDownPacket;
 import moriyashiine.aylyth.common.block.WoodyGrowthCacheBlock;
+import moriyashiine.aylyth.common.entity.mob.RippedSoulEntity;
 import moriyashiine.aylyth.common.entity.mob.ScionEntity;
 import moriyashiine.aylyth.common.network.packet.GlaivePacket;
 import moriyashiine.aylyth.client.network.packet.SpawnShuckParticlesPacket;
@@ -78,13 +79,33 @@ public class Aylyth implements ModInitializer {
 		ServerPlayerEvents.AFTER_RESPAWN.register(this::afterRespawn);
 		ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register(this::shucking);
 		ServerLivingEntityEvents.ALLOW_DEATH.register(this::allowDeath);
-		UseBlockCallback.EVENT.register(this::interactSoulCampfore);
+		ServerLivingEntityEvents.AFTER_DEATH.register(this::spawnRippedSoul);
+		ServerLivingEntityEvents.AFTER_DEATH.register(this::checkVital);
+		UseBlockCallback.EVENT.register(this::interactSoulCampfire);
 
 
 	}
 
+	private void checkVital(LivingEntity livingEntity, DamageSource source) {
+		if(livingEntity instanceof PlayerEntity player && AylythUtil.isSourceYmpe(source)){
+			Vital.of(player).ifPresent(vital -> vital.setVitalThuribleLevel(0));
+		}
+	}
 
-	private ActionResult interactSoulCampfore(PlayerEntity playerEntity, World world, Hand hand, BlockHitResult blockHitResult) {
+	private void spawnRippedSoul(LivingEntity livingEntity, DamageSource source) {
+		World world = livingEntity.getWorld();
+		if(!world.isClient && source instanceof ModDamageSources.SoulRipDamageSource ripSource) {
+			RippedSoulEntity soul = new RippedSoulEntity(ModEntityTypes.RIPPED_SOUL, world);
+			if (ripSource.getAttacker() != null) {
+				soul.setOwner((PlayerEntity) ripSource.getAttacker());
+			}
+			soul.setPosition(livingEntity.getPos().add(0, 1, 0));
+			world.spawnEntity(soul);
+		}
+	}
+
+
+	private ActionResult interactSoulCampfire(PlayerEntity playerEntity, World world, Hand hand, BlockHitResult blockHitResult) {
 		if(hand == Hand.MAIN_HAND && world.getBlockState(blockHitResult.getBlockPos()).isOf(Blocks.SOUL_CAMPFIRE) && world.getBlockEntity(blockHitResult.getBlockPos()) instanceof CampfireBlockEntity campfireBlockEntity){
 			ItemStack itemStack = playerEntity.getMainHandStack();
 			if(itemStack.isOf(ModItems.AYLYTHIAN_HEART) || itemStack.isOf(ModItems.WRONGMEAT) || (itemStack.isOf(ModItems.SHUCKED_YMPE_FRUIT) && (itemStack.hasNbt() && itemStack.getNbt().contains("StoredEntity")))){
