@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.common.world.generator.feature;
+package moriyashiine.aylyth.common.world.generator.foliageplacer;
 
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;

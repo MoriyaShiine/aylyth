@@ -30,6 +30,7 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.fabric.api.client.model.BakedModelManagerHelper;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
@@ -148,11 +149,17 @@ public class AylythClient implements ClientModInitializer {
 
 	private void woodyGrowthCacheRenderer(ItemStack stack, ModelTransformation.Mode mode, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
 		var rand = Random.create(42);
-		var model = MinecraftClient.getInstance().getBlockRenderManager().getModel(ModBlocks.WOODY_GROWTH_CACHE.getDefaultState());
+		var model = MinecraftClient.getInstance().getBakedModelManager().getModel(new ModelIdentifier(Aylyth.MOD_ID, "large_woody_growth", "inventory"));
+		if (model == null) return;
 		var consumer = VertexConsumers.union(vertexConsumers.getBuffer(RenderTypes.TINT), vertexConsumers.getBuffer(RenderLayers.getItemLayer(stack, true)));
-		for (BakedQuad quad : model.getOverrides().apply(model, stack, MinecraftClient.getInstance().world, mode.isFirstPerson() ? MinecraftClient.getInstance().player : null, 42).getQuads(null, null, rand)) {
+		matrices.push();
+		matrices.translate(0.5, 0.5, 0.5);
+		model.getTransformation().getTransformation(mode).apply(mode == ModelTransformation.Mode.FIRST_PERSON_LEFT_HAND, matrices);
+		matrices.translate(-0.5, -0.5, -0.5);
+		for (BakedQuad quad : model.getQuads(null, null, rand)) {
 			consumer.quad(matrices.peek(), quad, 1.0f, 1.0f, 1.0f, light, overlay);
 		}
+		matrices.pop();
 	}
 
 	private static Block[] cutoutBlocks() {

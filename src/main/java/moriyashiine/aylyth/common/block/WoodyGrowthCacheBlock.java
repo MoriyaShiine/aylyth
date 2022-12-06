@@ -50,6 +50,7 @@ public class WoodyGrowthCacheBlock extends LargeWoodyGrowthBlock implements Bloc
                 list.add(stack);
             }
         }
+
         var numCaches = (int) Math.ceil(((double)list.size()) / 9.0);
         int i = 0;
         var iter = BlockPos.iterateOutwards(pos, 4, 0, 4).iterator();
@@ -59,11 +60,11 @@ public class WoodyGrowthCacheBlock extends LargeWoodyGrowthBlock implements Bloc
             var state = ModBlocks.WOODY_GROWTH_CACHE.getDefaultState();
             do {
                 placePos = placePos.withY(y);
-            } while ((!state.canPlaceAt(world, placePos) || world.isAir(placePos.down())) && y-- > world.getBottomY());
-            if (!state.canPlaceAt(world, placePos) || world.isAir(placePos.down())) {
+            } while (isInvalidPosition(placePos, state, world) && y-- > world.getBottomY());
+            if (isInvalidPosition(placePos, state, world)) {
                 placePos = placePos.withY(world.getTopY(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, placePos.getX(), placePos.getZ()));
             }
-            world.setBlockState(placePos, ModBlocks.WOODY_GROWTH_CACHE.getDefaultState());
+            world.setBlockState(placePos, state);
             var be = world.getBlockEntity(placePos);
             if (be instanceof WoodyGrowthCacheBlockEntity cache) {
                 i = cache.fill(list, i);
@@ -73,9 +74,9 @@ public class WoodyGrowthCacheBlock extends LargeWoodyGrowthBlock implements Bloc
         }
     }
 
-//    private static int findYValue() {
-//
-//    }
+    private static boolean isInvalidPosition(BlockPos pos, BlockState state, World world) {
+        return !state.canPlaceAt(world, pos) || world.isAir(pos.down());
+    }
 
     @Nullable
     @Override

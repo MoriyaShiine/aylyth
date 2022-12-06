@@ -18,7 +18,6 @@ import net.minecraft.world.gen.feature.MiscPlacedFeatures;
 import net.minecraft.world.gen.feature.OrePlacedFeatures;
 import net.minecraft.world.gen.feature.VegetationPlacedFeatures;
 
-//TODO: clearing flowers still need fixed
 public class ModBiomes {
 	public static final SpawnSettings COPSE_MOBS = SpawnSettingsBuilder.builder().spawnCost(ModEntityTypes.AYLYTHIAN, 2, 1).monster(ModEntityTypes.AYLYTHIAN, 20, 1, 2).ambient(ModEntityTypes.PILOT_LIGHT, 5, 1, 1).spawnChance(0.5F).build();
 	public static final SpawnSettings DEEPWOOD_MOBS = SpawnSettingsBuilder.builder().spawnCost(ModEntityTypes.AYLYTHIAN, 3, 1).monster(ModEntityTypes.AYLYTHIAN, 25, 1, 3).monster(ModEntityTypes.ELDER_AYLYTHIAN, 2, 1, 1).monster(ModEntityTypes.SCION, 15, 1, 1).ambient(ModEntityTypes.PILOT_LIGHT, 10, 1, 1).build();
@@ -108,6 +107,7 @@ public class ModBiomes {
 							.vegetalDecoFeature(ModPlacedFeatures.YMPE_SEEP);
 					if (deep) {
 						generationSettingsBuilder.vegetalDecoFeature(VegetationPlacedFeatures.PATCH_TALL_GRASS_2)
+								.add(ModBiomes::addWoodyGrowths)
 								.add(ModBiomes::addLeafPiles)
 								.add(DefaultBiomeFeatures::addLargeFerns);
 					} else {
@@ -143,6 +143,7 @@ public class ModBiomes {
 					if (deep) {
 						builder.vegetalDecoFeature(ModVegetationFeatures.CONIFEROUS_DEEP_ROOF_TREES_PLACED)
 								.vegetalDecoFeature(ModVegetationFeatures.SHELF_JACK_O_LANTERN_MUSHROOM_PATCHES_DEEPWOOD_PLACED)
+								.add(ModBiomes::addWoodyGrowths)
 								.add(ModBiomes::addLeafPiles)
 								.add(DefaultBiomeFeatures::addLargeFerns);
 					}
@@ -203,5 +204,10 @@ public class ModBiomes {
 	private static void addMushroomsDeepwood(GenerationSettings.Builder builder) {
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModVegetationFeatures.RED_MUSHROOM_PATCHES_DEEPWOOD_PLACED);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModVegetationFeatures.BROWN_MUSHROOM_PATCHES_DEEPWOOD_PLACED);
+	}
+
+	private static void addWoodyGrowths(GenerationSettings.Builder builder) {
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModVegetationFeatures.SMALL_WOODY_GROWTH_PLACED);
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModVegetationFeatures.LARGE_WOODY_GROWTH_PLACED);
 	}
 }

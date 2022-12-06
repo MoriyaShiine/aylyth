@@ -32,6 +32,7 @@ public class ModPlacedFeatures {
     public static final RegistryEntry<PlacedFeature> MARIGOLDS = register("marigolds", ModConfiguredFeatures.MARIGOLDS, List.of(PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, PlacedFeatures.wouldSurvive(ModBlocks.MARIGOLD), BiomePlacementModifier.of()));
     public static final RegistryEntry<PlacedFeature> SHELF_JACK_O_LANTERN_MUSHROOMS = register("shelf_jack_o_lantern_mushrooms", ModConfiguredFeatures.SHELF_JACK_O_LANTERN_MUSHROOMS, List.of(SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP));
 
+
     public static final RegistryEntry<PlacedFeature> OAK_SEEP = register("oak_seep", ModConfiguredFeatures.OAK_SEEP, List.of(RarityFilterPlacementModifier.of(10), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of())); //.spreadHorizontally().applyChance(10).repeatRandomly(4);
     public static final RegistryEntry<PlacedFeature> SPRUCE_SEEP = register("spruce_seep", ModConfiguredFeatures.SPRUCE_SEEP, List.of(RarityFilterPlacementModifier.of(10), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of())); //.spreadHorizontally().applyChance(10).repeatRandomly(4);
     public static final RegistryEntry<PlacedFeature> DARK_OAK_SEEP = register("dark_oak_seep", ModConfiguredFeatures.DARK_OAK_SEEP, List.of(RarityFilterPlacementModifier.of(10), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of())); //.spreadHorizontally().applyChance(10).repeatRandomly(4);

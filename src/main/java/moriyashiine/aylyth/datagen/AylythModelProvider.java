@@ -84,10 +84,10 @@ public class AylythModelProvider extends FabricModelProvider {
         generateStrewnLeavesItemModel(ModItems.YMPE_STREWN_LEAVES, id("block/fallen_ympe_leaves_01"), itemModelGenerator);
         itemModelGenerator.register(ModItems.POMEGRANATE, Models.GENERATED);
         itemModelGenerator.register(ModItems.GHOSTCAP_MUSHROOM_SPORES, Models.GENERATED);
-        generated(itemModelGenerator, ModItems.POMEGRANATE_ITEMS.boat);
-        generated(itemModelGenerator, ModItems.POMEGRANATE_ITEMS.chestBoat);
-        generated(itemModelGenerator, ModItems.WRITHEWOOD_ITEMS.boat);
-        generated(itemModelGenerator, ModItems.WRITHEWOOD_ITEMS.chestBoat);
+        itemModelGenerator.register(ModItems.POMEGRANATE_ITEMS.boat, Models.GENERATED);
+        itemModelGenerator.register(ModItems.POMEGRANATE_ITEMS.chestBoat, Models.GENERATED);
+        itemModelGenerator.register(ModItems.WRITHEWOOD_ITEMS.boat, Models.GENERATED);
+        itemModelGenerator.register(ModItems.WRITHEWOOD_ITEMS.chestBoat, Models.GENERATED);
         itemModelGenerator.register(ModItems.DEBUG_WAND, Models.GENERATED);
         itemModelGenerator.register(ModItems.WRONGMEAT, Models.GENERATED);
         itemModelGenerator.register(ModItems.LARGE_WOODY_GROWTH, blockParentModel(AylythUtil.id("block/large_woody_growth_1")));

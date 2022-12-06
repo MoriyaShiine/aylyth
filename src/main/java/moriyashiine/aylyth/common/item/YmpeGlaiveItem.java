@@ -48,8 +48,8 @@ public class YmpeGlaiveItem extends SwordItem {
 
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-        tooltip.add(Text.literal("It is the lament of the fallen").formatted(Formatting.GOLD, Formatting.ITALIC));
-        tooltip.add(Text.literal("which pushes the living onward.").formatted(Formatting.GOLD, Formatting.ITALIC));
+        tooltip.add(Text.translatable("item.aylyth.glaive.desc_1").formatted(Formatting.GOLD, Formatting.ITALIC));
+        tooltip.add(Text.translatable("item.aylyth.glaive.desc_2").formatted(Formatting.GOLD, Formatting.ITALIC));
         super.appendTooltip(stack, world, tooltip, context);
     }
 
