@@ -7,6 +7,9 @@ import net.minecraft.client.render.RenderPhase;
 import net.minecraft.client.render.VertexFormat;
 import net.minecraft.client.render.VertexFormats;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Util;
+
+import java.util.function.Function;
 
 public class RenderTypes extends RenderLayer {
     public RenderTypes(String name, VertexFormat vertexFormat, VertexFormat.DrawMode drawMode, int expectedBufferSize, boolean hasCrumbling, boolean translucent, Runnable startAction, Runnable endAction) {
@@ -29,4 +32,15 @@ public class RenderTypes extends RenderLayer {
                     .texturing(RenderPhase.GLINT_TEXTURING)
                     .build(false)
     );
+
+    public static final Function<Identifier, RenderLayer> ENTITY_NO_OUTLINE_DEPTH_FIX = Util.memoize(texture -> {
+        MultiPhaseParameters multiPhaseParameters = MultiPhaseParameters.builder()
+                .shader(ENTITY_SOLID_SHADER)
+                .texture(new RenderPhase.Texture(texture, false, false))
+                .cull(DISABLE_CULLING)
+                .lightmap(ENABLE_LIGHTMAP)
+                .overlay(ENABLE_OVERLAY_COLOR)
+                .build(false);
+        return RenderLayer.of("entity_no_outline_fixed", VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, VertexFormat.DrawMode.QUADS, 256, false, false, multiPhaseParameters);
+    });
 }

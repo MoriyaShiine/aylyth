@@ -42,7 +42,8 @@ public class WoodyGrowthCacheBlock extends LargeWoodyGrowthBlock implements Bloc
         }
     }
 
-    public static void spawnInventory(World world, BlockPos pos, Inventory inv) {
+    public static void spawnInventory(World world, BlockPos pos, PlayerEntity player) {
+        var inv = player.getInventory();
         List<ItemStack> list = Lists.newArrayList();
         for (int i = 0; i < inv.size(); i++) {
             var stack = inv.removeStack(i);
@@ -67,6 +68,7 @@ public class WoodyGrowthCacheBlock extends LargeWoodyGrowthBlock implements Bloc
             world.setBlockState(placePos, state);
             var be = world.getBlockEntity(placePos);
             if (be instanceof WoodyGrowthCacheBlockEntity cache) {
+                cache.setPlayerUuid(player);
                 i = cache.fill(list, i);
             } else {
                 throw new IllegalStateException("Something has gone wrong."); // TODO?

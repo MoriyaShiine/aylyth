@@ -31,7 +31,7 @@ public class DebugWandItem extends Item {
         var player = context.getPlayer();
         if (player != null && player.getStackInHand(Hand.OFF_HAND).isOf(ModItems.WOODY_GROWTH_CACHE)) {
             if (!world.isClient()) {
-                WoodyGrowthCacheBlock.spawnInventory(world, pos, player.getInventory());
+                WoodyGrowthCacheBlock.spawnInventory(world, pos, player);
             }
         }
         return super.useOnBlock(context);

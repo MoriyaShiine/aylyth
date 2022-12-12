@@ -103,7 +103,7 @@ public class Aylyth implements ModInitializer {
 				return true;
 			}
 			if (damageSource == ModDamageSources.YMPE) {
-				WoodyGrowthCacheBlock.spawnInventory(player.world, player.getBlockPos(), player.getInventory());
+				WoodyGrowthCacheBlock.spawnInventory(player.world, player.getBlockPos(), player);
 				return true;
 			}
 			RegistryKey<World> toWorld = null;
