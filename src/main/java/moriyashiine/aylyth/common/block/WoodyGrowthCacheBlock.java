@@ -25,8 +25,6 @@ import java.util.List;
 
 public class WoodyGrowthCacheBlock extends LargeWoodyGrowthBlock implements BlockEntityProvider {
 
-    public static Identifier CONTENTS = ShulkerBoxBlock.CONTENTS;
-
     public WoodyGrowthCacheBlock(Settings settings) {
         super(settings);
     }
@@ -84,19 +82,6 @@ public class WoodyGrowthCacheBlock extends LargeWoodyGrowthBlock implements Bloc
                 throw new IllegalStateException("Something has gone wrong."); // TODO?
             }
         }
-    }
-
-    @Override
-    public List<ItemStack> getDroppedStacks(BlockState state, LootContext.Builder builder) {
-        var lootContext = builder.getNullable(LootContextParameters.BLOCK_ENTITY);
-        if (lootContext instanceof WoodyGrowthCacheBlockEntity be) {
-            builder.putDrop(CONTENTS, (context, consumer) -> {
-                for (int i = 0; i < be.size(); i++) {
-                    consumer.accept(be.getItem(i));
-                }
-            });
-        }
-        return super.getDroppedStacks(state, builder);
     }
 
     private static boolean isInvalidPosition(BlockPos pos, BlockState state, World world) {
