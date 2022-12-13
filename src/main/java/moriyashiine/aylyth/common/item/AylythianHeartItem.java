@@ -7,6 +7,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsage;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
@@ -31,9 +32,9 @@ public class AylythianHeartItem extends Item {
 	
 	@Override
 	public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
-		if (!world.isClient && user instanceof PlayerEntity player && world.getRegistryKey() != ModDimensionKeys.AYLYTH) {
+		if (world instanceof ServerWorld serverWorld && user instanceof PlayerEntity player && serverWorld.getRegistryKey() != ModDimensionKeys.AYLYTH) {
 			if (player.isCreative() || player.experienceLevel >= 5) {
-				AylythUtil.teleportTo(ModDimensionKeys.AYLYTH, player, 0);
+				AylythUtil.teleportTo(player, serverWorld.getServer().getWorld(ModDimensionKeys.AYLYTH), 0);
 				if (!player.isCreative()) {
 					player.addExperience(-55);
 					stack.decrement(1);
