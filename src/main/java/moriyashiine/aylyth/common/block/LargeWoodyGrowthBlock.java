@@ -35,8 +35,7 @@ public class LargeWoodyGrowthBlock extends SmallWoodyGrowthBlock {
     @Override
     public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
         super.onPlaced(world, pos, state, placer, itemStack);
-        state = state.with(HALF, DoubleBlockHalf.UPPER);
-        world.setBlockState(pos.up(), state);
+        world.setBlockState(pos.up(), state.with(HALF, DoubleBlockHalf.UPPER));
     }
 
     @Override
@@ -44,12 +43,6 @@ public class LargeWoodyGrowthBlock extends SmallWoodyGrowthBlock {
         if (!world.isClient()) {
             if (player.isCreative()) {
                 TallPlantBlock.onBreakInCreative(world, pos, state, player);
-            } else {
-                BlockEntity be = null;
-                if (state.hasBlockEntity() && state.get(HALF) == DoubleBlockHalf.UPPER) {
-                    be = world.getBlockEntity(pos.down());
-                }
-                dropStacks(state, world, pos, be, player, player.getMainHandStack());
             }
         }
         super.onBreak(world, pos, state, player);
