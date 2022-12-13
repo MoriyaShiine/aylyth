@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.datagen;
 
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.registry.ModDimensions;
+import moriyashiine.aylyth.common.registry.ModDimensionKeys;
 import moriyashiine.aylyth.common.registry.ModItems;
 import moriyashiine.aylyth.common.registry.ModPotions;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
@@ -35,7 +35,7 @@ public class AylythAdvancementProvider extends FabricAdvancementProvider {
         // TODO: it'll take some mixins, but I would like to replace the potion things with the mobeffect texture instead
         var root = Advancement.Builder.create()
                 .display(ModItems.YMPE_ITEMS.sapling.getDefaultStack(), Text.translatable("aylyth.advancements.aylyth.root.title"), Text.translatable("aylyth.advancements.aylyth.root.desc"), new Identifier(Aylyth.MOD_ID, "textures/block/ympe_planks.png"), AdvancementFrame.TASK, true, false, false)
-                .criterion("entered_aylyth", ChangedDimensionCriterion.Conditions.to(ModDimensions.AYLYTH))
+                .criterion("entered_aylyth", ChangedDimensionCriterion.Conditions.to(ModDimensionKeys.AYLYTH))
                 .build(consumer, "aylyth:aylyth/root");
         Advancement.Builder.create()
                 .parent(root)

@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.common.registry.biome;
+package moriyashiine.aylyth.datagen.worldgen.biomes.util;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;

@@ -3,7 +3,7 @@ package moriyashiine.aylyth.common.block;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.UnmodifiableIterator;
 import moriyashiine.aylyth.common.block.entity.SoulHearthBlockEntity;
-import moriyashiine.aylyth.common.registry.ModDimensions;
+import moriyashiine.aylyth.common.registry.ModDimensionKeys;
 import moriyashiine.aylyth.common.registry.ModItems;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -55,7 +55,7 @@ public class SoulHearthBlock extends Block implements BlockEntityProvider {
 
 
     public static boolean isAylyth(World world) {
-        return world.getRegistryKey().equals(ModDimensions.AYLYTH);
+        return world.getRegistryKey().equals(ModDimensionKeys.AYLYTH);
     }
 
 

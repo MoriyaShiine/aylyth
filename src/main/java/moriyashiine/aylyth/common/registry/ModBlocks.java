@@ -3,6 +3,7 @@ package moriyashiine.aylyth.common.registry;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.block.*;
 import moriyashiine.aylyth.common.registry.util.WoodSuite;
+import moriyashiine.aylyth.datagen.worldgen.features.ModConfiguredFeatures;
 import moriyashiine.aylyth.mixin.BlocksAccessor;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;

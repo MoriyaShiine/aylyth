@@ -1,15 +1,16 @@
-package moriyashiine.aylyth.common.registry;
+package moriyashiine.aylyth.datagen.worldgen.biomes;
 
-import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.registry.biome.BiomeBuilder;
-import moriyashiine.aylyth.common.registry.biome.SpawnSettingsBuilder;
+import moriyashiine.aylyth.common.registry.ModEntityTypes;
+import moriyashiine.aylyth.common.registry.ModParticles;
+import moriyashiine.aylyth.common.registry.ModSoundEvents;
+import moriyashiine.aylyth.datagen.worldgen.biomes.util.BiomeBuilder;
+import moriyashiine.aylyth.datagen.worldgen.biomes.util.SpawnSettingsBuilder;
+import moriyashiine.aylyth.datagen.worldgen.features.ModPlacedFeatures;
+import moriyashiine.aylyth.datagen.worldgen.features.ModVegetationFeatures;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.BiomeAdditionsSound;
 import net.minecraft.sound.BiomeMoodSound;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.BuiltinRegistries;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.carver.ConfiguredCarvers;
@@ -18,18 +19,13 @@ import net.minecraft.world.gen.feature.MiscPlacedFeatures;
 import net.minecraft.world.gen.feature.OrePlacedFeatures;
 import net.minecraft.world.gen.feature.VegetationPlacedFeatures;
 
+import static moriyashiine.aylyth.common.registry.ModBiomeKeys.*;
+
 public class ModBiomes {
 	public static final SpawnSettings COPSE_MOBS = SpawnSettingsBuilder.builder().spawnCost(ModEntityTypes.AYLYTHIAN, 2, 1).monster(ModEntityTypes.AYLYTHIAN, 20, 1, 2).ambient(ModEntityTypes.PILOT_LIGHT, 5, 1, 1).spawnChance(0.5F).build();
 	public static final SpawnSettings DEEPWOOD_MOBS = SpawnSettingsBuilder.builder().spawnCost(ModEntityTypes.AYLYTHIAN, 3, 1).monster(ModEntityTypes.AYLYTHIAN, 25, 1, 3).monster(ModEntityTypes.ELDER_AYLYTHIAN, 2, 1, 1).monster(ModEntityTypes.SCION, 15, 1, 1).ambient(ModEntityTypes.PILOT_LIGHT, 10, 1, 1).build();
 	public static final BiomeAdditionsSound OVERGROWN_CLEARING_AMBIANCE = new BiomeAdditionsSound(ModSoundEvents.AMBIENT_FOREST_ADDITIONS, 0.001);
 	public static final BiomeAdditionsSound FOREST_AMBIANCE = new BiomeAdditionsSound(ModSoundEvents.AMBIENT_FOREST_ADDITIONS, 0.005);
-	public static final RegistryKey<Biome> CLEARING_ID = RegistryKey.of(Registry.BIOME_KEY, new Identifier(Aylyth.MOD_ID, "clearing"));
-	public static final RegistryKey<Biome> OVERGROWN_CLEARING_ID = RegistryKey.of(Registry.BIOME_KEY, new Identifier(Aylyth.MOD_ID, "overgrown_clearing"));
-	public static final RegistryKey<Biome> COPSE_ID = RegistryKey.of(Registry.BIOME_KEY, new Identifier(Aylyth.MOD_ID, "copse"));
-	public static final RegistryKey<Biome> DEEPWOOD_ID = RegistryKey.of(Registry.BIOME_KEY, new Identifier(Aylyth.MOD_ID, "deepwood"));
-	public static final RegistryKey<Biome> CONIFEROUS_COPSE_ID = RegistryKey.of(Registry.BIOME_KEY, new Identifier(Aylyth.MOD_ID, "coniferous_copse"));
-	public static final RegistryKey<Biome> CONIFEROUS_DEEPWOOD_ID = RegistryKey.of(Registry.BIOME_KEY, new Identifier(Aylyth.MOD_ID, "coniferous_deepwood"));
-	public static final RegistryKey<Biome> UPLANDS_ID = RegistryKey.of(Registry.BIOME_KEY, new Identifier(Aylyth.MOD_ID, "uplands"));
 	private static final int AYLYTHIAN_FOLIAGE_COLOR = 0x627F38;
 	private static final int DEEP_AYLYTHIAN_FOLIAGE_COLOR = 0x9E811A;
 	private static final int WATER_COLOR = 0x3F76E4;
@@ -207,7 +203,6 @@ public class ModBiomes {
 	}
 
 	private static void addWoodyGrowths(GenerationSettings.Builder builder) {
-		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModVegetationFeatures.SMALL_WOODY_GROWTH_PLACED);
-		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModVegetationFeatures.LARGE_WOODY_GROWTH_PLACED);
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModVegetationFeatures.WOODY_GROWTH_PATCH_PLACED);
 	}
 }

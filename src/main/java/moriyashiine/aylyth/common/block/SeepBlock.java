@@ -2,7 +2,7 @@ package moriyashiine.aylyth.common.block;
 
 import moriyashiine.aylyth.common.AylythUtil;
 import moriyashiine.aylyth.common.block.entity.SeepBlockEntity;
-import moriyashiine.aylyth.common.registry.ModDimensions;
+import moriyashiine.aylyth.common.registry.ModDimensionKeys;
 import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
@@ -56,7 +56,7 @@ public class SeepBlock extends Block implements BlockEntityProvider {
 		super.onEntityCollision(state, world, pos, entity);
 		if (world instanceof ServerWorld serverWorld) {
 			if (entity.getPos().distanceTo(new Vec3d(pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F)) < 0.6F) {
-				ServerWorld aylyth = serverWorld.getServer().getWorld(ModDimensions.AYLYTH);
+				ServerWorld aylyth = serverWorld.getServer().getWorld(ModDimensionKeys.AYLYTH);
 				ServerWorld toWorld = entity.world == aylyth ? serverWorld.getServer().getWorld(RegistryKey.of(Registry.WORLD_KEY, DimensionTypes.OVERWORLD_ID)) : aylyth;
 				FabricDimensions.teleport(entity, toWorld, new TeleportTarget(Vec3d.of(AylythUtil.getSafePosition(toWorld, entity.getBlockPos().mutableCopy(), 0)), Vec3d.ZERO, entity.getHeadYaw(), entity.getPitch()));
 			}

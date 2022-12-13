@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.datagen;
+package moriyashiine.aylyth.datagen.worldgen.terrain;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;

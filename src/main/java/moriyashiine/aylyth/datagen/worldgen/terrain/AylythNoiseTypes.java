@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.datagen;
+package moriyashiine.aylyth.datagen.worldgen.terrain;
 
 import com.mojang.datafixers.util.Either;
 import it.unimi.dsi.fastutil.doubles.DoubleList;

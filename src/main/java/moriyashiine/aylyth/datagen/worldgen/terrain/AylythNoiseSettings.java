@@ -1,7 +1,8 @@
-package moriyashiine.aylyth.datagen;
+package moriyashiine.aylyth.datagen.worldgen.terrain;
 
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.registry.ModBiomes;
+import moriyashiine.aylyth.common.registry.ModBiomeKeys;
+import moriyashiine.aylyth.datagen.worldgen.biomes.ModBiomes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -19,8 +20,8 @@ import net.minecraft.world.gen.surfacebuilder.MaterialRules;
 
 import java.util.List;
 
-import static moriyashiine.aylyth.datagen.AylythDensityFunctionTypes.*;
-import static moriyashiine.aylyth.datagen.AylythNoiseTypes.*;
+import static moriyashiine.aylyth.datagen.worldgen.terrain.AylythDensityFunctionTypes.*;
+import static moriyashiine.aylyth.datagen.worldgen.terrain.AylythNoiseTypes.*;
 import static net.minecraft.world.gen.densityfunction.DensityFunctionTypes.*;
 
 public class AylythNoiseSettings {
@@ -175,18 +176,18 @@ public class AylythNoiseSettings {
         var onReplaceWithGrass = MaterialRules.condition(MaterialRules.water(0, 0), grass);
         var commonPodzol = AylythMaterialRules.podzol(PODZOL_COMMON, 0.3, Double.MAX_VALUE);
         var rarePodzol = AylythMaterialRules.podzol(PODZOL_RARE, 0.95, Double.MAX_VALUE);
-        var podzolDecoCommon = MaterialRules.sequence(MaterialRules.condition(MaterialRules.biome(ModBiomes.DEEPWOOD_ID, ModBiomes.CONIFEROUS_DEEPWOOD_ID), commonPodzol));
-        var podzolDecoRare = MaterialRules.condition(MaterialRules.biome(ModBiomes.COPSE_ID, ModBiomes.OVERGROWN_CLEARING_ID), rarePodzol);
+        var podzolDecoCommon = MaterialRules.sequence(MaterialRules.condition(MaterialRules.biome(ModBiomeKeys.DEEPWOOD_ID, ModBiomeKeys.CONIFEROUS_DEEPWOOD_ID), commonPodzol));
+        var podzolDecoRare = MaterialRules.condition(MaterialRules.biome(ModBiomeKeys.COPSE_ID, ModBiomeKeys.OVERGROWN_CLEARING_ID), rarePodzol);
         var onSurface = MaterialRules.condition(
                 MaterialRules.stoneDepth(0, false, 0, VerticalSurfaceType.FLOOR),
                 MaterialRules.condition(MaterialRules.water(-1, 0),
                         MaterialRules.sequence(podzolDecoCommon, podzolDecoRare, onReplaceWithGrass, dirt)
                 )
         );
-        var onUnderSurface = MaterialRules.condition(MaterialRules.not(MaterialRules.biome(ModBiomes.UPLANDS_ID)), MaterialRules.condition(MaterialRules.waterWithStoneDepth(-6, -1), MaterialRules.condition(MaterialRules.stoneDepth(0, true, 0, VerticalSurfaceType.FLOOR), dirt)));
+        var onUnderSurface = MaterialRules.condition(MaterialRules.not(MaterialRules.biome(ModBiomeKeys.UPLANDS_ID)), MaterialRules.condition(MaterialRules.waterWithStoneDepth(-6, -1), MaterialRules.condition(MaterialRules.stoneDepth(0, true, 0, VerticalSurfaceType.FLOOR), dirt)));
         var aboveBasicSurface = MaterialRules.condition(MaterialRules.surface(), MaterialRules.sequence(onSurface, onUnderSurface));
         var bedrock = MaterialRules.condition(MaterialRules.verticalGradient("aylyth:bedrock_layer", YOffset.BOTTOM, YOffset.aboveBottom(5)), MaterialRules.block(defaultState(Blocks.BEDROCK)));
-        var uplands = MaterialRules.condition(MaterialRules.biome(ModBiomes.UPLANDS_ID), MaterialRules.condition(MaterialRules.surface(), MaterialRules.condition(MaterialRules.waterWithStoneDepth(-6, -1), AylythMaterialRules.uplandsTerracotta())));
+        var uplands = MaterialRules.condition(MaterialRules.biome(ModBiomeKeys.UPLANDS_ID), MaterialRules.condition(MaterialRules.surface(), MaterialRules.condition(MaterialRules.waterWithStoneDepth(-6, -1), AylythMaterialRules.uplandsTerracotta())));
         return MaterialRules.sequence(bedrock, uplands, aboveBasicSurface);
     }
 

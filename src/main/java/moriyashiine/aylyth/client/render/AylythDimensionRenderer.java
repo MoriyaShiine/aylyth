@@ -3,8 +3,9 @@ package moriyashiine.aylyth.client.render;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.registry.ModBiomes;
-import moriyashiine.aylyth.common.registry.ModDimensions;
+import moriyashiine.aylyth.common.registry.ModBiomeKeys;
+import moriyashiine.aylyth.datagen.worldgen.biomes.ModBiomes;
+import moriyashiine.aylyth.common.registry.ModDimensionKeys;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
@@ -98,12 +99,12 @@ public class AylythDimensionRenderer {
 	}
 	
 	public static void determineConditions(ClientWorld world, RegistryEntry<Biome> biome) {
-		if (world.getRegistryKey() == ModDimensions.AYLYTH) {
+		if (world.getRegistryKey() == ModDimensionKeys.AYLYTH) {
 			Identifier biomeId = world.getRegistryManager().get(Registry.BIOME_KEY).getId(biome.value());
-			if (biomeId == ModBiomes.CLEARING_ID.getValue() || biomeId == ModBiomes.UPLANDS_ID.getValue()) {
+			if (biomeId == ModBiomeKeys.CLEARING_ID.getValue() || biomeId == ModBiomeKeys.UPLANDS_ID.getValue()) {
 				goalFogStrength = 40;
 			}
-			else if (biomeId == ModBiomes.OVERGROWN_CLEARING_ID.getValue()) {
+			else if (biomeId == ModBiomeKeys.OVERGROWN_CLEARING_ID.getValue()) {
 				goalFogStrength = 24;
 			}
 			else {

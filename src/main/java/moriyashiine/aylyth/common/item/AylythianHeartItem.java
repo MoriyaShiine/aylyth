@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.item;
 
 import moriyashiine.aylyth.common.AylythUtil;
-import moriyashiine.aylyth.common.registry.ModDimensions;
+import moriyashiine.aylyth.common.registry.ModDimensionKeys;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -21,7 +21,7 @@ public class AylythianHeartItem extends Item {
 	public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
 		if (user.isSneaking()) {
 			if (user.isCreative() || user.experienceLevel >= 5) {
-				if (user.world.getRegistryKey() != ModDimensions.AYLYTH) {
+				if (user.world.getRegistryKey() != ModDimensionKeys.AYLYTH) {
 					return ItemUsage.consumeHeldItem(world, user, hand);
 				}
 			}
@@ -31,9 +31,9 @@ public class AylythianHeartItem extends Item {
 	
 	@Override
 	public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
-		if (!world.isClient && user instanceof PlayerEntity player && world.getRegistryKey() != ModDimensions.AYLYTH) {
+		if (!world.isClient && user instanceof PlayerEntity player && world.getRegistryKey() != ModDimensionKeys.AYLYTH) {
 			if (player.isCreative() || player.experienceLevel >= 5) {
-				AylythUtil.teleportTo(ModDimensions.AYLYTH, player, 0);
+				AylythUtil.teleportTo(ModDimensionKeys.AYLYTH, player, 0);
 				if (!player.isCreative()) {
 					player.addExperience(-55);
 					stack.decrement(1);

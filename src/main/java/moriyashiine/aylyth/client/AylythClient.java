@@ -30,7 +30,6 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
-import net.fabricmc.fabric.api.client.model.BakedModelManagerHelper;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
@@ -72,7 +71,7 @@ public class AylythClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
-		DimensionEffectsAccessor.aylyth_getByIdentifier().put(ModDimensions.AYLYTH_DIMENSION_KEY.getValue(), AylythDimensionRenderer.DIMENSION_EFFECTS);
+		DimensionEffectsAccessor.aylyth_getByIdentifier().put(ModDimensionKeys.AYLYTH_DIMENSION_KEY.getValue(), AylythDimensionRenderer.DIMENSION_EFFECTS);
 		ClientPlayNetworking.registerGlobalReceiver(SpawnShuckParticlesPacket.ID, SpawnShuckParticlesPacket::receive);
 		ParticleFactoryRegistry.getInstance().register(ModParticles.PILOT_LIGHT, PilotLightParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(ModParticles.AMBIENT_PILOT_LIGHT, PilotLightParticle.AmbientFactory::new);

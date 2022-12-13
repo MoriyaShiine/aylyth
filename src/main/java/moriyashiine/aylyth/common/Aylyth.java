@@ -6,8 +6,10 @@ import moriyashiine.aylyth.common.block.WoodyGrowthCacheBlock;
 import moriyashiine.aylyth.common.entity.mob.ScionEntity;
 import moriyashiine.aylyth.common.network.packet.GlaivePacket;
 import moriyashiine.aylyth.client.network.packet.SpawnShuckParticlesPacket;
+import moriyashiine.aylyth.common.recipe.ModBiomeSources;
 import moriyashiine.aylyth.common.recipe.YmpeDaggerDropRecipe;
 import moriyashiine.aylyth.common.registry.*;
+import moriyashiine.aylyth.datagen.worldgen.features.ModPlacedFeatures;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModification;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
@@ -72,6 +74,7 @@ public class Aylyth implements ModInitializer {
 		ModBoatTypes.init();
 		ModMemoryTypes.init();
 		ModSensorTypes.init();
+		ModBiomeSources.init();
 		biomeModifications();
 		ServerPlayNetworking.registerGlobalReceiver(GlaivePacket.ID, GlaivePacket::handle);
 		ServerPlayNetworking.registerGlobalReceiver(UpdatePressingUpDownPacket.ID, UpdatePressingUpDownPacket::handle);
@@ -107,7 +110,7 @@ public class Aylyth implements ModInitializer {
 				return true;
 			}
 			RegistryKey<World> toWorld = null;
-			if (player.world.getRegistryKey() != ModDimensions.AYLYTH) {
+			if (player.world.getRegistryKey() != ModDimensionKeys.AYLYTH) {
 				boolean teleport = false;
 				float chance = switch (player.world.getDifficulty()) {
 					case PEACEFUL -> 0;
@@ -142,7 +145,7 @@ public class Aylyth implements ModInitializer {
 					}
 				}
 				if (teleport) {
-					toWorld = ModDimensions.AYLYTH;
+					toWorld = ModDimensionKeys.AYLYTH;
 				}
 			}
 			if (toWorld != null) {
@@ -212,8 +215,8 @@ public class Aylyth implements ModInitializer {
 	}
 
 	private void afterRespawn(ServerPlayerEntity oldPlayer, ServerPlayerEntity newPlayer, boolean alive) {
-		if (oldPlayer.world.getRegistryKey().equals(ModDimensions.AYLYTH)) {
-			AylythUtil.teleportTo(ModDimensions.AYLYTH, newPlayer, 0);
+		if (oldPlayer.world.getRegistryKey().equals(ModDimensionKeys.AYLYTH)) {
+			AylythUtil.teleportTo(ModDimensionKeys.AYLYTH, newPlayer, 0);
 		}
 		Vital.of(newPlayer).ifPresent(vital -> vital.setVitalThuribleLevel(((Vital) oldPlayer).getVitalThuribleLevel()));
 	}

@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.item;
 
 import com.mojang.datafixers.util.Pair;
-import moriyashiine.aylyth.common.registry.ModDimensions;
+import moriyashiine.aylyth.common.registry.ModDimensionKeys;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -25,7 +25,7 @@ public class PomegranateItem extends Item {
 
     @Override
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
-        if (this.isFood() && world.getRegistryKey() != ModDimensions.AYLYTH) {
+        if (this.isFood() && world.getRegistryKey() != ModDimensionKeys.AYLYTH) {
                 world.playSound(null, user.getX(), user.getY(), user.getZ(), user.getEatSound(stack), SoundCategory.NEUTRAL, 1.0f, 1.0f + (world.random.nextFloat() - world.random.nextFloat()) * 0.4f);
                 List<Pair<StatusEffectInstance, Float>> list = getFoodComponent().getStatusEffects();
                 for (Pair<StatusEffectInstance, Float> pair : list) {
