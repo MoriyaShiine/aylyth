@@ -107,9 +107,9 @@ public class AylythDimensionRenderer {
 			RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
 			RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 			matrices.push();
-			matrices.translate(0, -80, 0);
 			matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(-90.0F));
 			matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(world.getSkyAngle(tickDelta) * 360.0F));
+			matrices.translate(0, -80, 0);
 			Matrix4f positionMatrix = matrices.peek().getPositionMatrix();
 			float celestialSize = 13.0F;
 			RenderSystem.setShader(GameRenderer::getPositionTexShader);
@@ -120,6 +120,7 @@ public class AylythDimensionRenderer {
 			bufferBuilder.vertex(positionMatrix, celestialSize, 100.0F, celestialSize).texture(1.0F, 1.0F).next();
 			bufferBuilder.vertex(positionMatrix, -celestialSize, 100.0F, celestialSize).texture(1.0F, 0.0F).next();
 			BufferRenderer.drawWithShader(bufferBuilder.end());
+			matrices.translate(0, 160, 0);
 			RenderSystem.setShaderTexture(0, MOON);
 			bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
 			bufferBuilder.vertex(positionMatrix, -celestialSize, -100.0F, celestialSize).texture(0.0F, 0.0F).next();
