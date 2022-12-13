@@ -1,6 +1,7 @@
 package moriyashiine.aylyth.common.statuseffect;
 
 import moriyashiine.aylyth.common.AylythUtil;
+import net.minecraft.client.render.block.entity.EndPortalBlockEntityRenderer;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.AttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributeModifier;

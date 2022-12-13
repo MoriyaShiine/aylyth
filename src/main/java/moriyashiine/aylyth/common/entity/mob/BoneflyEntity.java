@@ -132,13 +132,11 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
     protected boolean hasWings() {
         return this.isInAir();
     }
-    @Override
-    public EntityGroup getGroup() {
-        return EntityGroup.UNDEAD;
-    }
+
     public int getActionState() {
         return this.dataTracker.get(ACTION_STATE);
     }
+
     public void setActionState(int i) {
         this.dataTracker.set(ACTION_STATE, i);
     }
@@ -343,6 +341,16 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
 
     public boolean canBeControlledByRider() {
         return this.getFirstPassenger() instanceof LivingEntity;
+    }
+
+    @Override
+    public EntityGroup getGroup() {
+        return EntityGroup.UNDEAD;
+    }
+
+    @Override
+    public boolean isUndead() {
+        return true;
     }
 
     @Override

@@ -78,6 +78,9 @@ dependencies {
     //Illuminations Compat
     modImplementation "curse.maven:illuminations-292908:4046680"
 
+    //Trinkets
+    modImplementation "dev.emi:trinkets:${trinkets_version}"
+
 }
 
 processResources {

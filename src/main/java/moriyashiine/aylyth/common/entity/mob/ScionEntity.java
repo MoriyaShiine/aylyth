@@ -147,6 +147,16 @@ public class ScionEntity extends HostileEntity {
         }
     }
 
+    @Override
+    public EntityGroup getGroup() {
+        return EntityGroup.UNDEAD;
+    }
+
+    @Override
+    public boolean isUndead() {
+        return true;
+    }
+
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {

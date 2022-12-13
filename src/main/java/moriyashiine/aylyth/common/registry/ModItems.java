@@ -56,6 +56,8 @@ public class ModItems {
 	public static final Item YMPE_DAGGER = register("ympe_dagger",new YmpeDaggerItem(ToolMaterials.NETHERITE, 1, -2, settings()));
 	public static final Item YMPE_LANCE = register("ympe_lance",new YmpeLanceItem(312, settings()));
 
+	public static final Item YMPE_CUIRASS = register("ympe_cuirass", new YmpeCuirassItem(settings()));
+
 	public static final Item YMPE_FRUIT = register("ympe_fruit",new Item(settings().food(ModFoodComponents.YMPE_FRUIT)));
 	public static final Item SHUCKED_YMPE_FRUIT = register("shucked_ympe_fruit",new ShuckedYmpeFruitItem(settings().maxCount(1)));
 

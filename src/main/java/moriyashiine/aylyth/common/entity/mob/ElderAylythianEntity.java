@@ -192,4 +192,9 @@ public class ElderAylythianEntity extends HostileEntity implements IAnimatable {
 	public EntityGroup getGroup() {
 		return EntityGroup.UNDEAD;
 	}
+
+	@Override
+	public boolean isUndead() {
+		return true;
+	}
 }

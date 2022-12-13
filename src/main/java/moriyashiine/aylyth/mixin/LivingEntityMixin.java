@@ -12,6 +12,7 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -40,5 +41,13 @@ public abstract class LivingEntityMixin extends Entity {
 				}
 			});
 		}
+	}
+
+	@ModifyVariable(method = "applyDamage", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;getHealth()F"), ordinal = 0, argsOnly = true)
+	private float aylyth$modifyDamage0(float amount, DamageSource source) {
+		if (!world.isClient) {
+			amount = ModDamageSources.handleDamage((LivingEntity) (Object) this, source, amount);
+		}
+		return amount;
 	}
 }
