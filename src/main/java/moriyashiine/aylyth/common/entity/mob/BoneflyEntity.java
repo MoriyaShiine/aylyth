@@ -355,19 +355,23 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
 
     @Override
     public void registerControllers(AnimationData animationData) {
-        animationData.addAnimationController(new AnimationController<>(this, "wingController", 5, this::wingPredicate));
-        animationData.addAnimationController(new AnimationController<>(this, "idleController", 1, this::idlePredicate));
-        animationData.addAnimationController(new AnimationController<>(this, "stabController", 5, this::stabPredicate));
+        animationData.addAnimationController(new AnimationController<>(this, "aeroPredicate", 5, this::aeroPredicate));
+        animationData.addAnimationController(new AnimationController<>(this, "hurtPredicate", 1, this::hurtPredicate));
+        animationData.addAnimationController(new AnimationController<>(this, "grabPredicate", 5, this::grabPredicate));
     }
-    private <E extends IAnimatable> PlayState wingPredicate(AnimationEvent<E> event) {
+    private <E extends IAnimatable> PlayState aeroPredicate(AnimationEvent<E> event) {
         AnimationBuilder animationBuilder = new AnimationBuilder();
         if (this.isInAir()) {
-            animationBuilder.addAnimation("idleFly", true);
+            if(event.isMoving()){
+                animationBuilder.addAnimation("flight", true);
+            }else{
+                animationBuilder.addAnimation("flight_idle", true);
+            }
         } else {
             if(event.isMoving()) {
-                animationBuilder.addAnimation("walkGround", true);
+                animationBuilder.addAnimation("walking", true);
             } else {
-                animationBuilder.addAnimation("idleGround", true);
+                animationBuilder.addAnimation("idle", true);
             }
         }
 
@@ -376,25 +380,28 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
         }
         return PlayState.CONTINUE;
     }
-    private <E extends IAnimatable> PlayState stabPredicate(AnimationEvent<E> event) {
+    private <E extends IAnimatable> PlayState grabPredicate(AnimationEvent<E> event) {
         AnimationBuilder animationBuilder = new AnimationBuilder();
-        if (this.getActionState() == 2) {
-            animationBuilder.addAnimation("stabIdle", true);
-        } else if(this.getActionState() == 1) {
-            animationBuilder.addAnimation("stab", false);
-        } else {
+        if(this.isInAir()){
+            if (this.getActionState() == 2) {//TODO implement grab modes
+                animationBuilder.addAnimation("stabIdle", true);
+            } else if(this.getActionState() == 1) {
+                animationBuilder.addAnimation("stab", false);
+            } else {
+                return PlayState.STOP;
+            }
+        }else {
             return PlayState.STOP;
         }
-
         if(!animationBuilder.getRawAnimationList().isEmpty()) {
             event.getController().setAnimation(animationBuilder);
         }
         return PlayState.CONTINUE;
     }
-    private <E extends IAnimatable> PlayState idlePredicate(AnimationEvent<E> event) {
+    private <E extends IAnimatable> PlayState hurtPredicate(AnimationEvent<E> event) {
         AnimationBuilder animationBuilder = new AnimationBuilder();
-        if(this.isDormant()) {
-            animationBuilder.addAnimation("idleDormant", true);
+        if ((this.dead || this.getHealth() < 0.01 || this.isDead())) {
+            animationBuilder.addAnimation("death", true);
         } else if(this.hurtTime > 0 || this.deathTime > 0) {
             animationBuilder.addAnimation("hurt", true);
         } else {
