@@ -51,7 +51,10 @@ public class DebugWandItem extends Item {
             }else{
                 if (user.getOffHandStack().isOf(ModItems.YMPE_FRUIT)) {
                     var optional = ModComponents.YMPE_INFESTATION.maybeGet(user);
-                    optional.ifPresent(ympeInfestationComponent -> ympeInfestationComponent.setStage((byte)(ympeInfestationComponent.getStage() + 1)));
+                    optional.ifPresent(ympeInfestationComponent -> {
+                        ympeInfestationComponent.setStage((byte)(ympeInfestationComponent.getStage() + 1));
+                        ympeInfestationComponent.setInfestationTimer((short)2400);
+                    });
                 } else {
                     ScionEntity.summonPlayerScion(user);
                 }
