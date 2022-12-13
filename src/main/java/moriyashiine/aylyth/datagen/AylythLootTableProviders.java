@@ -2,6 +2,7 @@ package moriyashiine.aylyth.datagen;
 
 import com.google.common.collect.Maps;
 import moriyashiine.aylyth.common.block.*;
+import moriyashiine.aylyth.common.registry.ModBlockEntityTypes;
 import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.ModEntityTypes;
 import moriyashiine.aylyth.common.registry.ModItems;
@@ -21,9 +22,13 @@ import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.condition.*;
 import net.minecraft.loot.context.LootContext;
+import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.loot.entry.*;
+import net.minecraft.loot.function.CopyNbtLootFunction;
+import net.minecraft.loot.function.SetContentsLootFunction;
 import net.minecraft.loot.function.SetCountLootFunction;
+import net.minecraft.loot.provider.nbt.ContextLootNbtProvider;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import net.minecraft.predicate.NumberRange;
@@ -73,7 +78,7 @@ public class AylythLootTableProviders {
             addDrop(ModBlocks.WRITHEWOOD_LEAVES, block -> leavesDrop(block, ModBlocks.WRITHEWOOD_BLOCKS.sapling, 0.05f, 0.0625f, 0.083333336f, 0.1f));
             addDrop(ModBlocks.VITAL_THURIBLE);
             addDrop(ModBlocks.SOUL_HEARTH, BlockLootTableGenerator::doorDrops);
-            addDrop(ModBlocks.WOODY_GROWTH_CACHE, block -> dropsNothing());
+            addDrop(ModBlocks.WOODY_GROWTH_CACHE, this::woodyGrowthCaches);
             addDrop(ModBlocks.SMALL_WOODY_GROWTH);
             addDrop(ModBlocks.LARGE_WOODY_GROWTH, this::woodyGrowths);
         }
@@ -96,6 +101,14 @@ public class AylythLootTableProviders {
             addDrop(suite.door, BlockLootTableGenerator::doorDrops);
             addDrop(suite.floorSign);
             addDrop(suite.wallSign);
+        }
+
+        private LootTable.Builder woodyGrowthCaches(Block block) {
+            return LootTable.builder().pool(
+                    LootPool.builder().with(
+                            DynamicEntry.builder(WoodyGrowthCacheBlock.CONTENTS)
+                    )
+            ).type(LootContextTypes.BLOCK);
         }
 
         private LootTable.Builder woodyGrowths(Block block) {

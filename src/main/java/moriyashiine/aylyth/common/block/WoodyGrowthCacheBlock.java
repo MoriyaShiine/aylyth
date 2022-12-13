@@ -25,6 +25,8 @@ import java.util.List;
 
 public class WoodyGrowthCacheBlock extends LargeWoodyGrowthBlock implements BlockEntityProvider {
 
+    public static final Identifier CONTENTS = ShulkerBoxBlock.CONTENTS;
+
     public WoodyGrowthCacheBlock(Settings settings) {
         super(settings);
     }
@@ -38,8 +40,8 @@ public class WoodyGrowthCacheBlock extends LargeWoodyGrowthBlock implements Bloc
     public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         if (!world.isClient()) {
             BlockEntity be = null;
-            if (state.hasBlockEntity() && state.get(HALF) == DoubleBlockHalf.UPPER) {
-                be = world.getBlockEntity(pos.down());
+            if (state.hasBlockEntity()) {
+                be = world.getBlockEntity(pos);
             }
             dropStacks(state, world, pos, be, player, player.getMainHandStack());
         }
@@ -82,6 +84,19 @@ public class WoodyGrowthCacheBlock extends LargeWoodyGrowthBlock implements Bloc
                 throw new IllegalStateException("Something has gone wrong."); // TODO?
             }
         }
+    }
+
+    @Override
+    public List<ItemStack> getDroppedStacks(BlockState state, LootContext.Builder builder) {
+        var lootContext = builder.getNullable(LootContextParameters.BLOCK_ENTITY);
+        if (lootContext instanceof WoodyGrowthCacheBlockEntity be) {
+            builder.putDrop(CONTENTS, (context, consumer) -> {
+                for (int i = 0; i < be.size(); i++) {
+                    consumer.accept(be.getItem(i));
+                }
+            });
+        }
+        return super.getDroppedStacks(state, builder);
     }
 
     private static boolean isInvalidPosition(BlockPos pos, BlockState state, World world) {

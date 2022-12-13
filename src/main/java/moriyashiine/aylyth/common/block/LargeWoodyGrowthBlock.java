@@ -41,9 +41,9 @@ public class LargeWoodyGrowthBlock extends SmallWoodyGrowthBlock {
     @Override
     public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         if (!world.isClient()) {
-            if (player.isCreative()) {
-                TallPlantBlock.onBreakInCreative(world, pos, state, player);
-            }
+//            if (player.isCreative()) {
+//                TallPlantBlock.onBreakInCreative(world, pos, state, player);
+//            }
         }
         super.onBreak(world, pos, state, player);
     }
