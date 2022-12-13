@@ -1,9 +1,12 @@
 package moriyashiine.aylyth.common.block;
 
 import net.minecraft.block.*;
+import net.minecraft.fluid.FluidState;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
@@ -13,15 +16,16 @@ import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 
-public class SmallWoodyGrowthBlock extends Block {
+public class SmallWoodyGrowthBlock extends Block implements Waterloggable {
 
     public static final BooleanProperty NATURAL = BooleanProperty.of("natural");
+    public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
 
     private static final VoxelShape SMALL_SHAPE = VoxelShapes.cuboid(0.25, 0, 0.25, 0.75, 0.75, 0.75);
 
     public SmallWoodyGrowthBlock(Settings settings) {
         super(settings);
-        setDefaultState(getDefaultState().with(NATURAL, false));
+        setDefaultState(getDefaultState().with(NATURAL, false).with(WATERLOGGED, false));
     }
 
     @Override
@@ -29,10 +33,19 @@ public class SmallWoodyGrowthBlock extends Block {
         return SMALL_SHAPE;
     }
 
+    @Override
+    public FluidState getFluidState(BlockState state) {
+        if (state.get(WATERLOGGED)) {
+            return Fluids.WATER.getStill(false);
+        }
+        return super.getFluidState(state);
+    }
+
     @Nullable
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return getDefaultState().with(NATURAL, false);
+        var waterlog = ctx.getWorld().getFluidState(ctx.getBlockPos()).getFluid() == Fluids.WATER;
+        return getDefaultState().with(NATURAL, false).with(WATERLOGGED, waterlog);
     }
 
     @Override
@@ -48,6 +61,6 @@ public class SmallWoodyGrowthBlock extends Block {
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         super.appendProperties(builder);
-        builder.add(NATURAL);
+        builder.add(NATURAL, WATERLOGGED);
     }
 }

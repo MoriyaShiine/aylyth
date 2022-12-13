@@ -66,7 +66,7 @@ public class LargeWoodyGrowthBlock extends SmallWoodyGrowthBlock {
         if (direction.getAxis() == Direction.Axis.Y && doubleBlockHalf == DoubleBlockHalf.LOWER == (direction == Direction.UP) && (!neighborState.isOf(this) || neighborState.get(HALF) == doubleBlockHalf)) {
             return neighborState.isOf(this) && neighborState.get(HALF) != doubleBlockHalf ? state.with(HALF, neighborState.get(HALF)) : Blocks.AIR.getDefaultState();
         }
-        return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+        return doubleBlockHalf == DoubleBlockHalf.LOWER ? super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos) : state;
     }
 
     @Nullable
@@ -86,7 +86,8 @@ public class LargeWoodyGrowthBlock extends SmallWoodyGrowthBlock {
             var lowerState = world.getBlockState(pos.down());
             return lowerState.isOf(this) && lowerState.get(HALF) == DoubleBlockHalf.LOWER;
         }
-        return world.getBlockState(pos.up()).isAir() && super.canPlaceAt(state, world, pos);
+        var stateUp = world.getBlockState(pos.up());
+        return stateUp.isAir() || stateUp.isOf(this) && super.canPlaceAt(state, world, pos);
     }
 
     @Override
