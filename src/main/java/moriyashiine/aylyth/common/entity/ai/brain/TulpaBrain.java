@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Dynamic;
 import moriyashiine.aylyth.common.entity.ai.task.EatFoodTask;
+import moriyashiine.aylyth.common.entity.ai.task.SwitchWeaponTask;
 import moriyashiine.aylyth.common.entity.mob.TulpaEntity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
@@ -15,6 +16,10 @@ import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.ai.brain.task.*;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.mob.IllagerEntity;
+import net.minecraft.entity.mob.PiglinBrain;
+import net.minecraft.entity.mob.PiglinBruteBrain;
+import net.minecraft.item.Items;
 
 import java.util.List;
 import java.util.Optional;
@@ -91,15 +96,19 @@ public class TulpaBrain {
     private static void addFightActivities(TulpaEntity tulpaEntity, Brain<TulpaEntity> brain) {
         brain.setTaskList(
                 Activity.FIGHT,
-                10,
                 ImmutableList.of(
-                        new ForgetAttackTargetTask<>(entity -> !tulpaEntity.isEnemy(entity), TulpaBrain::setTargetInvalid, false),
-                        new FollowMobTask(mob -> isTarget(tulpaEntity, mob), (float)tulpaEntity.getAttributeValue(EntityAttributes.GENERIC_FOLLOW_RANGE)),
-                        new RangedApproachTask(1.2F),
-                        new MeleeAttackTask(18)
-                ),
-                MemoryModuleType.ATTACK_TARGET
+                        Pair.of(0, new ForgetAttackTargetTask<>(entity -> !tulpaEntity.isEnemy(entity), TulpaBrain::setTargetInvalid, false)),
+                        Pair.of(1, new FollowMobTask(mob -> isTarget(tulpaEntity, mob), (float)tulpaEntity.getAttributeValue(EntityAttributes.GENERIC_FOLLOW_RANGE))),
+                        Pair.of(2, new RangedApproachTask(1.2F)),
+                        Pair.of(3, new MeleeAttackTask(18)),
+                        Pair.of(4, new ConditionalTask<>(TulpaBrain::isHoldingCrossbow, new AttackTask<>(5, 0.75F))),
+                        Pair.of(5, new SwitchWeaponTask(tulpaEntity))
+                )
         );
+    }
+
+    private static boolean isHoldingCrossbow(TulpaEntity tulpaEntity) {
+        return tulpaEntity.isHolding(Items.CROSSBOW);
     }
 
     public static void updateActivities(TulpaEntity tulpaEntity) {

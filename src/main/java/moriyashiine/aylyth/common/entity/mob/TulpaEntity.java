@@ -16,6 +16,7 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.InventoryChangedListener;
 import net.minecraft.inventory.SimpleInventory;
@@ -45,7 +46,7 @@ import javax.annotation.Nullable;
 import java.util.Optional;
 import java.util.UUID;
 
-public class TulpaEntity extends HostileEntity implements TameableHostileEntity, IAnimatable, InventoryOwner, InventoryChangedListener {
+public class TulpaEntity extends HostileEntity implements TameableHostileEntity, IAnimatable, InventoryOwner, InventoryChangedListener, CrossbowUser {
     private final AnimationFactory factory = new AnimationFactory(this);
     private static final TrackedData<Byte> TAMEABLE = DataTracker.registerData(TulpaEntity.class, TrackedDataHandlerRegistry.BYTE);
     public static final TrackedData<Integer> ACTION_STATE = DataTracker.registerData(TulpaEntity.class, TrackedDataHandlerRegistry.INTEGER);
@@ -404,6 +405,28 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
     public void onInventoryChanged(Inventory sender) {
 
     }
+
+    //**CROSSBOW USER START
+    @Override
+    public void setCharging(boolean charging) {
+
+    }
+
+    @Override
+    public void shoot(LivingEntity target, ItemStack crossbow, ProjectileEntity projectile, float multiShotSpray) {
+
+    }
+
+    @Override
+    public void postShoot() {
+
+    }
+
+    @Override
+    public void attack(LivingEntity target, float pullProgress) {
+
+    }
+    //**CROSSBOW USER END
 
     private class TulpaScreenHandlerFactory implements ExtendedScreenHandlerFactory {
         private TulpaEntity tulpaEntity() {
