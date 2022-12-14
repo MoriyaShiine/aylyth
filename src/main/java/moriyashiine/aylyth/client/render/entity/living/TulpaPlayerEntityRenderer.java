@@ -1,5 +1,6 @@
 package moriyashiine.aylyth.client.render.entity.living;
 
+import moriyashiine.aylyth.client.AylythClient;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -31,14 +32,14 @@ public class TulpaPlayerEntityRenderer extends LivingEntityRenderer<TulpaPlayerE
     }
 
     @Override
-    public void render(TulpaPlayerEntity livingEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
+    public void render(TulpaPlayerEntity livingEntity, float yaw, float tickDelta, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int light) {
         var view = MinecraftClient.getInstance().getCameraEntity();
         if (view instanceof AbstractClientPlayerEntity && DefaultSkinHelper.getModel(view.getUuid()).equals("slim")) {
             this.model = slimModel;
         } else {
             this.model = normalModel;
         }
-        super.render(livingEntity, f, g, matrixStack, vertexConsumerProvider, i);
+        super.render(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light);
     }
 
     @Override
@@ -52,5 +53,7 @@ public class TulpaPlayerEntityRenderer extends LivingEntityRenderer<TulpaPlayerE
         return new Identifier("textures/entity/steve.png");
     }
 
-
+    public static float QuadEaseInOut(float time) {
+        return time < 0.5f ? 2.0f * time * time : -1.0f + (4.0f - 2.0f * time) * time;
+    }
 }

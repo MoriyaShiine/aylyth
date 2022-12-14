@@ -127,6 +127,7 @@ public class AylythClient implements ClientModInitializer {
 		});
 
 		DESCEND = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.aylyth.descend", InputUtil.Type.KEYSYM, 71, "category.aylyth.keybind"));
+		ClientTickEvents.END_CLIENT_TICK.register(ClientTickHandler::clientTickEnd);
 		ClientTickEvents.END_CLIENT_TICK.register((world) -> {
 			PlayerEntity player = MinecraftClient.getInstance().player;
 			if (player != null) {
@@ -197,5 +198,33 @@ public class AylythClient implements ClientModInitializer {
 				ModBlocks.VITAL_THURIBLE,
 				ModBlocks.LARGE_WOODY_GROWTH
 		};
+	}
+
+	public static final class ClientTickHandler {
+		private ClientTickHandler() {
+		}
+
+		public static int ticksInGame = 0;
+		public static float partialTicks = 0;
+		public static float delta = 0;
+		public static float total = 0;
+
+		public static void calcDelta() {
+			float oldTotal = total;
+			total = ticksInGame + partialTicks;
+			delta = total - oldTotal;
+		}
+
+		public static void renderTick(float renderTickTime) {
+			partialTicks = renderTickTime;
+		}
+
+		public static void clientTickEnd(MinecraftClient mc) {
+			if (!mc.isPaused()) {
+				ticksInGame++;
+				partialTicks = 0;
+			}
+			calcDelta();
+		}
 	}
 }

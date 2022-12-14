@@ -31,7 +31,7 @@ public class TulpaEntityRenderer extends GeoEntityRenderer<TulpaEntity> {
 
     @Override
     public void render(TulpaEntity entity, float entityYaw, float partialTicks, MatrixStack matrixStack, VertexConsumerProvider bufferIn, int packedLightIn) {
-        if(entity.getOwnerUuid() == null){
+        if(entity.getOwnerUuid() == null || entity.getDataTracker().get(TulpaEntity.TRANSFORMING)){
             super.render(entity, entityYaw, partialTicks, matrixStack, bufferIn, packedLightIn);
         }else{
             matrixStack.push();
