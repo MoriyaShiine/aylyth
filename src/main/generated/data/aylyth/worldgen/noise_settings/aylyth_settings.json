@@ -1,5 +1,5 @@
 {
-  "aquifers_enabled": false,
+  "aquifers_enabled": true,
   "default_block": {
     "Name": "minecraft:deepslate",
     "Properties": {
@@ -164,8 +164,18 @@
       },
       "argument2": "aylyth:caves/noodle"
     },
-    "fluid_level_floodedness": 0.0,
-    "fluid_level_spread": 0.0,
+    "fluid_level_floodedness": {
+      "type": "minecraft:noise",
+      "noise": "aylyth:aquifer_fluid_level_floodedness",
+      "xz_scale": 1.0,
+      "y_scale": 0.67
+    },
+    "fluid_level_spread": {
+      "type": "minecraft:noise",
+      "noise": "aylyth:aquifer_fluid_level_spread",
+      "xz_scale": 1.0,
+      "y_scale": 0.7142857142857143
+    },
     "initial_density_without_jaggedness": {
       "type": "minecraft:add",
       "argument1": 0.1171875,
@@ -250,8 +260,8 @@
     "vein_ridged": 0.0,
     "vein_toggle": 0.0
   },
-  "ore_veins_enabled": true,
-  "sea_level": -64,
+  "ore_veins_enabled": false,
+  "sea_level": 47,
   "spawn_target": [],
   "surface_rule": {
     "type": "minecraft:sequence",

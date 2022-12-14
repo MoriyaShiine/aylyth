@@ -28,8 +28,11 @@ public class ModBiomes {
 	public static final BiomeAdditionsSound FOREST_AMBIANCE = new BiomeAdditionsSound(ModSoundEvents.AMBIENT_FOREST_ADDITIONS, 0.005);
 	private static final int AYLYTHIAN_FOLIAGE_COLOR = 0x627F38;
 	private static final int DEEP_AYLYTHIAN_FOLIAGE_COLOR = 0x9E811A;
+	private static final int MIRE_FOLIAGE_COLOR = 0x989E43;
 	private static final int WATER_COLOR = 0x3F76E4;
 	private static final int UNDERWATER_COLOR = 0x050533;
+	private static final int MIRE_WATER_COLOR = 0x334553;
+	private static final int MIRE_UNDERWATER_COLOR = 0x132233;
 	private static final int FOG_COLOR = 0x666666;
 	private static final int SKY_COLOR = 0x000000;
 	
@@ -41,6 +44,7 @@ public class ModBiomes {
 		BuiltinRegistries.addCasted(BuiltinRegistries.BIOME, CONIFEROUS_COPSE_ID.getValue().toString(), createConiferousForest(false, COPSE_MOBS));
 		BuiltinRegistries.addCasted(BuiltinRegistries.BIOME, CONIFEROUS_DEEPWOOD_ID.getValue().toString(), createConiferousForest(true, DEEPWOOD_MOBS));
 		BuiltinRegistries.addCasted(BuiltinRegistries.BIOME, UPLANDS_ID.getValue().toString(), createUplands(SpawnSettingsBuilder.none()));
+		BuiltinRegistries.addCasted(BuiltinRegistries.BIOME, MIRE_ID.getValue().toString(), createMire());
 	}
 	
 	private static Biome createClearing(boolean overgrown, SpawnSettings spawnSettings) {
@@ -159,6 +163,19 @@ public class ModBiomes {
 							.add(ModBiomes::addBasicVanillaOres)
 							.add(ModBiomes::addWaterSprings);
 				}).build();
+	}
+
+	private static Biome createMire() {
+		return BiomeBuilder.builder(Biome.Precipitation.RAIN, 0.8F, 0.3F)
+				.biomeEffects(FOG_COLOR, MIRE_WATER_COLOR, MIRE_UNDERWATER_COLOR, SKY_COLOR, biomeEffectsBuilder -> {
+					biomeEffectsBuilder.foliageColor(MIRE_FOLIAGE_COLOR)
+							.grassColor(MIRE_FOLIAGE_COLOR);
+				})
+				.spawnSettings(SpawnSettingsBuilder.none())
+				.generationSettings(builder -> {
+					builder.vegetalDecoFeature(ModVegetationFeatures.MIRE_TREES_PLACED);
+				})
+				.build();
 	}
 
 	private static void addLandCarversNotLavaLakes(GenerationSettings.Builder builder) {

@@ -15,6 +15,7 @@ import net.minecraft.world.gen.YOffset;
 import net.minecraft.world.gen.chunk.ChunkGeneratorSettings;
 import net.minecraft.world.gen.chunk.GenerationShapeConfig;
 import net.minecraft.world.gen.densityfunction.DensityFunction;
+import net.minecraft.world.gen.densityfunction.DensityFunctionTypes;
 import net.minecraft.world.gen.noise.NoiseRouter;
 import net.minecraft.world.gen.surfacebuilder.MaterialRules;
 
@@ -29,15 +30,14 @@ public class AylythNoiseSettings {
     public static void datagenInit() {
         AylythNoiseTypes.init();
         AylythDensityFunctionTypes.init();
+        Registry.register(BuiltinRegistries.CHUNK_GENERATOR_SETTINGS, new Identifier(Aylyth.MOD_ID, "aylyth_settings"), createSettings());
     }
 
-    public static final ChunkGeneratorSettings SETTINGS = Registry.register(BuiltinRegistries.CHUNK_GENERATOR_SETTINGS, new Identifier(Aylyth.MOD_ID, "aylyth_settings"), createSettings());
-
     static ChunkGeneratorSettings createSettings() {
-        var seaLevel = -64;
+        var seaLevel = 47;
         var disableMobGen = false;
-        var aquifers = false;
-        var oreVeins = true;
+        var aquifers = true;
+        var oreVeins = false;
         var legacyRandom = false;
         return new ChunkGeneratorSettings(shapeConfig(), defaultState(Blocks.DEEPSLATE), defaultState(Blocks.WATER), noiseRouter(), materialRules(), spawnTargets(), seaLevel, disableMobGen, aquifers, oreVeins, legacyRandom);
     }
@@ -57,8 +57,8 @@ public class AylythNoiseSettings {
     static NoiseRouter noiseRouter() {
         return new NoiseRouter(
                 zero(),  // barrierNoise
-                zero(),  // fluidLevelFloodednessNoise
-                zero(),  // fluidLevelSpreadNoise
+                noise(FLOODEDNESS, 1.0D, 0.67D),  // fluidLevelFloodednessNoise
+                noise(FLUID_SPREAD, 1.0D, 1D / 1.4D),  // fluidLevelSpreadNoise
                 zero(),  // lavaNoise
                 shiftedNoise(holderFunction(SHIFT_X), holderFunction(SHIFT_Z), 0.25, TEMPERATURE),  // temperature
                 shiftedNoise(holderFunction(SHIFT_X), holderFunction(SHIFT_Z), 0.25, VEGETATION),  // vegetation

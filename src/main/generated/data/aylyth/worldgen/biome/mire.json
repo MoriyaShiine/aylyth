@@ -1,0 +1,39 @@
+{
+  "carvers": {},
+  "downfall": 0.3,
+  "effects": {
+    "fog_color": 6710886,
+    "foliage_color": 10001987,
+    "grass_color": 10001987,
+    "sky_color": 0,
+    "water_color": 3360083,
+    "water_fog_color": 1253939
+  },
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "aylyth:mire_trees"
+    ]
+  ],
+  "precipitation": "rain",
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [],
+    "misc": [],
+    "monster": [],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": 0.8
+}
