@@ -14,9 +14,13 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.PiglinBruteBrain;
+import net.minecraft.entity.mob.PiglinEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.server.ServerConfigHandler;
 import net.minecraft.server.world.ServerWorld;
@@ -24,6 +28,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 
@@ -33,9 +38,14 @@ import java.util.UUID;
 
 public class ScionEntity extends HostileEntity {
     private static final TrackedData<Optional<UUID>> PLAYER_SKIN_UUID = DataTracker.registerData(ScionEntity.class, TrackedDataHandlerRegistry.OPTIONAL_UUID);
-
     public ScionEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
+    }
+
+    @Nullable
+    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @org.jetbrains.annotations.Nullable EntityData entityData, @org.jetbrains.annotations.Nullable NbtCompound entityNbt) {
+        ScionBrain.setCurrentPosAsHome(this);
+        return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
     }
 
     @Override
@@ -77,7 +87,6 @@ public class ScionEntity extends HostileEntity {
             this.setStoredPlayerUUID(uUID);
         }
     }
-
 
     @Override
     protected Brain<?> deserializeBrain(Dynamic<?> dynamic) {
@@ -143,6 +152,7 @@ public class ScionEntity extends HostileEntity {
             scionEntity.armorDropChances[EquipmentSlot.LEGS.getEntitySlotId()] = 100.0F;
             scionEntity.armorDropChances[EquipmentSlot.FEET.getEntitySlotId()] = 100.0F;
             scionEntity.setPersistent();
+
             playerEntity.world.spawnEntity(scionEntity);
         }
     }
@@ -176,4 +186,6 @@ public class ScionEntity extends HostileEntity {
     public static boolean canSpawn(EntityType<ScionEntity> scionEntityEntityType, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos blockPos, Random random) {
         return canMobSpawn(scionEntityEntityType, serverWorldAccess, spawnReason, blockPos, random) && serverWorldAccess.getDifficulty() != Difficulty.PEACEFUL && random.nextBoolean();
     }
+
+
 }

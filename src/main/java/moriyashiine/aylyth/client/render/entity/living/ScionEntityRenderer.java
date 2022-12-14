@@ -14,6 +14,7 @@ import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.util.DefaultSkinHelper;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
@@ -55,6 +56,11 @@ public class ScionEntityRenderer extends BipedEntityRenderer<ScionEntity, BipedE
             }
         }
         return AylythUtil.id("textures/entity/living/scion/scion_npc_base.png");
+    }
+
+    @Override
+    protected boolean hasLabel(ScionEntity mobEntity) {
+        return super.hasLabel(mobEntity) && mobEntity.getStoredPlayerUUID() != null;
     }
 
     @Environment(EnvType.CLIENT)
