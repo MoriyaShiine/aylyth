@@ -1,25 +1,21 @@
 package moriyashiine.aylyth.client.render.entity.living;
 
 
-import moriyashiine.aylyth.client.RenderTypes;
 import moriyashiine.aylyth.client.model.entity.TulpaEntityModel;
 import moriyashiine.aylyth.common.entity.mob.TulpaEntity;
 import moriyashiine.aylyth.common.registry.ModEntityTypes;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.entity.PlayerEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.render.entity.model.PlayerEntityModel;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3f;
 import software.bernie.geckolib3.geo.render.built.GeoBone;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
@@ -62,6 +58,10 @@ public class TulpaEntityRenderer extends GeoEntityRenderer<TulpaEntity> {
             tulpaPlayerEntity.preferredHand = entity.preferredHand;
             tulpaPlayerEntity.setStackInHand(Hand.MAIN_HAND, entity.getMainHandStack());
             tulpaPlayerEntity.setStackInHand(Hand.OFF_HAND, entity.getOffHandStack());
+            tulpaPlayerEntity.equipStack(EquipmentSlot.HEAD, entity.getEquippedStack(EquipmentSlot.HEAD));
+            tulpaPlayerEntity.equipStack(EquipmentSlot.CHEST, entity.getEquippedStack(EquipmentSlot.CHEST));
+            tulpaPlayerEntity.equipStack(EquipmentSlot.LEGS, entity.getEquippedStack(EquipmentSlot.LEGS));
+            tulpaPlayerEntity.equipStack(EquipmentSlot.FEET, entity.getEquippedStack(EquipmentSlot.FEET));
             tulpaPlayerEntity.setCurrentHand(entity.getActiveHand() == null ? Hand.MAIN_HAND : entity.getActiveHand());
             tulpaPlayerEntity.setSneaking(entity.isSneaking());
             tulpaPlayerEntity.isSneaking();

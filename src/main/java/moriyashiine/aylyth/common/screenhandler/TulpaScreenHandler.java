@@ -3,7 +3,6 @@ package moriyashiine.aylyth.common.screenhandler;
 import com.mojang.datafixers.util.Pair;
 import moriyashiine.aylyth.common.entity.mob.TulpaEntity;
 import moriyashiine.aylyth.common.registry.ModScreenHandlers;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -13,12 +12,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.Nullable;
-
-import static net.minecraft.screen.PlayerScreenHandler.*;
 
 public class TulpaScreenHandler extends ScreenHandler {
     private final PlayerEntity player;

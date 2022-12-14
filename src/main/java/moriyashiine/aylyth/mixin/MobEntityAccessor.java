@@ -1,6 +1,5 @@
 package moriyashiine.aylyth.mixin;
 
-import net.minecraft.entity.ai.goal.GoalSelector;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.collection.DefaultedList;
