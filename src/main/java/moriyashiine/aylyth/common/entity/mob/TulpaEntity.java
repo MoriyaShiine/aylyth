@@ -1,5 +1,6 @@
 package moriyashiine.aylyth.common.entity.mob;
 
+import com.mojang.authlib.GameProfile;
 import com.mojang.serialization.Dynamic;
 import moriyashiine.aylyth.common.entity.ai.brain.TulpaBrain;
 import moriyashiine.aylyth.common.screenhandler.TulpaScreenHandler;
@@ -20,6 +21,8 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.InventoryChangedListener;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.item.NameTagItem;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
@@ -31,6 +34,9 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.UserCache;
+import net.minecraft.world.LocalDifficulty;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -50,12 +56,11 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
     public static final TrackedData<Integer> ACTION_STATE = DataTracker.registerData(TulpaEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Optional<UUID>> OWNER_UUID = DataTracker.registerData(TulpaEntity.class, TrackedDataHandlerRegistry.OPTIONAL_UUID);
     private final SimpleInventory inventory = new SimpleInventory(18);
-    public int foodLevel;
 
     public TulpaEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
         this.inventory.addListener(this);
-
+        this.setPersistent();
     }
 
     public static DefaultAttributeContainer.Builder createTulpaAttributes() {
@@ -142,13 +147,26 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
 
     @Override
     protected ActionResult interactMob(PlayerEntity player, Hand hand) {
-        if(!player.isSneaking()){
+        ItemStack itemStack = player.getMainHandStack();
+        if(itemStack.isOf(Items.PAPER) && itemStack.hasCustomName()){
+                if(player.getServer() != null){
+                    UserCache userCache = player.getServer().getUserCache();
+                    Optional<GameProfile> cacheByName = userCache.findByName(itemStack.getName().getString());
+                    if(cacheByName.isPresent()){
+                        UUID uuid = cacheByName.get().getId();
+                        setOwnerUuid(uuid);
+                        this.setCustomName(itemStack.getName());
+                    }
+                }
+        }else if(!player.isSneaking()){
             this.openGui(player);
         } else if(player.getStackInHand(hand).isEmpty() && player.getUuid().equals(this.getOwnerUuid())) {
             this.cycleActionState(player);
         }
         return super.interactMob(player, hand);
     }
+
+
 
     public void openGui(PlayerEntity player) {
         if (player.world != null && !this.world.isClient()) {

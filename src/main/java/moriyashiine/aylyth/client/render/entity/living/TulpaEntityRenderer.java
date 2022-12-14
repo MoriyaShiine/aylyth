@@ -35,41 +35,44 @@ public class TulpaEntityRenderer extends GeoEntityRenderer<TulpaEntity> {
 
     @Override
     public void render(TulpaEntity entity, float entityYaw, float partialTicks, MatrixStack matrixStack, VertexConsumerProvider bufferIn, int packedLightIn) {
-        super.render(entity, entityYaw, partialTicks, matrixStack, bufferIn, packedLightIn);
-        matrixStack.push();
-        if(tulpaPlayerEntity == null) {
-            tulpaPlayerEntity = ModEntityTypes.TULPA_PLAYER.create(entity.world);
-            assert tulpaPlayerEntity != null;
+        if(entity.getOwnerUuid() == null){
+            super.render(entity, entityYaw, partialTicks, matrixStack, bufferIn, packedLightIn);
+        }else{
+            matrixStack.push();
+            if(tulpaPlayerEntity == null) {
+                tulpaPlayerEntity = ModEntityTypes.TULPA_PLAYER.create(entity.world);
+                assert tulpaPlayerEntity != null;
+            }
+            tulpaPlayerEntity.age = entity.age;
+            tulpaPlayerEntity.hurtTime = entity.hurtTime;
+            tulpaPlayerEntity.maxHurtTime = Integer.MAX_VALUE;
+            tulpaPlayerEntity.limbDistance = entity.limbDistance;
+            tulpaPlayerEntity.lastLimbDistance = entity.lastLimbDistance;
+            tulpaPlayerEntity.limbAngle = entity.limbAngle;
+            tulpaPlayerEntity.headYaw = entity.headYaw;
+            tulpaPlayerEntity.prevHeadYaw = entity.prevHeadYaw;
+            tulpaPlayerEntity.bodyYaw = entity.bodyYaw;
+            tulpaPlayerEntity.prevBodyYaw = entity.prevBodyYaw;
+            tulpaPlayerEntity.handSwinging = entity.handSwinging;
+            tulpaPlayerEntity.handSwingTicks = entity.handSwingTicks;
+            tulpaPlayerEntity.handSwingProgress = entity.handSwingProgress;
+            tulpaPlayerEntity.lastHandSwingProgress = entity.lastHandSwingProgress;
+            tulpaPlayerEntity.setPitch(entity.getPitch());
+            tulpaPlayerEntity.prevPitch = entity.prevPitch;
+            tulpaPlayerEntity.preferredHand = entity.preferredHand;
+            tulpaPlayerEntity.setStackInHand(Hand.MAIN_HAND, entity.getMainHandStack());
+            tulpaPlayerEntity.setStackInHand(Hand.OFF_HAND, entity.getOffHandStack());
+            tulpaPlayerEntity.setCurrentHand(entity.getActiveHand() == null ? Hand.MAIN_HAND : entity.getActiveHand());
+            tulpaPlayerEntity.setSneaking(entity.isSneaking());
+            tulpaPlayerEntity.isSneaking();
+            tulpaPlayerEntity.forwardSpeed=entity.forwardSpeed;
+            tulpaPlayerEntity.setPose(entity.getPose());
+            tulpaPlayerEntity.setSprinting(entity.isSprinting());
+            tulpaPlayerEntity.setSkinUuid(entity.getOwnerUuid());
+            tulpaPlayerEntity.setCustomName(entity.getCustomName());
+            MinecraftClient.getInstance().getEntityRenderDispatcher().getRenderer(tulpaPlayerEntity).render(tulpaPlayerEntity, entityYaw, partialTicks, matrixStack, bufferIn, packedLightIn);
+            matrixStack.pop();
         }
-        tulpaPlayerEntity.age = entity.age;
-        tulpaPlayerEntity.hurtTime = entity.hurtTime;
-        tulpaPlayerEntity.maxHurtTime = Integer.MAX_VALUE;
-        tulpaPlayerEntity.limbDistance = entity.limbDistance;
-        tulpaPlayerEntity.lastLimbDistance = entity.lastLimbDistance;
-        tulpaPlayerEntity.limbAngle = entity.limbAngle;
-        tulpaPlayerEntity.headYaw = entity.headYaw;
-        tulpaPlayerEntity.prevHeadYaw = entity.prevHeadYaw;
-        tulpaPlayerEntity.bodyYaw = entity.bodyYaw;
-        tulpaPlayerEntity.prevBodyYaw = entity.prevBodyYaw;
-        tulpaPlayerEntity.handSwinging = entity.handSwinging;
-        tulpaPlayerEntity.handSwingTicks = entity.handSwingTicks;
-        tulpaPlayerEntity.handSwingProgress = entity.handSwingProgress;
-        tulpaPlayerEntity.lastHandSwingProgress = entity.lastHandSwingProgress;
-        tulpaPlayerEntity.setPitch(entity.getPitch());
-        tulpaPlayerEntity.prevPitch = entity.prevPitch;
-        tulpaPlayerEntity.preferredHand = entity.preferredHand;
-        tulpaPlayerEntity.setStackInHand(Hand.MAIN_HAND, entity.getMainHandStack());
-        tulpaPlayerEntity.setStackInHand(Hand.OFF_HAND, entity.getOffHandStack());
-        tulpaPlayerEntity.setCurrentHand(entity.getActiveHand() == null ? Hand.MAIN_HAND : entity.getActiveHand());
-        tulpaPlayerEntity.setSneaking(entity.isSneaking());
-        tulpaPlayerEntity.isSneaking();
-        tulpaPlayerEntity.forwardSpeed=entity.forwardSpeed;
-        tulpaPlayerEntity.setPose(entity.getPose());
-        tulpaPlayerEntity.setSprinting(entity.isSprinting());
-        MinecraftClient.getInstance().getEntityRenderDispatcher().getRenderer(tulpaPlayerEntity).render(tulpaPlayerEntity, entityYaw, partialTicks, matrixStack, bufferIn, packedLightIn);
-
-        matrixStack.pop();
-
     }
 
     public RenderLayer getRenderType(TulpaEntity animatable, float partialTicks, MatrixStack stack, VertexConsumerProvider renderTypeBuffer, VertexConsumer vertexBuilder, int packedLightIn, Identifier textureLocation) {
