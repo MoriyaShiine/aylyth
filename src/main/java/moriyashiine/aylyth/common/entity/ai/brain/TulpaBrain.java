@@ -4,7 +4,9 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Dynamic;
+import moriyashiine.aylyth.common.entity.ai.task.EatFoodTask;
 import moriyashiine.aylyth.common.entity.mob.TulpaEntity;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.brain.Activity;
 import net.minecraft.entity.ai.brain.Brain;
@@ -13,6 +15,11 @@ import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.ai.brain.task.*;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.mob.PiglinBrain;
+import net.minecraft.entity.mob.PiglinEntity;
+import net.minecraft.entity.passive.VillagerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 
 import java.util.List;
 import java.util.Optional;
@@ -40,7 +47,8 @@ public class TulpaBrain {
             MemoryModuleType.HOME,
             MemoryModuleType.PACIFIED,
             MemoryModuleType.NEAREST_REPELLENT,
-            MemoryModuleType.AVOID_TARGET
+            MemoryModuleType.AVOID_TARGET,
+            MemoryModuleType.ATE_RECENTLY
     );
 
     public TulpaBrain(){}
@@ -62,7 +70,7 @@ public class TulpaBrain {
                 Activity.CORE,
                 0,
                 ImmutableList.of(
-                       new StayAboveWaterTask(0.6f),
+                        new StayAboveWaterTask(0.6f),
                         new LookAroundTask(45, 90),
                         new WanderAroundTask(),
                         new UpdateAttackTargetTask<>(TulpaBrain::getAttackTarget)
@@ -79,7 +87,8 @@ public class TulpaBrain {
                                         Pair.of(new StrollTask(0.6F), 2),
                                         Pair.of(new ConditionalTask<>(livingEntity -> true, new GoTowardsLookTarget(0.6F, 3)), 2),
                                         Pair.of(new WaitTask(30, 60), 1)
-                                )))
+                                ))),
+                        Pair.of(1, new EatFoodTask())
                 )
         );
     }
@@ -113,4 +122,39 @@ public class TulpaBrain {
     private static boolean isTarget(TulpaEntity tulpaEntity, LivingEntity entity) {
         return tulpaEntity.getBrain().getOptionalMemory(MemoryModuleType.ATTACK_TARGET).filter(targetedEntity -> targetedEntity == entity).isPresent();
     }
+
+    public static boolean hasAteRecently(TulpaEntity tulpaEntity) {
+        return tulpaEntity.getBrain().hasMemoryModule(MemoryModuleType.ATE_RECENTLY);
+    }
+
+    public static void loot(TulpaEntity tulpaEntity, ItemEntity item) {
+    }
+/*
+    public static void loot(TulpaEntity tulpaEntity, ItemEntity drop) {
+        stopWalking(tulpaEntity);
+        ItemStack itemStack;
+        if (drop.getStack().isOf(Items.GOLD_NUGGET)) {
+            tulpaEntity.sendPickup(drop, drop.getStack().getCount());
+            itemStack = drop.getStack();
+            drop.discard();
+        } else {
+            tulpaEntity.sendPickup(drop, 1);
+            itemStack = getItemFromStack(drop);
+        }
+
+        if (isGoldenItem(itemStack)) {
+            piglin.getBrain().forget(MemoryModuleType.TIME_TRYING_TO_REACH_ADMIRE_ITEM);
+            swapItemWithOffHand(piglin, itemStack);
+            setAdmiringItem(piglin);
+        } else if (isFood(itemStack) && !hasAteRecently(piglin)) {
+            setEatenRecently(piglin);
+        } else {
+            boolean bl = piglin.tryEquip(itemStack);
+            if (!bl) {
+                barterItem(piglin, itemStack);
+            }
+        }
+    }
+
+ */
 }

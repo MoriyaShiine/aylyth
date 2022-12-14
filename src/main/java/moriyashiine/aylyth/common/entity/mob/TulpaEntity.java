@@ -2,8 +2,10 @@ package moriyashiine.aylyth.common.entity.mob;
 
 import com.mojang.serialization.Dynamic;
 import moriyashiine.aylyth.common.entity.ai.brain.TulpaBrain;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
+import moriyashiine.aylyth.common.screenhandler.TulpaScreenHandler;
+import moriyashiine.aylyth.mixin.MobEntityAccessor;
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -12,10 +14,24 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.PiglinBrain;
+import net.minecraft.entity.mob.PiglinEntity;
+import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.InventoryChangedListener;
+import net.minecraft.inventory.SimpleInventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtList;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.ServerConfigHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
@@ -31,14 +47,18 @@ import javax.annotation.Nullable;
 import java.util.Optional;
 import java.util.UUID;
 
-public class TulpaEntity extends HostileEntity implements TameableHostileEntity, IAnimatable {
+public class TulpaEntity extends HostileEntity implements TameableHostileEntity, IAnimatable, InventoryOwner, InventoryChangedListener {
     private final AnimationFactory factory = new AnimationFactory(this);
     private static final TrackedData<Byte> TAMEABLE = DataTracker.registerData(TulpaEntity.class, TrackedDataHandlerRegistry.BYTE);
     public static final TrackedData<Integer> ACTION_STATE = DataTracker.registerData(TulpaEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Optional<UUID>> OWNER_UUID = DataTracker.registerData(TulpaEntity.class, TrackedDataHandlerRegistry.OPTIONAL_UUID);
+    private final SimpleInventory inventory = new SimpleInventory(18);
+    public int foodLevel;
 
     public TulpaEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
+        this.inventory.addListener(this);
+
     }
 
     public static DefaultAttributeContainer.Builder createTulpaAttributes() {
@@ -58,6 +78,14 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
         super.mobTick();
     }
 
+
+
+    @Override
+    protected void loot(ItemEntity item) {
+        this.triggerItemPickedUpByEntityCriteria(item);
+        TulpaBrain.loot(this, item);
+    }
+
     @Override
     protected Brain<?> deserializeBrain(Dynamic<?> dynamic) {
         return TulpaBrain.create(this, dynamic);
@@ -75,6 +103,38 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
         this.dataTracker.startTracking(OWNER_UUID, Optional.empty());
     }
 
+
+    @Override
+    public void equipStack(EquipmentSlot slotIn, ItemStack stack) {
+        super.equipStack(slotIn, stack);
+        switch (slotIn) {
+            case CHEST -> {
+                if (this.inventory.getStack(1).isEmpty())
+                    this.inventory.setStack(1, ((MobEntityAccessor) this).armorItems().get(slotIn.getEntitySlotId()));
+            }
+            case FEET -> {
+                if (this.inventory.getStack(3).isEmpty())
+                    this.inventory.setStack(3, ((MobEntityAccessor) this).armorItems().get(slotIn.getEntitySlotId()));
+            }
+            case HEAD -> {
+                if (this.inventory.getStack(0).isEmpty())
+                    this.inventory.setStack(0, ((MobEntityAccessor) this).armorItems().get(slotIn.getEntitySlotId()));
+            }
+            case LEGS -> {
+                if (this.inventory.getStack(2).isEmpty())
+                    this.inventory.setStack(2, ((MobEntityAccessor) this).armorItems().get(slotIn.getEntitySlotId()));
+            }
+            case MAINHAND -> {
+                if (this.inventory.getStack(5).isEmpty())
+                    this.inventory.setStack(5, ((MobEntityAccessor) this).armorItems().get(slotIn.getEntitySlotId()));
+            }
+            case OFFHAND -> {
+                if (this.inventory.getStack(4).isEmpty())
+                    this.inventory.setStack(4, ((MobEntityAccessor) this).armorItems().get(slotIn.getEntitySlotId()));
+            }
+        }
+    }
+
     public int getActionState() {
         return this.dataTracker.get(ACTION_STATE);
     }
@@ -85,10 +145,18 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
 
     @Override
     protected ActionResult interactMob(PlayerEntity player, Hand hand) {
-        if(player.getStackInHand(hand).isEmpty() && player.getUuid().equals(this.getOwnerUuid())) {
+        if(!player.isSneaking()){
+            this.openGui(player);
+        } else if(player.getStackInHand(hand).isEmpty() && player.getUuid().equals(this.getOwnerUuid())) {
             this.cycleActionState(player);
         }
         return super.interactMob(player, hand);
+    }
+
+    public void openGui(PlayerEntity player) {
+        if (player.world != null && !this.world.isClient()) {
+            player.openHandledScreen(new TulpaScreenHandlerFactory());
+        }
     }
 
     private void cycleActionState(PlayerEntity player) {
@@ -108,7 +176,18 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
             nbt.putUuid("Owner", this.getOwnerUuid());
         }
         nbt.putInt("ActionState", getActionState());
+        NbtList listnbt = new NbtList();
+        for (int i = 0; i < this.inventory.size(); ++i) {
+            ItemStack itemstack = this.inventory.getStack(i);
+            NbtCompound compoundnbt = new NbtCompound();
+            compoundnbt.putByte("Slot", (byte) i);
+            itemstack.writeNbt(compoundnbt);
+            listnbt.add(compoundnbt);
+
+        }
+        nbt.put("Inventory", listnbt);
     }
+
     @Override
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
@@ -129,6 +208,43 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
                 this.setTamed(false);
             }
         }
+        NbtList listnbt = nbt.getList("Inventory", 10);
+        for (int i = 0; i < listnbt.size(); ++i) {
+            NbtCompound compoundnbt = listnbt.getCompound(i);
+            int j = compoundnbt.getByte("Slot") & 255;
+            this.inventory.setStack(j, ItemStack.fromNbt(compoundnbt));
+        }
+
+        if (nbt.contains("ArmorItems", 9)) {
+            NbtList armorItems = nbt.getList("ArmorItems", 10);
+            for (int i = 0; i < ((MobEntityAccessor)this).armorItems().size(); ++i) {
+                int index = slotToInventoryIndex(MobEntity.getPreferredEquipmentSlot(ItemStack.fromNbt(armorItems.getCompound(i))));
+                this.inventory.setStack(index, ItemStack.fromNbt(armorItems.getCompound(i)));
+            }
+        }
+        if (nbt.contains("HandItems", 9)) {
+            NbtList handItems = nbt.getList("HandItems", 10);
+            for (int i = 0; i < ((MobEntityAccessor)this).handItems().size(); ++i) {
+                int handSlot = i == 0 ? 5 : 4;
+                this.inventory.setStack(handSlot, ItemStack.fromNbt(handItems.getCompound(i)));
+            }
+        }
+    }
+
+    public static int slotToInventoryIndex(EquipmentSlot slot) {
+        switch (slot) {
+            case CHEST:
+                return 1;
+            case FEET:
+                return 3;
+            case HEAD:
+                return 0;
+            case LEGS:
+                return 2;
+            default:
+                break;
+        }
+        return 0;
     }
 
     @Override
@@ -215,5 +331,47 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
 
     public boolean isEnemy(LivingEntity entity) {
         return true;//TODO
+    }
+
+    @Override
+    public SimpleInventory getInventory() {
+        return inventory;
+    }
+
+    protected ItemStack addItem(ItemStack stack) {
+        return this.inventory.addStack(stack);
+    }
+
+    protected boolean canInsertIntoInventory(ItemStack stack) {
+        return this.inventory.canInsert(stack);
+    }
+
+    @Override
+    public void onInventoryChanged(Inventory sender) {
+
+    }
+
+    private class TulpaScreenHandlerFactory implements ExtendedScreenHandlerFactory {
+        private TulpaEntity tulpaEntity() {
+            return TulpaEntity.this;
+        }
+
+
+        @Override
+        public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
+            buf.writeVarInt(this.tulpaEntity().getId());
+        }
+
+        @Nullable
+        @Override
+        public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
+            var guardInv = this.tulpaEntity().inventory;
+            return new TulpaScreenHandler(syncId, inv, guardInv, this.tulpaEntity());
+        }
+
+        @Override
+        public Text getDisplayName() {
+            return this.tulpaEntity().getDisplayName();
+        }
     }
 }

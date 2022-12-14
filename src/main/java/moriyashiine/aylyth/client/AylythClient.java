@@ -18,6 +18,7 @@ import moriyashiine.aylyth.client.render.entity.RootPropEntityRenderer;
 import moriyashiine.aylyth.client.render.entity.living.*;
 import moriyashiine.aylyth.client.render.entity.projectile.YmpeLanceEntityRenderer;
 import moriyashiine.aylyth.client.render.item.BigItemRenderer;
+import moriyashiine.aylyth.client.screen.TulpaScreen;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.block.StrewnLeavesBlock;
 import moriyashiine.aylyth.common.item.YmpeGlaiveItem;
@@ -35,6 +36,7 @@ import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.*;
+import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -110,7 +112,7 @@ public class AylythClient implements ClientModInitializer {
 		EntityRendererRegistry.register(ModEntityTypes.BONEFLY, BoneflyEntityRenderer::new);
 		EntityRendererRegistry.register(ModEntityTypes.ROOT_PROP, RootPropEntityRenderer::new);
 		EntityRendererRegistry.register(ModEntityTypes.RIPPED_SOUL, RippedSoulEntityRenderer::new);
-		// TODO EntityRendererRegistry.register(ModEntityTypes.TULPA, TulpaEntityRenderer::new);
+		EntityRendererRegistry.register(ModEntityTypes.TULPA, TulpaEntityRenderer::new);
 		EntityRendererRegistry.register(ModEntityTypes.SCION, ScionEntityRenderer::new);
 		TerraformBoatClientHelper.registerModelLayers(new Identifier(Aylyth.MOD_ID, "ympe"));
 		TerraformBoatClientHelper.registerModelLayers(new Identifier(Aylyth.MOD_ID, "ympe_chest"));
@@ -146,6 +148,7 @@ public class AylythClient implements ClientModInitializer {
 			}
 		}
 		BuiltinItemRendererRegistry.INSTANCE.register(ModItems.WOODY_GROWTH_CACHE, this::woodyGrowthCacheRenderer);
+		ScreenRegistry.register(ModScreenHandlers.TULPA_SCREEN_HANDLER, TulpaScreen::new);
 	}
 
 	private void woodyGrowthCacheRenderer(ItemStack stack, ModelTransformation.Mode mode, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
