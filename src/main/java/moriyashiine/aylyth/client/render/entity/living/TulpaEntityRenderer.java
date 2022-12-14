@@ -31,7 +31,7 @@ public class TulpaEntityRenderer extends GeoEntityRenderer<TulpaEntity> {
 
     @Override
     public void render(TulpaEntity entity, float entityYaw, float partialTicks, MatrixStack matrixStack, VertexConsumerProvider bufferIn, int packedLightIn) {
-        if(entity.getOwnerUuid() == null || entity.getDataTracker().get(TulpaEntity.TRANSFORMING)){
+        if(entity.getSkinUuid() == null || entity.getDataTracker().get(TulpaEntity.TRANSFORMING)){
             super.render(entity, entityYaw, partialTicks, matrixStack, bufferIn, packedLightIn);
         }else{
             matrixStack.push();
@@ -68,7 +68,7 @@ public class TulpaEntityRenderer extends GeoEntityRenderer<TulpaEntity> {
             tulpaPlayerEntity.forwardSpeed=entity.forwardSpeed;
             tulpaPlayerEntity.setPose(entity.getPose());
             tulpaPlayerEntity.setSprinting(entity.isSprinting());
-            tulpaPlayerEntity.setSkinUuid(entity.getOwnerUuid());
+            tulpaPlayerEntity.setSkinUuid(entity.getSkinUuid());
             tulpaPlayerEntity.setCustomName(entity.getCustomName());
             MinecraftClient.getInstance().getEntityRenderDispatcher().getRenderer(tulpaPlayerEntity).render(tulpaPlayerEntity, entityYaw, partialTicks, matrixStack, bufferIn, packedLightIn);
             matrixStack.pop();

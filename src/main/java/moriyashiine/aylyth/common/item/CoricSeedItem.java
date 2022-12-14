@@ -47,6 +47,7 @@ public class CoricSeedItem extends Item {
             world.breakBlock(pos.down(), false);
             TulpaEntity tulpaEntity = new TulpaEntity(ModEntityTypes.TULPA, world);
             tulpaEntity.refreshPositionAndAngles(pos.down(), 0.0F, 0.0F);
+            tulpaEntity.setOwner(player);
             world.spawnEntity(tulpaEntity);
             stack.decrement(1);
         }

@@ -161,7 +161,7 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
                     Optional<GameProfile> cacheByName = userCache.findByName(itemStack.getName().getString());
                     if(cacheByName.isPresent()){
                         UUID uuid = cacheByName.get().getId();
-                        setOwnerUuid(uuid);
+                        setSkinUuid(uuid);
                         this.setCustomName(itemStack.getName());
                         this.dataTracker.set(TRANSFORMING, true);
                     }
