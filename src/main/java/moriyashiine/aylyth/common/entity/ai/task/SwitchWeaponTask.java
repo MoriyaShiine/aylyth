@@ -1,6 +1,7 @@
 package moriyashiine.aylyth.common.entity.ai.task;
 
 import com.google.common.collect.ImmutableMap;
+import com.mojang.datafixers.util.Pair;
 import moriyashiine.aylyth.common.entity.mob.TulpaEntity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -11,6 +12,10 @@ import net.minecraft.entity.ai.brain.task.Task;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.item.*;
 import net.minecraft.server.world.ServerWorld;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 public class SwitchWeaponTask extends Task<TulpaEntity> {
     private TulpaEntity tulpaEntity;
@@ -27,10 +32,15 @@ public class SwitchWeaponTask extends Task<TulpaEntity> {
         tulpaEntity.getBrain().remember(MemoryModuleType.LOOK_TARGET, new EntityLookTarget(this.getAttackTarget(tulpaEntity), true));
         LivingEntity livingEntity = this.getAttackTarget(tulpaEntity);
         if(isInMeleeAttackRange(livingEntity)){
+            List<Pair<ItemStack, Double>> meleeWeaponList = new ArrayList<>();
             for(ItemStack newWeapon : tulpaEntity.getInventory().stacks){
                 if(newWeapon.getItem() instanceof SwordItem){
-                    switchWeapons(newWeapon);
+                    meleeWeaponList.add(new Pair<>(newWeapon, (double)((SwordItem) newWeapon.getItem()).getAttackDamage()));
                 }
+            }
+            if(!meleeWeaponList.isEmpty()){
+                meleeWeaponList.sort(Comparator.comparingDouble(Pair::getSecond));
+                switchWeapons(meleeWeaponList.get(0).getFirst());
             }
         }else if(!isHoldingUsableRangedWeapon(tulpaEntity)){
             for(ItemStack newWeapon : tulpaEntity.getInventory().stacks){
