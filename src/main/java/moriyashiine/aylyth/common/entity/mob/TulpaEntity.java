@@ -12,10 +12,7 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.mob.PiglinBrain;
-import net.minecraft.entity.mob.PiglinEntity;
+import net.minecraft.entity.mob.*;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -372,6 +369,52 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
         @Override
         public Text getDisplayName() {
             return this.tulpaEntity().getDisplayName();
+        }
+    }
+
+    public static class TulpaPlayerEntity extends PathAwareEntity {
+        private static final TrackedData<Optional<UUID>> SKIN_UUID = DataTracker.registerData(TulpaPlayerEntity.class, TrackedDataHandlerRegistry.OPTIONAL_UUID);
+        
+        public TulpaPlayerEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
+            super(entityType, world);
+        }
+
+        protected void initDataTracker() {
+            super.initDataTracker();
+            this.dataTracker.startTracking(SKIN_UUID, Optional.empty());
+        }
+
+        @Nullable
+        public UUID getSkinUuid() {
+            return this.dataTracker.get(SKIN_UUID).orElse(null);
+        }
+
+        public void setSkinUuid(@Nullable UUID uuid) {
+            this.dataTracker.set(SKIN_UUID, Optional.ofNullable(uuid));
+        }
+
+
+        @Override
+        public void writeCustomDataToNbt(NbtCompound nbt) {
+            super.writeCustomDataToNbt(nbt);
+            if (this.getSkinUuid() != null) {
+                nbt.putUuid("SkinUUID", this.getSkinUuid());
+            }
+        }
+
+        @Override
+        public void readCustomDataFromNbt(NbtCompound nbt) {
+            super.readCustomDataFromNbt(nbt);
+            UUID ownerUUID;
+            if (nbt.containsUuid("SkinUUID")) {
+                ownerUUID = nbt.getUuid("SkinUUID");
+            } else {
+                String string = nbt.getString("SkinUUID");
+                ownerUUID = ServerConfigHandler.getPlayerUuidByName(this.getServer(), string);
+            }
+            if (ownerUUID != null) {
+                this.setSkinUuid(ownerUUID);
+            }
         }
     }
 }

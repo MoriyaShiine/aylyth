@@ -3,6 +3,7 @@ package moriyashiine.aylyth.common.registry;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.entity.RootPropEntity;
 import moriyashiine.aylyth.common.entity.mob.*;
+import moriyashiine.aylyth.common.entity.mob.TulpaEntity.TulpaPlayerEntity;
 import moriyashiine.aylyth.common.entity.passive.PilotLightEntity;
 import moriyashiine.aylyth.common.entity.projectile.YmpeLanceEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
@@ -26,8 +27,9 @@ public class ModEntityTypes {
 
 	public static final EntityType<ScionEntity> SCION = FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, ScionEntity::new).dimensions(EntityDimensions.fixed(0.6F, 1.95F)).fireImmune().build();
 	public static final EntityType<RootPropEntity> ROOT_PROP = FabricEntityTypeBuilder.<RootPropEntity>create(SpawnGroup.MISC, RootPropEntity::new).dimensions(EntityDimensions.fixed(0.5F, 0.5F)).build();
-	public static final EntityType<RippedSoulEntity> RIPPED_SOUL = FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, RippedSoulEntity::new).dimensions(EntityDimensions.changing(0.9F, 0.9F)).fireImmune().build();
+	public static final EntityType<RippedSoulEntity> RIPPED_SOUL = FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, RippedSoulEntity::new).dimensions(EntityDimensions.changing(0.9F, 0.9F)).build();
 	public static final EntityType<TulpaEntity> TULPA = FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, TulpaEntity::new).dimensions(EntityDimensions.fixed(0.6F, 1.95F)).fireImmune().build();
+	public static final EntityType<TulpaPlayerEntity> TULPA_PLAYER = FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, TulpaPlayerEntity::new).dimensions(EntityDimensions.fixed(0.6F, 1.95F)).build();
 
 
 	public static void init() {
@@ -39,6 +41,7 @@ public class ModEntityTypes {
 		FabricDefaultAttributeRegistry.register(SCION, ScionEntity.createAttributes());
 		FabricDefaultAttributeRegistry.register(RIPPED_SOUL, RippedSoulEntity.createVexAttributes());
 		FabricDefaultAttributeRegistry.register(TULPA, TulpaEntity.createTulpaAttributes());
+		FabricDefaultAttributeRegistry.register(TULPA_PLAYER, TulpaEntity.createTulpaAttributes());
 		Registry.register(Registry.ENTITY_TYPE, new Identifier(Aylyth.MOD_ID, "pilot_light"), PILOT_LIGHT);
 		Registry.register(Registry.ENTITY_TYPE, new Identifier(Aylyth.MOD_ID, "aylythian"), AYLYTHIAN);
 		Registry.register(Registry.ENTITY_TYPE, new Identifier(Aylyth.MOD_ID, "elder_aylythian"), ELDER_AYLYTHIAN);
@@ -49,6 +52,7 @@ public class ModEntityTypes {
 		Registry.register(Registry.ENTITY_TYPE, new Identifier(Aylyth.MOD_ID, "root_prop"), ROOT_PROP);
 		Registry.register(Registry.ENTITY_TYPE, new Identifier(Aylyth.MOD_ID, "ripped_soul"), RIPPED_SOUL);
 		Registry.register(Registry.ENTITY_TYPE, new Identifier(Aylyth.MOD_ID, "tulpa"), TULPA);
+		Registry.register(Registry.ENTITY_TYPE, new Identifier(Aylyth.MOD_ID, "tulpa_player"), TULPA_PLAYER);
 		
 		SpawnRestriction.register(PILOT_LIGHT, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING, PilotLightEntity::canSpawn);
 		SpawnRestriction.register(AYLYTHIAN, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AylythianEntity::canSpawn);
