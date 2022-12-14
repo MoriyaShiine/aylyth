@@ -20,7 +20,7 @@ import java.util.List;
 public class SwitchWeaponTask extends Task<TulpaEntity> {
     private TulpaEntity tulpaEntity;
     public SwitchWeaponTask(TulpaEntity tulpaEntity) {
-        super(ImmutableMap.of(MemoryModuleType.LOOK_TARGET, MemoryModuleState.REGISTERED, MemoryModuleType.ATTACK_TARGET, MemoryModuleState.VALUE_PRESENT, MemoryModuleType.VISIBLE_MOBS, MemoryModuleState.VALUE_PRESENT));
+        super(ImmutableMap.of(MemoryModuleType.LOOK_TARGET, MemoryModuleState.REGISTERED, MemoryModuleType.NEAREST_ATTACKABLE, MemoryModuleState.VALUE_PRESENT, MemoryModuleType.VISIBLE_MOBS, MemoryModuleState.VALUE_PRESENT));
         this.tulpaEntity = tulpaEntity;
     }
 
@@ -30,7 +30,7 @@ public class SwitchWeaponTask extends Task<TulpaEntity> {
 
     protected void run(ServerWorld serverWorld, TulpaEntity tulpaEntity, long l) {
         tulpaEntity.getBrain().remember(MemoryModuleType.LOOK_TARGET, new EntityLookTarget(this.getAttackTarget(tulpaEntity), true));
-        LivingEntity livingEntity = this.getAttackTarget(tulpaEntity);
+        LivingEntity livingEntity = getAttackTarget(tulpaEntity);
         if(isInMeleeAttackRange(livingEntity)){
             List<Pair<ItemStack, Double>> meleeWeaponList = new ArrayList<>();
             for(ItemStack newWeapon : tulpaEntity.getInventory().stacks){
@@ -63,7 +63,7 @@ public class SwitchWeaponTask extends Task<TulpaEntity> {
     }
 
     private LivingEntity getAttackTarget(TulpaEntity entity) {
-        return entity.getBrain().getOptionalMemory(MemoryModuleType.ATTACK_TARGET).get();
+        return entity.getBrain().getOptionalMemory(MemoryModuleType.NEAREST_ATTACKABLE).get();
     }
 
     private boolean isHoldingUsableRangedWeapon(MobEntity entity) {
