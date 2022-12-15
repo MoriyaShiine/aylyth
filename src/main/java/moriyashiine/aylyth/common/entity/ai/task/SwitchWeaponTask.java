@@ -3,6 +3,7 @@ package moriyashiine.aylyth.common.entity.ai.task;
 import com.google.common.collect.ImmutableMap;
 import com.mojang.datafixers.util.Pair;
 import moriyashiine.aylyth.common.entity.mob.TulpaEntity;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.brain.EntityLookTarget;
@@ -31,31 +32,31 @@ public class SwitchWeaponTask extends Task<TulpaEntity> {
     protected void run(ServerWorld serverWorld, TulpaEntity tulpaEntity, long l) {
         tulpaEntity.getBrain().remember(MemoryModuleType.LOOK_TARGET, new EntityLookTarget(this.getAttackTarget(tulpaEntity), true));
         LivingEntity livingEntity = getAttackTarget(tulpaEntity);
+        List<Pair<ItemStack, Double>> weaponList = new ArrayList<>();
         if(isInMeleeAttackRange(livingEntity)){
-            List<Pair<ItemStack, Double>> meleeWeaponList = new ArrayList<>();
             for(ItemStack newWeapon : tulpaEntity.getInventory().stacks){
                 if(newWeapon.getItem() instanceof SwordItem){
-                    meleeWeaponList.add(new Pair<>(newWeapon, (double)((SwordItem) newWeapon.getItem()).getAttackDamage()));
+                    weaponList.add(new Pair<>(newWeapon, (double)((SwordItem) newWeapon.getItem()).getAttackDamage() + EnchantmentHelper.getAttackDamage(newWeapon, livingEntity.getGroup())));
                 }
-            }
-            if(!meleeWeaponList.isEmpty()){
-                meleeWeaponList.sort(Comparator.comparingDouble(Pair::getSecond));
-                switchWeapons(meleeWeaponList.get(0).getFirst());
             }
         }else if(!isHoldingUsableRangedWeapon(tulpaEntity)){
             for(ItemStack newWeapon : tulpaEntity.getInventory().stacks){
                 if(newWeapon.getItem() instanceof RangedWeaponItem && tulpaEntity.canUseRangedWeapon((RangedWeaponItem)newWeapon.getItem())){
-                    switchWeapons(newWeapon);
+                    weaponList.add(new Pair<>(newWeapon, (double)(EnchantmentHelper.getAttackDamage(newWeapon, livingEntity.getGroup()))));
                 }
             }
         }
+        getAndSwitchWeapon(weaponList);
     }
 
-    private void switchWeapons(ItemStack newWeapon){
-        int index = tulpaEntity.getInventory().stacks.indexOf(newWeapon);
-        ItemStack prevWeapon = tulpaEntity.getMainHandStack();
-        tulpaEntity.equipStack(EquipmentSlot.MAINHAND, newWeapon);
-        tulpaEntity.getInventory().setStack(index, prevWeapon);
+    private void getAndSwitchWeapon(List<Pair<ItemStack, Double>> weaponList){
+        if(!weaponList.isEmpty()){
+            weaponList.sort(Comparator.comparingDouble(Pair::getSecond));
+            int index = tulpaEntity.getInventory().stacks.indexOf(weaponList.get(0).getFirst());
+            ItemStack prevWeapon = tulpaEntity.getMainHandStack();
+            tulpaEntity.equipStack(EquipmentSlot.MAINHAND, weaponList.get(0).getFirst());
+            tulpaEntity.getInventory().setStack(index, prevWeapon);
+        }
     }
 
     private boolean isAttackTargetVisible(TulpaEntity entity) {
