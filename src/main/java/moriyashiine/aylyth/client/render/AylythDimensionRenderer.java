@@ -10,9 +10,11 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.VertexBuffer;
 import net.minecraft.client.render.*;
 import net.minecraft.client.world.ClientWorld;
+import net.minecraft.tag.BiomeTags;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Matrix4f;
 import net.minecraft.util.math.Vec3d;
@@ -30,10 +32,18 @@ public class AylythDimensionRenderer {
 	public static int goalFogStrength = 0;
 	private static float currentFogStrength;
 
-	public static void renderFog() {
+	public static void renderFog(Camera camera, BackgroundRenderer.FogType fogType, float viewDistance, boolean thickFog, float tickDelta) {
 		if (!Aylyth.isDebugMode()) {
+			var fogStrength = currentFogStrength;
+			if (camera.getSubmersionType().equals(CameraSubmersionType.WATER)) {
+				var player = MinecraftClient.getInstance().player;
+				var world = MinecraftClient.getInstance().world;
+				if (world.getBiome(player.getBlockPos()).isIn(BiomeTags.HAS_CLOSER_WATER_FOG)) {
+					fogStrength *= 0.75;
+				}
+			}
 			RenderSystem.setShaderFogStart(0F);
-			RenderSystem.setShaderFogEnd(currentFogStrength);
+			RenderSystem.setShaderFogEnd(fogStrength);
 			if (goalFogStrength < currentFogStrength) {
 				currentFogStrength -= 0.1F;
 			} else if (goalFogStrength > currentFogStrength) {
