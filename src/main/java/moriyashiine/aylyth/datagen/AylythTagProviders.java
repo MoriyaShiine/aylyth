@@ -1,5 +1,6 @@
 package moriyashiine.aylyth.datagen;
 
+import moriyashiine.aylyth.common.registry.ModBiomeKeys;
 import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.ModItems;
 import moriyashiine.aylyth.common.registry.ModTags;
@@ -34,6 +35,7 @@ public class AylythTagProviders {
         @Override
         protected void generateTags() {
             getOrCreateTagBuilder(ModTags.GENERATES_SEEP).forceAddTag(BiomeTags.IS_FOREST).forceAddTag(BiomeTags.IS_TAIGA);
+            getOrCreateTagBuilder(BiomeTags.HAS_CLOSER_WATER_FOG).add(ModBiomeKeys.MIRE_ID);
         }
     }
 
