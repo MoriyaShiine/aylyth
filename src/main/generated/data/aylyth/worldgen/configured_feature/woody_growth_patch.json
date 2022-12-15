@@ -34,7 +34,8 @@
                 "type": "minecraft:matching_blocks",
                 "blocks": [
                   "minecraft:grass_block",
-                  "minecraft:podzol"
+                  "minecraft:podzol",
+                  "minecraft:mud"
                 ],
                 "offset": [
                   0,

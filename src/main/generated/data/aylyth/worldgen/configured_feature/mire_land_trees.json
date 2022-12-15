@@ -4,7 +4,7 @@
     "default": "minecraft:spruce_checked",
     "features": [
       {
-        "chance": 0.88,
+        "chance": 0.5,
         "feature": {
           "feature": "aylyth:writhewood_tree",
           "placement": []

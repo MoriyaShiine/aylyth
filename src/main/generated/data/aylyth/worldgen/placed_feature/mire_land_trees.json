@@ -1,5 +1,5 @@
 {
-  "feature": "aylyth:mire_trees",
+  "feature": "aylyth:mire_land_trees",
   "placement": [
     {
       "type": "minecraft:count",
@@ -19,6 +19,10 @@
     },
     {
       "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:surface_water_depth_filter",
+      "max_water_depth": 0
     },
     {
       "type": "minecraft:heightmap",
