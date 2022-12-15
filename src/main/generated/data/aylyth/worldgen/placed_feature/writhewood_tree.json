@@ -8,7 +8,8 @@
         "state": {
           "Name": "aylyth:writhewood_sapling",
           "Properties": {
-            "stage": "0"
+            "stage": "0",
+            "waterlogged": "false"
           }
         }
       }

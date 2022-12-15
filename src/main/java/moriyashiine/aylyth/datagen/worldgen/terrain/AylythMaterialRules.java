@@ -30,15 +30,23 @@ public class AylythMaterialRules extends MaterialRules {
         var aboveBasicSurface = condition(surface(), sequence(onSurface, onUnderSurface));
         var bedrock = condition(verticalGradient("aylyth:bedrock_layer", YOffset.BOTTOM, YOffset.aboveBottom(5)), block(Blocks.BEDROCK));
         var uplands = condition(biome(ModBiomeKeys.UPLANDS_ID), condition(surface(), condition(waterWithStoneDepth(-6, -1), uplandsTerracotta())));
-        return sequence(bedrock, uplands, mireMud(), aboveBasicSurface);
+        return sequence(bedrock, uplands, mire(), aboveBasicSurface);
     }
 
     static MaterialRule uplandsTerracotta() {
         return sequence(surfaceNoiseBlock(Blocks.DEEPSLATE, -2, -0.6), surfaceNoiseBlock(Blocks.BROWN_TERRACOTTA, -0.6, -0.15), surfaceNoiseBlock(Blocks.YELLOW_TERRACOTTA, -0.15, 0), surfaceNoiseBlock(Blocks.ORANGE_TERRACOTTA, 0, 0.3), surfaceNoiseBlock(Blocks.RED_TERRACOTTA, 0.3, 0.6), surfaceNoiseBlock(Blocks.TERRACOTTA, 0.6, 0.8), surfaceNoiseBlock(Blocks.DEEPSLATE, 0.8, 2.0));
     }
 
-    static MaterialRule mireMud() {
-        return condition(biome(ModBiomeKeys.MIRE_ID), condition(surface(), condition(stoneDepth(0, false, 0, VerticalSurfaceType.FLOOR), condition(not(water(0, 0)), block(Blocks.MUD)))));
+    static MaterialRule mire() {
+        return condition(biome(ModBiomeKeys.MIRE_ID), sequence(mireAroundLand(), mireUnderwaterMud()));
+    }
+
+    static MaterialRule mireAroundLand() {
+        return condition(surface(), condition(not(aboveYWithStoneDepth(YOffset.fixed(48), 0)), sequence(surfaceNoiseBlock(Blocks.SOUL_SOIL, 0.70, Double.MAX_VALUE), block(Blocks.MUD))));
+    }
+
+    static MaterialRule mireUnderwaterMud() {
+        return condition(surface(), condition(stoneDepth(0, false, 0, VerticalSurfaceType.FLOOR), condition(not(water(0, 0)), block(Blocks.MUD))));
     }
 
     static MaterialRule podzol(AylythNoiseTypes.NoiseRegistryPair noise, double min, double max) {
