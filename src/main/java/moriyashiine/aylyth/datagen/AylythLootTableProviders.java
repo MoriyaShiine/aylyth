@@ -104,11 +104,18 @@ public class AylythLootTableProviders {
         }
 
         private LootTable.Builder woodyGrowthCaches(Block block) {
-            return LootTable.builder().pool(
-                    LootPool.builder().with(
-                            DynamicEntry.builder(WoodyGrowthCacheBlock.CONTENTS)
-                    )
-            ).type(LootContextTypes.BLOCK);
+            return LootTable.builder().type(LootContextTypes.BLOCK)
+                    .pool(
+                            LootPool.builder().with(
+                                    DynamicEntry.builder(WoodyGrowthCacheBlock.CONTENTS)
+                            ).conditionally(
+                                    BlockStatePropertyLootCondition.builder(block)
+                                            .properties(
+                                                    StatePredicate.Builder.create()
+                                                            .exactMatch(LargeWoodyGrowthBlock.HALF, DoubleBlockHalf.LOWER)
+                                            )
+                            )
+                    );
         }
 
         private LootTable.Builder woodyGrowths(Block block) {

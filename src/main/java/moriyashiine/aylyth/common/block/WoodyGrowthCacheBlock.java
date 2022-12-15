@@ -38,12 +38,12 @@ public class WoodyGrowthCacheBlock extends LargeWoodyGrowthBlock implements Bloc
 
     @Override
     public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-        if (!world.isClient()) {
+        if (!world.isClient() && player.isCreative()) {
             BlockEntity be = null;
             if (state.hasBlockEntity()) {
-                be = world.getBlockEntity(pos);
+                be = world.getBlockEntity(state.get(HALF) == DoubleBlockHalf.UPPER ? pos.down() : pos);
             }
-            dropStacks(state, world, pos, be, player, player.getMainHandStack());
+            dropStacks(state.with(HALF, DoubleBlockHalf.LOWER), world, pos, be, player, player.getMainHandStack());
         }
         super.onBreak(world, pos, state, player);
     }
