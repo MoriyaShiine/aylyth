@@ -6,11 +6,16 @@ import moriyashiine.aylyth.common.registry.ModBlocks;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.loot.context.LootContext;
+import net.minecraft.loot.context.LootContextParameters;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.World;
@@ -19,6 +24,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class WoodyGrowthCacheBlock extends LargeWoodyGrowthBlock implements BlockEntityProvider {
+
+    public static final Identifier CONTENTS = ShulkerBoxBlock.CONTENTS;
 
     public WoodyGrowthCacheBlock(Settings settings) {
         super(settings);
@@ -31,18 +38,18 @@ public class WoodyGrowthCacheBlock extends LargeWoodyGrowthBlock implements Bloc
 
     @Override
     public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-        super.onBreak(world, pos, state, player);
-//        if (state.get(HALF) == DoubleBlockHalf.UPPER) {
-//            pos = pos.down();
-//        }
-        if (!world.isClient()) {
-            if (world.getBlockEntity(pos) instanceof WoodyGrowthCacheBlockEntity be) {
-                be.drop(world, pos);
+        if (!world.isClient() && player.isCreative()) {
+            BlockEntity be = null;
+            if (state.hasBlockEntity()) {
+                be = world.getBlockEntity(state.get(HALF) == DoubleBlockHalf.UPPER ? pos.down() : pos);
             }
+            dropStacks(state.with(HALF, DoubleBlockHalf.LOWER), world, pos, be, player, player.getMainHandStack());
         }
+        super.onBreak(world, pos, state, player);
     }
 
-    public static void spawnInventory(World world, BlockPos pos, Inventory inv) {
+    public static void spawnInventory(World world, BlockPos pos, PlayerEntity player) {
+        var inv = player.getInventory();
         List<ItemStack> list = Lists.newArrayList();
         for (int i = 0; i < inv.size(); i++) {
             var stack = inv.removeStack(i);
@@ -64,14 +71,32 @@ public class WoodyGrowthCacheBlock extends LargeWoodyGrowthBlock implements Bloc
             if (isInvalidPosition(placePos, state, world)) {
                 placePos = placePos.withY(world.getTopY(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, placePos.getX(), placePos.getZ()));
             }
+            if (world.getFluidState(placePos).getFluid() == Fluids.WATER) {
+                state = state.with(WATERLOGGED, true);
+            }
             world.setBlockState(placePos, state);
+            world.setBlockState(placePos.up(), state.with(HALF, DoubleBlockHalf.UPPER));
             var be = world.getBlockEntity(placePos);
             if (be instanceof WoodyGrowthCacheBlockEntity cache) {
+                cache.setPlayerUuid(player);
                 i = cache.fill(list, i);
             } else {
                 throw new IllegalStateException("Something has gone wrong."); // TODO?
             }
         }
+    }
+
+    @Override
+    public List<ItemStack> getDroppedStacks(BlockState state, LootContext.Builder builder) {
+        var lootContext = builder.getNullable(LootContextParameters.BLOCK_ENTITY);
+        if (lootContext instanceof WoodyGrowthCacheBlockEntity be) {
+            builder.putDrop(CONTENTS, (context, consumer) -> {
+                for (int i = 0; i < be.size(); i++) {
+                    consumer.accept(be.getItem(i));
+                }
+            });
+        }
+        return super.getDroppedStacks(state, builder);
     }
 
     private static boolean isInvalidPosition(BlockPos pos, BlockState state, World world) {

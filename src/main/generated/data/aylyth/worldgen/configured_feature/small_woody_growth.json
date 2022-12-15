@@ -6,7 +6,8 @@
       "state": {
         "Name": "aylyth:small_woody_growth",
         "Properties": {
-          "natural": "true"
+          "natural": "true",
+          "waterlogged": "false"
         }
       }
     }

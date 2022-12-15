@@ -23,14 +23,12 @@ import moriyashiine.aylyth.common.block.StrewnLeavesBlock;
 import moriyashiine.aylyth.common.item.YmpeGlaiveItem;
 import moriyashiine.aylyth.common.item.YmpeLanceItem;
 import moriyashiine.aylyth.common.registry.*;
-import moriyashiine.aylyth.mixin.client.DimensionEffectsAccessor;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
-import net.fabricmc.fabric.api.client.model.BakedModelManagerHelper;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
@@ -72,7 +70,9 @@ public class AylythClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
-		DimensionEffectsAccessor.aylyth_getByIdentifier().put(ModDimensions.AYLYTH_DIMENSION_KEY.getValue(), AylythDimensionRenderer.DIMENSION_EFFECTS);
+		DimensionRenderingRegistry.registerDimensionEffects(ModDimensionKeys.AYLYTH_DIMENSION_OPTIONS.getValue(), AylythDimensionRenderer.DIMENSION_EFFECTS);
+		DimensionRenderingRegistry.registerSkyRenderer(ModDimensionKeys.AYLYTH, AylythDimensionRenderer.SKY_RENDERER);
+		DimensionRenderingRegistry.registerCloudRenderer(ModDimensionKeys.AYLYTH, context -> {});
 		ClientPlayNetworking.registerGlobalReceiver(SpawnShuckParticlesPacket.ID, SpawnShuckParticlesPacket::receive);
 		ParticleFactoryRegistry.getInstance().register(ModParticles.PILOT_LIGHT, PilotLightParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(ModParticles.AMBIENT_PILOT_LIGHT, PilotLightParticle.AmbientFactory::new);

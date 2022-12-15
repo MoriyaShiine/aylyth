@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.common.registry.biome;
+package moriyashiine.aylyth.datagen.worldgen.biomes.util;
 
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.sound.BiomeAdditionsSound;

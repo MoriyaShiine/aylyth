@@ -1,6 +1,7 @@
-package moriyashiine.aylyth.common.registry;
+package moriyashiine.aylyth.datagen.worldgen.features;
 
 import moriyashiine.aylyth.common.Aylyth;
+import moriyashiine.aylyth.common.registry.ModBlocks;
 import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.placementmodifier.*;

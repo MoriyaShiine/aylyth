@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import moriyashiine.aylyth.common.registry.ModBlockEntityTypes;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -19,11 +20,13 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.UUID;
 
 public class WoodyGrowthCacheBlockEntity extends BlockEntity {
 
     static final int MAX_SIZE = 9;
     protected final List<ItemStack> inventory = Lists.newLinkedList();
+    protected UUID playerUuid;
 
     public WoodyGrowthCacheBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntityTypes.WOODY_GROWTH_CACHE_BLOCK_ENTITY, pos, state);
@@ -42,6 +45,9 @@ public class WoodyGrowthCacheBlockEntity extends BlockEntity {
             }
             nbt.put("Items", list);
         }
+        if (playerUuid != null) {
+            nbt.putUuid("Player", playerUuid);
+        }
     }
 
     @Override
@@ -54,6 +60,13 @@ public class WoodyGrowthCacheBlockEntity extends BlockEntity {
                 var slot = compound.getInt("Slot");
                 var item = (NbtCompound)compound.get("Item");
                 inventory.add(slot, ItemStack.fromNbt(item));
+            }
+        }
+        if (nbt.contains("Player")) {
+            if (nbt.getType("Player") == NbtElement.STRING_TYPE) {
+                playerUuid = UUID.fromString(nbt.getString("Player"));
+            } else {
+                playerUuid = nbt.getUuid("Player");
             }
         }
     }
@@ -69,6 +82,15 @@ public class WoodyGrowthCacheBlockEntity extends BlockEntity {
         var nbt = new NbtCompound();
         writeNbt(nbt);
         return nbt;
+    }
+
+    @Nullable
+    public UUID getPlayerUuid() {
+        return playerUuid;
+    }
+
+    public void setPlayerUuid(PlayerEntity player) {
+        playerUuid = player.getUuid();
     }
 
     public boolean isEmpty() {

@@ -1,7 +1,8 @@
-package moriyashiine.aylyth.datagen;
+package moriyashiine.aylyth.datagen.worldgen.terrain;
 
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.registry.ModBiomes;
+import moriyashiine.aylyth.common.registry.ModBiomeKeys;
+import moriyashiine.aylyth.datagen.worldgen.biomes.ModBiomes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -14,13 +15,14 @@ import net.minecraft.world.gen.YOffset;
 import net.minecraft.world.gen.chunk.ChunkGeneratorSettings;
 import net.minecraft.world.gen.chunk.GenerationShapeConfig;
 import net.minecraft.world.gen.densityfunction.DensityFunction;
+import net.minecraft.world.gen.densityfunction.DensityFunctionTypes;
 import net.minecraft.world.gen.noise.NoiseRouter;
 import net.minecraft.world.gen.surfacebuilder.MaterialRules;
 
 import java.util.List;
 
-import static moriyashiine.aylyth.datagen.AylythDensityFunctionTypes.*;
-import static moriyashiine.aylyth.datagen.AylythNoiseTypes.*;
+import static moriyashiine.aylyth.datagen.worldgen.terrain.AylythDensityFunctionTypes.*;
+import static moriyashiine.aylyth.datagen.worldgen.terrain.AylythNoiseTypes.*;
 import static net.minecraft.world.gen.densityfunction.DensityFunctionTypes.*;
 
 public class AylythNoiseSettings {
@@ -28,17 +30,16 @@ public class AylythNoiseSettings {
     public static void datagenInit() {
         AylythNoiseTypes.init();
         AylythDensityFunctionTypes.init();
+        Registry.register(BuiltinRegistries.CHUNK_GENERATOR_SETTINGS, new Identifier(Aylyth.MOD_ID, "aylyth_settings"), createSettings());
     }
 
-    public static final ChunkGeneratorSettings SETTINGS = Registry.register(BuiltinRegistries.CHUNK_GENERATOR_SETTINGS, new Identifier(Aylyth.MOD_ID, "aylyth_settings"), createSettings());
-
     static ChunkGeneratorSettings createSettings() {
-        var seaLevel = -64;
+        var seaLevel = 47;
         var disableMobGen = false;
-        var aquifers = false;
-        var oreVeins = true;
+        var aquifers = true;
+        var oreVeins = false;
         var legacyRandom = false;
-        return new ChunkGeneratorSettings(shapeConfig(), defaultState(Blocks.DEEPSLATE), defaultState(Blocks.WATER), noiseRouter(), materialRules(), spawnTargets(), seaLevel, disableMobGen, aquifers, oreVeins, legacyRandom);
+        return new ChunkGeneratorSettings(shapeConfig(), defaultState(Blocks.DEEPSLATE), defaultState(Blocks.WATER), noiseRouter(), AylythMaterialRules.materialRules(), spawnTargets(), seaLevel, disableMobGen, aquifers, oreVeins, legacyRandom);
     }
 
     static BlockState defaultState(Block block) {
@@ -56,8 +57,8 @@ public class AylythNoiseSettings {
     static NoiseRouter noiseRouter() {
         return new NoiseRouter(
                 zero(),  // barrierNoise
-                zero(),  // fluidLevelFloodednessNoise
-                zero(),  // fluidLevelSpreadNoise
+                noise(FLOODEDNESS, 1.0D, 0.67D),  // fluidLevelFloodednessNoise
+                noise(FLUID_SPREAD, 1.0D, 1D / 1.4D),  // fluidLevelSpreadNoise
                 zero(),  // lavaNoise
                 shiftedNoise(holderFunction(SHIFT_X), holderFunction(SHIFT_Z), 0.25, TEMPERATURE),  // temperature
                 shiftedNoise(holderFunction(SHIFT_X), holderFunction(SHIFT_Z), 0.25, VEGETATION),  // vegetation
@@ -167,27 +168,6 @@ public class AylythNoiseSettings {
                 ),
                 holderFunction(CAVES_NOODLE_FUNCTION)
         );
-    }
-
-    static MaterialRules.MaterialRule materialRules() {
-        var dirt = AylythMaterialRules.block(Blocks.DIRT);
-        var grass = AylythMaterialRules.block(Blocks.GRASS_BLOCK);
-        var onReplaceWithGrass = MaterialRules.condition(MaterialRules.water(0, 0), grass);
-        var commonPodzol = AylythMaterialRules.podzol(PODZOL_COMMON, 0.3, Double.MAX_VALUE);
-        var rarePodzol = AylythMaterialRules.podzol(PODZOL_RARE, 0.95, Double.MAX_VALUE);
-        var podzolDecoCommon = MaterialRules.sequence(MaterialRules.condition(MaterialRules.biome(ModBiomes.DEEPWOOD_ID, ModBiomes.CONIFEROUS_DEEPWOOD_ID), commonPodzol));
-        var podzolDecoRare = MaterialRules.condition(MaterialRules.biome(ModBiomes.COPSE_ID, ModBiomes.OVERGROWN_CLEARING_ID), rarePodzol);
-        var onSurface = MaterialRules.condition(
-                MaterialRules.stoneDepth(0, false, 0, VerticalSurfaceType.FLOOR),
-                MaterialRules.condition(MaterialRules.water(-1, 0),
-                        MaterialRules.sequence(podzolDecoCommon, podzolDecoRare, onReplaceWithGrass, dirt)
-                )
-        );
-        var onUnderSurface = MaterialRules.condition(MaterialRules.not(MaterialRules.biome(ModBiomes.UPLANDS_ID)), MaterialRules.condition(MaterialRules.waterWithStoneDepth(-6, -1), MaterialRules.condition(MaterialRules.stoneDepth(0, true, 0, VerticalSurfaceType.FLOOR), dirt)));
-        var aboveBasicSurface = MaterialRules.condition(MaterialRules.surface(), MaterialRules.sequence(onSurface, onUnderSurface));
-        var bedrock = MaterialRules.condition(MaterialRules.verticalGradient("aylyth:bedrock_layer", YOffset.BOTTOM, YOffset.aboveBottom(5)), MaterialRules.block(defaultState(Blocks.BEDROCK)));
-        var uplands = MaterialRules.condition(MaterialRules.biome(ModBiomes.UPLANDS_ID), MaterialRules.condition(MaterialRules.surface(), MaterialRules.condition(MaterialRules.waterWithStoneDepth(-6, -1), AylythMaterialRules.uplandsTerracotta())));
-        return MaterialRules.sequence(bedrock, uplands, aboveBasicSurface);
     }
 
     static MaterialRules.MaterialRule emptyRules() {

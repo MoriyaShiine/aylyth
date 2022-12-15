@@ -16,7 +16,7 @@ public class BackgroundRendererMixin {
 	@Inject(method = "applyFog", at = @At("HEAD"), cancellable = true)
 	private static void applyAylythFog(Camera camera, BackgroundRenderer.FogType fogType, float viewDistance, boolean thickFog, float tickDelta, CallbackInfo ci) {
 		if (AylythDimensionRenderer.goalFogStrength > 0) {
-			AylythDimensionRenderer.renderFog();
+			AylythDimensionRenderer.renderFog(camera, fogType, viewDistance, thickFog, tickDelta);
 			ci.cancel();
 		}
 	}

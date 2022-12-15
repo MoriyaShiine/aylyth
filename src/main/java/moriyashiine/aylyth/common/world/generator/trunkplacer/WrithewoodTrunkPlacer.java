@@ -74,7 +74,7 @@ public class WrithewoodTrunkPlacer extends StraightTrunkPlacer {
                     return state;
                 });
             }
-            builder.add(new WrithewoodFoliagePlacer.WrithewoodTreeNode(lastPos, 1, false, dir, branchLength));
+            builder.add(new WrithewoodFoliagePlacer.WrithewoodTreeNode(lastPos, 1, false, dir, branchLength+1));
         }
         return builder.build();
     }

@@ -35,7 +35,7 @@ public class WoodSuite {
 
     WoodSuite(@NotNull Identifier identifier, @NotNull WoodSuite.BlockSettingsSet blockSettingsSet,
               @NotNull Registry<Block> blockRegistry, @NotNull MapColor logColor,
-              @NotNull SaplingGenerator saplingGenerator, Block strippedLog, Block strippedWood,
+              SaplingGenerator saplingGenerator, Block strippedLog, Block strippedWood,
               Block log, Block wood, Block sapling,
               Block pottedSapling, Block planks, Block stairs, Block slab,
               Block fence, Block fenceGate, Block pressurePlate, Block button,
@@ -94,6 +94,18 @@ public class WoodSuite {
         return new WoodSuite(identifier, blockSettingsSet, blockRegistry, logColor, saplingGenerator);
     }
 
+    public static WoodSuite of(@NotNull Identifier identifier, @NotNull WoodSuite.BlockSettingsSet blockSettingsSet,
+                               @NotNull Registry<Block> blockRegistry, @NotNull MapColor logColor,
+                               SaplingGenerator saplingGenerator, Block strippedLog, Block strippedWood,
+                               Block log, Block wood, Block sapling,
+                               Block pottedSapling, Block planks, Block stairs, Block slab,
+                               Block fence, Block fenceGate, Block pressurePlate, Block button,
+                               Block trapdoor, Block door, TerraformSignBlock floorSign, Block wallSign) {
+        return new WoodSuite(identifier, blockSettingsSet, blockRegistry, logColor, saplingGenerator, strippedLog,
+                strippedWood, log, wood, sapling, pottedSapling, planks, stairs, slab, fence, fenceGate, pressurePlate,
+                button, trapdoor, door, floorSign, wallSign);
+    }
+
     public void register() {
         Registry.register(blockRegistry, idFor("stripped_%s_log"), strippedLog);
         Registry.register(blockRegistry, idFor("stripped_%s_wood"), strippedWood);
@@ -124,6 +136,10 @@ public class WoodSuite {
 
     protected final Identifier idFor(Identifier id, String replacer) {
         return new Identifier(id.getNamespace(), replacer.formatted(id.getPath()));
+    }
+
+    class Builder {
+
     }
 
     public record CopySettingsSet(Block log, Block wood, Block strippedLog, Block strippedWood, Block sapling,

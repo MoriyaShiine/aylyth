@@ -5,7 +5,7 @@ import dev.onyxstudios.cca.api.v3.component.tick.ServerTickingComponent;
 import moriyashiine.aylyth.common.entity.mob.ScionEntity;
 import moriyashiine.aylyth.common.registry.ModComponents;
 import moriyashiine.aylyth.common.registry.ModDamageSources;
-import moriyashiine.aylyth.common.registry.ModDimensions;
+import moriyashiine.aylyth.common.registry.ModDimensionKeys;
 import moriyashiine.aylyth.common.registry.ModSoundEvents;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
@@ -40,7 +40,7 @@ public class YmpeInfestationComponent implements AutoSyncedComponent, ServerTick
 		if (obj.isDead() || !((ServerPlayerEntity) obj).interactionManager.getGameMode().isSurvivalLike()) {
 			return;
 		}
-		if (obj.world.getRegistryKey() == ModDimensions.AYLYTH) {
+		if (obj.world.getRegistryKey() == ModDimensionKeys.AYLYTH) {
 			setInfestationTimer((short) (getInfestationTimer() + 1));
 		}
 		else {

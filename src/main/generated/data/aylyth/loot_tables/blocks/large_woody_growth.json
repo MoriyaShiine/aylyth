@@ -14,43 +14,150 @@
       ],
       "entries": [
         {
-          "type": "minecraft:group",
+          "type": "minecraft:alternatives",
           "children": [
             {
               "type": "minecraft:item",
+              "conditions": [
+                {
+                  "chance": 0.7,
+                  "condition": "minecraft:random_chance"
+                }
+              ],
+              "functions": [
+                {
+                  "add": false,
+                  "count": {
+                    "type": "minecraft:uniform",
+                    "max": 3.0,
+                    "min": 2.0
+                  },
+                  "function": "minecraft:set_count"
+                }
+              ],
               "name": "minecraft:stick"
             },
             {
               "type": "minecraft:item",
-              "name": "minecraft:rotten_flesh"
+              "conditions": [
+                {
+                  "chance": 0.24,
+                  "condition": "minecraft:random_chance"
+                }
+              ],
+              "functions": [
+                {
+                  "add": false,
+                  "count": {
+                    "type": "minecraft:uniform",
+                    "max": 2.0,
+                    "min": 1.0
+                  },
+                  "function": "minecraft:set_count"
+                }
+              ],
+              "name": "minecraft:dark_oak_log"
             },
             {
               "type": "minecraft:item",
-              "name": "minecraft:bone"
+              "conditions": [
+                {
+                  "chance": 0.24,
+                  "condition": "minecraft:random_chance"
+                }
+              ],
+              "functions": [
+                {
+                  "add": false,
+                  "count": {
+                    "type": "minecraft:uniform",
+                    "max": 2.0,
+                    "min": 1.0
+                  },
+                  "function": "minecraft:set_count"
+                }
+              ],
+              "name": "minecraft:spruce_log"
             },
             {
               "type": "minecraft:item",
-              "name": "minecraft:skeleton_skull"
+              "conditions": [
+                {
+                  "chance": 0.24,
+                  "condition": "minecraft:random_chance"
+                }
+              ],
+              "functions": [
+                {
+                  "add": false,
+                  "count": {
+                    "type": "minecraft:uniform",
+                    "max": 2.0,
+                    "min": 1.0
+                  },
+                  "function": "minecraft:set_count"
+                }
+              ],
+              "name": "aylyth:ympe_log"
             },
             {
               "type": "minecraft:item",
-              "name": "minecraft:redstone"
+              "conditions": [
+                {
+                  "chance": 0.24,
+                  "condition": "minecraft:random_chance"
+                }
+              ],
+              "functions": [
+                {
+                  "add": false,
+                  "count": {
+                    "type": "minecraft:uniform",
+                    "max": 2.0,
+                    "min": 1.0
+                  },
+                  "function": "minecraft:set_count"
+                }
+              ],
+              "name": "aylyth:pomegranate_log"
             },
             {
               "type": "minecraft:item",
-              "name": "aylyth:ympe_sapling"
+              "conditions": [
+                {
+                  "chance": 0.24,
+                  "condition": "minecraft:random_chance"
+                }
+              ],
+              "functions": [
+                {
+                  "add": false,
+                  "count": {
+                    "type": "minecraft:uniform",
+                    "max": 2.0,
+                    "min": 1.0
+                  },
+                  "function": "minecraft:set_count"
+                }
+              ],
+              "name": "aylyth:writhewood_log"
             },
             {
               "type": "minecraft:item",
+              "conditions": [
+                {
+                  "chance": 0.1,
+                  "condition": "minecraft:random_chance"
+                }
+              ],
+              "functions": [
+                {
+                  "add": false,
+                  "count": 1.0,
+                  "function": "minecraft:set_count"
+                }
+              ],
               "name": "aylyth:ympe_fruit"
-            },
-            {
-              "type": "minecraft:item",
-              "name": "aylyth:nysian_grapes"
-            },
-            {
-              "type": "minecraft:item",
-              "name": "aylyth:pomegranate"
             }
           ],
           "conditions": [
@@ -62,33 +169,7 @@
               }
             }
           ]
-        }
-      ],
-      "rolls": {
-        "type": "minecraft:uniform",
-        "max": 3.0,
-        "min": 0.0
-      }
-    },
-    {
-      "bonus_rolls": 0.0,
-      "conditions": [
-        {
-          "block": "aylyth:large_woody_growth",
-          "condition": "minecraft:block_state_property",
-          "properties": {
-            "natural": "false"
-          }
         },
-        {
-          "block": "aylyth:large_woody_growth",
-          "condition": "minecraft:block_state_property",
-          "properties": {
-            "half": "lower"
-          }
-        }
-      ],
-      "entries": [
         {
           "type": "minecraft:item",
           "name": "aylyth:large_woody_growth"

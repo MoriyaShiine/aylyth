@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.datagen;
+package moriyashiine.aylyth.datagen.worldgen.terrain;
 
 import com.mojang.datafixers.util.Either;
 import it.unimi.dsi.fastutil.doubles.DoubleList;
@@ -21,6 +21,8 @@ public class AylythNoiseTypes {
 
     public static void init() {}
 
+    public static final NoiseRegistryPair FLOODEDNESS = register("aquifer_fluid_level_floodedness", -7, 1.0);
+    public static final NoiseRegistryPair FLUID_SPREAD = register("aquifer_fluid_level_spread", -5, 1.0);
     public static final NoiseRegistryPair OFFSET = register("offset", -3, 1.0, 1.0, 1.0, 0.0);
     public static final NoiseRegistryPair RIDGE = register("ridge", -7, 1.0, 2.0, 1.0, 0.0, 0.0, 0.0);
     public static final NoiseRegistryPair JAGGED = register("jagged", -16, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0);
