@@ -5,6 +5,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateManager;
@@ -35,15 +36,16 @@ public class LargeWoodyGrowthBlock extends SmallWoodyGrowthBlock {
     @Override
     public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
         super.onPlaced(world, pos, state, placer, itemStack);
-        world.setBlockState(pos.up(), state.with(HALF, DoubleBlockHalf.UPPER));
+        boolean upperWaterlogged = world.testBlockState(pos.up(), state1 -> state1.getFluidState().getFluid() == Fluids.WATER);
+        world.setBlockState(pos.up(), state.with(HALF, DoubleBlockHalf.UPPER).with(WATERLOGGED, upperWaterlogged));
     }
 
     @Override
     public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         if (!world.isClient()) {
-//            if (player.isCreative()) {
-//                TallPlantBlock.onBreakInCreative(world, pos, state, player);
-//            }
+            if (player.isCreative()) {
+                TallPlantBlock.onBreakInCreative(world, pos, state, player);
+            }
         }
         super.onBreak(world, pos, state, player);
     }

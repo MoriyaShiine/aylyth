@@ -55,7 +55,7 @@ public class SmallWoodyGrowthBlock extends Block implements Waterloggable {
 
     @Override
     public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        return world.getBlockState(pos.down()).isSideSolid(world, pos.down(), Direction.UP, SideShapeType.FULL);
+        return world.getBlockState(pos.down()).getCollisionShape(world, pos).getBoundingBox().maxY >= 0.8125D;
     }
 
     @Override

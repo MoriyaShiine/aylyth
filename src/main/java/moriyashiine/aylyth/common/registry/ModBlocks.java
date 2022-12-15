@@ -49,13 +49,14 @@ public class ModBlocks {
 	});
 	public static final Block POMEGRANATE_LEAVES = new PomegranateLeavesBlock(copyOf(Blocks.OAK_LEAVES));
 
-	public static final WoodSuite WRITHEWOOD_BLOCKS = WoodSuite.of(new Identifier(Aylyth.MOD_ID, "writhewood"), WoodSuite.CopySettingsSet.DEFAULT_SETTINGS_SET, Registry.BLOCK, MapColor.OAK_TAN, new SaplingGenerator() {
+	// This is ew ew. Make a builder for making specific optional changes
+	public static final WoodSuite WRITHEWOOD_BLOCKS = WoodSuite.of(new Identifier(Aylyth.MOD_ID, "writhewood"), WoodSuite.CopySettingsSet.DEFAULT_SETTINGS_SET, Registry.BLOCK, MapColor.OAK_TAN, null, null, null, null, null, new WaterloggableSaplingBlock(new SaplingGenerator() {
 		@Nullable
 		@Override
 		protected RegistryEntry<? extends ConfiguredFeature<?, ?>> getTreeFeature(Random random, boolean bees) {
 			return ModConfiguredFeatures.WRITHEWOOD_TREE;
 		}
-	});
+	}, copyOf(Blocks.OAK_SAPLING)), null, null, null, null, null, null, null, null, null, null, null, null);
 	public static final Block WRITHEWOOD_LEAVES = BlocksAccessor.callCreateLeavesBlock(BlockSoundGroup.GRASS);
 
 	public static final Block AYLYTH_BUSH = new BushBlock();
