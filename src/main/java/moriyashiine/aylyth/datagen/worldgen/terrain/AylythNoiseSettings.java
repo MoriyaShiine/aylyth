@@ -39,7 +39,7 @@ public class AylythNoiseSettings {
         var aquifers = true;
         var oreVeins = false;
         var legacyRandom = false;
-        return new ChunkGeneratorSettings(shapeConfig(), defaultState(Blocks.DEEPSLATE), defaultState(Blocks.WATER), noiseRouter(), materialRules(), spawnTargets(), seaLevel, disableMobGen, aquifers, oreVeins, legacyRandom);
+        return new ChunkGeneratorSettings(shapeConfig(), defaultState(Blocks.DEEPSLATE), defaultState(Blocks.WATER), noiseRouter(), AylythMaterialRules.materialRules(), spawnTargets(), seaLevel, disableMobGen, aquifers, oreVeins, legacyRandom);
     }
 
     static BlockState defaultState(Block block) {
@@ -168,27 +168,6 @@ public class AylythNoiseSettings {
                 ),
                 holderFunction(CAVES_NOODLE_FUNCTION)
         );
-    }
-
-    static MaterialRules.MaterialRule materialRules() {
-        var dirt = AylythMaterialRules.block(Blocks.DIRT);
-        var grass = AylythMaterialRules.block(Blocks.GRASS_BLOCK);
-        var onReplaceWithGrass = MaterialRules.condition(MaterialRules.water(0, 0), grass);
-        var commonPodzol = AylythMaterialRules.podzol(PODZOL_COMMON, 0.3, Double.MAX_VALUE);
-        var rarePodzol = AylythMaterialRules.podzol(PODZOL_RARE, 0.95, Double.MAX_VALUE);
-        var podzolDecoCommon = MaterialRules.sequence(MaterialRules.condition(MaterialRules.biome(ModBiomeKeys.DEEPWOOD_ID, ModBiomeKeys.CONIFEROUS_DEEPWOOD_ID), commonPodzol));
-        var podzolDecoRare = MaterialRules.condition(MaterialRules.biome(ModBiomeKeys.COPSE_ID, ModBiomeKeys.OVERGROWN_CLEARING_ID), rarePodzol);
-        var onSurface = MaterialRules.condition(
-                MaterialRules.stoneDepth(0, false, 0, VerticalSurfaceType.FLOOR),
-                MaterialRules.condition(MaterialRules.water(-1, 0),
-                        MaterialRules.sequence(podzolDecoCommon, podzolDecoRare, onReplaceWithGrass, dirt)
-                )
-        );
-        var onUnderSurface = MaterialRules.condition(MaterialRules.not(MaterialRules.biome(ModBiomeKeys.UPLANDS_ID)), MaterialRules.condition(MaterialRules.waterWithStoneDepth(-6, -1), MaterialRules.condition(MaterialRules.stoneDepth(0, true, 0, VerticalSurfaceType.FLOOR), dirt)));
-        var aboveBasicSurface = MaterialRules.condition(MaterialRules.surface(), MaterialRules.sequence(onSurface, onUnderSurface));
-        var bedrock = MaterialRules.condition(MaterialRules.verticalGradient("aylyth:bedrock_layer", YOffset.BOTTOM, YOffset.aboveBottom(5)), MaterialRules.block(defaultState(Blocks.BEDROCK)));
-        var uplands = MaterialRules.condition(MaterialRules.biome(ModBiomeKeys.UPLANDS_ID), MaterialRules.condition(MaterialRules.surface(), MaterialRules.condition(MaterialRules.waterWithStoneDepth(-6, -1), AylythMaterialRules.uplandsTerracotta())));
-        return MaterialRules.sequence(bedrock, uplands, aboveBasicSurface);
     }
 
     static MaterialRules.MaterialRule emptyRules() {
