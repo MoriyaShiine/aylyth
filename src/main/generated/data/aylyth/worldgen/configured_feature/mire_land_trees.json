@@ -1,14 +1,18 @@
 {
   "type": "minecraft:random_selector",
   "config": {
-    "default": "minecraft:spruce_checked",
+    "default": {
+      "feature": "aylyth:writhewood_tree",
+      "placement": []
+    },
     "features": [
       {
-        "chance": 0.5,
-        "feature": {
-          "feature": "aylyth:writhewood_tree",
-          "placement": []
-        }
+        "chance": 0.25,
+        "feature": "minecraft:spruce_checked"
+      },
+      {
+        "chance": 0.25,
+        "feature": "minecraft:mega_spruce_checked"
       }
     ]
   }
