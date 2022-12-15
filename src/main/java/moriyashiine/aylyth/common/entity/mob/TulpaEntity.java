@@ -155,8 +155,9 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
 
     @Override
     protected ActionResult interactMob(PlayerEntity player, Hand hand) {
-        ItemStack itemStack = player.getMainHandStack();
-        if(itemStack.isOf(Items.PAPER) && itemStack.hasCustomName()){
+        if(true ){//TODO //getOwnerUuid() == player.getUuid()){
+            ItemStack itemStack = player.getMainHandStack();
+            if(itemStack.isOf(Items.PAPER) && itemStack.hasCustomName()){
                 if(player.getServer() != null){
                     UserCache userCache = player.getServer().getUserCache();
                     Optional<GameProfile> cacheByName = userCache.findByName(itemStack.getName().getString());
@@ -167,15 +168,14 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
                         this.dataTracker.set(TRANSFORMING, true);
                     }
                 }
-        }else if(!player.isSneaking()){
-            this.openGui(player);
-        } else if(player.getStackInHand(hand).isEmpty() && player.getUuid().equals(this.getOwnerUuid())) {
-            this.cycleActionState(player);
+            }else if(!player.isSneaking()){
+                this.openGui(player);
+            } else if(player.getStackInHand(hand).isEmpty() && player.getUuid().equals(this.getOwnerUuid())) {
+                this.cycleActionState(player);
+            }
         }
         return super.interactMob(player, hand);
     }
-
-
 
     public void openGui(PlayerEntity player) {
         if (player.world != null && !this.world.isClient()) {
@@ -384,10 +384,6 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
         return factory;
     }
 
-    public boolean isEnemy(LivingEntity entity) {
-        return true;//TODO
-    }
-
     @Override
     public SimpleInventory getInventory() {
         return inventory;
@@ -414,7 +410,7 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
 
     @Override
     public void shoot(LivingEntity target, ItemStack crossbow, ProjectileEntity projectile, float multiShotSpray) {
-
+        this.shoot(this, target, projectile, multiShotSpray, 1.6F);
     }
 
     @Override

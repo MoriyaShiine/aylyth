@@ -34,6 +34,7 @@ public class RevengeTask extends Task<MobEntity> {
     }
 
     public static boolean wasHurt(LivingEntity entity) {
+        entity.getBrain().forget(MemoryModuleType.ANGRY_AT);
         return entity.getBrain().hasMemoryModule(MemoryModuleType.HURT_BY);
     }
 }

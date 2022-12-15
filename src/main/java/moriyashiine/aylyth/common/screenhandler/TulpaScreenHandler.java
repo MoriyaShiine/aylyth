@@ -56,11 +56,6 @@ public class TulpaScreenHandler extends ScreenHandler {
             }
 
             @Override
-            public boolean canTakeItems(PlayerEntity playerIn) {
-                return true;
-            }
-
-            @Override
             public Pair<Identifier, Identifier> getBackgroundSprite() {
                 return Pair.of(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, PlayerScreenHandler.EMPTY_HELMET_SLOT_TEXTURE);
             }
@@ -80,11 +75,6 @@ public class TulpaScreenHandler extends ScreenHandler {
             public void setStack(ItemStack stack) {
                 super.setStack(stack);
                 tulpaEntity.equipStack(EquipmentSlot.CHEST, stack);
-            }
-
-            @Override
-            public boolean canTakeItems(PlayerEntity playerIn) {
-                return true;
             }
 
             @Override
@@ -110,11 +100,6 @@ public class TulpaScreenHandler extends ScreenHandler {
             }
 
             @Override
-            public boolean canTakeItems(PlayerEntity playerIn) {
-                return true;
-            }
-
-            @Override
             public Pair<Identifier, Identifier> getBackgroundSprite() {
                 return Pair.of(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, PlayerScreenHandler.EMPTY_LEGGINGS_SLOT_TEXTURE);
             }
@@ -137,48 +122,12 @@ public class TulpaScreenHandler extends ScreenHandler {
             }
 
             @Override
-            public boolean canTakeItems(PlayerEntity playerIn) {
-                return true;
-            }
-
-            @Override
             public Pair<Identifier, Identifier> getBackgroundSprite() {
                 return Pair.of(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, PlayerScreenHandler.EMPTY_BOOTS_SLOT_TEXTURE);
             }
         });
-        this.addSlot(new Slot(inventory, 4, 77, 62) {
-            @Override
-            public boolean canInsert(ItemStack stack) {
-                return true;
-            }
-
-            @Override
-            public void setStack(ItemStack stack) {
-                super.setStack(stack);
-                tulpaEntity.equipStack(EquipmentSlot.OFFHAND, stack);
-            }
-
-            @Override
-            public boolean canTakeItems(PlayerEntity playerIn) {
-                return true;
-            }
-
-            @Override
-            public Pair<Identifier, Identifier> getBackgroundSprite() {
-                return Pair.of(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, PlayerScreenHandler.EMPTY_OFFHAND_ARMOR_SLOT);
-            }
-        });
 
         this.addSlot(new Slot(inventory, 5, 77, 44) {
-            @Override
-            public boolean canInsert(ItemStack stack) {
-                return true;
-            }
-
-            @Override
-            public boolean canTakeItems(PlayerEntity playerIn) {
-                return true;
-            }
 
             @Override
             public void setStack(ItemStack stack) {
@@ -189,19 +138,9 @@ public class TulpaScreenHandler extends ScreenHandler {
 
         this.addSlot(new Slot(inventory, 4, 77, 62) {
             @Override
-            public boolean canInsert(ItemStack stack) {
-                return true;
-            }
-
-            @Override
             public void setStack(ItemStack stack) {
                 super.setStack(stack);
                 tulpaEntity.equipStack(EquipmentSlot.OFFHAND, stack);
-            }
-
-            @Override
-            public boolean canTakeItems(PlayerEntity playerIn) {
-                return true;
             }
 
             @Override
@@ -210,23 +149,10 @@ public class TulpaScreenHandler extends ScreenHandler {
             }
         });
 
-        this.addSlot(new Slot(inventory, 5, 77, 44) {
-            @Override
-            public boolean canInsert(ItemStack stack) {
-                return true;
-            }
-
-            @Override
-            public boolean canTakeItems(PlayerEntity playerIn) {
-                return true;
-            }
-
-            @Override
-            public void setStack(ItemStack stack) {
-                super.setStack(stack);
-                tulpaEntity.equipStack(EquipmentSlot.MAINHAND, stack);
-            }
-        });
+        this.addSlot(new Slot(inventory, 6, 77 + 18, 44));
+        this.addSlot(new Slot(inventory, 7, 77 + 18, 62));
+        this.addSlot(new Slot(inventory, 8, 77 + 18 + 18, 62));
+        this.addSlot(new Slot(inventory, 9, 77 + 18 + 18, 44));
 
         for (int l = 0; l < 3; ++l) {
             for (int j1 = 0; j1 < 9; ++j1) {

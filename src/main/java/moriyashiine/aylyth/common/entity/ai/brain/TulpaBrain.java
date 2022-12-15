@@ -24,6 +24,7 @@ import net.minecraft.entity.passive.AxolotlBrain;
 import net.minecraft.entity.passive.AxolotlEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.item.Items;
+import net.minecraft.util.math.random.Random;
 
 import java.util.List;
 import java.util.Optional;
@@ -78,7 +79,8 @@ public class TulpaBrain {
                         new LookAroundTask(45, 90),
                         new WanderAroundTask(),
                         new UpdateAttackTargetTask<>(TulpaBrain::getAttackTarget),
-                        new RevengeTask()
+                        new RevengeTask(),
+                        new DefeatTargetTask(300, TulpaBrain::isHuntingTarget)
                 )
         );
     }
@@ -101,7 +103,7 @@ public class TulpaBrain {
     private static void addFightActivities(TulpaEntity tulpaEntity, Brain<TulpaEntity> brain) {
         brain.setTaskList(Activity.FIGHT, 10,
                 ImmutableList.of(
-                        new ForgetAttackTargetTask<>(entity -> !tulpaEntity.isEnemy(entity), TulpaBrain::setTargetInvalid, false),
+                        new ForgetAttackTargetTask<>(entity -> !isPreferredAttackTarget(tulpaEntity, entity), TulpaBrain::setTargetInvalid, false),
                         new FollowMobTask(mob -> isTarget(tulpaEntity, mob), (float)tulpaEntity.getAttributeValue(EntityAttributes.GENERIC_FOLLOW_RANGE)),
                         new SwitchWeaponTask(tulpaEntity),
                         new RangedApproachTask(1.0F),
@@ -118,24 +120,33 @@ public class TulpaBrain {
         tulpaEntity.getBrain().resetPossibleActivities(ImmutableList.of(Activity.FIGHT, Activity.IDLE));
         tulpaEntity.setAttacking(tulpaEntity.getBrain().hasMemoryModule(MemoryModuleType.ATTACK_TARGET));
     }
+
     private static void setTargetInvalid(TulpaEntity tulpaEntity, LivingEntity target) {
 
+    }
+
+    private static boolean isPreferredAttackTarget(TulpaEntity tulpaEntity, LivingEntity target) {
+        return getAttackTarget(tulpaEntity).filter((preferredTarget) -> preferredTarget == target).isPresent();
     }
 
     private static Optional<? extends LivingEntity> getAttackTarget(TulpaEntity tulpaEntity) {
         Brain<TulpaEntity> brain = tulpaEntity.getBrain();
         Optional<LivingEntity> optional = LookTargetUtil.getEntity(tulpaEntity, MemoryModuleType.ANGRY_AT);
-        if(optional.isPresent() && Sensor.testAttackableTargetPredicateIgnoreVisibility(tulpaEntity, optional.get())){
+        if(optional.isPresent()){
             return optional;
         }
         if (brain.hasMemoryModule(MemoryModuleType.VISIBLE_MOBS)) {
             Optional<LivingTargetCache> visibleLivingEntitiesCache = tulpaEntity.getBrain().getOptionalMemory(MemoryModuleType.VISIBLE_MOBS);
-            if(visibleLivingEntitiesCache.isPresent()){
-                return visibleLivingEntitiesCache.get().findFirst(entity -> entity.getType() == EntityType.PLAYER && !entity.isSubmergedInWater() && tulpaEntity.getOwnerUuid() != entity.getUuid());
+            if(visibleLivingEntitiesCache.isPresent() && false){//TODO Add psycho mode requirement
+                return visibleLivingEntitiesCache.get().findFirst(entity -> !entity.isSubmergedInWater() && tulpaEntity.getOwnerUuid() != entity.getUuid());
             }
         }
 
         return Optional.empty();
+    }
+
+    private static boolean isHuntingTarget(LivingEntity tulpa, LivingEntity target) {
+        return Random.create(tulpa.world.getTime()).nextFloat() < 0.1F;
     }
 
     private static boolean isTarget(TulpaEntity tulpaEntity, LivingEntity entity) {
