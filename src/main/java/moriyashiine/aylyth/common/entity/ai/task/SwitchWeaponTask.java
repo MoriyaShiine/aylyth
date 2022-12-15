@@ -16,7 +16,6 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.item.*;
 import net.minecraft.server.world.ServerWorld;
 
-import javax.swing.text.html.Option;
 import java.util.*;
 
 public class SwitchWeaponTask extends Task<TulpaEntity> {

@@ -55,6 +55,8 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
     public static final TrackedData<Boolean> TRANSFORMING = DataTracker.registerData(TulpaEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private final SimpleInventory inventory = new SimpleInventory(18);
     public int transformTime = 22;
+    @Nullable
+    public PlayerEntity interactTarget;
 
     public TulpaEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
@@ -153,6 +155,20 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
         this.dataTracker.set(ACTION_STATE, i);
     }
 
+
+    public void setInteractTarget(@Nullable PlayerEntity interactTarget) {
+        boolean bl = this.getInteractTarget() != null && interactTarget == null;
+        this.interactTarget = interactTarget;
+        if (bl) {
+            this.setInteractTarget(null);
+        }
+    }
+
+    @Nullable
+    public PlayerEntity getInteractTarget() {
+        return this.interactTarget;
+    }
+
     @Override
     protected ActionResult interactMob(PlayerEntity player, Hand hand) {
         if(true ){//TODO //getOwnerUuid() == player.getUuid()){
@@ -179,6 +195,7 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
 
     public void openGui(PlayerEntity player) {
         if (player.world != null && !this.world.isClient()) {
+            setInteractTarget(player);
             player.openHandledScreen(new TulpaScreenHandlerFactory());
         }
     }

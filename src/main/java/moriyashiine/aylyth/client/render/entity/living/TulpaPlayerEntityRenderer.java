@@ -1,6 +1,5 @@
 package moriyashiine.aylyth.client.render.entity.living;
 
-import moriyashiine.aylyth.client.AylythClient;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.VertexConsumerProvider;

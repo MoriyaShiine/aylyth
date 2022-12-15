@@ -36,6 +36,7 @@ public class TulpaScreenHandler extends ScreenHandler {
         super(ModScreenHandlers.TULPA_SCREEN_HANDLER, id);
         this.inventory = inventory;
         this.player = playerInventory.player;
+        tulpaEntity.setInteractTarget(player);
         this.tulpaEntity = tulpaEntity;
         inventory.onOpen(playerInventory.player);
         this.addSlot(new Slot(inventory, 0, 8, 9) {
@@ -218,9 +219,12 @@ public class TulpaScreenHandler extends ScreenHandler {
         return true;
     }
 
+
+
     @Override
     public void close(PlayerEntity player) {
         super.close(player);
+        this.tulpaEntity.setInteractTarget(null);
         this.inventory.onClose(player);
     }
 }

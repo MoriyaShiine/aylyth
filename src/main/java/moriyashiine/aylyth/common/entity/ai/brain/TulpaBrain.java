@@ -5,10 +5,10 @@ import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Dynamic;
 import moriyashiine.aylyth.common.entity.ai.task.EatFoodTask;
+import moriyashiine.aylyth.common.entity.ai.task.InteractPlayerTask;
 import moriyashiine.aylyth.common.entity.ai.task.RevengeTask;
 import moriyashiine.aylyth.common.entity.ai.task.SwitchWeaponTask;
 import moriyashiine.aylyth.common.entity.mob.TulpaEntity;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.brain.Activity;
@@ -19,10 +19,6 @@ import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.ai.brain.task.*;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.mob.*;
-import net.minecraft.entity.passive.AxolotlBrain;
-import net.minecraft.entity.passive.AxolotlEntity;
-import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.item.Items;
 import net.minecraft.util.math.random.Random;
 
@@ -75,6 +71,7 @@ public class TulpaBrain {
                 Activity.CORE,
                 0,
                 ImmutableList.of(
+                        new InteractPlayerTask(),
                         new StayAboveWaterTask(0.6f),
                         new LookAroundTask(45, 90),
                         new WanderAroundTask(),
