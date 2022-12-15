@@ -14,10 +14,7 @@ import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.carver.ConfiguredCarvers;
-import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
-import net.minecraft.world.gen.feature.MiscPlacedFeatures;
-import net.minecraft.world.gen.feature.OrePlacedFeatures;
-import net.minecraft.world.gen.feature.VegetationPlacedFeatures;
+import net.minecraft.world.gen.feature.*;
 
 import static moriyashiine.aylyth.common.registry.ModBiomeKeys.*;
 
@@ -28,11 +25,11 @@ public class ModBiomes {
 	public static final BiomeAdditionsSound FOREST_AMBIANCE = new BiomeAdditionsSound(ModSoundEvents.AMBIENT_FOREST_ADDITIONS, 0.005);
 	private static final int AYLYTHIAN_FOLIAGE_COLOR = 0x627F38;
 	private static final int DEEP_AYLYTHIAN_FOLIAGE_COLOR = 0x9E811A;
-	private static final int MIRE_FOLIAGE_COLOR = 0x989E43;
+	private static final int MIRE_FOLIAGE_COLOR = 0x5C5D00;
 	private static final int WATER_COLOR = 0x3F76E4;
 	private static final int UNDERWATER_COLOR = 0x050533;
 	private static final int MIRE_WATER_COLOR = 0x334553;
-	private static final int MIRE_UNDERWATER_COLOR = 0x132233;
+	private static final int MIRE_UNDERWATER_COLOR = 0x000000;
 	private static final int FOG_COLOR = 0x666666;
 	private static final int SKY_COLOR = 0x000000;
 	
@@ -171,9 +168,18 @@ public class ModBiomes {
 					biomeEffectsBuilder.foliageColor(MIRE_FOLIAGE_COLOR)
 							.grassColor(MIRE_FOLIAGE_COLOR);
 				})
-				.spawnSettings(SpawnSettingsBuilder.none())
+				.spawnSettings(builder -> {
+					builder.monster(ModEntityTypes.SCION, 5, 1, 1)
+							.monster(ModEntityTypes.AYLYTHIAN, 5, 1, 1)
+							.ambient(ModEntityTypes.PILOT_LIGHT, 3, 1, 1);
+				})
 				.generationSettings(builder -> {
-					builder.vegetalDecoFeature(ModVegetationFeatures.MIRE_TREES_PLACED);
+					builder.vegetalDecoFeature(ModVegetationFeatures.MIRE_WATER_TREES_PLACED)
+							.vegetalDecoFeature(ModVegetationFeatures.MIRE_LAND_TREES_PLACED)
+							.add(ModBiomes::addBasicVanillaOres)
+							.add(ModBiomes::addStrewnLeaves)
+							.add(ModBiomes::addWoodyGrowths)
+							.add(DefaultBiomeFeatures::addDefaultGrass);
 				})
 				.build();
 	}
