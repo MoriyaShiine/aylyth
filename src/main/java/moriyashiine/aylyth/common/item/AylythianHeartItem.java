@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.common.item;
 
-import moriyashiine.aylyth.common.AylythUtil;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.common.registry.ModDimensions;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;

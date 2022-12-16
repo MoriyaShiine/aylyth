@@ -1,5 +1,6 @@
-package moriyashiine.aylyth.common;
+package moriyashiine.aylyth.common.util;
 
+import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.item.YmpeDaggerItem;
 import moriyashiine.aylyth.common.item.YmpeLanceItem;
 import moriyashiine.aylyth.common.registry.ModDamageSources;

@@ -8,6 +8,7 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.PlayerScreenHandler;
@@ -29,17 +30,18 @@ public class TulpaScreenHandler extends ScreenHandler {
     }
 
     public TulpaScreenHandler(int syncId, PlayerInventory playerInventory, TulpaEntity tulpaEntity) {
-        this(syncId, playerInventory, tulpaEntity.getInventory(), tulpaEntity);
+        this(syncId, playerInventory, tulpaEntity.getInventory(), tulpaEntity.armorInventory, tulpaEntity);
+
     }
 
-    public TulpaScreenHandler(int id, PlayerInventory playerInventory, Inventory inventory, TulpaEntity tulpaEntity) {
+    public TulpaScreenHandler(int id, PlayerInventory playerInventory, SimpleInventory inventory, SimpleInventory armorInv, TulpaEntity tulpaEntity) {
         super(ModScreenHandlers.TULPA_SCREEN_HANDLER, id);
         this.inventory = inventory;
         this.player = playerInventory.player;
         tulpaEntity.setInteractTarget(player);
         this.tulpaEntity = tulpaEntity;
         inventory.onOpen(playerInventory.player);
-        this.addSlot(new Slot(inventory, 0, 8, 9) {
+        this.addSlot(new Slot(armorInv, 0, 8, 9) {
             @Override
             public boolean canInsert(ItemStack stack) {
                 return EQUIPMENT_SLOT_ORDER[0] == MobEntity.getPreferredEquipmentSlot(stack);
@@ -61,7 +63,7 @@ public class TulpaScreenHandler extends ScreenHandler {
                 return Pair.of(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, PlayerScreenHandler.EMPTY_HELMET_SLOT_TEXTURE);
             }
         });
-        this.addSlot(new Slot(inventory, 1, 8, 26) {
+        this.addSlot(new Slot(armorInv, 1, 8, 26) {
             @Override
             public boolean canInsert(ItemStack stack) {
                 return EQUIPMENT_SLOT_ORDER[1] == MobEntity.getPreferredEquipmentSlot(stack);
@@ -83,7 +85,7 @@ public class TulpaScreenHandler extends ScreenHandler {
                 return Pair.of(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, PlayerScreenHandler.EMPTY_CHESTPLATE_SLOT_TEXTURE);
             }
         });
-        this.addSlot(new Slot(inventory, 2, 8, 44) {
+        this.addSlot(new Slot(armorInv, 2, 8, 44) {
             @Override
             public boolean canInsert(ItemStack stack) {
                 return EQUIPMENT_SLOT_ORDER[2] == MobEntity.getPreferredEquipmentSlot(stack);
@@ -105,7 +107,7 @@ public class TulpaScreenHandler extends ScreenHandler {
                 return Pair.of(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, PlayerScreenHandler.EMPTY_LEGGINGS_SLOT_TEXTURE);
             }
         });
-        this.addSlot(new Slot(inventory, 3, 8, 62) {
+        this.addSlot(new Slot(armorInv, 3, 8, 62) {
             @Override
             public boolean canInsert(ItemStack stack) {
                 return EQUIPMENT_SLOT_ORDER[3] == MobEntity.getPreferredEquipmentSlot(stack);
@@ -128,7 +130,7 @@ public class TulpaScreenHandler extends ScreenHandler {
             }
         });
 
-        this.addSlot(new Slot(inventory, 5, 77, 44) {
+        this.addSlot(new Slot(inventory, 0, 77, 44) {
 
             @Override
             public void setStack(ItemStack stack) {
@@ -137,7 +139,7 @@ public class TulpaScreenHandler extends ScreenHandler {
             }
         });
 
-        this.addSlot(new Slot(inventory, 4, 77, 62) {
+        this.addSlot(new Slot(inventory, 1, 77, 62) {
             @Override
             public void setStack(ItemStack stack) {
                 super.setStack(stack);
@@ -150,10 +152,13 @@ public class TulpaScreenHandler extends ScreenHandler {
             }
         });
 
-        this.addSlot(new Slot(inventory, 6, 77 + 18, 44));
-        this.addSlot(new Slot(inventory, 7, 77 + 18, 62));
-        this.addSlot(new Slot(inventory, 8, 77 + 18 + 18, 62));
-        this.addSlot(new Slot(inventory, 9, 77 + 18 + 18, 44));
+
+        for (int x = 0; x < 4; ++x) {
+            this.addSlot(new Slot(inventory, (x + 2) + (0 * 3), 95 + x * 18, 18 + 0 * 18));
+            this.addSlot(new Slot(inventory, (x + 3) + (1 * 3), 95 + x * 18, 18 + 1 * 18));
+            this.addSlot(new Slot(inventory, (x + 4) + (2 * 3), 95 + x * 18, 18 + 2 * 18));
+        }
+
 
         for (int l = 0; l < 3; ++l) {
             for (int j1 = 0; j1 < 9; ++j1) {

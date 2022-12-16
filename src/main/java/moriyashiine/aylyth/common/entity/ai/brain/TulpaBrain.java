@@ -9,7 +9,6 @@ import moriyashiine.aylyth.common.entity.ai.task.InteractPlayerTask;
 import moriyashiine.aylyth.common.entity.ai.task.RevengeTask;
 import moriyashiine.aylyth.common.entity.ai.task.SwitchWeaponTask;
 import moriyashiine.aylyth.common.entity.mob.TulpaEntity;
-import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.brain.Activity;
 import net.minecraft.entity.ai.brain.Brain;
@@ -138,7 +137,6 @@ public class TulpaBrain {
                 return visibleLivingEntitiesCache.get().findFirst(entity -> !entity.isSubmergedInWater() && tulpaEntity.getOwnerUuid() != entity.getUuid());
             }
         }
-
         return Optional.empty();
     }
 
@@ -153,35 +151,4 @@ public class TulpaBrain {
     public static boolean hasAteRecently(TulpaEntity tulpaEntity) {
         return tulpaEntity.getBrain().hasMemoryModule(MemoryModuleType.ATE_RECENTLY);
     }
-
-    public static void loot(TulpaEntity tulpaEntity, ItemEntity item) {
-    }
-/*
-    public static void loot(TulpaEntity tulpaEntity, ItemEntity drop) {
-        stopWalking(tulpaEntity);
-        ItemStack itemStack;
-        if (drop.getStack().isOf(Items.GOLD_NUGGET)) {
-            tulpaEntity.sendPickup(drop, drop.getStack().getCount());
-            itemStack = drop.getStack();
-            drop.discard();
-        } else {
-            tulpaEntity.sendPickup(drop, 1);
-            itemStack = getItemFromStack(drop);
-        }
-
-        if (isGoldenItem(itemStack)) {
-            piglin.getBrain().forget(MemoryModuleType.TIME_TRYING_TO_REACH_ADMIRE_ITEM);
-            swapItemWithOffHand(piglin, itemStack);
-            setAdmiringItem(piglin);
-        } else if (isFood(itemStack) && !hasAteRecently(piglin)) {
-            setEatenRecently(piglin);
-        } else {
-            boolean bl = piglin.tryEquip(itemStack);
-            if (!bl) {
-                barterItem(piglin, itemStack);
-            }
-        }
-    }
-
- */
 }

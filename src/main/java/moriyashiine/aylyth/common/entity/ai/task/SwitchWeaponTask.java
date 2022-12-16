@@ -40,24 +40,29 @@ public class SwitchWeaponTask extends Task<TulpaEntity> {
                         weaponList.add(new Pair<>(newWeapon, (double)((SwordItem) newWeapon.getItem()).getAttackDamage() + EnchantmentHelper.getAttackDamage(newWeapon, livingEntity.getGroup())));
                     }
                 }
-                getAndSwitchWeapon(weaponList);
+
+
+                getAndSwitchWeapon(weaponList, livingEntity);
             }else if(!isHoldingUsableRangedWeapon(tulpaEntity)){
                 for(ItemStack newWeapon : tulpaEntity.getInventory().stacks){
                     if(newWeapon.getItem() instanceof RangedWeaponItem && tulpaEntity.canUseRangedWeapon((RangedWeaponItem)newWeapon.getItem())){
                         weaponList.add(new Pair<>(newWeapon, (double)(EnchantmentHelper.getAttackDamage(newWeapon, livingEntity.getGroup()))));
                     }
                 }
-                getAndSwitchWeapon(weaponList);
+
+                getAndSwitchWeapon(weaponList, livingEntity);
             }
             weaponList.clear();
         }
     }
 
-    private void getAndSwitchWeapon(List<Pair<ItemStack, Double>> weaponList){
+    private void getAndSwitchWeapon(List<Pair<ItemStack, Double>> weaponList, LivingEntity living){
         if(!weaponList.isEmpty()){
             weaponList.sort(Comparator.comparingDouble(Pair::getSecond));
-            if(!tulpaEntity.getEquippedStack(EquipmentSlot.MAINHAND).isOf(weaponList.get(0).getFirst().getItem())){
+            if(!tulpaEntity.getEquippedStack(EquipmentSlot.MAINHAND).isOf(weaponList.get(0).getFirst().getItem())
+                    && ((SwordItem) tulpaEntity.getMainHandStack().getItem()).getAttackDamage() + EnchantmentHelper.getAttackDamage(tulpaEntity.getMainHandStack(), living.getGroup()) < weaponList.get(0).getSecond()){
                 int index = tulpaEntity.getInventory().stacks.indexOf(weaponList.get(0).getFirst());
+
                 ItemStack prevWeapon = tulpaEntity.getMainHandStack();
                 tulpaEntity.equipStack(EquipmentSlot.MAINHAND, weaponList.get(0).getFirst());
                 tulpaEntity.getInventory().setStack(5, weaponList.get(0).getFirst());

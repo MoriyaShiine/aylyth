@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.common.registry;
 
-import moriyashiine.aylyth.common.AylythUtil;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.common.screenhandler.TulpaScreenHandler;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.minecraft.screen.ScreenHandlerType;

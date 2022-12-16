@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.mixin;
 
 import moriyashiine.aylyth.api.interfaces.Vital;
-import moriyashiine.aylyth.common.AylythUtil;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.common.block.SoulHearthBlock;
 import moriyashiine.aylyth.common.component.entity.CuirassComponent;
 import moriyashiine.aylyth.common.entity.mob.BoneflyEntity;

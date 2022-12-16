@@ -46,22 +46,24 @@ import javax.annotation.Nullable;
 import java.util.Optional;
 import java.util.UUID;
 
-public class TulpaEntity extends HostileEntity implements TameableHostileEntity, IAnimatable, InventoryOwner, InventoryChangedListener, CrossbowUser {
+public class TulpaEntity extends HostileEntity implements TameableHostileEntity, IAnimatable, CrossbowUser, InventoryOwner, InventoryChangedListener {
     private final AnimationFactory factory = new AnimationFactory(this);
     private static final TrackedData<Byte> TAMEABLE = DataTracker.registerData(TulpaEntity.class, TrackedDataHandlerRegistry.BYTE);
     public static final TrackedData<Integer> ACTION_STATE = DataTracker.registerData(TulpaEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Optional<UUID>> OWNER_UUID = DataTracker.registerData(TulpaEntity.class, TrackedDataHandlerRegistry.OPTIONAL_UUID);
     private static final TrackedData<Optional<UUID>> SKIN_UUID = DataTracker.registerData(TulpaEntity.class, TrackedDataHandlerRegistry.OPTIONAL_UUID);
     public static final TrackedData<Boolean> TRANSFORMING = DataTracker.registerData(TulpaEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-    private final SimpleInventory inventory = new SimpleInventory(18);
+    private final SimpleInventory inventory = new SimpleInventory(14);
+    public final SimpleInventory armorInventory = new SimpleInventory(4);
     public int transformTime = 22;
     @Nullable
     public PlayerEntity interactTarget;
 
     public TulpaEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
-        this.inventory.addListener(this);
         this.setPersistent();
+        this.inventory.addListener(this);
+        this.armorInventory.addListener(this);
     }
 
     public static DefaultAttributeContainer.Builder createTulpaAttributes() {
@@ -87,12 +89,13 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
         super.mobTick();
     }
 
-
+    protected void loot(ItemEntity item) {
+        InventoryOwner.pickUpItem(this, this, item);
+    }
 
     @Override
-    protected void loot(ItemEntity item) {
-        this.triggerItemPickedUpByEntityCriteria(item);
-        TulpaBrain.loot(this, item);
+    public boolean canGather(ItemStack stack) {
+        return this.inventory.canInsert(stack);
     }
 
     @Override
@@ -120,29 +123,29 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
     public void equipStack(EquipmentSlot slotIn, ItemStack stack) {
         super.equipStack(slotIn, stack);
         switch (slotIn) {
+            case HEAD -> {
+                if (this.armorInventory.getStack(0).isEmpty())
+                    this.armorInventory.setStack(0, ((MobEntityAccessor) this).armorItems().get(slotIn.getEntitySlotId()));
+            }
             case CHEST -> {
-                if (this.inventory.getStack(1).isEmpty())
-                    this.inventory.setStack(1, ((MobEntityAccessor) this).armorItems().get(slotIn.getEntitySlotId()));
+                if (this.armorInventory.getStack(1).isEmpty())
+                    this.armorInventory.setStack(1, ((MobEntityAccessor) this).armorItems().get(slotIn.getEntitySlotId()));
+            }
+            case LEGS -> {
+                if (this.armorInventory.getStack(2).isEmpty())
+                    this.armorInventory.setStack(2, ((MobEntityAccessor) this).armorItems().get(slotIn.getEntitySlotId()));
             }
             case FEET -> {
-                if (this.inventory.getStack(3).isEmpty())
-                    this.inventory.setStack(3, ((MobEntityAccessor) this).armorItems().get(slotIn.getEntitySlotId()));
+                if (this.armorInventory.getStack(3).isEmpty())
+                    this.armorInventory.setStack(3, ((MobEntityAccessor) this).armorItems().get(slotIn.getEntitySlotId()));
             }
-            case HEAD -> {
+            case MAINHAND -> {
                 if (this.inventory.getStack(0).isEmpty())
                     this.inventory.setStack(0, ((MobEntityAccessor) this).armorItems().get(slotIn.getEntitySlotId()));
             }
-            case LEGS -> {
-                if (this.inventory.getStack(2).isEmpty())
-                    this.inventory.setStack(2, ((MobEntityAccessor) this).armorItems().get(slotIn.getEntitySlotId()));
-            }
-            case MAINHAND -> {
-                if (this.inventory.getStack(5).isEmpty())
-                    this.inventory.setStack(5, ((MobEntityAccessor) this).armorItems().get(slotIn.getEntitySlotId()));
-            }
             case OFFHAND -> {
-                if (this.inventory.getStack(4).isEmpty())
-                    this.inventory.setStack(4, ((MobEntityAccessor) this).armorItems().get(slotIn.getEntitySlotId()));
+                if (this.inventory.getStack(1).isEmpty())
+                    this.inventory.setStack(1, ((MobEntityAccessor) this).armorItems().get(slotIn.getEntitySlotId()));
             }
         }
     }
@@ -261,7 +264,7 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
             NbtList armorItems = nbt.getList("ArmorItems", 10);
             for (int i = 0; i < ((MobEntityAccessor)this).armorItems().size(); ++i) {
                 int index = slotToInventoryIndex(MobEntity.getPreferredEquipmentSlot(ItemStack.fromNbt(armorItems.getCompound(i))));
-                this.inventory.setStack(index, ItemStack.fromNbt(armorItems.getCompound(i)));
+                this.armorInventory.setStack(index, ItemStack.fromNbt(armorItems.getCompound(i)));
             }
         }
         if (nbt.contains("HandItems", 9)) {
@@ -274,7 +277,11 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
         if(nbt.contains("TransformTime")){
             this.transformTime = nbt.getInt("TransformTime");
         }
+        this.setCanPickUpLoot(true);
+
     }
+
+
 
     public static int slotToInventoryIndex(EquipmentSlot slot) {
         switch (slot) {
@@ -406,18 +413,6 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
         return inventory;
     }
 
-    protected ItemStack addItem(ItemStack stack) {
-        return this.inventory.addStack(stack);
-    }
-
-    protected boolean canInsertIntoInventory(ItemStack stack) {
-        return this.inventory.canInsert(stack);
-    }
-
-    @Override
-    public void onInventoryChanged(Inventory sender) {
-
-    }
 
     //**CROSSBOW USER START
     @Override
@@ -439,6 +434,11 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
     public void attack(LivingEntity target, float pullProgress) {
 
     }
+
+    @Override
+    public void onInventoryChanged(Inventory sender) {
+
+    }
     //**CROSSBOW USER END
 
     private class TulpaScreenHandlerFactory implements ExtendedScreenHandlerFactory {
@@ -455,8 +455,9 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
         @Nullable
         @Override
         public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
-            var guardInv = this.tulpaEntity().inventory;
-            return new TulpaScreenHandler(syncId, inv, guardInv, this.tulpaEntity());
+            SimpleInventory tulpaInv = this.tulpaEntity().inventory;
+            SimpleInventory tulpArmorInv = this.tulpaEntity().armorInventory;
+            return new TulpaScreenHandler(syncId, inv, tulpaInv, tulpArmorInv, this.tulpaEntity());
         }
 
         @Override
