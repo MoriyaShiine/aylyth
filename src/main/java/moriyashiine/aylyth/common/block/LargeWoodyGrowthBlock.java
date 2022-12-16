@@ -5,6 +5,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateManager;
@@ -35,8 +36,8 @@ public class LargeWoodyGrowthBlock extends SmallWoodyGrowthBlock {
     @Override
     public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
         super.onPlaced(world, pos, state, placer, itemStack);
-        state = state.with(HALF, DoubleBlockHalf.UPPER);
-        world.setBlockState(pos.up(), state);
+        boolean upperWaterlogged = world.testBlockState(pos.up(), state1 -> state1.getFluidState().getFluid() == Fluids.WATER);
+        world.setBlockState(pos.up(), state.with(HALF, DoubleBlockHalf.UPPER).with(WATERLOGGED, upperWaterlogged));
     }
 
     @Override
@@ -44,12 +45,6 @@ public class LargeWoodyGrowthBlock extends SmallWoodyGrowthBlock {
         if (!world.isClient()) {
             if (player.isCreative()) {
                 TallPlantBlock.onBreakInCreative(world, pos, state, player);
-            } else {
-                BlockEntity be = null;
-                if (state.hasBlockEntity() && state.get(HALF) == DoubleBlockHalf.UPPER) {
-                    be = world.getBlockEntity(pos.down());
-                }
-                dropStacks(state, world, pos, be, player, player.getMainHandStack());
             }
         }
         super.onBreak(world, pos, state, player);
@@ -57,7 +52,7 @@ public class LargeWoodyGrowthBlock extends SmallWoodyGrowthBlock {
 
     @Override
     public void afterBreak(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
-        super.afterBreak(world, player, pos, Blocks.AIR.getDefaultState(), blockEntity, stack);
+        super.afterBreak(world, player, pos, state, blockEntity, stack);
     }
 
     @Override
@@ -66,7 +61,7 @@ public class LargeWoodyGrowthBlock extends SmallWoodyGrowthBlock {
         if (direction.getAxis() == Direction.Axis.Y && doubleBlockHalf == DoubleBlockHalf.LOWER == (direction == Direction.UP) && (!neighborState.isOf(this) || neighborState.get(HALF) == doubleBlockHalf)) {
             return neighborState.isOf(this) && neighborState.get(HALF) != doubleBlockHalf ? state.with(HALF, neighborState.get(HALF)) : Blocks.AIR.getDefaultState();
         }
-        return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+        return doubleBlockHalf == DoubleBlockHalf.LOWER ? super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos) : state;
     }
 
     @Nullable
@@ -86,7 +81,8 @@ public class LargeWoodyGrowthBlock extends SmallWoodyGrowthBlock {
             var lowerState = world.getBlockState(pos.down());
             return lowerState.isOf(this) && lowerState.get(HALF) == DoubleBlockHalf.LOWER;
         }
-        return world.getBlockState(pos.up()).isAir() && super.canPlaceAt(state, world, pos);
+        var stateUp = world.getBlockState(pos.up());
+        return (stateUp.isAir() || stateUp.isOf(this)) && super.canPlaceAt(state, world, pos);
     }
 
     @Override

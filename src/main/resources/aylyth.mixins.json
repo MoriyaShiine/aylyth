@@ -23,7 +23,6 @@
   "client": [
     "client.BackgroundRendererMixin",
     "client.BufferBuilderStorageMixin",
-    "client.DimensionEffectsAccessor",
     "client.GameRendererMixin",
     "client.InGameHudMixin",
     "client.ItemRendererMixin",
@@ -32,7 +31,7 @@
     "client.ParticleManagerMixin",
     "client.PlayerEntityRendererMixin",
     "client.RenderLayerAccessor",
-    "client.WorldRendererMixin"
+    "client.WorldRendererAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.datagen;
+package moriyashiine.aylyth.datagen.worldgen.terrain;
 
 import moriyashiine.aylyth.common.Aylyth;
 import net.minecraft.util.Identifier;
@@ -13,7 +13,7 @@ import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.densityfunction.DensityFunction;
 import net.minecraft.world.gen.densityfunction.DensityFunctionTypes;
 
-import static moriyashiine.aylyth.datagen.AylythNoiseTypes.*;
+import static moriyashiine.aylyth.datagen.worldgen.terrain.AylythNoiseTypes.*;
 import static net.minecraft.world.gen.densityfunction.DensityFunctionTypes.*;
 
 public class AylythDensityFunctionTypes {

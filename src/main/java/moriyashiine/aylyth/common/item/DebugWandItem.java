@@ -31,7 +31,7 @@ public class DebugWandItem extends Item {
         var player = context.getPlayer();
         if (player != null && player.getStackInHand(Hand.OFF_HAND).isOf(ModItems.WOODY_GROWTH_CACHE)) {
             if (!world.isClient()) {
-                WoodyGrowthCacheBlock.spawnInventory(world, pos, player.getInventory());
+                WoodyGrowthCacheBlock.spawnInventory(world, pos, player);
             }
         }
         return super.useOnBlock(context);
@@ -51,7 +51,10 @@ public class DebugWandItem extends Item {
             }else{
                 if (user.getOffHandStack().isOf(ModItems.YMPE_FRUIT)) {
                     var optional = ModComponents.YMPE_INFESTATION.maybeGet(user);
-                    optional.ifPresent(ympeInfestationComponent -> ympeInfestationComponent.setStage((byte)(ympeInfestationComponent.getStage() + 1)));
+                    optional.ifPresent(ympeInfestationComponent -> {
+                        ympeInfestationComponent.setStage((byte)(ympeInfestationComponent.getStage() + 1));
+                        ympeInfestationComponent.setInfestationTimer((short)2400);
+                    });
                 } else {
                     ScionEntity.summonPlayerScion(user);
                 }

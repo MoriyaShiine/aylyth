@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.common.registry.biome;
+package moriyashiine.aylyth.datagen.worldgen.biomes.util;
 
 import com.mojang.datafixers.util.Pair;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;

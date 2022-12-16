@@ -1,8 +1,11 @@
-package moriyashiine.aylyth.common.registry;
+package moriyashiine.aylyth.datagen.worldgen.features;
 
 import com.google.common.collect.ImmutableList;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.block.SmallWoodyGrowthBlock;
+import moriyashiine.aylyth.common.registry.ModBlocks;
+import moriyashiine.aylyth.common.registry.ModFeatures;
+import moriyashiine.aylyth.common.registry.ModTags;
 import moriyashiine.aylyth.common.world.generator.feature.*;
 import moriyashiine.aylyth.common.world.generator.foliageplacer.PomegranateFoliagePlacer;
 import moriyashiine.aylyth.common.world.generator.foliageplacer.WrithewoodFoliagePlacer;

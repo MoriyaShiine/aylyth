@@ -2,6 +2,7 @@ package moriyashiine.aylyth.datagen;
 
 import com.google.common.collect.Maps;
 import moriyashiine.aylyth.common.block.*;
+import moriyashiine.aylyth.common.registry.ModBlockEntityTypes;
 import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.ModEntityTypes;
 import moriyashiine.aylyth.common.registry.ModItems;
@@ -21,9 +22,13 @@ import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.condition.*;
 import net.minecraft.loot.context.LootContext;
+import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.loot.entry.*;
+import net.minecraft.loot.function.CopyNbtLootFunction;
+import net.minecraft.loot.function.SetContentsLootFunction;
 import net.minecraft.loot.function.SetCountLootFunction;
+import net.minecraft.loot.provider.nbt.ContextLootNbtProvider;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import net.minecraft.predicate.NumberRange;
@@ -35,6 +40,7 @@ import net.minecraft.util.Identifier;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 public class AylythLootTableProviders {
 
@@ -72,7 +78,7 @@ public class AylythLootTableProviders {
             addDrop(ModBlocks.WRITHEWOOD_LEAVES, block -> leavesDrop(block, ModBlocks.WRITHEWOOD_BLOCKS.sapling, 0.05f, 0.0625f, 0.083333336f, 0.1f));
             addDrop(ModBlocks.VITAL_THURIBLE);
             addDrop(ModBlocks.SOUL_HEARTH, BlockLootTableGenerator::doorDrops);
-            addDrop(ModBlocks.WOODY_GROWTH_CACHE, block -> dropsNothing());
+            addDrop(ModBlocks.WOODY_GROWTH_CACHE, this::woodyGrowthCaches);
             addDrop(ModBlocks.SMALL_WOODY_GROWTH);
             addDrop(ModBlocks.LARGE_WOODY_GROWTH, this::woodyGrowths);
         }
@@ -97,36 +103,55 @@ public class AylythLootTableProviders {
             addDrop(suite.wallSign);
         }
 
+        private LootTable.Builder woodyGrowthCaches(Block block) {
+            return LootTable.builder().type(LootContextTypes.BLOCK)
+                    .pool(
+                            LootPool.builder().with(
+                                    DynamicEntry.builder(WoodyGrowthCacheBlock.CONTENTS)
+                            ).conditionally(
+                                    BlockStatePropertyLootCondition.builder(block)
+                                            .properties(
+                                                    StatePredicate.Builder.create()
+                                                            .exactMatch(LargeWoodyGrowthBlock.HALF, DoubleBlockHalf.LOWER)
+                                            )
+                            )
+                    );
+        }
+
         private LootTable.Builder woodyGrowths(Block block) {
-            return LootTable.builder().pool(
-                    LootPool.builder().with(
-                            GroupEntry.create(ItemEntry.builder(Items.STICK),
-                                    ItemEntry.builder(Items.ROTTEN_FLESH),
-                                    ItemEntry.builder(Items.BONE),
-                                    ItemEntry.builder(Items.SKELETON_SKULL),
-                                    ItemEntry.builder(Items.REDSTONE),
-                                    ItemEntry.builder(ModItems.YMPE_ITEMS.sapling),
-                                    ItemEntry.builder(ModItems.YMPE_FRUIT),
-                                    ItemEntry.builder(ModItems.NYSIAN_GRAPES),
-                                    ItemEntry.builder(ModItems.POMEGRANATE))
-                                    .conditionally(BlockStatePropertyLootCondition.builder(block)
+            return LootTable.builder().pool(LootPool.builder().with(
+                                    AlternativeEntry.builder(
+                                            ItemEntry.builder(Items.STICK)
+                                                    .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(2, 3)))
+                                                    .conditionally(RandomChanceLootCondition.builder(0.7f)),
+                                            ItemEntry.builder(Items.DARK_OAK_LOG)
+                                                    .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 2)))
+                                                    .conditionally(RandomChanceLootCondition.builder(0.24f)),
+                                            ItemEntry.builder(Items.SPRUCE_LOG)
+                                                    .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 2)))
+                                                    .conditionally(RandomChanceLootCondition.builder(0.24f)),
+                                            ItemEntry.builder(ModItems.YMPE_ITEMS.log)
+                                                    .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 2)))
+                                                    .conditionally(RandomChanceLootCondition.builder(0.24f)),
+                                            ItemEntry.builder(ModItems.POMEGRANATE_ITEMS.log)
+                                                    .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 2)))
+                                                    .conditionally(RandomChanceLootCondition.builder(0.24f)),
+                                            ItemEntry.builder(ModItems.WRITHEWOOD_ITEMS.log)
+                                                    .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 2)))
+                                                    .conditionally(RandomChanceLootCondition.builder(0.24f)),
+                                            ItemEntry.builder(ModItems.YMPE_FRUIT)
+                                                    .apply(SetCountLootFunction.builder(ConstantLootNumberProvider.create(1)))
+                                                    .conditionally(RandomChanceLootCondition.builder(0.1f))
+                                    ).conditionally(BlockStatePropertyLootCondition.builder(block)
                                             .properties(StatePredicate.Builder.create()
                                                     .exactMatch(SmallWoodyGrowthBlock.NATURAL, true)
                                             )
                                     )
-                    ).conditionally(BlockStatePropertyLootCondition.builder(block)
-                            .properties(StatePredicate.Builder.create().exactMatch(LargeWoodyGrowthBlock.HALF, DoubleBlockHalf.LOWER))
-                    ).rolls(UniformLootNumberProvider.create(0, 3))
-            ).pool(LootPool.builder()
-                    .with(ItemEntry.builder(block))
-                    .conditionally(BlockStatePropertyLootCondition.builder(block)
-                            .properties(StatePredicate.Builder.create()
-                                    .exactMatch(SmallWoodyGrowthBlock.NATURAL, false)
+                            ).with(ItemEntry.builder(ModItems.LARGE_WOODY_GROWTH))
+                            .conditionally(BlockStatePropertyLootCondition.builder(block)
+                                    .properties(StatePredicate.Builder.create().exactMatch(LargeWoodyGrowthBlock.HALF, DoubleBlockHalf.LOWER))
                             )
-                    ).conditionally(BlockStatePropertyLootCondition.builder(block)
-                            .properties(StatePredicate.Builder.create().exactMatch(LargeWoodyGrowthBlock.HALF, DoubleBlockHalf.LOWER))
-                    )
-            );
+                    );
         }
 
         private LootTable.Builder pomegranateLeavesDrop(Block leaves, Block drop, float ... chance) {
@@ -154,39 +179,25 @@ public class AylythLootTableProviders {
         }
 
         private LootTable.Builder strewnLeaves(Block block) {
-            return LootTable.builder()
-                    .pool(
-                            LootPool.builder()
-                            .conditionally(EntityPropertiesLootCondition.create(LootContext.EntityTarget.THIS))
-                                    .with(
-                                            AlternativeEntry.builder(
-                                                    AlternativeEntry.builder(StrewnLeavesBlock.LEAVES.getValues(),
-                                                            integer -> ItemEntry.builder(block)
-                                                                    .conditionally(BlockStatePropertyLootCondition.builder(block)
-                                                                            .properties(StatePredicate.Builder.create().exactMatch(StrewnLeavesBlock.LEAVES, integer))
-                                                                    )
-                                                                    .apply(SetCountLootFunction.builder(ConstantLootNumberProvider.create(integer+1)))
-                                                                    .conditionally(withSilkTouch)
-                                                    ),
-                                                    AlternativeEntry.builder(StrewnLeavesBlock.LEAVES.getValues(),
-                                                            integer -> ItemEntry.builder(block)
-                                                                    .conditionally(BlockStatePropertyLootCondition.builder(block)
-                                                                            .properties(StatePredicate.Builder.create().exactMatch(StrewnLeavesBlock.LEAVES, integer))
-                                                                    )
-                                                                    .apply(SetCountLootFunction.builder(ConstantLootNumberProvider.create(integer+1)))
-                                                                    .conditionally(MatchToolLootCondition.builder(ItemPredicate.Builder.create().items(Items.SHEARS)))
-                                                    ),
-                                                    AlternativeEntry.builder(StrewnLeavesBlock.LEAVES.getValues(),
-                                                            integer -> ItemEntry.builder(block)
-                                                                    .conditionally(BlockStatePropertyLootCondition.builder(block)
-                                                                            .properties(StatePredicate.Builder.create().exactMatch(StrewnLeavesBlock.LEAVES, integer))
-                                                                    )
-                                                                    .apply(SetCountLootFunction.builder(ConstantLootNumberProvider.create(integer+1)))
-                                                                    .conditionally(MatchToolLootCondition.builder(ItemPredicate.Builder.create().tag(ConventionalItemTags.HOES)))
+            return LootTable.builder().pool(
+                    LootPool.builder().with(
+                            AlternativeEntry.builder(StrewnLeavesBlock.LEAVES.getValues(),
+                                    integer -> ItemEntry.builder(block)
+                                            .apply(SetCountLootFunction.builder(ConstantLootNumberProvider.create(integer+1)))
+                                            .conditionally(BlockStatePropertyLootCondition.builder(block)
+                                                    .properties(StatePredicate.Builder.create()
+                                                            .exactMatch(StrewnLeavesBlock.LEAVES, integer)
                                                     )
                                             )
-                                    )
-                    );
+                                            .conditionally(AlternativeLootCondition.builder(
+                                                    withSilkTouch,
+                                                    MatchToolLootCondition.builder(ItemPredicate.Builder.create().items(Items.SHEARS)),
+                                                    MatchToolLootCondition.builder(ItemPredicate.Builder.create().tag(ConventionalItemTags.HOES))
+                                                    )
+                                            )
+                            )
+                    )
+            );
         }
     }
 

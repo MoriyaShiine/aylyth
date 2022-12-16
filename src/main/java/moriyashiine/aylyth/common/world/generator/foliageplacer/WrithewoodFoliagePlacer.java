@@ -32,12 +32,16 @@ public class WrithewoodFoliagePlacer extends FoliagePlacer {
         var pos = treeNode.getCenter();
         if (treeNode instanceof WrithewoodTreeNode dirNode) {
             var dir = dirNode.dir;
-            generateBetween(world, replacer, random, config, pos.offset(dir.getOpposite()).offset(dir.rotateYCounterclockwise()), pos.offset(dir, 3).offset(dir.rotateYClockwise()));
-            generateBetween(world, replacer, random, config, pos.offset(dir, 3), pos.offset(dir, 5));
-            generateBetween(world, replacer, random, config, pos.offset(dir.rotateYCounterclockwise(), 2), pos.offset(dir, 2).offset(dir.rotateYCounterclockwise(), 2));
-            generateBetween(world, replacer, random, config, pos.offset(dir.rotateYClockwise(), 2), pos.offset(dir, 2).offset(dir.rotateYClockwise(), 2));
-            generateBetween(world, replacer, random, config, pos.offset(dir.getOpposite()).up(), pos.offset(dir, 2).up());
-            generateBetween(world, replacer, random, config, pos.offset(dir.getOpposite()).down(), pos.offset(dir, 2).down());
+            var length = dirNode.branchLength;
+            generateBetween(world, replacer, random, config, pos.offset(dir.getOpposite(), length > 2 ? 1 : 0).offset(dir.rotateYCounterclockwise()), pos.offset(dir, length/2).offset(dir.rotateYClockwise()));
+            generateBetween(world, replacer, random, config, pos.offset(dir, length > 3 ? 2 : 1), pos.offset(dir, length > 3 ? 4 : 2));
+            if (length > 3) {
+                generateBetween(world, replacer, random, config, pos.offset(dir.rotateYCounterclockwise(), 2), pos.offset(dir).offset(dir.rotateYCounterclockwise(), 2), 0.5f);
+                generateBetween(world, replacer, random, config, pos.offset(dir.rotateYClockwise(), 2), pos.offset(dir).offset(dir.rotateYClockwise(), 2), 0.5f);
+            }
+            // These two method calls generate some leaves on the top and bottom of the logs. I don't think it looks good though
+//            generateBetween(world, replacer, random, config, pos.offset(dir.getOpposite()).up(), pos.offset(dir, 2).up());
+//            generateBetween(world, replacer, random, config, pos.offset(dir.getOpposite()).down(), pos.offset(dir, 2).down());
         } else {
             generateSquare(world, replacer, random, config, pos, radius, -2, false);
             generateSquare(world, replacer, random, config, pos, radius+1, -1, false);
@@ -47,8 +51,14 @@ public class WrithewoodFoliagePlacer extends FoliagePlacer {
     }
 
     protected void generateBetween(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, TreeFeatureConfig config, BlockPos pos1, BlockPos pos2) {
+        generateBetween(world, replacer, random, config, pos1, pos2, 1f);
+    }
+
+    protected void generateBetween(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, TreeFeatureConfig config, BlockPos pos1, BlockPos pos2, float placementChance) {
         for (BlockPos mutable : BlockPos.Mutable.iterate(pos1, pos2)) {
-            placeFoliageBlock(world, replacer, random, config, mutable);
+            if (random.nextFloat() <= placementChance) {
+                placeFoliageBlock(world, replacer, random, config, mutable);
+            }
         }
     }
 
