@@ -1,7 +1,6 @@
 package moriyashiine.aylyth.client.model.entity;
 
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.entity.mob.AylythianEntity;
 import moriyashiine.aylyth.common.entity.mob.ElderAylythianEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

@@ -15,9 +15,7 @@ import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.ai.brain.task.*;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.mob.WardenBrain;
 import net.minecraft.item.Items;
-import net.minecraft.util.math.random.Random;
 
 import java.util.List;
 import java.util.Optional;
@@ -78,7 +76,6 @@ public class TulpaBrain {
         );
     }
 
-
     private static void addIdleActivities(Brain<TulpaEntity> brain) {
         brain.setTaskList(
                 Activity.IDLE,
@@ -132,15 +129,11 @@ public class TulpaBrain {
         }
         if (brain.hasMemoryModule(MemoryModuleType.VISIBLE_MOBS)) {
             Optional<LivingTargetCache> visibleLivingEntitiesCache = tulpaEntity.getBrain().getOptionalMemory(MemoryModuleType.VISIBLE_MOBS);
-            if(visibleLivingEntitiesCache.isPresent() && false){//TODO Add psycho mode requirement
+            if(false){//TODO Add psycho mode requirement
                 return visibleLivingEntitiesCache.get().findFirst(entity -> !entity.isSubmergedInWater() && tulpaEntity.getOwnerUuid() != entity.getUuid());
             }
         }
         return Optional.empty();
-    }
-
-    private static boolean isHuntingTarget(LivingEntity tulpa, LivingEntity target) {
-        return Random.create(tulpa.world.getTime()).nextFloat() < 0.1F;
     }
 
     private static boolean isTarget(TulpaEntity tulpaEntity, LivingEntity entity) {

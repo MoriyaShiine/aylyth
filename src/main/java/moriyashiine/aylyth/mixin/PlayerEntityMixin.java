@@ -221,7 +221,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Vital {
                         mutable.set(p, q, r);
                         FluidState fluidState = this.world.getFluidState(mutable);
                         double e;
-                        if (fluidState.isIn(tag) && (e = (double)((float)q + fluidState.getHeight(this.world, mutable))) >= box.minY && !fluidState.isEqualAndStill(Fluids.WATER)) {
+                        if (fluidState.isIn(tag) && (e = (float)q + fluidState.getHeight(this.world, mutable)) >= box.minY && !fluidState.isEqualAndStill(Fluids.WATER)) {
                             bl2 = true;
                             d = Math.max(e - box.minY, d);
                             if (bl) {

@@ -7,7 +7,6 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
-import software.bernie.geckolib3.model.provider.GeoModelProvider;
 import software.bernie.geckolib3.renderers.geo.GeoLayerRenderer;
 import software.bernie.geckolib3.renderers.geo.IGeoRenderer;
 
@@ -27,6 +26,6 @@ public class ElderAylythianGlowLayerRenderer extends GeoLayerRenderer<ElderAylyt
 				TEXTURE_LOCATIONS[i] = new Identifier(Aylyth.MOD_ID, "textures/entity/living/elder_aylythian/" + i + "_eyes.png");
 			}
 		}
-		renderModel((GeoModelProvider<ElderAylythianEntity>) getEntityModel(), TEXTURE_LOCATIONS[elderAylythian.getDataTracker().get(ElderAylythianEntity.VARIANT)], matrixStackIn, bufferIn, 0xF000F0, elderAylythian, partialTicks, 1, 1, 1);
+		renderModel(getEntityModel(), TEXTURE_LOCATIONS[elderAylythian.getDataTracker().get(ElderAylythianEntity.VARIANT)], matrixStackIn, bufferIn, 0xF000F0, elderAylythian, partialTicks, 1, 1, 1);
 	}
 }

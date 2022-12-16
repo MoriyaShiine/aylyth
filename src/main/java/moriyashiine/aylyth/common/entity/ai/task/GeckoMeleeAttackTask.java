@@ -39,7 +39,7 @@ public class GeckoMeleeAttackTask extends Task<TulpaEntity> {
         LivingEntity livingEntity = this.getAttackTarget(mobEntity);
         LookTargetUtil.lookAt(mobEntity, livingEntity);
 
-        mobEntity.getBrain().remember(MemoryModuleType.ATTACK_COOLING_DOWN, true, (long)this.interval);
+        mobEntity.getBrain().remember(MemoryModuleType.ATTACK_COOLING_DOWN, true, this.interval);
 
     }
 

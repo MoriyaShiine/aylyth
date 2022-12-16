@@ -37,7 +37,7 @@ public class ElderAylythianEntity extends HostileEntity implements IAnimatable {
 	public static final TrackedData<Integer> VARIANT = DataTracker.registerData(ElderAylythianEntity.class, TrackedDataHandlerRegistry.INTEGER);
 	public static final int VARIANTS = 3;
 
-	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
+	private final AnimationFactory factory = GeckoLibUtil.createFactory(this);
 	
 	public ElderAylythianEntity(EntityType<? extends HostileEntity> entityType, World world) {
 		super(entityType, world);

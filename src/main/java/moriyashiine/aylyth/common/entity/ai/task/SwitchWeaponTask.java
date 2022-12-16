@@ -19,7 +19,7 @@ import net.minecraft.server.world.ServerWorld;
 import java.util.*;
 
 public class SwitchWeaponTask extends Task<TulpaEntity> {
-    private TulpaEntity tulpaEntity;
+    private final TulpaEntity tulpaEntity;
     public SwitchWeaponTask(TulpaEntity tulpaEntity) {
         super(ImmutableMap.of(MemoryModuleType.VISIBLE_MOBS, MemoryModuleState.VALUE_PRESENT));
         this.tulpaEntity = tulpaEntity;

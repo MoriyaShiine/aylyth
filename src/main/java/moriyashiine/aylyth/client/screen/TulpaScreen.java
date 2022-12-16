@@ -16,8 +16,8 @@ import net.minecraft.util.Identifier;
 public class TulpaScreen extends HandledScreen<TulpaScreenHandler> {
     private static final Identifier TULPA_GUI_TEXTURES = AylythUtil.id("textures/gui/tulpa_inventory.png");
 
-    private PlayerEntity player;
-    private TulpaEntity tulpaEntity;
+    private final PlayerEntity player;
+    private final TulpaEntity tulpaEntity;
     private float mousePosX;
     private float mousePosY;
     private boolean buttonPressed;
