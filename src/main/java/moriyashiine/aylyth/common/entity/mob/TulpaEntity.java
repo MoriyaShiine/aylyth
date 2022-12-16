@@ -299,7 +299,7 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
         if (nbt.contains("HandItems", 9)) {
             NbtList handItems = nbt.getList("HandItems", 10);
             for (int i = 0; i < ((MobEntityAccessor)this).handItems().size(); ++i) {
-                int handSlot = i == 0 ? 5 : 4;
+                int handSlot = i == 0 ? 0 : 1;
                 this.inventory.setStack(handSlot, ItemStack.fromNbt(handItems.getCompound(i)));
             }
         }
