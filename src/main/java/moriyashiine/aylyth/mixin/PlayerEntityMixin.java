@@ -1,6 +1,7 @@
 package moriyashiine.aylyth.mixin;
 
 import moriyashiine.aylyth.api.interfaces.Vital;
+import moriyashiine.aylyth.common.registry.ModDamageSources;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.common.block.SoulHearthBlock;
 import moriyashiine.aylyth.common.component.entity.CuirassComponent;
@@ -144,6 +145,10 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Vital {
         }
     }
 
+    /**
+     * Using {@link ModDamageSources#handleDamage(LivingEntity, DamageSource, float)} instead
+     */
+    /*
     @ModifyVariable(method = "applyDamage", at = @At(value = "INVOKE", ordinal = 0, target = "Lnet/minecraft/entity/player/PlayerEntity;getHealth()F"), ordinal = 0, argsOnly = true)
     private float aylyth$modifyDamageForCuirass(float amount, DamageSource source) {
         if (!world.isClient) {
@@ -164,6 +169,8 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Vital {
         }
         return amount;
     }
+
+     */
 
     @Override
     public void stopRiding() {

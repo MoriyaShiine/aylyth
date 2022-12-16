@@ -6,6 +6,8 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Dynamic;
 import moriyashiine.aylyth.common.entity.ai.task.*;
 import moriyashiine.aylyth.common.entity.mob.TulpaEntity;
+import moriyashiine.aylyth.common.registry.ModMemoryTypes;
+import moriyashiine.aylyth.common.registry.ModSensorTypes;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.brain.Activity;
 import net.minecraft.entity.ai.brain.Brain;
@@ -24,7 +26,8 @@ public class TulpaBrain {
     private static final List<SensorType<? extends Sensor<? super TulpaEntity>>> SENSORS = List.of(
             SensorType.NEAREST_PLAYERS,
             SensorType.NEAREST_LIVING_ENTITIES,
-            SensorType.HURT_BY
+            SensorType.HURT_BY,
+            ModSensorTypes.TULPA_SPECIFIC_SENSOR
     );
     private static final List<MemoryModuleType<?>> MEMORIES = List.of(
             MemoryModuleType.MOBS,
@@ -44,7 +47,9 @@ public class TulpaBrain {
             MemoryModuleType.PACIFIED,
             MemoryModuleType.NEAREST_REPELLENT,
             MemoryModuleType.AVOID_TARGET,
-            MemoryModuleType.ATE_RECENTLY
+            MemoryModuleType.ATE_RECENTLY,
+            ModMemoryTypes.SHOULD_FOLLOW_OWNER,
+            ModMemoryTypes.OWNER_PLAYER
     );
 
     public TulpaBrain(){}
@@ -86,7 +91,8 @@ public class TulpaBrain {
                                         Pair.of(new ConditionalTask<>(livingEntity -> true, new GoTowardsLookTarget(0.6F, 3)), 2),
                                         Pair.of(new WaitTask(30, 60), 1)
                                 ))),
-                        Pair.of(1, new EatFoodTask())
+                        Pair.of(1, new EatFoodTask()),
+                        Pair.of(2, new FollowOwnerTask())
                 )
         );
     }
@@ -129,7 +135,7 @@ public class TulpaBrain {
         }
         if (brain.hasMemoryModule(MemoryModuleType.VISIBLE_MOBS)) {
             Optional<LivingTargetCache> visibleLivingEntitiesCache = tulpaEntity.getBrain().getOptionalMemory(MemoryModuleType.VISIBLE_MOBS);
-            if(false){//TODO Add psycho mode requirement
+            if(tulpaEntity.getActionState() == 2){
                 return visibleLivingEntitiesCache.get().findFirst(entity -> !entity.isSubmergedInWater() && tulpaEntity.getOwnerUuid() != entity.getUuid());
             }
         }
@@ -142,5 +148,9 @@ public class TulpaBrain {
 
     public static boolean hasAteRecently(TulpaEntity tulpaEntity) {
         return tulpaEntity.getBrain().hasMemoryModule(MemoryModuleType.ATE_RECENTLY);
+    }
+
+    public static void setShouldFollowOwner(TulpaEntity tulpaEntity, boolean should) {
+        tulpaEntity.getBrain().remember(ModMemoryTypes.SHOULD_FOLLOW_OWNER, should);
     }
 }

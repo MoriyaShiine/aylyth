@@ -34,10 +34,9 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.ServerConfigHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.Style;
 import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.UserCache;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -56,7 +55,10 @@ import java.util.UUID;
 public class TulpaEntity extends HostileEntity implements TameableHostileEntity, IAnimatable, CrossbowUser, InventoryOwner, InventoryChangedListener {
     private final AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private static final TrackedData<Byte> TAMEABLE = DataTracker.registerData(TulpaEntity.class, TrackedDataHandlerRegistry.BYTE);
-    public static final TrackedData<Integer> ACTION_STATE = DataTracker.registerData(TulpaEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final byte IDLE = 0;
+    private static final byte FOLLOW = 1;
+    private static final byte SICKO = 2;
+    public static final TrackedData<Byte> ACTION_STATE = DataTracker.registerData(TulpaEntity.class, TrackedDataHandlerRegistry.BYTE);
     private static final TrackedData<Optional<UUID>> OWNER_UUID = DataTracker.registerData(TulpaEntity.class, TrackedDataHandlerRegistry.OPTIONAL_UUID);
     private static final TrackedData<Optional<UUID>> SKIN_UUID = DataTracker.registerData(TulpaEntity.class, TrackedDataHandlerRegistry.OPTIONAL_UUID);
     public static final TrackedData<Boolean> TRANSFORMING = DataTracker.registerData(TulpaEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
@@ -103,29 +105,9 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
         super.mobTick();
     }
 
-    protected void loot(ItemEntity item) {
-        InventoryOwner.pickUpItem(this, this, item);
-    }
-
-    @Override
-    public boolean canGather(ItemStack stack) {
-        return this.inventory.canInsert(stack);
-    }
-
-    @Override
-    protected Brain<?> deserializeBrain(Dynamic<?> dynamic) {
-        return TulpaBrain.create(this, dynamic);
-    }
-
-    @SuppressWarnings("All")
-    @Override
-    public Brain<TulpaEntity> getBrain() {
-        return (Brain<TulpaEntity>) super.getBrain();
-    }
-
     protected void initDataTracker() {
         super.initDataTracker();
-        this.dataTracker.startTracking(ACTION_STATE, 0);
+        this.dataTracker.startTracking(ACTION_STATE, (byte) 0);
         this.dataTracker.startTracking(OWNER_UUID, Optional.empty());
         this.dataTracker.startTracking(SKIN_UUID, Optional.empty());
         this.dataTracker.startTracking(TAMEABLE, (byte) 0);
@@ -153,13 +135,15 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
         }
     }
 
-    public int getActionState() {
-        return this.dataTracker.get(ACTION_STATE);
+    public byte getActionState() {
+        return dataTracker.get(ACTION_STATE);
     }
 
-    public void setActionState(int i) {
-        this.dataTracker.set(ACTION_STATE, i);
+    private void setActionState(byte id) {
+        dataTracker.set(ACTION_STATE, id);
     }
+
+
 
     public void setInteractTarget(@Nullable PlayerEntity interactTarget) {
         this.interactTarget = interactTarget;
@@ -207,7 +191,7 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
                     setInteractTarget(player);
                     player.openHandledScreen(new TulpaScreenHandlerFactory());
                 }
-            } else if(player.getStackInHand(hand).isEmpty() && player.getUuid().equals(this.getOwnerUuid())) {
+            } else if(!this.world.isClient() && hand == Hand.MAIN_HAND &&player.getStackInHand(hand).isEmpty() && player.getUuid().equals(this.getOwnerUuid())) {
                 this.cycleActionState(player);
             }
         }
@@ -215,13 +199,36 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
     }
 
     private void cycleActionState(PlayerEntity player) {
-        if(getActionState() == 0) {
-            setActionState(2);
-        } else if(getActionState() == 2) {
-            setActionState(1);
-        } else if(getActionState() == 1) {
-            setActionState(0);
+        if(getActionState() == IDLE){
+            setActionState(FOLLOW);
+            TulpaBrain.setShouldFollowOwner(this, true);
+        }else if(getActionState() == FOLLOW){
+            setActionState(SICKO);
+            TulpaBrain.setShouldFollowOwner(this, false);
+        }else if(getActionState() == SICKO){
+            setActionState(IDLE);
         }
+        System.out.println(getActionState());
+    }
+
+    protected void loot(ItemEntity item) {
+        InventoryOwner.pickUpItem(this, this, item);
+    }
+
+    @Override
+    public boolean canGather(ItemStack stack) {
+        return this.inventory.canInsert(stack);
+    }
+
+    @Override
+    protected Brain<?> deserializeBrain(Dynamic<?> dynamic) {
+        return TulpaBrain.create(this, dynamic);
+    }
+
+    @SuppressWarnings("All")
+    @Override
+    public Brain<TulpaEntity> getBrain() {
+        return (Brain<TulpaEntity>) super.getBrain();
     }
 
     @Override
@@ -230,7 +237,7 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
         if (this.getOwnerUuid() != null) {
             nbt.putUuid("Owner", this.getOwnerUuid());
         }
-        nbt.putInt("ActionState", getActionState());
+        nbt.putByte("ActionState", getActionState());
         NbtList listnbt = new NbtList();
         for (int i = 0; i < this.inventory.size(); ++i) {
             ItemStack itemstack = this.inventory.getStack(i);
@@ -255,7 +262,7 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
             String string = nbt.getString("Owner");
             ownerUUID = ServerConfigHandler.getPlayerUuidByName(this.getServer(), string);
         }
-        this.setActionState(nbt.getInt("ActionState"));
+        setActionState(nbt.getByte("ActionState"));
 
         if (ownerUUID != null) {
             try {
