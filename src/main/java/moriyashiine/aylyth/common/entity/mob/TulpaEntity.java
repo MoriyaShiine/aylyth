@@ -5,7 +5,10 @@ import com.mojang.serialization.Dynamic;
 import moriyashiine.aylyth.common.entity.ai.brain.TulpaBrain;
 import moriyashiine.aylyth.common.screenhandler.TulpaScreenHandler;
 import moriyashiine.aylyth.mixin.MobEntityAccessor;
+import moriyashiine.bewitchment.api.BewitchmentAPI;
+import moriyashiine.bewitchment.common.item.TaglockItem;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -174,17 +177,28 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
 
     @Override
     protected ActionResult interactMob(PlayerEntity player, Hand hand) {
-        if(true ){//TODO //getOwnerUuid() == player.getUuid()){
+        if(true){//TODO //getOwnerUuid() == player.getUuid()){
             ItemStack itemStack = player.getMainHandStack();
-            if(itemStack.isOf(Items.PAPER) && itemStack.hasCustomName()){
-                if(player.getServer() != null){
-                    UserCache userCache = player.getServer().getUserCache();
-                    Optional<GameProfile> cacheByName = userCache.findByName(itemStack.getName().getString());
-                    if(cacheByName.isPresent()){
-                        UUID uuid = cacheByName.get().getId();
-                        setSkinUuid(uuid);
-                        this.setCustomName(itemStack.getName());
+            if(FabricLoader.getInstance().isModLoaded("bewitchment")){
+                if(itemStack.getItem() instanceof TaglockItem){
+                    LivingEntity living = BewitchmentAPI.getTaglockOwner(world, itemStack);
+                    if(living instanceof PlayerEntity playerEntity){
+                        setSkinUuid(playerEntity.getUuid());
+                        this.setCustomName(playerEntity.getName());
                         this.dataTracker.set(TRANSFORMING, true);
+                    }
+                }
+            }else if(!FabricLoader.getInstance().isModLoaded("bewitchment")){
+                if(itemStack.isOf(Items.PAPER) && itemStack.hasCustomName()){
+                    if(player.getServer() != null){
+                        UserCache userCache = player.getServer().getUserCache();
+                        Optional<GameProfile> cacheByName = userCache.findByName(itemStack.getName().getString());
+                        if(cacheByName.isPresent()){
+                            UUID uuid = cacheByName.get().getId();
+                            setSkinUuid(uuid);
+                            this.setCustomName(itemStack.getName());
+                            this.dataTracker.set(TRANSFORMING, true);
+                        }
                     }
                 }
             }else if(!player.isSneaking()){

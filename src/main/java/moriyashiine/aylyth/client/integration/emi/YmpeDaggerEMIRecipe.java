@@ -60,20 +60,14 @@ public class YmpeDaggerEMIRecipe implements EmiRecipe {
 
     @Override
     public int getDisplayHeight() {
-        if(output.size() > 5){
-            return 18 * 4;
-        }
-        if (output.size() > 3) {
-            return 18 * 3;
-        }
-        return 18 + 18;
+        return 18 + 18 + 2;
     }
 
     @Override
     public void addWidgets(WidgetHolder widgets) {
         Entity target = entityType.create(MinecraftClient.getInstance().world);
 
-        widgets.addDrawable(18,16,20,20, (matrices, mouseX, mouseY, delta) -> {
+        widgets.addDrawable(18,18,20,20, (matrices, mouseX, mouseY, delta) -> {
             if (target instanceof LivingEntity livingEntity) {
                 RenderUtils.drawEntity(18,18, 20, mouseX, mouseY, livingEntity, null);
             }
