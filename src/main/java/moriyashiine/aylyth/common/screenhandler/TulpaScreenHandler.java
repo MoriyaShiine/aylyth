@@ -20,6 +20,7 @@ public class TulpaScreenHandler extends ScreenHandler {
     private final PlayerEntity player;
     public final TulpaEntity tulpaEntity;
     public final Inventory inventory;
+    public final Inventory armorInventory;
     private static final EquipmentSlot[] EQUIPMENT_SLOT_ORDER = new EquipmentSlot[]{
             EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET};
 
@@ -34,14 +35,16 @@ public class TulpaScreenHandler extends ScreenHandler {
 
     }
 
-    public TulpaScreenHandler(int id, PlayerInventory playerInventory, SimpleInventory inventory, SimpleInventory armorInv, TulpaEntity tulpaEntity) {
+    public TulpaScreenHandler(int id, PlayerInventory playerInventory, SimpleInventory inventory, SimpleInventory armorInventory, TulpaEntity tulpaEntity) {
         super(ModScreenHandlers.TULPA_SCREEN_HANDLER, id);
         this.inventory = inventory;
+        this.armorInventory = armorInventory;
         this.player = playerInventory.player;
         tulpaEntity.setInteractTarget(player);
         this.tulpaEntity = tulpaEntity;
         inventory.onOpen(playerInventory.player);
-        this.addSlot(new Slot(armorInv, 0, 8, 9) {
+        armorInventory.onOpen(playerInventory.player);
+        this.addSlot(new Slot(armorInventory, 0, 8, 9) {
             @Override
             public boolean canInsert(ItemStack stack) {
                 return EQUIPMENT_SLOT_ORDER[0] == MobEntity.getPreferredEquipmentSlot(stack);
@@ -63,7 +66,7 @@ public class TulpaScreenHandler extends ScreenHandler {
                 return Pair.of(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, PlayerScreenHandler.EMPTY_HELMET_SLOT_TEXTURE);
             }
         });
-        this.addSlot(new Slot(armorInv, 1, 8, 26) {
+        this.addSlot(new Slot(armorInventory, 1, 8, 26) {
             @Override
             public boolean canInsert(ItemStack stack) {
                 return EQUIPMENT_SLOT_ORDER[1] == MobEntity.getPreferredEquipmentSlot(stack);
@@ -85,7 +88,7 @@ public class TulpaScreenHandler extends ScreenHandler {
                 return Pair.of(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, PlayerScreenHandler.EMPTY_CHESTPLATE_SLOT_TEXTURE);
             }
         });
-        this.addSlot(new Slot(armorInv, 2, 8, 44) {
+        this.addSlot(new Slot(armorInventory, 2, 8, 44) {
             @Override
             public boolean canInsert(ItemStack stack) {
                 return EQUIPMENT_SLOT_ORDER[2] == MobEntity.getPreferredEquipmentSlot(stack);
@@ -107,7 +110,7 @@ public class TulpaScreenHandler extends ScreenHandler {
                 return Pair.of(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, PlayerScreenHandler.EMPTY_LEGGINGS_SLOT_TEXTURE);
             }
         });
-        this.addSlot(new Slot(armorInv, 3, 8, 62) {
+        this.addSlot(new Slot(armorInventory, 3, 8, 62) {
             @Override
             public boolean canInsert(ItemStack stack) {
                 return EQUIPMENT_SLOT_ORDER[3] == MobEntity.getPreferredEquipmentSlot(stack);
@@ -231,5 +234,6 @@ public class TulpaScreenHandler extends ScreenHandler {
         super.close(player);
         this.tulpaEntity.setInteractTarget(null);
         this.inventory.onClose(player);
+        this.armorInventory.onClose(player);
     }
 }

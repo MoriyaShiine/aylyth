@@ -29,6 +29,14 @@ public class SwitchWeaponTask extends Task<TulpaEntity> {
         return this.isAttackTargetVisible(mobEntity);
     }
 
+    private double getWeaponDamageLazy(ItemStack itemStack, LivingEntity targetEntity, boolean isSword){
+        double damage = EnchantmentHelper.getAttackDamage(itemStack, targetEntity.getGroup());
+        if(isSword){
+            damage = damage + (double)((SwordItem) itemStack.getItem()).getAttackDamage();
+        }
+        return damage;
+    }
+
     protected void run(ServerWorld serverWorld, TulpaEntity tulpaEntity, long l) {
         tulpaEntity.getBrain().remember(MemoryModuleType.LOOK_TARGET, new EntityLookTarget(this.getAttackTarget(tulpaEntity), true));
         LivingEntity livingEntity = getAttackTarget(tulpaEntity);
@@ -37,32 +45,26 @@ public class SwitchWeaponTask extends Task<TulpaEntity> {
             if(isInMeleeAttackRange(livingEntity)){
                 for(ItemStack newWeapon : tulpaEntity.getInventory().stacks){
                     if(newWeapon.getItem() instanceof SwordItem){
-                        weaponList.add(new Pair<>(newWeapon, (double)((SwordItem) newWeapon.getItem()).getAttackDamage() + EnchantmentHelper.getAttackDamage(newWeapon, livingEntity.getGroup())));
+                        weaponList.add(new Pair<>(newWeapon, getWeaponDamageLazy(newWeapon, livingEntity, true)));
                     }
                 }
-
-
-                getAndSwitchWeapon(weaponList, livingEntity);
             }else if(!isHoldingUsableRangedWeapon(tulpaEntity)){
                 for(ItemStack newWeapon : tulpaEntity.getInventory().stacks){
                     if(newWeapon.getItem() instanceof RangedWeaponItem && tulpaEntity.canUseRangedWeapon((RangedWeaponItem)newWeapon.getItem())){
-                        weaponList.add(new Pair<>(newWeapon, (double)(EnchantmentHelper.getAttackDamage(newWeapon, livingEntity.getGroup()))));
+                        weaponList.add(new Pair<>(newWeapon, getWeaponDamageLazy(newWeapon, livingEntity, false)));
                     }
                 }
-
-                getAndSwitchWeapon(weaponList, livingEntity);
             }
+            getAndSwitchWeapon(weaponList);
             weaponList.clear();
         }
     }
 
-    private void getAndSwitchWeapon(List<Pair<ItemStack, Double>> weaponList, LivingEntity living){
+    private void getAndSwitchWeapon(List<Pair<ItemStack, Double>> weaponList){
         if(!weaponList.isEmpty()){
             weaponList.sort(Comparator.comparingDouble(Pair::getSecond));
-            if(!tulpaEntity.getEquippedStack(EquipmentSlot.MAINHAND).isOf(weaponList.get(0).getFirst().getItem())
-                    && ((SwordItem) tulpaEntity.getMainHandStack().getItem()).getAttackDamage() + EnchantmentHelper.getAttackDamage(tulpaEntity.getMainHandStack(), living.getGroup()) < weaponList.get(0).getSecond()){
+            if(!tulpaEntity.getEquippedStack(EquipmentSlot.MAINHAND).isOf(weaponList.get(0).getFirst().getItem())){
                 int index = tulpaEntity.getInventory().stacks.indexOf(weaponList.get(0).getFirst());
-
                 ItemStack prevWeapon = tulpaEntity.getMainHandStack();
                 tulpaEntity.equipStack(EquipmentSlot.MAINHAND, weaponList.get(0).getFirst());
                 tulpaEntity.getInventory().setStack(5, weaponList.get(0).getFirst());
