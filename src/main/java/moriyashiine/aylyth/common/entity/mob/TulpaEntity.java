@@ -13,6 +13,7 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -40,25 +41,31 @@ import net.minecraft.world.World;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
+import software.bernie.geckolib3.core.builder.ILoopType;
 import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
 import java.util.UUID;
 
 public class TulpaEntity extends HostileEntity implements TameableHostileEntity, IAnimatable, CrossbowUser, InventoryOwner, InventoryChangedListener {
-    private final AnimationFactory factory = new AnimationFactory(this);
+    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private static final TrackedData<Byte> TAMEABLE = DataTracker.registerData(TulpaEntity.class, TrackedDataHandlerRegistry.BYTE);
     public static final TrackedData<Integer> ACTION_STATE = DataTracker.registerData(TulpaEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Optional<UUID>> OWNER_UUID = DataTracker.registerData(TulpaEntity.class, TrackedDataHandlerRegistry.OPTIONAL_UUID);
     private static final TrackedData<Optional<UUID>> SKIN_UUID = DataTracker.registerData(TulpaEntity.class, TrackedDataHandlerRegistry.OPTIONAL_UUID);
     public static final TrackedData<Boolean> TRANSFORMING = DataTracker.registerData(TulpaEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    public static final TrackedData<Boolean> USING_ITEM = DataTracker.registerData(TulpaEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+
+    public static final TrackedData<Boolean> IS_ATTACKING = DataTracker.registerData(TulpaEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private final SimpleInventory inventory = new SimpleInventory(14);
     public final SimpleInventory armorInventory = new SimpleInventory(4);
     public int transformTime = 22;
+    public int shieldCoolDown;
     @Nullable
     public PlayerEntity interactTarget;
 
@@ -88,6 +95,9 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
             if(transformTime < 0){
             dataTracker.set(TRANSFORMING, false);
             }
+        }
+        if (this.shieldCoolDown > 0) {
+            --this.shieldCoolDown;
         }
         super.mobTick();
     }
@@ -119,8 +129,9 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
         this.dataTracker.startTracking(SKIN_UUID, Optional.empty());
         this.dataTracker.startTracking(TAMEABLE, (byte) 0);
         this.dataTracker.startTracking(TRANSFORMING, false);
+        this.dataTracker.startTracking(USING_ITEM, false);
+        this.dataTracker.startTracking(IS_ATTACKING, false);
     }
-
 
     @Override
     public void equipStack(EquipmentSlot slotIn, ItemStack stack) {
@@ -186,9 +197,10 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
                         setSkinUuid(playerEntity.getUuid());
                         this.setCustomName(playerEntity.getName());
                         this.dataTracker.set(TRANSFORMING, true);
+                        return ActionResult.CONSUME;
                     }
                 }
-            }else if(!FabricLoader.getInstance().isModLoaded("bewitchment")){
+            }else{
                 if(itemStack.isOf(Items.PAPER) && itemStack.hasCustomName()){
                     if(player.getServer() != null){
                         UserCache userCache = player.getServer().getUserCache();
@@ -198,10 +210,12 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
                             setSkinUuid(uuid);
                             this.setCustomName(itemStack.getName());
                             this.dataTracker.set(TRANSFORMING, true);
+                            return ActionResult.CONSUME;
                         }
                     }
                 }
-            }else if(!player.isSneaking()){
+            }
+            if(!player.isSneaking()){
                 this.openGui(player);
             } else if(player.getStackInHand(hand).isEmpty() && player.getUuid().equals(this.getOwnerUuid())) {
                 this.cycleActionState(player);
@@ -245,6 +259,7 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
         }
         nbt.put("Inventory", listnbt);
         nbt.putInt("TransformTime", transformTime);
+        nbt.putInt("ShieldCoolDown", this.shieldCoolDown);
     }
 
     @Override
@@ -292,10 +307,29 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
             this.transformTime = nbt.getInt("TransformTime");
         }
         this.setCanPickUpLoot(true);
-
+        this.shieldCoolDown = nbt.getInt("ShieldCoolDown");
     }
 
-
+    @Override
+    public boolean damage(DamageSource source, float amount) {
+        if (amount > 0.0F && blockedByShield(source)) {
+            this.damageShield(amount);
+            if (!source.isProjectile()) {
+                Entity entity = source.getSource();
+                if (entity instanceof LivingEntity) {
+                    this.takeShieldHit((LivingEntity) entity);
+                    world.sendEntityStatus(entity, (byte) 29);
+                }
+            }
+        }
+        boolean damage = super.damage(source, amount);
+        if (this.world.isClient) {
+            return false;
+        } else if (damage && source.getAttacker() instanceof LivingEntity) {
+            return true;
+        }
+        return damage;
+    }
 
     public static int slotToInventoryIndex(EquipmentSlot slot) {
         switch (slot) {
@@ -384,18 +418,24 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
     }
 
     @Override
+    public boolean tryAttack(Entity target) {
+        this.getDataTracker().set(TulpaEntity.IS_ATTACKING, true);
+        return super.tryAttack(target);
+    }
+
+    @Override
     public void registerControllers(AnimationData animationData) {
         animationData.addAnimationController(new AnimationController<>(this, "moveController", 5, this::movementPredicate));
-        animationData.addAnimationController(new AnimationController<>(this, "attackController", 5, this::attackPredicate));
+        animationData.addAnimationController(new AnimationController<>(this, "attackController", 0, this::attackPredicate));
     }
     private <E extends IAnimatable> PlayState movementPredicate(AnimationEvent<E> event) {
         AnimationBuilder builder = new AnimationBuilder();
         if(this.dataTracker.get(TRANSFORMING)){
-            builder.addAnimation("tulpa_metamorphosis", false);
+            builder.addAnimation("tulpa_metamorphosis", ILoopType.EDefaultLoopTypes.PLAY_ONCE);
         }else if(event.isMoving()){
-            builder.addAnimation("tulpa_walking", true);
+            builder.addAnimation("tulpa_walking", ILoopType.EDefaultLoopTypes.LOOP);
         }else{
-            builder.addAnimation("tulpa_idle", true);
+            builder.addAnimation("tulpa_idle", ILoopType.EDefaultLoopTypes.LOOP);
         }
         if(!builder.getRawAnimationList().isEmpty()) {
             event.getController().setAnimation(builder);
@@ -406,15 +446,16 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
     private <E extends IAnimatable> PlayState attackPredicate(AnimationEvent<E> event) {
         AnimationBuilder builder = new AnimationBuilder();
         if ((this.dead || this.getHealth() < 0.01 || this.isDead())) {
-            builder.addAnimation("tulpa_death", false);
-        }else if(this.isAttacking()){
-            builder.addAnimation("tulpa_attacking_right", true);
-        }
-
-        if(!builder.getRawAnimationList().isEmpty()) {
+            builder.addAnimation("tulpa_death", ILoopType.EDefaultLoopTypes.PLAY_ONCE);
             event.getController().setAnimation(builder);
+            return PlayState.CONTINUE;
+
+        }else if(this.getDataTracker().get(IS_ATTACKING)){
+            builder.addAnimation("tulpa_attacking_right", ILoopType.EDefaultLoopTypes.LOOP);
+            event.getController().setAnimation(builder);
+            return PlayState.CONTINUE;
         }
-        return PlayState.CONTINUE;
+        return PlayState.STOP;
     }
 
     @Override
@@ -427,6 +468,11 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
         return inventory;
     }
 
+    @Override
+    public boolean isUsingItem() {
+        this.dataTracker.set(USING_ITEM, super.isUsingItem());
+        return super.isUsingItem();
+    }
 
     //**CROSSBOW USER START
     @Override
@@ -446,7 +492,7 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
 
     @Override
     public void attack(LivingEntity target, float pullProgress) {
-
+        this.shieldCoolDown = 8;
     }
 
     @Override
@@ -480,8 +526,15 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
         }
     }
 
+    @Override
+    public boolean isBlocking() {
+
+        return super.isBlocking();
+    }
+
     public static class TulpaPlayerEntity extends PathAwareEntity {
         private static final TrackedData<Optional<UUID>> SKIN_UUID = DataTracker.registerData(TulpaPlayerEntity.class, TrackedDataHandlerRegistry.OPTIONAL_UUID);
+        private static final TrackedData<Boolean> USING = DataTracker.registerData(TulpaPlayerEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
         public TulpaPlayerEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
             super(entityType, world);
         }
@@ -489,6 +542,7 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
         protected void initDataTracker() {
             super.initDataTracker();
             this.dataTracker.startTracking(SKIN_UUID, Optional.empty());
+            this.dataTracker.startTracking(USING, false);
         }
 
         @Nullable
@@ -499,7 +553,6 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
         public void setSkinUuid(@Nullable UUID uuid) {
             this.dataTracker.set(SKIN_UUID, Optional.ofNullable(uuid));
         }
-
 
         @Override
         public void writeCustomDataToNbt(NbtCompound nbt) {
@@ -522,6 +575,14 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
             if (ownerUUID != null) {
                 this.setSkinUuid(ownerUUID);
             }
+        }
+
+        public void setUsingItem(boolean b) {
+            this.dataTracker.set(USING, b);
+        }
+
+        public boolean getUsingItem(){
+            return this.dataTracker.get(USING);
         }
     }
 }

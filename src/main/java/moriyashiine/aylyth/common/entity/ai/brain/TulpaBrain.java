@@ -4,10 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Dynamic;
-import moriyashiine.aylyth.common.entity.ai.task.EatFoodTask;
-import moriyashiine.aylyth.common.entity.ai.task.InteractPlayerTask;
-import moriyashiine.aylyth.common.entity.ai.task.RevengeTask;
-import moriyashiine.aylyth.common.entity.ai.task.SwitchWeaponTask;
+import moriyashiine.aylyth.common.entity.ai.task.*;
 import moriyashiine.aylyth.common.entity.mob.TulpaEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.brain.Activity;
@@ -102,9 +99,10 @@ public class TulpaBrain {
                         new ForgetAttackTargetTask<>(entity -> !isPreferredAttackTarget(tulpaEntity, entity), TulpaBrain::setTargetInvalid, false),
                         new FollowMobTask(mob -> isTarget(tulpaEntity, mob), (float)tulpaEntity.getAttributeValue(EntityAttributes.GENERIC_FOLLOW_RANGE)),
                         new SwitchWeaponTask(tulpaEntity),
-                        new RangedApproachTask(1.0F),
-                        new MeleeAttackTask(18),
-                        new ConditionalTask<>(TulpaBrain::isHoldingCrossbow, new AttackTask<>(5, 0.75F))
+                       // new RangedApproachTask(1.0F),
+                        new GeckoMeleeAttackTask(18),
+                        new ConditionalTask<>(TulpaBrain::isHoldingCrossbow, new AttackTask<>(5, 0.75F)),
+                        new TacticalApproachTask(0.65F, LivingEntity::isAlive)
                 ), MemoryModuleType.ATTACK_TARGET);
     }
 

@@ -14,6 +14,7 @@ import net.minecraft.client.render.entity.model.PlayerEntityModel;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.item.Items;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3f;
@@ -27,6 +28,7 @@ public class TulpaEntityRenderer extends GeoEntityRenderer<TulpaEntity> {
     public TulpaEntityRenderer(EntityRendererFactory.Context ctx) {
         super(ctx, new TulpaEntityModel());
         this.model = new PlayerEntityModel<>(ctx.getPart(EntityModelLayers.PLAYER), false);
+
     }
 
     @Override
@@ -70,6 +72,8 @@ public class TulpaEntityRenderer extends GeoEntityRenderer<TulpaEntity> {
             tulpaPlayerEntity.setSprinting(entity.isSprinting());
             tulpaPlayerEntity.setSkinUuid(entity.getSkinUuid());
             tulpaPlayerEntity.setCustomName(entity.getCustomName());
+            tulpaPlayerEntity.setUsingItem(entity.getItemUseTime() > 0);
+
             MinecraftClient.getInstance().getEntityRenderDispatcher().getRenderer(tulpaPlayerEntity).render(tulpaPlayerEntity, entityYaw, partialTicks, matrixStack, bufferIn, packedLightIn);
             matrixStack.pop();
         }
@@ -87,6 +91,8 @@ public class TulpaEntityRenderer extends GeoEntityRenderer<TulpaEntity> {
         super.renderEarly(animatable, stackIn, ticks, renderTypeBuffer, vertexBuilder, packedLightIn, packedOverlayIn, red, green, blue, partialTicks);
     }
 
+
+
     @Override
     public void renderRecursively(GeoBone bone, MatrixStack stack, VertexConsumer bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
         if (bone.getName().equals("rightItem") && !mainHand.isEmpty()) {
@@ -102,6 +108,10 @@ public class TulpaEntityRenderer extends GeoEntityRenderer<TulpaEntity> {
             stack.translate(-0.25,0.4,0.05);
             stack.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(-90.0F));
             stack.scale(1.0f, 1.0f, 1.0f);
+            if(offHand.isOf(Items.SHIELD)){
+                stack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(180.0F));
+                stack.translate(0,0.2,-1.4);
+            }
             MinecraftClient.getInstance().getItemRenderer().renderItem(offHand, ModelTransformation.Mode.THIRD_PERSON_LEFT_HAND,
                     packedLightIn, packedOverlayIn, stack, this.rtb, 0);
             stack.pop();

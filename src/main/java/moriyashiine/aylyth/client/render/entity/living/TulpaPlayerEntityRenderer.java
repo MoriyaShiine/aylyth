@@ -11,7 +11,13 @@ import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.util.DefaultSkinHelper;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.CrossbowItem;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.util.Arm;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.UseAction;
 
 import static moriyashiine.aylyth.common.entity.mob.TulpaEntity.*;
 
@@ -38,7 +44,64 @@ public class TulpaPlayerEntityRenderer extends LivingEntityRenderer<TulpaPlayerE
         } else {
             this.model = normalModel;
         }
+        this.setModelPose(livingEntity);
         super.render(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light);
+    }
+
+    private void setModelPose(TulpaPlayerEntity livingEntity) {
+        BipedEntityModel.ArmPose armPose = getArmPose(livingEntity, Hand.MAIN_HAND);
+        BipedEntityModel.ArmPose armPose2 = getArmPose(livingEntity, Hand.OFF_HAND);
+        if (livingEntity.getMainArm() == Arm.RIGHT) {
+            normalModel.rightArmPose = armPose;
+            normalModel.leftArmPose = armPose2;
+            slimModel.rightArmPose = armPose;
+            slimModel.leftArmPose = armPose2;
+        } else {
+            normalModel.rightArmPose = armPose2;
+            normalModel.leftArmPose = armPose;
+            slimModel.rightArmPose = armPose2;
+            slimModel.leftArmPose = armPose;
+        }
+    }
+
+    private static BipedEntityModel.ArmPose getArmPose(TulpaPlayerEntity player, Hand hand) {
+        ItemStack itemStack = player.getStackInHand(hand);
+        if (itemStack.isEmpty()) {
+            System.out.println("EMPTY :( ");
+            return BipedEntityModel.ArmPose.EMPTY;
+        } else {
+            if (player.getActiveHand() == hand && player.getItemUseTimeLeft() > 0) {
+                UseAction useAction = itemStack.getUseAction();
+                System.out.println(useAction + " : " + player.getUsingItem());
+                if (useAction == UseAction.BLOCK || (player.getUsingItem() && player.getMainHandStack().isOf(Items.SHIELD))) {
+                    return BipedEntityModel.ArmPose.BLOCK;
+                }
+
+                if (useAction == UseAction.BOW) {
+                    return BipedEntityModel.ArmPose.BOW_AND_ARROW;
+                }
+
+                if (useAction == UseAction.SPEAR) {
+                    return BipedEntityModel.ArmPose.THROW_SPEAR;
+                }
+
+                if (useAction == UseAction.CROSSBOW && hand == player.getActiveHand()) {
+                    return BipedEntityModel.ArmPose.CROSSBOW_CHARGE;
+                }
+
+                if (useAction == UseAction.SPYGLASS) {
+                    return BipedEntityModel.ArmPose.SPYGLASS;
+                }
+
+                if (useAction == UseAction.TOOT_HORN) {
+                    return BipedEntityModel.ArmPose.TOOT_HORN;
+                }
+            } else if (!player.handSwinging && itemStack.isOf(Items.CROSSBOW) && CrossbowItem.isCharged(itemStack)) {
+                return BipedEntityModel.ArmPose.CROSSBOW_HOLD;
+            }
+
+            return BipedEntityModel.ArmPose.ITEM;
+        }
     }
 
     @Override
