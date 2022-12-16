@@ -69,6 +69,7 @@ public class YmpeInfestationComponent implements AutoSyncedComponent, ServerTick
 				case 3 -> applyYmpeEffects(obj, 0,0);
 				case 4 -> applyYmpeEffects(obj, 1,0);
 				case 5 -> applyYmpeEffects(obj, 2, 1);
+				default -> {}
 			}
 		}
 	}
