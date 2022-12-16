@@ -50,11 +50,13 @@ public class GeckoMeleeAttackTask extends Task<TulpaEntity> {
 
     @Override
     protected void keepRunning(ServerWorld world, TulpaEntity entity, long time) {
-        LivingEntity livingEntity = this.getAttackTarget(entity);
-        this.ANIMATION_TIME--;
-        if(ANIMATION_TIME == 15){
-            entity.swingHand(Hand.MAIN_HAND);
-            entity.tryAttack(livingEntity);
+        if(entity.getBrain().hasMemoryModule(MemoryModuleType.ATTACK_TARGET)){
+            LivingEntity livingEntity = this.getAttackTarget(entity);
+            this.ANIMATION_TIME--;
+            if(ANIMATION_TIME == 15){
+                entity.swingHand(Hand.MAIN_HAND);
+                entity.tryAttack(livingEntity);
+            }
         }
         super.keepRunning(world, entity, time);
     }

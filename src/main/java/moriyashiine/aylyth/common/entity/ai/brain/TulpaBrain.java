@@ -15,6 +15,7 @@ import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.ai.brain.task.*;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.mob.WardenBrain;
 import net.minecraft.item.Items;
 import net.minecraft.util.math.random.Random;
 
@@ -72,11 +73,11 @@ public class TulpaBrain {
                         new LookAroundTask(45, 90),
                         new WanderAroundTask(),
                         new UpdateAttackTargetTask<>(TulpaBrain::getAttackTarget),
-                        new RevengeTask(),
-                        new DefeatTargetTask(300, TulpaBrain::isHuntingTarget)
+                        new RevengeTask()
                 )
         );
     }
+
 
     private static void addIdleActivities(Brain<TulpaEntity> brain) {
         brain.setTaskList(
@@ -99,8 +100,7 @@ public class TulpaBrain {
                         new ForgetAttackTargetTask<>(entity -> !isPreferredAttackTarget(tulpaEntity, entity), TulpaBrain::setTargetInvalid, false),
                         new FollowMobTask(mob -> isTarget(tulpaEntity, mob), (float)tulpaEntity.getAttributeValue(EntityAttributes.GENERIC_FOLLOW_RANGE)),
                         new SwitchWeaponTask(tulpaEntity),
-                       // new RangedApproachTask(1.0F),
-                        new GeckoMeleeAttackTask(18),
+                        new GeckoMeleeAttackTask(10),
                         new ConditionalTask<>(TulpaBrain::isHoldingCrossbow, new AttackTask<>(5, 0.75F)),
                         new TacticalApproachTask(0.65F, LivingEntity::isAlive)
                 ), MemoryModuleType.ATTACK_TARGET);
@@ -116,7 +116,8 @@ public class TulpaBrain {
     }
 
     private static void setTargetInvalid(TulpaEntity tulpaEntity, LivingEntity target) {
-
+        tulpaEntity.getBrain().forget(MemoryModuleType.ATTACK_TARGET);
+        tulpaEntity.getBrain().forget(MemoryModuleType.ANGRY_AT);
     }
 
     private static boolean isPreferredAttackTarget(TulpaEntity tulpaEntity, LivingEntity target) {
