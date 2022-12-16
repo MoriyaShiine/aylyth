@@ -1,6 +1,5 @@
 package moriyashiine.aylyth.common.entity.mob;
 
-import blue.endless.jankson.annotation.Nullable;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import moriyashiine.aylyth.common.registry.ModComponents;
@@ -41,6 +40,7 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;

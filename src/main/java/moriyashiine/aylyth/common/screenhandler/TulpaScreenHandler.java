@@ -27,7 +27,7 @@ public class TulpaScreenHandler extends ScreenHandler {
 
     public TulpaScreenHandler(int syncId, PlayerInventory playerInventory, PacketByteBuf buf) {
         this(syncId, playerInventory,
-                playerInventory.player.getWorld().getEntityById(buf.readVarInt()) instanceof TulpaEntity tulpaEntity ? tulpaEntity : null);
+                playerInventory.player.getWorld().getEntityById(buf.readVarInt()) instanceof TulpaEntity tulpaEntity2 ? tulpaEntity2 : null);
     }
 
     public TulpaScreenHandler(int syncId, PlayerInventory playerInventory, TulpaEntity tulpaEntity) {
