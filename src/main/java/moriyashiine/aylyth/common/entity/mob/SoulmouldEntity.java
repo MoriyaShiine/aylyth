@@ -46,16 +46,18 @@ import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.IAnimationTickable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
+import software.bernie.geckolib3.core.builder.ILoopType;
 import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 import java.util.*;
 
 public class SoulmouldEntity extends HostileEntity implements TameableHostileEntity, IAnimatable, IAnimationTickable {
-    private final AnimationFactory factory = new AnimationFactory(this);
+    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     protected static final TrackedData<Boolean> DORMANT = DataTracker.registerData(SoulmouldEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     public static final TrackedData<Optional<BlockPos>> DORMANT_POS = DataTracker.registerData(SoulmouldEntity.class, TrackedDataHandlerRegistry.OPTIONAL_BLOCK_POS);
     public static final TrackedData<Integer> ATTACK_STATE = DataTracker.registerData(SoulmouldEntity.class, TrackedDataHandlerRegistry.INTEGER);
@@ -359,17 +361,17 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
         AnimationBuilder animationBuilder = new AnimationBuilder();
         if (this.isDormant()) {
             if (getAttackState() == 1) {
-                animationBuilder.addAnimation("soulmould_activate", false);
+                animationBuilder.addAnimation("soulmould_activate", ILoopType.EDefaultLoopTypes.PLAY_ONCE);
             } else {
-                animationBuilder.addAnimation("soulmould_dormant", true);
+                animationBuilder.addAnimation("soulmould_dormant", ILoopType.EDefaultLoopTypes.LOOP);
             }
         } else if(this.getAttackState() == 2) {
-            animationBuilder.addAnimation("soulmould_dashing", true);
+            animationBuilder.addAnimation("soulmould_dashing", ILoopType.EDefaultLoopTypes.LOOP);
         } else {
             if (!this.hasVehicle() && event.isMoving()) {
-                animationBuilder.addAnimation("soulmould_walking", true);
+                animationBuilder.addAnimation("soulmould_walking", ILoopType.EDefaultLoopTypes.LOOP);
             } else {
-                animationBuilder.addAnimation("soulmould_idle", true);
+                animationBuilder.addAnimation("soulmould_idle", ILoopType.EDefaultLoopTypes.LOOP);
             }
         }
 

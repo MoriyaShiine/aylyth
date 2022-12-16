@@ -28,15 +28,17 @@ import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
+import software.bernie.geckolib3.core.builder.ILoopType;
 import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AylythianEntity extends HostileEntity implements IAnimatable {
-	private final AnimationFactory factory = new AnimationFactory(this);
+	private AnimationFactory factory = GeckoLibUtil.createFactory(this);
 	
 	public AylythianEntity(EntityType<? extends HostileEntity> entityType, World world) {
 		super(entityType, world);
@@ -55,13 +57,13 @@ public class AylythianEntity extends HostileEntity implements IAnimatable {
 			if (limbSwingAmount > 0.01F) {
 				MoveState state = limbSwingAmount > 0.6F ? MoveState.RUN : limbSwingAmount > 0.3F ? MoveState.WALK : MoveState.STALK;
 				builder = switch (state) {
-					case RUN -> builder.addAnimation("run", true);
-					case WALK -> builder.addAnimation("walk", true);
-					case STALK -> builder.addAnimation("stalk", true);
+					case RUN -> builder.addAnimation("run", ILoopType.EDefaultLoopTypes.LOOP);
+					case WALK -> builder.addAnimation("walk", ILoopType.EDefaultLoopTypes.LOOP);
+					case STALK -> builder.addAnimation("stalk", ILoopType.EDefaultLoopTypes.LOOP);
 				};
 			}
 			else {
-				builder.addAnimation("idle", true);
+				builder.addAnimation("idle", ILoopType.EDefaultLoopTypes.LOOP);
 			}
 			animationEvent.getController().setAnimation(builder);
 			return PlayState.CONTINUE;
@@ -69,7 +71,7 @@ public class AylythianEntity extends HostileEntity implements IAnimatable {
 		animationData.addAnimationController(new AnimationController<>(this, "arms", 0, animationEvent -> {
 			AnimationBuilder builder = new AnimationBuilder();
 			if (handSwingTicks > 0 && !isDead()) {
-				animationEvent.getController().setAnimation(builder.addAnimation(getMainArm() == Arm.RIGHT ? "clawswipe_right" : "clawswipe_left", true));
+				animationEvent.getController().setAnimation(builder.addAnimation(getMainArm() == Arm.RIGHT ? "clawswipe_right" : "clawswipe_left", ILoopType.EDefaultLoopTypes.LOOP));
 				return PlayState.CONTINUE;
 			}
 			return PlayState.STOP;

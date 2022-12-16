@@ -35,10 +35,12 @@ import net.minecraft.world.World;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
+import software.bernie.geckolib3.core.builder.ILoopType;
 import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -46,7 +48,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public class BoneflyEntity extends HostileEntity implements IAnimatable, TameableHostileEntity {
-    private final AnimationFactory factory = new AnimationFactory(this);
+    private AnimationFactory factory = GeckoLibUtil.createFactory(this);
     protected static final TrackedData<Boolean> DORMANT = DataTracker.registerData(BoneflyEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     public static final TrackedData<Integer> ACTION_STATE = DataTracker.registerData(BoneflyEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Optional<UUID>> OWNER_UUID = DataTracker.registerData(BoneflyEntity.class, TrackedDataHandlerRegistry.OPTIONAL_UUID);
@@ -363,15 +365,15 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
         AnimationBuilder animationBuilder = new AnimationBuilder();
         if (this.isInAir()) {
             if(event.isMoving()){
-                animationBuilder.addAnimation("flight", true);
+                animationBuilder.addAnimation("flight", ILoopType.EDefaultLoopTypes.LOOP);
             }else{
-                animationBuilder.addAnimation("flight_idle", true);
+                animationBuilder.addAnimation("flight_idle", ILoopType.EDefaultLoopTypes.LOOP);
             }
         } else {
             if(event.isMoving()) {
-                animationBuilder.addAnimation("walking", true);
+                animationBuilder.addAnimation("walking", ILoopType.EDefaultLoopTypes.LOOP);
             } else {
-                animationBuilder.addAnimation("idle", true);
+                animationBuilder.addAnimation("idle", ILoopType.EDefaultLoopTypes.LOOP);
             }
         }
 
@@ -384,9 +386,9 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
         AnimationBuilder animationBuilder = new AnimationBuilder();
         if(this.isInAir()){
             if (this.getActionState() == 2) {//TODO implement grab modes
-                animationBuilder.addAnimation("stabIdle", true);
+                animationBuilder.addAnimation("stabIdle", ILoopType.EDefaultLoopTypes.LOOP);
             } else if(this.getActionState() == 1) {
-                animationBuilder.addAnimation("stab", false);
+                animationBuilder.addAnimation("stab", ILoopType.EDefaultLoopTypes.PLAY_ONCE);
             } else {
                 return PlayState.STOP;
             }
@@ -401,9 +403,9 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
     private <E extends IAnimatable> PlayState hurtPredicate(AnimationEvent<E> event) {
         AnimationBuilder animationBuilder = new AnimationBuilder();
         if ((this.dead || this.getHealth() < 0.01 || this.isDead())) {
-            animationBuilder.addAnimation("death", true);
+            animationBuilder.addAnimation("death", ILoopType.EDefaultLoopTypes.LOOP);
         } else if(this.hurtTime > 0 || this.deathTime > 0) {
-            animationBuilder.addAnimation("hurt", true);
+            animationBuilder.addAnimation("hurt", ILoopType.EDefaultLoopTypes.LOOP);
         } else {
             return PlayState.STOP;
         }

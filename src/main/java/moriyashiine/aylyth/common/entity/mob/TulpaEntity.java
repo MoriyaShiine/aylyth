@@ -2,6 +2,7 @@ package moriyashiine.aylyth.common.entity.mob;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.serialization.Dynamic;
+import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.entity.ai.brain.TulpaBrain;
 import moriyashiine.aylyth.common.screenhandler.TulpaScreenHandler;
 import moriyashiine.aylyth.mixin.MobEntityAccessor;
@@ -137,30 +138,18 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
     public void equipStack(EquipmentSlot slotIn, ItemStack stack) {
         super.equipStack(slotIn, stack);
         switch (slotIn) {
-            case HEAD -> {
-                if (this.armorInventory.getStack(0).isEmpty())
-                    this.armorInventory.setStack(0, ((MobEntityAccessor) this).armorItems().get(slotIn.getEntitySlotId()));
-            }
-            case CHEST -> {
-                if (this.armorInventory.getStack(1).isEmpty())
-                    this.armorInventory.setStack(1, ((MobEntityAccessor) this).armorItems().get(slotIn.getEntitySlotId()));
-            }
-            case LEGS -> {
-                if (this.armorInventory.getStack(2).isEmpty())
-                    this.armorInventory.setStack(2, ((MobEntityAccessor) this).armorItems().get(slotIn.getEntitySlotId()));
-            }
-            case FEET -> {
-                if (this.armorInventory.getStack(3).isEmpty())
-                    this.armorInventory.setStack(3, ((MobEntityAccessor) this).armorItems().get(slotIn.getEntitySlotId()));
-            }
-            case MAINHAND -> {
-                if (this.inventory.getStack(0).isEmpty())
-                    this.inventory.setStack(0, ((MobEntityAccessor) this).armorItems().get(slotIn.getEntitySlotId()));
-            }
-            case OFFHAND -> {
-                if (this.inventory.getStack(1).isEmpty())
-                    this.inventory.setStack(1, ((MobEntityAccessor) this).armorItems().get(slotIn.getEntitySlotId()));
-            }
+            case HEAD -> equipFromInventory(slotIn, this.armorInventory, 0);
+            case CHEST -> equipFromInventory(slotIn, this.armorInventory, 1);
+            case LEGS -> equipFromInventory(slotIn, this.armorInventory, 2);
+            case FEET -> equipFromInventory(slotIn, this.armorInventory, 3);
+            case MAINHAND -> equipFromInventory(slotIn, this.inventory, 0);
+            case OFFHAND -> equipFromInventory(slotIn, this.inventory, 1);
+        }
+    }
+
+    public void equipFromInventory(EquipmentSlot slotIn, SimpleInventory inventory, int i){
+        if (inventory.getStack(i).isEmpty()){
+            inventory.setStack(i, ((MobEntityAccessor) this).armorItems().get(slotIn.getEntitySlotId()));
         }
     }
 
@@ -172,11 +161,9 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
         this.dataTracker.set(ACTION_STATE, i);
     }
 
-
     public void setInteractTarget(@Nullable PlayerEntity interactTarget) {
-        boolean bl = this.getInteractTarget() != null && interactTarget == null;
         this.interactTarget = interactTarget;
-        if (bl) {
+        if (this.getInteractTarget() != null && interactTarget == null) {
             this.setInteractTarget(null);
         }
     }
@@ -188,7 +175,7 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
 
     @Override
     protected ActionResult interactMob(PlayerEntity player, Hand hand) {
-        if(true){//TODO //getOwnerUuid() == player.getUuid()){
+        if(getOwnerUuid() == player.getUuid() || Aylyth.isDebugMode()){
             ItemStack itemStack = player.getMainHandStack();
             if(FabricLoader.getInstance().isModLoaded("bewitchment")){
                 if(itemStack.getItem() instanceof TaglockItem){
@@ -216,19 +203,15 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
                 }
             }
             if(!player.isSneaking()){
-                this.openGui(player);
+                if (player.world != null && !this.world.isClient()) {
+                    setInteractTarget(player);
+                    player.openHandledScreen(new TulpaScreenHandlerFactory());
+                }
             } else if(player.getStackInHand(hand).isEmpty() && player.getUuid().equals(this.getOwnerUuid())) {
                 this.cycleActionState(player);
             }
         }
         return super.interactMob(player, hand);
-    }
-
-    public void openGui(PlayerEntity player) {
-        if (player.world != null && !this.world.isClient()) {
-            setInteractTarget(player);
-            player.openHandledScreen(new TulpaScreenHandlerFactory());
-        }
     }
 
     private void cycleActionState(PlayerEntity player) {
@@ -332,19 +315,12 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
     }
 
     public static int slotToInventoryIndex(EquipmentSlot slot) {
-        switch (slot) {
-            case CHEST:
-                return 1;
-            case FEET:
-                return 3;
-            case HEAD:
-                return 0;
-            case LEGS:
-                return 2;
-            default:
-                break;
-        }
-        return 0;
+        return switch (slot) {
+            case CHEST -> 1;
+            case FEET -> 3;
+            case LEGS -> 2;
+            default -> 0;
+        };
     }
 
     @Override
@@ -413,14 +389,7 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
         } else {
             this.dataTracker.set(TAMEABLE, (byte) (b & -5));
         }
-
         this.onTamedChanged();
-    }
-
-    @Override
-    public boolean tryAttack(Entity target) {
-        this.getDataTracker().set(TulpaEntity.IS_ATTACKING, true);
-        return super.tryAttack(target);
     }
 
     @Override
@@ -428,6 +397,7 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
         animationData.addAnimationController(new AnimationController<>(this, "moveController", 5, this::movementPredicate));
         animationData.addAnimationController(new AnimationController<>(this, "attackController", 0, this::attackPredicate));
     }
+
     private <E extends IAnimatable> PlayState movementPredicate(AnimationEvent<E> event) {
         AnimationBuilder builder = new AnimationBuilder();
         if(this.dataTracker.get(TRANSFORMING)){
@@ -494,12 +464,12 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
     public void attack(LivingEntity target, float pullProgress) {
         this.shieldCoolDown = 8;
     }
+    //**CROSSBOW USER END
 
     @Override
     public void onInventoryChanged(Inventory sender) {
 
     }
-    //**CROSSBOW USER END
 
     private class TulpaScreenHandlerFactory implements ExtendedScreenHandlerFactory {
         private TulpaEntity tulpaEntity() {
@@ -515,21 +485,13 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
         @Nullable
         @Override
         public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
-            SimpleInventory tulpaInv = this.tulpaEntity().inventory;
-            SimpleInventory tulpArmorInv = this.tulpaEntity().armorInventory;
-            return new TulpaScreenHandler(syncId, inv, tulpaInv, tulpArmorInv, this.tulpaEntity());
+            return new TulpaScreenHandler(syncId, inv, this.tulpaEntity().inventory, this.tulpaEntity().armorInventory, this.tulpaEntity());
         }
 
         @Override
         public Text getDisplayName() {
             return this.tulpaEntity().getDisplayName();
         }
-    }
-
-    @Override
-    public boolean isBlocking() {
-
-        return super.isBlocking();
     }
 
     public static class TulpaPlayerEntity extends PathAwareEntity {

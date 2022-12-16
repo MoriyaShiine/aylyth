@@ -1,6 +1,7 @@
 package moriyashiine.aylyth.client.model.entity;
 
 import moriyashiine.aylyth.common.Aylyth;
+import moriyashiine.aylyth.common.entity.mob.AylythianEntity;
 import moriyashiine.aylyth.common.entity.mob.ElderAylythianEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -38,8 +39,8 @@ public class ElderAylythianEntityModel extends AnimatedGeoModel<ElderAylythianEn
 	}
 	
 	@Override
-	public void setLivingAnimations(ElderAylythianEntity entity, Integer uniqueID, AnimationEvent customPredicate) {
-		super.setLivingAnimations(entity, uniqueID, customPredicate);
+	public void setCustomAnimations(ElderAylythianEntity entity, int uniqueID, AnimationEvent customPredicate) {
+		super.setCustomAnimations(entity, uniqueID, customPredicate);
 		IBone head = this.getAnimationProcessor().getBone("head");
 		EntityModelData extraData = (EntityModelData) customPredicate.getExtraDataOfType(EntityModelData.class).get(0);
 		if (head != null) {

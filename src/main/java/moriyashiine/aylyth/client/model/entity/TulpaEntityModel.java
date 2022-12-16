@@ -24,8 +24,8 @@ public class TulpaEntityModel extends AnimatedGeoModel<TulpaEntity> {
     }
 
     @Override
-    public void setLivingAnimations(TulpaEntity entity, Integer uniqueID, AnimationEvent customPredicate) {
-        super.setLivingAnimations(entity, uniqueID, customPredicate);
+    public void setCustomAnimations(TulpaEntity entity, int uniqueID, AnimationEvent customPredicate) {
+        super.setCustomAnimations(entity, uniqueID, customPredicate);
         IBone head = this.getAnimationProcessor().getBone("tulpaHead");
 
         EntityModelData extraData = (EntityModelData) customPredicate.getExtraDataOfType(EntityModelData.class).get(0);

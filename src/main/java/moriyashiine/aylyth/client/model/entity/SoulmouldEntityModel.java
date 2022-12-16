@@ -3,6 +3,7 @@ package moriyashiine.aylyth.client.model.entity;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.entity.mob.SoulmouldEntity;
 import net.minecraft.util.Identifier;
+import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.processor.IBone;
 import software.bernie.geckolib3.model.AnimatedTickingGeoModel;
@@ -24,14 +25,14 @@ public class SoulmouldEntityModel extends AnimatedTickingGeoModel<SoulmouldEntit
         return new Identifier(Aylyth.MOD_ID, "animations/entity/soulmould.animation.json");
     }
 
-    public void codeAnimations(SoulmouldEntity entity, Integer uniqueID, AnimationEvent<?> customPredicate) {
-        super.codeAnimations(entity, uniqueID, customPredicate);
+    @Override
+    public void setCustomAnimations(SoulmouldEntity animatable, int instanceId, @Nullable AnimationEvent animationEvent) {
+        super.setCustomAnimations(animatable, instanceId, animationEvent);
         IBone head = this.getAnimationProcessor().getBone("head");
-        EntityModelData extraData = (EntityModelData)customPredicate.getExtraDataOfType(EntityModelData.class).get(0);
+        EntityModelData extraData = (EntityModelData)animationEvent.getExtraDataOfType(EntityModelData.class).get(0);
         if (head != null) {
             head.setRotationX(head.getRotationX() + extraData.headPitch * 3.1415927F / 180.0F);
             head.setRotationY(head.getRotationY() + extraData.netHeadYaw * 0.017453292F);
         }
-
     }
 }
