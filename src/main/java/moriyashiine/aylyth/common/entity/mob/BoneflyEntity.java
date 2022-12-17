@@ -375,7 +375,9 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
     }
     private <E extends IAnimatable> PlayState aeroPredicate(AnimationEvent<E> event) {
         AnimationBuilder animationBuilder = new AnimationBuilder();
-        if (this.isInAir()) {
+        if(this.isDormant()){
+            animationBuilder.addAnimation("resting", ILoopType.EDefaultLoopTypes.LOOP);
+        }else if (this.isInAir()) {
             if(event.isMoving()){
                 animationBuilder.addAnimation("flight", ILoopType.EDefaultLoopTypes.LOOP);
             }else{
