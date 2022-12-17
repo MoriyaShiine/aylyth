@@ -202,13 +202,15 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
         if(getActionState() == IDLE){
             setActionState(FOLLOW);
             TulpaBrain.setShouldFollowOwner(this, true);
+            player.sendMessage(Text.translatable("info.aylyth.tulpa_follow", world.getRegistryKey().getValue().getPath()).setStyle(Style.EMPTY.withColor(Formatting.AQUA)), true);
         }else if(getActionState() == FOLLOW){
             setActionState(SICKO);
             TulpaBrain.setShouldFollowOwner(this, false);
+            player.sendMessage(Text.translatable("amogus", world.getRegistryKey().getValue().getPath()).setStyle(Style.EMPTY.withColor(Formatting.DARK_RED).withObfuscated(true).withFont(new Identifier("minecraft", "default"))), true);
         }else if(getActionState() == SICKO){
             setActionState(IDLE);
+            player.sendMessage(Text.translatable("info.aylyth.tulpa_wander", world.getRegistryKey().getValue().getPath()).setStyle(Style.EMPTY.withColor(Formatting.AQUA)), true);
         }
-        System.out.println(getActionState());
     }
 
     protected void loot(ItemEntity item) {
