@@ -4,6 +4,7 @@ import moriyashiine.aylyth.api.interfaces.Vital;
 import moriyashiine.aylyth.common.block.WoodyGrowthCacheBlock;
 import moriyashiine.aylyth.common.entity.mob.ScionEntity;
 import moriyashiine.aylyth.common.registry.ModComponents;
+import moriyashiine.aylyth.common.registry.ModDamageSources;
 import moriyashiine.aylyth.common.registry.ModItems;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
@@ -33,6 +34,8 @@ public class DebugWandItem extends Item {
             if (!world.isClient()) {
                 WoodyGrowthCacheBlock.spawnInventory(world, pos, player);
             }
+        }else{
+            player.damage(ModDamageSources.YMPE, Integer.MAX_VALUE);
         }
         return super.useOnBlock(context);
     }
