@@ -2,6 +2,7 @@ package moriyashiine.aylyth.client.render.entity.living;
 
 
 import moriyashiine.aylyth.client.model.entity.TulpaEntityModel;
+import moriyashiine.aylyth.common.entity.mob.SoulmouldEntity;
 import moriyashiine.aylyth.common.entity.mob.TulpaEntity;
 import moriyashiine.aylyth.common.registry.ModEntityTypes;
 import net.minecraft.client.MinecraftClient;
@@ -118,5 +119,10 @@ public class TulpaEntityRenderer extends GeoEntityRenderer<TulpaEntity> {
             bufferIn = rtb.getBuffer(RenderLayer.getEntityTranslucent(whTexture));
         }
         super.renderRecursively(bone, stack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+    }
+
+    @Override
+    protected float getDeathMaxRotation(TulpaEntity entityLivingBaseIn) {
+        return 0.0F;
     }
 }
