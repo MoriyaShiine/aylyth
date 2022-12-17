@@ -4,6 +4,7 @@ import moriyashiine.aylyth.common.registry.ModEntityTypes;
 import moriyashiine.aylyth.common.registry.ModParticles;
 import moriyashiine.aylyth.common.registry.ModSoundEvents;
 import moriyashiine.aylyth.datagen.worldgen.biomes.util.BiomeBuilder;
+import moriyashiine.aylyth.datagen.worldgen.biomes.util.GenerationSettingsBuilder;
 import moriyashiine.aylyth.datagen.worldgen.biomes.util.SpawnSettingsBuilder;
 import moriyashiine.aylyth.datagen.worldgen.features.ModPlacedFeatures;
 import moriyashiine.aylyth.datagen.worldgen.features.ModVegetationFeatures;
@@ -42,6 +43,7 @@ public class ModBiomes {
 		BuiltinRegistries.addCasted(BuiltinRegistries.BIOME, CONIFEROUS_DEEPWOOD_ID.getValue().toString(), createConiferousForest(true, DEEPWOOD_MOBS));
 		BuiltinRegistries.addCasted(BuiltinRegistries.BIOME, UPLANDS_ID.getValue().toString(), createUplands(SpawnSettingsBuilder.none()));
 		BuiltinRegistries.addCasted(BuiltinRegistries.BIOME, MIRE_ID.getValue().toString(), createMire());
+		BuiltinRegistries.addCasted(BuiltinRegistries.BIOME, BOWELS_ID.getValue().toString(), createBowels());
 	}
 	
 	private static Biome createClearing(boolean overgrown, SpawnSettings spawnSettings) {
@@ -180,6 +182,16 @@ public class ModBiomes {
 							.add(ModBiomes::addStrewnLeaves)
 							.add(ModBiomes::addWoodyGrowths)
 							.add(DefaultBiomeFeatures::addDefaultGrass);
+				})
+				.build();
+	}
+
+	private static Biome createBowels() {
+		return BiomeBuilder.builder(Biome.Precipitation.NONE, 0.5f, 0.0f)
+				.biomeEffects(FOG_COLOR, WATER_COLOR, UNDERWATER_COLOR, SKY_COLOR)
+				.spawnSettings(SpawnSettingsBuilder.none())
+				.generationSettings(builder -> {
+					builder.vegetalDecoFeature(ModVegetationFeatures.WOODY_GROWTH_BOWELS_PATCH_PLACED);
 				})
 				.build();
 	}

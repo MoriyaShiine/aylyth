@@ -30,7 +30,7 @@ public class AylythMaterialRules extends MaterialRules {
         var aboveBasicSurface = condition(surface(), sequence(onSurface, onUnderSurface));
         var bedrock = condition(verticalGradient("aylyth:bedrock_layer", YOffset.BOTTOM, YOffset.aboveBottom(5)), block(Blocks.BEDROCK));
         var uplands = condition(biome(ModBiomeKeys.UPLANDS_ID), condition(surface(), condition(waterWithStoneDepth(-6, -1), uplandsTerracotta())));
-        return sequence(bedrock, uplands, mire(), aboveBasicSurface);
+        return sequence(bedrock, bowels(), uplands, mire(), aboveBasicSurface);
     }
 
     static MaterialRule uplandsTerracotta() {
@@ -47,6 +47,10 @@ public class AylythMaterialRules extends MaterialRules {
 
     static MaterialRule mireUnderwaterMud() {
         return condition(surface(), condition(stoneDepth(0, false, 0, VerticalSurfaceType.FLOOR), condition(not(water(0, 0)), block(Blocks.MUD))));
+    }
+
+    static MaterialRule bowels() {
+        return condition(biome(ModBiomeKeys.BOWELS_ID), condition(waterWithStoneDepth(-6, -1), condition(stoneDepth(0, true, 0, VerticalSurfaceType.FLOOR), block(Blocks.SOUL_SOIL))));
     }
 
     static MaterialRule podzol(AylythNoiseTypes.NoiseRegistryPair noise, double min, double max) {

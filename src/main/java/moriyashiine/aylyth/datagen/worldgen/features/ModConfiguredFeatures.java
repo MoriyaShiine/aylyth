@@ -16,6 +16,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.collection.DataPool;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
+import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
@@ -34,6 +35,7 @@ public class ModConfiguredFeatures {
     }
 
     private static RegistryEntry<ConfiguredFeature<TreeFeatureConfig, ?>> registerTree(String id, TreeFeatureConfig config) {
+        BuiltinRegistries.PLACED_FEATURE.createEntryCodec().fieldOf("feature").xmap(placedFeatureRegistryEntry -> null, o -> null).codec();
         return register(id, Feature.TREE, config);
     }
 
