@@ -71,6 +71,14 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
     public int shieldCoolDown;
     @Nullable
     public PlayerEntity interactTarget;
+    public float prevStrideDistance;
+    public float strideDistance;
+    public double prevCapeX;
+    public double prevCapeY;
+    public double prevCapeZ;
+    public double capeX;
+    public double capeY;
+    public double capeZ;
 
     public TulpaEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
@@ -102,7 +110,21 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
         if (this.shieldCoolDown > 0) {
             --this.shieldCoolDown;
         }
+        this.updateCapeAngles();
         super.mobTick();
+    }
+
+    @Override
+    public void tickMovement() {
+        this.prevStrideDistance = this.strideDistance;
+        super.tickMovement();
+        float f;
+        if (this.onGround && !this.isDead() && !this.isSwimming()) {
+            f = Math.min(0.1F, (float)this.getVelocity().horizontalLength());
+        } else {
+            f = 0.0F;
+        }
+        this.strideDistance += (f - this.strideDistance) * 0.4F;
     }
 
     protected void initDataTracker() {
@@ -475,6 +497,49 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
     }
     //**CROSSBOW USER END
 
+    private void updateCapeAngles() {
+        this.prevCapeX = this.capeX;
+        this.prevCapeY = this.capeY;
+        this.prevCapeZ = this.capeZ;
+        double d = this.getX() - this.capeX;
+        double e = this.getY() - this.capeY;
+        double f = this.getZ() - this.capeZ;
+        double g = 10.0;
+        if (d > 10.0) {
+            this.capeX = this.getX();
+            this.prevCapeX = this.capeX;
+        }
+
+        if (f > 10.0) {
+            this.capeZ = this.getZ();
+            this.prevCapeZ = this.capeZ;
+        }
+
+        if (e > 10.0) {
+            this.capeY = this.getY();
+            this.prevCapeY = this.capeY;
+        }
+
+        if (d < -10.0) {
+            this.capeX = this.getX();
+            this.prevCapeX = this.capeX;
+        }
+
+        if (f < -10.0) {
+            this.capeZ = this.getZ();
+            this.prevCapeZ = this.capeZ;
+        }
+
+        if (e < -10.0) {
+            this.capeY = this.getY();
+            this.prevCapeY = this.capeY;
+        }
+
+        this.capeX += d * 0.25;
+        this.capeZ += f * 0.25;
+        this.capeY += e * 0.25;
+    }
+
     @Override
     public void onInventoryChanged(Inventory sender) {
 
@@ -506,6 +571,14 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
     public static class TulpaPlayerEntity extends PathAwareEntity {
         private static final TrackedData<Optional<UUID>> SKIN_UUID = DataTracker.registerData(TulpaPlayerEntity.class, TrackedDataHandlerRegistry.OPTIONAL_UUID);
         private static final TrackedData<Boolean> USING = DataTracker.registerData(TulpaPlayerEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+        public float prevStrideDistance;
+        public float strideDistance;
+        public double prevCapeX;
+        public double prevCapeY;
+        public double prevCapeZ;
+        public double capeX;
+        public double capeY;
+        public double capeZ;
         public TulpaPlayerEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
             super(entityType, world);
         }

@@ -1,10 +1,12 @@
 package moriyashiine.aylyth.client.render.entity.living;
 
+import moriyashiine.aylyth.client.render.entity.living.feature.AylythCapeFeatureRenderer;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.LivingEntityRenderer;
+import net.minecraft.client.render.entity.PlayerEntityRenderer;
 import net.minecraft.client.render.entity.feature.*;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
@@ -35,17 +37,21 @@ public class TulpaPlayerEntityRenderer extends LivingEntityRenderer<TulpaPlayerE
         this.addFeature(new HeadFeatureRenderer<>(this, ctx.getModelLoader(), ctx.getHeldItemRenderer()));
         this.addFeature(new ElytraFeatureRenderer<>(this, ctx.getModelLoader()));
         this.addFeature(new StuckStingersFeatureRenderer(this));
+        this.addFeature(new AylythCapeFeatureRenderer(this, ctx.getModelLoader()));
     }
 
     @Override
     public void render(TulpaPlayerEntity livingEntity, float yaw, float tickDelta, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int light) {
-        PlayerEntity player = livingEntity.getWorld().getPlayerByUuid(livingEntity.getSkinUuid());
+        if(livingEntity.getSkinUuid() != null){
+            PlayerEntity player = livingEntity.getWorld().getPlayerByUuid(livingEntity.getSkinUuid());
 
-        if (player instanceof AbstractClientPlayerEntity && DefaultSkinHelper.getModel(player.getUuid()).equals("slim")) {
-            this.model = slimModel;
-        } else {
-            this.model = normalModel;
+            if (player instanceof AbstractClientPlayerEntity && DefaultSkinHelper.getModel(player.getUuid()).equals("slim")) {
+                this.model = slimModel;
+            } else {
+                this.model = normalModel;
+            }
         }
+
         this.setModelPose(livingEntity);
         super.render(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light);
     }

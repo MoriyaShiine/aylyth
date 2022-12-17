@@ -75,6 +75,15 @@ public class TulpaEntityRenderer extends GeoEntityRenderer<TulpaEntity> {
             tulpaPlayerEntity.setCustomName(entity.getCustomName());
             tulpaPlayerEntity.setUsingItem(entity.getItemUseTime() > 0);
 
+            tulpaPlayerEntity.prevCapeX = entity.prevCapeX;
+            tulpaPlayerEntity.prevCapeY = entity.prevCapeY;
+            tulpaPlayerEntity.prevCapeZ = entity.prevCapeZ;
+            tulpaPlayerEntity.capeX = entity.capeX;
+            tulpaPlayerEntity.capeY = entity.capeY;
+            tulpaPlayerEntity.capeZ = entity.capeZ;
+            tulpaPlayerEntity.strideDistance = entity.strideDistance;
+            tulpaPlayerEntity.prevStrideDistance = entity.prevStrideDistance;
+
             MinecraftClient.getInstance().getEntityRenderDispatcher().getRenderer(tulpaPlayerEntity).render(tulpaPlayerEntity, entityYaw, partialTicks, matrixStack, bufferIn, packedLightIn);
             matrixStack.pop();
         }
