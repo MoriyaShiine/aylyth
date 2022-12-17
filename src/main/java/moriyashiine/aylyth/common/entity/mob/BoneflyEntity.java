@@ -417,9 +417,9 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
     private <E extends IAnimatable> PlayState hurtPredicate(AnimationEvent<E> event) {
         AnimationBuilder animationBuilder = new AnimationBuilder();
         if ((this.dead || this.getHealth() < 0.01 || this.isDead())) {
-            animationBuilder.addAnimation("death", ILoopType.EDefaultLoopTypes.LOOP);
+            animationBuilder.addAnimation("death", ILoopType.EDefaultLoopTypes.PLAY_ONCE);
         } else if(this.hurtTime > 0 || this.deathTime > 0) {
-            animationBuilder.addAnimation("hurt", ILoopType.EDefaultLoopTypes.LOOP);
+            animationBuilder.addAnimation("hurt", ILoopType.EDefaultLoopTypes.PLAY_ONCE);
         } else {
             return PlayState.STOP;
         }
