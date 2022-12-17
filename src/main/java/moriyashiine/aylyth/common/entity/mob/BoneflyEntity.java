@@ -8,7 +8,11 @@ import moriyashiine.aylyth.mixin.EntityAccessor;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
+import net.minecraft.entity.ai.FuzzyTargeting;
 import net.minecraft.entity.ai.TargetPredicate;
+import net.minecraft.entity.ai.goal.SwimGoal;
+import net.minecraft.entity.ai.goal.WanderAroundFarGoal;
+import net.minecraft.entity.ai.goal.WanderAroundGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -18,6 +22,8 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.PathAwareEntity;
+import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -77,8 +83,12 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
     public boolean handleFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource) {
         return false;
     }
+
     @Override
-    protected void initGoals() {}
+    protected void initGoals() {
+        this.goalSelector.add(0, new SwimGoal(this));
+        this.goalSelector.add(5, new BoneflyWanderAroundFarGoal(this, 0.7));
+    }
 
     @Override
     protected void fall(double heightDifference, boolean onGround, BlockState landedState, BlockPos landedPosition) {}
@@ -146,9 +156,11 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
     public void setDormant(boolean rest) {
         getDataTracker().set(DORMANT, rest);
     }
+
     @Override
     public void travel(Vec3d travelVector) {
         boolean flying = this.isInAir();
+        System.out.println(flying);
         float speed = (float) this.getAttributeValue(flying ? EntityAttributes.GENERIC_FLYING_SPEED : EntityAttributes.GENERIC_MOVEMENT_SPEED);
         if (!this.hasPassengers() && !this.canBeControlledByRider()) {
             this.airStrafingSpeed = 0.02f;
@@ -220,7 +232,6 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
             stabTicks++;
             if(stabTicks >= 10) {
                 this.setActionState(2);
-                System.out.println(this.getWorld().getEntitiesByClass(LivingEntity.class, this.getBoundingBox().offset(0,-2,0).expand(1), entity -> entity != this).size() > 0);
                 if(!this.getWorld().isClient() && this.getWorld().getEntitiesByClass(LivingEntity.class, this.getBoundingBox().offset(0,-2,0).expand(1), entity -> entity != this).size() > 0 && this.getPassengerList().size() <= 1) {
                     LivingEntity livingEntity = this.getWorld().getClosestEntity(this.getWorld().getEntitiesByClass(LivingEntity.class, this.getBoundingBox().offset(0, -2, 0).expand(1), entity -> entity != this), TargetPredicate.createAttackable(), this, this.getX(), this.getY(), this.getZ());
                     if(livingEntity != null) {
@@ -292,7 +303,8 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
         BlockPos.Mutable mutable = this.getBlockPos().mutableCopy();
 
         // limit so we don't do dozens of iterations per tick
-        for (int i = 0; i <= limit && mutable.getY() > 0 && !this.world.getBlockState(mutable.move(Direction.DOWN)).getMaterial().blocksMovement(); i++);
+        for (int i = 0; i <= limit && mutable.getY() > this.getWorld().getDimension().minY() && !this.world.getBlockState(mutable.move(Direction.DOWN)).getMaterial().blocksMovement(); i++);
+        System.out.println(this.getY() - mutable.getY() - 0.11);
         return this.getY() - mutable.getY() - 0.11;
     }
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
@@ -301,7 +313,7 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
             stack.decrement(1);
             this.heal(1);
         }
-        if (this.isOwner(player) && !isBaby() && stack.isEmpty() && this.isTamed() && !this.hasPassengers()) {
+        if (this.isOwner(player) && stack.isEmpty() && this.isTamed() && !this.hasPassengers()) {
             if(player.isSneaking()) {
                 this.setDormant(!this.isDormant());
             } else {
@@ -316,6 +328,7 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
     protected void removePassenger(Entity passenger) {
         super.removePassenger(passenger);
     }
+
     @Override
     public void updatePassengerPosition(Entity passenger) {
         if (!this.hasPassenger(passenger)) {
@@ -339,6 +352,7 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
     public double getMountedHeightOffset() {
         return 2.3;
     }
+
 
 
     public boolean canBeControlledByRider() {
@@ -459,5 +473,35 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
     @Override
     public void setTamed(boolean tamed) {
 
+    }
+
+    public class BoneflyWanderAroundFarGoal extends WanderAroundGoal {
+        public static final float CHANCE = 0.001F;
+        protected final float probability;
+
+        public BoneflyWanderAroundFarGoal(PathAwareEntity pathAwareEntity, double d) {
+            this(pathAwareEntity, d, CHANCE);
+        }
+
+        public BoneflyWanderAroundFarGoal(PathAwareEntity mob, double speed, float probability) {
+            super(mob, speed);
+            this.probability = probability;
+        }
+
+        @Override
+        public boolean canStart() {
+            return !BoneflyEntity.this.isDormant() && !BoneflyEntity.this.hasPassengers() && super.canStart();
+        }
+
+        @Nullable
+        @Override
+        protected Vec3d getWanderTarget() {
+            if (this.mob.isInsideWaterOrBubbleColumn()) {
+                Vec3d vec3d = FuzzyTargeting.find(this.mob, 15, 7);
+                return vec3d == null ? super.getWanderTarget() : vec3d;
+            } else {
+                return this.mob.getRandom().nextFloat() >= this.probability ? FuzzyTargeting.find(this.mob, 10, 7) : super.getWanderTarget();
+            }
+        }
     }
 }
