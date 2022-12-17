@@ -1,9 +1,12 @@
 package moriyashiine.aylyth.mixin;
 
 import moriyashiine.aylyth.api.interfaces.Vital;
-import moriyashiine.aylyth.common.AylythUtil;
+import moriyashiine.aylyth.common.registry.ModDamageSources;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.common.block.SoulHearthBlock;
+import moriyashiine.aylyth.common.component.entity.CuirassComponent;
 import moriyashiine.aylyth.common.entity.mob.BoneflyEntity;
+import moriyashiine.aylyth.common.registry.ModComponents;
 import moriyashiine.aylyth.common.registry.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -22,11 +25,14 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
+import net.minecraft.item.AxeItem;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.stat.Stat;
 import net.minecraft.tag.BiomeTags;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.tag.TagKey;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
@@ -36,6 +42,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -55,6 +62,12 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Vital {
 
     @Shadow
     public abstract boolean isInvulnerableTo(DamageSource var1);
+
+    @Shadow public abstract void remove(RemovalReason reason);
+
+    @Shadow public abstract void increaseStat(Stat<?> stat, int amount);
+
+    @Shadow public abstract void increaseStat(Identifier stat, int amount);
 
     protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
@@ -132,15 +145,38 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Vital {
         }
     }
 
+    /**
+     * Using {@link ModDamageSources#handleDamage(LivingEntity, DamageSource, float)} instead
+     */
+    /*
+    @ModifyVariable(method = "applyDamage", at = @At(value = "INVOKE", ordinal = 0, target = "Lnet/minecraft/entity/player/PlayerEntity;getHealth()F"), ordinal = 0, argsOnly = true)
+    private float aylyth$modifyDamageForCuirass(float amount, DamageSource source) {
+        if (!world.isClient) {
+            CuirassComponent component = ModComponents.CUIRASS_COMPONENT.get(this);
+            if(source.isFire() || (source.getAttacker() instanceof LivingEntity livingEntity && livingEntity.getMainHandStack().getItem() instanceof AxeItem)){
+                component.setStage(0.0F);
+                return amount;
+            } else if(source.isMagic() || source.isFromFalling() || source.isOutOfWorld() || source.isUnblockable()){
+                return amount;
+            } else {
+                while (this.getHealth() - amount <= 0 && component.getStage() > 0) {
+                    amount--;
+                    if (component.getStage() - amount >= 0) {
+                        component.setStage(component.getStage() - (int)amount);
+                    }
+                }
+            }
+        }
+        return amount;
+    }
 
+     */
 
     @Override
     public void stopRiding() {
-        Entity var2 = this.getVehicle();
-        if (var2 instanceof BoneflyEntity fly) {
+        if (this.getVehicle() instanceof BoneflyEntity fly) {
             fly.getPassengerList().forEach(Entity::dismountVehicle);
         }
-
         super.stopRiding();
     }
 
@@ -192,7 +228,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Vital {
                         mutable.set(p, q, r);
                         FluidState fluidState = this.world.getFluidState(mutable);
                         double e;
-                        if (fluidState.isIn(tag) && (e = (double)((float)q + fluidState.getHeight(this.world, mutable))) >= box.minY && !fluidState.isEqualAndStill(Fluids.WATER)) {
+                        if (fluidState.isIn(tag) && (e = (float)q + fluidState.getHeight(this.world, mutable)) >= box.minY && !fluidState.isEqualAndStill(Fluids.WATER)) {
                             bl2 = true;
                             d = Math.max(e - box.minY, d);
                             if (bl) {

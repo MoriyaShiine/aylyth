@@ -20,6 +20,7 @@ import net.minecraft.entity.ai.brain.task.*;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.TimeHelper;
+import net.minecraft.util.math.GlobalPos;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 
 import java.util.List;
@@ -35,6 +36,7 @@ public class ScionBrain {
             SensorType.HURT_BY,
             ModSensorTypes.SCION_SPECIFIC_SENSOR
     );
+
     private static final List<MemoryModuleType<?>> MEMORIES = List.of(
             MemoryModuleType.MOBS,
             MemoryModuleType.VISIBLE_MOBS,
@@ -92,6 +94,8 @@ public class ScionBrain {
                                 ImmutableList.of(
                                         Pair.of(new StrollTask(0.6F), 2),
                                         Pair.of(new ConditionalTask<>(livingEntity -> true, new GoTowardsLookTarget(0.6F, 3)), 2),
+                                        Pair.of(new GoToNearbyPositionTask(MemoryModuleType.HOME, 0.6F, 2, 100), 2),
+                                        Pair.of(new GoToIfNearbyTask(MemoryModuleType.HOME, 0.6F, 5), 2),
                                         Pair.of(new WaitTask(30, 60), 1)
                                 )))
                 )
@@ -119,6 +123,11 @@ public class ScionBrain {
 
     private static void setTargetInvalid(ScionEntity scionEntity, LivingEntity target) {
 
+    }
+
+    public static void setCurrentPosAsHome(ScionEntity scionEntity) {
+        GlobalPos globalPos = GlobalPos.create(scionEntity.world.getRegistryKey(), scionEntity.getBlockPos());
+        scionEntity.getBrain().remember(MemoryModuleType.HOME, globalPos);
     }
 
     private static Optional<? extends LivingEntity> getAttackTarget(ScionEntity scionEntity) {

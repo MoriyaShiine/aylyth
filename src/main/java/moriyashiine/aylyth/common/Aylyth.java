@@ -3,12 +3,14 @@ package moriyashiine.aylyth.common;
 import moriyashiine.aylyth.api.interfaces.Vital;
 import moriyashiine.aylyth.client.network.packet.UpdatePressingUpDownPacket;
 import moriyashiine.aylyth.common.block.WoodyGrowthCacheBlock;
+import moriyashiine.aylyth.common.entity.mob.RippedSoulEntity;
 import moriyashiine.aylyth.common.entity.mob.ScionEntity;
 import moriyashiine.aylyth.common.network.packet.GlaivePacket;
 import moriyashiine.aylyth.client.network.packet.SpawnShuckParticlesPacket;
 import moriyashiine.aylyth.common.registry.ModBiomeSources;
 import moriyashiine.aylyth.common.recipe.YmpeDaggerDropRecipe;
 import moriyashiine.aylyth.common.registry.*;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.datagen.worldgen.features.ModPlacedFeatures;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModification;
@@ -81,13 +83,40 @@ public class Aylyth implements ModInitializer {
 		ServerPlayerEvents.AFTER_RESPAWN.register(this::afterRespawn);
 		ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register(this::shucking);
 		ServerLivingEntityEvents.ALLOW_DEATH.register(this::allowDeath);
-		UseBlockCallback.EVENT.register(this::interactSoulCampfore);
+		ServerLivingEntityEvents.AFTER_DEATH.register(this::spawnRippedSoul);
+		ServerLivingEntityEvents.AFTER_DEATH.register(this::checkVital);
+		UseBlockCallback.EVENT.register(this::interactSoulCampfire);
 
 
 	}
 
+	private void checkVital(LivingEntity livingEntity, DamageSource source) {
+		if(livingEntity instanceof PlayerEntity player && AylythUtil.isSourceYmpe(source)){
+			Vital.of(player).ifPresent(vital -> vital.setVitalThuribleLevel(0));
+		}
+	}
 
-	private ActionResult interactSoulCampfore(PlayerEntity playerEntity, World world, Hand hand, BlockHitResult blockHitResult) {
+	private void spawnRippedSoul(LivingEntity livingEntity, DamageSource source) {
+		World world = livingEntity.getWorld();
+		if(!world.isClient) {
+			if(source instanceof ModDamageSources.SoulRipDamageSource ripSource) {
+				RippedSoulEntity soul = new RippedSoulEntity(ModEntityTypes.RIPPED_SOUL, world);
+				if (ripSource.getAttacker() != null) {
+					soul.setOwner((PlayerEntity) ripSource.getAttacker());
+				}
+				soul.setPosition(livingEntity.getPos().add(0, 1, 0));
+				world.spawnEntity(soul);
+			}else if((source.getAttacker() != null && source.getAttacker() instanceof PlayerEntity playerEntity && playerEntity.getMainHandStack().isOf(ModItems.YMPE_GLAIVE))){
+				RippedSoulEntity soul = new RippedSoulEntity(ModEntityTypes.RIPPED_SOUL, world);
+				soul.setOwner(playerEntity);
+				soul.setPosition(playerEntity.getPos().add(0, 1, 0));
+				world.spawnEntity(soul);
+			}
+		}
+	}
+
+
+	private ActionResult interactSoulCampfire(PlayerEntity playerEntity, World world, Hand hand, BlockHitResult blockHitResult) {
 		if(hand == Hand.MAIN_HAND && world.getBlockState(blockHitResult.getBlockPos()).isOf(Blocks.SOUL_CAMPFIRE) && world.getBlockEntity(blockHitResult.getBlockPos()) instanceof CampfireBlockEntity campfireBlockEntity){
 			ItemStack itemStack = playerEntity.getMainHandStack();
 			if(itemStack.isOf(ModItems.AYLYTHIAN_HEART) || itemStack.isOf(ModItems.WRONGMEAT) || (itemStack.isOf(ModItems.SHUCKED_YMPE_FRUIT) && (itemStack.hasNbt() && itemStack.getNbt().contains("StoredEntity")))){

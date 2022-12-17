@@ -1,10 +1,11 @@
 package moriyashiine.aylyth.mixin;
 
-import moriyashiine.aylyth.api.interfaces.Vital;
-import moriyashiine.aylyth.common.AylythUtil;
-import moriyashiine.aylyth.common.entity.mob.RippedSoulEntity;
+import moriyashiine.aylyth.common.entity.mob.BoneflyEntity;
+import moriyashiine.aylyth.common.entity.mob.SoulmouldEntity;
+import moriyashiine.aylyth.common.entity.mob.TulpaEntity;
 import moriyashiine.aylyth.common.registry.*;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityStatuses;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
@@ -13,13 +14,15 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity {
+	@Shadow public int deathTime;
+
 	public LivingEntityMixin(EntityType<?> type, World world) {
 		super(type, world);
 	}
@@ -45,19 +48,19 @@ public abstract class LivingEntityMixin extends Entity {
 		}
 	}
 
-	@Inject(method = "onDeath", at = @At("HEAD"))
-	private void aylyth$onDeath(DamageSource source, CallbackInfo ci) {
-		if(!world.isClient && source instanceof ModDamageSources.SoulRipDamageSource ripSource) {
-			RippedSoulEntity soul = new RippedSoulEntity(ModEntityTypes.RIPPED_SOUL, this.getWorld());
-			if (ripSource.getAttacker() != null) {
-				soul.setOwner((PlayerEntity) ripSource.getAttacker());
-			}
-			soul.setPosition(this.getPos().add(0, 1, 0));
-			this.world.spawnEntity(soul);
+	@ModifyVariable(method = "applyDamage", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;getHealth()F"), ordinal = 0, argsOnly = true)
+	private float aylyth$modifyDamage0(float amount, DamageSource source) {
+		if (!world.isClient) {
+			amount = ModDamageSources.handleDamage((LivingEntity) (Object) this, source, amount);
 		}
+		return amount;
+	}
 
-		if((LivingEntity) (Object) this instanceof PlayerEntity player && AylythUtil.isSourceYmpe(source)){
-			Vital.of(player).ifPresent(vital -> vital.setVitalThuribleLevel(0));
+	@ModifyConstant(method = "updatePostDeath", constant = @Constant(intValue = 20))
+	private int aylyth$updatePostDeath(int constant){
+		if((LivingEntity) (Object) this instanceof TulpaEntity t || (LivingEntity) (Object) this instanceof BoneflyEntity b || (LivingEntity) (Object) this instanceof SoulmouldEntity s){
+			return 20 * 4;
 		}
+		return constant;
 	}
 }

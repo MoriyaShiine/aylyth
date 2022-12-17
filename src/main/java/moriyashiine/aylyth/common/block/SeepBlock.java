@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.common.block;
 
-import moriyashiine.aylyth.common.AylythUtil;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.common.block.entity.SeepBlockEntity;
 import moriyashiine.aylyth.common.registry.ModDimensionKeys;
 import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;

@@ -1,6 +1,5 @@
 package moriyashiine.aylyth.common.entity.mob;
 
-import blue.endless.jankson.annotation.Nullable;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import moriyashiine.aylyth.common.registry.ModComponents;
@@ -9,7 +8,11 @@ import moriyashiine.aylyth.mixin.EntityAccessor;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
+import net.minecraft.entity.ai.FuzzyTargeting;
 import net.minecraft.entity.ai.TargetPredicate;
+import net.minecraft.entity.ai.goal.SwimGoal;
+import net.minecraft.entity.ai.goal.WanderAroundFarGoal;
+import net.minecraft.entity.ai.goal.WanderAroundGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -19,6 +22,8 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.PathAwareEntity;
+import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -36,17 +41,20 @@ import net.minecraft.world.World;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
+import software.bernie.geckolib3.core.builder.ILoopType;
 import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 public class BoneflyEntity extends HostileEntity implements IAnimatable, TameableHostileEntity {
-    private final AnimationFactory factory = new AnimationFactory(this);
+    private final AnimationFactory factory = GeckoLibUtil.createFactory(this);
     protected static final TrackedData<Boolean> DORMANT = DataTracker.registerData(BoneflyEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     public static final TrackedData<Integer> ACTION_STATE = DataTracker.registerData(BoneflyEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Optional<UUID>> OWNER_UUID = DataTracker.registerData(BoneflyEntity.class, TrackedDataHandlerRegistry.OPTIONAL_UUID);
@@ -75,8 +83,12 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
     public boolean handleFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource) {
         return false;
     }
+
     @Override
-    protected void initGoals() {}
+    protected void initGoals() {
+        this.goalSelector.add(0, new SwimGoal(this));
+        this.goalSelector.add(5, new BoneflyWanderAroundFarGoal(this, 0.7));
+    }
 
     @Override
     protected void fall(double heightDifference, boolean onGround, BlockState landedState, BlockPos landedPosition) {}
@@ -132,13 +144,11 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
     protected boolean hasWings() {
         return this.isInAir();
     }
-    @Override
-    public EntityGroup getGroup() {
-        return EntityGroup.UNDEAD;
-    }
+
     public int getActionState() {
         return this.dataTracker.get(ACTION_STATE);
     }
+
     public void setActionState(int i) {
         this.dataTracker.set(ACTION_STATE, i);
     }
@@ -146,9 +156,11 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
     public void setDormant(boolean rest) {
         getDataTracker().set(DORMANT, rest);
     }
+
     @Override
     public void travel(Vec3d travelVector) {
         boolean flying = this.isInAir();
+        System.out.println(flying);
         float speed = (float) this.getAttributeValue(flying ? EntityAttributes.GENERIC_FLYING_SPEED : EntityAttributes.GENERIC_MOVEMENT_SPEED);
         if (!this.hasPassengers() && !this.canBeControlledByRider()) {
             this.airStrafingSpeed = 0.02f;
@@ -220,7 +232,6 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
             stabTicks++;
             if(stabTicks >= 10) {
                 this.setActionState(2);
-                System.out.println(this.getWorld().getEntitiesByClass(LivingEntity.class, this.getBoundingBox().offset(0,-2,0).expand(1), entity -> entity != this).size() > 0);
                 if(!this.getWorld().isClient() && this.getWorld().getEntitiesByClass(LivingEntity.class, this.getBoundingBox().offset(0,-2,0).expand(1), entity -> entity != this).size() > 0 && this.getPassengerList().size() <= 1) {
                     LivingEntity livingEntity = this.getWorld().getClosestEntity(this.getWorld().getEntitiesByClass(LivingEntity.class, this.getBoundingBox().offset(0, -2, 0).expand(1), entity -> entity != this), TargetPredicate.createAttackable(), this, this.getX(), this.getY(), this.getZ());
                     if(livingEntity != null) {
@@ -292,7 +303,8 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
         BlockPos.Mutable mutable = this.getBlockPos().mutableCopy();
 
         // limit so we don't do dozens of iterations per tick
-        for (int i = 0; i <= limit && mutable.getY() > 0 && !this.world.getBlockState(mutable.move(Direction.DOWN)).getMaterial().blocksMovement(); i++);
+        for (int i = 0; i <= limit && mutable.getY() > this.getWorld().getDimension().minY() && !this.world.getBlockState(mutable.move(Direction.DOWN)).getMaterial().blocksMovement(); i++);
+        System.out.println(this.getY() - mutable.getY() - 0.11);
         return this.getY() - mutable.getY() - 0.11;
     }
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
@@ -301,7 +313,7 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
             stack.decrement(1);
             this.heal(1);
         }
-        if (this.isOwner(player) && !isBaby() && stack.isEmpty() && this.isTamed() && !this.hasPassengers()) {
+        if (this.isOwner(player) && stack.isEmpty() && this.isTamed() && !this.hasPassengers()) {
             if(player.isSneaking()) {
                 this.setDormant(!this.isDormant());
             } else {
@@ -316,6 +328,7 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
     protected void removePassenger(Entity passenger) {
         super.removePassenger(passenger);
     }
+
     @Override
     public void updatePassengerPosition(Entity passenger) {
         if (!this.hasPassenger(passenger)) {
@@ -341,25 +354,40 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
     }
 
 
+
     public boolean canBeControlledByRider() {
         return this.getFirstPassenger() instanceof LivingEntity;
     }
 
     @Override
-    public void registerControllers(AnimationData animationData) {
-        animationData.addAnimationController(new AnimationController<>(this, "wingController", 5, this::wingPredicate));
-        animationData.addAnimationController(new AnimationController<>(this, "idleController", 1, this::idlePredicate));
-        animationData.addAnimationController(new AnimationController<>(this, "stabController", 5, this::stabPredicate));
+    public EntityGroup getGroup() {
+        return EntityGroup.UNDEAD;
     }
-    private <E extends IAnimatable> PlayState wingPredicate(AnimationEvent<E> event) {
+
+    @Override
+    public boolean isUndead() {
+        return true;
+    }
+
+    @Override
+    public void registerControllers(AnimationData animationData) {
+        animationData.addAnimationController(new AnimationController<>(this, "aeroPredicate", 5, this::aeroPredicate));
+        animationData.addAnimationController(new AnimationController<>(this, "hurtPredicate", 1, this::hurtPredicate));
+        animationData.addAnimationController(new AnimationController<>(this, "grabPredicate", 5, this::grabPredicate));
+    }
+    private <E extends IAnimatable> PlayState aeroPredicate(AnimationEvent<E> event) {
         AnimationBuilder animationBuilder = new AnimationBuilder();
         if (this.isInAir()) {
-            animationBuilder.addAnimation("idleFly", true);
+            if(event.isMoving()){
+                animationBuilder.addAnimation("flight", ILoopType.EDefaultLoopTypes.LOOP);
+            }else{
+                animationBuilder.addAnimation("flight_idle", ILoopType.EDefaultLoopTypes.LOOP);
+            }
         } else {
             if(event.isMoving()) {
-                animationBuilder.addAnimation("walkGround", true);
+                animationBuilder.addAnimation("walking", ILoopType.EDefaultLoopTypes.LOOP);
             } else {
-                animationBuilder.addAnimation("idleGround", true);
+                animationBuilder.addAnimation("idle", ILoopType.EDefaultLoopTypes.LOOP);
             }
         }
 
@@ -368,27 +396,30 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
         }
         return PlayState.CONTINUE;
     }
-    private <E extends IAnimatable> PlayState stabPredicate(AnimationEvent<E> event) {
+    private <E extends IAnimatable> PlayState grabPredicate(AnimationEvent<E> event) {
         AnimationBuilder animationBuilder = new AnimationBuilder();
-        if (this.getActionState() == 2) {
-            animationBuilder.addAnimation("stabIdle", true);
-        } else if(this.getActionState() == 1) {
-            animationBuilder.addAnimation("stab", false);
-        } else {
+        if(this.isInAir()){
+            if (this.getActionState() == 2) {//TODO implement grab modes
+                animationBuilder.addAnimation("stabIdle", ILoopType.EDefaultLoopTypes.LOOP);
+            } else if(this.getActionState() == 1) {
+                animationBuilder.addAnimation("stab", ILoopType.EDefaultLoopTypes.PLAY_ONCE);
+            } else {
+                return PlayState.STOP;
+            }
+        }else {
             return PlayState.STOP;
         }
-
         if(!animationBuilder.getRawAnimationList().isEmpty()) {
             event.getController().setAnimation(animationBuilder);
         }
         return PlayState.CONTINUE;
     }
-    private <E extends IAnimatable> PlayState idlePredicate(AnimationEvent<E> event) {
+    private <E extends IAnimatable> PlayState hurtPredicate(AnimationEvent<E> event) {
         AnimationBuilder animationBuilder = new AnimationBuilder();
-        if(this.isDormant()) {
-            animationBuilder.addAnimation("idleDormant", true);
+        if ((this.dead || this.getHealth() < 0.01 || this.isDead())) {
+            animationBuilder.addAnimation("death", ILoopType.EDefaultLoopTypes.PLAY_ONCE);
         } else if(this.hurtTime > 0 || this.deathTime > 0) {
-            animationBuilder.addAnimation("hurt", true);
+            animationBuilder.addAnimation("hurt", ILoopType.EDefaultLoopTypes.PLAY_ONCE);
         } else {
             return PlayState.STOP;
         }
@@ -442,5 +473,35 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
     @Override
     public void setTamed(boolean tamed) {
 
+    }
+
+    public class BoneflyWanderAroundFarGoal extends WanderAroundGoal {
+        public static final float CHANCE = 0.001F;
+        protected final float probability;
+
+        public BoneflyWanderAroundFarGoal(PathAwareEntity pathAwareEntity, double d) {
+            this(pathAwareEntity, d, CHANCE);
+        }
+
+        public BoneflyWanderAroundFarGoal(PathAwareEntity mob, double speed, float probability) {
+            super(mob, speed);
+            this.probability = probability;
+        }
+
+        @Override
+        public boolean canStart() {
+            return !BoneflyEntity.this.isDormant() && !BoneflyEntity.this.hasPassengers() && super.canStart();
+        }
+
+        @Nullable
+        @Override
+        protected Vec3d getWanderTarget() {
+            if (this.mob.isInsideWaterOrBubbleColumn()) {
+                Vec3d vec3d = FuzzyTargeting.find(this.mob, 15, 7);
+                return vec3d == null ? super.getWanderTarget() : vec3d;
+            } else {
+                return this.mob.getRandom().nextFloat() >= this.probability ? FuzzyTargeting.find(this.mob, 10, 7) : super.getWanderTarget();
+            }
+        }
     }
 }

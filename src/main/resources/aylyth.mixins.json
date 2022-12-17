@@ -12,6 +12,7 @@
     "FoliagePlacerTypeAccessor",
     "GeneratorOptionsMixin",
     "LivingEntityMixin",
+    "MobEntityAccessor",
     "PlayerEntityMixin",
     "TreeDecoratorTypeAccessor",
     "TrunkPlacerTypeAccessor",

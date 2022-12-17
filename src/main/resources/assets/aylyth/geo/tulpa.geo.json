@@ -16,8 +16,16 @@
 					"pivot": [0, 0, 0]
 				},
 				{
-					"name": "head",
+					"name": "playerBody",
 					"parent": "body",
+					"pivot": [0, 24, 0],
+					"cubes": [
+						{"origin": [-4, 12, -2], "size": [8, 12, 4], "uv": [16, 16]},
+						{"origin": [-4, 12, -2], "size": [8, 12, 4], "inflate": 0.25, "uv": [16, 32]}
+					]
+				},
+				{
+					"name": "head",
 					"pivot": [0, 24, 0],
 					"locators": {
 						"locator": [0, 28, -4]
@@ -168,7 +176,6 @@
 				},
 				{
 					"name": "lArm",
-					"parent": "body",
 					"pivot": [5, 22, 0]
 				},
 				{
@@ -200,6 +207,11 @@
 					]
 				},
 				{
+					"name": "leftItem",
+					"parent": "lClaws",
+					"pivot": [5, 10, -0.5]
+				},
+				{
 					"name": "lArmClassic",
 					"parent": "lArm",
 					"pivot": [5, 22, 0],
@@ -221,7 +233,6 @@
 				},
 				{
 					"name": "rArm",
-					"parent": "body",
 					"pivot": [-5, 22, 0]
 				},
 				{
@@ -253,6 +264,11 @@
 					]
 				},
 				{
+					"name": "rightItem",
+					"parent": "rClaws",
+					"pivot": [-5, 10, -0.5]
+				},
+				{
 					"name": "rArmClassic",
 					"parent": "rArm",
 					"pivot": [-5, 22, 0],
@@ -273,8 +289,22 @@
 					]
 				},
 				{
+					"name": "tulpaBody",
+					"pivot": [0, 20, 0],
+					"cubes": [
+						{"origin": [-3.5, 17, -2], "size": [7, 7, 4], "uv": [71, 30]}
+					]
+				},
+				{
+					"name": "tulpaStomach",
+					"parent": "tulpaBody",
+					"pivot": [0, 17, 0],
+					"cubes": [
+						{"origin": [-3, 12, -2], "size": [6, 6, 4], "inflate": -0.1, "uv": [70, 42]}
+					]
+				},
+				{
 					"name": "lLeg",
-					"parent": "body",
 					"pivot": [2, 12, 0]
 				},
 				{
@@ -306,7 +336,6 @@
 				},
 				{
 					"name": "rLeg",
-					"parent": "body",
 					"pivot": [-2, 12, 0]
 				},
 				{
@@ -337,28 +366,10 @@
 					]
 				},
 				{
-					"name": "tulpaBody",
-					"parent": "body",
-					"pivot": [0, 20, 0],
+					"name": "golden_core",
+					"pivot": [0, 19.5, -0.5],
 					"cubes": [
-						{"origin": [-3.5, 17, -2], "size": [7, 7, 4], "uv": [71, 30]}
-					]
-				},
-				{
-					"name": "tulpaStomach",
-					"parent": "tulpaBody",
-					"pivot": [0, 17, 0],
-					"cubes": [
-						{"origin": [-3, 12, -2], "size": [6, 6, 4], "inflate": -0.1, "uv": [70, 42]}
-					]
-				},
-				{
-					"name": "playerBody",
-					"parent": "body",
-					"pivot": [0, 24, 0],
-					"cubes": [
-						{"origin": [-4, 12, -2], "size": [8, 12, 4], "uv": [16, 16]},
-						{"origin": [-4, 12, -2], "size": [8, 12, 4], "inflate": 0.25, "uv": [16, 32]}
+						{"origin": [-1, 19, -1], "size": [2, 2, 2], "uv": [0, 0]}
 					]
 				}
 			]

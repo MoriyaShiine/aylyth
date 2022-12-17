@@ -20,4 +20,9 @@ public class BoneflyEntityRenderer extends GeoEntityRenderer<BoneflyEntity> {
     public RenderLayer getRenderType(BoneflyEntity animatable, float partialTicks, MatrixStack stack, VertexConsumerProvider renderTypeBuffer, VertexConsumer vertexBuilder, int packedLightIn, Identifier textureLocation) {
         return RenderLayer.getEntityTranslucent(textureLocation, true);
     }
+
+    @Override
+    protected float getDeathMaxRotation(BoneflyEntity entityLivingBaseIn) {
+        return 0.0F;
+    }
 }

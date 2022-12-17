@@ -18,6 +18,7 @@ import moriyashiine.aylyth.client.render.entity.RootPropEntityRenderer;
 import moriyashiine.aylyth.client.render.entity.living.*;
 import moriyashiine.aylyth.client.render.entity.projectile.YmpeLanceEntityRenderer;
 import moriyashiine.aylyth.client.render.item.BigItemRenderer;
+import moriyashiine.aylyth.client.screen.TulpaScreen;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.block.StrewnLeavesBlock;
 import moriyashiine.aylyth.common.item.YmpeGlaiveItem;
@@ -33,12 +34,15 @@ import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.*;
+import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.color.world.FoliageColors;
+import net.minecraft.client.gui.screen.ingame.HandledScreen;
+import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.render.*;
@@ -109,7 +113,9 @@ public class AylythClient implements ClientModInitializer {
 		EntityRendererRegistry.register(ModEntityTypes.BONEFLY, BoneflyEntityRenderer::new);
 		EntityRendererRegistry.register(ModEntityTypes.ROOT_PROP, RootPropEntityRenderer::new);
 		EntityRendererRegistry.register(ModEntityTypes.RIPPED_SOUL, RippedSoulEntityRenderer::new);
-		// TODO EntityRendererRegistry.register(ModEntityTypes.TULPA, TulpaEntityRenderer::new);
+		EntityRendererRegistry.register(ModEntityTypes.TULPA, TulpaEntityRenderer::new);
+		EntityRendererRegistry.register(ModEntityTypes.TULPA_PLAYER, TulpaPlayerEntityRenderer::new);
+
 		EntityRendererRegistry.register(ModEntityTypes.SCION, ScionEntityRenderer::new);
 		TerraformBoatClientHelper.registerModelLayers(new Identifier(Aylyth.MOD_ID, "ympe"));
 		TerraformBoatClientHelper.registerModelLayers(new Identifier(Aylyth.MOD_ID, "ympe_chest"));
@@ -124,6 +130,7 @@ public class AylythClient implements ClientModInitializer {
 		});
 
 		DESCEND = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.aylyth.descend", InputUtil.Type.KEYSYM, 71, "category.aylyth.keybind"));
+		ClientTickEvents.END_CLIENT_TICK.register(ClientTickHandler::clientTickEnd);
 		ClientTickEvents.END_CLIENT_TICK.register((world) -> {
 			PlayerEntity player = MinecraftClient.getInstance().player;
 			if (player != null) {
@@ -145,6 +152,7 @@ public class AylythClient implements ClientModInitializer {
 			}
 		}
 		BuiltinItemRendererRegistry.INSTANCE.register(ModItems.WOODY_GROWTH_CACHE, this::woodyGrowthCacheRenderer);
+		HandledScreens.register(ModScreenHandlers.TULPA_SCREEN_HANDLER, TulpaScreen::new);
 	}
 
 	private void woodyGrowthCacheRenderer(ItemStack stack, ModelTransformation.Mode mode, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
@@ -193,5 +201,33 @@ public class AylythClient implements ClientModInitializer {
 				ModBlocks.VITAL_THURIBLE,
 				ModBlocks.LARGE_WOODY_GROWTH
 		};
+	}
+
+	public static final class ClientTickHandler {
+		private ClientTickHandler() {
+		}
+
+		public static int ticksInGame = 0;
+		public static float partialTicks = 0;
+		public static float delta = 0;
+		public static float total = 0;
+
+		public static void calcDelta() {
+			float oldTotal = total;
+			total = ticksInGame + partialTicks;
+			delta = total - oldTotal;
+		}
+
+		public static void renderTick(float renderTickTime) {
+			partialTicks = renderTickTime;
+		}
+
+		public static void clientTickEnd(MinecraftClient mc) {
+			if (!mc.isPaused()) {
+				ticksInGame++;
+				partialTicks = 0;
+			}
+			calcDelta();
+		}
 	}
 }

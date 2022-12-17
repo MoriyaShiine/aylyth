@@ -24,9 +24,10 @@ public class BoneflyEntityModel extends AnimatedGeoModel<BoneflyEntity> {
         return new Identifier(Aylyth.MOD_ID, "animations/entity/bonefly.animation.json");
     }
 
-    public void setLivingAnimations(BoneflyEntity entity, Integer uniqueID, AnimationEvent customPredicate) {
-        super.setLivingAnimations(entity, uniqueID, customPredicate);
-        EntityModelData extraData = (EntityModelData)customPredicate.getExtraDataOfType(EntityModelData.class).get(0);
+    @Override
+    public void setCustomAnimations(BoneflyEntity animatable, int instanceId, AnimationEvent animationEvent) {
+        super.setCustomAnimations(animatable, instanceId, animationEvent);
+        EntityModelData extraData = (EntityModelData)animationEvent.getExtraDataOfType(EntityModelData.class).get(0);
         IBone head = this.getAnimationProcessor().getBone("head");
         IBone neck = this.getAnimationProcessor().getBone("neck");
         IBone neckJoint = this.getAnimationProcessor().getBone("neckJoint");
@@ -44,6 +45,5 @@ public class BoneflyEntityModel extends AnimatedGeoModel<BoneflyEntity> {
             neckJoint.setRotationX(neckJoint.getRotationX() + extraData.headPitch * 3.1415927F / 1080.0F);
             neckJoint.setRotationY(neckJoint.getRotationY() + extraData.netHeadYaw * 0.0058177644F);
         }
-
     }
 }
