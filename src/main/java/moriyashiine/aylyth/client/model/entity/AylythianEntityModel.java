@@ -32,8 +32,8 @@ public class AylythianEntityModel extends AnimatedGeoModel<AylythianEntity> {
 	}
 	
 	@Override
-	public void setLivingAnimations(AylythianEntity entity, Integer uniqueID, AnimationEvent customPredicate) {
-		super.setLivingAnimations(entity, uniqueID, customPredicate);
+	public void setCustomAnimations(AylythianEntity entity, int uniqueID, AnimationEvent customPredicate) {
+		super.setCustomAnimations(entity, uniqueID, customPredicate);
 		IBone head = this.getAnimationProcessor().getBone("head");
 		EntityModelData extraData = (EntityModelData) customPredicate.getExtraDataOfType(EntityModelData.class).get(0);
 		if (head != null) {

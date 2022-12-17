@@ -1,5 +1,6 @@
-package moriyashiine.aylyth.common;
+package moriyashiine.aylyth.common.util;
 
+import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.item.YmpeDaggerItem;
 import moriyashiine.aylyth.common.item.YmpeLanceItem;
 import moriyashiine.aylyth.common.registry.ModDamageSources;
@@ -24,7 +25,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.registry.RegistryKey;
-import net.minecraft.world.Heightmap;
 import net.minecraft.world.TeleportTarget;
 import net.minecraft.world.World;
 

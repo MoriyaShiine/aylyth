@@ -7,6 +7,8 @@ import moriyashiine.aylyth.common.registry.ModComponents;
 import moriyashiine.aylyth.common.registry.ModDamageSources;
 import moriyashiine.aylyth.common.registry.ModDimensionKeys;
 import moriyashiine.aylyth.common.registry.ModSoundEvents;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -61,6 +63,20 @@ public class YmpeInfestationComponent implements AutoSyncedComponent, ServerTick
 				obj.damage(ModDamageSources.YMPE, Float.MAX_VALUE);
 			}
 		}
+		if(getInfestationTimer() % 20 == 0){
+			switch (getStage()){
+				case 2 -> obj.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 20 * 4));
+				case 3 -> applyYmpeEffects(obj, 0,0);
+				case 4 -> applyYmpeEffects(obj, 1,0);
+				case 5 -> applyYmpeEffects(obj, 2, 1);
+				default -> {}
+			}
+		}
+	}
+
+	private void applyYmpeEffects(PlayerEntity player, int slowAmplifier, int mineAmplifier){
+		player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 20 * 4, slowAmplifier));
+		player.addStatusEffect(new StatusEffectInstance(StatusEffects.MINING_FATIGUE, 20 * 4, mineAmplifier));
 	}
 	
 	public byte getStage() {

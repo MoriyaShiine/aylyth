@@ -1,21 +1,16 @@
 package moriyashiine.aylyth.datagen.worldgen.terrain;
 
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.registry.ModBiomeKeys;
-import moriyashiine.aylyth.datagen.worldgen.biomes.ModBiomes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.VerticalSurfaceType;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.source.util.MultiNoiseUtil;
-import net.minecraft.world.gen.YOffset;
 import net.minecraft.world.gen.chunk.ChunkGeneratorSettings;
 import net.minecraft.world.gen.chunk.GenerationShapeConfig;
 import net.minecraft.world.gen.densityfunction.DensityFunction;
-import net.minecraft.world.gen.densityfunction.DensityFunctionTypes;
 import net.minecraft.world.gen.noise.NoiseRouter;
 import net.minecraft.world.gen.surfacebuilder.MaterialRules;
 

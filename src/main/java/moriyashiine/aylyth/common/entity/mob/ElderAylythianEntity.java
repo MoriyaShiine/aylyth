@@ -27,15 +27,17 @@ import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
+import software.bernie.geckolib3.core.builder.ILoopType;
 import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 public class ElderAylythianEntity extends HostileEntity implements IAnimatable {
 	public static final TrackedData<Integer> VARIANT = DataTracker.registerData(ElderAylythianEntity.class, TrackedDataHandlerRegistry.INTEGER);
 	public static final int VARIANTS = 3;
-	
-	private final AnimationFactory factory = new AnimationFactory(this);
+
+	private final AnimationFactory factory = GeckoLibUtil.createFactory(this);
 	
 	public ElderAylythianEntity(EntityType<? extends HostileEntity> entityType, World world) {
 		super(entityType, world);
@@ -52,14 +54,14 @@ public class ElderAylythianEntity extends HostileEntity implements IAnimatable {
 			AnimationBuilder builder = new AnimationBuilder();
 			if (limbSwingAmount > 0.01F) {
 				if (limbSwingAmount > 0.6F) {
-					builder.addAnimation("run", true);
+					builder.addAnimation("run", ILoopType.EDefaultLoopTypes.LOOP);
 				}
 				else {
-					builder.addAnimation("walk", true);
+					builder.addAnimation("walk", ILoopType.EDefaultLoopTypes.LOOP);
 				}
 			}
 			else {
-				builder.addAnimation("idle", true);
+				builder.addAnimation("idle", ILoopType.EDefaultLoopTypes.LOOP);
 			}
 			animationEvent.getController().setAnimation(builder);
 			return PlayState.CONTINUE;
@@ -67,7 +69,7 @@ public class ElderAylythianEntity extends HostileEntity implements IAnimatable {
 		animationData.addAnimationController(new AnimationController<>(this, "arms", 0, animationEvent -> {
 			AnimationBuilder builder = new AnimationBuilder();
 			if (handSwingTicks > 0 && !isDead()) {
-				animationEvent.getController().setAnimation(builder.addAnimation("clawswipe", true));
+				animationEvent.getController().setAnimation(builder.addAnimation("clawswipe", ILoopType.EDefaultLoopTypes.LOOP));
 				return PlayState.CONTINUE;
 			}
 			return PlayState.STOP;
@@ -191,5 +193,10 @@ public class ElderAylythianEntity extends HostileEntity implements IAnimatable {
 	@Override
 	public EntityGroup getGroup() {
 		return EntityGroup.UNDEAD;
+	}
+
+	@Override
+	public boolean isUndead() {
+		return true;
 	}
 }

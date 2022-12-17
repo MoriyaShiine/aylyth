@@ -2,7 +2,6 @@ package moriyashiine.aylyth.datagen;
 
 import com.google.common.collect.Maps;
 import moriyashiine.aylyth.common.block.*;
-import moriyashiine.aylyth.common.registry.ModBlockEntityTypes;
 import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.ModEntityTypes;
 import moriyashiine.aylyth.common.registry.ModItems;
@@ -21,14 +20,9 @@ import net.minecraft.item.Items;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.condition.*;
-import net.minecraft.loot.context.LootContext;
-import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.loot.entry.*;
-import net.minecraft.loot.function.CopyNbtLootFunction;
-import net.minecraft.loot.function.SetContentsLootFunction;
 import net.minecraft.loot.function.SetCountLootFunction;
-import net.minecraft.loot.provider.nbt.ContextLootNbtProvider;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import net.minecraft.predicate.NumberRange;
@@ -40,7 +34,6 @@ import net.minecraft.util.Identifier;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
-import java.util.function.Predicate;
 
 public class AylythLootTableProviders {
 
@@ -211,6 +204,13 @@ public class AylythLootTableProviders {
 
         protected void generateLoot() {
             addDrop(ModEntityTypes.SCION, this::scionLoot);
+            addDrop(ModEntityTypes.TULPA, this::coricDrop);
+            addDrop(ModEntityTypes.BONEFLY, this::coricDrop);
+            addDrop(ModEntityTypes.SOULMOULD, this::coricDrop);
+        }
+
+        private <T extends Entity> LootTable.Builder coricDrop(EntityType<T> tEntityType) {
+            return LootTable.builder().pool(LootPool.builder().with(ItemEntry.builder(ModItems.CORIC_SEED)));
         }
 
         private LootTable.Builder scionLoot(EntityType<?> type) {

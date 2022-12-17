@@ -1,7 +1,8 @@
 package moriyashiine.aylyth.client.render.entity.living;
 
 import moriyashiine.aylyth.client.render.entity.living.feature.ScionFeatureRenderer;
-import moriyashiine.aylyth.common.AylythUtil;
+import moriyashiine.aylyth.common.entity.mob.BoneflyEntity;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.common.entity.mob.ScionEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -55,6 +56,11 @@ public class ScionEntityRenderer extends BipedEntityRenderer<ScionEntity, BipedE
             }
         }
         return AylythUtil.id("textures/entity/living/scion/scion_npc_base.png");
+    }
+
+    @Override
+    protected boolean hasLabel(ScionEntity mobEntity) {
+        return super.hasLabel(mobEntity) && mobEntity.getStoredPlayerUUID() != null;
     }
 
     @Environment(EnvType.CLIENT)

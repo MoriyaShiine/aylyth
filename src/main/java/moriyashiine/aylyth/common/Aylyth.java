@@ -10,6 +10,7 @@ import moriyashiine.aylyth.client.network.packet.SpawnShuckParticlesPacket;
 import moriyashiine.aylyth.common.recipe.ModBiomeSources;
 import moriyashiine.aylyth.common.recipe.YmpeDaggerDropRecipe;
 import moriyashiine.aylyth.common.registry.*;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.datagen.worldgen.features.ModPlacedFeatures;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModification;
@@ -97,13 +98,20 @@ public class Aylyth implements ModInitializer {
 
 	private void spawnRippedSoul(LivingEntity livingEntity, DamageSource source) {
 		World world = livingEntity.getWorld();
-		if(!world.isClient && source instanceof ModDamageSources.SoulRipDamageSource ripSource) {
-			RippedSoulEntity soul = new RippedSoulEntity(ModEntityTypes.RIPPED_SOUL, world);
-			if (ripSource.getAttacker() != null) {
-				soul.setOwner((PlayerEntity) ripSource.getAttacker());
+		if(!world.isClient) {
+			if(source instanceof ModDamageSources.SoulRipDamageSource ripSource) {
+				RippedSoulEntity soul = new RippedSoulEntity(ModEntityTypes.RIPPED_SOUL, world);
+				if (ripSource.getAttacker() != null) {
+					soul.setOwner((PlayerEntity) ripSource.getAttacker());
+				}
+				soul.setPosition(livingEntity.getPos().add(0, 1, 0));
+				world.spawnEntity(soul);
+			}else if((source.getAttacker() != null && source.getAttacker() instanceof PlayerEntity playerEntity && playerEntity.getMainHandStack().isOf(ModItems.YMPE_GLAIVE))){
+				RippedSoulEntity soul = new RippedSoulEntity(ModEntityTypes.RIPPED_SOUL, world);
+				soul.setOwner(playerEntity);
+				soul.setPosition(playerEntity.getPos().add(0, 1, 0));
+				world.spawnEntity(soul);
 			}
-			soul.setPosition(livingEntity.getPos().add(0, 1, 0));
-			world.spawnEntity(soul);
 		}
 	}
 

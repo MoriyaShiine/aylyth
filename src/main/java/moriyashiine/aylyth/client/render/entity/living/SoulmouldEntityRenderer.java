@@ -2,6 +2,8 @@ package moriyashiine.aylyth.client.render.entity.living;
 
 import moriyashiine.aylyth.client.model.entity.SoulmouldEntityModel;
 import moriyashiine.aylyth.client.render.entity.living.layer.SoulmouldEyesLayer;
+import moriyashiine.aylyth.common.entity.mob.BoneflyEntity;
+import moriyashiine.aylyth.common.entity.mob.ScionEntity;
 import moriyashiine.aylyth.common.entity.mob.SoulmouldEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
@@ -38,5 +40,10 @@ public class SoulmouldEntityRenderer extends GeoEntityRenderer<SoulmouldEntity> 
             bufferIn = rtb.getBuffer(RenderLayer.getEntityTranslucent(whTexture));
         }
         super.renderRecursively(bone, stack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+    }
+
+    @Override
+    protected float getDeathMaxRotation(SoulmouldEntity entityLivingBaseIn) {
+        return 0.0F;
     }
 }

@@ -2,9 +2,12 @@ package moriyashiine.aylyth.common.item;
 
 import moriyashiine.aylyth.common.entity.mob.BoneflyEntity;
 import moriyashiine.aylyth.common.entity.mob.SoulmouldEntity;
+import moriyashiine.aylyth.common.entity.mob.TulpaEntity;
+import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.ModEntityTypes;
 import moriyashiine.aylyth.common.registry.ModItems;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.TallPlantBlock;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -31,8 +34,22 @@ public class CoricSeedItem extends Item {
 
         trySummonBoneFly(world, player, pos, stack, dir, side);
         trySummonSoulMould(world, player, pos, stack, dir, side);
+        trySummonTulpa(world, player, pos, stack);
 
         return super.useOnBlock(ctx);
+    }
+
+    private void trySummonTulpa(World world, PlayerEntity player, BlockPos pos, ItemStack stack) {
+        if (player != null && world.getBlockState(pos).getBlock().equals(Blocks.SOUL_SOIL) && isValidForTulpa(world, pos)) {
+            TallPlantBlock.onBreakInCreative(world, pos.up().up(), world.getBlockState(pos.up().up()), player);
+            world.breakBlock(pos, false);
+            world.breakBlock(pos.down(), false);
+            TulpaEntity tulpaEntity = new TulpaEntity(ModEntityTypes.TULPA, world);
+            tulpaEntity.refreshPositionAndAngles(pos.down(), 0.0F, 0.0F);
+            tulpaEntity.setOwner(player);
+            world.spawnEntity(tulpaEntity);
+            stack.decrement(1);
+        }
     }
 
     private void trySummonSoulMould(World world, PlayerEntity player, BlockPos pos, ItemStack stack, Direction dir, Direction side) {
@@ -49,7 +66,6 @@ public class CoricSeedItem extends Item {
             stack.decrement(1);
         }
     }
-
 
 
     private void trySummonBoneFly(World world, PlayerEntity player, BlockPos pos, ItemStack stack, Direction dir, Direction side) {
@@ -93,5 +109,11 @@ public class CoricSeedItem extends Item {
                 && world.getBlockState(pos.offset(dir, 4)).getBlock().equals(Blocks.SOUL_SOIL)
                 && world.getBlockState(pos.offset(dir, 5)).getBlock().equals(Blocks.SOUL_SOIL)
                 && world.getBlockState(pos.offset(dir, 6)).getBlock().equals(Blocks.BONE_BLOCK);
+    }
+
+    private boolean isValidForTulpa(World world, BlockPos pos) {
+        return world.getBlockState(pos.down()).getBlock().equals(Blocks.SOUL_SOIL)
+                && (world.getBlockState(pos.up()).getBlock().equals(ModBlocks.LARGE_WOODY_GROWTH)
+                && (world.getBlockState(pos.up().up()).getBlock().equals(ModBlocks.LARGE_WOODY_GROWTH)));
     }
 }

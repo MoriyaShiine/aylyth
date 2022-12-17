@@ -2,7 +2,7 @@ package moriyashiine.aylyth.datagen;
 
 import com.google.common.collect.ImmutableList;
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.AylythUtil;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.common.block.LargeWoodyGrowthBlock;
 import moriyashiine.aylyth.common.block.PomegranateLeavesBlock;
 import moriyashiine.aylyth.common.block.StrewnLeavesBlock;
