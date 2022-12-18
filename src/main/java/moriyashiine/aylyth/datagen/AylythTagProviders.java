@@ -60,6 +60,7 @@ public class AylythTagProviders {
             addSuite(ModBlocks.POMEGRANATE_BLOCKS, ModTags.POMEGRANATE_LOGS);
             addSuite(ModBlocks.WRITHEWOOD_BLOCKS, ModTags.WRITHEWOOD_LOGS);
             getOrCreateTagBuilder(BlockTags.LEAVES).add(ModBlocks.YMPE_LEAVES, ModBlocks.POMEGRANATE_LEAVES, ModBlocks.WRITHEWOOD_LEAVES);
+            getOrCreateTagBuilder(ModTags.WOODY_GROWTHS_GENERATE_ON).add(Blocks.MUD);
         }
 
         private void addSuite(WoodSuite suite, TagKey<Block> logTag) {
