@@ -25,9 +25,11 @@
     [],
     [],
     [
-      "aylyth:oak_strewn_leaves",
-      "aylyth:ympe_strewn_leaves",
+      "aylyth:aylyth_weeds",
       "aylyth:woody_growth_patch",
+      "minecraft:patch_large_fern",
+      "aylyth:large_woody_growth_underwater",
+      "aylyth:strewn_leaves_patch",
       "aylyth:mire_water_trees",
       "aylyth:mire_land_trees",
       "minecraft:patch_grass_badlands"

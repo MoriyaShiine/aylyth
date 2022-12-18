@@ -176,11 +176,14 @@ public class ModBiomes {
 							.ambient(ModEntityTypes.PILOT_LIGHT, 3, 1, 1);
 				})
 				.generationSettings(builder -> {
-					builder.vegetalDecoFeature(ModVegetationFeatures.MIRE_WATER_TREES_PLACED)
+					builder.vegetalDecoFeature(ModVegetationFeatures.LARGE_WOODY_GROWTH_UNDERWATER_PLACED)
+							.vegetalDecoFeature(ModVegetationFeatures.STREWN_LEAVES_PATCH_PLACED)
+							.vegetalDecoFeature(ModPlacedFeatures.AYLYTH_WEEDS)
+							.vegetalDecoFeature(ModVegetationFeatures.MIRE_WATER_TREES_PLACED)
 							.vegetalDecoFeature(ModVegetationFeatures.MIRE_LAND_TREES_PLACED)
 							.add(ModBiomes::addBasicVanillaOres)
-							.add(ModBiomes::addStrewnLeaves)
 							.add(ModBiomes::addWoodyGrowths)
+							.add(DefaultBiomeFeatures::addLargeFerns)
 							.add(DefaultBiomeFeatures::addDefaultGrass);
 				})
 				.build();
