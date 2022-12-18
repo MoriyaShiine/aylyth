@@ -6,7 +6,9 @@ import moriyashiine.aylyth.common.registry.ModTags;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.VerticalSurfaceType;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
+import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.util.registry.RegistryEntry;
+import net.minecraft.world.gen.blockpredicate.BlockPredicate;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.placementmodifier.*;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
@@ -43,6 +45,9 @@ public class ModVegetationFeatures {
     public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> WOODY_GROWTH_PATCH = registerConfigured("woody_growth_patch", Feature.RANDOM_PATCH, ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.RANDOM_SELECTOR, new RandomFeatureConfig(List.of(new RandomFeatureEntry(PlacedFeatures.createEntry(ModConfiguredFeatures.LARGE_WOODY_GROWTH), 0.25F)), PlacedFeatures.createEntry(ModConfiguredFeatures.SMALL_WOODY_GROWTH)), List.of(Blocks.GRASS_BLOCK, Blocks.PODZOL, Blocks.MUD, Blocks.SOUL_SOIL), 8));
     public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> WOODY_GROWTH_BOWELS_PATCH = registerConfigured("woody_growth_bowels_patch", Feature.RANDOM_PATCH, ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.RANDOM_SELECTOR, new RandomFeatureConfig(List.of(new RandomFeatureEntry(PlacedFeatures.createEntry(ModConfiguredFeatures.LARGE_WOODY_GROWTH), 0.25F)), PlacedFeatures.createEntry(ModConfiguredFeatures.SMALL_WOODY_GROWTH)), List.of(Blocks.GRASS_BLOCK, Blocks.PODZOL, Blocks.MUD, Blocks.SOUL_SOIL), 8));
     public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> STREWN_LEAVES_PATCH = registerConfigured("strewn_leaves_patch", Feature.RANDOM_PATCH, ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.RANDOM_SELECTOR, new RandomFeatureConfig(List.of(new RandomFeatureEntry(PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(BlockStateProvider.of(ModBlocks.YMPE_STREWN_LEAVES))), 0.25F)), PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(BlockStateProvider.of(ModBlocks.OAK_STREWN_LEAVES))))));
+    public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> ANTLER_SHOOTS_WATER_PATCH = registerConfigured("antler_shoots_water_patch", Feature.RANDOM_PATCH, ConfiguredFeatures.createRandomPatchFeatureConfig(32, ModPlacedFeatures.ANTLER_SHOOTS_WATER));
+    public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> ANTLER_SHOOTS_PATCH = registerConfigured("antler_shoots_patch", Feature.RANDOM_PATCH, ConfiguredFeatures.createRandomPatchFeatureConfig(32, ModPlacedFeatures.ANTLER_SHOOTS));
+    public static final RegistryEntry<ConfiguredFeature<RandomFeatureConfig, ?>> WOODY_GROWTHS_WATER_SELECTOR = registerConfigured("woody_growth_water_selector", Feature.RANDOM_SELECTOR, new RandomFeatureConfig(List.of(new RandomFeatureEntry(ModPlacedFeatures.LARGE_WOODY_GROWTH_WATER, 0.25f)), ModPlacedFeatures.SMALL_WOODY_GROWTH_WATER));
 
 
 
@@ -66,9 +71,14 @@ public class ModVegetationFeatures {
     public static final RegistryEntry<PlacedFeature> GHOSTCAP_MUSHROOM_PATCHES_PLACED = registerPlaced("ghostcap_mushroom_patch", GHOSTCAP_MUSHROOM_PATCHES, List.of(RarityFilterPlacementModifier.of(16), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of()));
     public static final RegistryEntry<PlacedFeature> POMEGRANATE_TREE_VEG_PLACED = registerPlaced("pomegranate_tree_placed", ModConfiguredFeatures.POMEGRANATE_TREE, List.of(RarityFilterPlacementModifier.of(32), SquarePlacementModifier.of(), VegetationPlacedFeatures.NOT_IN_SURFACE_WATER_MODIFIER, PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP, BiomePlacementModifier.of(), PlacedFeatures.wouldSurvive(ModBlocks.YMPE_BLOCKS.sapling)));
     public static final RegistryEntry<PlacedFeature> WOODY_GROWTH_PATCH_PLACED = registerPlaced("woody_growth_patch", WOODY_GROWTH_PATCH, List.of(SquarePlacementModifier.of(), PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP, BiomePlacementModifier.of()));
-    public static final RegistryEntry<PlacedFeature> LARGE_WOODY_GROWTH_UNDERWATER_PLACED = registerPlaced("large_woody_growth_underwater", ModConfiguredFeatures.LARGE_WOODY_GROWTH, List.of(SquarePlacementModifier.of(), SurfaceWaterDepthFilterPlacementModifier.of(2), PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP, BiomePlacementModifier.of()));
     public static final RegistryEntry<PlacedFeature> WOODY_GROWTH_BOWELS_PATCH_PLACED = registerPlaced("woody_growth_bowels_patch", WOODY_GROWTH_BOWELS_PATCH, List.of(CountPlacementModifier.of(128), SquarePlacementModifier.of(), PlacedFeatures.BOTTOM_TO_120_RANGE, BiomePlacementModifier.of()));
     public static final RegistryEntry<PlacedFeature> STREWN_LEAVES_PATCH_PLACED = registerPlaced("strewn_leaves_patch", STREWN_LEAVES_PATCH, List.of(RarityFilterPlacementModifier.of(4), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of()));
+    public static final RegistryEntry<PlacedFeature> ANTLER_SHOOTS_WATER_PATCH_PLACED = registerPlaced("antler_shoots_water_patch", ANTLER_SHOOTS_WATER_PATCH, List.of(SquarePlacementModifier.of(), SurfaceWaterDepthFilterPlacementModifier.of(2), PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP, BiomePlacementModifier.of()));
+    public static final RegistryEntry<PlacedFeature> ANTLER_SHOOTS_PATCH_PLACED = registerPlaced("antler_shoots_patch", ANTLER_SHOOTS_PATCH, List.of(SquarePlacementModifier.of(), PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP, BiomePlacementModifier.of()));
+    public static final RegistryEntry<PlacedFeature> WOODY_GROWTHS_WATER_SELECTOR_PLACED = registerPlaced("woody_growth_water_selector", WOODY_GROWTHS_WATER_SELECTOR, List.of(PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP));
+
+    public static final RegistryEntry<ConfiguredFeature<RandomPatchFeatureConfig, ?>> WOODY_GROWTH_WATER_PATCH = registerConfigured("woody_growth_water_patch", Feature.RANDOM_PATCH, ConfiguredFeatures.createRandomPatchFeatureConfig(4, WOODY_GROWTHS_WATER_SELECTOR_PLACED));
+    public static final RegistryEntry<PlacedFeature> WOODY_GROWTH_WATER_PATCH_PLACED = registerPlaced("woody_growth_water_patch", WOODY_GROWTH_WATER_PATCH, List.of(SquarePlacementModifier.of(), SurfaceWaterDepthFilterPlacementModifier.of(2), PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP, BiomePlacementModifier.of()));
 
 
 

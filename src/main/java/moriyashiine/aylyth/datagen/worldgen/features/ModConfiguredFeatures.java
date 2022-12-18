@@ -26,6 +26,8 @@ import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
 
+import java.util.List;
+
 public class ModConfiguredFeatures {
 
     public static void datagenInit() {}
@@ -58,6 +60,10 @@ public class ModConfiguredFeatures {
     public static final RegistryEntry<ConfiguredFeature<SimpleBlockFeatureConfig, ?>> GHOSTCAP_MUSHROOM = register("ghostcap_mushroom", Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(BlockStateProvider.of(ModBlocks.GHOSTCAP_MUSHROOM)));
     public static final RegistryEntry<ConfiguredFeature<SimpleBlockFeatureConfig, ?>> SMALL_WOODY_GROWTH = register("small_woody_growth", Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(BlockStateProvider.of(ModBlocks.SMALL_WOODY_GROWTH.getDefaultState().with(SmallWoodyGrowthBlock.NATURAL, true))));
     public static final RegistryEntry<ConfiguredFeature<SimpleBlockFeatureConfig, ?>> LARGE_WOODY_GROWTH = register("large_woody_growth", ModFeatures.DOUBLE_BLOCK_FEATURE, new SimpleBlockFeatureConfig(BlockStateProvider.of(ModBlocks.LARGE_WOODY_GROWTH.getDefaultState().with(SmallWoodyGrowthBlock.NATURAL, true))));
+    public static final RegistryEntry<ConfiguredFeature<SimpleBlockFeatureConfig, ?>> SMALL_WOODY_GROWTH_WATER = register("small_woody_growth_water", Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(BlockStateProvider.of(ModBlocks.SMALL_WOODY_GROWTH.getDefaultState().with(SmallWoodyGrowthBlock.NATURAL, true).with(Properties.WATERLOGGED, true))));
+    public static final RegistryEntry<ConfiguredFeature<SimpleBlockFeatureConfig, ?>> LARGE_WOODY_GROWTH_WATER = register("large_woody_growth_water", ModFeatures.DOUBLE_BLOCK_FEATURE, new SimpleBlockFeatureConfig(BlockStateProvider.of(ModBlocks.LARGE_WOODY_GROWTH.getDefaultState().with(SmallWoodyGrowthBlock.NATURAL, true).with(Properties.WATERLOGGED, true))));
+    public static final RegistryEntry<ConfiguredFeature<SimpleBlockFeatureConfig, ?>> ANTLER_SHOOTS = register("antler_shoots", Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(BlockStateProvider.of(ModBlocks.ANTLER_SHOOTS)));
+    public static final RegistryEntry<ConfiguredFeature<SimpleBlockFeatureConfig, ?>> ANTLER_SHOOTS_WATER = register("antler_shoots_water", Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(BlockStateProvider.of(ModBlocks.ANTLER_SHOOTS.getDefaultState().with(Properties.WATERLOGGED, true))));
     //public static final ConfiguredFeature<?, ?> CLEARING_FLOWERS = todo flower generators
 
     public static final RegistryEntry<ConfiguredFeature<SeepFeature.SeepFeatureConfig, ?>> OAK_SEEP = register("oak_seep", ModFeatures.SEEP_FEATURE, new SeepFeature.SeepFeatureConfig(Blocks.OAK_LOG.getDefaultState(), ModBlocks.OAK_SEEP.getDefaultState(), ModBlocks.MARIGOLD.getDefaultState(), 5, 0.5F));

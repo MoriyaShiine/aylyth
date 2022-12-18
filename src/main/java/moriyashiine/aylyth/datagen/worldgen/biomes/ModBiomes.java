@@ -176,7 +176,9 @@ public class ModBiomes {
 							.ambient(ModEntityTypes.PILOT_LIGHT, 3, 1, 1);
 				})
 				.generationSettings(builder -> {
-					builder.vegetalDecoFeature(ModVegetationFeatures.LARGE_WOODY_GROWTH_UNDERWATER_PLACED)
+					builder.vegetalDecoFeature(ModVegetationFeatures.WOODY_GROWTH_WATER_PATCH_PLACED)
+							.vegetalDecoFeature(ModVegetationFeatures.ANTLER_SHOOTS_WATER_PATCH_PLACED)
+							.vegetalDecoFeature(ModVegetationFeatures.ANTLER_SHOOTS_PATCH_PLACED)
 							.vegetalDecoFeature(ModVegetationFeatures.STREWN_LEAVES_PATCH_PLACED)
 							.vegetalDecoFeature(ModPlacedFeatures.AYLYTH_WEEDS)
 							.vegetalDecoFeature(ModVegetationFeatures.MIRE_WATER_TREES_PLACED)
