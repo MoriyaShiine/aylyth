@@ -1,15 +1,18 @@
 package moriyashiine.aylyth.client.render.entity.living;
 
+import moriyashiine.aylyth.client.render.entity.living.feature.AylythCapeFeatureRenderer;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.LivingEntityRenderer;
+import net.minecraft.client.render.entity.PlayerEntityRenderer;
 import net.minecraft.client.render.entity.feature.*;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.util.DefaultSkinHelper;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.ItemStack;
@@ -34,16 +37,21 @@ public class TulpaPlayerEntityRenderer extends LivingEntityRenderer<TulpaPlayerE
         this.addFeature(new HeadFeatureRenderer<>(this, ctx.getModelLoader(), ctx.getHeldItemRenderer()));
         this.addFeature(new ElytraFeatureRenderer<>(this, ctx.getModelLoader()));
         this.addFeature(new StuckStingersFeatureRenderer(this));
+        this.addFeature(new AylythCapeFeatureRenderer(this, ctx.getModelLoader()));
     }
 
     @Override
     public void render(TulpaPlayerEntity livingEntity, float yaw, float tickDelta, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int light) {
-        var view = MinecraftClient.getInstance().getCameraEntity();
-        if (view instanceof AbstractClientPlayerEntity && DefaultSkinHelper.getModel(view.getUuid()).equals("slim")) {
-            this.model = slimModel;
-        } else {
-            this.model = normalModel;
+        if(livingEntity.getSkinUuid() != null){
+            PlayerEntity player = livingEntity.getWorld().getPlayerByUuid(livingEntity.getSkinUuid());
+
+            if (player instanceof AbstractClientPlayerEntity && DefaultSkinHelper.getModel(player.getUuid()).equals("slim")) {
+                this.model = slimModel;
+            } else {
+                this.model = normalModel;
+            }
         }
+
         this.setModelPose(livingEntity);
         super.render(livingEntity, yaw, tickDelta, matrixStack, vertexConsumerProvider, light);
     }
@@ -67,12 +75,10 @@ public class TulpaPlayerEntityRenderer extends LivingEntityRenderer<TulpaPlayerE
     private static BipedEntityModel.ArmPose getArmPose(TulpaPlayerEntity player, Hand hand) {
         ItemStack itemStack = player.getStackInHand(hand);
         if (itemStack.isEmpty()) {
-            System.out.println("EMPTY :( ");
             return BipedEntityModel.ArmPose.EMPTY;
         } else {
             if (player.getActiveHand() == hand && player.getItemUseTimeLeft() > 0) {
                 UseAction useAction = itemStack.getUseAction();
-                System.out.println(useAction + " : " + player.getUsingItem());
                 if (useAction == UseAction.BLOCK || (player.getUsingItem() && player.getMainHandStack().isOf(Items.SHIELD))) {
                     return BipedEntityModel.ArmPose.BLOCK;
                 }

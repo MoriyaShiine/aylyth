@@ -160,7 +160,6 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
     @Override
     public void travel(Vec3d travelVector) {
         boolean flying = this.isInAir();
-        System.out.println(flying);
         float speed = (float) this.getAttributeValue(flying ? EntityAttributes.GENERIC_FLYING_SPEED : EntityAttributes.GENERIC_MOVEMENT_SPEED);
         if (!this.hasPassengers() && !this.canBeControlledByRider()) {
             this.airStrafingSpeed = 0.02f;
@@ -304,7 +303,6 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
 
         // limit so we don't do dozens of iterations per tick
         for (int i = 0; i <= limit && mutable.getY() > this.getWorld().getDimension().minY() && !this.world.getBlockState(mutable.move(Direction.DOWN)).getMaterial().blocksMovement(); i++);
-        System.out.println(this.getY() - mutable.getY() - 0.11);
         return this.getY() - mutable.getY() - 0.11;
     }
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
@@ -377,7 +375,9 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
     }
     private <E extends IAnimatable> PlayState aeroPredicate(AnimationEvent<E> event) {
         AnimationBuilder animationBuilder = new AnimationBuilder();
-        if (this.isInAir()) {
+        if(this.isDormant()){
+            animationBuilder.addAnimation("resting", ILoopType.EDefaultLoopTypes.LOOP);
+        }else if (this.isInAir()) {
             if(event.isMoving()){
                 animationBuilder.addAnimation("flight", ILoopType.EDefaultLoopTypes.LOOP);
             }else{

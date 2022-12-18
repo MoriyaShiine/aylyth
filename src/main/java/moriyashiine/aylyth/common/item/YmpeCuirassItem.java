@@ -32,7 +32,6 @@ public class YmpeCuirassItem extends TrinketItem {
                         comp.setStageTimer(0);
                     }
                     if(Aylyth.isDebugMode() && entity.world.getTime() % 10 == 0){
-                        System.out.println(comp.getStage() + " : " + comp.getStageTimer());
                     }
                 }
             });

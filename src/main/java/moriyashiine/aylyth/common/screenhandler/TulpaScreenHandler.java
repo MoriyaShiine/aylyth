@@ -157,9 +157,9 @@ public class TulpaScreenHandler extends ScreenHandler {
 
 
         for (int x = 0; x < 4; ++x) {
-            this.addSlot(new Slot(inventory, (x + 2), 95 + x * 18, 18));
-            this.addSlot(new Slot(inventory, (x + 3) + (3), 95 + x * 18, 18 + 18));
-            this.addSlot(new Slot(inventory, (x + 4) + (2 * 3), 95 + x * 18, 18 + 2 * 18));
+            this.addSlot(new Slot(inventory, (x + 2), 97 + x * 18, 18));
+            this.addSlot(new Slot(inventory, (x + 3) + (3), 97 + x * 18, 18 + 18));
+            this.addSlot(new Slot(inventory, (x + 4) + (2 * 3), 97 + x * 18, 18 + 2 * 18));
         }
 
 

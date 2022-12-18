@@ -96,6 +96,7 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add(ModEntityTypes.SOULMOULD, "Mould of Souls");
         builder.add(ModEntityTypes.BONEFLY, "Bonefly");
         builder.add(ModEntityTypes.SCION, "Scion");
+        builder.add(ModEntityTypes.TULPA, "Tulpa");
 
         // STATUS EFFECTS
 
@@ -143,6 +144,9 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
 
         builder.add("aylyth.info.mould_activate", "Mould of Souls Activated");
         builder.add("aylyth.info.mould_deactivate", "Mould of Souls Deactivated");
+
+        builder.add("aylyth.info.tulpa_wander", "Wander");
+        builder.add("aylyth.info.tulpa_follow", "Follow");
 
         // COMPAT - REI
 
