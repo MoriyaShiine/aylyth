@@ -59,7 +59,6 @@ public class YmpeInfestationComponent implements AutoSyncedComponent, ServerTick
 			setStage((byte) (getStage() + 1));
 			setInfestationTimer((short) 0);
 			if (getStage() >= 6) {
-				ScionEntity.summonPlayerScion(obj);
 				obj.damage(ModDamageSources.YMPE, Float.MAX_VALUE);
 			}
 		}

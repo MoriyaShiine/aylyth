@@ -128,6 +128,11 @@ public class ScionEntity extends HostileEntity {
             scionEntity.setStoredPlayerUUID(playerEntity.getUuid());
             Iterable<ItemStack> armorItems = playerEntity.getArmorItems();
 
+            scionEntity.equipStack(EquipmentSlot.MAINHAND, playerEntity.getMainHandStack());
+            scionEntity.equipStack(EquipmentSlot.OFFHAND, playerEntity.getOffHandStack());
+            playerEntity.equipStack(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
+            playerEntity.equipStack(EquipmentSlot.OFFHAND, ItemStack.EMPTY);
+
             armorItems.forEach(stack -> {
                 EquipmentSlot equipmentSlot = getPreferredEquipmentSlot(stack);
                 scionEntity.equipStack(equipmentSlot, stack);

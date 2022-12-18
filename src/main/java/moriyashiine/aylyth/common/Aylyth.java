@@ -135,6 +135,7 @@ public class Aylyth implements ModInitializer {
 				return true;
 			}
 			if (damageSource == ModDamageSources.YMPE) {
+				ScionEntity.summonPlayerScion(player);
 				WoodyGrowthCacheBlock.spawnInventory(player.world, player.getBlockPos(), player);
 				return true;
 			}
@@ -197,46 +198,21 @@ public class Aylyth implements ModInitializer {
 
 	private void shucking(ServerWorld serverWorld, Entity entity, LivingEntity killedEntity) {
 		if (entity instanceof LivingEntity living && living.getMainHandStack().isOf(ModItems.YMPE_DAGGER)) {
-			boolean shucked = false;
-			if (killedEntity instanceof MobEntity mob) {
-				ItemStack offhand = living.getOffHandStack();
-				if (offhand.isOf(ModItems.SHUCKED_YMPE_FRUIT)) {
-					if (!offhand.hasNbt() || !offhand.getNbt().contains("StoredEntity")) {
-						killedEntity.setHealth(killedEntity.getMaxHealth());
-						killedEntity.clearStatusEffects();
-						killedEntity.extinguish();
-						killedEntity.setFrozenTicks(0);
-						killedEntity.setVelocity(Vec3d.ZERO);
-						killedEntity.fallDistance = 0;
-						killedEntity.knockbackVelocity = 0;
-						ModComponents.PREVENT_DROPS.get(mob).setPreventsDrops(true);
-						PlayerLookup.tracking(killedEntity).forEach(trackingPlayer -> SpawnShuckParticlesPacket.send(trackingPlayer, killedEntity));
-						serverWorld.playSound(null, killedEntity.getBlockPos(), ModSoundEvents.ENTITY_GENERIC_SHUCKED, killedEntity.getSoundCategory(), 1, killedEntity.getSoundPitch());
-						NbtCompound entityCompound = new NbtCompound();
-						killedEntity.saveSelfNbt(entityCompound);
-						offhand.getOrCreateNbt().put("StoredEntity", entityCompound);
-						killedEntity.remove(Entity.RemovalReason.DISCARDED);
-						shucked = true;
+			for (YmpeDaggerDropRecipe recipe : serverWorld.getRecipeManager().listAllOfType(ModRecipeTypes.YMPE_DAGGER_DROP_RECIPE_TYPE)) {
+				if (recipe.entity_type.equals(killedEntity.getType()) && serverWorld.random.nextFloat() < recipe.chance * (EnchantmentHelper.getLooting(living) + 1)) {
+					ItemStack drop = recipe.getOutput().copy();
+					if (recipe.entity_type == EntityType.PLAYER) {
+						drop.getOrCreateNbt().putString("SkullOwner", killedEntity.getName().getString());
 					}
-				}
-			}
-			if (!shucked) {
-				for (YmpeDaggerDropRecipe recipe : serverWorld.getRecipeManager().listAllOfType(ModRecipeTypes.YMPE_DAGGER_DROP_RECIPE_TYPE)) {
-					if (recipe.entity_type.equals(killedEntity.getType()) && serverWorld.random.nextFloat() < recipe.chance * (EnchantmentHelper.getLooting(living) + 1)) {
-						ItemStack drop = recipe.getOutput().copy();
-						if (recipe.entity_type == EntityType.PLAYER) {
-							drop.getOrCreateNbt().putString("SkullOwner", killedEntity.getName().getString());
-						}
-						if (recipe.entity_type == ModEntityTypes.SCION && entity instanceof ScionEntity scionEntity && scionEntity.getStoredPlayerUUID() != null) {
-							return;
-						}
-						int random = 1;
-						if(recipe.min <= recipe.max && recipe.min + recipe.max > 0){
-							random = serverWorld.getRandom().nextBetween(recipe.min, recipe.max);
-						}
-						for(int i = 0; i < random; i++){
-							ItemScatterer.spawn(serverWorld, killedEntity.getX() + 0.5, killedEntity.getY() + 0.5, killedEntity.getZ() + 0.5, drop);
-						}
+					if (recipe.entity_type == ModEntityTypes.SCION && entity instanceof ScionEntity scionEntity && scionEntity.getStoredPlayerUUID() != null) {
+						return;
+					}
+					int random = 1;
+					if (recipe.min <= recipe.max && recipe.min + recipe.max > 0) {
+						random = serverWorld.getRandom().nextBetween(recipe.min, recipe.max);
+					}
+					for (int i = 0; i < random; i++) {
+						ItemScatterer.spawn(serverWorld, killedEntity.getX() + 0.5, killedEntity.getY() + 0.5, killedEntity.getZ() + 0.5, drop);
 					}
 				}
 			}

@@ -10,6 +10,7 @@ import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.context.LootContext;
@@ -20,6 +21,7 @@ import net.minecraft.world.Heightmap;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Iterator;
 import java.util.List;
 
 public class WoodyGrowthCacheBlock extends LargeWoodyGrowthBlock implements BlockEntityProvider {
@@ -48,22 +50,22 @@ public class WoodyGrowthCacheBlock extends LargeWoodyGrowthBlock implements Bloc
     }
 
     public static void spawnInventory(World world, BlockPos pos, PlayerEntity player) {
-        var inv = player.getInventory();
+        PlayerInventory inv = player.getInventory();
         List<ItemStack> list = Lists.newArrayList();
         for (int i = 0; i < inv.size(); i++) {
-            var stack = inv.removeStack(i);
+            ItemStack stack = inv.removeStack(i);
             if (!stack.isEmpty()) {
                 list.add(stack);
             }
         }
 
-        var numCaches = (int) Math.ceil(((double)list.size()) / 9.0);
+        int numCaches = (int) Math.ceil(((double)list.size()) / 9.0);
         int i = 0;
-        var iter = BlockPos.iterateOutwards(pos, 4, 0, 4).iterator();
+        Iterator<BlockPos> iter = BlockPos.iterateOutwards(pos, 4, 0, 4).iterator();
         while (numCaches-- > 0 && iter.hasNext()) {
-            var placePos = iter.next();
-            var y = pos.getY()+1;
-            var state = ModBlocks.WOODY_GROWTH_CACHE.getDefaultState();
+            BlockPos placePos = iter.next();
+            int y = pos.getY()+1;
+            BlockState state = ModBlocks.WOODY_GROWTH_CACHE.getDefaultState();
             do {
                 placePos = placePos.withY(y);
             } while (isInvalidPosition(placePos, state, world) && y-- > world.getBottomY());
@@ -75,7 +77,7 @@ public class WoodyGrowthCacheBlock extends LargeWoodyGrowthBlock implements Bloc
             }
             world.setBlockState(placePos, state);
             world.setBlockState(placePos.up(), state.with(HALF, DoubleBlockHalf.UPPER));
-            var be = world.getBlockEntity(placePos);
+            BlockEntity be = world.getBlockEntity(placePos);
             if (be instanceof WoodyGrowthCacheBlockEntity cache) {
                 cache.setPlayerUuid(player);
                 i = cache.fill(list, i);

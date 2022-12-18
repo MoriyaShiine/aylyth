@@ -3,20 +3,30 @@ package moriyashiine.aylyth.common.item;
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
 import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
+import moriyashiine.aylyth.client.network.packet.SpawnShuckParticlesPacket;
 import moriyashiine.aylyth.common.registry.ModBlocks;
+import moriyashiine.aylyth.common.registry.ModComponents;
 import moriyashiine.aylyth.common.registry.ModItems;
+import moriyashiine.aylyth.common.registry.ModSoundEvents;
+import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.CampfireBlockEntity;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.item.*;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import java.util.*;
@@ -37,6 +47,33 @@ public class YmpeDaggerItem extends SwordItem {
 			map.put(ReachEntityAttributes.ATTACK_RANGE, REACH_MODIFIER);
 		}
 		return map;
+	}
+
+	@Override
+	public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+		if (target instanceof MobEntity mob && attacker.getWorld() instanceof ServerWorld serverWorld) {
+			ItemStack offhand = attacker.getOffHandStack();
+			if (offhand.isOf(ModItems.SHUCKED_YMPE_FRUIT)) {
+				if (!offhand.hasNbt() || !offhand.getNbt().contains("StoredEntity")) {
+					target.setHealth(target.getMaxHealth());
+					target.clearStatusEffects();
+					target.extinguish();
+					target.setFrozenTicks(0);
+					target.setVelocity(Vec3d.ZERO);
+					target.fallDistance = 0;
+					target.knockbackVelocity = 0;
+					ModComponents.PREVENT_DROPS.get(mob).setPreventsDrops(true);
+					PlayerLookup.tracking(target).forEach(trackingPlayer -> SpawnShuckParticlesPacket.send(trackingPlayer, target));
+					serverWorld.playSound(null, target.getBlockPos(), ModSoundEvents.ENTITY_GENERIC_SHUCKED, target.getSoundCategory(), 1, target.getSoundPitch());
+					NbtCompound entityCompound = new NbtCompound();
+					target.saveSelfNbt(entityCompound);
+					offhand.getOrCreateNbt().put("StoredEntity", entityCompound);
+					target.remove(Entity.RemovalReason.DISCARDED);
+				}
+			}
+		}
+
+		return true;
 	}
 
 	@Override
