@@ -54,7 +54,7 @@ public class ModItems {
 	public static final Item SPRUCE_SEEP = register("spruce_seep", new BlockItem(ModBlocks.SPRUCE_SEEP, settings()));
 	public static final Item DARK_OAK_SEEP = register("dark_oak_seep", new BlockItem(ModBlocks.DARK_OAK_SEEP, settings()));
 	public static final Item YMPE_SEEP = register("ympe_seep", new BlockItem(ModBlocks.YMPE_SEEP, settings()));
-	public static final Item SEEPING_SEEP = register("seeping_seep", new BlockItem(ModBlocks.SEEPING_SEEP, settings()));
+	public static final Item SEEPING_WOOD_SEEP = register("seeping_wood_seep", new BlockItem(ModBlocks.SEEPING_WOOD_SEEP, settings()));
 
 	public static final Item YMPE_DAGGER = register("ympe_dagger", new YmpeDaggerItem(ToolMaterials.NETHERITE, 1, -2, settings()));
 	public static final Item YMPE_LANCE = register("ympe_lance", new YmpeLanceItem(312, settings()));

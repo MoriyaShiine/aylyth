@@ -87,7 +87,7 @@ public class ModBlocks {
 	public static final Block SPRUCE_SEEP = new SeepBlock();
 	public static final Block DARK_OAK_SEEP = new SeepBlock();
 	public static final Block YMPE_SEEP = new SeepBlock();
-	public static final Block SEEPING_SEEP = new SeepBlock();
+	public static final Block SEEPING_WOOD_SEEP = new SeepBlock();
 
 	public static final Block DARK_WOODS_TILES = new Block(copyOf(Blocks.DARK_OAK_PLANKS));
 
@@ -121,7 +121,7 @@ public class ModBlocks {
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "spruce_seep"), SPRUCE_SEEP);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "dark_oak_seep"), DARK_OAK_SEEP);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "ympe_seep"), YMPE_SEEP);
-		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "seeping_seep"), SEEPING_SEEP);
+		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "seeping_wood_seep"), SEEPING_WOOD_SEEP);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "dark_woods_tiles"), DARK_WOODS_TILES);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "soul_hearth"), SOUL_HEARTH);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "vital_thurible"), VITAL_THURIBLE);
