@@ -196,7 +196,8 @@ public class ModBiomes {
 				.biomeEffects(FOG_COLOR, WATER_COLOR, UNDERWATER_COLOR, SKY_COLOR)
 				.spawnSettings(SpawnSettingsBuilder.none())
 				.generationSettings(builder -> {
-					builder.vegetalDecoFeature(ModVegetationFeatures.WOODY_GROWTH_BOWELS_PATCH_PLACED);
+					builder.vegetalDecoFeature(ModVegetationFeatures.WOODY_GROWTH_BOWELS_PATCH_PLACED)
+							.vegetalDecoFeature(NetherPlacedFeatures.PATCH_SOUL_FIRE);
 				})
 				.build();
 	}
