@@ -10,7 +10,10 @@
             "entries": [
               {
                 "data": {
-                  "Name": "aylyth:antler_shoots"
+                  "Name": "aylyth:antler_shoots",
+                  "Properties": {
+                    "waterlogged": "false"
+                  }
                 },
                 "weight": 5
               },

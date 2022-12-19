@@ -15,7 +15,7 @@
     },
     "replaceable": "#aylyth:ghostcap_replaceable",
     "surface": "floor",
-    "vegetation_chance": 0.45,
+    "vegetation_chance": 0.2,
     "vegetation_feature": {
       "feature": "aylyth:ghostcap_mushroom",
       "placement": []

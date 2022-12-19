@@ -1,6 +1,7 @@
 package moriyashiine.aylyth.common.world.generator.feature;
 
 import net.minecraft.block.enums.DoubleBlockHalf;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.state.property.Properties;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.SimpleBlockFeatureConfig;
@@ -19,8 +20,11 @@ public class DoubleBlockFeature extends Feature<SimpleBlockFeatureConfig> {
         var pos = context.getOrigin();
         var state = context.getConfig().toPlace().getBlockState(rand, pos);
         if (state.contains(Properties.DOUBLE_BLOCK_HALF) && state.canPlaceAt(world, pos)) {
+            if (state.contains(Properties.WATERLOGGED) && world.getFluidState(pos).getFluid() == Fluids.WATER) {
+                state = state.with(Properties.WATERLOGGED, true);
+            }
             setBlockState(world, pos, state);
-            setBlockState(world, pos.up(), state.with(Properties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.UPPER));
+            setBlockState(world, pos.up(), state.with(Properties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.UPPER).with(Properties.WATERLOGGED, world.getFluidState(pos.up()).getFluid() == Fluids.WATER));
             return true;
         }
         return false;

@@ -2,7 +2,9 @@ package moriyashiine.aylyth.datagen.worldgen.features;
 
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.registry.ModBlocks;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.util.registry.RegistryEntry;
+import net.minecraft.world.gen.blockpredicate.BlockPredicate;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.placementmodifier.*;
 
@@ -32,7 +34,10 @@ public class ModPlacedFeatures {
     public static final RegistryEntry<PlacedFeature> AYLYTH_WEEDS = register("aylyth_weeds", ModConfiguredFeatures.AYLYTH_WEEDS, List.of(RarityFilterPlacementModifier.of(16), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of()));//configure(new RandomPatchFeatureConfig.Builder(new WeightedBlockStateProvider(DataPool.<BlockState>builder().add(ModBlocks.ANTLER_SHOOTS.getDefaultState(), 5).add(ModBlocks.GRIPWEED.getDefaultState(), 2).build()), SimpleBlockPlacer.INSTANCE).tries(64).cannotProject().build()).decorate(Decorator.SPREAD_32_ABOVE.configure(NopeDecoratorConfig.INSTANCE).decorate(Decorators.FOLIAGE_PLACEMENT).repeat(7));
     public static final RegistryEntry<PlacedFeature> MARIGOLDS = register("marigolds", ModConfiguredFeatures.MARIGOLDS, List.of(PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, PlacedFeatures.wouldSurvive(ModBlocks.MARIGOLD), BiomePlacementModifier.of()));
     public static final RegistryEntry<PlacedFeature> SHELF_JACK_O_LANTERN_MUSHROOMS = register("shelf_jack_o_lantern_mushrooms", ModConfiguredFeatures.SHELF_JACK_O_LANTERN_MUSHROOMS, List.of(SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP));
-
+    public static final RegistryEntry<PlacedFeature> ANTLER_SHOOTS_WATER = register("antler_shoots_water", ModConfiguredFeatures.ANTLER_SHOOTS_WATER, List.of(BlockFilterPlacementModifier.of(BlockPredicate.matchingFluids(Fluids.WATER))));
+    public static final RegistryEntry<PlacedFeature> ANTLER_SHOOTS = register("antler_shoots", ModConfiguredFeatures.ANTLER_SHOOTS, List.of(PlacedFeatures.isAir()));
+    public static final RegistryEntry<PlacedFeature> SMALL_WOODY_GROWTH_WATER = register("small_woody_growth_water", ModConfiguredFeatures.SMALL_WOODY_GROWTH_WATER, List.of(BlockFilterPlacementModifier.of(BlockPredicate.matchingFluids(Fluids.WATER))));
+    public static final RegistryEntry<PlacedFeature> LARGE_WOODY_GROWTH_WATER = register("large_woody_growth_water", ModConfiguredFeatures.LARGE_WOODY_GROWTH_WATER, List.of(BlockFilterPlacementModifier.of(BlockPredicate.matchingFluids(Fluids.WATER))));
 
     public static final RegistryEntry<PlacedFeature> OAK_SEEP = register("oak_seep", ModConfiguredFeatures.OAK_SEEP, List.of(RarityFilterPlacementModifier.of(10), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of())); //.spreadHorizontally().applyChance(10).repeatRandomly(4);
     public static final RegistryEntry<PlacedFeature> SPRUCE_SEEP = register("spruce_seep", ModConfiguredFeatures.SPRUCE_SEEP, List.of(RarityFilterPlacementModifier.of(10), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of())); //.spreadHorizontally().applyChance(10).repeatRandomly(4);
