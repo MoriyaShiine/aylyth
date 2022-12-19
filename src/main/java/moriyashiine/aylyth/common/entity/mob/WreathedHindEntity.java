@@ -122,7 +122,7 @@ public class WreathedHindEntity extends HostileEntity implements IAnimatable, Pl
         }
 
         if(getAttackType() == MELEE_ATTACK){
-            if(target instanceof PlayerEntity player && this.getPledgedPlayerUUIDs().contains(player.getUuid()) && player.getHealth() <= 6){
+            if(WreathedHindBrain.isPledgedPlayerLow(target, this)){
                 setAttackType(KILLING_ATTACK);
             }else{
                 return super.tryAttack(target);

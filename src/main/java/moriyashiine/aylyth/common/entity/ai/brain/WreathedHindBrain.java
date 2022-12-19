@@ -21,6 +21,7 @@ import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.ai.brain.task.*;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.FrogBrain;
 import net.minecraft.entity.player.PlayerEntity;
 
@@ -121,6 +122,10 @@ public class WreathedHindBrain {
 
     private static boolean isPreferredAttackTarget(WreathedHindEntity wreathedHindEntity, LivingEntity target) {
         return getAttackTarget(wreathedHindEntity).filter((preferredTarget) -> preferredTarget == target).isPresent();
+    }
+
+    public static boolean isPledgedPlayerLow(Entity entity, WreathedHindEntity wreathedHindEntity){
+       return (entity instanceof PlayerEntity player && wreathedHindEntity.getPledgedPlayerUUIDs().contains(player.getUuid()) && player.getHealth() <= 6);
     }
 
     private static Optional<? extends LivingEntity> getAttackTarget(WreathedHindEntity wreathedHindEntity) {

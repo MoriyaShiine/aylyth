@@ -6,7 +6,6 @@ import net.minecraft.entity.mob.MobEntity;
 
 public class BrainUtils {
 
-
     public static LivingEntity getAttackTarget(MobEntity entity) {
         return entity.getBrain().getOptionalMemory(MemoryModuleType.ATTACK_TARGET).get();
     }

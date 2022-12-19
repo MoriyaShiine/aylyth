@@ -1,6 +1,7 @@
 package moriyashiine.aylyth.common.entity.ai.task;
 
 import com.google.common.collect.ImmutableMap;
+import moriyashiine.aylyth.common.entity.ai.brain.WreathedHindBrain;
 import moriyashiine.aylyth.common.entity.mob.TulpaEntity;
 import moriyashiine.aylyth.common.entity.mob.WreathedHindEntity;
 import moriyashiine.aylyth.common.util.BrainUtils;
@@ -52,7 +53,7 @@ public class GeckoMeleeAttackTask extends Task<MobEntity> {
         if(mobEntity instanceof TulpaEntity tulpaEntity){
             tulpaEntity.getDataTracker().set(TulpaEntity.IS_ATTACKING, true);
         }else if(mobEntity instanceof WreathedHindEntity wreathedHindEntity){
-            if(livingEntity instanceof PlayerEntity player && wreathedHindEntity.getPledgedPlayerUUIDs().contains(player.getUuid()) && player.getHealth() <= 6){
+            if(WreathedHindBrain.isPledgedPlayerLow(livingEntity, wreathedHindEntity)){
                 wreathedHindEntity.setAttackType(WreathedHindEntity.KILLING_ATTACK);
             }else{
                 wreathedHindEntity.setAttackType(WreathedHindEntity.MELEE_ATTACK);
