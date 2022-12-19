@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.mixin;
 
 import moriyashiine.aylyth.api.interfaces.HindPledgeHolder;
-import moriyashiine.aylyth.api.interfaces.Vital;
+import moriyashiine.aylyth.api.interfaces.VitalHolder;
 import moriyashiine.aylyth.common.registry.ModDamageSources;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.common.block.SoulHearthBlock;
@@ -51,7 +51,7 @@ import java.util.UUID;
 import static moriyashiine.aylyth.common.block.SoulHearthBlock.HALF;
 
 @Mixin(PlayerEntity.class)
-public abstract class PlayerEntityMixin extends LivingEntity implements Vital, HindPledgeHolder {
+public abstract class PlayerEntityMixin extends LivingEntity implements VitalHolder, HindPledgeHolder {
 
     @Shadow
     protected boolean isSubmergedInWater;
@@ -75,23 +75,23 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Vital, H
 
 
     @Inject(method = "writeCustomDataToNbt", at = @At("TAIL"))
-    private void writeAylythData(NbtCompound compoundTag, CallbackInfo info) {
-        NbtCompound tag = new NbtCompound();
-        tag.putInt("Vital", getVitalThuribleLevel());
+    private void writeAylythData(NbtCompound nbtCompound, CallbackInfo info) {
+        NbtCompound nbt = new NbtCompound();
+        nbt.putInt("Vital", getVitalThuribleLevel());
         if (this.getHindUuid() != null) {
-            tag.putUuid("HindUuid", getHindUuid());
+            nbt.putUuid("HindUuid", getHindUuid());
         }
-        compoundTag.put("AylythData", tag);
+        nbtCompound.put("AylythData", nbt);
     }
 
     @Inject(method = "readCustomDataFromNbt", at = @At("TAIL"))
-    public void readAylythData(NbtCompound compoundTag, CallbackInfo info) {
-        NbtCompound tag = (NbtCompound) compoundTag.get("AylythData");
-        if (tag != null) {
-            setVitalThuribleLevel(tag.getInt("Vital"));
+    public void readAylythData(NbtCompound nbtCompound, CallbackInfo info) {
+        NbtCompound nbt = (NbtCompound) nbtCompound.get("AylythData");
+        if (nbt != null) {
+            setVitalThuribleLevel(nbt.getInt("Vital"));
         }
-        if (tag != null && tag.containsUuid("HindUuid")) {
-            UUID ownerUUID = tag.getUuid("HindUuid");
+        if (nbt != null && nbt.containsUuid("HindUuid")) {
+            UUID ownerUUID = nbt.getUuid("HindUuid");
             this.setHindUuid(ownerUUID);
         }
     }

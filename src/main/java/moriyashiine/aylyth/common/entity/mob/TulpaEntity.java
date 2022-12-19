@@ -298,9 +298,9 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
                 this.setTamed(false);
             }
         }
-        NbtList listnbt = nbt.getList("Inventory", 10);
-        for (int i = 0; i < listnbt.size(); ++i) {
-            NbtCompound compoundnbt = listnbt.getCompound(i);
+        NbtList nbtList = nbt.getList("Inventory", 10);
+        for (int i = 0; i < nbtList.size(); ++i) {
+            NbtCompound compoundnbt = nbtList.getCompound(i);
             int j = compoundnbt.getByte("Slot") & 255;
             this.inventory.setStack(j, ItemStack.fromNbt(compoundnbt));
         }

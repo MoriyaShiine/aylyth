@@ -2,7 +2,7 @@ package moriyashiine.aylyth.common.event;
 
 import moriyashiine.aylyth.api.interfaces.ExtraPlayerData;
 import moriyashiine.aylyth.api.interfaces.HindPledgeHolder;
-import moriyashiine.aylyth.api.interfaces.Vital;
+import moriyashiine.aylyth.api.interfaces.VitalHolder;
 import moriyashiine.aylyth.common.block.WoodyGrowthCacheBlock;
 import moriyashiine.aylyth.common.entity.mob.RippedSoulEntity;
 import moriyashiine.aylyth.common.entity.mob.ScionEntity;
@@ -62,8 +62,8 @@ public class DeathEvents {
         if(!alive){
             NbtCompound playerData = AylythUtil.getPlayerData(newPlayer);
             if (!newPlayer.getWorld().isClient() && playerData.contains("RestoreInv")) {
-                NbtList tagList = playerData.getList("RestoreInv", 10);
-                AylythUtil.loadInv(tagList, newPlayer.getInventory());
+                NbtList nbtList = playerData.getList("RestoreInv", 10);
+                AylythUtil.loadInv(nbtList, newPlayer.getInventory());
                 AylythUtil.getPlayerData(newPlayer).getList("RestoreInv", 10).clear();
                 AylythUtil.getPlayerData(newPlayer).remove("RestoreInv");
             }
@@ -112,7 +112,7 @@ public class DeathEvents {
      */
     private static void checkVital(LivingEntity livingEntity, DamageSource source) {
         if(livingEntity instanceof PlayerEntity player && AylythUtil.isSourceYmpe(source)){
-            Vital.of(player).ifPresent(vital -> vital.setVitalThuribleLevel(0));
+            VitalHolder.of(player).ifPresent(vital -> vital.setVitalThuribleLevel(0));
         }
     }
 
@@ -139,7 +139,7 @@ public class DeathEvents {
         if (oldPlayer.world.getRegistryKey().equals(ModDimensionKeys.AYLYTH)) {
             AylythUtil.teleportTo(ModDimensionKeys.AYLYTH, newPlayer, 0);
         }
-        Vital.of(newPlayer).ifPresent(vital -> vital.setVitalThuribleLevel(((Vital) oldPlayer).getVitalThuribleLevel()));
+        VitalHolder.of(newPlayer).ifPresent(vital -> vital.setVitalThuribleLevel(((VitalHolder) oldPlayer).getVitalThuribleLevel()));
     }
 
     private static boolean allowDeath(LivingEntity livingEntity, DamageSource damageSource, float damageAmount) {
