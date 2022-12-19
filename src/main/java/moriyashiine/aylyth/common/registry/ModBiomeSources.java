@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.common.recipe;
+package moriyashiine.aylyth.common.registry;
 
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.world.dimension.AylythBiomeSource;

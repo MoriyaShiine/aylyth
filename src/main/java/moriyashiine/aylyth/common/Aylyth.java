@@ -7,7 +7,7 @@ import moriyashiine.aylyth.common.entity.mob.RippedSoulEntity;
 import moriyashiine.aylyth.common.entity.mob.ScionEntity;
 import moriyashiine.aylyth.common.network.packet.GlaivePacket;
 import moriyashiine.aylyth.client.network.packet.SpawnShuckParticlesPacket;
-import moriyashiine.aylyth.common.recipe.ModBiomeSources;
+import moriyashiine.aylyth.common.registry.ModBiomeSources;
 import moriyashiine.aylyth.common.recipe.YmpeDaggerDropRecipe;
 import moriyashiine.aylyth.common.registry.*;
 import moriyashiine.aylyth.common.util.AylythUtil;

@@ -20,6 +20,7 @@ public class ModTags {
 	public static final TagKey<Block> GHOSTCAP_REPLACEABLE = TagKey.of(Registry.BLOCK_KEY, new Identifier(Aylyth.MOD_ID, "ghostcap_replaceable"));
 	public static final TagKey<Block> SCION_REPELLENT = TagKey.of(Registry.BLOCK_KEY, new Identifier(Aylyth.MOD_ID, "scion_repellent"));
 	public static final TagKey<Block> WOODY_GROWTHS = TagKey.of(Registry.BLOCK_KEY, new Identifier(Aylyth.MOD_ID, "woody_growths"));
+	public static final TagKey<Block> WOODY_GROWTHS_GENERATE_ON = TagKey.of(Registry.BLOCK_KEY, new Identifier(Aylyth.MOD_ID, "woody_growths_generate_on"));
 
 	public static final TagKey<Item> YMPE_FOODS = TagKey.of(Registry.ITEM_KEY, new Identifier(Aylyth.MOD_ID, "ympe_foods"));
 	public static final TagKey<Item> YMPE_LOGS_ITEM = TagKey.of(Registry.ITEM_KEY, new Identifier(Aylyth.MOD_ID, "ympe_logs"));

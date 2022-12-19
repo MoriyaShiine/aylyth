@@ -357,16 +357,17 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
     public void registerControllers(AnimationData animationData) {
         animationData.addAnimationController(new AnimationController<>(this, "controller", 5, this::predicate));
     }
+
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
         AnimationBuilder animationBuilder = new AnimationBuilder();
         if (this.isDormant()) {
             if (getAttackState() == 1) {
-                animationBuilder.addAnimation("soulmould_activate", ILoopType.EDefaultLoopTypes.PLAY_ONCE);
+                animationBuilder.addAnimation("soulmould_inactive_to_active", ILoopType.EDefaultLoopTypes.HOLD_ON_LAST_FRAME);
             } else {
-                animationBuilder.addAnimation("soulmould_dormant", ILoopType.EDefaultLoopTypes.LOOP);
+                animationBuilder.addAnimation("soulmould_inactive", ILoopType.EDefaultLoopTypes.LOOP);
             }
         } else if(this.getAttackState() == 2) {
-            animationBuilder.addAnimation("soulmould_dashing", ILoopType.EDefaultLoopTypes.LOOP);
+            animationBuilder.addAnimation("soulmould_dashing", ILoopType.EDefaultLoopTypes.PLAY_ONCE);
         } else {
             if (!this.hasVehicle() && event.isMoving()) {
                 animationBuilder.addAnimation("soulmould_walking", ILoopType.EDefaultLoopTypes.LOOP);

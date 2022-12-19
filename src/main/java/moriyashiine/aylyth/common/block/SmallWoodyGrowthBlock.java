@@ -1,5 +1,6 @@
 package moriyashiine.aylyth.common.block;
 
+import moriyashiine.aylyth.common.registry.ModTags;
 import net.minecraft.block.*;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -55,7 +56,8 @@ public class SmallWoodyGrowthBlock extends Block implements Waterloggable {
 
     @Override
     public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        return world.getBlockState(pos.down()).isFullCube(world, pos.down());
+        var downState = world.getBlockState(pos.down());
+        return downState.isFullCube(world, pos.down()) || downState.isIn(ModTags.WOODY_GROWTHS_GENERATE_ON);
     }
 
     @Override

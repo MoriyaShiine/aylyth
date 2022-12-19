@@ -92,7 +92,7 @@ public class StrewnLeavesBlock extends Block implements IContextBlockSoundGroup 
     @Override
     public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
         var downState = world.getBlockState(pos.down());
-        return downState.isFullCube(world, pos) || (state.get(LEAVES) == 0 && downState.getFluidState().isStill());
+        return downState.isFullCube(world, pos.down()) || (state.get(LEAVES) == 0 && downState.getFluidState().isStill());
     }
 
     @Override
