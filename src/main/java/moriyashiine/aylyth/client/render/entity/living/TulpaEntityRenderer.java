@@ -131,6 +131,6 @@ public class TulpaEntityRenderer extends GeoEntityRenderer<TulpaEntity> {
 
     @Override
     protected float getDeathMaxRotation(TulpaEntity entityLivingBaseIn) {
-        return 0.0F;
+        return entityLivingBaseIn.getSkinUuid() == null ? 0.0F : 90f;
     }
 }

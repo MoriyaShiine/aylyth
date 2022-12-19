@@ -2,6 +2,7 @@ package moriyashiine.aylyth.common.entity.mob;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import moriyashiine.aylyth.api.interfaces.ProlongedDeath;
 import moriyashiine.aylyth.common.registry.ModComponents;
 import moriyashiine.aylyth.common.registry.ModItems;
 import moriyashiine.aylyth.mixin.EntityAccessor;
@@ -51,7 +52,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public class BoneflyEntity extends HostileEntity implements IAnimatable, TameableHostileEntity {
+public class BoneflyEntity extends HostileEntity implements IAnimatable, TameableHostileEntity, ProlongedDeath {
     private final AnimationFactory factory = GeckoLibUtil.createFactory(this);
     protected static final TrackedData<Boolean> DORMANT = DataTracker.registerData(BoneflyEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     public static final TrackedData<Integer> ACTION_STATE = DataTracker.registerData(BoneflyEntity.class, TrackedDataHandlerRegistry.INTEGER);
@@ -86,6 +87,11 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
     protected void initGoals() {
         this.goalSelector.add(0, new SwimGoal(this));
         this.goalSelector.add(5, new BoneflyWanderAroundFarGoal(this, 0.7));
+    }
+
+    @Override
+    public int getDeathAnimationTime(){
+        return 20 * 4;
     }
 
     @Override

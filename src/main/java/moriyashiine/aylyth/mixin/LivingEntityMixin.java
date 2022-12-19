@@ -1,5 +1,6 @@
 package moriyashiine.aylyth.mixin;
 
+import moriyashiine.aylyth.api.interfaces.ProlongedDeath;
 import moriyashiine.aylyth.common.entity.mob.BoneflyEntity;
 import moriyashiine.aylyth.common.entity.mob.SoulmouldEntity;
 import moriyashiine.aylyth.common.entity.mob.TulpaEntity;
@@ -58,9 +59,6 @@ public abstract class LivingEntityMixin extends Entity {
 	@ModifyConstant(method = "updatePostDeath", constant = @Constant(intValue = 20))
 	private int aylyth$updatePostDeath(int constant){
 		LivingEntity living = (LivingEntity) (Object) this;
-		if(living instanceof TulpaEntity || living instanceof BoneflyEntity || living instanceof SoulmouldEntity){
-			return 20 * 4;
-		}
-		return constant;
+		return ProlongedDeath.of(living).map(ProlongedDeath::getDeathAnimationTime).orElse(constant);
 	}
 }
