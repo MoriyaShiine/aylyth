@@ -2,6 +2,7 @@ package moriyashiine.aylyth.common.entity.ai.task;
 
 import com.google.common.collect.ImmutableMap;
 import moriyashiine.aylyth.common.entity.mob.TulpaEntity;
+import moriyashiine.aylyth.common.entity.mob.WreathedHindEntity;
 import moriyashiine.aylyth.common.util.BrainUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -75,7 +76,12 @@ public class GeckoMeleeAttackTask extends Task<MobEntity> {
     @Override
     protected void finishRunning(ServerWorld world, MobEntity entity, long time) {
         entity.setAttacking(false);
-        entity.getDataTracker().set(TulpaEntity.IS_ATTACKING, false);
+        if(entity instanceof TulpaEntity tulpaEntity){
+            tulpaEntity.getDataTracker().set(TulpaEntity.IS_ATTACKING, false);
+        }else if(entity instanceof WreathedHindEntity wreathedHindEntity){
+            wreathedHindEntity.setAttackType(WreathedHindEntity.NONE);
+        }
+
         this.animationTicker = animationTimeOfAttack;
         super.finishRunning(world, entity, time);
     }
