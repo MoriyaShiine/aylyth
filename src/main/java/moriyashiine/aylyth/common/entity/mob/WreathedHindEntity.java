@@ -14,6 +14,8 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.attribute.EntityAttributeInstance;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
@@ -49,6 +51,9 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 import java.util.*;
 
 public class WreathedHindEntity extends HostileEntity implements IAnimatable, Pledgeable {
+    private static final EntityAttributeModifier SNEAKY_SPEED_PENALTY = new EntityAttributeModifier(UUID.fromString("5CD17E11-A74A-43D3-A529-90FDE04B191E"), "sneaky", -0.15D, EntityAttributeModifier.Operation.ADDITION);
+    private EntityAttributeInstance modifiableattributeinstance = this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
+
     private final AnimationFactory factory = GeckoLibUtil.createFactory(this);
     public static final TrackedData<Byte> ATTACK_TYPE = DataTracker.registerData(WreathedHindEntity.class, TrackedDataHandlerRegistry.BYTE);
     public static final byte NONE = 0;
@@ -85,6 +90,12 @@ public class WreathedHindEntity extends HostileEntity implements IAnimatable, Pl
         this.world.getProfiler().pop();
         WreathedHindBrain.updateActivities(this);
         super.mobTick();
+        if(WreathedHindBrain.isPledgedPlayerLow(this.getTarget(), this)){
+            modifiableattributeinstance.removeModifier(SNEAKY_SPEED_PENALTY);
+            modifiableattributeinstance.addTemporaryModifier(SNEAKY_SPEED_PENALTY);
+        }else if(modifiableattributeinstance.hasModifier(SNEAKY_SPEED_PENALTY)){
+            modifiableattributeinstance.removeModifier(SNEAKY_SPEED_PENALTY);
+        }
     }
 
     @Override

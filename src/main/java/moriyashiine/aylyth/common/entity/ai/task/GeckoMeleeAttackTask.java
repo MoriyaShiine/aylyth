@@ -50,6 +50,8 @@ public class GeckoMeleeAttackTask extends Task<MobEntity> {
     protected void run(ServerWorld serverWorld, MobEntity mobEntity, long l) {
         mobEntity.setAttacking(true);
         LivingEntity livingEntity = BrainUtils.getAttackTarget(mobEntity);
+        mobEntity.setTarget(livingEntity);
+
         if(mobEntity instanceof TulpaEntity tulpaEntity){
             tulpaEntity.getDataTracker().set(TulpaEntity.IS_ATTACKING, true);
         }else if(mobEntity instanceof WreathedHindEntity wreathedHindEntity){
