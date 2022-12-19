@@ -15,6 +15,8 @@ import net.minecraft.client.texture.AbstractTexture;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.texture.TextureManager;
 import net.minecraft.particle.DefaultParticleType;
+import net.minecraft.particle.DustColorTransitionParticleEffect;
+import net.minecraft.particle.ParticleType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import org.lwjgl.opengl.GL11;
@@ -22,10 +24,15 @@ import org.lwjgl.opengl.GL11;
 public class ModParticles {
 	public static final DefaultParticleType PILOT_LIGHT = FabricParticleTypes.simple(true);
 	public static final DefaultParticleType AMBIENT_PILOT_LIGHT = FabricParticleTypes.simple(true);
-	
+
+	public static final DefaultParticleType HIND_SMOKE = FabricParticleTypes.simple(true);
+
+
+
 	public static void init() {
 		Registry.register(Registry.PARTICLE_TYPE, new Identifier(Aylyth.MOD_ID, "pilot_light"), PILOT_LIGHT);
 		Registry.register(Registry.PARTICLE_TYPE, new Identifier(Aylyth.MOD_ID, "ambient_pilot_light"), AMBIENT_PILOT_LIGHT);
+		Registry.register(Registry.PARTICLE_TYPE, new Identifier(Aylyth.MOD_ID, "hind_smoke"), HIND_SMOKE);
 	}
 	
 	@Environment(EnvType.CLIENT)
