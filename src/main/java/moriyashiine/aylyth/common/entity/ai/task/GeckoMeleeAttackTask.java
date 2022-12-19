@@ -11,6 +11,7 @@ import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.task.LookTargetUtil;
 import net.minecraft.entity.ai.brain.task.Task;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Hand;
 
@@ -47,10 +48,18 @@ public class GeckoMeleeAttackTask extends Task<MobEntity> {
 
     protected void run(ServerWorld serverWorld, MobEntity mobEntity, long l) {
         mobEntity.setAttacking(true);
-        mobEntity.getDataTracker().set(TulpaEntity.IS_ATTACKING, true);
         LivingEntity livingEntity = BrainUtils.getAttackTarget(mobEntity);
-        LookTargetUtil.lookAt(mobEntity, livingEntity);
+        if(mobEntity instanceof TulpaEntity tulpaEntity){
+            tulpaEntity.getDataTracker().set(TulpaEntity.IS_ATTACKING, true);
+        }else if(mobEntity instanceof WreathedHindEntity wreathedHindEntity){
+            if(livingEntity instanceof PlayerEntity player && wreathedHindEntity.getPledgedPlayerUUIDs().contains(player.getUuid()) && player.getHealth() <= 6){
+                wreathedHindEntity.setAttackType(WreathedHindEntity.KILLING_ATTACK);
+            }else{
+                wreathedHindEntity.setAttackType(WreathedHindEntity.MELEE_ATTACK);
+            }
 
+        }
+        LookTargetUtil.lookAt(mobEntity, livingEntity);
         mobEntity.getBrain().remember(MemoryModuleType.ATTACK_COOLING_DOWN, true, this.interval);
 
     }
