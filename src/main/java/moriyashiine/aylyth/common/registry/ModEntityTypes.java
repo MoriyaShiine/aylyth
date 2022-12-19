@@ -31,6 +31,8 @@ public class ModEntityTypes {
 	public static final EntityType<TulpaEntity> TULPA = FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, TulpaEntity::new).dimensions(EntityDimensions.fixed(0.6F, 1.95F)).fireImmune().build();
 	public static final EntityType<TulpaPlayerEntity> TULPA_PLAYER = FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, TulpaPlayerEntity::new).dimensions(EntityDimensions.fixed(0.6F, 1.95F)).build();
 
+	public static final EntityType<WreatheredHindEntity> WREATHERED_HIND_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, WreatheredHindEntity::new).dimensions(EntityDimensions.fixed(1.6F, 2.5F)).build();
+
 
 	public static void init() {
 		FabricDefaultAttributeRegistry.register(PILOT_LIGHT, PilotLightEntity.createAttributes());
@@ -42,6 +44,7 @@ public class ModEntityTypes {
 		FabricDefaultAttributeRegistry.register(RIPPED_SOUL, RippedSoulEntity.createVexAttributes());
 		FabricDefaultAttributeRegistry.register(TULPA, TulpaEntity.createTulpaAttributes());
 		FabricDefaultAttributeRegistry.register(TULPA_PLAYER, TulpaEntity.createTulpaAttributes());
+		FabricDefaultAttributeRegistry.register(WREATHERED_HIND_ENTITY, WreatheredHindEntity.createAttributes());
 		Registry.register(Registry.ENTITY_TYPE, new Identifier(Aylyth.MOD_ID, "pilot_light"), PILOT_LIGHT);
 		Registry.register(Registry.ENTITY_TYPE, new Identifier(Aylyth.MOD_ID, "aylythian"), AYLYTHIAN);
 		Registry.register(Registry.ENTITY_TYPE, new Identifier(Aylyth.MOD_ID, "elder_aylythian"), ELDER_AYLYTHIAN);
@@ -53,10 +56,12 @@ public class ModEntityTypes {
 		Registry.register(Registry.ENTITY_TYPE, new Identifier(Aylyth.MOD_ID, "ripped_soul"), RIPPED_SOUL);
 		Registry.register(Registry.ENTITY_TYPE, new Identifier(Aylyth.MOD_ID, "tulpa"), TULPA);
 		Registry.register(Registry.ENTITY_TYPE, new Identifier(Aylyth.MOD_ID, "tulpa_player"), TULPA_PLAYER);
+		Registry.register(Registry.ENTITY_TYPE, new Identifier(Aylyth.MOD_ID, "wreathered_hind"), WREATHERED_HIND_ENTITY);
 		
 		SpawnRestriction.register(PILOT_LIGHT, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING, PilotLightEntity::canSpawn);
 		SpawnRestriction.register(AYLYTHIAN, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AylythianEntity::canSpawn);
 		SpawnRestriction.register(SCION, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ScionEntity::canSpawn);
 		SpawnRestriction.register(ELDER_AYLYTHIAN, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AylythianEntity::canSpawn);
+		SpawnRestriction.register(WREATHERED_HIND_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, WreatheredHindEntity::canSpawn);
 	}
 }

@@ -5,7 +5,6 @@ import moriyashiine.aylyth.common.entity.mob.SoulmouldEntity;
 import moriyashiine.aylyth.common.entity.mob.TulpaEntity;
 import moriyashiine.aylyth.common.registry.*;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityStatuses;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
@@ -58,7 +57,8 @@ public abstract class LivingEntityMixin extends Entity {
 
 	@ModifyConstant(method = "updatePostDeath", constant = @Constant(intValue = 20))
 	private int aylyth$updatePostDeath(int constant){
-		if((LivingEntity) (Object) this instanceof TulpaEntity t || (LivingEntity) (Object) this instanceof BoneflyEntity b || (LivingEntity) (Object) this instanceof SoulmouldEntity s){
+		LivingEntity living = (LivingEntity) (Object) this;
+		if(living instanceof TulpaEntity || living instanceof BoneflyEntity || living instanceof SoulmouldEntity){
 			return 20 * 4;
 		}
 		return constant;

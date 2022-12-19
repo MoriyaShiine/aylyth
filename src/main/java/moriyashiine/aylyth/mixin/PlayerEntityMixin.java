@@ -1,12 +1,11 @@
 package moriyashiine.aylyth.mixin;
 
+import moriyashiine.aylyth.api.interfaces.HindPledgeHolder;
 import moriyashiine.aylyth.api.interfaces.Vital;
 import moriyashiine.aylyth.common.registry.ModDamageSources;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.common.block.SoulHearthBlock;
-import moriyashiine.aylyth.common.component.entity.CuirassComponent;
 import moriyashiine.aylyth.common.entity.mob.BoneflyEntity;
-import moriyashiine.aylyth.common.registry.ModComponents;
 import moriyashiine.aylyth.common.registry.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -25,7 +24,6 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.item.AxeItem;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.stat.Stat;
@@ -42,17 +40,18 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 
 import static moriyashiine.aylyth.common.block.SoulHearthBlock.HALF;
 
 @Mixin(PlayerEntity.class)
-public abstract class PlayerEntityMixin extends LivingEntity implements Vital {
+public abstract class PlayerEntityMixin extends LivingEntity implements Vital, HindPledgeHolder {
 
     @Shadow
     protected boolean isSubmergedInWater;
@@ -78,16 +77,22 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Vital {
     @Inject(method = "writeCustomDataToNbt", at = @At("TAIL"))
     private void writeAylythData(NbtCompound compoundTag, CallbackInfo info) {
         NbtCompound tag = new NbtCompound();
-        tag.putInt("vital", getVitalThuribleLevel());
-
-        compoundTag.put("aylyth_data", tag);
+        tag.putInt("Vital", getVitalThuribleLevel());
+        if (this.getHindUuid() != null) {
+            tag.putUuid("HindUuid", getHindUuid());
+        }
+        compoundTag.put("AylythData", tag);
     }
 
     @Inject(method = "readCustomDataFromNbt", at = @At("TAIL"))
     public void readAylythData(NbtCompound compoundTag, CallbackInfo info) {
-        NbtCompound tag = (NbtCompound) compoundTag.get("aylyth_data");
+        NbtCompound tag = (NbtCompound) compoundTag.get("AylythData");
         if (tag != null) {
-            setVitalThuribleLevel(tag.getInt("vital"));
+            setVitalThuribleLevel(tag.getInt("Vital"));
+        }
+        if (tag != null && tag.containsUuid("HindUuid")) {
+            UUID ownerUUID = tag.getUuid("HindUuid");
+            this.setHindUuid(ownerUUID);
         }
     }
 
@@ -107,9 +112,20 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Vital {
         }
     }
 
+    @Override
+    public UUID getHindUuid() {
+        return  this.dataTracker.get(AylythUtil.HIND_UUID).orElse(null);
+    }
+
+    @Override
+    public void setHindUuid(@Nullable UUID uuid) {
+        this.dataTracker.set(AylythUtil.HIND_UUID, Optional.ofNullable(uuid));
+    }
+
     @Inject(method = "initDataTracker()V", at = @At("TAIL"))
     private void addAylythTrackers(CallbackInfo info) {
         dataTracker.startTracking(AylythUtil.VITAL, 0);
+        dataTracker.startTracking(AylythUtil.HIND_UUID, Optional.empty());
     }
 
     @Inject(method = "findRespawnPosition", at = @At(value = "HEAD", target = "Lnet/minecraft/block/BlockState;getBlock()Lnet/minecraft/block/Block;"), cancellable = true)

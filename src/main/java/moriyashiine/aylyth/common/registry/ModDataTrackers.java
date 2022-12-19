@@ -1,6 +1,5 @@
 package moriyashiine.aylyth.common.registry;
 
-import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.data.TrackedDataHandler;
 
 public class ModDataTrackers {

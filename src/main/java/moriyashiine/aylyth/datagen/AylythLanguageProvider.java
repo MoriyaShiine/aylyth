@@ -97,6 +97,7 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add(ModEntityTypes.BONEFLY, "Bonefly");
         builder.add(ModEntityTypes.SCION, "Scion");
         builder.add(ModEntityTypes.TULPA, "Tulpa");
+        builder.add(ModEntityTypes.WREATHERED_HIND_ENTITY, "Wreathered Hind");
 
         // STATUS EFFECTS
 

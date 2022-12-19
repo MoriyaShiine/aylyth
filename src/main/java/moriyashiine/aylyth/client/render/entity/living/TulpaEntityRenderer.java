@@ -2,7 +2,6 @@ package moriyashiine.aylyth.client.render.entity.living;
 
 
 import moriyashiine.aylyth.client.model.entity.TulpaEntityModel;
-import moriyashiine.aylyth.common.entity.mob.SoulmouldEntity;
 import moriyashiine.aylyth.common.entity.mob.TulpaEntity;
 import moriyashiine.aylyth.common.registry.ModEntityTypes;
 import net.minecraft.client.MinecraftClient;

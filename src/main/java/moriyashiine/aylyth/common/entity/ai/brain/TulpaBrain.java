@@ -8,6 +8,8 @@ import moriyashiine.aylyth.common.entity.ai.task.*;
 import moriyashiine.aylyth.common.entity.mob.TulpaEntity;
 import moriyashiine.aylyth.common.registry.ModMemoryTypes;
 import moriyashiine.aylyth.common.registry.ModSensorTypes;
+import moriyashiine.aylyth.common.util.BrainUtils;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.brain.Activity;
 import net.minecraft.entity.ai.brain.Brain;
@@ -21,6 +23,7 @@ import net.minecraft.item.Items;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 public class TulpaBrain {
     private static final List<SensorType<? extends Sensor<? super TulpaEntity>>> SENSORS = List.of(
@@ -100,10 +103,10 @@ public class TulpaBrain {
     private static void addFightActivities(TulpaEntity tulpaEntity, Brain<TulpaEntity> brain) {
         brain.setTaskList(Activity.FIGHT, 10,
                 ImmutableList.of(
-                        new ForgetAttackTargetTask<>(entity -> !isPreferredAttackTarget(tulpaEntity, entity), TulpaBrain::setTargetInvalid, false),
-                        new FollowMobTask(mob -> isTarget(tulpaEntity, mob), (float)tulpaEntity.getAttributeValue(EntityAttributes.GENERIC_FOLLOW_RANGE)),
+                        new ForgetAttackTargetTask<>(entity -> !isPreferredAttackTarget(tulpaEntity, entity), BrainUtils::setTargetInvalid, false),
+                        new FollowMobTask(mob -> BrainUtils.isTarget(tulpaEntity, mob), (float)tulpaEntity.getAttributeValue(EntityAttributes.GENERIC_FOLLOW_RANGE)),
                         new SwitchWeaponTask(tulpaEntity),
-                        new GeckoMeleeAttackTask(10),
+                        new GeckoMeleeAttackTask(ENTITY_PREDICATE::test, 10, (int) (20 * 1.5), 15),
                         new ConditionalTask<>(TulpaBrain::isHoldingCrossbow, new AttackTask<>(5, 0.75F)),
                         new TacticalApproachTask(0.65F, LivingEntity::isAlive)
                 ), MemoryModuleType.ATTACK_TARGET);
@@ -113,14 +116,13 @@ public class TulpaBrain {
         return tulpaEntity.isHolding(Items.CROSSBOW);
     }
 
+    private static final Predicate<Entity> ENTITY_PREDICATE = entity -> {
+        return true;
+    };
+
     public static void updateActivities(TulpaEntity tulpaEntity) {
         tulpaEntity.getBrain().resetPossibleActivities(ImmutableList.of(Activity.FIGHT, Activity.IDLE));
         tulpaEntity.setAttacking(tulpaEntity.getBrain().hasMemoryModule(MemoryModuleType.ATTACK_TARGET));
-    }
-
-    private static void setTargetInvalid(TulpaEntity tulpaEntity, LivingEntity target) {
-        tulpaEntity.getBrain().forget(MemoryModuleType.ATTACK_TARGET);
-        tulpaEntity.getBrain().forget(MemoryModuleType.ANGRY_AT);
     }
 
     private static boolean isPreferredAttackTarget(TulpaEntity tulpaEntity, LivingEntity target) {
@@ -140,10 +142,6 @@ public class TulpaBrain {
             }
         }
         return Optional.empty();
-    }
-
-    private static boolean isTarget(TulpaEntity tulpaEntity, LivingEntity entity) {
-        return tulpaEntity.getBrain().getOptionalMemory(MemoryModuleType.ATTACK_TARGET).filter(targetedEntity -> targetedEntity == entity).isPresent();
     }
 
     public static boolean hasAteRecently(TulpaEntity tulpaEntity) {

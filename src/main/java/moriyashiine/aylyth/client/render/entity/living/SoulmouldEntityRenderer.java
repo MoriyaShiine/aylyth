@@ -2,8 +2,6 @@ package moriyashiine.aylyth.client.render.entity.living;
 
 import moriyashiine.aylyth.client.model.entity.SoulmouldEntityModel;
 import moriyashiine.aylyth.client.render.entity.living.layer.SoulmouldEyesLayer;
-import moriyashiine.aylyth.common.entity.mob.BoneflyEntity;
-import moriyashiine.aylyth.common.entity.mob.ScionEntity;
 import moriyashiine.aylyth.common.entity.mob.SoulmouldEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
