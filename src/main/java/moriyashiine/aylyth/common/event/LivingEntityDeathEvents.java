@@ -35,20 +35,20 @@ import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 
-public class DeathEvents {
+public class LivingEntityDeathEvents {
     private static Identifier lateEvent = AylythUtil.id("late");
 
     public static void init(){
         ServerLivingEntityEvents.ALLOW_DEATH.addPhaseOrdering(Event.DEFAULT_PHASE, lateEvent);
 
-        ServerLivingEntityEvents.ALLOW_DEATH.register(lateEvent, DeathEvents::hindKeepInv);
-        ServerLivingEntityEvents.ALLOW_DEATH.register(DeathEvents::allowDeath);
+        ServerLivingEntityEvents.ALLOW_DEATH.register(lateEvent, LivingEntityDeathEvents::hindKeepInv);
+        ServerLivingEntityEvents.ALLOW_DEATH.register(LivingEntityDeathEvents::allowDeath);
 
-        ServerLivingEntityEvents.AFTER_DEATH.register(DeathEvents::checkVital);
-        ServerLivingEntityEvents.AFTER_DEATH.register(DeathEvents::spawnRippedSoul);
+        ServerLivingEntityEvents.AFTER_DEATH.register(LivingEntityDeathEvents::checkVital);
+        ServerLivingEntityEvents.AFTER_DEATH.register(LivingEntityDeathEvents::spawnRippedSoul);
 
-        ServerPlayerEvents.AFTER_RESPAWN.register(DeathEvents::afterRespawn);
-        ServerPlayerEvents.AFTER_RESPAWN.register(DeathEvents::restoreInv);
+        ServerPlayerEvents.AFTER_RESPAWN.register(LivingEntityDeathEvents::afterRespawn);
+        ServerPlayerEvents.AFTER_RESPAWN.register(LivingEntityDeathEvents::restoreInv);
     }
 
     /**

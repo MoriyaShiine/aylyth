@@ -16,6 +16,7 @@ import moriyashiine.aylyth.client.render.block.entity.VitalThuribleBlockEntityRe
 import moriyashiine.aylyth.client.render.block.entity.WoodyGrowthBlockEntityRenderer;
 import moriyashiine.aylyth.client.render.entity.RootPropEntityRenderer;
 import moriyashiine.aylyth.client.render.entity.living.*;
+import moriyashiine.aylyth.client.render.entity.projectile.SphereEntityRenderer;
 import moriyashiine.aylyth.client.render.entity.projectile.YmpeLanceEntityRenderer;
 import moriyashiine.aylyth.client.render.item.BigItemRenderer;
 import moriyashiine.aylyth.client.screen.TulpaScreen;
@@ -113,7 +114,8 @@ public class AylythClient implements ClientModInitializer {
 		EntityRendererRegistry.register(ModEntityTypes.RIPPED_SOUL, RippedSoulEntityRenderer::new);
 		EntityRendererRegistry.register(ModEntityTypes.TULPA, TulpaEntityRenderer::new);
 		EntityRendererRegistry.register(ModEntityTypes.TULPA_PLAYER, TulpaPlayerEntityRenderer::new);
-		EntityRendererRegistry.register(ModEntityTypes.WREATHERED_HIND_ENTITY, WreatheredHindEntityRenderer::new);
+		EntityRendererRegistry.register(ModEntityTypes.WREATHERED_HIND_ENTITY, WreathedHindEntityRenderer::new);
+		EntityRendererRegistry.register(ModEntityTypes.SPHERE_ENTITY, SphereEntityRenderer::new);
 
 		EntityRendererRegistry.register(ModEntityTypes.SCION, ScionEntityRenderer::new);
 		TerraformBoatClientHelper.registerModelLayers(new Identifier(Aylyth.MOD_ID, "ympe"));

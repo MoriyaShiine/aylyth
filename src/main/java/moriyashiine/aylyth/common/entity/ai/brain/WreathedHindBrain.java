@@ -5,8 +5,9 @@ import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Dynamic;
 import moriyashiine.aylyth.common.entity.ai.task.AttackHostileIfPlayerNear;
+import moriyashiine.aylyth.common.entity.ai.task.BoltRangedAttackTask;
 import moriyashiine.aylyth.common.entity.ai.task.GeckoMeleeAttackTask;
-import moriyashiine.aylyth.common.entity.mob.WreatheredHindEntity;
+import moriyashiine.aylyth.common.entity.mob.WreathedHindEntity;
 import moriyashiine.aylyth.common.registry.ModMemoryTypes;
 import moriyashiine.aylyth.common.registry.ModSensorTypes;
 import moriyashiine.aylyth.common.util.BrainUtils;
@@ -25,8 +26,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-public class WreatheredHindBrain {
-    private static final List<SensorType<? extends Sensor<? super WreatheredHindEntity>>> SENSORS = List.of(
+public class WreathedHindBrain {
+    private static final List<SensorType<? extends Sensor<? super WreathedHindEntity>>> SENSORS = List.of(
             SensorType.NEAREST_PLAYERS,
             SensorType.NEAREST_LIVING_ENTITIES,
             SensorType.HURT_BY,
@@ -50,11 +51,11 @@ public class WreatheredHindBrain {
             ModMemoryTypes.NEAREST_PLEDGED_PLAYERS
     );
 
-    public WreatheredHindBrain(){}
+    public WreathedHindBrain(){}
 
-    public static Brain<?> create(WreatheredHindEntity wreathedHindEntity, Dynamic<?> dynamic) {
-        Brain.Profile<WreatheredHindEntity> profile = Brain.createProfile(MEMORIES, SENSORS);
-        Brain<WreatheredHindEntity> brain = profile.deserialize(dynamic);
+    public static Brain<?> create(WreathedHindEntity wreathedHindEntity, Dynamic<?> dynamic) {
+        Brain.Profile<WreathedHindEntity> profile = Brain.createProfile(MEMORIES, SENSORS);
+        Brain<WreathedHindEntity> brain = profile.deserialize(dynamic);
         addCoreActivities(brain);
         addIdleActivities(brain);
         addFightActivities(wreathedHindEntity, brain);
@@ -64,7 +65,7 @@ public class WreatheredHindBrain {
         return brain;
     }
 
-    private static void addCoreActivities(Brain<WreatheredHindEntity> brain) {
+    private static void addCoreActivities(Brain<WreathedHindEntity> brain) {
         brain.setTaskList(
                 Activity.CORE,
                 0,
@@ -72,12 +73,12 @@ public class WreatheredHindBrain {
                         new StayAboveWaterTask(0.6f),
                         new LookAroundTask(45, 90),
                         new WanderAroundTask(),
-                        new UpdateAttackTargetTask<>(WreatheredHindBrain::getAttackTarget)
+                        new UpdateAttackTargetTask<>(WreathedHindBrain::getAttackTarget)
                 )
         );
     }
 
-    private static void addIdleActivities(Brain<WreatheredHindEntity> brain) {
+    private static void addIdleActivities(Brain<WreathedHindEntity> brain) {
         brain.setTaskList(
                 Activity.IDLE,
                 ImmutableList.of(
@@ -91,31 +92,36 @@ public class WreatheredHindBrain {
         );
     }
 
-    private static void addFightActivities(WreatheredHindEntity wreathedHindEntity, Brain<WreatheredHindEntity> brain) {
+    private static void addFightActivities(WreathedHindEntity wreathedHindEntity, Brain<WreathedHindEntity> brain) {
         brain.setTaskList(Activity.FIGHT, 10,
                 ImmutableList.of(
                         new ForgetAttackTargetTask<>(entity -> !isPreferredAttackTarget(wreathedHindEntity, entity), BrainUtils::setTargetInvalid, false),
                         new FollowMobTask(mob -> BrainUtils.isTarget(wreathedHindEntity, mob), (float)wreathedHindEntity.getAttributeValue(EntityAttributes.GENERIC_FOLLOW_RANGE)),
                         new GeckoMeleeAttackTask(ENTITY_PREDICATE::test, 10,20 * 2,20 * 0.7D),
+                        new BoltRangedAttackTask(),
                         new AttackHostileIfPlayerNear()
                 ), MemoryModuleType.ATTACK_TARGET);
     }
 
+
     private static final Predicate<Entity> ENTITY_PREDICATE = entity -> {
-        return true;
+        if(entity instanceof WreathedHindEntity wreathedHindEntity){
+            return wreathedHindEntity.getAttackType() == WreathedHindEntity.MELEE_ATTACK || wreathedHindEntity.getAttackType() == WreathedHindEntity.KILLING_ATTACK;
+        }
+        return false;
     };
 
-    public static void updateActivities(WreatheredHindEntity wreathedHindEntity) {
+    public static void updateActivities(WreathedHindEntity wreathedHindEntity) {
         wreathedHindEntity.getBrain().resetPossibleActivities(ImmutableList.of(Activity.FIGHT, Activity.IDLE));
         wreathedHindEntity.setAttacking(wreathedHindEntity.getBrain().hasMemoryModule(MemoryModuleType.ATTACK_TARGET));
     }
 
-    private static boolean isPreferredAttackTarget(WreatheredHindEntity wreathedHindEntity, LivingEntity target) {
+    private static boolean isPreferredAttackTarget(WreathedHindEntity wreathedHindEntity, LivingEntity target) {
         return getAttackTarget(wreathedHindEntity).filter((preferredTarget) -> preferredTarget == target).isPresent();
     }
 
-    private static Optional<? extends LivingEntity> getAttackTarget(WreatheredHindEntity wreathedHindEntity) {
-        Brain<WreatheredHindEntity> brain = wreathedHindEntity.getBrain();
+    private static Optional<? extends LivingEntity> getAttackTarget(WreathedHindEntity wreathedHindEntity) {
+        Brain<WreathedHindEntity> brain = wreathedHindEntity.getBrain();
         Optional<LivingEntity> optional = LookTargetUtil.getEntity(wreathedHindEntity, MemoryModuleType.ANGRY_AT);
         if(optional.isPresent()){
             return optional;

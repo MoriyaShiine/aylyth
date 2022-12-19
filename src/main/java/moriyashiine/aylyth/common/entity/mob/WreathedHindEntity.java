@@ -3,9 +3,10 @@ package moriyashiine.aylyth.common.entity.mob;
 import com.mojang.serialization.Dynamic;
 import moriyashiine.aylyth.api.interfaces.HindPledgeHolder;
 import moriyashiine.aylyth.api.interfaces.Pledgeable;
-import moriyashiine.aylyth.common.entity.ai.brain.WreatheredHindBrain;
+import moriyashiine.aylyth.common.entity.ai.brain.WreathedHindBrain;
 import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.ModItems;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.brain.Brain;
@@ -43,16 +44,16 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.*;
 
-public class WreatheredHindEntity extends HostileEntity implements IAnimatable, Pledgeable {
+public class WreathedHindEntity extends HostileEntity implements IAnimatable, Pledgeable {
     private final AnimationFactory factory = GeckoLibUtil.createFactory(this);
-    public static final TrackedData<Byte> ATTACK_TYPE = DataTracker.registerData(WreatheredHindEntity.class, TrackedDataHandlerRegistry.BYTE);
-    private static final byte NONE = 0;
-    private static final byte MELEE_ATTACK = 1;
-    private static final byte RANGE_ATTACK = 2;
-    private static final byte KILLING_ATTACK = 3;
+    public static final TrackedData<Byte> ATTACK_TYPE = DataTracker.registerData(WreathedHindEntity.class, TrackedDataHandlerRegistry.BYTE);
+    public static final byte NONE = 0;
+    public static final byte MELEE_ATTACK = 1;
+    public static final byte RANGE_ATTACK = 2;
+    public static final byte KILLING_ATTACK = 3;
     private final Set<UUID> pledgedPlayerUUIDS = new HashSet<>();
 
-    public WreatheredHindEntity(EntityType<? extends HostileEntity> entityType, World world) {
+    public WreathedHindEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
         this.setPersistent();
 
@@ -75,10 +76,10 @@ public class WreatheredHindEntity extends HostileEntity implements IAnimatable, 
 
     @Override
     protected void mobTick() {
-        this.world.getProfiler().push("wreatheredHindBrain");
+        this.world.getProfiler().push("wreathedHindBrain");
         this.getBrain().tick((ServerWorld)this.world, this);
         this.world.getProfiler().pop();
-        WreatheredHindBrain.updateActivities(this);
+        WreathedHindBrain.updateActivities(this);
         super.mobTick();
     }
 
@@ -108,6 +109,17 @@ public class WreatheredHindEntity extends HostileEntity implements IAnimatable, 
             stack.decrement(1);
         }
         return super.interactMob(player, hand);
+    }
+
+    @Override
+    public boolean tryAttack(Entity target) {
+        if(getAttackType() == MELEE_ATTACK){
+            return super.tryAttack(target);
+        }else if(getAttackType() == KILLING_ATTACK){
+            //TODO add killing blow
+        }
+
+       return false;
     }
 
     @Override
@@ -184,22 +196,22 @@ public class WreatheredHindEntity extends HostileEntity implements IAnimatable, 
         return dataTracker.get(ATTACK_TYPE);
     }
 
-    private void setAttackType(byte id) {
+    public void setAttackType(byte id) {
         dataTracker.set(ATTACK_TYPE, id);
     }
 
     @Override
     protected Brain<?> deserializeBrain(Dynamic<?> dynamic) {
-        return WreatheredHindBrain.create(this, dynamic);
+        return WreathedHindBrain.create(this, dynamic);
     }
 
     @SuppressWarnings("All")
     @Override
-    public Brain<WreatheredHindEntity> getBrain() {
-        return (Brain<WreatheredHindEntity>) super.getBrain();
+    public Brain<WreathedHindEntity> getBrain() {
+        return (Brain<WreathedHindEntity>) super.getBrain();
     }
 
-    public static boolean canSpawn(EntityType<WreatheredHindEntity> wreathedHindEntityEntityType, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos blockPos, Random random) {
+    public static boolean canSpawn(EntityType<WreathedHindEntity> wreathedHindEntityEntityType, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos blockPos, Random random) {
         return true;//TODO
     }
 

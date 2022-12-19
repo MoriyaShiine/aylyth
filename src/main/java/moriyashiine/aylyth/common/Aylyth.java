@@ -2,7 +2,7 @@ package moriyashiine.aylyth.common;
 
 import moriyashiine.aylyth.client.network.packet.UpdatePressingUpDownPacket;
 import moriyashiine.aylyth.common.entity.mob.ScionEntity;
-import moriyashiine.aylyth.common.event.DeathEvents;
+import moriyashiine.aylyth.common.event.LivingEntityDeathEvents;
 import moriyashiine.aylyth.common.network.packet.GlaivePacket;
 import moriyashiine.aylyth.common.registry.ModBiomeSources;
 import moriyashiine.aylyth.common.recipe.YmpeDaggerDropRecipe;
@@ -60,7 +60,7 @@ public class Aylyth implements ModInitializer {
 		ModBiomeSources.init();
 		biomeModifications();
 
-		DeathEvents.init();
+		LivingEntityDeathEvents.init();
 
 		ServerPlayNetworking.registerGlobalReceiver(GlaivePacket.ID, GlaivePacket::handle);
 		ServerPlayNetworking.registerGlobalReceiver(UpdatePressingUpDownPacket.ID, UpdatePressingUpDownPacket::handle);

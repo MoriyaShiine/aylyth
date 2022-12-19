@@ -5,6 +5,7 @@ import moriyashiine.aylyth.common.entity.RootPropEntity;
 import moriyashiine.aylyth.common.entity.mob.*;
 import moriyashiine.aylyth.common.entity.mob.TulpaEntity.TulpaPlayerEntity;
 import moriyashiine.aylyth.common.entity.passive.PilotLightEntity;
+import moriyashiine.aylyth.common.entity.projectile.SphereEntity;
 import moriyashiine.aylyth.common.entity.projectile.YmpeLanceEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
@@ -12,6 +13,7 @@ import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.SpawnRestriction;
+import net.minecraft.entity.projectile.LlamaSpitEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.Heightmap;
@@ -31,7 +33,9 @@ public class ModEntityTypes {
 	public static final EntityType<TulpaEntity> TULPA = FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, TulpaEntity::new).dimensions(EntityDimensions.fixed(0.6F, 1.95F)).fireImmune().build();
 	public static final EntityType<TulpaPlayerEntity> TULPA_PLAYER = FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, TulpaPlayerEntity::new).dimensions(EntityDimensions.fixed(0.6F, 1.95F)).build();
 
-	public static final EntityType<WreatheredHindEntity> WREATHERED_HIND_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, WreatheredHindEntity::new).dimensions(EntityDimensions.fixed(1.6F, 2.5F)).build();
+	public static final EntityType<WreathedHindEntity> WREATHERED_HIND_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, WreathedHindEntity::new).dimensions(EntityDimensions.fixed(1.6F, 2.5F)).build();
+
+	public static final EntityType<SphereEntity> SPHERE_ENTITY = FabricEntityTypeBuilder.<SphereEntity>create(SpawnGroup.MISC, SphereEntity::new).dimensions(EntityDimensions.fixed(0.25f,0.25f)).build();
 
 
 	public static void init() {
@@ -44,7 +48,7 @@ public class ModEntityTypes {
 		FabricDefaultAttributeRegistry.register(RIPPED_SOUL, RippedSoulEntity.createVexAttributes());
 		FabricDefaultAttributeRegistry.register(TULPA, TulpaEntity.createTulpaAttributes());
 		FabricDefaultAttributeRegistry.register(TULPA_PLAYER, TulpaEntity.createTulpaAttributes());
-		FabricDefaultAttributeRegistry.register(WREATHERED_HIND_ENTITY, WreatheredHindEntity.createAttributes());
+		FabricDefaultAttributeRegistry.register(WREATHERED_HIND_ENTITY, WreathedHindEntity.createAttributes());
 		Registry.register(Registry.ENTITY_TYPE, new Identifier(Aylyth.MOD_ID, "pilot_light"), PILOT_LIGHT);
 		Registry.register(Registry.ENTITY_TYPE, new Identifier(Aylyth.MOD_ID, "aylythian"), AYLYTHIAN);
 		Registry.register(Registry.ENTITY_TYPE, new Identifier(Aylyth.MOD_ID, "elder_aylythian"), ELDER_AYLYTHIAN);
@@ -56,12 +60,13 @@ public class ModEntityTypes {
 		Registry.register(Registry.ENTITY_TYPE, new Identifier(Aylyth.MOD_ID, "ripped_soul"), RIPPED_SOUL);
 		Registry.register(Registry.ENTITY_TYPE, new Identifier(Aylyth.MOD_ID, "tulpa"), TULPA);
 		Registry.register(Registry.ENTITY_TYPE, new Identifier(Aylyth.MOD_ID, "tulpa_player"), TULPA_PLAYER);
-		Registry.register(Registry.ENTITY_TYPE, new Identifier(Aylyth.MOD_ID, "wreathered_hind"), WREATHERED_HIND_ENTITY);
-		
+		Registry.register(Registry.ENTITY_TYPE, new Identifier(Aylyth.MOD_ID, "wreathed_hind"), WREATHERED_HIND_ENTITY);
+		Registry.register(Registry.ENTITY_TYPE, new Identifier(Aylyth.MOD_ID, "sphere"), SPHERE_ENTITY);
+
 		SpawnRestriction.register(PILOT_LIGHT, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING, PilotLightEntity::canSpawn);
 		SpawnRestriction.register(AYLYTHIAN, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AylythianEntity::canSpawn);
 		SpawnRestriction.register(SCION, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ScionEntity::canSpawn);
 		SpawnRestriction.register(ELDER_AYLYTHIAN, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AylythianEntity::canSpawn);
-		SpawnRestriction.register(WREATHERED_HIND_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, WreatheredHindEntity::canSpawn);
+		SpawnRestriction.register(WREATHERED_HIND_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, WreathedHindEntity::canSpawn);
 	}
 }

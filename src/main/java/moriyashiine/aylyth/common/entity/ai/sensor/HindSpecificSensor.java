@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.entity.ai.sensor;
 
 import com.google.common.collect.ImmutableSet;
-import moriyashiine.aylyth.common.entity.mob.WreatheredHindEntity;
+import moriyashiine.aylyth.common.entity.mob.WreathedHindEntity;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
@@ -15,14 +15,14 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class HindSpecificSensor extends Sensor<WreatheredHindEntity> {
+public class HindSpecificSensor extends Sensor<WreathedHindEntity> {
     @Override
     public Set<MemoryModuleType<?>> getOutputMemoryModules() {
         return ImmutableSet.of(MemoryModuleType.NEAREST_PLAYERS, MemoryModuleType.NEAREST_VISIBLE_PLAYER, MemoryModuleType.NEAREST_VISIBLE_TARGETABLE_PLAYER);
     }
 
     @Override
-    protected void sense(ServerWorld world, WreatheredHindEntity entity) {
+    protected void sense(ServerWorld world, WreathedHindEntity entity) {
         List<PlayerEntity> list = world.getPlayers()
                 .stream()
                 .filter(EntityPredicates.EXCEPT_SPECTATOR)
