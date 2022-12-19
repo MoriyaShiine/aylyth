@@ -4,9 +4,9 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Dynamic;
-import moriyashiine.aylyth.common.entity.ai.task.AttackHostileIfPlayerNear;
 import moriyashiine.aylyth.common.entity.ai.task.BoltRangedAttackTask;
 import moriyashiine.aylyth.common.entity.ai.task.GeckoMeleeAttackTask;
+import moriyashiine.aylyth.common.entity.ai.task.RevengeTask;
 import moriyashiine.aylyth.common.entity.mob.WreathedHindEntity;
 import moriyashiine.aylyth.common.registry.ModMemoryTypes;
 import moriyashiine.aylyth.common.registry.ModSensorTypes;
@@ -21,6 +21,7 @@ import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.ai.brain.task.*;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.passive.FrogBrain;
 
 import java.util.List;
 import java.util.Optional;
@@ -87,7 +88,8 @@ public class WreathedHindBrain {
                                         Pair.of(new StrollTask(0.6F), 2),
                                         Pair.of(new ConditionalTask<>(livingEntity -> true, new GoTowardsLookTarget(0.6F, 3)), 2),
                                         Pair.of(new WaitTask(30, 60), 1)
-                                )))
+                                ))),
+                        Pair.of(2, new UpdateAttackTargetTask<>(e -> true, hind -> hind.getBrain().getOptionalMemory(MemoryModuleType.NEAREST_ATTACKABLE)))
                 )
         );
     }
@@ -98,8 +100,8 @@ public class WreathedHindBrain {
                         new ForgetAttackTargetTask<>(entity -> !isPreferredAttackTarget(wreathedHindEntity, entity), BrainUtils::setTargetInvalid, false),
                         new FollowMobTask(mob -> BrainUtils.isTarget(wreathedHindEntity, mob), (float)wreathedHindEntity.getAttributeValue(EntityAttributes.GENERIC_FOLLOW_RANGE)),
                         new GeckoMeleeAttackTask(ENTITY_PREDICATE::test, 10,20 * 2,20 * 0.7D),
-                        new BoltRangedAttackTask(),
-                        new AttackHostileIfPlayerNear()
+                        new RevengeTask(),
+                        new BoltRangedAttackTask()
                 ), MemoryModuleType.ATTACK_TARGET);
     }
 
