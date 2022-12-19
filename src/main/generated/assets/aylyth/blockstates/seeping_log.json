@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "aylyth:block/seeping_log",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "aylyth:block/seeping_log"
+    },
+    "axis=z": {
+      "model": "aylyth:block/seeping_log",
+      "x": 90
+    }
+  }
+}

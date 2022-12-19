@@ -1,5 +1,6 @@
 package moriyashiine.aylyth.common.registry;
 
+import com.mojang.datafixers.util.Pair;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.block.*;
 import moriyashiine.aylyth.common.registry.util.WoodSuite;
@@ -18,10 +19,12 @@ import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import static net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings.copyOf;
 
 public class ModBlocks {
-
 	public static final Material STREWN_LEAVES = new Material.Builder(MapColor.DARK_GREEN).notSolid().allowsMovement().destroyedByPiston().replaceable().build();
 
 	public static final WoodSuite YMPE_BLOCKS = WoodSuite.of(new Identifier(Aylyth.MOD_ID, "ympe"), WoodSuite.CopySettingsSet.DEFAULT_SETTINGS_SET, Registry.BLOCK, MapColor.BROWN, new LargeTreeSaplingGenerator() {
@@ -59,6 +62,8 @@ public class ModBlocks {
 	}, copyOf(Blocks.OAK_SAPLING)), null, null, null, null, null, null, null, null, null, null, null, null);
 	public static final Block WRITHEWOOD_LEAVES = BlocksAccessor.callCreateLeavesBlock(BlockSoundGroup.GRASS);
 
+	public static final Block SEEPING_WOOD = new PillarBlock(copyOf(Blocks.OAK_WOOD));
+
 	public static final Block AYLYTH_BUSH = new BushBlock();
 	public static final Block ANTLER_SHOOTS = new AntlerShootsBlock();
 	public static final Block GRIPWEED = new GripweedBlock();
@@ -82,12 +87,13 @@ public class ModBlocks {
 	public static final Block SPRUCE_SEEP = new SeepBlock();
 	public static final Block DARK_OAK_SEEP = new SeepBlock();
 	public static final Block YMPE_SEEP = new SeepBlock();
+	public static final Block SEEPING_SEEP = new SeepBlock();
 
 	public static final Block DARK_WOODS_TILES = new Block(copyOf(Blocks.DARK_OAK_PLANKS));
 
 	public static final Block SOUL_HEARTH = new SoulHearthBlock(copyOf(Blocks.DEEPSLATE));
 	public static final Block VITAL_THURIBLE = new VitalThuribleBlock(copyOf(Blocks.DEEPSLATE));
-	
+
 	public static void init() {
 		YMPE_BLOCKS.register();
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "fruit_bearing_ympe_log"), FRUIT_BEARING_YMPE_LOG);
@@ -96,6 +102,7 @@ public class ModBlocks {
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "pomegranate_leaves"), POMEGRANATE_LEAVES);
 		WRITHEWOOD_BLOCKS.register();
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "writhewood_leaves"), WRITHEWOOD_LEAVES);
+		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "seeping_log"), SEEPING_WOOD);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "aylyth_bush"), AYLYTH_BUSH);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "antler_shoots"), ANTLER_SHOOTS);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "gripweed"), GRIPWEED);
@@ -114,6 +121,7 @@ public class ModBlocks {
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "spruce_seep"), SPRUCE_SEEP);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "dark_oak_seep"), DARK_OAK_SEEP);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "ympe_seep"), YMPE_SEEP);
+		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "seeping_seep"), SEEPING_SEEP);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "dark_woods_tiles"), DARK_WOODS_TILES);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "soul_hearth"), SOUL_HEARTH);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "vital_thurible"), VITAL_THURIBLE);
@@ -123,22 +131,33 @@ public class ModBlocks {
 		flammableRegistry.add(YMPE_BLOCKS.strippedWood, 5, 5);
 		flammableRegistry.add(YMPE_BLOCKS.log, 5, 5);
 		flammableRegistry.add(YMPE_BLOCKS.wood, 5, 5);
-		flammableRegistry.add(YMPE_LEAVES, 30, 60);
 		flammableRegistry.add(YMPE_BLOCKS.planks, 5, 20);
 		flammableRegistry.add(YMPE_BLOCKS.stairs, 5, 20);
 		flammableRegistry.add(YMPE_BLOCKS.slab, 5, 20);
 		flammableRegistry.add(YMPE_BLOCKS.fence, 5, 20);
 		flammableRegistry.add(YMPE_BLOCKS.fenceGate, 5, 20);
+		flammableRegistry.add(YMPE_LEAVES, 30, 60);
 		flammableRegistry.add(POMEGRANATE_BLOCKS.strippedLog, 5, 5);
 		flammableRegistry.add(POMEGRANATE_BLOCKS.strippedWood, 5, 5);
 		flammableRegistry.add(POMEGRANATE_BLOCKS.log, 5, 5);
 		flammableRegistry.add(POMEGRANATE_BLOCKS.wood, 5, 5);
-		flammableRegistry.add(POMEGRANATE_LEAVES, 30, 60);
 		flammableRegistry.add(POMEGRANATE_BLOCKS.planks, 5, 20);
 		flammableRegistry.add(POMEGRANATE_BLOCKS.stairs, 5, 20);
 		flammableRegistry.add(POMEGRANATE_BLOCKS.slab, 5, 20);
 		flammableRegistry.add(POMEGRANATE_BLOCKS.fence, 5, 20);
 		flammableRegistry.add(POMEGRANATE_BLOCKS.fenceGate, 5, 20);
+		flammableRegistry.add(POMEGRANATE_LEAVES, 30, 60);
+		flammableRegistry.add(WRITHEWOOD_BLOCKS.strippedLog, 5, 5);
+		flammableRegistry.add(WRITHEWOOD_BLOCKS.strippedWood, 5, 5);
+		flammableRegistry.add(WRITHEWOOD_BLOCKS.log, 5, 5);
+		flammableRegistry.add(WRITHEWOOD_BLOCKS.wood, 5, 5);
+		flammableRegistry.add(WRITHEWOOD_BLOCKS.planks, 5, 20);
+		flammableRegistry.add(WRITHEWOOD_BLOCKS.stairs, 5, 20);
+		flammableRegistry.add(WRITHEWOOD_BLOCKS.slab, 5, 20);
+		flammableRegistry.add(WRITHEWOOD_BLOCKS.fence, 5, 20);
+		flammableRegistry.add(WRITHEWOOD_BLOCKS.fenceGate, 5, 20);
+		flammableRegistry.add(WRITHEWOOD_LEAVES, 30, 60);
+		flammableRegistry.add(SEEPING_WOOD, 5, 5);
 		flammableRegistry.add(AYLYTH_BUSH, 60, 100);
 	}
 

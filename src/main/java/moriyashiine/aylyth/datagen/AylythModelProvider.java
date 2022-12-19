@@ -76,6 +76,7 @@ public class AylythModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerSingleton(ModBlocks.DARK_WOODS_TILES, TexturedModel.CUBE_ALL);
         Models.PARTICLE.upload(blockId("woody_growth_particles"), TextureMap.particle(blockId("aylyth_bush_trunk")), blockStateModelGenerator.modelCollector);
         woodyGrowth(blockStateModelGenerator);
+        generateWoodBlock(blockStateModelGenerator, ModBlocks.SEEPING_WOOD, "block/aylyth_bush_trunk");
     }
 
     @Override
@@ -97,6 +98,14 @@ public class AylythModelProvider extends FabricModelProvider {
 
     private Model blockParentModel(Identifier id) {
         return new Model(Optional.of(id), Optional.empty());
+    }
+
+    private void generateWoodBlock(BlockStateModelGenerator generator, Block woodBlock, String texturePath) {
+        var textureMap = new TextureMap();
+        textureMap.put(TextureKey.SIDE, new Identifier(Aylyth.MOD_ID, texturePath));
+        textureMap.put(TextureKey.END, textureMap.getTexture(TextureKey.SIDE));
+        Identifier identifier = Models.CUBE_COLUMN.upload(woodBlock, textureMap, generator.modelCollector);
+        generator.blockStateCollector.accept(BlockStateModelGenerator.createAxisRotatedBlockState(woodBlock, identifier));
     }
 
     private void woodyGrowth(BlockStateModelGenerator generator) {

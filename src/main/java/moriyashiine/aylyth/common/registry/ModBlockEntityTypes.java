@@ -11,7 +11,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 public class ModBlockEntityTypes {
-	public static final BlockEntityType<SeepBlockEntity> SEEP_BLOCK_ENTITY_TYPE = FabricBlockEntityTypeBuilder.create(SeepBlockEntity::new, ModBlocks.OAK_SEEP, ModBlocks.SPRUCE_SEEP, ModBlocks.DARK_OAK_SEEP, ModBlocks.YMPE_SEEP).build();
+	public static final BlockEntityType<SeepBlockEntity> SEEP_BLOCK_ENTITY_TYPE = FabricBlockEntityTypeBuilder.create(SeepBlockEntity::new, ModBlocks.OAK_SEEP, ModBlocks.SPRUCE_SEEP, ModBlocks.DARK_OAK_SEEP, ModBlocks.YMPE_SEEP, ModBlocks.SEEPING_SEEP).build();
 	public static final BlockEntityType<VitalThuribleBlockEntity> VITAL_THURIBLE_BLOCK_ENTITY = FabricBlockEntityTypeBuilder.create(VitalThuribleBlockEntity::new, ModBlocks.VITAL_THURIBLE).build();
 	public static final BlockEntityType<WoodyGrowthCacheBlockEntity> WOODY_GROWTH_CACHE_BLOCK_ENTITY = FabricBlockEntityTypeBuilder.create(WoodyGrowthCacheBlockEntity::new, ModBlocks.WOODY_GROWTH_CACHE).build();
 	public static final BlockEntityType<SoulHearthBlockEntity> SOUL_HEARTH_BLOCK_ENTITY = FabricBlockEntityTypeBuilder.create(SoulHearthBlockEntity::new, ModBlocks.SOUL_HEARTH).build();

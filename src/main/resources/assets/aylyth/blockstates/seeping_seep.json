@@ -1,0 +1,13 @@
+{
+  "variants": {
+	"connection=none": {
+	  "model": "aylyth:block/seeping_seep_log_single"
+	},
+	"connection=up": {
+	  "model": "aylyth:block/seeping_seep_log_bottom"
+	},
+	"connection=down": {
+	  "model": "aylyth:block/seeping_seep_log_top"
+	}
+  }
+}
