@@ -14,6 +14,7 @@ import javax.annotation.Nullable;
 public class ModDamageSources {
 	public static final DamageSource YMPE = new YmpeDamageSource("ympe");
 	public static final DamageSource YMPE_ENTITY = new YmpeEntityDamageSource("ympe_entity");
+	public static final DamageSource UNBLOCKABLE = new DamageSource("unblockable").setBypassesArmor().setUnblockable();
 
 	public static float handleDamage(LivingEntity livingEntity, DamageSource source, float amount) {
 		if(livingEntity instanceof PlayerEntity player){

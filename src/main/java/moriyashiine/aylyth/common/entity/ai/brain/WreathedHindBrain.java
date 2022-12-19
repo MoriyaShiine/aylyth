@@ -22,6 +22,7 @@ import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.ai.brain.task.*;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.passive.FrogBrain;
+import net.minecraft.entity.player.PlayerEntity;
 
 import java.util.List;
 import java.util.Optional;
@@ -136,6 +137,14 @@ public class WreathedHindBrain {
             }
 
              */
+        }
+        Optional<List<PlayerEntity>> pledgedPlayer = wreathedHindEntity.getBrain().getOptionalMemory(ModMemoryTypes.NEAREST_PLEDGED_PLAYERS);
+        if(pledgedPlayer.isPresent()){
+            for(PlayerEntity player : pledgedPlayer.get()){
+                if(player.getHealth() <= 6){
+                    return Optional.of(player);
+                }
+            }
         }
         return Optional.empty();
     }

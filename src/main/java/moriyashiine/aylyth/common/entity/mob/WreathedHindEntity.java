@@ -5,9 +5,12 @@ import moriyashiine.aylyth.api.interfaces.HindPledgeHolder;
 import moriyashiine.aylyth.api.interfaces.Pledgeable;
 import moriyashiine.aylyth.common.entity.ai.brain.WreathedHindBrain;
 import moriyashiine.aylyth.common.registry.ModBlocks;
+import moriyashiine.aylyth.common.registry.ModDamageSources;
 import moriyashiine.aylyth.common.registry.ModItems;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -29,6 +32,7 @@ import net.minecraft.tag.FluidTags;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
@@ -113,13 +117,33 @@ public class WreathedHindEntity extends HostileEntity implements IAnimatable, Pl
 
     @Override
     public boolean tryAttack(Entity target) {
-        if(getAttackType() == MELEE_ATTACK){
-            return super.tryAttack(target);
-        }else if(getAttackType() == KILLING_ATTACK){
-            //TODO add killing blow
+        if(getAttackType() == NONE){
+            setAttackType(MELEE_ATTACK);
         }
 
+        if(getAttackType() == MELEE_ATTACK){
+            if(target instanceof PlayerEntity player && this.getPledgedPlayerUUIDs().contains(player.getUuid()) && player.getHealth() <= 6){
+                setAttackType(KILLING_ATTACK);
+            }else{
+                return super.tryAttack(target);
+            }
+        }else if(getAttackType() == KILLING_ATTACK){
+            if(target instanceof PlayerEntity player){
+                return tryKillingAttack(player);
+            }
+        }
        return false;
+    }
+
+    public boolean tryKillingAttack(PlayerEntity target){
+        float f = 6;
+        boolean bl = target.damage(ModDamageSources.UNBLOCKABLE, f);
+        if (bl) {
+            this.disablePlayerShield(target, this.getMainHandStack(), target.isUsingItem() ? target.getActiveItem() : ItemStack.EMPTY);
+            this.applyDamageEffects(this, target);
+            this.onAttacking(target);
+        }
+        return bl;
     }
 
     @Override
