@@ -1,5 +1,6 @@
 package moriyashiine.aylyth.common.registry;
 
+import moriyashiine.aylyth.common.entity.ai.sensor.HindSpecificSensor;
 import moriyashiine.aylyth.common.entity.ai.sensor.ScionSpecificSensor;
 import moriyashiine.aylyth.common.entity.ai.sensor.TulpaSpecificSensor;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
@@ -12,6 +13,7 @@ import java.util.function.Supplier;
 public class ModSensorTypes {
     public static final SensorType<ScionSpecificSensor> SCION_SPECIFIC_SENSOR = register("scion_specific", ScionSpecificSensor::new);
     public static final SensorType<TulpaSpecificSensor> TULPA_SPECIFIC_SENSOR = register("tulpa_specific", TulpaSpecificSensor::new);
+    public static final SensorType<HindSpecificSensor> HIND_SPECIFIC_SENSOR = register("hind_specific", HindSpecificSensor::new);
 
     private static <U extends Sensor<?>> SensorType<U> register(String id, Supplier<U> factory) {
         return Registry.register(Registry.SENSOR_TYPE, new Identifier(id), new SensorType<>(factory));

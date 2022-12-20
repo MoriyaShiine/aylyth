@@ -2,6 +2,7 @@ package moriyashiine.aylyth.common.entity.mob;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import moriyashiine.aylyth.api.interfaces.ProlongedDeath;
 import moriyashiine.aylyth.common.registry.ModComponents;
 import moriyashiine.aylyth.common.registry.ModItems;
 import moriyashiine.aylyth.mixin.EntityAccessor;
@@ -11,7 +12,6 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.ai.FuzzyTargeting;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.SwimGoal;
-import net.minecraft.entity.ai.goal.WanderAroundFarGoal;
 import net.minecraft.entity.ai.goal.WanderAroundGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -23,7 +23,6 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
-import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -53,7 +52,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public class BoneflyEntity extends HostileEntity implements IAnimatable, TameableHostileEntity {
+public class BoneflyEntity extends HostileEntity implements IAnimatable, TameableHostileEntity, ProlongedDeath {
     private final AnimationFactory factory = GeckoLibUtil.createFactory(this);
     protected static final TrackedData<Boolean> DORMANT = DataTracker.registerData(BoneflyEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     public static final TrackedData<Integer> ACTION_STATE = DataTracker.registerData(BoneflyEntity.class, TrackedDataHandlerRegistry.INTEGER);
@@ -88,6 +87,11 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
     protected void initGoals() {
         this.goalSelector.add(0, new SwimGoal(this));
         this.goalSelector.add(5, new BoneflyWanderAroundFarGoal(this, 0.7));
+    }
+
+    @Override
+    public int getDeathAnimationTime(){
+        return 20 * 4;
     }
 
     @Override

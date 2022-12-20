@@ -3,6 +3,7 @@ package moriyashiine.aylyth.common.util;
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.shedaniel.math.Rectangle;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.client.render.DiffuseLighting;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
@@ -13,6 +14,17 @@ import net.minecraft.util.math.Vec3f;
 import org.jetbrains.annotations.Nullable;
 
 public class RenderUtils {
+
+    /**
+     * Modified version of {@link InventoryScreen#drawEntity} to accommodate for REI and EMI
+     * @param x x
+     * @param y y
+     * @param size size of drawn entity
+     * @param mouseX mouseX
+     * @param mouseY mouseY
+     * @param entity entity to draw
+     * @param bounds REI supported parameter
+     */
     public static void drawEntity(int x, int y, int size, float mouseX, float mouseY, LivingEntity entity, @Nullable Rectangle bounds) {
         float f;
         float g;
