@@ -3,7 +3,6 @@ package moriyashiine.aylyth.client.render.entity.living.layer;
 import moriyashiine.aylyth.client.RenderTypes;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.entity.mob.AylythianEntity;
-import moriyashiine.aylyth.common.entity.mob.ElderAylythianEntity;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

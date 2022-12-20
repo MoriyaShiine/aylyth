@@ -4,7 +4,6 @@ import moriyashiine.aylyth.client.network.packet.UpdatePressingUpDownPacket;
 import moriyashiine.aylyth.common.entity.mob.ScionEntity;
 import moriyashiine.aylyth.common.event.LivingEntityDeathEvents;
 import moriyashiine.aylyth.common.network.packet.GlaivePacket;
-import moriyashiine.aylyth.common.registry.ModBiomeSources;
 import moriyashiine.aylyth.common.recipe.YmpeDaggerDropRecipe;
 import moriyashiine.aylyth.common.registry.*;
 import moriyashiine.aylyth.datagen.worldgen.features.ModPlacedFeatures;

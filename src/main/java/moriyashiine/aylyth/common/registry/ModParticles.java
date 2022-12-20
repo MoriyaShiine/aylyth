@@ -15,8 +15,6 @@ import net.minecraft.client.texture.AbstractTexture;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.texture.TextureManager;
 import net.minecraft.particle.DefaultParticleType;
-import net.minecraft.particle.DustColorTransitionParticleEffect;
-import net.minecraft.particle.ParticleType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import org.lwjgl.opengl.GL11;

@@ -27,7 +27,7 @@ public abstract class EntityMixin {
     @Shadow public World world;
 
     @Inject(method = "playStepSound", at = {@At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;playSound(Lnet/minecraft/sound/SoundEvent;FF)V")}, locals = LocalCapture.CAPTURE_FAILEXCEPTION, cancellable = true)
-    private void aylyth_playStepSound(BlockPos pos, BlockState state, CallbackInfo ci,BlockState b, BlockSoundGroup blockSoundGroup) {
+    private void aylyth_playStepSound(BlockPos pos, BlockState state, CallbackInfo ci, BlockSoundGroup blockSoundGroup) {
         var entity = (Entity)(Object)this;
         var world = entity.world;
         var blockState = world.getBlockState(pos.up());

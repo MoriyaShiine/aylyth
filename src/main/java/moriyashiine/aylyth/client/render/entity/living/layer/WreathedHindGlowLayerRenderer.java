@@ -1,21 +1,14 @@
 package moriyashiine.aylyth.client.render.entity.living.layer;
 
-import ladysnake.illuminations.client.render.GlowyRenderLayer;
 import moriyashiine.aylyth.client.RenderTypes;
-import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.entity.mob.ElderAylythianEntity;
 import moriyashiine.aylyth.common.entity.mob.WreathedHindEntity;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
-import software.bernie.geckolib3.model.AnimatedGeoModel;
-import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 import software.bernie.geckolib3.renderers.geo.GeoLayerRenderer;
 import software.bernie.geckolib3.renderers.geo.IGeoRenderer;
 

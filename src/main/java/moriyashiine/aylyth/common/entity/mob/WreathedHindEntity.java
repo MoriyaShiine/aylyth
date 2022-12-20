@@ -8,10 +8,8 @@ import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.ModDamageSources;
 import moriyashiine.aylyth.common.registry.ModItems;
 import moriyashiine.aylyth.common.registry.ModSoundEvents;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -36,7 +34,6 @@ import net.minecraft.tag.FluidTags;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
@@ -191,7 +188,7 @@ public class WreathedHindEntity extends HostileEntity implements IAnimatable, Pl
 
     @Override
     public void registerControllers(AnimationData animationData) {
-        animationData.addAnimationController(new AnimationController<>(this, "controller", 5, this::predicate));
+        animationData.addAnimationController(new AnimationController<>(this, "controller", 10, this::predicate));
         animationData.addAnimationController(new AnimationController<>(this, "controller2", 1, this::attackPredicate));
     }
 

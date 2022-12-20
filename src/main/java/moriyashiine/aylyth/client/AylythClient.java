@@ -45,7 +45,6 @@ import net.minecraft.client.color.world.FoliageColors;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.client.option.KeyBinding;
-import net.minecraft.client.particle.CampfireSmokeParticle;
 import net.minecraft.client.render.*;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.render.model.BakedQuad;

@@ -20,15 +20,11 @@ import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.ai.brain.task.*;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.passive.FrogBrain;
 import net.minecraft.entity.player.PlayerEntity;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.function.Predicate;
 
 public class WreathedHindBrain {

@@ -1,9 +1,6 @@
 package moriyashiine.aylyth.mixin;
 
 import moriyashiine.aylyth.api.interfaces.ProlongedDeath;
-import moriyashiine.aylyth.common.entity.mob.BoneflyEntity;
-import moriyashiine.aylyth.common.entity.mob.SoulmouldEntity;
-import moriyashiine.aylyth.common.entity.mob.TulpaEntity;
 import moriyashiine.aylyth.common.registry.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
