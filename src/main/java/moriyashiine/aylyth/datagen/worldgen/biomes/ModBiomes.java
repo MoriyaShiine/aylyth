@@ -172,6 +172,7 @@ public class ModBiomes {
 				.spawnSettings(builder -> {
 					builder.monster(ModEntityTypes.SCION, 5, 1, 1)
 							.monster(ModEntityTypes.AYLYTHIAN, 5, 1, 1)
+							.monster(ModEntityTypes.WREATHED_HIND_ENTITY, 5, 1, 1)
 							.ambient(ModEntityTypes.PILOT_LIGHT, 3, 1, 1);
 				})
 				.generationSettings(builder -> {

@@ -116,7 +116,7 @@ public class AylythClient implements ClientModInitializer {
 		EntityRendererRegistry.register(ModEntityTypes.RIPPED_SOUL, RippedSoulEntityRenderer::new);
 		EntityRendererRegistry.register(ModEntityTypes.TULPA, TulpaEntityRenderer::new);
 		EntityRendererRegistry.register(ModEntityTypes.TULPA_PLAYER, TulpaPlayerEntityRenderer::new);
-		EntityRendererRegistry.register(ModEntityTypes.WREATHERED_HIND_ENTITY, WreathedHindEntityRenderer::new);
+		EntityRendererRegistry.register(ModEntityTypes.WREATHED_HIND_ENTITY, WreathedHindEntityRenderer::new);
 		EntityRendererRegistry.register(ModEntityTypes.SPHERE_ENTITY, SphereEntityRenderer::new);
 
 		EntityRendererRegistry.register(ModEntityTypes.SCION, ScionEntityRenderer::new);
