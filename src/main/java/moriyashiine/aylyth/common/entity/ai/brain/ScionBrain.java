@@ -7,6 +7,7 @@ import com.mojang.serialization.Dynamic;
 import moriyashiine.aylyth.common.entity.mob.ScionEntity;
 import moriyashiine.aylyth.common.registry.ModMemoryTypes;
 import moriyashiine.aylyth.common.registry.ModSensorTypes;
+import moriyashiine.aylyth.common.util.BrainUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -107,8 +108,8 @@ public class ScionBrain {
                 Activity.FIGHT,
                 10,
                 ImmutableList.of(
-                        new ForgetAttackTargetTask<>(entity -> !scionEntity.isEnemy(entity), ScionBrain::setTargetInvalid, false),
-                        new FollowMobTask(mob -> isTarget(scionEntity, mob), (float)scionEntity.getAttributeValue(EntityAttributes.GENERIC_FOLLOW_RANGE)),
+                        new ForgetAttackTargetTask<>(entity -> !scionEntity.isEnemy(entity), BrainUtils::setTargetInvalid, false),
+                        new FollowMobTask(mob -> BrainUtils.isTarget(scionEntity, mob), (float)scionEntity.getAttributeValue(EntityAttributes.GENERIC_FOLLOW_RANGE)),
                         new RangedApproachTask(1.2F),
                         new MeleeAttackTask(18)
                 ),
@@ -117,12 +118,8 @@ public class ScionBrain {
     }
 
     public static void updateActivities(ScionEntity scionEntity) {
-        scionEntity.getBrain().resetPossibleActivities(ImmutableList.of(Activity.FIGHT, Activity.IDLE, Activity.EMERGE, Activity.DIG));
+        scionEntity.getBrain().resetPossibleActivities(ImmutableList.of(Activity.FIGHT, Activity.IDLE));
         scionEntity.setAttacking(scionEntity.getBrain().hasMemoryModule(MemoryModuleType.ATTACK_TARGET));
-    }
-
-    private static void setTargetInvalid(ScionEntity scionEntity, LivingEntity target) {
-
     }
 
     public static void setCurrentPosAsHome(ScionEntity scionEntity) {
@@ -151,10 +148,4 @@ public class ScionBrain {
         }
         return Optional.empty();
     }
-
-    private static boolean isTarget(ScionEntity scionEntity, LivingEntity entity) {
-        return scionEntity.getBrain().getOptionalMemory(MemoryModuleType.ATTACK_TARGET).filter(targetedEntity -> targetedEntity == entity).isPresent();
-    }
-
-
 }

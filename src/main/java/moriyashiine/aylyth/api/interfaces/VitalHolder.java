@@ -2,10 +2,10 @@ package moriyashiine.aylyth.api.interfaces;
 
 import java.util.Optional;
 
-public interface Vital {
-    static Optional<Vital> of(Object context) {
-        if (context instanceof Vital) {
-            return Optional.of(((Vital) context));
+public interface VitalHolder {
+    static Optional<VitalHolder> of(Object context) {
+        if (context instanceof VitalHolder) {
+            return Optional.of(((VitalHolder) context));
         }
         return Optional.empty();
     }

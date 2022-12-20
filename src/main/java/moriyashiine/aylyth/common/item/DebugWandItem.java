@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.common.item;
 
-import moriyashiine.aylyth.api.interfaces.Vital;
+import moriyashiine.aylyth.api.interfaces.VitalHolder;
 import moriyashiine.aylyth.common.block.WoodyGrowthCacheBlock;
 import moriyashiine.aylyth.common.entity.mob.ScionEntity;
 import moriyashiine.aylyth.common.registry.ModComponents;
@@ -44,7 +44,7 @@ public class DebugWandItem extends Item {
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         if(!world.isClient()){
             if(user.isSneaking()){
-                Vital.of(user).ifPresent(vital -> {
+                VitalHolder.of(user).ifPresent(vital -> {
                     if(vital.getVitalThuribleLevel() == 0){
                         vital.setVitalThuribleLevel(5);
                     }else{

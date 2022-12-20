@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.common.block.entity;
 
-import moriyashiine.aylyth.api.interfaces.Vital;
+import moriyashiine.aylyth.api.interfaces.VitalHolder;
 import moriyashiine.aylyth.common.block.VitalThuribleBlock;
 import moriyashiine.aylyth.common.registry.ModBlockEntityTypes;
 import moriyashiine.aylyth.common.registry.ModItems;
@@ -116,7 +116,7 @@ public class VitalThuribleBlockEntity extends BlockEntity implements Inventory {
                         if(blockEntity.targetUUID != null){
                             PlayerEntity player = world.getPlayerByUuid(blockEntity.targetUUID);
 
-                            Vital.of(player).ifPresent(vital -> {
+                            VitalHolder.of(player).ifPresent(vital -> {
                                 if(vital.getVitalThuribleLevel() < 10){
                                     vital.setVitalThuribleLevel(vital.getVitalThuribleLevel() + 1);
                                 }

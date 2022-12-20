@@ -97,6 +97,7 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add(ModEntityTypes.BONEFLY, "Bonefly");
         builder.add(ModEntityTypes.SCION, "Scion");
         builder.add(ModEntityTypes.TULPA, "Tulpa");
+        builder.add(ModEntityTypes.WREATHERED_HIND_ENTITY, "Wreathed Hind");
 
         // STATUS EFFECTS
 
@@ -139,6 +140,14 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add("aylyth.subtitles.block.strewn_leaves.step", "Leaves crunch");
         builder.add("aylyth.subtitles.block.strewn_leaves.pile_destroy", "Leaves scatter");
         builder.add("aylyth.subtitles.block.strewn_leaves.pile_step", "Leaf pile crunches");
+
+        builder.add("aylyth.subtitles.entity.wreathed_hind.ambient", "Wreathed Hind groans");
+        builder.add("aylyth.subtitles.entity.wreathed_hind.hurt", "Wreathed Hind hurt");
+        builder.add("aylyth.subtitles.entity.wreathed_hind.death", "Wreathed Hind dies");
+
+        builder.add("aylyth.subtitles.entity.scion.ambient", "Scion groans");
+        builder.add("aylyth.subtitles.entity.scion.hurt", "Scion hurt");
+        builder.add("aylyth.subtitles.entity.scion.death", "Scion dies");
 
         // INFO
 

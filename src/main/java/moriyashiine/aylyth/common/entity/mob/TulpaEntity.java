@@ -2,6 +2,7 @@ package moriyashiine.aylyth.common.entity.mob;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.serialization.Dynamic;
+import moriyashiine.aylyth.api.interfaces.ProlongedDeath;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.entity.ai.brain.TulpaBrain;
 import moriyashiine.aylyth.common.screenhandler.TulpaScreenHandler;
@@ -52,7 +53,7 @@ import javax.annotation.Nullable;
 import java.util.Optional;
 import java.util.UUID;
 
-public class TulpaEntity extends HostileEntity implements TameableHostileEntity, IAnimatable, CrossbowUser, InventoryOwner, InventoryChangedListener {
+public class TulpaEntity extends HostileEntity implements TameableHostileEntity, IAnimatable, CrossbowUser, InventoryOwner, InventoryChangedListener, ProlongedDeath {
     private final AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private static final TrackedData<Byte> TAMEABLE = DataTracker.registerData(TulpaEntity.class, TrackedDataHandlerRegistry.BYTE);
     private static final byte IDLE = 0;
@@ -79,6 +80,7 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
     public double capeX;
     public double capeY;
     public double capeZ;
+
 
     public TulpaEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
@@ -296,9 +298,9 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
                 this.setTamed(false);
             }
         }
-        NbtList listnbt = nbt.getList("Inventory", 10);
-        for (int i = 0; i < listnbt.size(); ++i) {
-            NbtCompound compoundnbt = listnbt.getCompound(i);
+        NbtList nbtList = nbt.getList("Inventory", 10);
+        for (int i = 0; i < nbtList.size(); ++i) {
+            NbtCompound compoundnbt = nbtList.getCompound(i);
             int j = compoundnbt.getByte("Slot") & 255;
             this.inventory.setStack(j, ItemStack.fromNbt(compoundnbt));
         }
@@ -421,6 +423,11 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
             this.dataTracker.set(TAMEABLE, (byte) (b & -5));
         }
         this.onTamedChanged();
+    }
+
+    @Override
+    public int getDeathAnimationTime(){
+        return getSkinUuid() == null ? 20 * 4 : 10;
     }
 
     @Override

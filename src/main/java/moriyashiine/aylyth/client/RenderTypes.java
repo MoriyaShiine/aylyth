@@ -43,4 +43,16 @@ public class RenderTypes extends RenderLayer {
                 .build(false);
         return RenderLayer.of("entity_no_outline_fixed", VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, VertexFormat.DrawMode.QUADS, 256, false, false, multiPhaseParameters);
     });
+
+    public static final Function<Identifier, RenderLayer> GLOWING_LAYER = Util.memoize(texture -> {
+        MultiPhaseParameters multiPhaseParameters = MultiPhaseParameters.builder()
+                .texture(new RenderPhase.Texture(texture, false, false))
+                .transparency(Transparency.TRANSLUCENT_TRANSPARENCY)
+                .cull(DISABLE_CULLING).lightmap(ENABLE_LIGHTMAP)
+                .overlay(DISABLE_OVERLAY_COLOR)
+                .layering(VIEW_OFFSET_Z_LAYERING)
+                .shader(ENERGY_SWIRL_SHADER)
+                .build(true);
+        return RenderLayer.of("glowing_layer", VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, VertexFormat.DrawMode.QUADS, 256, false, false, multiPhaseParameters);
+    });
 }

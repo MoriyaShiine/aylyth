@@ -1,16 +1,11 @@
 package moriyashiine.aylyth.common;
 
-import moriyashiine.aylyth.api.interfaces.Vital;
 import moriyashiine.aylyth.client.network.packet.UpdatePressingUpDownPacket;
-import moriyashiine.aylyth.common.block.WoodyGrowthCacheBlock;
-import moriyashiine.aylyth.common.entity.mob.RippedSoulEntity;
 import moriyashiine.aylyth.common.entity.mob.ScionEntity;
+import moriyashiine.aylyth.common.event.LivingEntityDeathEvents;
 import moriyashiine.aylyth.common.network.packet.GlaivePacket;
-import moriyashiine.aylyth.client.network.packet.SpawnShuckParticlesPacket;
-import moriyashiine.aylyth.common.registry.ModBiomeSources;
 import moriyashiine.aylyth.common.recipe.YmpeDaggerDropRecipe;
 import moriyashiine.aylyth.common.registry.*;
-import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.datagen.worldgen.features.ModPlacedFeatures;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModification;
@@ -18,10 +13,7 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.fabricmc.fabric.api.entity.event.v1.ServerEntityCombatEvents;
-import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
-import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
-import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Blocks;
@@ -30,28 +22,16 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.mob.WitchEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.stat.Stats;
-import net.minecraft.tag.BiomeTags;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.registry.RegistryEntry;
-import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStep;
 
 public class Aylyth implements ModInitializer {
@@ -78,43 +58,15 @@ public class Aylyth implements ModInitializer {
 		ModSensorTypes.init();
 		ModBiomeSources.init();
 		biomeModifications();
+
+		LivingEntityDeathEvents.init();
+
 		ServerPlayNetworking.registerGlobalReceiver(GlaivePacket.ID, GlaivePacket::handle);
 		ServerPlayNetworking.registerGlobalReceiver(UpdatePressingUpDownPacket.ID, UpdatePressingUpDownPacket::handle);
-		ServerPlayerEvents.AFTER_RESPAWN.register(this::afterRespawn);
+
 		ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register(this::shucking);
-		ServerLivingEntityEvents.ALLOW_DEATH.register(this::allowDeath);
-		ServerLivingEntityEvents.AFTER_DEATH.register(this::spawnRippedSoul);
-		ServerLivingEntityEvents.AFTER_DEATH.register(this::checkVital);
 		UseBlockCallback.EVENT.register(this::interactSoulCampfire);
-
-
 	}
-
-	private void checkVital(LivingEntity livingEntity, DamageSource source) {
-		if(livingEntity instanceof PlayerEntity player && AylythUtil.isSourceYmpe(source)){
-			Vital.of(player).ifPresent(vital -> vital.setVitalThuribleLevel(0));
-		}
-	}
-
-	private void spawnRippedSoul(LivingEntity livingEntity, DamageSource source) {
-		World world = livingEntity.getWorld();
-		if(!world.isClient) {
-			if(source instanceof ModDamageSources.SoulRipDamageSource ripSource) {
-				RippedSoulEntity soul = new RippedSoulEntity(ModEntityTypes.RIPPED_SOUL, world);
-				if (ripSource.getAttacker() != null) {
-					soul.setOwner((PlayerEntity) ripSource.getAttacker());
-				}
-				soul.setPosition(livingEntity.getPos().add(0, 1, 0));
-				world.spawnEntity(soul);
-			}else if((source.getAttacker() != null && source.getAttacker() instanceof PlayerEntity playerEntity && playerEntity.getMainHandStack().isOf(ModItems.YMPE_GLAIVE))){
-				RippedSoulEntity soul = new RippedSoulEntity(ModEntityTypes.RIPPED_SOUL, world);
-				soul.setOwner(playerEntity);
-				soul.setPosition(playerEntity.getPos().add(0, 1, 0));
-				world.spawnEntity(soul);
-			}
-		}
-	}
-
 
 	private ActionResult interactSoulCampfire(PlayerEntity playerEntity, World world, Hand hand, BlockHitResult blockHitResult) {
 		if(hand == Hand.MAIN_HAND && world.getBlockState(blockHitResult.getBlockPos()).isOf(Blocks.SOUL_CAMPFIRE) && world.getBlockEntity(blockHitResult.getBlockPos()) instanceof CampfireBlockEntity campfireBlockEntity){
@@ -127,73 +79,6 @@ public class Aylyth implements ModInitializer {
 			}
 		}
 		return ActionResult.PASS;
-	}
-
-	private boolean allowDeath(LivingEntity livingEntity, DamageSource damageSource, float damageAmount) {
-		if(livingEntity instanceof ServerPlayerEntity player){
-			if (damageSource.isOutOfWorld() && damageSource != ModDamageSources.YMPE) {
-				return true;
-			}
-			if (damageSource == ModDamageSources.YMPE) {
-				ScionEntity.summonPlayerScion(player);
-				WoodyGrowthCacheBlock.spawnInventory(player.world, player.getBlockPos(), player);
-				return true;
-			}
-			RegistryKey<World> toWorld = null;
-			if (player.world.getRegistryKey() != ModDimensionKeys.AYLYTH) {
-				boolean teleport = false;
-				float chance = switch (player.world.getDifficulty()) {
-					case PEACEFUL -> 0;
-					case EASY -> 0.1f;
-					case NORMAL -> 0.2f;
-					case HARD -> 0.3f;
-				};
-				if (player.getRandom().nextFloat() <= chance) {
-					if (damageSource.getAttacker() instanceof WitchEntity) {
-						teleport = true;
-					}
-					if (!teleport) {
-						RegistryEntry<Biome> biome = player.world.getBiome(player.getBlockPos());
-						if (biome.isIn(BiomeTags.IS_TAIGA) || biome.isIn(BiomeTags.IS_FOREST)) {
-							if (damageSource.isFromFalling() || damageSource == DamageSource.DROWN) {
-								teleport = true;
-							}
-						}
-					}
-					teleport |= AylythUtil.isNearSeep(player, 8);
-				}
-				if (!teleport) {
-					for (Hand hand : Hand.values()) {
-						ItemStack stack = player.getStackInHand(hand);
-						if (stack.isOf(ModItems.AYLYTHIAN_HEART)) {
-							teleport = true;
-							if (!player.isCreative()) {
-								stack.decrement(1);
-							}
-							break;
-						}
-					}
-				}
-				if (teleport) {
-					toWorld = ModDimensionKeys.AYLYTH;
-				}
-			}
-			if (toWorld != null) {
-				AylythUtil.teleportTo(toWorld, player, 0);
-				player.setHealth(player.getMaxHealth() / 2);
-				player.clearStatusEffects();
-				player.extinguish();
-				player.setFrozenTicks(0);
-				player.setVelocity(Vec3d.ZERO);
-				player.fallDistance = 0;
-				player.knockbackVelocity = 0;
-				player.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 200));
-				player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 200));
-				return false;
-			}
-			return true;
-		}
-		return true;
 	}
 
 	private void shucking(ServerWorld serverWorld, Entity entity, LivingEntity killedEntity) {
@@ -217,13 +102,6 @@ public class Aylyth implements ModInitializer {
 				}
 			}
 		}
-	}
-
-	private void afterRespawn(ServerPlayerEntity oldPlayer, ServerPlayerEntity newPlayer, boolean alive) {
-		if (oldPlayer.world.getRegistryKey().equals(ModDimensionKeys.AYLYTH)) {
-			AylythUtil.teleportTo(ModDimensionKeys.AYLYTH, newPlayer, 0);
-		}
-		Vital.of(newPlayer).ifPresent(vital -> vital.setVitalThuribleLevel(((Vital) oldPlayer).getVitalThuribleLevel()));
 	}
 
 	private void biomeModifications() {

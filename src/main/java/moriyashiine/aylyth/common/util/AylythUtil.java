@@ -1,7 +1,9 @@
 package moriyashiine.aylyth.common.util;
 
+import moriyashiine.aylyth.api.interfaces.ExtraPlayerData;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.item.YmpeDaggerItem;
+import moriyashiine.aylyth.common.item.YmpeGlaiveItem;
 import moriyashiine.aylyth.common.item.YmpeLanceItem;
 import moriyashiine.aylyth.common.registry.ModDamageSources;
 import moriyashiine.aylyth.common.registry.ModPotions;
@@ -17,10 +19,15 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.Fluids;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -30,17 +37,27 @@ import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public class AylythUtil {
 	public static final int MAX_TRIES = 8;
 	public static final TrackedData<Integer> VITAL = DataTracker.registerData(PlayerEntity.class, TrackedDataHandlerRegistry.INTEGER);
+	public static final TrackedData<Optional<UUID>> HIND_UUID = DataTracker.registerData(PlayerEntity.class, TrackedDataHandlerRegistry.OPTIONAL_UUID);
 
 	private static final List<EntityAttributeModifier> VITAL_ATTRIBUTES = new ArrayList<>(genAtt());
 
+	public static Identifier id(String string){
+		return new Identifier(Aylyth.MOD_ID, string);
+	}
+
+	/**
+	 * Generates a list of unique health attributes for the vital thurible
+	 * @return the generated list
+	 */
 	private static List<EntityAttributeModifier> genAtt(){
 		List<EntityAttributeModifier> VITAL = new ArrayList<>();
-		for(int i = 0; i < 10;i++){
+		for(int i = 0; i < 10; i++){
 			VITAL.add(new EntityAttributeModifier(UUID.fromString(i + "ee98b0b-7181-46ac-97ce-d8f7307bffb1"), "vital_modifier_1", 2, EntityAttributeModifier.Operation.ADDITION));
 		}
 		return VITAL;
@@ -112,10 +129,11 @@ public class AylythUtil {
 		return -1;
 	}
 
-	public static Identifier id(String string){
-		return new Identifier(Aylyth.MOD_ID, string);
-	}
-
+	/**
+	 * Removes and restored all health modifiers depending on the level
+	 * @param healthAttribute type of health attribute
+	 * @param level level of health to be added
+	 */
 	public static void handleVital(EntityAttributeInstance healthAttribute, int level) {
 		for(EntityAttributeModifier attributes : VITAL_ATTRIBUTES){
 			healthAttribute.removeModifier(attributes);
@@ -125,10 +143,80 @@ public class AylythUtil {
 		}
 	}
 
+	/**
+	 * Check if the DamageSource is to be considered all forms of ympe
+	 * @param source source of damage
+	 * @return true if the source is some for of ympe
+	 */
 	public static boolean isSourceYmpe(DamageSource source) {
-		if (source.getSource() instanceof LivingEntity livingEntity && (livingEntity.getMainHandStack().getItem() instanceof YmpeDaggerItem || livingEntity.getMainHandStack().getItem() instanceof YmpeLanceItem)) {
+		if (source.getSource() instanceof LivingEntity livingEntity && (
+						livingEntity.getMainHandStack().getItem() instanceof YmpeDaggerItem ||
+						livingEntity.getMainHandStack().getItem() instanceof YmpeLanceItem ||
+						livingEntity.getMainHandStack().getItem() instanceof YmpeGlaiveItem)) {
 			return true;
 		}
 		return source == ModDamageSources.YMPE || source == ModDamageSources.YMPE_ENTITY;
+	}
+
+	/**
+	 * Copy content from list transferFrom to transferTo and then clear list transferFrom
+	 * @param transferTo list of items to transfer to
+	 * @param transferFrom list of items to transfer from
+	 */
+	public static void transferList(DefaultedList<ItemStack> transferTo, DefaultedList<ItemStack> transferFrom) {
+		for (int i = 0; i < transferFrom.size(); i++) {
+			transferTo.set(i, transferFrom.get(i).copy());
+		}
+		transferFrom.clear();
+	}
+
+	/**
+	 * A get/create for {@link ExtraPlayerData}
+	 * @param player from whom
+	 * @return the extra data of the player
+	 */
+	public static NbtCompound getPlayerData(PlayerEntity player) {
+		if (!((ExtraPlayerData) player).getExtraPlayerData().contains("PersistedPlayer")) {
+			((ExtraPlayerData) player).getExtraPlayerData().put("PersistedPlayer", new NbtCompound());
+		}
+		return ((ExtraPlayerData) player).getExtraPlayerData().getCompound("PersistedPlayer");
+	}
+
+	/**
+	 * Modified version of {@link PlayerInventory#readNbt}
+	 * @param nbt from nbt
+	 * @param playerInventory to inventory
+	 */
+	public static void loadInv(NbtList nbt, PlayerInventory playerInventory) {
+		List<ItemStack> blockedItems = new ArrayList<>();
+		for (int i = 0; i < nbt.size(); ++i) {
+			NbtCompound nbtCompound = nbt.getCompound(i);
+			int j = nbtCompound.getByte("Slot") & 255;
+			ItemStack itemstack = ItemStack.fromNbt(nbtCompound);
+			if (!itemstack.isEmpty()) {
+				if (j < playerInventory.main.size()) {
+					if (playerInventory.main.get(j).isEmpty()) {
+						playerInventory.main.set(j, itemstack);
+					} else {
+						blockedItems.add(itemstack);
+					}
+				} else if (j >= 100 && j < playerInventory.armor.size() + 100) {
+					if (playerInventory.armor.get(j - 100).isEmpty()) {
+						playerInventory.armor.set(j - 100, itemstack);
+					} else {
+						blockedItems.add(itemstack);
+					}
+				} else if (j >= 150 && j < playerInventory.offHand.size() + 150) {
+					if (playerInventory.offHand.get(j - 150).isEmpty()) {
+						playerInventory.offHand.set(j - 150, itemstack);
+					} else {
+						blockedItems.add(itemstack);
+					}
+				}
+			}
+		}
+		if(!blockedItems.isEmpty()) {
+			blockedItems.forEach(playerInventory::insertStack);
+		}
 	}
 }

@@ -26,8 +26,6 @@ import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
 
-import java.util.List;
-
 public class ModConfiguredFeatures {
 
     public static void datagenInit() {}

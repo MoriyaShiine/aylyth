@@ -1,5 +1,6 @@
 package moriyashiine.aylyth.common.entity.mob;
 
+import moriyashiine.aylyth.api.interfaces.ProlongedDeath;
 import moriyashiine.aylyth.common.registry.ModItems;
 import moriyashiine.aylyth.common.registry.ModSoundEvents;
 import net.minecraft.block.BlockState;
@@ -56,7 +57,7 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 import javax.annotation.Nullable;
 import java.util.*;
 
-public class SoulmouldEntity extends HostileEntity implements TameableHostileEntity, IAnimatable, IAnimationTickable {
+public class SoulmouldEntity extends HostileEntity implements TameableHostileEntity, IAnimatable, IAnimationTickable, ProlongedDeath {
     private final AnimationFactory factory = GeckoLibUtil.createFactory(this);
     protected static final TrackedData<Boolean> DORMANT = DataTracker.registerData(SoulmouldEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     public static final TrackedData<Optional<BlockPos>> DORMANT_POS = DataTracker.registerData(SoulmouldEntity.class, TrackedDataHandlerRegistry.OPTIONAL_BLOCK_POS);
@@ -108,7 +109,10 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
         this.dataTracker.startTracking(OWNER_UUID, Optional.of(UUID.fromString("1ece513b-8d36-4f04-9be2-f341aa8c9ee2")));
     }
 
-
+    @Override
+    public int getDeathAnimationTime(){
+        return 20 * 4;
+    }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
