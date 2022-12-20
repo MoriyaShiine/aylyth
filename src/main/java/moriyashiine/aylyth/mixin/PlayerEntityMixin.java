@@ -7,6 +7,7 @@ import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.common.block.SoulHearthBlock;
 import moriyashiine.aylyth.common.entity.mob.BoneflyEntity;
 import moriyashiine.aylyth.common.registry.ModItems;
+import moriyashiine.aylyth.common.world.ModWorldState;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.enums.DoubleBlockHalf;
@@ -187,6 +188,22 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHol
     }
 
      */
+
+    @Inject(method = "tick", at = @At("TAIL"))
+    private void removePledgeASAP(CallbackInfo ci){
+        if(getHindUuid() != null && !world.isClient()){
+            ModWorldState modWorldState = ModWorldState.get(world);
+            PlayerEntity player = (PlayerEntity) (Object) this;
+            if(!modWorldState.pledgesToRemove.isEmpty()){
+                for (int i = modWorldState.pledgesToRemove.size() - 1; i >= 0; i--) {
+                    if (modWorldState.pledgesToRemove.get(i).equals(player.getUuid())) {
+                        setHindUuid(null);
+                        modWorldState.pledgesToRemove.remove(i);
+                    }
+                }
+            }
+        }
+    }
 
     @Override
     public void stopRiding() {
