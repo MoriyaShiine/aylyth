@@ -41,7 +41,7 @@ public class Aylyth implements ModInitializer {
 	public static boolean isDebugMode() {
 		return DEBUG_MODE && FabricLoader.getInstance().isDevelopmentEnvironment();
 	}
-	
+
 	@Override
 	public void onInitialize() {
 		ModParticles.init();
@@ -68,35 +68,10 @@ public class Aylyth implements ModInitializer {
 		UseBlockCallback.EVENT.register(this::interactSoulCampfire);
 	}
 
-	private void checkVital(LivingEntity livingEntity, DamageSource source) {
-		if(livingEntity instanceof PlayerEntity player && AylythUtil.isSourceYmpe(source)){
-			Vital.of(player).ifPresent(vital -> vital.setVitalThuribleLevel(0));
-		}
-	}
-
-	private void spawnRippedSoul(LivingEntity livingEntity, DamageSource source) {
-		World world = livingEntity.getWorld();
-		if (!world.isClient) {
-			if (source instanceof ModDamageSources.SoulRipDamageSource ripSource) {
-				RippedSoulEntity soul = new RippedSoulEntity(ModEntityTypes.RIPPED_SOUL, world);
-				if (ripSource.getAttacker() != null) {
-					soul.setOwner((PlayerEntity) ripSource.getAttacker());
-				}
-				soul.setPosition(livingEntity.getPos().add(0, 1, 0));
-				world.spawnEntity(soul);
-			} else if (source.getAttacker() != null && source.getAttacker() instanceof PlayerEntity playerEntity && playerEntity.getMainHandStack().isOf(ModItems.YMPE_GLAIVE)) {
-				RippedSoulEntity soul = new RippedSoulEntity(ModEntityTypes.RIPPED_SOUL, world);
-				soul.setOwner(playerEntity);
-				soul.setPosition(playerEntity.getPos().add(0, 1, 0));
-				world.spawnEntity(soul);
-			}
-		}
-	}
-
 	private ActionResult interactSoulCampfire(PlayerEntity playerEntity, World world, Hand hand, BlockHitResult blockHitResult) {
-		if (hand == Hand.MAIN_HAND && world.getBlockState(blockHitResult.getBlockPos()).isOf(Blocks.SOUL_CAMPFIRE) && world.getBlockEntity(blockHitResult.getBlockPos()) instanceof CampfireBlockEntity campfireBlockEntity) {
+		if(hand == Hand.MAIN_HAND && world.getBlockState(blockHitResult.getBlockPos()).isOf(Blocks.SOUL_CAMPFIRE) && world.getBlockEntity(blockHitResult.getBlockPos()) instanceof CampfireBlockEntity campfireBlockEntity){
 			ItemStack itemStack = playerEntity.getMainHandStack();
-			if (itemStack.isOf(ModItems.AYLYTHIAN_HEART) || itemStack.isOf(ModItems.WRONGMEAT) || (itemStack.isOf(ModItems.SHUCKED_YMPE_FRUIT) && (itemStack.hasNbt() && itemStack.getNbt().contains("StoredEntity")))) {
+			if(itemStack.isOf(ModItems.AYLYTHIAN_HEART) || itemStack.isOf(ModItems.WRONGMEAT) || (itemStack.isOf(ModItems.SHUCKED_YMPE_FRUIT) && (itemStack.hasNbt() && itemStack.getNbt().contains("StoredEntity")))){
 				if (!world.isClient && campfireBlockEntity.addItem(playerEntity, itemStack,  Integer.MAX_VALUE)) {
 					playerEntity.incrementStat(Stats.INTERACT_WITH_CAMPFIRE);
 					return ActionResult.SUCCESS;
