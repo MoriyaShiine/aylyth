@@ -7,6 +7,7 @@ import moriyashiine.aylyth.common.entity.ai.brain.WreathedHindBrain;
 import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.ModDamageSources;
 import moriyashiine.aylyth.common.registry.ModItems;
+import moriyashiine.aylyth.common.registry.ModSoundEvents;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -28,6 +29,7 @@ import net.minecraft.fluid.FluidState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.tag.FluidTags;
@@ -48,6 +50,7 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
+import javax.annotation.Nullable;
 import java.util.*;
 
 public class WreathedHindEntity extends HostileEntity implements IAnimatable, Pledgeable {
@@ -253,5 +256,21 @@ public class WreathedHindEntity extends HostileEntity implements IAnimatable, Pl
     @Override
     public Collection<UUID> getPledgedPlayerUUIDs() {
         return pledgedPlayerUUIDS;
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return ModSoundEvents.ENTITY_WREATHED_HIND_AMBIENT;
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource source) {
+        return ModSoundEvents.ENTITY_WREATHED_HIND_HURT;
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return ModSoundEvents.ENTITY_WREATHED_HIND_DEATH;
     }
 }

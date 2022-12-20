@@ -163,5 +163,35 @@
 			"aylyth:entity/scion/death"
 		],
 		"subtitle": "aylyth.subtitles.entity.scion.death"
+	},
+
+
+	"entity.wreathed_hind.ambient": {
+		"sounds": [
+			"aylyth:entity/wreathed_hind/say1",
+			"aylyth:entity/wreathed_hind/say2",
+			"aylyth:entity/wreathed_hind/say3",
+			"aylyth:entity/wreathed_hind/say4",
+			"aylyth:entity/wreathed_hind/say5"
+		],
+		"subtitle": "aylyth.subtitles.entity.wreathed_hind.ambient"
+	},
+	"entity.wreathed_hind.hurt": {
+		"sounds": [
+			"aylyth:entity/wreathed_hind/hurt1",
+			"aylyth:entity/wreathed_hind/hurt2",
+			"aylyth:entity/wreathed_hind/hurt3",
+			"aylyth:entity/wreathed_hind/hurt4"
+		],
+		"subtitle": "aylyth.subtitles.entity.wreathed_hind.hurt"
+	},
+	"entity.wreathed_hind.death": {
+		"sounds": [
+			"aylyth:entity/wreathed_hind/death1",
+			"aylyth:entity/wreathed_hind/death2",
+			"aylyth:entity/wreathed_hind/death3",
+			"aylyth:entity/wreathed_hind/death4"
+		],
+		"subtitle": "aylyth.subtitles.entity.wreathed_hind.death"
 	}
 }

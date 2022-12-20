@@ -41,6 +41,11 @@ public class ModSoundEvents {
 	public static final SoundEvent ENTITY_SCION_HURT = new SoundEvent(new Identifier(Aylyth.MOD_ID, "entity.scion.hurt"));
 	public static final SoundEvent ENTITY_SCION_DEATH = new SoundEvent(new Identifier(Aylyth.MOD_ID, "entity.scion.death"));
 
+	public static final SoundEvent ENTITY_WREATHED_HIND_AMBIENT = new SoundEvent(new Identifier(Aylyth.MOD_ID, "entity.wreathed_hind.ambient"));
+	public static final SoundEvent ENTITY_WREATHED_HIND_HURT = new SoundEvent(new Identifier(Aylyth.MOD_ID, "entity.wreathed_hind.hurt"));
+	public static final SoundEvent ENTITY_WREATHED_HIND_DEATH = new SoundEvent(new Identifier(Aylyth.MOD_ID, "entity.wreathed_hind.death"));
+
+
 
 	public static void init() {
 		Registry.register(Registry.SOUND_EVENT, BLOCK_YMPE_LOG_PICK_FRUIT.getId(), BLOCK_YMPE_LOG_PICK_FRUIT);
@@ -58,5 +63,13 @@ public class ModSoundEvents {
 		Registry.register(Registry.SOUND_EVENT, ENTITY_SOULMOULD_ATTACK.getId(), ENTITY_SOULMOULD_ATTACK);
 		Registry.register(Registry.SOUND_EVENT, ENTITY_SOULMOULD_HURT.getId(), ENTITY_SOULMOULD_HURT);
 		Registry.register(Registry.SOUND_EVENT, ENTITY_SOULMOULD_DEATH.getId(), ENTITY_SOULMOULD_DEATH);
+
+		Registry.register(Registry.SOUND_EVENT, ENTITY_SCION_AMBIENT.getId(), ENTITY_SCION_AMBIENT);
+		Registry.register(Registry.SOUND_EVENT, ENTITY_SCION_HURT.getId(), ENTITY_SCION_HURT);
+		Registry.register(Registry.SOUND_EVENT, ENTITY_SCION_DEATH.getId(), ENTITY_SCION_DEATH);
+
+		Registry.register(Registry.SOUND_EVENT, ENTITY_WREATHED_HIND_AMBIENT.getId(), ENTITY_WREATHED_HIND_AMBIENT);
+		Registry.register(Registry.SOUND_EVENT, ENTITY_WREATHED_HIND_HURT.getId(), ENTITY_WREATHED_HIND_HURT);
+		Registry.register(Registry.SOUND_EVENT, ENTITY_WREATHED_HIND_DEATH.getId(), ENTITY_WREATHED_HIND_DEATH);
 	}
 }

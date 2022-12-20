@@ -141,6 +141,14 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add("aylyth.subtitles.block.strewn_leaves.pile_destroy", "Leaves scatter");
         builder.add("aylyth.subtitles.block.strewn_leaves.pile_step", "Leaf pile crunches");
 
+        builder.add("aylyth.subtitles.entity.wreathed_hind.ambient", "Wreathed Hind groans");
+        builder.add("aylyth.subtitles.entity.wreathed_hind.hurt", "Wreathed Hind hurt");
+        builder.add("aylyth.subtitles.entity.wreathed_hind.death", "Wreathed Hind dies");
+
+        builder.add("aylyth.subtitles.entity.scion.ambient", "Scion groans");
+        builder.add("aylyth.subtitles.entity.scion.hurt", "Scion hurt");
+        builder.add("aylyth.subtitles.entity.scion.death", "Scion dies");
+
         // INFO
 
         builder.add("aylyth.info.mould_activate", "Mould of Souls Activated");

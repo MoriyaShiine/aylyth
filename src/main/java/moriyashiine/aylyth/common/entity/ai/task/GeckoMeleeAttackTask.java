@@ -60,7 +60,6 @@ public class GeckoMeleeAttackTask extends Task<MobEntity> {
             }else{
                 wreathedHindEntity.setAttackType(WreathedHindEntity.MELEE_ATTACK);
             }
-
         }
         LookTargetUtil.lookAt(mobEntity, livingEntity);
         mobEntity.getBrain().remember(MemoryModuleType.ATTACK_COOLING_DOWN, true, this.interval);
