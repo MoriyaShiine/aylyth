@@ -93,6 +93,7 @@ public class AylythModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.LARGE_WOODY_GROWTH, blockParentModel(AylythUtil.id("block/large_woody_growth_1")));
         itemModelGenerator.register(ModItems.WOODY_GROWTH_CACHE, blockParentModel(new Identifier("builtin/entity")));
         itemModelGenerator.register(ModItems.SMALL_WOODY_GROWTH, blockParentModel(AylythUtil.id("block/small_woody_growth_1")));
+        itemModelGenerator.register(ModItems.YMPE_CUIRASS, Models.GENERATED);
     }
 
     private Model blockParentModel(Identifier id) {
