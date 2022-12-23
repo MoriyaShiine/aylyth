@@ -23,7 +23,7 @@ public class HindSpecificSensor extends Sensor<WreathedHindEntity> {
     @Override
     public Set<MemoryModuleType<?>> getOutputMemoryModules() {
         return ImmutableSet.of(
-                ModMemoryTypes.NEAREST_PLEDGED_PLAYERS,
+                ModMemoryTypes.PLEDGED_PLAYERS,
                 MemoryModuleType.VISIBLE_MOBS,
                 MemoryModuleType.NEAREST_ATTACKABLE
         );
@@ -39,10 +39,10 @@ public class HindSpecificSensor extends Sensor<WreathedHindEntity> {
                 .sorted(Comparator.comparingDouble(entity::squaredDistanceTo))
                 .collect(Collectors.toList());
         Brain<?> brain = entity.getBrain();
-        brain.remember(ModMemoryTypes.NEAREST_PLEDGED_PLAYERS, list);
+        brain.remember(ModMemoryTypes.PLEDGED_PLAYERS, list);
 
         Optional<HostileEntity> optional2 = Optional.empty();
-        if(brain.hasMemoryModule(ModMemoryTypes.NEAREST_PLEDGED_PLAYERS)){
+        if(brain.hasMemoryModule(ModMemoryTypes.PLEDGED_PLAYERS)){
             LivingTargetCache livingTargetCache = brain.getOptionalMemory(MemoryModuleType.VISIBLE_MOBS).orElse(LivingTargetCache.empty());
             for(LivingEntity livingEntity : livingTargetCache.iterate(livingEntity -> true)) {
                 if (livingEntity instanceof HostileEntity hostileEntity) {

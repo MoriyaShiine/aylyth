@@ -50,7 +50,7 @@ public class WreathedHindBrain {
             MemoryModuleType.ATTACK_COOLING_DOWN,
             MemoryModuleType.NEAREST_ATTACKABLE,
             MemoryModuleType.AVOID_TARGET,
-            ModMemoryTypes.NEAREST_PLEDGED_PLAYERS
+            ModMemoryTypes.PLEDGED_PLAYERS
     );
 
     public WreathedHindBrain(){}
@@ -142,7 +142,7 @@ public class WreathedHindBrain {
 
              */
         }
-        Optional<List<PlayerEntity>> pledgedPlayer = wreathedHindEntity.getBrain().getOptionalMemory(ModMemoryTypes.NEAREST_PLEDGED_PLAYERS);
+        Optional<List<PlayerEntity>> pledgedPlayer = wreathedHindEntity.getBrain().getOptionalMemory(ModMemoryTypes.PLEDGED_PLAYERS);
         if(pledgedPlayer.isPresent()){
             for(PlayerEntity player : pledgedPlayer.get()){
                 if(player.getHealth() <= 6){
