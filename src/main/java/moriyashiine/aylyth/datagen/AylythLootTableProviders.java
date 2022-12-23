@@ -204,13 +204,6 @@ public class AylythLootTableProviders {
 
         protected void generateLoot() {
             addDrop(ModEntityTypes.SCION, this::scionLoot);
-            addDrop(ModEntityTypes.TULPA, this::coricDrop);
-            addDrop(ModEntityTypes.BONEFLY, this::coricDrop);
-            addDrop(ModEntityTypes.SOULMOULD, this::coricDrop);
-        }
-
-        private <T extends Entity> LootTable.Builder coricDrop(EntityType<T> tEntityType) {
-            return LootTable.builder().pool(LootPool.builder().with(ItemEntry.builder(ModItems.CORIC_SEED)));
         }
 
         private LootTable.Builder scionLoot(EntityType<?> type) {

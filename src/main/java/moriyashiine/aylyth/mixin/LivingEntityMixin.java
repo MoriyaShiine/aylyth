@@ -9,6 +9,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ItemScatterer;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -57,5 +58,13 @@ public abstract class LivingEntityMixin extends Entity {
 	private int aylyth$updatePostDeath(int constant){
 		LivingEntity living = (LivingEntity) (Object) this;
 		return ProlongedDeath.of(living).map(ProlongedDeath::getDeathAnimationTime).orElse(constant);
+	}
+
+	@Inject(method = "updatePostDeath", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;sendEntityStatus(Lnet/minecraft/entity/Entity;B)V"))
+	private void injectLootDrop(CallbackInfo ci){
+		LivingEntity living = (LivingEntity) (Object) this;
+		if(living instanceof ProlongedDeath){
+			ItemScatterer.spawn(living.world, living.getX(), living.getY() + 1.5D, living.getZ(), ModItems.CORIC_SEED.getDefaultStack());
+		}
 	}
 }

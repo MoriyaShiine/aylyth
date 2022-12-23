@@ -128,11 +128,7 @@ public class WreathedHindEntity extends HostileEntity implements IAnimatable, Pl
 
     @Override
     public boolean tryAttack(Entity target) {
-        if(getAttackType() == NONE){
-            setAttackType(MELEE_ATTACK);
-        }
-
-        if(getAttackType() == MELEE_ATTACK){
+       if(getAttackType() == MELEE_ATTACK){
             if(WreathedHindBrain.isPledgedPlayerLow(target, this)){
                 setAttackType(KILLING_ATTACK);
             }else{

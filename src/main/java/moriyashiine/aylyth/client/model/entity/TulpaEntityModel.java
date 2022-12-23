@@ -1,7 +1,11 @@
 package moriyashiine.aylyth.client.model.entity;
 
-import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.entity.mob.TulpaEntity;
+import moriyashiine.aylyth.common.util.AylythUtil;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.network.AbstractClientPlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.processor.IBone;
@@ -10,17 +14,21 @@ import software.bernie.geckolib3.model.provider.data.EntityModelData;
 
 public class TulpaEntityModel extends AnimatedGeoModel<TulpaEntity> {
 
+    public static Identifier MODEL = AylythUtil.id("geo/tulpa.geo.json");
+    public static Identifier TEXTURE = AylythUtil.id("textures/entity/living/tulpa/tulpa.png");
+    public static Identifier ANIMATION = AylythUtil.id("animations/entity/tulpa.animation.json");
+
 
     public Identifier getModelResource(TulpaEntity object) {
-        return new Identifier(Aylyth.MOD_ID, "geo/tulpa.geo.json");
+        return MODEL;
     }
 
     public Identifier getTextureResource(TulpaEntity object) {
-        return new Identifier(Aylyth.MOD_ID, "textures/entity/living/tulpa/tulpa.png");
+        return TEXTURE;
     }
 
     public Identifier getAnimationResource(TulpaEntity animatable) {
-        return new Identifier(Aylyth.MOD_ID, "animations/entity/tulpa.animation.json");
+        return ANIMATION;
     }
 
     @Override
@@ -34,4 +42,44 @@ public class TulpaEntityModel extends AnimatedGeoModel<TulpaEntity> {
             head.setRotationY(extraData.netHeadYaw * ((float) Math.PI / 180F));
         }
     }
+
+
+
+
+
+    @Environment(EnvType.CLIENT)
+    public static class TulpaPlayerEntityModel extends AnimatedGeoModel<TulpaEntity> {
+
+        @Override
+        public Identifier getModelResource(TulpaEntity object) {
+            return TulpaEntityModel.MODEL;
+        }
+
+        @Override
+        public Identifier getTextureResource(TulpaEntity object) {
+            return getTexture(object);
+        }
+
+        @Override
+        public Identifier getAnimationResource(TulpaEntity animatable) {
+            return TulpaEntityModel.ANIMATION;
+        }
+
+        public Identifier getTexture(TulpaEntity entity) {
+            if(entity.getSkinUuid() != null){
+                PlayerEntity player = entity.world.getPlayerByUuid(entity.getSkinUuid());
+                if(player instanceof AbstractClientPlayerEntity abstractClientPlayerEntity){
+                    return abstractClientPlayerEntity.getSkinTexture();
+                }
+            }
+            return new Identifier("textures/entity/steve.png");
+        }
+    }
+
+
+
+
+
+
+
 }
