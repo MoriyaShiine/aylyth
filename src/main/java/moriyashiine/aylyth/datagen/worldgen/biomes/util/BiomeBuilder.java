@@ -5,9 +5,9 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeEffects;
 import net.minecraft.world.biome.GenerationSettings;
 import net.minecraft.world.biome.SpawnSettings;
-import org.checkerframework.checker.index.qual.NonNegative;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nonnegative;
 import java.util.function.Consumer;
 
 public class BiomeBuilder {
@@ -130,12 +130,12 @@ public class BiomeBuilder {
         return this;
     }
 
-    public BiomeBuilder biomeEffects(@NonNegative int fogColor, @NonNegative int waterColor, @NonNegative int waterFogColor, @NonNegative int skyColor) {
+    public BiomeBuilder biomeEffects(@Nonnegative int fogColor, @Nonnegative int waterColor, @Nonnegative int waterFogColor, @Nonnegative int skyColor) {
         return biomeEffects(BiomeEffectsBuilder.builder(fogColor, waterColor, waterFogColor, skyColor).build());
     }
 
-    public BiomeBuilder biomeEffects(@NonNegative int fogColor, @NonNegative int waterColor,
-                                     @NonNegative int waterFogColor, @NonNegative int skyColor,
+    public BiomeBuilder biomeEffects(@Nonnegative int fogColor, @Nonnegative int waterColor,
+                                     @Nonnegative int waterFogColor, @Nonnegative int skyColor,
                                      @NotNull Consumer<BiomeEffectsBuilder> builderConsumer) {
         var builder = BiomeEffectsBuilder.builder(fogColor, waterColor, waterFogColor, skyColor);
         builderConsumer.accept(builder);
