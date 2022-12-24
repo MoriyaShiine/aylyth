@@ -83,6 +83,7 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add(ModItems.YMPEMOULD_ITEM, "Ympemould");
         builder.add(ModItems.YMPE_EFFIGY_ITEM, "Ympe Effigy");
         builder.add(ModItems.WRONGMEAT, "Wrongmeat");
+        builder.add(ModItems.YMPE_CUIRASS, "Ympe Cuirass");
         potionSet(builder, "mortechis");
         potionSet(builder, "cimmerian");
         potionSet(builder, "wyrded");

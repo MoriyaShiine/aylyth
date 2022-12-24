@@ -8,9 +8,9 @@ import net.minecraft.world.biome.GenerationSettings;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.carver.ConfiguredCarver;
 import net.minecraft.world.gen.feature.PlacedFeature;
-import org.checkerframework.checker.index.qual.NonNegative;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nonnegative;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
@@ -86,7 +86,7 @@ public class GenerationSettingsBuilder {
         return addFeature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, featureEntry);
     }
 
-    public GenerationSettingsBuilder feature(@NonNegative int step, @NotNull RegistryEntry<PlacedFeature> featureEntry) {
+    public GenerationSettingsBuilder feature(@Nonnegative int step, @NotNull RegistryEntry<PlacedFeature> featureEntry) {
         FEATURE_PLACE.putIfAbsent(featureEntry, FEATURE_PLACE.size());
         features.add(Pair.of(step, featureEntry));
         return this;
