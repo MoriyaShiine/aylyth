@@ -1,75 +1,64 @@
 package moriyashiine.aylyth.common.registry;
 
 import moriyashiine.aylyth.common.Aylyth;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
-public class ModSoundEvents {
-	public static final SoundEvent BLOCK_YMPE_LOG_PICK_FRUIT = new SoundEvent(new Identifier(Aylyth.MOD_ID, "block.ympe_log.pick_fruit"));
+import java.util.LinkedHashMap;
+import java.util.Map;
 
-	public static final SoundEvent BLOCK_STREWN_LEAVES_STEP = new SoundEvent(new Identifier(Aylyth.MOD_ID, "block.strewn_leaves.step"));
-	public static final SoundEvent BLOCK_STREWN_LEAVES_PILE_DESTROY = new SoundEvent(new Identifier(Aylyth.MOD_ID, "block.strewn_leaves.pile_destroy"));
-	public static final SoundEvent BLOCK_STREWN_LEAVES_PILE_STEP = new SoundEvent(new Identifier(Aylyth.MOD_ID, "block.strewn_leaves.pile_step"));
-	public static final SoundEvent BLOCK_STICK_BREAK = new SoundEvent(new Identifier(Aylyth.MOD_ID, "block.stick_break"));
+public class ModSoundEvents {
+	private static final Map<SoundEvent, Identifier> SOUND_EVENTS = new LinkedHashMap<>();
+
+	public static final SoundEvent BLOCK_YMPE_LOG_PICK_FRUIT = register("block.ympe_log.pick_fruit");
+	public static final SoundEvent BLOCK_STREWN_LEAVES_STEP = register("block.strewn_leaves.step");
+	public static final SoundEvent BLOCK_STREWN_LEAVES_PILE_DESTROY = register("block.strewn_leaves.pile_destroy");
+	public static final SoundEvent BLOCK_STREWN_LEAVES_PILE_STEP = register( "block.strewn_leaves.pile_step");
+	public static final SoundEvent BLOCK_STICK_BREAK = register( "block.stick_break");
+
+	public static final SoundEvent ENTITY_PLAYER_INCREASE_YMPE_INFESTATION_STAGE = register("entity.player.increase_ympe_infestation_stage");
+	public static final SoundEvent ENTITY_GENERIC_SHUCKED = register( "entity.generic.shucked");
+	
+	public static final SoundEvent ENTITY_AYLYTHIAN_AMBIENT = register( "entity.aylythian.ambient");
+	public static final SoundEvent ENTITY_AYLYTHIAN_HURT = register("entity.aylythian.hurt");
+	public static final SoundEvent ENTITY_AYLYTHIAN_DEATH = register( "entity.aylythian.death");
+	
+	public static final SoundEvent ENTITY_ELDER_AYLYTHIAN_AMBIENT = register( "entity.elder_aylythian.ambient");
+	public static final SoundEvent ENTITY_ELDER_AYLYTHIAN_HURT = register( "entity.elder_aylythian.hurt");
+	public static final SoundEvent ENTITY_ELDER_AYLYTHIAN_DEATH = register( "entity.elder_aylythian.death");
+	
+	public static final SoundEvent AMBIENT_FOREST_ADDITIONS = register("ambient.forest.additions");
+
+	public static final SoundEvent ENTITY_SOULMOULD_AMBIENT = register( "entity.soulmould.ambient");
+	public static final SoundEvent ENTITY_SOULMOULD_ATTACK = register("entity.soulmould.attack");
+	public static final SoundEvent ENTITY_SOULMOULD_HURT = register("entity.soulmould.hurt");
+	public static final SoundEvent ENTITY_SOULMOULD_DEATH = register("entity.soulmould.death");
+
+	public static final SoundEvent ENTITY_SCION_AMBIENT = register("entity.scion.ambient");
+	public static final SoundEvent ENTITY_SCION_HURT = register("entity.scion.hurt");
+	public static final SoundEvent ENTITY_SCION_DEATH = register( "entity.scion.death");
+
+	public static final SoundEvent ENTITY_WREATHED_HIND_AMBIENT = register("entity.wreathed_hind.ambient");
+	public static final SoundEvent ENTITY_WREATHED_HIND_HURT = register( "entity.wreathed_hind.hurt");
+	public static final SoundEvent ENTITY_WREATHED_HIND_DEATH = register("entity.wreathed_hind.death");
+
 	public static final BlockSoundGroup STREWN_LEAVES = new BlockSoundGroup(1.0F, 1.0F, BLOCK_STREWN_LEAVES_STEP, BLOCK_STREWN_LEAVES_STEP, BLOCK_STREWN_LEAVES_STEP, BLOCK_STREWN_LEAVES_STEP, BLOCK_STREWN_LEAVES_STEP);
 	public static final BlockSoundGroup LEAF_PILES = new BlockSoundGroup(1.0F, 1.0F, BLOCK_STREWN_LEAVES_PILE_DESTROY, BLOCK_STREWN_LEAVES_PILE_STEP, BLOCK_STREWN_LEAVES_PILE_DESTROY, BLOCK_STREWN_LEAVES_STEP, BLOCK_STREWN_LEAVES_PILE_DESTROY);
 	public static final BlockSoundGroup STREWN_LEAVES_STICK = new BlockSoundGroup(1.0F, 1.0F, BLOCK_STREWN_LEAVES_STEP, BLOCK_STICK_BREAK, BLOCK_STREWN_LEAVES_STEP, BLOCK_STREWN_LEAVES_STEP, BLOCK_STREWN_LEAVES_STEP);
 	public static final BlockSoundGroup LEAF_PILES_STICK = new BlockSoundGroup(1.0F, 1.0F, BLOCK_STREWN_LEAVES_PILE_DESTROY, BLOCK_STICK_BREAK, BLOCK_STREWN_LEAVES_PILE_DESTROY, BLOCK_STREWN_LEAVES_STEP, BLOCK_STREWN_LEAVES_PILE_DESTROY);
 
-	public static final SoundEvent ENTITY_PLAYER_INCREASE_YMPE_INFESTATION_STAGE = new SoundEvent(new Identifier(Aylyth.MOD_ID, "entity.player.increase_ympe_infestation_stage"));
-	public static final SoundEvent ENTITY_GENERIC_SHUCKED = new SoundEvent(new Identifier(Aylyth.MOD_ID, "entity.generic.shucked"));
-	
-	public static final SoundEvent ENTITY_AYLYTHIAN_AMBIENT = new SoundEvent(new Identifier(Aylyth.MOD_ID, "entity.aylythian.ambient"));
-	public static final SoundEvent ENTITY_AYLYTHIAN_HURT = new SoundEvent(new Identifier(Aylyth.MOD_ID, "entity.aylythian.hurt"));
-	public static final SoundEvent ENTITY_AYLYTHIAN_DEATH = new SoundEvent(new Identifier(Aylyth.MOD_ID, "entity.aylythian.death"));
-	
-	public static final SoundEvent ENTITY_ELDER_AYLYTHIAN_AMBIENT = new SoundEvent(new Identifier(Aylyth.MOD_ID, "entity.elder_aylythian.ambient"));
-	public static final SoundEvent ENTITY_ELDER_AYLYTHIAN_HURT = new SoundEvent(new Identifier(Aylyth.MOD_ID, "entity.elder_aylythian.hurt"));
-	public static final SoundEvent ENTITY_ELDER_AYLYTHIAN_DEATH = new SoundEvent(new Identifier(Aylyth.MOD_ID, "entity.elder_aylythian.death"));
-	
-	public static final SoundEvent AMBIENT_FOREST_ADDITIONS = new SoundEvent(new Identifier(Aylyth.MOD_ID, "ambient.forest.additions"));
 
-	public static final SoundEvent ENTITY_SOULMOULD_AMBIENT = new SoundEvent(new Identifier(Aylyth.MOD_ID, "entity.soulmould.ambient"));
-	public static final SoundEvent ENTITY_SOULMOULD_ATTACK = new SoundEvent(new Identifier(Aylyth.MOD_ID, "entity.soulmould.attack"));
-	public static final SoundEvent ENTITY_SOULMOULD_HURT = new SoundEvent(new Identifier(Aylyth.MOD_ID, "entity.soulmould.hurt"));
-
-	public static final SoundEvent ENTITY_SOULMOULD_DEATH = new SoundEvent(new Identifier(Aylyth.MOD_ID, "entity.soulmould.death"));
-
-	public static final SoundEvent ENTITY_SCION_AMBIENT = new SoundEvent(new Identifier(Aylyth.MOD_ID, "entity.scion.ambient"));
-	public static final SoundEvent ENTITY_SCION_HURT = new SoundEvent(new Identifier(Aylyth.MOD_ID, "entity.scion.hurt"));
-	public static final SoundEvent ENTITY_SCION_DEATH = new SoundEvent(new Identifier(Aylyth.MOD_ID, "entity.scion.death"));
-
-	public static final SoundEvent ENTITY_WREATHED_HIND_AMBIENT = new SoundEvent(new Identifier(Aylyth.MOD_ID, "entity.wreathed_hind.ambient"));
-	public static final SoundEvent ENTITY_WREATHED_HIND_HURT = new SoundEvent(new Identifier(Aylyth.MOD_ID, "entity.wreathed_hind.hurt"));
-	public static final SoundEvent ENTITY_WREATHED_HIND_DEATH = new SoundEvent(new Identifier(Aylyth.MOD_ID, "entity.wreathed_hind.death"));
-
-
+	private static SoundEvent register(String name) {
+		Identifier id = AylythUtil.id(name);
+		SoundEvent soundEvent = new SoundEvent(id);
+		SOUND_EVENTS.put(soundEvent, id);
+		return soundEvent;
+	}
 
 	public static void init() {
-		Registry.register(Registry.SOUND_EVENT, BLOCK_YMPE_LOG_PICK_FRUIT.getId(), BLOCK_YMPE_LOG_PICK_FRUIT);
-		Registry.register(Registry.SOUND_EVENT, ENTITY_PLAYER_INCREASE_YMPE_INFESTATION_STAGE.getId(), ENTITY_PLAYER_INCREASE_YMPE_INFESTATION_STAGE);
-		Registry.register(Registry.SOUND_EVENT, ENTITY_GENERIC_SHUCKED.getId(), ENTITY_GENERIC_SHUCKED);
-		Registry.register(Registry.SOUND_EVENT, ENTITY_AYLYTHIAN_AMBIENT.getId(), ENTITY_AYLYTHIAN_AMBIENT);
-		Registry.register(Registry.SOUND_EVENT, ENTITY_AYLYTHIAN_HURT.getId(), ENTITY_AYLYTHIAN_HURT);
-		Registry.register(Registry.SOUND_EVENT, ENTITY_AYLYTHIAN_DEATH.getId(), ENTITY_AYLYTHIAN_DEATH);
-		Registry.register(Registry.SOUND_EVENT, ENTITY_ELDER_AYLYTHIAN_AMBIENT.getId(), ENTITY_ELDER_AYLYTHIAN_AMBIENT);
-		Registry.register(Registry.SOUND_EVENT, ENTITY_ELDER_AYLYTHIAN_HURT.getId(), ENTITY_ELDER_AYLYTHIAN_HURT);
-		Registry.register(Registry.SOUND_EVENT, ENTITY_ELDER_AYLYTHIAN_DEATH.getId(), ENTITY_ELDER_AYLYTHIAN_DEATH);
-		Registry.register(Registry.SOUND_EVENT, AMBIENT_FOREST_ADDITIONS.getId(), AMBIENT_FOREST_ADDITIONS);
-
-		Registry.register(Registry.SOUND_EVENT, ENTITY_SOULMOULD_AMBIENT.getId(), ENTITY_SOULMOULD_AMBIENT);
-		Registry.register(Registry.SOUND_EVENT, ENTITY_SOULMOULD_ATTACK.getId(), ENTITY_SOULMOULD_ATTACK);
-		Registry.register(Registry.SOUND_EVENT, ENTITY_SOULMOULD_HURT.getId(), ENTITY_SOULMOULD_HURT);
-		Registry.register(Registry.SOUND_EVENT, ENTITY_SOULMOULD_DEATH.getId(), ENTITY_SOULMOULD_DEATH);
-
-		Registry.register(Registry.SOUND_EVENT, ENTITY_SCION_AMBIENT.getId(), ENTITY_SCION_AMBIENT);
-		Registry.register(Registry.SOUND_EVENT, ENTITY_SCION_HURT.getId(), ENTITY_SCION_HURT);
-		Registry.register(Registry.SOUND_EVENT, ENTITY_SCION_DEATH.getId(), ENTITY_SCION_DEATH);
-
-		Registry.register(Registry.SOUND_EVENT, ENTITY_WREATHED_HIND_AMBIENT.getId(), ENTITY_WREATHED_HIND_AMBIENT);
-		Registry.register(Registry.SOUND_EVENT, ENTITY_WREATHED_HIND_HURT.getId(), ENTITY_WREATHED_HIND_HURT);
-		Registry.register(Registry.SOUND_EVENT, ENTITY_WREATHED_HIND_DEATH.getId(), ENTITY_WREATHED_HIND_DEATH);
+		SOUND_EVENTS.keySet().forEach(soundEvent -> Registry.register(Registry.SOUND_EVENT, SOUND_EVENTS.get(soundEvent), soundEvent));
 	}
 }
