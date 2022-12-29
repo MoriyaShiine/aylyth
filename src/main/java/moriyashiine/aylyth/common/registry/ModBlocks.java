@@ -3,7 +3,11 @@ package moriyashiine.aylyth.common.registry;
 import com.mojang.datafixers.util.Pair;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.block.*;
+import moriyashiine.aylyth.common.block.util.BetterLargeSaplingGenerator;
+import moriyashiine.aylyth.common.block.util.BetterSaplingGenerator;
+import moriyashiine.aylyth.common.block.util.ModSaplingBlock;
 import moriyashiine.aylyth.common.registry.util.WoodSuite;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.datagen.worldgen.features.ModConfiguredFeatures;
 import moriyashiine.aylyth.mixin.BlocksAccessor;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -16,6 +20,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryEntry;
+import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import org.jetbrains.annotations.Nullable;
 
@@ -27,42 +32,55 @@ import static net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSetting
 public class ModBlocks {
 	public static final Material STREWN_LEAVES = new Material.Builder(MapColor.DARK_GREEN).notSolid().allowsMovement().destroyedByPiston().replaceable().build();
 
-	public static final WoodSuite YMPE_BLOCKS = WoodSuite.of(new Identifier(Aylyth.MOD_ID, "ympe"), WoodSuite.CopySettingsSet.DEFAULT_SETTINGS_SET, Registry.BLOCK, MapColor.BROWN, new LargeTreeSaplingGenerator() {
-		@Nullable
+	public static final WoodSuite YMPE_BLOCKS = WoodSuite.of(new Identifier(Aylyth.MOD_ID, "ympe"), WoodSuite.CopySettingsSet.DEFAULT_SETTINGS_SET, Registry.BLOCK, MapColor.BROWN, new BetterLargeSaplingGenerator() {
+
 		@Override
-		protected RegistryEntry<? extends ConfiguredFeature<?, ?>> getLargeTreeFeature(Random random) {
-			return ModConfiguredFeatures.BIG_YMPE_TREE;
+		protected @Nullable RegistryKey<ConfiguredFeature<?, ?>> getLargeTreeKey(Random random) {
+			return RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, AylythUtil.id("big_ympe_tree"));
 		}
 
-		@Nullable
 		@Override
-		protected RegistryEntry<? extends ConfiguredFeature<?, ?>> getTreeFeature(Random random, boolean bees) {
-			return ModConfiguredFeatures.YMPE_TREE;
+		protected @Nullable RegistryKey<ConfiguredFeature<?, ?>> getTreeKey(Random random, boolean bees) {
+			return RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, AylythUtil.id("ympe_tree"));
 		}
 	});
 	public static final Block FRUIT_BEARING_YMPE_LOG = new FruitBearingYmpeLogBlock();
 	public static final Block YMPE_LEAVES = BlocksAccessor.callCreateLeavesBlock(BlockSoundGroup.GRASS);
 
-	public static final WoodSuite POMEGRANATE_BLOCKS = WoodSuite.of(new Identifier(Aylyth.MOD_ID, "pomegranate"), WoodSuite.CopySettingsSet.DEFAULT_SETTINGS_SET, Registry.BLOCK, MapColor.DARK_RED, new SaplingGenerator() {
+	public static final WoodSuite POMEGRANATE_BLOCKS = WoodSuite.of(new Identifier(Aylyth.MOD_ID, "pomegranate"), WoodSuite.CopySettingsSet.DEFAULT_SETTINGS_SET, Registry.BLOCK, MapColor.DARK_RED, new BetterSaplingGenerator() {
+
 		@Nullable
 		@Override
-		protected RegistryEntry<? extends ConfiguredFeature<?, ?>> getTreeFeature(Random random, boolean bees) {
-			return ModConfiguredFeatures.POMEGRANATE_TREE;
+		protected RegistryKey<ConfiguredFeature<?, ?>> getTreeKey(Random random, boolean bees) {
+			return RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, AylythUtil.id("pomegranate_tree"));
 		}
 	});
 	public static final Block POMEGRANATE_LEAVES = new PomegranateLeavesBlock(copyOf(Blocks.OAK_LEAVES));
 
 	// This is ew ew. Make a builder for making specific optional changes
-	public static final WoodSuite WRITHEWOOD_BLOCKS = WoodSuite.of(new Identifier(Aylyth.MOD_ID, "writhewood"), WoodSuite.CopySettingsSet.DEFAULT_SETTINGS_SET, Registry.BLOCK, MapColor.OAK_TAN, null, null, null, null, null, new WaterloggableSaplingBlock(new SaplingGenerator() {
+	public static final WoodSuite WRITHEWOOD_BLOCKS = WoodSuite.of(new Identifier(Aylyth.MOD_ID, "writhewood"), WoodSuite.CopySettingsSet.DEFAULT_SETTINGS_SET, Registry.BLOCK, MapColor.OAK_TAN, null, null, null, null, null, new WaterloggableSaplingBlock(new BetterSaplingGenerator() {
+
 		@Nullable
 		@Override
-		protected RegistryEntry<? extends ConfiguredFeature<?, ?>> getTreeFeature(Random random, boolean bees) {
-			return ModConfiguredFeatures.WRITHEWOOD_TREE;
+		protected RegistryKey<ConfiguredFeature<?, ?>> getTreeKey(Random random, boolean bees) {
+			return RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, AylythUtil.id("writhewood_tree"));
 		}
 	}, copyOf(Blocks.OAK_SAPLING)), null, null, null, null, null, null, null, null, null, null, null, null);
 	public static final Block WRITHEWOOD_LEAVES = BlocksAccessor.callCreateLeavesBlock(BlockSoundGroup.GRASS);
 
 	public static final Block SEEPING_WOOD = new PillarBlock(copyOf(Blocks.OAK_WOOD));
+	public static final Block GIRASOL_SAPLING = new ModSaplingBlock(new BetterLargeSaplingGenerator() {
+		@Override
+		protected @Nullable RegistryKey<ConfiguredFeature<?, ?>> getLargeTreeKey(Random random) {
+			return RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, AylythUtil.id("seeping_tree"));
+		}
+
+		@Override
+		protected @Nullable RegistryKey<ConfiguredFeature<?, ?>> getTreeKey(Random random, boolean bees) {
+			return null;
+		}
+	});
+	public static final Block GIRASOL_SAPLING_POTTED = new FlowerPotBlock(GIRASOL_SAPLING, copyOf(Blocks.FLOWER_POT));
 
 	public static final Block AYLYTH_BUSH = new BushBlock();
 	public static final Block ANTLER_SHOOTS = new AntlerShootsBlock();
@@ -103,6 +121,8 @@ public class ModBlocks {
 		WRITHEWOOD_BLOCKS.register();
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "writhewood_leaves"), WRITHEWOOD_LEAVES);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "seeping_log"), SEEPING_WOOD);
+		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "girasol_sapling"), GIRASOL_SAPLING);
+		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "potted_girasol_sapling"), GIRASOL_SAPLING_POTTED);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "aylyth_bush"), AYLYTH_BUSH);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "antler_shoots"), ANTLER_SHOOTS);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "gripweed"), GRIPWEED);

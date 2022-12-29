@@ -34,6 +34,7 @@ public class ModItems {
 	public static final ItemWoodSuite WRITHEWOOD_ITEMS = ItemWoodSuite.of(new Identifier(Aylyth.MOD_ID, "writhewood"), ModBlocks.WRITHEWOOD_BLOCKS, new ItemWoodSuite.GroupedSettings(GROUP), Registry.ITEM, () -> ModBoatTypes.WRITHEWOOD_BOAT_TYPE, () -> ModBoatTypes.WRITHEWOOD_CHEST_BOAT_TYPE);
 
 	public static final Item SEEPING_WOOD = register("seeping_wood", new BlockItem(ModBlocks.SEEPING_WOOD, settings()));
+	public static final Item GIRASOL_SEED = register("girasol_seed", new AliasedBlockItem(ModBlocks.GIRASOL_SAPLING, settings()));
 
 	public static final Item AYLYTH_BUSH = register("aylyth_bush", new BlockItem(ModBlocks.AYLYTH_BUSH, settings()));
 	public static final Item ANTLER_SHOOTS = register("antler_shoots", new BlockItem(ModBlocks.ANTLER_SHOOTS, settings()));

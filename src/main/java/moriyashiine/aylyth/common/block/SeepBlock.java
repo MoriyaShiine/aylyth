@@ -1,14 +1,19 @@
 package moriyashiine.aylyth.common.block;
 
+import moriyashiine.aylyth.common.registry.ModBlocks;
+import moriyashiine.aylyth.common.registry.ModPOITypes;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.common.block.entity.SeepBlockEntity;
 import moriyashiine.aylyth.common.registry.ModDimensionKeys;
+import moriyashiine.aylyth.common.block.util.SeepTeleportable;
 import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.server.world.ChunkTicketType;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.StateManager;
@@ -17,8 +22,10 @@ import net.minecraft.state.property.Property;
 import net.minecraft.util.StringIdentifiable;
 import net.minecraft.util.function.BooleanBiFunction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.util.shape.VoxelShape;
@@ -28,6 +35,9 @@ import net.minecraft.world.TeleportTarget;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.dimension.DimensionTypes;
+import net.minecraft.world.poi.PointOfInterest;
+import net.minecraft.world.poi.PointOfInterestStorage;
+import net.minecraft.world.poi.PointOfInterestType;
 import org.jetbrains.annotations.Nullable;
 
 public class SeepBlock extends Block implements BlockEntityProvider {
@@ -56,9 +66,28 @@ public class SeepBlock extends Block implements BlockEntityProvider {
 		super.onEntityCollision(state, world, pos, entity);
 		if (world instanceof ServerWorld serverWorld) {
 			if (entity.getPos().distanceTo(new Vec3d(pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F)) < 0.6F) {
+				SeepTeleportable.of(entity).ifPresent(teleportable -> teleportable.setInSeep(pos));
 				ServerWorld aylyth = serverWorld.getServer().getWorld(ModDimensionKeys.AYLYTH);
 				ServerWorld toWorld = entity.world == aylyth ? serverWorld.getServer().getWorld(RegistryKey.of(Registry.WORLD_KEY, DimensionTypes.OVERWORLD_ID)) : aylyth;
-				FabricDimensions.teleport(entity, toWorld, new TeleportTarget(Vec3d.of(AylythUtil.getSafePosition(toWorld, entity.getBlockPos().mutableCopy(), 0)), Vec3d.ZERO, entity.getHeadYaw(), entity.getPitch()));
+				toWorld.getChunkManager().addTicket(ChunkTicketType.PORTAL, new ChunkPos(pos), 3, pos);
+				Vec3d teleportPos = null;
+				if (this == ModBlocks.SEEPING_WOOD_SEEP) {
+					var seep = toWorld.getPointOfInterestStorage().getInSquare(point -> point.matchesKey(ModPOITypes.SEEP), pos, 32, PointOfInterestStorage.OccupationStatus.ANY).findFirst();
+					if (seep.isPresent()) {
+						for (Direction dir : Direction.Type.HORIZONTAL) {
+							var offsetSeepPos = seep.get().getPos().offset(dir);
+							if (toWorld.getBlockState(offsetSeepPos).canPathfindThrough(world, offsetSeepPos, NavigationType.LAND)) {
+								teleportPos = Vec3d.of(offsetSeepPos).add(0.5, 0, 0.5);
+							}
+						}
+					}
+					if (teleportPos == null) {
+						teleportPos = Vec3d.of(AylythUtil.getSafePosition(toWorld, entity.getBlockPos().mutableCopy(), 0));
+					}
+				} else {
+					teleportPos = Vec3d.of(AylythUtil.getSafePosition(toWorld, entity.getBlockPos().mutableCopy(), 0));
+				}
+				FabricDimensions.teleport(entity, toWorld, new TeleportTarget(teleportPos, Vec3d.ZERO, entity.getHeadYaw(), entity.getPitch()));
 			}
 		}
 	}

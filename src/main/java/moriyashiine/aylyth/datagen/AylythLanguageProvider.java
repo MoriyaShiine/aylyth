@@ -54,6 +54,10 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add(ModBlocks.SMALL_WOODY_GROWTH, "Small Woody Growth");
         builder.add(ModBlocks.LARGE_WOODY_GROWTH, "Large Woody Growth");
         builder.add(ModBlocks.WOODY_GROWTH_CACHE, "Woody Growth Cache");
+        builder.add(ModBlocks.SEEPING_WOOD, "Seeping Wood");
+        builder.add(ModBlocks.SEEPING_WOOD_SEEP, "Seeping Wood Seep");
+        builder.add(ModBlocks.GIRASOL_SAPLING, "Girasol Sapling");
+        builder.add(ModBlocks.GIRASOL_SAPLING_POTTED, "Potted Girasol Sapling");
 
         // ITEMS
 
@@ -83,6 +87,7 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add(ModItems.YMPEMOULD_ITEM, "Ympemould");
         builder.add(ModItems.YMPE_EFFIGY_ITEM, "Ympe Effigy");
         builder.add(ModItems.WRONGMEAT, "Wrongmeat");
+        builder.add(ModItems.GIRASOL_SEED, "Girasol Seed");
         potionSet(builder, "mortechis");
         potionSet(builder, "cimmerian");
         potionSet(builder, "wyrded");

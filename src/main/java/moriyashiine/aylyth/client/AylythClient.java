@@ -202,7 +202,9 @@ public class AylythClient implements ClientModInitializer {
 				ModBlocks.GHOSTCAP_MUSHROOM,
 				ModBlocks.SOUL_HEARTH,
 				ModBlocks.VITAL_THURIBLE,
-				ModBlocks.LARGE_WOODY_GROWTH
+				ModBlocks.LARGE_WOODY_GROWTH,
+				ModBlocks.GIRASOL_SAPLING,
+				ModBlocks.GIRASOL_SAPLING_POTTED
 		};
 	}
 
