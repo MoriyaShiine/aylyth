@@ -1,7 +1,11 @@
 {
   "type": "minecraft:tree",
   "config": {
-    "decorators": [],
+    "decorators": [
+      {
+        "type": "aylyth:grape_vine_decorator"
+      }
+    ],
     "dirt_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {
@@ -35,8 +39,14 @@
     "trunk_placer": {
       "type": "aylyth:girasol_trunk_placer",
       "base_height": 6,
-      "height_rand_a": 4,
-      "height_rand_b": 14
+      "height_rand_a": 1,
+      "height_rand_b": 3,
+      "seep_block": {
+        "Name": "aylyth:seeping_wood_seep",
+        "Properties": {
+          "connection": "none"
+        }
+      }
     },
     "trunk_provider": {
       "type": "minecraft:simple_state_provider",
