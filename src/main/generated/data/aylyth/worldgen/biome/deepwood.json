@@ -111,6 +111,12 @@
         "maxCount": 1,
         "minCount": 1,
         "weight": 15
+      },
+      {
+        "type": "aylyth:wreathed_hind",
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 10
       }
     ],
     "underground_water_creature": [],
