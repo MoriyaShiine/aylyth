@@ -80,7 +80,9 @@ public class YmpeInfestationComponent implements AutoSyncedComponent, ServerTick
 	public void setStage(byte stage) {
 		this.stage = stage;
 		ModComponents.YMPE_INFESTATION.sync(obj);
-		ModCriteria.YMPE_INFESTATION.trigger((ServerPlayerEntity)obj);
+		if (obj instanceof ServerPlayerEntity serverPlayer) {
+			ModCriteria.YMPE_INFESTATION.trigger(serverPlayer);
+		}
 	}
 	
 	public short getInfestationTimer() {

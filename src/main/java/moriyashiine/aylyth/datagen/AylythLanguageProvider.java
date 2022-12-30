@@ -137,7 +137,7 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add("aylyth.advancements.aylyth.dont_look_back.desc", "Reach out to a Pilot Light so it may guide you back home, requires 5 XP levels.");
         builder.add("aylyth.advancements.aylyth.into_the_fire_we_fly.title", "Into the Fire we Fly");
         builder.add("aylyth.advancements.aylyth.into_the_fire_we_fly.desc", "Obtain an Aylythian Heart, a drop from certain stronger creatures, and use it to avoid death, at the cost of returning to Aylyth.");
-        builder.add("aylyth.advancements.aylyth.something_between_life_and_death.title", "Something Between Life and Death");
+        builder.add("aylyth.advancements.aylyth.something_between_life_and_death.title", "Between Life and Death");
         builder.add("aylyth.advancements.aylyth.something_between_life_and_death.desc", "Create a Soul Hearth, give it Pomegranates, and then right-click on it to activate it, allowing you to set spawn in Aylyth.");
         builder.add("aylyth.advancements.aylyth.meat_found.title", "Meat Found!");
         builder.add("aylyth.advancements.aylyth.meat_found.desc", "Slay certain Aylythian entities with an Ympe Dagger, and collect their special drop.");
