@@ -69,15 +69,11 @@ public class ModBlocks {
 	public static final Block WRITHEWOOD_LEAVES = BlocksAccessor.callCreateLeavesBlock(BlockSoundGroup.GRASS);
 
 	public static final Block SEEPING_WOOD = new PillarBlock(copyOf(Blocks.OAK_WOOD));
-	public static final Block GIRASOL_SAPLING = new ModSaplingBlock(new BetterLargeSaplingGenerator() {
+	public static final Block GIRASOL_SAPLING = new ModSaplingBlock(new BetterSaplingGenerator() {
+		@Nullable
 		@Override
-		protected @Nullable RegistryKey<ConfiguredFeature<?, ?>> getLargeTreeKey(Random random) {
+		protected RegistryKey<ConfiguredFeature<?, ?>> getTreeKey(Random random, boolean bees) {
 			return RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, AylythUtil.id("seeping_tree"));
-		}
-
-		@Override
-		protected @Nullable RegistryKey<ConfiguredFeature<?, ?>> getTreeKey(Random random, boolean bees) {
-			return null;
 		}
 	});
 	public static final Block GIRASOL_SAPLING_POTTED = new FlowerPotBlock(GIRASOL_SAPLING, copyOf(Blocks.FLOWER_POT));
