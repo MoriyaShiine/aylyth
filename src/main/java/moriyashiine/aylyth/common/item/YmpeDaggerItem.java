@@ -4,10 +4,7 @@ import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
 import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
 import moriyashiine.aylyth.client.network.packet.SpawnShuckParticlesPacket;
-import moriyashiine.aylyth.common.registry.ModBlocks;
-import moriyashiine.aylyth.common.registry.ModComponents;
-import moriyashiine.aylyth.common.registry.ModItems;
-import moriyashiine.aylyth.common.registry.ModSoundEvents;
+import moriyashiine.aylyth.common.registry.*;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.CampfireBlockEntity;
@@ -19,6 +16,7 @@ import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -55,6 +53,9 @@ public class YmpeDaggerItem extends SwordItem {
 			ItemStack offhand = attacker.getOffHandStack();
 			if (offhand.isOf(ModItems.SHUCKED_YMPE_FRUIT)) {
 				if (!offhand.hasNbt() || !offhand.getNbt().contains("StoredEntity")) {
+					if (attacker instanceof ServerPlayerEntity serverPlayer) {
+						ModCriteria.SHUCKING.trigger(serverPlayer, target);
+					}
 					target.setHealth(target.getMaxHealth());
 					target.clearStatusEffects();
 					target.extinguish();

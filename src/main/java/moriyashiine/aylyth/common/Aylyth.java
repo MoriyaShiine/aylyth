@@ -60,6 +60,7 @@ public class Aylyth implements ModInitializer {
 		ModSensorTypes.init();
 		ModBiomeSources.init();
 		ModPOITypes.init();
+		ModCriteria.init();
 		biomeModifications();
 
 		LivingEntityDeathEvents.init();
@@ -67,7 +68,7 @@ public class Aylyth implements ModInitializer {
 		ServerPlayNetworking.registerGlobalReceiver(GlaivePacket.ID, GlaivePacket::handle);
 		ServerPlayNetworking.registerGlobalReceiver(UpdatePressingUpDownPacket.ID, UpdatePressingUpDownPacket::handle);
 
-		ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register(this::shucking);
+		ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register(this::daggerDrops);
 		UseBlockCallback.EVENT.register(this::interactSoulCampfire);
 	}
 
@@ -84,7 +85,7 @@ public class Aylyth implements ModInitializer {
 		return ActionResult.PASS;
 	}
 
-	private void shucking(ServerWorld serverWorld, Entity entity, LivingEntity killedEntity) {
+	private void daggerDrops(ServerWorld serverWorld, Entity entity, LivingEntity killedEntity) {
 		if (entity instanceof LivingEntity living && living.getMainHandStack().isOf(ModItems.YMPE_DAGGER)) {
 			for (YmpeDaggerDropRecipe recipe : serverWorld.getRecipeManager().listAllOfType(ModRecipeTypes.YMPE_DAGGER_DROP_RECIPE_TYPE)) {
 				if (recipe.entity_type.equals(killedEntity.getType()) && serverWorld.random.nextFloat() < recipe.chance * (EnchantmentHelper.getLooting(living) + 1)) {

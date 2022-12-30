@@ -115,12 +115,18 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
 
         builder.add("aylyth.advancements.aylyth.root.title", "Into the Unknown");
         builder.add("aylyth.advancements.aylyth.root.desc", "In the midst of the journey of our life, I found myself in a dark wood without paths.");
-        builder.add("aylyth.advancements.aylyth.life_at_a_cost.title", "Life at a cost");
-        builder.add("aylyth.advancements.aylyth.life_at_a_cost.desc", "Obtain an Ympe Fruit, used to help subside the Branches, among other things.");
         builder.add("aylyth.advancements.aylyth.cimmerianed.title", "Cimmerianed");
         builder.add("aylyth.advancements.aylyth.cimmerianed.desc", "Play some hide and seek with the undead");
         builder.add("aylyth.advancements.aylyth.wyrded.title", "Wyrded");
         builder.add("aylyth.advancements.aylyth.wyrded.desc", "Try approaching a seep!");
+        builder.add("aylyth.advancements.aylyth.in_the_branches.title", "In the Branches");
+        builder.add("aylyth.advancements.aylyth.in_the_branches.desc", "Become infested by Ympe Branches. There has to be a cure...");
+        builder.add("aylyth.advancements.aylyth.life_at_a_cost.title", "Life at a cost");
+        builder.add("aylyth.advancements.aylyth.life_at_a_cost.desc", "Obtain an Ympe Fruit, used to help subside the Branches, among other things.");
+        builder.add("aylyth.advancements.aylyth.daemon_ritus.title", "Daemon Ritus");
+        builder.add("aylyth.advancements.aylyth.daemon_ritus.desc", "Using a Shucked Ympe Fruit and an Ympe Dagger, store the soul of a mob in the hollowed fruit (this may require murder)");
+        builder.add("aylyth.advancements.aylyth.manufactured_for_a_purpose.title", "Manufactured for a Purpose");
+        builder.add("aylyth.advancements.aylyth.manufactured_for_a_purpose.desc", "Obtain a Coric Seed, perhaps one can find the way to make one hidden in dungeons and lost structures...");
 
         // DEATH MESSAGES
 

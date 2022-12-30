@@ -1,12 +1,12 @@
 {
-  "parent": "aylyth:aylyth/in_the_branches",
+  "parent": "aylyth:aylyth/life_at_a_cost",
   "criteria": {
-    "has_ympe_fruit": {
+    "has_coric_seed": {
       "conditions": {
         "items": [
           {
             "items": [
-              "aylyth:ympe_fruit"
+              "aylyth:coric_seed"
             ]
           }
         ]
@@ -17,21 +17,21 @@
   "display": {
     "announce_to_chat": false,
     "description": {
-      "translate": "aylyth.advancements.aylyth.life_at_a_cost.desc"
+      "translate": "aylyth.advancements.aylyth.manufactured_for_a_purpose.desc"
     },
-    "frame": "task",
+    "frame": "goal",
     "hidden": false,
     "icon": {
-      "item": "aylyth:ympe_fruit"
+      "item": "aylyth:coric_seed"
     },
     "show_toast": true,
     "title": {
-      "translate": "aylyth.advancements.aylyth.life_at_a_cost.title"
+      "translate": "aylyth.advancements.aylyth.manufactured_for_a_purpose.title"
     }
   },
   "requirements": [
     [
-      "has_ympe_fruit"
+      "has_coric_seed"
     ]
   ]
 }

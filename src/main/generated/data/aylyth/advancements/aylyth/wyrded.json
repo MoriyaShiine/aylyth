@@ -1,7 +1,7 @@
 {
   "parent": "aylyth:aylyth/root",
   "criteria": {
-    "has_effect": {
+    "has_wyrded_effect": {
       "conditions": {
         "effects": {
           "aylyth:wyrded": {}
@@ -28,7 +28,7 @@
   },
   "requirements": [
     [
-      "has_effect"
+      "has_wyrded_effect"
     ]
   ]
 }

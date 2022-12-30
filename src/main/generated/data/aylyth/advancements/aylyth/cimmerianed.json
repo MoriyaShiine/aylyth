@@ -1,7 +1,7 @@
 {
   "parent": "aylyth:aylyth/root",
   "criteria": {
-    "has_effect": {
+    "has_cimmerian_effect": {
       "conditions": {
         "effects": {
           "aylyth:cimmerian": {}
@@ -28,7 +28,7 @@
   },
   "requirements": [
     [
-      "has_effect"
+      "has_cimmerian_effect"
     ]
   ]
 }
