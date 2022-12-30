@@ -7,6 +7,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.ints.IntArraySet;
 import it.unimi.dsi.fastutil.ints.IntSet;
 import moriyashiine.aylyth.common.block.SeepBlock;
+import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.ModFeatures;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;
@@ -23,13 +24,19 @@ import java.util.List;
 import java.util.function.BiConsumer;
 
 public class GirasolTrunkPlacer extends TrunkPlacer {
-    public static final Codec<GirasolTrunkPlacer> CODEC = RecordCodecBuilder.create((instance) -> fillTrunkPlacerFields(instance).and(BlockState.CODEC.fieldOf("seep_block").forGetter(girasolTrunkPlacer -> girasolTrunkPlacer.seepBlock)).apply(instance, GirasolTrunkPlacer::new));
+    public static final Codec<GirasolTrunkPlacer> CODEC = RecordCodecBuilder.create((instance) ->
+            fillTrunkPlacerFields(instance)
+                    .and(BlockState.CODEC.fieldOf("seep_block").forGetter(girasolTrunkPlacer -> girasolTrunkPlacer.seepBlock))
+                    .and(Codec.intRange(-1, 6).fieldOf("woody_growth_range").forGetter(girasolTrunkPlacer -> girasolTrunkPlacer.woodyGrowthRange))
+                    .apply(instance, GirasolTrunkPlacer::new));
 
     private final BlockState seepBlock;
+    private final int woodyGrowthRange;
 
-    public GirasolTrunkPlacer(int baseHeight, int firstRandomHeight, int secondRandomHeight, BlockState seepBlock) {
+    public GirasolTrunkPlacer(int baseHeight, int firstRandomHeight, int secondRandomHeight, BlockState seepBlock, int woodyGrowthRange) {
         super(baseHeight, firstRandomHeight, secondRandomHeight);
         this.seepBlock = seepBlock;
+        this.woodyGrowthRange = woodyGrowthRange;
     }
 
     @Override
@@ -42,6 +49,8 @@ public class GirasolTrunkPlacer extends TrunkPlacer {
         ImmutableList.Builder<FoliagePlacer.TreeNode> builder = ImmutableList.builder();
 
         if (!hasSpace(world, startPos)) return builder.build();
+
+        replacer.accept(startPos, config.trunkProvider.getBlockState(random, startPos));
 
         for (int y = 0; y < height; y++) {
             for (int x = -2; x <= 2; x++) {
@@ -81,17 +90,28 @@ public class GirasolTrunkPlacer extends TrunkPlacer {
             } while (isNear(angles, randAngle, 15) || iterations < 5);
             angles.add(randAngle);
             BlockPos pos = null;
+            boolean addLeaves = true;
             for (double h = 0; h < 6; h += 0.5) {
                 var xoffSet = h * Math.cos(Math.toRadians(randAngle));
                 var zOffset = h * Math.sin(Math.toRadians(randAngle));
                 var yOffset = getYValue(h, random);
                 pos = topCenterOffset.add(xoffSet, yOffset, zOffset);
 
-                if (!canReplaceOrIsLog(world, pos)) break;
+                if (!canReplaceOrIsLog(world, pos)) {
+                    addLeaves = false;
+                    break;
+                }
 
                 replacer.accept(pos, config.trunkProvider.getBlockState(random, pos));
+                var xDiff = topCenter.getX() - pos.getX();
+                var zDiff = topCenter.getZ() - pos.getZ();
+                if (canReplace(world, pos.up()) && Math.sqrt((xDiff * xDiff + zDiff * zDiff)) <= woodyGrowthRange && random.nextInt(10) == 0) {
+                    replacer.accept(pos.up(2), ModBlocks.SMALL_WOODY_GROWTH.getDefaultState());
+                }
             }
-            builder.add(new FoliagePlacer.TreeNode(pos.down(), 1, true));
+            if (addLeaves) {
+                builder.add(new FoliagePlacer.TreeNode(pos.down(), 1, true));
+            }
         }
 
         for (int x = -2; x <= 2; x++) {
