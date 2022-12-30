@@ -30,7 +30,7 @@ public class ModItems {
 	public static final Item POMEGRANATE_LEAVES = register("pomegranate_leaves", new BlockItem(ModBlocks.POMEGRANATE_LEAVES, settings()));
 	public static final ItemWoodSuite POMEGRANATE_ITEMS = ItemWoodSuite.of(new Identifier(Aylyth.MOD_ID, "pomegranate"), ModBlocks.POMEGRANATE_BLOCKS, new ItemWoodSuite.GroupedSettings(GROUP), Registry.ITEM, () -> ModBoatTypes.POMEGRANATE_BOAT_TYPE, () -> ModBoatTypes.POMEGRANATE_CHEST_BOAT_TYPE);
 
-	public static final Item WRITHEWOOD_LEAVES =register("writhewood_leaves", new BlockItem(ModBlocks.WRITHEWOOD_LEAVES, settings()));
+	public static final Item WRITHEWOOD_LEAVES = register("writhewood_leaves", new BlockItem(ModBlocks.WRITHEWOOD_LEAVES, settings()));
 	public static final ItemWoodSuite WRITHEWOOD_ITEMS = ItemWoodSuite.of(new Identifier(Aylyth.MOD_ID, "writhewood"), ModBlocks.WRITHEWOOD_BLOCKS, new ItemWoodSuite.GroupedSettings(GROUP), Registry.ITEM, () -> ModBoatTypes.WRITHEWOOD_BOAT_TYPE, () -> ModBoatTypes.WRITHEWOOD_CHEST_BOAT_TYPE);
 
 	public static final Item SEEPING_WOOD = register("seeping_wood", new BlockItem(ModBlocks.SEEPING_WOOD, settings()));
@@ -81,8 +81,8 @@ public class ModItems {
 	public static final Item ELDER_AYLYTHIAN_SPAWN_EGG = register("elder_aylythian_spawn_egg", new SpawnEggItem(ModEntityTypes.ELDER_AYLYTHIAN, 0x513425, 0xFFDC9B, settings()));
 	public static final Item SCION_SPAWN_EGG = register("scion_spawn_egg", new SpawnEggItem(ModEntityTypes.SCION, 0x463428, 0xE58E03, settings()));
 
-	public static final Item YMPE_EFFIGY_ITEM =  register("ympe_effigy", new YmpeEffigyItem((settings()).fireproof().rarity(Rarity.RARE).maxCount(1)));
-	public static final Item YMPE_GLAIVE =  register("ympe_glaive", new YmpeGlaiveItem(4, -3.1F, (settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(1)));
+	public static final Item YMPE_EFFIGY_ITEM = register("ympe_effigy", new YmpeEffigyItem((settings()).fireproof().rarity(Rarity.RARE).maxCount(1)));
+	public static final Item YMPE_GLAIVE = register("ympe_glaive", new YmpeGlaiveItem(4, -3.1F, (settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(1)));
 
 	public static final Item YMPEMOULD_ITEM = register("ympemould", new YmpemouldItem((settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(16)));
 
