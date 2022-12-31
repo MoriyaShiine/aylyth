@@ -69,7 +69,7 @@ public class ModBlocks {
 	public static final Block WRITHEWOOD_LEAVES = BlocksAccessor.callCreateLeavesBlock(BlockSoundGroup.GRASS);
 
 	public static final Block SEEPING_WOOD = new PillarBlock(copyOf(Blocks.OAK_WOOD));
-	public static final Block GIRASOL_SAPLING = new ModSaplingBlock(new BetterSaplingGenerator() {
+	public static final Block GIRASOL_SAPLING = new GirasolSaplingBlock(new BetterSaplingGenerator() {
 		@Nullable
 		@Override
 		protected RegistryKey<ConfiguredFeature<?, ?>> getTreeKey(Random random, boolean bees) {
@@ -116,7 +116,7 @@ public class ModBlocks {
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "pomegranate_leaves"), POMEGRANATE_LEAVES);
 		WRITHEWOOD_BLOCKS.register();
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "writhewood_leaves"), WRITHEWOOD_LEAVES);
-		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "seeping_log"), SEEPING_WOOD);
+		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "seeping_wood"), SEEPING_WOOD);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "girasol_sapling"), GIRASOL_SAPLING);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "potted_girasol_sapling"), GIRASOL_SAPLING_POTTED);
 		Registry.register(Registry.BLOCK, new Identifier(Aylyth.MOD_ID, "aylyth_bush"), AYLYTH_BUSH);
