@@ -6,15 +6,19 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.ints.IntArraySet;
 import it.unimi.dsi.fastutil.ints.IntSet;
+import moriyashiine.aylyth.common.block.LargeWoodyGrowthBlock;
 import moriyashiine.aylyth.common.block.SeepBlock;
 import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.ModFeatures;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.TestableWorld;
+import net.minecraft.world.gen.feature.TreeFeature;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.foliage.FoliagePlacer;
 import net.minecraft.world.gen.trunk.TrunkPlacer;
@@ -48,7 +52,7 @@ public class GirasolTrunkPlacer extends TrunkPlacer {
     public List<FoliagePlacer.TreeNode> generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, int height, BlockPos startPos, TreeFeatureConfig config) {
         ImmutableList.Builder<FoliagePlacer.TreeNode> builder = ImmutableList.builder();
 
-        if (!hasSpace(world, startPos)) return builder.build();
+        if (!hasSpace(world, startPos, height)) return builder.build();
 
         replacer.accept(startPos, config.trunkProvider.getBlockState(random, startPos));
 
@@ -57,9 +61,9 @@ public class GirasolTrunkPlacer extends TrunkPlacer {
                 for (int z = -2; z <= 2; z++) {
                     if ((Math.abs(x) == 2 && Math.abs(z) == 2) || (y > 2 && (Math.abs(x) == 2 || Math.abs(z) == 2))) continue;
                     var pos = startPos.add(x, y, z);
-                    if (y > 2 && (Math.abs(x) == 1 || Math.abs(z) == 1) && random.nextInt(60) < 35) {
+                    if (((y > 2 && (Math.abs(x) == 1 || Math.abs(z) == 1)) || (Math.abs(x) == 2 ^ Math.abs(z) == 2)) && random.nextInt(60) < 25) {
                         if (seepBlock.getBlock() instanceof SeepBlock seep) {
-                            if (world.testBlockState(pos.down(), state -> state.isOf(seep))) {
+                            if (world.testBlockState(pos.down(), state -> state.isOf(seep) && state.get(SeepBlock.CONNECTION).equals(SeepBlock.Connection.NONE))) {
                                 var state = seep.getDefaultState().with(SeepBlock.CONNECTION, SeepBlock.Connection.DOWN);
                                 replacer.accept(pos, state);
                                 var downState = seep.getDefaultState().with(SeepBlock.CONNECTION, SeepBlock.Connection.UP);
@@ -73,6 +77,17 @@ public class GirasolTrunkPlacer extends TrunkPlacer {
                         }
                     } else {
                         replacer.accept(pos, config.trunkProvider.getBlockState(random, pos));
+                        if (random.nextInt(5) == 0) {
+                            if (x == -1) {
+
+                            } else if (z == -1) {
+
+                            } else if (x == 1) {
+
+                            } else if (z == 1) {
+
+                            }
+                        }
                     }
                 }
             }
@@ -87,30 +102,36 @@ public class GirasolTrunkPlacer extends TrunkPlacer {
             do {
                 randAngle = random.nextInt(360);
                 iterations++;
-            } while (isNear(angles, randAngle, 15) || iterations < 5);
+            } while (isNear(angles, randAngle, 15) && iterations < 5);
             angles.add(randAngle);
-            BlockPos pos = null;
-            boolean addLeaves = true;
-            for (double h = 0; h < 6; h += 0.5) {
+            var length = 7 + ((random.nextInt(random.nextInt(10) + 1)) * 0.1);
+            for (double h = 0; h < length; h += 0.1) {
                 var xoffSet = h * Math.cos(Math.toRadians(randAngle));
                 var zOffset = h * Math.sin(Math.toRadians(randAngle));
                 var yOffset = getYValue(h, random);
-                pos = topCenterOffset.add(xoffSet, yOffset, zOffset);
+                BlockPos pos = topCenterOffset.add(xoffSet, yOffset, zOffset);
+                var blockState = config.trunkProvider.getBlockState(random, pos);
 
-                if (!canReplaceOrIsLog(world, pos)) {
-                    addLeaves = false;
-                    break;
+                if ((canReplace(world, pos) || TreeFeature.isAirOrLeaves(world, pos)) && pos.getY() >= startPos.getY()) {
+                    replacer.accept(pos, blockState);
+                    var xDiff = topCenter.getX() - pos.getX();
+                    var zDiff = topCenter.getZ() - pos.getZ();
+                    if (canReplace(world, pos.up()) && Math.sqrt((xDiff * xDiff + zDiff * zDiff)) <= woodyGrowthRange && random.nextInt(10) == 0) {
+                        if (canReplace(world, pos.up()) && random.nextInt(3) == 0) {
+                            replacer.accept(pos.up(), ModBlocks.SMALL_WOODY_GROWTH.getDefaultState());
+                        } else {
+                            if (canReplace(world, pos.up()) && canReplace(world, pos.up(2))) {
+                                replacer.accept(pos.up(), ModBlocks.LARGE_WOODY_GROWTH.getDefaultState().with(LargeWoodyGrowthBlock.HALF, DoubleBlockHalf.LOWER));
+                                replacer.accept(pos.up(2), ModBlocks.LARGE_WOODY_GROWTH.getDefaultState().with(LargeWoodyGrowthBlock.HALF, DoubleBlockHalf.UPPER));
+                            }
+                        }
+                    } else if (random.nextInt(5) == 0) {
+                        var randomOffsetPos = pos.offset(Direction.random(random));
+                        if (canReplace(world, randomOffsetPos)) {
+                            builder.add(new FoliagePlacer.TreeNode(randomOffsetPos, 1, true));
+                        }
+                    }
                 }
-
-                replacer.accept(pos, config.trunkProvider.getBlockState(random, pos));
-                var xDiff = topCenter.getX() - pos.getX();
-                var zDiff = topCenter.getZ() - pos.getZ();
-                if (canReplace(world, pos.up()) && Math.sqrt((xDiff * xDiff + zDiff * zDiff)) <= woodyGrowthRange && random.nextInt(10) == 0) {
-                    replacer.accept(pos.up(2), ModBlocks.SMALL_WOODY_GROWTH.getDefaultState());
-                }
-            }
-            if (addLeaves) {
-                builder.add(new FoliagePlacer.TreeNode(pos.down(), 1, true));
             }
         }
 
@@ -129,12 +150,14 @@ public class GirasolTrunkPlacer extends TrunkPlacer {
         return builder.build();
     }
 
-    private boolean hasSpace(TestableWorld world, BlockPos centerPos) {
-        for (int x = -2; x <= 2; x++) {
-            for (int z = -2; z <= 2; z++) {
-                if (Math.abs(x) == 2 && Math.abs(z) == 2) continue;
-                if (!canReplace(world, centerPos.add(x, 0, z))) {
-                    return false;
+    private boolean hasSpace(TestableWorld world, BlockPos centerPos, int height) {
+        for (int y = 0; y <= height; y++) {
+            for (int x = -2; x <= 2; x++) {
+                for (int z = -2; z <= 2; z++) {
+                    if (Math.abs(x) == 2 && Math.abs(z) == 2) continue;
+                    if (!canReplace(world, centerPos.add(x, y, z))) {
+                        return false;
+                    }
                 }
             }
         }
