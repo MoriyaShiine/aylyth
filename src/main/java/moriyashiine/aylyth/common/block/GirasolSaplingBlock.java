@@ -46,7 +46,7 @@ public class GirasolSaplingBlock extends ModSaplingBlock {
     @Override
     public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
         super.randomDisplayTick(state, world, pos, random);
-        if (state.get(FAILED)) {
+        if (state.get(FAILED) && random.nextInt(10) < 3) {
             for (int i = 0; i < 16; i++) {
                 var x = pos.getX()+random.nextFloat();
                 var y = pos.getY()+random.nextFloat();
@@ -54,7 +54,7 @@ public class GirasolSaplingBlock extends ModSaplingBlock {
                 var xVel = random.nextInt(4) * 0.1;
                 var yVel = random.nextInt(4) * 0.1;
                 var ZVel = random.nextInt(4) * 0.1;
-                world.addParticle(new DustColorTransitionParticleEffect(new Vec3f(0.1333f, 0.1333f, 0.1333f), new Vec3f(0.1333f, 0.1333f, 0.1333f), 1), x, y, z, xVel, yVel, ZVel);
+                world.addParticle(FAILED_PARTICLE, x, y, z, xVel, yVel, ZVel);
             }
         }
     }
