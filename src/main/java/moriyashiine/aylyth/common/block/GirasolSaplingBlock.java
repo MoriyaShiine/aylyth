@@ -37,7 +37,7 @@ public class GirasolSaplingBlock extends ModSaplingBlock {
     }
 
     public void tryToGenerate(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        if (!((SaplingBlockAccessor)this).getGenerator().generate(world, world.getChunkManager().getChunkGenerator(), pos, state, random)) {
+        if (!(world.getRegistryKey().equals(World.OVERWORLD) && ((SaplingBlockAccessor)this).getGenerator().generate(world, world.getChunkManager().getChunkGenerator(), pos, state, random))) {
             world.spawnParticles(FAILED_PARTICLE, pos.getX()+0.5, pos.getY(), pos.getZ()+0.5, 16, 0.3, 0.3, 0.3, 0.0);
             world.setBlockState(pos, state.with(FAILED, true), Block.NO_REDRAW);
         }
