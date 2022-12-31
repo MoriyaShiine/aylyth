@@ -97,13 +97,13 @@ public class AylythModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.DEBUG_WAND, Models.GENERATED);
         itemModelGenerator.register(ModItems.WRONGMEAT, Models.GENERATED);
         itemModelGenerator.register(ModItems.GIRASOL_SEED, Models.GENERATED);
-        itemModelGenerator.register(ModItems.LARGE_WOODY_GROWTH, blockParentModel(AylythUtil.id("block/large_woody_growth_1")));
-        itemModelGenerator.register(ModItems.WOODY_GROWTH_CACHE, blockParentModel(new Identifier("builtin/entity")));
-        itemModelGenerator.register(ModItems.SMALL_WOODY_GROWTH, blockParentModel(AylythUtil.id("block/small_woody_growth_1")));
+        itemModelGenerator.register(ModItems.LARGE_WOODY_GROWTH, Models.GENERATED);
+        itemModelGenerator.register(ModItems.WOODY_GROWTH_CACHE, parentModel(new Identifier("builtin/entity")));
+        itemModelGenerator.register(ModItems.SMALL_WOODY_GROWTH, Models.GENERATED);
         itemModelGenerator.register(ModItems.YMPE_CUIRASS, Models.GENERATED);
     }
 
-    private Model blockParentModel(Identifier id) {
+    private Model parentModel(Identifier id) {
         return new Model(Optional.of(id), Optional.empty());
     }
 
