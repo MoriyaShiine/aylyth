@@ -74,6 +74,9 @@ public class AylythLootTableProviders {
             addDrop(ModBlocks.WOODY_GROWTH_CACHE, this::woodyGrowthCaches);
             addDrop(ModBlocks.SMALL_WOODY_GROWTH);
             addDrop(ModBlocks.LARGE_WOODY_GROWTH, this::woodyGrowths);
+            addDrop(ModBlocks.SEEPING_WOOD);
+            addDrop(ModBlocks.SEEPING_WOOD_SEEP);
+            addDrop(ModBlocks.GIRASOL_SAPLING);
         }
 
         private void woodSuiteDrops(WoodSuite suite) {

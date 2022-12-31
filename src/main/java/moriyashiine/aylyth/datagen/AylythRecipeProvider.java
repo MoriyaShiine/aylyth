@@ -14,6 +14,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.tag.ItemTags;
 import net.minecraft.tag.TagKey;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
@@ -33,6 +34,7 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
         woodSuiteRecipes(exporter, ModItems.POMEGRANATE_ITEMS, ModTags.POMEGRANATE_LOGS_ITEM);
         woodSuiteRecipes(exporter, ModItems.WRITHEWOOD_ITEMS, ModTags.WRITHEWOOD_LOGS_ITEM);
         offerShapeless(exporter, ModItems.GHOSTCAP_MUSHROOM_SPORES, 1, ModItems.GHOSTCAP_MUSHROOM, null);
+        offerChestBoatRecipe(exporter, ModItems.YMPE_ITEMS.chestBoat, ModItems.YMPE_ITEMS.boat);
 
 
         ShapedRecipeJsonBuilder.create(ModBlocks.DARK_WOODS_TILES, 8)
@@ -62,23 +64,23 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
                 .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(ModItems.YMPEMOULD_ITEM)
-                .input('d', Items.POLISHED_DEEPSLATE)
-                .input('n', Items.NETHERITE_INGOT)
-                .input('s', ModItems.CORIC_SEED)
-                .pattern("dnd")
-                .pattern("nsn")
-                .pattern("ddd")
+                .input('D', Items.POLISHED_DEEPSLATE)
+                .input('N', Items.NETHERITE_INGOT)
+                .input('S', ModItems.CORIC_SEED)
+                .pattern("DND")
+                .pattern("NSN")
+                .pattern("DDD")
                 .criterion("has_soulsand", conditionsFromItem(Items.SOUL_SAND))
                 .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(ModItems.YMPE_EFFIGY_ITEM)
-                .input('d', Items.SOUL_SOIL)
-                .input('s', ModItems.YMPE_ITEMS.sapling)
-                .input('n', Items.NETHERITE_INGOT)
-                .input('h', ModItems.AYLYTHIAN_HEART)
-                .pattern("dnd")
-                .pattern("nhn")
-                .pattern("sds")
+                .input('D', Items.SOUL_SOIL)
+                .input('S', ModItems.YMPE_ITEMS.sapling)
+                .input('N', Items.NETHERITE_INGOT)
+                .input('H', ModItems.AYLYTHIAN_HEART)
+                .pattern("DND")
+                .pattern("NHN")
+                .pattern("SDS")
                 .criterion("has_heart", conditionsFromItem(ModItems.AYLYTHIAN_HEART))
                 .offerTo(exporter);
 
@@ -104,6 +106,17 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
                 .pattern("WHW")
                 .criterion("has_heart", conditionsFromItem(ModItems.AYLYTHIAN_HEART))
                 .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(ModItems.GIRASOL_SEED)
+                .input('Y', ModItems.YMPE_ITEMS.sapling)
+                .input('H', ModItems.AYLYTHIAN_HEART)
+                .input('S', Ingredient.ofItems(Items.SOUL_SAND, Items.SOUL_SOIL))
+                .input('E', Items.ENDER_PEARL)
+                .pattern("YHY")
+                .pattern("SES")
+                .pattern("YSY")
+                .criterion("has_heart", conditionsFromItem(ModItems.AYLYTHIAN_HEART))
+                .offerTo(exporter);
     }
 
     private void woodSuiteRecipes(Consumer<RecipeJsonProvider> exporter, ItemWoodSuite suite, TagKey<Item> logTag) {
@@ -120,7 +133,7 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
         createDoorRecipe(suite.door, Ingredient.ofItems(suite.planks)).group("wooden_door").criterion(RecipeProvider.hasItem(suite.planks), conditionsFromItem(suite.planks)).offerTo(exporter);
         createSignRecipe(suite.sign, Ingredient.ofItems(suite.planks)).group("wooden_sign").criterion(RecipeProvider.hasItem(suite.planks), conditionsFromItem(suite.planks)).offerTo(exporter);
         offerBoatRecipe(exporter, suite.boat, suite.planks);
-        offerChestBoatRecipe(exporter, suite.chestBoat, suite.planks);
+        offerChestBoatRecipe(exporter, suite.chestBoat, suite.boat);
     }
 
     private void createTwoByTwo(Consumer<RecipeJsonProvider> exporter, ItemConvertible output, int outputCount, ItemConvertible input, String recipeId) {

@@ -192,6 +192,10 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         // COMPAT - REI
 
         builder.add("rei.aylyth.ympe_dagger_drops", "Ympe Dagger Drops");
+
+        // COMPAT - EMI
+
+        builder.add("emi.category.aylyth.ympe_dagger_drops", "Ympe Dagger Drops");
     }
 
     private void potionSet(TranslationBuilder builder, String effectName) {
