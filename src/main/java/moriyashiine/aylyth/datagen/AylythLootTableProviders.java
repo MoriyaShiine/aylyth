@@ -215,6 +215,11 @@ public class AylythLootTableProviders {
             addDrop(ModEntityTypes.ELDER_AYLYTHIAN, this::elderAylythianLoot);
             addDrop(ModEntityTypes.WREATHED_HIND_ENTITY, this::wreathedHindLoot);
             addDrop(ModEntityTypes.SCION, this::scionLoot);
+            if (false) { // TODO: these drops are specified in the constructs doc. Normal loot that drops before post-death?
+                addDrop(ModEntityTypes.SOULMOULD, this::mouldOfSoulsLoot);
+                addDrop(ModEntityTypes.BONEFLY, this::boneflyLoot);
+                addDrop(ModEntityTypes.TULPA, this::tulpaLoot);
+            }
         }
 
         private LootTable.Builder aylythianLoot(EntityType<?> type) {
@@ -240,6 +245,21 @@ public class AylythLootTableProviders {
                     .pool(LootPool.builder().with(ItemEntry.builder(ModItems.YMPE_ITEMS.sapling)));
         }
 
+        private LootTable.Builder mouldOfSoulsLoot(EntityType<?> type) {
+            return LootTable.builder()
+                    .pool(LootPool.builder().with(ItemEntry.builder(Items.SOUL_SOIL)).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 3))));
+        }
+
+        private LootTable.Builder boneflyLoot(EntityType<?> type) {
+            return LootTable.builder()
+                    .pool(LootPool.builder().with(ItemEntry.builder(Items.SOUL_SOIL)).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 3))));
+        }
+
+        private LootTable.Builder tulpaLoot(EntityType<?> type) {
+            return LootTable.builder()
+                    .pool(LootPool.builder().with(ItemEntry.builder(Items.SOUL_SOIL)).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 3))));
+        }
+
         public <T extends Entity> void addDrop(EntityType<T> type, Function<EntityType<T>, LootTable.Builder> function) {
             loot.put(type.getLootTableId(), function.apply(type));
         }
@@ -251,9 +271,5 @@ public class AylythLootTableProviders {
                 consumer.accept(entry.getKey(), entry.getValue());
             }
         }
-
-
     }
-
-
 }
