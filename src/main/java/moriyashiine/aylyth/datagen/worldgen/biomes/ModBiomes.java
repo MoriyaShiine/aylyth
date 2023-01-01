@@ -20,7 +20,7 @@ import static moriyashiine.aylyth.common.registry.ModBiomeKeys.*;
 
 public class ModBiomes {
 	public static final SpawnSettings COPSE_MOBS = SpawnSettingsBuilder.builder().spawnCost(ModEntityTypes.AYLYTHIAN, 2, 1).monster(ModEntityTypes.AYLYTHIAN, 20, 1, 2).ambient(ModEntityTypes.PILOT_LIGHT, 5, 1, 1).spawnChance(0.5F).build();
-	public static final SpawnSettings DEEPWOOD_MOBS = SpawnSettingsBuilder.builder().spawnCost(ModEntityTypes.AYLYTHIAN, 3, 1).monster(ModEntityTypes.AYLYTHIAN, 25, 1, 3).monster(ModEntityTypes.ELDER_AYLYTHIAN, 2, 1, 1).monster(ModEntityTypes.SCION, 15, 1, 1).ambient(ModEntityTypes.PILOT_LIGHT, 10, 1, 1).build();
+	public static final SpawnSettings DEEPWOOD_MOBS = SpawnSettingsBuilder.builder().spawnCost(ModEntityTypes.AYLYTHIAN, 3, 1).monster(ModEntityTypes.AYLYTHIAN, 25, 1, 3).monster(ModEntityTypes.ELDER_AYLYTHIAN, 2, 1, 1).monster(ModEntityTypes.SCION, 15, 1, 1).monster(ModEntityTypes.WREATHED_HIND_ENTITY, 10, 1, 1).ambient(ModEntityTypes.PILOT_LIGHT, 10, 1, 1).build();
 	public static final BiomeAdditionsSound OVERGROWN_CLEARING_AMBIANCE = new BiomeAdditionsSound(ModSoundEvents.AMBIENT_FOREST_ADDITIONS, 0.001);
 	public static final BiomeAdditionsSound FOREST_AMBIANCE = new BiomeAdditionsSound(ModSoundEvents.AMBIENT_FOREST_ADDITIONS, 0.005);
 	private static final int AYLYTHIAN_FOLIAGE_COLOR = 0x627F38;
@@ -172,6 +172,7 @@ public class ModBiomes {
 				.spawnSettings(builder -> {
 					builder.monster(ModEntityTypes.SCION, 5, 1, 1)
 							.monster(ModEntityTypes.AYLYTHIAN, 5, 1, 1)
+							.monster(ModEntityTypes.WREATHED_HIND_ENTITY, 2, 1, 1)
 							.ambient(ModEntityTypes.PILOT_LIGHT, 3, 1, 1);
 				})
 				.generationSettings(builder -> {
@@ -195,7 +196,8 @@ public class ModBiomes {
 				.biomeEffects(FOG_COLOR, WATER_COLOR, UNDERWATER_COLOR, SKY_COLOR)
 				.spawnSettings(SpawnSettingsBuilder.none())
 				.generationSettings(builder -> {
-					builder.vegetalDecoFeature(ModVegetationFeatures.WOODY_GROWTH_BOWELS_PATCH_PLACED);
+					builder.vegetalDecoFeature(ModVegetationFeatures.WOODY_GROWTH_BOWELS_PATCH_PLACED)
+							.vegetalDecoFeature(NetherPlacedFeatures.PATCH_SOUL_FIRE);
 				})
 				.build();
 	}

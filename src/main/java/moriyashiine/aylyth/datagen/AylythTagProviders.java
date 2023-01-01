@@ -1,9 +1,6 @@
 package moriyashiine.aylyth.datagen;
 
-import moriyashiine.aylyth.common.registry.ModBiomeKeys;
-import moriyashiine.aylyth.common.registry.ModBlocks;
-import moriyashiine.aylyth.common.registry.ModItems;
-import moriyashiine.aylyth.common.registry.ModTags;
+import moriyashiine.aylyth.common.registry.*;
 import moriyashiine.aylyth.common.registry.util.WoodSuite;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
@@ -47,12 +44,13 @@ public class AylythTagProviders {
 
         @Override
         protected void generateTags() {
-            getOrCreateTagBuilder(ModTags.WOODY_GROWTHS).add(ModBlocks.SMALL_WOODY_GROWTH, ModBlocks.LARGE_WOODY_GROWTH, ModBlocks.WOODY_GROWTH_CACHE);
-            getOrCreateTagBuilder(BlockTags.AXE_MINEABLE).addTag(ModTags.WOODY_GROWTHS).add(ModBlocks.AYLYTH_BUSH, ModBlocks.ANTLER_SHOOTS, ModBlocks.GRIPWEED, ModBlocks.NYSIAN_GRAPE_VINE, ModBlocks.OAK_SEEP, ModBlocks.SPRUCE_SEEP, ModBlocks.DARK_OAK_SEEP, ModBlocks.YMPE_SEEP);
+            getOrCreateTagBuilder(BlockTags.AXE_MINEABLE).addTag(ModTags.WOODY_GROWTHS).add(ModBlocks.AYLYTH_BUSH, ModBlocks.ANTLER_SHOOTS, ModBlocks.GRIPWEED, ModBlocks.NYSIAN_GRAPE_VINE, ModBlocks.OAK_SEEP, ModBlocks.SPRUCE_SEEP, ModBlocks.DARK_OAK_SEEP, ModBlocks.YMPE_SEEP, ModBlocks.SEEPING_WOOD, ModBlocks.SEEPING_WOOD_SEEP);
             getOrCreateTagBuilder(BlockTags.HOE_MINEABLE).add(ModBlocks.YMPE_LEAVES, ModBlocks.POMEGRANATE_LEAVES, ModBlocks.WRITHEWOOD_LEAVES);
             getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE).add(ModBlocks.SOUL_HEARTH).add(ModBlocks.VITAL_THURIBLE);
             getOrCreateTagBuilder(BlockTags.INSIDE_STEP_SOUND_BLOCKS).add(ModBlocks.OAK_STREWN_LEAVES, ModBlocks.YMPE_STREWN_LEAVES);
             getOrCreateTagBuilder(BlockTags.CLIMBABLE).add(ModBlocks.NYSIAN_GRAPE_VINE);
+            getOrCreateTagBuilder(ModTags.SEEPS).add(ModBlocks.OAK_SEEP, ModBlocks.SPRUCE_SEEP, ModBlocks.DARK_OAK_SEEP, ModBlocks.YMPE_SEEP, ModBlocks.SEEPING_WOOD_SEEP);
+            getOrCreateTagBuilder(ModTags.WOODY_GROWTHS).add(ModBlocks.SMALL_WOODY_GROWTH, ModBlocks.LARGE_WOODY_GROWTH, ModBlocks.WOODY_GROWTH_CACHE);
             getOrCreateTagBuilder(ModTags.JACK_O_LANTERN_GENERATE_ON).add(Blocks.DARK_OAK_LOG, Blocks.OAK_LOG);
             getOrCreateTagBuilder(ModTags.GHOSTCAP_REPLACEABLE).add(Blocks.GRASS_BLOCK);
             addSuite(ModBlocks.YMPE_BLOCKS, ModTags.YMPE_LOGS);
@@ -61,6 +59,7 @@ public class AylythTagProviders {
             addSuite(ModBlocks.WRITHEWOOD_BLOCKS, ModTags.WRITHEWOOD_LOGS);
             getOrCreateTagBuilder(BlockTags.LEAVES).add(ModBlocks.YMPE_LEAVES, ModBlocks.POMEGRANATE_LEAVES, ModBlocks.WRITHEWOOD_LEAVES);
             getOrCreateTagBuilder(ModTags.WOODY_GROWTHS_GENERATE_ON).add(Blocks.MUD);
+            getOrCreateTagBuilder(BlockTags.LOGS_THAT_BURN).add(ModBlocks.SEEPING_WOOD);
         }
 
         private void addSuite(WoodSuite suite, TagKey<Block> logTag) {
@@ -93,6 +92,7 @@ public class AylythTagProviders {
         protected void generateTags() {
             getOrCreateTagBuilder(ItemTags.BOATS).add(ModItems.YMPE_ITEMS.boat, ModItems.POMEGRANATE_ITEMS.boat, ModItems.WRITHEWOOD_ITEMS.boat);
             getOrCreateTagBuilder(ItemTags.CHEST_BOATS).add(ModItems.YMPE_ITEMS.chestBoat, ModItems.POMEGRANATE_ITEMS.chestBoat, ModItems.WRITHEWOOD_ITEMS.chestBoat);
+            getOrCreateTagBuilder(ModTags.YMPE_FOODS).add(ModItems.YMPE_FRUIT);
             copy(ModTags.YMPE_LOGS, ModTags.YMPE_LOGS_ITEM);
             copy(ModTags.POMEGRANATE_LOGS, ModTags.POMEGRANATE_LOGS_ITEM);
             copy(ModTags.WRITHEWOOD_LOGS, ModTags.WRITHEWOOD_LOGS_ITEM);
@@ -120,6 +120,7 @@ public class AylythTagProviders {
 
         @Override
         protected void generateTags() {
+            getOrCreateTagBuilder(ModTags.GRIPWEED_IMMUNE).add(ModEntityTypes.AYLYTHIAN, ModEntityTypes.ELDER_AYLYTHIAN);
         }
     }
 }

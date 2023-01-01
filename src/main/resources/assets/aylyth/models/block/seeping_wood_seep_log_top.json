@@ -1,0 +1,8 @@
+{
+  "credit": "Made with Blockbench",
+  "parent": "aylyth:block/seep_log_top",
+  "textures": {
+	"end": "aylyth:block/aylyth_bush_trunk",
+	"side": "aylyth:block/aylyth_bush_trunk"
+  }
+}

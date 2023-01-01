@@ -53,6 +53,7 @@ public class AylythNoiseTypes {
     public static final NoiseRegistryPair CAVE_ENTRANCES = register("cave_entrances", -7, 0.4, 0.5, 1.0);
     public static final NoiseRegistryPair PODZOL_COMMON = register("podzol_common", -4, 1.0, 1.0);
     public static final NoiseRegistryPair PODZOL_RARE = register("podzol_rare", -5, 1.0, 1.0, 1.0);
+    public static final NoiseRegistryPair BOWELS_SOUL_SAND = register("bowels_soul_sand", -5, 1.0, 1.0, 1.0);
 
     private static NoiseRegistryPair register(String id, int firstOctave, double... amplitudes) {
         return NoiseRegistryPair.createAndRegister(id, firstOctave, amplitudes);

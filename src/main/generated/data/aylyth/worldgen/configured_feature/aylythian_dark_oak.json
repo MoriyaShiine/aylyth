@@ -3,7 +3,15 @@
   "config": {
     "decorators": [
       {
-        "type": "aylyth:grape_vine_decorator"
+        "type": "aylyth:grape_vine_decorator",
+        "chance_point": 1,
+        "chance_range": {
+          "type": "minecraft:uniform",
+          "value": {
+            "max_inclusive": 9,
+            "min_inclusive": 0
+          }
+        }
       }
     ],
     "dirt_provider": {

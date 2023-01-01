@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import moriyashiine.aylyth.api.interfaces.ProlongedDeath;
 import moriyashiine.aylyth.common.registry.ModComponents;
+import moriyashiine.aylyth.common.registry.ModEntityTypes;
 import moriyashiine.aylyth.common.registry.ModItems;
 import moriyashiine.aylyth.mixin.EntityAccessor;
 import net.minecraft.advancement.criterion.Criteria;
@@ -87,6 +88,7 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
     protected void initGoals() {
         this.goalSelector.add(0, new SwimGoal(this));
         this.goalSelector.add(5, new BoneflyWanderAroundFarGoal(this, 0.7));
+
     }
 
     @Override
@@ -141,7 +143,7 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
 
     @Override
     protected void addFlapEffects() {
-        playSound(SoundEvents.ENTITY_ENDER_DRAGON_FLAP, 1f, 1);
+        playSound(SoundEvents.ENTITY_ENDER_DRAGON_FLAP, 0.5f, 1);
     }
 
     @Override
@@ -477,6 +479,15 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
     @Override
     public void setTamed(boolean tamed) {
 
+    }
+
+    public static BoneflyEntity create(World world, BlockPos pos, float yaw, float pitch, @Nullable PlayerEntity owner) {
+        BoneflyEntity bonefly = ModEntityTypes.BONEFLY.create(world);
+        bonefly.refreshPositionAndAngles(pos, yaw, pitch);
+        if (owner != null) {
+            bonefly.setOwner(owner);
+        }
+        return bonefly;
     }
 
     public class BoneflyWanderAroundFarGoal extends WanderAroundGoal {

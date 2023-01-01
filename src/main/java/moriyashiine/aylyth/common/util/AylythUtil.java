@@ -65,8 +65,6 @@ public class AylythUtil {
 
 
 	public static BlockPos getSafePosition(World world, BlockPos.Mutable pos, int tries) {
-//		var spawnPos = pos;
-//		return pos.setY(world.getTopY(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, spawnPos.getX(), spawnPos.getZ())).toImmutable();
 		if (tries >= MAX_TRIES) {
 			return world.getSpawnPos();
 		}

@@ -1,3 +1,6 @@
 {
-  "parent": "aylyth:block/large_woody_growth_1"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "aylyth:item/large_woody_growth"
+  }
 }

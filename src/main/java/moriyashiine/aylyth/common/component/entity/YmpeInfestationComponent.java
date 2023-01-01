@@ -2,10 +2,7 @@ package moriyashiine.aylyth.common.component.entity;
 
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import dev.onyxstudios.cca.api.v3.component.tick.ServerTickingComponent;
-import moriyashiine.aylyth.common.registry.ModComponents;
-import moriyashiine.aylyth.common.registry.ModDamageSources;
-import moriyashiine.aylyth.common.registry.ModDimensionKeys;
-import moriyashiine.aylyth.common.registry.ModSoundEvents;
+import moriyashiine.aylyth.common.registry.*;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
@@ -43,8 +40,7 @@ public class YmpeInfestationComponent implements AutoSyncedComponent, ServerTick
 		}
 		if (obj.world.getRegistryKey() == ModDimensionKeys.AYLYTH) {
 			setInfestationTimer((short) (getInfestationTimer() + 1));
-		}
-		else {
+		} else {
 			if (getStage() > 0 && getInfestationTimer() <= 0) {
 				setStage((byte) (getStage() - 1));
 				setInfestationTimer(TIME_UNTIL_STAGE_INCREASES);
@@ -84,6 +80,9 @@ public class YmpeInfestationComponent implements AutoSyncedComponent, ServerTick
 	public void setStage(byte stage) {
 		this.stage = stage;
 		ModComponents.YMPE_INFESTATION.sync(obj);
+		if (obj instanceof ServerPlayerEntity serverPlayer) {
+			ModCriteria.YMPE_INFESTATION.trigger(serverPlayer);
+		}
 	}
 	
 	public short getInfestationTimer() {

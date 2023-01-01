@@ -1,23 +1,23 @@
 {
   "type": "minecraft:crafting_shaped",
   "key": {
-    "d": {
+    "D": {
       "item": "minecraft:soul_soil"
     },
-    "h": {
+    "H": {
       "item": "aylyth:aylythian_heart"
     },
-    "n": {
+    "N": {
       "item": "minecraft:netherite_ingot"
     },
-    "s": {
+    "S": {
       "item": "aylyth:ympe_sapling"
     }
   },
   "pattern": [
-    "dnd",
-    "nhn",
-    "sds"
+    "DND",
+    "NHN",
+    "SDS"
   ],
   "result": {
     "item": "aylyth:ympe_effigy"

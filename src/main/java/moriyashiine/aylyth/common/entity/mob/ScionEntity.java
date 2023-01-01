@@ -113,6 +113,7 @@ public class ScionEntity extends HostileEntity {
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25);
     }
 
+    @Nullable
     public UUID getStoredPlayerUUID() {
         return this.dataTracker.get(PLAYER_SKIN_UUID).orElse(null);
     }
