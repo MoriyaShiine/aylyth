@@ -6,7 +6,10 @@ import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
+import moriyashiine.aylyth.common.entity.mob.ElderAylythianEntity;
+import moriyashiine.aylyth.common.entity.mob.WreathedHindEntity;
 import moriyashiine.aylyth.common.recipe.YmpeDaggerDropRecipe;
+import moriyashiine.aylyth.common.registry.ModItems;
 import moriyashiine.aylyth.common.util.RenderUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
@@ -29,7 +32,7 @@ public class YmpeDaggerEMIRecipe implements EmiRecipe {
         this.id = recipe.getId();
         entityType = recipe.entity_type;
         this.output = List.of(EmiStack.of(recipe.getOutput()));
-        this.input = List.of(EmiStack.of(new ItemStack(Items.AIR)));
+        this.input = List.of(EmiStack.of(new ItemStack(ModItems.YMPE_DAGGER)));
     }
 
     @Override
@@ -64,11 +67,13 @@ public class YmpeDaggerEMIRecipe implements EmiRecipe {
 
     @Override
     public void addWidgets(WidgetHolder widgets) {
-        Entity target = entityType.create(MinecraftClient.getInstance().world);
+        Entity target = entityType == EntityType.PLAYER ? MinecraftClient.getInstance().player : entityType.create(MinecraftClient.getInstance().world);
 
         widgets.addDrawable(18,18,20,20, (matrices, mouseX, mouseY, delta) -> {
             if (target instanceof LivingEntity livingEntity) {
-                RenderUtils.drawEntity(18,18, 20, mouseX, mouseY, livingEntity, null);
+                int y = livingEntity instanceof WreathedHindEntity || livingEntity instanceof ElderAylythianEntity ? 16 : 18;
+                int size = livingEntity instanceof WreathedHindEntity || livingEntity instanceof ElderAylythianEntity ? 12 : 20;
+                RenderUtils.drawEntity(18, y, size, mouseX, mouseY, livingEntity, null);
             }
         });
 
