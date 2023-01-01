@@ -214,13 +214,11 @@ public class AylythLootTableProviders {
         protected void generateLoot() {
             addDrop(ModEntityTypes.AYLYTHIAN, this::aylythianLoot);
             addDrop(ModEntityTypes.ELDER_AYLYTHIAN, this::elderAylythianLoot);
-            addDrop(ModEntityTypes.WREATHED_HIND_ENTITY, this::wreathedHindLoot);
             addDrop(ModEntityTypes.SCION, this::scionLoot);
         }
 
         private LootTable.Builder aylythianLoot(EntityType<?> type) {
             return LootTable.builder()
-                    .pool(LootPool.builder().with(ItemEntry.builder(ModItems.WRONGMEAT)).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 2))).conditionally(EntityPropertiesLootCondition.builder(LootContext.EntityTarget.KILLER_PLAYER, EntityPredicate.Builder.create().equipment(EntityEquipmentPredicate.Builder.create().mainhand(ItemPredicate.Builder.create().items(ModItems.YMPE_DAGGER).build()).build()))).conditionally(RandomChanceLootCondition.builder(0.15f)))
                     .pool(LootPool.builder().with(ItemEntry.builder(Items.BONE)).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0, 2))).apply(LootingEnchantLootFunction.builder(UniformLootNumberProvider.create(0, 1))))
                     .pool(LootPool.builder().with(ItemEntry.builder(Items.STICK)).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0, 2))).apply(LootingEnchantLootFunction.builder(UniformLootNumberProvider.create(0, 1))))
                     .pool(LootPool.builder().with(ItemEntry.builder(ModItems.YMPE_FRUIT)).conditionally(KilledByPlayerLootCondition.builder().build()).conditionally(RandomChanceWithLootingLootCondition.builder(0.25f, 0.01f)));
@@ -228,20 +226,13 @@ public class AylythLootTableProviders {
 
         private LootTable.Builder elderAylythianLoot(EntityType<?> type) {
             return LootTable.builder()
-                    .pool(LootPool.builder().with(ItemEntry.builder(ModItems.WRONGMEAT)).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(3, 5))).conditionally(EntityPropertiesLootCondition.builder(LootContext.EntityTarget.KILLER_PLAYER, EntityPredicate.Builder.create().equipment(EntityEquipmentPredicate.Builder.create().mainhand(ItemPredicate.Builder.create().items(ModItems.YMPE_DAGGER).build()).build()))).conditionally(RandomChanceLootCondition.builder(0.20f)))
                     .pool(LootPool.builder().with(ItemEntry.builder(Items.BONE)).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0, 2))).apply(LootingEnchantLootFunction.builder(UniformLootNumberProvider.create(0, 1))))
                     .pool(LootPool.builder().with(ItemEntry.builder(Items.STICK)).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0, 2))).apply(LootingEnchantLootFunction.builder(UniformLootNumberProvider.create(0, 1))))
                     .pool(LootPool.builder().with(ItemEntry.builder(ModItems.YMPE_FRUIT)).conditionally(KilledByPlayerLootCondition.builder().build()).conditionally(RandomChanceWithLootingLootCondition.builder(0.25f, 0.01f)));
         }
 
-        private LootTable.Builder wreathedHindLoot(EntityType<?> type) {
-            return LootTable.builder()
-                    .pool(LootPool.builder().with(ItemEntry.builder(ModItems.WRONGMEAT)).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(3, 5))).conditionally(EntityPropertiesLootCondition.builder(LootContext.EntityTarget.KILLER_PLAYER, EntityPredicate.Builder.create().equipment(EntityEquipmentPredicate.Builder.create().mainhand(ItemPredicate.Builder.create().items(ModItems.YMPE_DAGGER).build()).build()))).conditionally(RandomChanceLootCondition.builder(0.20f)));
-        }
-
         private LootTable.Builder scionLoot(EntityType<?> type) {
             return LootTable.builder()
-                    .pool(LootPool.builder().with(ItemEntry.builder(ModItems.WRONGMEAT)).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 2))).conditionally(InvertedLootCondition.builder(ScionIsPlayerLootCondition::getInstance)).conditionally(EntityPropertiesLootCondition.builder(LootContext.EntityTarget.KILLER_PLAYER, EntityPredicate.Builder.create().equipment(EntityEquipmentPredicate.Builder.create().mainhand(ItemPredicate.Builder.create().items(ModItems.YMPE_DAGGER).build()).build()))).conditionally(RandomChanceLootCondition.builder(0.15f)))
                     .pool(LootPool.builder().with(GroupEntry.create(ItemEntry.builder(ModItems.POMEGRANATE), ItemEntry.builder(ModItems.NYSIAN_GRAPES))))
                     .pool(LootPool.builder().with(ItemEntry.builder(Items.ROTTEN_FLESH).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 3)))))
                     .pool(LootPool.builder().with(ItemEntry.builder(ModItems.YMPE_ITEMS.sapling)));
