@@ -4,6 +4,9 @@
   "package": "moriyashiine.aylyth.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "AdvancementBuilderMixin",
+    "AdvancementDisplayAccessor",
+    "AdvancementDisplayMixin",
     "BlocksAccessor",
     "BrewingRecipeRegistryAccessor",
     "EnchantmentTargetMixin",
@@ -23,6 +26,9 @@
     "cimmerian.ZoglinEntityMixin"
   ],
   "client": [
+    "client.AdvancementTabMixin",
+    "client.AdvancementToastMixin",
+    "client.AdvancementWidgetAccessor",
     "client.BackgroundRendererMixin",
     "client.BufferBuilderStorageMixin",
     "client.GameRendererMixin",

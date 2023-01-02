@@ -1,10 +1,12 @@
 package moriyashiine.aylyth.datagen;
 
 import moriyashiine.aylyth.common.Aylyth;
+import moriyashiine.aylyth.common.advancement.CustomAdvancementDisplay;
 import moriyashiine.aylyth.common.criteria.HindPledgeCriterion;
 import moriyashiine.aylyth.common.criteria.ShuckingCriterion;
 import moriyashiine.aylyth.common.criteria.YmpeInfestationCriterion;
 import moriyashiine.aylyth.common.registry.*;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.minecraft.advancement.Advancement;
@@ -44,12 +46,12 @@ public class AylythAdvancementProvider extends FabricAdvancementProvider {
                 .build(consumer, "aylyth:aylyth/root");
         Advancement.Builder.create()
                 .parent(root)
-                .display(potionItem(ModPotions.CIMMERIAN_POTION), Text.translatable("aylyth.advancements.aylyth.cimmerianed.title"), Text.translatable("aylyth.advancements.aylyth.cimmerianed.desc"), null, AdvancementFrame.TASK, true, false, false)
+                .display(new CustomAdvancementDisplay(AylythUtil.id("textures/mob_effect/cimmerian.png"), Text.translatable("aylyth.advancements.aylyth.cimmerianed.title"), Text.translatable("aylyth.advancements.aylyth.cimmerianed.desc"), null, AdvancementFrame.TASK, true, false, false))
                 .criterion("has_cimmerian_effect", effectsChangedCriteria(EntityEffectPredicate.create().withEffect(ModPotions.CIMMERIAN_EFFECT)))
                 .build(consumer, "aylyth:aylyth/cimmerianed");
         Advancement.Builder.create()
                 .parent(root)
-                .display(potionItem(ModPotions.WYRDED_POTION), Text.translatable("aylyth.advancements.aylyth.wyrded.title"), Text.translatable("aylyth.advancements.aylyth.wyrded.desc"), null, AdvancementFrame.TASK, true, false, false)
+                .display(new CustomAdvancementDisplay(AylythUtil.id("textures/mob_effect/wyrded.png"), Text.translatable("aylyth.advancements.aylyth.wyrded.title"), Text.translatable("aylyth.advancements.aylyth.wyrded.desc"), null, AdvancementFrame.TASK, true, false, false))
                 .criterion("has_wyrded_effect", effectsChangedCriteria(EntityEffectPredicate.create().withEffect(ModPotions.WYRDED_EFFECT)))
                 .build(consumer, "aylyth:aylyth/wyrded");
         var inTheBranches = Advancement.Builder.create()
@@ -146,9 +148,5 @@ public class AylythAdvancementProvider extends FabricAdvancementProvider {
 
     private EffectsChangedCriterion.Conditions effectsChangedCriteria(EntityEffectPredicate predicate) {
         return EffectsChangedCriterion.Conditions.create(predicate);
-    }
-
-    private ItemCriterion.Conditions itemUsedOnBlockCriteria(LocationPredicate.Builder location, ItemPredicate.Builder item) {
-        return ItemCriterion.Conditions.create(location, item);
     }
 }

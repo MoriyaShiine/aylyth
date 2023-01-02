@@ -1,5 +1,18 @@
 {
   "parent": "aylyth:aylyth/root",
+  "aylyth:custom_display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "aylyth.advancements.aylyth.wyrded.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "show_toast": true,
+    "texture": "aylyth:textures/mob_effect/wyrded.png",
+    "title": {
+      "translate": "aylyth.advancements.aylyth.wyrded.title"
+    }
+  },
   "criteria": {
     "has_wyrded_effect": {
       "conditions": {
@@ -8,22 +21,6 @@
         }
       },
       "trigger": "minecraft:effects_changed"
-    }
-  },
-  "display": {
-    "announce_to_chat": false,
-    "description": {
-      "translate": "aylyth.advancements.aylyth.wyrded.desc"
-    },
-    "frame": "task",
-    "hidden": false,
-    "icon": {
-      "item": "minecraft:potion",
-      "nbt": "{Potion:\"aylyth:wyrded\"}"
-    },
-    "show_toast": true,
-    "title": {
-      "translate": "aylyth.advancements.aylyth.wyrded.title"
     }
   },
   "requirements": [
