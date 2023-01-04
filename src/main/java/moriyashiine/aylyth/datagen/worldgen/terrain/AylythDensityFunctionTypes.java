@@ -178,7 +178,7 @@ public class AylythDensityFunctionTypes {
                 add(
                         constant(-0.95),
                         mul(
-                                constant(-0.35000000000000003),
+                                constant(-0.35),
                                 noise(SPAGHETTI_2D_THICKNESS, 2.0, 1.0)
                         )
                 )
@@ -209,7 +209,7 @@ public class AylythDensityFunctionTypes {
                                     ),
                                     yClampedGradient(
                                             -64,
-                                            20,
+                                            80,
                                             8.0,
                                             -40.0
                                     )
@@ -219,13 +219,13 @@ public class AylythDensityFunctionTypes {
         ).clamp(-1.0, 1.0);
     }
 
-    private static DensityFunction cavesNoodle() {
+    private static DensityFunction cavesNoodle() { // NOTE: This is the cave type that sucks and I hate
         return rangeChoice(
                 interpolated(
                         rangeChoice(
                             holderFunction(Y_FUNCTION),
                                 -60.0,
-                                20.0,
+                                21.0,
                                 noise(NOODLE),
                                 constant(-1.0)
                         )
@@ -238,9 +238,9 @@ public class AylythDensityFunctionTypes {
                                 rangeChoice(
                                         holderFunction(Y_FUNCTION),
                                         -60.0,
-                                        20.0,
+                                        21.0,
                                         add(
-                                                constant(-0.07500000000000001),
+                                                constant(-0.075),
                                                 mul(
                                                         constant(-0.025),
                                                         noise(NOODLE_THICKNESS)
@@ -256,7 +256,7 @@ public class AylythDensityFunctionTypes {
                                                 rangeChoice(
                                                        holderFunction(Y_FUNCTION),
                                                        -60.0,
-                                                        20.0,
+                                                        21.0,
                                                         noise(NOODLE_RIDGE_A, 2.6666666666666665, 2.6666666666666665),
                                                         constant(0.0)
                                                 )
@@ -265,7 +265,7 @@ public class AylythDensityFunctionTypes {
                                                 rangeChoice(
                                                         holderFunction(Y_FUNCTION),
                                                         -60.0,
-                                                        20.0,
+                                                        21.0,
                                                         noise(NOODLE_RIDGE_B, 2.6666666666666665, 2.6666666666666665),
                                                         constant(0.0)
                                                 )

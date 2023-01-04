@@ -16,6 +16,7 @@
     "GeneratorOptionsMixin",
     "LivingEntityMixin",
     "MobEntityAccessor",
+    "NoiseChunkGeneratorMixin",
     "PlayerEntityMixin",
     "SaplingBlockAccessor",
     "ServerPlayerEntityMixin",

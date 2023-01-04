@@ -5,6 +5,7 @@ import moriyashiine.aylyth.common.registry.ModParticles;
 import moriyashiine.aylyth.common.registry.ModSoundEvents;
 import moriyashiine.aylyth.datagen.worldgen.biomes.util.BiomeBuilder;
 import moriyashiine.aylyth.datagen.worldgen.biomes.util.SpawnSettingsBuilder;
+import moriyashiine.aylyth.datagen.worldgen.features.ModCarvers;
 import moriyashiine.aylyth.datagen.worldgen.features.ModPlacedFeatures;
 import moriyashiine.aylyth.datagen.worldgen.features.ModVegetationFeatures;
 import net.minecraft.particle.ParticleTypes;
@@ -203,9 +204,8 @@ public class ModBiomes {
 	}
 
 	private static void addLandCarversNotLavaLakes(GenerationSettings.Builder builder) {
-		builder.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.CAVE);
-		builder.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.CAVE_EXTRA_UNDERGROUND);
-		builder.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.CANYON);
+		builder.carver(GenerationStep.Carver.AIR, ModCarvers.CAVES);
+		builder.carver(GenerationStep.Carver.AIR, ModCarvers.CANYONS);
 	}
 
 	private static void addWaterSprings(GenerationSettings.Builder builder) {

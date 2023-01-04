@@ -1,6 +1,7 @@
 package moriyashiine.aylyth.datagen;
 
 import moriyashiine.aylyth.datagen.worldgen.biomes.ModBiomes;
+import moriyashiine.aylyth.datagen.worldgen.features.ModCarvers;
 import moriyashiine.aylyth.datagen.worldgen.features.ModConfiguredFeatures;
 import moriyashiine.aylyth.datagen.worldgen.features.ModPlacedFeatures;
 import moriyashiine.aylyth.datagen.worldgen.features.ModVegetationFeatures;
@@ -17,6 +18,7 @@ public class AylythDatagen implements DataGeneratorEntrypoint {
         ModConfiguredFeatures.datagenInit();
         ModPlacedFeatures.datagenInit();
         ModVegetationFeatures.datagenInit();
+        ModCarvers.datagenInit();
         ModBiomes.datagenInit();
         AylythNoiseSettings.datagenInit();
         AylythTagProviders.registerTagProviders(fabricDataGenerator);
