@@ -26,14 +26,14 @@ public abstract class LivingEntityMixin extends Entity {
 	}
 
 	@Inject(method = "drop", at = @At("HEAD"), cancellable = true)
-	private void shuckLogic(DamageSource source, CallbackInfo ci) {
+	private void aylyth_shuckLogic(DamageSource source, CallbackInfo ci) {
 		if ((LivingEntity) (Object) this instanceof MobEntity mob && ModComponents.PREVENT_DROPS.get(mob).getPreventsDrops()) {
 			ci.cancel();
 		}
 	}
 	
 	@Inject(method = "eatFood", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;applyFoodEffects(Lnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/entity/LivingEntity;)V"))
-	private void decreaseYmpeInfestationStage(World world, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
+	private void aylyth_decreaseYmpeInfestationStage(World world, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
 		if ((LivingEntity) (Object) this instanceof PlayerEntity player && stack.isIn(ModTags.YMPE_FOODS)) {
 			ModComponents.YMPE_INFESTATION.maybeGet(player).ifPresent(ympeInfestationComponent -> {
 				if (ympeInfestationComponent.getStage() > 0) {
@@ -47,7 +47,7 @@ public abstract class LivingEntityMixin extends Entity {
 	}
 
 	@ModifyVariable(method = "applyDamage", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;getHealth()F"), ordinal = 0, argsOnly = true)
-	private float aylyth$modifyDamage0(float amount, DamageSource source) {
+	private float aylyth_modifyDamage0(float amount, DamageSource source) {
 		if (!world.isClient) {
 			amount = ModDamageSources.handleDamage((LivingEntity) (Object) this, source, amount);
 		}
@@ -55,13 +55,13 @@ public abstract class LivingEntityMixin extends Entity {
 	}
 
 	@ModifyConstant(method = "updatePostDeath", constant = @Constant(intValue = 20))
-	private int aylyth$updatePostDeath(int constant){
+	private int aylyth_updatePostDeath(int constant){
 		LivingEntity living = (LivingEntity) (Object) this;
 		return ProlongedDeath.of(living).map(ProlongedDeath::getDeathAnimationTime).orElse(constant);
 	}
 
 	@Inject(method = "updatePostDeath", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;sendEntityStatus(Lnet/minecraft/entity/Entity;B)V"))
-	private void injectLootDrop(CallbackInfo ci){
+	private void aylyth_injectLootDrop(CallbackInfo ci){
 		LivingEntity living = (LivingEntity) (Object) this;
 		if(living instanceof ProlongedDeath){
 			ItemScatterer.spawn(living.world, living.getX(), living.getY() + 1.5D, living.getZ(), ModItems.CORIC_SEED.getDefaultStack());

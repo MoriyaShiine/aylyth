@@ -8,6 +8,6 @@ import java.util.stream.Stream;
 
 @Mixin({Entity.class})
 public interface EntityAccessor {
-    @Invoker("streamIntoPassengers")
-    Stream<Entity> mason$streamIntoPassengers();
+    @Invoker
+    Stream<Entity> invokeStreamIntoPassengers();
 }

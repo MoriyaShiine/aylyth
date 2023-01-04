@@ -130,7 +130,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHol
     }
 
     @Inject(method = "findRespawnPosition", at = @At(value = "HEAD", target = "Lnet/minecraft/block/BlockState;getBlock()Lnet/minecraft/block/Block;"), cancellable = true)
-    private static void aylyth$injectSoulHeartRespawn(ServerWorld world, BlockPos pos, float angle, boolean forced, boolean alive, CallbackInfoReturnable<Optional<Vec3d>> cir){
+    private static void aylyth_injectSoulHeartRespawn(ServerWorld world, BlockPos pos, float angle, boolean forced, boolean alive, CallbackInfoReturnable<Optional<Vec3d>> cir){
         BlockState blockState = world.getBlockState(pos);
         Block block = blockState.getBlock();
         if (block instanceof SoulHearthBlock && blockState.get(SoulHearthBlock.CHARGES) > 0 && blockState.get(HALF) == DoubleBlockHalf.LOWER && SoulHearthBlock.isAylyth(world)) {
@@ -144,7 +144,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHol
     }
 
     @Inject(method = "shouldDismount", at = {@At("HEAD")}, cancellable = true)
-    private void aylyth$webbingScuffedry(CallbackInfoReturnable<Boolean> cir) {
+    private void aylyth_webbingScuffedry(CallbackInfoReturnable<Boolean> cir) {
         Entity var3 = this.getVehicle();
         if (var3 instanceof BoneflyEntity fly) {
             if (!Objects.equals(this.getVehicle().getFirstPassenger(), this)) {
@@ -155,7 +155,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHol
     }
 
     @Inject(method = "damage", at = @At("HEAD"))
-    private void submergedDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+    private void aylyth_submergedDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         if(this.getInventory().contains(ModItems.YMPE_EFFIGY_ITEM.getDefaultStack()) && this.isSubmergedInWater && !isInvulnerableTo(source) && !this.isDead() && random.nextInt(6) == 1) {
             super.damage(source, amount);
             this.timeUntilRegen = 0;
@@ -190,7 +190,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHol
      */
 
     @Inject(method = "tick", at = @At("TAIL"))
-    private void removePledgeASAP(CallbackInfo ci){
+    private void aylyth_removePledgeASAP(CallbackInfo ci){
         if(getHindUuid() != null && !world.isClient()){
             ModWorldState modWorldState = ModWorldState.get(world);
             PlayerEntity player = (PlayerEntity) (Object) this;

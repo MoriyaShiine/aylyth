@@ -25,21 +25,21 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Ex
     }
 
     @Inject(method = "writeCustomDataToNbt", at = @At("HEAD"))
-    private void aylyth$writeCustomDataToNbt(NbtCompound nbt, CallbackInfo ci) {
+    private void aylyth_writeCustomDataToNbt(NbtCompound nbt, CallbackInfo ci) {
         if (aylyth$extraPlayerData != null && !aylyth$extraPlayerData.isEmpty()) {
             nbt.put("ExtraPlayerData", aylyth$extraPlayerData);
         }
     }
 
     @Inject(method = "readCustomDataFromNbt", at = @At("HEAD"))
-    private void aylyth$readCustomDataFromNbt(NbtCompound nbt, CallbackInfo ci) {
+    private void aylyth_readCustomDataFromNbt(NbtCompound nbt, CallbackInfo ci) {
         if (nbt.contains("ExtraPlayerData")) {
             aylyth$extraPlayerData = nbt.getCompound("ExtraPlayerData");
         }
     }
 
     @Inject(method = "copyFrom", at = @At("TAIL"))
-    private void aylyth$copyPersistentData(ServerPlayerEntity oldPlayer, boolean alive, CallbackInfo ci) {
+    private void aylyth_copyPersistentData(ServerPlayerEntity oldPlayer, boolean alive, CallbackInfo ci) {
         NbtCompound oldData = ((ExtraPlayerData) oldPlayer).getExtraPlayerData();
         NbtCompound persistent = oldData.getCompound("PersistedPlayer");
         if (persistent != null) {

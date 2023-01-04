@@ -21,7 +21,7 @@ public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<Abs
 	}
 	
 	@Inject(method = "<init>", at = @At("TAIL"))
-	private void addYmpeInfestationFeature(EntityRendererFactory.Context ctx, boolean slim, CallbackInfo ci) {
+	private void aylyth_addYmpeInfestationFeature(EntityRendererFactory.Context ctx, boolean slim, CallbackInfo ci) {
 		addFeature(new YmpeInfestationFeature(this, ctx.getModelLoader(), slim));
 	}
 }

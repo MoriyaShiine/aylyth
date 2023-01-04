@@ -30,7 +30,7 @@ public abstract class MinecraftClientMixin {
     }
 
     @Inject(method = "handleInputEvents", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;doAttack()Z", ordinal = 0))
-    public void glaiveStab(CallbackInfo info) {
+    public void aylyth_glaiveStab(CallbackInfo info) {
         if(player != null) {
             if(player.getStackInHand(player.getActiveHand()).isOf(ModItems.YMPE_GLAIVE)) {
                 if(player.getAttackCooldownProgress(0.5F) == 1F && (!player.getItemCooldownManager().isCoolingDown(player.getMainHandStack().getItem())) && crosshairTarget != null) {

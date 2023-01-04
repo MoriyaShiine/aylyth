@@ -82,7 +82,7 @@ public class AylythNoiseSettings {
                 ).clamp(-64, 64),
                 -64,
                 272,
-                80, 64, -0.078125,
+                63, 47, -0.078125,
                 0, 24, 0.1171875
         );
 //        return slide(

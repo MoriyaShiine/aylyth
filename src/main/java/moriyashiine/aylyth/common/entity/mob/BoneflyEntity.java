@@ -270,7 +270,7 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
         this.setPose(EntityPose.STANDING);
         player.vehicle = entity;
         boneflyAddPassenger(player, player.getVehicle());
-        ((EntityAccessor) entity).mason$streamIntoPassengers().filter(passenger -> passenger instanceof ServerPlayerEntity).forEach(playr -> Criteria.STARTED_RIDING.trigger((ServerPlayerEntity)playr));
+        ((EntityAccessor) entity).invokeStreamIntoPassengers().filter(passenger -> passenger instanceof ServerPlayerEntity).forEach(playr -> Criteria.STARTED_RIDING.trigger((ServerPlayerEntity)playr));
     }
     protected void boneflyAddPassenger(Entity passenger, Entity adder) {
         if (passenger.getVehicle() != this) {

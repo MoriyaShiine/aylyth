@@ -46,7 +46,7 @@ public abstract class InGameHudMixin {
 	protected abstract void renderOverlay(Identifier texture, float opacity);
 	
 	@Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/MathHelper;lerp(FFF)F", ordinal = 1))
-	private void renderYmpeInfestationOverlay(MatrixStack matrices, float tickDelta, CallbackInfo ci) {
+	private void aylyth_renderYmpeInfestationOverlay(MatrixStack matrices, float tickDelta, CallbackInfo ci) {
 		ModComponents.YMPE_INFESTATION.maybeGet(client.player).ifPresent(ympeInfestationComponent -> {
 			int stage = ympeInfestationComponent.getStage();
 			if (stage >= 3) {
@@ -63,7 +63,7 @@ public abstract class InGameHudMixin {
 	}
 	
 	@Inject(method = "renderHealthBar", at = @At("HEAD"))
-	private void renderYmpeHealthBarHead(MatrixStack matrices, PlayerEntity player, int x, int y, int lines, int regeneratingHeartIndex, float maxHealth, int lastHealth, int health, int absorption, boolean blinking, CallbackInfo ci) {
+	private void aylyth_renderYmpeHealthBarHead(MatrixStack matrices, PlayerEntity player, int x, int y, int lines, int regeneratingHeartIndex, float maxHealth, int lastHealth, int health, int absorption, boolean blinking, CallbackInfo ci) {
 		if (ModComponents.YMPE_INFESTATION.get(player).getStage() > 0) {
 			RenderSystem.setShaderTexture(0, YMPE_HEALTH_TEXTURES);
 			shouldRebind = true;
@@ -71,7 +71,7 @@ public abstract class InGameHudMixin {
 	}
 	
 	@Inject(method = "renderHealthBar", at = @At("TAIL"))
-	private void renderYmpeHealthBarTail(MatrixStack matrices, PlayerEntity player, int x, int y, int lines, int regeneratingHeartIndex, float maxHealth, int lastHealth, int health, int absorption, boolean blinking, CallbackInfo ci) {
+	private void aylyth_renderYmpeHealthBarTail(MatrixStack matrices, PlayerEntity player, int x, int y, int lines, int regeneratingHeartIndex, float maxHealth, int lastHealth, int health, int absorption, boolean blinking, CallbackInfo ci) {
 		if (shouldRebind) {
 			RenderSystem.setShaderTexture(0, DrawableHelper.GUI_ICONS_TEXTURE);
 			shouldRebind = false;

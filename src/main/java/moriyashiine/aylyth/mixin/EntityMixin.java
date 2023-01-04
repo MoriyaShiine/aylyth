@@ -70,7 +70,7 @@ public abstract class EntityMixin implements SeepTeleportable {
 
 
     @Inject(method = "remove", at = @At("TAIL"))
-    private void remove(CallbackInfo callbackInfo) {
+    private void aylyth_remove(CallbackInfo callbackInfo) {
         if (!world.isClient && this instanceof Pledgeable pledgeable) {
             ModWorldState worldState = ModWorldState.get(world);
             worldState.pledgesToRemove.addAll(pledgeable.getPledgedPlayerUUIDs());

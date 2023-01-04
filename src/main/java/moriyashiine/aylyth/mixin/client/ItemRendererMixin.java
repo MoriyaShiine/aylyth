@@ -22,7 +22,7 @@ final class ItemRendererMixin {
 	@Shadow @Final private ItemModels models;
 
 	@Inject(method = "getModel", at = @At("HEAD"), cancellable = true)
-	private void aylyth$getHeldItemModel(ItemStack stack, World world, LivingEntity entity, int seed, CallbackInfoReturnable<BakedModel> cir) {
+	private void aylyth_getHeldItemModel(ItemStack stack, World world, LivingEntity entity, int seed, CallbackInfoReturnable<BakedModel> cir) {
 		if (stack.getItem() instanceof YmpeLanceItem || stack.getItem() instanceof YmpeGlaiveItem) {
 			BakedModel bakedModel = models.getModelManager().getModel(new ModelIdentifier("minecraft:trident_in_hand#inventory")); // this is the model type (not the texture), its insane that copy-pasting this works first try
 			ClientWorld clientWorld = world instanceof ClientWorld ? (ClientWorld) world : null;

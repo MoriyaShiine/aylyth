@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(targets = "net/minecraft/enchantment/EnchantmentTarget$9")
 public class EnchantmentTargetMixin {
     @Inject(method = "isAcceptableItem(Lnet/minecraft/item/Item;)Z", at = @At("HEAD"), cancellable = true)
-    private void lanceIsAcceptableItem(Item item, CallbackInfoReturnable<Boolean> cir) {
+    private void aylyth_lanceIsAcceptableItem(Item item, CallbackInfoReturnable<Boolean> cir) {
         if (item instanceof YmpeLanceItem){
             cir.setReturnValue(true);
         }
