@@ -74,7 +74,7 @@
   "spawn_costs": {
     "aylyth:aylythian": {
       "charge": 2.0,
-      "energy_budget": 1.0
+      "energy_budget": 4.0
     }
   },
   "spawners": {
