@@ -1,9 +1,11 @@
 package moriyashiine.aylyth.datagen;
 
 import moriyashiine.aylyth.common.registry.ModBlocks;
+import moriyashiine.aylyth.common.registry.ModEntityTypes;
 import moriyashiine.aylyth.common.registry.ModItems;
 import moriyashiine.aylyth.common.registry.ModTags;
 import moriyashiine.aylyth.common.registry.util.ItemWoodSuite;
+import moriyashiine.aylyth.datagen.recipe.YmpeDaggerRecipeJsonBuilder;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.data.server.RecipeProvider;
@@ -12,6 +14,7 @@ import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
 import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.tag.ItemTags;
@@ -116,6 +119,8 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
                 .pattern("SES")
                 .pattern("YSY")
                 .criterion("has_heart", conditionsFromItem(ModItems.AYLYTHIAN_HEART))
+                .offerTo(exporter);
+        YmpeDaggerRecipeJsonBuilder.create(ModEntityTypes.WREATHED_HIND_ENTITY, ModItems.WRONGMEAT, 0.2f, 3, 5)
                 .offerTo(exporter);
     }
 
