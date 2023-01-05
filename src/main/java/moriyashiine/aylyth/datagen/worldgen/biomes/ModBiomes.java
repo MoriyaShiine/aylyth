@@ -8,20 +8,59 @@ import moriyashiine.aylyth.datagen.worldgen.biomes.util.SpawnSettingsBuilder;
 import moriyashiine.aylyth.datagen.worldgen.features.ModCarvers;
 import moriyashiine.aylyth.datagen.worldgen.features.ModPlacedFeatures;
 import moriyashiine.aylyth.datagen.worldgen.features.ModVegetationFeatures;
+import net.minecraft.entity.EntityType;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.BiomeAdditionsSound;
 import net.minecraft.sound.BiomeMoodSound;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.carver.ConfiguredCarvers;
 import net.minecraft.world.gen.feature.*;
 
 import static moriyashiine.aylyth.common.registry.ModBiomeKeys.*;
 
 public class ModBiomes {
-	public static final SpawnSettings COPSE_MOBS = SpawnSettingsBuilder.builder().spawnCost(ModEntityTypes.AYLYTHIAN, 2, 4).monster(ModEntityTypes.AYLYTHIAN, 20, 1, 2).ambient(ModEntityTypes.PILOT_LIGHT, 5, 1, 1).spawnChance(0.5F).build();
-	public static final SpawnSettings DEEPWOOD_MOBS = SpawnSettingsBuilder.builder().spawnCost(ModEntityTypes.AYLYTHIAN, 2, 4).spawnCost(ModEntityTypes.WREATHED_HIND_ENTITY, 1, 1).monster(ModEntityTypes.AYLYTHIAN, 25, 1, 3).monster(ModEntityTypes.ELDER_AYLYTHIAN, 2, 1, 1).monster(ModEntityTypes.SCION, 15, 1, 1).monster(ModEntityTypes.WREATHED_HIND_ENTITY, 1, 1, 1).ambient(ModEntityTypes.PILOT_LIGHT, 10, 1, 1).build();
+	public static final SpawnSettings COPSE_MOBS = SpawnSettingsBuilder.builder()
+			.spawnCost(ModEntityTypes.AYLYTHIAN, 0.7, 0.13)
+			.spawnCost(EntityType.ENDERMAN, 0.7, 0.13)
+			.spawnCost(ModEntityTypes.PILOT_LIGHT, 0.7, 0.13)
+			.monster(ModEntityTypes.AYLYTHIAN, 20, 1, 2)
+			.monster(EntityType.ENDERMAN, 1, 1, 4)
+			.ambient(ModEntityTypes.PILOT_LIGHT, 5, 1, 1)
+			.spawnChance(0.5f)
+			.build();
+	public static final SpawnSettings DEEPWOOD_MOBS = SpawnSettingsBuilder.builder()
+			.spawnCost(ModEntityTypes.AYLYTHIAN, 0.7, 0.13)
+			.spawnCost(ModEntityTypes.SCION, 0.9, 0.13)
+			.spawnCost(ModEntityTypes.ELDER_AYLYTHIAN, 0.7, 0.12)
+			.spawnCost(EntityType.ENDERMAN, 0.7, 0.12)
+			.spawnCost(ModEntityTypes.WREATHED_HIND_ENTITY, 1.4, 0.6)
+			.spawnCost(ModEntityTypes.PILOT_LIGHT, 0.7, 0.1)
+			.monster(ModEntityTypes.AYLYTHIAN, 50, 1, 3)
+			.monster(ModEntityTypes.SCION, 15, 1, 1)
+			.monster(ModEntityTypes.ELDER_AYLYTHIAN, 2, 1, 1)
+			.monster(EntityType.ENDERMAN, 1, 1, 4)
+			.creature(ModEntityTypes.WREATHED_HIND_ENTITY, 1, 1, 1)
+			.ambient(ModEntityTypes.PILOT_LIGHT, 10, 1, 1)
+			.spawnChance(0.5f)
+			.build();
+	public static final SpawnSettings UPLANDS_MOBS = SpawnSettingsBuilder.none();
+	public static final SpawnSettings MIRE_MOBS = SpawnSettingsBuilder.builder()
+			.spawnCost(ModEntityTypes.AYLYTHIAN, 0.7, 0.13)
+			.spawnCost(ModEntityTypes.SCION, 0.9, 0.13)
+			.spawnCost(ModEntityTypes.WREATHED_HIND_ENTITY, 0.7, 0.12)
+			.spawnCost(EntityType.ENDERMAN, 0.7, 0.12)
+			.spawnCost(ModEntityTypes.PILOT_LIGHT, 0.7, 0.12)
+			.monster(ModEntityTypes.AYLYTHIAN, 20, 1, 1)
+			.monster(ModEntityTypes.SCION, 5, 1, 1)
+			.monster(ModEntityTypes.WREATHED_HIND_ENTITY, 2, 1, 1)
+			.monster(EntityType.ENDERMAN, 1, 1, 4)
+			.ambient(ModEntityTypes.PILOT_LIGHT, 5, 1, 1)
+			.build();
+	public static final SpawnSettings BOWELS_MOBS = SpawnSettingsBuilder.builder()
+			.spawnCost(EntityType.ENDERMAN, 0.7, 0.09)
+			.monster(EntityType.ENDERMAN, 1, 1, 4)
+			.build();
 	public static final BiomeAdditionsSound OVERGROWN_CLEARING_AMBIANCE = new BiomeAdditionsSound(ModSoundEvents.AMBIENT_FOREST_ADDITIONS, 0.001);
 	public static final BiomeAdditionsSound FOREST_AMBIANCE = new BiomeAdditionsSound(ModSoundEvents.AMBIENT_FOREST_ADDITIONS, 0.005);
 	private static final int AYLYTHIAN_FOLIAGE_COLOR = 0x627F38;
@@ -41,9 +80,9 @@ public class ModBiomes {
 		BuiltinRegistries.addCasted(BuiltinRegistries.BIOME, DEEPWOOD_ID.getValue().toString(), createForest(true, DEEPWOOD_MOBS));
 		BuiltinRegistries.addCasted(BuiltinRegistries.BIOME, CONIFEROUS_COPSE_ID.getValue().toString(), createConiferousForest(false, COPSE_MOBS));
 		BuiltinRegistries.addCasted(BuiltinRegistries.BIOME, CONIFEROUS_DEEPWOOD_ID.getValue().toString(), createConiferousForest(true, DEEPWOOD_MOBS));
-		BuiltinRegistries.addCasted(BuiltinRegistries.BIOME, UPLANDS_ID.getValue().toString(), createUplands(SpawnSettingsBuilder.none()));
-		BuiltinRegistries.addCasted(BuiltinRegistries.BIOME, MIRE_ID.getValue().toString(), createMire());
-		BuiltinRegistries.addCasted(BuiltinRegistries.BIOME, BOWELS_ID.getValue().toString(), createBowels());
+		BuiltinRegistries.addCasted(BuiltinRegistries.BIOME, UPLANDS_ID.getValue().toString(), createUplands(UPLANDS_MOBS));
+		BuiltinRegistries.addCasted(BuiltinRegistries.BIOME, MIRE_ID.getValue().toString(), createMire(MIRE_MOBS));
+		BuiltinRegistries.addCasted(BuiltinRegistries.BIOME, BOWELS_ID.getValue().toString(), createBowels(BOWELS_MOBS));
 	}
 	
 	private static Biome createClearing(boolean overgrown, SpawnSettings spawnSettings) {
@@ -164,19 +203,13 @@ public class ModBiomes {
 				}).build();
 	}
 
-	private static Biome createMire() {
+	private static Biome createMire(SpawnSettings spawnSettings) {
 		return BiomeBuilder.builder(Biome.Precipitation.RAIN, 0.8F, 0.3F)
 				.biomeEffects(FOG_COLOR, MIRE_WATER_COLOR, MIRE_UNDERWATER_COLOR, SKY_COLOR, biomeEffectsBuilder -> {
 					biomeEffectsBuilder.foliageColor(MIRE_FOLIAGE_COLOR)
 							.grassColor(MIRE_FOLIAGE_COLOR);
 				})
-				.spawnSettings(builder -> {
-					builder.spawnCost(ModEntityTypes.AYLYTHIAN, 2, 6)
-							.monster(ModEntityTypes.SCION, 5, 1, 1)
-							.monster(ModEntityTypes.AYLYTHIAN, 5, 1, 1)
-							.monster(ModEntityTypes.WREATHED_HIND_ENTITY, 2, 1, 1)
-							.ambient(ModEntityTypes.PILOT_LIGHT, 3, 1, 1);
-				})
+				.spawnSettings(spawnSettings)
 				.generationSettings(builder -> {
 					builder.vegetalDecoFeature(ModVegetationFeatures.WOODY_GROWTH_WATER_PATCH_PLACED)
 							.vegetalDecoFeature(ModVegetationFeatures.ANTLER_SHOOTS_WATER_PATCH_PLACED)
@@ -193,10 +226,10 @@ public class ModBiomes {
 				.build();
 	}
 
-	private static Biome createBowels() {
+	private static Biome createBowels(SpawnSettings spawnSettings) {
 		return BiomeBuilder.builder(Biome.Precipitation.NONE, 0.5f, 0.0f)
 				.biomeEffects(FOG_COLOR, WATER_COLOR, UNDERWATER_COLOR, SKY_COLOR)
-				.spawnSettings(SpawnSettingsBuilder.none())
+				.spawnSettings(spawnSettings)
 				.generationSettings(builder -> {
 					builder.vegetalDecoFeature(ModVegetationFeatures.WOODY_GROWTH_BOWELS_PATCH_PLACED)
 							.vegetalDecoFeature(NetherPlacedFeatures.PATCH_SOUL_FIRE);
