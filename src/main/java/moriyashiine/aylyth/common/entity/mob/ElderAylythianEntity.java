@@ -139,12 +139,16 @@ public class ElderAylythianEntity extends HostileEntity implements IAnimatable {
 			int xOffset = Math.sin(bodyYaw * Math.PI / 180) > 0 ? 1 : -1;
 			int zOffset = Math.cos(bodyYaw * Math.PI / 180) > 0 ? 1 : -1;
 			BlockPos[] checkPoses = {getBlockPos(), getBlockPos().add(xOffset, 0, 0), getBlockPos().add(0, 0, zOffset), getBlockPos().add(xOffset, 0, zOffset)};
+			boolean hasPlaced = false;
 			for (BlockPos checkPos : checkPoses) {
 				if (world.getBlockState(checkPos).getMaterial().isReplaceable() && ModBlocks.YMPE_BLOCKS.sapling.getDefaultState().canPlaceAt(world, checkPos)) {
 					world.setBlockState(checkPos, ModBlocks.YMPE_BLOCKS.sapling.getDefaultState());
+					hasPlaced = true;
 				}
 			}
-			playSound(SoundEvents.BLOCK_GRASS_PLACE, getSoundVolume(), getSoundPitch());
+			if (hasPlaced) {
+				playSound(ModBlocks.YMPE_BLOCKS.sapling.getDefaultState().getSoundGroup().getPlaceSound(), getSoundVolume(), getSoundPitch());
+			}
 		}
 		ItemEntity item = dropItem(ModItems.AYLYTHIAN_HEART);
 		if (item != null) {

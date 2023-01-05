@@ -1,8 +1,10 @@
 package moriyashiine.aylyth.common.entity.mob;
 
+import moriyashiine.aylyth.common.block.LargeWoodyGrowthBlock;
 import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.ModSoundEvents;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -14,10 +16,13 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.state.property.Properties;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.util.Arm;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.Difficulty;
@@ -138,44 +143,41 @@ public class AylythianEntity extends HostileEntity implements IAnimatable {
 	@Override
 	protected void dropEquipment(DamageSource source, int lootingMultiplier, boolean allowDrops) {
 		super.dropEquipment(source, lootingMultiplier, allowDrops);
-		double random = world.getRandom().nextDouble();
-		if (random <= 20 && !world.isClient && world.getBlockState(getBlockPos()).getMaterial().isReplaceable() && ModBlocks.YMPE_BLOCKS.sapling.getDefaultState().canPlaceAt(world, getBlockPos())) {
-			world.setBlockState(getBlockPos(), ModBlocks.YMPE_BLOCKS.sapling.getDefaultState());
-			playSound(SoundEvents.BLOCK_GRASS_PLACE, getSoundVolume(), getSoundPitch());
-		}else if(random <= 30){
+		double random = this.random.nextDouble();
+		if (random <= .2 && !world.isClient && world.getBlockState(getBlockPos()).getMaterial().isReplaceable() && ModBlocks.YMPE_BLOCKS.sapling.getDefaultState().canPlaceAt(world, getBlockPos())) {
+			BlockState state = ModBlocks.YMPE_BLOCKS.sapling.getDefaultState();
+			world.setBlockState(getBlockPos(), state);
+			playSound(state.getSoundGroup().getPlaceSound(), getSoundVolume(), getSoundPitch());
+		}else if(random <= .3){
 			placeWoodyGrowths(world, getBlockPos());
 		}
 	}
 
 	public void placeWoodyGrowths(World world, BlockPos blockPos){
-		List<BlockPos> listPos = new ArrayList<>();
-		int index = 0;
+		List<BlockPos> possiblePositions = new ArrayList<>();
 		for(int x = -1; x <= 1; x++){
 			for(int z = -1; z <= 1; z++){
 				for(int y = -1; y <= 1; y++){
-					if(!world.isClient && world.getBlockState(blockPos.add(x,y,z)).getMaterial().isReplaceable() && world.getBlockState(blockPos.add(x,y,z).down()).isIn(BlockTags.DIRT) ){
-						listPos.add(index, blockPos.add(x,y,z));
-						index++;
+					BlockPos offsetPos = blockPos.add(x,y,z);
+					if(!world.isClient && world.getBlockState(offsetPos).getMaterial().isReplaceable() && world.getBlockState(offsetPos.down()).isIn(BlockTags.DIRT) ){
+						possiblePositions.add(offsetPos);
 					}
 				}
 
 			}
 		}
-		int random = world.getRandom().nextBetween(1, 3);
-		Block largeWoodyGrowth = ModBlocks.LARGE_WOODY_GROWTH;
-		for(int i = 0; i < random; i++){
-			if(listPos.size() >= i){
-				BlockPos placePos = listPos.get(world.getRandom().nextInt(listPos.size()));
-				if(world.getRandom().nextBoolean()){
-					if(largeWoodyGrowth.getDefaultState().canPlaceAt(world, placePos)){
-						world.setBlockState(placePos,largeWoodyGrowth.getDefaultState());
+		if (possiblePositions.size() != 0) {
+			int random = this.random.nextBetween(1, 3);
+			for(int i = 0; i < random; i++){
+				if(possiblePositions.size() >= i){
+					BlockPos placePos = Util.getRandom(possiblePositions, this.random);
+					BlockState placementState = this.random.nextBoolean() ? ModBlocks.LARGE_WOODY_GROWTH.getDefaultState() : ModBlocks.SMALL_WOODY_GROWTH.getDefaultState();
+					if(placementState.canPlaceAt(world, placePos)){
+						LargeWoodyGrowthBlock.placeInWorld(placementState, world, placePos);
+						playSound(placementState.getSoundGroup().getPlaceSound(), getSoundVolume(), getSoundPitch());
 					}
-				}else{
-					world.setBlockState(placePos, ModBlocks.SMALL_WOODY_GROWTH.getDefaultState());
 				}
-				playSound(SoundEvents.BLOCK_GRASS_PLACE, getSoundVolume(), getSoundPitch());
 			}
-
 		}
 	}
 	

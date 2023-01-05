@@ -5,6 +5,7 @@ import moriyashiine.aylyth.api.interfaces.HindPledgeHolder;
 import moriyashiine.aylyth.api.interfaces.Pledgeable;
 import moriyashiine.aylyth.common.entity.ai.brain.WreathedHindBrain;
 import moriyashiine.aylyth.common.registry.*;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
@@ -31,6 +32,7 @@ import net.minecraft.tag.BlockTags;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.ServerWorldAccess;
@@ -157,28 +159,29 @@ public class WreathedHindEntity extends HostileEntity implements IAnimatable, Pl
     @Override
     protected void dropEquipment(DamageSource source, int lootingMultiplier, boolean allowDrops) {
         super.dropEquipment(source, lootingMultiplier, allowDrops);
-        placeStewnLeaves(world, getBlockPos());
+        placeStrewnLeaves(world, getBlockPos()); // TODO: should we try to spawn strewn leaves when it is killed by the kill command? What about mob griefing?
     }
 
-    public void placeStewnLeaves(World world, BlockPos blockPos){
-        List<BlockPos> listPos = new ArrayList<>();
-        int index = 0;
+    public void placeStrewnLeaves(World world, BlockPos blockPos){
+        List<BlockPos> possiblePositions = new ArrayList<>();
         for(int x = -2; x <= 2; x++){
             for(int z = -2; z <= 2; z++){
                 for(int y = -2; y <= 2; y++){
-                    if(!world.isClient && world.getBlockState(blockPos.add(x,y,z)).getMaterial().isReplaceable() && world.getBlockState(blockPos.add(x,y,z).down()).isIn(BlockTags.DIRT) ){
-                        listPos.add(index, blockPos.add(x,y,z));
-                        index++;
+                    BlockPos offsetPos = blockPos.add(x,y,z);
+                    if(!world.isClient && world.getBlockState(offsetPos).getMaterial().isReplaceable() && world.getBlockState(offsetPos.down()).isIn(BlockTags.DIRT) ){
+                        possiblePositions.add(offsetPos);
                     }
                 }
             }
         }
-        int random = world.getRandom().nextBetween(2, 4);
-        for(int i = 0; i < random; i++){
-            if(listPos.size() >= i){
-                BlockPos placePos = listPos.get(world.getRandom().nextInt(listPos.size()));
-                world.setBlockState(placePos, ModBlocks.OAK_STREWN_LEAVES.getDefaultState());
-                playSound(SoundEvents.BLOCK_GRASS_PLACE, getSoundVolume(), getSoundPitch());
+        if (possiblePositions.size() != 0) {
+            int random = this.random.nextBetween(2, 4);
+            for(int i = 0; i < random; i++){
+                if(possiblePositions.size() >= i){
+                    BlockPos placePos = Util.getRandom(possiblePositions, this.random);
+                    world.setBlockState(placePos, ModBlocks.OAK_STREWN_LEAVES.getDefaultState());
+                    playSound(ModSoundEvents.BLOCK_STREWN_LEAVES_STEP, getSoundVolume(), getSoundPitch());
+                }
             }
         }
     }
