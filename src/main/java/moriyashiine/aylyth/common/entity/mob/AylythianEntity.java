@@ -144,12 +144,12 @@ public class AylythianEntity extends HostileEntity implements IAnimatable {
 	protected void dropEquipment(DamageSource source, int lootingMultiplier, boolean allowDrops) {
 		super.dropEquipment(source, lootingMultiplier, allowDrops);
 		double random = this.random.nextDouble();
-		if (random <= .2 && !world.isClient && world.getBlockState(getBlockPos()).getMaterial().isReplaceable() && ModBlocks.YMPE_BLOCKS.sapling.getDefaultState().canPlaceAt(world, getBlockPos())) {
+		if (random <= .2) {
+			placeWoodyGrowths(world, getBlockPos());
+		} else if (random <= .3 && !world.isClient && world.getBlockState(getBlockPos()).getMaterial().isReplaceable() && ModBlocks.YMPE_BLOCKS.sapling.getDefaultState().canPlaceAt(world, getBlockPos())) {
 			BlockState state = ModBlocks.YMPE_BLOCKS.sapling.getDefaultState();
 			world.setBlockState(getBlockPos(), state);
 			playSound(state.getSoundGroup().getPlaceSound(), getSoundVolume(), getSoundPitch());
-		}else if(random <= .3){
-			placeWoodyGrowths(world, getBlockPos());
 		}
 	}
 
