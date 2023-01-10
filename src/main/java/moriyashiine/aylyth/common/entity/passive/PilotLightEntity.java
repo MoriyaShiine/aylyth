@@ -88,6 +88,7 @@ public class PilotLightEntity extends AmbientEntity implements Flutterer {
 					if (isBlue() && toWorld != null) {
 						BlockPos toPos = serverPlayer.getSpawnPointPosition() == null ? toWorld.getSpawnPos() : serverPlayer.getSpawnPointPosition(); //white pilot light
 						FabricDimensions.teleport(player, toWorld, new TeleportTarget(Vec3d.of(toPos), Vec3d.ZERO, player.headYaw, player.getPitch()));
+						return ActionResult.SUCCESS;
 					}
 					else {
 						//todo yellow plot light

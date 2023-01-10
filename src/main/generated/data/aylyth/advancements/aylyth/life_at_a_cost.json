@@ -1,7 +1,7 @@
 {
-  "parent": "aylyth:aylyth/root",
+  "parent": "aylyth:aylyth/in_the_branches",
   "criteria": {
-    "has_item": {
+    "has_ympe_fruit": {
       "conditions": {
         "items": [
           {
@@ -31,7 +31,7 @@
   },
   "requirements": [
     [
-      "has_item"
+      "has_ympe_fruit"
     ]
   ]
 }

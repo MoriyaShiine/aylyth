@@ -50,11 +50,15 @@ public class AylythMaterialRules extends MaterialRules {
     }
 
     static MaterialRule bowels() {
-        return condition(biome(ModBiomeKeys.BOWELS_ID), condition(waterWithStoneDepth(-6, -1), condition(stoneDepth(0, true, 0, VerticalSurfaceType.FLOOR), block(Blocks.SOUL_SOIL))));
+        return condition(biome(ModBiomeKeys.BOWELS_ID), sequence(condition(stoneDepth(0, false, 0, VerticalSurfaceType.FLOOR), condition(water(0, 0), noiseBlock(AylythNoiseTypes.BOWELS_SOUL_SAND, Blocks.SOUL_SAND, 0.6, Double.MAX_VALUE))), condition(waterWithStoneDepth(-6, -1), condition(stoneDepth(0, true, 0, VerticalSurfaceType.FLOOR), block(Blocks.SOUL_SOIL)))));
     }
 
     static MaterialRule podzol(AylythNoiseTypes.NoiseRegistryPair noise, double min, double max) {
         return condition(noiseThreshold(noise.registryKey, min, max), block(Blocks.PODZOL));
+    }
+
+    static MaterialRule noiseBlock(AylythNoiseTypes.NoiseRegistryPair noise, Block block, double min, double max) {
+        return condition(noiseThreshold(noise.registryKey, min, max), block(block));
     }
 
     static MaterialRule surfaceNoiseBlock(Block block, double min, double max) {

@@ -81,9 +81,7 @@ public class CoricSeedItem extends Item {
                 world.breakBlock(pos.offset(dir, i).offset(Direction.UP), false);
             }
 
-            BoneflyEntity bonefly = new BoneflyEntity(ModEntityTypes.BONEFLY, world);
-            bonefly.refreshPositionAndAngles(pos.offset(side), 0.0F, 0.0F);
-            bonefly.setOwner(player);
+            BoneflyEntity bonefly = BoneflyEntity.create(world, pos.offset(side), side.asRotation(), 0.0f, player);
             world.spawnEntity(bonefly);
             player.getOffHandStack().decrement(16);
             stack.decrement(1);

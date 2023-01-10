@@ -2,6 +2,7 @@ package moriyashiine.aylyth.datagen;
 
 import com.google.common.collect.Maps;
 import moriyashiine.aylyth.common.block.*;
+import moriyashiine.aylyth.common.lootcondition.ScionIsPlayerLootCondition;
 import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.ModEntityTypes;
 import moriyashiine.aylyth.common.registry.ModItems;
@@ -20,13 +21,18 @@ import net.minecraft.item.Items;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.condition.*;
+import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.loot.entry.*;
+import net.minecraft.loot.function.LootingEnchantLootFunction;
 import net.minecraft.loot.function.SetCountLootFunction;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
+import net.minecraft.predicate.NbtPredicate;
 import net.minecraft.predicate.NumberRange;
 import net.minecraft.predicate.StatePredicate;
+import net.minecraft.predicate.entity.EntityEquipmentPredicate;
+import net.minecraft.predicate.entity.EntityPredicate;
 import net.minecraft.predicate.item.EnchantmentPredicate;
 import net.minecraft.predicate.item.ItemPredicate;
 import net.minecraft.util.Identifier;
@@ -74,6 +80,9 @@ public class AylythLootTableProviders {
             addDrop(ModBlocks.WOODY_GROWTH_CACHE, this::woodyGrowthCaches);
             addDrop(ModBlocks.SMALL_WOODY_GROWTH);
             addDrop(ModBlocks.LARGE_WOODY_GROWTH, this::woodyGrowths);
+            addDrop(ModBlocks.SEEPING_WOOD);
+            addDrop(ModBlocks.SEEPING_WOOD_SEEP);
+            addDrop(ModBlocks.GIRASOL_SAPLING);
         }
 
         private void woodSuiteDrops(WoodSuite suite) {
@@ -203,7 +212,23 @@ public class AylythLootTableProviders {
         }
 
         protected void generateLoot() {
+            addDrop(ModEntityTypes.AYLYTHIAN, this::aylythianLoot);
+            addDrop(ModEntityTypes.ELDER_AYLYTHIAN, this::elderAylythianLoot);
             addDrop(ModEntityTypes.SCION, this::scionLoot);
+        }
+
+        private LootTable.Builder aylythianLoot(EntityType<?> type) {
+            return LootTable.builder()
+                    .pool(LootPool.builder().with(ItemEntry.builder(Items.BONE)).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0, 2))).apply(LootingEnchantLootFunction.builder(UniformLootNumberProvider.create(0, 1))))
+                    .pool(LootPool.builder().with(ItemEntry.builder(Items.STICK)).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0, 2))).apply(LootingEnchantLootFunction.builder(UniformLootNumberProvider.create(0, 1))))
+                    .pool(LootPool.builder().with(ItemEntry.builder(ModItems.YMPE_FRUIT)).conditionally(KilledByPlayerLootCondition.builder().build()).conditionally(RandomChanceWithLootingLootCondition.builder(0.25f, 0.01f)));
+        }
+
+        private LootTable.Builder elderAylythianLoot(EntityType<?> type) {
+            return LootTable.builder()
+                    .pool(LootPool.builder().with(ItemEntry.builder(Items.BONE)).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0, 2))).apply(LootingEnchantLootFunction.builder(UniformLootNumberProvider.create(0, 1))))
+                    .pool(LootPool.builder().with(ItemEntry.builder(Items.STICK)).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0, 2))).apply(LootingEnchantLootFunction.builder(UniformLootNumberProvider.create(0, 1))))
+                    .pool(LootPool.builder().with(ItemEntry.builder(ModItems.YMPE_FRUIT)).conditionally(KilledByPlayerLootCondition.builder().build()).conditionally(RandomChanceWithLootingLootCondition.builder(0.25f, 0.01f)));
         }
 
         private LootTable.Builder scionLoot(EntityType<?> type) {

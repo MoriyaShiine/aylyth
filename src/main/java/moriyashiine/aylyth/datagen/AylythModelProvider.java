@@ -76,6 +76,12 @@ public class AylythModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerSingleton(ModBlocks.DARK_WOODS_TILES, TexturedModel.CUBE_ALL);
         Models.PARTICLE.upload(blockId("woody_growth_particles"), TextureMap.particle(blockId("aylyth_bush_trunk")), blockStateModelGenerator.modelCollector);
         woodyGrowth(blockStateModelGenerator);
+        generateWoodBlock(blockStateModelGenerator, ModBlocks.SEEPING_WOOD, "block/aylyth_bush_trunk");
+
+        blockStateModelGenerator.registerTintableCrossBlockState(ModBlocks.GIRASOL_SAPLING, BlockStateModelGenerator.TintType.NOT_TINTED);
+        var textureMap = TextureMap.plant(ModBlocks.GIRASOL_SAPLING);
+        var identifier = BlockStateModelGenerator.TintType.NOT_TINTED.getFlowerPotCrossModel().upload(ModBlocks.GIRASOL_SAPLING_POTTED, textureMap, blockStateModelGenerator.modelCollector);
+        blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(ModBlocks.GIRASOL_SAPLING_POTTED, identifier));
     }
 
     @Override
@@ -90,14 +96,23 @@ public class AylythModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.WRITHEWOOD_ITEMS.chestBoat, Models.GENERATED);
         itemModelGenerator.register(ModItems.DEBUG_WAND, Models.GENERATED);
         itemModelGenerator.register(ModItems.WRONGMEAT, Models.GENERATED);
-        itemModelGenerator.register(ModItems.LARGE_WOODY_GROWTH, blockParentModel(AylythUtil.id("block/large_woody_growth_1")));
-        itemModelGenerator.register(ModItems.WOODY_GROWTH_CACHE, blockParentModel(new Identifier("builtin/entity")));
-        itemModelGenerator.register(ModItems.SMALL_WOODY_GROWTH, blockParentModel(AylythUtil.id("block/small_woody_growth_1")));
+        itemModelGenerator.register(ModItems.GIRASOL_SEED, Models.GENERATED);
+        itemModelGenerator.register(ModItems.LARGE_WOODY_GROWTH, Models.GENERATED);
+        itemModelGenerator.register(ModItems.WOODY_GROWTH_CACHE, parentModel(new Identifier("builtin/entity")));
+        itemModelGenerator.register(ModItems.SMALL_WOODY_GROWTH, Models.GENERATED);
         itemModelGenerator.register(ModItems.YMPE_CUIRASS, Models.GENERATED);
     }
 
-    private Model blockParentModel(Identifier id) {
+    private Model parentModel(Identifier id) {
         return new Model(Optional.of(id), Optional.empty());
+    }
+
+    private void generateWoodBlock(BlockStateModelGenerator generator, Block woodBlock, String texturePath) {
+        var textureMap = new TextureMap();
+        textureMap.put(TextureKey.SIDE, new Identifier(Aylyth.MOD_ID, texturePath));
+        textureMap.put(TextureKey.END, textureMap.getTexture(TextureKey.SIDE));
+        Identifier identifier = Models.CUBE_COLUMN.upload(woodBlock, textureMap, generator.modelCollector);
+        generator.blockStateCollector.accept(BlockStateModelGenerator.createAxisRotatedBlockState(woodBlock, identifier));
     }
 
     private void woodyGrowth(BlockStateModelGenerator generator) {

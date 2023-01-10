@@ -1,20 +1,20 @@
 {
   "type": "minecraft:crafting_shaped",
   "key": {
-    "d": {
+    "D": {
       "item": "minecraft:polished_deepslate"
     },
-    "n": {
+    "N": {
       "item": "minecraft:netherite_ingot"
     },
-    "s": {
+    "S": {
       "item": "aylyth:coric_seed"
     }
   },
   "pattern": [
-    "dnd",
-    "nsn",
-    "ddd"
+    "DND",
+    "NSN",
+    "DDD"
   ],
   "result": {
     "item": "aylyth:ympemould"
