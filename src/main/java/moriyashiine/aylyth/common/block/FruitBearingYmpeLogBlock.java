@@ -23,7 +23,7 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
 public class FruitBearingYmpeLogBlock extends StrippableLogBlock {
-	private static final Property<Integer> AGE = IntProperty.of("age", 0, 4);
+	public static final Property<Integer> AGE = IntProperty.of("age", 0, 4);
 	
 	public FruitBearingYmpeLogBlock() {
 		super(() -> ModBlocks.YMPE_BLOCKS.strippedLog, MapColor.BROWN, Settings.copy(ModBlocks.YMPE_BLOCKS.log));
