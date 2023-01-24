@@ -1,5 +1,6 @@
 package moriyashiine.aylyth.mixin.client;
 
+import moriyashiine.aylyth.client.render.entity.living.feature.CuirassFeatureRenderer;
 import moriyashiine.aylyth.client.render.entity.living.feature.YmpeInfestationFeature;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -23,5 +24,6 @@ public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<Abs
 	@Inject(method = "<init>", at = @At("TAIL"))
 	private void addYmpeInfestationFeature(EntityRendererFactory.Context ctx, boolean slim, CallbackInfo ci) {
 		addFeature(new YmpeInfestationFeature(this, ctx.getModelLoader(), slim));
+		addFeature(new CuirassFeatureRenderer(this, ctx.getModelLoader(), slim));
 	}
 }
