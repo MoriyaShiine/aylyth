@@ -99,6 +99,12 @@
         "weight": 25
       },
       {
+        "type": "aylyth:faunaylythian",
+        "maxCount": 3,
+        "minCount": 1,
+        "weight": 20
+      },
+      {
         "type": "aylyth:elder_aylythian",
         "maxCount": 1,
         "minCount": 1,
