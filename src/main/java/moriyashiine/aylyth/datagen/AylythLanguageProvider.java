@@ -82,6 +82,8 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add(ModItems.AYLYTHIAN_HEART, "Aylythian Heart");
         builder.add(ModItems.PILOT_LIGHT_SPAWN_EGG, "Pilot Light Spawn Egg");
         builder.add(ModItems.SCION_SPAWN_EGG, "Scion Spawn Egg");
+        builder.add(ModItems.FAUN_SPAWN_EGG, "Faunaylytian Spawn Egg");
+        builder.add(ModItems.HIND_SPAWN_EGG, "Wreathed Hind Spawn Egg");
         builder.add(ModItems.AYLYTHIAN_SPAWN_EGG, "Aylythian Spawn Egg");
         builder.add(ModItems.ELDER_AYLYTHIAN_SPAWN_EGG, "Elder Aylythian Spawn Egg");
         builder.add(ModItems.YMPEMOULD_ITEM, "Ympemould");
@@ -104,6 +106,7 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add(ModEntityTypes.SCION, "Scion");
         builder.add(ModEntityTypes.TULPA, "Tulpa");
         builder.add(ModEntityTypes.WREATHED_HIND_ENTITY, "Wreathed Hind");
+        builder.add(ModEntityTypes.FAUNAYLYTHIAN, "Faunaylythian");
 
         // STATUS EFFECTS
 

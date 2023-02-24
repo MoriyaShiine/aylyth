@@ -36,6 +36,9 @@ public class ModEntityTypes {
 
 	public static final EntityType<SphereEntity> SPHERE_ENTITY = FabricEntityTypeBuilder.<SphereEntity>create(SpawnGroup.MISC, SphereEntity::new).dimensions(EntityDimensions.fixed(0.25f,0.25f)).build();
 
+	public static final EntityType<FaunaylythianEntity> FAUNAYLYTHIAN = FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, FaunaylythianEntity::new).dimensions(EntityDimensions.fixed(1.2F, 1.5F)).build();
+
+
 
 	public static void init() {
 		FabricDefaultAttributeRegistry.register(PILOT_LIGHT, PilotLightEntity.createAttributes());
@@ -48,6 +51,7 @@ public class ModEntityTypes {
 		FabricDefaultAttributeRegistry.register(TULPA, TulpaEntity.createTulpaAttributes());
 		FabricDefaultAttributeRegistry.register(TULPA_PLAYER, TulpaEntity.createTulpaAttributes());
 		FabricDefaultAttributeRegistry.register(WREATHED_HIND_ENTITY, WreathedHindEntity.createAttributes());
+		FabricDefaultAttributeRegistry.register(FAUNAYLYTHIAN, FaunaylythianEntity.createAttributes());
 		Registry.register(Registry.ENTITY_TYPE, new Identifier(Aylyth.MOD_ID, "pilot_light"), PILOT_LIGHT);
 		Registry.register(Registry.ENTITY_TYPE, new Identifier(Aylyth.MOD_ID, "aylythian"), AYLYTHIAN);
 		Registry.register(Registry.ENTITY_TYPE, new Identifier(Aylyth.MOD_ID, "elder_aylythian"), ELDER_AYLYTHIAN);
@@ -61,6 +65,7 @@ public class ModEntityTypes {
 		Registry.register(Registry.ENTITY_TYPE, new Identifier(Aylyth.MOD_ID, "tulpa_player"), TULPA_PLAYER);
 		Registry.register(Registry.ENTITY_TYPE, new Identifier(Aylyth.MOD_ID, "wreathed_hind"), WREATHED_HIND_ENTITY);
 		Registry.register(Registry.ENTITY_TYPE, new Identifier(Aylyth.MOD_ID, "sphere"), SPHERE_ENTITY);
+		Registry.register(Registry.ENTITY_TYPE, new Identifier(Aylyth.MOD_ID, "faunaylythian"), FAUNAYLYTHIAN);
 
 		SpawnRestriction.register(PILOT_LIGHT, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING, PilotLightEntity::canSpawn);
 		SpawnRestriction.register(AYLYTHIAN, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AylythianEntity::canSpawn);
