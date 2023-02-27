@@ -1,23 +1,23 @@
 {
   "type": "minecraft:crafting_shaped",
   "key": {
-    "w": {
-      "item": "aylyth:wrongmeat"
-    },
-    "h": {
-      "item": "aylyth:aylythian_heart"
-    },
-    "c": {
+    "C": {
       "item": "aylyth:coric_seed"
     },
-    "c": {
+    "G": {
       "item": "aylyth:large_woody_growth"
+    },
+    "H": {
+      "item": "aylyth:aylythian_heart"
+    },
+    "W": {
+      "item": "aylyth:wrongmeat"
     }
   },
   "pattern": [
-    "ghg",
-    "wcw",
-    "g g"
+    "GHG",
+    "WCW",
+    "G G"
   ],
   "result": {
     "item": "aylyth:ympe_cuirass"

@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_coric_seed": {
+    "has_heart": {
       "conditions": {
         "items": [
           {
             "items": [
-              "aylyth:coric_seed"
+              "aylyth:aylythian_heart"
             ]
           }
         ]
@@ -15,20 +15,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "aylyth:ympe_effigy"
+        "recipe": "aylyth:ympe_cuirass"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_coric_seed",
+      "has_heart",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "aylyth:ympe_effigy"
+      "aylyth:ympe_cuirass"
     ]
   }
 }
