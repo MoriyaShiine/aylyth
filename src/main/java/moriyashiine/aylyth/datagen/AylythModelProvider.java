@@ -50,6 +50,8 @@ public class AylythModelProvider extends FabricModelProvider {
     private static final Model LEAF_PILE_6_MODEL = new Model(Optional.of(LEAF_PILE_6_TEMPLATE), Optional.empty(), TextureKey.ALL, TextureKey.PARTICLE);
     private static final Model LEAF_PILE_7_MODEL = new Model(Optional.of(LEAF_PILE_7_TEMPLATE), Optional.empty(), TextureKey.ALL, TextureKey.PARTICLE);
 
+    private static final Model BUILTIN = new Model(Optional.of(new Identifier("builtin/entity")), Optional.empty());
+
     public AylythModelProvider(FabricDataGenerator generator) {
         super(generator);
     }
@@ -94,17 +96,15 @@ public class AylythModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.POMEGRANATE_ITEMS.chestBoat, Models.GENERATED);
         itemModelGenerator.register(ModItems.WRITHEWOOD_ITEMS.boat, Models.GENERATED);
         itemModelGenerator.register(ModItems.WRITHEWOOD_ITEMS.chestBoat, Models.GENERATED);
-        itemModelGenerator.register(ModItems.DEBUG_WAND, Models.GENERATED);
+        itemModelGenerator.register(ModItems.DEBUG_WAND, Models.HANDHELD);
         itemModelGenerator.register(ModItems.WRONGMEAT, Models.GENERATED);
         itemModelGenerator.register(ModItems.GIRASOL_SEED, Models.GENERATED);
         itemModelGenerator.register(ModItems.LARGE_WOODY_GROWTH, Models.GENERATED);
-        itemModelGenerator.register(ModItems.WOODY_GROWTH_CACHE, parentModel(new Identifier("builtin/entity")));
+        itemModelGenerator.register(ModItems.WOODY_GROWTH_CACHE, BUILTIN);
         itemModelGenerator.register(ModItems.SMALL_WOODY_GROWTH, Models.GENERATED);
         itemModelGenerator.register(ModItems.YMPE_CUIRASS, Models.GENERATED);
-    }
-
-    private Model parentModel(Identifier id) {
-        return new Model(Optional.of(id), Optional.empty());
+        itemModelGenerator.register(ModItems.MYSTERIOUS_SKETCH, BUILTIN);
+        Models.GENERATED.upload(AylythUtil.id("item/" + Registry.ITEM.getId(ModItems.MYSTERIOUS_SKETCH).getPath() + "_generated"), TextureMap.layer0(AylythUtil.id("item/" + Registry.ITEM.getId(ModItems.MYSTERIOUS_SKETCH).getPath())), itemModelGenerator.writer);
     }
 
     private void generateWoodBlock(BlockStateModelGenerator generator, Block woodBlock, String texturePath) {

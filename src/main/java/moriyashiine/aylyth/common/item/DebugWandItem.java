@@ -11,6 +11,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtString;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -58,6 +60,21 @@ public class DebugWandItem extends Item {
                         ympeInfestationComponent.setStage((byte)(ympeInfestationComponent.getStage() + 1));
                         ympeInfestationComponent.setInfestationTimer((short)2400);
                     });
+                } else if (user.getOffHandStack().isOf(ModItems.MYSTERIOUS_SKETCH)) {
+                    var page = user.getOffHandStack();
+                    if (page.getNbt() != null && page.getNbt().contains("PageId")) {
+                        if (page.getNbt().getString("PageId").equals("aylyth:coric_seed")) {
+                            page.setSubNbt("PageId", NbtString.of("aylyth:soulmould"));
+                        } else if (page.getNbt().getString("PageId").equals("aylyth:soulmould")) {
+                            page.setSubNbt("PageId", NbtString.of("aylyth:bonefly"));
+                        } else if (page.getNbt().getString("PageId").equals("aylyth:bonefly")) {
+                            page.setSubNbt("PageId", NbtString.of("aylyth:tulpa"));
+                        } else if (page.getNbt().getString("PageId").equals("aylyth:tulpa")) {
+                            page.setSubNbt("PageId", NbtString.of("aylyth:coric_seed"));
+                        }
+                    } else {
+                        page.setSubNbt("PageId", NbtString.of("aylyth:coric_seed"));
+                    }
                 } else {
                     ScionEntity.summonPlayerScion(user);
                 }

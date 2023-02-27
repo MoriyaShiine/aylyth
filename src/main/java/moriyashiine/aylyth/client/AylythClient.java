@@ -20,12 +20,15 @@ import moriyashiine.aylyth.client.render.entity.living.*;
 import moriyashiine.aylyth.client.render.entity.projectile.SphereEntityRenderer;
 import moriyashiine.aylyth.client.render.entity.projectile.YmpeLanceEntityRenderer;
 import moriyashiine.aylyth.client.render.item.BigItemRenderer;
+import moriyashiine.aylyth.client.render.item.MysteriousSketchItemRenderer;
+import moriyashiine.aylyth.client.render.item.WoodyGrowthCacheItemRenderer;
 import moriyashiine.aylyth.client.screen.TulpaScreen;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.block.StrewnLeavesBlock;
 import moriyashiine.aylyth.common.item.YmpeGlaiveItem;
 import moriyashiine.aylyth.common.item.YmpeLanceItem;
 import moriyashiine.aylyth.common.registry.*;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -48,20 +51,15 @@ import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.render.*;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
-import net.minecraft.client.render.model.BakedQuad;
-import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.client.util.SpriteIdentifier;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.random.Random;
 import net.minecraft.util.registry.Registry;
 
 @Environment(EnvType.CLIENT)
@@ -156,28 +154,16 @@ public class AylythClient implements ClientModInitializer {
 				});
 			}
 		}
-		BuiltinItemRendererRegistry.INSTANCE.register(ModItems.WOODY_GROWTH_CACHE, this::woodyGrowthCacheRenderer);
+
+		ModelLoadingRegistry.INSTANCE.registerModelProvider((manager, out) -> out.accept(new ModelIdentifier("%s_generated".formatted(Registry.ITEM.getId(ModItems.MYSTERIOUS_SKETCH)), "inventory")));
+		BuiltinItemRendererRegistry.INSTANCE.register(ModItems.WOODY_GROWTH_CACHE, new WoodyGrowthCacheItemRenderer());
+		BuiltinItemRendererRegistry.INSTANCE.register(ModItems.MYSTERIOUS_SKETCH, new MysteriousSketchItemRenderer());
 		HandledScreens.register(ModScreenHandlers.TULPA_SCREEN_HANDLER, TulpaScreen::new);
 
 		ClientSpriteRegistryCallback.event(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE)
 				.register((spriteAtlasTexture, registry) -> {
 					TulpaEntityRenderer.TEXTURE_CACHE.forEach((gameProfile, stoneTexture) -> stoneTexture.needsUpdate = true);
 				});
-	}
-
-	private void woodyGrowthCacheRenderer(ItemStack stack, ModelTransformation.Mode mode, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-		var rand = Random.create(42);
-		var model = MinecraftClient.getInstance().getBakedModelManager().getModel(new ModelIdentifier(Aylyth.MOD_ID, "large_woody_growth", "inventory"));
-		if (model == null) return;
-		var consumer = VertexConsumers.union(vertexConsumers.getBuffer(RenderTypes.TINT), vertexConsumers.getBuffer(RenderLayers.getItemLayer(stack, true)));
-		matrices.push();
-		matrices.translate(0.5, 0.5, 0.5);
-		model.getTransformation().getTransformation(mode).apply(mode == ModelTransformation.Mode.FIRST_PERSON_LEFT_HAND, matrices);
-		matrices.translate(-0.5, -0.5, -0.5);
-		for (BakedQuad quad : model.getQuads(null, null, rand)) {
-			consumer.quad(matrices.peek(), quad, 1.0f, 1.0f, 1.0f, light, overlay);
-		}
-		matrices.pop();
 	}
 
 	private static Block[] cutoutBlocks() {
