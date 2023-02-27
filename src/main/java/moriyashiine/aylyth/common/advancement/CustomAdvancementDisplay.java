@@ -28,7 +28,7 @@ public class CustomAdvancementDisplay extends AdvancementDisplay {
     private final Identifier texture;
 
     public CustomAdvancementDisplay(Identifier texture, Text title, Text description, @Nullable Identifier background, AdvancementFrame frame, boolean showToast, boolean announceToChat, boolean hidden) {
-        super(new ItemStack(Items.AIR), title, description, background, frame, showToast, announceToChat, hidden);
+        super(ItemStack.EMPTY, title, description, background, frame, showToast, announceToChat, hidden);
         this.texture = texture;
     }
 
