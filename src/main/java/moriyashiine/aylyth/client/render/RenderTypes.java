@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.client;
+package moriyashiine.aylyth.client.render;
 
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.mixin.client.RenderLayerAccessor;
