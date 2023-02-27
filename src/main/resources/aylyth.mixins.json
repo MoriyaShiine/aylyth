@@ -33,6 +33,7 @@
     "client.BackgroundRendererMixin",
     "client.BufferBuilderStorageMixin",
     "client.GameRendererMixin",
+    "client.HeldItemRendererAccessor",
     "client.InGameHudMixin",
     "client.ItemRendererMixin",
     "client.LivingEntityRendererMixin",
@@ -41,6 +42,7 @@
     "client.PlayerEntityRendererMixin",
     "client.PlayerSkinTextureAccessor",
     "client.RenderLayerAccessor",
+    "client.SkullBlockEntityAccessor",
     "client.WorldRendererAccessor"
   ],
   "injectors": {
