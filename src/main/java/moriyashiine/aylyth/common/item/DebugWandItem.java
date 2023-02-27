@@ -6,6 +6,7 @@ import moriyashiine.aylyth.common.entity.mob.ScionEntity;
 import moriyashiine.aylyth.common.registry.ModComponents;
 import moriyashiine.aylyth.common.registry.ModDamageSources;
 import moriyashiine.aylyth.common.registry.ModItems;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -15,6 +16,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtString;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
@@ -36,7 +38,7 @@ public class DebugWandItem extends Item {
             if (!world.isClient()) {
                 WoodyGrowthCacheBlock.spawnInventory(world, pos, player);
             }
-        }else{
+        }else if(player.isSneaking()){
             player.damage(ModDamageSources.YMPE, Integer.MAX_VALUE);
         }
         return super.useOnBlock(context);
@@ -85,8 +87,16 @@ public class DebugWandItem extends Item {
 
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-        tooltip.add(Text.literal("Use to Summon a Scion-copy of you"));
-        tooltip.add(Text.literal("Shift and Use to give you VitalThurible Buff"));
+        if(Screen.hasShiftDown()){
+            tooltip.add(Text.literal("While pressing shift:"));
+            tooltip.add(Text.literal("Use to give you VitalThurible Buff."));
+            tooltip.add(Text.literal("Use on block to deal deal max Ympe damage to yourself"));
+        } else {
+            tooltip.add(Text.literal("Use to Summon a Scion-copy of you."));
+            tooltip.add(Text.literal("Use on Block Woody growth in off-hand"));
+            tooltip.add(Text.literal("to spawn cache"));
+            tooltip.add(Text.literal("Hold [Shift] for more info").formatted(Formatting.YELLOW));
+        }
         super.appendTooltip(stack, world, tooltip, context);
     }
 }

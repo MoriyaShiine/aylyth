@@ -51,7 +51,11 @@ public class AylythianEntity extends HostileEntity implements IAnimatable {
 	}
 	
 	public static DefaultAttributeContainer.Builder createAttributes() {
-		return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 35).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 5).add(EntityAttributes.GENERIC_ARMOR, 2).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25);
+		return MobEntity.createMobAttributes()
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, 35)
+				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 5)
+				.add(EntityAttributes.GENERIC_ARMOR, 2)
+				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25);
 	}
 	
 	@Override
@@ -144,9 +148,9 @@ public class AylythianEntity extends HostileEntity implements IAnimatable {
 	protected void dropEquipment(DamageSource source, int lootingMultiplier, boolean allowDrops) {
 		super.dropEquipment(source, lootingMultiplier, allowDrops);
 		double random = this.random.nextDouble();
-		if (random <= .2) {
+		if (random <= 0.20 && !world.isClient && world.getBlockState(getBlockPos()).getMaterial().isReplaceable() && ModBlocks.LARGE_WOODY_GROWTH.getDefaultState().canPlaceAt(world, getBlockPos())) {
 			placeWoodyGrowths(world, getBlockPos());
-		} else if (random <= .3 && !world.isClient && world.getBlockState(getBlockPos()).getMaterial().isReplaceable() && ModBlocks.YMPE_BLOCKS.sapling.getDefaultState().canPlaceAt(world, getBlockPos())) {
+		} else if (random <= 0.30 && !world.isClient && world.getBlockState(getBlockPos()).getMaterial().isReplaceable() && ModBlocks.YMPE_BLOCKS.sapling.getDefaultState().canPlaceAt(world, getBlockPos())) {
 			BlockState state = ModBlocks.YMPE_BLOCKS.sapling.getDefaultState();
 			world.setBlockState(getBlockPos(), state);
 			playSound(state.getSoundGroup().getPlaceSound(), getSoundVolume(), getSoundPitch());

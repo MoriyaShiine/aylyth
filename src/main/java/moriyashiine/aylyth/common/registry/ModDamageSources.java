@@ -16,6 +16,7 @@ public class ModDamageSources {
 	public static final DamageSource YMPE_ENTITY = new YmpeEntityDamageSource("ympe_entity");
 	public static final DamageSource UNBLOCKABLE = new DamageSource("unblockable").setBypassesArmor().setUnblockable();
 
+	/*
 	public static float handleDamage(LivingEntity livingEntity, DamageSource source, float amount) {
 		if(livingEntity instanceof PlayerEntity player){
 			CuirassComponent component = ModComponents.CUIRASS_COMPONENT.get(player);
@@ -26,19 +27,25 @@ public class ModDamageSources {
 				component.setStage(0);
 				component.setStageTimer(0);
 				player.world.playSoundFromEntity(null, player, ModSoundEvents.ENTITY_PLAYER_INCREASE_YMPE_INFESTATION_STAGE, SoundCategory.PLAYERS, 1, player.getSoundPitch());
+				System.out.println("isFire");
 				return amount;
 			} else if(bl){
+				System.out.println("isMagic");
 				return amount;
-			} else{
+			} else {
 				while (component.getStage() > 0) {
+					System.out.println("while");
 					amount--;
 					component.setStage(component.getStage() - 1);
 					player.world.playSoundFromEntity(null, player, ModSoundEvents.ENTITY_PLAYER_INCREASE_YMPE_INFESTATION_STAGE, SoundCategory.PLAYERS, 1, player.getSoundPitch());
 				}
+				return amount;
 			}
 		}
 		return amount;
 	}
+
+	 */
 
 	private static class YmpeDamageSource extends DamageSource {
 		public YmpeDamageSource(String name) {

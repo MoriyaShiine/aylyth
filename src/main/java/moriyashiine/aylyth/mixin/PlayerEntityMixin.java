@@ -2,7 +2,10 @@ package moriyashiine.aylyth.mixin;
 
 import moriyashiine.aylyth.api.interfaces.HindPledgeHolder;
 import moriyashiine.aylyth.api.interfaces.VitalHolder;
+import moriyashiine.aylyth.common.component.entity.CuirassComponent;
+import moriyashiine.aylyth.common.registry.ModComponents;
 import moriyashiine.aylyth.common.registry.ModDamageSources;
+import moriyashiine.aylyth.common.registry.ModSoundEvents;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.common.block.SoulHearthBlock;
 import moriyashiine.aylyth.common.entity.mob.BoneflyEntity;
@@ -25,8 +28,10 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
+import net.minecraft.item.AxeItem;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.stat.Stat;
 import net.minecraft.tag.BiomeTags;
 import net.minecraft.tag.FluidTags;
@@ -41,6 +46,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -162,32 +168,34 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHol
         }
     }
 
-    /**
-     * Using {@link ModDamageSources#handleDamage(LivingEntity, DamageSource, float)} instead
-     */
-    /*
     @ModifyVariable(method = "applyDamage", at = @At(value = "INVOKE", ordinal = 0, target = "Lnet/minecraft/entity/player/PlayerEntity;getHealth()F"), ordinal = 0, argsOnly = true)
     private float aylyth$modifyDamageForCuirass(float amount, DamageSource source) {
         if (!world.isClient) {
-            CuirassComponent component = ModComponents.CUIRASS_COMPONENT.get(this);
-            if(source.isFire() || (source.getAttacker() instanceof LivingEntity livingEntity && livingEntity.getMainHandStack().getItem() instanceof AxeItem)){
-                component.setStage(0.0F);
+            PlayerEntity player = (PlayerEntity) (Object) this;
+            CuirassComponent component = ModComponents.CUIRASS_COMPONENT.get(player);
+            boolean bl = source.isMagic() || source.isFromFalling() || source.isOutOfWorld();
+            boolean bl2 = source.getAttacker() != null && source.getAttacker() instanceof LivingEntity livingEntity1 && livingEntity1.getMainHandStack().getItem() instanceof AxeItem;
+            boolean bl3 = source.isFire();
+            if(bl2 || bl3){
+                component.setStage(0);
+                component.setStageTimer(0);
+                player.world.playSoundFromEntity(null, player, ModSoundEvents.ENTITY_PLAYER_INCREASE_YMPE_INFESTATION_STAGE, SoundCategory.PLAYERS, 1, player.getSoundPitch());
                 return amount;
-            } else if(source.isMagic() || source.isFromFalling() || source.isOutOfWorld() || source.isUnblockable()){
+            } else if(bl){
                 return amount;
             } else {
-                while (this.getHealth() - amount <= 0 && component.getStage() > 0) {
+                while (component.getStage() > 0) {
                     amount--;
-                    if (component.getStage() - amount >= 0) {
-                        component.setStage(component.getStage() - (int)amount);
-                    }
+                    component.setStage(component.getStage() - 1);
+                    player.world.playSoundFromEntity(null, player, ModSoundEvents.ENTITY_PLAYER_INCREASE_YMPE_INFESTATION_STAGE, SoundCategory.PLAYERS, 1, player.getSoundPitch());
                 }
+                return amount;
             }
         }
         return amount;
     }
 
-     */
+
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void aylyth_removePledgeASAP(CallbackInfo ci){

@@ -46,14 +46,6 @@ public abstract class LivingEntityMixin extends Entity {
 		}
 	}
 
-	@ModifyVariable(method = "applyDamage", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;getHealth()F"), ordinal = 0, argsOnly = true)
-	private float aylyth_modifyDamage0(float amount, DamageSource source) {
-		if (!world.isClient) {
-			amount = ModDamageSources.handleDamage((LivingEntity) (Object) this, source, amount);
-		}
-		return amount;
-	}
-
 	@ModifyConstant(method = "updatePostDeath", constant = @Constant(intValue = 20))
 	private int aylyth_updatePostDeath(int constant){
 		LivingEntity living = (LivingEntity) (Object) this;

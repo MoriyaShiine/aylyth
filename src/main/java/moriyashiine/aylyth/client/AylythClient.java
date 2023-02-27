@@ -2,6 +2,7 @@ package moriyashiine.aylyth.client;
 
 import com.terraformersmc.terraform.boat.api.client.TerraformBoatClientHelper;
 import com.terraformersmc.terraform.sign.SpriteIdentifierRegistry;
+import moriyashiine.aylyth.client.model.CuirassModel;
 import moriyashiine.aylyth.client.model.YmpeInfestationModel;
 import moriyashiine.aylyth.client.model.YmpeThornRingModel;
 import moriyashiine.aylyth.client.model.entity.RootPropEntityModel;
@@ -103,6 +104,11 @@ public class AylythClient implements ClientModInitializer {
 		EntityModelLayerRegistry.registerModelLayer(YMPE_INFESTATION_STAGE_3_MODEL_LAYER, YmpeInfestationModel::getTexturedModelData3);
 		EntityModelLayerRegistry.registerModelLayer(YMPE_INFESTATION_STAGE_4_MODEL_LAYER, YmpeInfestationModel::getTexturedModelData4);
 		EntityModelLayerRegistry.registerModelLayer(YMPE_INFESTATION_STAGE_5_MODEL_LAYER, YmpeInfestationModel::getTexturedModelData5);
+		EntityModelLayerRegistry.registerModelLayer(CuirassModel.LAYER_LOCATION_1, CuirassModel::createBodyLayer1);
+		EntityModelLayerRegistry.registerModelLayer(CuirassModel.LAYER_LOCATION_2, CuirassModel::createBodyLayer2);
+		EntityModelLayerRegistry.registerModelLayer(CuirassModel.LAYER_LOCATION_3, CuirassModel::createBodyLayer3);
+		EntityModelLayerRegistry.registerModelLayer(CuirassModel.LAYER_LOCATION_4, CuirassModel::createBodyLayer4);
+		EntityModelLayerRegistry.registerModelLayer(CuirassModel.LAYER_LOCATION_5, CuirassModel::createBodyLayer5);
 		EntityModelLayerRegistry.registerModelLayer(YMPE_THORN_RING_MODEL_LAYER, YmpeThornRingModel::getTexturedModelData);
 		EntityModelLayerRegistry.registerModelLayer(ScionEntityModel.LAYER_LOCATION, ScionEntityModel::createBodyLayer);
 		EntityModelLayerRegistry.registerModelLayer(RootPropEntityModel.LAYER_LOCATION, RootPropEntityModel::createBodyLayer);
@@ -118,6 +124,7 @@ public class AylythClient implements ClientModInitializer {
 		EntityRendererRegistry.register(ModEntityTypes.TULPA_PLAYER, TulpaPlayerEntityRenderer::new);
 		EntityRendererRegistry.register(ModEntityTypes.WREATHED_HIND_ENTITY, WreathedHindEntityRenderer::new);
 		EntityRendererRegistry.register(ModEntityTypes.SPHERE_ENTITY, SphereEntityRenderer::new);
+		EntityRendererRegistry.register(ModEntityTypes.FAUNAYLYTHIAN, FaunaylythianEntityRenderer::new);
 
 		EntityRendererRegistry.register(ModEntityTypes.SCION, ScionEntityRenderer::new);
 		TerraformBoatClientHelper.registerModelLayers(new Identifier(Aylyth.MOD_ID, "ympe"));
