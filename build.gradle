@@ -61,17 +61,21 @@ repositories {
         name = "jitpack"
         url = "https://jitpack.io"
     }
-    maven {
-        name "modrinth"
-        url "https://api.modrinth.com/maven"
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = "Modrinth"
+                url = "https://api.modrinth.com/maven"
+            }
+        }
+        filter {
+            includeGroup "maven.modrinth"
+        }
     }
     maven {
         name "impersonate"
         url "https://oss.sonatype.org/content/repositories/snapshots"
     }
-	maven {
-		url "https://maven.deftu.xyz/releases/"
-	}
 }
 
 dependencies {
@@ -100,7 +104,7 @@ dependencies {
 
     // Nice dev things
 	modRuntimeOnly "curse.maven:disablecustomworldsadvice-401978:3827588"
-	modRuntimeOnly "xyz.deftu:SuggestionProviderFix:1.0.0"
+    modRuntimeOnly "maven.modrinth:suggestion-provider-fix-fabric:1.0.0"
 
     //Illuminations Compat
     modImplementation "curse.maven:illuminations-292908:4046680"
