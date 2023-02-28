@@ -51,6 +51,7 @@ public class AylythModelProvider extends FabricModelProvider {
     private static final Model LEAF_PILE_7_MODEL = new Model(Optional.of(LEAF_PILE_7_TEMPLATE), Optional.empty(), TextureKey.ALL, TextureKey.PARTICLE);
 
     private static final Model BUILTIN = new Model(Optional.of(new Identifier("builtin/entity")), Optional.empty());
+    private static final Model SPAWN_EGG = new Model(Optional.of(new Identifier("item/template_spawn_egg")), Optional.empty());
 
     public AylythModelProvider(FabricDataGenerator generator) {
         super(generator);
@@ -104,6 +105,8 @@ public class AylythModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.SMALL_WOODY_GROWTH, Models.GENERATED);
         itemModelGenerator.register(ModItems.YMPE_CUIRASS, Models.GENERATED);
         itemModelGenerator.register(ModItems.MYSTERIOUS_SKETCH, BUILTIN);
+        itemModelGenerator.register(ModItems.WREATHED_HIND_SPAWN_EGG, SPAWN_EGG);
+        itemModelGenerator.register(ModItems.FAUNAYLYTHIAN_SPAWN_EGG, SPAWN_EGG);
         Models.GENERATED.upload(AylythUtil.id("item/" + Registry.ITEM.getId(ModItems.MYSTERIOUS_SKETCH).getPath() + "_generated"), TextureMap.layer0(AylythUtil.id("item/" + Registry.ITEM.getId(ModItems.MYSTERIOUS_SKETCH).getPath())), itemModelGenerator.writer);
     }
 
