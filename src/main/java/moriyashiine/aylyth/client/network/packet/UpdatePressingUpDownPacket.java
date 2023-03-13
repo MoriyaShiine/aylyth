@@ -1,9 +1,9 @@
 package moriyashiine.aylyth.client.network.packet;
 
-import io.netty.buffer.Unpooled;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.registry.ModComponents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.MinecraftServer;
@@ -18,7 +18,7 @@ public class UpdatePressingUpDownPacket {
     }
 
     public static void send(boolean pressingUp, boolean pressingDown) {
-        PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
+        PacketByteBuf buf = PacketByteBufs.create();
         buf.writeBoolean(pressingUp);
         buf.writeBoolean(pressingDown);
         ClientPlayNetworking.send(ID, buf);

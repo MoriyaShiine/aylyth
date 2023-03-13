@@ -103,11 +103,11 @@ public class FaunaylythianEntity extends HostileEntity implements IAnimatable {
     @Override
     protected void dropEquipment(DamageSource source, int lootingMultiplier, boolean allowDrops) {
         super.dropEquipment(source, lootingMultiplier, allowDrops);
-        double random = world.getRandom().nextDouble();
+        double random = this.random.nextDouble();
         if (random <= 0.20 && !world.isClient && world.getBlockState(getBlockPos()).getMaterial().isReplaceable() && ModBlocks.YMPE_BLOCKS.sapling.getDefaultState().canPlaceAt(world, getBlockPos())) {
             world.setBlockState(getBlockPos(), ModBlocks.YMPE_BLOCKS.sapling.getDefaultState());
             playSound(SoundEvents.BLOCK_GRASS_PLACE, getSoundVolume(), getSoundPitch());
-        }else if(random <= 0.30){
+        } else if (random <= 0.30 && !world.isClient && world.getBlockState(getBlockPos()).getMaterial().isReplaceable() && ModBlocks.LARGE_WOODY_GROWTH.getDefaultState().canPlaceAt(world, getBlockPos())) {
             placeWoodyGrowths(world, getBlockPos());
         }
     }
@@ -115,10 +115,10 @@ public class FaunaylythianEntity extends HostileEntity implements IAnimatable {
     public void placeWoodyGrowths(World world, BlockPos blockPos){
         List<BlockPos> listPos = new ArrayList<>();
         int index = 0;
-        for(int x = -1; x <= 1; x++){
-            for(int z = -1; z <= 1; z++){
-                for(int y = -1; y <= 1; y++){
-                    if(!world.isClient && world.getBlockState(blockPos.add(x,y,z)).getMaterial().isReplaceable() && world.getBlockState(blockPos.add(x,y,z).down()).isIn(BlockTags.DIRT) ){
+        for (int x = -1; x <= 1; x++) {
+            for (int z = -1; z <= 1; z++) {
+                for (int y = -1; y <= 1; y++) {
+                    if (!world.isClient && world.getBlockState(blockPos.add(x,y,z)).getMaterial().isReplaceable() && world.getBlockState(blockPos.add(x,y,z).down()).isIn(BlockTags.DIRT)) {
                         listPos.add(index, blockPos.add(x,y,z));
                         index++;
                     }
@@ -126,21 +126,24 @@ public class FaunaylythianEntity extends HostileEntity implements IAnimatable {
 
             }
         }
-        int random = world.getRandom().nextBetween(1, 3);
-        Block largeWoodyGrowth = ModBlocks.LARGE_WOODY_GROWTH;
-        for(int i = 0; i < random; i++){
-            if(listPos.size() >= i){
-                BlockPos placePos = listPos.get(world.getRandom().nextInt(listPos.size()));
-                if(world.getRandom().nextBoolean()){
-                    if(largeWoodyGrowth.getDefaultState().canPlaceAt(world, placePos)){
-                        world.setBlockState(placePos,largeWoodyGrowth.getDefaultState());
-                    }
-                }else{
-                    world.setBlockState(placePos, ModBlocks.SMALL_WOODY_GROWTH.getDefaultState());
-                }
-                playSound(SoundEvents.BLOCK_GRASS_PLACE, getSoundVolume(), getSoundPitch());
-            }
 
+        if (!listPos.isEmpty()) {
+            int random = world.getRandom().nextBetween(1, 3);
+            Block largeWoodyGrowth = ModBlocks.LARGE_WOODY_GROWTH;
+            for (int i = 0; i < random; i++) {
+                if (listPos.size() >= i) {
+                    BlockPos placePos = listPos.get(world.getRandom().nextInt(listPos.size()));
+                    if (world.getRandom().nextBoolean()) {
+                        if (largeWoodyGrowth.getDefaultState().canPlaceAt(world, placePos)) {
+                            world.setBlockState(placePos,largeWoodyGrowth.getDefaultState());
+                        }
+                    } else {
+                        world.setBlockState(placePos, ModBlocks.SMALL_WOODY_GROWTH.getDefaultState());
+                    }
+                    playSound(SoundEvents.BLOCK_GRASS_PLACE, getSoundVolume(), getSoundPitch());
+                }
+
+            }
         }
     }
 

@@ -80,11 +80,11 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
                 .input('D', Items.SOUL_SOIL)
                 .input('S', ModItems.YMPE_ITEMS.sapling)
                 .input('N', Items.NETHERITE_INGOT)
-                .input('H', ModItems.AYLYTHIAN_HEART)
+                .input('C', ModItems.CORIC_SEED)
                 .pattern("DND")
-                .pattern("NHN")
+                .pattern("NCN")
                 .pattern("SDS")
-                .criterion("has_heart", conditionsFromItem(ModItems.AYLYTHIAN_HEART))
+                .criterion("has_coric_seed", conditionsFromItem(ModItems.CORIC_SEED))
                 .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(ModItems.VITAL_THURIBLE)
@@ -120,6 +120,18 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
                 .pattern("YSY")
                 .criterion("has_heart", conditionsFromItem(ModItems.AYLYTHIAN_HEART))
                 .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(ModItems.YMPE_CUIRASS)
+                .input('W', ModItems.WRONGMEAT)
+                .input('H', ModItems.AYLYTHIAN_HEART)
+                .input('C', ModItems.CORIC_SEED)
+                .input('G', ModItems.LARGE_WOODY_GROWTH)
+                .pattern("GHG")
+                .pattern("WCW")
+                .pattern("G G")
+                .criterion("has_heart", conditionsFromItem(ModItems.AYLYTHIAN_HEART))
+                .offerTo(exporter);
+
         YmpeDaggerRecipeJsonBuilder.create(ModEntityTypes.WREATHED_HIND_ENTITY, ModItems.WRONGMEAT, 0.2f, 3, 5)
                 .offerTo(exporter);
     }

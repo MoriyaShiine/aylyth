@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_heart": {
+    "has_coric_seed": {
       "conditions": {
         "items": [
           {
             "items": [
-              "aylyth:aylythian_heart"
+              "aylyth:coric_seed"
             ]
           }
         ]
@@ -22,7 +22,7 @@
   },
   "requirements": [
     [
-      "has_heart",
+      "has_coric_seed",
       "has_the_recipe"
     ]
   ],

@@ -155,112 +155,6 @@ public class AylythDensityFunctionTypes {
         );
     }
 
-//    private static DensityFunction offset() {
-//        return flatCache(
-//                cache2d(
-//                        add(
-//                                mul(
-//                                        blendOffset(),
-//                                        add(
-//                                                constant(1),
-//                                                mul(
-//                                                        constant(-1),
-//                                                        cacheOnce(
-//                                                                blendAlpha()
-//                                                        )
-//                                                )
-//                                        )
-//                                ),
-//                                add(
-//                                        mul(
-//                                                cacheOnce(
-//                                                        blendAlpha()
-//                                                ),
-//                                                add(
-//                                                        constant(-0.5037500262260437),
-//                                                        spline(
-//                                                                splineBuilder(holderFunction(CONTINENTS_FUNCTION))
-//                                                                        .method_41295(-1.1f,
-//                                                                                splineBuilder(holderFunction(EROSION_FUNCTION))
-//                                                                                        .method_41295(-0.85f,
-//                                                                                                splineBuilder(holderFunction(RIDGES_FOLDED_FUNCTION))
-//                                                                                                        .method_41294(-0.002502462680753048f, 0.03506934471127279f)
-//                                                                                                        .method_41294(0.002502462680753048f, 0.03506934471127279f)
-//                                                                                                        .build()
-//                                                                                        ).build()
-//                                                                        )
-//                                                                        .method_41295(-1.02f,
-//                                                                                splineBuilder(holderFunction(EROSION_FUNCTION))
-//                                                                                        .method_41295(-0.85f,
-//                                                                                                splineBuilder(holderFunction(RIDGES_FOLDED_FUNCTION))
-//                                                                                                        .method_41294( -0.002502462680753048f, 0.09111569309500964f)
-//                                                                                                        .method_41294(0.002502462680753048f, 0.09111569309500964f)
-//                                                                                                        .build()
-//                                                                                        ).build()
-//                                                                        )
-//                                                                        .method_41295(-0.51f,
-//                                                                                splineBuilder(holderFunction(EROSION_FUNCTION))
-//                                                                                        .method_41295(-0.85f,
-//                                                                                                splineBuilder(holderFunction(RIDGES_FOLDED_FUNCTION))
-//                                                                                                        .method_41294(-0.002502462680753048f, 0.16417109360568027f)
-//                                                                                                        .method_41294(0.002502462680753048f, 0.16417109360568027f)
-//                                                                                                        .build()
-//                                                                                        ).build()
-//                                                                        )
-//                                                                        .method_41295(-0.44f,
-//                                                                                splineBuilder(holderFunction(EROSION_FUNCTION))
-//                                                                                        .method_41295(-0.85f,
-//                                                                                                splineBuilder(holderFunction(RIDGES_FOLDED_FUNCTION))
-//                                                                                                        .method_41294(-0.002502462680753048f, 0.22940270935960586f)
-//                                                                                                        .method_41294(0.002502462680753048f, 0.22940270935960586f)
-//                                                                                                        .build()
-//                                                                                        ).build()
-//                                                                        )
-//                                                                        .method_41295(-0.18f,
-//                                                                                splineBuilder(holderFunction(EROSION_FUNCTION))
-//                                                                                        .method_41295(-0.85f,
-//                                                                                                splineBuilder(holderFunction(RIDGES_FOLDED_FUNCTION))
-//                                                                                                        .method_41294(-0.002502462680753048f, 0.2966456280788178f)
-//                                                                                                        .method_41294(0.002502462680753048f, 0.2966456280788178f)
-//                                                                                                        .build()
-//                                                                                        ).build()
-//                                                                        )
-//                                                                        .method_41295(-0.16f,
-//                                                                                splineBuilder(holderFunction(EROSION_FUNCTION))
-//                                                                                        .method_41295(-0.85f,
-//                                                                                                splineBuilder(holderFunction(RIDGES_FOLDED_FUNCTION))
-//                                                                                                        .method_41294(-1.083819874392086f, 0.08061521966503271f)
-//                                                                                                        .add(-1.083819874392086f, 0.08061521966503271f, 1.7427089930485968f)
-//                                                                                                        .add(-0.7603488537946785f, 0.683503588530867f, 2.1194961737672737f)
-//                                                                                                        .add(-0.7603488537946785f, 0.683503588530867f, -1.9754730014112176f)
-//                                                                                                        .add(-0.39614656780349233f, 0.08061521966503271f, -1.5769496352778398f)
-//                                                                                                        .add(-0.39614656780349233f, 0.08061521966503271f, -0.3500481674559379f)
-//                                                                                                        .add(-0.002502462680753048f, -0.07443219875756402f, -0.5996575709648867f)
-//                                                                                                        .add(-0.002502462680753048f, -0.07443219875756402f, 0.558339315829996f)
-//                                                                                                        .add(0.39614656780349233f, 0.08061521966503271f, 0.3500481674559379f)
-//                                                                                                        .add(0.39614656780349233f, 0.08061521966503271f, 1.5769496352778398f)
-//                                                                                                        .add(0.7603488537946785f, 0.683503588530867f, 1.9754730014112176f)
-//                                                                                                        .add(0.7603488537946785f, 0.683503588530867f, -2.1194961737672737f)
-//                                                                                                        .add(1.083819874392086f, 0.08061521966503271f, -1.7427089930485968f)
-//                                                                                                        .method_41294(1.083819874392086f, 0.08061521966503271f)
-//                                                                                                        .build()
-//                                                                                                )
-//                                                                                        .method_41295(-0.7f,
-//                                                                                                splineBuilder(holderFunction(RIDGES_FOLDED_FUNCTION))
-//                                                                                                        .method_41294(-1.083819874392086f, 0.08061521966503271f)
-//                                                                                                        .add(-1.083819874392086f, 0.08061521966503271f, 1.7427089930485968f)
-//                                                                                                        .add(-0.7603488537946785f, 0.6202149430127908f, 2.1194961737672737f)
-//                                                                                                )
-//                                                                                )
-//                                                        )
-//                                                )
-//                                        )
-//                                )
-//                        )
-//                )
-//        );
-//    }
-
     private static DensityFunction cavesSpaghettiRoughness() {
         return cacheOnce(
                 mul(
@@ -284,7 +178,7 @@ public class AylythDensityFunctionTypes {
                 add(
                         constant(-0.95),
                         mul(
-                                constant(-0.35000000000000003),
+                                constant(-0.35),
                                 noise(SPAGHETTI_2D_THICKNESS, 2.0, 1.0)
                         )
                 )
@@ -315,7 +209,7 @@ public class AylythDensityFunctionTypes {
                                     ),
                                     yClampedGradient(
                                             -64,
-                                            320,
+                                            80,
                                             8.0,
                                             -40.0
                                     )
@@ -325,13 +219,13 @@ public class AylythDensityFunctionTypes {
         ).clamp(-1.0, 1.0);
     }
 
-    private static DensityFunction cavesNoodle() {
+    private static DensityFunction cavesNoodle() { // NOTE: This is the cave type that sucks and I hate
         return rangeChoice(
                 interpolated(
                         rangeChoice(
                             holderFunction(Y_FUNCTION),
                                 -60.0,
-                                321.0,
+                                21.0,
                                 noise(NOODLE),
                                 constant(-1.0)
                         )
@@ -344,9 +238,9 @@ public class AylythDensityFunctionTypes {
                                 rangeChoice(
                                         holderFunction(Y_FUNCTION),
                                         -60.0,
-                                        321.0,
+                                        21.0,
                                         add(
-                                                constant(-0.07500000000000001),
+                                                constant(-0.075),
                                                 mul(
                                                         constant(-0.025),
                                                         noise(NOODLE_THICKNESS)
@@ -362,7 +256,7 @@ public class AylythDensityFunctionTypes {
                                                 rangeChoice(
                                                        holderFunction(Y_FUNCTION),
                                                        -60.0,
-                                                       321.0,
+                                                        21.0,
                                                         noise(NOODLE_RIDGE_A, 2.6666666666666665, 2.6666666666666665),
                                                         constant(0.0)
                                                 )
@@ -371,7 +265,7 @@ public class AylythDensityFunctionTypes {
                                                 rangeChoice(
                                                         holderFunction(Y_FUNCTION),
                                                         -60.0,
-                                                        321.0,
+                                                        21.0,
                                                         noise(NOODLE_RIDGE_B, 2.6666666666666665, 2.6666666666666665),
                                                         constant(0.0)
                                                 )
@@ -410,50 +304,7 @@ public class AylythDensityFunctionTypes {
     }
 
     private static DensityFunction cavesEntrances() {
-        return cacheOnce(
-                min(
-                        add(
-                                add(
-                                        constant(0.37),
-                                        noise(CAVE_ENTRANCES, 0.75, 0.5)
-                                ),
-                                yClampedGradient(
-                                        -10,
-                                        30,
-                                        0.3,
-                                        0.0
-                                )
-                        ),
-                        add(
-                                holderFunction(CAVES_SPAGHETTI_ROUGHNESS_FUNCTION),
-                                add(
-                                        max(
-                                                weirdScaledSampler(
-                                                        cacheOnce(
-                                                                noise(SPAGHETTI_3D_RARITY, 2.0, 1.0)
-                                                        ),
-                                                        SPAGHETTI_3D_1,
-                                                        WeirdScaledSampler.RarityValueMapper.TYPE1
-                                                ),
-                                                weirdScaledSampler(
-                                                        cacheOnce(
-                                                                noise(SPAGHETTI_3D_RARITY, 2.0, 1.0)
-                                                        ),
-                                                        SPAGHETTI_3D_2,
-                                                        WeirdScaledSampler.RarityValueMapper.TYPE1
-                                                )
-                                        ),
-                                        add(
-                                                constant(-0.0765),
-                                                mul(
-                                                        constant(-0.011499999999999996),
-                                                        noise(SPAGHETTI_3D_THICKNESS)
-                                                )
-                                        )
-                                ).clamp(-1.0, 1.0)
-                        )
-                )
-        );
+        return constant(1);
     }
 
     static DensityFunction holderFunction(RegistryEntry<DensityFunction> functionEntry) {

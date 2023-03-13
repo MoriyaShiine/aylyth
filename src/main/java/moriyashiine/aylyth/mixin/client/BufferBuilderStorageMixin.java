@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.mixin.client;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
-import moriyashiine.aylyth.client.RenderTypes;
+import moriyashiine.aylyth.client.render.RenderTypes;
 import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.BufferBuilderStorage;
 import net.minecraft.client.render.RenderLayer;

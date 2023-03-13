@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.mixin.client;
 
 import com.mojang.datafixers.util.Pair;
-import moriyashiine.aylyth.client.RenderTypes;
+import moriyashiine.aylyth.client.render.RenderTypes;
 import moriyashiine.aylyth.client.render.AylythDimensionRenderer;
 import moriyashiine.aylyth.client.render.block.entity.SeepBlockEntityRenderer;
 import moriyashiine.aylyth.common.Aylyth;

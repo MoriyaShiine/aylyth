@@ -1,20 +1,30 @@
 package moriyashiine.aylyth.client.render.block.entity;
 
-import moriyashiine.aylyth.client.RenderTypes;
+import com.mojang.authlib.GameProfile;
+import com.mojang.authlib.minecraft.MinecraftProfileTexture;
+import moriyashiine.aylyth.client.render.RenderTypes;
 import moriyashiine.aylyth.common.block.entity.WoodyGrowthCacheBlockEntity;
+import moriyashiine.aylyth.mixin.client.SkullBlockEntityAccessor;
+import net.minecraft.block.entity.SkullBlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.*;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.model.BakedQuad;
+import net.minecraft.client.texture.PlayerSkinProvider;
+import net.minecraft.client.util.DefaultSkinHelper;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.UserCache;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3f;
 import net.minecraft.util.math.random.Random;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class WoodyGrowthBlockEntityRenderer implements BlockEntityRenderer<WoodyGrowthCacheBlockEntity> {
 
@@ -56,13 +66,16 @@ public class WoodyGrowthBlockEntityRenderer implements BlockEntityRenderer<Woody
 
     @Nullable
     private Identifier getPlayerTexture(WoodyGrowthCacheBlockEntity entity) {
-        var networkHandler = MinecraftClient.getInstance().getNetworkHandler();
-        if (networkHandler != null) {
-            var uuid = networkHandler.getPlayerListEntry(entity.getPlayerUuid());
-            if (uuid != null) {
-                return uuid.getSkinTexture();
-            }
-            return null;
+        PlayerSkinProvider skinProvider = MinecraftClient.getInstance().getSkinProvider();
+        if (entity.getPlayerUuid() != null) {
+            AtomicReference<GameProfile> profile = new AtomicReference<>(new GameProfile(entity.getPlayerUuid(), null));
+            UserCache cache = SkullBlockEntityAccessor.getUserCache();
+            profile.set(cache.getByUuid(entity.getPlayerUuid()).orElse(profile.get()));
+            SkullBlockEntity.loadProperties(profile.get(), profile::set);
+            Map<MinecraftProfileTexture.Type, MinecraftProfileTexture> textures = skinProvider.getTextures(profile.get());
+            return textures.containsKey(MinecraftProfileTexture.Type.SKIN)
+                    ? skinProvider.loadSkin(textures.get(MinecraftProfileTexture.Type.SKIN), MinecraftProfileTexture.Type.SKIN)
+                    : DefaultSkinHelper.getTexture(entity.getPlayerUuid());
         }
         return null;
     }

@@ -1,9 +1,8 @@
 {
   "carvers": {
     "air": [
-      "minecraft:cave",
-      "minecraft:cave_extra_underground",
-      "minecraft:canyon"
+      "aylyth:caves",
+      "aylyth:canyons"
     ]
   },
   "creature_spawn_probability": 0.5,
@@ -70,8 +69,20 @@
   "precipitation": "rain",
   "spawn_costs": {
     "aylyth:aylythian": {
-      "charge": 2.0,
-      "energy_budget": 1.0
+      "charge": 0.7,
+      "energy_budget": 0.13
+    },
+    "aylyth:faunaylythian": {
+      "charge": 0.7,
+      "energy_budget": 0.13
+    },
+    "aylyth:pilot_light": {
+      "charge": 0.7,
+      "energy_budget": 0.13
+    },
+    "minecraft:enderman": {
+      "charge": 0.7,
+      "energy_budget": 0.13
     }
   },
   "spawners": {
@@ -98,6 +109,12 @@
         "maxCount": 3,
         "minCount": 1,
         "weight": 10
+      },
+      {
+        "type": "minecraft:enderman",
+        "maxCount": 4,
+        "minCount": 1,
+        "weight": 1
       }
     ],
     "underground_water_creature": [],

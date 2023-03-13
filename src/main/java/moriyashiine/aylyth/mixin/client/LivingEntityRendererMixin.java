@@ -21,7 +21,7 @@ public abstract class LivingEntityRendererMixin<T extends LivingEntity, M extend
 	protected LivingEntityRendererMixin(EntityRendererFactory.Context ctx) { super(ctx); }
 
 	@Inject(method = "<init>", at = @At("TAIL"))
-	private void addYmpeThornRingFeature(EntityRendererFactory.Context ctx, M model, float shadowRadius, CallbackInfo info) {
+	private void aylyth_addYmpeThornRingFeature(EntityRendererFactory.Context ctx, M model, float shadowRadius, CallbackInfo info) {
 		addFeature((FeatureRenderer<T, M>) new YmpeThornRingFeature((LivingEntityRenderer) (Object) this, ctx.getModelLoader()));
 	}
 }

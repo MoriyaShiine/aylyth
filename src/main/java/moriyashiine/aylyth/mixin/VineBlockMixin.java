@@ -14,14 +14,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class VineBlockMixin {
 	@SuppressWarnings("ConstantConditions")
 	@Inject(method = "shouldHaveSide", at = @At("HEAD"), cancellable = true)
-	private void shouldNysianVineHaveSide(BlockView world, BlockPos pos, Direction side, CallbackInfoReturnable<Boolean> cir) {
+	private void aylyth_shouldNysianVineHaveSide(BlockView world, BlockPos pos, Direction side, CallbackInfoReturnable<Boolean> cir) {
 		if ((VineBlock) (Object) this instanceof NysianGrapeVineBlock && side == Direction.UP) {
 			cir.setReturnValue(false);
 		}
 	}
 	
 	@Inject(method = "shouldConnectTo", at = @At("HEAD"), cancellable = true)
-	private static void shouldNysianVineConnectTo(BlockView world, BlockPos pos, Direction direction, CallbackInfoReturnable<Boolean> cir) {
+	private static void aylyth_shouldNysianVineConnectTo(BlockView world, BlockPos pos, Direction direction, CallbackInfoReturnable<Boolean> cir) {
 		if (world.getBlockState(pos).getBlock() instanceof NysianGrapeVineBlock && direction == Direction.UP) {
 			cir.setReturnValue(false);
 		}

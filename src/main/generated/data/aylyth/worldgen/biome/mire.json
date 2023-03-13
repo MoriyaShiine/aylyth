@@ -38,14 +38,35 @@
     ]
   ],
   "precipitation": "rain",
-  "spawn_costs": {},
+  "spawn_costs": {
+    "aylyth:aylythian": {
+      "charge": 0.7,
+      "energy_budget": 0.13
+    },
+    "aylyth:pilot_light": {
+      "charge": 0.7,
+      "energy_budget": 0.12
+    },
+    "aylyth:scion": {
+      "charge": 0.9,
+      "energy_budget": 0.13
+    },
+    "aylyth:wreathed_hind": {
+      "charge": 0.7,
+      "energy_budget": 0.12
+    },
+    "minecraft:enderman": {
+      "charge": 0.7,
+      "energy_budget": 0.12
+    }
+  },
   "spawners": {
     "ambient": [
       {
         "type": "aylyth:pilot_light",
         "maxCount": 1,
         "minCount": 1,
-        "weight": 3
+        "weight": 5
       }
     ],
     "axolotls": [],
@@ -53,13 +74,13 @@
     "misc": [],
     "monster": [
       {
-        "type": "aylyth:scion",
+        "type": "aylyth:aylythian",
         "maxCount": 1,
         "minCount": 1,
-        "weight": 5
+        "weight": 20
       },
       {
-        "type": "aylyth:aylythian",
+        "type": "aylyth:scion",
         "maxCount": 1,
         "minCount": 1,
         "weight": 5
@@ -69,6 +90,12 @@
         "maxCount": 1,
         "minCount": 1,
         "weight": 2
+      },
+      {
+        "type": "minecraft:enderman",
+        "maxCount": 4,
+        "minCount": 1,
+        "weight": 1
       }
     ],
     "underground_water_creature": [],

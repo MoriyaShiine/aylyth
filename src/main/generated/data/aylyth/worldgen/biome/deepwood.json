@@ -1,11 +1,11 @@
 {
   "carvers": {
     "air": [
-      "minecraft:cave",
-      "minecraft:cave_extra_underground",
-      "minecraft:canyon"
+      "aylyth:caves",
+      "aylyth:canyons"
     ]
   },
+  "creature_spawn_probability": 0.5,
   "downfall": 0.8,
   "effects": {
     "additions_sound": {
@@ -77,8 +77,32 @@
   "precipitation": "rain",
   "spawn_costs": {
     "aylyth:aylythian": {
-      "charge": 3.0,
-      "energy_budget": 1.0
+      "charge": 0.7,
+      "energy_budget": 0.13
+    },
+    "aylyth:elder_aylythian": {
+      "charge": 0.7,
+      "energy_budget": 0.12
+    },
+    "aylyth:faunaylythian": {
+      "charge": 0.7,
+      "energy_budget": 0.13
+    },
+    "aylyth:pilot_light": {
+      "charge": 0.7,
+      "energy_budget": 0.1
+    },
+    "aylyth:scion": {
+      "charge": 0.9,
+      "energy_budget": 0.13
+    },
+    "aylyth:wreathed_hind": {
+      "charge": 1.4,
+      "energy_budget": 0.6
+    },
+    "minecraft:enderman": {
+      "charge": 0.7,
+      "energy_budget": 0.12
     }
   },
   "spawners": {
@@ -91,26 +115,21 @@
       }
     ],
     "axolotls": [],
-    "creature": [],
+    "creature": [
+      {
+        "type": "aylyth:wreathed_hind",
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 1
+      }
+    ],
     "misc": [],
     "monster": [
       {
         "type": "aylyth:aylythian",
         "maxCount": 3,
         "minCount": 1,
-        "weight": 25
-      },
-      {
-        "type": "aylyth:faunaylythian",
-        "maxCount": 3,
-        "minCount": 1,
-        "weight": 20
-      },
-      {
-        "type": "aylyth:elder_aylythian",
-        "maxCount": 1,
-        "minCount": 1,
-        "weight": 2
+        "weight": 50
       },
       {
         "type": "aylyth:scion",
@@ -119,10 +138,22 @@
         "weight": 15
       },
       {
-        "type": "aylyth:wreathed_hind",
+        "type": "aylyth:elder_aylythian",
         "maxCount": 1,
         "minCount": 1,
-        "weight": 10
+        "weight": 2
+      },
+      {
+        "type": "aylyth:faunaylythian",
+        "maxCount": 3,
+        "minCount": 1,
+        "weight": 20
+      },
+      {
+        "type": "minecraft:enderman",
+        "maxCount": 4,
+        "minCount": 1,
+        "weight": 1
       }
     ],
     "underground_water_creature": [],

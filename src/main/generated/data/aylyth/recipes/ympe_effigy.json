@@ -1,11 +1,11 @@
 {
   "type": "minecraft:crafting_shaped",
   "key": {
+    "C": {
+      "item": "aylyth:coric_seed"
+    },
     "D": {
       "item": "minecraft:soul_soil"
-    },
-    "H": {
-      "item": "aylyth:coric_seed"
     },
     "N": {
       "item": "minecraft:netherite_ingot"
@@ -16,7 +16,7 @@
   },
   "pattern": [
     "DND",
-    "NHN",
+    "NCN",
     "SDS"
   ],
   "result": {

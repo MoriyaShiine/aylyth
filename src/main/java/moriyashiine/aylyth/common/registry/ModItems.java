@@ -57,6 +57,8 @@ public class ModItems {
 	public static final Item YMPE_SEEP = register("ympe_seep", new BlockItem(ModBlocks.YMPE_SEEP, settings()));
 	public static final Item SEEPING_WOOD_SEEP = register("seeping_wood_seep", new BlockItem(ModBlocks.SEEPING_WOOD_SEEP, settings()));
 
+	public static final Item MYSTERIOUS_SKETCH = register("mysterious_sketch", new Item(new FabricItemSettings()));
+
 	public static final Item YMPE_DAGGER = register("ympe_dagger", new YmpeDaggerItem(ToolMaterials.NETHERITE, 1, -2, settings()));
 	public static final Item YMPE_LANCE = register("ympe_lance", new YmpeLanceItem(312, settings()));
 
@@ -80,8 +82,8 @@ public class ModItems {
 	public static final Item AYLYTHIAN_SPAWN_EGG = register("aylythian_spawn_egg", new SpawnEggItem(ModEntityTypes.AYLYTHIAN, 0x6A4831, 0xE58E03, settings()));
 	public static final Item ELDER_AYLYTHIAN_SPAWN_EGG = register("elder_aylythian_spawn_egg", new SpawnEggItem(ModEntityTypes.ELDER_AYLYTHIAN, 0x513425, 0xFFDC9B, settings()));
 	public static final Item SCION_SPAWN_EGG = register("scion_spawn_egg", new SpawnEggItem(ModEntityTypes.SCION, 0x463428, 0xE58E03, settings()));
-	public static final Item HIND_SPAWN_EGG = register("hind_spawn_egg", new SpawnEggItem(ModEntityTypes.WREATHED_HIND_ENTITY, 0x463428, 0xE58E03, settings()));
-	public static final Item FAUN_SPAWN_EGG = register("faun_spawn_egg", new SpawnEggItem(ModEntityTypes.FAUNAYLYTHIAN, 0x463428, 0xE58E03, settings()));
+	public static final Item WREATHED_HIND_SPAWN_EGG = register("wreathed_hind_spawn_egg", new SpawnEggItem(ModEntityTypes.WREATHED_HIND_ENTITY, 0x463428, 0xE58E03, settings()));
+	public static final Item FAUNAYLYTHIAN_SPAWN_EGG = register("faunaylythian_spawn_egg", new SpawnEggItem(ModEntityTypes.FAUNAYLYTHIAN, 0x463428, 0xE58E03, settings()));
 
 
 	public static final Item YMPE_EFFIGY_ITEM = register("ympe_effigy", new YmpeEffigyItem((settings()).fireproof().rarity(Rarity.RARE).maxCount(1)));

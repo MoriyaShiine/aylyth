@@ -1,5 +1,6 @@
 package moriyashiine.aylyth.common.block;
 
+import moriyashiine.aylyth.common.registry.ModBlocks;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.enums.DoubleBlockHalf;
@@ -36,8 +37,22 @@ public class LargeWoodyGrowthBlock extends SmallWoodyGrowthBlock {
     @Override
     public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
         super.onPlaced(world, pos, state, placer, itemStack);
-        boolean upperWaterlogged = world.testBlockState(pos.up(), state1 -> state1.getFluidState().getFluid() == Fluids.WATER);
+        boolean upperWaterlogged = world.testFluidState(pos.up(), fluidState -> fluidState.getFluid() == Fluids.WATER);
         world.setBlockState(pos.up(), state.with(HALF, DoubleBlockHalf.UPPER).with(WATERLOGGED, upperWaterlogged));
+    }
+
+    /** This is a helper method for placing woody growths. It handles placing the two block states of large woody
+     *   growths and handles waterlogging. If the passed state is not one of the expected blocks it will do nothing.
+     * @param state The desired state. NOTE: The waterlog state will be overwritten in this method
+     * @param world Desired world
+     * @param pos The BlockPos to test and place at. Large woody growths will place another state above it.*/
+    public static void placeInWorld(BlockState state, World world, BlockPos pos) {
+        if (state.isOf(ModBlocks.LARGE_WOODY_GROWTH) || state.isOf(ModBlocks.WOODY_GROWTH_CACHE)) {
+            world.setBlockState(pos, state.with(WATERLOGGED, world.testFluidState(pos, fluidState -> fluidState.getFluid() == Fluids.WATER)));
+            world.setBlockState(pos.up(), state.with(HALF, DoubleBlockHalf.UPPER).with(WATERLOGGED, world.testFluidState(pos.up(), fluidState -> fluidState.getFluid() == Fluids.WATER)));
+        } else if (state.isOf(ModBlocks.SMALL_WOODY_GROWTH)) {
+            world.setBlockState(pos, state.with(WATERLOGGED, world.testFluidState(pos, fluidState -> fluidState.getFluid() == Fluids.WATER)));
+        }
     }
 
     @Override
@@ -82,7 +97,7 @@ public class LargeWoodyGrowthBlock extends SmallWoodyGrowthBlock {
             return lowerState.isOf(this) && lowerState.get(HALF) == DoubleBlockHalf.LOWER;
         }
         var stateUp = world.getBlockState(pos.up());
-        return (stateUp.isAir() || stateUp.isOf(this)) && super.canPlaceAt(state, world, pos);
+        return (stateUp.getMaterial().isReplaceable() || stateUp.isOf(this)) && super.canPlaceAt(state, world, pos);
     }
 
     @Override
