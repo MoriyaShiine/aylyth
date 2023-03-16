@@ -17,6 +17,7 @@ import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.ShapelessRecipe;
 import net.minecraft.tag.ItemTags;
 import net.minecraft.tag.TagKey;
 import net.minecraft.util.Identifier;
@@ -166,7 +167,7 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
     }
 
     private void offerShapeless(Consumer<RecipeJsonProvider> exporter, ItemConvertible output, int outputCount, ItemConvertible input, @Nullable String group, @Nullable String recipeId) {
-        var recipe = shapeless(output, outputCount).input(input).criterion(RecipeProvider.hasItem(input), conditionsFromItem(input));
+        ShapelessRecipeJsonBuilder recipe = shapeless(output, outputCount).input(input).criterion(RecipeProvider.hasItem(input), conditionsFromItem(input));
         if (group != null) {
             recipe.group(group);
         }

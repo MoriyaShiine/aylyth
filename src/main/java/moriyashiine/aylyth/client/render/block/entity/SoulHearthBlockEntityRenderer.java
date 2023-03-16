@@ -15,7 +15,6 @@ import net.minecraft.util.math.Vec3f;
 
 public class SoulHearthBlockEntityRenderer implements BlockEntityRenderer<SoulHearthBlockEntity> {
 
-
     public SoulHearthBlockEntityRenderer(BlockEntityRendererFactory.Context ctx) {
     }
 

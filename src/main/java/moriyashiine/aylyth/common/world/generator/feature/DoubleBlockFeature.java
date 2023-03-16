@@ -1,8 +1,12 @@
 package moriyashiine.aylyth.common.world.generator.feature;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.state.property.Properties;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.random.Random;
+import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.SimpleBlockFeatureConfig;
 import net.minecraft.world.gen.feature.util.FeatureContext;
@@ -15,10 +19,10 @@ public class DoubleBlockFeature extends Feature<SimpleBlockFeatureConfig> {
 
     @Override
     public boolean generate(FeatureContext<SimpleBlockFeatureConfig> context) {
-        var world = context.getWorld();
-        var rand = context.getRandom();
-        var pos = context.getOrigin();
-        var state = context.getConfig().toPlace().getBlockState(rand, pos);
+        StructureWorldAccess world = context.getWorld();
+        Random rand = context.getRandom();
+        BlockPos pos = context.getOrigin();
+        BlockState state = context.getConfig().toPlace().getBlockState(rand, pos);
         if (state.contains(Properties.DOUBLE_BLOCK_HALF) && state.canPlaceAt(world, pos)) {
             if (state.contains(Properties.WATERLOGGED) && world.getFluidState(pos).getFluid() == Fluids.WATER) {
                 state = state.with(Properties.WATERLOGGED, true);

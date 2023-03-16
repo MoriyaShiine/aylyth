@@ -3,6 +3,7 @@ package moriyashiine.aylyth.common.statuseffect;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.AttributeContainer;
+import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -21,8 +22,8 @@ public class WyrdedStatusEffect extends StatusEffect {
 
     @Override
     public void applyUpdateEffect(LivingEntity entity, int amplifier) {
-        var instance = entity.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
-        var distance = AylythUtil.distanceIfNearSeep(entity, 5);
+        EntityAttributeInstance instance = entity.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
+        double distance = AylythUtil.distanceIfNearSeep(entity, 5);
         if (distance == -1) {
             if (instance != null) {
                 instance.tryRemoveModifier(MODIFIER_UUID);

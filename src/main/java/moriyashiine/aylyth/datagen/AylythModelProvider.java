@@ -19,6 +19,7 @@ import net.minecraft.data.client.*;
 import net.minecraft.data.family.BlockFamilies;
 import net.minecraft.data.family.BlockFamily;
 import net.minecraft.item.Item;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
@@ -82,9 +83,9 @@ public class AylythModelProvider extends FabricModelProvider {
         generateWoodBlock(blockStateModelGenerator, ModBlocks.SEEPING_WOOD, "block/aylyth_bush_trunk");
 
         blockStateModelGenerator.registerTintableCrossBlockState(ModBlocks.GIRASOL_SAPLING, BlockStateModelGenerator.TintType.NOT_TINTED);
-        var textureMap = TextureMap.plant(ModBlocks.GIRASOL_SAPLING);
-        var identifier = BlockStateModelGenerator.TintType.NOT_TINTED.getFlowerPotCrossModel().upload(ModBlocks.GIRASOL_SAPLING_POTTED, textureMap, blockStateModelGenerator.modelCollector);
-        blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(ModBlocks.GIRASOL_SAPLING_POTTED, identifier));
+        TextureMap girasolMap = TextureMap.plant(ModBlocks.GIRASOL_SAPLING);
+        Identifier pottedSaplingId = BlockStateModelGenerator.TintType.NOT_TINTED.getFlowerPotCrossModel().upload(ModBlocks.GIRASOL_SAPLING_POTTED, girasolMap, blockStateModelGenerator.modelCollector);
+        blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(ModBlocks.GIRASOL_SAPLING_POTTED, pottedSaplingId));
     }
 
     @Override
@@ -111,7 +112,7 @@ public class AylythModelProvider extends FabricModelProvider {
     }
 
     private void generateWoodBlock(BlockStateModelGenerator generator, Block woodBlock, String texturePath) {
-        var textureMap = new TextureMap();
+        TextureMap textureMap = new TextureMap();
         textureMap.put(TextureKey.SIDE, new Identifier(Aylyth.MOD_ID, texturePath));
         textureMap.put(TextureKey.END, textureMap.getTexture(TextureKey.SIDE));
         Identifier identifier = Models.CUBE_COLUMN.upload(woodBlock, textureMap, generator.modelCollector);
@@ -191,7 +192,7 @@ public class AylythModelProvider extends FabricModelProvider {
     }
 
     private void fruitingLeaves(BlockStateModelGenerator generator, Block block, Identifier stage0, Identifier stage1, Identifier stage2, Identifier stage3) {
-        var variants = VariantsBlockStateSupplier.create(block)
+        VariantsBlockStateSupplier variants = VariantsBlockStateSupplier.create(block)
                 .coordinate(BlockStateVariantMap.create(LeavesBlock.DISTANCE).register(integer -> BlockStateVariant.create().put(VariantSettings.MODEL, stage0)))
                 .coordinate(BlockStateVariantMap.create(LeavesBlock.PERSISTENT).register(aBoolean -> BlockStateVariant.create().put(VariantSettings.MODEL, stage0)))
                 .coordinate(BlockStateVariantMap.create(LeavesBlock.WATERLOGGED).register(aBoolean -> BlockStateVariant.create().put(VariantSettings.MODEL, stage0)))
@@ -240,7 +241,7 @@ public class AylythModelProvider extends FabricModelProvider {
             STREWN_LEAVES_MODEL.upload(identifier, TextureMap.of(TextureKey.TOP, identifier).put(TextureKey.PARTICLE, models[0]), blockStateModelGenerator.modelCollector);
         });
         STREWN_LEAVES_MODEL.upload(strewnLeavesBlock, TextureMap.of(TextureKey.TOP, models[0]).put(TextureKey.PARTICLE, models[0]), blockStateModelGenerator.modelCollector);
-        var leavesModelId = ModelIds.getBlockModelId(leavesBlock);
+        Identifier leavesModelId = ModelIds.getBlockModelId(leavesBlock);
         LEAF_PILE_1_MODEL.upload(id(strippedBlockId(leavesBlock) + "_pile_1"), TextureMap.of(TextureKey.ALL, leavesModelId).put(TextureKey.PARTICLE, leavesModelId), blockStateModelGenerator.modelCollector);
         LEAF_PILE_2_MODEL.upload(id(strippedBlockId(leavesBlock) + "_pile_2"), TextureMap.of(TextureKey.ALL, leavesModelId).put(TextureKey.PARTICLE, leavesModelId), blockStateModelGenerator.modelCollector);
         LEAF_PILE_3_MODEL.upload(id(strippedBlockId(leavesBlock) + "_pile_3"), TextureMap.of(TextureKey.ALL, leavesModelId).put(TextureKey.PARTICLE, leavesModelId), blockStateModelGenerator.modelCollector);

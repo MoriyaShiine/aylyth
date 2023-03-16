@@ -6,6 +6,7 @@ import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.advancement.criterion.AbstractCriterion;
 import net.minecraft.advancement.criterion.AbstractCriterionConditions;
 import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.loot.context.LootContext;
 import net.minecraft.predicate.entity.AdvancementEntityPredicateDeserializer;
 import net.minecraft.predicate.entity.AdvancementEntityPredicateSerializer;
 import net.minecraft.predicate.entity.EntityPredicate;
@@ -19,7 +20,7 @@ public class TameHostileCriterion extends AbstractCriterion<TameHostileCriterion
 
     @Override
     protected Conditions conditionsFromJson(JsonObject obj, EntityPredicate.Extended playerPredicate, AdvancementEntityPredicateDeserializer predicateDeserializer) {
-        var targetPredicate = EntityPredicate.Extended.getInJson(obj, "target_predicate", predicateDeserializer);
+        EntityPredicate.Extended targetPredicate = EntityPredicate.Extended.getInJson(obj, "target_predicate", predicateDeserializer);
         return new Conditions(playerPredicate, targetPredicate);
     }
 
@@ -43,13 +44,13 @@ public class TameHostileCriterion extends AbstractCriterion<TameHostileCriterion
         }
 
         public <T extends HostileEntity & TameableHostileEntity> boolean matches(ServerPlayerEntity player, T target) {
-            var context = EntityPredicate.createAdvancementEntityLootContext(player, target);
+            LootContext context = EntityPredicate.createAdvancementEntityLootContext(player, target);
             return getPlayerPredicate().test(context) && this.targetPredicate.test(context);
         }
 
         @Override
         public JsonObject toJson(AdvancementEntityPredicateSerializer predicateSerializer) {
-            var json = super.toJson(predicateSerializer);
+            JsonObject json = super.toJson(predicateSerializer);
             json.add("target_predicate", targetPredicate.toJson(predicateSerializer));
             return json;
         }

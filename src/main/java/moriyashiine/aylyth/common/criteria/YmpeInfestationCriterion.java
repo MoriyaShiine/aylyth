@@ -1,6 +1,8 @@
 package moriyashiine.aylyth.common.criteria;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.mojang.serialization.DataResult;
 import com.mojang.serialization.DynamicOps;
 import com.mojang.serialization.JsonOps;
 import moriyashiine.aylyth.common.component.entity.YmpeInfestationComponent;
@@ -20,7 +22,7 @@ public class YmpeInfestationCriterion extends AbstractCriterion<YmpeInfestationC
 
     @Override
     protected YmpeInfestationCriterion.Conditions conditionsFromJson(JsonObject obj, EntityPredicate.Extended playerPredicate, AdvancementEntityPredicateDeserializer predicateDeserializer) {
-        var stage = IntProvider.VALUE_CODEC.decode(JsonOps.INSTANCE, obj.get("stage")).result().get().getFirst();
+        IntProvider stage = IntProvider.VALUE_CODEC.decode(JsonOps.INSTANCE, obj.get("stage")).result().get().getFirst();
         return new Conditions(playerPredicate, stage);
     }
 
@@ -52,8 +54,8 @@ public class YmpeInfestationCriterion extends AbstractCriterion<YmpeInfestationC
 
         @Override
         public JsonObject toJson(AdvancementEntityPredicateSerializer predicateSerializer) {
-            var json = super.toJson(predicateSerializer);
-            var result = IntProvider.VALUE_CODEC.encodeStart(JsonOps.INSTANCE, stage);
+            JsonObject json = super.toJson(predicateSerializer);
+            DataResult<JsonElement> result = IntProvider.VALUE_CODEC.encodeStart(JsonOps.INSTANCE, stage);
             json.add("stage", result.result().get());
             return json;
         }

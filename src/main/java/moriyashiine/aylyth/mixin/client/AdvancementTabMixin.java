@@ -47,7 +47,7 @@ public abstract class AdvancementTabMixin {
     @Inject(method = "addAdvancement", at = @At("HEAD"), cancellable = true)
     private void aylyth_addAdvancement(Advancement advancement, CallbackInfo ci) {
         if (advancement.getDisplay() instanceof CustomAdvancementDisplay customAdvancementDisplay) {
-            var custom = new CustomAdvancementWidget((AdvancementTab) (Object) this, MinecraftClient.getInstance(), advancement, customAdvancementDisplay);
+            CustomAdvancementWidget custom = new CustomAdvancementWidget((AdvancementTab) (Object) this, MinecraftClient.getInstance(), advancement, customAdvancementDisplay);
             addWidget(custom, advancement);
             ci.cancel();
         }

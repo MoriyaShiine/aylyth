@@ -205,7 +205,7 @@ public class SoulHearthBlock extends Block implements BlockEntityProvider {
         HALF = Properties.DOUBLE_BLOCK_HALF;
         CHARGES = IntProperty.of("charged", 0, 5);
         VALID_HORIZONTAL_SPAWN_OFFSETS = ImmutableList.of(new Vec3i(0, 0, -1), new Vec3i(-1, 0, 0), new Vec3i(0, 0, 1), new Vec3i(1, 0, 0), new Vec3i(-1, 0, -1), new Vec3i(1, 0, -1), new Vec3i(-1, 0, 1), new Vec3i(1, 0, 1));
-        VALID_SPAWN_OFFSETS = new ImmutableList.Builder()
+        VALID_SPAWN_OFFSETS = new ImmutableList.Builder<Vec3i>()
                 .addAll(VALID_HORIZONTAL_SPAWN_OFFSETS)
                 .addAll(VALID_HORIZONTAL_SPAWN_OFFSETS.stream().map(Vec3i::down).iterator())
                 .addAll(VALID_HORIZONTAL_SPAWN_OFFSETS.stream().map(Vec3i::up).iterator())

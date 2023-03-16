@@ -96,7 +96,7 @@ public class TulpaEntityRenderer extends GeoEntityRenderer<TulpaEntity> {
 
     public final class AdditiveTexture implements AutoCloseable {
         public static final Logger LOGGER = LogManager.getLogger(Aylyth.MOD_ID + ":texturegen");
-        private static final Identifier tulpaTexture = TulpaEntityModel.TEXTURE;
+        private static final Identifier TULPA_TEXTURE = TulpaEntityModel.TEXTURE;
         private final Identifier base;
         private final boolean playerSkin;
         private final RenderLayer renderLayer;
@@ -121,7 +121,7 @@ public class TulpaEntityRenderer extends GeoEntityRenderer<TulpaEntity> {
                     } else {
                         inputImage = getPlayerSkin(base);
                     }
-                    Optional<Resource> optionalResource = resourceManager.getResource(tulpaTexture);
+                    Optional<Resource> optionalResource = resourceManager.getResource(TULPA_TEXTURE);
                     if(optionalResource.isPresent()){
                         NativeImage tuplaImage = NativeImage.read(optionalResource.get().getInputStream());
                         for (int y = 0; y < 128; y++) {

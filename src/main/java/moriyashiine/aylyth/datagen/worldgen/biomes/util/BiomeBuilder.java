@@ -37,7 +37,7 @@ public class BiomeBuilder {
      * values are not filled
      */
     public static BiomeBuilder builder(@NotNull Biome.Precipitation precipitation, float temperature, float downfall) {
-        var builder = new Biome.Builder();
+        Biome.Builder builder = new Biome.Builder();
         builder.precipitation(precipitation);
         builder.temperature(temperature);
         builder.downfall(downfall);
@@ -60,7 +60,7 @@ public class BiomeBuilder {
     public static BiomeBuilder builder(@NotNull Biome.Precipitation precipitation, float temperature, float downfall,
                                        @NotNull BiomeEffects biomeEffects, @NotNull SpawnSettings spawnSettings,
                                        @NotNull GenerationSettings generationSettings) {
-        var builder = new Biome.Builder();
+        Biome.Builder builder = new Biome.Builder();
         builder.precipitation(precipitation);
         builder.temperature(temperature);
         builder.downfall(downfall);
@@ -137,20 +137,20 @@ public class BiomeBuilder {
     public BiomeBuilder biomeEffects(@Nonnegative int fogColor, @Nonnegative int waterColor,
                                      @Nonnegative int waterFogColor, @Nonnegative int skyColor,
                                      @NotNull Consumer<BiomeEffectsBuilder> builderConsumer) {
-        var builder = BiomeEffectsBuilder.builder(fogColor, waterColor, waterFogColor, skyColor);
+        BiomeEffectsBuilder builder = BiomeEffectsBuilder.builder(fogColor, waterColor, waterFogColor, skyColor);
         builderConsumer.accept(builder);
         return biomeEffects(builder.build());
     }
 
     public BiomeBuilder biomeEffects(@NotNull Consumer<BiomeEffectsBuilder> builderConsumer) {
-        var builder = BiomeEffectsBuilder.builder();
+        BiomeEffectsBuilder builder = BiomeEffectsBuilder.builder();
         builderConsumer.accept(builder);
         delegate.effects(builder.build());
         return this;
     }
 
     public BiomeBuilder defaultedBiomeEffects(@NotNull Consumer<BiomeEffectsBuilder> builderConsumer) {
-        var builder = BiomeEffectsBuilder.defaultedBuilder();
+        BiomeEffectsBuilder builder = BiomeEffectsBuilder.defaultedBuilder();
         builderConsumer.accept(builder);
         delegate.effects(builder.build());
         return this;
@@ -167,7 +167,7 @@ public class BiomeBuilder {
     }
 
     public BiomeBuilder spawnSettings(@NotNull Consumer<SpawnSettingsBuilder> builderConsumer) {
-        var builder = SpawnSettingsBuilder.builder();
+        SpawnSettingsBuilder builder = SpawnSettingsBuilder.builder();
         builderConsumer.accept(builder);
         delegate.spawnSettings(builder.build());
         return this;
@@ -184,7 +184,7 @@ public class BiomeBuilder {
     }
 
     public BiomeBuilder generationSettings(@NotNull Consumer<GenerationSettingsBuilder> builderConsumer) {
-        var builder = GenerationSettingsBuilder.builder();
+        GenerationSettingsBuilder builder = GenerationSettingsBuilder.builder();
         builderConsumer.accept(builder);
         delegate.generationSettings(builder.build());
         return this;

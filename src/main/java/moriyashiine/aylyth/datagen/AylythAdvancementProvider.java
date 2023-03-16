@@ -39,7 +39,6 @@ public class AylythAdvancementProvider extends FabricAdvancementProvider {
 
     @Override
     public void generateAdvancement(Consumer<Advancement> consumer) {
-        // TODO: it'll take some mixins, but I would like to replace the potion things with the mobeffect texture instead
         var root = Advancement.Builder.create()
                 .display(ModItems.YMPE_ITEMS.sapling.getDefaultStack(), Text.translatable("aylyth.advancements.aylyth.root.title"), Text.translatable("aylyth.advancements.aylyth.root.desc"), new Identifier(Aylyth.MOD_ID, "textures/block/ympe_planks.png"), AdvancementFrame.TASK, true, false, false)
                 .criterion("entered_aylyth", ChangedDimensionCriterion.Conditions.to(ModDimensionKeys.AYLYTH))
@@ -135,8 +134,8 @@ public class AylythAdvancementProvider extends FabricAdvancementProvider {
     }
 
     private ItemStack stackWithNbt(Item item, Consumer<NbtCompound> consumer) {
-        var stack = new ItemStack(item);
-        var nbt = new NbtCompound();
+        ItemStack stack = new ItemStack(item);
+        NbtCompound nbt = new NbtCompound();
         consumer.accept(nbt);
         stack.setNbt(nbt);
         return stack;

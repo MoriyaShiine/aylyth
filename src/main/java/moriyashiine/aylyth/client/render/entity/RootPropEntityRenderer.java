@@ -24,6 +24,7 @@ public class RootPropEntityRenderer extends EntityRenderer<RootPropEntity> {
         this.model = new RootPropEntityModel<>(context.getPart(RootPropEntityModel.LAYER_LOCATION));
     }
 
+    @Override
     public void render(RootPropEntity rootPropEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
         float h = rootPropEntity.getAnimationProgress(g);
         if (h != 0.0F) {

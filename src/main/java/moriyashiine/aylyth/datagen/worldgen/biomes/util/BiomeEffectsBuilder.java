@@ -49,7 +49,7 @@ public class BiomeEffectsBuilder {
      * @return BiomeEffectsBuilder with given required values
      */
     public static BiomeEffectsBuilder builder(@Nonnegative int fogColor, @Nonnegative int waterColor, @Nonnegative int waterFogColor, @Nonnegative int skyColor) {
-        var builder = new BiomeEffects.Builder();
+        BiomeEffects.Builder builder = new BiomeEffects.Builder();
         builder.fogColor(fogColor);
         builder.waterColor(waterColor);
         builder.waterFogColor(waterFogColor);

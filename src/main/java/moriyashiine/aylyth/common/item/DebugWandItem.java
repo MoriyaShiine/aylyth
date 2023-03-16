@@ -2,6 +2,7 @@ package moriyashiine.aylyth.common.item;
 
 import moriyashiine.aylyth.api.interfaces.VitalHolder;
 import moriyashiine.aylyth.common.block.WoodyGrowthCacheBlock;
+import moriyashiine.aylyth.common.component.entity.YmpeInfestationComponent;
 import moriyashiine.aylyth.common.entity.mob.ScionEntity;
 import moriyashiine.aylyth.common.registry.ModComponents;
 import moriyashiine.aylyth.common.registry.ModDamageSources;
@@ -19,10 +20,12 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Optional;
 
 public class DebugWandItem extends Item {
     public DebugWandItem(Settings settings) {
@@ -31,9 +34,9 @@ public class DebugWandItem extends Item {
 
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
-        var world = context.getWorld();
-        var pos = context.getBlockPos();
-        var player = context.getPlayer();
+        World world = context.getWorld();
+        BlockPos pos = context.getBlockPos();
+        PlayerEntity player = context.getPlayer();
         if (player != null && player.getStackInHand(Hand.OFF_HAND).isOf(ModItems.WOODY_GROWTH_CACHE)) {
             if (!world.isClient()) {
                 WoodyGrowthCacheBlock.spawnInventory(world, pos, player);
@@ -57,23 +60,21 @@ public class DebugWandItem extends Item {
                 });
             }else{
                 if (user.getOffHandStack().isOf(ModItems.YMPE_FRUIT)) {
-                    var optional = ModComponents.YMPE_INFESTATION.maybeGet(user);
+                    Optional<YmpeInfestationComponent> optional = ModComponents.YMPE_INFESTATION.maybeGet(user);
                     optional.ifPresent(ympeInfestationComponent -> {
                         ympeInfestationComponent.setStage((byte)(ympeInfestationComponent.getStage() + 1));
                         ympeInfestationComponent.setInfestationTimer((short)2400);
                     });
                 } else if (user.getOffHandStack().isOf(ModItems.MYSTERIOUS_SKETCH)) {
-                    var page = user.getOffHandStack();
-                    if (page.getNbt() != null && page.getNbt().contains("PageId")) {
-                        if (page.getNbt().getString("PageId").equals("aylyth:coric_seed")) {
-                            page.setSubNbt("PageId", NbtString.of("aylyth:soulmould"));
-                        } else if (page.getNbt().getString("PageId").equals("aylyth:soulmould")) {
-                            page.setSubNbt("PageId", NbtString.of("aylyth:bonefly"));
-                        } else if (page.getNbt().getString("PageId").equals("aylyth:bonefly")) {
-                            page.setSubNbt("PageId", NbtString.of("aylyth:tulpa"));
-                        } else if (page.getNbt().getString("PageId").equals("aylyth:tulpa")) {
-                            page.setSubNbt("PageId", NbtString.of("aylyth:coric_seed"));
-                        }
+                    ItemStack page = user.getOffHandStack();
+                    if (page.hasNbt() && page.getNbt().contains("PageId")) {
+                        String nextPage = switch (page.getNbt().getString("PageId")) {
+                            case "aylyth:coric_seed" -> "aylyth:soulmould";
+                            case "aylyth:soulmould" -> "aylyth:bonefly";
+                            case "aylyth:bonefly" -> "aylyth:tulpa";
+                            case "aylyth:tulpa" -> "aylyth:coric_seed";
+                        };
+                        page.getNbt().putString("PageId", nextPage);
                     } else {
                         page.setSubNbt("PageId", NbtString.of("aylyth:coric_seed"));
                     }

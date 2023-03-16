@@ -18,7 +18,7 @@ public class AylythTagProviders {
 
     public static void registerTagProviders(FabricDataGenerator dataGenerator) {
         dataGenerator.addProvider(ModBiomeTags::new);
-        var blockTags = new ModBlockTags(dataGenerator);
+        ModBlockTags blockTags = new ModBlockTags(dataGenerator);
         dataGenerator.addProvider(blockTags);
         dataGenerator.addProvider(new ModItemTags(dataGenerator, blockTags));
         dataGenerator.addProvider(ModEntityTypeTags::new);

@@ -48,12 +48,12 @@ public class GirasolSaplingBlock extends ModSaplingBlock {
         super.randomDisplayTick(state, world, pos, random);
         if (state.get(FAILED) && random.nextInt(10) < 3) {
             for (int i = 0; i < 16; i++) {
-                var x = pos.getX()+random.nextFloat();
-                var y = pos.getY()+random.nextFloat();
-                var z = pos.getZ()+random.nextFloat();
-                var xVel = random.nextInt(4) * 0.1;
-                var yVel = random.nextInt(4) * 0.1;
-                var ZVel = random.nextInt(4) * 0.1;
+                float x = pos.getX()+random.nextFloat();
+                float y = pos.getY()+random.nextFloat();
+                float z = pos.getZ()+random.nextFloat();
+                float xVel = random.nextInt(4) * 0.1f;
+                float yVel = random.nextInt(4) * 0.1f;
+                float ZVel = random.nextInt(4) * 0.1f;
                 world.addParticle(FAILED_PARTICLE, x, y, z, xVel, yVel, ZVel);
             }
         }

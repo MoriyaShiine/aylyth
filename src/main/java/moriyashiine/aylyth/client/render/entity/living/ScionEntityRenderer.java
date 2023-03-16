@@ -22,7 +22,6 @@ public class ScionEntityRenderer extends BipedEntityRenderer<ScionEntity, BipedE
     private final ScionCoreEntityModel normalModel;
     private final ScionCoreEntityModel slimModel;
 
-
     public ScionEntityRenderer(EntityRendererFactory.Context ctx) {
         super(ctx, new ScionCoreEntityModel(ctx.getPart(EntityModelLayers.PLAYER)), 0.5f);
         this.normalModel = (ScionCoreEntityModel) this.getModel();
@@ -47,7 +46,7 @@ public class ScionEntityRenderer extends BipedEntityRenderer<ScionEntity, BipedE
     }
 
     @Override
-    public Identifier getTexture(ScionEntity mobEntity) {
+    public Identifier getTexture(ScionEntity mobEntity) { //TODO: test this when affected player leaves and another player is still online
         if(mobEntity.getStoredPlayerUUID() != null){
             PlayerEntity player = mobEntity.world.getPlayerByUuid(mobEntity.getStoredPlayerUUID());
             if(player instanceof AbstractClientPlayerEntity abstractClientPlayerEntity){
@@ -62,7 +61,6 @@ public class ScionEntityRenderer extends BipedEntityRenderer<ScionEntity, BipedE
         return super.hasLabel(mobEntity) && mobEntity.getStoredPlayerUUID() != null;
     }
 
-    @Environment(EnvType.CLIENT)
     public static class ScionCoreEntityModel extends BipedEntityModel<ScionEntity> {
         public ScionCoreEntityModel(ModelPart modelPart) {
             super(modelPart);

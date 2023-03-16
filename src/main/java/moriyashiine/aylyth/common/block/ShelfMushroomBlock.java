@@ -17,6 +17,7 @@ import net.minecraft.world.*;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public class ShelfMushroomBlock extends SpreadingPlantBlock implements Fertilizable {
 
@@ -71,9 +72,9 @@ public class ShelfMushroomBlock extends SpreadingPlantBlock implements Fertiliza
 
     @Override
     public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        var direction = state.get(FACING);
-        var placePos = pos.offset(direction.getOpposite());
-        var behindBlock = world.getBlockState(placePos);
+        Direction direction = state.get(FACING);
+        BlockPos placePos = pos.offset(direction.getOpposite());
+        BlockState behindBlock = world.getBlockState(placePos);
         return behindBlock.isSideSolidFullSquare(world, pos, direction);
     }
 
@@ -84,8 +85,7 @@ public class ShelfMushroomBlock extends SpreadingPlantBlock implements Fertiliza
 
     @Override
     public boolean canGrow(World world, Random random, BlockPos pos, BlockState state) {
-        var posStream = BlockPos.stream(pos.add(-3, -1, -3), pos.add(3, 1, 3));
-        return posStream.anyMatch(world::isAir);
+        return BlockPos.stream(pos.add(-3, -1, -3), pos.add(3, 1, 3)).anyMatch(world::isAir);
     }
 
     @Override
@@ -102,7 +102,7 @@ public class ShelfMushroomBlock extends SpreadingPlantBlock implements Fertiliza
     @Override
     public Optional<BlockState> findGrowState(WorldAccess world, BlockPos pos) {
         for (Direction dir : Direction.Type.HORIZONTAL) {
-            var blockFacing = getDefaultState().with(FACING, dir.getOpposite());
+            BlockState blockFacing = getDefaultState().with(FACING, dir.getOpposite());
             if (!world.isAir(pos.offset(dir)) && blockFacing.canPlaceAt(world, pos)) {
                 return Optional.of(blockFacing);
             }

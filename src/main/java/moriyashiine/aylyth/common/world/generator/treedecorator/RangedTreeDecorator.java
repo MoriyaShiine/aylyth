@@ -39,9 +39,9 @@ public class RangedTreeDecorator extends TreeDecorator {
 
     @Override
     public void generate(Generator generator) {
-        var rootPos = generator.getLogPositions().get(0);
+        BlockPos rootPos = generator.getLogPositions().get(0);
 
-        var base = generator.getLogPositions().stream().filter(blockPos -> blockPos.getY() == rootPos.getY()).toList();
+        List<BlockPos> base = generator.getLogPositions().stream().filter(blockPos -> blockPos.getY() == rootPos.getY()).toList();
         int minX = 0; boolean minxInit = false;
         int maxX = 0; boolean maxxInit = false;
         int minZ = 0; boolean minzInit = false;
@@ -65,11 +65,11 @@ public class RangedTreeDecorator extends TreeDecorator {
             }
         }
 
-        var startPos = new BlockPos(minX+((maxX-minX)/2), rootPos.getY(), minZ+((maxZ-minZ)/2));
+        BlockPos startPos = new BlockPos(minX+((maxX-minX)/2), rootPos.getY(), minZ+((maxZ-minZ)/2));
         for (BlockPos pos : BlockPos.iterateRandomly(generator.getRandom(), tries, startPos, range)) {
             pos = pos.withY(startPos.getY());
             if (TreeFeature.canReplace(generator.getWorld(), pos)) {
-                var blockState = Util.getRandom(blockStates, generator.getRandom());
+                BlockState blockState = Util.getRandom(blockStates, generator.getRandom());
                 if (generator.getWorld().testBlockState(pos.down(), state -> !state.getMaterial().isReplaceable()) && TreeFeature.canReplace(generator.getWorld(), pos)) {
                     if (blockState.isOf(ModBlocks.LARGE_WOODY_GROWTH)) {
                         if (TreeFeature.canReplace(generator.getWorld(), pos.up())) {

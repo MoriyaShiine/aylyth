@@ -66,11 +66,6 @@ public class LargeWoodyGrowthBlock extends SmallWoodyGrowthBlock {
     }
 
     @Override
-    public void afterBreak(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
-        super.afterBreak(world, player, pos, state, blockEntity, stack);
-    }
-
-    @Override
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
         DoubleBlockHalf doubleBlockHalf = state.get(HALF);
         if (direction.getAxis() == Direction.Axis.Y && doubleBlockHalf == DoubleBlockHalf.LOWER == (direction == Direction.UP) && (!neighborState.isOf(this) || neighborState.get(HALF) == doubleBlockHalf)) {
@@ -82,8 +77,8 @@ public class LargeWoodyGrowthBlock extends SmallWoodyGrowthBlock {
     @Nullable
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
-        var pos = ctx.getBlockPos();
-        var world = ctx.getWorld();
+        BlockPos pos = ctx.getBlockPos();
+        World world = ctx.getWorld();
         if (pos.getY() < world.getTopY() - 1 && world.getBlockState(pos.up()).canReplace(ctx)) {
             return super.getPlacementState(ctx);
         }
@@ -93,10 +88,10 @@ public class LargeWoodyGrowthBlock extends SmallWoodyGrowthBlock {
     @Override
     public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
         if (state.get(HALF) == DoubleBlockHalf.UPPER) {
-            var lowerState = world.getBlockState(pos.down());
+            BlockState lowerState = world.getBlockState(pos.down());
             return lowerState.isOf(this) && lowerState.get(HALF) == DoubleBlockHalf.LOWER;
         }
-        var stateUp = world.getBlockState(pos.up());
+        BlockState stateUp = world.getBlockState(pos.up());
         return (stateUp.getMaterial().isReplaceable() || stateUp.isOf(this)) && super.canPlaceAt(state, world, pos);
     }
 

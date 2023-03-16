@@ -5,21 +5,20 @@ import com.mojang.authlib.minecraft.MinecraftProfileTexture;
 import moriyashiine.aylyth.client.render.RenderTypes;
 import moriyashiine.aylyth.common.block.entity.WoodyGrowthCacheBlockEntity;
 import moriyashiine.aylyth.mixin.client.SkullBlockEntityAccessor;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.SkullBlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.*;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
+import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.BakedQuad;
 import net.minecraft.client.texture.PlayerSkinProvider;
 import net.minecraft.client.util.DefaultSkinHelper;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.UserCache;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Vec3f;
+import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.Random;
 import org.jetbrains.annotations.Nullable;
 
@@ -37,26 +36,26 @@ public class WoodyGrowthBlockEntityRenderer implements BlockEntityRenderer<Woody
             return;
         }
 
-        var state = entity.getCachedState();
-        var consumer = VertexConsumers.union(vertexConsumers.getBuffer(RenderTypes.TINT), vertexConsumers.getBuffer(RenderLayer.getCutoutMipped()));
-        var model = MinecraftClient.getInstance().getBlockRenderManager().getModel(state);
-        var renderingSeed = state.getRenderingSeed(entity.getPos());
+        BlockState state = entity.getCachedState();
+        VertexConsumer consumer = VertexConsumers.union(vertexConsumers.getBuffer(RenderTypes.TINT), vertexConsumers.getBuffer(RenderLayer.getCutoutMipped()));
+        BakedModel model = MinecraftClient.getInstance().getBlockRenderManager().getModel(state);
+        long renderingSeed = state.getRenderingSeed(entity.getPos());
         rand.setSeed(renderingSeed);
         for (BakedQuad quad : model.getQuads(state, null, rand)) {
             consumer.quad(matrices.peek(), quad, 1.0f, 1.0f, 1.0f, light, overlay);
         }
 
         if (true || isPlayerWithinDistance(entity.getPos(), 24)) {
-            var texture = getPlayerTexture(entity);
+            Identifier texture = getPlayerTexture(entity);
             if (texture != null) {
                 matrices.push();
                 matrices.translate(0.5, 2.25, 0.5);
                 matrices.scale(0.35f, 0.35f, 0.35f);
-                var gameTime = MinecraftClient.getInstance().world.getTime();
+                long gameTime = MinecraftClient.getInstance().world.getTime();
                 matrices.translate(0, Math.sin(MathHelper.lerp(tickDelta, gameTime-1, gameTime) / 10D) / 10D, 0);
                 matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(MathHelper.lerp(tickDelta, gameTime-1, gameTime)));
                 matrices.translate(-0.5, -0.5, -0.5);
-                var buffer = vertexConsumers.getBuffer(RenderTypes.ENTITY_NO_OUTLINE_DEPTH_FIX.apply(texture));
+                VertexConsumer buffer = vertexConsumers.getBuffer(RenderTypes.ENTITY_NO_OUTLINE_DEPTH_FIX.apply(texture));
                 renderBox(matrices, buffer, light, overlay);
                 // TODO: Render second layer too
                 matrices.pop();
@@ -81,13 +80,13 @@ public class WoodyGrowthBlockEntityRenderer implements BlockEntityRenderer<Woody
     }
 
     private boolean isPlayerWithinDistance(BlockPos pos, double distance) {
-        var playerDistSqr = MinecraftClient.getInstance().player.getPos().squaredDistanceTo(Vec3d.ofCenter(pos));
+        double playerDistSqr = MinecraftClient.getInstance().player.getPos().squaredDistanceTo(Vec3d.ofCenter(pos));
         return playerDistSqr <= distance * distance;
     }
 
     private void renderBox(MatrixStack matrices, VertexConsumer consumer, int light, int overlay) {
-        var posMat = matrices.peek().getPositionMatrix();
-        var norMat = matrices.peek().getNormalMatrix();
+        Matrix4f posMat = matrices.peek().getPositionMatrix();
+        Matrix3f norMat = matrices.peek().getNormalMatrix();
 
         //FRONT SIDE OF HEAD
         consumer.vertex(posMat, 1, 1, 0).color(255, 255, 255, 255).texture(0.125f, 0.125f).overlay(overlay).light(light).normal(norMat, 0, 0, -1).next();

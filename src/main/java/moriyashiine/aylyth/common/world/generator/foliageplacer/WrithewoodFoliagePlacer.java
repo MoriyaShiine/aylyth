@@ -29,10 +29,10 @@ public class WrithewoodFoliagePlacer extends FoliagePlacer {
 
     @Override
     protected void generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, TreeFeatureConfig config, int trunkHeight, TreeNode treeNode, int foliageHeight, int radius, int offset) {
-        var pos = treeNode.getCenter();
+        BlockPos pos = treeNode.getCenter();
         if (treeNode instanceof WrithewoodTreeNode dirNode) {
-            var dir = dirNode.dir;
-            var length = dirNode.branchLength;
+            Direction dir = dirNode.dir;
+            int length = dirNode.branchLength;
             generateBetween(world, replacer, random, config, pos.offset(dir.getOpposite(), length > 2 ? 1 : 0).offset(dir.rotateYCounterclockwise()), pos.offset(dir, length/2).offset(dir.rotateYClockwise()));
             generateBetween(world, replacer, random, config, pos.offset(dir, length > 3 ? 2 : 1), pos.offset(dir, length > 3 ? 4 : 2));
             if (length > 3) {

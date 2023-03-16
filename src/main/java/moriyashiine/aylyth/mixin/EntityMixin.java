@@ -54,11 +54,11 @@ public abstract class EntityMixin implements SeepTeleportable {
         isInSeep = true;
     }
 
-    @Inject(method = "playStepSound", at = {@At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;playSound(Lnet/minecraft/sound/SoundEvent;FF)V")}, locals = LocalCapture.CAPTURE_FAILEXCEPTION, cancellable = true)
+    @Inject(method = "playStepSound", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;playSound(Lnet/minecraft/sound/SoundEvent;FF)V"), locals = LocalCapture.CAPTURE_FAILEXCEPTION, cancellable = true)
     private void aylyth_playStepSound(BlockPos pos, BlockState state, CallbackInfo ci, BlockSoundGroup blockSoundGroup) {
-        var entity = (Entity)(Object)this;
-        var world = entity.world;
-        var blockState = world.getBlockState(pos.up());
+        Entity entity = (Entity)(Object)this;
+        World world = entity.world;
+        BlockState blockState = world.getBlockState(pos.up());
         state = blockState.isIn(BlockTags.INSIDE_STEP_SOUND_BLOCKS) ? blockState : state;
         if (state.getBlock() instanceof IContextBlockSoundGroup cast) {
             blockSoundGroup = cast.getBlockSoundGroup(state, pos, blockSoundGroup, entity);

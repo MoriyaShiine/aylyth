@@ -12,7 +12,9 @@ import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.VertexBuffer;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.*;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.tag.BiomeTags;
 import net.minecraft.util.Identifier;
@@ -34,10 +36,10 @@ public class AylythDimensionRenderer {
 
 	public static void renderFog(Camera camera, BackgroundRenderer.FogType fogType, float viewDistance, boolean thickFog, float tickDelta) {
 		if (!Aylyth.isDebugMode()) {
-			var fogStrength = currentFogStrength;
+			float fogStrength = currentFogStrength;
 			if (camera.getSubmersionType().equals(CameraSubmersionType.WATER)) {
-				var player = MinecraftClient.getInstance().player;
-				var world = MinecraftClient.getInstance().world;
+				ClientPlayerEntity player = MinecraftClient.getInstance().player;
+				ClientWorld world = MinecraftClient.getInstance().world;
 				if (world.getBiome(player.getBlockPos()).isIn(BiomeTags.HAS_CLOSER_WATER_FOG)) {
 					fogStrength *= 0.75;
 				}
@@ -90,13 +92,13 @@ public class AylythDimensionRenderer {
 
 		@Override
 		public void render(WorldRenderContext context) {
-			var world = context.world();
-			var camera = context.camera();
-			var tickDelta = context.tickDelta();
-			var lightSkyBuffer = ((WorldRendererAccessor)context.worldRenderer()).getLightSkyBuffer();
-			var starsBuffer = ((WorldRendererAccessor)context.worldRenderer()).getStarsBuffer();
-			var matrices = context.matrixStack();
-			var matrix4f = context.projectionMatrix();
+			ClientWorld world = context.world();
+			Camera camera = context.camera();
+			float tickDelta = context.tickDelta();
+			VertexBuffer lightSkyBuffer = ((WorldRendererAccessor)context.worldRenderer()).getLightSkyBuffer();
+			VertexBuffer starsBuffer = ((WorldRendererAccessor)context.worldRenderer()).getStarsBuffer();
+			MatrixStack matrices = context.matrixStack();
+			Matrix4f matrix4f = context.projectionMatrix();
 			Runnable fogHandler = () -> BackgroundRenderer.applyFog(camera, BackgroundRenderer.FogType.FOG_SKY, context.gameRenderer().getViewDistance(), true, tickDelta);
 			RenderSystem.disableTexture();
 			Vec3d vec3d = world.getSkyColor(camera.getPos(), tickDelta);

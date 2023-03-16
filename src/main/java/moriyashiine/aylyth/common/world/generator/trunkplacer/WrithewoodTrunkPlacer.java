@@ -7,6 +7,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.ModFeatures;
 import moriyashiine.aylyth.common.world.generator.foliageplacer.WrithewoodFoliagePlacer;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
@@ -41,8 +42,8 @@ public class WrithewoodTrunkPlacer extends StraightTrunkPlacer {
         ImmutableList.Builder<FoliagePlacer.TreeNode> builder = ImmutableList.builder();
         builder.addAll(super.generate(world, replacer, random, height, startPos, config));
         // Build trunk. 1/5th the height
-        var fifthHeight = height / 5;
-        var mutable = startPos.mutableCopy();
+        int fifthHeight = height / 5;
+        BlockPos.Mutable mutable = startPos.mutableCopy();
         for (int i = 0; i < fifthHeight - 1; i++) {
             placeOnCardinals(mutable, blockPos -> getAndSetState(world, replacer, random, blockPos, config));
             mutable.move(Direction.UP);
@@ -54,18 +55,18 @@ public class WrithewoodTrunkPlacer extends StraightTrunkPlacer {
         //  iterate through the number of branches, deciding whether a branch is placed based on whether a branch is
         //  near and if there is a branch existing on this side. If there is already a branch, we want to be biased
         //  against placing a branch here.
-        var branches = fifthHeight + ((random.nextBoolean() ? 1 : -1) * random.nextInt(2));
+        int branches = fifthHeight + ((random.nextBoolean() ? 1 : -1) * random.nextInt(2));
         Set<BlockPos> branchLocations = Sets.newHashSet();
         for (int i = 0; i < branches; i++) {
-            var blockHeight = MathHelper.clamp(random.nextInt(height), fifthHeight+random.nextInt(3)+2, height-random.nextInt(3)-5);
-            var dir = Direction.Type.HORIZONTAL.random(random);
-            var pos = startPos.up(blockHeight).offset(dir);
+            int blockHeight = MathHelper.clamp(random.nextInt(height), fifthHeight+random.nextInt(3)+2, height-random.nextInt(3)-5);
+            Direction dir = Direction.Type.HORIZONTAL.random(random);
+            BlockPos pos = startPos.up(blockHeight).offset(dir);
             if (pos.getY() <= startPos.up(fifthHeight+2).getY() || setHasWithin(branchLocations, pos, 2)) {
                 continue;
             }
             branchLocations.add(pos);
-            var branchLength = random.nextInt(3)+1;
-            var lastPos = pos.offset(dir, branchLength);
+            int branchLength = random.nextInt(3)+1;
+            BlockPos lastPos = pos.offset(dir, branchLength);
             for (BlockPos branchPos : BlockPos.iterate(pos, lastPos)) {
                 getAndSetState(world, replacer, random, branchPos, config, state -> {
                     if (state.contains(Properties.AXIS)) {

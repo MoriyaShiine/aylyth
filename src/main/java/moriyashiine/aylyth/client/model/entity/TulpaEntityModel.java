@@ -66,7 +66,7 @@ public class TulpaEntityModel extends AnimatedGeoModel<TulpaEntity> {
         }
 
         public Identifier getTexture(TulpaEntity entity) {
-            if(entity.getSkinUuid() != null){
+            if(entity.getSkinUuid() != null){ // TODO: test in server where a tulpa looks like a player and that player leaves the server
                 PlayerEntity player = entity.world.getPlayerByUuid(entity.getSkinUuid());
                 if(player instanceof AbstractClientPlayerEntity abstractClientPlayerEntity){
                     return abstractClientPlayerEntity.getSkinTexture();

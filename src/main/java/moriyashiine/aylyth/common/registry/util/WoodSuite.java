@@ -58,7 +58,7 @@ public class WoodSuite {
         this.button = button == null ? new WoodenButtonBlock(blockSettingsSet.getButton()) : button;
         this.trapdoor = trapdoor == null ? new TrapdoorBlock(blockSettingsSet.getTrapdoor()) : trapdoor;
         this.door = door == null ? new DoorBlock(blockSettingsSet.getDoor()) : door;
-        var signTextureId = idFor("entity/sign/%s");
+        Identifier signTextureId = idFor("entity/sign/%s");
         this.floorSign = floorSign == null ? new TerraformSignBlock(signTextureId, blockSettingsSet.getFloorSign()) : floorSign;
         this.wallSign = wallSign == null ? new TerraformWallSignBlock(signTextureId, blockSettingsSet.getWallSign()) : wallSign;
     }
@@ -83,7 +83,7 @@ public class WoodSuite {
         button = new WoodenButtonBlock(blockSettingsSet.getButton());
         trapdoor = new TrapdoorBlock(blockSettingsSet.getTrapdoor());
         door = new DoorBlock(blockSettingsSet.getDoor());
-        var signTextureId = idFor("entity/sign/%s");
+        Identifier signTextureId = idFor("entity/sign/%s");
         floorSign = new TerraformSignBlock(signTextureId, blockSettingsSet.getFloorSign());
         wallSign = new TerraformWallSignBlock(signTextureId, blockSettingsSet.getWallSign());
     }

@@ -13,7 +13,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Matrix4f;
 
 @Environment(EnvType.CLIENT)
-public class SeepBlockEntityRenderer implements BlockEntityRenderer<SeepBlockEntity> { //just have different seep blocks duh, not dynamic rendering. use this to test portal rendering, then use block render event
+public class SeepBlockEntityRenderer implements BlockEntityRenderer<SeepBlockEntity> { // TODO: just have different seep blocks duh, not dynamic rendering. IIRC can use dynamic fabric models for this
 	public static Shader renderTypeSeepShader;
 	public static final RenderLayer.MultiPhase SEEP = RenderLayerAccessor.callOf("seep", VertexFormats.POSITION, VertexFormat.DrawMode.QUADS, 256, false, false, RenderLayer.MultiPhaseParameters.builder().shader(new RenderPhase.Shader(() -> renderTypeSeepShader)).texture(RenderPhase.Textures.create().add(new Identifier(Aylyth.MOD_ID, "textures/environment/seep_0.png"), false, false).add(new Identifier(Aylyth.MOD_ID, "textures/environment/seep_1.png"), false, false).build()).build(false));
 	

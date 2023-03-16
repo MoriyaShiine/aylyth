@@ -9,6 +9,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.intprovider.IntProvider;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.TestableWorld;
@@ -39,8 +40,8 @@ public class PomegranateFoliagePlacer extends FoliagePlacer {
     protected void generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, TreeFeatureConfig config, int trunkHeight, TreeNode treeNode, int foliageHeight, int radius, int offset) {
         Set<BlockPos> positions = Sets.newHashSet();
         if (treeNode instanceof DirectionalTreeNode pomeNode) {
-            var dir = pomeNode.dir;
-            var pos = pomeNode.getCenter().down().offset(dir.getOpposite()).offset(dir.rotateYCounterclockwise(), 2);
+            Direction dir = pomeNode.dir;
+            BlockPos pos = pomeNode.getCenter().down().offset(dir.getOpposite()).offset(dir.rotateYCounterclockwise(), 2);
             placeIn(pos, pos.offset(dir, 2).offset(dir.rotateYClockwise(), 4), positions);
             placeIn(pos.offset(dir.rotateYClockwise()).offset(dir, 3), pos.offset(dir.rotateYClockwise(), 3).offset(dir, 3), positions);
             placeIn(pos.up(), pos.up().offset(dir.rotateYClockwise(), 4), positions);
@@ -60,7 +61,7 @@ public class PomegranateFoliagePlacer extends FoliagePlacer {
                 }
             }
         } else {
-            var pos = treeNode.getCenter().down(2).north(2).west();
+            BlockPos pos = treeNode.getCenter().down(2).north(2).west();
             placeIn(pos, pos.south(4).east(2), positions);
             placeIn(pos.south(1).west(), pos.south(3).east(3), positions);
             placeIn(pos.up().south(1), pos.up().south(3).east(2), positions);
