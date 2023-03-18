@@ -113,7 +113,7 @@ dependencies {
     modImplementation "dev.emi:trinkets:${trinkets_version}"
 
     //Bewitchment
-    modImplementation("curse.maven:bewitchment-394915:${project.bewitchment_version}")
+    modImplementation("curse.maven:bewitchment-394915:${project.bewitchment_fileid}")
     modImplementation("com.github.virtuoel:pehkui:${project.pehkui_version}")
     modImplementation("vazkii.patchouli:Patchouli:${project.patchouli_version}")
     modImplementation("maven.modrinth:midnightlib:${midnightlib_version}")
