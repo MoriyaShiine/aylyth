@@ -22,7 +22,9 @@ import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.Random;
 import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nonnull;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class WoodyGrowthBlockEntityRenderer implements BlockEntityRenderer<WoodyGrowthCacheBlockEntity> {
@@ -65,18 +67,22 @@ public class WoodyGrowthBlockEntityRenderer implements BlockEntityRenderer<Woody
 
     @Nullable
     private Identifier getPlayerTexture(WoodyGrowthCacheBlockEntity entity) {
-        PlayerSkinProvider skinProvider = MinecraftClient.getInstance().getSkinProvider();
         if (entity.getPlayerUuid() != null) {
-            AtomicReference<GameProfile> profile = new AtomicReference<>(new GameProfile(entity.getPlayerUuid(), null));
-            UserCache cache = SkullBlockEntityAccessor.getUserCache();
-            profile.set(cache.getByUuid(entity.getPlayerUuid()).orElse(profile.get()));
-            SkullBlockEntity.loadProperties(profile.get(), profile::set);
-            Map<MinecraftProfileTexture.Type, MinecraftProfileTexture> textures = skinProvider.getTextures(profile.get());
-            return textures.containsKey(MinecraftProfileTexture.Type.SKIN)
-                    ? skinProvider.loadSkin(textures.get(MinecraftProfileTexture.Type.SKIN), MinecraftProfileTexture.Type.SKIN)
-                    : DefaultSkinHelper.getTexture(entity.getPlayerUuid());
+            return getPlayerTexture(entity.getPlayerUuid());
         }
         return null;
+    }
+
+    public static Identifier getPlayerTexture(@Nonnull UUID playerUuid) {
+        PlayerSkinProvider skinProvider = MinecraftClient.getInstance().getSkinProvider();
+        AtomicReference<GameProfile> profile = new AtomicReference<>(new GameProfile(playerUuid, null));
+        UserCache cache = SkullBlockEntityAccessor.getUserCache();
+        profile.set(cache.getByUuid(playerUuid).orElse(profile.get()));
+        SkullBlockEntity.loadProperties(profile.get(), profile::set);
+        Map<MinecraftProfileTexture.Type, MinecraftProfileTexture> textures = skinProvider.getTextures(profile.get());
+        return textures.containsKey(MinecraftProfileTexture.Type.SKIN)
+                ? skinProvider.loadSkin(textures.get(MinecraftProfileTexture.Type.SKIN), MinecraftProfileTexture.Type.SKIN)
+                : DefaultSkinHelper.getTexture(playerUuid);
     }
 
     private boolean isPlayerWithinDistance(BlockPos pos, double distance) {
