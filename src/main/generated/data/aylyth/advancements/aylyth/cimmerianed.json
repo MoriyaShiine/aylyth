@@ -1,7 +1,7 @@
 {
   "parent": "aylyth:aylyth/root",
   "aylyth:custom_display": {
-    "announce_to_chat": false,
+    "announce_to_chat": true,
     "description": {
       "translate": "aylyth.advancements.aylyth.cimmerianed.desc"
     },

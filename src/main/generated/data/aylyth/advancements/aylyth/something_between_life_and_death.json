@@ -9,7 +9,7 @@
     }
   },
   "display": {
-    "announce_to_chat": false,
+    "announce_to_chat": true,
     "description": {
       "translate": "aylyth.advancements.aylyth.something_between_life_and_death.desc"
     },
