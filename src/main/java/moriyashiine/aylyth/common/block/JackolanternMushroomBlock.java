@@ -74,7 +74,7 @@ public class JackolanternMushroomBlock extends StagedMushroomPlantBlock {
     }
 
     private int getLight(World world, BlockPos pos) {
-        return world.getLightLevel(pos, 0) - ((world.getTimeOfDay() < 23000 && world.getTimeOfDay() >= 13000) ? 5 : 0);
+        return world.getLightLevel(pos, 0) - ((world.getTimeOfDay() < 23000 && world.getTimeOfDay() >= 13000) ? 10 : 0);
     }
 
     @Override
