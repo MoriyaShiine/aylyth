@@ -73,6 +73,7 @@ public class DebugWandItem extends Item {
                             case "aylyth:soulmould" -> "aylyth:bonefly";
                             case "aylyth:bonefly" -> "aylyth:tulpa";
                             case "aylyth:tulpa" -> "aylyth:coric_seed";
+                            default -> "aylyth:coric_seed";
                         };
                         page.getNbt().putString("PageId", nextPage);
                     } else {
