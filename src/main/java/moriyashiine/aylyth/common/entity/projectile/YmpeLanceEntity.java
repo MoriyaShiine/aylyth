@@ -164,7 +164,7 @@ public class YmpeLanceEntity extends PersistentProjectileEntity {
 		if(tag.contains("Lance", NbtElement.COMPOUND_TYPE))
 			stack = ItemStack.fromNbt(tag.getCompound("Lance"));
 
-		if(world instanceof ServerWorld serverWorld && tag.getUuid("Target") != null && serverWorld.getEntity(tag.getUuid("Target")) instanceof LivingEntity targetEntity)
+		if(world instanceof ServerWorld serverWorld && tag.containsUuid("Target") && serverWorld.getEntity(tag.getUuid("Target")) instanceof LivingEntity targetEntity)
 			target = targetEntity;
 
 		dealtDamage = tag.getBoolean("HasDealtDamage");
