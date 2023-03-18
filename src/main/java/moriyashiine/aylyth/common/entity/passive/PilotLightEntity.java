@@ -85,20 +85,15 @@ public class PilotLightEntity extends AmbientEntity implements Flutterer {
 			if (player.isCreative() || player.experienceLevel >= 5) {
 				if(player.world.getServer() != null){
 					ServerWorld toWorld = player.world.getServer().getWorld(serverPlayer.getSpawnPointDimension());
-					if (isBlue() && toWorld != null) {
-						BlockPos toPos = serverPlayer.getSpawnPointPosition() == null ? toWorld.getSpawnPos() : serverPlayer.getSpawnPointPosition(); //white pilot light
-						FabricDimensions.teleport(player, toWorld, new TeleportTarget(Vec3d.of(toPos), Vec3d.ZERO, player.headYaw, player.getPitch()));
-						return ActionResult.SUCCESS;
-					}
-					else {
-						//todo yellow plot light
-					}
+					BlockPos toPos = serverPlayer.getSpawnPointPosition() == null ? toWorld.getSpawnPos() : serverPlayer.getSpawnPointPosition();
+					FabricDimensions.teleport(player, toWorld, new TeleportTarget(Vec3d.of(toPos), Vec3d.ZERO, player.headYaw, player.getPitch()));
 				}
 
 				if (!player.isCreative()) {
 					player.addExperience(-55);
 				}
 				remove(RemovalReason.DISCARDED);
+				return ActionResult.SUCCESS;
 			}
 		}
 		return super.interactAt(player, hitPos, hand);
