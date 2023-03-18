@@ -1,62 +1,62 @@
 {
-  "schemaVersion": 1,
-  "id": "aylyth",
-  "version": "${version}",
-  "name": "Aylyth",
-  "description": "In the midst of the journey of our life, I found myself in a dark wood without paths. The Wood is known as Aylyth.",
-  "authors": [
-	"MoriyaShiine",
-	"cybercat5555",
-	"Aelpecyem",
-	"Voddak",
-	"Assasingus14"
-  ],
-  "contact": {
-	"homepage": "https://www.curseforge.com/minecraft/mc-mods/aylyth",
-	"sources": "https://github.com/MoriyaShiine/aylyth",
-	"issues": "https://github.com/MoriyaShiine/aylyth/issues"
-  },
-  "license": "CC BY-NC-ND 4.0",
-  "icon": "assets/aylyth/icon.png",
-  "environment": "*",
-  "entrypoints": {
-	"main": [
-	  "moriyashiine.aylyth.common.Aylyth"
-	],
-	"client": [
-	  "moriyashiine.aylyth.client.AylythClient"
-	],
-	"cardinal-components-entity": [
-	  "moriyashiine.aylyth.common.registry.ModComponents"
-	],
-	"rei_client": [
-	  "moriyashiine.aylyth.client.integration.rei.ModREIPlugin"
-	],
-	"fabric-datagen" : [
-	  "moriyashiine.aylyth.datagen.AylythDatagen"
-	],
-	"emi" : [
-	  "moriyashiine.aylyth.client.integration.emi.ModEMIPlugin"
-	]
-  },
-  "mixins": [
-	"aylyth.mixins.json"
-  ],
-  "accessWidener": "aylyth.accesswidener",
-  "depends": {
-	"fabricloader": "*",
-	"fabric-api": ">=0.60.0",
-	"minecraft": "1.19.2",
-	"java": ">=17",
-	"geckolib3": "*"
-  },
-  "custom": {
-	"cardinal-components": [
-	  "aylyth:ympe_thorns",
-	  "aylyth:ympe_infestation",
-	  "aylyth:prevent_drops",
-	  "aylyth:rider",
-	  "aylyth:cuirass"
-	]
-  }
+    "schemaVersion": 1,
+    "id": "aylyth",
+    "version": "${version}",
+    "name": "Aylyth",
+    "description": "In the midst of the journey of our life, I found myself in a dark wood without paths. The Wood is known as Aylyth.",
+    "authors": [
+        "MoriyaShiine",
+        "cybercat5555",
+        "Aelpecyem",
+        "Voddak",
+        "Assasingus14"
+    ],
+    "contact": {
+        "homepage": "https://www.curseforge.com/minecraft/mc-mods/aylyth",
+        "sources": "https://github.com/MoriyaShiine/aylyth",
+        "issues": "https://github.com/MoriyaShiine/aylyth/issues"
+    },
+    "license": "CC BY-NC-ND 4.0",
+    "icon": "assets/aylyth/icon.png",
+    "environment": "*",
+    "entrypoints": {
+        "main": [
+            "moriyashiine.aylyth.common.Aylyth"
+        ],
+        "client": [
+            "moriyashiine.aylyth.client.AylythClient"
+        ],
+        "cardinal-components-entity": [
+            "moriyashiine.aylyth.common.registry.ModComponents"
+        ],
+        "rei_client": [
+            "moriyashiine.aylyth.client.integration.rei.ModREIPlugin"
+        ],
+        "fabric-datagen": [
+            "moriyashiine.aylyth.datagen.AylythDatagen"
+        ],
+        "emi": [
+            "moriyashiine.aylyth.client.integration.emi.ModEMIPlugin"
+        ]
+    },
+    "mixins": [
+        "aylyth.mixins.json"
+    ],
+    "accessWidener": "aylyth.accesswidener",
+    "depends": {
+        "fabricloader": "*",
+        "fabric-api": ">=0.76.0",
+        "minecraft": "1.19.2",
+        "java": ">=17",
+        "geckolib3": "*"
+    },
+    "custom": {
+        "cardinal-components": [
+            "aylyth:ympe_thorns",
+            "aylyth:ympe_infestation",
+            "aylyth:prevent_drops",
+            "aylyth:rider",
+            "aylyth:cuirass"
+        ]
+    }
 }
