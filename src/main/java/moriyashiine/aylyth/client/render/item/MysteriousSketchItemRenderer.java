@@ -6,10 +6,12 @@ import moriyashiine.aylyth.mixin.client.HeldItemRendererAccessor;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.color.item.ItemColorProvider;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.*;
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
 import net.minecraft.client.render.item.ItemRenderer;
+import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.BakedQuad;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.ModelIdentifier;
@@ -17,6 +19,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Matrix4f;
 import net.minecraft.util.math.Vec3f;
 import net.minecraft.util.math.random.Random;
 
@@ -26,12 +29,12 @@ public class MysteriousSketchItemRenderer implements BuiltinItemRendererRegistry
     @Override
     public void render(ItemStack stack, ModelTransformation.Mode mode, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         if ((mode.isFirstPerson() || mode == ModelTransformation.Mode.FIXED) && stack.hasNbt() && stack.getNbt().contains("PageId")) {
-            var pageId = new Identifier(stack.getNbt().getString("PageId"));
+            Identifier pageId = new Identifier(stack.getNbt().getString("PageId"));
             RenderSystem.setShaderTexture(0, MinecraftClient.getInstance().player.getSkinTexture());
             PlayerEntityRenderer playerEntityRenderer = (PlayerEntityRenderer)MinecraftClient.getInstance().getEntityRenderDispatcher().<AbstractClientPlayerEntity>getRenderer(MinecraftClient.getInstance().player);
             Identifier pageTextureId = new Identifier("%s:textures/item/mysterious_sketches/%s.png".formatted(pageId.getNamespace(), pageId.getPath()));
-            var accessor = (HeldItemRendererAccessor)MinecraftClient.getInstance().gameRenderer.firstPersonRenderer;
-            var hasEmptyOffhand = MinecraftClient.getInstance().player.getOffHandStack().isEmpty();
+            HeldItemRendererAccessor accessor = (HeldItemRendererAccessor)MinecraftClient.getInstance().gameRenderer.firstPersonRenderer;
+            boolean hasEmptyOffhand = MinecraftClient.getInstance().player.getOffHandStack().isEmpty();
             switch (mode) {
                 case FIRST_PERSON_LEFT_HAND -> {
                     matrices.push();
@@ -96,7 +99,7 @@ public class MysteriousSketchItemRenderer implements BuiltinItemRendererRegistry
                 }
             }
         } else {
-            var model = MinecraftClient.getInstance().getBakedModelManager().getModel(new ModelIdentifier(AylythUtil.id("mysterious_sketch_generated"), "inventory"));
+            BakedModel model = MinecraftClient.getInstance().getBakedModelManager().getModel(new ModelIdentifier(AylythUtil.id("mysterious_sketch_generated"), "inventory"));
             matrices.push();
             model.getTransformation().getTransformation(mode).apply(mode == ModelTransformation.Mode.FIRST_PERSON_LEFT_HAND, matrices);
             switch (mode) {
@@ -115,9 +118,9 @@ public class MysteriousSketchItemRenderer implements BuiltinItemRendererRegistry
                 }
             }
 
-            var rand = Random.create();
-            var layer = RenderLayers.getItemLayer(stack, true);
-            var consumer = ItemRenderer.getDirectItemGlintConsumer(vertexConsumers, mode == ModelTransformation.Mode.GUI ? RenderLayer.getCutout() : layer, true, stack.hasGlint());
+            Random rand = Random.create();
+            RenderLayer layer = RenderLayers.getItemLayer(stack, true);
+            VertexConsumer consumer = ItemRenderer.getDirectItemGlintConsumer(vertexConsumers, mode == ModelTransformation.Mode.GUI ? RenderLayer.getCutout() : layer, true, stack.hasGlint());
             for (Direction dir : Direction.values()) {
                 rand.setSeed(42L);
                 renderQuads(stack, model.getQuads(null, dir, rand), consumer, matrices, light, overlay);
@@ -129,12 +132,12 @@ public class MysteriousSketchItemRenderer implements BuiltinItemRendererRegistry
     }
 
     private void renderQuads(ItemStack stack, List<BakedQuad> quads, VertexConsumer consumer, MatrixStack matrices, int light, int overlay) {
-        var entry = matrices.peek();
+        MatrixStack.Entry entry = matrices.peek();
         for (BakedQuad quad : quads) {
             float r = 1.0f;
             float g = 1.0f;
             float b = 1.0f;
-            var colorProvider = ColorProviderRegistry.ITEM.get(stack.getItem());
+            ItemColorProvider colorProvider = ColorProviderRegistry.ITEM.get(stack.getItem());
             if (quad.hasColor() && colorProvider != null) {
                 r = ((colorProvider.getColor(stack, quad.getColorIndex()) >> 16) & 255) / 255f;
                 g = ((colorProvider.getColor(stack, quad.getColorIndex()) >> 8) & 255) / 255f;
@@ -145,7 +148,7 @@ public class MysteriousSketchItemRenderer implements BuiltinItemRendererRegistry
     }
 
     private void drawPage(ModelTransformation.Mode mode, MatrixStack matrices, VertexConsumer consumer, int light) {
-        var posMat = matrices.peek().getPositionMatrix();
+        Matrix4f posMat = matrices.peek().getPositionMatrix();
             consumer.vertex(posMat, 0, 1, 0).color(255, 255, 255, 255).texture(0f, 0f).light(light).next();
             consumer.vertex(posMat, 0, 0, 0).color(255, 255, 255, 255).texture(0f, 1f).light(light).next();
             consumer.vertex(posMat, 1, 0, 0).color(255, 255, 255, 255).texture(1f, 1f).light(light).next();

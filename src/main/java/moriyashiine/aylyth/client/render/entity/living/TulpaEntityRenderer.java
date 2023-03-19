@@ -4,6 +4,7 @@ package moriyashiine.aylyth.client.render.entity.living;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture;
 import moriyashiine.aylyth.client.model.entity.TulpaEntityModel;
+import moriyashiine.aylyth.client.render.block.entity.WoodyGrowthBlockEntityRenderer;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.entity.mob.TulpaEntity;
 import moriyashiine.aylyth.common.registry.ModEntityTypes;
@@ -51,9 +52,9 @@ public class TulpaEntityRenderer extends GeoEntityRenderer<TulpaEntity> {
 
     @Override
     public void render(TulpaEntity entity, float entityYaw, float partialTicks, MatrixStack matrixStack, VertexConsumerProvider bufferIn, int packedLightIn) {
-        if(entity.getSkinUuid() == null || entity.getDataTracker().get(TulpaEntity.TRANSFORMING) || (entity.getHealth() < 0.01 || entity.isDead())){
+        if (entity.getSkinUuid() == null || entity.getDataTracker().get(TulpaEntity.TRANSFORMING) || (entity.getHealth() < 0.01 || entity.isDead())) {
             super.render(entity, entityYaw, partialTicks, matrixStack, bufferIn, packedLightIn);
-        }else{
+        } else {
             copyEntityStateAndRender(matrixStack, entity, entityYaw, partialTicks, bufferIn, packedLightIn);
         }
     }
@@ -74,16 +75,11 @@ public class TulpaEntityRenderer extends GeoEntityRenderer<TulpaEntity> {
     private AdditiveTexture getFusedTexture(GameProfile profile) {
         return profile == null ? defaultTexture : TEXTURE_CACHE.compute(profile, (gameProfile, additiveTexture) -> {
             if (additiveTexture == null) {
-                MinecraftClient minecraftClient = MinecraftClient.getInstance();
-                Map<MinecraftProfileTexture.Type, MinecraftProfileTexture> map = minecraftClient.getSkinProvider().getTextures(profile);
-                if (map.containsKey(MinecraftProfileTexture.Type.SKIN)) {
-                    try {
-                        return new AdditiveTexture(minecraftClient.getSkinProvider().loadSkin(map.get(MinecraftProfileTexture.Type.SKIN), MinecraftProfileTexture.Type.SKIN), true);
-                    } catch (NullPointerException e) {
-                        return defaultTexture;
-                    }
+                Identifier playerTexture = WoodyGrowthBlockEntityRenderer.getPlayerTexture(profile.getId());
+                if (playerTexture != DefaultSkinHelper.getTexture(profile.getId())) {
+                    return new AdditiveTexture(playerTexture, true);
                 } else {
-                    return new AdditiveTexture(DefaultSkinHelper.getTexture(profile.getId()), false);
+                    return defaultTexture;
                 }
             } else {
                 if (additiveTexture.needsUpdate) {
@@ -96,7 +92,7 @@ public class TulpaEntityRenderer extends GeoEntityRenderer<TulpaEntity> {
 
     public final class AdditiveTexture implements AutoCloseable {
         public static final Logger LOGGER = LogManager.getLogger(Aylyth.MOD_ID + ":texturegen");
-        private static final Identifier tulpaTexture = TulpaEntityModel.TEXTURE;
+        private static final Identifier TULPA_TEXTURE = TulpaEntityModel.TEXTURE;
         private final Identifier base;
         private final boolean playerSkin;
         private final RenderLayer renderLayer;
@@ -121,7 +117,7 @@ public class TulpaEntityRenderer extends GeoEntityRenderer<TulpaEntity> {
                     } else {
                         inputImage = getPlayerSkin(base);
                     }
-                    Optional<Resource> optionalResource = resourceManager.getResource(tulpaTexture);
+                    Optional<Resource> optionalResource = resourceManager.getResource(TULPA_TEXTURE);
                     if(optionalResource.isPresent()){
                         NativeImage tuplaImage = NativeImage.read(optionalResource.get().getInputStream());
                         for (int y = 0; y < 128; y++) {

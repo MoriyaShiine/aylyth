@@ -45,7 +45,7 @@ public class SmallWoodyGrowthBlock extends Block implements Waterloggable {
     @Nullable
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
-        var waterlogged = ctx.getWorld().getFluidState(ctx.getBlockPos()).getFluid() == Fluids.WATER;
+        boolean waterlogged = ctx.getWorld().getFluidState(ctx.getBlockPos()).getFluid() == Fluids.WATER;
         return getDefaultState().with(NATURAL, false).with(WATERLOGGED, waterlogged);
     }
 
@@ -56,7 +56,7 @@ public class SmallWoodyGrowthBlock extends Block implements Waterloggable {
 
     @Override
     public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        var downState = world.getBlockState(pos.down());
+        BlockState downState = world.getBlockState(pos.down());
         return downState.isFullCube(world, pos.down()) || downState.isIn(ModTags.WOODY_GROWTHS_GENERATE_ON);
     }
 

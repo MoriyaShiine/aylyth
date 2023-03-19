@@ -17,6 +17,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
@@ -91,7 +92,7 @@ public class StrewnLeavesBlock extends Block implements IContextBlockSoundGroup 
     @Deprecated
     @Override
     public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        var downState = world.getBlockState(pos.down());
+        BlockState downState = world.getBlockState(pos.down());
         return downState.isFullCube(world, pos.down()) || (state.get(LEAVES) == 0 && downState.getFluidState().isStill());
     }
 
@@ -108,7 +109,7 @@ public class StrewnLeavesBlock extends Block implements IContextBlockSoundGroup 
 
     @Override
     public BlockSoundGroup getBlockSoundGroup(BlockState state, BlockPos pos, BlockSoundGroup currentSoundGroup, Entity entity) {
-        var random = entity.world.random;
+        Random random = entity.world.random;
         return random.nextFloat() < 0.025 ? state.get(LEAVES) > 0 ? ModSoundEvents.LEAF_PILES_STICK : ModSoundEvents.STREWN_LEAVES_STICK : state.get(LEAVES) > 0 ? ModSoundEvents.LEAF_PILES : ModSoundEvents.STREWN_LEAVES;
     }
 }

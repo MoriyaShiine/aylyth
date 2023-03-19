@@ -21,6 +21,7 @@ public class SoulmouldEntityRenderer extends GeoEntityRenderer<SoulmouldEntity> 
         this.addLayer(new SoulmouldEyesLayer(this));
     }
 
+    @Override
     public RenderLayer getRenderType(SoulmouldEntity animatable, float partialTicks, MatrixStack stack, VertexConsumerProvider renderTypeBuffer, VertexConsumer vertexBuilder, int packedLightIn, Identifier textureLocation) {
         return RenderLayer.getEntityTranslucent(textureLocation, true);
     }

@@ -5,10 +5,13 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import moriyashiine.aylyth.common.block.StrewnLeavesBlock;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.Heightmap;
+import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.FeatureConfig;
 import net.minecraft.world.gen.feature.util.FeatureContext;
@@ -20,10 +23,10 @@ public class LeafPileFeature extends Feature<LeafPileFeature.LeafPileConfig> {
 
     @Override
     public boolean generate(FeatureContext<LeafPileFeature.LeafPileConfig> context) {
-        var testBlock = context.getConfig().testBlock;
-        var block = context.getConfig().block;
-        var world = context.getWorld();
-        var random = context.getRandom();
+        Block testBlock = context.getConfig().testBlock;
+        Block block = context.getConfig().block;
+        StructureWorldAccess world = context.getWorld();
+        Random random = context.getRandom();
         BlockPos origin;
         origin = context.getOrigin();
         origin = origin.withY(world.getTopY(Heightmap.Type.WORLD_SURFACE_WG, origin.getX(), origin.getZ()));
@@ -32,8 +35,8 @@ public class LeafPileFeature extends Feature<LeafPileFeature.LeafPileConfig> {
                 if (world.testBlockState(origin.up(i), blockState -> blockState.getBlock() == testBlock)) {
                     setBlockState(world, origin, block.getDefaultState().with(StrewnLeavesBlock.LEAVES, random.nextBetween(5, 7)));
                     for (Direction dir : Direction.Type.HORIZONTAL) {
-                        var offset = origin.offset(dir, 1);
-                        var setState = block.getDefaultState().with(StrewnLeavesBlock.LEAVES, random.nextBetween(0, 5));
+                        BlockPos offset = origin.offset(dir, 1);
+                        BlockState setState = block.getDefaultState().with(StrewnLeavesBlock.LEAVES, random.nextBetween(0, 5));
                         if (world.isAir(offset) && setState.canPlaceAt(world, offset)) {
                             setBlockState(world, offset, setState);
                         }

@@ -16,7 +16,7 @@ public class BoneflyEntityRenderer extends GeoEntityRenderer<BoneflyEntity> {
         super(ctx, new BoneflyEntityModel());
     }
 
-
+    @Override
     public RenderLayer getRenderType(BoneflyEntity animatable, float partialTicks, MatrixStack stack, VertexConsumerProvider renderTypeBuffer, VertexConsumer vertexBuilder, int packedLightIn, Identifier textureLocation) {
         return RenderLayer.getEntityTranslucent(textureLocation, true);
     }

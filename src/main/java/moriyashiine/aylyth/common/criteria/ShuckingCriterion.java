@@ -21,7 +21,7 @@ public class ShuckingCriterion extends AbstractCriterion<ShuckingCriterion.Condi
 
     @Override
     protected Conditions conditionsFromJson(JsonObject obj, EntityPredicate.Extended playerPredicate, AdvancementEntityPredicateDeserializer predicateDeserializer) {
-        var targetPredicate = EntityPredicate.Extended.getInJson(obj, "target_predicate", predicateDeserializer);
+        EntityPredicate.Extended targetPredicate = EntityPredicate.Extended.getInJson(obj, "target_predicate", predicateDeserializer);
         return new Conditions(playerPredicate, targetPredicate);
     }
 
@@ -56,13 +56,13 @@ public class ShuckingCriterion extends AbstractCriterion<ShuckingCriterion.Condi
         }
 
         public boolean matches(ServerPlayerEntity player, LivingEntity target) {
-            var context = new LootContext.Builder((ServerWorld) player.world).parameter(LootContextParameters.KILLER_ENTITY, player).parameter(LootContextParameters.THIS_ENTITY, target).parameter(LootContextParameters.DAMAGE_SOURCE, DamageSource.player(player)).parameter(LootContextParameters.ORIGIN, player.getPos()).build(LootContextTypes.ENTITY);
+            LootContext context = new LootContext.Builder((ServerWorld) player.world).parameter(LootContextParameters.KILLER_ENTITY, player).parameter(LootContextParameters.THIS_ENTITY, target).parameter(LootContextParameters.DAMAGE_SOURCE, DamageSource.player(player)).parameter(LootContextParameters.ORIGIN, player.getPos()).build(LootContextTypes.ENTITY);
             return getPlayerPredicate().test(context) && this.targetPredicate.test(context);
         }
 
         @Override
         public JsonObject toJson(AdvancementEntityPredicateSerializer predicateSerializer) {
-            var json = super.toJson(predicateSerializer);
+            JsonObject json = super.toJson(predicateSerializer);
             json.add("target_predicate", targetPredicate.toJson(predicateSerializer));
             return json;
         }

@@ -25,7 +25,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.random.Random;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.util.shape.VoxelShape;
@@ -37,8 +36,9 @@ import net.minecraft.world.WorldAccess;
 import net.minecraft.world.dimension.DimensionTypes;
 import net.minecraft.world.poi.PointOfInterest;
 import net.minecraft.world.poi.PointOfInterestStorage;
-import net.minecraft.world.poi.PointOfInterestType;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
 
 public class SeepBlock extends Block implements BlockEntityProvider {
 	private static final VoxelShape SINGLE_SHAPE = VoxelShapes.combineAndSimplify(VoxelShapes.fullCube(), VoxelShapes.union(createCuboidShape(0.0D, 1.0D, 1.0D, 16.0D, 15.0D, 15.0D), createCuboidShape(1.0D, 1.0D, 0.0D, 15.0D, 15.0D, 16.0D)), BooleanBiFunction.ONLY_FIRST);
@@ -72,10 +72,10 @@ public class SeepBlock extends Block implements BlockEntityProvider {
 				toWorld.getChunkManager().addTicket(ChunkTicketType.PORTAL, new ChunkPos(pos), 3, pos);
 				Vec3d teleportPos = null;
 				if (this == ModBlocks.SEEPING_WOOD_SEEP) {
-					var seep = toWorld.getPointOfInterestStorage().getInSquare(point -> point.matchesKey(ModPOITypes.SEEP), pos, 32, PointOfInterestStorage.OccupationStatus.ANY).findFirst();
+					Optional<PointOfInterest> seep = toWorld.getPointOfInterestStorage().getInSquare(point -> point.matchesKey(ModPOITypes.SEEP), pos, 32, PointOfInterestStorage.OccupationStatus.ANY).findFirst();
 					if (seep.isPresent()) {
 						for (Direction dir : Direction.Type.HORIZONTAL) {
-							var offsetSeepPos = seep.get().getPos().offset(dir);
+							BlockPos offsetSeepPos = seep.get().getPos().offset(dir);
 							if (toWorld.getBlockState(offsetSeepPos).canPathfindThrough(world, offsetSeepPos, NavigationType.LAND)) {
 								teleportPos = Vec3d.of(offsetSeepPos).add(0.5, 0, 0.5);
 							}

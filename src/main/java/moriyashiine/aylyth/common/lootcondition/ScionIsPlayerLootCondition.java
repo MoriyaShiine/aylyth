@@ -5,8 +5,10 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.JsonOps;
 import moriyashiine.aylyth.common.entity.mob.ScionEntity;
 import moriyashiine.aylyth.common.registry.ModLootConditions;
+import net.minecraft.entity.Entity;
 import net.minecraft.loot.condition.LootCondition;
 import net.minecraft.loot.condition.LootConditionType;
 import net.minecraft.loot.context.LootContext;
@@ -30,7 +32,7 @@ public class ScionIsPlayerLootCondition implements LootCondition {
 
     @Override
     public boolean test(LootContext lootContext) {
-        var entity = lootContext.get(LootContextParameters.THIS_ENTITY);
+        Entity entity = lootContext.get(LootContextParameters.THIS_ENTITY);
         if (entity instanceof ScionEntity scion) {
             return scion.getStoredPlayerUUID() != null;
         }
@@ -41,6 +43,7 @@ public class ScionIsPlayerLootCondition implements LootCondition {
 
         @Override
         public void toJson(JsonObject json, ScionIsPlayerLootCondition object, JsonSerializationContext context) {
+            CODEC.encode(object, JsonOps.INSTANCE, json);
         }
 
         @Override

@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.client.network.packet;
 
-import io.netty.buffer.Unpooled;
 import moriyashiine.aylyth.common.Aylyth;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.client.MinecraftClient;
@@ -18,7 +18,7 @@ public class SpawnShuckParticlesPacket {
 	public static final Identifier ID = new Identifier(Aylyth.MOD_ID, "spawn_shuck_particles");
 	
 	public static void send(PlayerEntity player, Entity entity) {
-		PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
+		PacketByteBuf buf = PacketByteBufs.create();
 		buf.writeInt(entity.getId());
 		ServerPlayNetworking.send((ServerPlayerEntity) player, ID, buf);
 	}

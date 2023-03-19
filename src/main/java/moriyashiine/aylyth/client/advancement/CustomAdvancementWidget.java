@@ -21,9 +21,9 @@ public class CustomAdvancementWidget extends AdvancementWidget {
 
     @Override
     public void renderWidgets(MatrixStack matrices, int x, int y) {
-        var accessor = (AdvancementWidgetAccessor)this;
+        AdvancementWidgetAccessor accessor = (AdvancementWidgetAccessor)this;
         if (!accessor.getDisplay().isHidden() || accessor.getProgress() != null && accessor.getProgress().isDone()) {
-            var display = (CustomAdvancementDisplay)accessor.getDisplay();
+            CustomAdvancementDisplay display = (CustomAdvancementDisplay)accessor.getDisplay();
             float f = accessor.getProgress() == null ? 0.0F : accessor.getProgress().getProgressBarPercentage();
             AdvancementObtainedStatus advancementObtainedStatus;
             if (f >= 1.0F) {
@@ -46,8 +46,8 @@ public class CustomAdvancementWidget extends AdvancementWidget {
 
     @Override
     public void drawTooltip(MatrixStack matrices, int originX, int originY, float alpha, int x, int y) {
-        var accessor = (AdvancementWidgetAccessor)this;
-        var display = (CustomAdvancementDisplay)accessor.getDisplay();
+        AdvancementWidgetAccessor accessor = (AdvancementWidgetAccessor)this;
+        CustomAdvancementDisplay display = (CustomAdvancementDisplay)accessor.getDisplay();
         boolean bl = x + originX + accessor.getX() + accessor.getWidth() + 26 >= accessor.getTab().getScreen().width;
         String string = accessor.getProgress() == null ? null : accessor.getProgress().getProgressBarFraction();
         int i = string == null ? 0 : accessor.getClient().textRenderer.getWidth(string);

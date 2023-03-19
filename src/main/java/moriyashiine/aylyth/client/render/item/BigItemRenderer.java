@@ -14,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.resource.ResourceReloader;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Vec3f;
 import net.minecraft.util.profiler.Profiler;
 
 import java.util.concurrent.CompletableFuture;
@@ -58,11 +59,19 @@ public class BigItemRenderer implements BuiltinItemRendererRegistry.DynamicItemR
 			if (mode != ModelTransformation.Mode.FIRST_PERSON_LEFT_HAND && mode != ModelTransformation.Mode.FIRST_PERSON_RIGHT_HAND && mode != ModelTransformation.Mode.THIRD_PERSON_LEFT_HAND && mode != ModelTransformation.Mode.THIRD_PERSON_RIGHT_HAND && mode != ModelTransformation.Mode.NONE) {
 				itemRenderer.renderItem(stack, mode, false, matrices, vertexConsumers, light, overlay, this.inventoryModel);
 			} else {
-				boolean leftHanded;
-				switch (mode) {
-					case FIRST_PERSON_LEFT_HAND, THIRD_PERSON_LEFT_HAND -> leftHanded = true;
-					default -> leftHanded = false;
+				boolean leftHanded = switch (mode) {
+					case FIRST_PERSON_LEFT_HAND, THIRD_PERSON_LEFT_HAND -> true;
+					default -> false;
+				};
+				if (MinecraftClient.getInstance().player.getActiveItem() == stack) { // TODO: Find a more permanent solution if this doesn't work out in the future
+					if (mode.isFirstPerson()) {
+						matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(-45));
+						matrices.translate(0.15, -0.25, 0);
+					} else {
+						matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(180));
+					}
 				}
+
 				itemRenderer.renderItem(stack, mode, leftHanded, matrices, vertexConsumers, light, overlay, this.worldModel);
 			}
 		}

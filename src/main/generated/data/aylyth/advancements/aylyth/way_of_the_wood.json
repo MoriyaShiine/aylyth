@@ -147,7 +147,7 @@
     }
   },
   "display": {
-    "announce_to_chat": false,
+    "announce_to_chat": true,
     "description": {
       "translate": "aylyth.advancements.aylyth.way_of_the_wood.desc"
     },

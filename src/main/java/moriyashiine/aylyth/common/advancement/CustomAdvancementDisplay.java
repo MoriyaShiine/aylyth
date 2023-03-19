@@ -38,7 +38,7 @@ public class CustomAdvancementDisplay extends AdvancementDisplay {
 
     @Override
     public JsonElement toJson() {
-        var accessor = (AdvancementDisplayAccessor)this;
+        AdvancementDisplayAccessor accessor = (AdvancementDisplayAccessor)this;
         JsonObject jsonObject = new JsonObject();
         jsonObject.add("title", Text.Serializer.toJsonTree(accessor.getTitle()));
         jsonObject.add("description", Text.Serializer.toJsonTree(accessor.getDescription()));
@@ -72,7 +72,7 @@ public class CustomAdvancementDisplay extends AdvancementDisplay {
 
     @Override
     public void toPacket(PacketByteBuf buf) {
-        var accessor = (AdvancementDisplayAccessor)this;
+        AdvancementDisplayAccessor accessor = (AdvancementDisplayAccessor)this;
         buf.writeVarInt(-1);
         buf.writeText(accessor.getTitle());
         buf.writeText(accessor.getDescription());
@@ -115,7 +115,6 @@ public class CustomAdvancementDisplay extends AdvancementDisplay {
     }
 
     public interface Renderer {
-
         void render(MatrixStack matrices, int x, int y, CustomAdvancementWidget widget);
     }
 }

@@ -9,6 +9,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.boss.dragon.EnderDragonPart;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
@@ -52,16 +53,15 @@ public class YmpeLanceEntity extends PersistentProjectileEntity {
 					dropStack(asItemStack(), 0.1F);
 
 				discard();
-			}
-			else {
+			} else {
 				setNoClip(true);
-				Vec3d ownerPos = getOwner().getEyePos().subtract(getPos());
-				setPos(getX(), getY() + ownerPos.y * 0.045 * 3, getZ());
+				Vec3d ownerDistance = getOwner().getEyePos().subtract(getPos());
+				setPos(getX(), getY() + ownerDistance.y * 0.045 * 3, getZ());
 
 				if(world.isClient)
 					lastRenderY = getY();
 
-				setVelocity(getVelocity().multiply(0.95).add(ownerPos.normalize().multiply(0.15)));
+				setVelocity(getVelocity().multiply(0.95).add(ownerDistance.normalize().multiply(0.15)));
 			}
 		}
 
@@ -88,22 +88,23 @@ public class YmpeLanceEntity extends PersistentProjectileEntity {
 	@Override
 	protected void onEntityHit(EntityHitResult entityHitResult) {
 		Entity owner = getOwner();
-		Entity target = entityHitResult.getEntity();
+		Entity target = entityHitResult.getEntity() instanceof EnderDragonPart part ? part.owner : entityHitResult.getEntity();
 		float damage = 8F;
 
 		if(target instanceof LivingEntity livingTarget) {
 			damage += EnchantmentHelper.getAttackDamage(stack, livingTarget.getGroup());
-			this.target = livingTarget;
 		}
 
 		DamageSource damageSource = DamageSource.trident(this, owner == null ? this : owner);
 		dealtDamage = true;
 
 		if(target.damage(damageSource, damage)) {
-			if(target.getType() == EntityType.ENDERMAN)
+			if(target.getType() == EntityType.ENDERMAN) {
 				return;
+			}
 
 			if(target instanceof LivingEntity livingTarget) {
+				this.target = livingTarget;
 				if(owner instanceof LivingEntity livingOwner) {
 					EnchantmentHelper.onUserDamaged(livingTarget, livingOwner);
 					EnchantmentHelper.onTargetDamaged(livingOwner, livingTarget);
@@ -111,10 +112,9 @@ public class YmpeLanceEntity extends PersistentProjectileEntity {
 
 				onHit(livingTarget);
 			}
+			startRiding(target, target.getType() != EntityType.ENDER_DRAGON);
+			playSound(SoundEvents.ENTITY_ARROW_HIT, 1F, 1F);
 		}
-
-		startRiding(target, true);
-		playSound(SoundEvents.ENTITY_ARROW_HIT, 1F, 1F);
 	}
 
 	@Override
@@ -164,7 +164,7 @@ public class YmpeLanceEntity extends PersistentProjectileEntity {
 		if(tag.contains("Lance", NbtElement.COMPOUND_TYPE))
 			stack = ItemStack.fromNbt(tag.getCompound("Lance"));
 
-		if(world instanceof ServerWorld serverWorld && tag.getUuid("Target") != null && serverWorld.getEntity(tag.getUuid("Target")) instanceof LivingEntity targetEntity)
+		if(world instanceof ServerWorld serverWorld && tag.containsUuid("Target") && serverWorld.getEntity(tag.getUuid("Target")) instanceof LivingEntity targetEntity)
 			target = targetEntity;
 
 		dealtDamage = tag.getBoolean("HasDealtDamage");

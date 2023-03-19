@@ -5,6 +5,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Fertilizable;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -42,9 +44,8 @@ public class StagedMushroomPlantBlock extends SpreadingPlantBlock implements Fer
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        var heldItem = player.getStackInHand(hand);
-        var thisAsItem = asItem();
-        if (thisAsItem != Items.AIR && heldItem.isOf(asItem()) && !isMaxStage(state)) {
+        ItemStack heldItem = player.getStackInHand(hand);
+        if (heldItem.isOf(asItem()) && !isMaxStage(state)) {
             world.setBlockState(pos, state.with(STAGE, state.get(STAGE)+1));
             if (!player.getAbilities().creativeMode) {
                 heldItem.decrement(1);

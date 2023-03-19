@@ -18,7 +18,7 @@
     }
   },
   "display": {
-    "announce_to_chat": false,
+    "announce_to_chat": true,
     "description": {
       "translate": "aylyth.advancements.aylyth.dont_look_back.desc"
     },

@@ -59,6 +59,7 @@ import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemConvertible;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
@@ -149,18 +150,8 @@ public class AylythClient implements ClientModInitializer {
 
 		});
 
-		for (Item item : ModItems.ITEMS.keySet()) {
-			if(item instanceof YmpeLanceItem || item instanceof YmpeGlaiveItem){
-				Identifier bigId = Registry.ITEM.getId(item);
-				BigItemRenderer bigItemRenderer = new BigItemRenderer(bigId);
-				ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(bigItemRenderer);
-				BuiltinItemRendererRegistry.INSTANCE.register(item, bigItemRenderer);
-				ModelLoadingRegistry.INSTANCE.registerModelProvider((manager, out) -> {
-					out.accept(new ModelIdentifier(bigId + "_gui", "inventory"));
-					out.accept(new ModelIdentifier(bigId + "_handheld", "inventory"));
-				});
-			}
-		}
+		registerBigRenderer(ModItems.YMPE_LANCE);
+		registerBigRenderer(ModItems.YMPE_GLAIVE);
 
 		ModelLoadingRegistry.INSTANCE.registerModelProvider((manager, out) -> out.accept(new ModelIdentifier("%s_generated".formatted(Registry.ITEM.getId(ModItems.MYSTERIOUS_SKETCH)), "inventory")));
 		BuiltinItemRendererRegistry.INSTANCE.register(ModItems.WOODY_GROWTH_CACHE, new WoodyGrowthCacheItemRenderer());
@@ -171,6 +162,17 @@ public class AylythClient implements ClientModInitializer {
 				.register((spriteAtlasTexture, registry) -> {
 					TulpaEntityRenderer.TEXTURE_CACHE.forEach((gameProfile, stoneTexture) -> stoneTexture.needsUpdate = true);
 				});
+	}
+
+	private void registerBigRenderer(ItemConvertible item) {
+		Identifier bigId = Registry.ITEM.getId(item.asItem());
+		BigItemRenderer bigItemRenderer = new BigItemRenderer(bigId);
+		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(bigItemRenderer);
+		BuiltinItemRendererRegistry.INSTANCE.register(item, bigItemRenderer);
+		ModelLoadingRegistry.INSTANCE.registerModelProvider((manager, out) -> {
+			out.accept(new ModelIdentifier(bigId + "_gui", "inventory"));
+			out.accept(new ModelIdentifier(bigId + "_handheld", "inventory"));
+		});
 	}
 
 	private static Block[] cutoutBlocks() {

@@ -3,6 +3,7 @@ package moriyashiine.aylyth.common.world.generator.feature;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.state.property.Properties;
 import net.minecraft.tag.TagKey;
 import net.minecraft.util.math.BlockPos;
@@ -21,14 +22,14 @@ public class HorizontalFacingFeature extends Feature<HorizontalFacingFeature.Hor
 
     @Override
     public boolean generate(FeatureContext<HorizontalFacingBlockFeatureConfig> context) {
-        var block = context.getConfig().facingBlock;
-        var origin = context.getOrigin();
+        Block block = context.getConfig().facingBlock;
+        BlockPos origin = context.getOrigin();
         BlockPos testPos;
-        var world = context.getWorld();
+        StructureWorldAccess world = context.getWorld();
         for (Direction dir : Direction.Type.HORIZONTAL) {
             testPos = origin.offset(dir);
-            var oppDir = dir.getOpposite();
-            var state = block.getDefaultState().with(Properties.HORIZONTAL_FACING, oppDir);
+            Direction oppDir = dir.getOpposite();
+            BlockState state = block.getDefaultState().with(Properties.HORIZONTAL_FACING, oppDir);
             if (world.isAir(origin) && testSideSolidFullValid(context.getConfig().tag, world, testPos, oppDir) && state.canPlaceAt(world, origin)) {
                setBlockState(world, origin, state);
             }

@@ -8,7 +8,7 @@
     }
   },
   "display": {
-    "announce_to_chat": false,
+    "announce_to_chat": true,
     "background": "aylyth:textures/block/ympe_planks.png",
     "description": {
       "translate": "aylyth.advancements.aylyth.root.desc"

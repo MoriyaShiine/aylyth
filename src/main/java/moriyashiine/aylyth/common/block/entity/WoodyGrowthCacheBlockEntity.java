@@ -36,9 +36,9 @@ public class WoodyGrowthCacheBlockEntity extends BlockEntity {
     protected void writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
         if (!inventory.isEmpty()) {
-            var list = new NbtList();
+            NbtList list = new NbtList();
             for (int i = 0; i < inventory.size(); i++) {
-                var itemNbt = new NbtCompound();
+                NbtCompound itemNbt = new NbtCompound();
                 itemNbt.putInt("Slot", i);
                 itemNbt.put("Item", inventory.get(i).writeNbt(new NbtCompound()));
                 list.add(itemNbt);
@@ -54,11 +54,11 @@ public class WoodyGrowthCacheBlockEntity extends BlockEntity {
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
         if (nbt.contains("Items")) {
-            var list = nbt.getList("Items", NbtList.COMPOUND_TYPE);
+            NbtList list = nbt.getList("Items", NbtList.COMPOUND_TYPE);
             for (NbtElement ele : list) {
-                var compound = (NbtCompound) ele;
-                var slot = compound.getInt("Slot");
-                var item = (NbtCompound)compound.get("Item");
+                NbtCompound compound = (NbtCompound) ele;
+                int slot = compound.getInt("Slot");
+                NbtCompound item = (NbtCompound)compound.get("Item");
                 inventory.add(slot, ItemStack.fromNbt(item));
             }
         }
@@ -79,7 +79,7 @@ public class WoodyGrowthCacheBlockEntity extends BlockEntity {
 
     @Override
     public NbtCompound toInitialChunkDataNbt() {
-        var nbt = new NbtCompound();
+        NbtCompound nbt = new NbtCompound();
         writeNbt(nbt);
         return nbt;
     }
@@ -108,7 +108,7 @@ public class WoodyGrowthCacheBlockEntity extends BlockEntity {
     public int fill(Inventory inv, int index) {
         int i = index;
         while (inventory.size() < MAX_SIZE && i < inv.size()) {
-            var stack = inv.removeStack(i++);
+            ItemStack stack = inv.removeStack(i++);
             if (!stack.isEmpty()) {
                 inventory.add(stack);
             }
@@ -120,7 +120,7 @@ public class WoodyGrowthCacheBlockEntity extends BlockEntity {
     public int fill(List<ItemStack> items, int index) {
         int i = index;
         while (inventory.size() < MAX_SIZE && i < items.size()) {
-            var stack = items.get(i++);
+            ItemStack stack = items.get(i++);
             if (!stack.isEmpty()) {
                 inventory.add(stack);
             }

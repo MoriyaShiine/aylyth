@@ -172,14 +172,14 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
             super.travel(travelVector);
             return;
         }
-        LivingEntity passenger = (LivingEntity) this.getFirstPassenger();
-        if (passenger != null) {
+        Entity passenger = this.getFirstPassenger();
+        if (passenger instanceof LivingEntity livingEntityPassenger) {
             this.headYaw = (float) this.serverYaw;
             this.serverHeadYaw = this.headYaw;
-            this.serverYaw = this.serverYaw - passenger.sidewaysSpeed * 2f;
-            this.serverPitch = passenger.getPitch() * 0.5F;
-            boolean isPlayerUpwardsMoving = ModComponents.RIDER_COMPONENT.get(passenger).isPressingUp();
-            boolean isPlayerDownwardsMoving = ModComponents.RIDER_COMPONENT.get(passenger).isPressingDown();
+            this.serverYaw = this.serverYaw - livingEntityPassenger.sidewaysSpeed * 2f;
+            this.serverPitch = livingEntityPassenger.getPitch() * 0.5F;
+            boolean isPlayerUpwardsMoving = ModComponents.RIDER_COMPONENT.get(livingEntityPassenger).isPressingUp();
+            boolean isPlayerDownwardsMoving = ModComponents.RIDER_COMPONENT.get(livingEntityPassenger).isPressingDown();
             double getFlightDelta = isPlayerUpwardsMoving && isPlayerDownwardsMoving ? 0 : isPlayerUpwardsMoving ? 0.8 : isPlayerDownwardsMoving ? -0.6 : 0;
             this.setPitch((float) this.serverPitch);
             this.setYaw((float) this.serverYaw);
@@ -202,7 +202,7 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
             if (!flying && isPlayerUpwardsMoving) this.jump();
 
             if (this.getFirstPassenger() != null) {
-                travelVector = new Vec3d(0, getFlightDelta, passenger.forwardSpeed * (flying ? 1 : 0.4f));
+                travelVector = new Vec3d(0, getFlightDelta, livingEntityPassenger.forwardSpeed * (flying ? 1 : 0.4f));
                 this.setMovementSpeed(speed);
                 this.stepBobbingAmount = 0;
             } else if (passenger instanceof PlayerEntity) {

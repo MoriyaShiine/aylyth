@@ -7,7 +7,7 @@
     }
   },
   "display": {
-    "announce_to_chat": false,
+    "announce_to_chat": true,
     "description": {
       "translate": "aylyth.advancements.aylyth.come_wayward_souls.desc"
     },

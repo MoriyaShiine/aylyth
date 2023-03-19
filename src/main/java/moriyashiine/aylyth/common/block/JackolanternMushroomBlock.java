@@ -29,7 +29,7 @@ public class JackolanternMushroomBlock extends StagedMushroomPlantBlock {
 
     @Override
     protected Optional<BlockState> findGrowState(WorldAccess world, BlockPos pos) {
-        var wall = wallBlock.get().findGrowState(world, pos);
+        Optional<BlockState> wall = wallBlock.get().findGrowState(world, pos);
         if (wall.isPresent()) {
             return wall;
         }
@@ -57,9 +57,9 @@ public class JackolanternMushroomBlock extends StagedMushroomPlantBlock {
     @Nullable
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
-        var state = super.getPlacementState(ctx);
+        BlockState state = super.getPlacementState(ctx);
         if (state != null) {
-            var world = ctx.getWorld();
+            World world = ctx.getWorld();
             state = state.with(GLOWING, getLight(world, ctx.getBlockPos()) < 6);
         }
         return state;
@@ -74,14 +74,14 @@ public class JackolanternMushroomBlock extends StagedMushroomPlantBlock {
     }
 
     private int getLight(World world, BlockPos pos) {
-        return world.getLightLevel(pos, 0) - ((world.getTimeOfDay() < 23000 && world.getTimeOfDay() >= 13000) ? 5 : 0);
+        return world.getLightLevel(pos, 0) - ((world.getTimeOfDay() < 23000 && world.getTimeOfDay() >= 13000) ? 10 : 0);
     }
 
     @Override
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         super.scheduledTick(state, world, pos, random);
-        var lightLevel = getLight(world, pos);
-        var glowingState = state.get(GLOWING);
+        int lightLevel = getLight(world, pos);
+        boolean glowingState = state.get(GLOWING);
         if (glowingState ^ lightLevel < 6) {
             world.setBlockState(pos, state.with(GLOWING, lightLevel < 6));
         }

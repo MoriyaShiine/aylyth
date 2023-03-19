@@ -46,7 +46,7 @@ public class YmpeDaggerRecipeJsonBuilder {
             @Override
             public void serialize(JsonObject json) {
                 json.addProperty("entity_type", Registry.ENTITY_TYPE.getId(entityType).toString());
-                var obj = new JsonObject();
+                JsonObject obj = new JsonObject();
                 obj.addProperty("item", Registry.ITEM.getId(output.getItem()).toString());
                 if (output.getCount() > 1) {
                     obj.addProperty("count", output.getCount());

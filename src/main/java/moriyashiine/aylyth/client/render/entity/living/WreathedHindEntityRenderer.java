@@ -28,8 +28,8 @@ public class WreathedHindEntityRenderer extends GeoEntityRenderer<WreathedHindEn
                 double x = model.getBone("iGuessThisistheHead").get().getWorldPosition().x;
                 double y = model.getBone("iGuessThisistheHead").get().getWorldPosition().y;
                 double z = model.getBone("iGuessThisistheHead").get().getWorldPosition().z;
-                var randX = animatable.getRandom().nextDouble();
-                var randZ = animatable.getRandom().nextDouble();
+                double randX = animatable.getRandom().nextDouble();
+                double randZ = animatable.getRandom().nextDouble();
                 animatable.getEntityWorld().addParticle(ModParticles.HIND_SMOKE,
                         randX + x - 0.5,
                         y,
