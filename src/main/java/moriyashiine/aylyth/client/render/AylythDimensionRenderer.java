@@ -99,7 +99,6 @@ public class AylythDimensionRenderer {
 			VertexBuffer starsBuffer = ((WorldRendererAccessor)context.worldRenderer()).getStarsBuffer();
 			MatrixStack matrices = context.matrixStack();
 			Matrix4f matrix4f = context.projectionMatrix();
-			Runnable fogHandler = () -> BackgroundRenderer.applyFog(camera, BackgroundRenderer.FogType.FOG_SKY, context.gameRenderer().getViewDistance(), true, tickDelta);
 			RenderSystem.disableTexture();
 			Vec3d vec3d = world.getSkyColor(camera.getPos(), tickDelta);
 			float skyRed = (float) vec3d.x;
@@ -108,7 +107,7 @@ public class AylythDimensionRenderer {
 			BackgroundRenderer.setFogBlack();
 			BufferBuilder bufferBuilder = Tessellator.getInstance().getBuffer();
 			RenderSystem.depthMask(false);
-			RenderSystem.setShaderColor(skyRed, skyGreen, skyBlue, 0.0F);
+			RenderSystem.setShaderColor(skyRed, skyGreen, skyBlue, 1.0F);
 			Shader shader = RenderSystem.getShader();
 			lightSkyBuffer.bind();
 			lightSkyBuffer.draw(matrices.peek().getPositionMatrix(), matrix4f, shader);
@@ -153,7 +152,6 @@ public class AylythDimensionRenderer {
 				starsBuffer.bind();
 				starsBuffer.draw(matrices.peek().getPositionMatrix(), matrix4f, GameRenderer.getPositionShader());
 				VertexBuffer.unbind();
-				fogHandler.run();
 				matrices.pop();
 			}
 			RenderSystem.disableBlend();
