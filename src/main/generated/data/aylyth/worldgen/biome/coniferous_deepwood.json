@@ -96,8 +96,8 @@
       "energy_budget": 0.13
     },
     "aylyth:wreathed_hind": {
-      "charge": 1.4,
-      "energy_budget": 0.6
+      "charge": 4.5,
+      "energy_budget": 0.8
     },
     "minecraft:enderman": {
       "charge": 0.7,
@@ -114,14 +114,7 @@
       }
     ],
     "axolotls": [],
-    "creature": [
-      {
-        "type": "aylyth:wreathed_hind",
-        "maxCount": 1,
-        "minCount": 1,
-        "weight": 1
-      }
-    ],
+    "creature": [],
     "misc": [],
     "monster": [
       {
@@ -151,6 +144,12 @@
       {
         "type": "minecraft:enderman",
         "maxCount": 4,
+        "minCount": 1,
+        "weight": 1
+      },
+      {
+        "type": "aylyth:wreathed_hind",
+        "maxCount": 1,
         "minCount": 1,
         "weight": 1
       }
