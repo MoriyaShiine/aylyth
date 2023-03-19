@@ -1,7 +1,9 @@
 package moriyashiine.aylyth.common.item;
 
+import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.common.registry.ModDimensionKeys;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -11,6 +13,8 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
 public class AylythianHeartItem extends Item {
@@ -34,7 +38,12 @@ public class AylythianHeartItem extends Item {
 	public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
 		if (world instanceof ServerWorld serverWorld && user instanceof PlayerEntity player && serverWorld.getRegistryKey() != ModDimensionKeys.AYLYTH) {
 			if (player.isCreative() || player.experienceLevel >= 5) {
-//				serverWorld.
+				for (BlockPos pos : BlockPos.iterateRandomly(world.random, world.random.nextInt(5), player.getBlockPos(), 3)) {
+					BlockState state = world.getBlockState(pos);
+					if (state.isAir() && ModBlocks.MARIGOLD.getDefaultState().canPlaceAt(world, pos)) {
+						world.setBlockState(pos, ModBlocks.MARIGOLD.getDefaultState());
+					}
+				}
 				AylythUtil.teleportTo(player, serverWorld.getServer().getWorld(ModDimensionKeys.AYLYTH), 0);
 				if (!player.isCreative()) {
 					player.addExperience(-55);
