@@ -14,7 +14,7 @@
     "fog_color": 6710886,
     "foliage_color": 6455096,
     "grass_color": 12358970,
-    "grass_color_modifier": "dark_forest",
+    "grass_color_modifier": "aylyth_noise",
     "mood_sound": {
       "block_search_extent": 8,
       "offset": 2.0,

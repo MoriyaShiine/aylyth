@@ -128,6 +128,7 @@ public class ModBiomes {
 				.biomeEffects(FOG_COLOR, WATER_COLOR, UNDERWATER_COLOR, SKY_COLOR, biomeEffectsBuilder -> {
 					biomeEffectsBuilder.foliageColor(deep ? DEEP_AYLYTHIAN_FOLIAGE_COLOR : AYLYTHIAN_FOLIAGE_COLOR)
 							.grassColor(deep ? 0xAD6903 : 0xB5883B)
+							.grassColorModifier(deep ? AYLYTH_NOISE : BiomeEffects.GrassColorModifier.NONE)
 							.moodSound(BiomeMoodSound.CAVE)
 							.particleConfig(ParticleTypes.MYCELIUM, deep ? 0.1F : 0.025F)
 							.additionsSound(FOREST_AMBIANCE);
@@ -166,6 +167,7 @@ public class ModBiomes {
 				.biomeEffects(FOG_COLOR, WATER_COLOR, UNDERWATER_COLOR, SKY_COLOR, biomeEffectsBuilder -> {
 					biomeEffectsBuilder.foliageColor(deep ? DEEP_AYLYTHIAN_FOLIAGE_COLOR : AYLYTHIAN_FOLIAGE_COLOR)
 							.grassColor(deep ? 0x3E682B : 0x4D7C44)
+							.grassColorModifier(deep ? AYLYTH_NOISE : BiomeEffects.GrassColorModifier.NONE)
 							.moodSound(BiomeMoodSound.CAVE)
 							.particleConfig(ParticleTypes.MYCELIUM, deep ? 0.1F : 0.025F)
 							.additionsSound(FOREST_AMBIANCE);
@@ -214,7 +216,8 @@ public class ModBiomes {
 		return BiomeBuilder.builder(Biome.Precipitation.RAIN, 0.8F, 0.3F)
 				.biomeEffects(FOG_COLOR, MIRE_WATER_COLOR, MIRE_UNDERWATER_COLOR, SKY_COLOR, biomeEffectsBuilder -> {
 					biomeEffectsBuilder.foliageColor(MIRE_FOLIAGE_COLOR)
-							.grassColor(MIRE_FOLIAGE_COLOR);
+							.grassColor(MIRE_FOLIAGE_COLOR)
+							.grassColorModifier(AYLYTH_NOISE);
 				})
 				.spawnSettings(spawnSettings)
 				.generationSettings(builder -> {

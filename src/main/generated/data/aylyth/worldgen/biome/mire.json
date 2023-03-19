@@ -5,6 +5,7 @@
     "fog_color": 6710886,
     "foliage_color": 6053120,
     "grass_color": 6053120,
+    "grass_color_modifier": "aylyth_noise",
     "sky_color": 0,
     "water_color": 3360083,
     "water_fog_color": 0
