@@ -91,11 +91,10 @@ dependencies {
     include "com.jamieswhiteshirt:reach-entity-attributes:${reach_entity_attributes_version}"
     modImplementation "com.terraformersmc.terraform-api:terraform-wood-api-v1:${terraform_wood_api_version}"
     include "com.terraformersmc.terraform-api:terraform-wood-api-v1:${terraform_wood_api_version}"
+    include implementation('com.github.Chocohead:Fabric-ASM:v2.3')
 
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
     modImplementation "software.bernie.geckolib:geckolib-fabric-${geckolib_version}"
-
-    implementation 'com.github.Chocohead:Fabric-ASM:v2.3'
 
     //EMI
     modImplementation "dev.emi:emi:${emi_version}"
