@@ -1,5 +1,6 @@
 package moriyashiine.aylyth.datagen.worldgen.biomes;
 
+import com.chocohead.mm.api.ClassTinkerers;
 import moriyashiine.aylyth.common.registry.ModEntityTypes;
 import moriyashiine.aylyth.common.registry.ModParticles;
 import moriyashiine.aylyth.common.registry.ModSoundEvents;
@@ -76,6 +77,7 @@ public class ModBiomes {
 	private static final int MIRE_UNDERWATER_COLOR = 0x000000;
 	private static final int FOG_COLOR = 0x666666;
 	private static final int SKY_COLOR = 0x000000;
+	public static final BiomeEffects.GrassColorModifier AYLYTH_NOISE = ClassTinkerers.getEnum(BiomeEffects.GrassColorModifier.class, "AYLYTH_NOISE");
 	
 	public static void datagenInit() {
 		BuiltinRegistries.addCasted(BuiltinRegistries.BIOME, CLEARING_ID.getValue().toString(), createClearing(false, SpawnSettingsBuilder.none()));
@@ -94,6 +96,7 @@ public class ModBiomes {
 				.biomeEffects(FOG_COLOR, WATER_COLOR, UNDERWATER_COLOR, SKY_COLOR, biomeEffectsBuilder -> {
 					biomeEffectsBuilder.foliageColor(AYLYTHIAN_FOLIAGE_COLOR)
 							.grassColor(overgrown ? 0xBC953A : 0xA1BA48)
+							.grassColorModifier(AYLYTH_NOISE)
 							.moodSound(BiomeMoodSound.CAVE)
 							.particleConfig(ModParticles.AMBIENT_PILOT_LIGHT, 0.0025F);
 					if (overgrown) {

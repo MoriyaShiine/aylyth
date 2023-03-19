@@ -95,6 +95,8 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
     modImplementation "software.bernie.geckolib:geckolib-fabric-${geckolib_version}"
 
+    implementation 'com.github.Chocohead:Fabric-ASM:v2.3'
+
     //EMI
     modImplementation "dev.emi:emi:${emi_version}"
 
