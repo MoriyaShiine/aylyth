@@ -82,7 +82,7 @@ public class JackolanternMushroomBlock extends StagedMushroomPlantBlock {
         super.scheduledTick(state, world, pos, random);
         int lightLevel = getLight(world, pos);
         boolean glowingState = state.get(GLOWING);
-        if (glowingState ^ lightLevel < 6) {
+        if (glowingState ^ lightLevel < 8) {
             world.setBlockState(pos, state.with(GLOWING, lightLevel < 6));
         }
         world.createAndScheduleBlockTick(pos, this, 100);

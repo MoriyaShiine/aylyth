@@ -91,6 +91,7 @@ dependencies {
     include "com.jamieswhiteshirt:reach-entity-attributes:${reach_entity_attributes_version}"
     modImplementation "com.terraformersmc.terraform-api:terraform-wood-api-v1:${terraform_wood_api_version}"
     include "com.terraformersmc.terraform-api:terraform-wood-api-v1:${terraform_wood_api_version}"
+    include implementation('com.github.Chocohead:Fabric-ASM:v2.3')
 
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
     modImplementation "software.bernie.geckolib:geckolib-fabric-${geckolib_version}"
@@ -105,6 +106,11 @@ dependencies {
     // Nice dev things
 	modRuntimeOnly "curse.maven:disablecustomworldsadvice-401978:3827588"
     modRuntimeOnly "maven.modrinth:suggestion-provider-fix-fabric:1.0.0"
+
+    // Testing compat
+//    runtimeOnly 'com.github.JOML-CI:JOML:1.10.5'
+//    modRuntimeOnly "curse.maven:sodium-394468:3957319"
+//    modRuntimeOnly "curse.maven:iris-455508:4385033"
 
     //Illuminations Compat
     modImplementation "curse.maven:illuminations-292908:4046680"

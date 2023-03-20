@@ -1,5 +1,6 @@
 package moriyashiine.aylyth.datagen.worldgen.biomes;
 
+import com.chocohead.mm.api.ClassTinkerers;
 import moriyashiine.aylyth.common.registry.ModEntityTypes;
 import moriyashiine.aylyth.common.registry.ModParticles;
 import moriyashiine.aylyth.common.registry.ModSoundEvents;
@@ -37,14 +38,14 @@ public class ModBiomes {
 			.spawnCost(ModEntityTypes.SCION, 0.9, 0.13)
 			.spawnCost(ModEntityTypes.ELDER_AYLYTHIAN, 0.7, 0.12)
 			.spawnCost(EntityType.ENDERMAN, 0.7, 0.12)
-			.spawnCost(ModEntityTypes.WREATHED_HIND_ENTITY, 1.4, 0.6)
+			.spawnCost(ModEntityTypes.WREATHED_HIND_ENTITY, 4.5, 0.8)
 			.spawnCost(ModEntityTypes.PILOT_LIGHT, 0.7, 0.1)
 			.monster(ModEntityTypes.AYLYTHIAN, 50, 1, 3)
 			.monster(ModEntityTypes.SCION, 15, 1, 1)
 			.monster(ModEntityTypes.ELDER_AYLYTHIAN, 2, 1, 1)
 			.monster(ModEntityTypes.FAUNAYLYTHIAN, 20, 1, 3)
 			.monster(EntityType.ENDERMAN, 1, 1, 4)
-			.creature(ModEntityTypes.WREATHED_HIND_ENTITY, 1, 1, 1)
+			.monster(ModEntityTypes.WREATHED_HIND_ENTITY, 1, 1, 1)
 			.ambient(ModEntityTypes.PILOT_LIGHT, 10, 1, 1)
 			.spawnChance(0.5f)
 			.build();
@@ -76,6 +77,7 @@ public class ModBiomes {
 	private static final int MIRE_UNDERWATER_COLOR = 0x000000;
 	private static final int FOG_COLOR = 0x666666;
 	private static final int SKY_COLOR = 0x000000;
+	public static final BiomeEffects.GrassColorModifier AYLYTH_NOISE = ClassTinkerers.getEnum(BiomeEffects.GrassColorModifier.class, "AYLYTH_NOISE");
 	
 	public static void datagenInit() {
 		BuiltinRegistries.addCasted(BuiltinRegistries.BIOME, CLEARING_ID.getValue().toString(), createClearing(false, SpawnSettingsBuilder.none()));
@@ -94,6 +96,7 @@ public class ModBiomes {
 				.biomeEffects(FOG_COLOR, WATER_COLOR, UNDERWATER_COLOR, SKY_COLOR, biomeEffectsBuilder -> {
 					biomeEffectsBuilder.foliageColor(AYLYTHIAN_FOLIAGE_COLOR)
 							.grassColor(overgrown ? 0xBC953A : 0xA1BA48)
+							.grassColorModifier(AYLYTH_NOISE)
 							.moodSound(BiomeMoodSound.CAVE)
 							.particleConfig(ModParticles.AMBIENT_PILOT_LIGHT, 0.0025F);
 					if (overgrown) {
@@ -125,6 +128,7 @@ public class ModBiomes {
 				.biomeEffects(FOG_COLOR, WATER_COLOR, UNDERWATER_COLOR, SKY_COLOR, biomeEffectsBuilder -> {
 					biomeEffectsBuilder.foliageColor(deep ? DEEP_AYLYTHIAN_FOLIAGE_COLOR : AYLYTHIAN_FOLIAGE_COLOR)
 							.grassColor(deep ? 0xAD6903 : 0xB5883B)
+							.grassColorModifier(deep ? AYLYTH_NOISE : BiomeEffects.GrassColorModifier.NONE)
 							.moodSound(BiomeMoodSound.CAVE)
 							.particleConfig(ParticleTypes.MYCELIUM, deep ? 0.1F : 0.025F)
 							.additionsSound(FOREST_AMBIANCE);
@@ -163,6 +167,7 @@ public class ModBiomes {
 				.biomeEffects(FOG_COLOR, WATER_COLOR, UNDERWATER_COLOR, SKY_COLOR, biomeEffectsBuilder -> {
 					biomeEffectsBuilder.foliageColor(deep ? DEEP_AYLYTHIAN_FOLIAGE_COLOR : AYLYTHIAN_FOLIAGE_COLOR)
 							.grassColor(deep ? 0x3E682B : 0x4D7C44)
+							.grassColorModifier(deep ? AYLYTH_NOISE : BiomeEffects.GrassColorModifier.NONE)
 							.moodSound(BiomeMoodSound.CAVE)
 							.particleConfig(ParticleTypes.MYCELIUM, deep ? 0.1F : 0.025F)
 							.additionsSound(FOREST_AMBIANCE);
@@ -211,7 +216,8 @@ public class ModBiomes {
 		return BiomeBuilder.builder(Biome.Precipitation.RAIN, 0.8F, 0.3F)
 				.biomeEffects(FOG_COLOR, MIRE_WATER_COLOR, MIRE_UNDERWATER_COLOR, SKY_COLOR, biomeEffectsBuilder -> {
 					biomeEffectsBuilder.foliageColor(MIRE_FOLIAGE_COLOR)
-							.grassColor(MIRE_FOLIAGE_COLOR);
+							.grassColor(MIRE_FOLIAGE_COLOR)
+							.grassColorModifier(AYLYTH_NOISE);
 				})
 				.spawnSettings(spawnSettings)
 				.generationSettings(builder -> {

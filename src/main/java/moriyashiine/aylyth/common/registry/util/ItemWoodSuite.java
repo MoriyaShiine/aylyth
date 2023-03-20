@@ -64,7 +64,7 @@ public class ItemWoodSuite {
 
     ItemWoodSuite(@NotNull Identifier identifier, @NotNull WoodSuite woodSuite,
                   @NotNull ItemSettingsSet itemSettingsSet, @NotNull Registry<Item> itemRegistry,
-                  @NotNull Supplier<TerraformBoatType> boatType, @NotNull Supplier<TerraformBoatType> chestBoatType) {
+                  @NotNull Supplier<TerraformBoatType> boatType) {
         this.id = identifier;
         this.woodSuite = woodSuite;
         this.itemSettings = itemSettingsSet;
@@ -85,13 +85,13 @@ public class ItemWoodSuite {
         this.door = new TallBlockItem(woodSuite.door, itemSettings.getDoor());
         this.sign = new SignItem(itemSettings.getSign(), woodSuite.floorSign, woodSuite.wallSign);
         this.boat = new TerraformBoatItem(boatType, false, itemSettings.getBoat());
-        this.chestBoat = new TerraformBoatItem(chestBoatType, true, itemSettings.getChestBoat());
+        this.chestBoat = new TerraformBoatItem(boatType, true, itemSettings.getChestBoat());
     }
 
     public static ItemWoodSuite of(@NotNull Identifier identifier, @NotNull WoodSuite woodSuite,
                                    @NotNull ItemSettingsSet itemSettingsSet, @NotNull Registry<Item> itemRegistry,
-                                   @NotNull Supplier<TerraformBoatType> boatType, @NotNull Supplier<TerraformBoatType> chestBoatType) {
-        return new ItemWoodSuite(identifier, woodSuite, itemSettingsSet, itemRegistry, boatType, chestBoatType);
+                                   @NotNull Supplier<TerraformBoatType> boatType) {
+        return new ItemWoodSuite(identifier, woodSuite, itemSettingsSet, itemRegistry, boatType);
     }
     
     public void register() {

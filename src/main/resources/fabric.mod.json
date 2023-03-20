@@ -37,6 +37,9 @@
         ],
         "emi": [
             "moriyashiine.aylyth.client.integration.emi.ModEMIPlugin"
+        ],
+        "mm:early_risers": [
+            "moriyashiine.aylyth.common.asm.EarlyRiser"
         ]
     },
     "mixins": [

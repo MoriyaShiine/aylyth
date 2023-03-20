@@ -35,22 +35,20 @@ public class AylythDimensionRenderer {
 	private static float currentFogStrength;
 
 	public static void renderFog(Camera camera, BackgroundRenderer.FogType fogType, float viewDistance, boolean thickFog, float tickDelta) {
-		if (!Aylyth.isDebugMode()) {
-			float fogStrength = currentFogStrength;
-			if (camera.getSubmersionType().equals(CameraSubmersionType.WATER)) {
-				ClientPlayerEntity player = MinecraftClient.getInstance().player;
-				ClientWorld world = MinecraftClient.getInstance().world;
-				if (world.getBiome(player.getBlockPos()).isIn(BiomeTags.HAS_CLOSER_WATER_FOG)) {
-					fogStrength *= 0.75;
-				}
+		float fogStrength = currentFogStrength;
+		if (camera.getSubmersionType().equals(CameraSubmersionType.WATER)) {
+			ClientPlayerEntity player = MinecraftClient.getInstance().player;
+			ClientWorld world = MinecraftClient.getInstance().world;
+			if (world.getBiome(player.getBlockPos()).isIn(BiomeTags.HAS_CLOSER_WATER_FOG)) {
+				fogStrength *= 0.75;
 			}
-			RenderSystem.setShaderFogStart(0F);
-			RenderSystem.setShaderFogEnd(fogStrength);
-			if (goalFogStrength < currentFogStrength) {
-				currentFogStrength -= 0.1F;
-			} else if (goalFogStrength > currentFogStrength) {
-				currentFogStrength += 0.1F;
-			}
+		}
+		RenderSystem.setShaderFogStart(0F);
+		RenderSystem.setShaderFogEnd(fogStrength);
+		if (goalFogStrength < currentFogStrength) {
+			currentFogStrength -= 0.1F;
+		} else if (goalFogStrength > currentFogStrength) {
+			currentFogStrength += 0.1F;
 		}
 	}
 
@@ -99,7 +97,6 @@ public class AylythDimensionRenderer {
 			VertexBuffer starsBuffer = ((WorldRendererAccessor)context.worldRenderer()).getStarsBuffer();
 			MatrixStack matrices = context.matrixStack();
 			Matrix4f matrix4f = context.projectionMatrix();
-			Runnable fogHandler = () -> BackgroundRenderer.applyFog(camera, BackgroundRenderer.FogType.FOG_SKY, context.gameRenderer().getViewDistance(), true, tickDelta);
 			RenderSystem.disableTexture();
 			Vec3d vec3d = world.getSkyColor(camera.getPos(), tickDelta);
 			float skyRed = (float) vec3d.x;
@@ -108,7 +105,7 @@ public class AylythDimensionRenderer {
 			BackgroundRenderer.setFogBlack();
 			BufferBuilder bufferBuilder = Tessellator.getInstance().getBuffer();
 			RenderSystem.depthMask(false);
-			RenderSystem.setShaderColor(skyRed, skyGreen, skyBlue, 0.0F);
+			RenderSystem.setShaderColor(skyRed, skyGreen, skyBlue, 1.0F);
 			Shader shader = RenderSystem.getShader();
 			lightSkyBuffer.bind();
 			lightSkyBuffer.draw(matrices.peek().getPositionMatrix(), matrix4f, shader);
@@ -153,7 +150,6 @@ public class AylythDimensionRenderer {
 				starsBuffer.bind();
 				starsBuffer.draw(matrices.peek().getPositionMatrix(), matrix4f, GameRenderer.getPositionShader());
 				VertexBuffer.unbind();
-				fogHandler.run();
 				matrices.pop();
 			}
 			RenderSystem.disableBlend();
