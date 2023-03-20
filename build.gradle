@@ -107,6 +107,11 @@ dependencies {
 	modRuntimeOnly "curse.maven:disablecustomworldsadvice-401978:3827588"
     modRuntimeOnly "maven.modrinth:suggestion-provider-fix-fabric:1.0.0"
 
+    // Testing compat
+//    runtimeOnly 'com.github.JOML-CI:JOML:1.10.5'
+//    modRuntimeOnly "curse.maven:sodium-394468:3957319"
+//    modRuntimeOnly "curse.maven:iris-455508:4385033"
+
     //Illuminations Compat
     modImplementation "curse.maven:illuminations-292908:4046680"
 
