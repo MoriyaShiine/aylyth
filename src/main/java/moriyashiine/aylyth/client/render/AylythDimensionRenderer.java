@@ -35,22 +35,20 @@ public class AylythDimensionRenderer {
 	private static float currentFogStrength;
 
 	public static void renderFog(Camera camera, BackgroundRenderer.FogType fogType, float viewDistance, boolean thickFog, float tickDelta) {
-		if (!Aylyth.isDebugMode()) {
-			float fogStrength = currentFogStrength;
-			if (camera.getSubmersionType().equals(CameraSubmersionType.WATER)) {
-				ClientPlayerEntity player = MinecraftClient.getInstance().player;
-				ClientWorld world = MinecraftClient.getInstance().world;
-				if (world.getBiome(player.getBlockPos()).isIn(BiomeTags.HAS_CLOSER_WATER_FOG)) {
-					fogStrength *= 0.75;
-				}
+		float fogStrength = currentFogStrength;
+		if (camera.getSubmersionType().equals(CameraSubmersionType.WATER)) {
+			ClientPlayerEntity player = MinecraftClient.getInstance().player;
+			ClientWorld world = MinecraftClient.getInstance().world;
+			if (world.getBiome(player.getBlockPos()).isIn(BiomeTags.HAS_CLOSER_WATER_FOG)) {
+				fogStrength *= 0.75;
 			}
-			RenderSystem.setShaderFogStart(0F);
-			RenderSystem.setShaderFogEnd(fogStrength);
-			if (goalFogStrength < currentFogStrength) {
-				currentFogStrength -= 0.1F;
-			} else if (goalFogStrength > currentFogStrength) {
-				currentFogStrength += 0.1F;
-			}
+		}
+		RenderSystem.setShaderFogStart(0F);
+		RenderSystem.setShaderFogEnd(fogStrength);
+		if (goalFogStrength < currentFogStrength) {
+			currentFogStrength -= 0.1F;
+		} else if (goalFogStrength > currentFogStrength) {
+			currentFogStrength += 0.1F;
 		}
 	}
 

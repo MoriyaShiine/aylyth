@@ -1,6 +1,7 @@
 package moriyashiine.aylyth.mixin.client;
 
 import moriyashiine.aylyth.client.render.AylythDimensionRenderer;
+import moriyashiine.aylyth.common.Aylyth;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.BackgroundRenderer;
@@ -15,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class BackgroundRendererMixin {
 	@Inject(method = "applyFog", at = @At("HEAD"), cancellable = true)
 	private static void applyAylythFog(Camera camera, BackgroundRenderer.FogType fogType, float viewDistance, boolean thickFog, float tickDelta, CallbackInfo ci) {
-		if (AylythDimensionRenderer.goalFogStrength > 0) {
+		if (AylythDimensionRenderer.goalFogStrength > 0 && !Aylyth.isDebugMode()) {
 			AylythDimensionRenderer.renderFog(camera, fogType, viewDistance, thickFog, tickDelta);
 			ci.cancel();
 		}
