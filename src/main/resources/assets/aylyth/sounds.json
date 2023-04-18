@@ -193,5 +193,27 @@
 			"aylyth:entity/wreathed_hind/death4"
 		],
 		"subtitle": "aylyth.subtitles.entity.wreathed_hind.death"
+	},
+	"entity.faunaylythian.ambient": {
+		"sounds": [
+			"aylyth:entity/faunaylythian/say1",
+			"aylyth:entity/faunaylythian/say2",
+			"aylyth:entity/faunaylythian/say3"
+		],
+		"subtitle": "aylyth.subtitles.entity.faunaylythian.ambient"
+	},
+	"entity.faunaylythian.hurt": {
+		"sounds": [
+			"aylyth:entity/faunaylythian/hurt1",
+			"aylyth:entity/faunaylythian/hurt2",
+			"aylyth:entity/faunaylythian/hurt3"
+		],
+		"subtitle": "aylyth.subtitles.entity.faunaylythian.hurt"
+	},
+	"entity.faunaylythian.death": {
+		"sounds": [
+			"aylyth:entity/faunaylythian/death"
+		],
+		"subtitle": "aylyth.subtitles.entity.faunaylythian.death"
 	}
 }

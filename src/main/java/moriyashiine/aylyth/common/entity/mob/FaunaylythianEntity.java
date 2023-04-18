@@ -3,6 +3,7 @@ package moriyashiine.aylyth.common.entity.mob;
 import moriyashiine.aylyth.common.entity.ai.goal.PounceAttackGoal;
 import moriyashiine.aylyth.common.entity.ai.goal.RootPropAttack;
 import moriyashiine.aylyth.common.registry.ModBlocks;
+import moriyashiine.aylyth.common.registry.ModSoundEvents;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityGroup;
@@ -19,6 +20,7 @@ import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
@@ -188,6 +190,22 @@ public class FaunaylythianEntity extends HostileEntity implements IAnimatable {
             }
             return PlayState.STOP;
         }));
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return ModSoundEvents.ENTITY_FAUNAYLYTHIAN_AMBIENT;
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource source) {
+        return ModSoundEvents.ENTITY_FAUNAYLYTHIAN_HURT;
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return ModSoundEvents.ENTITY_FAUNAYLYTHIAN_DEATH;
     }
 
     @Override

@@ -45,6 +45,10 @@ public class ModSoundEvents {
 	public static final SoundEvent ENTITY_WREATHED_HIND_HURT = register( "entity.wreathed_hind.hurt");
 	public static final SoundEvent ENTITY_WREATHED_HIND_DEATH = register("entity.wreathed_hind.death");
 
+	public static final SoundEvent ENTITY_FAUNAYLYTHIAN_AMBIENT = register("entity.faunaylythian.ambient");
+	public static final SoundEvent ENTITY_FAUNAYLYTHIAN_HURT = register( "entity.faunaylythian.hurt");
+	public static final SoundEvent ENTITY_FAUNAYLYTHIAN_DEATH = register("entity.faunaylythian.death");
+
 	public static final BlockSoundGroup STREWN_LEAVES = new BlockSoundGroup(1.0F, 1.0F, BLOCK_STREWN_LEAVES_STEP, BLOCK_STREWN_LEAVES_STEP, BLOCK_STREWN_LEAVES_STEP, BLOCK_STREWN_LEAVES_STEP, BLOCK_STREWN_LEAVES_STEP);
 	public static final BlockSoundGroup LEAF_PILES = new BlockSoundGroup(1.0F, 1.0F, BLOCK_STREWN_LEAVES_PILE_DESTROY, BLOCK_STREWN_LEAVES_PILE_STEP, BLOCK_STREWN_LEAVES_PILE_DESTROY, BLOCK_STREWN_LEAVES_STEP, BLOCK_STREWN_LEAVES_PILE_DESTROY);
 	public static final BlockSoundGroup STREWN_LEAVES_STICK = new BlockSoundGroup(1.0F, 1.0F, BLOCK_STREWN_LEAVES_STEP, BLOCK_STICK_BREAK, BLOCK_STREWN_LEAVES_STEP, BLOCK_STREWN_LEAVES_STEP, BLOCK_STREWN_LEAVES_STEP);
