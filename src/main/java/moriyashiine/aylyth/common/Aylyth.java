@@ -62,6 +62,7 @@ public class Aylyth implements ModInitializer {
 		ModPOITypes.init();
 		ModCriteria.init();
 		ModLootConditions.init();
+		ModScreenHandlers.init();
 		biomeModifications();
 
 		LivingEntityDeathEvents.init();
