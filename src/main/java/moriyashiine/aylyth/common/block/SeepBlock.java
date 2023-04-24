@@ -68,7 +68,7 @@ public class SeepBlock extends Block implements BlockEntityProvider {
 			if (entity.getPos().distanceTo(new Vec3d(pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F)) < 0.6F) {
 				SeepTeleportable.of(entity).ifPresent(teleportable -> teleportable.setInSeep(pos));
 				ServerWorld aylyth = serverWorld.getServer().getWorld(ModDimensionKeys.AYLYTH);
-				ServerWorld toWorld = entity.world == aylyth ? serverWorld.getServer().getWorld(RegistryKey.of(Registry.WORLD_KEY, DimensionTypes.OVERWORLD_ID)) : aylyth;
+				ServerWorld toWorld = entity.world == aylyth ? serverWorld.getServer().getOverworld() : aylyth;
 				toWorld.getChunkManager().addTicket(ChunkTicketType.PORTAL, new ChunkPos(pos), 3, pos);
 				Vec3d teleportPos = null;
 				if (this == ModBlocks.SEEPING_WOOD_SEEP) {
