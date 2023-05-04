@@ -186,11 +186,11 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
 
         // INFO
 
-        builder.add("aylyth.info.mould_activate", "Mould of Souls Activated");
-        builder.add("aylyth.info.mould_deactivate", "Mould of Souls Deactivated");
+        builder.add("info.aylyth.mould_activate", "Mould of Souls Activated");
+        builder.add("info.aylyth.mould_deactivate", "Mould of Souls Deactivated");
 
-        builder.add("aylyth.info.tulpa_wander", "Wander");
-        builder.add("aylyth.info.tulpa_follow", "Follow");
+        builder.add("info.aylyth.tulpa_wander", "Wander");
+        builder.add("info.aylyth.tulpa_follow", "Follow");
 
         // COMPAT - REI
 
