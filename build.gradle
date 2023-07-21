@@ -31,15 +31,23 @@ sourceSets.main.resources.srcDirs += ['src/main/generated']
 
 repositories {
     maven {
-        name "cardinal components"
-        url "https://ladysnake.jfrog.io/artifactory/mods"
+        name = "impersonate"
+        url = "https://ladysnake.jfrog.io/artifactory/mods"
+        content {
+            includeGroup 'io.github.ladysnake'
+            includeGroupByRegex '(dev|io\\.github)\\.onyxstudios\\..*'
+        }
+    }
+    maven {
+        name = 'PAL, trinkets, cardinal components'
+        url = 'https://maven.ladysnake.org/releases'
     }
     maven {
         name "reach entity attributes"
         url "https://maven.jamieswhiteshirt.com/libs-release"
     }
     maven {
-        name "terraform"
+        name "terraform, emi"
         url "https://maven.terraformersmc.com"
     }
     maven {
@@ -54,7 +62,6 @@ repositories {
 			url "https://cursemaven.com"
 	}
     maven {
-        name = "patchouli"
         url = "https://maven.blamejared.com"
     }
     maven {
@@ -73,8 +80,8 @@ repositories {
         }
     }
     maven {
-        name "impersonate"
-        url "https://oss.sonatype.org/content/repositories/snapshots"
+        name = "Nexus Repository Manager"
+        url = 'https://oss.sonatype.org/content/repositories/snapshots'
     }
 }
 
@@ -131,6 +138,13 @@ dependencies {
     modImplementation("io.github.ladysnake:impersonate:${impersonate_version}") {
         transitive = false
     }
+
+    //Enchancement compat
+//    modImplementation("curse.maven:enchancement-598056:${enchancement_fileid}")
+//    modImplementation("curse.maven:enchdesc-250419:${enchdesc_fileid}")
+//    modImplementation("curse.maven:tooltipfix-411557:${tooltipfix_fileid}")
+//    implementation "net.darkhax.bookshelf:Bookshelf-Fabric-${minecraft_version}:${bookshelf_version}"
+
 }
 
 processResources {
