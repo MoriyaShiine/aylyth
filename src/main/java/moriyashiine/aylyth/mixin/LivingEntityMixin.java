@@ -6,6 +6,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -57,6 +59,18 @@ public abstract class LivingEntityMixin extends Entity {
 		LivingEntity living = (LivingEntity) (Object) this;
 		if(living instanceof ProlongedDeath){
 			ItemScatterer.spawn(living.world, living.getX(), living.getY() + 1.5D, living.getZ(), ModItems.CORIC_SEED.getDefaultStack());
+		}
+	}
+
+	@Inject(method = "canHaveStatusEffect", at = @At("HEAD"), cancellable = true)
+	public void aylyth_canHaveStatusEffect(StatusEffectInstance effect, CallbackInfoReturnable<Boolean> cir) {
+		if (this.isPlayer()) {
+			LivingEntity entity = ((LivingEntity) (Object) this);
+			if(entity instanceof PlayerEntity && ((PlayerEntity) entity).getInventory().contains(ModItems.YMPE_EFFIGY_ITEM.getDefaultStack())) {
+				cir.setReturnValue(effect.getEffectType() == StatusEffects.WITHER ||
+						effect.getEffectType() == StatusEffects.INSTANT_DAMAGE ||
+						effect.getEffectType() == StatusEffects.INSTANT_HEALTH);
+			}
 		}
 	}
 }

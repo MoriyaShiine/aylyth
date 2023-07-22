@@ -32,7 +32,7 @@ sourceSets.main.resources.srcDirs += ['src/main/generated']
 repositories {
     maven {
         name "cardinal components"
-        url "https://ladysnake.jfrog.io/artifactory/mods"
+        url = "https://maven.ladysnake.org/releases"
     }
     maven {
         name "reach entity attributes"
