@@ -2,14 +2,13 @@ package moriyashiine.aylyth.mixin;
 
 import moriyashiine.aylyth.api.interfaces.HindPledgeHolder;
 import moriyashiine.aylyth.api.interfaces.VitalHolder;
+import moriyashiine.aylyth.common.block.SoulHearthBlock;
 import moriyashiine.aylyth.common.component.entity.CuirassComponent;
+import moriyashiine.aylyth.common.entity.mob.BoneflyEntity;
 import moriyashiine.aylyth.common.registry.ModComponents;
-import moriyashiine.aylyth.common.registry.ModDamageSources;
+import moriyashiine.aylyth.common.registry.ModItems;
 import moriyashiine.aylyth.common.registry.ModSoundEvents;
 import moriyashiine.aylyth.common.util.AylythUtil;
-import moriyashiine.aylyth.common.block.SoulHearthBlock;
-import moriyashiine.aylyth.common.entity.mob.BoneflyEntity;
-import moriyashiine.aylyth.common.registry.ModItems;
 import moriyashiine.aylyth.common.world.ModWorldState;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -21,8 +20,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.Fluid;
@@ -234,15 +231,6 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHol
     @Override
     public boolean hurtByWater() {
         return this.getInventory().contains(ModItems.YMPE_EFFIGY_ITEM.getDefaultStack()) && (this.getWorld().getBiome(this.getBlockPos()).isIn(BiomeTags.IS_RIVER) || this.isInFlowingFluid(FluidTags.WATER)) || super.hurtByWater();
-    }
-
-    @Override
-    public boolean canHaveStatusEffect(StatusEffectInstance effect) {
-        if (!this.getInventory().contains(ModItems.YMPE_EFFIGY_ITEM.getDefaultStack())) {
-            return super.canHaveStatusEffect(effect);
-        } else {
-            return effect.getEffectType() == StatusEffects.WITHER || effect.getEffectType() == StatusEffects.INSTANT_DAMAGE || effect.getEffectType() == StatusEffects.INSTANT_HEALTH;
-        }
     }
 
     private boolean isInFlowingFluid(TagKey<Fluid> tag) {
