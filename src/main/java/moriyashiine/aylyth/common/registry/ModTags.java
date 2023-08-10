@@ -11,6 +11,7 @@ import net.minecraft.world.biome.Biome;
 
 public class ModTags {
 	public static final TagKey<EntityType<?>> GRIPWEED_IMMUNE = TagKey.of(Registry.ENTITY_TYPE_KEY, new Identifier(Aylyth.MOD_ID, "gripweed_immune"));
+	public static final TagKey<EntityType<?>> SHUCK_BLACKLIST = TagKey.of(Registry.ENTITY_TYPE_KEY, new Identifier(Aylyth.MOD_ID, "shuck_blacklist"));
 
 	public static final TagKey<Block> YMPE_LOGS = TagKey.of(Registry.BLOCK_KEY, new Identifier(Aylyth.MOD_ID, "ympe_logs"));
 	public static final TagKey<Block> POMEGRANATE_LOGS = TagKey.of(Registry.BLOCK_KEY, new Identifier(Aylyth.MOD_ID, "pomegranate_logs"));

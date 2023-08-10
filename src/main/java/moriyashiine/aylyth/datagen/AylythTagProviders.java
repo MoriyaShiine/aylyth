@@ -4,12 +4,11 @@ import moriyashiine.aylyth.common.registry.*;
 import moriyashiine.aylyth.common.registry.util.WoodSuite;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.fabricmc.fabric.api.tag.convention.v1.ConventionalEntityTypeTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.tag.BiomeTags;
-import net.minecraft.tag.BlockTags;
-import net.minecraft.tag.ItemTags;
-import net.minecraft.tag.TagKey;
+import net.minecraft.entity.EntityType;
+import net.minecraft.tag.*;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import org.jetbrains.annotations.Nullable;
@@ -121,6 +120,7 @@ public class AylythTagProviders {
         @Override
         protected void generateTags() {
             getOrCreateTagBuilder(ModTags.GRIPWEED_IMMUNE).add(ModEntityTypes.AYLYTHIAN, ModEntityTypes.ELDER_AYLYTHIAN);
+            getOrCreateTagBuilder(ModTags.SHUCK_BLACKLIST).forceAddTag(ConventionalEntityTypeTags.BOSSES).add(EntityType.ELDER_GUARDIAN);
         }
     }
 }
