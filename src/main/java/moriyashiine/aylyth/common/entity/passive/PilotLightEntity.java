@@ -90,7 +90,7 @@ public class PilotLightEntity extends AmbientEntity implements Flutterer {
 				}
 
 				if (!player.isCreative()) {
-					player.addExperience(-55);
+					player.addExperienceLevels(-5);
 				}
 				remove(RemovalReason.DISCARDED);
 				return ActionResult.SUCCESS;

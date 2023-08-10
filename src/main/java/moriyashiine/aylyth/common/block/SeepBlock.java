@@ -13,6 +13,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ChunkTicketType;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.BlockSoundGroup;
@@ -25,16 +26,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.TeleportTarget;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
-import net.minecraft.world.dimension.DimensionTypes;
-import net.minecraft.world.poi.PointOfInterest;
 import net.minecraft.world.poi.PointOfInterestStorage;
 import org.jetbrains.annotations.Nullable;
 
@@ -67,38 +64,43 @@ public class SeepBlock extends Block implements BlockEntityProvider {
 		if (world instanceof ServerWorld serverWorld) {
 			if (entity.getPos().distanceTo(new Vec3d(pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F)) < 0.6F) {
 				SeepTeleportable.of(entity).ifPresent(teleportable -> teleportable.setInSeep(pos));
-				ServerWorld aylyth = serverWorld.getServer().getWorld(ModDimensionKeys.AYLYTH);
-				ServerWorld toWorld = entity.world == aylyth ? serverWorld.getServer().getOverworld() : aylyth;
+				MinecraftServer server = serverWorld.getServer();
+				ServerWorld toWorld = world.getRegistryKey() == ModDimensionKeys.AYLYTH ? server.getOverworld() : server.getWorld(ModDimensionKeys.AYLYTH);
 				toWorld.getChunkManager().addTicket(ChunkTicketType.PORTAL, new ChunkPos(pos), 3, pos);
-				Vec3d teleportPos = null;
-				if (this == ModBlocks.SEEPING_WOOD_SEEP) {
-					Optional<PointOfInterest> seep = toWorld.getPointOfInterestStorage().getInSquare(point -> point.matchesKey(ModPOITypes.SEEP), pos, 32, PointOfInterestStorage.OccupationStatus.ANY).findFirst();
-					if (seep.isPresent()) {
-						for (Direction dir : Direction.Type.HORIZONTAL) {
-							BlockPos offsetSeepPos = seep.get().getPos().offset(dir);
-							if (toWorld.getBlockState(offsetSeepPos).canPathfindThrough(world, offsetSeepPos, NavigationType.LAND)) {
-								teleportPos = Vec3d.of(offsetSeepPos).add(0.5, 0, 0.5);
-							}
-						}
-					}
-					if (teleportPos == null) {
-						teleportPos = Vec3d.of(AylythUtil.getSafePosition(toWorld, entity.getBlockPos().mutableCopy(), 0));
-					}
+				Optional<BlockPos> connectedSeep;
+				if (state.isOf(ModBlocks.SEEPING_WOOD_SEEP)) {
+					connectedSeep = findConnectedSeepSpawn(serverWorld, pos);
 				} else {
-					teleportPos = Vec3d.of(AylythUtil.getSafePosition(toWorld, entity.getBlockPos().mutableCopy(), 0));
+					connectedSeep = Optional.empty();
 				}
+				BlockPos teleportBlockPos = connectedSeep.orElseGet(() -> AylythUtil.getSafePosition(toWorld, entity.getBlockPos().mutableCopy(), 0));
+				Vec3d teleportPos = Vec3d.of(teleportBlockPos).add(0.5, 0, 0.5);
 				FabricDimensions.teleport(entity, toWorld, new TeleportTarget(teleportPos, Vec3d.ZERO, entity.getHeadYaw(), entity.getPitch()));
 			}
 		}
 	}
-	
+
+	public Optional<BlockPos> findConnectedSeepSpawn(ServerWorld world, BlockPos center) {
+		return world.getPointOfInterestStorage()
+				.getInSquare(point -> point.matchesKey(ModPOITypes.SEEP), center, 32, PointOfInterestStorage.OccupationStatus.ANY)
+				.findFirst()
+				.flatMap(pointOfInterest -> {
+					for (Direction dir : Direction.Type.HORIZONTAL) {
+						BlockPos pos = pointOfInterest.getPos().offset(dir);
+						if (world.getBlockState(pos).canPathfindThrough(world, pos, NavigationType.LAND)) {
+							return Optional.of(pos);
+						}
+					}
+					return Optional.empty();
+				});
+	}
+
 	@Nullable
 	@Override
 	public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
 		return new SeepBlockEntity(pos, state);
 	}
 	
-	@Nullable
 	@Override
 	public BlockState getPlacementState(ItemPlacementContext ctx) {
 		BlockState state = super.getPlacementState(ctx);
