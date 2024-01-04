@@ -31,7 +31,7 @@ public class WyrdedStatusEffect extends StatusEffect {
         } else {
             entity.damage(DamageSource.MAGIC, 2f + ((float)amplifier * 2));
             if (instance != null && (instance.tryRemoveModifier(MODIFIER_UUID) || instance.getModifier(MODIFIER_UUID) == null)) {
-                instance.addPersistentModifier(new EntityAttributeModifier(MODIFIER_UUID, this::getTranslationKey, -(0.45 + (Math.sqrt(amplifier) / 10) + ((5.0 - distance) / 12.5)), EntityAttributeModifier.Operation.MULTIPLY_TOTAL));
+                instance.addTemporaryModifier(new EntityAttributeModifier(MODIFIER_UUID, this::getTranslationKey, -(0.45 + (Math.sqrt(amplifier) / 10) + ((5.0 - distance) / 12.5)), EntityAttributeModifier.Operation.MULTIPLY_TOTAL));
             }
         }
     }

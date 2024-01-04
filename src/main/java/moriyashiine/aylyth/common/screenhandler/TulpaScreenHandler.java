@@ -227,8 +227,6 @@ public class TulpaScreenHandler extends ScreenHandler {
         return true;
     }
 
-
-
     @Override
     public void close(PlayerEntity player) {
         super.close(player);
