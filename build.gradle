@@ -134,6 +134,7 @@ dependencies {
 }
 
 processResources {
+    exclude(".cache")
     inputs.property "version", project.version
 
     filesMatching("fabric.mod.json") {
