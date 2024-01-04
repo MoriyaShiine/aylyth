@@ -22,6 +22,7 @@ import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.ai.brain.task.*;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 
 import java.util.List;
 import java.util.Optional;
@@ -100,19 +101,28 @@ public class WreathedHindBrain {
                 ImmutableList.of(
                         new ForgetAttackTargetTask<>(entity -> !isPreferredAttackTarget(wreathedHindEntity, entity), BrainUtils::setTargetInvalid, false),
                         new FollowMobTask(mob -> BrainUtils.isTarget(wreathedHindEntity, mob), (float)wreathedHindEntity.getAttributeValue(EntityAttributes.GENERIC_FOLLOW_RANGE)),
-                        new GeckoMeleeAttackTask(ENTITY_PREDICATE::test, 10,20 * 2,20 * 0.7D),
+                        new GeckoMeleeAttackTask<>(WreathedHindBrain::shouldRunTask, WreathedHindBrain::onRunTask, WreathedHindBrain::onFinishRunningTask, 10,20 * 2,20 * 0.7D),
                         new RevengeTask(),
                         new BoltRangedAttackTask()
                 ), MemoryModuleType.ATTACK_TARGET);
     }
 
+    private static boolean shouldRunTask(WreathedHindEntity hind) {
+        return hind.getAttackType() == WreathedHindEntity.MELEE_ATTACK || hind.getAttackType() == WreathedHindEntity.KILLING_ATTACK;
+    }
 
-    private static final Predicate<Entity> ENTITY_PREDICATE = entity -> {
-        if(entity instanceof WreathedHindEntity wreathedHindEntity){
-            return wreathedHindEntity.getAttackType() == WreathedHindEntity.MELEE_ATTACK || wreathedHindEntity.getAttackType() == WreathedHindEntity.KILLING_ATTACK;
+    private static void onRunTask(ServerWorld serverWorld, WreathedHindEntity hind, long time) {
+        LivingEntity livingEntity = BrainUtils.getAttackTarget(hind);
+        if (WreathedHindBrain.isPledgedPlayerLow(livingEntity, hind)) {
+            hind.setAttackType(WreathedHindEntity.KILLING_ATTACK);
+        } else {
+            hind.setAttackType(WreathedHindEntity.MELEE_ATTACK);
         }
-        return false;
-    };
+    }
+
+    private static void onFinishRunningTask(ServerWorld serverWorld, WreathedHindEntity hind, long time) {
+        hind.getDataTracker().set(WreathedHindEntity.ATTACK_TYPE, WreathedHindEntity.NONE);
+    }
 
     public static void updateActivities(WreathedHindEntity wreathedHindEntity) {
         wreathedHindEntity.getBrain().resetPossibleActivities(ImmutableList.of(Activity.FIGHT, Activity.IDLE));
