@@ -9,46 +9,62 @@ import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.task.Task;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Hand;
 
 public class EatFoodTask extends Task<TulpaEntity> {
-    private long eatEndTime;
+    private int foodSlot = -1;
 
     public EatFoodTask() {
-        super(ImmutableMap.of(MemoryModuleType.ATE_RECENTLY, MemoryModuleState.VALUE_PRESENT));
+        super(ImmutableMap.of(MemoryModuleType.ATE_RECENTLY, MemoryModuleState.REGISTERED));
     }
 
+    @Override
     protected boolean shouldRun(ServerWorld serverWorld, TulpaEntity tulpaEntity) {
         return tulpaEntity.getHealth() < tulpaEntity.getMaxHealth()
-                && hasFoodInInventoryAndSwitch(tulpaEntity) && !TulpaBrain.hasAteRecently(tulpaEntity);
+                && hasFoodInInventory(tulpaEntity) && !tulpaEntity.hasEatenRecently();
     }
 
-    private boolean hasFoodInInventoryAndSwitch(TulpaEntity tulpaEntity) {
+    private boolean hasFoodInInventory(TulpaEntity tulpaEntity) {
         for(int i = 0; i < tulpaEntity.getInventory().size(); ++i) {
             ItemStack itemStack = tulpaEntity.getInventory().getStack(i);
-            if (!itemStack.isEmpty()) {
-                tulpaEntity.getInventory().setStack(i, tulpaEntity.getMainHandStack());
-                tulpaEntity.equipStack(EquipmentSlot.MAINHAND, itemStack);
+            if (!itemStack.isEmpty() && itemStack.isFood()) {
+                foodSlot = i;
                 return true;
             }
         }
         return false;
     }
 
+    @Override
     protected boolean shouldKeepRunning(ServerWorld serverWorld, TulpaEntity tulpaEntity, long l) {
         return shouldRun(serverWorld, tulpaEntity);
     }
 
+    @Override
     protected void run(ServerWorld serverWorld, TulpaEntity tulpaEntity, long l) {
-        int i = 275 + tulpaEntity.getRandom().nextInt(50);
-        this.eatEndTime = l + (long)i;
+        if (foodSlot == 0) {
+            tulpaEntity.setCurrentHand(Hand.MAIN_HAND);
+        } else if (foodSlot == 1) {
+            tulpaEntity.setCurrentHand(Hand.OFF_HAND);
+        } else if (foodSlot > 1) {
+            ItemStack food = tulpaEntity.getInventory().getStack(foodSlot);
+            tulpaEntity.getInventory().setStack(foodSlot, tulpaEntity.getMainHandStack());
+            tulpaEntity.equipStack(EquipmentSlot.MAINHAND, food);
+            tulpaEntity.setCurrentHand(Hand.MAIN_HAND);
+        }
     }
 
+    @Override
     protected void keepRunning(ServerWorld serverWorld, TulpaEntity tulpaEntity, long l) {
-        if (l >= this.eatEndTime) {
-            tulpaEntity.eatFood(serverWorld, tulpaEntity.getMainHandStack());
+        if (!tulpaEntity.isUsingItem()) {
             tulpaEntity.getBrain().remember(MemoryModuleType.ATE_RECENTLY, true, 200L);
-        } else {
-            tulpaEntity.consumeItem();
         }
+    }
+
+    @Override
+    protected void finishRunning(ServerWorld world, TulpaEntity entity, long time) {
+        super.finishRunning(world, entity, time);
+        foodSlot = -1;
+        entity.stopUsingItem();
     }
 }

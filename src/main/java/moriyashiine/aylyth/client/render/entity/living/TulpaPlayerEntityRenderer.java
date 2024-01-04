@@ -76,7 +76,7 @@ public class TulpaPlayerEntityRenderer extends LivingEntityRenderer<TulpaPlayerE
         } else {
             if (player.getActiveHand() == hand && player.getItemUseTimeLeft() > 0) {
                 UseAction useAction = itemStack.getUseAction();
-                if (useAction == UseAction.BLOCK || (player.getUsingItem() && player.getMainHandStack().isOf(Items.SHIELD))) {
+                if (useAction == UseAction.BLOCK || (player.isUsingItem() && player.getMainHandStack().isOf(Items.SHIELD))) {
                     return BipedEntityModel.ArmPose.BLOCK;
                 }
 
@@ -118,7 +118,7 @@ public class TulpaPlayerEntityRenderer extends LivingEntityRenderer<TulpaPlayerE
         return new Identifier("textures/entity/steve.png");
     }
 
-    public static float QuadEaseInOut(float time) {
+    public static float quadEaseInOut(float time) {
         return time < 0.5f ? 2.0f * time * time : -1.0f + (4.0f - 2.0f * time) * time;
     }
 }

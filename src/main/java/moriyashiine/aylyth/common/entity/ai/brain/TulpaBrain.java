@@ -9,7 +9,6 @@ import moriyashiine.aylyth.common.entity.mob.TulpaEntity;
 import moriyashiine.aylyth.common.registry.ModMemoryTypes;
 import moriyashiine.aylyth.common.registry.ModSensorTypes;
 import moriyashiine.aylyth.common.util.BrainUtils;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.brain.Activity;
 import net.minecraft.entity.ai.brain.Brain;
@@ -20,10 +19,12 @@ import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.ai.brain.task.*;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.Items;
+import net.minecraft.item.RangedWeaponItem;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.math.intprovider.UniformIntProvider;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Predicate;
 
 public class TulpaBrain {
     private static final List<SensorType<? extends Sensor<? super TulpaEntity>>> SENSORS = List.of(
@@ -91,7 +92,7 @@ public class TulpaBrain {
                         Pair.of(0, new RandomTask<>(
                                 ImmutableList.of(
                                         Pair.of(new StrollTask(0.6F), 2),
-                                        Pair.of(new ConditionalTask<>(livingEntity -> true, new GoTowardsLookTarget(0.6F, 3)), 2),
+                                        Pair.of(new GoTowardsLookTarget(0.6F, 3), 2),
                                         Pair.of(new WaitTask(30, 60), 1)
                                 ))),
                         Pair.of(1, new EatFoodTask()),
@@ -105,20 +106,29 @@ public class TulpaBrain {
                 ImmutableList.of(
                         new ForgetAttackTargetTask<>(entity -> !isPreferredAttackTarget(tulpaEntity, entity), BrainUtils::setTargetInvalid, false),
                         new FollowMobTask(mob -> BrainUtils.isTarget(tulpaEntity, mob), (float)tulpaEntity.getAttributeValue(EntityAttributes.GENERIC_FOLLOW_RANGE)),
-                        new SwitchWeaponTask(tulpaEntity),
-                        new GeckoMeleeAttackTask(ENTITY_PREDICATE::test, 10, (int) (20 * 1.5), 15),
-                        new ConditionalTask<>(TulpaBrain::isHoldingCrossbow, new AttackTask<>(5, 0.75F)),
-                        new TacticalApproachTask(0.65F, LivingEntity::isAlive)
+                        new TimeLimitedTask<>(new SwitchWeaponTask(), UniformIntProvider.create(5, 5)),
+                        new CrossbowAttackTask<>(),
+
+                        new GeckoMeleeAttackTask<>(TulpaBrain::shouldRunTask, TulpaBrain::onRunTask, TulpaBrain::onFinishRunningTask, 10, (int) (20 * 1.5), 15),
+                        new TacticalApproachTask<>(0.65F, LivingEntity::isAlive)
                 ), MemoryModuleType.ATTACK_TARGET);
+    }
+
+    private static boolean shouldRunTask(TulpaEntity entity) {
+        return !entity.isHolding(stack -> stack.getItem() instanceof RangedWeaponItem);
+    }
+
+    private static void onRunTask(ServerWorld serverWorld, TulpaEntity tulpa, long time) {
+        tulpa.getDataTracker().set(TulpaEntity.IS_ATTACKING, true);
+    }
+
+    private static void onFinishRunningTask(ServerWorld serverWorld, TulpaEntity tulpa, long time) {
+        tulpa.getDataTracker().set(TulpaEntity.IS_ATTACKING, false);
     }
 
     private static boolean isHoldingCrossbow(TulpaEntity tulpaEntity) {
         return tulpaEntity.isHolding(Items.CROSSBOW);
     }
-
-    private static final Predicate<Entity> ENTITY_PREDICATE = entity -> {
-        return true;
-    };
 
     public static void updateActivities(TulpaEntity tulpaEntity) {
         tulpaEntity.getBrain().resetPossibleActivities(ImmutableList.of(Activity.FIGHT, Activity.IDLE));
@@ -142,10 +152,6 @@ public class TulpaBrain {
             }
         }
         return Optional.empty();
-    }
-
-    public static boolean hasAteRecently(TulpaEntity tulpaEntity) {
-        return tulpaEntity.getBrain().hasMemoryModule(MemoryModuleType.ATE_RECENTLY);
     }
 
     public static void setShouldFollowOwner(TulpaEntity tulpaEntity, boolean should) {

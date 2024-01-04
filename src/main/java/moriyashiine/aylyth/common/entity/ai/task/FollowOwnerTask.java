@@ -38,8 +38,10 @@ public class FollowOwnerTask extends Task<TulpaEntity> {
     @Override
     protected void keepRunning(ServerWorld world, TulpaEntity entity, long time) {
         Brain<?> brain = entity.getBrain();
-        Optional<PlayerEntity> playerEntityOptional = brain.getOptionalMemory(ModMemoryTypes.OWNER_PLAYER);
-        playerEntityOptional.ifPresent(player -> brain.remember(MemoryModuleType.WALK_TARGET, new WalkTarget(new EntityLookTarget(player, false), 0.85F, 3)));
+        PlayerEntity owner = brain.getOptionalMemory(ModMemoryTypes.OWNER_PLAYER).get();
+        EntityLookTarget lookTarget = new EntityLookTarget(owner, true);
+        brain.remember(MemoryModuleType.WALK_TARGET, new WalkTarget(lookTarget, 0.85f, 3));
+        brain.remember(MemoryModuleType.LOOK_TARGET, lookTarget);
         super.keepRunning(world, entity, time);
     }
 }
