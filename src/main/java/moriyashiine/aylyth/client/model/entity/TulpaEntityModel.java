@@ -34,7 +34,7 @@ public class TulpaEntityModel extends AnimatedGeoModel<TulpaEntity> {
     @Override
     public void setCustomAnimations(TulpaEntity entity, int uniqueID, AnimationEvent customPredicate) {
         super.setCustomAnimations(entity, uniqueID, customPredicate);
-        IBone head = this.getAnimationProcessor().getBone("tulpaHead");
+        IBone head = this.getAnimationProcessor().getBone("head");
 
         EntityModelData extraData = (EntityModelData) customPredicate.getExtraDataOfType(EntityModelData.class).get(0);
         if (head != null) {
@@ -66,7 +66,7 @@ public class TulpaEntityModel extends AnimatedGeoModel<TulpaEntity> {
         }
 
         public Identifier getTexture(TulpaEntity entity) {
-            if(entity.getSkinUuid() != null){ // TODO: test in server where a tulpa looks like a player and that player leaves the server
+            if(entity.getSkinUuid() != null){ // TODO: Rewrite to get the gameprofile from the cache
                 PlayerEntity player = entity.world.getPlayerByUuid(entity.getSkinUuid());
                 if(player instanceof AbstractClientPlayerEntity abstractClientPlayerEntity){
                     return abstractClientPlayerEntity.getSkinTexture();
