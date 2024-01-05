@@ -15,6 +15,13 @@ loom {
     accessWidenerPath = file("src/main/resources/aylyth.accesswidener")
 	
 	runs {
+        client {
+            client()
+
+            name "Minecraft Client"
+            programArgs "--username", "HatsuneMiku"
+            programArgs "--uuid", "534e8d1c-5d83-4c56-a35d-b8f968ddcd01"
+        }
 		datagen {
 			server()
  
