@@ -11,7 +11,11 @@ import net.minecraft.server.world.ServerWorld;
 public class InteractPlayerTask extends Task<TulpaEntity> {
 
     public InteractPlayerTask() {
-        super(ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryModuleState.REGISTERED, MemoryModuleType.LOOK_TARGET, MemoryModuleState.REGISTERED), Integer.MAX_VALUE);
+        super(ImmutableMap.of(
+                MemoryModuleType.WALK_TARGET, MemoryModuleState.REGISTERED,
+                MemoryModuleType.LOOK_TARGET, MemoryModuleState.REGISTERED,
+                MemoryModuleType.ATTACK_TARGET, MemoryModuleState.REGISTERED
+        ), Integer.MAX_VALUE);
     }
 
     protected boolean shouldRun(ServerWorld serverWorld, TulpaEntity tulpaEntity) {
@@ -44,6 +48,7 @@ public class InteractPlayerTask extends Task<TulpaEntity> {
     private void update(TulpaEntity tulpaEntity) {
         Brain<?> brain = tulpaEntity.getBrain();
         brain.forget(MemoryModuleType.WALK_TARGET);
+        brain.forget(MemoryModuleType.ATTACK_TARGET);
         brain.remember(MemoryModuleType.LOOK_TARGET, (new EntityLookTarget(tulpaEntity.getInteractTarget(), true)));
     }
 }
