@@ -15,24 +15,28 @@ public class EatFoodTask extends Task<TulpaEntity> {
     private int foodSlot = -1;
 
     public EatFoodTask() {
-        super(ImmutableMap.of(MemoryModuleType.ATE_RECENTLY, MemoryModuleState.REGISTERED));
+        super(ImmutableMap.of(MemoryModuleType.ATE_RECENTLY, MemoryModuleState.VALUE_ABSENT));
     }
 
     @Override
     protected boolean shouldRun(ServerWorld serverWorld, TulpaEntity tulpaEntity) {
         return tulpaEntity.getHealth() < tulpaEntity.getMaxHealth()
-                && hasFoodInInventory(tulpaEntity) && !tulpaEntity.hasEatenRecently();
+                && (hasFoodInInventory(tulpaEntity) || hasFoodInHands(tulpaEntity));
     }
 
     private boolean hasFoodInInventory(TulpaEntity tulpaEntity) {
         for(int i = 0; i < tulpaEntity.getInventory().size(); ++i) {
             ItemStack itemStack = tulpaEntity.getInventory().getStack(i);
-            if (!itemStack.isEmpty() && itemStack.isFood()) {
+            if (itemStack.isFood()) {
                 foodSlot = i;
                 return true;
             }
         }
         return false;
+    }
+
+    private boolean hasFoodInHands(TulpaEntity tulpaEntity) {
+        return tulpaEntity.getMainHandStack().isFood() || tulpaEntity.getOffHandStack().isFood();
     }
 
     @Override
@@ -42,15 +46,17 @@ public class EatFoodTask extends Task<TulpaEntity> {
 
     @Override
     protected void run(ServerWorld serverWorld, TulpaEntity tulpaEntity, long l) {
-        if (foodSlot == 0) {
+        if (tulpaEntity.getMainHandStack().isFood()) {
             tulpaEntity.setCurrentHand(Hand.MAIN_HAND);
-        } else if (foodSlot == 1) {
+        } else if (tulpaEntity.getOffHandStack().isFood()) {
             tulpaEntity.setCurrentHand(Hand.OFF_HAND);
-        } else if (foodSlot > 1) {
-            ItemStack food = tulpaEntity.getInventory().getStack(foodSlot);
-            tulpaEntity.getInventory().setStack(foodSlot, tulpaEntity.getMainHandStack());
-            tulpaEntity.equipStack(EquipmentSlot.MAINHAND, food);
-            tulpaEntity.setCurrentHand(Hand.MAIN_HAND);
+        } else if (foodSlot > -1) {
+             {
+                ItemStack food = tulpaEntity.getInventory().getStack(foodSlot);
+                tulpaEntity.getInventory().setStack(foodSlot, tulpaEntity.getMainHandStack());
+                tulpaEntity.equipStack(EquipmentSlot.MAINHAND, food);
+                tulpaEntity.setCurrentHand(Hand.MAIN_HAND);
+            }
         }
     }
 
