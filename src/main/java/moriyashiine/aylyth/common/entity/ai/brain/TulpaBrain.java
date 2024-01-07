@@ -17,11 +17,7 @@ import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.ai.brain.task.*;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.item.Items;
 import net.minecraft.item.RangedWeaponItem;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.intprovider.UniformIntProvider;
 
 import java.util.List;
 import java.util.Optional;
@@ -105,29 +101,17 @@ public class TulpaBrain {
         brain.setTaskList(Activity.FIGHT, 10,
                 ImmutableList.of(
                         new ForgetAttackTargetTask<>(entity -> !isPreferredAttackTarget(tulpaEntity, entity), BrainUtils::setTargetInvalid, false),
-                        new FollowMobTask(mob -> BrainUtils.isTarget(tulpaEntity, mob), (float)tulpaEntity.getAttributeValue(EntityAttributes.GENERIC_FOLLOW_RANGE)),
-                        new TimeLimitedTask<>(new SwitchWeaponTask(), UniformIntProvider.create(5, 5)),
+                        new SwitchWeaponTask(),
+                        new ConditionalTask<>(BrainUtils::isHoldingUsableRangedWeapon, new AttackTask<>(5, 0.55f)),
+                        new RangedApproachTask(1.0f),
                         new CrossbowAttackTask<>(),
-
-                        new GeckoMeleeAttackTask<>(TulpaBrain::shouldRunTask, TulpaBrain::onRunTask, TulpaBrain::onFinishRunningTask, 10, (int) (20 * 1.5), 15),
-                        new TacticalApproachTask<>(0.65F, LivingEntity::isAlive)
+                        new BowAttackTask<>(),
+                        new GeckoMeleeAttackTask<>(
+                                entity -> !entity.isHolding(stack -> stack.getItem() instanceof RangedWeaponItem),
+                                (serverWorld, tulpa, time) -> tulpa.getDataTracker().set(TulpaEntity.IS_ATTACKING, true),
+                                (serverWorld, tulpa, time) -> tulpa.getDataTracker().set(TulpaEntity.IS_ATTACKING, false),
+                                10, (int) (20 * 1.5), 15)
                 ), MemoryModuleType.ATTACK_TARGET);
-    }
-
-    private static boolean shouldRunTask(TulpaEntity entity) {
-        return !entity.isHolding(stack -> stack.getItem() instanceof RangedWeaponItem);
-    }
-
-    private static void onRunTask(ServerWorld serverWorld, TulpaEntity tulpa, long time) {
-        tulpa.getDataTracker().set(TulpaEntity.IS_ATTACKING, true);
-    }
-
-    private static void onFinishRunningTask(ServerWorld serverWorld, TulpaEntity tulpa, long time) {
-        tulpa.getDataTracker().set(TulpaEntity.IS_ATTACKING, false);
-    }
-
-    private static boolean isHoldingCrossbow(TulpaEntity tulpaEntity) {
-        return tulpaEntity.isHolding(Items.CROSSBOW);
     }
 
     public static void updateActivities(TulpaEntity tulpaEntity) {
@@ -136,7 +120,9 @@ public class TulpaBrain {
     }
 
     private static boolean isPreferredAttackTarget(TulpaEntity tulpaEntity, LivingEntity target) {
-        return getAttackTarget(tulpaEntity).filter((preferredTarget) -> preferredTarget == target).isPresent();
+        return getAttackTarget(tulpaEntity)
+                .filter((preferredTarget) -> preferredTarget == target)
+                .isPresent();
     }
 
     private static Optional<? extends LivingEntity> getAttackTarget(TulpaEntity tulpaEntity) {
@@ -147,7 +133,7 @@ public class TulpaBrain {
         }
         if (brain.hasMemoryModule(MemoryModuleType.VISIBLE_MOBS)) {
             Optional<LivingTargetCache> visibleLivingEntitiesCache = tulpaEntity.getBrain().getOptionalMemory(MemoryModuleType.VISIBLE_MOBS);
-            if(tulpaEntity.getActionState() == 2){
+            if(tulpaEntity.getActionState() == TulpaEntity.SICKO){
                 return visibleLivingEntitiesCache.get().findFirst(entity -> !entity.isSubmergedInWater() && tulpaEntity.getOwnerUuid() != entity.getUuid());
             }
         }
