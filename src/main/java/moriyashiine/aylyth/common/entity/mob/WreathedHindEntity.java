@@ -32,6 +32,7 @@ import net.minecraft.tag.BlockTags;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.StringIdentifiable;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
@@ -66,7 +67,6 @@ public class WreathedHindEntity extends HostileEntity implements IAnimatable, Pl
     public WreathedHindEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
         this.setPersistent();
-
     }
 
     public static DefaultAttributeContainer.Builder createAttributes() {
@@ -119,7 +119,7 @@ public class WreathedHindEntity extends HostileEntity implements IAnimatable, Pl
     @Override
     protected ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack stack = player.getStackInHand(hand);
-        if((stack.getItem().equals(ModItems.NYSIAN_GRAPES))) {
+        if(stack.isIn(ModTags.PLEDGE_ITEMS)) {
             if (player instanceof ServerPlayerEntity serverPlayer) {
                 ModCriteria.HIND_PLEDGE.trigger(serverPlayer, this);
             }
@@ -171,7 +171,7 @@ public class WreathedHindEntity extends HostileEntity implements IAnimatable, Pl
                 }
             }
         }
-        if (possiblePositions.size() != 0) {
+        if (!possiblePositions.isEmpty()) {
             int random = this.random.nextBetween(2, 4);
             for(int i = 0; i < random; i++){
                 if(possiblePositions.size() >= i){
@@ -266,5 +266,23 @@ public class WreathedHindEntity extends HostileEntity implements IAnimatable, Pl
     @Override
     protected SoundEvent getDeathSound() {
         return ModSoundEvents.ENTITY_WREATHED_HIND_DEATH;
+    }
+
+    public enum AttackType implements StringIdentifiable {
+        NONE("none"),
+        MELEE("melee"),
+        RANGED("ranged"),
+        KILLING("killing");
+
+        private final String name;
+
+        AttackType(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public String asString() {
+            return this.name;
+        }
     }
 }
