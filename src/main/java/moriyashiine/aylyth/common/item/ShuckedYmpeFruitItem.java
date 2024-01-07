@@ -35,9 +35,9 @@ public class ShuckedYmpeFruitItem extends Item {
 	public ActionResult useOnBlock(ItemUsageContext context) {
 		World world = context.getWorld();
 		ItemStack stack = context.getStack();
-		if (stack.hasNbt() && stack.getNbt().contains("StoredEntity")) {
+		if (ShuckedYmpeFruitItem.hasStoredEntity(stack)) {
 			if (!world.isClient) {
-				NbtCompound entityCompound = stack.getNbt().getCompound("StoredEntity");
+				NbtCompound entityCompound = ShuckedYmpeFruitItem.getStoredEntity(stack);
 				BlockPos pos = context.getBlockPos().offset(context.getSide());
 				if (Registry.ENTITY_TYPE.get(new Identifier(entityCompound.getString("id"))).create((ServerWorld) world, null, null, null, pos, SpawnReason.SPAWN_EGG, true, false) instanceof MobEntity mob) {
 					double x = mob.getX(), y = mob.getY(), z = mob.getZ();
@@ -61,9 +61,9 @@ public class ShuckedYmpeFruitItem extends Item {
 	@Override
 	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
 		super.appendTooltip(stack, world, tooltip, context);
-		if (stack.hasNbt() && stack.getNbt().contains("StoredEntity")) {
+		if (ShuckedYmpeFruitItem.hasStoredEntity(stack)) {
 			Text name;
-			NbtCompound entityCompound = stack.getNbt().getCompound("StoredEntity");
+			NbtCompound entityCompound = ShuckedYmpeFruitItem.getStoredEntity(stack);
 			if (entityCompound.contains("CustomName")) {
 				name = Text.Serializer.fromJson(entityCompound.getString("CustomName"));
 			}
@@ -74,5 +74,19 @@ public class ShuckedYmpeFruitItem extends Item {
 				tooltip.add(((MutableText) name).formatted(Formatting.GRAY));
 			}
 		}
+	}
+
+	public static boolean hasStoredEntity(ItemStack shuckedStack) {
+		return shuckedStack.hasNbt() && shuckedStack.getNbt().contains("StoredEntity");
+	}
+
+	public static NbtCompound getStoredEntity(ItemStack shuckedStack) {
+		return shuckedStack.getNbt().getCompound("StoredEntity");
+	}
+
+	public static void setStoredEntity(ItemStack shuckedStack, MobEntity mob) {
+		NbtCompound entityCompound = new NbtCompound();
+		mob.saveSelfNbt(entityCompound);
+		shuckedStack.getOrCreateNbt().put("StoredEntity", entityCompound);
 	}
 }
