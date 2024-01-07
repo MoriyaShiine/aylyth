@@ -3,7 +3,6 @@ package moriyashiine.aylyth.common.entity.mob;
 import moriyashiine.aylyth.common.block.LargeWoodyGrowthBlock;
 import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.ModSoundEvents;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
@@ -16,10 +15,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.state.property.Properties;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.util.Arm;
 import net.minecraft.util.Util;
@@ -143,7 +139,7 @@ public class AylythianEntity extends HostileEntity implements IAnimatable {
 		}
 		super.setTarget(target);
 	}
-	
+
 	@Override
 	protected void dropEquipment(DamageSource source, int lootingMultiplier, boolean allowDrops) {
 		super.dropEquipment(source, lootingMultiplier, allowDrops);
@@ -170,7 +166,7 @@ public class AylythianEntity extends HostileEntity implements IAnimatable {
 
 			}
 		}
-		if (possiblePositions.size() != 0) {
+		if (!possiblePositions.isEmpty()) {
 			int random = this.random.nextBetween(1, 3);
 			for(int i = 0; i < random; i++){
 				if(possiblePositions.size() >= i){

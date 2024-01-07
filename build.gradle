@@ -34,6 +34,12 @@ loom {
 	}
 }
 
+idea {
+    module {
+        inheritOutputDirs = false
+    }
+}
+
 sourceSets.main.resources.srcDirs += ['src/main/generated']
 
 repositories {
@@ -113,6 +119,8 @@ dependencies {
     // Nice dev things
 	modRuntimeOnly "curse.maven:disablecustomworldsadvice-401978:3827588"
     modRuntimeOnly "maven.modrinth:suggestion-provider-fix-fabric:1.0.0"
+    //  Add this in 1.20.1, makes debugging entities and such much easier
+    //   https://www.curseforge.com/minecraft/mc-mods/debug-utils-fabric/files/4644075
 
     // Testing compat
 //    runtimeOnly 'com.github.JOML-CI:JOML:1.10.5'
