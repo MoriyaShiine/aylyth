@@ -2,7 +2,6 @@ package moriyashiine.aylyth.client.render.entity.living;
 
 
 import com.mojang.authlib.GameProfile;
-import com.mojang.authlib.minecraft.MinecraftProfileTexture;
 import moriyashiine.aylyth.client.model.entity.TulpaEntityModel;
 import moriyashiine.aylyth.client.render.block.entity.WoodyGrowthBlockEntityRenderer;
 import moriyashiine.aylyth.common.Aylyth;
@@ -48,6 +47,8 @@ public class TulpaEntityRenderer extends GeoEntityRenderer<TulpaEntity> {
         this.textureManager = MinecraftClient.getInstance().getTextureManager();
         this.resourceManager = MinecraftClient.getInstance().getResourceManager();
         this.defaultTexture = new AdditiveTexture(DefaultSkinHelper.getTexture(), false);
+//        addLayer(new TulpaHandItemLayer(this, ctx.getHeldItemRenderer()));
+        // TODO: add layer for rendering items in hands
     }
 
     @Override
@@ -234,7 +235,7 @@ public class TulpaEntityRenderer extends GeoEntityRenderer<TulpaEntity> {
             tulpaPlayerEntity.setSprinting(entity.isSprinting());
             tulpaPlayerEntity.setSkinUuid(entity.getSkinUuid());
             tulpaPlayerEntity.setCustomName(entity.getCustomName());
-            tulpaPlayerEntity.setUsingItem(entity.getItemUseTime() > 0);
+//            tulpaPlayerEntity.setUsingItem(entity.getItemUseTime() > 0);
 
             tulpaPlayerEntity.prevCapeX = entity.prevCapeX;
             tulpaPlayerEntity.prevCapeY = entity.prevCapeY;

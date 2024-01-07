@@ -11,14 +11,15 @@ import net.minecraft.item.Items;
 import net.minecraft.server.world.ServerWorld;
 
 import java.util.function.Predicate;
+
 //Modified version of https://github.com/cybercat5555/Miskatonic-Mysteries-Fabric/blob/1.19/src/main/java/com/miskatonicmysteries/common/feature/entity/ai/task/TacticalApproachTask.java
-public class TacticalApproachTask extends Task<MobEntity> {
-    private final Predicate<MobEntity> predicate;
+public class TacticalApproachTask<T extends MobEntity> extends Task<T> {
+    private final Predicate<T> predicate;
     private final float speed;
     private final float squaredRange = 25;
     private int targetSeeingTicker;
 
-    public TacticalApproachTask(float speed, Predicate<MobEntity> predicate) {
+    public TacticalApproachTask(float speed, Predicate<T> predicate) {
         super(ImmutableMap.of(
                 MemoryModuleType.WALK_TARGET, MemoryModuleState.REGISTERED,
                 MemoryModuleType.LOOK_TARGET, MemoryModuleState.REGISTERED,
@@ -31,19 +32,18 @@ public class TacticalApproachTask extends Task<MobEntity> {
     }
 
     @Override
-    protected void run(ServerWorld serverWorld, MobEntity mob, long l) {
+    protected void run(ServerWorld serverWorld, T mob, long l) {
         LivingEntity livingEntity = mob.getBrain().getOptionalMemory(MemoryModuleType.ATTACK_TARGET).get();
-        if (!mob.getBrain().getOptionalMemory(MemoryModuleType.ATTACK_COOLING_DOWN).isPresent() && LookTargetUtil
-                .isVisibleInMemory(mob, livingEntity) && LookTargetUtil.isTargetWithinAttackRange(mob, livingEntity, 1)) {
+        if (isAttackCooldown(mob) && LookTargetUtil.isVisibleInMemory(mob, livingEntity)
+                && LookTargetUtil.isTargetWithinAttackRange(mob, livingEntity, 1)) {
             this.forgetWalkTarget(mob);
         } else {
             this.rememberWalkTarget(mob, livingEntity);
         }
-
     }
 
     @Override
-    protected void keepRunning(ServerWorld world, MobEntity entity, long time) {
+    protected void keepRunning(ServerWorld world, T entity, long time) {
         super.keepRunning(world, entity, time);
         LivingEntity livingEntity = entity.getBrain().getOptionalMemory(MemoryModuleType.ATTACK_TARGET).get();
         boolean shield = entity.isHolding(Items.SHIELD);
@@ -71,22 +71,24 @@ public class TacticalApproachTask extends Task<MobEntity> {
     }
 
     @Override
-    protected void finishRunning(ServerWorld world, MobEntity entity, long time) {
+    protected void finishRunning(ServerWorld world, T entity, long time) {
         entity.clearActiveItem();
         super.finishRunning(world, entity, time);
     }
 
     @Override
-    protected boolean shouldKeepRunning(ServerWorld world, MobEntity entity, long time) {
+    protected boolean shouldKeepRunning(ServerWorld world, T entity, long time) {
         return entity.getBrain().getOptionalMemory(MemoryModuleType.ATTACK_TARGET).isPresent() && (
-                entity.getBrain().getOptionalMemory(MemoryModuleType.ATTACK_COOLING_DOWN).isPresent() || predicate.test(entity)
+                isAttackCooldown(entity) || predicate.test(entity)
                         || entity.age - entity.getLastAttackedTime() <= 30);
     }
 
+    private boolean isAttackCooldown(T entity) {
+        return entity.getBrain().getOptionalMemory(MemoryModuleType.ATTACK_COOLING_DOWN).isPresent();
+    }
 
-
-    private void rememberWalkTarget(LivingEntity entity, LivingEntity target) {
-        Brain brain = entity.getBrain();
+    private void rememberWalkTarget(T entity, LivingEntity target) {
+        Brain<T> brain = (Brain<T>)entity.getBrain();
         brain.remember(MemoryModuleType.LOOK_TARGET, (new EntityLookTarget(target, true)));
         WalkTarget walkTarget = new WalkTarget(new EntityLookTarget(target, false), this.speed, 0);
         brain.remember(MemoryModuleType.WALK_TARGET, walkTarget);

@@ -15,6 +15,13 @@ loom {
     accessWidenerPath = file("src/main/resources/aylyth.accesswidener")
 	
 	runs {
+        client {
+            client()
+
+            name "Minecraft Client"
+            programArgs "--username", "HatsuneMiku"
+            programArgs "--uuid", "534e8d1c-5d83-4c56-a35d-b8f968ddcd01"
+        }
 		datagen {
 			server()
  
@@ -25,6 +32,12 @@ loom {
 			runDir "build/datagen"
 		}
 	}
+}
+
+idea {
+    module {
+        inheritOutputDirs = false
+    }
 }
 
 sourceSets.main.resources.srcDirs += ['src/main/generated']
@@ -106,6 +119,8 @@ dependencies {
     // Nice dev things
 	modRuntimeOnly "curse.maven:disablecustomworldsadvice-401978:3827588"
     modRuntimeOnly "maven.modrinth:suggestion-provider-fix-fabric:1.0.0"
+    //  Add this in 1.20.1, makes debugging entities and such much easier
+    //   https://www.curseforge.com/minecraft/mc-mods/debug-utils-fabric/files/4644075
 
     // Testing compat
 //    runtimeOnly 'com.github.JOML-CI:JOML:1.10.5'
@@ -134,6 +149,7 @@ dependencies {
 }
 
 processResources {
+    exclude(".cache")
     inputs.property "version", project.version
 
     filesMatching("fabric.mod.json") {

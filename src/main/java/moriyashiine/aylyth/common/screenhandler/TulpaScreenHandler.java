@@ -1,8 +1,10 @@
 package moriyashiine.aylyth.common.screenhandler;
 
 import com.mojang.datafixers.util.Pair;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import moriyashiine.aylyth.common.entity.mob.TulpaEntity;
 import moriyashiine.aylyth.common.registry.ModScreenHandlers;
+import moriyashiine.aylyth.mixin.MobEntityAccessor;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -15,12 +17,14 @@ import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.collection.DefaultedList;
 
 public class TulpaScreenHandler extends ScreenHandler {
     private final PlayerEntity player;
     public final TulpaEntity tulpaEntity;
     public final Inventory inventory;
     public final Inventory armorInventory;
+    public final Inventory handInventory;
     private static final EquipmentSlot[] EQUIPMENT_SLOT_ORDER = new EquipmentSlot[]{
             EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET};
 
@@ -31,19 +35,21 @@ public class TulpaScreenHandler extends ScreenHandler {
     }
 
     public TulpaScreenHandler(int syncId, PlayerInventory playerInventory, TulpaEntity tulpaEntity) {
-        this(syncId, playerInventory, tulpaEntity.getInventory(), tulpaEntity.armorInventory, tulpaEntity);
+        this(syncId, playerInventory, tulpaEntity.getInventory(), ((MobEntityAccessor)tulpaEntity).armorItems(), ((MobEntityAccessor)tulpaEntity).handItems(), tulpaEntity);
 
     }
 
-    public TulpaScreenHandler(int id, PlayerInventory playerInventory, SimpleInventory inventory, SimpleInventory armorInventory, TulpaEntity tulpaEntity) {
+    public TulpaScreenHandler(int id, PlayerInventory playerInventory, SimpleInventory inventory, DefaultedList<ItemStack> armorItems, DefaultedList<ItemStack> handItems, TulpaEntity tulpaEntity) {
         super(ModScreenHandlers.TULPA_SCREEN_HANDLER, id);
         this.inventory = inventory;
-        this.armorInventory = armorInventory;
+        this.armorInventory = new SimpleInventory(armorItems.toArray(ItemStack[]::new));
+        this.handInventory = new SimpleInventory(handItems.toArray(ItemStack[]::new));
         this.player = playerInventory.player;
         tulpaEntity.setInteractTarget(player);
         this.tulpaEntity = tulpaEntity;
-        inventory.onOpen(playerInventory.player);
-        armorInventory.onOpen(playerInventory.player);
+        this.inventory.onOpen(player);
+        this.armorInventory.onOpen(player);
+        this.handInventory.onOpen(player);
         this.addSlot(new Slot(armorInventory, 0, 8, 9) {
             @Override
             public boolean canInsert(ItemStack stack) {
@@ -133,7 +139,7 @@ public class TulpaScreenHandler extends ScreenHandler {
             }
         });
 
-        this.addSlot(new Slot(inventory, 0, 77, 44) {
+        this.addSlot(new Slot(handInventory, 0, 77, 44) {
 
             @Override
             public void setStack(ItemStack stack) {
@@ -142,7 +148,7 @@ public class TulpaScreenHandler extends ScreenHandler {
             }
         });
 
-        this.addSlot(new Slot(inventory, 1, 77, 62) {
+        this.addSlot(new Slot(handInventory, 1, 77, 62) {
             @Override
             public void setStack(ItemStack stack) {
                 super.setStack(stack);
@@ -157,9 +163,9 @@ public class TulpaScreenHandler extends ScreenHandler {
 
 
         for (int x = 0; x < 4; ++x) {
-            this.addSlot(new Slot(inventory, (x + 2), 97 + x * 18, 18));
-            this.addSlot(new Slot(inventory, (x + 3) + (3), 97 + x * 18, 18 + 18));
-            this.addSlot(new Slot(inventory, (x + 4) + (2 * 3), 97 + x * 18, 18 + 2 * 18));
+            this.addSlot(new Slot(inventory, x, 97 + x * 18, 18));
+            this.addSlot(new Slot(inventory, (x + 1) + (3), 97 + x * 18, 18 + 18));
+            this.addSlot(new Slot(inventory, (x + 2) + (2 * 3), 97 + x * 18, 18 + 2 * 18));
         }
 
 
@@ -227,13 +233,12 @@ public class TulpaScreenHandler extends ScreenHandler {
         return true;
     }
 
-
-
     @Override
     public void close(PlayerEntity player) {
         super.close(player);
         this.tulpaEntity.setInteractTarget(null);
         this.inventory.onClose(player);
         this.armorInventory.onClose(player);
+        this.handInventory.onClose(player);
     }
 }
