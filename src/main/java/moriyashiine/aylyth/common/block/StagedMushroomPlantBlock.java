@@ -1,5 +1,6 @@
 package moriyashiine.aylyth.common.block;
 
+import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Fertilizable;
@@ -47,9 +48,7 @@ public class StagedMushroomPlantBlock extends SpreadingPlantBlock implements Fer
         ItemStack heldItem = player.getStackInHand(hand);
         if (heldItem.isOf(asItem()) && !isMaxStage(state)) {
             world.setBlockState(pos, state.with(STAGE, state.get(STAGE)+1));
-            if (!player.getAbilities().creativeMode) {
-                heldItem.decrement(1);
-            }
+            AylythUtil.decreaseStack(heldItem, player);
             world.playSound(null, pos, getSoundGroup(state).getPlaceSound(), SoundCategory.BLOCKS, 1.0f, 1.0f);
             return ActionResult.success(world.isClient);
         }
