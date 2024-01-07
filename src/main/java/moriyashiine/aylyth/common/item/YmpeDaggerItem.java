@@ -51,36 +51,6 @@ public class YmpeDaggerItem extends SwordItem {
 	}
 
 	@Override
-	public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-		if (target instanceof MobEntity mob && attacker.getWorld() instanceof ServerWorld serverWorld) {
-			ItemStack offhand = attacker.getOffHandStack();
-			if (offhand.isOf(ModItems.SHUCKED_YMPE_FRUIT)) {
-				if ((!offhand.hasNbt() || !offhand.getNbt().contains("StoredEntity")) && !target.getType().isIn(ModTags.SHUCK_BLACKLIST)) {
-					if (attacker instanceof ServerPlayerEntity serverPlayer) {
-						ModCriteria.SHUCKING.trigger(serverPlayer, target);
-					}
-					target.setHealth(target.getMaxHealth());
-					target.clearStatusEffects();
-					target.extinguish();
-					target.setFrozenTicks(0);
-					target.setVelocity(Vec3d.ZERO);
-					target.fallDistance = 0;
-					target.knockbackVelocity = 0;
-					ModComponents.PREVENT_DROPS.get(mob).setPreventsDrops(true);
-					PlayerLookup.tracking(target).forEach(trackingPlayer -> SpawnShuckParticlesPacket.send(trackingPlayer, target));
-					serverWorld.playSound(null, target.getBlockPos(), ModSoundEvents.ENTITY_GENERIC_SHUCKED, target.getSoundCategory(), 1, target.getSoundPitch());
-					NbtCompound entityCompound = new NbtCompound();
-					target.saveSelfNbt(entityCompound);
-					offhand.getOrCreateNbt().put("StoredEntity", entityCompound);
-					target.remove(Entity.RemovalReason.DISCARDED);
-				}
-			}
-		}
-
-		return true;
-	}
-
-	@Override
 	public ActionResult useOnBlock(ItemUsageContext context) {
 		World world = context.getWorld();
 		if(!world.isClient()){
