@@ -28,6 +28,7 @@ public class ModTags {
 	public static final TagKey<Item> POMEGRANATE_LOGS_ITEM = TagKey.of(Registry.ITEM_KEY, new Identifier(Aylyth.MOD_ID, "pomegranate_logs"));
 	public static final TagKey<Item> WRITHEWOOD_LOGS_ITEM = TagKey.of(Registry.ITEM_KEY, new Identifier(Aylyth.MOD_ID, "writhewood_logs"));
 	public static final TagKey<Item> WOODY_GROWTHS_ITEM = TagKey.of(Registry.ITEM_KEY, new Identifier(Aylyth.MOD_ID, "woody_growths"));
+	public static final TagKey<Item> PLEDGE_ITEMS = TagKey.of(Registry.ITEM_KEY, new Identifier(Aylyth.MOD_ID, "pledge_items"));
 
 	public static final TagKey<Biome> GENERATES_SEEP = TagKey.of(Registry.BIOME_KEY, new Identifier(Aylyth.MOD_ID, "generates_seep"));
 }
