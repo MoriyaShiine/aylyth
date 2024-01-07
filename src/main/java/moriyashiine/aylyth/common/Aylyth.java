@@ -1,8 +1,10 @@
 package moriyashiine.aylyth.common;
 
+import moriyashiine.aylyth.client.network.packet.SpawnShuckParticlesPacket;
 import moriyashiine.aylyth.client.network.packet.UpdatePressingUpDownPacket;
 import moriyashiine.aylyth.common.entity.mob.ScionEntity;
 import moriyashiine.aylyth.common.event.LivingEntityDeathEvents;
+import moriyashiine.aylyth.common.item.ShuckedYmpeFruitItem;
 import moriyashiine.aylyth.common.network.packet.GlaivePacket;
 import moriyashiine.aylyth.common.recipe.YmpeDaggerDropRecipe;
 import moriyashiine.aylyth.common.registry.*;
@@ -13,7 +15,9 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.fabricmc.fabric.api.entity.event.v1.ServerEntityCombatEvents;
+import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
+import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Blocks;
@@ -22,19 +26,26 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.EntityHitResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.GenerationStep;
+import org.jetbrains.annotations.Nullable;
 
 public class Aylyth implements ModInitializer {
 	public static final String MOD_ID = "aylyth";
@@ -72,6 +83,7 @@ public class Aylyth implements ModInitializer {
 
 		ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register(this::daggerDrops);
 		UseBlockCallback.EVENT.register(this::interactSoulCampfire);
+		AttackEntityCallback.EVENT.register(this::attackWithYmpeDagger);
 	}
 
 	private ActionResult interactSoulCampfire(PlayerEntity playerEntity, World world, Hand hand, BlockHitResult blockHitResult) {
@@ -80,6 +92,33 @@ public class Aylyth implements ModInitializer {
 			if(itemStack.isOf(ModItems.AYLYTHIAN_HEART) || itemStack.isOf(ModItems.WRONGMEAT) || (itemStack.isOf(ModItems.SHUCKED_YMPE_FRUIT) && (itemStack.hasNbt() && itemStack.getNbt().contains("StoredEntity")))){
 				if (!world.isClient && campfireBlockEntity.addItem(playerEntity, itemStack,  Integer.MAX_VALUE)) {
 					playerEntity.incrementStat(Stats.INTERACT_WITH_CAMPFIRE);
+					return ActionResult.SUCCESS;
+				}
+			}
+		}
+		return ActionResult.PASS;
+	}
+
+	private ActionResult attackWithYmpeDagger(PlayerEntity attacker, World world, Hand hand, Entity target, @Nullable EntityHitResult hitResult) {
+		if (target instanceof MobEntity mob) {
+			ItemStack offhand = attacker.getOffHandStack();
+			if (offhand.isOf(ModItems.SHUCKED_YMPE_FRUIT)) {
+				if (!ShuckedYmpeFruitItem.hasStoredEntity(offhand) && !mob.getType().isIn(ModTags.SHUCK_BLACKLIST)) {
+					if (attacker instanceof ServerPlayerEntity serverPlayer) {
+						ModCriteria.SHUCKING.trigger(serverPlayer, mob);
+						mob.setHealth(mob.getMaxHealth()); // TODO: check whether this is intended behavior
+						mob.clearStatusEffects();
+						mob.extinguish();
+						mob.setFrozenTicks(0);
+						mob.setVelocity(Vec3d.ZERO);
+						mob.fallDistance = 0;
+						mob.knockbackVelocity = 0;
+						ModComponents.PREVENT_DROPS.get(mob).setPreventsDrops(true);
+						PlayerLookup.tracking(mob).forEach(trackingPlayer -> SpawnShuckParticlesPacket.send(trackingPlayer, mob));
+						world.playSound(null, mob.getBlockPos(), ModSoundEvents.ENTITY_GENERIC_SHUCKED, mob.getSoundCategory(), 1, mob.getSoundPitch());
+						ShuckedYmpeFruitItem.setStoredEntity(offhand, mob);
+						mob.remove(Entity.RemovalReason.DISCARDED);
+					}
 					return ActionResult.SUCCESS;
 				}
 			}

@@ -49,6 +49,11 @@
   },
   "entity.generic.shucked": {
 	"sounds": [
+		"block/honeyblock/break1",
+     	"block/honeyblock/break2",
+        "block/honeyblock/break3",
+        "block/honeyblock/break4",
+        "block/honeyblock/break5"
 	],
 	"subtitle": "aylyth.subtitles.entity.generic.shucked"
   },
