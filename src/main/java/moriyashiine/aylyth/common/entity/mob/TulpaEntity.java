@@ -1,10 +1,12 @@
 package moriyashiine.aylyth.common.entity.mob;
 
 import com.mojang.authlib.GameProfile;
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.Dynamic;
 import moriyashiine.aylyth.api.interfaces.ProlongedDeath;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.entity.ai.brain.TulpaBrain;
+import moriyashiine.aylyth.common.registry.ModDataTrackers;
 import moriyashiine.aylyth.common.screenhandler.TulpaScreenHandler;
 import moriyashiine.aylyth.mixin.MobEntityAccessor;
 import moriyashiine.bewitchment.api.BewitchmentAPI;
@@ -32,10 +34,7 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.RangedWeaponItem;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
-import net.minecraft.nbt.NbtHelper;
-import net.minecraft.nbt.NbtList;
+import net.minecraft.nbt.*;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.ServerConfigHandler;
@@ -57,8 +56,11 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
+import java.util.EnumMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 public class TulpaEntity extends HostileEntity implements TameableHostileEntity, IAnimatable, CrossbowUser,
         InventoryOwner, InventoryChangedListener, ProlongedDeath {
@@ -66,11 +68,8 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
     private GameProfile skinProfile;
     private final AnimationFactory factory = GeckoLibUtil.createFactory(this);
     private static final TrackedData<Byte> TAMEABLE = DataTracker.registerData(TulpaEntity.class, TrackedDataHandlerRegistry.BYTE);
-    public static final byte IDLE = 0;
-    public static final byte FOLLOW = 1;
-    public static final byte SICKO = 2;
     // TODO: Use a custom tracked data with a serializable enum instead. Let's us set necessary state when changed
-    public static final TrackedData<Byte> ACTION_STATE = DataTracker.registerData(TulpaEntity.class, TrackedDataHandlerRegistry.BYTE);
+    public static final TrackedData<ActionState> ACTION_STATE = DataTracker.registerData(TulpaEntity.class, ModDataTrackers.TULPA_ACTION_STATE);
     private static final TrackedData<Optional<UUID>> OWNER_UUID = DataTracker.registerData(TulpaEntity.class, TrackedDataHandlerRegistry.OPTIONAL_UUID);
     private static final TrackedData<Optional<UUID>> SKIN_UUID = DataTracker.registerData(TulpaEntity.class, TrackedDataHandlerRegistry.OPTIONAL_UUID);
     public static final TrackedData<Boolean> TRANSFORMING = DataTracker.registerData(TulpaEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
@@ -144,7 +143,7 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
 
     protected void initDataTracker() {
         super.initDataTracker();
-        this.dataTracker.startTracking(ACTION_STATE, IDLE);
+        this.dataTracker.startTracking(ACTION_STATE, ActionState.IDLE);
         this.dataTracker.startTracking(OWNER_UUID, Optional.empty());
         this.dataTracker.startTracking(SKIN_UUID, Optional.empty());
         this.dataTracker.startTracking(TAMEABLE, (byte) 0);
@@ -152,17 +151,14 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
         this.dataTracker.startTracking(IS_ATTACKING, false);
     }
 
-    public byte getActionState() {
+    public ActionState getActionState() {
         return dataTracker.get(ACTION_STATE);
     }
 
-    private void setActionState(byte id) {
-        dataTracker.set(ACTION_STATE, id);
-        if (id == FOLLOW) {
-            TulpaBrain.setShouldFollowOwner(this, true);
-        } else {
-            TulpaBrain.setShouldFollowOwner(this, false);
-        }
+    private void setActionState(ActionState actionState) {
+        getActionState().onUnset.accept(this);
+        dataTracker.set(ACTION_STATE, actionState);
+        getActionState().onSet.accept(this);
     }
 
     public void setInteractTarget(@Nullable PlayerEntity interactTarget) {
@@ -239,16 +235,9 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
     }
 
     private void cycleActionState(PlayerEntity player) {
-        if (getActionState() == IDLE) {
-            setActionState(FOLLOW);
-            player.sendMessage(Text.translatable("info.aylyth.tulpa_follow").setStyle(Style.EMPTY.withColor(Formatting.AQUA)), true);
-        } else if (getActionState() == FOLLOW) {
-            setActionState(SICKO);
-            player.sendMessage(Text.literal("amogus").setStyle(Style.EMPTY.withColor(Formatting.DARK_RED).withObfuscated(true)), true);
-        } else if (getActionState() == SICKO) {
-            setActionState(IDLE);
-            player.sendMessage(Text.translatable("info.aylyth.tulpa_wander").setStyle(Style.EMPTY.withColor(Formatting.AQUA)), true);
-        }
+        ActionState nextState = getActionState().next();
+        setActionState(nextState);
+        nextState.onCycle.accept(player);
     }
 
     protected void loot(ItemEntity item) {
@@ -277,7 +266,7 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
         if (this.getOwnerUuid() != null) {
             nbt.putUuid("Owner", this.getOwnerUuid());
         }
-        nbt.putByte("ActionState", getActionState());
+        nbt.putString("ActionState", getActionState().asString());
         NbtList listnbt = new NbtList();
         for (int i = 0; i < this.inventory.size(); ++i) {
             ItemStack itemstack = this.inventory.getStack(i);
@@ -310,8 +299,7 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
             String string = nbt.getString("Owner");
             ownerUUID = ServerConfigHandler.getPlayerUuidByName(this.getServer(), string);
         }
-        setActionState(nbt.getByte("ActionState"));
-
+        setActionState(ActionState.CODEC.parse(NbtOps.INSTANCE, nbt.get("ActionState")).result().orElse(ActionState.IDLE));
         if (ownerUUID != null) {
             try {
                 this.setOwnerUuid(ownerUUID);
@@ -320,7 +308,7 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
                 this.setTamed(false);
             }
         }
-        NbtList nbtList = nbt.getList("Inventory", 10);
+        NbtList nbtList = nbt.getList("Inventory", NbtElement.COMPOUND_TYPE);
         for (int i = 0; i < nbtList.size(); ++i) {
             NbtCompound compoundnbt = nbtList.getCompound(i);
             int j = compoundnbt.getByte("Slot") & 255;
@@ -330,21 +318,6 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
                 ItemScatterer.spawn(world, this.getBlockX(), this.getBlockY() + 1, this.getBlockZ(), ItemStack.fromNbt(compoundnbt));
             }
         }
-
-//        if (nbt.contains("ArmorItems", 9)) {
-//            NbtList armorItems = nbt.getList("ArmorItems", 10);
-//            for (int i = 0; i < ((MobEntityAccessor)this).armorItems().size(); ++i) {
-//                int index = slotToInventoryIndex(MobEntity.getPreferredEquipmentSlot(ItemStack.fromNbt(armorItems.getCompound(i))));
-//                this.armorInventory.setStack(index, ItemStack.fromNbt(armorItems.getCompound(i)));
-//            }
-//        }
-//        if (nbt.contains("HandItems", 9)) {
-//            NbtList handItems = nbt.getList("HandItems", 10);
-//            for (int i = 0; i < ((MobEntityAccessor)this).handItems().size(); ++i) {
-//                int handSlot = i == 0 ? 0 : 1;
-//                this.inventory.setStack(handSlot, ItemStack.fromNbt(handItems.getCompound(i)));
-//            }
-//        }
         if(nbt.contains("TransformTime")){
             this.transformTime = nbt.getInt("TransformTime");
         }
@@ -406,15 +379,6 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
         ItemScatterer.spawn(world, this, inventory);
         ItemScatterer.spawn(world, this.getBlockPos(), accessor.armorItems());
         ItemScatterer.spawn(world, this.getBlockPos(), accessor.handItems());
-    }
-
-    public static int slotToInventoryIndex(EquipmentSlot slot) {
-        return switch (slot) {
-            case CHEST -> 1;
-            case FEET -> 3;
-            case LEGS -> 2;
-            default -> 0;
-        };
     }
 
     @Override
@@ -621,6 +585,49 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
     @Override
     public void onInventoryChanged(Inventory sender) {
 
+    }
+
+    public enum ActionState implements StringIdentifiable {
+        IDLE("idle",
+                player -> player.sendMessage(Text.translatable("info.aylyth.tulpa_wander").setStyle(Style.EMPTY.withColor(Formatting.AQUA)), true),
+                tulpa -> {},
+                tulpa -> {}
+        ),
+        FOLLOW("follow",
+                player -> player.sendMessage(Text.translatable("info.aylyth.tulpa_follow").setStyle(Style.EMPTY.withColor(Formatting.AQUA)), true),
+                tulpa -> TulpaBrain.setShouldFollowOwner(tulpa, true),
+                tulpa -> TulpaBrain.setShouldFollowOwner(tulpa, false)
+        ),
+        SICKO("sicko",
+                player -> player.sendMessage(Text.literal("amogus").setStyle(Style.EMPTY.withColor(Formatting.DARK_RED).withObfuscated(true)), true),
+                tulpa -> {},
+                tulpa -> {}
+        );
+
+        public static final com.mojang.serialization.Codec<ActionState> CODEC = StringIdentifiable.createCodec(ActionState::values);
+        private final String name;
+        private final Consumer<PlayerEntity> onCycle;
+        private final Consumer<TulpaEntity> onUnset;
+        private final Consumer<TulpaEntity> onSet;
+
+        ActionState(String name, Consumer<PlayerEntity> onCycle, Consumer<TulpaEntity> onSet, Consumer<TulpaEntity> onUnset) {
+            this.name = name;
+            this.onCycle = onCycle;
+            this.onUnset = onUnset;
+            this.onSet = onSet;
+        }
+
+        public ActionState next() {
+            if (this.ordinal() == values().length-1) {
+                return ActionState.IDLE;
+            }
+            return values()[this.ordinal()+1];
+        }
+
+        @Override
+        public String asString() {
+            return this.name;
+        }
     }
 
     private class TulpaScreenHandlerFactory implements ExtendedScreenHandlerFactory {

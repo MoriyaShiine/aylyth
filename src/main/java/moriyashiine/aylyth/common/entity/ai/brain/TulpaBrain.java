@@ -128,12 +128,12 @@ public class TulpaBrain {
     private static Optional<? extends LivingEntity> getAttackTarget(TulpaEntity tulpaEntity) {
         Brain<TulpaEntity> brain = tulpaEntity.getBrain();
         Optional<LivingEntity> optional = LookTargetUtil.getEntity(tulpaEntity, MemoryModuleType.ANGRY_AT);
-        if(optional.isPresent()){
+        if (optional.isPresent()) {
             return optional;
         }
         if (brain.hasMemoryModule(MemoryModuleType.VISIBLE_MOBS)) {
             Optional<LivingTargetCache> visibleLivingEntitiesCache = tulpaEntity.getBrain().getOptionalMemory(MemoryModuleType.VISIBLE_MOBS);
-            if(tulpaEntity.getActionState() == TulpaEntity.SICKO){
+            if(tulpaEntity.getActionState() == TulpaEntity.ActionState.SICKO) {
                 return visibleLivingEntitiesCache.get().findFirst(entity -> !entity.isSubmergedInWater() && tulpaEntity.getOwnerUuid() != entity.getUuid());
             }
         }
