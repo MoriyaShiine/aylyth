@@ -166,6 +166,7 @@ public class AylythUtil {
 						livingEntity.getMainHandStack().getItem() instanceof YmpeGlaiveItem)) {
 			return true;
 		}
+		// TODO: 1.20, use damage type tag
 		return source == ModDamageSources.YMPE || source == ModDamageSources.YMPE_ENTITY;
 	}
 

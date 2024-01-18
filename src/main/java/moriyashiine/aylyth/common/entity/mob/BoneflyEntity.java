@@ -407,7 +407,7 @@ public class BoneflyEntity extends HostileEntity implements IAnimatable, Tameabl
     private <E extends IAnimatable> PlayState grabPredicate(AnimationEvent<E> event) {
         AnimationBuilder animationBuilder = new AnimationBuilder();
         if(this.isInAir()){
-            if (this.getActionState() == 2) {//TODO implement grab modes
+            if (this.getActionState() == 2) {//TODO: implement grab modes
                 animationBuilder.addAnimation("stabIdle", ILoopType.EDefaultLoopTypes.LOOP);
             } else if(this.getActionState() == 1) {
                 animationBuilder.addAnimation("stab", ILoopType.EDefaultLoopTypes.PLAY_ONCE);

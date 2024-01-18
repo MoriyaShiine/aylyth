@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import moriyashiine.aylyth.common.entity.mob.TulpaEntity;
 import moriyashiine.aylyth.common.registry.ModMemoryTypes;
 import net.minecraft.entity.ai.brain.*;
+import net.minecraft.entity.ai.brain.task.LookTargetUtil;
 import net.minecraft.entity.ai.brain.task.Task;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -39,9 +40,7 @@ public class FollowOwnerTask extends Task<TulpaEntity> {
     protected void keepRunning(ServerWorld world, TulpaEntity entity, long time) {
         Brain<?> brain = entity.getBrain();
         PlayerEntity owner = brain.getOptionalMemory(ModMemoryTypes.OWNER_PLAYER).get();
-        EntityLookTarget lookTarget = new EntityLookTarget(owner, true);
-        brain.remember(MemoryModuleType.WALK_TARGET, new WalkTarget(lookTarget, 0.85f, 3));
-        brain.remember(MemoryModuleType.LOOK_TARGET, lookTarget);
+        LookTargetUtil.walkTowards(entity, owner, 0.85f, 3);
         super.keepRunning(world, entity, time);
     }
 }
