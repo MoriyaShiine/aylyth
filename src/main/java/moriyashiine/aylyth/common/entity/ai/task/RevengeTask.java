@@ -14,27 +14,20 @@ import java.util.Optional;
 
 public class RevengeTask extends Task<MobEntity> {
     public RevengeTask() {
-        super(ImmutableMap.of(MemoryModuleType.ANGRY_AT, MemoryModuleState.VALUE_ABSENT));
-    }
-
-    @Override
-    protected boolean shouldRun(ServerWorld world, MobEntity entity) {
-        return wasHurt(entity);
+        super(ImmutableMap.of(
+                MemoryModuleType.HURT_BY, MemoryModuleState.VALUE_PRESENT,
+                MemoryModuleType.ANGRY_AT, MemoryModuleState.REGISTERED
+        ));
     }
 
     @Override
     protected void run(ServerWorld world, MobEntity entity, long time) {
-        Optional<DamageSource> damageSource = entity.getBrain().getOptionalMemory(MemoryModuleType.HURT_BY);
-        if(damageSource.isPresent() && damageSource.get().getAttacker() instanceof LivingEntity livingEntity){
-            if(entity instanceof TameableHostileEntity tameableHostileEntity && tameableHostileEntity.getOwner() == livingEntity){
+        DamageSource damageSource = entity.getBrain().getOptionalMemory(MemoryModuleType.HURT_BY).get();
+        if (damageSource.getAttacker() instanceof LivingEntity livingEntity) {
+            if (entity instanceof TameableHostileEntity tameableHostileEntity && tameableHostileEntity.getOwner() == livingEntity) {
                 return;
             }
             entity.getBrain().remember(MemoryModuleType.ANGRY_AT, livingEntity.getUuid(), 600L);
         }
-    }
-
-    public static boolean wasHurt(LivingEntity entity) {
-        entity.getBrain().forget(MemoryModuleType.ANGRY_AT);
-        return entity.getBrain().hasMemoryModule(MemoryModuleType.HURT_BY);
     }
 }
