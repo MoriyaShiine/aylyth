@@ -1,9 +1,11 @@
 package moriyashiine.aylyth.common.registry;
 
 import moriyashiine.aylyth.common.component.entity.CuirassComponent;
+import moriyashiine.aylyth.common.entity.mob.WreathedHindEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.EntityDamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.AxeItem;
 import net.minecraft.sound.SoundCategory;
@@ -14,7 +16,9 @@ import javax.annotation.Nullable;
 public class ModDamageSources {
 	public static final DamageSource YMPE = new YmpeDamageSource("ympe");
 	public static final DamageSource YMPE_ENTITY = new YmpeEntityDamageSource("ympe_entity");
-	public static final DamageSource UNBLOCKABLE = new DamageSource("unblockable").setBypassesArmor().setUnblockable();
+	public static final DamageSource killingBlow(WreathedHindEntity wreathedHind) { // TODO: add to "bypass_armor" tag in 1.20
+		return new EntityDamageSource("wreathed_hind.killing_blow", wreathedHind).setBypassesArmor().setUnblockable();
+	}
 
 	/*
 	public static float handleDamage(LivingEntity livingEntity, DamageSource source, float amount) {

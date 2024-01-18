@@ -12,8 +12,6 @@ import net.minecraft.entity.ai.brain.task.Task;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.server.world.ServerWorld;
 
-import static moriyashiine.aylyth.common.util.BrainUtils.getAttackTarget;
-
 public class BoltRangedAttackTask extends Task<WreathedHindEntity> {
     public BoltRangedAttackTask() {
         super(ImmutableMap.of(
@@ -29,9 +27,10 @@ public class BoltRangedAttackTask extends Task<WreathedHindEntity> {
         return d <= mob.getWidth() * 4.0F * mob.getWidth() * 4.0F + target.getWidth();
     }
 
+    @Override
     protected boolean shouldRun(ServerWorld serverWorld, WreathedHindEntity mobEntity) {
-        LivingEntity livingEntity = getAttackTarget(mobEntity);
-        return mobEntity.getAttackType() == WreathedHindEntity.RANGE_ATTACK
+        LivingEntity livingEntity = BrainUtils.getAttackTarget(mobEntity);
+        return mobEntity.getAttackType() == WreathedHindEntity.AttackType.RANGED
                 && LookTargetUtil.isVisibleInMemory(mobEntity, livingEntity)
                 && LookTargetUtil.isTargetWithinAttackRange(mobEntity, livingEntity, 0)
                 && !isInMeleeAttackRange(mobEntity);
@@ -40,19 +39,20 @@ public class BoltRangedAttackTask extends Task<WreathedHindEntity> {
     @Override
     protected void run(ServerWorld world, WreathedHindEntity entity, long time) {
         SphereEntity sphereEntity = new SphereEntity(entity.world, entity);
-        LivingEntity target = entity.getBrain().getOptionalMemory(MemoryModuleType.ATTACK_TARGET).get();
+        world.spawnEntity(sphereEntity);
+        LivingEntity target = BrainUtils.getAttackTarget(entity);
 
-        double d = target.getX() - entity.getX();
-        double e = target.getBodyY(0.3333333333333333) - sphereEntity.getY();
-        double f = target.getZ() - entity.getZ();
-        double g = Math.sqrt(d * d + f * f) * 0.2F;
-        sphereEntity.setVelocity(d, e + g, f, 0.5F, 10.0F);
-        entity.world.spawnEntity(sphereEntity);
+        double diffX = target.getX() - entity.getX();
+        double diffY = target.getBodyY(0.3333333333333333) - sphereEntity.getY();
+        double diffZ = target.getZ() - entity.getZ();
+        double range = Math.sqrt(diffX * diffX + diffZ * diffZ) * 0.2F;
+        sphereEntity.setVelocity(diffX, diffY + range, diffZ, 0.5F, 10.0F);
 
         super.run(world, entity, time);
     }
 
+    @Override
     protected void finishRunning(ServerWorld serverWorld, WreathedHindEntity mobEntity, long l) {
-        mobEntity.setAttackType(WreathedHindEntity.NONE);
+        mobEntity.setAttackType(WreathedHindEntity.AttackType.NONE);
     }
 }

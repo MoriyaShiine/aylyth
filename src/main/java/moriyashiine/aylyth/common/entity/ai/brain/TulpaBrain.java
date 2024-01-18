@@ -27,7 +27,7 @@ public class TulpaBrain {
             SensorType.NEAREST_PLAYERS,
             SensorType.NEAREST_LIVING_ENTITIES,
             SensorType.HURT_BY,
-            ModSensorTypes.TULPA_SPECIFIC_SENSOR
+            ModSensorTypes.TULPA_SPECIFIC
     );
     private static final List<MemoryModuleType<?>> MEMORIES = List.of(
             MemoryModuleType.MOBS,
@@ -75,7 +75,6 @@ public class TulpaBrain {
                         new StayAboveWaterTask(0.6f),
                         new LookAroundTask(45, 90),
                         new WanderAroundTask(),
-                        new UpdateAttackTargetTask<>(TulpaBrain::getAttackTarget),
                         new RevengeTask()
                 )
         );
@@ -92,7 +91,8 @@ public class TulpaBrain {
                                         Pair.of(new WaitTask(30, 60), 1)
                                 ))),
                         Pair.of(1, new EatFoodTask()),
-                        Pair.of(2, new FollowOwnerTask())
+                        Pair.of(2, new FollowOwnerTask()),
+                        Pair.of(3, new UpdateAttackTargetTask<>(TulpaBrain::getAttackTarget))
                 )
         );
     }
