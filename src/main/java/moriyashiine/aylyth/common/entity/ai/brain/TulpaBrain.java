@@ -15,9 +15,12 @@ import net.minecraft.entity.ai.brain.*;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.ai.brain.task.*;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.RangedWeaponItem;
+import net.minecraft.util.Unit;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class TulpaBrain {
@@ -86,14 +89,29 @@ public class TulpaBrain {
         brain.setTaskList(
                 Activity.IDLE,
                 ImmutableList.of(
-                        Pair.of(0, new RandomTask<>(
-                                ImmutableList.of(
-                                        Pair.of(new StrollTask(0.6F), 2),
-                                        Pair.of(new GoTowardsLookTarget(0.6F, 3), 2),
-                                        Pair.of(new WaitTask(30, 60), 1)
-                                ))),
+                        Pair.of(0, new ConditionalTask<>(
+                                Map.of(ModMemoryTypes.SHOULD_FOLLOW_OWNER, MemoryModuleState.VALUE_ABSENT),
+                                e -> true,
+                                new RandomTask<>(
+                                        ImmutableList.of(
+                                                Pair.of(new StrollTask(0.6F), 2),
+                                                Pair.of(new GoTowardsLookTarget(0.6F, 3), 2),
+                                                Pair.of(new WaitTask(30, 60), 1)
+                                        )),
+                                true
+                        )),
                         Pair.of(1, new EatFoodTask()),
-                        Pair.of(2, new FollowOwnerTask()),
+                        Pair.of(2, new ConditionalTask<>(
+                                Map.of(
+                                        ModMemoryTypes.OWNER_PLAYER, MemoryModuleState.VALUE_PRESENT,
+                                        ModMemoryTypes.SHOULD_FOLLOW_OWNER, MemoryModuleState.VALUE_PRESENT
+                                ),
+                                e -> true,
+                                new WalkTowardsLookTargetTask<>(living -> {
+                                    Optional<PlayerEntity> owner = brain.getOptionalMemory(ModMemoryTypes.OWNER_PLAYER);
+                                    return owner.map(player -> new EntityLookTarget(player, true));
+                                }, 3, 1, 0.85f), true
+                        )),
                         Pair.of(3, new UpdateAttackTargetTask<>(TulpaBrain::getAttackTarget))
                 )
         );
@@ -148,6 +166,11 @@ public class TulpaBrain {
     }
 
     public static void setShouldFollowOwner(TulpaEntity tulpaEntity, boolean should) {
-        tulpaEntity.getBrain().remember(ModMemoryTypes.SHOULD_FOLLOW_OWNER, should);
+        if (should) {
+            tulpaEntity.getBrain().remember(ModMemoryTypes.SHOULD_FOLLOW_OWNER, Unit.INSTANCE);
+            tulpaEntity.getBrain().forget(MemoryModuleType.WALK_TARGET);
+        } else {
+            tulpaEntity.getBrain().forget(ModMemoryTypes.SHOULD_FOLLOW_OWNER);
+        }
     }
 }
