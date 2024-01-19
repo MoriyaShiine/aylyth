@@ -413,17 +413,13 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
     @Nullable
     @Override
     public LivingEntity getOwner() {
-        try {
-            UUID uuid = this.getOwnerUuid();
-            return uuid == null ? null : this.world.getPlayerByUuid(uuid);
-        } catch (IllegalArgumentException var2) {
-            return null;
-        }
+        UUID uuid = this.getOwnerUuid();
+        return uuid == null ? null : this.world.getPlayerByUuid(uuid);
     }
 
     @Override
     public boolean isOwner(LivingEntity entity) {
-        return entity == this.getOwner();
+        return entity != null && entity == this.getOwner();
     }
 
     @Override

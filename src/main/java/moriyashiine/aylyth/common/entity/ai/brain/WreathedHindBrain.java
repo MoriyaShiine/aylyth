@@ -1,13 +1,11 @@
 package moriyashiine.aylyth.common.entity.ai.brain;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Dynamic;
 import moriyashiine.aylyth.common.entity.ai.task.BoltRangedAttackTask;
 import moriyashiine.aylyth.common.entity.ai.task.GeckoMeleeAttackTask;
-import moriyashiine.aylyth.common.entity.ai.task.LookAtWalkTargetTask;
 import moriyashiine.aylyth.common.entity.ai.task.RevengeTask;
 import moriyashiine.aylyth.common.entity.mob.WreathedHindEntity;
 import moriyashiine.aylyth.common.registry.ModMemoryTypes;
@@ -20,7 +18,6 @@ import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.ai.brain.task.*;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 
 import java.util.List;
