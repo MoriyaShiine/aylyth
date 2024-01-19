@@ -1,11 +1,13 @@
 package moriyashiine.aylyth.common.entity.ai.brain;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Dynamic;
 import moriyashiine.aylyth.common.entity.ai.task.BoltRangedAttackTask;
 import moriyashiine.aylyth.common.entity.ai.task.GeckoMeleeAttackTask;
+import moriyashiine.aylyth.common.entity.ai.task.LookAtWalkTargetTask;
 import moriyashiine.aylyth.common.entity.ai.task.RevengeTask;
 import moriyashiine.aylyth.common.entity.mob.WreathedHindEntity;
 import moriyashiine.aylyth.common.registry.ModMemoryTypes;
@@ -13,14 +15,12 @@ import moriyashiine.aylyth.common.registry.ModSensorTypes;
 import moriyashiine.aylyth.common.util.BrainUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.brain.Activity;
-import net.minecraft.entity.ai.brain.Brain;
-import net.minecraft.entity.ai.brain.EntityLookTarget;
-import net.minecraft.entity.ai.brain.MemoryModuleType;
+import net.minecraft.entity.ai.brain.*;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.ai.brain.task.*;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 
 import java.util.List;
@@ -46,6 +46,7 @@ public class WreathedHindBrain {
             MemoryModuleType.WALK_TARGET,
             MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
             MemoryModuleType.PATH,
+            MemoryModuleType.HURT_BY_ENTITY,
             MemoryModuleType.ANGRY_AT,
             MemoryModuleType.ATTACK_TARGET,
             MemoryModuleType.ATTACK_COOLING_DOWN,
@@ -54,7 +55,7 @@ public class WreathedHindBrain {
             ModMemoryTypes.PLEDGED_PLAYER
     );
 
-    public WreathedHindBrain(){}
+    public WreathedHindBrain() {}
 
     public static Brain<?> create(WreathedHindEntity wreathedHindEntity, Dynamic<?> dynamic) {
         Brain.Profile<WreathedHindEntity> profile = Brain.createProfile(MEMORIES, SENSORS);
@@ -75,7 +76,12 @@ public class WreathedHindBrain {
                 ImmutableList.of(
                         new StayAboveWaterTask(0.6f),
                         new LookAroundTask(45, 90),
-                        new WanderAroundTask()
+                        new WanderAroundTask(),
+                        new RevengeTask()
+//                        new ConditionalTask<>(
+//                                ImmutableMap.of(MemoryModuleType.HURT_BY_ENTITY, MemoryModuleState.VALUE_PRESENT),
+//                                WreathedHindBrain::shouldAttackHurtBy, new RevengeTask(), false
+//                        )
                 )
         );
     }
@@ -119,7 +125,6 @@ public class WreathedHindBrain {
                                     hind.getDataTracker().set(WreathedHindEntity.ATTACK_TYPE, WreathedHindEntity.AttackType.NONE);
                                 },
                                 10,20 * 2,20 * 0.7D),
-                        new RevengeTask(),
                         new BoltRangedAttackTask()
                 ), MemoryModuleType.ATTACK_TARGET);
     }
@@ -135,6 +140,11 @@ public class WreathedHindBrain {
 
     public static boolean isPledgedPlayerLow(Entity entity, WreathedHindEntity wreathedHindEntity) {
        return (entity instanceof PlayerEntity player && player.getUuid().equals(wreathedHindEntity.getPledgedPlayerUUID()) && player.getHealth() <= 6);
+    }
+
+    public static boolean shouldAttackHurtBy(WreathedHindEntity entity) {
+        Entity attackedBy = entity.getBrain().getOptionalMemory(MemoryModuleType.HURT_BY_ENTITY).get();
+        return !attackedBy.getUuid().equals(entity.getPledgedPlayerUUID());
     }
 
     private static Optional<? extends LivingEntity> getAttackTarget(WreathedHindEntity wreathedHindEntity) {

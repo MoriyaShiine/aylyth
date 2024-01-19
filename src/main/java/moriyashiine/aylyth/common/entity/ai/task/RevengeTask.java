@@ -15,19 +15,14 @@ import java.util.Optional;
 public class RevengeTask extends Task<MobEntity> {
     public RevengeTask() {
         super(ImmutableMap.of(
-                MemoryModuleType.HURT_BY, MemoryModuleState.VALUE_PRESENT,
+                MemoryModuleType.HURT_BY_ENTITY, MemoryModuleState.VALUE_PRESENT,
                 MemoryModuleType.ANGRY_AT, MemoryModuleState.REGISTERED
         ));
     }
 
     @Override
     protected void run(ServerWorld world, MobEntity entity, long time) {
-        DamageSource damageSource = entity.getBrain().getOptionalMemory(MemoryModuleType.HURT_BY).get();
-        if (damageSource.getAttacker() instanceof LivingEntity livingEntity) {
-            if (entity instanceof TameableHostileEntity tameableHostileEntity && tameableHostileEntity.getOwner() == livingEntity) {
-                return;
-            }
-            entity.getBrain().remember(MemoryModuleType.ANGRY_AT, livingEntity.getUuid(), 600L);
-        }
+        LivingEntity attackedBy = entity.getBrain().getOptionalMemory(MemoryModuleType.HURT_BY_ENTITY).get();
+        entity.getBrain().remember(MemoryModuleType.ANGRY_AT, attackedBy.getUuid(), 600L);
     }
 }
