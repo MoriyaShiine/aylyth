@@ -202,11 +202,6 @@ public class AylythianEntity extends HostileEntity implements IAnimatable {
 		return EntityGroup.UNDEAD;
 	}
 
-	@Override
-	public boolean isUndead() {
-		return true;
-	}
-
 	public static boolean isTargetInBush(LivingEntity target) {
 		if (target != null && target.isSneaking()) {
 			for (int i = 0; i <= target.getHeight(); i++) {
