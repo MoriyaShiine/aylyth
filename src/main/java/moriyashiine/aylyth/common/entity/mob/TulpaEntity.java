@@ -100,7 +100,7 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
     public static DefaultAttributeContainer.Builder createTulpaAttributes() {
         return MobEntity.createMobAttributes()
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 20)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 3)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 6)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.32)
                 .add(EntityAttributes.GENERIC_ARMOR, 2f);
     }
