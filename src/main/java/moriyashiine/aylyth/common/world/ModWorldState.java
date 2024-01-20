@@ -1,37 +1,59 @@
 package moriyashiine.aylyth.common.world;
 
-import net.fabricmc.fabric.api.util.NbtType;
+import com.mojang.serialization.Codec;
+import it.unimi.dsi.fastutil.objects.ObjectLinkedOpenHashSet;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtList;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.world.PersistentState;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class ModWorldState extends PersistentState {
-    public final List<UUID> pledgesToRemove = new ArrayList<>();
+    public static final Codec<Set<UUID>> CODEC = Codecs.UUID.listOf().fieldOf("AylythPledgesToRemove").xmap(
+            uuids -> (Set<UUID>)new ObjectLinkedOpenHashSet<>(uuids),
+            ArrayList::new
+    ).codec();
+
+    private final Set<UUID> pledgesToRemove;
+
+    public ModWorldState() {
+        this(new HashSet<>());
+    }
+
+    ModWorldState(Set<UUID> pledgesToRemove) {
+        this.pledgesToRemove = pledgesToRemove;
+    }
+
+    public boolean hasPledge(UUID uuid) {
+        return pledgesToRemove.contains(uuid);
+    }
+
+    public boolean hasPledgesToRemove() {
+        return !pledgesToRemove.isEmpty();
+    }
+
+    public void addPledgeToRemove(UUID uuid) {
+        pledgesToRemove.add(uuid);
+        markDirty();
+    }
+
+    public boolean removePledge(UUID uuid) {
+        boolean removed = pledgesToRemove.remove(uuid);
+        if (removed) {
+            markDirty();
+        }
+        return removed;
+    }
 
     public static ModWorldState readNbt(NbtCompound nbt) {
-        ModWorldState worldState = new ModWorldState();
-        NbtList pledgesToRemoveList = nbt.getList("AylythPledgesToRemove", NbtType.COMPOUND);
-        for (int i = 0; i < pledgesToRemoveList.size(); i++) {
-            worldState.pledgesToRemove.add(pledgesToRemoveList.getCompound(i).getUuid("UUID"));
-        }
-        return worldState;
+        return CODEC.parse(NbtOps.INSTANCE, nbt).map(ModWorldState::new).getOrThrow(false, s -> {});
     }
 
     @Override
     public NbtCompound writeNbt(NbtCompound nbt) {
-        NbtList pledgesToRemoveList = new NbtList();
-        for (UUID uuid : this.pledgesToRemove) {
-            NbtCompound pledgeCompound = new NbtCompound();
-            pledgeCompound.putUuid("UUID", uuid);
-            pledgesToRemoveList.add(pledgeCompound);
-        }
-        nbt.put("AylythPledgesToRemove", pledgesToRemoveList);
-        return nbt;
+        return (NbtCompound) CODEC.encode(pledgesToRemove, NbtOps.INSTANCE, nbt).getOrThrow(false, s -> {});
     }
 
     public static ModWorldState get(World world) {

@@ -4,6 +4,7 @@ import moriyashiine.aylyth.api.interfaces.VitalHolder;
 import moriyashiine.aylyth.common.block.VitalThuribleBlock;
 import moriyashiine.aylyth.common.registry.ModBlockEntityTypes;
 import moriyashiine.aylyth.common.registry.ModItems;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -150,9 +151,7 @@ public class VitalThuribleBlockEntity extends BlockEntity implements Inventory {
                 getStack(0).increment(1);
             }
             sync();
-            if (!player.getAbilities().creativeMode) {
-                stack.decrement(1);
-            }
+            AylythUtil.decreaseStack(stack, player);
         }
     }
 

@@ -3,6 +3,7 @@ package moriyashiine.aylyth.common.item;
 import moriyashiine.aylyth.common.entity.mob.SoulmouldEntity;
 import moriyashiine.aylyth.common.registry.ModEntityTypes;
 import moriyashiine.aylyth.common.registry.ModItems;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
@@ -18,6 +19,7 @@ public class YmpemouldItem extends Item {
         super(settings);
     }
 
+    @Override
     public ActionResult useOnBlock(ItemUsageContext ctx) {
         PlayerEntity player = ctx.getPlayer();
         BlockPos pos = ctx.getBlockPos();
@@ -33,7 +35,7 @@ public class YmpemouldItem extends Item {
             mould.equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModItems.YMPE_GLAIVE));
             mould.handDropChances[EquipmentSlot.MAINHAND.getEntitySlotId()] = 0.0F;
             ctx.getWorld().spawnEntity(mould);
-            ctx.getStack().decrement(1);
+            AylythUtil.decreaseStack(ctx.getStack(), player);
         }
 
         return super.useOnBlock(ctx);

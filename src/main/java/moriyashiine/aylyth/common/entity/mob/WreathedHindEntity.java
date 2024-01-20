@@ -5,7 +5,7 @@ import moriyashiine.aylyth.api.interfaces.HindPledgeHolder;
 import moriyashiine.aylyth.api.interfaces.Pledgeable;
 import moriyashiine.aylyth.common.entity.ai.brain.WreathedHindBrain;
 import moriyashiine.aylyth.common.registry.*;
-import net.minecraft.block.BlockState;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
@@ -27,17 +27,15 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.tag.FluidTags;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Util;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -48,7 +46,6 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
-import javax.annotation.Nullable;
 import java.util.*;
 
 public class WreathedHindEntity extends HostileEntity implements IAnimatable, Pledgeable {
@@ -56,17 +53,13 @@ public class WreathedHindEntity extends HostileEntity implements IAnimatable, Pl
     private EntityAttributeInstance modifiableattributeinstance = this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
 
     private final AnimationFactory factory = GeckoLibUtil.createFactory(this);
-    public static final TrackedData<Byte> ATTACK_TYPE = DataTracker.registerData(WreathedHindEntity.class, TrackedDataHandlerRegistry.BYTE);
-    public static final byte NONE = 0;
-    public static final byte MELEE_ATTACK = 1;
-    public static final byte RANGE_ATTACK = 2;
-    public static final byte KILLING_ATTACK = 3;
-    private final Set<UUID> pledgedPlayerUUIDS = new HashSet<>();
+    public static final TrackedData<AttackType> ATTACK_TYPE = DataTracker.registerData(WreathedHindEntity.class, ModDataTrackers.WREATHED_HIND_ATTACKS);
+    public static final TrackedData<Boolean> IS_PLEDGED = DataTracker.registerData(WreathedHindEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private UUID pledgedPlayer = null;
 
     public WreathedHindEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
         this.setPersistent();
-
     }
 
     public static DefaultAttributeContainer.Builder createAttributes() {
@@ -81,7 +74,8 @@ public class WreathedHindEntity extends HostileEntity implements IAnimatable, Pl
     @Override
     protected void initDataTracker() {
         super.initDataTracker();
-        this.dataTracker.startTracking(ATTACK_TYPE, (byte) 0);
+        this.dataTracker.startTracking(ATTACK_TYPE, AttackType.NONE);
+        this.dataTracker.startTracking(IS_PLEDGED, false);
     }
 
     @Override
@@ -91,12 +85,22 @@ public class WreathedHindEntity extends HostileEntity implements IAnimatable, Pl
         this.world.getProfiler().pop();
         WreathedHindBrain.updateActivities(this);
         super.mobTick();
-        if(WreathedHindBrain.isPledgedPlayerLow(this.getTarget(), this)){
+        if (WreathedHindBrain.isPledgedPlayerLow(this.getTarget(), this)) {
             modifiableattributeinstance.removeModifier(SNEAKY_SPEED_PENALTY);
             modifiableattributeinstance.addTemporaryModifier(SNEAKY_SPEED_PENALTY);
-        }else if(modifiableattributeinstance.hasModifier(SNEAKY_SPEED_PENALTY)){
+        } else if (modifiableattributeinstance.hasModifier(SNEAKY_SPEED_PENALTY)) {
             modifiableattributeinstance.removeModifier(SNEAKY_SPEED_PENALTY);
         }
+    }
+
+    @Override
+    public int getMaxLookYawChange() {
+        return 3;
+    }
+
+    @Override
+    public int getMaxLookPitchChange() {
+        return 3;
     }
 
     @Override
@@ -107,50 +111,80 @@ public class WreathedHindEntity extends HostileEntity implements IAnimatable, Pl
     @Override
     public void writeCustomDataToNbt(NbtCompound nbt) {
         super.writeCustomDataToNbt(nbt);
-        toNbtPledgeable(nbt);
+        if (getPledgedPlayerUUID() != null) {
+            nbt.putUuid("pledged_player", getPledgedPlayerUUID());
+        }
     }
 
     @Override
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
-        fromNbtPledgeable(nbt);
+        if (nbt.contains("pledged_player")) {
+            pledgedPlayer = nbt.getUuid("pledged_player");
+            setIsPledged(true);
+        }
     }
 
     @Override
     protected ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack stack = player.getStackInHand(hand);
-        if((stack.getItem().equals(ModItems.NYSIAN_GRAPES))) {
+        if(stack.isIn(ModTags.PLEDGE_ITEMS) && getPledgedPlayerUUID() == null) {
             if (player instanceof ServerPlayerEntity serverPlayer) {
                 ModCriteria.HIND_PLEDGE.trigger(serverPlayer, this);
             }
-            getPledgedPlayerUUIDs().add(player.getUuid());
+            setPledgedPlayer(player);
             HindPledgeHolder.of(player).ifPresent(hindHolder -> hindHolder.setHindUuid(this.getUuid()));
-            stack.decrement(1);
+            AylythUtil.decreaseStack(stack, player);
         }
         return super.interactMob(player, hand);
     }
 
     @Override
+    public void remove(RemovalReason reason) {
+        super.remove(reason);
+        addPledgeToRemove(world);
+    }
+
+    @Override
     public boolean tryAttack(Entity target) {
-       if(getAttackType() == MELEE_ATTACK){
+       if (getAttackType() == AttackType.MELEE) {
            return super.tryAttack(target);
-        }else if(getAttackType() == KILLING_ATTACK){
-            if(target instanceof PlayerEntity player){
+        } else if (getAttackType() == AttackType.KILLING) {
+            if (target instanceof PlayerEntity player) {
                 return tryKillingAttack(player);
             }
         }
        return false;
     }
 
-    public boolean tryKillingAttack(PlayerEntity target){
+    public boolean tryKillingAttack(PlayerEntity target) {
         float f = 6;
-        boolean bl = target.damage(ModDamageSources.UNBLOCKABLE, f);
+        boolean bl = target.damage(ModDamageSources.killingBlow(this), f);
         if (bl) {
             this.disablePlayerShield(target, this.getMainHandStack(), target.isUsingItem() ? target.getActiveItem() : ItemStack.EMPTY);
             this.applyDamageEffects(this, target);
             this.onAttacking(target);
         }
+        if (target.isDead()) {
+            removePledge();
+        }
         return bl;
+    }
+
+    @Override
+    public boolean damage(DamageSource source, float amount) {
+        boolean result = super.damage(source, amount);
+        if (result) {
+            Entity attacker = source.getAttacker();
+            if (attacker != null && attacker.getUuid().equals(getPledgedPlayerUUID())) {
+                if (!getBrain().hasMemoryModule(ModMemoryTypes.SECOND_CHANCE)) {
+                    getBrain().remember(ModMemoryTypes.SECOND_CHANCE, WreathedHindBrain.SecondChance.WARNING, 600);
+                } else {
+                    getBrain().remember(ModMemoryTypes.SECOND_CHANCE, WreathedHindBrain.SecondChance.BETRAY, 600);
+                }
+            }
+        }
+        return result;
     }
 
     @Override
@@ -171,7 +205,7 @@ public class WreathedHindEntity extends HostileEntity implements IAnimatable, Pl
                 }
             }
         }
-        if (possiblePositions.size() != 0) {
+        if (!possiblePositions.isEmpty()) {
             int random = this.random.nextBetween(2, 4);
             for(int i = 0; i < random; i++){
                 if(possiblePositions.size() >= i){
@@ -191,16 +225,16 @@ public class WreathedHindEntity extends HostileEntity implements IAnimatable, Pl
 
     private <T extends IAnimatable> PlayState attackPredicate(AnimationEvent<T> event) {
         AnimationBuilder builder = new AnimationBuilder();
-        if(this.getAttackType() == MELEE_ATTACK){
-            builder.addAnimation("attack.melee", ILoopType.EDefaultLoopTypes.PLAY_ONCE);
+        if (this.getAttackType() == AttackType.MELEE) {
+            builder.addAnimation("melee", ILoopType.EDefaultLoopTypes.PLAY_ONCE);
             event.getController().setAnimation(builder);
             return PlayState.CONTINUE;
-        }else if(this.getAttackType() == RANGE_ATTACK){
-            builder.addAnimation("attack.ranged", ILoopType.EDefaultLoopTypes.PLAY_ONCE);
+        } else if (this.getAttackType() == AttackType.RANGED) {
+            builder.addAnimation("ranged_attack", ILoopType.EDefaultLoopTypes.PLAY_ONCE);
             event.getController().setAnimation(builder);
             return PlayState.CONTINUE;
-        }else if(this.getAttackType() == KILLING_ATTACK){
-            builder.addAnimation("killing.blow", ILoopType.EDefaultLoopTypes.PLAY_ONCE);
+        } else if (this.getAttackType() == AttackType.KILLING) {
+            builder.addAnimation("killing_blow", ILoopType.EDefaultLoopTypes.PLAY_ONCE);
             event.getController().setAnimation(builder);
             return PlayState.CONTINUE;
         }
@@ -224,12 +258,12 @@ public class WreathedHindEntity extends HostileEntity implements IAnimatable, Pl
         return factory;
     }
 
-    public byte getAttackType() {
+    public AttackType getAttackType() {
         return dataTracker.get(ATTACK_TYPE);
     }
 
-    public void setAttackType(byte id) {
-        dataTracker.set(ATTACK_TYPE, id);
+    public void setAttackType(AttackType attackType) {
+        dataTracker.set(ATTACK_TYPE, attackType);
     }
 
     @Override
@@ -237,7 +271,7 @@ public class WreathedHindEntity extends HostileEntity implements IAnimatable, Pl
         return WreathedHindBrain.create(this, dynamic);
     }
 
-    @SuppressWarnings("All")
+    @SuppressWarnings("unchecked")
     @Override
     public Brain<WreathedHindEntity> getBrain() {
         return (Brain<WreathedHindEntity>) super.getBrain();
@@ -247,15 +281,15 @@ public class WreathedHindEntity extends HostileEntity implements IAnimatable, Pl
         return canMobSpawn(wreathedHindEntityEntityType, serverWorldAccess, spawnReason, blockPos, random) && serverWorldAccess.getDifficulty() != Difficulty.PEACEFUL && random.nextBoolean();
     }
 
-    @Override
-    public Collection<UUID> getPledgedPlayerUUIDs() {
-        return pledgedPlayerUUIDS;
-    }
-
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
         return ModSoundEvents.ENTITY_WREATHED_HIND_AMBIENT;
+    }
+
+    @Override
+    public int getMinAmbientSoundDelay() {
+        return 300;
     }
 
     @Override
@@ -266,5 +300,48 @@ public class WreathedHindEntity extends HostileEntity implements IAnimatable, Pl
     @Override
     protected SoundEvent getDeathSound() {
         return ModSoundEvents.ENTITY_WREATHED_HIND_DEATH;
+    }
+
+    @Nullable
+    @Override
+    public UUID getPledgedPlayerUUID() {
+        return pledgedPlayer;
+    }
+
+    public void setPledgedPlayer(PlayerEntity player) {
+        this.pledgedPlayer = player.getUuid();
+        setIsPledged(true);
+    }
+
+    @Override
+    public void removePledge() {
+        this.pledgedPlayer = null;
+        setIsPledged(false);
+    }
+
+    public boolean isPledged() {
+        return dataTracker.get(IS_PLEDGED);
+    }
+
+    public void setIsPledged(boolean isPledged) {
+        dataTracker.set(IS_PLEDGED, isPledged);
+    }
+
+    public enum AttackType implements StringIdentifiable {
+        NONE("none"),
+        MELEE("melee"),
+        RANGED("ranged"),
+        KILLING("killing");
+
+        private final String name;
+
+        AttackType(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public String asString() {
+            return this.name;
+        }
     }
 }
