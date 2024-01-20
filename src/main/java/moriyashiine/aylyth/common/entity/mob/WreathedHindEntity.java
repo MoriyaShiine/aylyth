@@ -172,6 +172,11 @@ public class WreathedHindEntity extends HostileEntity implements IAnimatable, Pl
     }
 
     @Override
+    public boolean canPickupItem(ItemStack stack) {
+        return false;
+    }
+
+    @Override
     public boolean damage(DamageSource source, float amount) {
         boolean result = super.damage(source, amount);
         if (result) {

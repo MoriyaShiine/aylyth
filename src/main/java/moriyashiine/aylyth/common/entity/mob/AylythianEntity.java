@@ -15,6 +15,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.util.Arm;
@@ -95,7 +96,12 @@ public class AylythianEntity extends HostileEntity implements IAnimatable {
 			heal(1);
 		}
 	}
-	
+
+	@Override
+	public boolean canPickupItem(ItemStack stack) {
+		return false;
+	}
+
 	@Nullable
 	@Override
 	protected SoundEvent getAmbientSound() {

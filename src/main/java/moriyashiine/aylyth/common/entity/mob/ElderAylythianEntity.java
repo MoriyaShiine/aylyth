@@ -15,6 +15,7 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -44,7 +45,12 @@ public class ElderAylythianEntity extends HostileEntity implements IAnimatable {
 	}
 	
 	public static DefaultAttributeContainer.Builder createAttributes() {
-		return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 100).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 13).add(EntityAttributes.GENERIC_ARMOR, 6).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32);
+		return MobEntity.createMobAttributes()
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, 100)
+				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 13)
+				.add(EntityAttributes.GENERIC_ARMOR, 6)
+				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25)
+				.add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32);
 	}
 	
 	@Override
@@ -75,7 +81,12 @@ public class ElderAylythianEntity extends HostileEntity implements IAnimatable {
 			return PlayState.STOP;
 		}));
 	}
-	
+
+	@Override
+	public boolean canPickupItem(ItemStack stack) {
+		return false;
+	}
+
 	@Override
 	public AnimationFactory getFactory() {
 		return factory;
@@ -197,10 +208,5 @@ public class ElderAylythianEntity extends HostileEntity implements IAnimatable {
 	@Override
 	public EntityGroup getGroup() {
 		return EntityGroup.UNDEAD;
-	}
-
-	@Override
-	public boolean isUndead() {
-		return true;
 	}
 }

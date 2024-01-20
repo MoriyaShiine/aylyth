@@ -19,6 +19,7 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -148,6 +149,11 @@ public class FaunaylythianEntity extends HostileEntity implements IAnimatable {
         }
     }
 
+    @Override
+    public boolean canPickupItem(ItemStack stack) {
+        return false;
+    }
+
     public static boolean canSpawn(EntityType<? extends MobEntity> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
         return canMobSpawn(type, world, spawnReason, pos, random) && world.getDifficulty() != Difficulty.PEACEFUL && random.nextBoolean();
     }
@@ -155,11 +161,6 @@ public class FaunaylythianEntity extends HostileEntity implements IAnimatable {
     @Override
     public EntityGroup getGroup() {
         return EntityGroup.UNDEAD;
-    }
-
-    @Override
-    public boolean isUndead() {
-        return true;
     }
 
     @Override
