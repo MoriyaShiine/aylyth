@@ -21,6 +21,7 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class WreathedHindBrain {
@@ -49,7 +50,8 @@ public class WreathedHindBrain {
             MemoryModuleType.ATTACK_COOLING_DOWN,
             MemoryModuleType.NEAREST_ATTACKABLE,
             MemoryModuleType.AVOID_TARGET,
-            ModMemoryTypes.PLEDGED_PLAYER
+            ModMemoryTypes.PLEDGED_PLAYER,
+            ModMemoryTypes.SECOND_CHANCE
     );
 
     public WreathedHindBrain() {}
@@ -74,11 +76,10 @@ public class WreathedHindBrain {
                         new StayAboveWaterTask(0.6f),
                         new LookAroundTask(45, 90),
                         new WanderAroundTask(),
-                        new RevengeTask()
-//                        new ConditionalTask<>(
-//                                ImmutableMap.of(MemoryModuleType.HURT_BY_ENTITY, MemoryModuleState.VALUE_PRESENT),
-//                                WreathedHindBrain::shouldAttackHurtBy, new RevengeTask(), false
-//                        )
+                        new ConditionalTask<>(
+                                Map.of(MemoryModuleType.HURT_BY_ENTITY, MemoryModuleState.VALUE_PRESENT),
+                                WreathedHindBrain::shouldAttackHurtBy, new RevengeTask(), false
+                        )
                 )
         );
     }
@@ -141,10 +142,22 @@ public class WreathedHindBrain {
 
     public static boolean shouldAttackHurtBy(WreathedHindEntity entity) {
         Entity attackedBy = entity.getBrain().getOptionalMemory(MemoryModuleType.HURT_BY_ENTITY).get();
-        return !attackedBy.getUuid().equals(entity.getPledgedPlayerUUID());
+        if (attackedBy.getUuid().equals(entity.getPledgedPlayerUUID())) {
+            return entity.getBrain().getOptionalMemory(ModMemoryTypes.SECOND_CHANCE).filter(SecondChance::shouldBetray).isPresent();
+        }
+        return true;
     }
 
     private static Optional<? extends LivingEntity> getAttackTarget(WreathedHindEntity wreathedHindEntity) {
         return wreathedHindEntity.getBrain().getOptionalMemory(MemoryModuleType.NEAREST_ATTACKABLE);
+    }
+
+    public enum SecondChance {
+        WARNING,
+        BETRAY;
+
+        public boolean shouldBetray() {
+            return this == BETRAY;
+        }
     }
 }

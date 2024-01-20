@@ -6,7 +6,6 @@ import moriyashiine.aylyth.api.interfaces.Pledgeable;
 import moriyashiine.aylyth.common.entity.ai.brain.WreathedHindBrain;
 import moriyashiine.aylyth.common.registry.*;
 import moriyashiine.aylyth.common.util.AylythUtil;
-import moriyashiine.aylyth.common.world.ModWorldState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
@@ -30,10 +29,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.tag.FluidTags;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.StringIdentifiable;
-import net.minecraft.util.Util;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.Difficulty;
@@ -95,6 +91,16 @@ public class WreathedHindEntity extends HostileEntity implements IAnimatable, Pl
         } else if (modifiableattributeinstance.hasModifier(SNEAKY_SPEED_PENALTY)) {
             modifiableattributeinstance.removeModifier(SNEAKY_SPEED_PENALTY);
         }
+    }
+
+    @Override
+    public int getMaxLookYawChange() {
+        return 3;
+    }
+
+    @Override
+    public int getMaxLookPitchChange() {
+        return 3;
     }
 
     @Override
@@ -163,6 +169,22 @@ public class WreathedHindEntity extends HostileEntity implements IAnimatable, Pl
             removePledge();
         }
         return bl;
+    }
+
+    @Override
+    public boolean damage(DamageSource source, float amount) {
+        boolean result = super.damage(source, amount);
+        if (result) {
+            Entity attacker = source.getAttacker();
+            if (attacker != null && attacker.getUuid().equals(getPledgedPlayerUUID())) {
+                if (!getBrain().hasMemoryModule(ModMemoryTypes.SECOND_CHANCE)) {
+                    getBrain().remember(ModMemoryTypes.SECOND_CHANCE, WreathedHindBrain.SecondChance.WARNING, 600);
+                } else {
+                    getBrain().remember(ModMemoryTypes.SECOND_CHANCE, WreathedHindBrain.SecondChance.BETRAY, 600);
+                }
+            }
+        }
+        return result;
     }
 
     @Override
