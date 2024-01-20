@@ -1,20 +1,38 @@
 package moriyashiine.aylyth.common.registry;
 
-import moriyashiine.aylyth.common.component.entity.CuirassComponent;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageType;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.AxeItem;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.util.math.Vec3d;
-
-import javax.annotation.Nullable;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.world.World;
 
 public class ModDamageSources {
-	public static final DamageSource YMPE = new YmpeDamageSource("ympe");
-	public static final DamageSource YMPE_ENTITY = new YmpeEntityDamageSource("ympe_entity");
-	public static final DamageSource UNBLOCKABLE = new DamageSource("unblockable").setBypassesArmor().setUnblockable();
+	public static final RegistryKey<DamageType> YMPE = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, AylythUtil.id("ympe"));
+	public static final RegistryKey<DamageType> YMPE_ENTITY = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, AylythUtil.id("ympe_entity"));
+	public static final RegistryKey<DamageType> UNBLOCKABLE = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, AylythUtil.id("unblockable"));
+	public static final RegistryKey<DamageType> SOUL_RIP = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, AylythUtil.id("soul_rip"));
+
+	// TODO cache where possible with world component like vanilla DamageSources class
+
+	public static DamageSource ympe(World world) {
+		return new DamageSource(world.getRegistryManager().get(RegistryKeys.DAMAGE_TYPE).entryOf(YMPE));
+	}
+
+	public static DamageSource ympeEntity(World world) {
+		return new DamageSource(world.getRegistryManager().get(RegistryKeys.DAMAGE_TYPE).entryOf(YMPE_ENTITY));
+	}
+
+	public static DamageSource unblockable(World world) {
+		return new DamageSource(world.getRegistryManager().get(RegistryKeys.DAMAGE_TYPE).entryOf(UNBLOCKABLE));
+	}
+
+	public static DamageSource soulRip(PlayerEntity player) {
+		return new DamageSource(player.getWorld().getRegistryManager().get(RegistryKeys.DAMAGE_TYPE).entryOf(SOUL_RIP), player);
+	}
 
 	/*
 	public static float handleDamage(LivingEntity livingEntity, DamageSource source, float amount) {
@@ -46,51 +64,4 @@ public class ModDamageSources {
 	}
 
 	 */
-
-	private static class YmpeDamageSource extends DamageSource {
-		public YmpeDamageSource(String name) {
-			super(name);
-			setBypassesArmor();
-			setOutOfWorld();
-		}
-	}
-
-	private static class YmpeEntityDamageSource extends DamageSource {
-		public YmpeEntityDamageSource(String name) {
-			super(name);
-		}
-	}
-
-	public static class SoulRipDamageSource extends DamageSource {
-		protected final Entity source;
-
-		public static DamageSource playerRip(PlayerEntity attacker) {
-			return (new SoulRipDamageSource("soul_rip", attacker)).setUsesMagic();
-		}
-
-		public SoulRipDamageSource(String name, PlayerEntity source) {
-			super(name);
-			this.source = source;
-		}
-
-		@Override
-		public Entity getAttacker() {
-			return this.source;
-		}
-
-		@Override
-		public boolean isScaledWithDifficulty() {
-			return this.source instanceof LivingEntity && !(this.source instanceof PlayerEntity);
-		}
-
-		@Override
-		public @Nullable Vec3d getPosition() {
-			return this.source.getPos();
-		}
-
-		@Override
-		public String toString() {
-			return "EntityDamageSource (" + this.source + ")";
-		}
-	}
 }

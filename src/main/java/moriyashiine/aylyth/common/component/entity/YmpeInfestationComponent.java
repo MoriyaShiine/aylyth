@@ -38,7 +38,7 @@ public class YmpeInfestationComponent implements AutoSyncedComponent, ServerTick
 		if (obj.isDead() || !((ServerPlayerEntity) obj).interactionManager.getGameMode().isSurvivalLike()) {
 			return;
 		}
-		if (obj.world.getRegistryKey() == ModDimensionKeys.AYLYTH) {
+		if (obj.getWorld().getRegistryKey() == ModDimensionKeys.AYLYTH) {
 			setInfestationTimer((short) (getInfestationTimer() + 1));
 		} else {
 			if (getStage() > 0 && getInfestationTimer() <= 0) {
@@ -50,11 +50,11 @@ public class YmpeInfestationComponent implements AutoSyncedComponent, ServerTick
 			}
 		}
 		if (getInfestationTimer() >= TIME_UNTIL_STAGE_INCREASES) {
-			obj.world.playSoundFromEntity(null, obj, ModSoundEvents.ENTITY_PLAYER_INCREASE_YMPE_INFESTATION_STAGE, SoundCategory.PLAYERS, 1, obj.getSoundPitch());
+			obj.getWorld().playSoundFromEntity(null, obj, ModSoundEvents.ENTITY_PLAYER_INCREASE_YMPE_INFESTATION_STAGE, SoundCategory.PLAYERS, 1, obj.getSoundPitch());
 			setStage((byte) (getStage() + 1));
 			setInfestationTimer((short) 0);
 			if (getStage() >= 6) {
-				obj.damage(ModDamageSources.YMPE, Float.MAX_VALUE);
+				obj.damage(ModDamageSources.ympe(obj.getWorld()), Float.MAX_VALUE);
 			}
 		}
 		if(getInfestationTimer() % 20 == 0){

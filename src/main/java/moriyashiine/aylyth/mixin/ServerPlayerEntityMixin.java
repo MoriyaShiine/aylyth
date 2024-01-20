@@ -20,8 +20,8 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Ex
     @Unique
     private NbtCompound aylyth$extraPlayerData;
 
-    public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile gameProfile, @Nullable PlayerPublicKey publicKey) {
-        super(world, pos, yaw, gameProfile, publicKey);
+    public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile gameProfile) {
+        super(world, pos, yaw, gameProfile);
     }
 
     @Inject(method = "writeCustomDataToNbt", at = @At("HEAD"))

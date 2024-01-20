@@ -5,9 +5,10 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.World;
@@ -45,7 +46,7 @@ public class StrewnLeavesFeature extends Feature<StrewnLeavesFeature.StrewnLeave
     public static class StrewnLeavesConfig implements FeatureConfig {
         public static final Codec<StrewnLeavesConfig> CODEC = RecordCodecBuilder.create(strewnLeavesConfigInstance -> strewnLeavesConfigInstance
                 .group(
-                        Registry.BLOCK.getCodec().fieldOf("test_block").forGetter(strewnLeavesConfig -> strewnLeavesConfig.testBlock),
+                        Registries.BLOCK.getCodec().fieldOf("test_block").forGetter(strewnLeavesConfig -> strewnLeavesConfig.testBlock),
                         BlockState.CODEC.fieldOf("block").forGetter(strewnLeavesConfig -> strewnLeavesConfig.strewnState)
                 )
                 .apply(strewnLeavesConfigInstance, StrewnLeavesConfig::new));

@@ -27,5 +27,6 @@
     [
       "entered_aylyth"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

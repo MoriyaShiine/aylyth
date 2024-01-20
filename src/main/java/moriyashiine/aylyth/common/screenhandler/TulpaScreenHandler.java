@@ -62,8 +62,8 @@ public class TulpaScreenHandler extends ScreenHandler {
             }
 
             @Override
-            public void setStack(ItemStack stack) {
-                super.setStack(stack);
+            public void setStackNoCallbacks(ItemStack stack) {
+                super.setStackNoCallbacks(stack);
                 tulpaEntity.equipStack(EquipmentSlot.HEAD, stack);
             }
 
@@ -84,8 +84,8 @@ public class TulpaScreenHandler extends ScreenHandler {
             }
 
             @Override
-            public void setStack(ItemStack stack) {
-                super.setStack(stack);
+            public void setStackNoCallbacks(ItemStack stack) {
+                super.setStackNoCallbacks(stack);
                 tulpaEntity.equipStack(EquipmentSlot.CHEST, stack);
             }
 
@@ -106,8 +106,8 @@ public class TulpaScreenHandler extends ScreenHandler {
             }
 
             @Override
-            public void setStack(ItemStack stack) {
-                super.setStack(stack);
+            public void setStackNoCallbacks(ItemStack stack) {
+                super.setStackNoCallbacks(stack);
                 tulpaEntity.equipStack(EquipmentSlot.LEGS, stack);
             }
 
@@ -128,8 +128,8 @@ public class TulpaScreenHandler extends ScreenHandler {
             }
 
             @Override
-            public void setStack(ItemStack stack) {
-                super.setStack(stack);
+            public void setStackNoCallbacks(ItemStack stack) {
+                super.setStackNoCallbacks(stack);
                 tulpaEntity.equipStack(EquipmentSlot.FEET, stack);
             }
 
@@ -142,16 +142,16 @@ public class TulpaScreenHandler extends ScreenHandler {
         this.addSlot(new Slot(handInventory, 0, 77, 44) {
 
             @Override
-            public void setStack(ItemStack stack) {
-                super.setStack(stack);
+            public void setStackNoCallbacks(ItemStack stack) {
+                super.setStackNoCallbacks(stack);
                 tulpaEntity.equipStack(EquipmentSlot.MAINHAND, stack);
             }
         });
 
         this.addSlot(new Slot(handInventory, 1, 77, 62) {
             @Override
-            public void setStack(ItemStack stack) {
-                super.setStack(stack);
+            public void setStackNoCallbacks(ItemStack stack) {
+                super.setStackNoCallbacks(stack);
                 tulpaEntity.equipStack(EquipmentSlot.OFFHAND, stack);
             }
 
@@ -181,7 +181,7 @@ public class TulpaScreenHandler extends ScreenHandler {
     }
 
     @Override
-    public ItemStack transferSlot(PlayerEntity player, int index) {
+    public ItemStack quickMove(PlayerEntity player, int index) {
         ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
         if (slot != null && slot.hasStack()) {
@@ -219,7 +219,7 @@ public class TulpaScreenHandler extends ScreenHandler {
             }
 
             if (itemstack1.isEmpty()) {
-                slot.setStack(ItemStack.EMPTY);
+                slot.setStackNoCallbacks(ItemStack.EMPTY);
             } else {
                 slot.markDirty();
             }
@@ -234,8 +234,8 @@ public class TulpaScreenHandler extends ScreenHandler {
     }
 
     @Override
-    public void close(PlayerEntity player) {
-        super.close(player);
+    public void onClosed(PlayerEntity player) {
+        super.onClosed(player);
         this.tulpaEntity.setInteractTarget(null);
         this.inventory.onClose(player);
         this.armorInventory.onClose(player);

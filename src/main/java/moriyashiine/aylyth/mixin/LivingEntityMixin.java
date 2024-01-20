@@ -58,7 +58,7 @@ public abstract class LivingEntityMixin extends Entity {
 	private void aylyth_injectLootDrop(CallbackInfo ci){
 		LivingEntity living = (LivingEntity) (Object) this;
 		if(living instanceof ProlongedDeath){
-			ItemScatterer.spawn(living.world, living.getX(), living.getY() + 1.5D, living.getZ(), ModItems.CORIC_SEED.getDefaultStack());
+			ItemScatterer.spawn(living.getWorld(), living.getX(), living.getY() + 1.5D, living.getZ(), ModItems.CORIC_SEED.getDefaultStack());
 		}
 	}
 

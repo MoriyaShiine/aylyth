@@ -3,15 +3,16 @@ package moriyashiine.aylyth.datagen.worldgen.biomes.util;
 import com.mojang.datafixers.util.Pair;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
-import net.minecraft.util.registry.RegistryEntry;
-import net.minecraft.util.registry.RegistryEntryList;
+import net.minecraft.registry.RegistryEntryLookup;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.entry.RegistryEntryList;
 import net.minecraft.world.biome.GenerationSettings;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.carver.ConfiguredCarver;
 import net.minecraft.world.gen.feature.PlacedFeature;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnegative;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
@@ -19,11 +20,11 @@ import java.util.function.Consumer;
 
 public class GenerationSettingsBuilder {
 
-    private static final Object2IntMap<RegistryEntry<PlacedFeature>> FEATURE_PLACE = new Object2IntOpenHashMap<>();
-    GenerationSettings.Builder delegate;
-    List<Pair<Integer, RegistryEntry<PlacedFeature>>> features = new LinkedList<>();
+    private static final Object2IntMap<RegistryKey<PlacedFeature>> FEATURE_PLACE = new Object2IntOpenHashMap<>();
+    GenerationSettings.LookupBackedBuilder delegate;
+    List<Pair<Integer, RegistryKey<PlacedFeature>>> features = new LinkedList<>();
 
-    GenerationSettingsBuilder(@NotNull GenerationSettings.Builder builder) {
+    GenerationSettingsBuilder(@NotNull GenerationSettings.LookupBackedBuilder builder) {
         this.delegate = builder;
     }
 
@@ -31,8 +32,8 @@ public class GenerationSettingsBuilder {
      *
      * @return a new GenerationSettingsBuilder with nothing added
      */
-    public static GenerationSettingsBuilder builder() {
-        return new GenerationSettingsBuilder(new GenerationSettings.Builder());
+    public static GenerationSettingsBuilder builder(RegistryEntryLookup<PlacedFeature> placedFeatures, RegistryEntryLookup<ConfiguredCarver<?>> configuredCarvers) {
+        return new GenerationSettingsBuilder(new GenerationSettings.LookupBackedBuilder(placedFeatures, configuredCarvers));
     }
 
     /**
@@ -43,68 +44,68 @@ public class GenerationSettingsBuilder {
         return GenerationSettings.INSTANCE;
     }
 
-    public GenerationSettingsBuilder rawGenFeature(@NotNull RegistryEntry<PlacedFeature> featureEntry) {
+    public GenerationSettingsBuilder rawGenFeature(@NotNull RegistryKey<PlacedFeature> featureEntry) {
         return addFeature(GenerationStep.Feature.RAW_GENERATION, featureEntry);
     }
 
-    public GenerationSettingsBuilder lakesFeature(@NotNull RegistryEntry<PlacedFeature> featureEntry) {
+    public GenerationSettingsBuilder lakesFeature(@NotNull RegistryKey<PlacedFeature> featureEntry) {
         return addFeature(GenerationStep.Feature.LAKES, featureEntry);
     }
 
-    public GenerationSettingsBuilder localModFeature(@NotNull RegistryEntry<PlacedFeature> featureEntry) {
+    public GenerationSettingsBuilder localModFeature(@NotNull RegistryKey<PlacedFeature> featureEntry) {
         return addFeature(GenerationStep.Feature.LOCAL_MODIFICATIONS, featureEntry);
     }
 
-    public GenerationSettingsBuilder undergroudStructFeature(@NotNull RegistryEntry<PlacedFeature> featureEntry) {
+    public GenerationSettingsBuilder undergroudStructFeature(@NotNull RegistryKey<PlacedFeature> featureEntry) {
         return addFeature(GenerationStep.Feature.UNDERGROUND_STRUCTURES, featureEntry);
     }
 
-    public GenerationSettingsBuilder surfaceStructFeature(@NotNull RegistryEntry<PlacedFeature> featureEntry) {
+    public GenerationSettingsBuilder surfaceStructFeature(@NotNull RegistryKey<PlacedFeature> featureEntry) {
         return addFeature(GenerationStep.Feature.SURFACE_STRUCTURES, featureEntry);
     }
 
-    public GenerationSettingsBuilder strongholdsFeature(@NotNull RegistryEntry<PlacedFeature> featureEntry) {
+    public GenerationSettingsBuilder strongholdsFeature(@NotNull RegistryKey<PlacedFeature> featureEntry) {
         return addFeature(GenerationStep.Feature.STRONGHOLDS, featureEntry);
     }
 
-    public GenerationSettingsBuilder undergroundOresFeature(@NotNull RegistryEntry<PlacedFeature> featureEntry) {
+    public GenerationSettingsBuilder undergroundOresFeature(@NotNull RegistryKey<PlacedFeature> featureEntry) {
         return addFeature(GenerationStep.Feature.UNDERGROUND_ORES, featureEntry);
     }
 
-    public GenerationSettingsBuilder undergroundDecoFeature(@NotNull RegistryEntry<PlacedFeature> featureEntry) {
+    public GenerationSettingsBuilder undergroundDecoFeature(@NotNull RegistryKey<PlacedFeature> featureEntry) {
         return addFeature(GenerationStep.Feature.UNDERGROUND_DECORATION, featureEntry);
     }
 
-    public GenerationSettingsBuilder fluidSpringsFeature(@NotNull RegistryEntry<PlacedFeature> featureEntry) {
+    public GenerationSettingsBuilder fluidSpringsFeature(@NotNull RegistryKey<PlacedFeature> featureEntry) {
         return addFeature(GenerationStep.Feature.FLUID_SPRINGS, featureEntry);
     }
 
-    public GenerationSettingsBuilder vegetalDecoFeature(@NotNull RegistryEntry<PlacedFeature> featureEntry) {
+    public GenerationSettingsBuilder vegetalDecoFeature(@NotNull RegistryKey<PlacedFeature> featureEntry) {
         return addFeature(GenerationStep.Feature.VEGETAL_DECORATION, featureEntry);
     }
 
-    public GenerationSettingsBuilder topLayerFeature(@NotNull RegistryEntry<PlacedFeature> featureEntry) {
+    public GenerationSettingsBuilder topLayerFeature(@NotNull RegistryKey<PlacedFeature> featureEntry) {
         return addFeature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, featureEntry);
     }
 
-    public GenerationSettingsBuilder feature(@Nonnegative int step, @NotNull RegistryEntry<PlacedFeature> featureEntry) {
+    public GenerationSettingsBuilder feature(int step, @NotNull RegistryKey<PlacedFeature> featureEntry) {
         FEATURE_PLACE.putIfAbsent(featureEntry, FEATURE_PLACE.size());
         features.add(Pair.of(step, featureEntry));
         return this;
     }
 
-    protected GenerationSettingsBuilder addFeature(@NotNull GenerationStep.Feature step, @NotNull RegistryEntry<PlacedFeature> featureEntry) {
+    protected GenerationSettingsBuilder addFeature(@NotNull GenerationStep.Feature step, @NotNull RegistryKey<PlacedFeature> featureEntry) {
         return feature(step.ordinal(), featureEntry);
     }
 
-    public GenerationSettingsBuilder add(Consumer<GenerationSettings.Builder> builderConsumer) {
-        GenerationSettings.Builder temp = new GenerationSettings.Builder();
+    public GenerationSettingsBuilder add(Consumer<GenerationSettings.LookupBackedBuilder> builderConsumer) {
+        GenerationSettings.LookupBackedBuilder temp = new GenerationSettings.LookupBackedBuilder(delegate.placedFeatureLookup, delegate.configuredCarverLookup);
         builderConsumer.accept(temp);
         GenerationSettings tempBuilt = temp.build();
         List<RegistryEntryList<PlacedFeature>> featureList = tempBuilt.getFeatures();
         for (int i = 0; i < featureList.size(); i++) {
             for (RegistryEntry<PlacedFeature> feature : featureList.get(i)) {
-                feature(i, feature);
+                feature(i, feature.getKey().get());
             }
         }
         for (RegistryEntry<ConfiguredCarver<?>> carver : tempBuilt.getCarversForStep(GenerationStep.Carver.AIR)) {
@@ -116,18 +117,18 @@ public class GenerationSettingsBuilder {
         return this;
     }
 
-    public GenerationSettingsBuilder airCarver(@NotNull RegistryEntry<? extends ConfiguredCarver<?>> configuredCarverEntry) {
+    public GenerationSettingsBuilder airCarver(@NotNull RegistryEntry<ConfiguredCarver<?>> configuredCarverEntry) {
         delegate.carver(GenerationStep.Carver.AIR, configuredCarverEntry);
         return this;
     }
 
-    public GenerationSettingsBuilder liquidCarver(@NotNull RegistryEntry<? extends ConfiguredCarver<?>> configuredCarverEntry) {
+    public GenerationSettingsBuilder liquidCarver(@NotNull RegistryEntry<ConfiguredCarver<?>> configuredCarverEntry) {
         delegate.carver(GenerationStep.Carver.LIQUID, configuredCarverEntry);
         return this;
     }
 
     public GenerationSettings build() {
-        features.stream().sorted(Comparator.comparingInt(o -> FEATURE_PLACE.getInt(o.getSecond()))).forEach(pair -> delegate.feature(pair.getFirst(), pair.getSecond()));
+        features.stream().sorted(Comparator.comparingInt(o -> FEATURE_PLACE.getInt(o.getSecond()))).forEach(pair -> delegate.addFeature(pair.getFirst(), delegate.placedFeatureLookup.getOrThrow(pair.getSecond())));
         return delegate.build();
     }
 }

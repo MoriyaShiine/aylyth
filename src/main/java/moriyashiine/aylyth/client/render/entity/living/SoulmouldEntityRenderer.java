@@ -9,36 +9,40 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.model.json.ModelTransformation;
+import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Vec3f;
-import software.bernie.geckolib3.geo.render.built.GeoBone;
-import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
+import net.minecraft.util.math.RotationAxis;
+import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.cache.object.GeoBone;
+import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class SoulmouldEntityRenderer extends GeoEntityRenderer<SoulmouldEntity> {
     public SoulmouldEntityRenderer(EntityRendererFactory.Context ctx) {
         super(ctx, new SoulmouldEntityModel());
-        this.addLayer(new SoulmouldEyesLayer(this));
+        this.addRenderLayer(new SoulmouldEyesLayer(this));
     }
 
     @Override
-    public RenderLayer getRenderType(SoulmouldEntity animatable, float partialTicks, MatrixStack stack, VertexConsumerProvider renderTypeBuffer, VertexConsumer vertexBuilder, int packedLightIn, Identifier textureLocation) {
+    public  RenderLayer getRenderType(SoulmouldEntity animatable, Identifier textureLocation, @Nullable VertexConsumerProvider bufferSource, float partialTick) {
         return RenderLayer.getEntityTranslucent(textureLocation, true);
     }
 
 
     @Override
-    public void renderRecursively(GeoBone bone, MatrixStack stack, VertexConsumer bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
+    public void renderRecursively(MatrixStack stack, SoulmouldEntity animatable, GeoBone bone, RenderLayer renderType, VertexConsumerProvider bufferSource, VertexConsumer bufferIn, boolean isReRender, float partialTick, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
+        var mainHand = getAnimatable().getMainHandStack();
         if (bone.getName().equals("rightHeldItem") && !mainHand.isEmpty()) {
             stack.push();
-            stack.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(-75));
+            stack.multiply(RotationAxis.POSITIVE_X.rotationDegrees(-75));
             stack.translate(0.55D, 0.35D, 1.15D);
             stack.scale(1.0f, 1.0f, 1.0f);
-            MinecraftClient.getInstance().getItemRenderer().renderItem(mainHand, ModelTransformation.Mode.THIRD_PERSON_RIGHT_HAND, packedLightIn, packedOverlayIn, stack, rtb,0);
+            MinecraftClient.getInstance().getItemRenderer().renderItem(mainHand, ModelTransformationMode.THIRD_PERSON_RIGHT_HAND, packedLightIn, packedOverlayIn, stack, bufferSource, null, 0);
             stack.pop();
-            bufferIn = rtb.getBuffer(RenderLayer.getEntityTranslucent(whTexture));
+            bufferIn = bufferSource.getBuffer(RenderLayer.getEntityTranslucent(getTexture(animatable)));
         }
-        super.renderRecursively(bone, stack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+        super.renderRecursively(stack, animatable, bone, renderType, bufferSource, bufferIn, isReRender, partialTick, packedLightIn, packedOverlayIn, red, green, blue, alpha);
     }
 
     @Override

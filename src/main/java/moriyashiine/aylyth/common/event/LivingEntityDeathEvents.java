@@ -16,6 +16,7 @@ import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.Event;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.WitchEntity;
@@ -24,13 +25,14 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.tag.BiomeTags;
+import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.tag.BiomeTags;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.registry.RegistryEntry;
-import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
@@ -87,7 +89,7 @@ public class LivingEntityDeathEvents {
 
             if(!player.getWorld().getGameRules().getBoolean(GameRules.KEEP_INVENTORY)){
                 HindPledgeHolder.of(player).ifPresent(hind -> {
-                    if(damageSource == ModDamageSources.YMPE && hind.getHindUuid() != null){
+                    if(damageSource.isOf(ModDamageSources.YMPE) && hind.getHindUuid() != null){
                         PlayerInventory newInv = new PlayerInventory(null);
                         NbtList nbtList = new NbtList();
 
@@ -119,10 +121,10 @@ public class LivingEntityDeathEvents {
     private static void spawnRippedSoul(LivingEntity livingEntity, DamageSource source) {
         World world = livingEntity.getWorld();
         if(!world.isClient) {
-            if(source instanceof ModDamageSources.SoulRipDamageSource ripSource) {
+            if(source.isOf(ModDamageSources.SOUL_RIP)) {
                 RippedSoulEntity soul = new RippedSoulEntity(ModEntityTypes.RIPPED_SOUL, world);
-                if (ripSource.getAttacker() != null) {
-                    soul.setOwner((PlayerEntity) ripSource.getAttacker());
+                if (source.getAttacker() != null) {
+                    soul.setOwner((PlayerEntity) source.getAttacker());
                     soul.setPosition(livingEntity.getPos().add(0, 1, 0));
                     world.spawnEntity(soul);
                 }
@@ -136,7 +138,7 @@ public class LivingEntityDeathEvents {
     }
 
     private static void afterRespawn(ServerPlayerEntity oldPlayer, ServerPlayerEntity newPlayer, boolean alive) {
-        if (oldPlayer.world.getRegistryKey().equals(ModDimensionKeys.AYLYTH)) {
+        if (oldPlayer.getWorld().getRegistryKey().equals(ModDimensionKeys.AYLYTH)) {
             AylythUtil.teleportTo(ModDimensionKeys.AYLYTH, newPlayer, 0);
         }
         VitalHolder.of(newPlayer).ifPresent(vital -> vital.setVitalThuribleLevel(((VitalHolder) oldPlayer).getVitalThuribleLevel()));
@@ -144,18 +146,18 @@ public class LivingEntityDeathEvents {
 
     private static boolean allowDeath(LivingEntity livingEntity, DamageSource damageSource, float damageAmount) {
         if(livingEntity instanceof ServerPlayerEntity player){
-            if (damageSource.isOutOfWorld() && damageSource != ModDamageSources.YMPE) {
+            if (damageSource.isOf(DamageTypes.OUT_OF_WORLD)) {
                 return true;
             }
-            if (damageSource == ModDamageSources.YMPE && ((HindPledgeHolder)player).getHindUuid() == null) {
+            if (damageSource.isOf(ModDamageSources.YMPE) && ((HindPledgeHolder)player).getHindUuid() == null) {
                 ScionEntity.summonPlayerScion(player);
-                WoodyGrowthCacheBlock.spawnInventory(player.world, player.getBlockPos(), player);
+                WoodyGrowthCacheBlock.spawnInventory(player.getWorld(), player.getBlockPos(), player);
                 return true;
             }
             RegistryKey<World> toWorld = null;
-            if (player.world.getRegistryKey() != ModDimensionKeys.AYLYTH) {
+            if (player.getWorld().getRegistryKey() != ModDimensionKeys.AYLYTH) {
                 boolean teleport = false;
-                float chance = switch (player.world.getDifficulty()) {
+                float chance = switch (player.getWorld().getDifficulty()) {
                     case PEACEFUL -> 0;
                     case EASY -> 0.1f;
                     case NORMAL -> 0.2f;
@@ -166,9 +168,9 @@ public class LivingEntityDeathEvents {
                         teleport = true;
                     }
                     if (!teleport) {
-                        RegistryEntry<Biome> biome = player.world.getBiome(player.getBlockPos());
+                        RegistryEntry<Biome> biome = player.getWorld().getBiome(player.getBlockPos());
                         if (biome.isIn(BiomeTags.IS_TAIGA) || biome.isIn(BiomeTags.IS_FOREST)) {
-                            if (damageSource.isFromFalling() || damageSource == DamageSource.DROWN) {
+                            if (damageSource.isIn(DamageTypeTags.IS_FALL) || damageSource.isIn(DamageTypeTags.IS_DROWNING)) {
                                 teleport = true;
                             }
                         }
@@ -199,7 +201,6 @@ public class LivingEntityDeathEvents {
                 player.setFrozenTicks(0);
                 player.setVelocity(Vec3d.ZERO);
                 player.fallDistance = 0;
-                player.knockbackVelocity = 0;
                 player.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 200));
                 player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 200));
                 return false;

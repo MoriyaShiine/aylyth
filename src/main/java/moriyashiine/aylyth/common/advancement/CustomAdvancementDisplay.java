@@ -12,7 +12,6 @@ import moriyashiine.aylyth.mixin.AdvancementDisplayAccessor;
 import moriyashiine.aylyth.mixin.client.AdvancementWidgetAccessor;
 import net.minecraft.advancement.AdvancementDisplay;
 import net.minecraft.advancement.AdvancementFrame;
-import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;

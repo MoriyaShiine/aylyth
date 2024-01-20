@@ -13,7 +13,7 @@ public class MortechisStatusEffect extends StatusEffect {
 	
 	@Override
 	public void applyUpdateEffect(LivingEntity entity, int amplifier) {
-		if (!entity.world.isClient && entity.age % 10 == 0) {
+		if (!entity.getWorld().isClient && entity.age % 10 == 0) {
 			float healthPercentage = entity.getHealth() / entity.getMaxHealth();
 			if (healthPercentage < 0.75F) {
 				entity.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 100, (healthPercentage < 0.45F ? 1 : 0) + amplifier, true, false, false));

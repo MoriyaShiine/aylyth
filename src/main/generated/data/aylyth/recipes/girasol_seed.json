@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "E": {
       "item": "minecraft:ender_pearl"
@@ -26,5 +27,6 @@
   ],
   "result": {
     "item": "aylyth:girasol_seed"
-  }
+  },
+  "show_notification": true
 }

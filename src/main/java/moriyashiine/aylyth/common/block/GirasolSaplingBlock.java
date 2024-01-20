@@ -10,15 +10,15 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3f;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
+import org.joml.Vector3f;
 
 public class GirasolSaplingBlock extends ModSaplingBlock {
 
     public static final BooleanProperty FAILED = BooleanProperty.of("failed_to_grow");
 
-    private static final DustColorTransitionParticleEffect FAILED_PARTICLE = new DustColorTransitionParticleEffect(new Vec3f(0.1333f, 0.1333f, 0.1333f), new Vec3f(0.6824f, 0.4275f, 0.0941f), 1);
+    private static final DustColorTransitionParticleEffect FAILED_PARTICLE = new DustColorTransitionParticleEffect(new Vector3f(0.1333f, 0.1333f, 0.1333f), new Vector3f(0.6824f, 0.4275f, 0.0941f), 1);
 
     public GirasolSaplingBlock(SaplingGenerator generator) {
         super(generator);

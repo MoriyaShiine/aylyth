@@ -3,14 +3,20 @@ package moriyashiine.aylyth.common.registry;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.item.*;
 import moriyashiine.aylyth.common.registry.util.ItemWoodSuite;
-import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.minecraft.item.*;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.util.math.Direction;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -19,19 +25,21 @@ public class ModItems {
 	public static final Map<Item, Identifier> ITEMS = new LinkedHashMap<>();
 
 
-	public static final ItemGroup GROUP = FabricItemGroupBuilder.build(new Identifier(Aylyth.MOD_ID, Aylyth.MOD_ID), () -> new ItemStack(ModItems.YMPE_DAGGER));
+	public static final RegistryKey<ItemGroup> GROUP = RegistryKey.of(RegistryKeys.ITEM_GROUP, AylythUtil.id(Aylyth.MOD_ID));
+
+	public static final ItemGroup.Builder GROUP_BUILDER = FabricItemGroup.builder().icon(() -> new ItemStack(ModItems.YMPE_DAGGER)).displayName(Text.translatable("itemGroup.aylyth.main"));
 
 	public static final Item DEBUG_WAND = register("debug_wand", new DebugWandItem(new FabricItemSettings()));
 	public static final Item FRUIT_BEARING_YMPE_LOG = register("fruit_bearing_ympe_log", new BlockItem(ModBlocks.FRUIT_BEARING_YMPE_LOG, settings()));
 
 	public static final Item YMPE_LEAVES = register("ympe_leaves", new BlockItem(ModBlocks.YMPE_LEAVES, settings()));
-	public static final ItemWoodSuite YMPE_ITEMS = ItemWoodSuite.of(new Identifier(Aylyth.MOD_ID, "ympe"), ModBlocks.YMPE_BLOCKS, new ItemWoodSuite.GroupedSettings(GROUP), Registry.ITEM, () -> ModBoatTypes.YMPE_BOAT_TYPE);
+	public static final ItemWoodSuite YMPE_ITEMS = ItemWoodSuite.of(new Identifier(Aylyth.MOD_ID, "ympe"), ModBlocks.YMPE_BLOCKS, new ItemWoodSuite.GroupedSettings(), Registries.ITEM, ModBoatTypes.YMPE_BOAT_TYPE, GROUP_BUILDER);
 
 	public static final Item POMEGRANATE_LEAVES = register("pomegranate_leaves", new BlockItem(ModBlocks.POMEGRANATE_LEAVES, settings()));
-	public static final ItemWoodSuite POMEGRANATE_ITEMS = ItemWoodSuite.of(new Identifier(Aylyth.MOD_ID, "pomegranate"), ModBlocks.POMEGRANATE_BLOCKS, new ItemWoodSuite.GroupedSettings(GROUP), Registry.ITEM, () -> ModBoatTypes.POMEGRANATE_BOAT_TYPE);
+	public static final ItemWoodSuite POMEGRANATE_ITEMS = ItemWoodSuite.of(new Identifier(Aylyth.MOD_ID, "pomegranate"), ModBlocks.POMEGRANATE_BLOCKS, new ItemWoodSuite.GroupedSettings(), Registries.ITEM, ModBoatTypes.POMEGRANATE_BOAT_TYPE, GROUP_BUILDER);
 
 	public static final Item WRITHEWOOD_LEAVES = register("writhewood_leaves", new BlockItem(ModBlocks.WRITHEWOOD_LEAVES, settings()));
-	public static final ItemWoodSuite WRITHEWOOD_ITEMS = ItemWoodSuite.of(new Identifier(Aylyth.MOD_ID, "writhewood"), ModBlocks.WRITHEWOOD_BLOCKS, new ItemWoodSuite.GroupedSettings(GROUP), Registry.ITEM, () -> ModBoatTypes.WRITHEWOOD_BOAT_TYPE);
+	public static final ItemWoodSuite WRITHEWOOD_ITEMS = ItemWoodSuite.of(new Identifier(Aylyth.MOD_ID, "writhewood"), ModBlocks.WRITHEWOOD_BLOCKS, new ItemWoodSuite.GroupedSettings(), Registries.ITEM, ModBoatTypes.WRITHEWOOD_BOAT_TYPE, GROUP_BUILDER);
 
 	public static final Item SEEPING_WOOD = register("seeping_wood", new BlockItem(ModBlocks.SEEPING_WOOD, settings()));
 	public static final Item GIRASOL_SEED = register("girasol_seed", new AliasedBlockItem(ModBlocks.GIRASOL_SAPLING, settings()));
@@ -45,7 +53,7 @@ public class ModItems {
 	public static final Item MARIGOLD = register("marigolds", new BlockItem(ModBlocks.MARIGOLD, settings()));
 	public static final Item OAK_STREWN_LEAVES = register("oak_strewn_leaves", new BlockItem(ModBlocks.OAK_STREWN_LEAVES, settings()));
 	public static final Item YMPE_STREWN_LEAVES = register("ympe_strewn_leaves", new BlockItem(ModBlocks.YMPE_STREWN_LEAVES, settings()));
-	public static final Item JACK_O_LANTERN_MUSHROOM = register("jack_o_lantern_mushroom", new WallStandingBlockItem(ModBlocks.JACK_O_LANTERN_MUSHROOM, ModBlocks.SHELF_JACK_O_LANTERN_MUSHROOM, settings()));
+	public static final Item JACK_O_LANTERN_MUSHROOM = register("jack_o_lantern_mushroom", new VerticallyAttachableBlockItem(ModBlocks.JACK_O_LANTERN_MUSHROOM, ModBlocks.SHELF_JACK_O_LANTERN_MUSHROOM, settings(), Direction.DOWN));
 	public static final Item GHOSTCAP_MUSHROOM_SPORES = register("ghostcap_mushroom_spores", new BlockItem(ModBlocks.GHOSTCAP_MUSHROOM, settings()));
 	public static final Item SMALL_WOODY_GROWTH = register("small_woody_growth", new BlockItem(ModBlocks.SMALL_WOODY_GROWTH, settings()));
 	public static final Item LARGE_WOODY_GROWTH = register("large_woody_growth", new BlockItem(ModBlocks.LARGE_WOODY_GROWTH, settings()));
@@ -99,14 +107,23 @@ public class ModItems {
 
 
 	private static Item.Settings settings() {
-		return new FabricItemSettings().group(GROUP);
+		return new FabricItemSettings();
 	}
 
 	public static void init() {
-		ITEMS.keySet().forEach(item -> Registry.register(Registry.ITEM, ITEMS.get(item), item));
-		YMPE_ITEMS.register();
-		POMEGRANATE_ITEMS.register();
-		WRITHEWOOD_ITEMS.register();
+		ITEMS.keySet().forEach(item -> Registry.register(Registries.ITEM, ITEMS.get(item), item));
+		var ympeItems = YMPE_ITEMS.register();
+		var pomegranateItems = POMEGRANATE_ITEMS.register();
+		var writhewoodItems = WRITHEWOOD_ITEMS.register();
+
+		GROUP_BUILDER.entries((context, entries) -> {
+			ITEMS.keySet().forEach(entries::add);
+			ympeItems.forEach(entries::add);
+			pomegranateItems.forEach(entries::add);
+			writhewoodItems.forEach(entries::add);
+		});
+
+		Registry.register(Registries.ITEM_GROUP, GROUP, GROUP_BUILDER.build());
 
 		FuelRegistry fuelRegistry = FuelRegistry.INSTANCE;
 		fuelRegistry.add(YMPE_ITEMS.fence, 300);

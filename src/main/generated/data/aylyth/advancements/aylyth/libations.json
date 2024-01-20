@@ -32,5 +32,6 @@
     [
       "has_mortechis_potion"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

@@ -1,6 +1,7 @@
 package moriyashiine.aylyth.client.render.entity.living;
 
 import moriyashiine.aylyth.client.render.entity.living.feature.AylythCapeFeatureRenderer;
+import moriyashiine.aylyth.common.entity.mob.TulpaEntity.TulpaPlayerEntity;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
@@ -28,7 +29,7 @@ public class TulpaPlayerEntityRenderer extends LivingEntityRenderer<TulpaPlayerE
         super(ctx, new BipedEntityModel<>(ctx.getPart(EntityModelLayers.PLAYER)), 0F);
         this.normalModel = this.getModel();
         this.slimModel = new BipedEntityModel<>(ctx.getPart(EntityModelLayers.PLAYER_SLIM));
-        this.addFeature(new ArmorFeatureRenderer<>(this, new BipedEntityModel(ctx.getPart(EntityModelLayers.PLAYER_INNER_ARMOR)), new BipedEntityModel(ctx.getPart(EntityModelLayers.PLAYER_OUTER_ARMOR))));
+        this.addFeature(new ArmorFeatureRenderer<>(this, new BipedEntityModel(ctx.getPart(EntityModelLayers.PLAYER_INNER_ARMOR)), new BipedEntityModel(ctx.getPart(EntityModelLayers.PLAYER_OUTER_ARMOR)), ctx.getModelManager()));
         this.addFeature(new PlayerHeldItemFeatureRenderer(this, ctx.getHeldItemRenderer()));
         this.addFeature(new StuckArrowsFeatureRenderer(ctx, this));
         this.addFeature(new HeadFeatureRenderer<>(this, ctx.getModelLoader(), ctx.getHeldItemRenderer()));
@@ -110,7 +111,7 @@ public class TulpaPlayerEntityRenderer extends LivingEntityRenderer<TulpaPlayerE
     @Override
     public Identifier getTexture(TulpaPlayerEntity entity) {
         if(entity.getSkinUuid() != null){
-            PlayerEntity player = entity.world.getPlayerByUuid(entity.getSkinUuid());
+            PlayerEntity player = entity.getWorld().getPlayerByUuid(entity.getSkinUuid());
             if(player instanceof AbstractClientPlayerEntity abstractClientPlayerEntity){
                 return abstractClientPlayerEntity.getSkinTexture();
             }

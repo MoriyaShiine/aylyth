@@ -1,13 +1,15 @@
 package moriyashiine.aylyth.datagen.worldgen.biomes.util;
 
+import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeEffects;
 import net.minecraft.world.biome.GenerationSettings;
 import net.minecraft.world.biome.SpawnSettings;
+import net.minecraft.world.gen.carver.ConfiguredCarver;
+import net.minecraft.world.gen.feature.PlacedFeature;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnegative;
 import java.util.function.Consumer;
 
 public class BiomeBuilder {
@@ -38,7 +40,7 @@ public class BiomeBuilder {
      */
     public static BiomeBuilder builder(@NotNull Biome.Precipitation precipitation, float temperature, float downfall) {
         Biome.Builder builder = new Biome.Builder();
-        builder.precipitation(precipitation);
+        builder.precipitation(precipitation != Biome.Precipitation.NONE);
         builder.temperature(temperature);
         builder.downfall(downfall);
         return new BiomeBuilder(builder);
@@ -61,7 +63,7 @@ public class BiomeBuilder {
                                        @NotNull BiomeEffects biomeEffects, @NotNull SpawnSettings spawnSettings,
                                        @NotNull GenerationSettings generationSettings) {
         Biome.Builder builder = new Biome.Builder();
-        builder.precipitation(precipitation);
+        builder.precipitation(precipitation != Biome.Precipitation.NONE);
         builder.temperature(temperature);
         builder.downfall(downfall);
         builder.effects(biomeEffects);
@@ -89,7 +91,7 @@ public class BiomeBuilder {
     }
 
     public BiomeBuilder precipitation(@NotNull Biome.Precipitation precipitation) {
-        delegate.precipitation(precipitation);
+        delegate.precipitation(precipitation != Biome.Precipitation.NONE);
         return this;
     }
 
@@ -130,12 +132,12 @@ public class BiomeBuilder {
         return this;
     }
 
-    public BiomeBuilder biomeEffects(@Nonnegative int fogColor, @Nonnegative int waterColor, @Nonnegative int waterFogColor, @Nonnegative int skyColor) {
+    public BiomeBuilder biomeEffects(int fogColor, int waterColor, int waterFogColor, int skyColor) {
         return biomeEffects(BiomeEffectsBuilder.builder(fogColor, waterColor, waterFogColor, skyColor).build());
     }
 
-    public BiomeBuilder biomeEffects(@Nonnegative int fogColor, @Nonnegative int waterColor,
-                                     @Nonnegative int waterFogColor, @Nonnegative int skyColor,
+    public BiomeBuilder biomeEffects(int fogColor, int waterColor,
+                                     int waterFogColor, int skyColor,
                                      @NotNull Consumer<BiomeEffectsBuilder> builderConsumer) {
         BiomeEffectsBuilder builder = BiomeEffectsBuilder.builder(fogColor, waterColor, waterFogColor, skyColor);
         builderConsumer.accept(builder);
@@ -183,8 +185,8 @@ public class BiomeBuilder {
         return this;
     }
 
-    public BiomeBuilder generationSettings(@NotNull Consumer<GenerationSettingsBuilder> builderConsumer) {
-        GenerationSettingsBuilder builder = GenerationSettingsBuilder.builder();
+    public BiomeBuilder generationSettings(@NotNull Consumer<GenerationSettingsBuilder> builderConsumer, RegistryEntryLookup<PlacedFeature> placedFeatures, RegistryEntryLookup<ConfiguredCarver<?>> configuredCarvers) {
+        GenerationSettingsBuilder builder = GenerationSettingsBuilder.builder(placedFeatures, configuredCarvers);
         builderConsumer.accept(builder);
         delegate.generationSettings(builder.build());
         return this;

@@ -17,6 +17,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
@@ -31,7 +32,7 @@ public class YmpeDaggerEMIRecipe implements EmiRecipe {
     public YmpeDaggerEMIRecipe(YmpeDaggerDropRecipe recipe) {
         this.id = recipe.getId();
         entityType = recipe.entity_type;
-        this.output = List.of(EmiStack.of(recipe.getOutput()));
+        this.output = List.of(EmiStack.of(recipe.getOutput(DynamicRegistryManager.EMPTY)));
         this.input = List.of(EmiStack.of(new ItemStack(ModItems.YMPE_DAGGER)));
     }
 

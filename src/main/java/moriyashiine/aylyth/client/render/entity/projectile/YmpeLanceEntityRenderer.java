@@ -8,10 +8,11 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.ProjectileEntityRenderer;
 import net.minecraft.client.render.model.json.ModelTransformation;
+import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3f;
+import net.minecraft.util.math.RotationAxis;
 
 public class YmpeLanceEntityRenderer extends ProjectileEntityRenderer<YmpeLanceEntity> {
 	private final MinecraftClient client = MinecraftClient.getInstance();
@@ -26,16 +27,16 @@ public class YmpeLanceEntityRenderer extends ProjectileEntityRenderer<YmpeLanceE
 
 		if(lanceEntity.getVehicle() != null) {
 			matrices.translate(0, -(lanceEntity.getY() - lanceEntity.getVehicle().getY()) + (lanceEntity.getVehicle().getHeight() * 0.5), 0);
-			matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(270 - lanceEntity.getVehicle().getBodyYaw()));
-			matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(150));
+			matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(270 - lanceEntity.getVehicle().getBodyYaw()));
+			matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(150));
 		}
 		else {
-			matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(MathHelper.lerp(tickDelta, lanceEntity.prevYaw, lanceEntity.getYaw()) - 90));
-			matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(MathHelper.lerp(tickDelta, lanceEntity.prevPitch, lanceEntity.getPitch()) + 315));
+			matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(MathHelper.lerp(tickDelta, lanceEntity.prevYaw, lanceEntity.getYaw()) - 90));
+			matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(MathHelper.lerp(tickDelta, lanceEntity.prevPitch, lanceEntity.getPitch()) + 315));
 		}
 
 		matrices.scale(2F, 2F, 1F);
-		client.getItemRenderer().renderItem(lanceEntity.asItemStack(), ModelTransformation.Mode.NONE, light, OverlayTexture.DEFAULT_UV, matrices, vertexProvider, 0);
+		client.getItemRenderer().renderItem(lanceEntity.asItemStack(), ModelTransformationMode.NONE, light, OverlayTexture.DEFAULT_UV, matrices, vertexProvider, null, 0);
 		matrices.pop();
 	}
 

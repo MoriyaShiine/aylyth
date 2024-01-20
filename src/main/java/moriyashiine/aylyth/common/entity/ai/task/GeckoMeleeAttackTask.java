@@ -10,14 +10,14 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.brain.MemoryModuleState;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.task.LookTargetUtil;
-import net.minecraft.entity.ai.brain.task.Task;
+import net.minecraft.entity.ai.brain.task.MultiTickTask;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Hand;
 
 import java.util.function.Predicate;
 
-public class GeckoMeleeAttackTask<T extends MobEntity> extends Task<T> {
+public class GeckoMeleeAttackTask<T extends MobEntity> extends MultiTickTask<T> {
     private final Predicate<T> shouldRun;
     private final int interval;
     private final double animationTimeOfAttack;

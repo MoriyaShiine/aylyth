@@ -9,7 +9,7 @@ import net.minecraft.entity.ai.brain.EntityLookTarget;
 import net.minecraft.entity.ai.brain.MemoryModuleState;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.task.LookTargetUtil;
-import net.minecraft.entity.ai.brain.task.Task;
+import net.minecraft.entity.ai.brain.task.MultiTickTask;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.item.BowItem;
 import net.minecraft.item.ItemStack;
@@ -18,7 +18,7 @@ import net.minecraft.item.RangedWeaponItem;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Hand;
 
-public class BowAttackTask<E extends MobEntity & RangedAttackMob> extends Task<E> {
+public class BowAttackTask<E extends MobEntity & RangedAttackMob> extends MultiTickTask<E> {
     public BowAttackTask() {
         super(ImmutableMap.of(
                 MemoryModuleType.LOOK_TARGET, MemoryModuleState.REGISTERED,

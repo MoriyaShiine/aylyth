@@ -6,10 +6,12 @@ import com.terraformersmc.terraform.wood.block.StrippableLogBlock;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.block.sapling.SaplingGenerator;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 import org.jetbrains.annotations.NotNull;
 
+// TODO remove because of WoodType and BlockSetType
+@SuppressWarnings("removal")
 public class WoodSuite {
 
     private final Identifier id;
@@ -39,32 +41,34 @@ public class WoodSuite {
               Block log, Block wood, Block sapling,
               Block pottedSapling, Block planks, Block stairs, Block slab,
               Block fence, Block fenceGate, Block pressurePlate, Block button,
-              Block trapdoor, Block door, TerraformSignBlock floorSign, Block wallSign) {
+              Block trapdoor, Block door, TerraformSignBlock floorSign, Block wallSign,
+              WoodType woodType) {
         id = identifier;
         this.blockSettingsSet = blockSettingsSet;
         this.blockRegistry = blockRegistry;
         this.strippedLog = strippedLog == null ? new PillarBlock(blockSettingsSet.getStrippedLog()) : strippedLog;
         this.strippedWood = strippedWood == null ? new PillarBlock(blockSettingsSet.getStrippedWood()) : strippedWood;
-        this.log = log == null ? new StrippableLogBlock(() -> strippedLog, logColor, blockSettingsSet.getLog()) : log;
-        this.wood = wood == null ? new StrippableLogBlock(() -> strippedWood, logColor, blockSettingsSet.getWood()) : wood;
+        this.log = log == null ? new StrippableLogBlock(() -> this.strippedLog, logColor, blockSettingsSet.getLog()) : log;
+        this.wood = wood == null ? new StrippableLogBlock(() -> this.strippedWood, logColor, blockSettingsSet.getWood()) : wood;
         this.sapling = sapling == null ? new SaplingBlock(saplingGenerator, blockSettingsSet.getSapling()) : sapling;
         this.pottedSapling = pottedSapling == null ? new FlowerPotBlock(sapling, blockSettingsSet.getPottedSapling()) : pottedSapling;
         this.planks = planks == null ? new Block(blockSettingsSet.getPlanks()) : planks;
         this.stairs = stairs == null ? new StairsBlock(this.planks.getDefaultState(), blockSettingsSet.getStairs()) : stairs;
         this.slab = slab == null ? new SlabBlock(blockSettingsSet.getSlab()) : slab;
         this.fence = fence == null ? new FenceBlock(blockSettingsSet.getFence()) : fence;
-        this.fenceGate = fenceGate == null ? new FenceGateBlock(blockSettingsSet.getFenceGate()) : fenceGate;
-        this.pressurePlate = pressurePlate == null ? new PressurePlateBlock(PressurePlateBlock.ActivationRule.EVERYTHING, blockSettingsSet.getPressurePlate()) : pressurePlate;
-        this.button = button == null ? new WoodenButtonBlock(blockSettingsSet.getButton()) : button;
-        this.trapdoor = trapdoor == null ? new TrapdoorBlock(blockSettingsSet.getTrapdoor()) : trapdoor;
-        this.door = door == null ? new DoorBlock(blockSettingsSet.getDoor()) : door;
+        this.fenceGate = fenceGate == null ? new FenceGateBlock(blockSettingsSet.getFenceGate(), woodType) : fenceGate;
+        this.pressurePlate = pressurePlate == null ? new PressurePlateBlock(PressurePlateBlock.ActivationRule.EVERYTHING, blockSettingsSet.getPressurePlate(), woodType.setType()) : pressurePlate;
+        this.button = button == null ? new ButtonBlock(blockSettingsSet.getButton(), woodType.setType(), 30, true) : button;
+        this.trapdoor = trapdoor == null ? new TrapdoorBlock(blockSettingsSet.getTrapdoor(), woodType.setType()) : trapdoor;
+        this.door = door == null ? new DoorBlock(blockSettingsSet.getDoor(), woodType.setType()) : door;
         Identifier signTextureId = idFor("entity/sign/%s");
         this.floorSign = floorSign == null ? new TerraformSignBlock(signTextureId, blockSettingsSet.getFloorSign()) : floorSign;
         this.wallSign = wallSign == null ? new TerraformWallSignBlock(signTextureId, blockSettingsSet.getWallSign()) : wallSign;
     }
 
     WoodSuite(@NotNull Identifier identifier, @NotNull WoodSuite.BlockSettingsSet blockSettingsSet,
-              @NotNull Registry<Block> blockRegistry, @NotNull MapColor logColor, @NotNull SaplingGenerator saplingGenerator) {
+              @NotNull Registry<Block> blockRegistry, @NotNull MapColor logColor, @NotNull SaplingGenerator saplingGenerator,
+              WoodType woodType) {
         id = identifier;
         this.blockSettingsSet = blockSettingsSet;
         this.blockRegistry = blockRegistry;
@@ -78,11 +82,11 @@ public class WoodSuite {
         stairs = new StairsBlock(planks.getDefaultState(), blockSettingsSet.getStairs());
         slab = new SlabBlock(blockSettingsSet.getSlab());
         fence = new FenceBlock(blockSettingsSet.getFence());
-        fenceGate = new FenceGateBlock(blockSettingsSet.getFenceGate());
-        pressurePlate = new PressurePlateBlock(PressurePlateBlock.ActivationRule.EVERYTHING, blockSettingsSet.getPressurePlate());
-        button = new WoodenButtonBlock(blockSettingsSet.getButton());
-        trapdoor = new TrapdoorBlock(blockSettingsSet.getTrapdoor());
-        door = new DoorBlock(blockSettingsSet.getDoor());
+        fenceGate = new FenceGateBlock(blockSettingsSet.getFenceGate(), woodType);
+        pressurePlate = new PressurePlateBlock(PressurePlateBlock.ActivationRule.EVERYTHING, blockSettingsSet.getPressurePlate(), woodType.setType());
+        button = new ButtonBlock(blockSettingsSet.getButton(), woodType.setType(), 30, true);
+        trapdoor = new TrapdoorBlock(blockSettingsSet.getTrapdoor(), woodType.setType());
+        door = new DoorBlock(blockSettingsSet.getDoor(), woodType.setType());
         Identifier signTextureId = idFor("entity/sign/%s");
         floorSign = new TerraformSignBlock(signTextureId, blockSettingsSet.getFloorSign());
         wallSign = new TerraformWallSignBlock(signTextureId, blockSettingsSet.getWallSign());
@@ -90,8 +94,8 @@ public class WoodSuite {
 
     public static WoodSuite of(@NotNull Identifier identifier, @NotNull WoodSuite.BlockSettingsSet blockSettingsSet,
                                @NotNull Registry<Block> blockRegistry, @NotNull MapColor logColor,
-                               @NotNull SaplingGenerator saplingGenerator) {
-        return new WoodSuite(identifier, blockSettingsSet, blockRegistry, logColor, saplingGenerator);
+                               @NotNull SaplingGenerator saplingGenerator, WoodType woodType) {
+        return new WoodSuite(identifier, blockSettingsSet, blockRegistry, logColor, saplingGenerator, woodType);
     }
 
     public static WoodSuite of(@NotNull Identifier identifier, @NotNull WoodSuite.BlockSettingsSet blockSettingsSet,
@@ -100,10 +104,11 @@ public class WoodSuite {
                                Block log, Block wood, Block sapling,
                                Block pottedSapling, Block planks, Block stairs, Block slab,
                                Block fence, Block fenceGate, Block pressurePlate, Block button,
-                               Block trapdoor, Block door, TerraformSignBlock floorSign, Block wallSign) {
+                               Block trapdoor, Block door, TerraformSignBlock floorSign, Block wallSign,
+                               WoodType woodType) {
         return new WoodSuite(identifier, blockSettingsSet, blockRegistry, logColor, saplingGenerator, strippedLog,
                 strippedWood, log, wood, sapling, pottedSapling, planks, stairs, slab, fence, fenceGate, pressurePlate,
-                button, trapdoor, door, floorSign, wallSign);
+                button, trapdoor, door, floorSign, wallSign, woodType);
     }
 
     public void register() {

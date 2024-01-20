@@ -16,6 +16,7 @@ import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
@@ -24,20 +25,19 @@ import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.builder.ILoopType;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
-import software.bernie.geckolib3.util.GeckoLibUtil;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class ElderAylythianEntity extends HostileEntity implements IAnimatable {
+public class ElderAylythianEntity extends HostileEntity implements GeoEntity {
 	public static final TrackedData<Integer> VARIANT = DataTracker.registerData(ElderAylythianEntity.class, TrackedDataHandlerRegistry.INTEGER);
 	public static final int VARIANTS = 3;
 
-	private final AnimationFactory factory = GeckoLibUtil.createFactory(this);
+	private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
 	
 	public ElderAylythianEntity(EntityType<? extends HostileEntity> entityType, World world) {
 		super(entityType, world);
@@ -48,28 +48,28 @@ public class ElderAylythianEntity extends HostileEntity implements IAnimatable {
 	}
 	
 	@Override
-	public void registerControllers(AnimationData animationData) {
-		animationData.addAnimationController(new AnimationController<>(this, "controller", 10, animationEvent -> {
+	public void registerControllers(AnimatableManager.ControllerRegistrar animationData) {
+		animationData.add(new AnimationController<>(this, "controller", 10, animationEvent -> {
 			float limbSwingAmount = Math.abs(animationEvent.getLimbSwingAmount());
-			AnimationBuilder builder = new AnimationBuilder();
+			var builder = RawAnimation.begin();
 			if (limbSwingAmount > 0.01F) {
 				if (limbSwingAmount > 0.6F) {
-					builder.addAnimation("run", ILoopType.EDefaultLoopTypes.LOOP);
+					builder.thenLoop("run");
 				}
 				else {
-					builder.addAnimation("walk", ILoopType.EDefaultLoopTypes.LOOP);
+					builder.thenLoop("walk");
 				}
 			}
 			else {
-				builder.addAnimation("idle", ILoopType.EDefaultLoopTypes.LOOP);
+				builder.thenLoop("idle");
 			}
 			animationEvent.getController().setAnimation(builder);
 			return PlayState.CONTINUE;
 		}));
-		animationData.addAnimationController(new AnimationController<>(this, "arms", 0, animationEvent -> {
-			AnimationBuilder builder = new AnimationBuilder();
+		animationData.add(new AnimationController<>(this, "arms", 0, animationEvent -> {
+			var builder = RawAnimation.begin();
 			if (handSwingTicks > 0 && !isDead()) {
-				animationEvent.getController().setAnimation(builder.addAnimation("clawswipe", ILoopType.EDefaultLoopTypes.LOOP));
+				animationEvent.getController().setAnimation(builder.thenLoop("clawswipe"));
 				return PlayState.CONTINUE;
 			}
 			return PlayState.STOP;
@@ -77,7 +77,7 @@ public class ElderAylythianEntity extends HostileEntity implements IAnimatable {
 	}
 	
 	@Override
-	public AnimationFactory getFactory() {
+	public AnimatableInstanceCache getAnimatableInstanceCache() {
 		return factory;
 	}
 	
@@ -115,7 +115,7 @@ public class ElderAylythianEntity extends HostileEntity implements IAnimatable {
 	@Override
 	public boolean damage(DamageSource source, float amount) {
 		setPersistent();
-		return super.damage(source, source.isFire() ? amount * 2 : amount);
+		return super.damage(source, source.isIn(DamageTypeTags.IS_FIRE) ? amount * 2 : amount);
 	}
 
 	@Override
@@ -135,14 +135,14 @@ public class ElderAylythianEntity extends HostileEntity implements IAnimatable {
 	@Override
 	protected void dropEquipment(DamageSource source, int lootingMultiplier, boolean allowDrops) {
 		super.dropEquipment(source, lootingMultiplier, allowDrops);
-		if (!world.isClient) {
+		if (!getWorld().isClient) {
 			int xOffset = Math.sin(bodyYaw * Math.PI / 180) > 0 ? 1 : -1;
 			int zOffset = Math.cos(bodyYaw * Math.PI / 180) > 0 ? 1 : -1;
 			BlockPos[] checkPoses = {getBlockPos(), getBlockPos().add(xOffset, 0, 0), getBlockPos().add(0, 0, zOffset), getBlockPos().add(xOffset, 0, zOffset)};
 			boolean hasPlaced = false;
 			for (BlockPos checkPos : checkPoses) {
-				if (world.getBlockState(checkPos).getMaterial().isReplaceable() && ModBlocks.YMPE_BLOCKS.sapling.getDefaultState().canPlaceAt(world, checkPos)) {
-					world.setBlockState(checkPos, ModBlocks.YMPE_BLOCKS.sapling.getDefaultState());
+				if (getWorld().getBlockState(checkPos).isReplaceable() && ModBlocks.YMPE_BLOCKS.sapling.getDefaultState().canPlaceAt(getWorld(), checkPos)) {
+					getWorld().setBlockState(checkPos, ModBlocks.YMPE_BLOCKS.sapling.getDefaultState());
 					hasPlaced = true;
 				}
 			}

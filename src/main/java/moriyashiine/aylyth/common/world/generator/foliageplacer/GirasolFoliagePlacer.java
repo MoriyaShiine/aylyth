@@ -28,10 +28,10 @@ public class GirasolFoliagePlacer extends FoliagePlacer {
     }
 
     @Override
-    protected void generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, TreeFeatureConfig config, int trunkHeight, TreeNode treeNode, int foliageHeight, int radius, int offset) {
+    protected void generate(TestableWorld world, FoliagePlacer.BlockPlacer replacer, Random random, TreeFeatureConfig config, int trunkHeight, TreeNode treeNode, int foliageHeight, int radius, int offset) {
         BlockPos pos = treeNode.getCenter();
         if (TreeFeature.canReplace(world, pos)) {
-            replacer.accept(pos, config.foliageProvider.getBlockState(random, pos));
+            replacer.placeBlock(pos, config.foliageProvider.get(random, pos));
         }
     }
 

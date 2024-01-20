@@ -32,7 +32,7 @@ public class ScionSpecificSensor extends Sensor<LivingEntity> {
         Brain<?> brain = entity.getBrain();
         brain.remember(MemoryModuleType.NEAREST_REPELLENT, findRepellent(world, entity));
         Optional<PlayerEntity> optional = Optional.empty();
-        LivingTargetCache livingTargetCache = brain.getOptionalMemory(MemoryModuleType.VISIBLE_MOBS).orElse(LivingTargetCache.empty());
+        LivingTargetCache livingTargetCache = brain.getOptionalRegisteredMemory(MemoryModuleType.VISIBLE_MOBS).orElse(LivingTargetCache.empty());
         for (LivingEntity livingEntity : livingTargetCache.iterate((livingEntityx) -> true)) {
             if (optional.isEmpty() && livingEntity instanceof PlayerEntity playerEntity && entity instanceof ScionEntity scionEntity && playerEntity.getUuid() == scionEntity.getStoredPlayerUUID()) {
                 optional = Optional.of(playerEntity);

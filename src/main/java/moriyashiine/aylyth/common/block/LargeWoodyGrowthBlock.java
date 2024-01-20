@@ -92,7 +92,7 @@ public class LargeWoodyGrowthBlock extends SmallWoodyGrowthBlock {
             return lowerState.isOf(this) && lowerState.get(HALF) == DoubleBlockHalf.LOWER;
         }
         BlockState stateUp = world.getBlockState(pos.up());
-        return (stateUp.getMaterial().isReplaceable() || stateUp.isOf(this)) && super.canPlaceAt(state, world, pos);
+        return (stateUp.isReplaceable() || stateUp.isOf(this)) && super.canPlaceAt(state, world, pos);
     }
 
     @Override

@@ -9,9 +9,9 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
-import net.minecraft.client.render.model.json.ModelTransformation;
+import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.math.Vec3f;
+import net.minecraft.util.math.RotationAxis;
 
 public class SoulHearthBlockEntityRenderer implements BlockEntityRenderer<SoulHearthBlockEntity> {
 
@@ -26,9 +26,9 @@ public class SoulHearthBlockEntityRenderer implements BlockEntityRenderer<SoulHe
             for(int i = 0; i < entity.getWorld().getBlockState(entity.getPos()).get(SoulHearthBlock.CHARGES); i++){
                 matrices.translate(0, 0.06, 0);
                 matrices.push();
-                matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion((90 + (180 * i)) % 360));
-                matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(90 * i));
-                MinecraftClient.getInstance().getItemRenderer().renderItem(ModItems.POMEGRANATE.getDefaultStack(), ModelTransformation.Mode.FIXED, light, overlay, matrices, vertexConsumers, 0);
+                matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees((90 + (180 * i)) % 360));
+                matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(90 * i));
+                MinecraftClient.getInstance().getItemRenderer().renderItem(ModItems.POMEGRANATE.getDefaultStack(), ModelTransformationMode.FIXED, light, overlay, matrices, vertexConsumers, null, 0);
                 matrices.pop();
             }
         }

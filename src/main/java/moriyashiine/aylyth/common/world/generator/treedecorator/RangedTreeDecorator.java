@@ -70,7 +70,7 @@ public class RangedTreeDecorator extends TreeDecorator {
             pos = pos.withY(startPos.getY());
             if (TreeFeature.canReplace(generator.getWorld(), pos)) {
                 BlockState blockState = Util.getRandom(blockStates, generator.getRandom());
-                if (generator.getWorld().testBlockState(pos.down(), state -> !state.getMaterial().isReplaceable()) && TreeFeature.canReplace(generator.getWorld(), pos)) {
+                if (generator.getWorld().testBlockState(pos.down(), state -> !state.isReplaceable()) && TreeFeature.canReplace(generator.getWorld(), pos)) {
                     if (blockState.isOf(ModBlocks.LARGE_WOODY_GROWTH)) {
                         if (TreeFeature.canReplace(generator.getWorld(), pos.up())) {
                             generator.replace(pos, blockState.with(LargeWoodyGrowthBlock.HALF, DoubleBlockHalf.LOWER));

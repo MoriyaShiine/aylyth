@@ -14,6 +14,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.context.LootContext;
+import net.minecraft.loot.context.LootContextParameterSet;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -26,7 +27,7 @@ import java.util.List;
 
 public class WoodyGrowthCacheBlock extends LargeWoodyGrowthBlock implements BlockEntityProvider {
 
-    public static final Identifier CONTENTS = ShulkerBoxBlock.CONTENTS;
+    public static final Identifier CONTENTS = ShulkerBoxBlock.CONTENTS_DYNAMIC_DROP_ID;
 
     public WoodyGrowthCacheBlock(Settings settings) {
         super(settings);
@@ -88,10 +89,10 @@ public class WoodyGrowthCacheBlock extends LargeWoodyGrowthBlock implements Bloc
     }
 
     @Override
-    public List<ItemStack> getDroppedStacks(BlockState state, LootContext.Builder builder) {
-        BlockEntity be = builder.getNullable(LootContextParameters.BLOCK_ENTITY);
+    public List<ItemStack> getDroppedStacks(BlockState state, LootContextParameterSet.Builder builder) {
+        BlockEntity be = builder.get(LootContextParameters.BLOCK_ENTITY);
         if (be instanceof WoodyGrowthCacheBlockEntity cache) {
-            builder.putDrop(CONTENTS, (context, consumer) -> {
+            builder.addDynamicDrop(CONTENTS, consumer -> {
                 for (int i = 0; i < cache.size(); i++) {
                     consumer.accept(cache.getItem(i));
                 }

@@ -14,21 +14,22 @@ import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.BakedQuad;
 import net.minecraft.client.render.model.json.ModelTransformation;
+import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Matrix4f;
-import net.minecraft.util.math.Vec3f;
+import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.random.Random;
+import org.joml.Matrix4f;
 
 import java.util.List;
 
 public class MysteriousSketchItemRenderer implements BuiltinItemRendererRegistry.DynamicItemRenderer {
     @Override
-    public void render(ItemStack stack, ModelTransformation.Mode mode, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-        if ((mode.isFirstPerson() || mode == ModelTransformation.Mode.FIXED) && stack.hasNbt() && stack.getNbt().contains("PageId")) {
+    public void render(ItemStack stack, ModelTransformationMode mode, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
+        if ((mode.isFirstPerson() || mode == ModelTransformationMode.FIXED) && stack.hasNbt() && stack.getNbt().contains("PageId")) {
             Identifier pageId = new Identifier(stack.getNbt().getString("PageId"));
             RenderSystem.setShaderTexture(0, MinecraftClient.getInstance().player.getSkinTexture());
             PlayerEntityRenderer playerEntityRenderer = (PlayerEntityRenderer)MinecraftClient.getInstance().getEntityRenderDispatcher().<AbstractClientPlayerEntity>getRenderer(MinecraftClient.getInstance().player);
@@ -38,7 +39,7 @@ public class MysteriousSketchItemRenderer implements BuiltinItemRendererRegistry
             switch (mode) {
                 case FIRST_PERSON_LEFT_HAND -> {
                     matrices.push();
-                    matrices.multiply(Vec3f.NEGATIVE_X.getDegreesQuaternion(45.0F));
+                    matrices.multiply(RotationAxis.NEGATIVE_X.rotationDegrees(45.0F));
                     matrices.translate(-0.065F, -0.3F, 0.75F);
                     playerEntityRenderer.renderLeftArm(matrices, vertexConsumers, light, MinecraftClient.getInstance().player);
                     matrices.pop();
@@ -59,7 +60,7 @@ public class MysteriousSketchItemRenderer implements BuiltinItemRendererRegistry
                 case FIRST_PERSON_RIGHT_HAND -> {
                     if (hasEmptyOffhand) {
                         matrices.push();
-                        matrices.multiply(Vec3f.NEGATIVE_X.getDegreesQuaternion(45.0F));
+                        matrices.multiply(RotationAxis.NEGATIVE_X.rotationDegrees(45.0F));
                         matrices.translate(-0.065F, -0.3F, 0.75F);
                         playerEntityRenderer.renderLeftArm(matrices, vertexConsumers, light, MinecraftClient.getInstance().player);
                         matrices.pop();
@@ -68,7 +69,7 @@ public class MysteriousSketchItemRenderer implements BuiltinItemRendererRegistry
                     if (true) {
                         matrices.push();
 //                        matrices.multiply(Vec3f.NEGATIVE_X.getDegreesQuaternion(45.0F));
-                        matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(180f));
+                        matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180f));
 //                        matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(180f));
 //                        matrices.translate(-0.065f, -0.3f, 0.75f);
                         playerEntityRenderer.renderRightArm(matrices, vertexConsumers, light, MinecraftClient.getInstance().player);
@@ -92,7 +93,7 @@ public class MysteriousSketchItemRenderer implements BuiltinItemRendererRegistry
                 case FIXED -> {
                     matrices.push();
                     matrices.scale(1.495f, 1.495f, 1.495f);
-                    matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(180));
+                    matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180));
                     matrices.translate(-0.835, -0.165, -0.325);
                     drawPage(mode, matrices, vertexConsumers.getBuffer(RenderLayer.getText(pageTextureId)), light);
                     matrices.pop();
@@ -101,7 +102,7 @@ public class MysteriousSketchItemRenderer implements BuiltinItemRendererRegistry
         } else {
             BakedModel model = MinecraftClient.getInstance().getBakedModelManager().getModel(new ModelIdentifier(AylythUtil.id("mysterious_sketch_generated"), "inventory"));
             matrices.push();
-            model.getTransformation().getTransformation(mode).apply(mode == ModelTransformation.Mode.FIRST_PERSON_LEFT_HAND, matrices);
+            model.getTransformation().getTransformation(mode).apply(mode == ModelTransformationMode.FIRST_PERSON_LEFT_HAND, matrices);
             switch (mode) {
                 case FIXED -> {
                     matrices.translate(-1, 0, -1);
@@ -113,14 +114,14 @@ public class MysteriousSketchItemRenderer implements BuiltinItemRendererRegistry
                     matrices.translate(0.5, 0, -1.25);
                 }
                 case FIRST_PERSON_LEFT_HAND -> {
-                    matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(180));
+                    matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180));
                     matrices.translate(0.5, 0, -1.225);
                 }
             }
 
             Random rand = Random.create();
             RenderLayer layer = RenderLayers.getItemLayer(stack, true);
-            VertexConsumer consumer = ItemRenderer.getDirectItemGlintConsumer(vertexConsumers, mode == ModelTransformation.Mode.GUI ? RenderLayer.getCutout() : layer, true, stack.hasGlint());
+            VertexConsumer consumer = ItemRenderer.getDirectItemGlintConsumer(vertexConsumers, mode == ModelTransformationMode.GUI ? RenderLayer.getCutout() : layer, true, stack.hasGlint());
             for (Direction dir : Direction.values()) {
                 rand.setSeed(42L);
                 renderQuads(stack, model.getQuads(null, dir, rand), consumer, matrices, light, overlay);
@@ -147,7 +148,7 @@ public class MysteriousSketchItemRenderer implements BuiltinItemRendererRegistry
         }
     }
 
-    private void drawPage(ModelTransformation.Mode mode, MatrixStack matrices, VertexConsumer consumer, int light) {
+    private void drawPage(ModelTransformationMode mode, MatrixStack matrices, VertexConsumer consumer, int light) {
         Matrix4f posMat = matrices.peek().getPositionMatrix();
             consumer.vertex(posMat, 0, 1, 0).color(255, 255, 255, 255).texture(0f, 0f).light(light).next();
             consumer.vertex(posMat, 0, 0, 0).color(255, 255, 255, 255).texture(0f, 1f).light(light).next();

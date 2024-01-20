@@ -12,4 +12,7 @@ public interface WorldRendererAccessor {
 
     @Accessor
     VertexBuffer getStarsBuffer();
+
+    @Accessor
+    VertexBuffer getDarkSkyBuffer();
 }

@@ -54,7 +54,7 @@ public class GirasolTrunkPlacer extends TrunkPlacer {
 
         if (!hasSpace(world, startPos, height)) return builder.build();
 
-        replacer.accept(startPos, config.trunkProvider.getBlockState(random, startPos));
+        replacer.accept(startPos, config.trunkProvider.get(random, startPos));
 
         for (int y = 0; y < height; y++) {
             for (int x = -2; x <= 2; x++) {
@@ -76,7 +76,7 @@ public class GirasolTrunkPlacer extends TrunkPlacer {
                             replacer.accept(pos, seepBlock);
                         }
                     } else {
-                        replacer.accept(pos, config.trunkProvider.getBlockState(random, pos));
+                        replacer.accept(pos, config.trunkProvider.get(random, pos));
                         if (random.nextInt(5) == 0) {
                             if (x == -1) {
 
@@ -109,8 +109,8 @@ public class GirasolTrunkPlacer extends TrunkPlacer {
                 double xoffSet = h * Math.cos(Math.toRadians(randAngle));
                 double zOffset = h * Math.sin(Math.toRadians(randAngle));
                 int yOffset = getYValue(h, random);
-                BlockPos pos = topCenterOffset.add(xoffSet, yOffset, zOffset);
-                BlockState blockState = config.trunkProvider.getBlockState(random, pos);
+                BlockPos pos = topCenterOffset.add((int) xoffSet, yOffset, (int) zOffset);
+                BlockState blockState = config.trunkProvider.get(random, pos);
 
                 if ((canReplace(world, pos) || TreeFeature.isAirOrLeaves(world, pos)) && pos.getY() >= startPos.getY()) {
                     replacer.accept(pos, blockState);

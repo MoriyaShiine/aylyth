@@ -1,7 +1,5 @@
 package moriyashiine.aylyth.client.model;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.model.*;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.RenderLayer;
@@ -12,7 +10,6 @@ import net.minecraft.client.util.math.MatrixStack;
 
 import java.util.NoSuchElementException;
 
-@Environment(EnvType.CLIENT)
 public class YmpeInfestationModel extends BipedEntityModel<AbstractClientPlayerEntity> {
 	private ModelPart ympe_infestation_l_arm, ympe_infestation_r_arm;
 	

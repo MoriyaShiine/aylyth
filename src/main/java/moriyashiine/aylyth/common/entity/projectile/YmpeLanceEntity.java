@@ -49,7 +49,7 @@ public class YmpeLanceEntity extends PersistentProjectileEntity {
 
 		if(((dealtDamage && timeStuck >= 140) || isNoClip()) && getOwner() != null) {
 			if(!isOwnerAlive()) {
-				if(!world.isClient && pickupType == PersistentProjectileEntity.PickupPermission.ALLOWED)
+				if(!getWorld().isClient && pickupType == PickupPermission.ALLOWED)
 					dropStack(asItemStack(), 0.1F);
 
 				discard();
@@ -58,7 +58,7 @@ public class YmpeLanceEntity extends PersistentProjectileEntity {
 				Vec3d ownerDistance = getOwner().getEyePos().subtract(getPos());
 				setPos(getX(), getY() + ownerDistance.y * 0.045 * 3, getZ());
 
-				if(world.isClient)
+				if(getWorld().isClient)
 					lastRenderY = getY();
 
 				setVelocity(getVelocity().multiply(0.95).add(ownerDistance.normalize().multiply(0.15)));
@@ -95,7 +95,7 @@ public class YmpeLanceEntity extends PersistentProjectileEntity {
 			damage += EnchantmentHelper.getAttackDamage(stack, livingTarget.getGroup());
 		}
 
-		DamageSource damageSource = DamageSource.trident(this, owner == null ? this : owner);
+		DamageSource damageSource = getDamageSources().trident(this, owner == null ? this : owner);
 		dealtDamage = true;
 
 		if(target.damage(damageSource, damage)) {
@@ -121,7 +121,7 @@ public class YmpeLanceEntity extends PersistentProjectileEntity {
 	public void tickRiding() {
 		super.tickRiding();
 
-		if(target != null && target == getVehicle() && !world.isClient()) {
+		if(target != null && target == getVehicle() && !getWorld().isClient()) {
 			YmpeThornsComponent thornsComponent = ModComponents.YMPE_THORNS.get(target);
 
 			if(timeStuck >= 140) {
@@ -131,7 +131,7 @@ public class YmpeLanceEntity extends PersistentProjectileEntity {
 			}
 
 			if(timeStuck % 40 == 0 && timeStuck > 0) {
-				target.damage(ModDamageSources.YMPE, 4);
+				target.damage(ModDamageSources.ympe(getWorld()), 4);
 
 				if(thornsComponent.getThornProgress() < 3)
 					thornsComponent.setThornProgress(thornsComponent.getThornProgress() + 1);
@@ -164,7 +164,7 @@ public class YmpeLanceEntity extends PersistentProjectileEntity {
 		if(tag.contains("Lance", NbtElement.COMPOUND_TYPE))
 			stack = ItemStack.fromNbt(tag.getCompound("Lance"));
 
-		if(world instanceof ServerWorld serverWorld && tag.containsUuid("Target") && serverWorld.getEntity(tag.getUuid("Target")) instanceof LivingEntity targetEntity)
+		if(getWorld() instanceof ServerWorld serverWorld && tag.containsUuid("Target") && serverWorld.getEntity(tag.getUuid("Target")) instanceof LivingEntity targetEntity)
 			target = targetEntity;
 
 		dealtDamage = tag.getBoolean("HasDealtDamage");

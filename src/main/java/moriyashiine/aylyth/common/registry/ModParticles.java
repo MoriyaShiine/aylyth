@@ -2,8 +2,6 @@ package moriyashiine.aylyth.common.registry;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import moriyashiine.aylyth.common.Aylyth;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.particle.ParticleTextureSheet;
@@ -15,8 +13,9 @@ import net.minecraft.client.texture.AbstractTexture;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.texture.TextureManager;
 import net.minecraft.particle.DefaultParticleType;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 import org.lwjgl.opengl.GL11;
 
 public class ModParticles {
@@ -28,12 +27,11 @@ public class ModParticles {
 
 
 	public static void init() {
-		Registry.register(Registry.PARTICLE_TYPE, new Identifier(Aylyth.MOD_ID, "pilot_light"), PILOT_LIGHT);
-		Registry.register(Registry.PARTICLE_TYPE, new Identifier(Aylyth.MOD_ID, "ambient_pilot_light"), AMBIENT_PILOT_LIGHT);
-		Registry.register(Registry.PARTICLE_TYPE, new Identifier(Aylyth.MOD_ID, "hind_smoke"), HIND_SMOKE);
+		Registry.register(Registries.PARTICLE_TYPE, new Identifier(Aylyth.MOD_ID, "pilot_light"), PILOT_LIGHT);
+		Registry.register(Registries.PARTICLE_TYPE, new Identifier(Aylyth.MOD_ID, "ambient_pilot_light"), AMBIENT_PILOT_LIGHT);
+		Registry.register(Registries.PARTICLE_TYPE, new Identifier(Aylyth.MOD_ID, "hind_smoke"), HIND_SMOKE);
 	}
-	
-	@Environment(EnvType.CLIENT)
+
 	public static class ParticleTextureSheets {
 		public static final ParticleTextureSheet GLOWING = new ParticleTextureSheet() {
 			@Override

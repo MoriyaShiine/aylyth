@@ -3,7 +3,12 @@
   "criteria": {
     "has_placed_girasol_sapling": {
       "conditions": {
-        "block": "aylyth:girasol_sapling"
+        "location": [
+          {
+            "block": "aylyth:girasol_sapling",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
       },
       "trigger": "minecraft:placed_block"
     }
@@ -27,5 +32,6 @@
     [
       "has_placed_girasol_sapling"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

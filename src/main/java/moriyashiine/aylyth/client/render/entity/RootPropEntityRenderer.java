@@ -3,8 +3,6 @@ package moriyashiine.aylyth.client.render.entity;
 import moriyashiine.aylyth.client.model.entity.RootPropEntityModel;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.entity.RootPropEntity;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -12,9 +10,8 @@ import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Vec3f;
+import net.minecraft.util.math.RotationAxis;
 
-@Environment(EnvType.CLIENT)
 public class RootPropEntityRenderer extends EntityRenderer<RootPropEntity> {
     private static final Identifier TEXTURE = new Identifier(Aylyth.MOD_ID, "textures/entity/root_prop.png");
     private final RootPropEntityModel<RootPropEntity> model;
@@ -34,7 +31,7 @@ public class RootPropEntityRenderer extends EntityRenderer<RootPropEntity> {
             }
 
             matrixStack.push();
-            matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(90.0F - rootPropEntity.getYaw()));
+            matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(90.0F - rootPropEntity.getYaw()));
             matrixStack.scale(-j, -j, j);
             float k = 0.03125F;
             matrixStack.translate(0.0, -0.626, 0.0);

@@ -1,7 +1,6 @@
 plugins {
-    id 'fabric-loom' version '1.0-SNAPSHOT'
+    id 'fabric-loom' version '1.5-SNAPSHOT'
     id 'maven-publish'
-    id 'io.github.juuxel.loom-quiltflower' version '1.8.+'
 }
 
 sourceCompatibility = JavaVersion.VERSION_17
@@ -45,7 +44,7 @@ sourceSets.main.resources.srcDirs += ['src/main/generated']
 repositories {
     maven {
         name "cardinal components"
-        url = "https://maven.ladysnake.org/releases"
+        url "https://maven.ladysnake.org/releases"
     }
     maven {
         name "reach entity attributes"
@@ -67,27 +66,37 @@ repositories {
 			url "https://cursemaven.com"
 	}
     maven {
-        name = "patchouli"
-        url = "https://maven.blamejared.com"
+        name "patchouli"
+        url "https://maven.blamejared.com"
     }
     maven {
-        name = "jitpack"
-        url = "https://jitpack.io"
+        name "jitpack"
+        url "https://jitpack.io"
     }
     exclusiveContent {
         forRepository {
             maven {
-                name = "Modrinth"
-                url = "https://api.modrinth.com/maven"
+                name "Modrinth"
+                url "https://api.modrinth.com/maven"
             }
         }
         filter {
             includeGroup "maven.modrinth"
         }
     }
+    // https://github.com/Ladysnake/Impersonate/tree/1.20.1
     maven {
-        name "impersonate"
-        url "https://oss.sonatype.org/content/repositories/snapshots"
+        name "Ladysnake Mods"
+        url "https://maven.ladysnake.org/releases"
+        content {
+            includeGroup 'io.github.ladysnake'
+            includeGroup 'org.ladysnake'
+            includeGroupByRegex 'dev\\.onyxstudios\\..*'
+        }
+    }
+    maven {
+        name "Nexus Repository Manager"
+        url 'https://oss.sonatype.org/content/repositories/snapshots'
     }
 }
 
@@ -96,54 +105,45 @@ dependencies {
     mappings "net.fabricmc:yarn:${yarn_mappings}:v2"
     modImplementation "net.fabricmc:fabric-loader:${loader_version}"
 
-    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-base:${cardinal_components_version}"
-    include "dev.onyxstudios.cardinal-components-api:cardinal-components-base:${cardinal_components_version}"
-    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${cardinal_components_version}"
-    include "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${cardinal_components_version}"
-    modImplementation "com.jamieswhiteshirt:reach-entity-attributes:${reach_entity_attributes_version}"
-    include "com.jamieswhiteshirt:reach-entity-attributes:${reach_entity_attributes_version}"
-    modImplementation "com.terraformersmc.terraform-api:terraform-wood-api-v1:${terraform_wood_api_version}"
-    include "com.terraformersmc.terraform-api:terraform-wood-api-v1:${terraform_wood_api_version}"
-    include implementation('com.github.Chocohead:Fabric-ASM:v2.3')
+    modImplementation(include("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${cardinal_components_version}"))
+    modImplementation(include("dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${cardinal_components_version}"))
+    modImplementation(include("com.jamieswhiteshirt:reach-entity-attributes:${reach_entity_attributes_version}"))
+    modImplementation(include("com.terraformersmc.terraform-api:terraform-wood-api-v1:${terraform_wood_api_version}"))
+    modImplementation(include('com.github.Chocohead:Fabric-ASM:v2.3'))
 
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
     modImplementation "software.bernie.geckolib:geckolib-fabric-${geckolib_version}"
 
-    //EMI
-    modImplementation "dev.emi:emi:${emi_version}"
+    // EMI
+    modCompileOnly "dev.emi:emi-fabric:${emi_version}:api"
+    modLocalRuntime "dev.emi:emi-fabric:${emi_version}"
 
-    //REI
+    // REI
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${rei_version}"
     // modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"
 
     // Nice dev things
-	modRuntimeOnly "curse.maven:disablecustomworldsadvice-401978:3827588"
-    modRuntimeOnly "maven.modrinth:suggestion-provider-fix-fabric:1.0.0"
-    //  Add this in 1.20.1, makes debugging entities and such much easier
-    //   https://www.curseforge.com/minecraft/mc-mods/debug-utils-fabric/files/4644075
+	modRuntimeOnly "curse.maven:disablecustomworldsadvice-401978:4619700"
+    // Add this in 1.20.1, makes debugging entities and such much easier
+    // https://www.curseforge.com/minecraft/mc-mods/debug-utils-fabric/files/4644075
 
     // Testing compat
-//    runtimeOnly 'com.github.JOML-CI:JOML:1.10.5'
-//    modRuntimeOnly "curse.maven:sodium-394468:3957319"
-//    modRuntimeOnly "curse.maven:iris-455508:4385033"
+    // runtimeOnly 'com.github.JOML-CI:JOML:1.10.5'
+    // modRuntimeOnly "curse.maven:sodium-394468:3957319"
+    // modRuntimeOnly "curse.maven:iris-455508:4385033"
 
-    //Illuminations Compat
-    modImplementation "curse.maven:illuminations-292908:4046680"
-
-    //Trinkets
+    // Trinkets
     modImplementation "dev.emi:trinkets:${trinkets_version}"
 
-    //Bewitchment
-    modImplementation("curse.maven:bewitchment-394915:${project.bewitchment_fileid}")
-    modImplementation("com.github.virtuoel:pehkui:${project.pehkui_version}")
-    modImplementation("vazkii.patchouli:Patchouli:${project.patchouli_version}")
+    // Bewitchment
+    modImplementation("curse.maven:bewitchment-394915:${bewitchment_fileid}")
+    modImplementation("com.github.virtuoel:pehkui:${pehkui_version}")
+    modImplementation("vazkii.patchouli:Patchouli:${patchouli_version}")
     modImplementation("maven.modrinth:midnightlib:${midnightlib_version}")
     modImplementation("com.github.emilyploszaj:step-height-entity-attribute:${step_height_version}")
-    modImplementation("io.github.ladysnake:PlayerAbilityLib:${pal_version}")
-    include("io.github.ladysnake:PlayerAbilityLib:${pal_version}")
-    modImplementation "me.lucko:fabric-permissions-api:${fabric_permissions_api_version}"
-    include "me.lucko:fabric-permissions-api:${fabric_permissions_api_version}"
-    modImplementation("io.github.ladysnake:impersonate:${impersonate_version}") {
+    modImplementation(include("io.github.ladysnake:PlayerAbilityLib:${pal_version}"))
+    modImplementation(include("me.lucko:fabric-permissions-api:${fabric_permissions_api_version}"))
+    modImplementation("org.ladysnake:impersonate:${impersonate_version}") {
         transitive = false
     }
 }

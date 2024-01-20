@@ -4,11 +4,13 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.state.property.Properties;
-import net.minecraft.tag.TagKey;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.FeatureConfig;
@@ -43,8 +45,8 @@ public class HorizontalFacingFeature extends Feature<HorizontalFacingFeature.Hor
 
     public static class HorizontalFacingBlockFeatureConfig implements FeatureConfig {
         public static final Codec<HorizontalFacingBlockFeatureConfig> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                Registry.BLOCK.getCodec().fieldOf("facing_block").forGetter(config -> config.facingBlock),
-                TagKey.codec(Registry.BLOCK_KEY).fieldOf("test_against").forGetter(config -> config.tag)
+                Registries.BLOCK.getCodec().fieldOf("facing_block").forGetter(config -> config.facingBlock),
+                TagKey.codec(RegistryKeys.BLOCK).fieldOf("test_against").forGetter(config -> config.tag)
         ).apply(instance, HorizontalFacingBlockFeatureConfig::new));
 
         final Block facingBlock;

@@ -50,7 +50,7 @@ public class JackolanternMushroomBlock extends StagedMushroomPlantBlock {
     public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
         super.onBlockAdded(state, world, pos, oldState, notify);
         if (!world.getBlockTickScheduler().isQueued(pos, this)) {
-            world.createAndScheduleBlockTick(pos, this, 100);
+            world.scheduleBlockTick(pos, this, 100);
         }
     }
 
@@ -85,7 +85,7 @@ public class JackolanternMushroomBlock extends StagedMushroomPlantBlock {
         if (glowingState ^ lightLevel < 8) {
             world.setBlockState(pos, state.with(GLOWING, lightLevel < 6));
         }
-        world.createAndScheduleBlockTick(pos, this, 100);
+        world.scheduleBlockTick(pos, this, 100);
     }
 
     @Override

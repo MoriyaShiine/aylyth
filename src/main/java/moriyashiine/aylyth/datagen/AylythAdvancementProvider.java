@@ -8,6 +8,7 @@ import moriyashiine.aylyth.common.criteria.YmpeInfestationCriterion;
 import moriyashiine.aylyth.common.registry.*;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.minecraft.advancement.Advancement;
 import net.minecraft.advancement.AdvancementFrame;
@@ -33,8 +34,8 @@ import java.util.function.Function;
 
 public class AylythAdvancementProvider extends FabricAdvancementProvider {
 
-    protected AylythAdvancementProvider(FabricDataGenerator dataGenerator) {
-        super(dataGenerator);
+    protected AylythAdvancementProvider(FabricDataOutput output) {
+        super(output);
     }
 
     @Override
@@ -91,7 +92,7 @@ public class AylythAdvancementProvider extends FabricAdvancementProvider {
         var dontLookBack = Advancement.Builder.create()
                 .parent(root)
                 .display(Items.SOUL_CAMPFIRE, Text.translatable("aylyth.advancements.aylyth.dont_look_back.title"), Text.translatable("aylyth.advancements.aylyth.dont_look_back.desc"), null, AdvancementFrame.TASK, true, true, false)
-                .criterion("has_interacted_with_pilot_light", PlayerInteractedWithEntityCriterion.Conditions.create(ItemPredicate.Builder.create(), EntityPredicate.Extended.ofLegacy(EntityPredicate.Builder.create().type(ModEntityTypes.PILOT_LIGHT).build())))
+                .criterion("has_interacted_with_pilot_light", PlayerInteractedWithEntityCriterion.Conditions.create(ItemPredicate.Builder.create(), EntityPredicate.asLootContextPredicate(EntityPredicate.Builder.create().type(ModEntityTypes.PILOT_LIGHT).build())))
                 .build(consumer, "aylyth:aylyth/dont_look_back");
         Advancement.Builder.create()
                 .parent(dontLookBack)
@@ -101,7 +102,7 @@ public class AylythAdvancementProvider extends FabricAdvancementProvider {
         Advancement.Builder.create()
                 .parent(root)
                 .display(ModItems.SOUL_HEARTH, Text.translatable("aylyth.advancements.aylyth.something_between_life_and_death.title"), Text.translatable("aylyth.advancements.aylyth.something_between_life_and_death.desc"), null, AdvancementFrame.TASK, true, true, false)
-                .criterion("has_placed_soul_hearth", PlacedBlockCriterion.Conditions.block(ModBlocks.SOUL_HEARTH))
+                .criterion("has_placed_soul_hearth", ItemCriterion.Conditions.createPlacedBlock(ModBlocks.SOUL_HEARTH))
                 .build(consumer, "aylyth:aylyth/something_between_life_and_death");
         var meatFound = Advancement.Builder.create()
                 .parent(root)
@@ -111,7 +112,7 @@ public class AylythAdvancementProvider extends FabricAdvancementProvider {
         Advancement.Builder.create()
                 .parent(meatFound)
                 .display(ModItems.VITAL_THURIBLE, Text.translatable("aylyth.advancements.aylyth.flesh_increased_by_two.title"), Text.translatable("aylyth.advancements.aylyth.flesh_increased_by_two.desc"), null, AdvancementFrame.GOAL, true, true, false)
-                .criterion("has_placed_vital_thurible", PlacedBlockCriterion.Conditions.block(ModBlocks.VITAL_THURIBLE))
+                .criterion("has_placed_vital_thurible", ItemCriterion.Conditions.createPlacedBlock(ModBlocks.VITAL_THURIBLE))
                 .build(consumer, "aylyth:aylyth/flesh_increased_by_two");
         Advancement.Builder.create()
                 .parent(root)
@@ -129,7 +130,7 @@ public class AylythAdvancementProvider extends FabricAdvancementProvider {
         Advancement.Builder.create()
                 .parent(root)
                 .display(ModItems.GIRASOL_SEED, Text.translatable("aylyth.advancements.aylyth.see_you_in_the_trees.title"), Text.translatable("aylyth.advancements.aylyth.see_you_in_the_trees.desc"), null, AdvancementFrame.GOAL, true, true, false)
-                .criterion("has_placed_girasol_sapling", PlacedBlockCriterion.Conditions.block(ModBlocks.GIRASOL_SAPLING))
+                .criterion("has_placed_girasol_sapling", ItemCriterion.Conditions.createPlacedBlock(ModBlocks.GIRASOL_SAPLING))
                 .build(consumer, "aylyth:aylyth/see_you_in_the_trees");
     }
 

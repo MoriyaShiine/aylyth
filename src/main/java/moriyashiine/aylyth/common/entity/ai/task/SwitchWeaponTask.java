@@ -14,7 +14,7 @@ import net.minecraft.entity.ai.brain.LivingTargetCache;
 import net.minecraft.entity.ai.brain.MemoryModuleState;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.task.LookTargetUtil;
-import net.minecraft.entity.ai.brain.task.Task;
+import net.minecraft.entity.ai.brain.task.MultiTickTask;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.StackReference;
@@ -25,7 +25,7 @@ import net.minecraft.util.collection.DefaultedList;
 import java.util.*;
 import java.util.stream.Stream;
 
-public class SwitchWeaponTask extends Task<TulpaEntity> {
+public class SwitchWeaponTask extends MultiTickTask<TulpaEntity> {
     public SwitchWeaponTask() {
         super(ImmutableMap.of(
                 MemoryModuleType.VISIBLE_MOBS, MemoryModuleState.VALUE_PRESENT,
@@ -113,7 +113,7 @@ public class SwitchWeaponTask extends Task<TulpaEntity> {
     }
 
     private boolean isAttackTargetVisible(TulpaEntity entity) {
-        return entity.getBrain().getOptionalMemory(MemoryModuleType.VISIBLE_MOBS)
+        return entity.getBrain().getOptionalRegisteredMemory(MemoryModuleType.VISIBLE_MOBS)
                 .map(livingTargetCache -> livingTargetCache.contains(getAttackTarget(entity)))
                 .orElse(false);
     }

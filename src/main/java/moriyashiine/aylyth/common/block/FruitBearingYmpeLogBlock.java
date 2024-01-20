@@ -22,6 +22,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
+@SuppressWarnings("removal")
 public class FruitBearingYmpeLogBlock extends StrippableLogBlock {
 	public static final Property<Integer> AGE = IntProperty.of("age", 0, 4);
 	

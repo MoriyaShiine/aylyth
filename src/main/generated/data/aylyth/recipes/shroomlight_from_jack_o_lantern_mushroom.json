@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "#": {
       "item": "aylyth:jack_o_lantern_mushroom"
@@ -11,5 +12,6 @@
   ],
   "result": {
     "item": "minecraft:shroomlight"
-  }
+  },
+  "show_notification": true
 }

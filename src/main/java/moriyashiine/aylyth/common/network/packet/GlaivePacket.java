@@ -15,8 +15,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
-
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class GlaivePacket {
     public static final Identifier ID = new Identifier(Aylyth.MOD_ID, "glaive");
@@ -43,9 +42,9 @@ public class GlaivePacket {
                 f *= 0.2F + h * h * 0.8F;
                 g *= h;
                 f += g;
-                Entity crosshairTarget = player.world.getEntityById(entityId);
+                Entity crosshairTarget = player.getWorld().getEntityById(entityId);
                 if (crosshairTarget != null) {
-                    crosshairTarget.damage(ModDamageSources.SoulRipDamageSource.playerRip(player), f);
+                    crosshairTarget.damage(ModDamageSources.soulRip(player), f);
                 }
             }
 

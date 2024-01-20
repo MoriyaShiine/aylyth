@@ -8,8 +8,9 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Consumer;
@@ -38,16 +39,16 @@ public class YmpeDaggerRecipeJsonBuilder {
     }
 
     public void offerTo(Consumer<RecipeJsonProvider> exporter) {
-        this.offerTo(exporter, new Identifier(Aylyth.MOD_ID, "ympe_dagger_drops/%s_from_%s".formatted(Registry.ITEM.getId(output.getItem()).getPath(), Registry.ENTITY_TYPE.getId(entityType).getPath())));
+        this.offerTo(exporter, new Identifier(Aylyth.MOD_ID, "ympe_dagger_drops/%s_from_%s".formatted(Registries.ITEM.getId(output.getItem()).getPath(), Registries.ENTITY_TYPE.getId(entityType).getPath())));
     }
 
     public void offerTo(Consumer<RecipeJsonProvider> exporter, Identifier recipeId) {
         exporter.accept(new RecipeJsonProvider() {
             @Override
             public void serialize(JsonObject json) {
-                json.addProperty("entity_type", Registry.ENTITY_TYPE.getId(entityType).toString());
+                json.addProperty("entity_type", Registries.ENTITY_TYPE.getId(entityType).toString());
                 JsonObject obj = new JsonObject();
-                obj.addProperty("item", Registry.ITEM.getId(output.getItem()).toString());
+                obj.addProperty("item", Registries.ITEM.getId(output.getItem()).toString());
                 if (output.getCount() > 1) {
                     obj.addProperty("count", output.getCount());
                 }

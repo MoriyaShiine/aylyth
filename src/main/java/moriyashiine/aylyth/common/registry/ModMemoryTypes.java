@@ -2,9 +2,9 @@ package moriyashiine.aylyth.common.registry;
 
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -15,7 +15,7 @@ public class ModMemoryTypes {
     public static final MemoryModuleType<List<PlayerEntity>> PLEDGED_PLAYERS = register("nearest_pledged_players");
 
     private static <U> MemoryModuleType<U> register(String id) {
-        return Registry.register(Registry.MEMORY_MODULE_TYPE, new Identifier(id), new MemoryModuleType<>(Optional.empty()));
+        return Registry.register(Registries.MEMORY_MODULE_TYPE, new Identifier(id), new MemoryModuleType<>(Optional.empty()));
     }
 
     public static void init() {

@@ -1,14 +1,11 @@
 package moriyashiine.aylyth.client.particle;
 
 import moriyashiine.aylyth.common.registry.ModParticles;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.util.math.MathHelper;
 
-@Environment(EnvType.CLIENT)
 public class PilotLightParticle extends AbstractSlowingParticle {
 	protected boolean fadeIn = true;
 	protected float targetScale;
@@ -59,8 +56,7 @@ public class PilotLightParticle extends AbstractSlowingParticle {
 		}
 		return j | k << 16;
 	}
-	
-	@Environment(EnvType.CLIENT)
+
 	public static class AmbientFactory implements ParticleFactory<DefaultParticleType> {
 		private final SpriteProvider spriteProvider;
 		
@@ -79,8 +75,7 @@ public class PilotLightParticle extends AbstractSlowingParticle {
 			return particle;
 		}
 	}
-	
-	@Environment(EnvType.CLIENT)
+
 	public static class Factory implements ParticleFactory<DefaultParticleType> {
 		private final SpriteProvider spriteProvider;
 		

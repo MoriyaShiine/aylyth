@@ -37,7 +37,7 @@ public class PomegranateFoliagePlacer extends FoliagePlacer {
     }
 
     @Override
-    protected void generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, TreeFeatureConfig config, int trunkHeight, TreeNode treeNode, int foliageHeight, int radius, int offset) {
+    protected void generate(TestableWorld world, FoliagePlacer.BlockPlacer replacer, Random random, TreeFeatureConfig config, int trunkHeight, TreeNode treeNode, int foliageHeight, int radius, int offset) {
         Set<BlockPos> positions = Sets.newHashSet();
         if (treeNode instanceof DirectionalTreeNode pomeNode) {
             Direction dir = pomeNode.dir;
@@ -92,16 +92,16 @@ public class PomegranateFoliagePlacer extends FoliagePlacer {
         }
     }
 
-    private void placeFruitingFoliage(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, TreeFeatureConfig config, BlockPos pos) {
+    private void placeFruitingFoliage(TestableWorld world, FoliagePlacer.BlockPlacer replacer, Random random, TreeFeatureConfig config, BlockPos pos) {
         if (TreeFeature.canReplace(world, pos)) {
-            BlockState blockState = config.foliageProvider.getBlockState(random, pos);
+            BlockState blockState = config.foliageProvider.get(random, pos);
             if (blockState.contains(Properties.WATERLOGGED)) {
                 blockState = blockState.with(Properties.WATERLOGGED, world.testFluidState(pos, fluidState -> fluidState.isEqualAndStill(Fluids.WATER)));
             }
             if (blockState.contains(PomegranateLeavesBlock.FRUITING)) {
                 blockState = blockState.with(PomegranateLeavesBlock.FRUITING, random.nextInt(3)+1);
             }
-            replacer.accept(pos, blockState);
+            replacer.placeBlock(pos, blockState);
         }
     }
 

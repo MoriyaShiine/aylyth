@@ -6,10 +6,11 @@ import moriyashiine.aylyth.common.block.StrewnLeavesBlock;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.feature.Feature;
@@ -18,11 +19,11 @@ import net.minecraft.world.gen.feature.util.FeatureContext;
 
 public class LeafPileFeature extends Feature<LeafPileFeature.LeafPileConfig> {
     public LeafPileFeature() {
-        super(LeafPileFeature.LeafPileConfig.CODEC);
+        super(LeafPileConfig.CODEC);
     }
 
     @Override
-    public boolean generate(FeatureContext<LeafPileFeature.LeafPileConfig> context) {
+    public boolean generate(FeatureContext<LeafPileConfig> context) {
         Block testBlock = context.getConfig().testBlock;
         Block block = context.getConfig().block;
         StructureWorldAccess world = context.getWorld();
@@ -49,12 +50,12 @@ public class LeafPileFeature extends Feature<LeafPileFeature.LeafPileConfig> {
     }
 
     public static class LeafPileConfig implements FeatureConfig {
-        public static final Codec<LeafPileFeature.LeafPileConfig> CODEC = RecordCodecBuilder.create(strewnLeavesConfigInstance -> strewnLeavesConfigInstance
+        public static final Codec<LeafPileConfig> CODEC = RecordCodecBuilder.create(strewnLeavesConfigInstance -> strewnLeavesConfigInstance
                 .group(
-                        Registry.BLOCK.getCodec().fieldOf("test_block").forGetter(strewnLeavesConfig -> strewnLeavesConfig.testBlock),
-                        Registry.BLOCK.getCodec().fieldOf("block").forGetter(strewnLeavesConfig -> strewnLeavesConfig.block)
+                        Registries.BLOCK.getCodec().fieldOf("test_block").forGetter(strewnLeavesConfig -> strewnLeavesConfig.testBlock),
+                        Registries.BLOCK.getCodec().fieldOf("block").forGetter(strewnLeavesConfig -> strewnLeavesConfig.block)
                 )
-                .apply(strewnLeavesConfigInstance, LeafPileFeature.LeafPileConfig::new));
+                .apply(strewnLeavesConfigInstance, LeafPileConfig::new));
         public final Block testBlock;
         public final StrewnLeavesBlock block;
 

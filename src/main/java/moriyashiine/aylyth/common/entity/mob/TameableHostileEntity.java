@@ -6,9 +6,9 @@ import net.minecraft.entity.mob.GhastEntity;
 import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
-import javax.annotation.Nullable;
 
 public interface TameableHostileEntity {
     UUID getOwnerUuid();

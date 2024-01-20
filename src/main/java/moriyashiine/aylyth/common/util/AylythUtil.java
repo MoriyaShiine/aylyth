@@ -25,6 +25,7 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Identifier;
@@ -32,7 +33,6 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.TeleportTarget;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
@@ -77,21 +77,21 @@ public class AylythUtil {
 		while (world.isInBuildLimit(pos) && world.getBlockState(pos).shouldSuffocate(world, pos)) {
 			pos.setY(pos.getY() + 2);
 		}
-		if (world.getBlockState(pos).getMaterial().isReplaceable() && world.getFluidState(pos).getFluid() == Fluids.EMPTY) {
+		if (world.getBlockState(pos).isReplaceable() && world.getFluidState(pos).getFluid() == Fluids.EMPTY) {
 			return pos.toImmutable();
 		}
 		return getSafePosition(world, pos.set(MathHelper.nextInt(world.random, pos.getX() - 32, pos.getX() + 32) + 0.5, world.getTopY() - 1, MathHelper.nextInt(world.random, pos.getZ() - 32, pos.getZ() + 32) + 0.5), ++tries);
 	}
 
 	public static void teleportTo(LivingEntity living, ServerWorld newWorld, int tries) {
-		living.world.playSoundFromEntity(living instanceof PlayerEntity player ? player : null, living, ModSoundEvents.ENTITY_GENERIC_SHUCKED, SoundCategory.PLAYERS, 1, living.getSoundPitch());
+		living.getWorld().playSoundFromEntity(living instanceof PlayerEntity player ? player : null, living, ModSoundEvents.ENTITY_GENERIC_SHUCKED, SoundCategory.PLAYERS, 1, living.getSoundPitch());
 		FabricDimensions.teleport(living, newWorld, new TeleportTarget(Vec3d.of(AylythUtil.getSafePosition(newWorld, living.getBlockPos().mutableCopy(), tries)), Vec3d.ZERO, living.headYaw, living.getPitch()));
 		newWorld.playSoundFromEntity(null, living, ModSoundEvents.ENTITY_GENERIC_SHUCKED, SoundCategory.PLAYERS, 1, living.getSoundPitch());
 	}
 
 	public static void teleportTo(RegistryKey<World> world, LivingEntity living, int tries) {
-		living.world.playSoundFromEntity(living instanceof PlayerEntity player ? player : null, living, ModSoundEvents.ENTITY_GENERIC_SHUCKED, SoundCategory.PLAYERS, 1, living.getSoundPitch());
-		ServerWorld toWorld = living.world.getServer().getWorld(world);
+		living.getWorld().playSoundFromEntity(living instanceof PlayerEntity player ? player : null, living, ModSoundEvents.ENTITY_GENERIC_SHUCKED, SoundCategory.PLAYERS, 1, living.getSoundPitch());
+		ServerWorld toWorld = living.getWorld().getServer().getWorld(world);
 		FabricDimensions.teleport(living, toWorld, new TeleportTarget(Vec3d.of(AylythUtil.getSafePosition(toWorld, living.getBlockPos().mutableCopy(), tries)), Vec3d.ZERO, living.headYaw, living.getPitch()));
 		toWorld.playSoundFromEntity(null, living, ModSoundEvents.ENTITY_GENERIC_SHUCKED, SoundCategory.PLAYERS, 1, living.getSoundPitch());
 	}
@@ -105,7 +105,7 @@ public class AylythUtil {
 		for (int x = -radius; x <= radius; x++) {
 			for (int y = -radius; y <= radius; y++) {
 				for (int z = -radius; z <= radius; z++) {
-					if (livingEntity.world.getBlockState(mutable.set(livingEntity.getX() + x, livingEntity.getY() + y, livingEntity.getZ() + z)).isIn(ModTags.SEEPS)) {
+					if (livingEntity.getWorld().getBlockState(mutable.set(livingEntity.getX() + x, livingEntity.getY() + y, livingEntity.getZ() + z)).isIn(ModTags.SEEPS)) {
 						return true;
 					}
 				}
@@ -120,7 +120,7 @@ public class AylythUtil {
 			for (int y = -radius; y <= radius; y++) {
 				for (int z = -radius; z <= radius; z++) {
 					mutable.set(livingEntity.getX() + x, livingEntity.getY() + y, livingEntity.getZ() + z);
-					if (livingEntity.world.getBlockState(mutable).isIn(ModTags.SEEPS)) {
+					if (livingEntity.getWorld().getBlockState(mutable).isIn(ModTags.SEEPS)) {
 						return Math.sqrt(mutable.getSquaredDistance(livingEntity.getBlockPos().getX(), livingEntity.getBlockPos().getY(), livingEntity.getBlockPos().getZ()));
 					}
 				}
@@ -155,7 +155,7 @@ public class AylythUtil {
 						livingEntity.getMainHandStack().getItem() instanceof YmpeGlaiveItem)) {
 			return true;
 		}
-		return source == ModDamageSources.YMPE || source == ModDamageSources.YMPE_ENTITY;
+		return source.isOf(ModDamageSources.YMPE) || source.isOf(ModDamageSources.YMPE_ENTITY);
 	}
 
 	/**

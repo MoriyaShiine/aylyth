@@ -20,9 +20,11 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.UserCache;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.Random;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Matrix3f;
+import org.joml.Matrix4f;
 
-import javax.annotation.Nonnull;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
@@ -55,7 +57,7 @@ public class WoodyGrowthBlockEntityRenderer implements BlockEntityRenderer<Woody
                 matrices.scale(0.35f, 0.35f, 0.35f);
                 long gameTime = MinecraftClient.getInstance().world.getTime();
                 matrices.translate(0, Math.sin(MathHelper.lerp(tickDelta, gameTime-1, gameTime) / 10D) / 10D, 0);
-                matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(MathHelper.lerp(tickDelta, gameTime-1, gameTime)));
+                matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(MathHelper.lerp(tickDelta, gameTime-1, gameTime)));
                 matrices.translate(-0.5, -0.5, -0.5);
                 VertexConsumer buffer = vertexConsumers.getBuffer(RenderTypes.ENTITY_NO_OUTLINE_DEPTH_FIX.apply(texture));
                 renderBox(matrices, buffer, light, overlay);
@@ -73,7 +75,7 @@ public class WoodyGrowthBlockEntityRenderer implements BlockEntityRenderer<Woody
         return null;
     }
 
-    public static Identifier getPlayerTexture(@Nonnull UUID playerUuid) {
+    public static Identifier getPlayerTexture(@NotNull UUID playerUuid) {
         PlayerSkinProvider skinProvider = MinecraftClient.getInstance().getSkinProvider();
         AtomicReference<GameProfile> profile = new AtomicReference<>(new GameProfile(playerUuid, null));
         UserCache cache = SkullBlockEntityAccessor.getUserCache();

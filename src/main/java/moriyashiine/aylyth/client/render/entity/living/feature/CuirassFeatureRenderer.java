@@ -47,7 +47,7 @@ public class CuirassFeatureRenderer extends FeatureRenderer<AbstractClientPlayer
             } else {
                  model = MODELS[4];
             }
-            getContextModel().setAttributes(model);
+            getContextModel().copyBipedStateTo(model);
             model.adjustArmPivots(slim);
             model.render(matrices, vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(TEXTURE)), light, OverlayTexture.DEFAULT_UV, 1, 1, 1, 1);
         }

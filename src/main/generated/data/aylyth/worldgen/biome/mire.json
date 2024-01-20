@@ -38,7 +38,7 @@
       "minecraft:patch_grass_badlands"
     ]
   ],
-  "precipitation": "rain",
+  "has_precipitation": true,
   "spawn_costs": {
     "aylyth:aylythian": {
       "charge": 0.7,

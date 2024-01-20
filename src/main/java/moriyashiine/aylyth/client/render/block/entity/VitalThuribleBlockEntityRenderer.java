@@ -8,10 +8,11 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.model.json.ModelTransformation;
+import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Util;
-import net.minecraft.util.math.Vec3f;
+import net.minecraft.util.math.RotationAxis;
 
 import java.util.Map;
 
@@ -41,8 +42,8 @@ public class VitalThuribleBlockEntityRenderer implements BlockEntityRenderer<Vit
     private void renderStack(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, float x, float y, float z, int rot, ItemStack stack) {
         matrices.translate(x, y, z);
         matrices.scale(1 / 2.5f, 1 / 2.5f, 1 / 2.5f);
-        matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(90));
-        matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(rot));
-        MinecraftClient.getInstance().getItemRenderer().renderItem(stack, ModelTransformation.Mode.FIXED, light, overlay, matrices, vertexConsumers, 0);
+        matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(90));
+        matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(rot));
+        MinecraftClient.getInstance().getItemRenderer().renderItem(stack, ModelTransformationMode.FIXED, light, overlay, matrices, vertexConsumers, null, 0);
     }
 }

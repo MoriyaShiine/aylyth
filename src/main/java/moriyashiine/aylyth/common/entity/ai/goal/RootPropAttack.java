@@ -75,17 +75,17 @@ public class RootPropAttack extends Goal {
     }
 
     private void spawnRoot(double x, double z, double maxY, double y, float yaw, int warmup) {
-        BlockPos blockPos = new BlockPos(x, y, z);
+        BlockPos blockPos = BlockPos.ofFloored(x, y, z);
         boolean bl = false;
         double d = 0.0;
 
         do {
             BlockPos blockPos2 = blockPos.down();
-            BlockState blockState = mob.world.getBlockState(blockPos2);
-            if (blockState.isSideSolidFullSquare(mob.world, blockPos2, Direction.UP)) {
-                if (!mob.world.isAir(blockPos)) {
-                    BlockState blockState2 = mob.world.getBlockState(blockPos);
-                    VoxelShape voxelShape = blockState2.getCollisionShape(mob.world, blockPos);
+            BlockState blockState = mob.getWorld().getBlockState(blockPos2);
+            if (blockState.isSideSolidFullSquare(mob.getWorld(), blockPos2, Direction.UP)) {
+                if (!mob.getWorld().isAir(blockPos)) {
+                    BlockState blockState2 = mob.getWorld().getBlockState(blockPos);
+                    VoxelShape voxelShape = blockState2.getCollisionShape(mob.getWorld(), blockPos);
                     if (!voxelShape.isEmpty()) {
                         d = voxelShape.getMax(Direction.Axis.Y);
                     }
@@ -99,7 +99,7 @@ public class RootPropAttack extends Goal {
         } while(blockPos.getY() >= MathHelper.floor(maxY) - 1);
 
         if (bl) {
-            mob.world.spawnEntity(new RootPropEntity(mob.world, x, (double)blockPos.getY() + d, z, yaw, warmup, mob));
+            mob.getWorld().spawnEntity(new RootPropEntity(mob.getWorld(), x, (double)blockPos.getY() + d, z, yaw, warmup, mob));
         }
 
     }

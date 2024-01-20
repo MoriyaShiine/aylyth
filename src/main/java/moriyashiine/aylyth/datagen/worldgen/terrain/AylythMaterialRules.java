@@ -3,7 +3,9 @@ package moriyashiine.aylyth.datagen.worldgen.terrain;
 import moriyashiine.aylyth.common.registry.ModBiomeKeys;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.math.VerticalSurfaceType;
+import net.minecraft.util.math.noise.DoublePerlinNoiseSampler;
 import net.minecraft.world.gen.YOffset;
 import net.minecraft.world.gen.surfacebuilder.MaterialRules;
 
@@ -12,7 +14,7 @@ import static moriyashiine.aylyth.datagen.worldgen.terrain.AylythNoiseTypes.PODZ
 
 public class AylythMaterialRules extends MaterialRules {
 
-    static MaterialRules.MaterialRule materialRules() {
+    static MaterialRule materialRules() {
         var dirt = block(Blocks.DIRT);
         var grass = block(Blocks.GRASS_BLOCK);
         var onReplaceWithGrass = condition(water(0, 0), grass);
@@ -53,16 +55,16 @@ public class AylythMaterialRules extends MaterialRules {
         return condition(biome(ModBiomeKeys.BOWELS_ID), sequence(condition(stoneDepth(0, false, 0, VerticalSurfaceType.FLOOR), condition(water(0, 0), noiseBlock(AylythNoiseTypes.BOWELS_SOUL_SAND, Blocks.SOUL_SAND, 0.6, Double.MAX_VALUE))), condition(waterWithStoneDepth(-6, -1), condition(stoneDepth(0, true, 0, VerticalSurfaceType.FLOOR), block(Blocks.SOUL_SOIL)))));
     }
 
-    static MaterialRule podzol(AylythNoiseTypes.NoiseRegistryPair noise, double min, double max) {
-        return condition(noiseThreshold(noise.registryKey, min, max), block(Blocks.PODZOL));
+    static MaterialRule podzol(RegistryKey<DoublePerlinNoiseSampler.NoiseParameters> noise, double min, double max) {
+        return condition(noiseThreshold(noise, min, max), block(Blocks.PODZOL));
     }
 
-    static MaterialRule noiseBlock(AylythNoiseTypes.NoiseRegistryPair noise, Block block, double min, double max) {
-        return condition(noiseThreshold(noise.registryKey, min, max), block(block));
+    static MaterialRule noiseBlock(RegistryKey<DoublePerlinNoiseSampler.NoiseParameters> noise, Block block, double min, double max) {
+        return condition(noiseThreshold(noise, min, max), block(block));
     }
 
     static MaterialRule surfaceNoiseBlock(Block block, double min, double max) {
-        return condition(noiseThreshold(AylythNoiseTypes.SURFACE.registryKey, min, max), block(block));
+        return condition(noiseThreshold(AylythNoiseTypes.SURFACE, min, max), block(block));
     }
 
     static MaterialRule block(Block block) {

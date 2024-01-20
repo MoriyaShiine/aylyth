@@ -34,5 +34,6 @@
     [
       "has_ympe_infestation"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

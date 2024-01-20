@@ -3,7 +3,12 @@
   "criteria": {
     "has_placed_soul_hearth": {
       "conditions": {
-        "block": "aylyth:soul_hearth"
+        "location": [
+          {
+            "block": "aylyth:soul_hearth",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
       },
       "trigger": "minecraft:placed_block"
     }
@@ -27,5 +32,6 @@
     [
       "has_placed_soul_hearth"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

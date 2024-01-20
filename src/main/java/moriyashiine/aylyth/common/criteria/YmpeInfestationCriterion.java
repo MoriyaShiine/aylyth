@@ -13,6 +13,7 @@ import net.minecraft.advancement.criterion.AbstractCriterionConditions;
 import net.minecraft.predicate.entity.AdvancementEntityPredicateDeserializer;
 import net.minecraft.predicate.entity.AdvancementEntityPredicateSerializer;
 import net.minecraft.predicate.entity.EntityPredicate;
+import net.minecraft.predicate.entity.LootContextPredicate;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.intprovider.IntProvider;
@@ -21,7 +22,7 @@ public class YmpeInfestationCriterion extends AbstractCriterion<YmpeInfestationC
     static final Identifier ID = AylythUtil.id("ympe_infestation");
 
     @Override
-    protected YmpeInfestationCriterion.Conditions conditionsFromJson(JsonObject obj, EntityPredicate.Extended playerPredicate, AdvancementEntityPredicateDeserializer predicateDeserializer) {
+    protected Conditions conditionsFromJson(JsonObject obj, LootContextPredicate playerPredicate, AdvancementEntityPredicateDeserializer predicateDeserializer) {
         IntProvider stage = IntProvider.VALUE_CODEC.decode(JsonOps.INSTANCE, obj.get("stage")).result().get().getFirst();
         return new Conditions(playerPredicate, stage);
     }
@@ -39,13 +40,13 @@ public class YmpeInfestationCriterion extends AbstractCriterion<YmpeInfestationC
 
         private final IntProvider stage;
 
-        public Conditions(EntityPredicate.Extended entity, IntProvider stage) {
+        public Conditions(LootContextPredicate entity, IntProvider stage) {
             super(ID, entity);
             this.stage = stage;
         }
 
         public static Conditions create(IntProvider stage) {
-            return new Conditions(EntityPredicate.Extended.EMPTY, stage);
+            return new Conditions(LootContextPredicate.EMPTY, stage);
         }
 
         public boolean matches(ServerPlayerEntity player) {

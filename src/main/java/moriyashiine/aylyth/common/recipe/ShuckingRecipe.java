@@ -4,10 +4,12 @@ import com.google.gson.JsonObject;
 import moriyashiine.aylyth.common.registry.ModItems;
 import moriyashiine.aylyth.common.registry.ModRecipeTypes;
 import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.inventory.RecipeInputInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.ShapelessRecipe;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.random.Random;
@@ -16,11 +18,11 @@ public class ShuckingRecipe extends ShapelessRecipe {
 	private static final Random RANDOM = Random.create();
 	
 	public ShuckingRecipe(ShapelessRecipe recipe) {
-		super(recipe.getId(), recipe.getGroup(), recipe.getOutput(), recipe.getIngredients());
+		super(recipe.getId(), recipe.getGroup(), recipe.getCategory(), recipe.getOutput(DynamicRegistryManager.EMPTY), recipe.getIngredients());
 	}
 	
 	@Override
-	public DefaultedList<ItemStack> getRemainder(CraftingInventory inventory) {
+	public DefaultedList<ItemStack> getRemainder(RecipeInputInventory inventory) {
 		DefaultedList<ItemStack> defaultedList = DefaultedList.ofSize(inventory.size(), ItemStack.EMPTY);
 		for (int i = 0; i < defaultedList.size(); i++) {
 			ItemStack stack = inventory.getStack(i);

@@ -43,7 +43,7 @@ public class HindSpecificSensor extends Sensor<WreathedHindEntity> {
 
         Optional<HostileEntity> optional2 = Optional.empty();
         if(brain.hasMemoryModule(ModMemoryTypes.PLEDGED_PLAYERS)){
-            LivingTargetCache livingTargetCache = brain.getOptionalMemory(MemoryModuleType.VISIBLE_MOBS).orElse(LivingTargetCache.empty());
+            LivingTargetCache livingTargetCache = brain.getOptionalRegisteredMemory(MemoryModuleType.VISIBLE_MOBS).orElse(LivingTargetCache.empty());
             for(LivingEntity livingEntity : livingTargetCache.iterate(livingEntity -> true)) {
                 if (livingEntity instanceof HostileEntity hostileEntity) {
                     if (optional2.isEmpty()) {

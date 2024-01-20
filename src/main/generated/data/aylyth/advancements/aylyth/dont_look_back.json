@@ -36,5 +36,6 @@
     [
       "has_interacted_with_pilot_light"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

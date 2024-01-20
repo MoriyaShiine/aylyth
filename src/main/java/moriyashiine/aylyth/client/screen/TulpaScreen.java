@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.common.entity.mob.TulpaEntity;
 import moriyashiine.aylyth.common.screenhandler.TulpaScreenHandler;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.client.render.GameRenderer;
@@ -26,30 +27,28 @@ public class TulpaScreen extends HandledScreen<TulpaScreenHandler> {
         super(handler, inventory, title);
         this.titleX = 80;
         this.playerInventoryTitleX = 100;
-        this.passEvents = false;
         this.player = inventory.player;
         this.tulpaEntity = handler.tulpaEntity;
     }
 
     @Override
-    protected void drawForeground(MatrixStack matrixStack, int x, int y) {
+    protected void drawForeground(DrawContext matrixStack, int x, int y) {
         super.drawForeground(matrixStack, x, y);
     }
 
     @Override
-    protected void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+    protected void drawBackground(DrawContext matrices, float delta, int mouseX, int mouseY) {
+        RenderSystem.setShader(GameRenderer::getPositionTexProgram);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.setShaderTexture(0, TULPA_GUI_TEXTURES);
         int i = (this.width - this.backgroundWidth) / 2;
         int j = (this.height - this.backgroundHeight) / 2;
-        this.drawTexture(matrices, i, j, 0, 0, this.backgroundWidth, this.backgroundHeight);
-        InventoryScreen.drawEntity(i + 51, j + 75, 30, (float) (i + 51) - this.mousePosX, (float) (j + 75 - 50) - this.mousePosY, this.tulpaEntity);
+        matrices.drawTexture(TULPA_GUI_TEXTURES, i, j, 0, 0, this.backgroundWidth, this.backgroundHeight);
+        InventoryScreen.drawEntity(matrices, i + 51, j + 75, 30, (float) (i + 51) - this.mousePosX, (float) (j + 75 - 50) - this.mousePosY, this.tulpaEntity);
 
     }
 
     @Override
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+    public void render(DrawContext matrixStack, int mouseX, int mouseY, float partialTicks) {
         this.renderBackground(matrixStack);
         this.mousePosX = (float) mouseX;
         this.mousePosY = (float) mouseY;

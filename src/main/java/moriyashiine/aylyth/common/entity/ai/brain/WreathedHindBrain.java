@@ -76,7 +76,7 @@ public class WreathedHindBrain {
                         new StayAboveWaterTask(0.6f),
                         new LookAroundTask(45, 90),
                         new WanderAroundTask(),
-                        new UpdateAttackTargetTask<>(WreathedHindBrain::getAttackTarget)
+                        UpdateAttackTargetTask.create(WreathedHindBrain::getAttackTarget)
                 )
         );
     }
@@ -87,11 +87,11 @@ public class WreathedHindBrain {
                 ImmutableList.of(
                         Pair.of(0, new RandomTask<>(
                                 ImmutableList.of(
-                                        Pair.of(new StrollTask(0.6F), 2),
-                                        Pair.of(new ConditionalTask<>(livingEntity -> true, new GoTowardsLookTarget(0.6F, 3)), 2),
+                                        Pair.of(StrollTask.create(0.6F), 2),
+                                        Pair.of(GoTowardsLookTargetTask.create(0.6F, 3), 2),
                                         Pair.of(new WaitTask(30, 60), 1)
                                 ))),
-                        Pair.of(2, new UpdateAttackTargetTask<>(e -> true, hind -> hind.getBrain().getOptionalMemory(MemoryModuleType.NEAREST_ATTACKABLE)))
+                        Pair.of(2, UpdateAttackTargetTask.create(e -> true, hind -> hind.getBrain().getOptionalRegisteredMemory(MemoryModuleType.NEAREST_ATTACKABLE)))
                 )
         );
     }
@@ -99,8 +99,8 @@ public class WreathedHindBrain {
     private static void addFightActivities(WreathedHindEntity wreathedHindEntity, Brain<WreathedHindEntity> brain) {
         brain.setTaskList(Activity.FIGHT, 10,
                 ImmutableList.of(
-                        new ForgetAttackTargetTask<>(entity -> !isPreferredAttackTarget(wreathedHindEntity, entity), BrainUtils::setTargetInvalid, false),
-                        new FollowMobTask(mob -> BrainUtils.isTarget(wreathedHindEntity, mob), (float)wreathedHindEntity.getAttributeValue(EntityAttributes.GENERIC_FOLLOW_RANGE)),
+                        ForgetAttackTargetTask.create(entity -> !isPreferredAttackTarget(wreathedHindEntity, entity), BrainUtils::setTargetInvalid, false),
+                        LookAtMobTask.create(mob -> BrainUtils.isTarget(wreathedHindEntity, mob), (float)wreathedHindEntity.getAttributeValue(EntityAttributes.GENERIC_FOLLOW_RANGE)),
                         new GeckoMeleeAttackTask<>(WreathedHindBrain::shouldRunTask, WreathedHindBrain::onRunTask, WreathedHindBrain::onFinishRunningTask, 10,20 * 2,20 * 0.7D),
                         new RevengeTask(),
                         new BoltRangedAttackTask()
@@ -144,7 +144,7 @@ public class WreathedHindBrain {
             return optional;
         }
         if (brain.hasMemoryModule(MemoryModuleType.VISIBLE_MOBS)) {
-            Optional<LivingTargetCache> visibleLivingEntitiesCache = wreathedHindEntity.getBrain().getOptionalMemory(MemoryModuleType.VISIBLE_MOBS);
+            Optional<LivingTargetCache> visibleLivingEntitiesCache = wreathedHindEntity.getBrain().getOptionalRegisteredMemory(MemoryModuleType.VISIBLE_MOBS);
             /*
             if(wreathedHindEntity.getActionState() == 2){
                 return visibleLivingEntitiesCache.get().findFirst(entity -> !entity.isSubmergedInWater() && wreathedHindEntity.getOwnerUuid() != entity.getUuid());
@@ -152,7 +152,7 @@ public class WreathedHindBrain {
 
              */
         }
-        Optional<List<PlayerEntity>> pledgedPlayer = wreathedHindEntity.getBrain().getOptionalMemory(ModMemoryTypes.PLEDGED_PLAYERS);
+        Optional<List<PlayerEntity>> pledgedPlayer = wreathedHindEntity.getBrain().getOptionalRegisteredMemory(ModMemoryTypes.PLEDGED_PLAYERS);
         if(pledgedPlayer.isPresent()){
             for(PlayerEntity player : pledgedPlayer.get()){
                 if(player.getHealth() <= 6){

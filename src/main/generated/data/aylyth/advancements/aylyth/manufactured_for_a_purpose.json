@@ -33,5 +33,6 @@
     [
       "has_coric_seed"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

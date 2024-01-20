@@ -2,18 +2,17 @@ package moriyashiine.aylyth.datagen;
 
 import com.google.common.collect.Maps;
 import moriyashiine.aylyth.common.block.*;
-import moriyashiine.aylyth.common.lootcondition.ScionIsPlayerLootCondition;
 import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.ModEntityTypes;
 import moriyashiine.aylyth.common.registry.ModItems;
 import moriyashiine.aylyth.common.registry.util.WoodSuite;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.enums.DoubleBlockHalf;
-import net.minecraft.data.server.BlockLootTableGenerator;
+import net.minecraft.data.server.loottable.vanilla.VanillaBlockLootTableGenerator;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -21,20 +20,17 @@ import net.minecraft.item.Items;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.condition.*;
-import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.loot.entry.*;
 import net.minecraft.loot.function.LootingEnchantLootFunction;
 import net.minecraft.loot.function.SetCountLootFunction;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
-import net.minecraft.predicate.NbtPredicate;
 import net.minecraft.predicate.NumberRange;
 import net.minecraft.predicate.StatePredicate;
-import net.minecraft.predicate.entity.EntityEquipmentPredicate;
-import net.minecraft.predicate.entity.EntityPredicate;
 import net.minecraft.predicate.item.EnchantmentPredicate;
 import net.minecraft.predicate.item.ItemPredicate;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.util.Identifier;
 
 import java.util.Map;
@@ -49,23 +45,18 @@ public class AylythLootTableProviders {
     private static final LootCondition.Builder WITH_SILK_TOUCH_OR_SHEARS = WITH_SHEARS.or(WITH_SILK_TOUCH);
     private static final LootCondition.Builder WITHOUT_SILK_TOUCH_NOR_SHEARS = WITH_SILK_TOUCH_OR_SHEARS.invert();
 
-    public static void registerProviders(FabricDataGenerator dataGenerator) {
-        dataGenerator.addProvider(BlockLoot::new);
-        dataGenerator.addProvider(EntityLoot::new);
-    }
-
     public static class BlockLoot extends FabricBlockLootTableProvider {
 
         private final LootCondition.Builder withSilkTouch = MatchToolLootCondition.builder(ItemPredicate.Builder.create().enchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, NumberRange.IntRange.atLeast(1))));
 
-        protected BlockLoot(FabricDataGenerator dataGenerator) {
+        protected BlockLoot(FabricDataOutput dataGenerator) {
             super(dataGenerator);
         }
 
         @Override
-        protected void generateBlockLootTables() {
+        public void generate() {
             addDrop(ModBlocks.MARIGOLD);
-            addPottedPlantDrop(ModBlocks.MARIGOLD_POTTED);
+            addPottedPlantDrops(ModBlocks.MARIGOLD_POTTED);
             addDrop(ModBlocks.OAK_STREWN_LEAVES, this::strewnLeaves);
             addDrop(ModBlocks.YMPE_STREWN_LEAVES, this::strewnLeaves);
             addDrop(ModBlocks.JACK_O_LANTERN_MUSHROOM, this::standingJackolantern);
@@ -74,9 +65,9 @@ public class AylythLootTableProviders {
             woodSuiteDrops(ModBlocks.POMEGRANATE_BLOCKS);
             addDrop(ModBlocks.POMEGRANATE_LEAVES, block -> pomegranateLeavesDrop(block, ModBlocks.POMEGRANATE_BLOCKS.sapling, 0.05f, 0.0625f, 0.083333336f, 0.1f));
             woodSuiteDrops(ModBlocks.WRITHEWOOD_BLOCKS);
-            addDrop(ModBlocks.WRITHEWOOD_LEAVES, block -> leavesDrop(block, ModBlocks.WRITHEWOOD_BLOCKS.sapling, 0.05f, 0.0625f, 0.083333336f, 0.1f));
+            addDrop(ModBlocks.WRITHEWOOD_LEAVES, block -> leavesDrops(block, ModBlocks.WRITHEWOOD_BLOCKS.sapling, 0.05f, 0.0625f, 0.083333336f, 0.1f));
             addDrop(ModBlocks.VITAL_THURIBLE);
-            addDrop(ModBlocks.SOUL_HEARTH, BlockLootTableGenerator::doorDrops);
+            addDrop(ModBlocks.SOUL_HEARTH, this::doorDrops);
             addDrop(ModBlocks.WOODY_GROWTH_CACHE, this::woodyGrowthCaches);
             addDrop(ModBlocks.SMALL_WOODY_GROWTH);
             addDrop(ModBlocks.LARGE_WOODY_GROWTH, this::woodyGrowths);
@@ -91,16 +82,16 @@ public class AylythLootTableProviders {
             addDrop(suite.log);
             addDrop(suite.wood);
             addDrop(suite.sapling);
-            addPottedPlantDrop(suite.pottedSapling);
+            addPottedPlantDrops(suite.pottedSapling);
             addDrop(suite.planks);
             addDrop(suite.stairs);
-            addDrop(suite.slab, BlockLootTableGenerator::slabDrops);
+            addDrop(suite.slab, this::slabDrops);
             addDrop(suite.fence);
             addDrop(suite.fenceGate);
             addDrop(suite.pressurePlate);
             addDrop(suite.button);
             addDrop(suite.trapdoor);
-            addDrop(suite.door, BlockLootTableGenerator::doorDrops);
+            addDrop(suite.door, this::doorDrops);
             addDrop(suite.floorSign);
             addDrop(suite.wallSign);
         }
@@ -157,15 +148,15 @@ public class AylythLootTableProviders {
         }
 
         private LootTable.Builder pomegranateLeavesDrop(Block leaves, Block drop, float ... chance) {
-            return BlockLootTableGenerator
-                    .dropsWithSilkTouchOrShears(leaves, BlockLootTableGenerator.addSurvivesExplosionCondition(leaves, ItemEntry.builder(drop))
+            return VanillaBlockLootTableGenerator
+                    .dropsWithSilkTouchOrShears(leaves, addSurvivesExplosionCondition(leaves, ItemEntry.builder(drop))
                             .conditionally(TableBonusLootCondition.builder(Enchantments.FORTUNE, chance)))
                     .pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0f))
                             .conditionally(WITHOUT_SILK_TOUCH_NOR_SHEARS)
-                            .with(BlockLootTableGenerator.applyExplosionDecay(leaves, ItemEntry.builder(Items.STICK)
+                            .with(applyExplosionDecay(leaves, ItemEntry.builder(Items.STICK)
                                                                                             .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 2.0f))))
                                     .conditionally(TableBonusLootCondition.builder(Enchantments.FORTUNE, 0.02f, 0.022222223f, 0.025f, 0.033333335f, 0.1f)))
-                            .with(BlockLootTableGenerator.applyExplosionDecay(leaves, ItemEntry.builder(ModItems.POMEGRANATE)
+                            .with(applyExplosionDecay(leaves, ItemEntry.builder(ModItems.POMEGRANATE)
                                                                                                 .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 2.0f))))
                                     .conditionally(BlockStatePropertyLootCondition.builder(leaves).properties(StatePredicate.Builder.create().exactMatch(PomegranateLeavesBlock.FRUITING, 3)))));
         }
@@ -191,10 +182,10 @@ public class AylythLootTableProviders {
                                                             .exactMatch(StrewnLeavesBlock.LEAVES, integer)
                                                     )
                                             )
-                                            .conditionally(AlternativeLootCondition.builder(
+                                            .conditionally(AnyOfLootCondition.builder(
                                                     withSilkTouch,
-                                                    MatchToolLootCondition.builder(ItemPredicate.Builder.create().items(Items.SHEARS)),
-                                                    MatchToolLootCondition.builder(ItemPredicate.Builder.create().tag(ConventionalItemTags.HOES))
+                                                    MatchToolLootCondition.builder(ItemPredicate.Builder.create().tag(ConventionalItemTags.SHEARS)),
+                                                    MatchToolLootCondition.builder(ItemPredicate.Builder.create().tag(ItemTags.HOES))
                                                     )
                                             )
                             )
@@ -207,7 +198,7 @@ public class AylythLootTableProviders {
 
         private final Map<Identifier, LootTable.Builder> loot = Maps.newHashMap();
 
-        public EntityLoot(FabricDataGenerator dataGenerator) {
+        public EntityLoot(FabricDataOutput dataGenerator) {
             super(dataGenerator, LootContextTypes.ENTITY);
         }
 
