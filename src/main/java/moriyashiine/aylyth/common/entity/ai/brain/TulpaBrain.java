@@ -154,7 +154,7 @@ public class TulpaBrain {
         if (brain.hasMemoryModule(MemoryModuleType.VISIBLE_MOBS)) {
             LivingTargetCache visibleLivingEntitiesCache = tulpaEntity.getBrain().getOptionalMemory(MemoryModuleType.VISIBLE_MOBS).get();
             if(tulpaEntity.getActionState() == TulpaEntity.ActionState.SICKO) {
-                return visibleLivingEntitiesCache.findFirst(entity -> !entity.isSubmergedInWater() && tulpaEntity.isOwner(entity));
+                return visibleLivingEntitiesCache.findFirst(entity -> !entity.isSubmergedInWater() && !tulpaEntity.isOwner(entity));
             }
         }
         return Optional.empty();
