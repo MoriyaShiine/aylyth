@@ -195,5 +195,12 @@
   "item.minecraft.tipped_arrow.effect.mortechis": "Arrow of Mortechis",
   "item.minecraft.tipped_arrow.effect.wyrded": "Arrow of Wyrded",
   "itemGroup.aylyth.aylyth": "Aylyth",
-  "rei.aylyth.ympe_dagger_drops": "Ympe Dagger Drops"
+  "rei.aylyth.ympe_dagger_drops": "Ympe Dagger Drops",
+  "tag.aylyth.pledge_items": "Pledge Items",
+  "tag.aylyth.pomegranate_logs": "Pomegranate Logs",
+  "tag.aylyth.seeps": "Logs with Seep",
+  "tag.aylyth.woody_growths": "Woody Growths",
+  "tag.aylyth.writhewood_logs": "Writhewood Logs",
+  "tag.aylyth.ympe_foods": "Ympe Foods",
+  "tag.aylyth.ympe_logs": "Ympe Logs"
 }

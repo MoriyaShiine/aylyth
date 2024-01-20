@@ -200,6 +200,13 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         // COMPAT - EMI
 
         builder.add("emi.category.aylyth.ympe_dagger_drops", "Ympe Dagger Drops");
+        builder.add("tag.aylyth.ympe_logs", "Ympe Logs");
+        builder.add("tag.aylyth.pomegranate_logs", "Pomegranate Logs");
+        builder.add("tag.aylyth.writhewood_logs", "Writhewood Logs");
+        builder.add("tag.aylyth.woody_growths", "Woody Growths");
+        builder.add("tag.aylyth.ympe_foods", "Ympe Foods");
+        builder.add("tag.aylyth.pledge_items", "Pledge Items");
+        builder.add("tag.aylyth.seeps", "Logs with Seep");
     }
 
     private void potionSet(TranslationBuilder builder, String effectName) {
