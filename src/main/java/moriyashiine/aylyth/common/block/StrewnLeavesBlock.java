@@ -1,6 +1,7 @@
 package moriyashiine.aylyth.common.block;
 
 import moriyashiine.aylyth.common.registry.ModSoundEvents;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalEntityTypeTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -9,6 +10,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.vehicle.BoatEntity;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.ItemStack;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.StateManager;
@@ -45,13 +47,12 @@ public class StrewnLeavesBlock extends Block implements IContextBlockSoundGroup 
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (player.getStackInHand(hand).getItem() instanceof BlockItem blockItem) {
+        ItemStack stack = player.getStackInHand(hand);
+        if (stack.getItem() instanceof BlockItem blockItem) {
             if (blockItem.getBlock().equals(this) && state.get(LEAVES) < 7) {
                 world.setBlockState(pos, state.with(LEAVES, state.get(LEAVES)+1));
                 world.playSound(null, pos, ModSoundEvents.BLOCK_STREWN_LEAVES_STEP, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                if (!player.getAbilities().creativeMode) {
-                    player.getStackInHand(hand).decrement(1);
-                }
+                AylythUtil.decreaseStack(stack, player);
                 return ActionResult.success(world.isClient);
             }
         }

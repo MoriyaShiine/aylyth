@@ -155,6 +155,7 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
 
         builder.add("death.attack.ympe", "%1$s has gone to the trees");
         builder.add("death.attack.ympe.player", "%1$s has gone to the trees whilst trying to escape %2$s");
+        builder.add("death.attack.wreathed_hind.killing_blow", "%1$s's mutual agreement was betrayed");
 
         // SUBTITLES
 

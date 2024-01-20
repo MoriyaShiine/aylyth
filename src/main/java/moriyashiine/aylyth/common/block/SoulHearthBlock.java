@@ -5,6 +5,7 @@ import com.google.common.collect.UnmodifiableIterator;
 import moriyashiine.aylyth.common.block.entity.SoulHearthBlockEntity;
 import moriyashiine.aylyth.common.registry.ModDimensionKeys;
 import moriyashiine.aylyth.common.registry.ModItems;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.enums.DoubleBlockHalf;
@@ -70,9 +71,7 @@ public class SoulHearthBlock extends Block implements BlockEntityProvider {
             return ActionResult.PASS;
         } else if (isChargeItem(itemStack) && canCharge(state)) {
             charge(world, pos, state);
-            if (!player.getAbilities().creativeMode) {
-                itemStack.decrement(1);
-            }
+            AylythUtil.decreaseStack(itemStack, player);
             if (!world.isClient) {
                 ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity)player;
                 serverPlayerEntity.setSpawnPoint(world.getRegistryKey(), pos, 0.0F, true, true);
