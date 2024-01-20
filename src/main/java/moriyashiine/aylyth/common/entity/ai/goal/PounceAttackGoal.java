@@ -17,7 +17,7 @@ public class PounceAttackGoal extends Goal {
     public PounceAttackGoal(FaunaylythianEntity faunaylythian, float velocity) {
         this.faunaylythian = faunaylythian;
         this.velocity = velocity;
-        this.setControls(EnumSet.of(Goal.Control.JUMP, Goal.Control.MOVE));
+        this.setControls(EnumSet.of(Control.JUMP, Control.MOVE));
     }
 
     @Override

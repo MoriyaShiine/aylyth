@@ -26,7 +26,7 @@ public class AylythianHeartItem extends Item {
 	public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
 		if (user.isSneaking()) {
 			if (user.isCreative() || user.experienceLevel >= 5) {
-				if (user.world.getRegistryKey() != ModDimensionKeys.AYLYTH) {
+				if (user.getWorld().getRegistryKey() != ModDimensionKeys.AYLYTH) {
 					return ItemUsage.consumeHeldItem(world, user, hand);
 				}
 			}

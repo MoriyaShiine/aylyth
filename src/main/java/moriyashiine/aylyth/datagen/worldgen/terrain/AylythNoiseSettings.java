@@ -4,9 +4,9 @@ import moriyashiine.aylyth.common.Aylyth;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.registry.*;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.BuiltinRegistries;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.util.math.noise.DoublePerlinNoiseSampler;
 import net.minecraft.world.biome.source.util.MultiNoiseUtil;
 import net.minecraft.world.gen.chunk.ChunkGeneratorSettings;
 import net.minecraft.world.gen.chunk.GenerationShapeConfig;
@@ -17,24 +17,25 @@ import net.minecraft.world.gen.surfacebuilder.MaterialRules;
 import java.util.List;
 
 import static moriyashiine.aylyth.datagen.worldgen.terrain.AylythDensityFunctionTypes.*;
+import static moriyashiine.aylyth.datagen.worldgen.terrain.AylythDensityFunctionTypes.CAVES_PILLARS_FUNCTION_KEY;
 import static moriyashiine.aylyth.datagen.worldgen.terrain.AylythNoiseTypes.*;
 import static net.minecraft.world.gen.densityfunction.DensityFunctionTypes.*;
 
 public class AylythNoiseSettings {
 
-    public static void datagenInit() {
-        AylythNoiseTypes.init();
-        AylythDensityFunctionTypes.init();
-        Registry.register(BuiltinRegistries.CHUNK_GENERATOR_SETTINGS, new Identifier(Aylyth.MOD_ID, "aylyth_settings"), createSettings());
+    public static final RegistryKey<ChunkGeneratorSettings> AYLYTH = RegistryKey.of(RegistryKeys.CHUNK_GENERATOR_SETTINGS, new Identifier(Aylyth.MOD_ID, "aylyth_settings"));
+
+    public static void bootstrap(Registerable<ChunkGeneratorSettings> context) {
+        context.register(AYLYTH, createSettings(context.getRegistryLookup(RegistryKeys.DENSITY_FUNCTION), context.getRegistryLookup(RegistryKeys.NOISE_PARAMETERS)));
     }
 
-    static ChunkGeneratorSettings createSettings() {
+    static ChunkGeneratorSettings createSettings(RegistryEntryLookup<DensityFunction> functions, RegistryEntryLookup<DoublePerlinNoiseSampler.NoiseParameters> noiseParameters) {
         var seaLevel = 47;
         var disableMobGen = false;
         var aquifers = true;
         var oreVeins = false;
         var legacyRandom = false;
-        return new ChunkGeneratorSettings(shapeConfig(), defaultState(Blocks.DEEPSLATE), defaultState(Blocks.WATER), noiseRouter(), AylythMaterialRules.materialRules(), spawnTargets(), seaLevel, disableMobGen, aquifers, oreVeins, legacyRandom);
+        return new ChunkGeneratorSettings(shapeConfig(), defaultState(Blocks.DEEPSLATE), defaultState(Blocks.WATER), noiseRouter(functions, noiseParameters), AylythMaterialRules.materialRules(), spawnTargets(), seaLevel, disableMobGen, aquifers, oreVeins, legacyRandom);
     }
 
     static BlockState defaultState(Block block) {
@@ -49,34 +50,34 @@ public class AylythNoiseSettings {
         return new GenerationShapeConfig(minY, height, horizontal, vertical);
     }
 
-    static NoiseRouter noiseRouter() {
+    static NoiseRouter noiseRouter(RegistryEntryLookup<DensityFunction> functions, RegistryEntryLookup<DoublePerlinNoiseSampler.NoiseParameters> noiseParameters) {
         return new NoiseRouter(
                 zero(),  // barrierNoise
-                noise(FLOODEDNESS, 1.0D, 0.67D),  // fluidLevelFloodednessNoise
-                noise(FLUID_SPREAD, 1.0D, 1D / 1.4D),  // fluidLevelSpreadNoise
+                noise(noiseParameters.getOrThrow(FLOODEDNESS), 1.0D, 0.67D),  // fluidLevelFloodednessNoise
+                noise(noiseParameters.getOrThrow(FLUID_SPREAD), 1.0D, 1D / 1.4D),  // fluidLevelSpreadNoise
                 zero(),  // lavaNoise
-                shiftedNoise(holderFunction(SHIFT_X), holderFunction(SHIFT_Z), 0.25, TEMPERATURE),  // temperature
-                shiftedNoise(holderFunction(SHIFT_X), holderFunction(SHIFT_Z), 0.25, VEGETATION),  // vegetation
-                holderFunction(CONTINENTS_FUNCTION),  // continents
-                holderFunction(EROSION_FUNCTION),  // erosion
-                holderFunction(DEPTH_FUNCTION),  // depth
-                holderFunction(RIDGES_FUNCTION),  // ridges
-                initialDensity(),  // initialDensityWithoutJaggedness
-                finalDensity(),  // finalDensity
+                shiftedNoise(holderFunction(functions.getOrThrow(SHIFT_X_KEY)), holderFunction(functions.getOrThrow(SHIFT_Z_KEY)), 0.25, noiseParameters.getOrThrow(TEMPERATURE)),  // temperature
+                shiftedNoise(holderFunction(functions.getOrThrow(SHIFT_X_KEY)), holderFunction(functions.getOrThrow(SHIFT_Z_KEY)), 0.25, noiseParameters.getOrThrow(VEGETATION)),  // vegetation
+                holderFunction(functions.getOrThrow(CONTINENTS_FUNCTION_KEY)),  // continents
+                holderFunction(functions.getOrThrow(EROSION_FUNCTION_KEY)),  // erosion
+                holderFunction(functions.getOrThrow(DEPTH_FUNCTION_KEY)),  // depth
+                holderFunction(functions.getOrThrow(RIDGES_FUNCTION_KEY)),  // ridges
+                initialDensity(functions),  // initialDensityWithoutJaggedness
+                finalDensity(functions, noiseParameters),  // finalDensity
                 zero(),  // veinToggle
                 zero(),  // veinRidged
                 zero()); // veinGap
     }
 
-    static DensityFunction initialDensity() {
+    static DensityFunction initialDensity(RegistryEntryLookup<DensityFunction> functions) {
         return slide(
                 add(
                         constant(-0.703125),
                         mul(
                                 constant(4),
                                 mul(
-                                        holderFunction(DEPTH_FUNCTION),
-                                        cache2d(holderFunction(FACTOR_FUNCTION))
+                                        holderFunction(functions.getOrThrow(DEPTH_FUNCTION_KEY)),
+                                        cache2d(holderFunction(functions.getOrThrow(FACTOR_FUNCTION_KEY)))
                                 ).quarterNegative()
                         )
                 ).clamp(-64, 64),
@@ -102,19 +103,19 @@ public class AylythNoiseSettings {
 //        );
     }
 
-    static DensityFunction finalDensity() {
+    static DensityFunction finalDensity(RegistryEntryLookup<DensityFunction> functions, RegistryEntryLookup<DoublePerlinNoiseSampler.NoiseParameters> noiseParameters) {
         return min(
                 postProcess(
                         slide(
                                 rangeChoice(
-                                        holderFunction(SLOPED_CHEESE_FUNCTION),
+                                        holderFunction(functions.getOrThrow(SLOPED_CHEESE_FUNCTION_KEY)),
                                         -1000000.0,
                                         1.5625,
                                         min(
-                                                holderFunction(SLOPED_CHEESE_FUNCTION),
+                                                holderFunction(functions.getOrThrow(SLOPED_CHEESE_FUNCTION_KEY)),
                                                 mul(
                                                         constant(5.0),
-                                                        holderFunction(CAVES_ENTRANCES_FUNCTION)
+                                                        holderFunction(functions.getOrThrow(CAVES_ENTRANCES_FUNCTION_KEY))
                                                 )
                                         ),
                                         max(
@@ -123,35 +124,35 @@ public class AylythNoiseSettings {
                                                                 add(
                                                                         mul(
                                                                                 constant(4.0),
-                                                                                noise(CAVE_LAYER, 1.0, 8.0).square()
+                                                                                noise(noiseParameters.getOrThrow(CAVE_LAYER), 1.0, 8.0).square()
                                                                         ),
                                                                         add(
                                                                                 add(
                                                                                         constant(0.27),
-                                                                                        noise(CAVE_CHEESE, 2.0, 0.95)
+                                                                                        noise(noiseParameters.getOrThrow(CAVE_CHEESE), 2.0, 0.95)
                                                                                 ).clamp(-1.0, 1.0),
                                                                                 add(
                                                                                         constant(1.5),
                                                                                         mul(
                                                                                                 constant(-0.64),
-                                                                                                holderFunction(SLOPED_CHEESE_FUNCTION)
+                                                                                                holderFunction(functions.getOrThrow(SLOPED_CHEESE_FUNCTION_KEY))
                                                                                         )
                                                                                 ).clamp(0.0, 0.5)
                                                                         )
                                                                 ),
-                                                                holderFunction(CAVES_ENTRANCES_FUNCTION)
+                                                                holderFunction(functions.getOrThrow(CAVES_ENTRANCES_FUNCTION_KEY))
                                                         ),
                                                         add(
-                                                                holderFunction(CAVES_SPAGHETTI_2D_FUNCTION),
-                                                                holderFunction(CAVES_SPAGHETTI_ROUGHNESS_FUNCTION)
+                                                                holderFunction(functions.getOrThrow(CAVES_SPAGHETTI_2D_FUNCTION_KEY)),
+                                                                holderFunction(functions.getOrThrow(CAVES_SPAGHETTI_ROUGHNESS_FUNCTION_KEY))
                                                         )
                                                 ),
                                                 rangeChoice(
-                                                        holderFunction(CAVES_PILLARS_FUNCTION),
+                                                        holderFunction(functions.getOrThrow(CAVES_PILLARS_FUNCTION_KEY)),
                                                         -1000000.0,
                                                         0.03,
                                                         constant(-1000000.0),
-                                                        holderFunction(CAVES_PILLARS_FUNCTION)
+                                                        holderFunction(functions.getOrThrow(CAVES_PILLARS_FUNCTION_KEY))
                                                 )
                                         )
                                 ),
@@ -161,12 +162,8 @@ public class AylythNoiseSettings {
                                 0, 24, 0.1171875
                         )
                 ),
-                holderFunction(CAVES_NOODLE_FUNCTION)
+                holderFunction(functions.getOrThrow(CAVES_NOODLE_FUNCTION_KEY))
         );
-    }
-
-    static MaterialRules.MaterialRule emptyRules() {
-        return MaterialRules.block(Blocks.STONE.getDefaultState());
     }
 
     static List<MultiNoiseUtil.NoiseHypercube> spawnTargets() {

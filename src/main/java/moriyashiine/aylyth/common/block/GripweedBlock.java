@@ -17,7 +17,7 @@ public class GripweedBlock extends PlantBlock {
 	private static final VoxelShape SHAPE = createCuboidShape(0, 0, 0, 16, 11, 16);
 	
 	public GripweedBlock() {
-		super(Settings.copy(Blocks.GRASS).offsetType(OffsetType.XZ));
+		super(Settings.copy(Blocks.GRASS).offset(OffsetType.XZ));
 	}
 	
 	@Override

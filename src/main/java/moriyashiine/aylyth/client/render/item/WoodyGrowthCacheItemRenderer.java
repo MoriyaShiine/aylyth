@@ -9,6 +9,7 @@ import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.BakedQuad;
 import net.minecraft.client.render.model.json.ModelTransformation;
+import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
@@ -17,7 +18,7 @@ import net.minecraft.util.math.random.Random;
 
 public class WoodyGrowthCacheItemRenderer implements BuiltinItemRendererRegistry.DynamicItemRenderer {
     @Override
-    public void render(ItemStack stack, ModelTransformation.Mode mode, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
+    public void render(ItemStack stack, ModelTransformationMode mode, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         MinecraftClient mc = MinecraftClient.getInstance();
         Random rand = Random.create(42);
         BakedModel model = mc.getBakedModelManager().getModel(new ModelIdentifier(Aylyth.MOD_ID, "large_woody_growth", "inventory"));
@@ -39,7 +40,7 @@ public class WoodyGrowthCacheItemRenderer implements BuiltinItemRendererRegistry
         VertexConsumer consumer = VertexConsumers.union(vertexConsumers.getBuffer(RenderTypes.TINT), vertexConsumers.getBuffer(RenderLayers.getItemLayer(stack, true)));
         matrices.push();
         matrices.translate(0.5, 0.5, 0.5);
-        model.getTransformation().getTransformation(mode).apply(mode == ModelTransformation.Mode.FIRST_PERSON_LEFT_HAND, matrices);
+        model.getTransformation().getTransformation(mode).apply(mode == ModelTransformationMode.FIRST_PERSON_LEFT_HAND, matrices);
         matrices.translate(-0.5, -0.5, -0.5);
         for (BakedQuad quad : model.getQuads(null, null, rand)) {
             consumer.quad(matrices.peek(), quad, 1.0f, 1.0f, 1.0f, light, overlay);

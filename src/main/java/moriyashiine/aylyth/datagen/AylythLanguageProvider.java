@@ -5,7 +5,7 @@ import moriyashiine.aylyth.common.registry.ModEntityTypes;
 import moriyashiine.aylyth.common.registry.ModItems;
 import moriyashiine.aylyth.common.registry.ModPotions;
 import moriyashiine.aylyth.common.registry.util.WoodSuite;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.fabricmc.loader.impl.util.StringUtil;
 import net.minecraft.block.Block;
@@ -13,8 +13,8 @@ import net.minecraft.item.Item;
 
 public class AylythLanguageProvider extends FabricLanguageProvider {
 
-    protected AylythLanguageProvider(FabricDataGenerator dataGenerator) {
-        super(dataGenerator);
+    protected AylythLanguageProvider(FabricDataOutput output) {
+        super(output);
     }
 
     @Override

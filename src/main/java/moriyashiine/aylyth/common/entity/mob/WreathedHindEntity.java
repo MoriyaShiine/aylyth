@@ -24,12 +24,12 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.tag.BlockTags;
-import net.minecraft.tag.FluidTags;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
@@ -38,24 +38,21 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.builder.ILoopType;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
-import software.bernie.geckolib3.util.GeckoLibUtil;
+import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.*;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
-import javax.annotation.Nullable;
 import java.util.*;
 
-public class WreathedHindEntity extends HostileEntity implements IAnimatable, Pledgeable {
+public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pledgeable {
     private static final EntityAttributeModifier SNEAKY_SPEED_PENALTY = new EntityAttributeModifier(UUID.fromString("5CD17E11-A74A-43D3-A529-90FDE04B191E"), "sneaky", -0.15D, EntityAttributeModifier.Operation.ADDITION);
     private EntityAttributeInstance modifiableattributeinstance = this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
 
-    private final AnimationFactory factory = GeckoLibUtil.createFactory(this);
+    private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
     public static final TrackedData<Byte> ATTACK_TYPE = DataTracker.registerData(WreathedHindEntity.class, TrackedDataHandlerRegistry.BYTE);
     public static final byte NONE = 0;
     public static final byte MELEE_ATTACK = 1;
@@ -86,9 +83,9 @@ public class WreathedHindEntity extends HostileEntity implements IAnimatable, Pl
 
     @Override
     protected void mobTick() {
-        this.world.getProfiler().push("wreathedHindBrain");
-        this.getBrain().tick((ServerWorld)this.world, this);
-        this.world.getProfiler().pop();
+        this.getWorld().getProfiler().push("wreathedHindBrain");
+        this.getBrain().tick((ServerWorld)this.getWorld(), this);
+        this.getWorld().getProfiler().pop();
         WreathedHindBrain.updateActivities(this);
         super.mobTick();
         if(WreathedHindBrain.isPledgedPlayerLow(this.getTarget(), this)){
@@ -144,7 +141,7 @@ public class WreathedHindEntity extends HostileEntity implements IAnimatable, Pl
 
     public boolean tryKillingAttack(PlayerEntity target){
         float f = 6;
-        boolean bl = target.damage(ModDamageSources.UNBLOCKABLE, f);
+        boolean bl = target.damage(ModDamageSources.unblockable(target.getWorld()), f);
         if (bl) {
             this.disablePlayerShield(target, this.getMainHandStack(), target.isUsingItem() ? target.getActiveItem() : ItemStack.EMPTY);
             this.applyDamageEffects(this, target);
@@ -156,7 +153,7 @@ public class WreathedHindEntity extends HostileEntity implements IAnimatable, Pl
     @Override
     protected void dropEquipment(DamageSource source, int lootingMultiplier, boolean allowDrops) {
         super.dropEquipment(source, lootingMultiplier, allowDrops);
-        placeStrewnLeaves(world, getBlockPos()); // TODO: should we try to spawn strewn leaves when it is killed by the kill command? What about mob griefing?
+        placeStrewnLeaves(getWorld(), getBlockPos()); // TODO: should we try to spawn strewn leaves when it is killed by the kill command? What about mob griefing?
     }
 
     public void placeStrewnLeaves(World world, BlockPos blockPos){
@@ -165,7 +162,7 @@ public class WreathedHindEntity extends HostileEntity implements IAnimatable, Pl
             for(int z = -2; z <= 2; z++){
                 for(int y = -2; y <= 2; y++){
                     BlockPos offsetPos = blockPos.add(x,y,z);
-                    if(!world.isClient && world.getBlockState(offsetPos).getMaterial().isReplaceable() && world.getBlockState(offsetPos.down()).isIn(BlockTags.DIRT) ){
+                    if(!world.isClient && world.getBlockState(offsetPos).isReplaceable() && world.getBlockState(offsetPos.down()).isIn(BlockTags.DIRT) ){
                         possiblePositions.add(offsetPos);
                     }
                 }
@@ -184,43 +181,43 @@ public class WreathedHindEntity extends HostileEntity implements IAnimatable, Pl
     }
 
     @Override
-    public void registerControllers(AnimationData animationData) {
-        animationData.addAnimationController(new AnimationController<>(this, "controller", 10, this::predicate));
-        animationData.addAnimationController(new AnimationController<>(this, "controller2", 1, this::attackPredicate));
+    public void registerControllers(AnimatableManager.ControllerRegistrar animationData) {
+        animationData.add(new AnimationController<>(this, "controller", 10, this::predicate));
+        animationData.add(new AnimationController<>(this, "controller2", 1, this::attackPredicate));
     }
 
-    private <T extends IAnimatable> PlayState attackPredicate(AnimationEvent<T> event) {
-        AnimationBuilder builder = new AnimationBuilder();
+    private <T extends GeoAnimatable> PlayState attackPredicate(AnimationState<T> event) {
+        var builder = RawAnimation.begin();
         if(this.getAttackType() == MELEE_ATTACK){
-            builder.addAnimation("attack.melee", ILoopType.EDefaultLoopTypes.PLAY_ONCE);
+            builder.then("attack.melee", Animation.LoopType.PLAY_ONCE);
             event.getController().setAnimation(builder);
             return PlayState.CONTINUE;
         }else if(this.getAttackType() == RANGE_ATTACK){
-            builder.addAnimation("attack.ranged", ILoopType.EDefaultLoopTypes.PLAY_ONCE);
+            builder.then("attack.ranged", Animation.LoopType.PLAY_ONCE);
             event.getController().setAnimation(builder);
             return PlayState.CONTINUE;
         }else if(this.getAttackType() == KILLING_ATTACK){
-            builder.addAnimation("killing.blow", ILoopType.EDefaultLoopTypes.PLAY_ONCE);
+            builder.then("killing.blow", Animation.LoopType.PLAY_ONCE);
             event.getController().setAnimation(builder);
             return PlayState.CONTINUE;
         }
         return PlayState.STOP;
     }
 
-    private <T extends IAnimatable> PlayState predicate(AnimationEvent<T> event) {
-        AnimationBuilder builder = new AnimationBuilder();
+    private <T extends GeoAnimatable> PlayState predicate(AnimationState<T> event) {
+        var builder = RawAnimation.begin();
         float limbSwingAmount = Math.abs(event.getLimbSwingAmount());
         if(limbSwingAmount > 0.01F) {
-            builder.addAnimation("walk", ILoopType.EDefaultLoopTypes.LOOP);
+            builder.thenLoop("walk");
         }else{
-            builder.addAnimation("idle", ILoopType.EDefaultLoopTypes.LOOP);
+            builder.thenLoop("idle");
         }
         event.getController().setAnimation(builder);
         return PlayState.CONTINUE;
     }
 
     @Override
-    public AnimationFactory getFactory() {
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
         return factory;
     }
 

@@ -9,11 +9,11 @@ import net.minecraft.item.RangedWeaponItem;
 public class BrainUtils {
 
     public static LivingEntity getAttackTarget(MobEntity entity) {
-        return entity.getBrain().getOptionalMemory(MemoryModuleType.ATTACK_TARGET).get();
+        return entity.getBrain().getOptionalRegisteredMemory(MemoryModuleType.ATTACK_TARGET).get();
     }
 
     public static boolean isTarget(MobEntity mobEntity, LivingEntity entity) {
-        return mobEntity.getBrain().getOptionalMemory(MemoryModuleType.ATTACK_TARGET).filter(targetedEntity -> targetedEntity == entity).isPresent();
+        return mobEntity.getBrain().getOptionalRegisteredMemory(MemoryModuleType.ATTACK_TARGET).filter(targetedEntity -> targetedEntity == entity).isPresent();
     }
 
     public static void setTargetInvalid(MobEntity mobEntity, LivingEntity target) {

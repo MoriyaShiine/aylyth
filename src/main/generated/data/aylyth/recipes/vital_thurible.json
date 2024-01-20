@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "C": {
       "item": "minecraft:soul_campfire"
@@ -24,5 +25,6 @@
   ],
   "result": {
     "item": "aylyth:vital_thurible"
-  }
+  },
+  "show_notification": true
 }

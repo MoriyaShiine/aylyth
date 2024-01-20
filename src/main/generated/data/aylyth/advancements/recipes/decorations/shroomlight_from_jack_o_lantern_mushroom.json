@@ -30,5 +30,6 @@
     "recipes": [
       "minecraft:shroomlight_from_jack_o_lantern_mushroom"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

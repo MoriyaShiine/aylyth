@@ -48,6 +48,246 @@
     "distance=1,fruiting_stage=3,persistent=true,waterlogged=true": {
       "model": "aylyth:block/pomegranate_leaves_fruiting_2"
     },
+    "distance=10,fruiting_stage=0,persistent=false,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves"
+    },
+    "distance=10,fruiting_stage=0,persistent=false,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves"
+    },
+    "distance=10,fruiting_stage=0,persistent=true,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves"
+    },
+    "distance=10,fruiting_stage=0,persistent=true,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves"
+    },
+    "distance=10,fruiting_stage=1,persistent=false,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_0"
+    },
+    "distance=10,fruiting_stage=1,persistent=false,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_0"
+    },
+    "distance=10,fruiting_stage=1,persistent=true,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_0"
+    },
+    "distance=10,fruiting_stage=1,persistent=true,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_0"
+    },
+    "distance=10,fruiting_stage=2,persistent=false,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_1"
+    },
+    "distance=10,fruiting_stage=2,persistent=false,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_1"
+    },
+    "distance=10,fruiting_stage=2,persistent=true,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_1"
+    },
+    "distance=10,fruiting_stage=2,persistent=true,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_1"
+    },
+    "distance=10,fruiting_stage=3,persistent=false,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_2"
+    },
+    "distance=10,fruiting_stage=3,persistent=false,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_2"
+    },
+    "distance=10,fruiting_stage=3,persistent=true,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_2"
+    },
+    "distance=10,fruiting_stage=3,persistent=true,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_2"
+    },
+    "distance=11,fruiting_stage=0,persistent=false,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves"
+    },
+    "distance=11,fruiting_stage=0,persistent=false,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves"
+    },
+    "distance=11,fruiting_stage=0,persistent=true,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves"
+    },
+    "distance=11,fruiting_stage=0,persistent=true,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves"
+    },
+    "distance=11,fruiting_stage=1,persistent=false,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_0"
+    },
+    "distance=11,fruiting_stage=1,persistent=false,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_0"
+    },
+    "distance=11,fruiting_stage=1,persistent=true,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_0"
+    },
+    "distance=11,fruiting_stage=1,persistent=true,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_0"
+    },
+    "distance=11,fruiting_stage=2,persistent=false,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_1"
+    },
+    "distance=11,fruiting_stage=2,persistent=false,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_1"
+    },
+    "distance=11,fruiting_stage=2,persistent=true,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_1"
+    },
+    "distance=11,fruiting_stage=2,persistent=true,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_1"
+    },
+    "distance=11,fruiting_stage=3,persistent=false,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_2"
+    },
+    "distance=11,fruiting_stage=3,persistent=false,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_2"
+    },
+    "distance=11,fruiting_stage=3,persistent=true,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_2"
+    },
+    "distance=11,fruiting_stage=3,persistent=true,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_2"
+    },
+    "distance=12,fruiting_stage=0,persistent=false,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves"
+    },
+    "distance=12,fruiting_stage=0,persistent=false,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves"
+    },
+    "distance=12,fruiting_stage=0,persistent=true,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves"
+    },
+    "distance=12,fruiting_stage=0,persistent=true,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves"
+    },
+    "distance=12,fruiting_stage=1,persistent=false,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_0"
+    },
+    "distance=12,fruiting_stage=1,persistent=false,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_0"
+    },
+    "distance=12,fruiting_stage=1,persistent=true,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_0"
+    },
+    "distance=12,fruiting_stage=1,persistent=true,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_0"
+    },
+    "distance=12,fruiting_stage=2,persistent=false,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_1"
+    },
+    "distance=12,fruiting_stage=2,persistent=false,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_1"
+    },
+    "distance=12,fruiting_stage=2,persistent=true,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_1"
+    },
+    "distance=12,fruiting_stage=2,persistent=true,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_1"
+    },
+    "distance=12,fruiting_stage=3,persistent=false,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_2"
+    },
+    "distance=12,fruiting_stage=3,persistent=false,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_2"
+    },
+    "distance=12,fruiting_stage=3,persistent=true,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_2"
+    },
+    "distance=12,fruiting_stage=3,persistent=true,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_2"
+    },
+    "distance=13,fruiting_stage=0,persistent=false,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves"
+    },
+    "distance=13,fruiting_stage=0,persistent=false,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves"
+    },
+    "distance=13,fruiting_stage=0,persistent=true,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves"
+    },
+    "distance=13,fruiting_stage=0,persistent=true,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves"
+    },
+    "distance=13,fruiting_stage=1,persistent=false,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_0"
+    },
+    "distance=13,fruiting_stage=1,persistent=false,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_0"
+    },
+    "distance=13,fruiting_stage=1,persistent=true,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_0"
+    },
+    "distance=13,fruiting_stage=1,persistent=true,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_0"
+    },
+    "distance=13,fruiting_stage=2,persistent=false,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_1"
+    },
+    "distance=13,fruiting_stage=2,persistent=false,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_1"
+    },
+    "distance=13,fruiting_stage=2,persistent=true,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_1"
+    },
+    "distance=13,fruiting_stage=2,persistent=true,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_1"
+    },
+    "distance=13,fruiting_stage=3,persistent=false,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_2"
+    },
+    "distance=13,fruiting_stage=3,persistent=false,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_2"
+    },
+    "distance=13,fruiting_stage=3,persistent=true,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_2"
+    },
+    "distance=13,fruiting_stage=3,persistent=true,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_2"
+    },
+    "distance=14,fruiting_stage=0,persistent=false,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves"
+    },
+    "distance=14,fruiting_stage=0,persistent=false,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves"
+    },
+    "distance=14,fruiting_stage=0,persistent=true,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves"
+    },
+    "distance=14,fruiting_stage=0,persistent=true,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves"
+    },
+    "distance=14,fruiting_stage=1,persistent=false,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_0"
+    },
+    "distance=14,fruiting_stage=1,persistent=false,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_0"
+    },
+    "distance=14,fruiting_stage=1,persistent=true,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_0"
+    },
+    "distance=14,fruiting_stage=1,persistent=true,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_0"
+    },
+    "distance=14,fruiting_stage=2,persistent=false,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_1"
+    },
+    "distance=14,fruiting_stage=2,persistent=false,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_1"
+    },
+    "distance=14,fruiting_stage=2,persistent=true,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_1"
+    },
+    "distance=14,fruiting_stage=2,persistent=true,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_1"
+    },
+    "distance=14,fruiting_stage=3,persistent=false,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_2"
+    },
+    "distance=14,fruiting_stage=3,persistent=false,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_2"
+    },
+    "distance=14,fruiting_stage=3,persistent=true,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_2"
+    },
+    "distance=14,fruiting_stage=3,persistent=true,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_2"
+    },
     "distance=2,fruiting_stage=0,persistent=false,waterlogged=false": {
       "model": "aylyth:block/pomegranate_leaves"
     },
@@ -334,6 +574,102 @@
       "model": "aylyth:block/pomegranate_leaves_fruiting_2"
     },
     "distance=7,fruiting_stage=3,persistent=true,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_2"
+    },
+    "distance=8,fruiting_stage=0,persistent=false,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves"
+    },
+    "distance=8,fruiting_stage=0,persistent=false,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves"
+    },
+    "distance=8,fruiting_stage=0,persistent=true,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves"
+    },
+    "distance=8,fruiting_stage=0,persistent=true,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves"
+    },
+    "distance=8,fruiting_stage=1,persistent=false,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_0"
+    },
+    "distance=8,fruiting_stage=1,persistent=false,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_0"
+    },
+    "distance=8,fruiting_stage=1,persistent=true,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_0"
+    },
+    "distance=8,fruiting_stage=1,persistent=true,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_0"
+    },
+    "distance=8,fruiting_stage=2,persistent=false,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_1"
+    },
+    "distance=8,fruiting_stage=2,persistent=false,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_1"
+    },
+    "distance=8,fruiting_stage=2,persistent=true,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_1"
+    },
+    "distance=8,fruiting_stage=2,persistent=true,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_1"
+    },
+    "distance=8,fruiting_stage=3,persistent=false,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_2"
+    },
+    "distance=8,fruiting_stage=3,persistent=false,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_2"
+    },
+    "distance=8,fruiting_stage=3,persistent=true,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_2"
+    },
+    "distance=8,fruiting_stage=3,persistent=true,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_2"
+    },
+    "distance=9,fruiting_stage=0,persistent=false,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves"
+    },
+    "distance=9,fruiting_stage=0,persistent=false,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves"
+    },
+    "distance=9,fruiting_stage=0,persistent=true,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves"
+    },
+    "distance=9,fruiting_stage=0,persistent=true,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves"
+    },
+    "distance=9,fruiting_stage=1,persistent=false,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_0"
+    },
+    "distance=9,fruiting_stage=1,persistent=false,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_0"
+    },
+    "distance=9,fruiting_stage=1,persistent=true,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_0"
+    },
+    "distance=9,fruiting_stage=1,persistent=true,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_0"
+    },
+    "distance=9,fruiting_stage=2,persistent=false,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_1"
+    },
+    "distance=9,fruiting_stage=2,persistent=false,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_1"
+    },
+    "distance=9,fruiting_stage=2,persistent=true,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_1"
+    },
+    "distance=9,fruiting_stage=2,persistent=true,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_1"
+    },
+    "distance=9,fruiting_stage=3,persistent=false,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_2"
+    },
+    "distance=9,fruiting_stage=3,persistent=false,waterlogged=true": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_2"
+    },
+    "distance=9,fruiting_stage=3,persistent=true,waterlogged=false": {
+      "model": "aylyth:block/pomegranate_leaves_fruiting_2"
+    },
+    "distance=9,fruiting_stage=3,persistent=true,waterlogged=true": {
       "model": "aylyth:block/pomegranate_leaves_fruiting_2"
     }
   }

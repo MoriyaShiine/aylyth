@@ -6,9 +6,9 @@ import moriyashiine.aylyth.common.block.util.SeepTeleportable;
 import moriyashiine.aylyth.common.world.ModWorldState;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -57,7 +57,7 @@ public abstract class EntityMixin implements SeepTeleportable {
     @Inject(method = "playStepSound", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;playSound(Lnet/minecraft/sound/SoundEvent;FF)V"), locals = LocalCapture.CAPTURE_FAILEXCEPTION, cancellable = true)
     private void aylyth_playStepSound(BlockPos pos, BlockState state, CallbackInfo ci, BlockSoundGroup blockSoundGroup) {
         Entity entity = (Entity)(Object)this;
-        World world = entity.world;
+        World world = entity.getWorld();
         BlockState blockState = world.getBlockState(pos.up());
         state = blockState.isIn(BlockTags.INSIDE_STEP_SOUND_BLOCKS) ? blockState : state;
         if (state.getBlock() instanceof IContextBlockSoundGroup cast) {

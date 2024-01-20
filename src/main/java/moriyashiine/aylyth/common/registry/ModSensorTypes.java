@@ -6,9 +6,9 @@ import moriyashiine.aylyth.common.entity.ai.sensor.OwningPlayerSensor;
 import moriyashiine.aylyth.common.entity.mob.TulpaEntity;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-
 import java.util.function.Supplier;
 
 public class ModSensorTypes {
@@ -17,7 +17,7 @@ public class ModSensorTypes {
     public static final SensorType<HindSpecificSensor> HIND_SPECIFIC_SENSOR = register("hind_specific", HindSpecificSensor::new);
 
     private static <U extends Sensor<?>> SensorType<U> register(String id, Supplier<U> factory) {
-        return Registry.register(Registry.SENSOR_TYPE, new Identifier(id), new SensorType<>(factory));
+        return Registry.register(Registries.SENSOR_TYPE, new Identifier(id), new SensorType<>(factory));
     }
 
 

@@ -25,11 +25,11 @@ public class ScionFeatureRenderer extends FeatureRenderer<ScionEntity, BipedEnti
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, ScionEntity entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
         matrices.push();
-        this.getContextModel().setAttributes(MODEL);
+        this.getContextModel().copyBipedStateTo(MODEL);
         MODEL.child = false;
         MODEL.render(matrices, vertexConsumers.getBuffer(RenderLayer.getEntityTranslucent(this.getScionTexture())), light, OverlayTexture.DEFAULT_UV, 1,1,1,1);
         if(entity.getStoredPlayerUUID() != null){
-            this.getContextModel().setAttributes(OVERLAY_MODEL);
+            this.getContextModel().copyBipedStateTo(OVERLAY_MODEL);
             OVERLAY_MODEL.child = false;
             OVERLAY_MODEL.render(matrices, vertexConsumers.getBuffer(RenderLayer.getEntityTranslucent(AylythUtil.id("textures/entity/living/scion/scion_overlay.png"))), light, OverlayTexture.DEFAULT_UV, 1,1,1,1);
 

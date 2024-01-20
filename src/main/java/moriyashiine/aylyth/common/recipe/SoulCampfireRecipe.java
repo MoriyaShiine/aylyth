@@ -8,6 +8,7 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.*;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.collection.DefaultedList;
@@ -60,7 +61,7 @@ public class SoulCampfireRecipe implements Recipe<Inventory> {
     }
 
     @Override
-    public ItemStack craft(Inventory inventory) {
+    public ItemStack craft(Inventory inventory, DynamicRegistryManager registryManager) {
         return output;
     }
 
@@ -70,7 +71,7 @@ public class SoulCampfireRecipe implements Recipe<Inventory> {
     }
 
     @Override
-    public ItemStack getOutput() {
+    public ItemStack getOutput(DynamicRegistryManager registryManager) {
         return output;
     }
 
@@ -115,7 +116,7 @@ public class SoulCampfireRecipe implements Recipe<Inventory> {
             for (Ingredient ingredient : recipe.input) {
                 ingredient.write(buf);
             }
-            buf.writeItemStack(recipe.getOutput());
+            buf.writeItemStack(recipe.getOutput(DynamicRegistryManager.EMPTY));
         }
 
         public static DefaultedList<Ingredient> getIngredients(JsonArray json) {

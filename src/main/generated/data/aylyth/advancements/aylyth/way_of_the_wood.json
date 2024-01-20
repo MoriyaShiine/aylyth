@@ -189,5 +189,6 @@
     [
       "has_visited_bowels"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

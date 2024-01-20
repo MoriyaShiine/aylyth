@@ -15,8 +15,9 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.tag.BlockTags;
 import net.minecraft.util.Arm;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
@@ -26,20 +27,19 @@ import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.builder.ILoopType;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
-import software.bernie.geckolib3.util.GeckoLibUtil;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AylythianEntity extends HostileEntity implements IAnimatable {
-	private final AnimationFactory factory = GeckoLibUtil.createFactory(this);
+public class AylythianEntity extends HostileEntity implements GeoEntity {
+	private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
 	
 	public AylythianEntity(EntityType<? extends HostileEntity> entityType, World world) {
 		super(entityType, world);
@@ -55,28 +55,28 @@ public class AylythianEntity extends HostileEntity implements IAnimatable {
 	}
 	
 	@Override
-	public void registerControllers(AnimationData animationData) {
-		animationData.addAnimationController(new AnimationController<>(this, "controller", 10, animationEvent -> {
+	public void registerControllers(AnimatableManager.ControllerRegistrar animationData) {
+		animationData.add(new AnimationController<>(this, "controller", 10, animationEvent -> {
 			float limbSwingAmount = Math.abs(animationEvent.getLimbSwingAmount());
-			AnimationBuilder builder = new AnimationBuilder();
+			var builder = RawAnimation.begin();
 			if (limbSwingAmount > 0.01F) {
 				MoveState state = limbSwingAmount > 0.6F ? MoveState.RUN : limbSwingAmount > 0.3F ? MoveState.WALK : MoveState.STALK;
 				builder = switch (state) {
-					case RUN -> builder.addAnimation("run", ILoopType.EDefaultLoopTypes.LOOP);
-					case WALK -> builder.addAnimation("walk", ILoopType.EDefaultLoopTypes.LOOP);
-					case STALK -> builder.addAnimation("stalk", ILoopType.EDefaultLoopTypes.LOOP);
+					case RUN -> builder.thenLoop("run");
+					case WALK -> builder.thenLoop("walk");
+					case STALK -> builder.thenLoop("stalk");
 				};
 			}
 			else {
-				builder.addAnimation("idle", ILoopType.EDefaultLoopTypes.LOOP);
+				builder.thenLoop("idle");
 			}
 			animationEvent.getController().setAnimation(builder);
 			return PlayState.CONTINUE;
 		}));
-		animationData.addAnimationController(new AnimationController<>(this, "arms", 0, animationEvent -> {
-			AnimationBuilder builder = new AnimationBuilder();
+		animationData.add(new AnimationController<>(this, "arms", 0, animationEvent -> {
+			var builder = RawAnimation.begin();
 			if (handSwingTicks > 0 && !isDead()) {
-				animationEvent.getController().setAnimation(builder.addAnimation(getMainArm() == Arm.RIGHT ? "clawswipe_right" : "clawswipe_left", ILoopType.EDefaultLoopTypes.LOOP));
+				animationEvent.getController().setAnimation(builder.thenLoop(getMainArm() == Arm.RIGHT ? "clawswipe_right" : "clawswipe_left"));
 				return PlayState.CONTINUE;
 			}
 			return PlayState.STOP;
@@ -84,7 +84,7 @@ public class AylythianEntity extends HostileEntity implements IAnimatable {
 	}
 	
 	@Override
-	public AnimationFactory getFactory() {
+	public AnimatableInstanceCache getAnimatableInstanceCache() {
 		return factory;
 	}
 	
@@ -129,7 +129,7 @@ public class AylythianEntity extends HostileEntity implements IAnimatable {
 	
 	@Override
 	public boolean damage(DamageSource source, float amount) {
-		return super.damage(source, source.isFire() ? amount * 2 : amount);
+		return super.damage(source, source.isIn(DamageTypeTags.IS_FIRE) ? amount * 2 : amount);
 	}
 	
 	@Override
@@ -144,11 +144,11 @@ public class AylythianEntity extends HostileEntity implements IAnimatable {
 	protected void dropEquipment(DamageSource source, int lootingMultiplier, boolean allowDrops) {
 		super.dropEquipment(source, lootingMultiplier, allowDrops);
 		double random = this.random.nextDouble();
-		if (random <= 0.20 && !world.isClient && world.getBlockState(getBlockPos()).getMaterial().isReplaceable() && ModBlocks.LARGE_WOODY_GROWTH.getDefaultState().canPlaceAt(world, getBlockPos())) {
-			placeWoodyGrowths(world, getBlockPos());
-		} else if (random <= 0.30 && !world.isClient && world.getBlockState(getBlockPos()).getMaterial().isReplaceable() && ModBlocks.YMPE_BLOCKS.sapling.getDefaultState().canPlaceAt(world, getBlockPos())) {
+		if (random <= 0.20 && !getWorld().isClient && getWorld().getBlockState(getBlockPos()).isReplaceable() && ModBlocks.LARGE_WOODY_GROWTH.getDefaultState().canPlaceAt(getWorld(), getBlockPos())) {
+			placeWoodyGrowths(getWorld(), getBlockPos());
+		} else if (random <= 0.30 && !getWorld().isClient && getWorld().getBlockState(getBlockPos()).isReplaceable() && ModBlocks.YMPE_BLOCKS.sapling.getDefaultState().canPlaceAt(getWorld(), getBlockPos())) {
 			BlockState state = ModBlocks.YMPE_BLOCKS.sapling.getDefaultState();
-			world.setBlockState(getBlockPos(), state);
+			getWorld().setBlockState(getBlockPos(), state);
 			playSound(state.getSoundGroup().getPlaceSound(), getSoundVolume(), getSoundPitch());
 		}
 	}
@@ -159,7 +159,7 @@ public class AylythianEntity extends HostileEntity implements IAnimatable {
 			for(int z = -1; z <= 1; z++){
 				for(int y = -1; y <= 1; y++){
 					BlockPos offsetPos = blockPos.add(x,y,z);
-					if(!world.isClient && world.getBlockState(offsetPos).getMaterial().isReplaceable() && world.getBlockState(offsetPos.down()).isIn(BlockTags.DIRT) ){
+					if(!world.isClient && world.getBlockState(offsetPos).isReplaceable() && world.getBlockState(offsetPos.down()).isIn(BlockTags.DIRT) ){
 						possiblePositions.add(offsetPos);
 					}
 				}
@@ -210,7 +210,7 @@ public class AylythianEntity extends HostileEntity implements IAnimatable {
 	public static boolean isTargetInBush(LivingEntity target) {
 		if (target != null && target.isSneaking()) {
 			for (int i = 0; i <= target.getHeight(); i++) {
-				if (target.world.getBlockState(target.getBlockPos().up(i)).getBlock() != ModBlocks.AYLYTH_BUSH) {
+				if (target.getWorld().getBlockState(target.getBlockPos().up(i)).getBlock() != ModBlocks.AYLYTH_BUSH) {
 					return false;
 				}
 			}

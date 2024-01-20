@@ -17,6 +17,7 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.server.ServerConfigHandler;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -52,8 +53,8 @@ public class RippedSoulEntity extends HostileEntity {
 
     @Override
     public boolean damage(DamageSource source, float amount) {
-        if(!world.isClient()) {
-            if (source.isExplosive()) {
+        if(!getWorld().isClient()) {
+            if (source.isIn(DamageTypeTags.IS_EXPLOSION)) {
                 return false;
             }
         }
@@ -61,7 +62,7 @@ public class RippedSoulEntity extends HostileEntity {
     }
 
     @Override
-    public boolean hasWings() {
+    public boolean isFlappingWings() {
         return this.age % MathHelper.ceil(3.9269907f) == 0;
     }
 
@@ -97,7 +98,7 @@ public class RippedSoulEntity extends HostileEntity {
         }
         if (this.alive && --this.lifeTicks <= 0) {
             this.lifeTicks = 20;
-            this.damage(DamageSource.STARVE, 1.0f);
+            this.damage(getDamageSources().starve(), 1.0f);
         }
     }
     @Override
@@ -183,7 +184,7 @@ public class RippedSoulEntity extends HostileEntity {
         return this.dataTracker.get(OWNER_UUID).orElse(null);
     }
 
-    public void setOwnerUuid(@javax.annotation.Nullable UUID uuid) {
+    public void setOwnerUuid(@Nullable UUID uuid) {
         this.dataTracker.set(OWNER_UUID, Optional.ofNullable(uuid));
     }
 
@@ -194,7 +195,7 @@ public class RippedSoulEntity extends HostileEntity {
     public LivingEntity getOwner() {
         try {
             UUID uUID = this.getOwnerUuid();
-            return uUID == null ? null : this.world.getPlayerByUuid(uUID);
+            return uUID == null ? null : this.getWorld().getPlayerByUuid(uUID);
         } catch (IllegalArgumentException var2) {
             return null;
         }
@@ -233,13 +234,13 @@ public class RippedSoulEntity extends HostileEntity {
 
         @Override
         public void tick() {
-            if (this.state != MoveControl.State.MOVE_TO) {
+            if (this.state != State.MOVE_TO) {
                 return;
             }
             Vec3d vec3d = new Vec3d(this.targetX - RippedSoulEntity.this.getX(), this.targetY - RippedSoulEntity.this.getY(), this.targetZ - RippedSoulEntity.this.getZ());
             double d = vec3d.length();
             if (d < RippedSoulEntity.this.getBoundingBox().getAverageSideLength()) {
-                this.state = MoveControl.State.WAIT;
+                this.state = State.WAIT;
                 RippedSoulEntity.this.setVelocity(RippedSoulEntity.this.getVelocity().multiply(0.5));
             } else {
                 RippedSoulEntity.this.setVelocity(RippedSoulEntity.this.getVelocity().add(vec3d.multiply(this.speed * 0.05 / d)));
@@ -259,7 +260,7 @@ public class RippedSoulEntity extends HostileEntity {
     class ChargeTargetGoal
             extends Goal {
         public ChargeTargetGoal() {
-            this.setControls(EnumSet.of(Goal.Control.MOVE));
+            this.setControls(EnumSet.of(Control.MOVE));
         }
 
         @Override
@@ -318,7 +319,7 @@ public class RippedSoulEntity extends HostileEntity {
     class LookAtTargetGoal
             extends Goal {
         public LookAtTargetGoal() {
-            this.setControls(EnumSet.of(Goal.Control.MOVE));
+            this.setControls(EnumSet.of(Control.MOVE));
         }
 
         @Override
@@ -339,7 +340,7 @@ public class RippedSoulEntity extends HostileEntity {
             }
             for (int i = 0; i < 3; ++i) {
                 BlockPos blockPos2 = blockPos.add(RippedSoulEntity.this.random.nextInt(15) - 7, RippedSoulEntity.this.random.nextInt(11) - 5, RippedSoulEntity.this.random.nextInt(15) - 7);
-                if (!RippedSoulEntity.this.world.isAir(blockPos2)) continue;
+                if (!RippedSoulEntity.this.getWorld().isAir(blockPos2)) continue;
                 RippedSoulEntity.this.moveControl.moveTo((double)blockPos2.getX() + 0.5, (double)blockPos2.getY() + 0.5, (double)blockPos2.getZ() + 0.5, 0.25);
                 if (RippedSoulEntity.this.getTarget() != null) break;
                 RippedSoulEntity.this.getLookControl().lookAt((double)blockPos2.getX() + 0.5, (double)blockPos2.getY() + 0.5, (double)blockPos2.getZ() + 0.5, 180.0f, 20.0f);

@@ -3,7 +3,7 @@ package moriyashiine.aylyth.mixin.client;
 import com.mojang.blaze3d.systems.RenderSystem;
 import moriyashiine.aylyth.common.advancement.CustomAdvancementDisplay;
 import net.minecraft.advancement.Advancement;
-import net.minecraft.client.gui.DrawableHelper;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.toast.AdvancementToast;
 import net.minecraft.client.toast.Toast;
 import net.minecraft.client.toast.ToastManager;
@@ -20,11 +20,10 @@ public class AdvancementToastMixin {
 
     @Shadow @Final private Advancement advancement;
 
-    @Inject(method = "draw", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/item/ItemRenderer;renderInGui(Lnet/minecraft/item/ItemStack;II)V"))
-    private void aylyth_draw(MatrixStack matrices, ToastManager manager, long startTime, CallbackInfoReturnable<Toast.Visibility> cir) {
+    @Inject(method = "draw", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawItemWithoutEntity(Lnet/minecraft/item/ItemStack;II)V"))
+    private void aylyth_draw(DrawContext context, ToastManager manager, long startTime, CallbackInfoReturnable<Toast.Visibility> cir) {
         if (this.advancement.getDisplay() instanceof CustomAdvancementDisplay customAdvancementDisplay) {
-            RenderSystem.setShaderTexture(0, customAdvancementDisplay.getTexture());
-            DrawableHelper.drawTexture(matrices, 8, 8, 0, 0, 16, 16, 16, 16);
+            context.drawTexture(customAdvancementDisplay.getTexture(), 8, 8, 0, 0, 16, 16, 16, 16);
         }
     }
 }

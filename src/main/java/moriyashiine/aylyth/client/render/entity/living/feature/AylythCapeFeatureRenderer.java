@@ -18,7 +18,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3f;
+import net.minecraft.util.math.RotationAxis;
 
 public class AylythCapeFeatureRenderer  extends FeatureRenderer<TulpaEntity.TulpaPlayerEntity, BipedEntityModel<TulpaEntity.TulpaPlayerEntity>> {
     public PlayerEntityModel playerEntityModel;
@@ -61,9 +61,9 @@ public class AylythCapeFeatureRenderer  extends FeatureRenderer<TulpaEntity.Tulp
                             q += 25.0F;
                         }
 
-                        matrixStack.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(6.0F + r / 2.0F + q));
-                        matrixStack.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(s / 2.0F));
-                        matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(180.0F - s / 2.0F));
+                        matrixStack.multiply(RotationAxis.POSITIVE_X.rotationDegrees(6.0F + r / 2.0F + q));
+                        matrixStack.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(s / 2.0F));
+                        matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180.0F - s / 2.0F));
                         VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(RenderLayer.getEntitySolid(clientPlayer.getCapeTexture()));
                         playerEntityModel.renderCape(matrixStack, vertexConsumer, i, OverlayTexture.DEFAULT_UV);
                         matrixStack.pop();

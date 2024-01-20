@@ -1,8 +1,6 @@
 package moriyashiine.aylyth.common.item;
 
 import moriyashiine.aylyth.common.registry.ModComponents;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.mob.MobEntity;
@@ -10,6 +8,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -19,7 +19,6 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -39,7 +38,7 @@ public class ShuckedYmpeFruitItem extends Item {
 			if (!world.isClient) {
 				NbtCompound entityCompound = ShuckedYmpeFruitItem.getStoredEntity(stack);
 				BlockPos pos = context.getBlockPos().offset(context.getSide());
-				if (Registry.ENTITY_TYPE.get(new Identifier(entityCompound.getString("id"))).create((ServerWorld) world, null, null, null, pos, SpawnReason.SPAWN_EGG, true, false) instanceof MobEntity mob) {
+				if (Registries.ENTITY_TYPE.get(new Identifier(entityCompound.getString("id"))).create((ServerWorld) world, null, null, pos, SpawnReason.SPAWN_EGG, true, false) instanceof MobEntity mob) {
 					double x = mob.getX(), y = mob.getY(), z = mob.getZ();
 					mob.readNbt(entityCompound);
 					mob.setUuid(UUID.randomUUID());
@@ -56,8 +55,7 @@ public class ShuckedYmpeFruitItem extends Item {
 		}
 		return super.useOnBlock(context);
 	}
-	
-	@Environment(EnvType.CLIENT)
+
 	@Override
 	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
 		super.appendTooltip(stack, world, tooltip, context);
@@ -68,7 +66,7 @@ public class ShuckedYmpeFruitItem extends Item {
 				name = Text.Serializer.fromJson(entityCompound.getString("CustomName"));
 			}
 			else {
-				name = Registry.ENTITY_TYPE.get(new Identifier(entityCompound.getString("id"))).getName();
+				name = Registries.ENTITY_TYPE.get(new Identifier(entityCompound.getString("id"))).getName();
 			}
 			if (name != null) {
 				tooltip.add(((MutableText) name).formatted(Formatting.GRAY));

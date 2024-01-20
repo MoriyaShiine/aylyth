@@ -109,7 +109,7 @@ public class StrewnLeavesBlock extends Block implements IContextBlockSoundGroup 
 
     @Override
     public BlockSoundGroup getBlockSoundGroup(BlockState state, BlockPos pos, BlockSoundGroup currentSoundGroup, Entity entity) {
-        Random random = entity.world.random;
+        Random random = entity.getWorld().random;
         return random.nextFloat() < 0.025 ? state.get(LEAVES) > 0 ? ModSoundEvents.LEAF_PILES_STICK : ModSoundEvents.STREWN_LEAVES_STICK : state.get(LEAVES) > 0 ? ModSoundEvents.LEAF_PILES : ModSoundEvents.STREWN_LEAVES;
     }
 }

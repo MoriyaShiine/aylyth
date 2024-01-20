@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "building",
   "key": {
     "W": {
       "item": "aylyth:writhewood_planks"
@@ -15,5 +16,6 @@
   "result": {
     "count": 8,
     "item": "aylyth:dark_woods_tiles"
-  }
+  },
+  "show_notification": true
 }

@@ -6,7 +6,7 @@ import moriyashiine.aylyth.common.advancement.CustomAdvancementDisplay;
 import net.minecraft.advancement.Advancement;
 import net.minecraft.advancement.AdvancementDisplay;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawableHelper;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.advancement.AdvancementTab;
 import net.minecraft.client.gui.screen.advancement.AdvancementTabType;
 import net.minecraft.client.gui.screen.advancement.AdvancementWidget;
@@ -54,7 +54,7 @@ public abstract class AdvancementTabMixin {
     }
 
     @Inject(method = "drawIcon", at = @At("HEAD"))
-    private void aylyth_drawIcon(int x, int y, ItemRenderer itemRenderer, CallbackInfo ci) {
+    private void aylyth_drawIcon(DrawContext context, int x, int y, CallbackInfo ci) {
         if (this.display instanceof CustomAdvancementDisplay customAdvancementDisplay) {
             int i = x + this.type.getTabX(this.index);
             int j = y + this.type.getTabY(this.index);
@@ -77,8 +77,7 @@ public abstract class AdvancementTabMixin {
                 }
             }
 
-            RenderSystem.setShaderTexture(0, customAdvancementDisplay.getTexture());
-            DrawableHelper.drawTexture(new MatrixStack(), i, j, 0, 0, 16, 16, 16, 16);
+            context.drawTexture(customAdvancementDisplay.getTexture(), i, j, 0, 0, 16, 16, 16, 16);
         }
     }
 }

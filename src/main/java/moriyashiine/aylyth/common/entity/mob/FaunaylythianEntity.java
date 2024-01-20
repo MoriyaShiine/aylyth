@@ -20,32 +20,32 @@ import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.*;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.builder.ILoopType;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
-import software.bernie.geckolib3.util.GeckoLibUtil;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.Animation;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FaunaylythianEntity extends HostileEntity implements IAnimatable {
+public class FaunaylythianEntity extends HostileEntity implements GeoEntity {
     public static final TrackedData<Integer> VARIANT = DataTracker.registerData(FaunaylythianEntity.class, TrackedDataHandlerRegistry.INTEGER);
     public static final TrackedData<Boolean> POUNCING = DataTracker.registerData(FaunaylythianEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
     public static final int VARIANTS = 2;
 
-    private final AnimationFactory factory = GeckoLibUtil.createFactory(this);
+    private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
 
     public FaunaylythianEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
@@ -105,11 +105,11 @@ public class FaunaylythianEntity extends HostileEntity implements IAnimatable {
     protected void dropEquipment(DamageSource source, int lootingMultiplier, boolean allowDrops) {
         super.dropEquipment(source, lootingMultiplier, allowDrops);
         double random = this.random.nextDouble();
-        if (random <= 0.20 && !world.isClient && world.getBlockState(getBlockPos()).getMaterial().isReplaceable() && ModBlocks.YMPE_BLOCKS.sapling.getDefaultState().canPlaceAt(world, getBlockPos())) {
-            world.setBlockState(getBlockPos(), ModBlocks.YMPE_BLOCKS.sapling.getDefaultState());
+        if (random <= 0.20 && !getWorld().isClient && getWorld().getBlockState(getBlockPos()).isReplaceable() && ModBlocks.YMPE_BLOCKS.sapling.getDefaultState().canPlaceAt(getWorld(), getBlockPos())) {
+            getWorld().setBlockState(getBlockPos(), ModBlocks.YMPE_BLOCKS.sapling.getDefaultState());
             playSound(SoundEvents.BLOCK_GRASS_PLACE, getSoundVolume(), getSoundPitch());
-        } else if (random <= 0.30 && !world.isClient && world.getBlockState(getBlockPos()).getMaterial().isReplaceable() && ModBlocks.LARGE_WOODY_GROWTH.getDefaultState().canPlaceAt(world, getBlockPos())) {
-            placeWoodyGrowths(world, getBlockPos());
+        } else if (random <= 0.30 && !getWorld().isClient && getWorld().getBlockState(getBlockPos()).isReplaceable() && ModBlocks.LARGE_WOODY_GROWTH.getDefaultState().canPlaceAt(getWorld(), getBlockPos())) {
+            placeWoodyGrowths(getWorld(), getBlockPos());
         }
     }
 
@@ -119,7 +119,7 @@ public class FaunaylythianEntity extends HostileEntity implements IAnimatable {
         for (int x = -1; x <= 1; x++) {
             for (int z = -1; z <= 1; z++) {
                 for (int y = -1; y <= 1; y++) {
-                    if (!world.isClient && world.getBlockState(blockPos.add(x,y,z)).getMaterial().isReplaceable() && world.getBlockState(blockPos.add(x,y,z).down()).isIn(BlockTags.DIRT)) {
+                    if (!world.isClient && world.getBlockState(blockPos.add(x,y,z)).isReplaceable() && world.getBlockState(blockPos.add(x,y,z).down()).isIn(BlockTags.DIRT)) {
                         listPos.add(index, blockPos.add(x,y,z));
                         index++;
                     }
@@ -163,29 +163,29 @@ public class FaunaylythianEntity extends HostileEntity implements IAnimatable {
     }
 
     @Override
-    public void registerControllers(AnimationData animationData) {
-        animationData.addAnimationController(new AnimationController<>(this, "controller", 10, animationEvent -> {
+    public void registerControllers(AnimatableManager.ControllerRegistrar animationData) {
+        animationData.add(new AnimationController<>(this, "controller", 10, animationEvent -> {
             float limbSwingAmount = Math.abs(animationEvent.getLimbSwingAmount());
-            AnimationBuilder builder = new AnimationBuilder();
+            var builder = RawAnimation.begin();
             if(dataTracker.get(POUNCING)){
-                builder.addAnimation("animation.faunaylythian.prepare", ILoopType.EDefaultLoopTypes.PLAY_ONCE);
-                builder.addAnimation("animation.faunaylythian.jump", ILoopType.EDefaultLoopTypes.PLAY_ONCE);
+                builder.then("animation.faunaylythian.prepare", Animation.LoopType.PLAY_ONCE);
+                builder.then("animation.faunaylythian.jump", Animation.LoopType.PLAY_ONCE);
             } else if (limbSwingAmount > 0.01F) {
                 if (limbSwingAmount > 0.6F) {
-                    builder.addAnimation("animation.faunaylythian.chasing", ILoopType.EDefaultLoopTypes.LOOP);
+                    builder.thenLoop("animation.faunaylythian.chasing");
                 } else {
-                    builder.addAnimation("animation.faunaylythian.walk", ILoopType.EDefaultLoopTypes.LOOP);
+                    builder.thenLoop("animation.faunaylythian.walk");
                 }
             } else {
-                builder.addAnimation("animation.faunaylythian.idle", ILoopType.EDefaultLoopTypes.LOOP);
+                builder.thenLoop("animation.faunaylythian.idle");
             }
             animationEvent.getController().setAnimation(builder);
             return PlayState.CONTINUE;
         }));
-        animationData.addAnimationController(new AnimationController<>(this, "animation.faunaylythian.attack", 0, animationEvent -> {
-            AnimationBuilder builder = new AnimationBuilder();
+        animationData.add(new AnimationController<>(this, "animation.faunaylythian.attack", 0, animationEvent -> {
+            var builder = RawAnimation.begin();
             if (handSwingTicks > 0 && !isDead()) {
-                animationEvent.getController().setAnimation(builder.addAnimation("animation.faunaylythian.hit", ILoopType.EDefaultLoopTypes.LOOP));
+                animationEvent.getController().setAnimation(builder.thenLoop("animation.faunaylythian.hit"));
                 return PlayState.CONTINUE;
             }
             return PlayState.STOP;
@@ -209,7 +209,7 @@ public class FaunaylythianEntity extends HostileEntity implements IAnimatable {
     }
 
     @Override
-    public AnimationFactory getFactory() {
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
         return factory;
     }
 }

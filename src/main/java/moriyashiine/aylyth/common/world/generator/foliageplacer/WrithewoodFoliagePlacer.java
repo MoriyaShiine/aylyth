@@ -28,7 +28,7 @@ public class WrithewoodFoliagePlacer extends FoliagePlacer {
     }
 
     @Override
-    protected void generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, TreeFeatureConfig config, int trunkHeight, TreeNode treeNode, int foliageHeight, int radius, int offset) {
+    protected void generate(TestableWorld world, FoliagePlacer.BlockPlacer replacer, Random random, TreeFeatureConfig config, int trunkHeight, TreeNode treeNode, int foliageHeight, int radius, int offset) {
         BlockPos pos = treeNode.getCenter();
         if (treeNode instanceof WrithewoodTreeNode dirNode) {
             Direction dir = dirNode.dir;
@@ -50,11 +50,11 @@ public class WrithewoodFoliagePlacer extends FoliagePlacer {
         }
     }
 
-    protected void generateBetween(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, TreeFeatureConfig config, BlockPos pos1, BlockPos pos2) {
+    protected void generateBetween(TestableWorld world, FoliagePlacer.BlockPlacer replacer, Random random, TreeFeatureConfig config, BlockPos pos1, BlockPos pos2) {
         generateBetween(world, replacer, random, config, pos1, pos2, 1f);
     }
 
-    protected void generateBetween(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, TreeFeatureConfig config, BlockPos pos1, BlockPos pos2, float placementChance) {
+    protected void generateBetween(TestableWorld world, FoliagePlacer.BlockPlacer replacer, Random random, TreeFeatureConfig config, BlockPos pos1, BlockPos pos2, float placementChance) {
         for (BlockPos mutable : BlockPos.Mutable.iterate(pos1, pos2)) {
             if (random.nextFloat() <= placementChance) {
                 placeFoliageBlock(world, replacer, random, config, mutable);

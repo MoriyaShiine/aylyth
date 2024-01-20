@@ -5,12 +5,13 @@ import moriyashiine.aylyth.common.advancement.CustomAdvancementDisplay;
 import moriyashiine.aylyth.mixin.client.AdvancementWidgetAccessor;
 import net.minecraft.advancement.Advancement;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawableHelper;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.advancement.AdvancementObtainedStatus;
 import net.minecraft.client.gui.screen.advancement.AdvancementTab;
 import net.minecraft.client.gui.screen.advancement.AdvancementWidget;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.text.OrderedText;
 import net.minecraft.util.math.MathHelper;
 
 public class CustomAdvancementWidget extends AdvancementWidget {
@@ -19,8 +20,9 @@ public class CustomAdvancementWidget extends AdvancementWidget {
         super(tab, client, advancement, display);
     }
 
+    // [VanillaCopy]
     @Override
-    public void renderWidgets(MatrixStack matrices, int x, int y) {
+    public void renderWidgets(DrawContext matrices, int x, int y) {
         AdvancementWidgetAccessor accessor = (AdvancementWidgetAccessor)this;
         if (!accessor.getDisplay().isHidden() || accessor.getProgress() != null && accessor.getProgress().isDone()) {
             CustomAdvancementDisplay display = (CustomAdvancementDisplay)accessor.getDisplay();
@@ -32,11 +34,8 @@ public class CustomAdvancementWidget extends AdvancementWidget {
                 advancementObtainedStatus = AdvancementObtainedStatus.UNOBTAINED;
             }
 
-            RenderSystem.setShader(GameRenderer::getPositionTexShader);
-            RenderSystem.setShaderTexture(0, AdvancementWidgetAccessor.getWidgetsTexture());
-            this.drawTexture(matrices, x + accessor.getX() + 3, y + accessor.getY(), accessor.getDisplay().getFrame().getTextureV(), 128 + advancementObtainedStatus.getSpriteIndex() * 26, 26, 26);
-            RenderSystem.setShaderTexture(0, display.getTexture());
-            DrawableHelper.drawTexture(matrices, x + accessor.getX() + 8, y + accessor.getY() + 5, 0, 0, 16, 16, 16, 16);
+            matrices.drawTexture(AdvancementWidgetAccessor.getWidgetsTexture(), x + accessor.getX() + 3, y + accessor.getY(), display.getFrame().getTextureV(), 128 + advancementObtainedStatus.getSpriteIndex() * 26, 26, 26);
+            matrices.drawTexture(display.getTexture(), x + accessor.getX() + 8, y + accessor.getY() + 5, 0, 0, 16, 16, 16, 16);
         }
 
         for(AdvancementWidget advancementWidget : accessor.getChildren()) {
@@ -44,10 +43,12 @@ public class CustomAdvancementWidget extends AdvancementWidget {
         }
     }
 
+    // [VanillaCopy]
     @Override
-    public void drawTooltip(MatrixStack matrices, int originX, int originY, float alpha, int x, int y) {
+    public void drawTooltip(DrawContext matrices, int originX, int originY, float alpha, int x, int y) {
         AdvancementWidgetAccessor accessor = (AdvancementWidgetAccessor)this;
         CustomAdvancementDisplay display = (CustomAdvancementDisplay)accessor.getDisplay();
+
         boolean bl = x + originX + accessor.getX() + accessor.getWidth() + 26 >= accessor.getTab().getScreen().width;
         String string = accessor.getProgress() == null ? null : accessor.getProgress().getProgressBarFraction();
         int i = string == null ? 0 : accessor.getClient().textRenderer.getWidth(string);
@@ -79,9 +80,6 @@ public class CustomAdvancementWidget extends AdvancementWidget {
         }
 
         int k = accessor.getWidth() - j;
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderTexture(0, AdvancementWidgetAccessor.getWidgetsTexture());
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.enableBlend();
         int l = originY + accessor.getY();
         int m;
@@ -94,39 +92,37 @@ public class CustomAdvancementWidget extends AdvancementWidget {
         int n = 32 + accessor.getDescription().size() * 9;
         if (!accessor.getDescription().isEmpty()) {
             if (bl2) {
-                this.renderDescriptionBackground(matrices, m, l + 26 - n, accessor.getWidth(), n, 10, 200, 26, 0, 52);
+                matrices.drawNineSlicedTexture(AdvancementWidgetAccessor.getWidgetsTexture(), m, l + 26 - n, accessor.getWidth(), n, 10, 200, 26, 0, 52);
             } else {
-                this.renderDescriptionBackground(matrices, m, l, accessor.getWidth(), n, 10, 200, 26, 0, 52);
+                matrices.drawNineSlicedTexture(AdvancementWidgetAccessor.getWidgetsTexture(), m, l, accessor.getWidth(), n, 10, 200, 26, 0, 52);
             }
         }
 
-        this.drawTexture(matrices, m, l, 0, advancementObtainedStatus.getSpriteIndex() * 26, j, 26);
-        this.drawTexture(matrices, m + j, l, 200 - k, advancementObtainedStatus2.getSpriteIndex() * 26, k, 26);
-        this.drawTexture(matrices, originX + accessor.getX() + 3, originY + accessor.getY(), display.getFrame().getTextureV(), 128 + advancementObtainedStatus3.getSpriteIndex() * 26, 26, 26);
-
+        matrices.drawTexture(AdvancementWidgetAccessor.getWidgetsTexture(), m, l, 0, advancementObtainedStatus.getSpriteIndex() * 26, j, 26);
+        matrices.drawTexture(AdvancementWidgetAccessor.getWidgetsTexture(), m + j, l, 200 - k, advancementObtainedStatus2.getSpriteIndex() * 26, k, 26);
+        matrices.drawTexture(AdvancementWidgetAccessor.getWidgetsTexture(), originX + accessor.getX() + 3, originY + accessor.getY(), display.getFrame().getTextureV(), 128 + advancementObtainedStatus3.getSpriteIndex() * 26, 26, 26);
         if (bl) {
-            accessor.getClient().textRenderer.drawWithShadow(matrices, accessor.getTitle(), (float)(m + 5), (float)(originY + accessor.getY() + 9), 0xFFFFFF);
+            matrices.drawTextWithShadow(accessor.getClient().textRenderer, accessor.getTitle(), m + 5, originY + accessor.getY() + 9, -1);
             if (string != null) {
-                accessor.getClient().textRenderer.drawWithShadow(matrices, string, (float)(originX + accessor.getX() - i), (float)(originY + accessor.getY() + 9), 0xFFFFFF);
+                matrices.drawTextWithShadow(accessor.getClient().textRenderer, string, originX + accessor.getX() - i, originY + accessor.getY() + 9, -1);
             }
         } else {
-            accessor.getClient().textRenderer.drawWithShadow(matrices, accessor.getTitle(), (float)(originX + accessor.getX() + 32), (float)(originY + accessor.getY() + 9), 0xFFFFFF);
+            matrices.drawTextWithShadow(accessor.getClient().textRenderer, accessor.getTitle(), originX + accessor.getX() + 32, originY + accessor.getY() + 9, -1);
             if (string != null) {
-                accessor.getClient().textRenderer.drawWithShadow(matrices, string, (float)(originX + accessor.getX() + accessor.getWidth() - i - 5), (float)(originY + accessor.getY() + 9), 0xFFFFFF);
+                matrices.drawTextWithShadow(accessor.getClient().textRenderer, string, originX + accessor.getX() + accessor.getWidth() - i - 5, originY + accessor.getY() + 9, -1);
             }
         }
 
         if (bl2) {
             for(int o = 0; o < accessor.getDescription().size(); ++o) {
-                accessor.getClient().textRenderer.draw(matrices, accessor.getDescription().get(o), (float)(m + 5), (float)(l + 26 - n + 7 + o * 9), 5592406);
+                matrices.drawText(accessor.getClient().textRenderer, accessor.getDescription().get(o), m + 5, l + 26 - n + 7 + o * 9, -5592406, false);
             }
         } else {
             for(int o = 0; o < accessor.getDescription().size(); ++o) {
-                accessor.getClient().textRenderer.draw(matrices, accessor.getDescription().get(o), (float)(m + 5), (float)(originY + accessor.getY() + 9 + 17 + o * 9), 5592406);
+                matrices.drawText(accessor.getClient().textRenderer, accessor.getDescription().get(o), m + 5, originY + accessor.getY() + 9 + 17 + o * 9, -5592406, false);
             }
         }
 
-        RenderSystem.setShaderTexture(0, display.getTexture());
-        DrawableHelper.drawTexture(matrices, originX + accessor.getX() + 8, originY + accessor.getY() + 5, 0, 0, 16, 16, 16, 16);
+        matrices.drawTexture(display.getTexture(), originX + accessor.getX() + 8, originY + accessor.getY() + 5, 0, 0, 16, 16, 16, 16);
     }
 }

@@ -24,7 +24,7 @@ public class YmpemouldItem extends Item {
         if (ctx.getWorld().getBlockState(pos.offset(ctx.getSide())).isAir() && ctx.getWorld().getBlockState(pos.offset(ctx.getSide()).offset(Direction.UP)).isAir() && ctx.getWorld().getBlockState(pos.offset(ctx.getSide()).offset(Direction.UP, 2)).isAir() || ctx.getWorld().getBlockState(pos.offset(ctx.getSide())).getBlock().equals(Blocks.WATER) && ctx.getWorld().getBlockState(pos.offset(ctx.getSide()).offset(Direction.UP)).getBlock().equals(Blocks.WATER) && ctx.getWorld().getBlockState(pos.offset(ctx.getSide()).offset(Direction.UP, 2)).getBlock().equals(Blocks.WATER)) {
             SoulmouldEntity mould = new SoulmouldEntity(ModEntityTypes.SOULMOULD, ctx.getWorld());
             mould.refreshPositionAndAngles(pos.offset(ctx.getSide()), 0.0F, 0.0F);
-            mould.setDormantDir(ctx.getPlayerFacing().getOpposite());
+            mould.setDormantDir(ctx.getHorizontalPlayerFacing().getOpposite());
             mould.setDormantPos(pos.offset(ctx.getSide()));
             mould.setActionState(0);
             if (player != null) {

@@ -1,6 +1,7 @@
 package moriyashiine.aylyth.datagen.worldgen.biomes.util;
 
 import net.minecraft.particle.ParticleEffect;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.sound.BiomeAdditionsSound;
 import net.minecraft.sound.BiomeMoodSound;
 import net.minecraft.sound.MusicSound;
@@ -8,8 +9,6 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.biome.BiomeEffects;
 import net.minecraft.world.biome.BiomeParticleConfig;
 import org.jetbrains.annotations.NotNull;
-
-import javax.annotation.Nonnegative;
 
 // NOTE: could maybe also extend BiomeEffects itself to add special abilities via mixin
 public class BiomeEffectsBuilder {
@@ -48,7 +47,7 @@ public class BiomeEffectsBuilder {
      * @param skyColor Color of the sky when in the biome
      * @return BiomeEffectsBuilder with given required values
      */
-    public static BiomeEffectsBuilder builder(@Nonnegative int fogColor, @Nonnegative int waterColor, @Nonnegative int waterFogColor, @Nonnegative int skyColor) {
+    public static BiomeEffectsBuilder builder(int fogColor, int waterColor, int waterFogColor, int skyColor) {
         BiomeEffects.Builder builder = new BiomeEffects.Builder();
         builder.fogColor(fogColor);
         builder.waterColor(waterColor);
@@ -65,32 +64,32 @@ public class BiomeEffectsBuilder {
         return builder().build();
     }
 
-    public BiomeEffectsBuilder fogColor(@Nonnegative int fogColor) {
+    public BiomeEffectsBuilder fogColor(int fogColor) {
         delegate.fogColor(fogColor);
         return this;
     }
 
-    public BiomeEffectsBuilder waterColor(@Nonnegative int waterColor) {
+    public BiomeEffectsBuilder waterColor(int waterColor) {
         delegate.waterColor(waterColor);
         return this;
     }
 
-    public BiomeEffectsBuilder waterFogColor(@Nonnegative int waterFogColor) {
+    public BiomeEffectsBuilder waterFogColor(int waterFogColor) {
         delegate.waterFogColor(waterFogColor);
         return this;
     }
 
-    public BiomeEffectsBuilder skyColor(@Nonnegative int skyColor) {
+    public BiomeEffectsBuilder skyColor(int skyColor) {
         delegate.skyColor(skyColor);
         return this;
     }
 
-    public BiomeEffectsBuilder foliageColor(@Nonnegative int foliageColor) {
+    public BiomeEffectsBuilder foliageColor(int foliageColor) {
         delegate.foliageColor(foliageColor);
         return this;
     }
 
-    public BiomeEffectsBuilder grassColor(@Nonnegative int grassColor) {
+    public BiomeEffectsBuilder grassColor(int grassColor) {
         delegate.grassColor(grassColor);
         return this;
     }
@@ -110,7 +109,7 @@ public class BiomeEffectsBuilder {
         return this;
     }
 
-    public BiomeEffectsBuilder loopSound(@NotNull SoundEvent sound) {
+    public BiomeEffectsBuilder loopSound(@NotNull RegistryEntry<SoundEvent> sound) {
         delegate.loopSound(sound);
         return this;
     }

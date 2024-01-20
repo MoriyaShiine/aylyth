@@ -9,8 +9,7 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.math.Quaternion;
-import net.minecraft.util.math.Vec3f;
+import net.minecraft.util.math.RotationAxis;
 import org.jetbrains.annotations.Nullable;
 
 public class RenderUtils {
@@ -47,9 +46,9 @@ public class RenderUtils {
         MatrixStack matrixStack2 = new MatrixStack();
         matrixStack2.translate(0.0, 0.0, 1000.0);
         matrixStack2.scale((float)size, (float)size, (float)size);
-        Quaternion quaternion = Vec3f.POSITIVE_Z.getDegreesQuaternion(180.0F);
-        Quaternion quaternion2 = Vec3f.POSITIVE_X.getDegreesQuaternion(g * 20.0F);
-        quaternion.hamiltonProduct(quaternion2);
+        var quaternion = RotationAxis.POSITIVE_Z.rotationDegrees(180.0F);
+        var quaternion2 = RotationAxis.POSITIVE_X.rotationDegrees(g * 20.0F);
+        quaternion.mul(quaternion2);
         matrixStack2.multiply(quaternion);
         float h = entity.bodyYaw;
         float i = entity.getYaw();

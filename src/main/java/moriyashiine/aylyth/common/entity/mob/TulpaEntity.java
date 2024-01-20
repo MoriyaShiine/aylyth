@@ -37,6 +37,7 @@ import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtHelper;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.ServerConfigHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -46,25 +47,23 @@ import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.builder.ILoopType;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
-import software.bernie.geckolib3.util.GeckoLibUtil;
+import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.*;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
-import javax.annotation.Nullable;
 import java.util.Optional;
 import java.util.UUID;
 
-public class TulpaEntity extends HostileEntity implements TameableHostileEntity, IAnimatable, CrossbowUser,
+public class TulpaEntity extends HostileEntity implements TameableHostileEntity, GeoEntity, CrossbowUser,
         InventoryOwner, InventoryChangedListener, ProlongedDeath {
     @Nullable
     private GameProfile skinProfile;
-    private final AnimationFactory factory = GeckoLibUtil.createFactory(this);
+    private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
     private static final TrackedData<Byte> TAMEABLE = DataTracker.registerData(TulpaEntity.class, TrackedDataHandlerRegistry.BYTE);
     public static final byte IDLE = 0;
     public static final byte FOLLOW = 1;
@@ -110,9 +109,9 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
 
     @Override
     protected void mobTick() {
-        this.world.getProfiler().push("tulpaBrain");
-        this.getBrain().tick((ServerWorld)this.world, this);
-        this.world.getProfiler().pop();
+        this.getWorld().getProfiler().push("tulpaBrain");
+        this.getBrain().tick((ServerWorld)this.getWorld(), this);
+        this.getWorld().getProfiler().pop();
         TulpaBrain.updateActivities(this);
         if(dataTracker.get(TRANSFORMING)) {
             this.getBrain().forget(MemoryModuleType.WALK_TARGET);
@@ -134,7 +133,7 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
         this.prevStrideDistance = this.strideDistance;
         super.tickMovement();
         float f;
-        if (this.onGround && !this.isDead() && !this.isSwimming()) {
+        if (this.isOnGround() && !this.isDead() && !this.isSwimming()) {
             f = Math.min(0.1F, (float)this.getVelocity().horizontalLength());
         } else {
             f = 0.0F;
@@ -199,7 +198,7 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
                     ItemStack itemStack = player.getMainHandStack();
                     if(FabricLoader.getInstance().isModLoaded("bewitchment")) {
                         if(itemStack.getItem() instanceof TaglockItem) {
-                            LivingEntity living = BewitchmentAPI.getTaglockOwner(world, itemStack);
+                            LivingEntity living = BewitchmentAPI.getTaglockOwner(getWorld(), itemStack);
                             if(living instanceof PlayerEntity playerEntity) {
                                 setSkinUuid(playerEntity.getUuid());
                                 this.setCustomName(playerEntity.getName());
@@ -225,11 +224,11 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
                     }
                 }
                 if (!player.isSneaking() && player.getMainHandStack().isEmpty()) {
-                    if (player.world != null && !this.world.isClient()) {
+                    if (player.getWorld() != null && !this.getWorld().isClient()) {
                         setInteractTarget(player);
                         player.openHandledScreen(new TulpaScreenHandlerFactory());
                     }
-                } else if (!this.world.isClient() && player.getMainHandStack().isEmpty() && player.getUuid().equals(this.getOwnerUuid())) {
+                } else if (!this.getWorld().isClient() && player.getMainHandStack().isEmpty() && player.getUuid().equals(this.getOwnerUuid())) {
                     this.cycleActionState(player);
                 }
             }
@@ -327,7 +326,7 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
             if (j < 12) {
                 this.inventory.setStack(j, ItemStack.fromNbt(compoundnbt));
             } else {
-                ItemScatterer.spawn(world, this.getBlockX(), this.getBlockY() + 1, this.getBlockZ(), ItemStack.fromNbt(compoundnbt));
+                ItemScatterer.spawn(getWorld(), this.getBlockX(), this.getBlockY() + 1, this.getBlockZ(), ItemStack.fromNbt(compoundnbt));
             }
         }
 
@@ -376,23 +375,23 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
     @Nullable
     @Override
     public LivingEntity getTarget() {
-        return this.brain.getOptionalMemory(MemoryModuleType.ATTACK_TARGET).orElse(null);
+        return this.brain.getOptionalRegisteredMemory(MemoryModuleType.ATTACK_TARGET).orElse(null);
     }
 
     @Override
     public boolean damage(DamageSource source, float amount) {
         if (amount > 0.0F && blockedByShield(source)) {
             this.damageShield(amount);
-            if (!source.isProjectile()) {
+            if (!source.isIn(DamageTypeTags.IS_PROJECTILE)) {
                 Entity entity = source.getSource();
                 if (entity instanceof LivingEntity) {
                     this.takeShieldHit((LivingEntity) entity);
-                    world.sendEntityStatus(entity, (byte) 29);
+                    getWorld().sendEntityStatus(entity, (byte) 29);
                 }
             }
         }
         boolean damage = super.damage(source, amount);
-        if (this.world.isClient) {
+        if (this.getWorld().isClient) {
             return false;
         } else if (damage && source.getAttacker() instanceof LivingEntity) {
             return true;
@@ -403,9 +402,9 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
     @Override
     protected void dropInventory() {
         MobEntityAccessor accessor = ((MobEntityAccessor)this);
-        ItemScatterer.spawn(world, this, inventory);
-        ItemScatterer.spawn(world, this.getBlockPos(), accessor.armorItems());
-        ItemScatterer.spawn(world, this.getBlockPos(), accessor.handItems());
+        ItemScatterer.spawn(getWorld(), this, inventory);
+        ItemScatterer.spawn(getWorld(), this.getBlockPos(), accessor.armorItems());
+        ItemScatterer.spawn(getWorld(), this.getBlockPos(), accessor.handItems());
     }
 
     public static int slotToInventoryIndex(EquipmentSlot slot) {
@@ -453,7 +452,7 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
     public LivingEntity getOwner() {
         try {
             UUID uuid = this.getOwnerUuid();
-            return uuid == null ? null : this.world.getPlayerByUuid(uuid);
+            return uuid == null ? null : this.getWorld().getPlayerByUuid(uuid);
         } catch (IllegalArgumentException var2) {
             return null;
         }
@@ -486,39 +485,39 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
     }
 
     @Override
-    public void registerControllers(AnimationData animationData) {
-        animationData.addAnimationController(new AnimationController<>(this, "moveController", 5, this::movementPredicate));
+    public void registerControllers(AnimatableManager.ControllerRegistrar animationData) {
+        animationData.add(new AnimationController<>(this, "moveController", 5, this::movementPredicate));
     }
 
-    private <E extends IAnimatable> PlayState movementPredicate(AnimationEvent<E> event) {
-        AnimationBuilder builder = new AnimationBuilder();
+    private <E extends GeoAnimatable> PlayState movementPredicate(AnimationState<E> event) {
+        var builder = RawAnimation.begin();
         if ((this.dead || this.getHealth() < 0.01 || this.isDead())) {
             if (dataTracker.get(SKIN_UUID).isPresent()) {
-                builder.addAnimation("tulpa_mimic_death", ILoopType.EDefaultLoopTypes.PLAY_ONCE);
+                builder.then("tulpa_mimic_death", Animation.LoopType.PLAY_ONCE);
             } else {
-                builder.addAnimation("tulpa_death", ILoopType.EDefaultLoopTypes.PLAY_ONCE);
+                builder.then("tulpa_death", Animation.LoopType.PLAY_ONCE);
             }
             event.getController().setAnimation(builder);
             return PlayState.CONTINUE;
         } else if (this.getSkinProfile() != null) {
-            builder.addAnimation("tulpa_transform", ILoopType.EDefaultLoopTypes.HOLD_ON_LAST_FRAME);
+            builder.then("tulpa_transform", Animation.LoopType.HOLD_ON_LAST_FRAME);
         } else if (this.getDataTracker().get(IS_ATTACKING)) {
-            builder.addAnimation("tulpa_attacking_right", ILoopType.EDefaultLoopTypes.LOOP);
+            builder.thenLoop("tulpa_attacking_right");
             event.getController().setAnimation(builder);
             return PlayState.CONTINUE;
         } else if (event.isMoving()) {
-            builder.addAnimation("tulpa_walking", ILoopType.EDefaultLoopTypes.LOOP);
+            builder.thenLoop("tulpa_walking");
         } else {
-            builder.addAnimation("idle", ILoopType.EDefaultLoopTypes.LOOP);
+            builder.thenLoop("idle");
         }
-        if (!builder.getRawAnimationList().isEmpty()) {
+        if (!builder.getAnimationStages().isEmpty()) {
             event.getController().setAnimation(builder);
         }
         return PlayState.CONTINUE;
     }
 
     @Override
-    public AnimationFactory getFactory() {
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
         return factory;
     }
 
@@ -557,12 +556,12 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
         Hand hand = ProjectileUtil.getHandPossiblyHolding(this, Items.BOW);
         if (getStackInHand(hand).isOf(Items.BOW)) {
             ProjectileEntity arrow = ProjectileUtil.createArrowProjectile(this, new ItemStack(Items.ARROW), pullProgress);
-            this.world.spawnEntity(arrow);
+            this.getWorld().spawnEntity(arrow);
             double xDiff = target.getX() - getX();
             double yDiff = target.getBodyY(0.3333333333333333) - arrow.getY();
             double zDiff = target.getZ() - getZ();
             double dist = Math.sqrt(xDiff * xDiff + zDiff * zDiff);
-            arrow.setVelocity(xDiff, yDiff + dist * (double)0.2f, zDiff, 1.6f, 14 - this.world.getDifficulty().getId() * 4);
+            arrow.setVelocity(xDiff, yDiff + dist * (double)0.2f, zDiff, 1.6f, 14 - this.getWorld().getDifficulty().getId() * 4);
             this.playSound(SoundEvents.ENTITY_ARROW_SHOOT, 1.0f, 1.0f / (this.getRandom().nextFloat() * 0.4f + 0.8f));
         } else {
             this.shoot(this, SHOOT_SPEED);

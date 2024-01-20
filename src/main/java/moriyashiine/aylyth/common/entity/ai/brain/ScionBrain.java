@@ -78,11 +78,11 @@ public class ScionBrain {
                 Activity.CORE,
                 0,
                 ImmutableList.of(
-                        new MemoryTransferTask<>(VALID_ENTITY, ModMemoryTypes.NEAREST_VISIBLE_PLAYER_NEMESIS, MemoryModuleType.AVOID_TARGET, GO_TO_NEMESIS_MEMORY_DURATION),
+                        MemoryTransferTask.create(VALID_ENTITY, ModMemoryTypes.NEAREST_VISIBLE_PLAYER_NEMESIS, MemoryModuleType.AVOID_TARGET, GO_TO_NEMESIS_MEMORY_DURATION),
                         new StayAboveWaterTask(0.6f),
                         new LookAroundTask(45, 90),
                         new WanderAroundTask(),
-                        new UpdateAttackTargetTask<>(ScionBrain::getAttackTarget)
+                        UpdateAttackTargetTask.create(ScionBrain::getAttackTarget)
                 )
         );
     }
@@ -93,10 +93,10 @@ public class ScionBrain {
                 ImmutableList.of(
                         Pair.of(0, new RandomTask<>(
                                 ImmutableList.of(
-                                        Pair.of(new StrollTask(0.6F), 2),
-                                        Pair.of(new ConditionalTask<>(livingEntity -> true, new GoTowardsLookTarget(0.6F, 3)), 2),
-                                        Pair.of(new GoToNearbyPositionTask(MemoryModuleType.HOME, 0.6F, 2, 100), 2),
-                                        Pair.of(new GoToIfNearbyTask(MemoryModuleType.HOME, 0.6F, 5), 2),
+                                        Pair.of(StrollTask.create(0.6F), 2),
+                                        Pair.of(GoTowardsLookTargetTask.create(0.6F, 3), 2),
+                                        Pair.of(GoToNearbyPositionTask.create(MemoryModuleType.HOME, 0.6F, 2, 100), 2),
+                                        Pair.of(GoToIfNearbyTask.create(MemoryModuleType.HOME, 0.6F, 5), 2),
                                         Pair.of(new WaitTask(30, 60), 1)
                                 )))
                 )
@@ -108,10 +108,10 @@ public class ScionBrain {
                 Activity.FIGHT,
                 10,
                 ImmutableList.of(
-                        new ForgetAttackTargetTask<>(entity -> !scionEntity.isEnemy(entity), BrainUtils::setTargetInvalid, false),
-                        new FollowMobTask(mob -> BrainUtils.isTarget(scionEntity, mob), (float)scionEntity.getAttributeValue(EntityAttributes.GENERIC_FOLLOW_RANGE)),
-                        new RangedApproachTask(1.2F),
-                        new MeleeAttackTask(18)
+                        ForgetAttackTargetTask.create(entity -> !scionEntity.isEnemy(entity), BrainUtils::setTargetInvalid, false),
+                        LookAtMobTask.create(mob -> BrainUtils.isTarget(scionEntity, mob), (float)scionEntity.getAttributeValue(EntityAttributes.GENERIC_FOLLOW_RANGE)),
+                        RangedApproachTask.create(1.2F),
+                        MeleeAttackTask.create(18)
                 ),
                 MemoryModuleType.ATTACK_TARGET
         );
@@ -123,7 +123,7 @@ public class ScionBrain {
     }
 
     public static void setCurrentPosAsHome(ScionEntity scionEntity) {
-        GlobalPos globalPos = GlobalPos.create(scionEntity.world.getRegistryKey(), scionEntity.getBlockPos());
+        GlobalPos globalPos = GlobalPos.create(scionEntity.getWorld().getRegistryKey(), scionEntity.getBlockPos());
         scionEntity.getBrain().remember(MemoryModuleType.HOME, globalPos);
     }
 
@@ -133,15 +133,15 @@ public class ScionBrain {
         if(optional.isPresent() && Sensor.testAttackableTargetPredicateIgnoreVisibility(scionEntity, optional.get())){
             return optional;
         }
-        Optional<PlayerEntity> optional2 = brain.getOptionalMemory(ModMemoryTypes.NEAREST_VISIBLE_PLAYER_NEMESIS);
+        Optional<PlayerEntity> optional2 = brain.getOptionalRegisteredMemory(ModMemoryTypes.NEAREST_VISIBLE_PLAYER_NEMESIS);
         if (optional2.isPresent()) {
             return optional2;
         }
         if (brain.hasMemoryModule(MemoryModuleType.NEAREST_VISIBLE_TARGETABLE_PLAYER)) {
-            return brain.getOptionalMemory(MemoryModuleType.NEAREST_VISIBLE_TARGETABLE_PLAYER);
+            return brain.getOptionalRegisteredMemory(MemoryModuleType.NEAREST_VISIBLE_TARGETABLE_PLAYER);
         }
         if (brain.hasMemoryModule(MemoryModuleType.VISIBLE_MOBS)) {
-            Optional<LivingTargetCache> visibleLivingEntitiesCache = scionEntity.getBrain().getOptionalMemory(MemoryModuleType.VISIBLE_MOBS);
+            Optional<LivingTargetCache> visibleLivingEntitiesCache = scionEntity.getBrain().getOptionalRegisteredMemory(MemoryModuleType.VISIBLE_MOBS);
             if(visibleLivingEntitiesCache.isPresent()){
                 return visibleLivingEntitiesCache.get().findFirst(entity -> entity.getType() == EntityType.PLAYER && !entity.isSubmergedInWater());
             }

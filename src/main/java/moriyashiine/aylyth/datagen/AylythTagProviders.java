@@ -2,34 +2,30 @@ package moriyashiine.aylyth.datagen;
 
 import moriyashiine.aylyth.common.registry.*;
 import moriyashiine.aylyth.common.registry.util.WoodSuite;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalEntityTypeTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
-import net.minecraft.tag.*;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.entity.damage.DamageType;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.registry.tag.*;
 import net.minecraft.world.biome.Biome;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.concurrent.CompletableFuture;
+
 public class AylythTagProviders {
 
-    public static void registerTagProviders(FabricDataGenerator dataGenerator) {
-        dataGenerator.addProvider(ModBiomeTags::new);
-        ModBlockTags blockTags = new ModBlockTags(dataGenerator);
-        dataGenerator.addProvider(blockTags);
-        dataGenerator.addProvider(new ModItemTags(dataGenerator, blockTags));
-        dataGenerator.addProvider(ModEntityTypeTags::new);
-    }
-
-    public static class ModBiomeTags extends FabricTagProvider.DynamicRegistryTagProvider<Biome> {
-        public ModBiomeTags(FabricDataGenerator dataGenerator) {
-            super(dataGenerator, Registry.BIOME_KEY);
+    public static class ModBiomeTags extends FabricTagProvider<Biome> {
+        public ModBiomeTags(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registries) {
+            super(output, RegistryKeys.BIOME, registries);
         }
 
         @Override
-        protected void generateTags() {
+        protected void configure(RegistryWrapper.WrapperLookup registries) {
             getOrCreateTagBuilder(ModTags.GENERATES_SEEP).forceAddTag(BiomeTags.IS_FOREST).forceAddTag(BiomeTags.IS_TAIGA);
             getOrCreateTagBuilder(BiomeTags.HAS_CLOSER_WATER_FOG).add(ModBiomeKeys.MIRE_ID);
         }
@@ -37,12 +33,12 @@ public class AylythTagProviders {
 
     public static class ModBlockTags extends FabricTagProvider.BlockTagProvider {
 
-        public ModBlockTags(FabricDataGenerator dataGenerator) {
-            super(dataGenerator);
+        public ModBlockTags(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registries) {
+            super(output, registries);
         }
 
         @Override
-        protected void generateTags() {
+        protected void configure(RegistryWrapper.WrapperLookup registries) {
             getOrCreateTagBuilder(BlockTags.AXE_MINEABLE).addTag(ModTags.WOODY_GROWTHS).add(ModBlocks.AYLYTH_BUSH, ModBlocks.ANTLER_SHOOTS, ModBlocks.GRIPWEED, ModBlocks.NYSIAN_GRAPE_VINE, ModBlocks.OAK_SEEP, ModBlocks.SPRUCE_SEEP, ModBlocks.DARK_OAK_SEEP, ModBlocks.YMPE_SEEP, ModBlocks.SEEPING_WOOD, ModBlocks.SEEPING_WOOD_SEEP);
             getOrCreateTagBuilder(BlockTags.HOE_MINEABLE).add(ModBlocks.YMPE_LEAVES, ModBlocks.POMEGRANATE_LEAVES, ModBlocks.WRITHEWOOD_LEAVES);
             getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE).add(ModBlocks.SOUL_HEARTH).add(ModBlocks.VITAL_THURIBLE);
@@ -83,12 +79,12 @@ public class AylythTagProviders {
 
     public static class ModItemTags extends FabricTagProvider.ItemTagProvider {
 
-        public ModItemTags(FabricDataGenerator dataGenerator, @Nullable BlockTagProvider blockTagProvider) {
-            super(dataGenerator, blockTagProvider);
+        public ModItemTags(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registries, @Nullable BlockTagProvider blockTagProvider) {
+            super(output, registries, blockTagProvider);
         }
 
         @Override
-        protected void generateTags() {
+        protected void configure(RegistryWrapper.WrapperLookup registries) {
             getOrCreateTagBuilder(ItemTags.BOATS).add(ModItems.YMPE_ITEMS.boat, ModItems.POMEGRANATE_ITEMS.boat, ModItems.WRITHEWOOD_ITEMS.boat);
             getOrCreateTagBuilder(ItemTags.CHEST_BOATS).add(ModItems.YMPE_ITEMS.chestBoat, ModItems.POMEGRANATE_ITEMS.chestBoat, ModItems.WRITHEWOOD_ITEMS.chestBoat);
             getOrCreateTagBuilder(ModTags.YMPE_FOODS).add(ModItems.YMPE_FRUIT);
@@ -113,14 +109,33 @@ public class AylythTagProviders {
 
     public static class ModEntityTypeTags extends FabricTagProvider.EntityTypeTagProvider {
 
-        public ModEntityTypeTags(FabricDataGenerator dataGenerator) {
-            super(dataGenerator);
+        public ModEntityTypeTags(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registries) {
+            super(output, registries);
         }
 
         @Override
-        protected void generateTags() {
+        protected void configure(RegistryWrapper.WrapperLookup registries) {
             getOrCreateTagBuilder(ModTags.GRIPWEED_IMMUNE).add(ModEntityTypes.AYLYTHIAN, ModEntityTypes.ELDER_AYLYTHIAN);
             getOrCreateTagBuilder(ModTags.SHUCK_BLACKLIST).forceAddTag(ConventionalEntityTypeTags.BOSSES).add(EntityType.ELDER_GUARDIAN);
+        }
+    }
+
+    public static class ModDamageTypeTags extends FabricTagProvider<DamageType> {
+
+        public ModDamageTypeTags(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registries) {
+            super(output, RegistryKeys.DAMAGE_TYPE, registries);
+        }
+
+        @Override
+        protected void configure(RegistryWrapper.WrapperLookup registries) {
+            getOrCreateTagBuilder(DamageTypeTags.BYPASSES_ARMOR).add(ModDamageSources.YMPE, ModDamageSources.UNBLOCKABLE, ModDamageSources.SOUL_RIP);
+            getOrCreateTagBuilder(DamageTypeTags.BYPASSES_ENCHANTMENTS).add(ModDamageSources.YMPE, ModDamageSources.UNBLOCKABLE);
+            getOrCreateTagBuilder(DamageTypeTags.BYPASSES_RESISTANCE).add(ModDamageSources.YMPE, ModDamageSources.UNBLOCKABLE);
+            getOrCreateTagBuilder(DamageTypeTags.BYPASSES_INVULNERABILITY).add(ModDamageSources.YMPE, ModDamageSources.UNBLOCKABLE);
+            getOrCreateTagBuilder(DamageTypeTags.BYPASSES_EFFECTS).add(ModDamageSources.UNBLOCKABLE);
+            getOrCreateTagBuilder(DamageTypeTags.WITCH_RESISTANT_TO).add(ModDamageSources.SOUL_RIP);
+            getOrCreateTagBuilder(DamageTypeTags.AVOIDS_GUARDIAN_THORNS).add(ModDamageSources.SOUL_RIP);
+            getOrCreateTagBuilder(DamageTypeTags.ALWAYS_TRIGGERS_SILVERFISH).add(ModDamageSources.SOUL_RIP);
         }
     }
 }

@@ -34,7 +34,7 @@ public class RootPropEntity extends EvokerFangsEntity {
     @Override
     public void tick() {
         super.tick();
-        if (this.world.isClient) {
+        if (this.getWorld().isClient) {
             if (this.playingAnimation) {
                 --this.ticksLeft;
                 if (this.ticksLeft == 14) {
@@ -45,13 +45,13 @@ public class RootPropEntity extends EvokerFangsEntity {
                         double g = (this.random.nextDouble() * 2.0 - 1.0) * 0.3;
                         double h = 0.3 + this.random.nextDouble() * 0.3;
                         double j = (this.random.nextDouble() * 2.0 - 1.0) * 0.3;
-                        this.world.addParticle(ParticleTypes.SOUL, d, e + 1.0, f, g, h, j);
+                        this.getWorld().addParticle(ParticleTypes.SOUL, d, e + 1.0, f, g, h, j);
                     }
                 }
             }
         } else if (--this.warmup < 0) {
             if (this.warmup == -8) {
-                List<LivingEntity> list = this.world.getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().expand(0.2, 0.0, 0.2));
+                List<LivingEntity> list = this.getWorld().getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().expand(0.2, 0.0, 0.2));
 
                 for (LivingEntity livingEntity : list) {
                     this.damage(livingEntity);
@@ -59,7 +59,7 @@ public class RootPropEntity extends EvokerFangsEntity {
             }
 
             if (!this.startedAttack) {
-                this.world.sendEntityStatus(this, EntityStatuses.PLAY_ATTACK_SOUND);
+                this.getWorld().sendEntityStatus(this, EntityStatuses.PLAY_ATTACK_SOUND);
                 this.startedAttack = true;
             }
 
@@ -74,12 +74,12 @@ public class RootPropEntity extends EvokerFangsEntity {
         LivingEntity livingEntity = this.getOwner();
         if (target.isAlive() && !target.isInvulnerable() && target != livingEntity) {
             if (livingEntity == null) {
-                target.damage(DamageSource.MAGIC, 6.0F);
+                target.damage(getDamageSources().magic(), 6.0F);
             } else {
                 if (livingEntity.isTeammate(target)) {
                     return;
                 }
-                target.damage(DamageSource.magic(this, livingEntity), 6.0F);
+                target.damage(getDamageSources().indirectMagic(this, livingEntity), 6.0F);
             }
 
         }
@@ -91,7 +91,7 @@ public class RootPropEntity extends EvokerFangsEntity {
         if (status == EntityStatuses.PLAY_ATTACK_SOUND) {
             this.playingAnimation = true;
             if (!this.isSilent()) {
-                this.world.playSound(this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_EVOKER_FANGS_ATTACK, this.getSoundCategory(), 1.0F, this.random.nextFloat() * 0.2F + 0.85F, false);
+                this.getWorld().playSound(this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_EVOKER_FANGS_ATTACK, this.getSoundCategory(), 1.0F, this.random.nextFloat() * 0.2F + 0.85F, false);
             }
         }
 

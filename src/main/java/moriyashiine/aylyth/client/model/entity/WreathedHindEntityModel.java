@@ -3,9 +3,9 @@ package moriyashiine.aylyth.client.model.entity;
 import moriyashiine.aylyth.common.entity.mob.WreathedHindEntity;
 import moriyashiine.aylyth.common.Aylyth;
 import net.minecraft.util.Identifier;
-import software.bernie.geckolib3.model.AnimatedGeoModel;
+import software.bernie.geckolib.model.GeoModel;
 
-public class WreathedHindEntityModel extends AnimatedGeoModel<WreathedHindEntity> {
+public class WreathedHindEntityModel extends GeoModel<WreathedHindEntity> {
 
     @Override
     public Identifier getModelResource(WreathedHindEntity object) {

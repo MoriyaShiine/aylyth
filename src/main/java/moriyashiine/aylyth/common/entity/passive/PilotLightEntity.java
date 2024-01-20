@@ -56,14 +56,14 @@ public class PilotLightEntity extends AmbientEntity implements Flutterer {
 		boolean wet = isWet();
 		setInvulnerable(!wet);
 		if (wet) {
-			damage(DamageSource.DROWN, 1);
+			damage(getDamageSources().drown(), 1);
 		}
-		if (world.isClient) {
+		if (getWorld().isClient) {
 			if (!isBlue()) {
-				world.addParticle(ModParticles.PILOT_LIGHT, getParticleX(0.25), getY() + 0.125F + MathHelper.nextDouble(random, -0.125, 0.125), getParticleZ(0.25), 1, 1, 0.2F);
+				getWorld().addParticle(ModParticles.PILOT_LIGHT, getParticleX(0.25), getY() + 0.125F + MathHelper.nextDouble(random, -0.125, 0.125), getParticleZ(0.25), 1, 1, 0.2F);
 			}
 			else {
-				world.addParticle(ModParticles.PILOT_LIGHT, getParticleX(0.25), getY() + 0.125F + MathHelper.nextDouble(random, -0.125, 0.125), getParticleZ(0.25), 0.25, 0.25, 1);
+				getWorld().addParticle(ModParticles.PILOT_LIGHT, getParticleX(0.25), getY() + 0.125F + MathHelper.nextDouble(random, -0.125, 0.125), getParticleZ(0.25), 0.25, 0.25, 1);
 			}
 		}
 	}
@@ -71,7 +71,7 @@ public class PilotLightEntity extends AmbientEntity implements Flutterer {
 	@Override
 	public void tickMovement() {
 		super.tickMovement();
-		if (!world.isClient && age % 200 < 20) {
+		if (!getWorld().isClient && age % 200 < 20) {
 			if (getVelocity().length() <= 0.1F && random.nextFloat() < 0.1F) {
 				setVelocity(random.nextGaussian(), random.nextGaussian(), random.nextGaussian());
 				setVelocity(getVelocity().multiply(0.1, getVelocity().getY() < 0 ? (getY() > 100 ? -0.025 : 0.01) : 0.025, 0.1));
@@ -81,10 +81,10 @@ public class PilotLightEntity extends AmbientEntity implements Flutterer {
 	
 	@Override
 	public ActionResult interactAt(PlayerEntity player, Vec3d hitPos, Hand hand) {
-		if (player instanceof ServerPlayerEntity serverPlayer && player.world.getRegistryKey() == ModDimensionKeys.AYLYTH) {
+		if (player instanceof ServerPlayerEntity serverPlayer && player.getWorld().getRegistryKey() == ModDimensionKeys.AYLYTH) {
 			if (player.isCreative() || player.experienceLevel >= 5) {
-				if(player.world.getServer() != null){
-					ServerWorld toWorld = player.world.getServer().getWorld(serverPlayer.getSpawnPointDimension());
+				if(player.getWorld().getServer() != null){
+					ServerWorld toWorld = player.getWorld().getServer().getWorld(serverPlayer.getSpawnPointDimension());
 					BlockPos toPos = serverPlayer.getSpawnPointPosition() == null ? toWorld.getSpawnPos() : serverPlayer.getSpawnPointPosition();
 					FabricDimensions.teleport(player, toWorld, new TeleportTarget(Vec3d.of(toPos), Vec3d.ZERO, player.headYaw, player.getPitch()));
 				}

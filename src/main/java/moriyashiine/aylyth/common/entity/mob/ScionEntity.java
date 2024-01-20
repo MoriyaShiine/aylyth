@@ -27,8 +27,8 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -52,9 +52,9 @@ public class ScionEntity extends HostileEntity {
 
     @Override
     protected void mobTick() {
-        this.world.getProfiler().push("scionBrain");
-        this.getBrain().tick((ServerWorld)this.world, this);
-        this.world.getProfiler().pop();
+        this.getWorld().getProfiler().push("scionBrain");
+        this.getBrain().tick((ServerWorld)this.getWorld(), this);
+        this.getWorld().getProfiler().pop();
         ScionBrain.updateActivities(this);
         super.mobTick();
     }
@@ -96,13 +96,13 @@ public class ScionEntity extends HostileEntity {
     }
 
     public boolean isEnemy(LivingEntity entity) {//TODO
-        return this.world == entity.world
+        return this.getWorld() == entity.getWorld()
                 && EntityPredicates.EXCEPT_CREATIVE_OR_SPECTATOR.test(entity)
                 && !this.isTeammate(entity)
                 && entity.getType() != EntityType.ARMOR_STAND
                 && !entity.isInvulnerable()
                 && !entity.isDead()
-                && this.world.getWorldBorder().contains(entity.getBoundingBox());
+                && this.getWorld().getWorldBorder().contains(entity.getBoundingBox());
     }
 
     public static DefaultAttributeContainer.Builder createAttributes() {
@@ -124,7 +124,7 @@ public class ScionEntity extends HostileEntity {
     }
 
     public static void summonPlayerScion(PlayerEntity playerEntity) {
-        ScionEntity scionEntity = ModEntityTypes.SCION.create(playerEntity.world);
+        ScionEntity scionEntity = ModEntityTypes.SCION.create(playerEntity.getWorld());
         if (scionEntity != null) {
             scionEntity.setStoredPlayerUUID(playerEntity.getUuid());
             Iterable<ItemStack> armorItems = playerEntity.getArmorItems();
@@ -141,8 +141,6 @@ public class ScionEntity extends HostileEntity {
             });
 
             scionEntity.copyPositionAndRotation(playerEntity);
-            scionEntity.limbDistance = playerEntity.limbDistance;
-            scionEntity.lastLimbDistance = playerEntity.lastLimbDistance;
             scionEntity.headYaw = playerEntity.headYaw;
             scionEntity.refreshPositionAndAngles(playerEntity.getX(), playerEntity.getY(), playerEntity.getZ(), playerEntity.getYaw(), playerEntity.getPitch());
             scionEntity.setCustomName(playerEntity.getCustomName());
@@ -155,7 +153,7 @@ public class ScionEntity extends HostileEntity {
             scionEntity.armorDropChances[EquipmentSlot.FEET.getEntitySlotId()] = 100.0F;
             scionEntity.setPersistent();
 
-            playerEntity.world.spawnEntity(scionEntity);
+            playerEntity.getWorld().spawnEntity(scionEntity);
         }
     }
 

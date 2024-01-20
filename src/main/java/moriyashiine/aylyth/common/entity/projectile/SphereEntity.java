@@ -39,7 +39,7 @@ public class SphereEntity extends ProjectileEntity {
     @Override
     public void tick() {
         super.tick();
-        world.addParticle(ModParticles.PILOT_LIGHT, getParticleX(0.25), getY() + 0.125F + MathHelper.nextDouble(random, -0.125, 0.125), getParticleZ(0.25), 0.25, 0.25, 1);
+        getWorld().addParticle(ModParticles.PILOT_LIGHT, getParticleX(0.25), getY() + 0.125F + MathHelper.nextDouble(random, -0.125, 0.125), getParticleZ(0.25), 0.25, 0.25, 1);
 
 
         Vec3d vec3d = this.getVelocity();
@@ -51,7 +51,7 @@ public class SphereEntity extends ProjectileEntity {
         this.updateRotation();
         float g = 0.99F;
         float h = 0.06F;
-        if (this.world.getStatesInBox(this.getBoundingBox()).noneMatch(AbstractBlock.AbstractBlockState::isAir)) {
+        if (this.getWorld().getStatesInBox(this.getBoundingBox()).noneMatch(AbstractBlock.AbstractBlockState::isAir)) {
             this.discard();
         } else if (this.isInsideWaterOrBubbleColumn()) {
             this.discard();
@@ -70,14 +70,14 @@ public class SphereEntity extends ProjectileEntity {
         super.onEntityHit(entityHitResult);
         Entity entity = this.getOwner();
         if (entity instanceof LivingEntity) {
-            entityHitResult.getEntity().damage(DamageSource.MAGIC, 7.0F);
+            entityHitResult.getEntity().damage(getDamageSources().magic(), 7.0F);
         }
     }
 
     @Override
     protected void onBlockHit(BlockHitResult blockHitResult) {
         super.onBlockHit(blockHitResult);
-        if (!this.world.isClient) {
+        if (!this.getWorld().isClient) {
             this.discard();
         }
     }
@@ -91,7 +91,7 @@ public class SphereEntity extends ProjectileEntity {
 
         for(int i = 0; i < 7; ++i) {
             double g = 0.4 + 0.1 * (double)i;
-            this.world.addParticle(ModParticles.PILOT_LIGHT, this.getX(), this.getY(), this.getZ(), d * g, e, f * g);
+            this.getWorld().addParticle(ModParticles.PILOT_LIGHT, this.getX(), this.getY(), this.getZ(), d * g, e, f * g);
         }
 
         this.setVelocity(d, e, f);

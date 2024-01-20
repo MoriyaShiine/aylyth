@@ -33,5 +33,6 @@
     [
       "has_wrongmeat"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

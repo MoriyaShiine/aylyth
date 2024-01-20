@@ -3,7 +3,12 @@
   "criteria": {
     "has_placed_vital_thurible": {
       "conditions": {
-        "block": "aylyth:vital_thurible"
+        "location": [
+          {
+            "block": "aylyth:vital_thurible",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
       },
       "trigger": "minecraft:placed_block"
     }
@@ -27,5 +32,6 @@
     [
       "has_placed_vital_thurible"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

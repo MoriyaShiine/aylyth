@@ -2,12 +2,15 @@ package moriyashiine.aylyth.common.registry.util;
 
 import com.terraformersmc.terraform.boat.api.TerraformBoatType;
 import com.terraformersmc.terraform.boat.impl.item.TerraformBoatItem;
+import it.unimi.dsi.fastutil.objects.ObjectArraySet;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.*;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.function.Supplier;
 
 public class ItemWoodSuite {
@@ -33,12 +36,13 @@ public class ItemWoodSuite {
     public final Item sign;
     public final Item boat;
     public final Item chestBoat;
+    public final ItemGroup.Builder groupBuilder;
 
     ItemWoodSuite(@NotNull Identifier identifier, @NotNull WoodSuite woodSuite,
                   @NotNull ItemSettingsSet itemSettingsSet, @NotNull Registry<Item> itemRegistry,
                   Item strippedLog, Item strippedWood, Item log, Item wood, Item sapling, Item pottedSapling,
                   Item planks, Item stairs, Item slab, Item fence, Item fenceGate, Item pressurePlate, Item button,
-                  Item trapdoor, Item door, Item sign, Item boat, Item chestBoat) {
+                  Item trapdoor, Item door, Item sign, Item boat, Item chestBoat, ItemGroup.Builder groupBuilder) {
         this.id = identifier;
         this.woodSuite = woodSuite;
         this.itemSettings = itemSettingsSet;
@@ -60,11 +64,12 @@ public class ItemWoodSuite {
         this.sign = sign;
         this.boat = boat;
         this.chestBoat = chestBoat;
+        this.groupBuilder = groupBuilder;
     }
 
     ItemWoodSuite(@NotNull Identifier identifier, @NotNull WoodSuite woodSuite,
                   @NotNull ItemSettingsSet itemSettingsSet, @NotNull Registry<Item> itemRegistry,
-                  @NotNull Supplier<TerraformBoatType> boatType) {
+                  @NotNull RegistryKey<TerraformBoatType> boatType, ItemGroup.Builder groupBuilder) {
         this.id = identifier;
         this.woodSuite = woodSuite;
         this.itemSettings = itemSettingsSet;
@@ -86,32 +91,37 @@ public class ItemWoodSuite {
         this.sign = new SignItem(itemSettings.getSign(), woodSuite.floorSign, woodSuite.wallSign);
         this.boat = new TerraformBoatItem(boatType, false, itemSettings.getBoat());
         this.chestBoat = new TerraformBoatItem(boatType, true, itemSettings.getChestBoat());
+        this.groupBuilder = groupBuilder;
     }
 
     public static ItemWoodSuite of(@NotNull Identifier identifier, @NotNull WoodSuite woodSuite,
                                    @NotNull ItemSettingsSet itemSettingsSet, @NotNull Registry<Item> itemRegistry,
-                                   @NotNull Supplier<TerraformBoatType> boatType) {
-        return new ItemWoodSuite(identifier, woodSuite, itemSettingsSet, itemRegistry, boatType);
+                                   @NotNull RegistryKey<TerraformBoatType> boatType, ItemGroup.Builder groupBuilder) {
+        return new ItemWoodSuite(identifier, woodSuite, itemSettingsSet, itemRegistry, boatType, groupBuilder);
     }
     
-    public void register() {
-        Registry.register(registry, idFor("stripped_%s_log"), strippedLog);
-        Registry.register(registry, idFor("stripped_%s_wood"), strippedWood);
-        Registry.register(registry, idFor("%s_log"), log);
-        Registry.register(registry, idFor("%s_wood"), wood);
-        Registry.register(registry, idFor("%s_sapling"), sapling);
-        Registry.register(registry, idFor("%s_planks"), planks);
-        Registry.register(registry, idFor("%s_stairs"), stairs);
-        Registry.register(registry, idFor("%s_slab"), slab);
-        Registry.register(registry, idFor("%s_fence"), fence);
-        Registry.register(registry, idFor("%s_fence_gate"), fenceGate);
-        Registry.register(registry, idFor("%s_pressure_plate"), pressurePlate);
-        Registry.register(registry, idFor("%s_button"), button);
-        Registry.register(registry, idFor("%s_trapdoor"), trapdoor);
-        Registry.register(registry, idFor("%s_door"), door);
-        Registry.register(registry, idFor("%s_sign"), sign);
-        Registry.register(registry, idFor("%s_boat"), boat);
-        Registry.register(registry, idFor("%s_chest_boat"), chestBoat);
+    public ObjectArraySet<Item> register() {
+        var items = new ObjectArraySet<Item>(17);
+
+        items.add(Registry.register(registry, idFor("stripped_%s_log"), strippedLog));
+        items.add(Registry.register(registry, idFor("stripped_%s_wood"), strippedWood));
+        items.add(Registry.register(registry, idFor("%s_log"), log));
+        items.add(Registry.register(registry, idFor("%s_wood"), wood));
+        items.add(Registry.register(registry, idFor("%s_sapling"), sapling));
+        items.add(Registry.register(registry, idFor("%s_planks"), planks));
+        items.add(Registry.register(registry, idFor("%s_stairs"), stairs));
+        items.add(Registry.register(registry, idFor("%s_slab"), slab));
+        items.add(Registry.register(registry, idFor("%s_fence"), fence));
+        items.add(Registry.register(registry, idFor("%s_fence_gate"), fenceGate));
+        items.add(Registry.register(registry, idFor("%s_pressure_plate"), pressurePlate));
+        items.add(Registry.register(registry, idFor("%s_button"), button));
+        items.add(Registry.register(registry, idFor("%s_trapdoor"), trapdoor));
+        items.add(Registry.register(registry, idFor("%s_door"), door));
+        items.add(Registry.register(registry, idFor("%s_sign"), sign));
+        items.add(Registry.register(registry, idFor("%s_boat"), boat));
+        items.add(Registry.register(registry, idFor("%s_chest_boat"), chestBoat));
+
+        return items;
     }
 
     protected final Identifier idFor(String replacer) {
@@ -122,16 +132,11 @@ public class ItemWoodSuite {
         return new Identifier(id.getNamespace(), replacer.formatted(id.getPath()));
     }
 
+    // TODO remove
     public static class GroupedSettings implements ItemSettingsSet {
 
-        final ItemGroup group;
-
-        public GroupedSettings(ItemGroup group) {
-            this.group = group;
-        }
-
         private Item.Settings settings() {
-            return new FabricItemSettings().group(group);
+            return new FabricItemSettings();
         }
 
         @Override

@@ -7,7 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class YmpeEffigyItem extends Item {
-    public YmpeEffigyItem(Item.Settings settings) {
+    public YmpeEffigyItem(Settings settings) {
         super(settings);
     }
 

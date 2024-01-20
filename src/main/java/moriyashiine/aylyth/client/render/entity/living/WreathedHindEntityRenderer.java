@@ -9,19 +9,19 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
-import software.bernie.geckolib3.geo.render.built.GeoModel;
-import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
+import software.bernie.geckolib.model.GeoModel;
+import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class WreathedHindEntityRenderer extends GeoEntityRenderer<WreathedHindEntity> {
     private int currentTick = -1;
     public WreathedHindEntityRenderer(EntityRendererFactory.Context renderManager) {
         super(renderManager, new WreathedHindEntityModel());
-        this.addLayer(new WreathedHindGlowLayerRenderer(this));
+        this.addRenderLayer(new WreathedHindGlowLayerRenderer(this));
         this.shadowRadius = 1;
     }
 
     @Override
-    public void render(GeoModel model, WreathedHindEntity animatable, float partialTick, RenderLayer type, MatrixStack poseStack, VertexConsumerProvider bufferSource, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+    public void render(WreathedHindEntity entity, float entityYaw, float partialTick, MatrixStack poseStack, VertexConsumerProvider bufferSource, int packedLight) {
         if (currentTick < 0 || currentTick != animatable.age) {
             this.currentTick = animatable.age;
             if (model.getBone("iGuessThisistheHead").isPresent()) {
@@ -38,6 +38,6 @@ public class WreathedHindEntityRenderer extends GeoEntityRenderer<WreathedHindEn
                         0);
             }
         }
-        super.render(model, animatable, partialTick, type, poseStack, bufferSource, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+        super.render(entity, entityYaw, partialTick, poseStack, bufferSource, packedLight);
     }
 }

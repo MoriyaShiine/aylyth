@@ -75,7 +75,7 @@ public class TulpaBrain {
                         new StayAboveWaterTask(0.6f),
                         new LookAroundTask(45, 90),
                         new WanderAroundTask(),
-                        new UpdateAttackTargetTask<>(TulpaBrain::getAttackTarget),
+                        UpdateAttackTargetTask.create(TulpaBrain::getAttackTarget),
                         new RevengeTask()
                 )
         );
@@ -87,8 +87,8 @@ public class TulpaBrain {
                 ImmutableList.of(
                         Pair.of(0, new RandomTask<>(
                                 ImmutableList.of(
-                                        Pair.of(new StrollTask(0.6F), 2),
-                                        Pair.of(new GoTowardsLookTarget(0.6F, 3), 2),
+                                        Pair.of(StrollTask.create(0.6F), 2),
+                                        Pair.of(GoTowardsLookTargetTask.create(0.6F, 3), 2),
                                         Pair.of(new WaitTask(30, 60), 1)
                                 ))),
                         Pair.of(1, new EatFoodTask()),
@@ -100,10 +100,10 @@ public class TulpaBrain {
     private static void addFightActivities(TulpaEntity tulpaEntity, Brain<TulpaEntity> brain) {
         brain.setTaskList(Activity.FIGHT, 10,
                 ImmutableList.of(
-                        new ForgetAttackTargetTask<>(entity -> !isPreferredAttackTarget(tulpaEntity, entity), BrainUtils::setTargetInvalid, false),
+                        ForgetAttackTargetTask.create(entity -> !isPreferredAttackTarget(tulpaEntity, entity), BrainUtils::setTargetInvalid, false),
                         new SwitchWeaponTask(),
-                        new ConditionalTask<>(BrainUtils::isHoldingUsableRangedWeapon, new AttackTask<>(5, 0.55f)),
-                        new RangedApproachTask(1.0f),
+                        TaskTriggerer.runIf(BrainUtils::isHoldingUsableRangedWeapon, AttackTask.create(5, 0.55f)),
+                        RangedApproachTask.create(1.0f),
                         new CrossbowAttackTask<>(),
                         new BowAttackTask<>(),
                         new GeckoMeleeAttackTask<>(
@@ -132,7 +132,7 @@ public class TulpaBrain {
             return optional;
         }
         if (brain.hasMemoryModule(MemoryModuleType.VISIBLE_MOBS)) {
-            Optional<LivingTargetCache> visibleLivingEntitiesCache = tulpaEntity.getBrain().getOptionalMemory(MemoryModuleType.VISIBLE_MOBS);
+            Optional<LivingTargetCache> visibleLivingEntitiesCache = tulpaEntity.getBrain().getOptionalRegisteredMemory(MemoryModuleType.VISIBLE_MOBS);
             if(tulpaEntity.getActionState() == TulpaEntity.SICKO){
                 return visibleLivingEntitiesCache.get().findFirst(entity -> !entity.isSubmergedInWater() && tulpaEntity.getOwnerUuid() != entity.getUuid());
             }

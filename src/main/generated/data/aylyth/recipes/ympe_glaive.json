@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "equipment",
   "key": {
     "C": {
       "item": "aylyth:coric_seed"
@@ -18,5 +19,6 @@
   ],
   "result": {
     "item": "aylyth:ympe_glaive"
-  }
+  },
+  "show_notification": true
 }

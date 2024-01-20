@@ -11,8 +11,9 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.Items;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.Potions;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 
 public class ModPotions {
 	public static final StatusEffect MORTECHIS_EFFECT = new MortechisStatusEffect();
@@ -31,18 +32,18 @@ public class ModPotions {
 	public static final Potion STRONG_WYRDED_POTION = new Potion("wyrded", new StatusEffectInstance(WYRDED_EFFECT, 1800, 1));
 	
 	public static void init() {
-		Registry.register(Registry.STATUS_EFFECT, new Identifier(Aylyth.MOD_ID, "mortechis"), MORTECHIS_EFFECT);
-		Registry.register(Registry.POTION, new Identifier(Aylyth.MOD_ID, "mortechis"), MORTECHIS_POTION);
-		Registry.register(Registry.POTION, new Identifier(Aylyth.MOD_ID, "long_mortechis"), LONG_MORTECHIS_POTION);
-		Registry.register(Registry.POTION, new Identifier(Aylyth.MOD_ID, "strong_mortechis"), STRONG_MORTECHIS_POTION);
-		Registry.register(Registry.STATUS_EFFECT, new Identifier(Aylyth.MOD_ID, "cimmerian"), CIMMERIAN_EFFECT);
-		Registry.register(Registry.POTION, new Identifier(Aylyth.MOD_ID, "cimmerian"), CIMMERIAN_POTION);
-		Registry.register(Registry.POTION, new Identifier(Aylyth.MOD_ID, "long_cimmerian"), LONG_CIMMERIAN_POTION);
-		Registry.register(Registry.POTION, new Identifier(Aylyth.MOD_ID, "strong_cimmerian"), STRONG_CIMMERIAN_POTION);
-		Registry.register(Registry.STATUS_EFFECT, new Identifier(Aylyth.MOD_ID, "wyrded"), WYRDED_EFFECT);
-		Registry.register(Registry.POTION, new Identifier(Aylyth.MOD_ID, "wyrded"), WYRDED_POTION);
-		Registry.register(Registry.POTION, new Identifier(Aylyth.MOD_ID, "long_wyrded"), LONG_WYRDED_POTION);
-		Registry.register(Registry.POTION, new Identifier(Aylyth.MOD_ID, "strong_wyrded"), STRONG_WYRDED_POTION);
+		Registry.register(Registries.STATUS_EFFECT, new Identifier(Aylyth.MOD_ID, "mortechis"), MORTECHIS_EFFECT);
+		Registry.register(Registries.POTION, new Identifier(Aylyth.MOD_ID, "mortechis"), MORTECHIS_POTION);
+		Registry.register(Registries.POTION, new Identifier(Aylyth.MOD_ID, "long_mortechis"), LONG_MORTECHIS_POTION);
+		Registry.register(Registries.POTION, new Identifier(Aylyth.MOD_ID, "strong_mortechis"), STRONG_MORTECHIS_POTION);
+		Registry.register(Registries.STATUS_EFFECT, new Identifier(Aylyth.MOD_ID, "cimmerian"), CIMMERIAN_EFFECT);
+		Registry.register(Registries.POTION, new Identifier(Aylyth.MOD_ID, "cimmerian"), CIMMERIAN_POTION);
+		Registry.register(Registries.POTION, new Identifier(Aylyth.MOD_ID, "long_cimmerian"), LONG_CIMMERIAN_POTION);
+		Registry.register(Registries.POTION, new Identifier(Aylyth.MOD_ID, "strong_cimmerian"), STRONG_CIMMERIAN_POTION);
+		Registry.register(Registries.STATUS_EFFECT, new Identifier(Aylyth.MOD_ID, "wyrded"), WYRDED_EFFECT);
+		Registry.register(Registries.POTION, new Identifier(Aylyth.MOD_ID, "wyrded"), WYRDED_POTION);
+		Registry.register(Registries.POTION, new Identifier(Aylyth.MOD_ID, "long_wyrded"), LONG_WYRDED_POTION);
+		Registry.register(Registries.POTION, new Identifier(Aylyth.MOD_ID, "strong_wyrded"), STRONG_WYRDED_POTION);
 		BrewingRecipeRegistryAccessor.callRegisterPotionRecipe(Potions.AWKWARD, ModItems.NYSIAN_GRAPES, MORTECHIS_POTION);
 		BrewingRecipeRegistryAccessor.callRegisterPotionRecipe(MORTECHIS_POTION, Items.FERMENTED_SPIDER_EYE, Potions.THICK);
 		BrewingRecipeRegistryAccessor.callRegisterPotionRecipe(MORTECHIS_POTION, Items.REDSTONE, LONG_MORTECHIS_POTION);

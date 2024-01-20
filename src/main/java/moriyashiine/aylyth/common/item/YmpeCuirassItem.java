@@ -8,8 +8,8 @@ import moriyashiine.aylyth.common.registry.ModSoundEvents;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.tag.BlockTags;
 
 public class YmpeCuirassItem extends TrinketItem {
     public static final short TIME_UNTIL_STAGE_INCREASES = 200;
@@ -26,7 +26,7 @@ public class YmpeCuirassItem extends TrinketItem {
                     comp.setStageTimer(comp.getStageTimer() + 1);
                     if(comp.getStageTimer() >= TIME_UNTIL_STAGE_INCREASES){
                         if(comp.getStage() % 4 == 0){
-                            player.world.playSoundFromEntity(null, player, ModSoundEvents.ENTITY_PLAYER_INCREASE_YMPE_INFESTATION_STAGE, SoundCategory.PLAYERS, 1, player.getSoundPitch());
+                            player.getWorld().playSoundFromEntity(null, player, ModSoundEvents.ENTITY_PLAYER_INCREASE_YMPE_INFESTATION_STAGE, SoundCategory.PLAYERS, 1, player.getSoundPitch());
                         }
                         comp.setStage((comp.getStage() + 1));
                         comp.setStageTimer(0);

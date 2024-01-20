@@ -1,18 +1,17 @@
 package moriyashiine.aylyth.client.model.entity;
 
+import moriyashiine.aylyth.common.entity.mob.SoulmouldEntity;
 import moriyashiine.aylyth.common.entity.mob.TulpaEntity;
 import moriyashiine.aylyth.common.util.AylythUtil;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.processor.IBone;
-import software.bernie.geckolib3.model.AnimatedGeoModel;
-import software.bernie.geckolib3.model.provider.data.EntityModelData;
+import software.bernie.geckolib.constant.DataTickets;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.model.GeoModel;
+import software.bernie.geckolib.model.data.EntityModelData;
 
-public class TulpaEntityModel extends AnimatedGeoModel<TulpaEntity> {
+public class TulpaEntityModel extends GeoModel<TulpaEntity> {
 
     public static Identifier MODEL = AylythUtil.id("geo/tulpa.geo.json");
     public static Identifier TEXTURE = AylythUtil.id("textures/entity/living/tulpa/tulpa.png");
@@ -32,14 +31,14 @@ public class TulpaEntityModel extends AnimatedGeoModel<TulpaEntity> {
     }
 
     @Override
-    public void setCustomAnimations(TulpaEntity entity, int uniqueID, AnimationEvent customPredicate) {
+    public void setCustomAnimations(TulpaEntity entity, long uniqueID, AnimationState<TulpaEntity> customPredicate) {
         super.setCustomAnimations(entity, uniqueID, customPredicate);
-        IBone head = this.getAnimationProcessor().getBone("head");
+        var head = this.getAnimationProcessor().getBone("head");
 
-        EntityModelData extraData = (EntityModelData) customPredicate.getExtraDataOfType(EntityModelData.class).get(0);
+        var extraData = customPredicate.getData(DataTickets.ENTITY_MODEL_DATA);
         if (head != null) {
-            head.setRotationX(extraData.headPitch * ((float) Math.PI / 180F));
-            head.setRotationY(extraData.netHeadYaw * ((float) Math.PI / 180F));
+            head.setRotX(extraData.headPitch() * ((float) Math.PI / 180F));
+            head.setRotY(extraData.netHeadYaw() * ((float) Math.PI / 180F));
         }
     }
 
@@ -47,8 +46,7 @@ public class TulpaEntityModel extends AnimatedGeoModel<TulpaEntity> {
 
 
 
-    @Environment(EnvType.CLIENT)
-    public static class TulpaPlayerEntityModel extends AnimatedGeoModel<TulpaEntity> {
+    public static class TulpaPlayerEntityModel extends GeoModel<TulpaEntity> {
 
         @Override
         public Identifier getModelResource(TulpaEntity object) {
@@ -67,7 +65,7 @@ public class TulpaEntityModel extends AnimatedGeoModel<TulpaEntity> {
 
         public Identifier getTexture(TulpaEntity entity) {
             if(entity.getSkinUuid() != null){ // TODO: Rewrite to get the gameprofile from the cache
-                PlayerEntity player = entity.world.getPlayerByUuid(entity.getSkinUuid());
+                PlayerEntity player = entity.getWorld().getPlayerByUuid(entity.getSkinUuid());
                 if(player instanceof AbstractClientPlayerEntity abstractClientPlayerEntity){
                     return abstractClientPlayerEntity.getSkinTexture();
                 }

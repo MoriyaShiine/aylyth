@@ -3,8 +3,6 @@ package moriyashiine.aylyth.client.render.entity.living;
 import moriyashiine.aylyth.client.render.entity.living.feature.ScionFeatureRenderer;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.common.entity.mob.ScionEntity;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -28,7 +26,7 @@ public class ScionEntityRenderer extends BipedEntityRenderer<ScionEntity, BipedE
         this.slimModel = new ScionCoreEntityModel(ctx.getPart(EntityModelLayers.PLAYER_SLIM));
 
         addFeature(new ScionFeatureRenderer(this, ctx.getModelLoader()));
-        addFeature(new ArmorFeatureRenderer<>(this, new BipedEntityModel<>(ctx.getPart(EntityModelLayers.PLAYER_INNER_ARMOR)), new BipedEntityModel<>(ctx.getPart(EntityModelLayers.PLAYER_OUTER_ARMOR))));
+        addFeature(new ArmorFeatureRenderer<>(this, new BipedEntityModel<>(ctx.getPart(EntityModelLayers.PLAYER_INNER_ARMOR)), new BipedEntityModel<>(ctx.getPart(EntityModelLayers.PLAYER_OUTER_ARMOR)), ctx.getModelManager()));
     }
 
     @Override
@@ -48,7 +46,7 @@ public class ScionEntityRenderer extends BipedEntityRenderer<ScionEntity, BipedE
     @Override
     public Identifier getTexture(ScionEntity mobEntity) { //TODO: test this when affected player leaves and another player is still online
         if(mobEntity.getStoredPlayerUUID() != null){
-            PlayerEntity player = mobEntity.world.getPlayerByUuid(mobEntity.getStoredPlayerUUID());
+            PlayerEntity player = mobEntity.getWorld().getPlayerByUuid(mobEntity.getStoredPlayerUUID());
             if(player instanceof AbstractClientPlayerEntity abstractClientPlayerEntity){
                 return abstractClientPlayerEntity.getSkinTexture();
             }

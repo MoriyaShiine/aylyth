@@ -45,7 +45,7 @@ public class SeepBlock extends Block implements BlockEntityProvider {
 	public static final Property<Connection> CONNECTION = EnumProperty.of("connection", Connection.class, Connection.values());
 	
 	public SeepBlock() {
-		super(FabricBlockSettings.of(Material.WOOD).strength(2).sounds(BlockSoundGroup.WOOD));
+		super(FabricBlockSettings.create().mapColor(MapColor.OAK_TAN).burnable().strength(2).sounds(BlockSoundGroup.WOOD));
 		setDefaultState(getDefaultState().with(CONNECTION, Connection.NONE));
 	}
 	

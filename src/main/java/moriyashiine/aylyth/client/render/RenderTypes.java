@@ -16,15 +16,15 @@ public class RenderTypes extends RenderLayer {
         super(name, vertexFormat, drawMode, expectedBufferSize, hasCrumbling, translucent, startAction, endAction);
     }
 
-    public static net.minecraft.client.render.Shader renderlayer_tint;
-    public static final RenderLayer.MultiPhase TINT = RenderLayerAccessor.callOf(
+    public static net.minecraft.client.gl.ShaderProgram renderlayer_tint;
+    public static final MultiPhase TINT = RenderLayerAccessor.callOf(
             "renderlayer_tint",
             VertexFormats.POSITION_TEXTURE,
             VertexFormat.DrawMode.QUADS,
             256, false, false,
-            RenderLayer.MultiPhaseParameters.builder()
-                    .shader(new RenderPhase.Shader(() -> renderlayer_tint))
-                    .texture(new RenderPhase.Texture(new Identifier(Aylyth.MOD_ID, "textures/misc/woody_growth_tint.png"), true, false))
+            MultiPhaseParameters.builder()
+                    .program(new RenderPhase.ShaderProgram(() -> renderlayer_tint))
+                    .texture(new Texture(new Identifier(Aylyth.MOD_ID, "textures/misc/woody_growth_tint.png"), true, false))
                     .writeMaskState(RenderPhase.COLOR_MASK)
                     .cull(RenderPhase.DISABLE_CULLING)
                     .depthTest(RenderPhase.EQUAL_DEPTH_TEST)
@@ -35,8 +35,8 @@ public class RenderTypes extends RenderLayer {
 
     public static final Function<Identifier, RenderLayer> ENTITY_NO_OUTLINE_DEPTH_FIX = Util.memoize(texture -> {
         MultiPhaseParameters multiPhaseParameters = MultiPhaseParameters.builder()
-                .shader(ENTITY_SOLID_SHADER)
-                .texture(new RenderPhase.Texture(texture, false, false))
+                .program(ENTITY_SOLID_PROGRAM)
+                .texture(new Texture(texture, false, false))
                 .cull(DISABLE_CULLING)
                 .lightmap(ENABLE_LIGHTMAP)
                 .overlay(ENABLE_OVERLAY_COLOR)
@@ -46,12 +46,12 @@ public class RenderTypes extends RenderLayer {
 
     public static final Function<Identifier, RenderLayer> GLOWING_LAYER = Util.memoize(texture -> {
         MultiPhaseParameters multiPhaseParameters = MultiPhaseParameters.builder()
-                .texture(new RenderPhase.Texture(texture, false, false))
+                .texture(new Texture(texture, false, false))
                 .transparency(Transparency.TRANSLUCENT_TRANSPARENCY)
                 .cull(DISABLE_CULLING).lightmap(ENABLE_LIGHTMAP)
                 .overlay(DISABLE_OVERLAY_COLOR)
                 .layering(VIEW_OFFSET_Z_LAYERING)
-                .shader(ENERGY_SWIRL_SHADER)
+                .program(ENERGY_SWIRL_PROGRAM)
                 .build(true);
         return RenderLayer.of("glowing_layer", VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, VertexFormat.DrawMode.QUADS, 256, false, false, multiPhaseParameters);
     });

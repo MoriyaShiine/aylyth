@@ -20,6 +20,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.Fluid;
@@ -27,18 +28,20 @@ import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.AxeItem;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.tag.BiomeTags;
+import net.minecraft.registry.tag.DamageTypeTags;
+import net.minecraft.registry.tag.FluidTags;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.stat.Stat;
-import net.minecraft.tag.BiomeTags;
-import net.minecraft.tag.FluidTags;
-import net.minecraft.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -47,7 +50,6 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
@@ -167,16 +169,16 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHol
 
     @ModifyVariable(method = "applyDamage", at = @At(value = "INVOKE", ordinal = 0, target = "Lnet/minecraft/entity/player/PlayerEntity;getHealth()F"), ordinal = 0, argsOnly = true)
     private float aylyth$modifyDamageForCuirass(float amount, DamageSource source) {
-        if (!world.isClient) {
+        if (!getWorld().isClient) {
             PlayerEntity player = (PlayerEntity) (Object) this;
             CuirassComponent component = ModComponents.CUIRASS_COMPONENT.get(player);
-            boolean bl = source.isMagic() || source.isFromFalling() || source.isOutOfWorld();
+            boolean bl = source.isOf(DamageTypes.MAGIC) || source.isIn(DamageTypeTags.IS_FALL) || source.isOf(DamageTypes.OUT_OF_WORLD);
             boolean bl2 = source.getAttacker() != null && source.getAttacker() instanceof LivingEntity livingEntity1 && livingEntity1.getMainHandStack().getItem() instanceof AxeItem;
-            boolean bl3 = source.isFire();
+            boolean bl3 = source.isIn(DamageTypeTags.IS_FIRE);
             if(bl2 || bl3){
                 component.setStage(0);
                 component.setStageTimer(0);
-                player.world.playSoundFromEntity(null, player, ModSoundEvents.ENTITY_PLAYER_INCREASE_YMPE_INFESTATION_STAGE, SoundCategory.PLAYERS, 1, player.getSoundPitch());
+                player.getWorld().playSoundFromEntity(null, player, ModSoundEvents.ENTITY_PLAYER_INCREASE_YMPE_INFESTATION_STAGE, SoundCategory.PLAYERS, 1, player.getSoundPitch());
                 return amount;
             } else if(bl){
                 return amount;
@@ -184,7 +186,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHol
                 while (component.getStage() > 0) {
                     amount--;
                     component.setStage(component.getStage() - 1);
-                    player.world.playSoundFromEntity(null, player, ModSoundEvents.ENTITY_PLAYER_INCREASE_YMPE_INFESTATION_STAGE, SoundCategory.PLAYERS, 1, player.getSoundPitch());
+                    player.getWorld().playSoundFromEntity(null, player, ModSoundEvents.ENTITY_PLAYER_INCREASE_YMPE_INFESTATION_STAGE, SoundCategory.PLAYERS, 1, player.getSoundPitch());
                 }
                 return amount;
             }
@@ -196,8 +198,8 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHol
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void aylyth_removePledgeASAP(CallbackInfo ci){
-        if(getHindUuid() != null && !world.isClient()){
-            ModWorldState modWorldState = ModWorldState.get(world);
+        if(getHindUuid() != null && !getWorld().isClient()){
+            ModWorldState modWorldState = ModWorldState.get(getWorld());
             PlayerEntity player = (PlayerEntity) (Object) this;
             if(!modWorldState.pledgesToRemove.isEmpty()){
                 for (int i = modWorldState.pledgesToRemove.size() - 1; i >= 0; i--) {
@@ -255,13 +257,13 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHol
                 for(int q = k; q < l; ++q) {
                     for(int r = m; r < n; ++r) {
                         mutable.set(p, q, r);
-                        FluidState fluidState = this.world.getFluidState(mutable);
+                        FluidState fluidState = this.getWorld().getFluidState(mutable);
                         double e;
-                        if (fluidState.isIn(tag) && (e = (float)q + fluidState.getHeight(this.world, mutable)) >= box.minY && !fluidState.isEqualAndStill(Fluids.WATER)) {
+                        if (fluidState.isIn(tag) && (e = (float)q + fluidState.getHeight(this.getWorld(), mutable)) >= box.minY && !fluidState.isEqualAndStill(Fluids.WATER)) {
                             bl2 = true;
                             d = Math.max(e - box.minY, d);
                             if (bl) {
-                                Vec3d vec3d2 = fluidState.getVelocity(this.world, mutable);
+                                Vec3d vec3d2 = fluidState.getVelocity(this.getWorld(), mutable);
                                 if (d < 0.4) {
                                     vec3d2 = vec3d2.multiply(d);
                                 }

@@ -30,6 +30,10 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.DynamicRegistryManager;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
@@ -41,8 +45,6 @@ import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.GenerationStep;
 import org.jetbrains.annotations.Nullable;
@@ -112,7 +114,6 @@ public class Aylyth implements ModInitializer {
 						mob.setFrozenTicks(0);
 						mob.setVelocity(Vec3d.ZERO);
 						mob.fallDistance = 0;
-						mob.knockbackVelocity = 0;
 						ModComponents.PREVENT_DROPS.get(mob).setPreventsDrops(true);
 						PlayerLookup.tracking(mob).forEach(trackingPlayer -> SpawnShuckParticlesPacket.send(trackingPlayer, mob));
 						world.playSound(null, mob.getBlockPos(), ModSoundEvents.ENTITY_GENERIC_SHUCKED, mob.getSoundCategory(), 1, mob.getSoundPitch());
@@ -130,7 +131,7 @@ public class Aylyth implements ModInitializer {
 		if (entity instanceof LivingEntity living && living.getMainHandStack().isOf(ModItems.YMPE_DAGGER)) {
 			for (YmpeDaggerDropRecipe recipe : serverWorld.getRecipeManager().listAllOfType(ModRecipeTypes.YMPE_DAGGER_DROP_RECIPE_TYPE)) {
 				if (recipe.entity_type.equals(killedEntity.getType()) && serverWorld.random.nextFloat() < recipe.chance * (EnchantmentHelper.getLooting(living) + 1)) {
-					ItemStack drop = recipe.getOutput().copy();
+					ItemStack drop = recipe.getOutput(DynamicRegistryManager.EMPTY).copy();
 					if (recipe.entity_type == EntityType.PLAYER) {
 						drop.getOrCreateNbt().putString("SkullOwner", killedEntity.getName().getString());
 					}
@@ -151,8 +152,8 @@ public class Aylyth implements ModInitializer {
 
 	private void biomeModifications() {
 		BiomeModification worldGen = BiomeModifications.create(new Identifier(Aylyth.MOD_ID, "world_features"));
-		worldGen.add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(ModTags.GENERATES_SEEP), context -> context.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, RegistryKey.of(Registry.PLACED_FEATURE_KEY, new Identifier(MOD_ID, "oak_seep"))));
-		worldGen.add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(ModTags.GENERATES_SEEP), context -> context.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, RegistryKey.of(Registry.PLACED_FEATURE_KEY, new Identifier(MOD_ID, "spruce_seep"))));
-		worldGen.add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(ModTags.GENERATES_SEEP), context -> context.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, RegistryKey.of(Registry.PLACED_FEATURE_KEY, new Identifier(MOD_ID, "dark_oak_seep"))));
+		worldGen.add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(ModTags.GENERATES_SEEP), context -> context.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, RegistryKey.of(RegistryKeys.PLACED_FEATURE, new Identifier(MOD_ID, "oak_seep"))));
+		worldGen.add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(ModTags.GENERATES_SEEP), context -> context.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, RegistryKey.of(RegistryKeys.PLACED_FEATURE, new Identifier(MOD_ID, "spruce_seep"))));
+		worldGen.add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(ModTags.GENERATES_SEEP), context -> context.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, RegistryKey.of(RegistryKeys.PLACED_FEATURE, new Identifier(MOD_ID, "dark_oak_seep"))));
 	}
 }

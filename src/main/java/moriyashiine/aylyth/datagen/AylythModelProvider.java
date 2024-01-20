@@ -10,6 +10,7 @@ import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.ModItems;
 import moriyashiine.aylyth.common.registry.util.WoodSuite;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -20,10 +21,10 @@ import net.minecraft.data.family.BlockFamilies;
 import net.minecraft.data.family.BlockFamily;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -54,8 +55,8 @@ public class AylythModelProvider extends FabricModelProvider {
     private static final Model BUILTIN = new Model(Optional.of(new Identifier("builtin/entity")), Optional.empty());
     private static final Model SPAWN_EGG = new Model(Optional.of(new Identifier("item/template_spawn_egg")), Optional.empty());
 
-    public AylythModelProvider(FabricDataGenerator generator) {
-        super(generator);
+    public AylythModelProvider(FabricDataOutput output) {
+        super(output);
     }
 
     private Identifier blockId(String id) {
@@ -108,7 +109,7 @@ public class AylythModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.MYSTERIOUS_SKETCH, BUILTIN);
         itemModelGenerator.register(ModItems.WREATHED_HIND_SPAWN_EGG, SPAWN_EGG);
         itemModelGenerator.register(ModItems.FAUNAYLYTHIAN_SPAWN_EGG, SPAWN_EGG);
-        Models.GENERATED.upload(AylythUtil.id("item/" + Registry.ITEM.getId(ModItems.MYSTERIOUS_SKETCH).getPath() + "_generated"), TextureMap.layer0(AylythUtil.id("item/" + Registry.ITEM.getId(ModItems.MYSTERIOUS_SKETCH).getPath())), itemModelGenerator.writer);
+        Models.GENERATED.upload(AylythUtil.id("item/" + Registries.ITEM.getId(ModItems.MYSTERIOUS_SKETCH).getPath() + "_generated"), TextureMap.layer0(AylythUtil.id("item/" + Registries.ITEM.getId(ModItems.MYSTERIOUS_SKETCH).getPath())), itemModelGenerator.writer);
     }
 
     private void generateWoodBlock(BlockStateModelGenerator generator, Block woodBlock, String texturePath) {
@@ -214,7 +215,7 @@ public class AylythModelProvider extends FabricModelProvider {
 
     /** This just does a simple single model, not dependent on any states*/
     private void variantState(BlockStateModelGenerator generator, Block block) {
-        generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block, BlockStateVariant.create().put(VariantSettings.MODEL, blockId(Registry.BLOCK.getId(block).getPath()))));
+        generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block, BlockStateVariant.create().put(VariantSettings.MODEL, blockId(Registries.BLOCK.getId(block).getPath()))));
     }
 
     private void generated(ItemModelGenerator generator, Item item) {

@@ -14,7 +14,7 @@ import net.minecraft.client.render.entity.model.EntityModelLoader;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Vec3f;
+import net.minecraft.util.math.RotationAxis;
 
 public class YmpeThornRingFeature extends FeatureRenderer<LivingEntity, EntityModel<LivingEntity>> {
 	private static final Identifier TEXTURE = new Identifier(Aylyth.MOD_ID, "textures/entity/living/ympe_thorn_ring.png");
@@ -35,8 +35,8 @@ public class YmpeThornRingFeature extends FeatureRenderer<LivingEntity, EntityMo
 		for(int i = 0; i < thornProgress; i++) {
 			matrices.push();
 			matrices.translate(0, -(entity.getHeight() * (0.25 * i)), 0);
-			matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(90));
-			matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(i % 2 == 0 ? -25 : 25));
+			matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(90));
+			matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(i % 2 == 0 ? -25 : 25));
 			matrices.scale(entity.getWidth() / 0.4F, entity.getWidth() / 0.4F, entity.getWidth() / 0.4F);
 			model.render(matrices, vertexConsumers.getBuffer(RenderLayer.getEntityAlpha(TEXTURE)), light, OverlayTexture.DEFAULT_UV, 1F, 1F, 1F, 1F);
 			matrices.pop();

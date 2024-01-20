@@ -22,7 +22,7 @@ public class DoubleBlockFeature extends Feature<SimpleBlockFeatureConfig> {
         StructureWorldAccess world = context.getWorld();
         Random rand = context.getRandom();
         BlockPos pos = context.getOrigin();
-        BlockState state = context.getConfig().toPlace().getBlockState(rand, pos);
+        BlockState state = context.getConfig().toPlace().get(rand, pos);
         if (state.contains(Properties.DOUBLE_BLOCK_HALF) && state.canPlaceAt(world, pos)) {
             if (state.contains(Properties.WATERLOGGED) && world.getFluidState(pos).getFluid() == Fluids.WATER) {
                 state = state.with(Properties.WATERLOGGED, true);

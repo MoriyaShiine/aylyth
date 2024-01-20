@@ -5,6 +5,7 @@ import com.mojang.authlib.GameProfile;
 import moriyashiine.aylyth.client.model.entity.TulpaEntityModel;
 import moriyashiine.aylyth.client.render.block.entity.WoodyGrowthBlockEntityRenderer;
 import moriyashiine.aylyth.common.Aylyth;
+import moriyashiine.aylyth.common.entity.mob.SoulmouldEntity;
 import moriyashiine.aylyth.common.entity.mob.TulpaEntity;
 import moriyashiine.aylyth.common.registry.ModEntityTypes;
 import moriyashiine.aylyth.mixin.client.PlayerSkinTextureAccessor;
@@ -12,6 +13,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.*;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.model.json.ModelTransformation;
+import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.texture.*;
 import net.minecraft.client.util.DefaultSkinHelper;
 import net.minecraft.client.util.math.MatrixStack;
@@ -21,11 +23,13 @@ import net.minecraft.resource.Resource;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Vec3f;
+import net.minecraft.util.math.RotationAxis;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import software.bernie.geckolib3.geo.render.built.GeoBone;
-import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
+import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.cache.object.BakedGeoModel;
+import software.bernie.geckolib.cache.object.GeoBone;
+import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -61,7 +65,7 @@ public class TulpaEntityRenderer extends GeoEntityRenderer<TulpaEntity> {
     }
 
     @Override
-    public RenderLayer getRenderType(TulpaEntity animatable, float partialTicks, MatrixStack stack, VertexConsumerProvider renderTypeBuffer, VertexConsumer vertexBuilder, int packedLightIn, Identifier textureLocation) {
+    public RenderLayer getRenderType(TulpaEntity animatable, Identifier texture, @Nullable VertexConsumerProvider bufferSource, float partialTick) {
         if(animatable.getSkinProfile() != null){
             return getFusedTexture(animatable.getSkinProfile()).renderLayer;
         }else if(animatable.getSkinUuid() != null){
@@ -90,6 +94,9 @@ public class TulpaEntityRenderer extends GeoEntityRenderer<TulpaEntity> {
             }
         });
     }
+
+    public VertexConsumerProvider rtb;
+    public Identifier whTexture;
 
     public final class AdditiveTexture implements AutoCloseable {
         public static final Logger LOGGER = LogManager.getLogger(Aylyth.MOD_ID + ":texturegen");
@@ -162,36 +169,40 @@ public class TulpaEntityRenderer extends GeoEntityRenderer<TulpaEntity> {
 
     }
 
+    // TODO remove
     @Override
-    public void renderEarly(TulpaEntity animatable, MatrixStack stackIn, float ticks, VertexConsumerProvider renderTypeBuffer, VertexConsumer vertexBuilder, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float partialTicks) {
+    public void preRender(MatrixStack stackIn, TulpaEntity animatable, BakedGeoModel model, VertexConsumerProvider renderTypeBuffer, VertexConsumer vertexBuilder, boolean isReRender, float ticks, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float partialTicks) {
         this.rtb = renderTypeBuffer;
-        this.whTexture = this.getTextureResource(animatable);
-        super.renderEarly(animatable, stackIn, ticks, renderTypeBuffer, vertexBuilder, packedLightIn, packedOverlayIn, red, green, blue, partialTicks);
+        this.whTexture = this.getTexture(animatable);
+        super.preRender(stackIn, animatable, model, renderTypeBuffer, vertexBuilder, isReRender, ticks, packedLightIn, packedOverlayIn, red, green, blue, partialTicks);
     }
 
     @Override
-    public void renderRecursively(GeoBone bone, MatrixStack stack, VertexConsumer bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
+    public void renderRecursively(MatrixStack stack, TulpaEntity animatable, GeoBone bone, RenderLayer renderType, VertexConsumerProvider bufferSource, VertexConsumer bufferIn, boolean isReRender, float partialTick, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
+        var mainHand = animatable.getMainHandStack();
+        var offHand = animatable.getOffHandStack();
+
         if (bone.getName().equals("rightItem") && !mainHand.isEmpty()) {
             stack.push();
             stack.translate(0.25,0.4,0.05);
-            stack.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(-90.0F));
-            MinecraftClient.getInstance().getItemRenderer().renderItem(mainHand, ModelTransformation.Mode.THIRD_PERSON_RIGHT_HAND, packedLightIn, packedOverlayIn, stack, rtb,0);
+            stack.multiply(RotationAxis.POSITIVE_X.rotationDegrees(-90.0F));
+            MinecraftClient.getInstance().getItemRenderer().renderItem(mainHand, ModelTransformationMode.THIRD_PERSON_RIGHT_HAND, packedLightIn, packedOverlayIn, stack, rtb, null, 0);
             stack.pop();
             bufferIn = rtb.getBuffer(RenderLayer.getEntityTranslucent(whTexture));
         }else if (bone.getName().equals("leftItem") && !offHand.isEmpty()) {
             stack.push();
             stack.translate(-0.25,0.4,0.05);
-            stack.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(-90.0F));
+            stack.multiply(RotationAxis.POSITIVE_X.rotationDegrees(-90.0F));
             stack.scale(1.0f, 1.0f, 1.0f);
             if(offHand.isOf(Items.SHIELD)){
-                stack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(180.0F));
+                stack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180.0F));
                 stack.translate(0,0.2,-1.4);
             }
-            MinecraftClient.getInstance().getItemRenderer().renderItem(offHand, ModelTransformation.Mode.THIRD_PERSON_LEFT_HAND, packedLightIn, packedOverlayIn, stack, this.rtb, 0);
+            MinecraftClient.getInstance().getItemRenderer().renderItem(offHand, ModelTransformationMode.THIRD_PERSON_LEFT_HAND, packedLightIn, packedOverlayIn, stack, this.rtb, null, 0);
             stack.pop();
             bufferIn = rtb.getBuffer(RenderLayer.getEntityTranslucent(whTexture));
         }
-        super.renderRecursively(bone, stack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+        super.renderRecursively(stack, animatable, bone, renderType, bufferSource, bufferIn, isReRender, partialTick, packedLightIn, packedOverlayIn, red, green, blue, alpha);
     }
 
     @Override
@@ -202,14 +213,15 @@ public class TulpaEntityRenderer extends GeoEntityRenderer<TulpaEntity> {
     private void copyEntityStateAndRender(MatrixStack matrixStack, TulpaEntity entity, float entityYaw, float partialTicks, VertexConsumerProvider bufferIn, int packedLightIn){
         matrixStack.push();
         if(tulpaPlayerEntity == null) {
-            tulpaPlayerEntity = ModEntityTypes.TULPA_PLAYER.create(entity.world);
+            tulpaPlayerEntity = ModEntityTypes.TULPA_PLAYER.create(entity.getWorld());
         }else{
             tulpaPlayerEntity.age = entity.age;
             tulpaPlayerEntity.hurtTime = entity.hurtTime;
             tulpaPlayerEntity.maxHurtTime = Integer.MAX_VALUE;
-            tulpaPlayerEntity.limbDistance = entity.limbDistance;
-            tulpaPlayerEntity.lastLimbDistance = entity.lastLimbDistance;
-            tulpaPlayerEntity.limbAngle = entity.limbAngle;
+            // TODO copy LivingEntity::limbAnimator
+            // tulpaPlayerEntity.limbDistance = entity.limbDistance;
+            // tulpaPlayerEntity.lastLimbDistance = entity.lastLimbDistance;
+            // tulpaPlayerEntity.limbAngle = entity.limbAngle;
             tulpaPlayerEntity.headYaw = entity.headYaw;
             tulpaPlayerEntity.prevHeadYaw = entity.prevHeadYaw;
             tulpaPlayerEntity.bodyYaw = entity.bodyYaw;

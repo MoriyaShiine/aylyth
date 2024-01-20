@@ -1,15 +1,16 @@
 package moriyashiine.aylyth.client.model.entity;
 
 import moriyashiine.aylyth.common.Aylyth;
+import moriyashiine.aylyth.common.entity.mob.ElderAylythianEntity;
 import moriyashiine.aylyth.common.entity.mob.SoulmouldEntity;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.processor.IBone;
-import software.bernie.geckolib3.model.AnimatedTickingGeoModel;
-import software.bernie.geckolib3.model.provider.data.EntityModelData;
+import software.bernie.geckolib.constant.DataTickets;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.model.GeoModel;
+import software.bernie.geckolib.model.data.EntityModelData;
 
-public class SoulmouldEntityModel extends AnimatedTickingGeoModel<SoulmouldEntity> {
+public class SoulmouldEntityModel extends GeoModel<SoulmouldEntity> {
     public SoulmouldEntityModel() {
     }
 
@@ -26,13 +27,13 @@ public class SoulmouldEntityModel extends AnimatedTickingGeoModel<SoulmouldEntit
     }
 
     @Override
-    public void setCustomAnimations(SoulmouldEntity animatable, int instanceId, @Nullable AnimationEvent animationEvent) {
+    public void setCustomAnimations(SoulmouldEntity animatable, long instanceId, AnimationState<SoulmouldEntity> animationEvent) {
         super.setCustomAnimations(animatable, instanceId, animationEvent);
-        IBone head = this.getAnimationProcessor().getBone("head");
-        EntityModelData extraData = (EntityModelData)animationEvent.getExtraDataOfType(EntityModelData.class).get(0);
+        var head = this.getAnimationProcessor().getBone("head");
+        var extraData = animationEvent.getData(DataTickets.ENTITY_MODEL_DATA);
         if (head != null) {
-            head.setRotationX(head.getRotationX() + extraData.headPitch * 3.1415927F / 180.0F);
-            head.setRotationY(head.getRotationY() + extraData.netHeadYaw * 0.017453292F);
+            head.setRotX(head.getRotX() + extraData.headPitch() * 3.1415927F / 180.0F);
+            head.setRotY(head.getRotY() + extraData.netHeadYaw() * 0.017453292F);
         }
     }
 }

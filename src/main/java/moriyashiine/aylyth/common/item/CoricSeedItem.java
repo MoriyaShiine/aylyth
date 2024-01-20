@@ -27,7 +27,7 @@ public class CoricSeedItem extends Item {
     public ActionResult useOnBlock(ItemUsageContext ctx) {
         PlayerEntity player = ctx.getPlayer();
         BlockPos pos = ctx.getBlockPos();
-        Direction dir = ctx.getPlayerFacing();
+        Direction dir = ctx.getHorizontalPlayerFacing();
         World world = ctx.getWorld();
         Direction side = ctx.getSide();
         ItemStack stack = ctx.getStack();

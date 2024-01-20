@@ -22,7 +22,7 @@
       "minecraft:patch_soul_fire"
     ]
   ],
-  "precipitation": "none",
+  "has_precipitation": false,
   "spawn_costs": {
     "minecraft:enderman": {
       "charge": 0.7,

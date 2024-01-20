@@ -2,13 +2,10 @@ package moriyashiine.aylyth.client.model.entity;
 
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.entity.mob.ScionEntity;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.*;
 import net.minecraft.util.Identifier;
 
-@Environment(EnvType.CLIENT)
 public class ScionEntityModel<T extends ScionEntity> extends BipedEntityModel<T> implements ModelWithArms {
 	public static final EntityModelLayer LAYER_LOCATION = new EntityModelLayer(new Identifier(Aylyth.MOD_ID, "scion"), "main");
 	private final ModelPart head;
