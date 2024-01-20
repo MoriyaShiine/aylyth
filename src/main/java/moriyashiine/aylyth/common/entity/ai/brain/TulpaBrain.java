@@ -15,6 +15,7 @@ import net.minecraft.entity.ai.brain.*;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.ai.brain.task.*;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.RangedWeaponItem;
 import net.minecraft.util.Unit;
@@ -76,9 +77,11 @@ public class TulpaBrain {
                         new InteractPlayerTask(),
                         new StayAboveWaterTask(0.6f),
                         new LookAroundTask(45, 90),
-                        new WanderAroundTask(),
                         new ConditionalTask<>(
-                                ImmutableMap.of(MemoryModuleType.HURT_BY_ENTITY, MemoryModuleState.VALUE_PRESENT),
+                                entity -> !entity.shouldStay(), new WanderAroundTask(), true
+                        ),
+                        new ConditionalTask<>(
+                                Map.of(MemoryModuleType.HURT_BY_ENTITY, MemoryModuleState.VALUE_PRESENT),
                                 TulpaBrain::shouldAttackHurtBy, new RevengeTask(), false
                         )
                 )
@@ -91,7 +94,7 @@ public class TulpaBrain {
                 ImmutableList.of(
                         Pair.of(0, new ConditionalTask<>(
                                 Map.of(ModMemoryTypes.SHOULD_FOLLOW_OWNER, MemoryModuleState.VALUE_ABSENT),
-                                e -> true,
+                                e -> !e.shouldStay(),
                                 new RandomTask<>(
                                         ImmutableList.of(
                                                 Pair.of(new StrollTask(0.6F), 2),
@@ -106,7 +109,7 @@ public class TulpaBrain {
                                         ModMemoryTypes.OWNER_PLAYER, MemoryModuleState.VALUE_PRESENT,
                                         ModMemoryTypes.SHOULD_FOLLOW_OWNER, MemoryModuleState.VALUE_PRESENT
                                 ),
-                                e -> true,
+                                e -> !e.shouldStay(),
                                 new WalkTowardsLookTargetTask<>(living -> {
                                     Optional<PlayerEntity> owner = brain.getOptionalMemory(ModMemoryTypes.OWNER_PLAYER);
                                     return owner.map(player -> new EntityLookTarget(player, true));

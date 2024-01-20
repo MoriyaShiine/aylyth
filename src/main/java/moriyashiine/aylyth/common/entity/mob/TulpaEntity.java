@@ -159,6 +159,10 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
         getActionState().onSet.accept(this);
     }
 
+    public boolean shouldStay() {
+        return getActionState() == ActionState.STAY;
+    }
+
     public void setInteractTarget(@Nullable PlayerEntity interactTarget) {
         this.interactTarget = interactTarget;
         if (this.getInteractTarget() != null && interactTarget == null) {
@@ -223,8 +227,12 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
                         setInteractTarget(player);
                         player.openHandledScreen(new TulpaScreenHandlerFactory());
                     }
-                } else if (!this.world.isClient() && player.getMainHandStack().isEmpty() && player.getUuid().equals(this.getOwnerUuid())) {
-                    this.cycleActionState(player);
+                    return ActionResult.success(world.isClient);
+                } else if (player.getMainHandStack().isEmpty() && isOwner(player)) {
+                    if (!this.world.isClient()) {
+                        this.cycleActionState(player);
+                    }
+                    return ActionResult.success(world.isClient);
                 }
             }
         }
@@ -235,7 +243,7 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
     private void cycleActionState(PlayerEntity player) {
         ActionState nextState = getActionState().next();
         setActionState(nextState);
-        nextState.onCycle.accept(player);
+        player.sendMessage(nextState.cycleText, true);
     }
 
     protected void loot(ItemEntity item) {
@@ -583,30 +591,35 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
 
     public enum ActionState implements StringIdentifiable {
         IDLE("idle",
-                player -> player.sendMessage(Text.translatable("info.aylyth.tulpa_wander").setStyle(Style.EMPTY.withColor(Formatting.AQUA)), true),
+                Text.translatable("info.aylyth.tulpa_wander").setStyle(Style.EMPTY.withColor(Formatting.AQUA)),
                 tulpa -> {},
                 tulpa -> {}
         ),
         FOLLOW("follow",
-                player -> player.sendMessage(Text.translatable("info.aylyth.tulpa_follow").setStyle(Style.EMPTY.withColor(Formatting.AQUA)), true),
+                Text.translatable("info.aylyth.tulpa_follow").setStyle(Style.EMPTY.withColor(Formatting.AQUA)),
                 tulpa -> TulpaBrain.setShouldFollowOwner(tulpa, true),
                 tulpa -> TulpaBrain.setShouldFollowOwner(tulpa, false)
         ),
+        STAY("stay",
+                Text.translatable("info.aylyth.tulpa_stay").setStyle(Style.EMPTY.withColor(Formatting.AQUA)),
+                tulpaEntity -> {},
+                tulpaEntity -> {}
+        ),
         SICKO("sicko",
-                player -> player.sendMessage(Text.literal("amogus").setStyle(Style.EMPTY.withColor(Formatting.DARK_RED).withObfuscated(true)), true),
+                Text.literal("amogus").setStyle(Style.EMPTY.withColor(Formatting.DARK_RED).withObfuscated(true)),
                 tulpa -> {},
                 tulpa -> {}
         );
 
         public static final com.mojang.serialization.Codec<ActionState> CODEC = StringIdentifiable.createCodec(ActionState::values);
         private final String name;
-        private final Consumer<PlayerEntity> onCycle;
+        private final Text cycleText;
         private final Consumer<TulpaEntity> onUnset;
         private final Consumer<TulpaEntity> onSet;
 
-        ActionState(String name, Consumer<PlayerEntity> onCycle, Consumer<TulpaEntity> onSet, Consumer<TulpaEntity> onUnset) {
+        ActionState(String name, Text cycleText, Consumer<TulpaEntity> onSet, Consumer<TulpaEntity> onUnset) {
             this.name = name;
-            this.onCycle = onCycle;
+            this.cycleText = cycleText;
             this.onUnset = onUnset;
             this.onSet = onSet;
         }

@@ -192,6 +192,7 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
 
         builder.add("info.aylyth.tulpa_wander", "Wander");
         builder.add("info.aylyth.tulpa_follow", "Follow");
+        builder.add("info.aylyth.tulpa_stay", "Stay");
 
         // COMPAT - REI
 
