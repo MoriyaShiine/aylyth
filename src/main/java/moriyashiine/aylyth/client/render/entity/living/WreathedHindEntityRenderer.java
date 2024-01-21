@@ -21,7 +21,7 @@ public class WreathedHindEntityRenderer extends GeoEntityRenderer<WreathedHindEn
     }
 
     @Override
-    public void render(WreathedHindEntity entity, float entityYaw, float partialTick, MatrixStack poseStack, VertexConsumerProvider bufferSource, int packedLight) {
+    public void render(WreathedHindEntity animatable, float entityYaw, float partialTick, MatrixStack poseStack, VertexConsumerProvider bufferSource, int packedLight) {
         if (currentTick < 0 || currentTick != animatable.age) {
             this.currentTick = animatable.age;
             if (model.getBone("iGuessThisistheHead").isPresent()) {
@@ -38,6 +38,6 @@ public class WreathedHindEntityRenderer extends GeoEntityRenderer<WreathedHindEn
                         0);
             }
         }
-        super.render(entity, entityYaw, partialTick, poseStack, bufferSource, packedLight);
+        super.render(animatable, entityYaw, partialTick, poseStack, bufferSource, packedLight);
     }
 }
