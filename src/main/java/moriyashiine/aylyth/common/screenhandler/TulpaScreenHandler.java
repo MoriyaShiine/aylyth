@@ -5,6 +5,7 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import moriyashiine.aylyth.common.entity.mob.TulpaEntity;
 import moriyashiine.aylyth.common.registry.ModScreenHandlers;
 import moriyashiine.aylyth.mixin.MobEntityAccessor;
+import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -25,6 +26,7 @@ public class TulpaScreenHandler extends ScreenHandler {
     public final Inventory inventory;
     public final Inventory armorInventory;
     public final Inventory handInventory;
+    public final int inventorySize;
     private static final EquipmentSlot[] EQUIPMENT_SLOT_ORDER = new EquipmentSlot[] {
             EquipmentSlot.FEET, EquipmentSlot.LEGS, EquipmentSlot.CHEST,EquipmentSlot.HEAD
     };
@@ -45,6 +47,7 @@ public class TulpaScreenHandler extends ScreenHandler {
         this.inventory = inventory;
         this.armorInventory = new SimpleInventory(armorItems.toArray(ItemStack[]::new));
         this.handInventory = new SimpleInventory(handItems.toArray(ItemStack[]::new));
+        this.inventorySize = inventory.size() + armorInventory.size() + handInventory.size();
         this.player = playerInventory.player;
         tulpaEntity.setInteractTarget(player);
         this.tulpaEntity = tulpaEntity;
@@ -163,13 +166,13 @@ public class TulpaScreenHandler extends ScreenHandler {
             }
         });
 
-
-        for (int x = 0; x < 4; ++x) {
-            this.addSlot(new Slot(inventory, x, 97 + x * 18, 18));
-            this.addSlot(new Slot(inventory, (x + 1) + (3), 97 + x * 18, 18 + 18));
-            this.addSlot(new Slot(inventory, (x + 2) + (2 * 3), 97 + x * 18, 18 + 2 * 18));
+        for (int y = 0; y < 3; ++y) {
+            int yPos = (y * 18) + 18;
+            this.addSlot(new Slot(this.inventory, y * 4, 97, yPos));
+            this.addSlot(new Slot(this.inventory, y * 4 + 1, 97 + 18, yPos));
+            this.addSlot(new Slot(this.inventory, y * 4 + 2, 97 + 2 * 18, yPos));
+            this.addSlot(new Slot(this.inventory, y * 4 + 3, 97 + 3 * 18, yPos));
         }
-
 
         for (int l = 0; l < 3; ++l) {
             for (int j1 = 0; j1 < 9; ++j1) {
@@ -189,36 +192,30 @@ public class TulpaScreenHandler extends ScreenHandler {
         if (slot != null && slot.hasStack()) {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
-            int i = this.inventory.size();
-            if (index < i) {
-                if (!this.insertItem(itemstack1, i, this.slots.size(), true)) {
+            // check if selecting from tulpa inventory and move to player's
+            if (index < inventorySize) {
+                if (!this.insertItem(itemstack1, inventorySize, this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (this.getSlot(1).canInsert(itemstack1) && !this.getSlot(1).hasStack()) {
-                if (!this.insertItem(itemstack1, 1, 2, false)) {
-                    return ItemStack.EMPTY;
-                }
-            } else if (this.getSlot(0).canInsert(itemstack1)) {
-                if (!this.insertItem(itemstack1, 0, 1, false)) {
-                    return ItemStack.EMPTY;
-                }
-            } else if (i <= 2 || !this.insertItem(itemstack1, 2, i, false)) {
-                int j = i + 27;
-                int k = j + 9;
-                if (index >= j && index < k) {
-                    if (!this.insertItem(itemstack1, i, j, false)) {
+            } else { // we're moving from player inventory to tulpa's
+                // check if can insert into armor slot
+                if (canInsertIntoArmor(itemstack1)) {
+                    if (!this.insertItem(itemstack1, 0, 4, false)) {
                         return ItemStack.EMPTY;
                     }
-                } else if (index >= i && index < j) {
-                    if (!this.insertItem(itemstack1, j, k, false)) {
-                        return ItemStack.EMPTY;
-                    }
-                } else if (!this.insertItem(itemstack1, j, j, false)) {
+                } // check main hand
+                else if (getSlot(4).canInsert(itemstack1) && insertItem(itemstack1, 4, 5, false)) {
+                    return ItemStack.EMPTY;
+                } // check is shield and off hand
+                else if (itemstack1.isIn(ConventionalItemTags.SHIELDS) && getSlot(5).canInsert(itemstack1) && insertItem(itemstack1, 5, 6, false)) {
+                    return ItemStack.EMPTY;
+                } else if (this.insertItem(itemstack1, 6, 18, false)) {
+                    return ItemStack.EMPTY;
+                } else if (this.insertItem(itemstack1, 5, 6, false)) {
                     return ItemStack.EMPTY;
                 }
-
-                return ItemStack.EMPTY;
             }
+
 
             if (itemstack1.isEmpty()) {
                 slot.setStack(ItemStack.EMPTY);
@@ -228,6 +225,13 @@ public class TulpaScreenHandler extends ScreenHandler {
         }
 
         return itemstack;
+    }
+
+    protected boolean canInsertIntoArmor(ItemStack stack) {
+        return  getSlot(0).canInsert(stack) && !getSlot(0).hasStack() ||
+                getSlot(1).canInsert(stack) && !getSlot(1).hasStack() ||
+                getSlot(2).canInsert(stack) && !getSlot(2).hasStack() ||
+                getSlot(3).canInsert(stack) && !getSlot(3).hasStack();
     }
 
     @Override
