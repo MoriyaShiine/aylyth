@@ -5,6 +5,7 @@ import moriyashiine.aylyth.common.registry.util.WoodSuite;
 import moriyashiine.aylyth.datagen.worldgen.biomes.ModBiomes;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBiomeTags;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalEntityTypeTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -27,9 +28,9 @@ public class AylythTagProviders {
 
         @Override
         protected void configure(RegistryWrapper.WrapperLookup registries) {
-            getOrCreateTagBuilder(BiomeTags.IS_FOREST).add(ModBiomeKeys.OVERGROWN_CLEARING_ID, ModBiomeKeys.COPSE_ID, ModBiomeKeys.DEEPWOOD_ID);
-            getOrCreateTagBuilder(BiomeTags.IS_TAIGA).add(ModBiomeKeys.CONIFEROUS_COPSE_ID, ModBiomeKeys.CONIFEROUS_DEEPWOOD_ID, ModBiomeKeys.DEEPWOOD_ID);
-            getOrCreateTagBuilder(ModTags.GENERATES_SEEP).forceAddTag(BiomeTags.IS_FOREST).forceAddTag(BiomeTags.IS_TAIGA);
+            getOrCreateTagBuilder(ConventionalBiomeTags.FOREST).add(ModBiomeKeys.OVERGROWN_CLEARING_ID, ModBiomeKeys.COPSE_ID, ModBiomeKeys.DEEPWOOD_ID);
+            getOrCreateTagBuilder(ConventionalBiomeTags.TAIGA).add(ModBiomeKeys.CONIFEROUS_COPSE_ID, ModBiomeKeys.CONIFEROUS_DEEPWOOD_ID, ModBiomeKeys.DEEPWOOD_ID);
+            getOrCreateTagBuilder(ModTags.GENERATES_SEEP).addOptionalTag(ConventionalBiomeTags.FOREST).addOptionalTag(ConventionalBiomeTags.TAIGA);
             getOrCreateTagBuilder(BiomeTags.HAS_CLOSER_WATER_FOG).add(ModBiomeKeys.MIRE_ID);
         }
     }
