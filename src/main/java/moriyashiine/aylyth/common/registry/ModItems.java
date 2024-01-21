@@ -64,7 +64,8 @@ public class ModItems {
 	public static final Item DARK_OAK_SEEP = register("dark_oak_seep", new BlockItem(ModBlocks.DARK_OAK_SEEP, settings()));
 	public static final Item YMPE_SEEP = register("ympe_seep", new BlockItem(ModBlocks.YMPE_SEEP, settings()));
 	public static final Item SEEPING_WOOD_SEEP = register("seeping_wood_seep", new BlockItem(ModBlocks.SEEPING_WOOD_SEEP, settings()));
-
+	public static final Item AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE = register("aylythian_upgrade_smithing_template", new Item(new FabricItemSettings()));
+	public static final Item ESSTLINE = register("esstline", new Item(new FabricItemSettings()));
 	public static final Item MYSTERIOUS_SKETCH = register("mysterious_sketch", new Item(new FabricItemSettings()));
 
 	public static final Item YMPE_DAGGER = register("ympe_dagger", new YmpeDaggerItem(ToolMaterials.NETHERITE, 1, -2, settings()));
@@ -87,11 +88,12 @@ public class ModItems {
 	public static final Item DARK_WOODS_TILES = register("dark_woods_tiles", new BlockItem(ModBlocks.DARK_WOODS_TILES, settings()));
 
 	public static final Item PILOT_LIGHT_SPAWN_EGG = register("pilot_light_spawn_egg", new SpawnEggItem(ModEntityTypes.PILOT_LIGHT, 0xFFD972, 0x9FD9F6, settings()));
-	public static final Item AYLYTHIAN_SPAWN_EGG = register("aylythian_spawn_egg", new SpawnEggItem(ModEntityTypes.AYLYTHIAN, 0x6A4831, 0xE58E03, settings()));
-	public static final Item ELDER_AYLYTHIAN_SPAWN_EGG = register("elder_aylythian_spawn_egg", new SpawnEggItem(ModEntityTypes.ELDER_AYLYTHIAN, 0x513425, 0xFFDC9B, settings()));
 	public static final Item SCION_SPAWN_EGG = register("scion_spawn_egg", new SpawnEggItem(ModEntityTypes.SCION, 0x463428, 0xE58E03, settings()));
-	public static final Item WREATHED_HIND_SPAWN_EGG = register("wreathed_hind_spawn_egg", new SpawnEggItem(ModEntityTypes.WREATHED_HIND_ENTITY, 0x463428, 0xE58E03, settings()));
-	public static final Item FAUNAYLYTHIAN_SPAWN_EGG = register("faunaylythian_spawn_egg", new SpawnEggItem(ModEntityTypes.FAUNAYLYTHIAN, 0x463428, 0xE58E03, settings()));
+	public static final Item AYLYTHIAN_SPAWN_EGG = register("aylythian_spawn_egg", new SpawnEggItem(ModEntityTypes.AYLYTHIAN, 0x6A4831, 0xE58E03, settings()));
+	public static final Item FAUNAYLYTHIAN_SPAWN_EGG = register("faunaylythian_spawn_egg", new SpawnEggItem(ModEntityTypes.FAUNAYLYTHIAN, 0x6A4831, 0xE1AC20, settings()));
+	public static final Item ELDER_AYLYTHIAN_SPAWN_EGG = register("elder_aylythian_spawn_egg", new SpawnEggItem(ModEntityTypes.ELDER_AYLYTHIAN, 0x513425, 0xFFDC9B, settings()));
+	public static final Item WREATHED_HIND_SPAWN_EGG = register("wreathed_hind_spawn_egg", new SpawnEggItem(ModEntityTypes.WREATHED_HIND_ENTITY, 0x5C4F42, 0xE1B886, settings()));
+
 
 
 	public static final Item YMPE_EFFIGY_ITEM = register("ympe_effigy", new YmpeEffigyItem((settings()).fireproof().rarity(Rarity.RARE).maxCount(1)));
