@@ -53,6 +53,7 @@ public class TulpaBrain {
             MemoryModuleType.AVOID_TARGET,
             MemoryModuleType.ATE_RECENTLY,
             MemoryModuleType.HURT_BY_ENTITY,
+            MemoryModuleType.INTERACTION_TARGET,
             ModMemoryTypes.SHOULD_FOLLOW_OWNER,
             ModMemoryTypes.OWNER_PLAYER,
             ModMemoryTypes.ROOT_ATTACK_COOLDOWN,

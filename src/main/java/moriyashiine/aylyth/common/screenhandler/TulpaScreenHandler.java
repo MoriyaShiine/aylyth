@@ -7,6 +7,7 @@ import moriyashiine.aylyth.common.registry.ModScreenHandlers;
 import moriyashiine.aylyth.mixin.MobEntityAccessor;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -49,7 +50,6 @@ public class TulpaScreenHandler extends ScreenHandler {
         this.handInventory = new SimpleInventory(handItems.toArray(ItemStack[]::new));
         this.inventorySize = inventory.size() + armorInventory.size() + handInventory.size();
         this.player = playerInventory.player;
-        tulpaEntity.setInteractTarget(player);
         this.tulpaEntity = tulpaEntity;
         this.inventory.onOpen(player);
         this.armorInventory.onOpen(player);
@@ -242,7 +242,7 @@ public class TulpaScreenHandler extends ScreenHandler {
     @Override
     public void close(PlayerEntity player) {
         super.close(player);
-        this.tulpaEntity.setInteractTarget(null);
+        this.tulpaEntity.getBrain().forget(MemoryModuleType.INTERACTION_TARGET);
         this.inventory.onClose(player);
         this.armorInventory.onClose(player);
         this.handInventory.onClose(player);

@@ -75,9 +75,6 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
     public static final int MAX_TRANSFORM_TIME = 20 * 5;
     public int transformTime = MAX_TRANSFORM_TIME;
     public int shieldCoolDown;
-    // TODO: Remove in favor of interaction target memory
-    @Nullable
-    public PlayerEntity interactTarget;
     public float prevStrideDistance;
     public float strideDistance;
     public double prevCapeX;
@@ -164,18 +161,6 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
         return getActionState() == ActionState.STAY;
     }
 
-    public void setInteractTarget(@Nullable PlayerEntity interactTarget) {
-        this.interactTarget = interactTarget;
-        if (this.getInteractTarget() != null && interactTarget == null) {
-            this.setInteractTarget(null);
-        }
-    }
-
-    @Nullable
-    public PlayerEntity getInteractTarget() {
-        return this.interactTarget;
-    }
-
     @Override
     public ItemStack eatFood(World world, ItemStack stack) {
         if (stack.isFood()) {
@@ -225,7 +210,7 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
                 }
                 if (!player.isSneaking() && player.getMainHandStack().isEmpty()) {
                     if (player.world != null && !this.world.isClient()) {
-                        setInteractTarget(player);
+                        getBrain().remember(MemoryModuleType.INTERACTION_TARGET, player);
                         player.openHandledScreen(new TulpaScreenHandlerFactory());
                     }
                     return ActionResult.success(world.isClient);
