@@ -8,6 +8,7 @@ import moriyashiine.aylyth.common.item.ShuckedYmpeFruitItem;
 import moriyashiine.aylyth.common.network.packet.GlaivePacket;
 import moriyashiine.aylyth.common.recipe.YmpeDaggerDropRecipe;
 import moriyashiine.aylyth.common.registry.*;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.datagen.worldgen.features.ModPlacedFeatures;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModification;
@@ -151,9 +152,9 @@ public class Aylyth implements ModInitializer {
 	}
 
 	private void biomeModifications() {
-		BiomeModification worldGen = BiomeModifications.create(new Identifier(Aylyth.MOD_ID, "world_features"));
-		worldGen.add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(ModTags.GENERATES_SEEP), context -> context.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, RegistryKey.of(RegistryKeys.PLACED_FEATURE, new Identifier(MOD_ID, "oak_seep"))));
-		worldGen.add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(ModTags.GENERATES_SEEP), context -> context.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, RegistryKey.of(RegistryKeys.PLACED_FEATURE, new Identifier(MOD_ID, "spruce_seep"))));
-		worldGen.add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(ModTags.GENERATES_SEEP), context -> context.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, RegistryKey.of(RegistryKeys.PLACED_FEATURE, new Identifier(MOD_ID, "dark_oak_seep"))));
+		BiomeModifications.create(new Identifier(Aylyth.MOD_ID, "world_features"))
+				.add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(ModTags.GENERATES_SEEP), context -> context.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.OAK_SEEP))
+		        .add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(ModTags.GENERATES_SEEP), context -> context.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.SPRUCE_SEEP))
+				.add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(ModTags.GENERATES_SEEP), context -> context.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.DARK_OAK_SEEP));
 	}
 }
