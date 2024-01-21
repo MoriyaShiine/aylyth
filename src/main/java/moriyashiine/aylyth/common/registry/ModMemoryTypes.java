@@ -15,6 +15,8 @@ public class ModMemoryTypes {
     public static final MemoryModuleType<Unit> SHOULD_FOLLOW_OWNER = register("should_follow_owner");
     public static final MemoryModuleType<PlayerEntity> PLEDGED_PLAYER = register("pledged_player");
     public static final MemoryModuleType<WreathedHindBrain.SecondChance> SECOND_CHANCE = register("second_chance");
+    public static final MemoryModuleType<Unit> ROOT_ATTACK_COOLDOWN = register("root_attack_cooldown");
+    public static final MemoryModuleType<Unit> ROOT_ATTACK_DELAY = register("root_attack_delay");
 
     private static <U> MemoryModuleType<U> register(String id) {
         return Registry.register(Registry.MEMORY_MODULE_TYPE, AylythUtil.id(id), new MemoryModuleType<>(Optional.empty()));

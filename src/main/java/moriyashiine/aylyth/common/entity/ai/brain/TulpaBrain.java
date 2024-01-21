@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Dynamic;
+import moriyashiine.aylyth.common.entity.ai.BasicAttackType;
 import moriyashiine.aylyth.common.entity.ai.task.*;
 import moriyashiine.aylyth.common.entity.mob.TulpaEntity;
 import moriyashiine.aylyth.common.registry.ModMemoryTypes;
@@ -15,6 +16,7 @@ import net.minecraft.entity.ai.brain.*;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.ai.brain.task.*;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.RangedWeaponItem;
@@ -52,7 +54,9 @@ public class TulpaBrain {
             MemoryModuleType.ATE_RECENTLY,
             MemoryModuleType.HURT_BY_ENTITY,
             ModMemoryTypes.SHOULD_FOLLOW_OWNER,
-            ModMemoryTypes.OWNER_PLAYER
+            ModMemoryTypes.OWNER_PLAYER,
+            ModMemoryTypes.ROOT_ATTACK_COOLDOWN,
+            ModMemoryTypes.ROOT_ATTACK_DELAY
     );
 
     public TulpaBrain() {}
@@ -124,16 +128,21 @@ public class TulpaBrain {
         brain.setTaskList(Activity.FIGHT, 10,
                 ImmutableList.of(
                         new ForgetAttackTargetTask<>(entity -> !isPreferredAttackTarget(tulpaEntity, entity), BrainUtils::setTargetInvalid, false),
+                        new FollowMobTask(mob -> BrainUtils.isTarget(tulpaEntity, mob), (float)tulpaEntity.getAttributeValue(EntityAttributes.GENERIC_FOLLOW_RANGE)),
                         new SwitchWeaponTask(),
-                        new ConditionalTask<>(BrainUtils::isHoldingUsableRangedWeapon, new AttackTask<>(5, 0.55f)),
-                        new RangedApproachTask(1.0f),
+                        new ConditionalTask<>(TulpaBrain::canUseRangedAttack, new AttackTask<>(5, 0.55f)),
+                        new ConditionalTask<>(entity -> !canUseRangedAttack(entity), new RangedApproachTask(1.0f)),
                         new CrossbowAttackTask<>(),
                         new BowAttackTask<>(),
-                        new GeckoMeleeAttackTask<>(
+                        new RootAttackTask<>(),
+                        new ConditionalTask<>(
                                 entity -> !entity.isHolding(stack -> stack.getItem() instanceof RangedWeaponItem),
-                                (serverWorld, tulpa, time) -> tulpa.getDataTracker().set(TulpaEntity.IS_ATTACKING, true),
-                                (serverWorld, tulpa, time) -> tulpa.getDataTracker().set(TulpaEntity.IS_ATTACKING, false),
-                                10, (int) (20 * 1.5), 15)
+                                new GeckoMeleeAttackTask<>(
+                                        (serverWorld, tulpa, time) -> tulpa.getDataTracker().set(TulpaEntity.ATTACK_TYPE, BasicAttackType.MELEE),
+                                        (serverWorld, tulpa, time) -> tulpa.getDataTracker().set(TulpaEntity.ATTACK_TYPE, BasicAttackType.NONE),
+                                        10, (int) (20 * 1.5), 15),
+                                true
+                        )
                 ), MemoryModuleType.ATTACK_TARGET);
     }
 
@@ -161,6 +170,10 @@ public class TulpaBrain {
             }
         }
         return Optional.empty();
+    }
+
+    private static boolean canUseRangedAttack(TulpaEntity entity) {
+        return BrainUtils.isHoldingUsableRangedWeapon(entity) || !entity.getBrain().hasMemoryModule(ModMemoryTypes.ROOT_ATTACK_COOLDOWN);
     }
 
     private static boolean shouldAttackHurtBy(TulpaEntity entity) {

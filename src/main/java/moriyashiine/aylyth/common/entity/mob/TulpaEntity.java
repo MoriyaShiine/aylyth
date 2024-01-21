@@ -1,10 +1,10 @@
 package moriyashiine.aylyth.common.entity.mob;
 
 import com.mojang.authlib.GameProfile;
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.Dynamic;
 import moriyashiine.aylyth.api.interfaces.ProlongedDeath;
 import moriyashiine.aylyth.common.Aylyth;
+import moriyashiine.aylyth.common.entity.ai.BasicAttackType;
 import moriyashiine.aylyth.common.entity.ai.brain.TulpaBrain;
 import moriyashiine.aylyth.common.registry.ModDataTrackers;
 import moriyashiine.aylyth.common.screenhandler.TulpaScreenHandler;
@@ -56,8 +56,6 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
-import java.util.EnumMap;
-import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Consumer;
@@ -72,11 +70,12 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
     private static final TrackedData<Optional<UUID>> OWNER_UUID = DataTracker.registerData(TulpaEntity.class, TrackedDataHandlerRegistry.OPTIONAL_UUID);
     private static final TrackedData<Optional<UUID>> SKIN_UUID = DataTracker.registerData(TulpaEntity.class, TrackedDataHandlerRegistry.OPTIONAL_UUID);
     public static final TrackedData<Boolean> TRANSFORMING = DataTracker.registerData(TulpaEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-    public static final TrackedData<Boolean> IS_ATTACKING = DataTracker.registerData(TulpaEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    public static final TrackedData<BasicAttackType> ATTACK_TYPE = DataTracker.registerData(TulpaEntity.class, ModDataTrackers.BASIC_ATTACK);
     private final SimpleInventory inventory = new SimpleInventory(12);
     public static final int MAX_TRANSFORM_TIME = 20 * 5;
     public int transformTime = MAX_TRANSFORM_TIME;
     public int shieldCoolDown;
+    // TODO: Remove in favor of interaction target memory
     @Nullable
     public PlayerEntity interactTarget;
     public float prevStrideDistance;
@@ -87,6 +86,7 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
     public double capeX;
     public double capeY;
     public double capeZ;
+    public Arm lastUsedArm = Arm.RIGHT;
 
     public static final float SHOOT_SPEED = 1.6F;
     public static final float MELEE_ATTACK_RANGE = 4.0F;
@@ -102,6 +102,7 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 20)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 6)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.32)
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32)
                 .add(EntityAttributes.GENERIC_ARMOR, 2f);
     }
 
@@ -146,7 +147,7 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
         this.dataTracker.startTracking(SKIN_UUID, Optional.empty());
         this.dataTracker.startTracking(TAMEABLE, (byte) 0);
         this.dataTracker.startTracking(TRANSFORMING, false);
-        this.dataTracker.startTracking(IS_ATTACKING, false);
+        this.dataTracker.startTracking(ATTACK_TYPE, BasicAttackType.NONE);
     }
 
     public ActionState getActionState() {
@@ -468,8 +469,21 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
             return PlayState.CONTINUE;
         } else if (this.getSkinProfile() != null) {
             builder.addAnimation("tulpa_transform", ILoopType.EDefaultLoopTypes.HOLD_ON_LAST_FRAME);
-        } else if (this.getDataTracker().get(IS_ATTACKING)) {
-            builder.addAnimation("tulpa_attacking_right", ILoopType.EDefaultLoopTypes.LOOP);
+        } else if (this.getDataTracker().get(ATTACK_TYPE) == BasicAttackType.MELEE) {
+            if (event.getController().getCurrentAnimation().animationName.contains("attacking_right") || event.getController().getCurrentAnimation().animationName.contains("attacking_left")) {
+                return PlayState.CONTINUE;
+            }
+
+            if (lastUsedArm == Arm.LEFT) {
+                builder.addAnimation("tulpa_attacking_right", ILoopType.EDefaultLoopTypes.LOOP);
+            } else {
+                builder.addAnimation("tulpa_attacking_left", ILoopType.EDefaultLoopTypes.LOOP);
+            }
+            lastUsedArm = lastUsedArm.getOpposite();
+            event.getController().setAnimation(builder);
+            return PlayState.CONTINUE;
+        } else if (this.getDataTracker().get(ATTACK_TYPE) == BasicAttackType.RANGED) {
+            builder.addAnimation("tulpa_attacking_ranged", ILoopType.EDefaultLoopTypes.LOOP);
             event.getController().setAnimation(builder);
             return PlayState.CONTINUE;
         } else if (event.isMoving()) {

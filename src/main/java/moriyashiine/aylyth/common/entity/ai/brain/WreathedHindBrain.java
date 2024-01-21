@@ -110,7 +110,6 @@ public class WreathedHindBrain {
                         new FollowMobTask(mob -> BrainUtils.isTarget(wreathedHindEntity, mob), (float)wreathedHindEntity.getAttributeValue(EntityAttributes.GENERIC_FOLLOW_RANGE)),
                         new GoTowardsLookTarget(1, 3),
                         new GeckoMeleeAttackTask<>(
-                                hind -> true,
                                 (serverWorld, hind, time) -> {
                                     LivingEntity livingEntity = BrainUtils.getAttackTarget(hind);
                                     if (WreathedHindBrain.isPledgedPlayerLow(livingEntity, hind)) {
