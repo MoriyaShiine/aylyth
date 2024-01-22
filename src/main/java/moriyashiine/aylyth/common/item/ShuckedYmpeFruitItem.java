@@ -1,6 +1,9 @@
 package moriyashiine.aylyth.common.item;
 
 import moriyashiine.aylyth.common.registry.ModComponents;
+import moriyashiine.aylyth.common.util.AylythUtil;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.mob.MobEntity;
@@ -46,9 +49,7 @@ public class ShuckedYmpeFruitItem extends Item {
 					ModComponents.PREVENT_DROPS.get(mob).setPreventsDrops(false);
 					world.spawnEntity(mob);
 					world.playSound(null, pos, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 1, 1);
-					if (context.getPlayer() == null || !context.getPlayer().isCreative()) {
-						stack.decrement(1);
-					}
+					AylythUtil.decreaseStack(stack, context.getPlayer());
 				}
 			}
 			return ActionResult.success(world.isClient);

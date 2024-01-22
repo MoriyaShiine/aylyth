@@ -17,9 +17,9 @@ import net.minecraft.util.math.BlockPos;
 import java.util.Optional;
 import java.util.Set;
 
-public class ScionSpecificSensor extends Sensor<LivingEntity> {
-    @Override
+public class ScionSpecificSensor extends Sensor<ScionEntity> {
 
+    @Override
     public Set<MemoryModuleType<?>> getOutputMemoryModules() {
         return ImmutableSet.of(
                 MemoryModuleType.VISIBLE_MOBS,
@@ -28,13 +28,14 @@ public class ScionSpecificSensor extends Sensor<LivingEntity> {
         );
     }
 
-    protected void sense(ServerWorld world, LivingEntity entity) {
+    @Override
+    protected void sense(ServerWorld world, ScionEntity entity) {
         Brain<?> brain = entity.getBrain();
         brain.remember(MemoryModuleType.NEAREST_REPELLENT, findRepellent(world, entity));
         Optional<PlayerEntity> optional = Optional.empty();
         LivingTargetCache livingTargetCache = brain.getOptionalRegisteredMemory(MemoryModuleType.VISIBLE_MOBS).orElse(LivingTargetCache.empty());
         for (LivingEntity livingEntity : livingTargetCache.iterate((livingEntityx) -> true)) {
-            if (optional.isEmpty() && livingEntity instanceof PlayerEntity playerEntity && entity instanceof ScionEntity scionEntity && playerEntity.getUuid() == scionEntity.getStoredPlayerUUID()) {
+            if (optional.isEmpty() && livingEntity instanceof PlayerEntity playerEntity && playerEntity.getUuid() == entity.getStoredPlayerUUID()) {
                 optional = Optional.of(playerEntity);
             }
         }

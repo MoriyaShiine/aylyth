@@ -23,14 +23,14 @@ public class WreathedHindGlowLayerRenderer extends GeoRenderLayer<WreathedHindEn
 	public void render(MatrixStack matrixStackIn, WreathedHindEntity wreathedHindEntity, BakedGeoModel bakedModel, RenderLayer renderType, VertexConsumerProvider bufferIn, VertexConsumer buffer, float partialTicks, int packedLightIn, int packedOverlay) {
 		Identifier defaultTexture = AylythUtil.id("textures/entity/living/wreathed_hind/wreathed_hind_eyes.png");
 		Identifier pledgedTexture = AylythUtil.id("textures/entity/living/wreathed_hind/wreathed_hind_eyes_pledged.png");
-		Identifier LAYER = wreathedHindEntity.getPledgedPlayerUUIDs().isEmpty() ? defaultTexture : pledgedTexture;
+		Identifier layer = wreathedHindEntity.isPledged() ? pledgedTexture : defaultTexture;
 
 		getRenderer().reRender(getGeoModel().getBakedModel(AylythUtil.id("geo/wreathed_hind.geo.json")),
 				matrixStackIn,
 				bufferIn,
 				wreathedHindEntity,
-				RenderTypes.GLOWING_LAYER.apply(LAYER),
-				bufferIn.getBuffer(RenderTypes.GLOWING_LAYER.apply(LAYER)),
+				RenderTypes.GLOWING_LAYER.apply(layer),
+				bufferIn.getBuffer(RenderTypes.GLOWING_LAYER.apply(layer)),
 				partialTicks,
 				0xF000F0,
 				OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);

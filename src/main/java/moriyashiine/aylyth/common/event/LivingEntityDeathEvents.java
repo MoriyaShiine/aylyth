@@ -182,9 +182,7 @@ public class LivingEntityDeathEvents {
                         ItemStack stack = player.getStackInHand(hand);
                         if (stack.isOf(ModItems.AYLYTHIAN_HEART)) {
                             teleport = true;
-                            if (!player.isCreative()) {
-                                stack.decrement(1);
-                            }
+                            AylythUtil.decreaseStack(stack, player);
                             break;
                         }
                     }

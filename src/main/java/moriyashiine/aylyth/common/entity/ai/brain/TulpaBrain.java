@@ -1,25 +1,29 @@
 package moriyashiine.aylyth.common.entity.ai.brain;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Dynamic;
+import moriyashiine.aylyth.common.entity.ai.BasicAttackType;
 import moriyashiine.aylyth.common.entity.ai.task.*;
 import moriyashiine.aylyth.common.entity.mob.TulpaEntity;
 import moriyashiine.aylyth.common.registry.ModMemoryTypes;
 import moriyashiine.aylyth.common.registry.ModSensorTypes;
 import moriyashiine.aylyth.common.util.BrainUtils;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.brain.Activity;
-import net.minecraft.entity.ai.brain.Brain;
-import net.minecraft.entity.ai.brain.LivingTargetCache;
-import net.minecraft.entity.ai.brain.MemoryModuleType;
+import net.minecraft.entity.ai.brain.*;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.ai.brain.task.*;
+import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.RangedWeaponItem;
+import net.minecraft.util.Unit;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class TulpaBrain {
@@ -27,7 +31,7 @@ public class TulpaBrain {
             SensorType.NEAREST_PLAYERS,
             SensorType.NEAREST_LIVING_ENTITIES,
             SensorType.HURT_BY,
-            ModSensorTypes.TULPA_SPECIFIC_SENSOR
+            ModSensorTypes.TULPA_SPECIFIC
     );
     private static final List<MemoryModuleType<?>> MEMORIES = List.of(
             MemoryModuleType.MOBS,
@@ -48,11 +52,15 @@ public class TulpaBrain {
             MemoryModuleType.NEAREST_REPELLENT,
             MemoryModuleType.AVOID_TARGET,
             MemoryModuleType.ATE_RECENTLY,
+            MemoryModuleType.HURT_BY_ENTITY,
+            MemoryModuleType.INTERACTION_TARGET,
             ModMemoryTypes.SHOULD_FOLLOW_OWNER,
-            ModMemoryTypes.OWNER_PLAYER
+            ModMemoryTypes.OWNER_PLAYER,
+            ModMemoryTypes.ROOT_ATTACK_COOLDOWN,
+            ModMemoryTypes.ROOT_ATTACK_DELAY
     );
 
-    public TulpaBrain(){}
+    public TulpaBrain() {}
 
     public static Brain<?> create(TulpaEntity tulpaEntity, Dynamic<?> dynamic) {
         Brain.Profile<TulpaEntity> profile = Brain.createProfile(MEMORIES, SENSORS);
@@ -73,10 +81,14 @@ public class TulpaBrain {
                 ImmutableList.of(
                         new InteractPlayerTask(),
                         new StayAboveWaterTask(0.6f),
-                        new LookAroundTask(45, 90),
-                        new WanderAroundTask(),
-                        UpdateAttackTargetTask.create(TulpaBrain::getAttackTarget),
-                        new RevengeTask()
+                        new LookAroundTask(45, 90)
+//                        new ConditionalTask<>(
+//                                entity -> !entity.shouldStay(), new WanderAroundTask(), true
+//                        ),
+//                        new ConditionalTask<>(
+//                                Map.of(MemoryModuleType.HURT_BY_ENTITY, MemoryModuleState.VALUE_PRESENT),
+//                                TulpaBrain::shouldAttackHurtBy, new RevengeTask(), false
+//                        )
                 )
         );
     }
@@ -85,14 +97,30 @@ public class TulpaBrain {
         brain.setTaskList(
                 Activity.IDLE,
                 ImmutableList.of(
-                        Pair.of(0, new RandomTask<>(
-                                ImmutableList.of(
-                                        Pair.of(StrollTask.create(0.6F), 2),
-                                        Pair.of(GoTowardsLookTargetTask.create(0.6F, 3), 2),
-                                        Pair.of(new WaitTask(30, 60), 1)
-                                ))),
+//                        Pair.of(0, new ConditionalTask<>(
+//                                Map.of(ModMemoryTypes.SHOULD_FOLLOW_OWNER, MemoryModuleState.VALUE_ABSENT),
+//                                e -> !e.shouldStay(),
+//                                new RandomTask<>(
+//                                        ImmutableList.of(
+//                                                Pair.of(new StrollTask(0.6F), 2),
+//                                                Pair.of(new GoTowardsLookTarget(0.6F, 3), 2),
+//                                                Pair.of(new WaitTask(30, 60), 1)
+//                                        )),
+//                                true
+//                        )),
                         Pair.of(1, new EatFoodTask()),
-                        Pair.of(2, new FollowOwnerTask())
+//                        Pair.of(2, new ConditionalTask<>(
+//                                Map.of(
+//                                        ModMemoryTypes.OWNER_PLAYER, MemoryModuleState.VALUE_PRESENT,
+//                                        ModMemoryTypes.SHOULD_FOLLOW_OWNER, MemoryModuleState.VALUE_PRESENT
+//                                ),
+//                                e -> !e.shouldStay(),
+//                                new WalkTowardsLookTargetTask<>(living -> {
+//                                    Optional<PlayerEntity> owner = brain.getOptionalMemory(ModMemoryTypes.OWNER_PLAYER);
+//                                    return owner.map(player -> new EntityLookTarget(player, true));
+//                                }, 3, 1, 0.85f), true
+//                        )),
+                        Pair.of(3, UpdateAttackTargetTask.create(TulpaBrain::getAttackTarget))
                 )
         );
     }
@@ -102,15 +130,19 @@ public class TulpaBrain {
                 ImmutableList.of(
                         ForgetAttackTargetTask.create(entity -> !isPreferredAttackTarget(tulpaEntity, entity), BrainUtils::setTargetInvalid, false),
                         new SwitchWeaponTask(),
-                        TaskTriggerer.runIf(BrainUtils::isHoldingUsableRangedWeapon, AttackTask.create(5, 0.55f)),
-                        RangedApproachTask.create(1.0f),
+//                        new ConditionalTask<>(TulpaBrain::canUseRangedAttack, new AttackTask<>(5, 0.55f)),
+//                        new ConditionalTask<>(entity -> !canUseRangedAttack(entity), new RangedApproachTask(1.0f)),
                         new CrossbowAttackTask<>(),
                         new BowAttackTask<>(),
-                        new GeckoMeleeAttackTask<>(
-                                entity -> !entity.isHolding(stack -> stack.getItem() instanceof RangedWeaponItem),
-                                (serverWorld, tulpa, time) -> tulpa.getDataTracker().set(TulpaEntity.IS_ATTACKING, true),
-                                (serverWorld, tulpa, time) -> tulpa.getDataTracker().set(TulpaEntity.IS_ATTACKING, false),
-                                10, (int) (20 * 1.5), 15)
+                        new RootAttackTask<>()
+//                        new ConditionalTask<>(
+//                                entity -> !entity.isHolding(stack -> stack.getItem() instanceof RangedWeaponItem),
+//                                new GeckoMeleeAttackTask<>(
+//                                        (serverWorld, tulpa, time) -> tulpa.getDataTracker().set(TulpaEntity.ATTACK_TYPE, BasicAttackType.MELEE),
+//                                        (serverWorld, tulpa, time) -> tulpa.getDataTracker().set(TulpaEntity.ATTACK_TYPE, BasicAttackType.NONE),
+//                                        10, (int) (20 * 1.5), 15),
+//                                true
+//                        )
                 ), MemoryModuleType.ATTACK_TARGET);
     }
 
@@ -128,19 +160,33 @@ public class TulpaBrain {
     private static Optional<? extends LivingEntity> getAttackTarget(TulpaEntity tulpaEntity) {
         Brain<TulpaEntity> brain = tulpaEntity.getBrain();
         Optional<LivingEntity> optional = LookTargetUtil.getEntity(tulpaEntity, MemoryModuleType.ANGRY_AT);
-        if(optional.isPresent()){
+        if (optional.isPresent()) {
             return optional;
         }
         if (brain.hasMemoryModule(MemoryModuleType.VISIBLE_MOBS)) {
-            Optional<LivingTargetCache> visibleLivingEntitiesCache = tulpaEntity.getBrain().getOptionalRegisteredMemory(MemoryModuleType.VISIBLE_MOBS);
-            if(tulpaEntity.getActionState() == TulpaEntity.SICKO){
-                return visibleLivingEntitiesCache.get().findFirst(entity -> !entity.isSubmergedInWater() && tulpaEntity.getOwnerUuid() != entity.getUuid());
+            LivingTargetCache visibleLivingEntitiesCache = tulpaEntity.getBrain().getOptionalMemory(MemoryModuleType.VISIBLE_MOBS).get();
+            if(tulpaEntity.getActionState() == TulpaEntity.ActionState.SICKO) {
+                return visibleLivingEntitiesCache.findFirst(entity -> !entity.isSubmergedInWater() && !tulpaEntity.isOwner(entity));
             }
         }
         return Optional.empty();
     }
 
+    private static boolean canUseRangedAttack(TulpaEntity entity) {
+        return BrainUtils.isHoldingUsableRangedWeapon(entity) || !entity.getBrain().hasMemoryModule(ModMemoryTypes.ROOT_ATTACK_COOLDOWN);
+    }
+
+    private static boolean shouldAttackHurtBy(TulpaEntity entity) {
+        LivingEntity attackedBy = entity.getBrain().getOptionalMemory(MemoryModuleType.HURT_BY_ENTITY).get();
+        return !entity.isOwner(attackedBy);
+    }
+
     public static void setShouldFollowOwner(TulpaEntity tulpaEntity, boolean should) {
-        tulpaEntity.getBrain().remember(ModMemoryTypes.SHOULD_FOLLOW_OWNER, should);
+        if (should) {
+            tulpaEntity.getBrain().remember(ModMemoryTypes.SHOULD_FOLLOW_OWNER, Unit.INSTANCE);
+            tulpaEntity.getBrain().forget(MemoryModuleType.WALK_TARGET);
+        } else {
+            tulpaEntity.getBrain().forget(ModMemoryTypes.SHOULD_FOLLOW_OWNER);
+        }
     }
 }

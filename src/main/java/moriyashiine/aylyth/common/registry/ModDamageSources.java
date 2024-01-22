@@ -1,6 +1,7 @@
 package moriyashiine.aylyth.common.registry;
 
 import moriyashiine.aylyth.common.util.AylythUtil;
+import moriyashiine.aylyth.common.entity.mob.WreathedHindEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;

@@ -2,6 +2,7 @@ package moriyashiine.aylyth.common.item;
 
 import com.mojang.datafixers.util.Pair;
 import moriyashiine.aylyth.common.registry.ModDimensionKeys;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -40,9 +41,7 @@ public class PomegranateItem extends Item {
                         Criteria.CONSUME_ITEM.trigger((ServerPlayerEntity)player, stack);
                     }
                 }
-                if (!(user instanceof PlayerEntity player) || !(player).getAbilities().creativeMode) {
-                    stack.decrement(1);
-                }
+                AylythUtil.decreaseStack(stack, user);
                 user.emitGameEvent(GameEvent.EAT);
             return stack;
         }
