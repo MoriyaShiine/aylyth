@@ -9,6 +9,7 @@ import moriyashiine.aylyth.common.registry.ModPotions;
 import moriyashiine.aylyth.common.registry.ModSoundEvents;
 import moriyashiine.aylyth.common.registry.key.ModDamageTypeKeys;
 import moriyashiine.aylyth.common.registry.tag.ModBlockTags;
+import moriyashiine.aylyth.common.registry.tag.ModDamageTypeTags;
 import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.LivingEntity;
@@ -164,8 +165,7 @@ public class AylythUtil {
 						livingEntity.getMainHandStack().getItem() instanceof YmpeGlaiveItem)) {
 			return true;
 		}
-		// TODO: 1.20, use damage type tag
-		return source.isOf(ModDamageTypeKeys.YMPE) || source.isOf(ModDamageTypeKeys.YMPE_ENTITY);
+		return source.isIn(ModDamageTypeTags.IS_YMPE);
 	}
 
 	/**
