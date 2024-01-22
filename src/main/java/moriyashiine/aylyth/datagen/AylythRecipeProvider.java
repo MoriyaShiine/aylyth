@@ -73,8 +73,8 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
                 .input('D', Items.POLISHED_DEEPSLATE)
                 .input('E', ModItems.ESSTLINE)
                 .input('S', ModItems.CORIC_SEED)
-                .pattern("DND")
-                .pattern("NSN")
+                .pattern("DED")
+                .pattern("ESE")
                 .pattern("DDD")
                 .criterion("has_soulsand", conditionsFromItem(Items.SOUL_SAND))
                 .offerTo(exporter);
@@ -84,8 +84,8 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
                 .input('S', ModItems.YMPE_ITEMS.sapling)
                 .input('E', ModItems.ESSTLINE)
                 .input('C', ModItems.CORIC_SEED)
-                .pattern("DND")
-                .pattern("NCN")
+                .pattern("DED")
+                .pattern("ECE")
                 .pattern("SDS")
                 .criterion("has_coric_seed", conditionsFromItem(ModItems.CORIC_SEED))
                 .offerTo(exporter);
@@ -97,7 +97,7 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
                 .input('E', ModItems.ESSTLINE)
                 .input('C', Items.SOUL_CAMPFIRE)
                 .pattern("SHS")
-                .pattern("PNP")
+                .pattern("PEP")
                 .pattern("PCP")
                 .criterion("has_heart", conditionsFromItem(ModItems.AYLYTHIAN_HEART))
                 .offerTo(exporter);

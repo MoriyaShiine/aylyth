@@ -5,16 +5,16 @@
     "D": {
       "item": "minecraft:polished_deepslate"
     },
-    "N": {
-      "item": "minecraft:netherite_ingot"
+    "E": {
+      "item": "aylyth:esstline"
     },
     "S": {
       "item": "aylyth:coric_seed"
     }
   },
   "pattern": [
-    "DND",
-    "NSN",
+    "DED",
+    "ESE",
     "DDD"
   ],
   "result": {

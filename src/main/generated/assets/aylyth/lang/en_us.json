@@ -33,7 +33,6 @@
   "aylyth.advancements.aylyth.way_of_the_wood.title": "Way of the Wood",
   "aylyth.advancements.aylyth.wyrded.desc": "Try approaching a seep!",
   "aylyth.advancements.aylyth.wyrded.title": "Wyrded",
-
   "aylyth.subtitles.block.stick_break": "Stick cracks",
   "aylyth.subtitles.block.strewn_leaves.pile_destroy": "Leaves scatter",
   "aylyth.subtitles.block.strewn_leaves.pile_step": "Leaf pile crunches",
@@ -42,12 +41,12 @@
   "aylyth.subtitles.entity.aylythian.ambient": "Aylythian groans",
   "aylyth.subtitles.entity.aylythian.death": "Aylythian dies",
   "aylyth.subtitles.entity.aylythian.hurt": "Aylythian hurts",
-  "aylyth.subtitles.entity.faunaylythian.ambient": "Faunaylythian snarls",
-  "aylyth.subtitles.entity.faunaylythian.death": "Faunaylythian dies",
-  "aylyth.subtitles.entity.faunaylythian.hurt": "Faunaylythian hurts",
   "aylyth.subtitles.entity.elder_aylythian.ambient": "Elder Aylythian rumbles",
   "aylyth.subtitles.entity.elder_aylythian.death": "Elder Aylythian dies",
   "aylyth.subtitles.entity.elder_aylythian.hurt": "Elder Aylythian hurts",
+  "aylyth.subtitles.entity.faunaylythian.ambient": "Faunaylythian snarls",
+  "aylyth.subtitles.entity.faunaylythian.death": "Faunaylythian dies",
+  "aylyth.subtitles.entity.faunaylythian.hurt": "Faunaylythian hurts",
   "aylyth.subtitles.entity.generic.shucked": "Entity shucked",
   "aylyth.subtitles.entity.player.increase_ympe_infestation_stage": "Branches spread",
   "aylyth.subtitles.entity.scion.ambient": "Scion groans",
@@ -60,7 +59,6 @@
   "aylyth.subtitles.entity.wreathed_hind.ambient": "Wreathed Hind groans",
   "aylyth.subtitles.entity.wreathed_hind.death": "Wreathed Hind dies",
   "aylyth.subtitles.entity.wreathed_hind.hurt": "Wreathed Hind hurt",
-
   "block.aylyth.antler_shoots": "Antler Shoots",
   "block.aylyth.aylyth_bush": "Aylyth Bush",
   "block.aylyth.dark_oak_seep": "Dark Oak Seep",
@@ -139,7 +137,6 @@
   "death.attack.wreathed_hind.killing_blow": "%1$s's mutual agreement was betrayed",
   "death.attack.ympe": "%1$s has gone to the trees",
   "death.attack.ympe.player": "%1$s has gone to the trees whilst trying to escape %2$s",
-
   "effect.aylyth.cimmerian": "Cimmerian",
   "effect.aylyth.mortechis": "Mortechis",
   "effect.aylyth.wyrded": "Wyrded",
@@ -154,13 +151,11 @@
   "entity.aylyth.tulpa": "Tulpa",
   "entity.aylyth.wreathed_hind": "Wreathed Hind",
   "entity.aylyth.ympe_lance": "Ympe Lance",
-
   "info.aylyth.mould_activate": "Mould of Souls Activated",
   "info.aylyth.mould_deactivate": "Mould of Souls Deactivated",
   "info.aylyth.tulpa_follow": "Follow",
   "info.aylyth.tulpa_stay": "Stay",
   "info.aylyth.tulpa_wander": "Wander",
-
   "item.aylyth.aylythian_heart": "Aylythian Heart",
   "item.aylyth.aylythian_spawn_egg": "Aylythian Spawn Egg",
   "item.aylyth.aylythian_upgrade_smithing_template": "Aylythian Upgrade Smithing Template",

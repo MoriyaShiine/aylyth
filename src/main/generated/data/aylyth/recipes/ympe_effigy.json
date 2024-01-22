@@ -8,7 +8,7 @@
     "D": {
       "item": "minecraft:soul_soil"
     },
-    "N": {
+    "E": {
       "item": "aylyth:esstline"
     },
     "S": {
@@ -16,8 +16,8 @@
     }
   },
   "pattern": [
-    "DND",
-    "NCN",
+    "DED",
+    "ECE",
     "SDS"
   ],
   "result": {
