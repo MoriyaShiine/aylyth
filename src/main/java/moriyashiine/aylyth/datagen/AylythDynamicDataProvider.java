@@ -7,7 +7,6 @@ import net.minecraft.registry.RegistryWrapper;
 
 import java.util.concurrent.CompletableFuture;
 
-// TODO rename to AylythDynamicDataProvider
 public class AylythDynamicDataProvider extends FabricDynamicRegistryProvider {
 
     public AylythDynamicDataProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registries) {
@@ -28,6 +27,6 @@ public class AylythDynamicDataProvider extends FabricDynamicRegistryProvider {
 
     @Override
     public String getName() {
-        return "Aylyth worldgen generator";
+        return "Aylyth dynamic data generator";
     }
 }
