@@ -39,12 +39,6 @@ import java.util.function.Function;
 
 public class AylythLootTableProviders {
 
-    private static final LootCondition.Builder WITH_SILK_TOUCH = MatchToolLootCondition.builder(ItemPredicate.Builder.create().enchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, NumberRange.IntRange.atLeast(1))));
-    private static final LootCondition.Builder WITHOUT_SILK_TOUCH = WITH_SILK_TOUCH.invert();
-    private static final LootCondition.Builder WITH_SHEARS = MatchToolLootCondition.builder(ItemPredicate.Builder.create().items(Items.SHEARS));
-    private static final LootCondition.Builder WITH_SILK_TOUCH_OR_SHEARS = WITH_SHEARS.or(WITH_SILK_TOUCH);
-    private static final LootCondition.Builder WITHOUT_SILK_TOUCH_NOR_SHEARS = WITH_SILK_TOUCH_OR_SHEARS.invert();
-
     public static class BlockLoot extends FabricBlockLootTableProvider {
 
         private final LootCondition.Builder withSilkTouch = MatchToolLootCondition.builder(ItemPredicate.Builder.create().enchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, NumberRange.IntRange.atLeast(1))));
@@ -65,6 +59,7 @@ public class AylythLootTableProviders {
             woodSuiteDrops(ModBlocks.POMEGRANATE_BLOCKS);
             addDrop(ModBlocks.POMEGRANATE_LEAVES, block -> pomegranateLeavesDrop(block, ModBlocks.POMEGRANATE_BLOCKS.sapling, 0.05f, 0.0625f, 0.083333336f, 0.1f));
             woodSuiteDrops(ModBlocks.WRITHEWOOD_BLOCKS);
+            addDrop(ModBlocks.YMPE_LEAVES, block -> leavesDrops(block, ModBlocks.YMPE_BLOCKS.sapling, 0.05f, 0.0625f, 0.083333336f, 0.1f));
             addDrop(ModBlocks.WRITHEWOOD_LEAVES, block -> leavesDrops(block, ModBlocks.WRITHEWOOD_BLOCKS.sapling, 0.05f, 0.0625f, 0.083333336f, 0.1f));
             addDrop(ModBlocks.VITAL_THURIBLE);
             addDrop(ModBlocks.SOUL_HEARTH, this::doorDrops);
