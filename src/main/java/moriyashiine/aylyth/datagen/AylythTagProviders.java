@@ -3,10 +3,7 @@ package moriyashiine.aylyth.datagen;
 import moriyashiine.aylyth.common.registry.*;
 import moriyashiine.aylyth.common.registry.key.ModBiomeKeys;
 import moriyashiine.aylyth.common.registry.key.ModDamageTypeKeys;
-import moriyashiine.aylyth.common.registry.tag.ModBiomeTags;
-import moriyashiine.aylyth.common.registry.tag.ModBlockTags;
-import moriyashiine.aylyth.common.registry.tag.ModEntityTypeTags;
-import moriyashiine.aylyth.common.registry.tag.ModItemTags;
+import moriyashiine.aylyth.common.registry.tag.*;
 import moriyashiine.aylyth.common.registry.util.WoodSuite;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
@@ -142,12 +139,12 @@ public class AylythTagProviders {
             getOrCreateTagBuilder(DamageTypeTags.BYPASSES_ARMOR).add(ModDamageTypeKeys.YMPE, ModDamageTypeKeys.UNBLOCKABLE, ModDamageTypeKeys.SOUL_RIP);
             getOrCreateTagBuilder(DamageTypeTags.BYPASSES_ENCHANTMENTS).add(ModDamageTypeKeys.YMPE, ModDamageTypeKeys.UNBLOCKABLE);
             getOrCreateTagBuilder(DamageTypeTags.BYPASSES_RESISTANCE).add(ModDamageTypeKeys.YMPE, ModDamageTypeKeys.UNBLOCKABLE);
-            getOrCreateTagBuilder(DamageTypeTags.BYPASSES_INVULNERABILITY).add(ModDamageTypeKeys.YMPE, ModDamageTypeKeys.UNBLOCKABLE);
+//            getOrCreateTagBuilder(DamageTypeTags.BYPASSES_INVULNERABILITY).add(ModDamageTypeKeys.YMPE, ModDamageTypeKeys.UNBLOCKABLE);
             getOrCreateTagBuilder(DamageTypeTags.BYPASSES_EFFECTS).add(ModDamageTypeKeys.UNBLOCKABLE);
             getOrCreateTagBuilder(DamageTypeTags.WITCH_RESISTANT_TO).add(ModDamageTypeKeys.SOUL_RIP);
             getOrCreateTagBuilder(DamageTypeTags.AVOIDS_GUARDIAN_THORNS).add(ModDamageTypeKeys.SOUL_RIP);
             getOrCreateTagBuilder(DamageTypeTags.ALWAYS_TRIGGERS_SILVERFISH).add(ModDamageTypeKeys.SOUL_RIP);
-//            getOrCreateTagBuilder()
+            getOrCreateTagBuilder(ModDamageTypeTags.IS_YMPE).add(ModDamageTypeKeys.YMPE, ModDamageTypeKeys.YMPE_ENTITY);
         }
     }
 }
