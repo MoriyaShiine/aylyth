@@ -3,5 +3,7 @@ package moriyashiine.aylyth.api.interfaces;
 import moriyashiine.aylyth.common.world.ModDamageSources;
 
 public interface ModDamageSourcesProvider {
-    ModDamageSources modDamageSources();
+    default ModDamageSources modDamageSources() {
+        throw new UnsupportedOperationException("Implemented via mixin.");
+    }
 }
