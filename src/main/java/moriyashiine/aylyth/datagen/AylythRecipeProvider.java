@@ -84,7 +84,7 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
                 .input('S', ModItems.YMPE_ITEMS.sapling)
                 .input('E', ModItems.ESSTLINE)
                 .input('C', ModItems.CORIC_SEED)
-                .pattern("DND")
+                .pattern("DED")
                 .pattern("ECE")
                 .pattern("SDS")
                 .criterion("has_coric_seed", conditionsFromItem(ModItems.CORIC_SEED))
