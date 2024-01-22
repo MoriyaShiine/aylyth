@@ -18,7 +18,6 @@ import net.minecraft.util.Hand;
 import java.util.function.Predicate;
 
 public class GeckoMeleeAttackTask<T extends MobEntity> extends MultiTickTask<T> {
-    private final Predicate<T> shouldRun;
     private final int interval;
     private final double animationTimeOfAttack;
     private long animationTime = 0;

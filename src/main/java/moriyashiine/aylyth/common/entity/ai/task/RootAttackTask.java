@@ -10,6 +10,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.brain.MemoryModuleState;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
+import net.minecraft.entity.ai.brain.task.MultiTickTask;
 import net.minecraft.entity.ai.brain.task.Task;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
@@ -21,7 +22,7 @@ import net.minecraft.util.shape.VoxelShape;
 
 import java.util.Map;
 
-public class RootAttackTask<E extends TulpaEntity> extends Task<E> {
+public class RootAttackTask<E extends TulpaEntity> extends MultiTickTask<E> {
     public RootAttackTask() {
         super(Map.of(
                 MemoryModuleType.ATTACK_TARGET, MemoryModuleState.VALUE_PRESENT,
@@ -87,7 +88,7 @@ public class RootAttackTask<E extends TulpaEntity> extends Task<E> {
     }
 
     private void spawnRoot(ServerWorld world, E entity, double x, double z, double maxY, double y, float yaw, int warmup) {
-        BlockPos blockPos = new BlockPos(x, y, z);
+        BlockPos blockPos = BlockPos.ofFloored(x, y, z);
         boolean bl = false;
         double d = 0.0;
 

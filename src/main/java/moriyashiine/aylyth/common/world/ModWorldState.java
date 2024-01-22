@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import it.unimi.dsi.fastutil.objects.ObjectLinkedOpenHashSet;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.util.Uuids;
 import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.world.PersistentState;
 import net.minecraft.world.World;
@@ -11,7 +12,7 @@ import net.minecraft.world.World;
 import java.util.*;
 
 public class ModWorldState extends PersistentState {
-    public static final Codec<Set<UUID>> CODEC = Codecs.UUID.listOf().fieldOf("AylythPledgesToRemove").xmap(
+    public static final Codec<Set<UUID>> CODEC = Uuids.CODEC.listOf().fieldOf("AylythPledgesToRemove").xmap(
             uuids -> (Set<UUID>)new ObjectLinkedOpenHashSet<>(uuids),
             ArrayList::new
     ).codec();

@@ -4,6 +4,7 @@ import moriyashiine.aylyth.common.entity.projectile.SphereEntity;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.texture.SpriteAtlasTexture;
+import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.util.Identifier;
 
 public class SphereEntityRenderer extends EntityRenderer<SphereEntity> {
@@ -14,6 +15,6 @@ public class SphereEntityRenderer extends EntityRenderer<SphereEntity> {
 
     @Override
     public Identifier getTexture(SphereEntity entity) {
-        return SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE;
+        return PlayerScreenHandler.BLOCK_ATLAS_TEXTURE;
     }
 }

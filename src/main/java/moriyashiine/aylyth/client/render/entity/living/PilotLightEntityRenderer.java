@@ -5,6 +5,7 @@ import net.minecraft.client.render.Frustum;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.texture.SpriteAtlasTexture;
+import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.util.Identifier;
 
 public class PilotLightEntityRenderer extends EntityRenderer<PilotLightEntity> {
@@ -14,7 +15,7 @@ public class PilotLightEntityRenderer extends EntityRenderer<PilotLightEntity> {
 	
 	@Override
 	public Identifier getTexture(PilotLightEntity entity) {
-		return SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE;
+		return PlayerScreenHandler.BLOCK_ATLAS_TEXTURE;
 	}
 	
 	@Override

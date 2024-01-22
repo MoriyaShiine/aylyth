@@ -212,12 +212,12 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
                         getBrain().remember(MemoryModuleType.INTERACTION_TARGET, player);
                         player.openHandledScreen(new TulpaScreenHandlerFactory());
                     }
-                    return ActionResult.success(world.isClient);
+                    return ActionResult.success(getWorld().isClient);
                 } else if (player.getMainHandStack().isEmpty() && isOwner(player)) {
                     if (!this.getWorld().isClient()) {
                         this.cycleActionState(player);
                     }
-                    return ActionResult.success(world.isClient);
+                    return ActionResult.success(getWorld().isClient);
                 }
             }
         }
@@ -367,9 +367,9 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
     @Override
     protected void dropInventory() {
         MobEntityAccessor accessor = ((MobEntityAccessor)this);
-        ItemScatterer.spawn(world, this, inventory);
-        ItemScatterer.spawn(world, this.getBlockPos(), accessor.armorItems());
-        ItemScatterer.spawn(world, this.getBlockPos(), accessor.handItems());
+        ItemScatterer.spawn(getWorld(), this, inventory);
+        ItemScatterer.spawn(getWorld(), this.getBlockPos(), accessor.armorItems());
+        ItemScatterer.spawn(getWorld(), this.getBlockPos(), accessor.handItems());
     }
 
     @Override
@@ -454,7 +454,8 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
         } else if (this.getSkinProfile() != null) {
             builder.then("tulpa_transform", Animation.LoopType.HOLD_ON_LAST_FRAME);
         } else if (this.getDataTracker().get(ATTACK_TYPE) == BasicAttackType.MELEE) {
-            if (event.getController().getCurrentAnimation().animationName.contains("attacking_right") || event.getController().getCurrentAnimation().animationName.contains("attacking_left")) {
+            // TODO: Rewrite better
+            if (event.getController().getCurrentAnimation().animation().name().contains("attacking_right") || event.getController().getCurrentAnimation().animation().name().contains("attacking_left")) {
                 return PlayState.CONTINUE;
             }
 

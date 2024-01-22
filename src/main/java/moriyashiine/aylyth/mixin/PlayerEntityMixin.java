@@ -6,6 +6,7 @@ import moriyashiine.aylyth.common.block.SoulHearthBlock;
 import moriyashiine.aylyth.common.component.entity.CuirassComponent;
 import moriyashiine.aylyth.common.entity.mob.BoneflyEntity;
 import moriyashiine.aylyth.common.registry.ModComponents;
+import moriyashiine.aylyth.common.registry.ModDamageSources;
 import moriyashiine.aylyth.common.registry.ModItems;
 import moriyashiine.aylyth.common.registry.ModSoundEvents;
 import moriyashiine.aylyth.common.util.AylythUtil;
@@ -235,7 +236,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHol
     @Inject(method = "onDeath", at = @At("TAIL"))
     private void aylyth_unpledgeHind(DamageSource damageSource, CallbackInfo ci) {
         PlayerEntity thiz = (PlayerEntity) (Object) this;
-        if (damageSource.name.equals("wreathed_hind.killing_blow")) {
+        if (damageSource.isOf(ModDamageSources.UNBLOCKABLE)) {
             HindPledgeHolder.of(thiz).ifPresent(hindPledgeHolder -> {
                 hindPledgeHolder.setHindUuid(null);
             });

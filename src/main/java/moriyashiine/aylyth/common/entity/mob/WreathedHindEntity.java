@@ -29,14 +29,14 @@ import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.tag.BlockTags;
-import net.minecraft.tag.FluidTags;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
+import net.tslat.smartbrainlib.api.SmartBrainOwner;
+import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
@@ -51,7 +51,7 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
     private static final EntityAttributeModifier SNEAKY_SPEED_PENALTY = new EntityAttributeModifier(UUID.fromString("5CD17E11-A74A-43D3-A529-90FDE04B191E"), "sneaky", -0.15D, EntityAttributeModifier.Operation.ADDITION);
     private EntityAttributeInstance modifiableattributeinstance = this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
 
-    private final AnimationFactory factory = GeckoLibUtil.createFactory(this);
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     public static final TrackedData<AttackType> ATTACK_TYPE = DataTracker.registerData(WreathedHindEntity.class, ModDataTrackers.WREATHED_HIND_ATTACKS);
     public static final TrackedData<Boolean> IS_PLEDGED = DataTracker.registerData(WreathedHindEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private UUID pledgedPlayer = null;
@@ -141,7 +141,7 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
     @Override
     public void remove(RemovalReason reason) {
         super.remove(reason);
-        addPledgeToRemove(world);
+        addPledgeToRemove(getWorld());
     }
 
     @Override
@@ -229,15 +229,15 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
 
     private <T extends GeoAnimatable> PlayState attackPredicate(AnimationState<T> event) {
         var builder = RawAnimation.begin();
-        if(this.getAttackType() == MELEE_ATTACK){
+        if (this.getAttackType() == AttackType.MELEE) {
             builder.then("attack.melee", Animation.LoopType.PLAY_ONCE);
             event.getController().setAnimation(builder);
             return PlayState.CONTINUE;
-        }else if(this.getAttackType() == RANGE_ATTACK){
+        } else if (this.getAttackType() == AttackType.RANGED) {
             builder.then("attack.ranged", Animation.LoopType.PLAY_ONCE);
             event.getController().setAnimation(builder);
             return PlayState.CONTINUE;
-        }else if(this.getAttackType() == KILLING_ATTACK){
+        } else if (this.getAttackType() == AttackType.KILLING) {
             builder.then("killing.blow", Animation.LoopType.PLAY_ONCE);
             event.getController().setAnimation(builder);
             return PlayState.CONTINUE;
@@ -259,7 +259,7 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
 
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return factory;
+        return cache;
     }
 
     public AttackType getAttackType() {

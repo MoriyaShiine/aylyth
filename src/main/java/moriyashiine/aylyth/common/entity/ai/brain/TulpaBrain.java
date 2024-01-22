@@ -81,14 +81,14 @@ public class TulpaBrain {
                 ImmutableList.of(
                         new InteractPlayerTask(),
                         new StayAboveWaterTask(0.6f),
-                        new LookAroundTask(45, 90),
-                        new ConditionalTask<>(
-                                entity -> !entity.shouldStay(), new WanderAroundTask(), true
-                        ),
-                        new ConditionalTask<>(
-                                Map.of(MemoryModuleType.HURT_BY_ENTITY, MemoryModuleState.VALUE_PRESENT),
-                                TulpaBrain::shouldAttackHurtBy, new RevengeTask(), false
-                        )
+                        new LookAroundTask(45, 90)
+//                        new ConditionalTask<>(
+//                                entity -> !entity.shouldStay(), new WanderAroundTask(), true
+//                        ),
+//                        new ConditionalTask<>(
+//                                Map.of(MemoryModuleType.HURT_BY_ENTITY, MemoryModuleState.VALUE_PRESENT),
+//                                TulpaBrain::shouldAttackHurtBy, new RevengeTask(), false
+//                        )
                 )
         );
     }
@@ -97,30 +97,30 @@ public class TulpaBrain {
         brain.setTaskList(
                 Activity.IDLE,
                 ImmutableList.of(
-                        Pair.of(0, new ConditionalTask<>(
-                                Map.of(ModMemoryTypes.SHOULD_FOLLOW_OWNER, MemoryModuleState.VALUE_ABSENT),
-                                e -> !e.shouldStay(),
-                                new RandomTask<>(
-                                        ImmutableList.of(
-                                                Pair.of(new StrollTask(0.6F), 2),
-                                                Pair.of(new GoTowardsLookTarget(0.6F, 3), 2),
-                                                Pair.of(new WaitTask(30, 60), 1)
-                                        )),
-                                true
-                        )),
+//                        Pair.of(0, new ConditionalTask<>(
+//                                Map.of(ModMemoryTypes.SHOULD_FOLLOW_OWNER, MemoryModuleState.VALUE_ABSENT),
+//                                e -> !e.shouldStay(),
+//                                new RandomTask<>(
+//                                        ImmutableList.of(
+//                                                Pair.of(new StrollTask(0.6F), 2),
+//                                                Pair.of(new GoTowardsLookTarget(0.6F, 3), 2),
+//                                                Pair.of(new WaitTask(30, 60), 1)
+//                                        )),
+//                                true
+//                        )),
                         Pair.of(1, new EatFoodTask()),
-                        Pair.of(2, new ConditionalTask<>(
-                                Map.of(
-                                        ModMemoryTypes.OWNER_PLAYER, MemoryModuleState.VALUE_PRESENT,
-                                        ModMemoryTypes.SHOULD_FOLLOW_OWNER, MemoryModuleState.VALUE_PRESENT
-                                ),
-                                e -> !e.shouldStay(),
-                                new WalkTowardsLookTargetTask<>(living -> {
-                                    Optional<PlayerEntity> owner = brain.getOptionalMemory(ModMemoryTypes.OWNER_PLAYER);
-                                    return owner.map(player -> new EntityLookTarget(player, true));
-                                }, 3, 1, 0.85f), true
-                        )),
-                        Pair.of(3, new UpdateAttackTargetTask<>(TulpaBrain::getAttackTarget))
+//                        Pair.of(2, new ConditionalTask<>(
+//                                Map.of(
+//                                        ModMemoryTypes.OWNER_PLAYER, MemoryModuleState.VALUE_PRESENT,
+//                                        ModMemoryTypes.SHOULD_FOLLOW_OWNER, MemoryModuleState.VALUE_PRESENT
+//                                ),
+//                                e -> !e.shouldStay(),
+//                                new WalkTowardsLookTargetTask<>(living -> {
+//                                    Optional<PlayerEntity> owner = brain.getOptionalMemory(ModMemoryTypes.OWNER_PLAYER);
+//                                    return owner.map(player -> new EntityLookTarget(player, true));
+//                                }, 3, 1, 0.85f), true
+//                        )),
+                        Pair.of(3, UpdateAttackTargetTask.create(TulpaBrain::getAttackTarget))
                 )
         );
     }
@@ -130,19 +130,19 @@ public class TulpaBrain {
                 ImmutableList.of(
                         ForgetAttackTargetTask.create(entity -> !isPreferredAttackTarget(tulpaEntity, entity), BrainUtils::setTargetInvalid, false),
                         new SwitchWeaponTask(),
-                        new ConditionalTask<>(TulpaBrain::canUseRangedAttack, new AttackTask<>(5, 0.55f)),
-                        new ConditionalTask<>(entity -> !canUseRangedAttack(entity), new RangedApproachTask(1.0f)),
+//                        new ConditionalTask<>(TulpaBrain::canUseRangedAttack, new AttackTask<>(5, 0.55f)),
+//                        new ConditionalTask<>(entity -> !canUseRangedAttack(entity), new RangedApproachTask(1.0f)),
                         new CrossbowAttackTask<>(),
                         new BowAttackTask<>(),
-                        new RootAttackTask<>(),
-                        new ConditionalTask<>(
-                                entity -> !entity.isHolding(stack -> stack.getItem() instanceof RangedWeaponItem),
-                                new GeckoMeleeAttackTask<>(
-                                        (serverWorld, tulpa, time) -> tulpa.getDataTracker().set(TulpaEntity.ATTACK_TYPE, BasicAttackType.MELEE),
-                                        (serverWorld, tulpa, time) -> tulpa.getDataTracker().set(TulpaEntity.ATTACK_TYPE, BasicAttackType.NONE),
-                                        10, (int) (20 * 1.5), 15),
-                                true
-                        )
+                        new RootAttackTask<>()
+//                        new ConditionalTask<>(
+//                                entity -> !entity.isHolding(stack -> stack.getItem() instanceof RangedWeaponItem),
+//                                new GeckoMeleeAttackTask<>(
+//                                        (serverWorld, tulpa, time) -> tulpa.getDataTracker().set(TulpaEntity.ATTACK_TYPE, BasicAttackType.MELEE),
+//                                        (serverWorld, tulpa, time) -> tulpa.getDataTracker().set(TulpaEntity.ATTACK_TYPE, BasicAttackType.NONE),
+//                                        10, (int) (20 * 1.5), 15),
+//                                true
+//                        )
                 ), MemoryModuleType.ATTACK_TARGET);
     }
 
