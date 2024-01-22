@@ -14,7 +14,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class WreathedHindEntityRenderer extends GeoEntityRenderer<WreathedHindEntity> {
     private int currentTick = -1;
-    public WreathedHindEntityRenderer(EntityRendererFactory.Context renderManager) { 
+    public WreathedHindEntityRenderer(EntityRendererFactory.Context renderManager) {
         super(renderManager, new WreathedHindEntityModel());
         this.addRenderLayer(new WreathedHindGlowLayerRenderer(this));
         this.shadowRadius = 1;
