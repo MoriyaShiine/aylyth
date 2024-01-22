@@ -73,7 +73,7 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
                 .input('D', Items.POLISHED_DEEPSLATE)
                 .input('E', ModItems.ESSTLINE)
                 .input('S', ModItems.CORIC_SEED)
-                .pattern("DND")
+                .pattern("DED")
                 .pattern("ESE")
                 .pattern("DDD")
                 .criterion("has_soulsand", conditionsFromItem(Items.SOUL_SAND))
