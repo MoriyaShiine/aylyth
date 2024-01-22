@@ -104,6 +104,8 @@ public class AylythTagProviders {
             copy(BlockTags.LEAVES, ItemTags.LEAVES);
             copy(BlockTags.SAPLINGS, ItemTags.SAPLINGS);
             copy(ModTags.WOODY_GROWTHS, ModTags.WOODY_GROWTHS_ITEM);
+            copy(ModTags.SEEPS, ModTags.SEEP_ITEMS);
+            getOrCreateTagBuilder(ModTags.PLEDGE_ITEMS).add(ModItems.NYSIAN_GRAPES);
         }
     }
 

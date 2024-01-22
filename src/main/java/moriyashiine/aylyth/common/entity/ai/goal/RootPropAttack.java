@@ -63,13 +63,13 @@ public class RootPropAttack extends Goal {
 
         int i;
         for (i = 0; i < 8; i++) {
-            float angle = 2 * 3.1415927F * (i / 8F);
+            float angle = 2 * MathHelper.PI * (i / 8F);
             this.spawnRoot(
                     livingEntity.getX() + (double) MathHelper.cos(angle) ,
                     livingEntity.getZ() + (double) MathHelper.sin(angle) ,
                     livingEntity.getY() + 2,
                     d,
-                    f + (float)i * 3.1415927F * 0.4F,
+                    f + (float)i * MathHelper.PI * 0.4F,
                     0);
         }
     }

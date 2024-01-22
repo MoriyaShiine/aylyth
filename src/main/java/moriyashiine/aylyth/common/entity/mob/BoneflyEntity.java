@@ -6,6 +6,7 @@ import moriyashiine.aylyth.api.interfaces.ProlongedDeath;
 import moriyashiine.aylyth.common.registry.ModComponents;
 import moriyashiine.aylyth.common.registry.ModEntityTypes;
 import moriyashiine.aylyth.common.registry.ModItems;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.mixin.EntityAccessor;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.BlockState;
@@ -308,10 +309,11 @@ public class BoneflyEntity extends HostileEntity implements GeoEntity, TameableH
         for (int i = 0; i <= limit && mutable.getY() > this.getWorld().getDimension().minY() && !this.getWorld().getBlockState(mutable.move(Direction.DOWN)).blocksMovement(); i++);
         return this.getY() - mutable.getY() - 0.11;
     }
+
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack stack = player.getStackInHand(hand);
         if((stack.getItem().equals(Items.BONE_BLOCK) || stack.isIn(ItemTags.SOUL_FIRE_BASE_BLOCKS)) && this.getHealth() < this.getMaxHealth()) {
-            stack.decrement(1);
+            AylythUtil.decreaseStack(stack, player);
             this.heal(1);
         }
         if (this.isOwner(player) && stack.isEmpty() && this.isTamed() && !this.hasPassengers()) {
@@ -402,7 +404,7 @@ public class BoneflyEntity extends HostileEntity implements GeoEntity, TameableH
     private <E extends GeoAnimatable> PlayState grabPredicate(AnimationState<E> event) {
         var animationBuilder = RawAnimation.begin();
         if(this.isInAir()){
-            if (this.getActionState() == 2) {//TODO implement grab modes
+            if (this.getActionState() == 2) {//TODO: implement grab modes
                 animationBuilder.thenLoop("stabIdle");
             } else if(this.getActionState() == 1) {
                 animationBuilder.then("stab", Animation.LoopType.PLAY_ONCE);

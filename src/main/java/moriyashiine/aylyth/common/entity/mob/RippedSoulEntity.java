@@ -16,6 +16,7 @@ import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.server.ServerConfigHandler;
@@ -186,6 +187,11 @@ public class RippedSoulEntity extends HostileEntity {
 
     public void setOwnerUuid(@Nullable UUID uuid) {
         this.dataTracker.set(OWNER_UUID, Optional.ofNullable(uuid));
+    }
+
+    @Override
+    public boolean canPickupItem(ItemStack stack) {
+        return false;
     }
 
     public void setOwner(PlayerEntity player) {

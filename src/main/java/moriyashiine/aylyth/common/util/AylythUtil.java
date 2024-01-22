@@ -36,6 +36,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.TeleportTarget;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +52,16 @@ public class AylythUtil {
 
 	public static Identifier id(String string){
 		return new Identifier(Aylyth.MOD_ID, string);
+	}
+
+	public static void decreaseStack(ItemStack stack, @Nullable LivingEntity living) {
+		if (living instanceof PlayerEntity player) {
+			if (!player.getAbilities().creativeMode) {
+				stack.decrement(1);
+			}
+		} else {
+			stack.decrement(1);
+		}
 	}
 
 	/**
@@ -155,6 +166,7 @@ public class AylythUtil {
 						livingEntity.getMainHandStack().getItem() instanceof YmpeGlaiveItem)) {
 			return true;
 		}
+		// TODO: 1.20, use damage type tag
 		return source.isOf(ModDamageSources.YMPE) || source.isOf(ModDamageSources.YMPE_ENTITY);
 	}
 

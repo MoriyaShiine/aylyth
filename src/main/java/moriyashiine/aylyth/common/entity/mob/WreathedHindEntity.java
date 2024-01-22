@@ -5,7 +5,7 @@ import moriyashiine.aylyth.api.interfaces.HindPledgeHolder;
 import moriyashiine.aylyth.api.interfaces.Pledgeable;
 import moriyashiine.aylyth.common.entity.ai.brain.WreathedHindBrain;
 import moriyashiine.aylyth.common.registry.*;
-import net.minecraft.block.BlockState;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
@@ -29,10 +29,9 @@ import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Util;
+import net.minecraft.tag.BlockTags;
+import net.minecraft.tag.FluidTags;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.Difficulty;
@@ -52,18 +51,14 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
     private static final EntityAttributeModifier SNEAKY_SPEED_PENALTY = new EntityAttributeModifier(UUID.fromString("5CD17E11-A74A-43D3-A529-90FDE04B191E"), "sneaky", -0.15D, EntityAttributeModifier.Operation.ADDITION);
     private EntityAttributeInstance modifiableattributeinstance = this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
 
-    private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
-    public static final TrackedData<Byte> ATTACK_TYPE = DataTracker.registerData(WreathedHindEntity.class, TrackedDataHandlerRegistry.BYTE);
-    public static final byte NONE = 0;
-    public static final byte MELEE_ATTACK = 1;
-    public static final byte RANGE_ATTACK = 2;
-    public static final byte KILLING_ATTACK = 3;
-    private final Set<UUID> pledgedPlayerUUIDS = new HashSet<>();
+    private final AnimationFactory factory = GeckoLibUtil.createFactory(this);
+    public static final TrackedData<AttackType> ATTACK_TYPE = DataTracker.registerData(WreathedHindEntity.class, ModDataTrackers.WREATHED_HIND_ATTACKS);
+    public static final TrackedData<Boolean> IS_PLEDGED = DataTracker.registerData(WreathedHindEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private UUID pledgedPlayer = null;
 
     public WreathedHindEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
         this.setPersistent();
-
     }
 
     public static DefaultAttributeContainer.Builder createAttributes() {
@@ -78,7 +73,8 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
     @Override
     protected void initDataTracker() {
         super.initDataTracker();
-        this.dataTracker.startTracking(ATTACK_TYPE, (byte) 0);
+        this.dataTracker.startTracking(ATTACK_TYPE, AttackType.NONE);
+        this.dataTracker.startTracking(IS_PLEDGED, false);
     }
 
     @Override
@@ -88,12 +84,22 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
         this.getWorld().getProfiler().pop();
         WreathedHindBrain.updateActivities(this);
         super.mobTick();
-        if(WreathedHindBrain.isPledgedPlayerLow(this.getTarget(), this)){
+        if (WreathedHindBrain.isPledgedPlayerLow(this.getTarget(), this)) {
             modifiableattributeinstance.removeModifier(SNEAKY_SPEED_PENALTY);
             modifiableattributeinstance.addTemporaryModifier(SNEAKY_SPEED_PENALTY);
-        }else if(modifiableattributeinstance.hasModifier(SNEAKY_SPEED_PENALTY)){
+        } else if (modifiableattributeinstance.hasModifier(SNEAKY_SPEED_PENALTY)) {
             modifiableattributeinstance.removeModifier(SNEAKY_SPEED_PENALTY);
         }
+    }
+
+    @Override
+    public int getMaxLookYawChange() {
+        return 3;
+    }
+
+    @Override
+    public int getMaxLookPitchChange() {
+        return 3;
     }
 
     @Override
@@ -104,42 +110,53 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
     @Override
     public void writeCustomDataToNbt(NbtCompound nbt) {
         super.writeCustomDataToNbt(nbt);
-        toNbtPledgeable(nbt);
+        if (getPledgedPlayerUUID() != null) {
+            nbt.putUuid("pledged_player", getPledgedPlayerUUID());
+        }
     }
 
     @Override
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
-        fromNbtPledgeable(nbt);
+        if (nbt.contains("pledged_player")) {
+            pledgedPlayer = nbt.getUuid("pledged_player");
+            setIsPledged(true);
+        }
     }
 
     @Override
     protected ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack stack = player.getStackInHand(hand);
-        if((stack.getItem().equals(ModItems.NYSIAN_GRAPES))) {
+        if(stack.isIn(ModTags.PLEDGE_ITEMS) && getPledgedPlayerUUID() == null) {
             if (player instanceof ServerPlayerEntity serverPlayer) {
                 ModCriteria.HIND_PLEDGE.trigger(serverPlayer, this);
             }
-            getPledgedPlayerUUIDs().add(player.getUuid());
+            setPledgedPlayer(player);
             HindPledgeHolder.of(player).ifPresent(hindHolder -> hindHolder.setHindUuid(this.getUuid()));
-            stack.decrement(1);
+            AylythUtil.decreaseStack(stack, player);
         }
         return super.interactMob(player, hand);
     }
 
     @Override
+    public void remove(RemovalReason reason) {
+        super.remove(reason);
+        addPledgeToRemove(world);
+    }
+
+    @Override
     public boolean tryAttack(Entity target) {
-       if(getAttackType() == MELEE_ATTACK){
+       if (getAttackType() == AttackType.MELEE) {
            return super.tryAttack(target);
-        }else if(getAttackType() == KILLING_ATTACK){
-            if(target instanceof PlayerEntity player){
+        } else if (getAttackType() == AttackType.KILLING) {
+            if (target instanceof PlayerEntity player) {
                 return tryKillingAttack(player);
             }
         }
        return false;
     }
 
-    public boolean tryKillingAttack(PlayerEntity target){
+    public boolean tryKillingAttack(PlayerEntity target) {
         float f = 6;
         boolean bl = target.damage(ModDamageSources.unblockable(target.getWorld()), f);
         if (bl) {
@@ -147,7 +164,31 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
             this.applyDamageEffects(this, target);
             this.onAttacking(target);
         }
+        if (target.isDead()) {
+            removePledge();
+        }
         return bl;
+    }
+
+    @Override
+    public boolean canPickupItem(ItemStack stack) {
+        return false;
+    }
+
+    @Override
+    public boolean damage(DamageSource source, float amount) {
+        boolean result = super.damage(source, amount);
+        if (result) {
+            Entity attacker = source.getAttacker();
+            if (attacker != null && attacker.getUuid().equals(getPledgedPlayerUUID())) {
+                if (!getBrain().hasMemoryModule(ModMemoryTypes.SECOND_CHANCE)) {
+                    getBrain().remember(ModMemoryTypes.SECOND_CHANCE, WreathedHindBrain.SecondChance.WARNING, 600);
+                } else {
+                    getBrain().remember(ModMemoryTypes.SECOND_CHANCE, WreathedHindBrain.SecondChance.BETRAY, 600);
+                }
+            }
+        }
+        return result;
     }
 
     @Override
@@ -168,7 +209,7 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
                 }
             }
         }
-        if (possiblePositions.size() != 0) {
+        if (!possiblePositions.isEmpty()) {
             int random = this.random.nextBetween(2, 4);
             for(int i = 0; i < random; i++){
                 if(possiblePositions.size() >= i){
@@ -221,12 +262,12 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
         return factory;
     }
 
-    public byte getAttackType() {
+    public AttackType getAttackType() {
         return dataTracker.get(ATTACK_TYPE);
     }
 
-    public void setAttackType(byte id) {
-        dataTracker.set(ATTACK_TYPE, id);
+    public void setAttackType(AttackType attackType) {
+        dataTracker.set(ATTACK_TYPE, attackType);
     }
 
     @Override
@@ -234,7 +275,7 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
         return WreathedHindBrain.create(this, dynamic);
     }
 
-    @SuppressWarnings("All")
+    @SuppressWarnings("unchecked")
     @Override
     public Brain<WreathedHindEntity> getBrain() {
         return (Brain<WreathedHindEntity>) super.getBrain();
@@ -244,15 +285,15 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
         return canMobSpawn(wreathedHindEntityEntityType, serverWorldAccess, spawnReason, blockPos, random) && serverWorldAccess.getDifficulty() != Difficulty.PEACEFUL && random.nextBoolean();
     }
 
-    @Override
-    public Collection<UUID> getPledgedPlayerUUIDs() {
-        return pledgedPlayerUUIDS;
-    }
-
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
         return ModSoundEvents.ENTITY_WREATHED_HIND_AMBIENT;
+    }
+
+    @Override
+    public int getMinAmbientSoundDelay() {
+        return 300;
     }
 
     @Override
@@ -263,5 +304,48 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
     @Override
     protected SoundEvent getDeathSound() {
         return ModSoundEvents.ENTITY_WREATHED_HIND_DEATH;
+    }
+
+    @Nullable
+    @Override
+    public UUID getPledgedPlayerUUID() {
+        return pledgedPlayer;
+    }
+
+    public void setPledgedPlayer(PlayerEntity player) {
+        this.pledgedPlayer = player.getUuid();
+        setIsPledged(true);
+    }
+
+    @Override
+    public void removePledge() {
+        this.pledgedPlayer = null;
+        setIsPledged(false);
+    }
+
+    public boolean isPledged() {
+        return dataTracker.get(IS_PLEDGED);
+    }
+
+    public void setIsPledged(boolean isPledged) {
+        dataTracker.set(IS_PLEDGED, isPledged);
+    }
+
+    public enum AttackType implements StringIdentifiable {
+        NONE("none"),
+        MELEE("melee"),
+        RANGED("ranged"),
+        KILLING("killing");
+
+        private final String name;
+
+        AttackType(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public String asString() {
+            return this.name;
+        }
     }
 }

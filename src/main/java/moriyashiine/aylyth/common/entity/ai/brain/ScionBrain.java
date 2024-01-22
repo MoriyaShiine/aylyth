@@ -35,7 +35,7 @@ public class ScionBrain {
             SensorType.NEAREST_PLAYERS,
             SensorType.NEAREST_LIVING_ENTITIES,
             SensorType.HURT_BY,
-            ModSensorTypes.SCION_SPECIFIC_SENSOR
+            ModSensorTypes.SCION_SPECIFIC
     );
 
     private static final List<MemoryModuleType<?>> MEMORIES = List.of(

@@ -1,9 +1,7 @@
 package moriyashiine.aylyth.mixin;
 
-import moriyashiine.aylyth.api.interfaces.Pledgeable;
 import moriyashiine.aylyth.common.block.IContextBlockSoundGroup;
 import moriyashiine.aylyth.common.block.util.SeepTeleportable;
-import moriyashiine.aylyth.common.world.ModWorldState;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.registry.tag.BlockTags;
@@ -59,22 +57,11 @@ public abstract class EntityMixin implements SeepTeleportable {
         Entity entity = (Entity)(Object)this;
         World world = entity.getWorld();
         BlockState blockState = world.getBlockState(pos.up());
-        state = blockState.isIn(BlockTags.INSIDE_STEP_SOUND_BLOCKS) ? blockState : state;
+        state = blockState.isIn(BlockTags.INSIDE_STEP_SOUND_BLOCKS) ? blockState : state; // TODO: Rewrite in 1.20 with Mojang's new multi block sound system.
         if (state.getBlock() instanceof IContextBlockSoundGroup cast) {
             blockSoundGroup = cast.getBlockSoundGroup(state, pos, blockSoundGroup, entity);
             playSound(blockSoundGroup.getStepSound(), blockSoundGroup.getVolume() * 0.15f, blockSoundGroup.getPitch());
             ci.cancel();
-        }
-    }
-
-
-
-    @Inject(method = "remove", at = @At("TAIL"))
-    private void aylyth_remove(CallbackInfo callbackInfo) {
-        if (!world.isClient && this instanceof Pledgeable pledgeable) {
-            ModWorldState worldState = ModWorldState.get(world);
-            worldState.pledgesToRemove.addAll(pledgeable.getPledgedPlayerUUIDs());
-            worldState.markDirty();
         }
     }
 }

@@ -31,7 +31,7 @@ public class GeckoMeleeAttackTask<T extends MobEntity> extends MultiTickTask<T> 
      * @param animationTime total time of the attack animation
      * @param animationTimeOfAttack when during the attack animation the entity should execute {@link MobEntity#tryAttack(Entity)}
      */
-    public GeckoMeleeAttackTask(Predicate<T> shouldRunPredicate, RunTask<T> runTask, FinishRunningTask<T> finishRunningTask, int interval, double animationTime, double animationTimeOfAttack) {
+    public GeckoMeleeAttackTask(RunTask<T> runTask, FinishRunningTask<T> finishRunningTask, int interval, double animationTime, double animationTimeOfAttack) {
         super(ImmutableMap.of(
                 MemoryModuleType.LOOK_TARGET, MemoryModuleState.REGISTERED,
                 MemoryModuleType.ATTACK_TARGET, MemoryModuleState.VALUE_PRESENT,
@@ -40,7 +40,6 @@ public class GeckoMeleeAttackTask<T extends MobEntity> extends MultiTickTask<T> 
         this.interval = interval;
         this.animationDuration = (int) animationTime;
         this.animationTimeOfAttack = animationTimeOfAttack;
-        this.shouldRun = shouldRunPredicate;
         this.runTask = runTask;
         this.finishRunningTask = finishRunningTask;
     }
@@ -48,7 +47,7 @@ public class GeckoMeleeAttackTask<T extends MobEntity> extends MultiTickTask<T> 
     @Override
     protected boolean shouldRun(ServerWorld serverWorld, T entity) {
         LivingEntity livingEntity = BrainUtils.getAttackTarget(entity);
-        return shouldRun.test(entity) && (LookTargetUtil.isVisibleInMemory(entity, livingEntity) && entity.isInAttackRange(livingEntity));
+        return (LookTargetUtil.isVisibleInMemory(entity, livingEntity) && entity.isInAttackRange(livingEntity));
     }
 
     @Override
@@ -77,7 +76,6 @@ public class GeckoMeleeAttackTask<T extends MobEntity> extends MultiTickTask<T> 
                 entity.tryAttack(livingEntity);
             }
         }
-        super.keepRunning(world, entity, time);
     }
 
     @Override
@@ -89,8 +87,6 @@ public class GeckoMeleeAttackTask<T extends MobEntity> extends MultiTickTask<T> 
         this.animationTime = 0;
 
         entity.getBrain().remember(MemoryModuleType.ATTACK_COOLING_DOWN, true, this.interval);
-
-        super.finishRunning(world, entity, time);
     }
 
     public interface RunTask<T> {
