@@ -23,6 +23,7 @@
     "TreeDecoratorTypeAccessor",
     "TrunkPlacerTypeAccessor",
     "VineBlockMixin",
+    "WorldMixin",
     "cimmerian.MobEntityMixin",
     "cimmerian.ZoglinEntityMixin"
   ],

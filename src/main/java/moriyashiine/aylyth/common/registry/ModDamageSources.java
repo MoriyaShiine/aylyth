@@ -7,11 +7,14 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageType;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.registry.DynamicRegistryManager;
+import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.world.World;
 
 public class ModDamageSources {
+	private final Registry<DamageType> damageTypeRegistry;
 	public static final RegistryKey<DamageType> YMPE = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, AylythUtil.id("ympe"));
 	public static final RegistryKey<DamageType> YMPE_ENTITY = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, AylythUtil.id("ympe_entity"));
 	public static final RegistryKey<DamageType> UNBLOCKABLE = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, AylythUtil.id("unblockable"));
@@ -19,20 +22,24 @@ public class ModDamageSources {
 
 	// TODO cache where possible with world component like vanilla DamageSources class
 
-	public static DamageSource ympe(World world) {
-		return new DamageSource(world.getRegistryManager().get(RegistryKeys.DAMAGE_TYPE).entryOf(YMPE));
+	public ModDamageSources(DynamicRegistryManager dynamicRegistryManager) {
+		damageTypeRegistry = dynamicRegistryManager.get(RegistryKeys.DAMAGE_TYPE);
 	}
 
-	public static DamageSource ympeEntity(World world) {
-		return new DamageSource(world.getRegistryManager().get(RegistryKeys.DAMAGE_TYPE).entryOf(YMPE_ENTITY));
+	public DamageSource ympe() {
+		return new DamageSource(damageTypeRegistry.entryOf(YMPE));
 	}
 
-	public static DamageSource unblockable(World world) {
-		return new DamageSource(world.getRegistryManager().get(RegistryKeys.DAMAGE_TYPE).entryOf(UNBLOCKABLE));
+	public DamageSource ympeEntity() {
+		return new DamageSource(damageTypeRegistry.entryOf(YMPE_ENTITY));
 	}
 
-	public static DamageSource soulRip(PlayerEntity player) {
-		return new DamageSource(player.getWorld().getRegistryManager().get(RegistryKeys.DAMAGE_TYPE).entryOf(SOUL_RIP), player);
+	public DamageSource unblockable() {
+		return new DamageSource(damageTypeRegistry.entryOf(UNBLOCKABLE));
+	}
+
+	public DamageSource soulRip(PlayerEntity player) {
+		return new DamageSource(damageTypeRegistry.entryOf(SOUL_RIP), player);
 	}
 
 	/*

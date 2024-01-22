@@ -158,7 +158,7 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
 
     public boolean tryKillingAttack(PlayerEntity target) {
         float f = 6;
-        boolean bl = target.damage(ModDamageSources.unblockable(target.getWorld()), f);
+        boolean bl = target.damage(getWorld().modDamageSources().unblockable(), f);
         if (bl) {
             this.disablePlayerShield(target, this.getMainHandStack(), target.isUsingItem() ? target.getActiveItem() : ItemStack.EMPTY);
             this.applyDamageEffects(this, target);

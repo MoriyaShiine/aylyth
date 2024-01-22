@@ -54,7 +54,7 @@ public class YmpeInfestationComponent implements AutoSyncedComponent, ServerTick
 			setStage((byte) (getStage() + 1));
 			setInfestationTimer((short) 0);
 			if (getStage() >= 6) {
-				obj.damage(ModDamageSources.ympe(obj.getWorld()), Float.MAX_VALUE);
+				obj.damage(obj.getWorld().modDamageSources().ympe(), Float.MAX_VALUE);
 			}
 		}
 		if(getInfestationTimer() % 20 == 0){

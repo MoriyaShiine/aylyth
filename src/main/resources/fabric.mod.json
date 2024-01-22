@@ -62,6 +62,9 @@
             "aylyth:prevent_drops",
             "aylyth:rider",
             "aylyth:cuirass"
-        ]
+        ],
+        "loom:injected_interfaces": {
+            "net/minecraft/class_1937": ["moriyashiine/aylyth/api/interfaces/ModDamageSourcesProvider"]
+        }
     }
 }

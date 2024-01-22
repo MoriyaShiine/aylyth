@@ -44,7 +44,7 @@ public class GlaivePacket {
                 f += g;
                 Entity crosshairTarget = player.getWorld().getEntityById(entityId);
                 if (crosshairTarget != null) {
-                    crosshairTarget.damage(ModDamageSources.soulRip(player), f);
+                    crosshairTarget.damage(player.getWorld().modDamageSources().soulRip(player), f);
                 }
             }
 
