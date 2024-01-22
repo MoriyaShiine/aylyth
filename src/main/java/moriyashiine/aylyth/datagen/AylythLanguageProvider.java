@@ -91,6 +91,8 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add(ModItems.WRONGMEAT, "Wrongmeat");
         builder.add(ModItems.YMPE_CUIRASS, "Ympe Cuirass");
         builder.add(ModItems.GIRASOL_SEED, "Girasol Seed");
+        builder.add(ModItems.AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE, "Aylythian Upgrade Smithing Template");
+        builder.add(ModItems.ESSTLINE, "Esstline");
         potionSet(builder, "mortechis");
         potionSet(builder, "cimmerian");
         potionSet(builder, "wyrded");
@@ -164,6 +166,9 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add("aylyth.subtitles.entity.aylythian.ambient", "Aylythian groans");
         builder.add("aylyth.subtitles.entity.aylythian.hurt", "Aylythian hurts");
         builder.add("aylyth.subtitles.entity.aylythian.death", "Aylythian dies");
+        builder.add("aylyth.subtitles.entity.faunaylythian.ambient", "Faunaylythian snarls");
+        builder.add("aylyth.subtitles.entity.faunaylythian.hurt", "Faunaylythian hurts");
+        builder.add("aylyth.subtitles.entity.faunaylythian.death", "Faunaylythian dies");
         builder.add("aylyth.subtitles.entity.elder_aylythian.ambient", "Elder Aylythian rumbles");
         builder.add("aylyth.subtitles.entity.elder_aylythian.hurt", "Elder Aylythian hurts");
         builder.add("aylyth.subtitles.entity.elder_aylythian.death", "Elder Aylythian dies");

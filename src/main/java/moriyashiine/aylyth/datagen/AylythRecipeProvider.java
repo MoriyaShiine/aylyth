@@ -20,6 +20,7 @@ import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.ShapelessRecipe;
 import net.minecraft.recipe.book.RecipeCategory;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
@@ -70,7 +71,7 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.YMPEMOULD_ITEM)
                 .input('D', Items.POLISHED_DEEPSLATE)
-                .input('N', Items.NETHERITE_INGOT)
+                .input('E', ModItems.ESSTLINE)
                 .input('S', ModItems.CORIC_SEED)
                 .pattern("DND")
                 .pattern("NSN")
@@ -81,7 +82,7 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
         ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, ModItems.YMPE_EFFIGY_ITEM)
                 .input('D', Items.SOUL_SOIL)
                 .input('S', ModItems.YMPE_ITEMS.sapling)
-                .input('N', Items.NETHERITE_INGOT)
+                .input('E', ModItems.ESSTLINE)
                 .input('C', ModItems.CORIC_SEED)
                 .pattern("DND")
                 .pattern("NCN")
@@ -93,7 +94,7 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
                 .input('S', Items.POLISHED_DEEPSLATE_SLAB)
                 .input('H', ModItems.AYLYTHIAN_HEART)
                 .input('P', Items.POLISHED_DEEPSLATE_WALL)
-                .input('N', Items.NETHERITE_INGOT)
+                .input('E', ModItems.ESSTLINE)
                 .input('C', Items.SOUL_CAMPFIRE)
                 .pattern("SHS")
                 .pattern("PNP")
