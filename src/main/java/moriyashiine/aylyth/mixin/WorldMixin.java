@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.mixin;
 
 import moriyashiine.aylyth.api.interfaces.ModDamageSourcesProvider;
-import moriyashiine.aylyth.common.registry.ModDamageSources;
+import moriyashiine.aylyth.common.world.ModDamageSources;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;

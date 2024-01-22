@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.common.registry;
+package moriyashiine.aylyth.common.world;
 
 import moriyashiine.aylyth.common.registry.key.ModDamageTypeKeys;
 import moriyashiine.aylyth.common.util.AylythUtil;

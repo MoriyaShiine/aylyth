@@ -5,7 +5,6 @@ import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.item.YmpeDaggerItem;
 import moriyashiine.aylyth.common.item.YmpeGlaiveItem;
 import moriyashiine.aylyth.common.item.YmpeLanceItem;
-import moriyashiine.aylyth.common.registry.ModDamageSources;
 import moriyashiine.aylyth.common.registry.ModPotions;
 import moriyashiine.aylyth.common.registry.ModSoundEvents;
 import moriyashiine.aylyth.common.registry.key.ModDamageTypeKeys;

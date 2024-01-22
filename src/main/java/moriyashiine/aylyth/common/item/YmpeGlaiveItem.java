@@ -3,7 +3,6 @@ package moriyashiine.aylyth.common.item;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
-import moriyashiine.aylyth.common.registry.ModDamageSources;
 import moriyashiine.aylyth.common.registry.ModItems;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.EquipmentSlot;

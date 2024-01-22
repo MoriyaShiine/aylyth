@@ -2,7 +2,6 @@ package moriyashiine.aylyth.common.entity.projectile;
 
 import moriyashiine.aylyth.common.component.entity.YmpeThornsComponent;
 import moriyashiine.aylyth.common.registry.ModComponents;
-import moriyashiine.aylyth.common.registry.ModDamageSources;
 import moriyashiine.aylyth.common.registry.ModEntityTypes;
 import moriyashiine.aylyth.common.registry.ModItems;
 import net.minecraft.enchantment.EnchantmentHelper;
