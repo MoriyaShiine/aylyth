@@ -8,9 +8,9 @@ import net.minecraft.registry.RegistryWrapper;
 import java.util.concurrent.CompletableFuture;
 
 // TODO rename to AylythDynamicDataProvider
-public class AylythWorldgenProvider extends FabricDynamicRegistryProvider {
+public class AylythDynamicDataProvider extends FabricDynamicRegistryProvider {
 
-    public AylythWorldgenProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registries) {
+    public AylythDynamicDataProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registries) {
         super(output, registries);
     }
 

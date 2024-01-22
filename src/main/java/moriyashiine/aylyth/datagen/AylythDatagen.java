@@ -27,7 +27,7 @@ public class AylythDatagen implements DataGeneratorEntrypoint {
         pack.addProvider(AylythLootTableProviders.BlockLoot::new);
         pack.addProvider(AylythLootTableProviders.EntityLoot::new);
 
-        pack.addProvider(AylythWorldgenProvider::new);
+        pack.addProvider(AylythDynamicDataProvider::new);
         pack.addProvider(AylythRecipeProvider::new);
         pack.addProvider(AylythAdvancementProvider::new);
     }
