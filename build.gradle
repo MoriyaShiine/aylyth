@@ -61,6 +61,10 @@ repositories {
         url "https://dl.cloudsmith.io/public/geckolib3/geckolib/maven"
     }
     maven {
+        name = "SmartBrainLib (SBL) Maven Repo"
+        url = "https://dl.cloudsmith.io/public/tslat/sbl/maven/"
+    }
+    maven {
         name "rei"
         url "https://maven.shedaniel.me"
     }
@@ -116,6 +120,8 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
     modImplementation "software.bernie.geckolib:geckolib-fabric-${geckolib_version}"
 
+    modImplementation "net.tslat.smartbrainlib:SmartBrainLib-fabric-${minecraft_version}:${sbl_version}"
+
     // EMI
     modCompileOnly "dev.emi:emi-fabric:${emi_version}:api"
     modLocalRuntime "dev.emi:emi-fabric:${emi_version}"
@@ -126,8 +132,8 @@ dependencies {
 
     // Nice dev things
 	modRuntimeOnly "curse.maven:disablecustomworldsadvice-401978:4619700"
-    // Add this in 1.20.1, makes debugging entities and such much easier
     // https://www.curseforge.com/minecraft/mc-mods/debug-utils-fabric/files/4644075
+    modRuntimeOnly "curse.maven:debugutils-783010:4644075"
 
     // Testing compat
     // runtimeOnly 'com.github.JOML-CI:JOML:1.10.5'
