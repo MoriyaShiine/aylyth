@@ -7,7 +7,6 @@ import moriyashiine.aylyth.common.registry.ModSoundEvents;
 import moriyashiine.aylyth.datagen.worldgen.biomes.util.BiomeBuilder;
 import moriyashiine.aylyth.datagen.worldgen.biomes.util.SpawnSettingsBuilder;
 import moriyashiine.aylyth.datagen.worldgen.features.ModCarvers;
-import moriyashiine.aylyth.datagen.worldgen.features.ModConfiguredFeatures;
 import moriyashiine.aylyth.datagen.worldgen.features.ModPlacedFeatures;
 import net.minecraft.entity.EntityType;
 import net.minecraft.particle.ParticleTypes;

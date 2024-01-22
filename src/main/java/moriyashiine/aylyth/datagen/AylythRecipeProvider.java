@@ -3,10 +3,9 @@ package moriyashiine.aylyth.datagen;
 import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.ModEntityTypes;
 import moriyashiine.aylyth.common.registry.ModItems;
-import moriyashiine.aylyth.common.registry.ModTags;
+import moriyashiine.aylyth.common.registry.tag.ModItemTags;
 import moriyashiine.aylyth.common.registry.util.ItemWoodSuite;
 import moriyashiine.aylyth.datagen.recipe.YmpeDaggerRecipeJsonBuilder;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
@@ -15,12 +14,9 @@ import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
 import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.ShapelessRecipe;
 import net.minecraft.recipe.book.RecipeCategory;
-import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
@@ -37,8 +33,8 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
     public void generate(Consumer<RecipeJsonProvider> exporter) {
         offerSingleOutputShapelessRecipe(exporter, Items.ORANGE_DYE, ModItems.MARIGOLD, "");
         createTwoByTwo(exporter, RecipeCategory.DECORATIONS, Items.SHROOMLIGHT, 1, ModItems.JACK_O_LANTERN_MUSHROOM, "shroomlight_from_jack_o_lantern_mushroom");
-        woodSuiteRecipes(exporter, ModItems.POMEGRANATE_ITEMS, ModTags.POMEGRANATE_LOGS_ITEM);
-        woodSuiteRecipes(exporter, ModItems.WRITHEWOOD_ITEMS, ModTags.WRITHEWOOD_LOGS_ITEM);
+        woodSuiteRecipes(exporter, ModItems.POMEGRANATE_ITEMS, ModItemTags.POMEGRANATE_LOGS_ITEM);
+        woodSuiteRecipes(exporter, ModItems.WRITHEWOOD_ITEMS, ModItemTags.WRITHEWOOD_LOGS_ITEM);
         offerShapeless(exporter, RecipeCategory.MISC, ModItems.GHOSTCAP_MUSHROOM_SPORES, 1, ModItems.GHOSTCAP_MUSHROOM, null);
         offerChestBoatRecipe(exporter, ModItems.YMPE_ITEMS.chestBoat, ModItems.YMPE_ITEMS.boat);
 

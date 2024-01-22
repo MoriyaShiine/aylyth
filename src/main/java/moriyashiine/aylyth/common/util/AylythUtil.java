@@ -8,7 +8,7 @@ import moriyashiine.aylyth.common.item.YmpeLanceItem;
 import moriyashiine.aylyth.common.registry.ModDamageSources;
 import moriyashiine.aylyth.common.registry.ModPotions;
 import moriyashiine.aylyth.common.registry.ModSoundEvents;
-import moriyashiine.aylyth.common.registry.ModTags;
+import moriyashiine.aylyth.common.registry.tag.ModBlockTags;
 import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.LivingEntity;
@@ -21,7 +21,6 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
@@ -35,7 +34,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.TeleportTarget;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -116,7 +114,7 @@ public class AylythUtil {
 		for (int x = -radius; x <= radius; x++) {
 			for (int y = -radius; y <= radius; y++) {
 				for (int z = -radius; z <= radius; z++) {
-					if (livingEntity.getWorld().getBlockState(mutable.set(livingEntity.getX() + x, livingEntity.getY() + y, livingEntity.getZ() + z)).isIn(ModTags.SEEPS)) {
+					if (livingEntity.getWorld().getBlockState(mutable.set(livingEntity.getX() + x, livingEntity.getY() + y, livingEntity.getZ() + z)).isIn(ModBlockTags.SEEPS)) {
 						return true;
 					}
 				}
@@ -131,7 +129,7 @@ public class AylythUtil {
 			for (int y = -radius; y <= radius; y++) {
 				for (int z = -radius; z <= radius; z++) {
 					mutable.set(livingEntity.getX() + x, livingEntity.getY() + y, livingEntity.getZ() + z);
-					if (livingEntity.getWorld().getBlockState(mutable).isIn(ModTags.SEEPS)) {
+					if (livingEntity.getWorld().getBlockState(mutable).isIn(ModBlockTags.SEEPS)) {
 						return Math.sqrt(mutable.getSquaredDistance(livingEntity.getBlockPos().getX(), livingEntity.getBlockPos().getY(), livingEntity.getBlockPos().getZ()));
 					}
 				}

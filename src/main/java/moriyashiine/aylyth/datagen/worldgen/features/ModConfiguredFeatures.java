@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableList;
 import moriyashiine.aylyth.common.block.SmallWoodyGrowthBlock;
 import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.ModFeatures;
-import moriyashiine.aylyth.common.registry.ModTags;
+import moriyashiine.aylyth.common.registry.tag.ModBlockTags;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.common.world.generator.feature.*;
 import moriyashiine.aylyth.common.world.generator.foliageplacer.GirasolFoliagePlacer;
@@ -132,7 +132,7 @@ public class ModConfiguredFeatures {
         ConfiguredFeatures.register(context, YMPE_STREWN_LEAVES, ModFeatures.STREWN_LEAVES_FEATURE, new StrewnLeavesFeature.StrewnLeavesConfig(ModBlocks.YMPE_LEAVES, ModBlocks.YMPE_STREWN_LEAVES.getDefaultState()));
         ConfiguredFeatures.register(context, AYLYTH_WEEDS, Feature.FLOWER, createRandomPatchFeatureConfig(new WeightedBlockStateProvider(DataPool.<BlockState>builder().add(ModBlocks.ANTLER_SHOOTS.getDefaultState(), 5).add(ModBlocks.GRIPWEED.getDefaultState(), 2).build()), 64));
         ConfiguredFeatures.register(context, MARIGOLDS, Feature.FLOWER, createRandomPatchFeatureConfig(BlockStateProvider.of(ModBlocks.MARIGOLD), 64));
-        ConfiguredFeatures.register(context, SHELF_JACK_O_LANTERN_MUSHROOMS, ModFeatures.HORIZONTAL_FACING_FEATURE, new HorizontalFacingFeature.HorizontalFacingBlockFeatureConfig(ModBlocks.SHELF_JACK_O_LANTERN_MUSHROOM, ModTags.JACK_O_LANTERN_GENERATE_ON));
+        ConfiguredFeatures.register(context, SHELF_JACK_O_LANTERN_MUSHROOMS, ModFeatures.HORIZONTAL_FACING_FEATURE, new HorizontalFacingFeature.HorizontalFacingBlockFeatureConfig(ModBlocks.SHELF_JACK_O_LANTERN_MUSHROOM, ModBlockTags.JACK_O_LANTERN_GENERATE_ON));
         ConfiguredFeatures.register(context, GHOSTCAP_MUSHROOM, Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(BlockStateProvider.of(ModBlocks.GHOSTCAP_MUSHROOM)));
         ConfiguredFeatures.register(context, SMALL_WOODY_GROWTH, Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(BlockStateProvider.of(ModBlocks.SMALL_WOODY_GROWTH.getDefaultState().with(SmallWoodyGrowthBlock.NATURAL, true))));
         ConfiguredFeatures.register(context, LARGE_WOODY_GROWTH, ModFeatures.DOUBLE_BLOCK_FEATURE, new SimpleBlockFeatureConfig(BlockStateProvider.of(ModBlocks.LARGE_WOODY_GROWTH.getDefaultState().with(SmallWoodyGrowthBlock.NATURAL, true))));
@@ -160,7 +160,7 @@ public class ModConfiguredFeatures {
         ConfiguredFeatures.register(context, BROWN_MUSHROOM_PATCHES, Feature.RANDOM_PATCH, ModConfiguredFeatures.createRandomPatchFeatureConfig(BlockStateProvider.of(Blocks.BROWN_MUSHROOM), 96));
         ConfiguredFeatures.register(context, GLOW_LICHEN, Feature.RANDOM_PATCH, ModConfiguredFeatures.createRandomPatchFeatureConfig(BlockStateProvider.of(Blocks.GLOW_LICHEN), 32));
         ConfiguredFeatures.register(context, SHELF_JACK_O_LANTERN_MUSHROOM_PATCHES, Feature.RANDOM_PATCH, ConfiguredFeatures.createRandomPatchFeatureConfig(64, PlacedFeatures.createEntry(shelfJackOlanternMushrooms)));
-        ConfiguredFeatures.register(context, GHOSTCAP_MUSHROOM_PATCHES,Feature.VEGETATION_PATCH, new VegetationPatchFeatureConfig(ModTags.GHOSTCAP_REPLACEABLE, BlockStateProvider.of(Blocks.GRASS_BLOCK), PlacedFeatures.createEntry(ghostcapMushroomPatches), VerticalSurfaceType.FLOOR, ConstantIntProvider.create(1), 0, 2, 0.2f, ConstantIntProvider.create(3), 0));
+        ConfiguredFeatures.register(context, GHOSTCAP_MUSHROOM_PATCHES,Feature.VEGETATION_PATCH, new VegetationPatchFeatureConfig(ModBlockTags.GHOSTCAP_REPLACEABLE, BlockStateProvider.of(Blocks.GRASS_BLOCK), PlacedFeatures.createEntry(ghostcapMushroomPatches), VerticalSurfaceType.FLOOR, ConstantIntProvider.create(1), 0, 2, 0.2f, ConstantIntProvider.create(3), 0));
         ConfiguredFeatures.register(context, WOODY_GROWTH_PATCH, Feature.RANDOM_PATCH, ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.RANDOM_SELECTOR, new RandomFeatureConfig(List.of(new RandomFeatureEntry(PlacedFeatures.createEntry(largeWoodyGrowthConfigured), 0.25F)), PlacedFeatures.createEntry(smallWoodyGrowthConfigured)), List.of(Blocks.GRASS_BLOCK, Blocks.PODZOL, Blocks.MUD, Blocks.SOUL_SOIL), 8));
         ConfiguredFeatures.register(context, WOODY_GROWTH_BOWELS_PATCH, Feature.RANDOM_PATCH, ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.RANDOM_SELECTOR, new RandomFeatureConfig(List.of(new RandomFeatureEntry(PlacedFeatures.createEntry(largeWoodyGrowthConfigured), 0.25F)), PlacedFeatures.createEntry(smallWoodyGrowthConfigured)), List.of(Blocks.GRASS_BLOCK, Blocks.PODZOL, Blocks.MUD, Blocks.SOUL_SOIL), 8));
         ConfiguredFeatures.register(context, STREWN_LEAVES_PATCH, Feature.RANDOM_PATCH, ConfiguredFeatures.createRandomPatchFeatureConfig(Feature.RANDOM_SELECTOR, new RandomFeatureConfig(List.of(new RandomFeatureEntry(PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(BlockStateProvider.of(ModBlocks.YMPE_STREWN_LEAVES))), 0.25F)), PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(BlockStateProvider.of(ModBlocks.OAK_STREWN_LEAVES))))));

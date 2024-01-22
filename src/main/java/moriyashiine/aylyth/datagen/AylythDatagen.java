@@ -19,10 +19,11 @@ public class AylythDatagen implements DataGeneratorEntrypoint {
         pack.addProvider(AylythModelProvider::new);
         pack.addProvider(AylythLanguageProvider::new);
 
-        pack.addProvider(AylythTagProviders.ModBiomeTags::new);
-        var blockTags = pack.addProvider(AylythTagProviders.ModBlockTags::new);
-        pack.addProvider((output, registries) -> new AylythTagProviders.ModItemTags(output, registries, blockTags));
-        pack.addProvider(AylythTagProviders.ModEntityTypeTags::new);
+        pack.addProvider(AylythTagProviders.ModBiomeTagProvider::new);
+        var blockTags = pack.addProvider(AylythTagProviders.ModBlockTagProvider::new);
+        pack.addProvider((output, registries) -> new AylythTagProviders.ModItemTagProvider(output, registries, blockTags));
+        pack.addProvider(AylythTagProviders.ModEntityTypeTagProvider::new);
+        pack.addProvider(AylythTagProviders.ModDamageTypeTagProvider::new);
 
         pack.addProvider(AylythLootTableProviders.BlockLoot::new);
         pack.addProvider(AylythLootTableProviders.EntityLoot::new);

@@ -8,6 +8,8 @@ import moriyashiine.aylyth.common.item.ShuckedYmpeFruitItem;
 import moriyashiine.aylyth.common.network.packet.GlaivePacket;
 import moriyashiine.aylyth.common.recipe.YmpeDaggerDropRecipe;
 import moriyashiine.aylyth.common.registry.*;
+import moriyashiine.aylyth.common.registry.tag.ModBiomeTags;
+import moriyashiine.aylyth.common.registry.tag.ModEntityTypeTags;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.datagen.worldgen.features.ModPlacedFeatures;
 import net.fabricmc.api.ModInitializer;
@@ -106,7 +108,7 @@ public class Aylyth implements ModInitializer {
 		if (target instanceof MobEntity mob) {
 			ItemStack offhand = attacker.getOffHandStack();
 			if (offhand.isOf(ModItems.SHUCKED_YMPE_FRUIT)) {
-				if (!ShuckedYmpeFruitItem.hasStoredEntity(offhand) && !mob.getType().isIn(ModTags.SHUCK_BLACKLIST)) {
+				if (!ShuckedYmpeFruitItem.hasStoredEntity(offhand) && !mob.getType().isIn(ModEntityTypeTags.SHUCK_BLACKLIST)) {
 					if (attacker instanceof ServerPlayerEntity serverPlayer) {
 						ModCriteria.SHUCKING.trigger(serverPlayer, mob);
 						mob.setHealth(mob.getMaxHealth()); // TODO: check whether this is intended behavior
@@ -153,8 +155,8 @@ public class Aylyth implements ModInitializer {
 
 	private void biomeModifications() {
 		BiomeModifications.create(new Identifier(Aylyth.MOD_ID, "world_features"))
-				.add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(ModTags.GENERATES_SEEP), context -> context.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.OAK_SEEP))
-		        .add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(ModTags.GENERATES_SEEP), context -> context.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.SPRUCE_SEEP))
-				.add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(ModTags.GENERATES_SEEP), context -> context.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.DARK_OAK_SEEP));
+				.add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(ModBiomeTags.GENERATES_SEEP), context -> context.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.OAK_SEEP))
+		        .add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(ModBiomeTags.GENERATES_SEEP), context -> context.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.SPRUCE_SEEP))
+				.add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(ModBiomeTags.GENERATES_SEEP), context -> context.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.DARK_OAK_SEEP));
 	}
 }

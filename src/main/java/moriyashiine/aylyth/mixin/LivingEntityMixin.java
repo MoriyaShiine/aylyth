@@ -2,6 +2,7 @@ package moriyashiine.aylyth.mixin;
 
 import moriyashiine.aylyth.api.interfaces.ProlongedDeath;
 import moriyashiine.aylyth.common.registry.*;
+import moriyashiine.aylyth.common.registry.tag.ModItemTags;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -36,7 +37,7 @@ public abstract class LivingEntityMixin extends Entity {
 	
 	@Inject(method = "eatFood", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;applyFoodEffects(Lnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/entity/LivingEntity;)V"))
 	private void aylyth_decreaseYmpeInfestationStage(World world, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
-		if ((LivingEntity) (Object) this instanceof PlayerEntity player && stack.isIn(ModTags.YMPE_FOODS)) {
+		if ((LivingEntity) (Object) this instanceof PlayerEntity player && stack.isIn(ModItemTags.YMPE_FOODS)) {
 			ModComponents.YMPE_INFESTATION.maybeGet(player).ifPresent(ympeInfestationComponent -> {
 				if (ympeInfestationComponent.getStage() > 0) {
 					ympeInfestationComponent.setStage((byte) (ympeInfestationComponent.getStage() - 1));
