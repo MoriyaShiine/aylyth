@@ -20,8 +20,6 @@ public class ModDamageSources {
 	public static final RegistryKey<DamageType> UNBLOCKABLE = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, AylythUtil.id("unblockable"));
 	public static final RegistryKey<DamageType> SOUL_RIP = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, AylythUtil.id("soul_rip"));
 
-	// TODO cache where possible with world component like vanilla DamageSources class
-
 	public ModDamageSources(DynamicRegistryManager dynamicRegistryManager) {
 		damageTypeRegistry = dynamicRegistryManager.get(RegistryKeys.DAMAGE_TYPE);
 	}
