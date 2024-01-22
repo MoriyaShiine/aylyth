@@ -165,14 +165,6 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHol
 
     }
 
-    @Inject(method = "damage", at = @At("HEAD"))
-    private void aylyth_submergedDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        if(this.getInventory().contains(ModItems.YMPE_EFFIGY_ITEM.getDefaultStack()) && this.isSubmergedInWater && !isInvulnerableTo(source) && !this.isDead() && random.nextInt(6) == 1) {
-            super.damage(source, amount);
-            this.timeUntilRegen = 0;
-        }
-    }
-
     @ModifyVariable(method = "applyDamage", at = @At(value = "INVOKE", ordinal = 0, target = "Lnet/minecraft/entity/player/PlayerEntity;getHealth()F"), ordinal = 0, argsOnly = true)
     private float aylyth$modifyDamageForCuirass(float amount, DamageSource source) {
         if (!getWorld().isClient) {
