@@ -8,16 +8,16 @@
     "D": {
       "item": "minecraft:soul_soil"
     },
-    "N": {
-      "item": "minecraft:netherite_ingot"
+    "E": {
+      "item": "aylyth:esstline"
     },
     "S": {
       "item": "aylyth:ympe_sapling"
     }
   },
   "pattern": [
-    "DND",
-    "NCN",
+    "DED",
+    "ECE",
     "SDS"
   ],
   "result": {

@@ -1,12 +1,15 @@
 {
-  "type": "minecraft:smithing",
-  "base": {
-	"item": "aylyth:ympe_sapling"
-  },
+  "type": "minecraft:smithing_transform",
   "addition": {
-	"item": "minecraft:netherite_ingot"
+    "item": "aylyth:esstline"
+  },
+  "base": {
+    "item": "aylyth:ympe_sapling"
   },
   "result": {
-	"item": "aylyth:ympe_dagger"
+    "item": "aylyth:ympe_dagger"
+  },
+  "template": {
+    "item": "aylyth:aylythian_upgrade_smithing_template"
   }
 }

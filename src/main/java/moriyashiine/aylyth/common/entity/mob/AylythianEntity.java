@@ -17,6 +17,7 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.DamageTypeTags;
+import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Arm;
 import net.minecraft.util.Util;
@@ -95,7 +96,12 @@ public class AylythianEntity extends HostileEntity implements GeoEntity {
 			heal(1);
 		}
 	}
-	
+
+	@Override
+	public boolean canPickupItem(ItemStack stack) {
+		return false;
+	}
+
 	@Nullable
 	@Override
 	protected SoundEvent getAmbientSound() {
@@ -200,11 +206,6 @@ public class AylythianEntity extends HostileEntity implements GeoEntity {
 	@Override
 	public EntityGroup getGroup() {
 		return EntityGroup.UNDEAD;
-	}
-
-	@Override
-	public boolean isUndead() {
-		return true;
 	}
 
 	public static boolean isTargetInBush(LivingEntity target) {

@@ -6,6 +6,7 @@ import moriyashiine.aylyth.common.block.SoulHearthBlock;
 import moriyashiine.aylyth.common.component.entity.CuirassComponent;
 import moriyashiine.aylyth.common.entity.mob.BoneflyEntity;
 import moriyashiine.aylyth.common.registry.ModComponents;
+import moriyashiine.aylyth.common.registry.ModDamageSources;
 import moriyashiine.aylyth.common.registry.ModItems;
 import moriyashiine.aylyth.common.registry.ModSoundEvents;
 import moriyashiine.aylyth.common.util.AylythUtil;
@@ -78,7 +79,12 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHol
         super(entityType, world);
     }
 
-
+//    @Inject(method = "dropInventory", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;vanishCursedItems()V"), cancellable = true)
+//    private void aylyth_keepPledgeInv(CallbackInfo ci) {
+//        if (getHindUuid() != null) {
+//            ci.cancel();
+//        }
+//    }
 
     @Inject(method = "writeCustomDataToNbt", at = @At("TAIL"))
     private void writeAylythData(NbtCompound nbtCompound, CallbackInfo info) {
@@ -159,14 +165,6 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHol
 
     }
 
-    @Inject(method = "damage", at = @At("HEAD"))
-    private void aylyth_submergedDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        if(this.getInventory().contains(ModItems.YMPE_EFFIGY_ITEM.getDefaultStack()) && this.isSubmergedInWater && !isInvulnerableTo(source) && !this.isDead() && random.nextInt(6) == 1) {
-            super.damage(source, amount);
-            this.timeUntilRegen = 0;
-        }
-    }
-
     @ModifyVariable(method = "applyDamage", at = @At(value = "INVOKE", ordinal = 0, target = "Lnet/minecraft/entity/player/PlayerEntity;getHealth()F"), ordinal = 0, argsOnly = true)
     private float aylyth$modifyDamageForCuirass(float amount, DamageSource source) {
         if (!getWorld().isClient) {
@@ -201,12 +199,9 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHol
         if(getHindUuid() != null && !getWorld().isClient()){
             ModWorldState modWorldState = ModWorldState.get(getWorld());
             PlayerEntity player = (PlayerEntity) (Object) this;
-            if(!modWorldState.pledgesToRemove.isEmpty()){
-                for (int i = modWorldState.pledgesToRemove.size() - 1; i >= 0; i--) {
-                    if (modWorldState.pledgesToRemove.get(i).equals(player.getUuid())) {
-                        setHindUuid(null);
-                        modWorldState.pledgesToRemove.remove(i);
-                    }
+            if (modWorldState.hasPledgesToRemove()) {
+                if (modWorldState.removePledge(player.getUuid())) {
+                    setHindUuid(null);
                 }
             }
         }
@@ -226,57 +221,17 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHol
     }
 
     @Override
-    public boolean isUndead() {
-        return this.getInventory().contains(ModItems.YMPE_EFFIGY_ITEM.getDefaultStack()) || super.isUndead();
-    }
-
-    @Override
     public boolean hurtByWater() {
-        return this.getInventory().contains(ModItems.YMPE_EFFIGY_ITEM.getDefaultStack()) && (this.getWorld().getBiome(this.getBlockPos()).isIn(BiomeTags.IS_RIVER) || this.isInFlowingFluid(FluidTags.WATER)) || super.hurtByWater();
+        return this.getInventory().contains(ModItems.YMPE_EFFIGY_ITEM.getDefaultStack()) && (this.getWorld().getBiome(this.getBlockPos()).isIn(BiomeTags.IS_RIVER) || fluidHeight.getDouble(FluidTags.WATER) > 0) || super.hurtByWater();
     }
 
-    private boolean isInFlowingFluid(TagKey<Fluid> tag) {
-        if (this.isRegionUnloaded()) {
-            return false;
-        } else {
-            Box box = this.getBoundingBox().contract(0.001);
-            int i = MathHelper.floor(box.minX);
-            int j = MathHelper.ceil(box.maxX);
-            int k = MathHelper.floor(box.minY);
-            int l = MathHelper.ceil(box.maxY);
-            int m = MathHelper.floor(box.minZ);
-            int n = MathHelper.ceil(box.maxZ);
-            double d = 0.0;
-            boolean bl = this.isPushedByFluids();
-            boolean bl2 = false;
-            Vec3d vec3d = Vec3d.ZERO;
-            int o = 0;
-            BlockPos.Mutable mutable = new BlockPos.Mutable();
-
-            for(int p = i; p < j; ++p) {
-                for(int q = k; q < l; ++q) {
-                    for(int r = m; r < n; ++r) {
-                        mutable.set(p, q, r);
-                        FluidState fluidState = this.getWorld().getFluidState(mutable);
-                        double e;
-                        if (fluidState.isIn(tag) && (e = (float)q + fluidState.getHeight(this.getWorld(), mutable)) >= box.minY && !fluidState.isEqualAndStill(Fluids.WATER)) {
-                            bl2 = true;
-                            d = Math.max(e - box.minY, d);
-                            if (bl) {
-                                Vec3d vec3d2 = fluidState.getVelocity(this.getWorld(), mutable);
-                                if (d < 0.4) {
-                                    vec3d2 = vec3d2.multiply(d);
-                                }
-
-                                vec3d = vec3d.add(vec3d2);
-                                ++o;
-                            }
-                        }
-                    }
-                }
-            }
-
-            return bl2;
+    @Inject(method = "onDeath", at = @At("TAIL"))
+    private void aylyth_unpledgeHind(DamageSource damageSource, CallbackInfo ci) {
+        PlayerEntity thiz = (PlayerEntity) (Object) this;
+        if (damageSource.isOf(ModDamageSources.UNBLOCKABLE)) {
+            HindPledgeHolder.of(thiz).ifPresent(hindPledgeHolder -> {
+                hindPledgeHolder.setHindUuid(null);
+            });
         }
     }
 }

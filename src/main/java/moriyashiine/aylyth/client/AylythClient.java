@@ -144,9 +144,9 @@ public class AylythClient implements ClientModInitializer {
 		registerBigRenderer(ModItems.YMPE_LANCE);
 		registerBigRenderer(ModItems.YMPE_GLAIVE);
 
-		ModelLoadingRegistry.INSTANCE.registerModelProvider((manager, out) -> out.accept(new ModelIdentifier(AylythUtil.id("%s_generated".formatted(Registries.ITEM.getId(ModItems.MYSTERIOUS_SKETCH).getPath())), "inventory")));
+//		ModelLoadingRegistry.INSTANCE.registerModelProvider((manager, out) -> out.accept(new ModelIdentifier(AylythUtil.id("%s_generated".formatted(Registries.ITEM.getId(ModItems.MYSTERIOUS_SKETCH).getPath())), "inventory")));
 		BuiltinItemRendererRegistry.INSTANCE.register(ModItems.WOODY_GROWTH_CACHE, new WoodyGrowthCacheItemRenderer());
-		BuiltinItemRendererRegistry.INSTANCE.register(ModItems.MYSTERIOUS_SKETCH, new MysteriousSketchItemRenderer());
+//		BuiltinItemRendererRegistry.INSTANCE.register(ModItems.MYSTERIOUS_SKETCH, new MysteriousSketchItemRenderer());
 		HandledScreens.register(ModScreenHandlers.TULPA_SCREEN_HANDLER, TulpaScreen::new);
 	}
 

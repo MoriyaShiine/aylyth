@@ -2,6 +2,7 @@ package moriyashiine.aylyth.common.entity.ai.task;
 
 import com.google.common.collect.ImmutableMap;
 import moriyashiine.aylyth.common.entity.mob.TulpaEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.brain.*;
 import net.minecraft.entity.ai.brain.task.MultiTickTask;
 import net.minecraft.entity.player.PlayerEntity;
@@ -14,13 +15,16 @@ public class InteractPlayerTask extends MultiTickTask<TulpaEntity> {
         super(ImmutableMap.of(
                 MemoryModuleType.WALK_TARGET, MemoryModuleState.REGISTERED,
                 MemoryModuleType.LOOK_TARGET, MemoryModuleState.REGISTERED,
-                MemoryModuleType.ATTACK_TARGET, MemoryModuleState.REGISTERED
+                MemoryModuleType.ATTACK_TARGET, MemoryModuleState.REGISTERED,
+                MemoryModuleType.INTERACTION_TARGET, MemoryModuleState.VALUE_PRESENT
         ), Integer.MAX_VALUE);
     }
 
     protected boolean shouldRun(ServerWorld serverWorld, TulpaEntity tulpaEntity) {
-        PlayerEntity playerEntity = tulpaEntity.getInteractTarget();
-        return tulpaEntity.isAlive() && playerEntity != null && tulpaEntity.squaredDistanceTo(playerEntity) <= 16.0 && playerEntity.currentScreenHandler != null;
+        return tulpaEntity.isAlive() && tulpaEntity.getBrain().getOptionalMemory(MemoryModuleType.INTERACTION_TARGET)
+                .map(tulpaEntity::squaredDistanceTo)
+                .map(dist -> dist <= 16.0)
+                .orElse(false);
     }
 
     protected boolean shouldKeepRunning(ServerWorld serverWorld, TulpaEntity tulpaEntity, long l) {
@@ -49,6 +53,6 @@ public class InteractPlayerTask extends MultiTickTask<TulpaEntity> {
         Brain<?> brain = tulpaEntity.getBrain();
         brain.forget(MemoryModuleType.WALK_TARGET);
         brain.forget(MemoryModuleType.ATTACK_TARGET);
-        brain.remember(MemoryModuleType.LOOK_TARGET, (new EntityLookTarget(tulpaEntity.getInteractTarget(), true)));
+        brain.remember(MemoryModuleType.LOOK_TARGET, (new EntityLookTarget(tulpaEntity.getBrain().getOptionalMemory(MemoryModuleType.INTERACTION_TARGET).get(), true)));
     }
 }

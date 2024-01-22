@@ -37,7 +37,6 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -77,6 +76,7 @@ public class Aylyth implements ModInitializer {
 		ModCriteria.init();
 		ModLootConditions.init();
 		ModScreenHandlers.init();
+		ModDataTrackers.init();
 		biomeModifications();
 
 		LivingEntityDeathEvents.init();

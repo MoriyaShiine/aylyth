@@ -91,6 +91,8 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add(ModItems.WRONGMEAT, "Wrongmeat");
         builder.add(ModItems.YMPE_CUIRASS, "Ympe Cuirass");
         builder.add(ModItems.GIRASOL_SEED, "Girasol Seed");
+        builder.add(ModItems.AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE, "Aylythian Upgrade Smithing Template");
+        builder.add(ModItems.ESSTLINE, "Esstline");
         potionSet(builder, "mortechis");
         potionSet(builder, "cimmerian");
         potionSet(builder, "wyrded");
@@ -155,6 +157,7 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
 
         builder.add("death.attack.ympe", "%1$s has gone to the trees");
         builder.add("death.attack.ympe.player", "%1$s has gone to the trees whilst trying to escape %2$s");
+        builder.add("death.attack.wreathed_hind.killing_blow", "%1$s's mutual agreement was betrayed");
 
         // SUBTITLES
 
@@ -164,6 +167,9 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add("aylyth.subtitles.entity.aylythian.ambient", "Aylythian groans");
         builder.add("aylyth.subtitles.entity.aylythian.hurt", "Aylythian hurts");
         builder.add("aylyth.subtitles.entity.aylythian.death", "Aylythian dies");
+        builder.add("aylyth.subtitles.entity.faunaylythian.ambient", "Faunaylythian snarls");
+        builder.add("aylyth.subtitles.entity.faunaylythian.hurt", "Faunaylythian hurts");
+        builder.add("aylyth.subtitles.entity.faunaylythian.death", "Faunaylythian dies");
         builder.add("aylyth.subtitles.entity.elder_aylythian.ambient", "Elder Aylythian rumbles");
         builder.add("aylyth.subtitles.entity.elder_aylythian.hurt", "Elder Aylythian hurts");
         builder.add("aylyth.subtitles.entity.elder_aylythian.death", "Elder Aylythian dies");
@@ -191,6 +197,7 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
 
         builder.add("info.aylyth.tulpa_wander", "Wander");
         builder.add("info.aylyth.tulpa_follow", "Follow");
+        builder.add("info.aylyth.tulpa_stay", "Stay");
 
         // COMPAT - REI
 
@@ -199,6 +206,13 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         // COMPAT - EMI
 
         builder.add("emi.category.aylyth.ympe_dagger_drops", "Ympe Dagger Drops");
+        builder.add("tag.aylyth.ympe_logs", "Ympe Logs");
+        builder.add("tag.aylyth.pomegranate_logs", "Pomegranate Logs");
+        builder.add("tag.aylyth.writhewood_logs", "Writhewood Logs");
+        builder.add("tag.aylyth.woody_growths", "Woody Growths");
+        builder.add("tag.aylyth.ympe_foods", "Ympe Foods");
+        builder.add("tag.aylyth.pledge_items", "Pledge Items");
+        builder.add("tag.aylyth.seeps", "Logs with Seep");
     }
 
     private void potionSet(TranslationBuilder builder, String effectName) {

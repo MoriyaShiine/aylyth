@@ -124,6 +124,11 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
     }
 
     @Override
+    public boolean canPickupItem(ItemStack stack) {
+        return false;
+    }
+
+    @Override
     public boolean damage(DamageSource source, float amount) {
         if(!getWorld().isClient()) {
             if (source.isIn(DamageTypeTags.IS_EXPLOSION)) {
@@ -156,6 +161,7 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
         nbt.putInt("dashSlashTicks", dashSlashTicks);
         nbt.putBoolean("Dormant", this.isDormant());
     }
+
     @Override
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
@@ -185,6 +191,7 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
         dashSlashTicks = nbt.getInt("dashSlashTicks");
         this.setDormant(nbt.getBoolean("Dormant"));
     }
+
     @Override
     public UUID getOwnerUuid() {
         return this.dataTracker.get(OWNER_UUID).orElse(null);
@@ -200,6 +207,7 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
         this.setTamed(true);
         this.setOwnerUuid(player.getUuid());
     }
+
     public int getAttackState() {
         return this.dataTracker.get(ATTACK_STATE);
     }
@@ -207,6 +215,7 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
     public void setAttackState(int state) {
         this.dataTracker.set(ATTACK_STATE, state);
     }
+
     @Override
     public boolean cannotDespawn() {
         return true;
@@ -249,6 +258,7 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
 
         this.onTamedChanged();
     }
+
     public void reset() {
         this.setTarget(null);
         this.navigation.stop();
@@ -273,6 +283,7 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
         }
         return super.interactMob(player, hand);
     }
+
     private void cycleActionState(PlayerEntity player) {
         if(getActionState() == 0) {
             setActionState(2);
@@ -285,6 +296,7 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
             player.sendMessage(Text.translatable("info.aylyth.mould_deactivate", getWorld().getRegistryKey().getValue().getPath()).setStyle(Style.EMPTY.withColor(Formatting.DARK_GRAY)), true);
         }
     }
+
     @Override
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityTag) {
         setDormantPos(getBlockPos());
@@ -349,6 +361,7 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
         }
         if ((this.getTarget() == null || (this.getTarget() != null && this.getDormantPos().isPresent() && !this.getTarget().isAlive())) && getNavigation().isIdle() && !isAtDormantPos() && !isDormant()) updateDormantPos();
     }
+
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
         if(getWorld() instanceof ServerWorld server)
@@ -384,6 +397,7 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
         }
         return PlayState.CONTINUE;
     }
+
     public double getAngleBetweenEntities(Entity first, Entity second) {
         return Math.atan2(second.getZ() - first.getZ(), second.getX() - first.getX()) * (180 / Math.PI) + 90;
     }

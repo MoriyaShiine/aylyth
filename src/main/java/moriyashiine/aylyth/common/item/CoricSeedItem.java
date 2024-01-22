@@ -6,6 +6,7 @@ import moriyashiine.aylyth.common.entity.mob.TulpaEntity;
 import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.ModEntityTypes;
 import moriyashiine.aylyth.common.registry.ModItems;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.TallPlantBlock;
 import net.minecraft.entity.EquipmentSlot;
@@ -48,7 +49,7 @@ public class CoricSeedItem extends Item {
             tulpaEntity.refreshPositionAndAngles(pos.down(), 0.0F, 0.0F);
             tulpaEntity.setOwner(player);
             world.spawnEntity(tulpaEntity);
-            stack.decrement(1);
+            AylythUtil.decreaseStack(stack, player);
         }
     }
 
@@ -63,7 +64,7 @@ public class CoricSeedItem extends Item {
             soulmouldEntity.equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModItems.YMPE_GLAIVE));
             soulmouldEntity.handDropChances[EquipmentSlot.MAINHAND.getEntitySlotId()] = 0.0F;
             world.spawnEntity(soulmouldEntity);
-            stack.decrement(1);
+            AylythUtil.decreaseStack(stack, player);
         }
     }
 
@@ -83,8 +84,10 @@ public class CoricSeedItem extends Item {
 
             BoneflyEntity bonefly = BoneflyEntity.create(world, pos.offset(side), side.asRotation(), 0.0f, player);
             world.spawnEntity(bonefly);
-            player.getOffHandStack().decrement(16);
-            stack.decrement(1);
+            if (!player.getAbilities().creativeMode) {
+                player.getOffHandStack().decrement(16);
+                stack.decrement(1);
+            }
         }
     }
 
