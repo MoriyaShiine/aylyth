@@ -21,7 +21,7 @@ import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.carver.ConfiguredCarver;
 import net.minecraft.world.gen.feature.*;
 
-import static moriyashiine.aylyth.common.registry.ModBiomeKeys.*;
+import static moriyashiine.aylyth.common.registry.key.ModBiomeKeys.*;
 
 public class ModBiomes {
 	public static final SpawnSettings COPSE_MOBS = SpawnSettingsBuilder.builder()

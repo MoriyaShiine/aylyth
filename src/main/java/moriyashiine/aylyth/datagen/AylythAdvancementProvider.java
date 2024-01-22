@@ -6,8 +6,9 @@ import moriyashiine.aylyth.common.criteria.HindPledgeCriterion;
 import moriyashiine.aylyth.common.criteria.ShuckingCriterion;
 import moriyashiine.aylyth.common.criteria.YmpeInfestationCriterion;
 import moriyashiine.aylyth.common.registry.*;
+import moriyashiine.aylyth.common.registry.key.ModBiomeKeys;
+import moriyashiine.aylyth.common.registry.key.ModDimensionKeys;
 import moriyashiine.aylyth.common.util.AylythUtil;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.minecraft.advancement.Advancement;
@@ -25,12 +26,9 @@ import net.minecraft.predicate.entity.LocationPredicate;
 import net.minecraft.predicate.item.ItemPredicate;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 
-import java.util.Optional;
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 public class AylythAdvancementProvider extends FabricAdvancementProvider {
 

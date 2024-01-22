@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.common.registry;
+package moriyashiine.aylyth.common.registry.key;
 
 import moriyashiine.aylyth.common.Aylyth;
 import net.minecraft.registry.Registry;

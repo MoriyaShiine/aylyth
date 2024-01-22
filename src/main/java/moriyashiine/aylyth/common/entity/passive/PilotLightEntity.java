@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.common.entity.passive;
 
-import moriyashiine.aylyth.common.registry.ModDimensionKeys;
+import moriyashiine.aylyth.common.registry.key.ModDimensionKeys;
 import moriyashiine.aylyth.common.registry.ModParticles;
 import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
 import net.minecraft.entity.*;
@@ -9,7 +9,6 @@ import net.minecraft.entity.ai.pathing.BirdNavigation;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;

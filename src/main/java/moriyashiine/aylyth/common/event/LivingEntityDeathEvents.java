@@ -6,8 +6,8 @@ import moriyashiine.aylyth.api.interfaces.VitalHolder;
 import moriyashiine.aylyth.common.block.WoodyGrowthCacheBlock;
 import moriyashiine.aylyth.common.entity.mob.RippedSoulEntity;
 import moriyashiine.aylyth.common.entity.mob.ScionEntity;
-import moriyashiine.aylyth.common.registry.ModDamageSources;
-import moriyashiine.aylyth.common.registry.ModDimensionKeys;
+import moriyashiine.aylyth.common.registry.key.ModDamageTypeKeys;
+import moriyashiine.aylyth.common.registry.key.ModDimensionKeys;
 import moriyashiine.aylyth.common.registry.ModEntityTypes;
 import moriyashiine.aylyth.common.registry.ModItems;
 import moriyashiine.aylyth.common.util.AylythUtil;
@@ -89,7 +89,7 @@ public class LivingEntityDeathEvents {
 
             if(!player.getWorld().getGameRules().getBoolean(GameRules.KEEP_INVENTORY)){
                 HindPledgeHolder.of(player).ifPresent(hind -> {
-                    if(damageSource.isOf(ModDamageSources.YMPE) && hind.getHindUuid() != null){
+                    if(damageSource.isOf(ModDamageTypeKeys.YMPE) && hind.getHindUuid() != null){
                         PlayerInventory newInv = new PlayerInventory(null);
                         NbtList nbtList = new NbtList();
 
@@ -121,7 +121,7 @@ public class LivingEntityDeathEvents {
     private static void spawnRippedSoul(LivingEntity livingEntity, DamageSource source) {
         World world = livingEntity.getWorld();
         if(!world.isClient) {
-            if(source.isOf(ModDamageSources.SOUL_RIP)) {
+            if(source.isOf(ModDamageTypeKeys.SOUL_RIP)) {
                 RippedSoulEntity soul = new RippedSoulEntity(ModEntityTypes.RIPPED_SOUL, world);
                 if (source.getAttacker() != null) {
                     soul.setOwner((PlayerEntity) source.getAttacker());
@@ -149,7 +149,7 @@ public class LivingEntityDeathEvents {
             if (damageSource.isOf(DamageTypes.OUT_OF_WORLD)) {
                 return true;
             }
-            if (damageSource.isOf(ModDamageSources.YMPE) && ((HindPledgeHolder)player).getHindUuid() == null) {
+            if (damageSource.isOf(ModDamageTypeKeys.YMPE) && ((HindPledgeHolder)player).getHindUuid() == null) {
                 ScionEntity.summonPlayerScion(player);
                 WoodyGrowthCacheBlock.spawnInventory(player.getWorld(), player.getBlockPos(), player);
                 return true;

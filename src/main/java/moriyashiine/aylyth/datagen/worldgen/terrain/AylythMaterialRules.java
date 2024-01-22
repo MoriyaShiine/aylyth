@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.datagen.worldgen.terrain;
 
-import moriyashiine.aylyth.common.registry.ModBiomeKeys;
+import moriyashiine.aylyth.common.registry.key.ModBiomeKeys;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.RegistryKey;

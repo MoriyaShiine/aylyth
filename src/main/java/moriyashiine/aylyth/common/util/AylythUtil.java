@@ -8,6 +8,7 @@ import moriyashiine.aylyth.common.item.YmpeLanceItem;
 import moriyashiine.aylyth.common.registry.ModDamageSources;
 import moriyashiine.aylyth.common.registry.ModPotions;
 import moriyashiine.aylyth.common.registry.ModSoundEvents;
+import moriyashiine.aylyth.common.registry.key.ModDamageTypeKeys;
 import moriyashiine.aylyth.common.registry.tag.ModBlockTags;
 import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
 import net.minecraft.entity.EntityGroup;
@@ -165,7 +166,7 @@ public class AylythUtil {
 			return true;
 		}
 		// TODO: 1.20, use damage type tag
-		return source.isOf(ModDamageSources.YMPE) || source.isOf(ModDamageSources.YMPE_ENTITY);
+		return source.isOf(ModDamageTypeKeys.YMPE) || source.isOf(ModDamageTypeKeys.YMPE_ENTITY);
 	}
 
 	/**

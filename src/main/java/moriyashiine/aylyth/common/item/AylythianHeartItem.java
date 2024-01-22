@@ -2,7 +2,7 @@ package moriyashiine.aylyth.common.item;
 
 import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.util.AylythUtil;
-import moriyashiine.aylyth.common.registry.ModDimensionKeys;
+import moriyashiine.aylyth.common.registry.key.ModDimensionKeys;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -14,7 +14,6 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
 public class AylythianHeartItem extends Item {

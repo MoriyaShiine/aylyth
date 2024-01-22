@@ -3,7 +3,7 @@ package moriyashiine.aylyth.common.block;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.UnmodifiableIterator;
 import moriyashiine.aylyth.common.block.entity.SoulHearthBlockEntity;
-import moriyashiine.aylyth.common.registry.ModDimensionKeys;
+import moriyashiine.aylyth.common.registry.key.ModDimensionKeys;
 import moriyashiine.aylyth.common.registry.ModItems;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.block.*;

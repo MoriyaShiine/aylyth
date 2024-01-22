@@ -1,5 +1,6 @@
 package moriyashiine.aylyth.common.registry;
 
+import moriyashiine.aylyth.common.registry.key.ModDamageTypeKeys;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.common.entity.mob.WreathedHindEntity;
 import net.minecraft.entity.Entity;
@@ -15,29 +16,25 @@ import net.minecraft.world.World;
 
 public class ModDamageSources {
 	private final Registry<DamageType> damageTypeRegistry;
-	public static final RegistryKey<DamageType> YMPE = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, AylythUtil.id("ympe"));
-	public static final RegistryKey<DamageType> YMPE_ENTITY = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, AylythUtil.id("ympe_entity"));
-	public static final RegistryKey<DamageType> UNBLOCKABLE = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, AylythUtil.id("unblockable"));
-	public static final RegistryKey<DamageType> SOUL_RIP = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, AylythUtil.id("soul_rip"));
 
 	public ModDamageSources(DynamicRegistryManager dynamicRegistryManager) {
 		damageTypeRegistry = dynamicRegistryManager.get(RegistryKeys.DAMAGE_TYPE);
 	}
 
 	public DamageSource ympe() {
-		return new DamageSource(damageTypeRegistry.entryOf(YMPE));
+		return new DamageSource(damageTypeRegistry.entryOf(ModDamageTypeKeys.YMPE));
 	}
 
 	public DamageSource ympeEntity() {
-		return new DamageSource(damageTypeRegistry.entryOf(YMPE_ENTITY));
+		return new DamageSource(damageTypeRegistry.entryOf(ModDamageTypeKeys.YMPE_ENTITY));
 	}
 
 	public DamageSource unblockable() {
-		return new DamageSource(damageTypeRegistry.entryOf(UNBLOCKABLE));
+		return new DamageSource(damageTypeRegistry.entryOf(ModDamageTypeKeys.UNBLOCKABLE));
 	}
 
 	public DamageSource soulRip(PlayerEntity player) {
-		return new DamageSource(damageTypeRegistry.entryOf(SOUL_RIP), player);
+		return new DamageSource(damageTypeRegistry.entryOf(ModDamageTypeKeys.SOUL_RIP), player);
 	}
 
 	/*

@@ -1,6 +1,8 @@
 package moriyashiine.aylyth.datagen;
 
 import moriyashiine.aylyth.common.registry.*;
+import moriyashiine.aylyth.common.registry.key.ModBiomeKeys;
+import moriyashiine.aylyth.common.registry.key.ModDamageTypeKeys;
 import moriyashiine.aylyth.common.registry.tag.ModBiomeTags;
 import moriyashiine.aylyth.common.registry.tag.ModBlockTags;
 import moriyashiine.aylyth.common.registry.tag.ModEntityTypeTags;
@@ -137,14 +139,14 @@ public class AylythTagProviders {
 
         @Override
         protected void configure(RegistryWrapper.WrapperLookup registries) {
-            getOrCreateTagBuilder(DamageTypeTags.BYPASSES_ARMOR).add(ModDamageSources.YMPE, ModDamageSources.UNBLOCKABLE, ModDamageSources.SOUL_RIP);
-            getOrCreateTagBuilder(DamageTypeTags.BYPASSES_ENCHANTMENTS).add(ModDamageSources.YMPE, ModDamageSources.UNBLOCKABLE);
-            getOrCreateTagBuilder(DamageTypeTags.BYPASSES_RESISTANCE).add(ModDamageSources.YMPE, ModDamageSources.UNBLOCKABLE);
-            getOrCreateTagBuilder(DamageTypeTags.BYPASSES_INVULNERABILITY).add(ModDamageSources.YMPE, ModDamageSources.UNBLOCKABLE);
-            getOrCreateTagBuilder(DamageTypeTags.BYPASSES_EFFECTS).add(ModDamageSources.UNBLOCKABLE);
-            getOrCreateTagBuilder(DamageTypeTags.WITCH_RESISTANT_TO).add(ModDamageSources.SOUL_RIP);
-            getOrCreateTagBuilder(DamageTypeTags.AVOIDS_GUARDIAN_THORNS).add(ModDamageSources.SOUL_RIP);
-            getOrCreateTagBuilder(DamageTypeTags.ALWAYS_TRIGGERS_SILVERFISH).add(ModDamageSources.SOUL_RIP);
+            getOrCreateTagBuilder(DamageTypeTags.BYPASSES_ARMOR).add(ModDamageTypeKeys.YMPE, ModDamageTypeKeys.UNBLOCKABLE, ModDamageTypeKeys.SOUL_RIP);
+            getOrCreateTagBuilder(DamageTypeTags.BYPASSES_ENCHANTMENTS).add(ModDamageTypeKeys.YMPE, ModDamageTypeKeys.UNBLOCKABLE);
+            getOrCreateTagBuilder(DamageTypeTags.BYPASSES_RESISTANCE).add(ModDamageTypeKeys.YMPE, ModDamageTypeKeys.UNBLOCKABLE);
+            getOrCreateTagBuilder(DamageTypeTags.BYPASSES_INVULNERABILITY).add(ModDamageTypeKeys.YMPE, ModDamageTypeKeys.UNBLOCKABLE);
+            getOrCreateTagBuilder(DamageTypeTags.BYPASSES_EFFECTS).add(ModDamageTypeKeys.UNBLOCKABLE);
+            getOrCreateTagBuilder(DamageTypeTags.WITCH_RESISTANT_TO).add(ModDamageTypeKeys.SOUL_RIP);
+            getOrCreateTagBuilder(DamageTypeTags.AVOIDS_GUARDIAN_THORNS).add(ModDamageTypeKeys.SOUL_RIP);
+            getOrCreateTagBuilder(DamageTypeTags.ALWAYS_TRIGGERS_SILVERFISH).add(ModDamageTypeKeys.SOUL_RIP);
 //            getOrCreateTagBuilder()
         }
     }
