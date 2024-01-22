@@ -155,8 +155,10 @@ public class Aylyth implements ModInitializer {
 
 	private void biomeModifications() {
 		BiomeModifications.create(new Identifier(Aylyth.MOD_ID, "world_features"))
-				.add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(ModBiomeTags.GENERATES_SEEP), context -> context.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.OAK_SEEP))
-		        .add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(ModBiomeTags.GENERATES_SEEP), context -> context.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.SPRUCE_SEEP))
-				.add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(ModBiomeTags.GENERATES_SEEP), context -> context.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.DARK_OAK_SEEP));
+				.add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(ModBiomeTags.GENERATES_SEEP), context -> {
+					context.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.OAK_SEEP);
+					context.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.SPRUCE_SEEP);
+					context.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.DARK_OAK_SEEP);
+				});
 	}
 }
