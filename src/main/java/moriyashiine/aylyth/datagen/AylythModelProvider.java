@@ -102,8 +102,6 @@ public class AylythModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.DEBUG_WAND, Models.HANDHELD);
         itemModelGenerator.register(ModItems.WRONGMEAT, Models.GENERATED);
         itemModelGenerator.register(ModItems.GIRASOL_SEED, Models.GENERATED);
-        itemModelGenerator.register(ModItems.AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE, Models.GENERATED);
-        itemModelGenerator.register(ModItems.ESSTLINE, Models.GENERATED);
         itemModelGenerator.register(ModItems.LARGE_WOODY_GROWTH, Models.GENERATED);
         itemModelGenerator.register(ModItems.WOODY_GROWTH_CACHE, BUILTIN);
         itemModelGenerator.register(ModItems.SMALL_WOODY_GROWTH, Models.GENERATED);
