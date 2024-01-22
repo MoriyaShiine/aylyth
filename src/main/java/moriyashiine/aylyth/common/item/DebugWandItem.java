@@ -65,7 +65,7 @@ public class DebugWandItem extends Item {
                         ympeInfestationComponent.setStage((byte)(ympeInfestationComponent.getStage() + 1));
                         ympeInfestationComponent.setInfestationTimer((short)2400);
                     });
-                } else if (user.getOffHandStack().isOf(ModItems.MYSTERIOUS_SKETCH)) {
+                } /*else if (user.getOffHandStack().isOf(ModItems.MYSTERIOUS_SKETCH)) {
                     ItemStack page = user.getOffHandStack();
                     if (page.hasNbt() && page.getNbt().contains("PageId")) {
                         String nextPage = switch (page.getNbt().getString("PageId")) {
@@ -79,7 +79,7 @@ public class DebugWandItem extends Item {
                     } else {
                         page.setSubNbt("PageId", NbtString.of("aylyth:coric_seed"));
                     }
-                } else {
+                }*/ else {
                     ScionEntity.summonPlayerScion(user);
                 }
             }
