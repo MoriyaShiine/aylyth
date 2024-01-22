@@ -1,18 +1,13 @@
 package moriyashiine.aylyth.common.world;
 
-import moriyashiine.aylyth.common.registry.key.ModDamageTypeKeys;
-import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.common.entity.mob.WreathedHindEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
+import moriyashiine.aylyth.common.registry.key.ModDamageTypeKeys;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.world.World;
 
 public class ModDamageSources {
 	private final Registry<DamageType> damageTypeRegistry;
@@ -29,8 +24,8 @@ public class ModDamageSources {
 		return new DamageSource(damageTypeRegistry.entryOf(ModDamageTypeKeys.YMPE_ENTITY));
 	}
 
-	public DamageSource unblockable() {
-		return new DamageSource(damageTypeRegistry.entryOf(ModDamageTypeKeys.UNBLOCKABLE));
+	public DamageSource killingBlow(WreathedHindEntity wreathedHindEntity) {
+		return new DamageSource(damageTypeRegistry.entryOf(ModDamageTypeKeys.KILLING_BLOW), wreathedHindEntity);
 	}
 
 	public DamageSource soulRip(PlayerEntity player) {

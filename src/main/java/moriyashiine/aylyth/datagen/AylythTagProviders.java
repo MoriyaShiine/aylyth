@@ -136,11 +136,11 @@ public class AylythTagProviders {
 
         @Override
         protected void configure(RegistryWrapper.WrapperLookup registries) {
-            getOrCreateTagBuilder(DamageTypeTags.BYPASSES_ARMOR).add(ModDamageTypeKeys.YMPE, ModDamageTypeKeys.UNBLOCKABLE, ModDamageTypeKeys.SOUL_RIP);
-            getOrCreateTagBuilder(DamageTypeTags.BYPASSES_ENCHANTMENTS).add(ModDamageTypeKeys.YMPE, ModDamageTypeKeys.UNBLOCKABLE);
-            getOrCreateTagBuilder(DamageTypeTags.BYPASSES_RESISTANCE).add(ModDamageTypeKeys.YMPE, ModDamageTypeKeys.UNBLOCKABLE);
+            getOrCreateTagBuilder(DamageTypeTags.BYPASSES_ARMOR).add(ModDamageTypeKeys.YMPE, ModDamageTypeKeys.KILLING_BLOW, ModDamageTypeKeys.SOUL_RIP);
+            getOrCreateTagBuilder(DamageTypeTags.BYPASSES_ENCHANTMENTS).add(ModDamageTypeKeys.YMPE, ModDamageTypeKeys.KILLING_BLOW);
+            getOrCreateTagBuilder(DamageTypeTags.BYPASSES_RESISTANCE).add(ModDamageTypeKeys.YMPE, ModDamageTypeKeys.KILLING_BLOW);
 //            getOrCreateTagBuilder(DamageTypeTags.BYPASSES_INVULNERABILITY).add(ModDamageTypeKeys.YMPE, ModDamageTypeKeys.UNBLOCKABLE);
-            getOrCreateTagBuilder(DamageTypeTags.BYPASSES_EFFECTS).add(ModDamageTypeKeys.UNBLOCKABLE);
+            getOrCreateTagBuilder(DamageTypeTags.BYPASSES_EFFECTS).add(ModDamageTypeKeys.KILLING_BLOW);
             getOrCreateTagBuilder(DamageTypeTags.WITCH_RESISTANT_TO).add(ModDamageTypeKeys.SOUL_RIP);
             getOrCreateTagBuilder(DamageTypeTags.AVOIDS_GUARDIAN_THORNS).add(ModDamageTypeKeys.SOUL_RIP);
             getOrCreateTagBuilder(DamageTypeTags.ALWAYS_TRIGGERS_SILVERFISH).add(ModDamageTypeKeys.SOUL_RIP);

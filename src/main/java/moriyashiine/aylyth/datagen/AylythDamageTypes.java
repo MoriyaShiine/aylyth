@@ -10,7 +10,7 @@ public class AylythDamageTypes {
     public static void bootstrap(Registerable<DamageType> context) {
         context.register(ModDamageTypeKeys.YMPE, new DamageType("ympe", DamageScaling.ALWAYS, 0));
         context.register(ModDamageTypeKeys.YMPE_ENTITY, new DamageType("ympe_entity", 0.1f));
-        context.register(ModDamageTypeKeys.UNBLOCKABLE, new DamageType("unblockable", DamageScaling.ALWAYS, 0));
+        context.register(ModDamageTypeKeys.KILLING_BLOW, new DamageType("wreathed_hind_killing_blow", DamageScaling.ALWAYS, 0));
         context.register(ModDamageTypeKeys.SOUL_RIP, new DamageType("soul_rip", 0.1f));
     }
 }

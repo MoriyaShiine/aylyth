@@ -134,7 +134,7 @@
   "block.aylyth.ympe_strewn_leaves": "Ympe Strewn Leaves",
   "block.aylyth.ympe_trapdoor": "Ympe Trapdoor",
   "block.aylyth.ympe_wood": "Ympe Wood",
-  "death.attack.wreathed_hind.killing_blow": "%1$s's mutual agreement was betrayed",
+  "death.attack.wreathed_hind_killing_blow": "%1$s's mutual agreement was betrayed",
   "death.attack.ympe": "%1$s has gone to the trees",
   "death.attack.ympe.player": "%1$s has gone to the trees whilst trying to escape %2$s",
   "effect.aylyth.cimmerian": "Cimmerian",

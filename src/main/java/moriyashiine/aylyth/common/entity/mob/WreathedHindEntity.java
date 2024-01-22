@@ -36,8 +36,6 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
-import net.tslat.smartbrainlib.api.SmartBrainOwner;
-import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
@@ -159,7 +157,7 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
 
     public boolean tryKillingAttack(PlayerEntity target) {
         float f = 6;
-        boolean bl = target.damage(getWorld().modDamageSources().unblockable(), f);
+        boolean bl = target.damage(getWorld().modDamageSources().killingBlow(this), f);
         if (bl) {
             this.disablePlayerShield(target, this.getMainHandStack(), target.isUsingItem() ? target.getActiveItem() : ItemStack.EMPTY);
             this.applyDamageEffects(this, target);

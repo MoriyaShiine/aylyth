@@ -222,7 +222,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHol
     @Inject(method = "onDeath", at = @At("TAIL"))
     private void aylyth_unpledgeHind(DamageSource damageSource, CallbackInfo ci) {
         PlayerEntity thiz = (PlayerEntity) (Object) this;
-        if (damageSource.isOf(ModDamageTypeKeys.UNBLOCKABLE)) {
+        if (damageSource.isOf(ModDamageTypeKeys.KILLING_BLOW)) {
             HindPledgeHolder.of(thiz).ifPresent(hindPledgeHolder -> {
                 hindPledgeHolder.setHindUuid(null);
             });
