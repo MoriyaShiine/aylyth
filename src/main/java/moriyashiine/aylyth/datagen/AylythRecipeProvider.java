@@ -98,7 +98,6 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
                 .input('C', Items.SOUL_CAMPFIRE)
                 .pattern("SHS")
                 .pattern("PEP")
-                .pattern("PEP")
                 .pattern("PCP")
                 .criterion("has_heart", conditionsFromItem(ModItems.AYLYTHIAN_HEART))
                 .offerTo(exporter);
