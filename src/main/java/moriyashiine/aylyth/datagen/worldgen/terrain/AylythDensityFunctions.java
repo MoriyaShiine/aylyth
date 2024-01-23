@@ -6,20 +6,17 @@ import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.registry.entry.RegistryEntryList;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.noise.DoublePerlinNoiseSampler;
 import net.minecraft.util.math.noise.InterpolatedNoiseSampler;
 import net.minecraft.world.biome.source.util.VanillaTerrainParametersCreator;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.densityfunction.DensityFunction;
-import net.minecraft.world.gen.densityfunction.DensityFunctionTypes.*;
 
 import static moriyashiine.aylyth.datagen.worldgen.terrain.AylythNoiseTypes.*;
 import static net.minecraft.world.gen.densityfunction.DensityFunctionTypes.*;
 
-// TODO there are functions and not function types
-public class AylythDensityFunctionTypes {
+public class AylythDensityFunctions {
 
     public static final RegistryKey<DensityFunction> SHIFT_X_KEY = functionKey("shift_x");
     public static final RegistryKey<DensityFunction> SHIFT_Z_KEY = functionKey("shift_z");

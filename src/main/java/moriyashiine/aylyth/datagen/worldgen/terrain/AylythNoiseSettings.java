@@ -12,12 +12,11 @@ import net.minecraft.world.gen.chunk.ChunkGeneratorSettings;
 import net.minecraft.world.gen.chunk.GenerationShapeConfig;
 import net.minecraft.world.gen.densityfunction.DensityFunction;
 import net.minecraft.world.gen.noise.NoiseRouter;
-import net.minecraft.world.gen.surfacebuilder.MaterialRules;
 
 import java.util.List;
 
-import static moriyashiine.aylyth.datagen.worldgen.terrain.AylythDensityFunctionTypes.*;
-import static moriyashiine.aylyth.datagen.worldgen.terrain.AylythDensityFunctionTypes.CAVES_PILLARS_FUNCTION_KEY;
+import static moriyashiine.aylyth.datagen.worldgen.terrain.AylythDensityFunctions.*;
+import static moriyashiine.aylyth.datagen.worldgen.terrain.AylythDensityFunctions.CAVES_PILLARS_FUNCTION_KEY;
 import static moriyashiine.aylyth.datagen.worldgen.terrain.AylythNoiseTypes.*;
 import static net.minecraft.world.gen.densityfunction.DensityFunctionTypes.*;
 

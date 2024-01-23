@@ -4,7 +4,7 @@ import moriyashiine.aylyth.datagen.worldgen.biomes.ModBiomes;
 import moriyashiine.aylyth.datagen.worldgen.features.ModCarvers;
 import moriyashiine.aylyth.datagen.worldgen.features.ModConfiguredFeatures;
 import moriyashiine.aylyth.datagen.worldgen.features.ModPlacedFeatures;
-import moriyashiine.aylyth.datagen.worldgen.terrain.AylythDensityFunctionTypes;
+import moriyashiine.aylyth.datagen.worldgen.terrain.AylythDensityFunctions;
 import moriyashiine.aylyth.datagen.worldgen.terrain.AylythNoiseSettings;
 import moriyashiine.aylyth.datagen.worldgen.terrain.AylythNoiseTypes;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
@@ -36,7 +36,7 @@ public class AylythDatagen implements DataGeneratorEntrypoint {
     @Override
     public void buildRegistry(RegistryBuilder registryBuilder) {
         registryBuilder.addRegistry(RegistryKeys.NOISE_PARAMETERS, AylythNoiseTypes::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.DENSITY_FUNCTION, AylythDensityFunctionTypes::bootstrap);
+        registryBuilder.addRegistry(RegistryKeys.DENSITY_FUNCTION, AylythDensityFunctions::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.CHUNK_GENERATOR_SETTINGS, AylythNoiseSettings::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.CONFIGURED_CARVER, ModCarvers::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, ModConfiguredFeatures::bootstrap);
