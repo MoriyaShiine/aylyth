@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "fabric:type": "fabric:difference",
+    "base": {
+      "tag": "aylyth:carved_nephrite"
+    },
+    "subtracted": {
+      "item": "aylyth:carved_nephrite_tiles"
+    }
+  },
+  "result": "aylyth:carved_nephrite_tiles"
+}

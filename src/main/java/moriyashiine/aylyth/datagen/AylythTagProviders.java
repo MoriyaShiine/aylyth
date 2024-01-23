@@ -62,6 +62,7 @@ public class AylythTagProviders {
             getOrCreateTagBuilder(ModBlockTags.WOODY_GROWTHS_GENERATE_ON).add(Blocks.MUD);
             getOrCreateTagBuilder(BlockTags.LOGS_THAT_BURN).add(ModBlocks.SEEPING_WOOD);
             getOrCreateTagBuilder(BlockTags.BEACON_BASE_BLOCKS).add(ModBlocks.ESSTLINE_BLOCK, ModBlocks.NEPHRITE_BLOCK);
+            getOrCreateTagBuilder(ModBlockTags.CARVED_NEPHRITE).add(ModBlocks.CARVED_SMOOTH_NEPHRITE, ModBlocks.CARVED_ANTLERED_NEPHRITE, ModBlocks.CARVED_NEPHRITE_PILLAR, ModBlocks.POLISHED_CARVED_NEPHRITE, ModBlocks.CARVED_NEPHRITE_TILES, ModBlocks.CARVED_WOODY_NEPHRITE);
         }
 
         private void addSuite(WoodSuite suite, TagKey<Block> logTag) {
@@ -112,6 +113,7 @@ public class AylythTagProviders {
             copy(BlockTags.SAPLINGS, ItemTags.SAPLINGS);
             copy(ModBlockTags.WOODY_GROWTHS, ModItemTags.WOODY_GROWTHS);
             copy(ModBlockTags.SEEPS, ModItemTags.SEEPS);
+            copy(ModBlockTags.CARVED_NEPHRITE, ModItemTags.CARVED_NEPHRITE);
             getOrCreateTagBuilder(ModItemTags.PLEDGE_ITEMS).add(ModItems.NYSIAN_GRAPES);
             getOrCreateTagBuilder(ModItemTags.NEPHRITE_REPAIR_ITEMS).add(ModItems.NEPHRITE);
         }

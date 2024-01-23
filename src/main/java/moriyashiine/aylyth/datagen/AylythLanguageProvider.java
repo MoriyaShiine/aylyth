@@ -58,6 +58,14 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add(ModBlocks.SEEPING_WOOD_SEEP, "Seeping Wood Seep");
         builder.add(ModBlocks.GIRASOL_SAPLING, "Girasol Sapling");
         builder.add(ModBlocks.GIRASOL_SAPLING_POTTED, "Potted Girasol Sapling");
+        builder.add(ModBlocks.ESSTLINE_BLOCK, "Esstline Block");
+        builder.add(ModBlocks.NEPHRITE_BLOCK, "Nephrite Block");
+        builder.add(ModBlocks.CARVED_SMOOTH_NEPHRITE, "Carved Smooth Nephrite");
+        builder.add(ModBlocks.CARVED_ANTLERED_NEPHRITE, "Carved Antlered Nephrite");
+        builder.add(ModBlocks.CARVED_NEPHRITE_PILLAR, "Carved Nephrite Pillar");
+        builder.add(ModBlocks.POLISHED_CARVED_NEPHRITE, "Polished Carved Nephrite");
+        builder.add(ModBlocks.CARVED_NEPHRITE_TILES, "Carved Nephrite Tiles");
+        builder.add(ModBlocks.CARVED_WOODY_NEPHRITE, "Carved Woody Nephrite");
 
         // ITEMS
 
@@ -94,8 +102,6 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add(ModItems.AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE, "Aylythian Upgrade Smithing Template");
         builder.add(ModItems.ESSTLINE, "Esstline");
         builder.add(ModItems.NEPHRITE, "Nephrite");
-        builder.add(ModItems.NEPHRITE_BLOCK, "Nephrite Block");
-        builder.add(ModItems.CARVED_SMOOTH_NEPHRITE, "Carved Smooth Nephrite");
         builder.add(ModItems.NEPHRITE_SWORD, "Nephrite Sword");
         builder.add(ModItems.NEPHRITE_SHOVEL, "Nephrite Shovel");
         builder.add(ModItems.NEPHRITE_PICKAXE, "Nephrite Pickaxe");

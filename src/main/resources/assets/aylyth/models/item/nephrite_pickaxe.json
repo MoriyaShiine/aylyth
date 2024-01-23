@@ -1,6 +1,6 @@
 {
   "parent": "item/handheld",
   "textures": {
-	"layer0": "aylyth:nephrite_pickaxe"
+	"layer0": "aylyth:item/nephrite_pickaxe"
   }
 }

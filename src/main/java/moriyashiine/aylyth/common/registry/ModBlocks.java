@@ -111,8 +111,8 @@ public class ModBlocks {
 	public static final Block NEPHRITE_BLOCK = register("nephrite_block", new Block(copyOf(Blocks.DIAMOND_BLOCK).mapColor(MapColor.PALE_GREEN)));
 
 	public static final Block CARVED_SMOOTH_NEPHRITE = register("carved_smooth_nephrite", new Block(copyOf(Blocks.DIAMOND_BLOCK).mapColor(MapColor.PALE_GREEN)));
-	public static final Block ANTLERED_CARVED_NEPHRITE = register("antlered_carved_nephrite", new Block(copyOf(Blocks.DIAMOND_BLOCK).mapColor(MapColor.PALE_GREEN)));
-	public static final Block CARVED_NEPHRITE_PILLAR = register("carved_nephrite_pillar", new Block(copyOf(Blocks.DIAMOND_BLOCK).mapColor(MapColor.PALE_GREEN)));
+	public static final Block CARVED_ANTLERED_NEPHRITE = register("carved_antlered_nephrite", new Block(copyOf(Blocks.DIAMOND_BLOCK).mapColor(MapColor.PALE_GREEN)));
+	public static final Block CARVED_NEPHRITE_PILLAR = register("carved_nephrite_pillar", new PillarBlock(copyOf(Blocks.DIAMOND_BLOCK).mapColor(MapColor.PALE_GREEN)));
 	public static final Block POLISHED_CARVED_NEPHRITE = register("polished_carved_nephrite", new Block(copyOf(Blocks.DIAMOND_BLOCK).mapColor(MapColor.PALE_GREEN)));
 	public static final Block CARVED_NEPHRITE_TILES = register("carved_nephrite_tiles", new Block(copyOf(Blocks.DIAMOND_BLOCK).mapColor(MapColor.PALE_GREEN)));
 	public static final Block CARVED_WOODY_NEPHRITE = register("carved_woody_nephrite", new Block(copyOf(Blocks.DIAMOND_BLOCK).mapColor(MapColor.PALE_GREEN)));

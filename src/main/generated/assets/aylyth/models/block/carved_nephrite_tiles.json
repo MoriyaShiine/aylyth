@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "aylyth:block/carved_nephrite_tiles"
+  }
+}

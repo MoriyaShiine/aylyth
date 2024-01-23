@@ -77,7 +77,7 @@ public class ModItems {
 	public static final Item ESSTLINE_BLOCK = register("esstline_block", new BlockItem(ModBlocks.ESSTLINE_BLOCK, settings()));
 	public static final Item NEPHRITE_BLOCK = register("nephrite_block", new BlockItem(ModBlocks.NEPHRITE_BLOCK, settings()));
 	public static final Item CARVED_SMOOTH_NEPHRITE = register("carved_smooth_nephrite", new BlockItem(ModBlocks.CARVED_SMOOTH_NEPHRITE, settings()));
-	public static final Item ANTLERED_CARVED_NEPHRITE = register("antlered_carved_nephrite", new BlockItem(ModBlocks.ANTLERED_CARVED_NEPHRITE, settings()));
+	public static final Item CARVED_ANTLERED_NEPHRITE = register("carved_antlered_nephrite", new BlockItem(ModBlocks.CARVED_ANTLERED_NEPHRITE, settings()));
 	public static final Item CARVED_NEPHRITE_PILLAR = register("carved_nephrite_pillar", new BlockItem(ModBlocks.CARVED_NEPHRITE_PILLAR, settings()));
 	public static final Item POLISHED_CARVED_NEPHRITE = register("polished_carved_nephrite", new BlockItem(ModBlocks.POLISHED_CARVED_NEPHRITE, settings()));
 	public static final Item CARVED_NEPHRITE_TILES = register("carved_nephrite_tiles", new BlockItem(ModBlocks.CARVED_NEPHRITE_TILES, settings()));

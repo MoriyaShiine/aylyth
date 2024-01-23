@@ -8,10 +8,10 @@ import moriyashiine.aylyth.common.registry.util.ItemWoodSuite;
 import moriyashiine.aylyth.datagen.recipe.YmpeDaggerRecipeJsonBuilder;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
-import net.minecraft.data.server.recipe.RecipeJsonProvider;
-import net.minecraft.data.server.recipe.RecipeProvider;
-import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
-import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder;
+import net.fabricmc.fabric.api.recipe.v1.ingredient.DefaultCustomIngredients;
+import net.fabricmc.fabric.impl.recipe.ingredient.builtin.DifferenceIngredient;
+import net.minecraft.block.Block;
+import net.minecraft.data.server.recipe.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
@@ -180,11 +180,12 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
         offerReversibleCompactingRecipesWithReverseRecipeGroup(exporter, RecipeCategory.MISC, ModItems.ESSTLINE, RecipeCategory.BUILDING_BLOCKS, ModItems.ESSTLINE_BLOCK, "esstline_from_esstline_block", "esstline");
         offerReversibleCompactingRecipesWithReverseRecipeGroup(exporter, RecipeCategory.MISC, ModItems.NEPHRITE, RecipeCategory.BUILDING_BLOCKS, ModItems.NEPHRITE_BLOCK, "nephrite_from_nephrite_block", "nephrite");
         createTwoByTwo(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CARVED_SMOOTH_NEPHRITE, 8, ModItems.NEPHRITE, "carved_smooth_nephrite");
-        offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.ANTLERED_CARVED_NEPHRITE, ModBlocks.CARVED_SMOOTH_NEPHRITE);
-        offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CARVED_NEPHRITE_PILLAR, ModBlocks.CARVED_SMOOTH_NEPHRITE);
-        offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_CARVED_NEPHRITE, ModBlocks.CARVED_SMOOTH_NEPHRITE);
-        offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CARVED_NEPHRITE_TILES, ModBlocks.CARVED_SMOOTH_NEPHRITE);
-        offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CARVED_WOODY_NEPHRITE, ModBlocks.CARVED_SMOOTH_NEPHRITE);
+        createStonecutting(exporter, ModItemTags.CARVED_NEPHRITE, ModBlocks.CARVED_SMOOTH_NEPHRITE, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CARVED_SMOOTH_NEPHRITE);
+        createStonecutting(exporter, ModItemTags.CARVED_NEPHRITE, ModBlocks.CARVED_SMOOTH_NEPHRITE, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CARVED_ANTLERED_NEPHRITE);
+        createStonecutting(exporter, ModItemTags.CARVED_NEPHRITE, ModBlocks.CARVED_SMOOTH_NEPHRITE, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CARVED_NEPHRITE_PILLAR);
+        createStonecutting(exporter, ModItemTags.CARVED_NEPHRITE, ModBlocks.CARVED_SMOOTH_NEPHRITE, RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_CARVED_NEPHRITE);
+        createStonecutting(exporter, ModItemTags.CARVED_NEPHRITE, ModBlocks.CARVED_SMOOTH_NEPHRITE, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CARVED_NEPHRITE_TILES);
+        createStonecutting(exporter, ModItemTags.CARVED_NEPHRITE, ModBlocks.CARVED_SMOOTH_NEPHRITE, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CARVED_WOODY_NEPHRITE);
 
         YmpeDaggerRecipeJsonBuilder.create(ModEntityTypes.WREATHED_HIND_ENTITY, ModItems.WRONGMEAT, 0.2f, 3, 5)
                 .offerTo(exporter);
@@ -205,6 +206,15 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
         createSignRecipe(suite.sign, Ingredient.ofItems(suite.planks)).group("wooden_sign").criterion(RecipeProvider.hasItem(suite.planks), conditionsFromItem(suite.planks)).offerTo(exporter);
         offerBoatRecipe(exporter, suite.boat, suite.planks);
         offerChestBoatRecipe(exporter, suite.chestBoat, suite.boat);
+    }
+
+    private void createStonecutting(Consumer<RecipeJsonProvider> exporter, TagKey<Item> inputTag, ItemConvertible baseItem, RecipeCategory recipeCategory, ItemConvertible output) {
+        SingleItemRecipeJsonBuilder.createStonecutting(DefaultCustomIngredients.difference(Ingredient.fromTag(inputTag), Ingredient.ofItems(output)), recipeCategory, output)
+        .criterion(RecipeProvider.hasItem(baseItem), RecipeProvider.conditionsFromItem(baseItem)).offerTo(exporter, convertBetweenTag(output, inputTag) + "_stonecutting");
+    }
+
+    private String convertBetweenTag(ItemConvertible to, TagKey<Item> from) {
+        return RecipeProvider.getItemPath(to) + "_from_" + from.id().getPath();
     }
 
     private void createTwoByTwo(Consumer<RecipeJsonProvider> exporter, RecipeCategory category, ItemConvertible output, int outputCount, ItemConvertible input, String recipeId) {

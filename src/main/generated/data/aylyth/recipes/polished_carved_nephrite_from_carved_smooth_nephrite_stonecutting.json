@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 1,
-  "ingredient": {
-    "item": "aylyth:carved_smooth_nephrite"
-  },
-  "result": "aylyth:polished_carved_nephrite"
-}

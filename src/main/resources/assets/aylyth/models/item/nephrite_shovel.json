@@ -1,6 +1,6 @@
 {
   "parent": "item/handheld",
   "textures": {
-	"layer0": "aylyth:nephrite_shovel"
+	"layer0": "aylyth:item/nephrite_shovel"
   }
 }

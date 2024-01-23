@@ -1,6 +1,7 @@
 package moriyashiine.aylyth.common.registry.tag;
 
 import moriyashiine.aylyth.common.Aylyth;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.block.Block;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
@@ -16,4 +17,5 @@ public class ModBlockTags {
     public static final TagKey<Block> SCION_REPELLENT = TagKey.of(RegistryKeys.BLOCK, new Identifier(Aylyth.MOD_ID, "scion_repellent"));
     public static final TagKey<Block> WOODY_GROWTHS = TagKey.of(RegistryKeys.BLOCK, new Identifier(Aylyth.MOD_ID, "woody_growths"));
     public static final TagKey<Block> WOODY_GROWTHS_GENERATE_ON = TagKey.of(RegistryKeys.BLOCK, new Identifier(Aylyth.MOD_ID, "woody_growths_generate_on"));
+    public static final TagKey<Block> CARVED_NEPHRITE = TagKey.of(RegistryKeys.BLOCK, AylythUtil.id("carved_nephrite"));
 }

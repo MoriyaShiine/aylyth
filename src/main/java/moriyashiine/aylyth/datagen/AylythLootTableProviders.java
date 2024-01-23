@@ -69,6 +69,15 @@ public class AylythLootTableProviders {
             addDrop(ModBlocks.SEEPING_WOOD);
             addDrop(ModBlocks.SEEPING_WOOD_SEEP);
             addDrop(ModBlocks.GIRASOL_SAPLING);
+            addDrop(ModBlocks.ESSTLINE_BLOCK);
+            addDrop(ModBlocks.NEPHRITE_BLOCK);
+            addDrop(ModBlocks.CARVED_SMOOTH_NEPHRITE);
+            addDrop(ModBlocks.CARVED_ANTLERED_NEPHRITE);
+            addDrop(ModBlocks.CARVED_NEPHRITE_PILLAR);
+            addDrop(ModBlocks.POLISHED_CARVED_NEPHRITE);
+            addDrop(ModBlocks.CARVED_NEPHRITE_TILES);
+            addDrop(ModBlocks.CARVED_WOODY_NEPHRITE);
+
         }
 
         private void woodSuiteDrops(WoodSuite suite) {
