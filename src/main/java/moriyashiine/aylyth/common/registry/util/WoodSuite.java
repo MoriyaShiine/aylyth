@@ -111,7 +111,7 @@ public class WoodSuite {
                 button, trapdoor, door, floorSign, wallSign, woodType);
     }
 
-    public void register() {
+    public WoodSuite register() {
         Registry.register(blockRegistry, idFor("stripped_%s_log"), strippedLog);
         Registry.register(blockRegistry, idFor("stripped_%s_wood"), strippedWood);
         Registry.register(blockRegistry, idFor("%s_log"), log);
@@ -129,6 +129,7 @@ public class WoodSuite {
         Registry.register(blockRegistry, idFor("%s_door"), door);
         Registry.register(blockRegistry, idFor("%s_sign"), floorSign);
         Registry.register(blockRegistry, idFor("%s_wall_sign"), wallSign);
+        return this;
     }
 
     public BlockSettingsSet getBlockSettingsSet() {
