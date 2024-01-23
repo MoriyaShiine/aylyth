@@ -33,10 +33,11 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
     public void generate(Consumer<RecipeJsonProvider> exporter) {
         offerSingleOutputShapelessRecipe(exporter, Items.ORANGE_DYE, ModItems.MARIGOLD, "");
         createTwoByTwo(exporter, RecipeCategory.DECORATIONS, Items.SHROOMLIGHT, 1, ModItems.JACK_O_LANTERN_MUSHROOM, "shroomlight_from_jack_o_lantern_mushroom");
-        woodSuiteRecipes(exporter, ModItems.POMEGRANATE_ITEMS, ModItemTags.POMEGRANATE_LOGS_ITEM);
-        woodSuiteRecipes(exporter, ModItems.WRITHEWOOD_ITEMS, ModItemTags.WRITHEWOOD_LOGS_ITEM);
+        woodSuiteRecipes(exporter, ModItems.POMEGRANATE_ITEMS, ModItemTags.POMEGRANATE_LOGS);
+        woodSuiteRecipes(exporter, ModItems.WRITHEWOOD_ITEMS, ModItemTags.WRITHEWOOD_LOGS);
         offerShapeless(exporter, RecipeCategory.MISC, ModItems.GHOSTCAP_MUSHROOM_SPORES, 1, ModItems.GHOSTCAP_MUSHROOM, null);
         offerChestBoatRecipe(exporter, ModItems.YMPE_ITEMS.chestBoat, ModItems.YMPE_ITEMS.boat);
+
 
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModBlocks.DARK_WOODS_TILES, 8)
@@ -130,6 +131,60 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
                 .pattern("G G")
                 .criterion("has_heart", conditionsFromItem(ModItems.AYLYTHIAN_HEART))
                 .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.NEPHRITE_SWORD)
+                .input('N', ModItems.NEPHRITE)
+                .input('S', Items.STICK)
+                .pattern("N")
+                .pattern("N")
+                .pattern("S")
+                .criterion("has_nephrite", conditionsFromItem(ModItems.NEPHRITE))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.NEPHRITE_SHOVEL)
+                .input('N', ModItems.NEPHRITE)
+                .input('S', Items.STICK)
+                .pattern("N")
+                .pattern("S")
+                .pattern("S")
+                .criterion("has_nephrite", conditionsFromItem(ModItems.NEPHRITE))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.NEPHRITE_PICKAXE)
+                .input('N', ModItems.NEPHRITE)
+                .input('S', Items.STICK)
+                .pattern("NNN")
+                .pattern(" S ")
+                .pattern(" S ")
+                .criterion("has_nephrite", conditionsFromItem(ModItems.NEPHRITE))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.NEPHRITE_AXE)
+                .input('N', ModItems.NEPHRITE)
+                .input('S', Items.STICK)
+                .pattern("NN")
+                .pattern("NS")
+                .pattern(" S")
+                .criterion("has_nephrite", conditionsFromItem(ModItems.NEPHRITE))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.NEPHRITE_HOE)
+                .input('N', ModItems.NEPHRITE)
+                .input('S', Items.STICK)
+                .pattern("NN")
+                .pattern(" S")
+                .pattern(" S")
+                .criterion("has_nephrite", conditionsFromItem(ModItems.NEPHRITE))
+                .offerTo(exporter);
+
+        offerReversibleCompactingRecipesWithReverseRecipeGroup(exporter, RecipeCategory.MISC, ModItems.ESSTLINE, RecipeCategory.BUILDING_BLOCKS, ModItems.ESSTLINE_BLOCK, "esstline_from_esstline_block", "esstline");
+        offerReversibleCompactingRecipesWithReverseRecipeGroup(exporter, RecipeCategory.MISC, ModItems.NEPHRITE, RecipeCategory.BUILDING_BLOCKS, ModItems.NEPHRITE_BLOCK, "nephrite_from_nephrite_block", "nephrite");
+        createTwoByTwo(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CARVED_SMOOTH_NEPHRITE, 8, ModItems.NEPHRITE, "carved_smooth_nephrite");
+        offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.ANTLERED_CARVED_NEPHRITE, ModBlocks.CARVED_SMOOTH_NEPHRITE);
+        offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CARVED_NEPHRITE_PILLAR, ModBlocks.CARVED_SMOOTH_NEPHRITE);
+        offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_CARVED_NEPHRITE, ModBlocks.CARVED_SMOOTH_NEPHRITE);
+        offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CARVED_NEPHRITE_TILES, ModBlocks.CARVED_SMOOTH_NEPHRITE);
+        offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CARVED_WOODY_NEPHRITE, ModBlocks.CARVED_SMOOTH_NEPHRITE);
 
         YmpeDaggerRecipeJsonBuilder.create(ModEntityTypes.WREATHED_HIND_ENTITY, ModItems.WRONGMEAT, 0.2f, 3, 5)
                 .offerTo(exporter);

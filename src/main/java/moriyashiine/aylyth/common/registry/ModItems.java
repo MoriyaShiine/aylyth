@@ -64,14 +64,30 @@ public class ModItems {
 	public static final Item DARK_OAK_SEEP = register("dark_oak_seep", new BlockItem(ModBlocks.DARK_OAK_SEEP, settings()));
 	public static final Item YMPE_SEEP = register("ympe_seep", new BlockItem(ModBlocks.YMPE_SEEP, settings()));
 	public static final Item SEEPING_WOOD_SEEP = register("seeping_wood_seep", new BlockItem(ModBlocks.SEEPING_WOOD_SEEP, settings()));
-	public static final Item AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE = register("aylythian_upgrade_smithing_template", new Item(new FabricItemSettings()));
-	public static final Item ESSTLINE = register("esstline", new Item(new FabricItemSettings()));
 
-	public static final Item NEPHRITE = register("nephrite", new Item(new FabricItemSettings()));
 //	public static final Item MYSTERIOUS_SKETCH = register("mysterious_sketch", new Item(new FabricItemSettings()));
 
 	public static final Item YMPE_DAGGER = register("ympe_dagger", new YmpeDaggerItem(ToolMaterials.NETHERITE, 1, -2, settings()));
 	public static final Item YMPE_LANCE = register("ympe_lance", new YmpeLanceItem(312, settings()));
+
+	public static final Item AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE = register("aylythian_upgrade_smithing_template", new Item(new FabricItemSettings()));
+	public static final Item ESSTLINE = register("esstline", new Item(new FabricItemSettings()));
+	public static final Item NEPHRITE = register("nephrite", new Item(new FabricItemSettings()));
+
+	public static final Item ESSTLINE_BLOCK = register("esstline_block", new BlockItem(ModBlocks.ESSTLINE_BLOCK, settings()));
+	public static final Item NEPHRITE_BLOCK = register("nephrite_block", new BlockItem(ModBlocks.NEPHRITE_BLOCK, settings()));
+	public static final Item CARVED_SMOOTH_NEPHRITE = register("carved_smooth_nephrite", new BlockItem(ModBlocks.CARVED_SMOOTH_NEPHRITE, settings()));
+	public static final Item ANTLERED_CARVED_NEPHRITE = register("antlered_carved_nephrite", new BlockItem(ModBlocks.ANTLERED_CARVED_NEPHRITE, settings()));
+	public static final Item CARVED_NEPHRITE_PILLAR = register("carved_nephrite_pillar", new BlockItem(ModBlocks.CARVED_NEPHRITE_PILLAR, settings()));
+	public static final Item POLISHED_CARVED_NEPHRITE = register("polished_carved_nephrite", new BlockItem(ModBlocks.POLISHED_CARVED_NEPHRITE, settings()));
+	public static final Item CARVED_NEPHRITE_TILES = register("carved_nephrite_tiles", new BlockItem(ModBlocks.CARVED_NEPHRITE_TILES, settings()));
+	public static final Item CARVED_WOODY_NEPHRITE = register("carved_woody_nephrite", new BlockItem(ModBlocks.CARVED_WOODY_NEPHRITE, settings()));
+
+	public static final Item NEPHRITE_SWORD = register("nephrite_sword", new SwordItem(ModToolMaterials.NEPHRITE, 4, -2.4f, settings()));
+	public static final Item NEPHRITE_SHOVEL = register("nephrite_shovel", new ShovelItem(ModToolMaterials.NEPHRITE, 2.5f, -3.0f, settings()));
+	public static final Item NEPHRITE_PICKAXE = register("nephrite_pickaxe", new PickaxeItem(ModToolMaterials.NEPHRITE, 2, -2.8f, settings()));
+	public static final Item NEPHRITE_AXE = register("nephrite_axe", new AxeItem(ModToolMaterials.NEPHRITE, 6, -3.0f, settings()));
+	public static final Item NEPHRITE_HOE = register("nephrite_hoe", new HoeItem(ModToolMaterials.NEPHRITE, -2, 0f, settings()));
 
 	public static final Item YMPE_CUIRASS = register("ympe_cuirass", new YmpeCuirassItem(settings()));
 
@@ -95,8 +111,6 @@ public class ModItems {
 	public static final Item FAUNAYLYTHIAN_SPAWN_EGG = register("faunaylythian_spawn_egg", new SpawnEggItem(ModEntityTypes.FAUNAYLYTHIAN, 0x6A4831, 0xE1AC20, settings()));
 	public static final Item ELDER_AYLYTHIAN_SPAWN_EGG = register("elder_aylythian_spawn_egg", new SpawnEggItem(ModEntityTypes.ELDER_AYLYTHIAN, 0x513425, 0xFFDC9B, settings()));
 	public static final Item WREATHED_HIND_SPAWN_EGG = register("wreathed_hind_spawn_egg", new SpawnEggItem(ModEntityTypes.WREATHED_HIND_ENTITY, 0x5C4F42, 0xE1B886, settings()));
-
-
 
 	public static final Item YMPE_EFFIGY_ITEM = register("ympe_effigy", new YmpeEffigyItem((settings()).fireproof().rarity(Rarity.RARE).maxCount(1)));
 	public static final Item YMPE_GLAIVE = register("ympe_glaive", new YmpeGlaiveItem(4, -3.1F, (settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(1)));

@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_carved_smooth_nephrite": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "aylyth:carved_smooth_nephrite"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:carved_nephrite_pillar_from_carved_smooth_nephrite_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_carved_smooth_nephrite",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:carved_nephrite_pillar_from_carved_smooth_nephrite_stonecutting"
+    ]
+  },
+  "sends_telemetry_event": false
+}

@@ -61,6 +61,7 @@ public class AylythTagProviders {
             getOrCreateTagBuilder(BlockTags.LEAVES).add(ModBlocks.YMPE_LEAVES, ModBlocks.POMEGRANATE_LEAVES, ModBlocks.WRITHEWOOD_LEAVES);
             getOrCreateTagBuilder(ModBlockTags.WOODY_GROWTHS_GENERATE_ON).add(Blocks.MUD);
             getOrCreateTagBuilder(BlockTags.LOGS_THAT_BURN).add(ModBlocks.SEEPING_WOOD);
+            getOrCreateTagBuilder(BlockTags.BEACON_BASE_BLOCKS).add(ModBlocks.ESSTLINE_BLOCK, ModBlocks.NEPHRITE_BLOCK);
         }
 
         private void addSuite(WoodSuite suite, TagKey<Block> logTag) {
@@ -94,9 +95,9 @@ public class AylythTagProviders {
             getOrCreateTagBuilder(ItemTags.BOATS).add(ModItems.YMPE_ITEMS.boat, ModItems.POMEGRANATE_ITEMS.boat, ModItems.WRITHEWOOD_ITEMS.boat);
             getOrCreateTagBuilder(ItemTags.CHEST_BOATS).add(ModItems.YMPE_ITEMS.chestBoat, ModItems.POMEGRANATE_ITEMS.chestBoat, ModItems.WRITHEWOOD_ITEMS.chestBoat);
             getOrCreateTagBuilder(ModItemTags.YMPE_FOODS).add(ModItems.YMPE_FRUIT);
-            copy(ModBlockTags.YMPE_LOGS, ModItemTags.YMPE_LOGS_ITEM);
-            copy(ModBlockTags.POMEGRANATE_LOGS, ModItemTags.POMEGRANATE_LOGS_ITEM);
-            copy(ModBlockTags.WRITHEWOOD_LOGS, ModItemTags.WRITHEWOOD_LOGS_ITEM);
+            copy(ModBlockTags.YMPE_LOGS, ModItemTags.YMPE_LOGS);
+            copy(ModBlockTags.POMEGRANATE_LOGS, ModItemTags.POMEGRANATE_LOGS);
+            copy(ModBlockTags.WRITHEWOOD_LOGS, ModItemTags.WRITHEWOOD_LOGS);
             copy(BlockTags.LOGS_THAT_BURN, ItemTags.LOGS_THAT_BURN);
             copy(BlockTags.PLANKS, ItemTags.PLANKS);
             copy(BlockTags.WOODEN_STAIRS, ItemTags.WOODEN_STAIRS);
@@ -109,9 +110,10 @@ public class AylythTagProviders {
             copy(BlockTags.STANDING_SIGNS, ItemTags.SIGNS);
             copy(BlockTags.LEAVES, ItemTags.LEAVES);
             copy(BlockTags.SAPLINGS, ItemTags.SAPLINGS);
-            copy(ModBlockTags.WOODY_GROWTHS, ModItemTags.WOODY_GROWTHS_ITEM);
-            copy(ModBlockTags.SEEPS, ModItemTags.SEEP_ITEMS);
+            copy(ModBlockTags.WOODY_GROWTHS, ModItemTags.WOODY_GROWTHS);
+            copy(ModBlockTags.SEEPS, ModItemTags.SEEPS);
             getOrCreateTagBuilder(ModItemTags.PLEDGE_ITEMS).add(ModItems.NYSIAN_GRAPES);
+            getOrCreateTagBuilder(ModItemTags.NEPHRITE_REPAIR_ITEMS).add(ModItems.NEPHRITE);
         }
     }
 

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": {
+      "item": "aylyth:nephrite"
+    }
+  },
+  "pattern": [
+    "## ",
+    "## "
+  ],
+  "result": {
+    "count": 8,
+    "item": "aylyth:carved_smooth_nephrite"
+  },
+  "show_notification": true
+}

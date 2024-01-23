@@ -93,6 +93,14 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add(ModItems.GIRASOL_SEED, "Girasol Seed");
         builder.add(ModItems.AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE, "Aylythian Upgrade Smithing Template");
         builder.add(ModItems.ESSTLINE, "Esstline");
+        builder.add(ModItems.NEPHRITE, "Nephrite");
+        builder.add(ModItems.NEPHRITE_BLOCK, "Nephrite Block");
+        builder.add(ModItems.CARVED_SMOOTH_NEPHRITE, "Carved Smooth Nephrite");
+        builder.add(ModItems.NEPHRITE_SWORD, "Nephrite Sword");
+        builder.add(ModItems.NEPHRITE_SHOVEL, "Nephrite Shovel");
+        builder.add(ModItems.NEPHRITE_PICKAXE, "Nephrite Pickaxe");
+        builder.add(ModItems.NEPHRITE_AXE, "Nephrite Axe");
+        builder.add(ModItems.NEPHRITE_HOE, "Nephrite Hoe");
         potionSet(builder, "mortechis");
         potionSet(builder, "cimmerian");
         potionSet(builder, "wyrded");

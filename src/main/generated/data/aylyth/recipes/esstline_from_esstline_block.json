@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "esstline",
+  "ingredients": [
+    {
+      "item": "aylyth:esstline_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "item": "aylyth:esstline"
+  }
+}
