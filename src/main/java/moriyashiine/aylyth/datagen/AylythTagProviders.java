@@ -30,10 +30,14 @@ public class AylythTagProviders {
 
         @Override
         protected void configure(RegistryWrapper.WrapperLookup registries) {
-            getOrCreateTagBuilder(ConventionalBiomeTags.FOREST).add(ModBiomeKeys.OVERGROWN_CLEARING_ID, ModBiomeKeys.COPSE_ID, ModBiomeKeys.DEEPWOOD_ID);
-            getOrCreateTagBuilder(ConventionalBiomeTags.TAIGA).add(ModBiomeKeys.CONIFEROUS_COPSE_ID, ModBiomeKeys.CONIFEROUS_DEEPWOOD_ID, ModBiomeKeys.DEEPWOOD_ID);
+            getOrCreateTagBuilder(ConventionalBiomeTags.FOREST).add(ModBiomeKeys.OVERGROWN_CLEARING, ModBiomeKeys.COPSE, ModBiomeKeys.DEEPWOOD);
+            getOrCreateTagBuilder(ConventionalBiomeTags.TAIGA).add(ModBiomeKeys.CONIFEROUS_COPSE, ModBiomeKeys.CONIFEROUS_DEEPWOOD, ModBiomeKeys.DEEPWOOD);
+            getOrCreateTagBuilder(ModBiomeTags.IS_CLEARING).add(ModBiomeKeys.CLEARING, ModBiomeKeys.OVERGROWN_CLEARING);
+            getOrCreateTagBuilder(ModBiomeTags.IS_COPSE).add(ModBiomeKeys.COPSE, ModBiomeKeys.CONIFEROUS_COPSE);
+            getOrCreateTagBuilder(ModBiomeTags.IS_DEEPWOOD).add(ModBiomeKeys.DEEPWOOD, ModBiomeKeys.CONIFEROUS_DEEPWOOD);
+            getOrCreateTagBuilder(ModBiomeTags.IS_CONIFEROUS).add(ModBiomeKeys.CONIFEROUS_COPSE, ModBiomeKeys.CONIFEROUS_DEEPWOOD);
             getOrCreateTagBuilder(ModBiomeTags.GENERATES_SEEP).addOptionalTag(ConventionalBiomeTags.FOREST).addOptionalTag(ConventionalBiomeTags.TAIGA);
-            getOrCreateTagBuilder(BiomeTags.HAS_CLOSER_WATER_FOG).add(ModBiomeKeys.MIRE_ID);
+            getOrCreateTagBuilder(BiomeTags.HAS_CLOSER_WATER_FOG).add(ModBiomeKeys.MIRE);
         }
     }
 

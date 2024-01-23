@@ -49,13 +49,13 @@ public class AylythDimensionRenderer {
 		}
 	}
 
-	public static void determineConditions(ClientWorld world, RegistryEntry<Biome> biome) {
+	public static void determineConditions(ClientWorld world, RegistryEntry<Biome> biome) {// TODO: Use tags
 		if (world.getRegistryKey() == ModDimensionKeys.AYLYTH) {
 			Identifier biomeId = world.getRegistryManager().get(RegistryKeys.BIOME).getId(biome.value());
-			if (biomeId == ModBiomeKeys.CLEARING_ID.getValue() || biomeId == ModBiomeKeys.UPLANDS_ID.getValue()) {
+			if (biomeId == ModBiomeKeys.CLEARING.getValue() || biomeId == ModBiomeKeys.UPLANDS.getValue()) {
 				goalFogStrength = 40;
 			}
-			else if (biomeId == ModBiomeKeys.OVERGROWN_CLEARING_ID.getValue()) {
+			else if (biomeId == ModBiomeKeys.OVERGROWN_CLEARING.getValue()) {
 				goalFogStrength = 24;
 			}
 			else {

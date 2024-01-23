@@ -20,18 +20,18 @@ public class AylythMaterialRules extends MaterialRules {
         var onReplaceWithGrass = condition(water(0, 0), grass);
         var commonPodzol = podzol(PODZOL_COMMON, 0.3, Double.MAX_VALUE);
         var rarePodzol = podzol(PODZOL_RARE, 0.95, Double.MAX_VALUE);
-        var podzolDecoCommon = sequence(condition(biome(ModBiomeKeys.DEEPWOOD_ID, ModBiomeKeys.CONIFEROUS_DEEPWOOD_ID), commonPodzol));
-        var podzolDecoRare = condition(biome(ModBiomeKeys.COPSE_ID, ModBiomeKeys.OVERGROWN_CLEARING_ID), rarePodzol);
+        var podzolDecoCommon = sequence(condition(biome(ModBiomeKeys.DEEPWOOD, ModBiomeKeys.CONIFEROUS_DEEPWOOD), commonPodzol));
+        var podzolDecoRare = condition(biome(ModBiomeKeys.COPSE, ModBiomeKeys.OVERGROWN_CLEARING), rarePodzol);
         var onSurface = condition(
                 stoneDepth(0, false, 0, VerticalSurfaceType.FLOOR),
                 condition(water(-1, 0),
                         sequence(podzolDecoCommon, podzolDecoRare, onReplaceWithGrass, dirt)
                 )
         );
-        var onUnderSurface = condition(not(biome(ModBiomeKeys.UPLANDS_ID)), condition(waterWithStoneDepth(-6, -1), condition(stoneDepth(0, true, 0, VerticalSurfaceType.FLOOR), dirt)));
+        var onUnderSurface = condition(not(biome(ModBiomeKeys.UPLANDS)), condition(waterWithStoneDepth(-6, -1), condition(stoneDepth(0, true, 0, VerticalSurfaceType.FLOOR), dirt)));
         var aboveBasicSurface = condition(surface(), sequence(onSurface, onUnderSurface));
         var bedrock = condition(verticalGradient("aylyth:bedrock_layer", YOffset.BOTTOM, YOffset.aboveBottom(5)), block(Blocks.BEDROCK));
-        var uplands = condition(biome(ModBiomeKeys.UPLANDS_ID), condition(surface(), condition(waterWithStoneDepth(-6, -1), uplandsTerracotta())));
+        var uplands = condition(biome(ModBiomeKeys.UPLANDS), condition(surface(), condition(waterWithStoneDepth(-6, -1), uplandsTerracotta())));
         return sequence(bedrock, bowels(), uplands, mire(), aboveBasicSurface);
     }
 
@@ -40,7 +40,7 @@ public class AylythMaterialRules extends MaterialRules {
     }
 
     static MaterialRule mire() {
-        return condition(biome(ModBiomeKeys.MIRE_ID), sequence(mireAroundLand(), mireUnderwaterMud()));
+        return condition(biome(ModBiomeKeys.MIRE), sequence(mireAroundLand(), mireUnderwaterMud()));
     }
 
     static MaterialRule mireAroundLand() {
@@ -52,7 +52,7 @@ public class AylythMaterialRules extends MaterialRules {
     }
 
     static MaterialRule bowels() {
-        return condition(biome(ModBiomeKeys.BOWELS_ID), sequence(condition(stoneDepth(0, false, 0, VerticalSurfaceType.FLOOR), condition(water(0, 0), noiseBlock(AylythNoiseTypes.BOWELS_SOUL_SAND, Blocks.SOUL_SAND, 0.6, Double.MAX_VALUE))), condition(waterWithStoneDepth(-6, -1), condition(stoneDepth(0, true, 0, VerticalSurfaceType.FLOOR), block(Blocks.SOUL_SOIL)))));
+        return condition(biome(ModBiomeKeys.BOWELS), sequence(condition(stoneDepth(0, false, 0, VerticalSurfaceType.FLOOR), condition(water(0, 0), noiseBlock(AylythNoiseTypes.BOWELS_SOUL_SAND, Blocks.SOUL_SAND, 0.6, Double.MAX_VALUE))), condition(waterWithStoneDepth(-6, -1), condition(stoneDepth(0, true, 0, VerticalSurfaceType.FLOOR), block(Blocks.SOUL_SOIL)))));
     }
 
     static MaterialRule podzol(RegistryKey<DoublePerlinNoiseSampler.NoiseParameters> noise, double min, double max) {

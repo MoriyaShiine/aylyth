@@ -90,15 +90,15 @@ public class ModBiomes {
 		var overgrownClearingAmbience = new BiomeAdditionsSound(sounds.getOrThrow(RegistryKey.of(RegistryKeys.SOUND_EVENT, ModSoundEvents.AMBIENT_FOREST_ADDITIONS.getId())), 0.001);
 		var forestAmbiance = new BiomeAdditionsSound(sounds.getOrThrow(RegistryKey.of(RegistryKeys.SOUND_EVENT, ModSoundEvents.AMBIENT_FOREST_ADDITIONS.getId())), 0.005);
 
-		context.register(CLEARING_ID, createClearing(false, SpawnSettingsBuilder.none(), overgrownClearingAmbience, placedFeatures, configuredCarvers));
-		context.register(OVERGROWN_CLEARING_ID, createClearing(true, SpawnSettingsBuilder.builder().ambient(ModEntityTypes.PILOT_LIGHT, 1, 1, 1).spawnChance(0.1F).build(), overgrownClearingAmbience, placedFeatures, configuredCarvers));
-		context.register(COPSE_ID, createForest(false, COPSE_MOBS, forestAmbiance, placedFeatures, configuredCarvers));
-		context.register(DEEPWOOD_ID, createForest(true, DEEPWOOD_MOBS, forestAmbiance, placedFeatures, configuredCarvers));
-		context.register(CONIFEROUS_COPSE_ID, createConiferousForest(false, COPSE_MOBS, forestAmbiance, placedFeatures, configuredCarvers));
-		context.register(CONIFEROUS_DEEPWOOD_ID, createConiferousForest(true, DEEPWOOD_MOBS, forestAmbiance, placedFeatures, configuredCarvers));
-		context.register(UPLANDS_ID, createUplands(UPLANDS_MOBS, placedFeatures, configuredCarvers));
-		context.register(MIRE_ID, createMire(MIRE_MOBS, placedFeatures, configuredCarvers));
-		context.register(BOWELS_ID, createBowels(BOWELS_MOBS, placedFeatures, configuredCarvers));
+		context.register(CLEARING, createClearing(false, SpawnSettingsBuilder.none(), overgrownClearingAmbience, placedFeatures, configuredCarvers));
+		context.register(OVERGROWN_CLEARING, createClearing(true, SpawnSettingsBuilder.builder().ambient(ModEntityTypes.PILOT_LIGHT, 1, 1, 1).spawnChance(0.1F).build(), overgrownClearingAmbience, placedFeatures, configuredCarvers));
+		context.register(COPSE, createForest(false, COPSE_MOBS, forestAmbiance, placedFeatures, configuredCarvers));
+		context.register(DEEPWOOD, createForest(true, DEEPWOOD_MOBS, forestAmbiance, placedFeatures, configuredCarvers));
+		context.register(CONIFEROUS_COPSE, createConiferousForest(false, COPSE_MOBS, forestAmbiance, placedFeatures, configuredCarvers));
+		context.register(CONIFEROUS_DEEPWOOD, createConiferousForest(true, DEEPWOOD_MOBS, forestAmbiance, placedFeatures, configuredCarvers));
+		context.register(UPLANDS, createUplands(UPLANDS_MOBS, placedFeatures, configuredCarvers));
+		context.register(MIRE, createMire(MIRE_MOBS, placedFeatures, configuredCarvers));
+		context.register(BOWELS, createBowels(BOWELS_MOBS, placedFeatures, configuredCarvers));
 	}
 	
 	private static Biome createClearing(boolean overgrown, SpawnSettings spawnSettings, BiomeAdditionsSound overgrownClearingAmbience, RegistryEntryLookup<PlacedFeature> placedFeatures, RegistryEntryLookup<ConfiguredCarver<?>> configuredCarvers) {
