@@ -175,34 +175,34 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
 
         // SUBTITLES
 
-        builder.add("aylyth.subtitles.block.ympe_log.pick_fruit", "Fruit picked");
-        builder.add("aylyth.subtitles.entity.player.increase_ympe_infestation_stage", "Branches spread");
-        builder.add("aylyth.subtitles.entity.generic.shucked", "Entity shucked");
-        builder.add("aylyth.subtitles.entity.aylythian.ambient", "Aylythian groans");
-        builder.add("aylyth.subtitles.entity.aylythian.hurt", "Aylythian hurts");
-        builder.add("aylyth.subtitles.entity.aylythian.death", "Aylythian dies");
-        builder.add("aylyth.subtitles.entity.faunaylythian.ambient", "Faunaylythian snarls");
-        builder.add("aylyth.subtitles.entity.faunaylythian.hurt", "Faunaylythian hurts");
-        builder.add("aylyth.subtitles.entity.faunaylythian.death", "Faunaylythian dies");
-        builder.add("aylyth.subtitles.entity.elder_aylythian.ambient", "Elder Aylythian rumbles");
-        builder.add("aylyth.subtitles.entity.elder_aylythian.hurt", "Elder Aylythian hurts");
-        builder.add("aylyth.subtitles.entity.elder_aylythian.death", "Elder Aylythian dies");
-        builder.add("aylyth.subtitles.entity.soulmould.ambient", "Soulmould groans");
-        builder.add("aylyth.subtitles.entity.soulmould.attack", "Soulmould attack");
-        builder.add("aylyth.subtitles.entity.soulmould.damage", "Soulmould hurt");
-        builder.add("aylyth.subtitles.entity.soulmould.death", "Soulmould dies");
-        builder.add("aylyth.subtitles.block.stick_break", "Stick cracks");
-        builder.add("aylyth.subtitles.block.strewn_leaves.step", "Leaves crunch");
-        builder.add("aylyth.subtitles.block.strewn_leaves.pile_destroy", "Leaves scatter");
-        builder.add("aylyth.subtitles.block.strewn_leaves.pile_step", "Leaf pile crunches");
+        builder.add("subtitles.aylyth.block.ympe_log.pick_fruit", "Fruit picked");
+        builder.add("subtitles.aylyth.entity.player.increase_ympe_infestation_stage", "Branches spread");
+        builder.add("subtitles.aylyth.entity.generic.shucked", "Entity shucked");
+        builder.add("subtitles.aylyth.entity.aylythian.ambient", "Aylythian groans");
+        builder.add("subtitles.aylyth.entity.aylythian.hurt", "Aylythian hurts");
+        builder.add("subtitles.aylyth.entity.aylythian.death", "Aylythian dies");
+        builder.add("subtitles.aylyth.entity.faunaylythian.ambient", "Faunaylythian snarls");
+        builder.add("subtitles.aylyth.entity.faunaylythian.hurt", "Faunaylythian hurts");
+        builder.add("subtitles.aylyth.entity.faunaylythian.death", "Faunaylythian dies");
+        builder.add("subtitles.aylyth.entity.elder_aylythian.ambient", "Elder Aylythian rumbles");
+        builder.add("subtitles.aylyth.entity.elder_aylythian.hurt", "Elder Aylythian hurts");
+        builder.add("subtitles.aylyth.entity.elder_aylythian.death", "Elder Aylythian dies");
+        builder.add("subtitles.aylyth.entity.soulmould.ambient", "Soulmould groans");
+        builder.add("subtitles.aylyth.entity.soulmould.attack", "Soulmould attack");
+        builder.add("subtitles.aylyth.entity.soulmould.damage", "Soulmould hurt");
+        builder.add("subtitles.aylyth.entity.soulmould.death", "Soulmould dies");
+        builder.add("subtitles.aylyth.block.stick_break", "Stick cracks");
+        builder.add("subtitles.aylyth.block.strewn_leaves.step", "Leaves crunch");
+        builder.add("subtitles.aylyth.block.strewn_leaves.pile_destroy", "Leaves scatter");
+        builder.add("subtitles.aylyth.block.strewn_leaves.pile_step", "Leaf pile crunches");
 
-        builder.add("aylyth.subtitles.entity.wreathed_hind.ambient", "Wreathed Hind groans");
-        builder.add("aylyth.subtitles.entity.wreathed_hind.hurt", "Wreathed Hind hurt");
-        builder.add("aylyth.subtitles.entity.wreathed_hind.death", "Wreathed Hind dies");
+        builder.add("subtitles.aylyth.entity.wreathed_hind.ambient", "Wreathed Hind groans");
+        builder.add("subtitles.aylyth.entity.wreathed_hind.hurt", "Wreathed Hind hurt");
+        builder.add("subtitles.aylyth.entity.wreathed_hind.death", "Wreathed Hind dies");
 
-        builder.add("aylyth.subtitles.entity.scion.ambient", "Scion groans");
-        builder.add("aylyth.subtitles.entity.scion.hurt", "Scion hurt");
-        builder.add("aylyth.subtitles.entity.scion.death", "Scion dies");
+        builder.add("subtitles.aylyth.entity.scion.ambient", "Scion groans");
+        builder.add("subtitles.aylyth.entity.scion.hurt", "Scion hurt");
+        builder.add("subtitles.aylyth.entity.scion.death", "Scion dies");
 
         // INFO
 

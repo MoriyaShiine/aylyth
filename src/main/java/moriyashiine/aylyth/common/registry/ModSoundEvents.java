@@ -6,6 +6,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -19,7 +20,14 @@ public class ModSoundEvents {
 
 	public static final RegistryEntry<SoundEvent> ENTITY_PLAYER_INCREASE_YMPE_INFESTATION_STAGE = register("entity.player.increase_ympe_infestation_stage");
 	public static final RegistryEntry<SoundEvent> ENTITY_GENERIC_SHUCKED = register( "entity.generic.shucked");
-	
+
+	public static final RegistryEntry<SoundEvent> AMBIENT_FOREST_ADDITIONS = register("ambient.forest.additions");
+
+	public static final RegistryEntry<SoundEvent> AMBIENT_MUSIC = register("music.aylyth.ambient");
+	public static final RegistryEntry<SoundEvent> BOSS_FIGHT = register("music.aylyth.boss.fight");
+	public static final RegistryEntry<SoundEvent> BOSS_FIGHT_VICTORY = register("music.aylyth.boss.victory");
+	public static final RegistryEntry<SoundEvent> MUSIC_DISC = register("music_disc.aylyth.pomegranate");
+
 	public static final RegistryEntry<SoundEvent> ENTITY_AYLYTHIAN_AMBIENT = register( "entity.aylythian.ambient");
 	public static final RegistryEntry<SoundEvent> ENTITY_AYLYTHIAN_HURT = register("entity.aylythian.hurt");
 	public static final RegistryEntry<SoundEvent> ENTITY_AYLYTHIAN_DEATH = register( "entity.aylythian.death");
@@ -28,8 +36,6 @@ public class ModSoundEvents {
 	public static final RegistryEntry<SoundEvent> ENTITY_ELDER_AYLYTHIAN_HURT = register( "entity.elder_aylythian.hurt");
 	public static final RegistryEntry<SoundEvent> ENTITY_ELDER_AYLYTHIAN_DEATH = register( "entity.elder_aylythian.death");
 	
-	public static final RegistryEntry<SoundEvent> AMBIENT_FOREST_ADDITIONS = register("ambient.forest.additions");
-
 	public static final RegistryEntry<SoundEvent> ENTITY_SOULMOULD_AMBIENT = register( "entity.soulmould.ambient");
 	public static final RegistryEntry<SoundEvent> ENTITY_SOULMOULD_ATTACK = register("entity.soulmould.attack");
 	public static final RegistryEntry<SoundEvent> ENTITY_SOULMOULD_HURT = register("entity.soulmould.hurt");
