@@ -44,6 +44,11 @@ idea {
 sourceSets.main.resources.srcDirs += ['src/main/generated']
 
 repositories {
+    mavenLocal() {
+        content {
+            includeGroup 'xyz.deftu'
+        }
+    }
     maven {
         name "cardinal components"
         url "https://maven.ladysnake.org/releases"
@@ -128,6 +133,9 @@ dependencies {
 
     // REI
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${rei_version}"
+    if (findProperty("has_local_suggestionproviderfix")) {
+        modRuntimeOnly("xyz.deftu:SuggestionProviderFix:1.0.0")
+    }
     // modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"
 
     // Nice dev things
