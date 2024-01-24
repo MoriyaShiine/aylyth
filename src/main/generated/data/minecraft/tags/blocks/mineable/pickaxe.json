@@ -1,7 +1,10 @@
 {
   "replace": false,
   "values": [
+    "#aylyth:carved_nephrite",
     "aylyth:soul_hearth",
-    "aylyth:vital_thurible"
+    "aylyth:vital_thurible",
+    "aylyth:esstline_block",
+    "aylyth:nephrite_block"
   ]
 }
