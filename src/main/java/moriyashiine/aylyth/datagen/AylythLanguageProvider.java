@@ -132,40 +132,40 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
 
         // ADVANCEMENTS
 
-        builder.add("aylyth.advancements.aylyth.root.title", "Into the Unknown");
-        builder.add("aylyth.advancements.aylyth.root.desc", "In the midst of the journey of our life, I found myself in a dark wood without paths.");
-        builder.add("aylyth.advancements.aylyth.cimmerianed.title", "Cimmerianed");
-        builder.add("aylyth.advancements.aylyth.cimmerianed.desc", "Play some hide and seek with the undead");
-        builder.add("aylyth.advancements.aylyth.wyrded.title", "Wyrded");
-        builder.add("aylyth.advancements.aylyth.wyrded.desc", "Try approaching a seep!");
-        builder.add("aylyth.advancements.aylyth.in_the_branches.title", "In the Branches");
-        builder.add("aylyth.advancements.aylyth.in_the_branches.desc", "Become infested by Ympe Branches. There has to be a cure...");
-        builder.add("aylyth.advancements.aylyth.life_at_a_cost.title", "Life at a cost");
-        builder.add("aylyth.advancements.aylyth.life_at_a_cost.desc", "Obtain an Ympe Fruit, used to help subside the Branches, among other things.");
-        builder.add("aylyth.advancements.aylyth.daemon_ritus.title", "Daemon Ritus");
-        builder.add("aylyth.advancements.aylyth.daemon_ritus.desc", "Using a Shucked Ympe Fruit and an Ympe Dagger, store the soul of a mob in the hollowed fruit (this may require murder)");
-        builder.add("aylyth.advancements.aylyth.manufactured_for_a_purpose.title", "Manufactured for a Purpose");
-        builder.add("aylyth.advancements.aylyth.manufactured_for_a_purpose.desc", "Obtain a Coric Seed, perhaps one can find the way to make one hidden in dungeons and lost structures...");
-        builder.add("aylyth.advancements.aylyth.laccus.title", "Laccus");
-        builder.add("aylyth.advancements.aylyth.laccus.desc", "Find and harvest Nysian Grapes.");
-        builder.add("aylyth.advancements.aylyth.libations.title", "Libations");
-        builder.add("aylyth.advancements.aylyth.libations.desc", "Brew Nysian Grapes into a special potion that protects those near death.");
-        builder.add("aylyth.advancements.aylyth.come_wayward_souls.title", "Come Wayward Souls");
-        builder.add("aylyth.advancements.aylyth.come_wayward_souls.desc", "Give a Wreathed Hind, the deer-like creatures found in the Deepest of Woods, Nysian Grapes in order to earn its protection.");
-        builder.add("aylyth.advancements.aylyth.dont_look_back.title", "Don’t Look Back");
-        builder.add("aylyth.advancements.aylyth.dont_look_back.desc", "Reach out to a Pilot Light so it may guide you back home, requires 5 XP levels.");
-        builder.add("aylyth.advancements.aylyth.into_the_fire_we_fly.title", "Into the Fire we Fly");
-        builder.add("aylyth.advancements.aylyth.into_the_fire_we_fly.desc", "Obtain an Aylythian Heart, a drop from certain stronger creatures, and use it to avoid death, at the cost of returning to Aylyth.");
-        builder.add("aylyth.advancements.aylyth.something_between_life_and_death.title", "Between Life and Death");
-        builder.add("aylyth.advancements.aylyth.something_between_life_and_death.desc", "Create a Soul Hearth, give it Pomegranates, and then right-click on it to activate it, allowing you to set spawn in Aylyth.");
-        builder.add("aylyth.advancements.aylyth.meat_found.title", "Meat Found!");
-        builder.add("aylyth.advancements.aylyth.meat_found.desc", "Slay certain Aylythian entities with an Ympe Dagger, and collect their special drop.");
-        builder.add("aylyth.advancements.aylyth.flesh_increased_by_two.title", "Flesh Increased by 2");
-        builder.add("aylyth.advancements.aylyth.flesh_increased_by_two.desc", "Create a Vital Thurible, and place 5 Wrongmeat in it, to gain additional health! Watch out for spectral entities and Ympe, however...");
-        builder.add("aylyth.advancements.aylyth.way_of_the_wood.title", "Way of the Wood");
-        builder.add("aylyth.advancements.aylyth.way_of_the_wood.desc", "Encounter every biome in Aylyth.");
-        builder.add("aylyth.advancements.aylyth.see_you_in_the_trees.title", "I’ll see you in the Trees");
-        builder.add("aylyth.advancements.aylyth.see_you_in_the_trees.desc", "Create a Girasol Seed, and plant it in the Overworld, to create a new Seep.");
+        builder.add("advancements.aylyth.aylyth.root.title", "Into the Unknown");
+        builder.add("advancements.aylyth.aylyth.root.desc", "In the midst of the journey of our life, I found myself in a dark wood without paths.");
+        builder.add("advancements.aylyth.aylyth.cimmerianed.title", "Cimmerianed");
+        builder.add("advancements.aylyth.aylyth.cimmerianed.desc", "Play some hide and seek with the undead");
+        builder.add("advancements.aylyth.aylyth.wyrded.title", "Wyrded");
+        builder.add("advancements.aylyth.aylyth.wyrded.desc", "Try approaching a seep!");
+        builder.add("advancements.aylyth.aylyth.in_the_branches.title", "In the Branches");
+        builder.add("advancements.aylyth.aylyth.in_the_branches.desc", "Become infested by Ympe Branches. There has to be a cure...");
+        builder.add("advancements.aylyth.aylyth.life_at_a_cost.title", "Life at a cost");
+        builder.add("advancements.aylyth.aylyth.life_at_a_cost.desc", "Obtain an Ympe Fruit, used to help subside the Branches, among other things.");
+        builder.add("advancements.aylyth.aylyth.daemon_ritus.title", "Daemon Ritus");
+        builder.add("advancements.aylyth.aylyth.daemon_ritus.desc", "Using a Shucked Ympe Fruit and an Ympe Dagger, store the soul of a mob in the hollowed fruit (this may require murder)");
+        builder.add("advancements.aylyth.aylyth.manufactured_for_a_purpose.title", "Manufactured for a Purpose");
+        builder.add("advancements.aylyth.aylyth.manufactured_for_a_purpose.desc", "Obtain a Coric Seed, perhaps one can find the way to make one hidden in dungeons and lost structures...");
+        builder.add("advancements.aylyth.aylyth.laccus.title", "Laccus");
+        builder.add("advancements.aylyth.aylyth.laccus.desc", "Find and harvest Nysian Grapes.");
+        builder.add("advancements.aylyth.aylyth.libations.title", "Libations");
+        builder.add("advancements.aylyth.aylyth.libations.desc", "Brew Nysian Grapes into a special potion that protects those near death.");
+        builder.add("advancements.aylyth.aylyth.come_wayward_souls.title", "Come Wayward Souls");
+        builder.add("advancements.aylyth.aylyth.come_wayward_souls.desc", "Give a Wreathed Hind, the deer-like creatures found in the Deepest of Woods, Nysian Grapes in order to earn its protection.");
+        builder.add("advancements.aylyth.aylyth.dont_look_back.title", "Don’t Look Back");
+        builder.add("advancements.aylyth.aylyth.dont_look_back.desc", "Reach out to a Pilot Light so it may guide you back home, requires 5 XP levels.");
+        builder.add("advancements.aylyth.aylyth.into_the_fire_we_fly.title", "Into the Fire we Fly");
+        builder.add("advancements.aylyth.aylyth.into_the_fire_we_fly.desc", "Obtain an Aylythian Heart, a drop from certain stronger creatures, and use it to avoid death, at the cost of returning to Aylyth.");
+        builder.add("advancements.aylyth.aylyth.something_between_life_and_death.title", "Between Life and Death");
+        builder.add("advancements.aylyth.aylyth.something_between_life_and_death.desc", "Create a Soul Hearth, give it Pomegranates, and then right-click on it to activate it, allowing you to set spawn in Aylyth.");
+        builder.add("advancements.aylyth.aylyth.meat_found.title", "Meat Found!");
+        builder.add("advancements.aylyth.aylyth.meat_found.desc", "Slay certain Aylythian entities with an Ympe Dagger, and collect their special drop.");
+        builder.add("advancements.aylyth.aylyth.flesh_increased_by_two.title", "Flesh Increased by 2");
+        builder.add("advancements.aylyth.aylyth.flesh_increased_by_two.desc", "Create a Vital Thurible, and place 5 Wrongmeat in it, to gain additional health! Watch out for spectral entities and Ympe, however...");
+        builder.add("advancements.aylyth.aylyth.way_of_the_wood.title", "Way of the Wood");
+        builder.add("advancements.aylyth.aylyth.way_of_the_wood.desc", "Encounter every biome in Aylyth.");
+        builder.add("advancements.aylyth.aylyth.see_you_in_the_trees.title", "I’ll see you in the Trees");
+        builder.add("advancements.aylyth.aylyth.see_you_in_the_trees.desc", "Create a Girasol Seed, and plant it in the Overworld, to create a new Seep.");
 
         // DEATH MESSAGES
 
