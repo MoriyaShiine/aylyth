@@ -6,6 +6,12 @@
     "foliage_color": 6053120,
     "grass_color": 6053120,
     "grass_color_modifier": "aylyth_noise",
+    "music": {
+      "max_delay": 24000,
+      "min_delay": 12000,
+      "replace_current_music": false,
+      "sound": "aylyth:music.aylyth.ambient"
+    },
     "sky_color": 0,
     "water_color": 3360083,
     "water_fog_color": 0
