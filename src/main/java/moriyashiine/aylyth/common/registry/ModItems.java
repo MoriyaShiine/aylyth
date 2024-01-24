@@ -68,8 +68,8 @@ public class ModItems {
 //	public static final Item MYSTERIOUS_SKETCH = register("mysterious_sketch", new Item(new FabricItemSettings()));
 
 	public static final Item YMPE_DAGGER = register("ympe_dagger", new YmpeDaggerItem(ToolMaterials.NETHERITE, 1, -2, settings()));
+	public static final Item YMPE_GLAIVE = register("ympe_glaive", new YmpeGlaiveItem(4, -3.1F, (settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(1)));
 	public static final Item YMPE_LANCE = register("ympe_lance", new YmpeLanceItem(312, settings()));
-
 	public static final Item AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE = register("aylythian_upgrade_smithing_template", new Item(new FabricItemSettings()));
 	public static final Item ESSTLINE = register("esstline", new Item(new FabricItemSettings()));
 	public static final Item NEPHRITE = register("nephrite", new Item(new FabricItemSettings()));
@@ -113,7 +113,6 @@ public class ModItems {
 	public static final Item WREATHED_HIND_SPAWN_EGG = register("wreathed_hind_spawn_egg", new SpawnEggItem(ModEntityTypes.WREATHED_HIND_ENTITY, 0x5C4F42, 0xE1B886, settings()));
 
 	public static final Item YMPE_EFFIGY_ITEM = register("ympe_effigy", new YmpeEffigyItem((settings()).fireproof().rarity(Rarity.RARE).maxCount(1)));
-	public static final Item YMPE_GLAIVE = register("ympe_glaive", new YmpeGlaiveItem(4, -3.1F, (settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(1)));
 
 	public static final Item YMPEMOULD_ITEM = register("ympemould", new YmpemouldItem((settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(16)));
 
