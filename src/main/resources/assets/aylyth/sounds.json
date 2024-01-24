@@ -71,23 +71,28 @@
 	"sounds": [
 	  {
 		"name": "aylyth:music/game/bark",
-		"stream": true
+		"stream": true,
+		"volume": 0.4
 	  },
 	  {
 		"name": "aylyth:music/game/mud",
-		"stream": true
+		"stream": true,
+		"volume": 0.4
 	  },
 	  {
 		"name": "aylyth:music/game/scion",
-		"stream": true
+		"stream": true,
+		"volume": 0.4
 	  },
 	  {
 		"name": "aylyth:music/game/sticks",
-		"stream": true
+		"stream": true,
+		"volume": 0.4
 	  },
 	  {
 		"name": "aylyth:music/game/wisp",
-		"stream": true
+		"stream": true,
+		"volume": 0.4
 	  }
 	]
   },
