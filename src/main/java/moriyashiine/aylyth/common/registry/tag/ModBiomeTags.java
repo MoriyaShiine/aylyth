@@ -6,8 +6,9 @@ import net.minecraft.registry.tag.TagKey;
 import net.minecraft.world.biome.Biome;
 
 public class ModBiomeTags {
-    public static final TagKey<Biome> IS_CLEARING = createTag("is_clearing");
+    /** Used for specifying vanilla biomes to generate seep in*/
     public static final TagKey<Biome> GENERATES_SEEP = createTag("generates_seep");
+    public static final TagKey<Biome> IS_CLEARING = createTag("is_clearing");
     public static final TagKey<Biome> IS_COPSE = createTag("is_copse");
     public static final TagKey<Biome> IS_DEEPWOOD = createTag("is_deepwoods");
     public static final TagKey<Biome> IS_CONIFEROUS = createTag("is_coniferous");
