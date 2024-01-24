@@ -15,7 +15,7 @@ public class BiomeEffectsBuilder {
 
     BiomeEffects.Builder delegate;
 
-    BiomeEffectsBuilder(@NotNull BiomeEffects.Builder builder) {
+    BiomeEffectsBuilder(BiomeEffects.Builder builder) {
         this.delegate = builder;
     }
 
@@ -94,37 +94,37 @@ public class BiomeEffectsBuilder {
         return this;
     }
 
-    public BiomeEffectsBuilder grassColorModifier(@NotNull BiomeEffects.GrassColorModifier grassColorModifier) {
+    public BiomeEffectsBuilder grassColorModifier(BiomeEffects.GrassColorModifier grassColorModifier) {
         delegate.grassColorModifier(grassColorModifier);
         return this;
     }
 
-    public BiomeEffectsBuilder particleConfig(@NotNull BiomeParticleConfig particleConfig) {
+    public BiomeEffectsBuilder particleConfig(BiomeParticleConfig particleConfig) {
         delegate.particleConfig(particleConfig);
         return this;
     }
 
-    public BiomeEffectsBuilder particleConfig(@NotNull ParticleEffect effect, float probability) {
+    public BiomeEffectsBuilder particleConfig(ParticleEffect effect, float probability) {
         delegate.particleConfig(new BiomeParticleConfig(effect, probability));
         return this;
     }
 
-    public BiomeEffectsBuilder loopSound(@NotNull RegistryEntry<SoundEvent> sound) {
+    public BiomeEffectsBuilder loopSound(RegistryEntry<SoundEvent> sound) {
         delegate.loopSound(sound);
         return this;
     }
 
-    public BiomeEffectsBuilder moodSound(@NotNull BiomeMoodSound moodSound) {
+    public BiomeEffectsBuilder moodSound(BiomeMoodSound moodSound) {
         delegate.moodSound(moodSound);
         return this;
     }
 
-    public BiomeEffectsBuilder additionsSound(@NotNull BiomeAdditionsSound additionsSound) {
+    public BiomeEffectsBuilder additionsSound(BiomeAdditionsSound additionsSound) {
         delegate.additionsSound(additionsSound);
         return this;
     }
 
-    public BiomeEffectsBuilder music(@NotNull MusicSound music) {
+    public BiomeEffectsBuilder music(MusicSound music) {
         delegate.music(music);
         return this;
     }
