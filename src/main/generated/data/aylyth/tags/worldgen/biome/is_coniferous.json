@@ -2,7 +2,6 @@
   "replace": false,
   "values": [
     "aylyth:coniferous_copse",
-    "aylyth:coniferous_deepwood",
-    "aylyth:deepwood"
+    "aylyth:coniferous_deepwood"
   ]
 }

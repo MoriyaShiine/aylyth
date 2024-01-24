@@ -11,6 +11,8 @@ public class ModBiomeTags {
     public static final TagKey<Biome> IS_COPSE = createTag("is_copse");
     public static final TagKey<Biome> IS_DEEPWOOD = createTag("is_deepwoods");
     public static final TagKey<Biome> IS_CONIFEROUS = createTag("is_coniferous");
+    public static final TagKey<Biome> IS_FOREST_LIKE = createTag("is_forest_like");
+    public static final TagKey<Biome> IS_TAIGA_LIKE = createTag("is_taiga_like");
 
     private static TagKey<Biome> createTag(String tag) {
         return TagKey.of(RegistryKeys.BIOME, AylythUtil.id(tag));

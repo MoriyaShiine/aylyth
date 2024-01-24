@@ -123,6 +123,7 @@ public class ModBiomes {
 							.add(DefaultBiomeFeatures::addFrozenTopLayer);
 					if (overgrown) {
 						generationSettingsBuilder.lakesFeature(ModPlacedFeatures.SPRING)
+								.vegetalDecoFeature(ModPlacedFeatures.SPRUCE_SEEP)
 								.vegetalDecoFeature(ModPlacedFeatures.OVERGROWTH_CLEARING_TREES_PLACED)
 								.vegetalDecoFeature(ModPlacedFeatures.BUSHES)
 								.vegetalDecoFeature(VegetationPlacedFeatures.PATCH_TALL_GRASS)
@@ -158,7 +159,8 @@ public class ModBiomes {
 							.add(ModBiomes::addStrewnLeaves)
 							.add(ModBiomes::addWaterSprings)
 							.add(DefaultBiomeFeatures::addFrozenTopLayer)
-							.vegetalDecoFeature(ModPlacedFeatures.YMPE_SEEP);
+							.vegetalDecoFeature(ModPlacedFeatures.YMPE_SEEP)
+							.vegetalDecoFeature(ModPlacedFeatures.DARK_OAK_SEEP);
 					if (deep) {
 						generationSettingsBuilder.vegetalDecoFeature(VegetationPlacedFeatures.PATCH_TALL_GRASS_2)
 								.add(ModBiomes::addWoodyGrowths)
@@ -194,7 +196,8 @@ public class ModBiomes {
 							.add(ModBiomes::addStrewnLeaves)
 							.add(ModBiomes::addWaterSprings)
 							.add(DefaultBiomeFeatures::addFrozenTopLayer)
-							.vegetalDecoFeature(ModPlacedFeatures.YMPE_SEEP);
+							.vegetalDecoFeature(ModPlacedFeatures.YMPE_SEEP)
+							.vegetalDecoFeature(ModPlacedFeatures.SPRUCE_SEEP);
 					if (deep) {
 						builder.vegetalDecoFeature(ModPlacedFeatures.CONIFEROUS_DEEP_ROOF_TREES_PLACED)
 								.vegetalDecoFeature(ModPlacedFeatures.SHELF_JACK_O_LANTERN_MUSHROOM_PATCHES_DEEPWOOD_PLACED)
@@ -239,7 +242,8 @@ public class ModBiomes {
 							.add(ModBiomes::addBasicVanillaOres)
 							.add(ModBiomes::addWoodyGrowths)
 							.add(DefaultBiomeFeatures::addLargeFerns)
-							.add(DefaultBiomeFeatures::addDefaultGrass);
+							.add(DefaultBiomeFeatures::addDefaultGrass)
+							.vegetalDecoFeature(ModPlacedFeatures.SPRUCE_SEEP);
 				}, placedFeatures, configuredCarvers)
 				.build();
 	}
