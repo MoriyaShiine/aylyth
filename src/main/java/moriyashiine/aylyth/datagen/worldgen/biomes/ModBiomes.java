@@ -82,13 +82,11 @@ public class ModBiomes {
 	public static final BiomeEffects.GrassColorModifier AYLYTH_NOISE = ClassTinkerers.getEnum(BiomeEffects.GrassColorModifier.class, "AYLYTH_NOISE");
 
 	public static void bootstrap(Registerable<Biome> context) {
-		var sounds = context.getRegistryLookup(RegistryKeys.SOUND_EVENT);
 		var placedFeatures = context.getRegistryLookup(RegistryKeys.PLACED_FEATURE);
 		var configuredCarvers = context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER);
 
-		// TODO bad
-		var overgrownClearingAmbience = new BiomeAdditionsSound(sounds.getOrThrow(RegistryKey.of(RegistryKeys.SOUND_EVENT, ModSoundEvents.AMBIENT_FOREST_ADDITIONS.getId())), 0.001);
-		var forestAmbiance = new BiomeAdditionsSound(sounds.getOrThrow(RegistryKey.of(RegistryKeys.SOUND_EVENT, ModSoundEvents.AMBIENT_FOREST_ADDITIONS.getId())), 0.005);
+		var overgrownClearingAmbience = new BiomeAdditionsSound(ModSoundEvents.AMBIENT_FOREST_ADDITIONS, 0.001);
+		var forestAmbiance = new BiomeAdditionsSound(ModSoundEvents.AMBIENT_FOREST_ADDITIONS, 0.005);
 
 		context.register(CLEARING, createClearing(false, SpawnSettingsBuilder.none(), overgrownClearingAmbience, placedFeatures, configuredCarvers));
 		context.register(OVERGROWN_CLEARING, createClearing(true, SpawnSettingsBuilder.builder().ambient(ModEntityTypes.PILOT_LIGHT, 1, 1, 1).spawnChance(0.1F).build(), overgrownClearingAmbience, placedFeatures, configuredCarvers));

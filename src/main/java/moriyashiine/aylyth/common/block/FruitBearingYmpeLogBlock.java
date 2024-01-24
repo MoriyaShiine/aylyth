@@ -36,7 +36,7 @@ public class FruitBearingYmpeLogBlock extends StrippableLogBlock {
 		if (isMature(state)) {
 			if (!world.isClient) {
 				world.setBlockState(pos, state.with(AGE, 0));
-				world.playSound(null, pos, ModSoundEvents.BLOCK_YMPE_LOG_PICK_FRUIT, SoundCategory.BLOCKS, 1, 1);
+				world.playSound(null, pos, ModSoundEvents.BLOCK_YMPE_LOG_PICK_FRUIT.value(), SoundCategory.BLOCKS, 1, 1);
 				player.giveItemStack(new ItemStack(ModItems.YMPE_FRUIT));
 			}
 			return ActionResult.success(world.isClient);

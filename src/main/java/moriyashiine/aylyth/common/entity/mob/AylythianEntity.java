@@ -105,17 +105,17 @@ public class AylythianEntity extends HostileEntity implements GeoEntity {
 	@Nullable
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return ModSoundEvents.ENTITY_AYLYTHIAN_AMBIENT;
+		return ModSoundEvents.ENTITY_AYLYTHIAN_AMBIENT.value();
 	}
 	
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return ModSoundEvents.ENTITY_AYLYTHIAN_HURT;
+		return ModSoundEvents.ENTITY_AYLYTHIAN_HURT.value();
 	}
 	
 	@Override
 	protected SoundEvent getDeathSound() {
-		return ModSoundEvents.ENTITY_AYLYTHIAN_DEATH;
+		return ModSoundEvents.ENTITY_AYLYTHIAN_DEATH.value();
 	}
 	
 	@Override

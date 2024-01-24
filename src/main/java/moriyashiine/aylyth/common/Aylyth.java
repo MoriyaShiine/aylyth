@@ -119,7 +119,7 @@ public class Aylyth implements ModInitializer {
 						mob.fallDistance = 0;
 						ModComponents.PREVENT_DROPS.get(mob).setPreventsDrops(true);
 						PlayerLookup.tracking(mob).forEach(trackingPlayer -> SpawnShuckParticlesPacket.send(trackingPlayer, mob));
-						world.playSound(null, mob.getBlockPos(), ModSoundEvents.ENTITY_GENERIC_SHUCKED, mob.getSoundCategory(), 1, mob.getSoundPitch());
+						world.playSound(null, mob.getBlockPos(), ModSoundEvents.ENTITY_GENERIC_SHUCKED.value(), mob.getSoundCategory(), 1, mob.getSoundPitch());
 						ShuckedYmpeFruitItem.setStoredEntity(offhand, mob);
 						mob.remove(Entity.RemovalReason.DISCARDED);
 					}

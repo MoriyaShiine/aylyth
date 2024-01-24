@@ -196,17 +196,17 @@ public class FaunaylythianEntity extends HostileEntity implements GeoEntity {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return ModSoundEvents.ENTITY_FAUNAYLYTHIAN_AMBIENT;
+        return ModSoundEvents.ENTITY_FAUNAYLYTHIAN_AMBIENT.value();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return ModSoundEvents.ENTITY_FAUNAYLYTHIAN_HURT;
+        return ModSoundEvents.ENTITY_FAUNAYLYTHIAN_HURT.value();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return ModSoundEvents.ENTITY_FAUNAYLYTHIAN_DEATH;
+        return ModSoundEvents.ENTITY_FAUNAYLYTHIAN_DEATH.value();
     }
 
     @Override
