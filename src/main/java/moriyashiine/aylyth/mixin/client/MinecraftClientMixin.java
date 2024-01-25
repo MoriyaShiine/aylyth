@@ -52,7 +52,7 @@ public abstract class MinecraftClientMixin {
 
     @ModifyReturnValue(method = "getMusicType", at = @At(value = "RETURN", ordinal = 4))
     private MusicSound aylyth$getMusicType(MusicSound original, @Local RegistryEntry<Biome> biome) {
-        if (player.getWorld().getDimensionKey() == ModDimensionKeys.AYLYTH_DIMENSION_TYPE) {
+        if (player.getWorld().getRegistryKey() == ModDimensionKeys.AYLYTH) {
             return biome.value().getMusic().orElse(original);
         }
         return original;
