@@ -135,10 +135,10 @@ public class ModItems {
 	public static final Item CARVED_WOODY_NEPHRITE = register("carved_woody_nephrite", new BlockItem(ModBlocks.CARVED_WOODY_NEPHRITE, settings()));
 
 	public static final Item NEPHRITE_SWORD = register("nephrite_sword", new SwordItem(ModToolMaterials.NEPHRITE, 4, -2.4f, settings()));
-	public static final Item NEPHRITE_SHOVEL = register("nephrite_shovel", new ShovelItem(ModToolMaterials.NEPHRITE, 2.5f, -3.0f, settings()));
-	public static final Item NEPHRITE_PICKAXE = register("nephrite_pickaxe", new PickaxeItem(ModToolMaterials.NEPHRITE, 2, -2.8f, settings()));
-	public static final Item NEPHRITE_AXE = register("nephrite_axe", new AxeItem(ModToolMaterials.NEPHRITE, 6, -3.0f, settings()));
-	public static final Item NEPHRITE_HOE = register("nephrite_hoe", new HoeItem(ModToolMaterials.NEPHRITE, -2, 0f, settings()));
+	public static final Item NEPHRITE_SHOVEL = register("nephrite_shovel", new ShovelItem(ModToolMaterials.NEPHRITE, 1.5f, -3.0f, settings()));
+	public static final Item NEPHRITE_PICKAXE = register("nephrite_pickaxe", new PickaxeItem(ModToolMaterials.NEPHRITE, 1, -2.8f, settings()));
+	public static final Item NEPHRITE_AXE = register("nephrite_axe", new AxeItem(ModToolMaterials.NEPHRITE, 5, -3.0f, settings()));
+	public static final Item NEPHRITE_HOE = register("nephrite_hoe", new HoeItem(ModToolMaterials.NEPHRITE, -3, 0f, settings()));
 
 	public static final Item YMPE_CUIRASS = register("ympe_cuirass", new YmpeCuirassItem(settings()));
 
