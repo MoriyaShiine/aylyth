@@ -213,6 +213,10 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
         createStonecutting(exporter, ModItemTags.CARVED_NEPHRITE, ModBlocks.CARVED_SMOOTH_NEPHRITE, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CARVED_NEPHRITE_TILES);
         createStonecutting(exporter, ModItemTags.CARVED_NEPHRITE, ModBlocks.CARVED_SMOOTH_NEPHRITE, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CARVED_WOODY_NEPHRITE);
 
+        offerHangingSignRecipe(exporter, ModItems.YMPE_HANGING_SIGN, ModItems.YMPE_STRIPPED_LOG);
+        offerHangingSignRecipe(exporter, ModItems.POMEGRANATE_HANGING_SIGN, ModItems.POMEGRANATE_STRIPPED_LOG);
+        offerHangingSignRecipe(exporter, ModItems.WRITHEWOOD_HANGING_SIGN, ModItems.WRITHEWOOD_STRIPPED_LOG);
+
         YmpeDaggerRecipeJsonBuilder.create(ModEntityTypes.WREATHED_HIND_ENTITY, ModItems.WRONGMEAT, 0.2f, 3, 5)
                 .offerTo(exporter);
     }
