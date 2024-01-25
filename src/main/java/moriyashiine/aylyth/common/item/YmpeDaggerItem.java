@@ -33,7 +33,7 @@ import net.minecraft.world.World;
 import java.util.*;
 
 public class YmpeDaggerItem extends SwordItem {
-	private static final EntityAttributeModifier REACH_MODIFIER = new EntityAttributeModifier(UUID.fromString("ccec5f1b-1597-4994-aa5f-c8848721897d"), "Weapon modifier", -0.5, EntityAttributeModifier.Operation.ADDITION);
+	private static final EntityAttributeModifier REACH_MODIFIER = new EntityAttributeModifier(YmpeLanceItem.BASE_REACH_MODIFIER, "Weapon modifier", -0.5, EntityAttributeModifier.Operation.ADDITION);
 
 	public YmpeDaggerItem(ToolMaterial toolMaterial, int attackDamage, float attackSpeed, Settings settings) {
 		super(toolMaterial, attackDamage, attackSpeed, settings);

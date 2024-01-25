@@ -28,10 +28,11 @@ import net.minecraft.world.World;
 import java.util.UUID;
 
 public class YmpeLanceItem extends Item implements Vanishable {
+	public static final UUID BASE_REACH_MODIFIER = UUID.fromString("ccec5f1b-1597-4994-aa5f-c8848721897d");
 	private static final EntityAttributeModifier ATTACK_DAMAGE_MODIFIER = new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Weapon modifier", 7, EntityAttributeModifier.Operation.ADDITION);
 	private static final EntityAttributeModifier ATTACK_SPEED_MODIFIER = new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "Weapon modifier", -2.5, EntityAttributeModifier.Operation.ADDITION);
-	private static final EntityAttributeModifier REACH_MODIFIER = new EntityAttributeModifier(UUID.fromString("ccec5f1b-1597-4994-aa5f-c8848721897d"), "Weapon modifier", 1, EntityAttributeModifier.Operation.ADDITION);
-	private static final int minChargeTicks = 10;
+	private static final EntityAttributeModifier REACH_MODIFIER = new EntityAttributeModifier(BASE_REACH_MODIFIER, "Weapon modifier", 1, EntityAttributeModifier.Operation.ADDITION);
+	private static final int MIN_CHARGE_TICKS = 10;
 	private final Multimap<EntityAttribute, EntityAttributeModifier> modifiers;
 
 	public YmpeLanceItem(int durability, Settings settings) {
@@ -62,7 +63,7 @@ public class YmpeLanceItem extends Item implements Vanishable {
 		if(user instanceof PlayerEntity player) {
 			int chargeTicks = this.getMaxUseTime(stack) - remainingUseTicks;
 
-			if(chargeTicks >= minChargeTicks) {
+			if(chargeTicks >= MIN_CHARGE_TICKS) {
 				if(!world.isClient) {
 					stack.damage(1, player, (player1) -> player1.sendToolBreakStatus(user.getActiveHand()));
 
