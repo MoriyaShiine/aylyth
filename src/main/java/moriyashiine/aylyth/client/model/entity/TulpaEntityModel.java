@@ -1,6 +1,5 @@
 package moriyashiine.aylyth.client.model.entity;
 
-import moriyashiine.aylyth.common.entity.mob.SoulmouldEntity;
 import moriyashiine.aylyth.common.entity.mob.TulpaEntity;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
@@ -9,7 +8,6 @@ import net.minecraft.util.Identifier;
 import software.bernie.geckolib.constant.DataTickets;
 import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
-import software.bernie.geckolib.model.data.EntityModelData;
 
 public class TulpaEntityModel extends GeoModel<TulpaEntity> {
 

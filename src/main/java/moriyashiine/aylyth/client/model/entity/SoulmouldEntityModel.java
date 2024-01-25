@@ -1,14 +1,11 @@
 package moriyashiine.aylyth.client.model.entity;
 
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.entity.mob.ElderAylythianEntity;
 import moriyashiine.aylyth.common.entity.mob.SoulmouldEntity;
 import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.constant.DataTickets;
 import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
-import software.bernie.geckolib.model.data.EntityModelData;
 
 public class SoulmouldEntityModel extends GeoModel<SoulmouldEntity> {
     public SoulmouldEntityModel() {

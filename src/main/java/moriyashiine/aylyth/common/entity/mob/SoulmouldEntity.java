@@ -56,6 +56,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.*;
 
+// Thanks to Arathain for letting us have the Soulmould!
 public class SoulmouldEntity extends HostileEntity implements TameableHostileEntity, GeoEntity, ProlongedDeath {
     private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
     protected static final TrackedData<Boolean> DORMANT = DataTracker.registerData(SoulmouldEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
@@ -67,6 +68,7 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
     private static final TrackedData<Optional<UUID>> OWNER_UUID = DataTracker.registerData(SoulmouldEntity.class, TrackedDataHandlerRegistry.OPTIONAL_UUID);
     public int activationTicks = 0;
     public int dashSlashTicks = 0;
+
     public SoulmouldEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
         this.setStepHeight(1.6f);
@@ -83,6 +85,7 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
                 .add(EntityAttributes.GENERIC_ARMOR, 24f)
                 .add(EntityAttributes.GENERIC_ARMOR_TOUGHNESS, 6f);
     }
+
     @Override
     public boolean canHaveStatusEffect(StatusEffectInstance effect) {
         return false;
@@ -97,6 +100,8 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
         this.targetSelector.add(2, new TamedAttackWithOwnerGoal<>(this));
         this.targetSelector.add(2, new ActiveTargetGoal<>(this, LivingEntity.class, 10, true, false, livingEntity -> !livingEntity.equals(this.getOwner()) && !(livingEntity instanceof TameableEntity tamed && tamed.getOwner() != null && tamed.getOwner().equals(this.getOwner())) && !(livingEntity instanceof ArmorStandEntity) && !(livingEntity instanceof SoulmouldEntity mould && mould.isOwner(this.getOwner())) && this.getActionState() == 2 && !(livingEntity instanceof BatEntity) && !(livingEntity instanceof PlayerEntity player && player.getUuid().equals(UUID.fromString("1ece513b-8d36-4f04-9be2-f341aa8c9ee2")))));
     }
+
+    @Override
     protected void initDataTracker() {
         super.initDataTracker();
         this.dataTracker.startTracking(ATTACK_STATE, 0);
@@ -132,7 +137,7 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
     public boolean damage(DamageSource source, float amount) {
         if(!getWorld().isClient()) {
             if (source.isIn(DamageTypeTags.IS_EXPLOSION)) {
-                amount *= 0.5;
+                amount *= 0.5f;
             }
         }
         return super.damage(source, amount);
@@ -192,6 +197,7 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
         this.setDormant(nbt.getBoolean("Dormant"));
     }
 
+    @Nullable
     @Override
     public UUID getOwnerUuid() {
         return this.dataTracker.get(OWNER_UUID).orElse(null);
@@ -229,12 +235,8 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
     @Nullable
     @Override
     public LivingEntity getOwner() {
-        try {
-            UUID uUID = this.getOwnerUuid();
-            return uUID == null ? null : this.getWorld().getPlayerByUuid(uUID);
-        } catch (IllegalArgumentException var2) {
-            return null;
-        }
+        UUID uUID = this.getOwnerUuid();
+        return uUID == null ? null : this.getWorld().getPlayerByUuid(uUID);
     }
 
     @Override
@@ -303,6 +305,7 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
     public int getActionState() {
         return this.dataTracker.get(ACTION_STATE);
     }
+
     public void setActionState(int i) {
         this.dataTracker.set(ACTION_STATE, i);
     }
@@ -358,7 +361,6 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
             server.getServer().getPlayerManager().sendToAround(null, this.getX(), this.getY(), this.getZ(), 32.0, server.getRegistryKey(), new PlaySoundS2CPacket(RegistryEntry.of(SoundEvents.ENTITY_IRON_GOLEM_STEP), this.getSoundCategory(), this.getX(), this.getY(), this.getZ(), 32.0f, 1.0f, 69L));
     }
 
-
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar animationData) {
         animationData.add(new AnimationController<>(this, "controller", 5, this::predicate));
@@ -392,11 +394,11 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
         return Math.atan2(second.getZ() - first.getZ(), second.getX() - first.getX()) * (180 / Math.PI) + 90;
     }
 
-
     @Override
     public void pushAwayFrom(Entity entity) {
-
+        // NO OP
     }
+
     @Override
     public boolean isCollidable() {
         return true;
@@ -443,9 +445,11 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
             setDormantPos(getBlockPos());
         }
     }
+
     public Direction getDormantDir() {
         return getDataTracker().get(DORMANT_DIR);
     }
+
     public void setDormantDir(Direction dir) {
         getDataTracker().set(DORMANT_DIR, dir);
     }
@@ -458,7 +462,6 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
         getDataTracker().set(DORMANT, rest);
     }
 
-
     public static class SoulmouldAttackLogicGoal extends Goal {
         private final SoulmouldEntity mould;
         private int scrunkly;
@@ -470,11 +473,13 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
             this.mould = entity;
             this.setControls(EnumSet.of(Control.MOVE, Control.LOOK, Control.JUMP));
         }
+
         @Override
         public boolean canStart() {
             LivingEntity target = this.mould.getTarget();
             return target != null && target.isAlive() && !this.mould.isDormant();
         }
+
         @Override
         public void start() {
             this.scrunkly = 0;
@@ -513,8 +518,8 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
                 }
             }
         }
-
     }
+
     public static class SoulmouldDashSlashGoal extends Goal {
         private final SoulmouldEntity mould;
         public SoulmouldDashSlashGoal(SoulmouldEntity entity) {
@@ -552,6 +557,7 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
             }
         }
     }
+
     public static class TamedAttackWithOwnerGoal<T extends TameableHostileEntity> extends TrackTargetGoal {
         private final T tamed;
         private LivingEntity attacking;
@@ -588,6 +594,7 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
             super.start();
         }
     }
+
     public static class TamedTrackAttackerGoal extends TrackTargetGoal {
         private final TameableHostileEntity tameable;
         private LivingEntity attacker;
@@ -614,6 +621,7 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
             }
             return false;
         }
+
         public void start() {
             this.mob.setTarget(this.attacker);
             LivingEntity livingEntity = this.tameable.getOwner();
