@@ -114,7 +114,7 @@ public class YmpeDaggerItem extends SwordItem {
 			for(int z = -1; z <= 1; z++){
 				if(x == 0 || z == 0){
 					BlockPos saplingPos = blockPos.add(x ,0, z);
-					if(world.getBlockState(saplingPos).isOf(ModBlocks.YMPE_BLOCKS.sapling)) {
+					if(world.getBlockState(saplingPos).isOf(ModBlocks.YMPE_SAPLING)) {
 						list.add(saplingPos);
 					}
 				}

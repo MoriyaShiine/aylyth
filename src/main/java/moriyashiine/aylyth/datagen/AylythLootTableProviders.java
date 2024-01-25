@@ -5,7 +5,6 @@ import moriyashiine.aylyth.common.block.*;
 import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.ModEntityTypes;
 import moriyashiine.aylyth.common.registry.ModItems;
-import moriyashiine.aylyth.common.registry.util.WoodSuite;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
@@ -56,11 +55,41 @@ public class AylythLootTableProviders {
             addDrop(ModBlocks.JACK_O_LANTERN_MUSHROOM, this::standingJackolantern);
             addDrop(ModBlocks.SHELF_JACK_O_LANTERN_MUSHROOM);
             addDrop(ModBlocks.GHOSTCAP_MUSHROOM, () -> ModItems.GHOSTCAP_MUSHROOM);
-            woodSuiteDrops(ModBlocks.POMEGRANATE_BLOCKS);
-            addDrop(ModBlocks.POMEGRANATE_LEAVES, block -> pomegranateLeavesDrop(block, ModBlocks.POMEGRANATE_BLOCKS.sapling, 0.05f, 0.0625f, 0.083333336f, 0.1f));
-            woodSuiteDrops(ModBlocks.WRITHEWOOD_BLOCKS);
-            addDrop(ModBlocks.YMPE_LEAVES, block -> leavesDrops(block, ModBlocks.YMPE_BLOCKS.sapling, 0.05f, 0.0625f, 0.083333336f, 0.1f));
-            addDrop(ModBlocks.WRITHEWOOD_LEAVES, block -> leavesDrops(block, ModBlocks.WRITHEWOOD_BLOCKS.sapling, 0.05f, 0.0625f, 0.083333336f, 0.1f));
+            addDrop(ModBlocks.YMPE_LEAVES, block -> leavesDrops(block, ModBlocks.YMPE_SAPLING, 0.05f, 0.0625f, 0.083333336f, 0.1f));
+            addDrop(ModBlocks.POMEGRANATE_STRIPPED_LOG);
+            addDrop(ModBlocks.POMEGRANATE_STRIPPED_WOOD);
+            addDrop(ModBlocks.POMEGRANATE_LOG);
+            addDrop(ModBlocks.POMEGRANATE_WOOD);
+            addDrop(ModBlocks.POMEGRANATE_SAPLING);
+            addPottedPlantDrops(ModBlocks.POMEGRANATE_POTTED_SAPLING);
+            addDrop(ModBlocks.POMEGRANATE_PLANKS);
+            addDrop(ModBlocks.POMEGRANATE_STAIRS);
+            addDrop(ModBlocks.POMEGRANATE_SLAB, this::slabDrops);
+            addDrop(ModBlocks.POMEGRANATE_FENCE);
+            addDrop(ModBlocks.POMEGRANATE_FENCE_GATE);
+            addDrop(ModBlocks.POMEGRANATE_PRESSURE_PLATE);
+            addDrop(ModBlocks.POMEGRANATE_BUTTON);
+            addDrop(ModBlocks.POMEGRANATE_DOOR, this::doorDrops);
+            addDrop(ModBlocks.POMEGRANATE_TRAPDOOR);
+            addDrop(ModBlocks.POMEGRANATE_SIGN);
+            addDrop(ModBlocks.POMEGRANATE_LEAVES, block -> pomegranateLeavesDrop(block, ModBlocks.POMEGRANATE_SAPLING, 0.05f, 0.0625f, 0.083333336f, 0.1f));
+            addDrop(ModBlocks.WRITHEWOOD_STRIPPED_LOG);
+            addDrop(ModBlocks.WRITHEWOOD_STRIPPED_WOOD);
+            addDrop(ModBlocks.WRITHEWOOD_LOG);
+            addDrop(ModBlocks.WRITHEWOOD_WOOD);
+            addDrop(ModBlocks.WRITHEWOOD_SAPLING);
+            addPottedPlantDrops(ModBlocks.WRITHEWOOD_POTTED_SAPLING);
+            addDrop(ModBlocks.WRITHEWOOD_PLANKS);
+            addDrop(ModBlocks.WRITHEWOOD_STAIRS);
+            addDrop(ModBlocks.WRITHEWOOD_SLAB, this::slabDrops);
+            addDrop(ModBlocks.WRITHEWOOD_FENCE);
+            addDrop(ModBlocks.WRITHEWOOD_FENCE_GATE);
+            addDrop(ModBlocks.WRITHEWOOD_PRESSURE_PLATE);
+            addDrop(ModBlocks.WRITHEWOOD_BUTTON);
+            addDrop(ModBlocks.WRITHEWOOD_DOOR, this::doorDrops);
+            addDrop(ModBlocks.WRITHEWOOD_TRAPDOOR);
+            addDrop(ModBlocks.WRITHEWOOD_SIGN);
+            addDrop(ModBlocks.WRITHEWOOD_LEAVES, block -> leavesDrops(block, ModBlocks.WRITHEWOOD_SAPLING, 0.05f, 0.0625f, 0.083333336f, 0.1f));
             addDrop(ModBlocks.VITAL_THURIBLE);
             addDrop(ModBlocks.SOUL_HEARTH, this::doorDrops);
             addDrop(ModBlocks.WOODY_GROWTH_CACHE, this::woodyGrowthCaches);
@@ -78,27 +107,9 @@ public class AylythLootTableProviders {
             addDrop(ModBlocks.POLISHED_CARVED_NEPHRITE);
             addDrop(ModBlocks.CARVED_NEPHRITE_TILES);
             addDrop(ModBlocks.CARVED_WOODY_NEPHRITE);
-
-        }
-
-        private void woodSuiteDrops(WoodSuite suite) {
-            addDrop(suite.strippedLog);
-            addDrop(suite.strippedWood);
-            addDrop(suite.log);
-            addDrop(suite.wood);
-            addDrop(suite.sapling);
-            addPottedPlantDrops(suite.pottedSapling);
-            addDrop(suite.planks);
-            addDrop(suite.stairs);
-            addDrop(suite.slab, this::slabDrops);
-            addDrop(suite.fence);
-            addDrop(suite.fenceGate);
-            addDrop(suite.pressurePlate);
-            addDrop(suite.button);
-            addDrop(suite.trapdoor);
-            addDrop(suite.door, this::doorDrops);
-            addDrop(suite.floorSign);
-            addDrop(suite.wallSign);
+            addDrop(ModBlocks.YMPE_HANGING_SIGN);
+            addDrop(ModBlocks.POMEGRANATE_HANGING_SIGN);
+            addDrop(ModBlocks.WRITHEWOOD_HANGING_SIGN);
         }
 
         private LootTable.Builder woodyGrowthCaches(Block block) {
@@ -128,13 +139,13 @@ public class AylythLootTableProviders {
                                             ItemEntry.builder(Items.SPRUCE_LOG)
                                                     .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 2)))
                                                     .conditionally(RandomChanceLootCondition.builder(0.24f)),
-                                            ItemEntry.builder(ModItems.YMPE_ITEMS.log)
+                                            ItemEntry.builder(ModItems.YMPE_LOG)
                                                     .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 2)))
                                                     .conditionally(RandomChanceLootCondition.builder(0.24f)),
-                                            ItemEntry.builder(ModItems.POMEGRANATE_ITEMS.log)
+                                            ItemEntry.builder(ModItems.POMEGRANATE_LOG)
                                                     .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 2)))
                                                     .conditionally(RandomChanceLootCondition.builder(0.24f)),
-                                            ItemEntry.builder(ModItems.WRITHEWOOD_ITEMS.log)
+                                            ItemEntry.builder(ModItems.WRITHEWOOD_LOG)
                                                     .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 2)))
                                                     .conditionally(RandomChanceLootCondition.builder(0.24f)),
                                             ItemEntry.builder(ModItems.YMPE_FRUIT)
@@ -236,7 +247,7 @@ public class AylythLootTableProviders {
             return LootTable.builder()
                     .pool(LootPool.builder().with(GroupEntry.create(ItemEntry.builder(ModItems.POMEGRANATE), ItemEntry.builder(ModItems.NYSIAN_GRAPES))))
                     .pool(LootPool.builder().with(ItemEntry.builder(Items.ROTTEN_FLESH).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 3)))))
-                    .pool(LootPool.builder().with(ItemEntry.builder(ModItems.YMPE_ITEMS.sapling)));
+                    .pool(LootPool.builder().with(ItemEntry.builder(ModItems.YMPE_SAPLING)));
         }
 
         private LootTable.Builder mouldOfSoulsLoot(EntityType<?> type) {

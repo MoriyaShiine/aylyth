@@ -7,6 +7,7 @@ import moriyashiine.aylyth.common.registry.ModSoundEvents;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.MapColor;
+import net.minecraft.block.PillarBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
@@ -23,11 +24,11 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
 @SuppressWarnings("removal")
-public class FruitBearingYmpeLogBlock extends StrippableLogBlock {
+public class FruitBearingYmpeLogBlock extends PillarBlock {
 	public static final Property<Integer> AGE = IntProperty.of("age", 0, 4);
 	
-	public FruitBearingYmpeLogBlock() {
-		super(() -> ModBlocks.YMPE_BLOCKS.strippedLog, MapColor.BROWN, Settings.copy(ModBlocks.YMPE_BLOCKS.log));
+	public FruitBearingYmpeLogBlock(Settings settings) {
+		super(settings);
 		setDefaultState(getDefaultState().with(AXIS, Direction.Axis.Y).with(AGE, 4));
 	}
 	

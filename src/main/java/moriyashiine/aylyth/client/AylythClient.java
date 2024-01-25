@@ -70,16 +70,19 @@ public class AylythClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
-		DimensionRenderingRegistry.registerDimensionEffects(ModDimensionKeys.AYLYTH_DIMENSION_OPTIONS.getValue(), AylythDimensionRenderer.DIMENSION_EFFECTS);
+		DimensionRenderingRegistry.registerDimensionEffects(ModDimensionKeys.AYLYTH.getValue(), AylythDimensionRenderer.DIMENSION_EFFECTS);
 		DimensionRenderingRegistry.registerSkyRenderer(ModDimensionKeys.AYLYTH, AylythDimensionRenderer.SKY_RENDERER);
 		DimensionRenderingRegistry.registerCloudRenderer(ModDimensionKeys.AYLYTH, context -> {});
 		ClientPlayNetworking.registerGlobalReceiver(SpawnShuckParticlesPacket.ID, SpawnShuckParticlesPacket::receive);
 		ParticleFactoryRegistry.getInstance().register(ModParticles.PILOT_LIGHT, PilotLightParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(ModParticles.AMBIENT_PILOT_LIGHT, PilotLightParticle.AmbientFactory::new);
 		ParticleFactoryRegistry.getInstance().register(ModParticles.HIND_SMOKE, HindSmokeParticle.ShortSmokeFactory::new);
-		SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, ModBlocks.YMPE_BLOCKS.floorSign.getTexture()));
-		SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, ModBlocks.POMEGRANATE_BLOCKS.floorSign.getTexture()));
-		SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, ModBlocks.WRITHEWOOD_BLOCKS.floorSign.getTexture()));
+		SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, ModBlocks.YMPE_SIGN.getTexture()));
+		SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, ModBlocks.POMEGRANATE_SIGN.getTexture()));
+		SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, ModBlocks.WRITHEWOOD_SIGN.getTexture()));
+		SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, ModBlocks.YMPE_HANGING_SIGN.getTexture()));
+		SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, ModBlocks.POMEGRANATE_HANGING_SIGN.getTexture()));
+		SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, ModBlocks.WRITHEWOOD_HANGING_SIGN.getTexture()));
 
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), cutoutBlocks());
 		ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.getDefaultColor(), ModBlocks.AYLYTH_BUSH);
@@ -163,18 +166,18 @@ public class AylythClient implements ClientModInitializer {
 
 	private static Block[] cutoutBlocks() {
 		return new Block[] {
-				ModBlocks.YMPE_BLOCKS.sapling,
-				ModBlocks.YMPE_BLOCKS.pottedSapling,
-				ModBlocks.YMPE_BLOCKS.door,
-				ModBlocks.YMPE_BLOCKS.trapdoor,
-				ModBlocks.POMEGRANATE_BLOCKS.sapling,
-				ModBlocks.POMEGRANATE_BLOCKS.pottedSapling,
-				ModBlocks.POMEGRANATE_BLOCKS.door,
-				ModBlocks.POMEGRANATE_BLOCKS.trapdoor,
-				ModBlocks.WRITHEWOOD_BLOCKS.sapling,
-				ModBlocks.WRITHEWOOD_BLOCKS.pottedSapling,
-				ModBlocks.WRITHEWOOD_BLOCKS.door,
-				ModBlocks.WRITHEWOOD_BLOCKS.trapdoor,
+				ModBlocks.YMPE_SAPLING,
+				ModBlocks.YMPE_POTTED_SAPLING,
+				ModBlocks.YMPE_DOOR,
+				ModBlocks.YMPE_TRAPDOOR,
+				ModBlocks.POMEGRANATE_SAPLING,
+				ModBlocks.POMEGRANATE_POTTED_SAPLING,
+				ModBlocks.POMEGRANATE_DOOR,
+				ModBlocks.POMEGRANATE_TRAPDOOR,
+				ModBlocks.WRITHEWOOD_SAPLING,
+				ModBlocks.WRITHEWOOD_POTTED_SAPLING,
+				ModBlocks.WRITHEWOOD_DOOR,
+				ModBlocks.WRITHEWOOD_TRAPDOOR,
 				ModBlocks.AYLYTH_BUSH,
 				ModBlocks.ANTLER_SHOOTS,
 				ModBlocks.GRIPWEED,

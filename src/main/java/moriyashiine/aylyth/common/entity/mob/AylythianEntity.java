@@ -152,8 +152,8 @@ public class AylythianEntity extends HostileEntity implements GeoEntity {
 		double random = this.random.nextDouble();
 		if (random <= 0.20 && !getWorld().isClient && getWorld().getBlockState(getBlockPos()).isReplaceable() && ModBlocks.LARGE_WOODY_GROWTH.getDefaultState().canPlaceAt(getWorld(), getBlockPos())) {
 			placeWoodyGrowths(getWorld(), getBlockPos());
-		} else if (random <= 0.30 && !getWorld().isClient && getWorld().getBlockState(getBlockPos()).isReplaceable() && ModBlocks.YMPE_BLOCKS.sapling.getDefaultState().canPlaceAt(getWorld(), getBlockPos())) {
-			BlockState state = ModBlocks.YMPE_BLOCKS.sapling.getDefaultState();
+		} else if (random <= 0.30 && !getWorld().isClient && getWorld().getBlockState(getBlockPos()).isReplaceable() && ModBlocks.YMPE_SAPLING.getDefaultState().canPlaceAt(getWorld(), getBlockPos())) {
+			BlockState state = ModBlocks.YMPE_SAPLING.getDefaultState();
 			getWorld().setBlockState(getBlockPos(), state);
 			playSound(state.getSoundGroup().getPlaceSound(), getSoundVolume(), getSoundPitch());
 		}

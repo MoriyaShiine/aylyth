@@ -4,13 +4,10 @@ import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.ModEntityTypes;
 import moriyashiine.aylyth.common.registry.ModItems;
 import moriyashiine.aylyth.common.registry.tag.ModItemTags;
-import moriyashiine.aylyth.common.registry.util.ItemWoodSuite;
 import moriyashiine.aylyth.datagen.recipe.YmpeDaggerRecipeJsonBuilder;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.fabricmc.fabric.api.recipe.v1.ingredient.DefaultCustomIngredients;
-import net.fabricmc.fabric.impl.recipe.ingredient.builtin.DifferenceIngredient;
-import net.minecraft.block.Block;
 import net.minecraft.data.server.recipe.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
@@ -33,32 +30,61 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
     public void generate(Consumer<RecipeJsonProvider> exporter) {
         offerSingleOutputShapelessRecipe(exporter, Items.ORANGE_DYE, ModItems.MARIGOLD, "");
         createTwoByTwo(exporter, RecipeCategory.DECORATIONS, Items.SHROOMLIGHT, 1, ModItems.JACK_O_LANTERN_MUSHROOM, "shroomlight_from_jack_o_lantern_mushroom");
-        woodSuiteRecipes(exporter, ModItems.POMEGRANATE_ITEMS, ModItemTags.POMEGRANATE_LOGS);
-        woodSuiteRecipes(exporter, ModItems.WRITHEWOOD_ITEMS, ModItemTags.WRITHEWOOD_LOGS);
+
+        offerBarkBlockRecipe(exporter, ModItems.POMEGRANATE_STRIPPED_WOOD, ModItems.POMEGRANATE_STRIPPED_LOG);
+        offerBarkBlockRecipe(exporter, ModItems.POMEGRANATE_WOOD, ModItems.POMEGRANATE_LOG);
+        offerPlanksRecipe(exporter, ModItems.POMEGRANATE_PLANKS, ModItemTags.POMEGRANATE_LOGS, 4);
+        createStairsRecipe(ModItems.POMEGRANATE_STAIRS, Ingredient.ofItems(ModItems.POMEGRANATE_PLANKS)).group("wooden_stairs").criterion(RecipeProvider.hasItem(ModItems.POMEGRANATE_PLANKS), conditionsFromItem(ModItems.POMEGRANATE_PLANKS)).offerTo(exporter);
+        createSlabRecipe(RecipeCategory.BUILDING_BLOCKS, ModItems.POMEGRANATE_SLAB, Ingredient.ofItems(ModItems.POMEGRANATE_PLANKS)).group("wooden_slab").criterion(RecipeProvider.hasItem(ModItems.POMEGRANATE_PLANKS), conditionsFromItem(ModItems.POMEGRANATE_PLANKS)).offerTo(exporter);
+        createFenceRecipe(ModItems.POMEGRANATE_FENCE, Ingredient.ofItems(ModItems.POMEGRANATE_PLANKS)).group("wooden_fence").criterion(RecipeProvider.hasItem(ModItems.POMEGRANATE_PLANKS), conditionsFromItem(ModItems.POMEGRANATE_PLANKS)).offerTo(exporter);
+        createFenceGateRecipe(ModItems.POMEGRANATE_FENCE_GATE, Ingredient.ofItems(ModItems.POMEGRANATE_PLANKS)).group("wooden_fence_gate").criterion(RecipeProvider.hasItem(ModItems.POMEGRANATE_PLANKS), conditionsFromItem(ModItems.POMEGRANATE_PLANKS)).offerTo(exporter);
+        createPressurePlateRecipe(RecipeCategory.REDSTONE, ModItems.POMEGRANATE_PRESSURE_PLATE, Ingredient.ofItems(ModItems.POMEGRANATE_PLANKS)).group("wooden_pressure_plate").criterion(RecipeProvider.hasItem(ModItems.POMEGRANATE_PLANKS), conditionsFromItem(ModItems.POMEGRANATE_PLANKS)).offerTo(exporter);
+        offerShapeless(exporter, RecipeCategory.REDSTONE, ModItems.POMEGRANATE_BUTTON, 1, ModItems.POMEGRANATE_PLANKS, "wooden_button");
+        createTrapdoorRecipe(ModItems.POMEGRANATE_TRAPDOOR, Ingredient.ofItems(ModItems.POMEGRANATE_PLANKS)).group("wooden_trapdoor").criterion(RecipeProvider.hasItem(ModItems.POMEGRANATE_PLANKS), conditionsFromItem(ModItems.POMEGRANATE_PLANKS)).offerTo(exporter);
+        createDoorRecipe(ModItems.POMEGRANATE_DOOR, Ingredient.ofItems(ModItems.POMEGRANATE_PLANKS)).group("wooden_door").criterion(RecipeProvider.hasItem(ModItems.POMEGRANATE_PLANKS), conditionsFromItem(ModItems.POMEGRANATE_PLANKS)).offerTo(exporter);
+        createSignRecipe(ModItems.POMEGRANATE_SIGN, Ingredient.ofItems(ModItems.POMEGRANATE_PLANKS)).group("wooden_sign").criterion(RecipeProvider.hasItem(ModItems.POMEGRANATE_PLANKS), conditionsFromItem(ModItems.POMEGRANATE_PLANKS)).offerTo(exporter);
+        offerBoatRecipe(exporter, ModItems.POMEGRANATE_BOAT, ModItems.POMEGRANATE_PLANKS);
+        offerChestBoatRecipe(exporter, ModItems.POMEGRANATE_CHEST_BOAT, ModItems.POMEGRANATE_BOAT);
+
+        offerBarkBlockRecipe(exporter, ModItems.WRITHEWOOD_STRIPPED_WOOD, ModItems.WRITHEWOOD_STRIPPED_LOG);
+        offerBarkBlockRecipe(exporter, ModItems.WRITHEWOOD_WOOD, ModItems.WRITHEWOOD_LOG);
+        offerPlanksRecipe(exporter, ModItems.WRITHEWOOD_PLANKS, ModItemTags.WRITHEWOOD_LOGS, 4);
+        createStairsRecipe(ModItems.WRITHEWOOD_STAIRS, Ingredient.ofItems(ModItems.WRITHEWOOD_PLANKS)).group("wooden_stairs").criterion(RecipeProvider.hasItem(ModItems.WRITHEWOOD_PLANKS), conditionsFromItem(ModItems.WRITHEWOOD_PLANKS)).offerTo(exporter);
+        createSlabRecipe(RecipeCategory.BUILDING_BLOCKS, ModItems.WRITHEWOOD_SLAB, Ingredient.ofItems(ModItems.WRITHEWOOD_PLANKS)).group("wooden_slab").criterion(RecipeProvider.hasItem(ModItems.WRITHEWOOD_PLANKS), conditionsFromItem(ModItems.WRITHEWOOD_PLANKS)).offerTo(exporter);
+        createFenceRecipe(ModItems.WRITHEWOOD_FENCE, Ingredient.ofItems(ModItems.WRITHEWOOD_PLANKS)).group("wooden_fence").criterion(RecipeProvider.hasItem(ModItems.WRITHEWOOD_PLANKS), conditionsFromItem(ModItems.WRITHEWOOD_PLANKS)).offerTo(exporter);
+        createFenceGateRecipe(ModItems.WRITHEWOOD_FENCE_GATE, Ingredient.ofItems(ModItems.WRITHEWOOD_PLANKS)).group("wooden_fence_gate").criterion(RecipeProvider.hasItem(ModItems.WRITHEWOOD_PLANKS), conditionsFromItem(ModItems.WRITHEWOOD_PLANKS)).offerTo(exporter);
+        createPressurePlateRecipe(RecipeCategory.REDSTONE, ModItems.WRITHEWOOD_PRESSURE_PLATE, Ingredient.ofItems(ModItems.WRITHEWOOD_PLANKS)).group("wooden_pressure_plate").criterion(RecipeProvider.hasItem(ModItems.WRITHEWOOD_PLANKS), conditionsFromItem(ModItems.WRITHEWOOD_PLANKS)).offerTo(exporter);
+        offerShapeless(exporter, RecipeCategory.REDSTONE, ModItems.WRITHEWOOD_BUTTON, 1, ModItems.WRITHEWOOD_PLANKS, "wooden_button");
+        createTrapdoorRecipe(ModItems.WRITHEWOOD_TRAPDOOR, Ingredient.ofItems(ModItems.WRITHEWOOD_PLANKS)).group("wooden_trapdoor").criterion(RecipeProvider.hasItem(ModItems.WRITHEWOOD_PLANKS), conditionsFromItem(ModItems.WRITHEWOOD_PLANKS)).offerTo(exporter);
+        createDoorRecipe(ModItems.WRITHEWOOD_DOOR, Ingredient.ofItems(ModItems.WRITHEWOOD_PLANKS)).group("wooden_door").criterion(RecipeProvider.hasItem(ModItems.WRITHEWOOD_PLANKS), conditionsFromItem(ModItems.WRITHEWOOD_PLANKS)).offerTo(exporter);
+        createSignRecipe(ModItems.WRITHEWOOD_SIGN, Ingredient.ofItems(ModItems.WRITHEWOOD_PLANKS)).group("wooden_sign").criterion(RecipeProvider.hasItem(ModItems.WRITHEWOOD_PLANKS), conditionsFromItem(ModItems.WRITHEWOOD_PLANKS)).offerTo(exporter);
+        offerBoatRecipe(exporter, ModItems.WRITHEWOOD_BOAT, ModItems.WRITHEWOOD_PLANKS);
+        offerChestBoatRecipe(exporter, ModItems.WRITHEWOOD_CHEST_BOAT, ModItems.WRITHEWOOD_BOAT);
+        
         offerShapeless(exporter, RecipeCategory.MISC, ModItems.GHOSTCAP_MUSHROOM_SPORES, 1, ModItems.GHOSTCAP_MUSHROOM, null);
-        offerChestBoatRecipe(exporter, ModItems.YMPE_ITEMS.chestBoat, ModItems.YMPE_ITEMS.boat);
+        offerChestBoatRecipe(exporter, ModItems.YMPE_CHEST_BOAT, ModItems.YMPE_BOAT);
 
 
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModBlocks.DARK_WOODS_TILES, 8)
-                .input('Y', ModBlocks.YMPE_BLOCKS.planks)
-                .input('W', ModBlocks.WRITHEWOOD_BLOCKS.planks)
+                .input('Y', ModBlocks.YMPE_PLANKS)
+                .input('W', ModBlocks.WRITHEWOOD_PLANKS)
                 .pattern("YW")
                 .pattern("WY")
-                .criterion("has_writhe", conditionsFromItem(ModBlocks.WRITHEWOOD_BLOCKS.planks))
+                .criterion("has_writhe", conditionsFromItem(ModBlocks.WRITHEWOOD_PLANKS))
                 .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModBlocks.DARK_WOODS_TILES, 8)
-                .input('Y', ModBlocks.YMPE_BLOCKS.planks)
-                .input('W', ModBlocks.WRITHEWOOD_BLOCKS.planks)
+                .input('Y', ModBlocks.YMPE_PLANKS)
+                .input('W', ModBlocks.WRITHEWOOD_PLANKS)
                 .pattern("WY")
                 .pattern("YW")
-                .criterion("has_writhe", conditionsFromItem(ModBlocks.WRITHEWOOD_BLOCKS.planks))
+                .criterion("has_writhe", conditionsFromItem(ModBlocks.WRITHEWOOD_PLANKS))
                 .offerTo(exporter, "aylyth:dark_woods_tiles_2");
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.YMPE_GLAIVE)
                 .input('D', ModItems.YMPE_DAGGER)
-                .input('S', ModItems.YMPE_ITEMS.sapling)
+                .input('S', ModItems.YMPE_SAPLING)
                 .input('C', ModItems.CORIC_SEED)
                 .pattern(" CD")
                 .pattern(" SS")
@@ -78,7 +104,7 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, ModItems.YMPE_EFFIGY_ITEM)
                 .input('D', Items.SOUL_SOIL)
-                .input('S', ModItems.YMPE_ITEMS.sapling)
+                .input('S', ModItems.YMPE_SAPLING)
                 .input('E', ModItems.ESSTLINE)
                 .input('C', ModItems.CORIC_SEED)
                 .pattern("DED")
@@ -111,7 +137,7 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
                 .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.GIRASOL_SEED)
-                .input('Y', ModItems.YMPE_ITEMS.sapling)
+                .input('Y', ModItems.YMPE_SAPLING)
                 .input('H', ModItems.AYLYTHIAN_HEART)
                 .input('S', Ingredient.ofItems(Items.SOUL_SAND, Items.SOUL_SOIL))
                 .input('E', Items.ENDER_PEARL)
@@ -189,23 +215,6 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
 
         YmpeDaggerRecipeJsonBuilder.create(ModEntityTypes.WREATHED_HIND_ENTITY, ModItems.WRONGMEAT, 0.2f, 3, 5)
                 .offerTo(exporter);
-    }
-
-    private void woodSuiteRecipes(Consumer<RecipeJsonProvider> exporter, ItemWoodSuite suite, TagKey<Item> logTag) {
-        offerBarkBlockRecipe(exporter, suite.strippedWood, suite.strippedLog);
-        offerBarkBlockRecipe(exporter, suite.wood, suite.log);
-        offerPlanksRecipe(exporter, suite.planks, logTag, 4);
-        createStairsRecipe(suite.stairs, Ingredient.ofItems(suite.planks)).group("wooden_stairs").criterion(RecipeProvider.hasItem(suite.planks), conditionsFromItem(suite.planks)).offerTo(exporter);
-        createSlabRecipe(RecipeCategory.BUILDING_BLOCKS, suite.slab, Ingredient.ofItems(suite.planks)).group("wooden_slab").criterion(RecipeProvider.hasItem(suite.planks), conditionsFromItem(suite.planks)).offerTo(exporter);
-        createFenceRecipe(suite.fence, Ingredient.ofItems(suite.planks)).group("wooden_fence").criterion(RecipeProvider.hasItem(suite.planks), conditionsFromItem(suite.planks)).offerTo(exporter);
-        createFenceGateRecipe(suite.fenceGate, Ingredient.ofItems(suite.planks)).group("wooden_fence_gate").criterion(RecipeProvider.hasItem(suite.planks), conditionsFromItem(suite.planks)).offerTo(exporter);
-        createPressurePlateRecipe(RecipeCategory.REDSTONE, suite.pressurePlate, Ingredient.ofItems(suite.planks)).group("wooden_pressure_plate").criterion(RecipeProvider.hasItem(suite.planks), conditionsFromItem(suite.planks)).offerTo(exporter);
-        offerShapeless(exporter, RecipeCategory.REDSTONE, suite.button, 1, suite.planks, "wooden_button");
-        createTrapdoorRecipe(suite.trapdoor, Ingredient.ofItems(suite.planks)).group("wooden_trapdoor").criterion(RecipeProvider.hasItem(suite.planks), conditionsFromItem(suite.planks)).offerTo(exporter);
-        createDoorRecipe(suite.door, Ingredient.ofItems(suite.planks)).group("wooden_door").criterion(RecipeProvider.hasItem(suite.planks), conditionsFromItem(suite.planks)).offerTo(exporter);
-        createSignRecipe(suite.sign, Ingredient.ofItems(suite.planks)).group("wooden_sign").criterion(RecipeProvider.hasItem(suite.planks), conditionsFromItem(suite.planks)).offerTo(exporter);
-        offerBoatRecipe(exporter, suite.boat, suite.planks);
-        offerChestBoatRecipe(exporter, suite.chestBoat, suite.boat);
     }
 
     private void createStonecutting(Consumer<RecipeJsonProvider> exporter, TagKey<Item> inputTag, ItemConvertible baseItem, RecipeCategory recipeCategory, ItemConvertible output) {

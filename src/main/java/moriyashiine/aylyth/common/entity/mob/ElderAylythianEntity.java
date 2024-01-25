@@ -152,13 +152,13 @@ public class ElderAylythianEntity extends HostileEntity implements GeoEntity {
 			BlockPos[] checkPoses = {getBlockPos(), getBlockPos().add(xOffset, 0, 0), getBlockPos().add(0, 0, zOffset), getBlockPos().add(xOffset, 0, zOffset)};
 			boolean hasPlaced = false;
 			for (BlockPos checkPos : checkPoses) {
-				if (getWorld().getBlockState(checkPos).isReplaceable() && ModBlocks.YMPE_BLOCKS.sapling.getDefaultState().canPlaceAt(getWorld(), checkPos)) {
-					getWorld().setBlockState(checkPos, ModBlocks.YMPE_BLOCKS.sapling.getDefaultState());
+				if (getWorld().getBlockState(checkPos).isReplaceable() && ModBlocks.YMPE_SAPLING.getDefaultState().canPlaceAt(getWorld(), checkPos)) {
+					getWorld().setBlockState(checkPos, ModBlocks.YMPE_SAPLING.getDefaultState());
 					hasPlaced = true;
 				}
 			}
 			if (hasPlaced) {
-				playSound(ModBlocks.YMPE_BLOCKS.sapling.getDefaultState().getSoundGroup().getPlaceSound(), getSoundVolume(), getSoundPitch());
+				playSound(ModBlocks.YMPE_SAPLING.getDefaultState().getSoundGroup().getPlaceSound(), getSoundVolume(), getSoundPitch());
 			}
 		}
 		ItemEntity item = dropItem(ModItems.AYLYTHIAN_HEART);

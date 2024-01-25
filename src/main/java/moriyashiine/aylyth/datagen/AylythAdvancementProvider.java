@@ -39,7 +39,7 @@ public class AylythAdvancementProvider extends FabricAdvancementProvider {
     @Override
     public void generateAdvancement(Consumer<Advancement> consumer) {
         var root = Advancement.Builder.create()
-                .display(ModItems.YMPE_ITEMS.sapling.getDefaultStack(), Text.translatable("aylyth.advancements.aylyth.root.title"), Text.translatable("aylyth.advancements.aylyth.root.desc"), new Identifier(Aylyth.MOD_ID, "textures/block/ympe_planks.png"), AdvancementFrame.TASK, true, true, false)
+                .display(ModItems.YMPE_SAPLING.getDefaultStack(), Text.translatable("aylyth.advancements.aylyth.root.title"), Text.translatable("aylyth.advancements.aylyth.root.desc"), new Identifier(Aylyth.MOD_ID, "textures/block/ympe_planks.png"), AdvancementFrame.TASK, true, true, false)
                 .criterion("entered_aylyth", ChangedDimensionCriterion.Conditions.to(ModDimensionKeys.AYLYTH))
                 .build(consumer, "aylyth:aylyth/root");
         Advancement.Builder.create()
@@ -114,7 +114,7 @@ public class AylythAdvancementProvider extends FabricAdvancementProvider {
                 .build(consumer, "aylyth:aylyth/flesh_increased_by_two");
         Advancement.Builder.create()
                 .parent(root)
-                .display(ModItems.WRITHEWOOD_ITEMS.door, Text.translatable("aylyth.advancements.aylyth.way_of_the_wood.title"), Text.translatable("aylyth.advancements.aylyth.way_of_the_wood.desc"), null, AdvancementFrame.CHALLENGE, true, true, false)
+                .display(ModItems.WRITHEWOOD_DOOR, Text.translatable("aylyth.advancements.aylyth.way_of_the_wood.title"), Text.translatable("aylyth.advancements.aylyth.way_of_the_wood.desc"), null, AdvancementFrame.CHALLENGE, true, true, false)
                 .criterion("has_visited_copse", TickCriterion.Conditions.createLocation(LocationPredicate.biome(ModBiomeKeys.COPSE)))
                 .criterion("has_visited_coniferous_copse", TickCriterion.Conditions.createLocation(LocationPredicate.biome(ModBiomeKeys.CONIFEROUS_COPSE)))
                 .criterion("has_visited_deepwood", TickCriterion.Conditions.createLocation(LocationPredicate.biome(ModBiomeKeys.DEEPWOOD)))
