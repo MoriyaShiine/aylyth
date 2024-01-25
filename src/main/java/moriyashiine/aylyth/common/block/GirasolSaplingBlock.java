@@ -1,9 +1,9 @@
 package moriyashiine.aylyth.common.block;
 
-import moriyashiine.aylyth.common.block.util.ModSaplingBlock;
 import moriyashiine.aylyth.mixin.SaplingBlockAccessor;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.SaplingBlock;
 import net.minecraft.block.sapling.SaplingGenerator;
 import net.minecraft.particle.DustColorTransitionParticleEffect;
 import net.minecraft.server.world.ServerWorld;
@@ -14,14 +14,14 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import org.joml.Vector3f;
 
-public class GirasolSaplingBlock extends ModSaplingBlock {
+public class GirasolSaplingBlock extends SaplingBlock {
 
     public static final BooleanProperty FAILED = BooleanProperty.of("failed_to_grow");
 
     private static final DustColorTransitionParticleEffect FAILED_PARTICLE = new DustColorTransitionParticleEffect(new Vector3f(0.1333f, 0.1333f, 0.1333f), new Vector3f(0.6824f, 0.4275f, 0.0941f), 1);
 
-    public GirasolSaplingBlock(SaplingGenerator generator) {
-        super(generator);
+    public GirasolSaplingBlock(SaplingGenerator generator, Settings settings) {
+        super(generator, settings);
         setDefaultState(getDefaultState().with(FAILED, false));
     }
 

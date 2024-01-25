@@ -133,7 +133,7 @@ public class ModBlocks {
 		protected RegistryKey<ConfiguredFeature<?, ?>> getTreeFeature(Random random, boolean bees) {
 			return RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, AylythUtil.id("seeping_tree"));
 		}
-	}));
+	}, copyOf(Blocks.OAK_SAPLING)));
 	public static final Block GIRASOL_SAPLING_POTTED = register("potted_girasol_sapling", new FlowerPotBlock(GIRASOL_SAPLING, copyOf(Blocks.FLOWER_POT)));
 
 	public static final Block AYLYTH_BUSH = register("aylyth_bush", new BushBlock());
