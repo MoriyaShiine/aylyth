@@ -157,7 +157,7 @@ public class AylythTagProviders {
             getOrCreateTagBuilder(ItemTags.PICKAXES).add(ModItems.NEPHRITE_PICKAXE);
             getOrCreateTagBuilder(ItemTags.AXES).add(ModItems.NEPHRITE_AXE);
             getOrCreateTagBuilder(ItemTags.HOES).add(ModItems.NEPHRITE_HOE);
-            // TODO: Add pomegranate to the music_discs tag
+            getOrCreateTagBuilder(ItemTags.MUSIC_DISCS).add(ModItems.POMEGRANATE_CASSETTE);
         }
     }
 

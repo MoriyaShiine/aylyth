@@ -167,6 +167,8 @@ public class ModItems {
 
 	public static final Item YMPEMOULD_ITEM = register("ympemould", new YmpemouldItem((settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(16)));
 
+	public static final Item POMEGRANATE_CASSETTE = register("pomegranate_cassette", new MusicDiscItem(14, ModSoundEvents.POMEGRANATE_MUSIC_DISC.value(), settings().maxCount(1).rarity(Rarity.RARE), 118));
+
 
 	private static <T extends Item> T register(String name, T item) {
 		Registry.register(Registries.ITEM, new Identifier(Aylyth.MOD_ID, name), item);

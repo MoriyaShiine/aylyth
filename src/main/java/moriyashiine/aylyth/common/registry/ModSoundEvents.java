@@ -26,7 +26,7 @@ public class ModSoundEvents {
 	public static final RegistryEntry<SoundEvent> AMBIENT_MUSIC = register("music.aylyth.ambient");
 	public static final RegistryEntry<SoundEvent> BOSS_FIGHT = register("music.aylyth.boss.fight");
 	public static final RegistryEntry<SoundEvent> BOSS_FIGHT_VICTORY = register("music.aylyth.boss.victory");
-	public static final RegistryEntry<SoundEvent> MUSIC_DISC = register("music_disc.aylyth.pomegranate");
+	public static final RegistryEntry<SoundEvent> POMEGRANATE_MUSIC_DISC = register("music_disc.aylyth.pomegranate");
 
 	public static final RegistryEntry<SoundEvent> ENTITY_AYLYTHIAN_AMBIENT = register( "entity.aylythian.ambient");
 	public static final RegistryEntry<SoundEvent> ENTITY_AYLYTHIAN_HURT = register("entity.aylythian.hurt");

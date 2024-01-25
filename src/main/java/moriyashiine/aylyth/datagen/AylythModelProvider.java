@@ -130,6 +130,7 @@ public class AylythModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.WREATHED_HIND_SPAWN_EGG, SPAWN_EGG);
         itemModelGenerator.register(ModItems.FAUNAYLYTHIAN_SPAWN_EGG, SPAWN_EGG);
 //        Models.GENERATED.upload(AylythUtil.id("item/" + Registries.ITEM.getId(ModItems.MYSTERIOUS_SKETCH).getPath() + "_generated"), TextureMap.layer0(AylythUtil.id("item/" + Registries.ITEM.getId(ModItems.MYSTERIOUS_SKETCH).getPath())), itemModelGenerator.writer);
+        itemModelGenerator.register(ModItems.POMEGRANATE_CASSETTE, Models.GENERATED);
     }
 
     private void generateWoodBlock(BlockStateModelGenerator generator, Block woodBlock, String texturePath) {

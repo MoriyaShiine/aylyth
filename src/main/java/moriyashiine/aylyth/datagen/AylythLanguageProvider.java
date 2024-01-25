@@ -149,10 +149,12 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add(ModItems.NEPHRITE_PICKAXE, "Nephrite Pickaxe");
         builder.add(ModItems.NEPHRITE_AXE, "Nephrite Axe");
         builder.add(ModItems.NEPHRITE_HOE, "Nephrite Hoe");
+        builder.add(ModItems.POMEGRANATE_CASSETTE, "Cassette");
         potionSet(builder, "mortechis");
         potionSet(builder, "cimmerian");
         potionSet(builder, "wyrded");
 
+        builder.add("item.aylyth.pomegranate_cassette.desc", "DEMON AND MAX - Pomegranate");
         builder.add("item.aylyth.smithing_template.aylythian_upgrade.applies_to", "Ympe Sapling");
         builder.add("item.aylyth.smithing_template.aylythian_upgrade.ingredients", "Esstline");
         builder.add("item.aylyth.smithing_template.aylythian_upgrade.base_slot_description", "Ympe Sapling");
