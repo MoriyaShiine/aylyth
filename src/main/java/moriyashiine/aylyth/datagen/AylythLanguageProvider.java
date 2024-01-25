@@ -153,6 +153,12 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         potionSet(builder, "cimmerian");
         potionSet(builder, "wyrded");
 
+        builder.add("item.aylyth.smithing_template.aylythian_upgrade.applies_to", "Ympe Sapling");
+        builder.add("item.aylyth.smithing_template.aylythian_upgrade.ingredients", "Esstline");
+        builder.add("item.aylyth.smithing_template.aylythian_upgrade.base_slot_description", "Ympe Sapling");
+        builder.add("item.aylyth.smithing_template.aylythian_upgrade.additions_slot_description", "Esstline");
+        builder.add("upgrade.aylyth.aylythian_upgrade", "Aylythian Upgrade");
+
         // ENTITIES
 
         builder.add(ModEntityTypes.PILOT_LIGHT, "Pilot Light");

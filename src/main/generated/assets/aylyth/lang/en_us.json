@@ -143,7 +143,6 @@
   "info.aylyth.tulpa_wander": "Wander",
   "item.aylyth.aylythian_heart": "Aylythian Heart",
   "item.aylyth.aylythian_spawn_egg": "Aylythian Spawn Egg",
-  "item.aylyth.aylythian_upgrade_smithing_template": "Aylythian Upgrade Smithing Template",
   "item.aylyth.coric_seed": "Coric Seed",
   "item.aylyth.debug_wand": "Debug Wand",
   "item.aylyth.elder_aylythian_spawn_egg": "Elder Aylythian Spawn Egg",
@@ -166,6 +165,10 @@
   "item.aylyth.pomegranate_chest_boat": "Pomegranate Chest Boat",
   "item.aylyth.scion_spawn_egg": "Scion Spawn Egg",
   "item.aylyth.shucked_ympe_fruit": "Shucked Ympe Fruit",
+  "item.aylyth.smithing_template.aylythian_upgrade.additions_slot_description": "Esstline",
+  "item.aylyth.smithing_template.aylythian_upgrade.applies_to": "Ympe Sapling",
+  "item.aylyth.smithing_template.aylythian_upgrade.base_slot_description": "Ympe Sapling",
+  "item.aylyth.smithing_template.aylythian_upgrade.ingredients": "Esstline",
   "item.aylyth.wreathed_hind_spawn_egg": "Wreathed Hind Spawn Egg",
   "item.aylyth.writhewood_boat": "Writhewood Boat",
   "item.aylyth.writhewood_chest_boat": "Writhewood Chest Boat",
@@ -185,6 +188,7 @@
   "item.minecraft.potion.effect.cimmerian": "Potion of Cimmerian",
   "item.minecraft.potion.effect.mortechis": "Potion of Mortechis",
   "item.minecraft.potion.effect.wyrded": "Potion of Wyrded",
+  "item.minecraft.smithing_template": "Aylythian Upgrade Smithing Template",
   "item.minecraft.splash_potion.effect.cimmerian": "Splash Potion of Cimmerian",
   "item.minecraft.splash_potion.effect.mortechis": "Splash Potion of Mortechis",
   "item.minecraft.splash_potion.effect.wyrded": "Splash Potion of Wyrded",
@@ -225,5 +229,6 @@
   "tag.aylyth.woody_growths": "Woody Growths",
   "tag.aylyth.writhewood_logs": "Writhewood Logs",
   "tag.aylyth.ympe_foods": "Ympe Foods",
-  "tag.aylyth.ympe_logs": "Ympe Logs"
+  "tag.aylyth.ympe_logs": "Ympe Logs",
+  "upgrade.aylyth.aylythian_upgrade": "Aylythian Upgrade"
 }

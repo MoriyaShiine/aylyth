@@ -18,11 +18,11 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.math.Direction;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ModItems {
-	public static final Map<Item, Identifier> ITEMS = new LinkedHashMap<>();
+	public static final List<Item> ITEMS = new ArrayList<>();
 
 
 	public static final RegistryKey<ItemGroup> GROUP = RegistryKey.of(RegistryKeys.ITEM_GROUP, AylythUtil.id(Aylyth.MOD_ID));
@@ -30,7 +30,6 @@ public class ModItems {
 	public static final ItemGroup.Builder GROUP_BUILDER = FabricItemGroup.builder().icon(() -> new ItemStack(ModItems.YMPE_DAGGER)).displayName(Text.translatable("itemGroup.aylyth.main"));
 
 	public static final Item DEBUG_WAND = register("debug_wand", new DebugWandItem(new FabricItemSettings()));
-	public static final Item FRUIT_BEARING_YMPE_LOG = register("fruit_bearing_ympe_log", new BlockItem(ModBlocks.FRUIT_BEARING_YMPE_LOG, settings()));
 
 	public static final Item YMPE_STRIPPED_LOG = register("stripped_ympe_log", new BlockItem(ModBlocks.YMPE_STRIPPED_LOG, settings()));
 	public static final Item YMPE_STRIPPED_WOOD = register("stripped_ympe_wood", new BlockItem(ModBlocks.YMPE_STRIPPED_WOOD, settings()));
@@ -51,6 +50,7 @@ public class ModItems {
 	public static final Item YMPE_CHEST_BOAT = register("ympe_chest_boat", new TerraformBoatItem(ModBoatTypes.YMPE_BOAT_TYPE, true, settings().maxCount(1)));
 	public static final Item YMPE_HANGING_SIGN = register("ympe_hanging_sign", new HangingSignItem(ModBlocks.YMPE_HANGING_SIGN, ModBlocks.YMPE_WALL_HANGING_SIGN, settings()));
 	public static final Item YMPE_LEAVES = register("ympe_leaves", new BlockItem(ModBlocks.YMPE_LEAVES, settings()));
+	public static final Item FRUIT_BEARING_YMPE_LOG = register("fruit_bearing_ympe_log", new BlockItem(ModBlocks.FRUIT_BEARING_YMPE_LOG, settings()));
 
 	public static final Item POMEGRANATE_STRIPPED_LOG = register("stripped_pomegranate_log", new BlockItem(ModBlocks.POMEGRANATE_STRIPPED_LOG, settings()));
 	public static final Item POMEGRANATE_STRIPPED_WOOD = register("stripped_pomegranate_wood", new BlockItem(ModBlocks.POMEGRANATE_STRIPPED_WOOD, settings()));
@@ -121,7 +121,7 @@ public class ModItems {
 	public static final Item YMPE_DAGGER = register("ympe_dagger", new YmpeDaggerItem(ToolMaterials.NETHERITE, 1, -2, settings()));
 	public static final Item YMPE_GLAIVE = register("ympe_glaive", new YmpeGlaiveItem(4, -3.1F, (settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(1)));
 	public static final Item YMPE_LANCE = register("ympe_lance", new YmpeLanceItem(312, settings()));
-	public static final Item AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE = register("aylythian_upgrade_smithing_template", new Item(new FabricItemSettings()));
+	public static final Item AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE = register("aylythian_upgrade_smithing_template", new AylythianSmithingTemplateUpgradeItem());
 	public static final Item ESSTLINE = register("esstline", new Item(new FabricItemSettings()));
 	public static final Item NEPHRITE = register("nephrite", new Item(new FabricItemSettings()));
 
@@ -169,7 +169,8 @@ public class ModItems {
 
 
 	private static <T extends Item> T register(String name, T item) {
-		ITEMS.put(item, new Identifier(Aylyth.MOD_ID, name));
+		Registry.register(Registries.ITEM, new Identifier(Aylyth.MOD_ID, name), item);
+		ITEMS.add(item);
 		return item;
 	}
 
@@ -179,10 +180,8 @@ public class ModItems {
 	}
 
 	public static void init() {
-		ITEMS.keySet().forEach(item -> Registry.register(Registries.ITEM, ITEMS.get(item), item));
-
 		GROUP_BUILDER.entries((context, entries) -> {
-			ITEMS.keySet().forEach(entries::add);
+			ITEMS.forEach(entries::add);
 		});
 
 		Registry.register(Registries.ITEM_GROUP, GROUP, GROUP_BUILDER.build());
