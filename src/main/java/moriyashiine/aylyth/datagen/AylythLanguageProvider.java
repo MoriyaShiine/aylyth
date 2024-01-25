@@ -136,7 +136,6 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add(ModItems.WREATHED_HIND_SPAWN_EGG, "Wreathed Hind Spawn Egg");
         builder.add(ModItems.AYLYTHIAN_SPAWN_EGG, "Aylythian Spawn Egg");
         builder.add(ModItems.ELDER_AYLYTHIAN_SPAWN_EGG, "Elder Aylythian Spawn Egg");
-        builder.add(ModItems.YMPEMOULD_ITEM, "Ympemould");
         builder.add(ModItems.YMPE_EFFIGY_ITEM, "Ympe Effigy");
         builder.add(ModItems.WRONGMEAT, "Wrongmeat");
         builder.add(ModItems.YMPE_CUIRASS, "Ympe Cuirass");

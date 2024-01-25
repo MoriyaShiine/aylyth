@@ -265,19 +265,9 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
     }
 
     @Override
-    public ItemStack getPickBlockStack() {
-        return ModItems.YMPEMOULD_ITEM.getDefaultStack();
-    }
-
-    @Override
     protected ActionResult interactMob(PlayerEntity player, Hand hand) {
-        if(player.getStackInHand(hand).isEmpty() && player.getUuid().equals(this.getOwnerUuid())) {
-            if(player.isSneaking()) {
-                if(!player.getAbilities().creativeMode)
-                    player.setStackInHand(hand, ModItems.YMPEMOULD_ITEM.getDefaultStack());
-                this.remove(RemovalReason.DISCARDED);
-                return ActionResult.SUCCESS;
-            } else {
+        if (player.getStackInHand(hand).isEmpty() && player.getUuid().equals(this.getOwnerUuid())) {
+            if (player.isSneaking()) {
                 this.cycleActionState(player);
             }
         }
@@ -287,7 +277,7 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
     private void cycleActionState(PlayerEntity player) {
         if(getActionState() == 0) {
             setActionState(2);
-            player.sendMessage(Text.translatable("amogus", getWorld().getRegistryKey().getValue().getPath()).setStyle(Style.EMPTY.withColor(Formatting.DARK_RED).withObfuscated(true).withFont(new Identifier("minecraft", "default"))), true);
+            player.sendMessage(Text.literal("amogus").setStyle(Style.EMPTY.withColor(Formatting.DARK_RED).withObfuscated(true).withFont(new Identifier("minecraft", "default"))), true);
         } else if(getActionState() == 2) {
             setActionState(1);
             player.sendMessage(Text.translatable("info.aylyth.mould_activate", getWorld().getRegistryKey().getValue().getPath()).setStyle(Style.EMPTY.withColor(Formatting.AQUA)), true);

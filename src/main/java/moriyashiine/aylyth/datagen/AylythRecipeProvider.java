@@ -92,16 +92,6 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
                 .criterion("has_dagger", conditionsFromItem(ModItems.YMPE_DAGGER))
                 .offerTo(exporter);
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.YMPEMOULD_ITEM)
-                .input('D', Items.POLISHED_DEEPSLATE)
-                .input('E', ModItems.ESSTLINE)
-                .input('S', ModItems.CORIC_SEED)
-                .pattern("DED")
-                .pattern("ESE")
-                .pattern("DDD")
-                .criterion("has_soulsand", conditionsFromItem(Items.SOUL_SAND))
-                .offerTo(exporter);
-
         ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, ModItems.YMPE_EFFIGY_ITEM)
                 .input('D', Items.SOUL_SOIL)
                 .input('S', ModItems.YMPE_SAPLING)
