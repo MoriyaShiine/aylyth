@@ -15,7 +15,6 @@ import net.minecraft.world.World;
 import org.joml.Vector3f;
 
 public class GirasolSaplingBlock extends SaplingBlock {
-
     public static final BooleanProperty FAILED = BooleanProperty.of("failed_to_grow");
 
     private static final DustColorTransitionParticleEffect FAILED_PARTICLE = new DustColorTransitionParticleEffect(new Vector3f(0.1333f, 0.1333f, 0.1333f), new Vector3f(0.6824f, 0.4275f, 0.0941f), 1);
