@@ -255,8 +255,8 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
 
         // INFO
 
-        builder.add("info.aylyth.mould_activate", "Mould of Souls Activated");
-        builder.add("info.aylyth.mould_deactivate", "Mould of Souls Deactivated");
+        builder.add("info.aylyth.ympemould_activate", "Ympemould Activated");
+        builder.add("info.aylyth.ympemould_deactivate", "Ympemould Deactivated");
 
         builder.add("info.aylyth.tulpa_wander", "Wander");
         builder.add("info.aylyth.tulpa_follow", "Follow");
