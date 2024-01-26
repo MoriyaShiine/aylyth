@@ -11,7 +11,7 @@
     "announce_to_chat": true,
     "background": "aylyth:textures/block/ympe_planks.png",
     "description": {
-      "translate": "aylyth.advancements.aylyth.root.desc"
+      "translate": "advancements.aylyth.aylyth.root.desc"
     },
     "frame": "task",
     "hidden": false,
@@ -20,7 +20,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "aylyth.advancements.aylyth.root.title"
+      "translate": "advancements.aylyth.aylyth.root.title"
     }
   },
   "requirements": [

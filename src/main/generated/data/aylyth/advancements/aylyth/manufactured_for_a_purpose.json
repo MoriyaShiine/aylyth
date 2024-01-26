@@ -17,7 +17,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "aylyth.advancements.aylyth.manufactured_for_a_purpose.desc"
+      "translate": "advancements.aylyth.aylyth.manufactured_for_a_purpose.desc"
     },
     "frame": "goal",
     "hidden": false,
@@ -26,7 +26,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "aylyth.advancements.aylyth.manufactured_for_a_purpose.title"
+      "translate": "advancements.aylyth.aylyth.manufactured_for_a_purpose.title"
     }
   },
   "requirements": [

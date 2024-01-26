@@ -17,7 +17,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "aylyth.advancements.aylyth.laccus.desc"
+      "translate": "advancements.aylyth.aylyth.laccus.desc"
     },
     "frame": "task",
     "hidden": false,
@@ -26,7 +26,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "aylyth.advancements.aylyth.laccus.title"
+      "translate": "advancements.aylyth.aylyth.laccus.title"
     }
   },
   "requirements": [

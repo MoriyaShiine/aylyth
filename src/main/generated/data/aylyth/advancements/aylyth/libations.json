@@ -15,7 +15,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "aylyth.advancements.aylyth.libations.desc"
+      "translate": "advancements.aylyth.aylyth.libations.desc"
     },
     "frame": "task",
     "hidden": false,
@@ -25,7 +25,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "aylyth.advancements.aylyth.libations.title"
+      "translate": "advancements.aylyth.aylyth.libations.title"
     }
   },
   "requirements": [

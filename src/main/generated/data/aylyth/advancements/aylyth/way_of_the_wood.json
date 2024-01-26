@@ -149,7 +149,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "aylyth.advancements.aylyth.way_of_the_wood.desc"
+      "translate": "advancements.aylyth.aylyth.way_of_the_wood.desc"
     },
     "frame": "challenge",
     "hidden": false,
@@ -158,7 +158,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "aylyth.advancements.aylyth.way_of_the_wood.title"
+      "translate": "advancements.aylyth.aylyth.way_of_the_wood.title"
     }
   },
   "requirements": [

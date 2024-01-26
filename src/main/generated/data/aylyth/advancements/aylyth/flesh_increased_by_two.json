@@ -16,7 +16,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "aylyth.advancements.aylyth.flesh_increased_by_two.desc"
+      "translate": "advancements.aylyth.aylyth.flesh_increased_by_two.desc"
     },
     "frame": "goal",
     "hidden": false,
@@ -25,7 +25,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "aylyth.advancements.aylyth.flesh_increased_by_two.title"
+      "translate": "advancements.aylyth.aylyth.flesh_increased_by_two.title"
     }
   },
   "requirements": [

@@ -20,7 +20,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "aylyth.advancements.aylyth.dont_look_back.desc"
+      "translate": "advancements.aylyth.aylyth.dont_look_back.desc"
     },
     "frame": "task",
     "hidden": false,
@@ -29,7 +29,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "aylyth.advancements.aylyth.dont_look_back.title"
+      "translate": "advancements.aylyth.aylyth.dont_look_back.title"
     }
   },
   "requirements": [

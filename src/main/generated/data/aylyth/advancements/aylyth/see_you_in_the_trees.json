@@ -16,7 +16,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "aylyth.advancements.aylyth.see_you_in_the_trees.desc"
+      "translate": "advancements.aylyth.aylyth.see_you_in_the_trees.desc"
     },
     "frame": "goal",
     "hidden": false,
@@ -25,7 +25,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "aylyth.advancements.aylyth.see_you_in_the_trees.title"
+      "translate": "advancements.aylyth.aylyth.see_you_in_the_trees.title"
     }
   },
   "requirements": [

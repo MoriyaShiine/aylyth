@@ -17,7 +17,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "aylyth.advancements.aylyth.in_the_branches.desc"
+      "translate": "advancements.aylyth.aylyth.in_the_branches.desc"
     },
     "frame": "task",
     "hidden": false,
@@ -27,7 +27,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "aylyth.advancements.aylyth.in_the_branches.title"
+      "translate": "advancements.aylyth.aylyth.in_the_branches.title"
     }
   },
   "requirements": [

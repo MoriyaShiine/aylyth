@@ -17,7 +17,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "aylyth.advancements.aylyth.into_the_fire_we_fly.desc"
+      "translate": "advancements.aylyth.aylyth.into_the_fire_we_fly.desc"
     },
     "frame": "task",
     "hidden": false,
@@ -26,7 +26,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "aylyth.advancements.aylyth.into_the_fire_we_fly.title"
+      "translate": "advancements.aylyth.aylyth.into_the_fire_we_fly.title"
     }
   },
   "requirements": [

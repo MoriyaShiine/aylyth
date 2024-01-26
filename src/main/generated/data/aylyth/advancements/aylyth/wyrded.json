@@ -3,14 +3,14 @@
   "aylyth:custom_display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "aylyth.advancements.aylyth.wyrded.desc"
+      "translate": "advancements.aylyth.aylyth.wyrded.desc"
     },
     "frame": "task",
     "hidden": false,
     "show_toast": true,
     "texture": "aylyth:textures/mob_effect/wyrded.png",
     "title": {
-      "translate": "aylyth.advancements.aylyth.wyrded.title"
+      "translate": "advancements.aylyth.aylyth.wyrded.title"
     }
   },
   "criteria": {
