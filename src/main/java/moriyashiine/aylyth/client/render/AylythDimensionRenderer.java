@@ -79,7 +79,7 @@ public class AylythDimensionRenderer {
 		
 		@Override
 		public boolean useThickFog(int camX, int camY) {
-			return true;
+			return false;
 		}
 	}
 
