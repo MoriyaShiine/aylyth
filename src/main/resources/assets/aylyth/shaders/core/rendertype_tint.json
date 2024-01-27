@@ -4,8 +4,8 @@
         "srcrgb": "srcalpha",
         "dstrgb": "1-srcalpha"
     },
-    "vertex": "rendertype_tint",
-    "fragment": "rendertype_tint",
+    "vertex": "aylyth:rendertype_tint",
+    "fragment": "aylyth:rendertype_tint",
     "attributes": [
         "Position",
         "UV0"

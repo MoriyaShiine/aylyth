@@ -12,6 +12,7 @@ import moriyashiine.aylyth.client.network.packet.UpdatePressingUpDownPacket;
 import moriyashiine.aylyth.client.particle.HindSmokeParticle;
 import moriyashiine.aylyth.client.particle.PilotLightParticle;
 import moriyashiine.aylyth.client.render.AylythDimensionRenderer;
+import moriyashiine.aylyth.client.render.RenderTypes;
 import moriyashiine.aylyth.client.render.block.entity.SeepBlockEntityRenderer;
 import moriyashiine.aylyth.client.render.block.entity.SoulHearthBlockEntityRenderer;
 import moriyashiine.aylyth.client.render.block.entity.VitalThuribleBlockEntityRenderer;
@@ -47,6 +48,7 @@ import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.TexturedRenderLayers;
+import net.minecraft.client.render.VertexFormats;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.util.InputUtil;
@@ -151,6 +153,11 @@ public class AylythClient implements ClientModInitializer {
 		BuiltinItemRendererRegistry.INSTANCE.register(ModItems.WOODY_GROWTH_CACHE, new WoodyGrowthCacheItemRenderer());
 //		BuiltinItemRendererRegistry.INSTANCE.register(ModItems.MYSTERIOUS_SKETCH, new MysteriousSketchItemRenderer());
 		HandledScreens.register(ModScreenHandlers.TULPA_SCREEN_HANDLER, TulpaScreen::new);
+
+		CoreShaderRegistrationCallback.EVENT.register(context -> {
+			context.register(AylythUtil.id("rendertype_seep"), VertexFormats.POSITION_COLOR_TEXTURE_LIGHT_NORMAL, shader -> SeepBlockEntityRenderer.renderTypeSeepShader = shader);
+			context.register(AylythUtil.id("rendertype_tint"), VertexFormats.POSITION_TEXTURE, shader -> RenderTypes.renderlayer_tint = shader);
+		});
 	}
 
 	private void registerBigRenderer(ItemConvertible item) {
