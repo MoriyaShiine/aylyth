@@ -64,4 +64,8 @@ public class YmpeThornsComponent implements AutoSyncedComponent, ServerTickingCo
 		thornProgress = progress;
 		ModComponents.YMPE_THORNS.sync(entity);
 	}
+
+	public void incrementThornProgress(int progress) {
+		setThornProgress(getThornProgress() + progress);
+	}
 }
