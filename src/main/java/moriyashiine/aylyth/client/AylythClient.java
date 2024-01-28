@@ -165,8 +165,8 @@ public class AylythClient implements ClientModInitializer {
 		HandledScreens.register(ModScreenHandlers.TULPA_SCREEN_HANDLER, TulpaScreen::new);
 
 		CoreShaderRegistrationCallback.EVENT.register(context -> {
-			context.register(AylythUtil.id("rendertype_seep"), VertexFormats.POSITION_COLOR_TEXTURE_LIGHT_NORMAL, shader -> SeepBlockEntityRenderer.renderTypeSeepShader = shader);
-			context.register(AylythUtil.id("rendertype_tint"), VertexFormats.POSITION_TEXTURE, shader -> RenderTypes.renderlayer_tint = shader);
+			context.register(AylythUtil.id("rendertype_seep"), VertexFormats.POSITION_COLOR_TEXTURE_LIGHT_NORMAL, shader -> RenderTypes.renderLayerSeep = shader);
+			context.register(AylythUtil.id("rendertype_tint"), VertexFormats.POSITION_TEXTURE, shader -> RenderTypes.renderLayerTint = shader);
 		});
 	}
 

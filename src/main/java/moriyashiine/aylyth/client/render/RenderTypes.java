@@ -1,7 +1,6 @@
 package moriyashiine.aylyth.client.render;
 
-import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.mixin.client.RenderLayerAccessor;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.RenderPhase;
 import net.minecraft.client.render.VertexFormat;
@@ -16,20 +15,36 @@ public class RenderTypes extends RenderLayer {
         super(name, vertexFormat, drawMode, expectedBufferSize, hasCrumbling, translucent, startAction, endAction);
     }
 
-    public static net.minecraft.client.gl.ShaderProgram renderlayer_tint;
-    public static final MultiPhase TINT = RenderLayerAccessor.callOf(
+    public static net.minecraft.client.gl.ShaderProgram renderLayerSeep;
+    public static final MultiPhase SEEP = of(
+            "seep",
+            VertexFormats.POSITION,
+            VertexFormat.DrawMode.QUADS,
+            256, false, false,
+            RenderLayer.MultiPhaseParameters.builder()
+                    .program(new RenderPhase.ShaderProgram(() -> renderLayerSeep))
+                    .texture(RenderPhase.Textures.create()
+                            .add(AylythUtil.id("textures/environment/seep_0.png"), false, false)
+                            .add(AylythUtil.id("textures/environment/seep_1.png"), false, false)
+                            .build()
+                    )
+                    .build(false)
+    );
+
+    public static net.minecraft.client.gl.ShaderProgram renderLayerTint;
+    public static final MultiPhase TINT = of(
             "renderlayer_tint",
             VertexFormats.POSITION_TEXTURE,
             VertexFormat.DrawMode.QUADS,
             256, false, false,
             MultiPhaseParameters.builder()
-                    .program(new RenderPhase.ShaderProgram(() -> renderlayer_tint))
-                    .texture(new Texture(new Identifier(Aylyth.MOD_ID, "textures/misc/woody_growth_tint.png"), true, false))
-                    .writeMaskState(RenderPhase.COLOR_MASK)
-                    .cull(RenderPhase.DISABLE_CULLING)
-                    .depthTest(RenderPhase.EQUAL_DEPTH_TEST)
-                    .transparency(RenderPhase.GLINT_TRANSPARENCY)
-                    .texturing(RenderPhase.GLINT_TEXTURING)
+                    .program(new ShaderProgram(() -> renderLayerTint))
+                    .texture(new Texture(AylythUtil.id("textures/misc/woody_growth_tint.png"), true, false))
+                    .writeMaskState(COLOR_MASK)
+                    .cull(DISABLE_CULLING)
+                    .depthTest(EQUAL_DEPTH_TEST)
+                    .transparency(GLINT_TRANSPARENCY)
+                    .texturing(GLINT_TEXTURING)
                     .build(false)
     );
 
@@ -41,7 +56,7 @@ public class RenderTypes extends RenderLayer {
                 .lightmap(ENABLE_LIGHTMAP)
                 .overlay(ENABLE_OVERLAY_COLOR)
                 .build(false);
-        return RenderLayer.of("entity_no_outline_fixed", VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, VertexFormat.DrawMode.QUADS, 256, false, false, multiPhaseParameters);
+        return of("entity_no_outline_fixed", VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, VertexFormat.DrawMode.QUADS, 256, false, false, multiPhaseParameters);
     });
 
     public static final Function<Identifier, RenderLayer> GLOWING_LAYER = Util.memoize(texture -> {
