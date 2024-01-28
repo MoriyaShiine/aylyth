@@ -5,7 +5,6 @@ import moriyashiine.aylyth.common.registry.ModPOITypes;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.common.block.entity.SeepBlockEntity;
 import moriyashiine.aylyth.common.registry.key.ModDimensionKeys;
-import moriyashiine.aylyth.common.block.util.SeepTeleportable;
 import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
@@ -63,7 +62,6 @@ public class SeepBlock extends Block implements BlockEntityProvider {
 		super.onEntityCollision(state, world, pos, entity);
 		if (world instanceof ServerWorld serverWorld) {
 			if (entity.getPos().distanceTo(new Vec3d(pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F)) < 0.6F) {
-				SeepTeleportable.of(entity).ifPresent(teleportable -> teleportable.setInSeep(pos));
 				MinecraftServer server = serverWorld.getServer();
 				ServerWorld toWorld = world.getRegistryKey() == ModDimensionKeys.AYLYTH ? server.getOverworld() : server.getWorld(ModDimensionKeys.AYLYTH);
 				toWorld.getChunkManager().addTicket(ChunkTicketType.PORTAL, new ChunkPos(pos), 3, pos);
