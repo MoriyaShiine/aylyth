@@ -16,7 +16,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
 public class YmpeInfestationFeature extends FeatureRenderer<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>> {
-	private static final Identifier TEXTURE = new Identifier(Aylyth.MOD_ID, "textures/entity/living/scion_overlay.png");
+	private static final Identifier TEXTURE = new Identifier(Aylyth.MOD_ID, "textures/entity/living/branches_overlay.png");
 	private static final YmpeInfestationModel[] MODELS = new YmpeInfestationModel[5];
 	private final boolean slim;
 	

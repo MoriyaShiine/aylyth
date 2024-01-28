@@ -51,7 +51,7 @@ public class ScionEntityRenderer extends BipedEntityRenderer<ScionEntity, BipedE
                 return abstractClientPlayerEntity.getSkinTexture();
             }
         }
-        return AylythUtil.id("textures/entity/living/scion/scion_npc_base.png");
+        return AylythUtil.id("textures/entity/living/scion_npc_base.png");
     }
 
     @Override
