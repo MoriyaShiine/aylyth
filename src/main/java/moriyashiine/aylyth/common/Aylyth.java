@@ -54,7 +54,7 @@ import org.jetbrains.annotations.Nullable;
 public class Aylyth implements ModInitializer {
 	public static final String MOD_ID = "aylyth";
 
-	private static boolean debugMode = false;
+	private static boolean debugMode = true;
 	public static boolean isDebugMode() {
 		return debugMode && FabricLoader.getInstance().isDevelopmentEnvironment();
 	}

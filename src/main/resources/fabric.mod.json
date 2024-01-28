@@ -53,7 +53,7 @@
         "java": ">=17",
         "geckolib": "*",
         "trinkets": "~3.7.1",
-        "smartbrainlib": "1.13"
+        "smartbrainlib": ">=1.13"
     },
     "custom": {
         "cardinal-components": [
