@@ -4,15 +4,16 @@ import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.entity.mob.AylythianEntity;
 import moriyashiine.aylyth.common.entity.mob.ElderAylythianEntity;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.MathHelper;
 import software.bernie.geckolib.constant.DataTickets;
 import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
 public class ElderAylythianEntityModel extends GeoModel<ElderAylythianEntity> {
-	private static final Identifier MODEL_LOCATION = new Identifier(Aylyth.MOD_ID, "geo/elder_aylythian.geo.json");
+	private static final Identifier MODEL_LOCATION = new Identifier(Aylyth.MOD_ID, "geo/entity/living/elder_aylythian.geo.json");
 	private static Identifier[] TEXTURE_LOCATIONS;
-	private static final Identifier ANIMATION_FILE_LOCATION = new Identifier(Aylyth.MOD_ID, "animations/entity/elder_aylythian.animation.json");
+	private static final Identifier ANIMATION_FILE_LOCATION = new Identifier(Aylyth.MOD_ID, "animations/entity/living/elder_aylythian.animation.json");
 	
 	@Override
 	public Identifier getModelResource(ElderAylythianEntity object) {
@@ -41,8 +42,8 @@ public class ElderAylythianEntityModel extends GeoModel<ElderAylythianEntity> {
 		var head = this.getAnimationProcessor().getBone("head");
 		var extraData = customPredicate.getData(DataTickets.ENTITY_MODEL_DATA);
 		if (head != null) {
-			head.setRotX(extraData.headPitch() * ((float) Math.PI / 180F));
-			head.setRotY(extraData.netHeadYaw() * ((float) Math.PI / 180F));
+			head.setRotX(extraData.headPitch() * MathHelper.RADIANS_PER_DEGREE);
+			head.setRotY(extraData.netHeadYaw() * MathHelper.RADIANS_PER_DEGREE);
 		}
 	}
 }

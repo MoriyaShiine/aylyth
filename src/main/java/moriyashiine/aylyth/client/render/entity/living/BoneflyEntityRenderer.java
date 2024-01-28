@@ -16,11 +16,6 @@ public class BoneflyEntityRenderer extends GeoEntityRenderer<BoneflyEntity> {
     }
 
     @Override
-    public RenderLayer getRenderType(BoneflyEntity animatable, Identifier texture, @Nullable VertexConsumerProvider bufferSource, float partialTick) {
-        return getGeoModel().getRenderType(animatable, texture);
-    }
-
-    @Override
     protected float getDeathMaxRotation(BoneflyEntity entityLivingBaseIn) {
         return 0.0F;
     }

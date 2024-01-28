@@ -7,6 +7,7 @@ import moriyashiine.aylyth.client.render.block.entity.WoodyGrowthBlockEntityRend
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.entity.mob.TulpaEntity;
 import moriyashiine.aylyth.common.registry.ModEntityTypes;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.mixin.client.PlayerSkinTextureAccessor;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.*;
@@ -16,7 +17,9 @@ import net.minecraft.client.texture.*;
 import net.minecraft.client.util.DefaultSkinHelper;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.item.ShieldItem;
 import net.minecraft.resource.Resource;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Hand;
@@ -25,9 +28,11 @@ import net.minecraft.util.math.RotationAxis;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.example.client.renderer.entity.GremlinRenderer;
 import software.bernie.geckolib.cache.object.BakedGeoModel;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
+import software.bernie.geckolib.renderer.layer.BlockAndItemGeoLayer;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -43,14 +48,62 @@ public class TulpaEntityRenderer extends GeoEntityRenderer<TulpaEntity> {
     public static final Map<GameProfile, AdditiveTexture> TEXTURE_CACHE = new HashMap<>();
     private TulpaEntity.TulpaPlayerEntity tulpaPlayerEntity;
     protected TulpaEntityModel.TulpaPlayerEntityModel model;
+
+    private static final String RIGHT_CLAWS = "right_claws";
+    private static final String LEFT_CLAWS = "left_claws";
+
     public TulpaEntityRenderer(EntityRendererFactory.Context ctx) {
         super(ctx, new TulpaEntityModel());
         this.model = new TulpaEntityModel.TulpaPlayerEntityModel();
         this.textureManager = MinecraftClient.getInstance().getTextureManager();
         this.resourceManager = MinecraftClient.getInstance().getResourceManager();
         this.defaultTexture = new AdditiveTexture(DefaultSkinHelper.getTexture(), false);
-//        addLayer(new TulpaHandItemLayer(this, ctx.getHeldItemRenderer()));
-        // TODO: add layer for rendering items in hands
+        addRenderLayer(new BlockAndItemGeoLayer<>(this) {
+            @Override
+            protected ItemStack getStackForBone(GeoBone bone, TulpaEntity tulpa) {
+                return switch (bone.getName()) {
+                    case RIGHT_CLAWS -> tulpa.getMainHandStack();
+                    case LEFT_CLAWS -> tulpa.getOffHandStack();
+                    default -> null;
+                };
+            }
+
+            @Override
+            protected ModelTransformationMode getTransformTypeForStack(GeoBone bone, ItemStack stack, TulpaEntity animatable) {
+                return switch (bone.getName()) {
+                    case RIGHT_CLAWS -> ModelTransformationMode.THIRD_PERSON_RIGHT_HAND;
+                    case LEFT_CLAWS -> ModelTransformationMode.THIRD_PERSON_LEFT_HAND;
+                    default -> super.getTransformTypeForStack(bone, stack, animatable);
+                };
+            }
+
+            @Override
+            protected void renderStackForBone(MatrixStack poseStack, GeoBone bone, ItemStack stack, TulpaEntity animatable, VertexConsumerProvider bufferSource, float partialTick, int packedLight, int packedOverlay) {
+                if (stack == animatable.getMainHandStack()) {
+                    poseStack.multiply(RotationAxis.POSITIVE_X.rotationDegrees(-80f));
+                    poseStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-25f));
+                    poseStack.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(-10));
+                    poseStack.translate(0, 0, -0.15);
+
+                    if (stack.getItem() instanceof ShieldItem)
+                        poseStack.translate(0, 0.125, -0.25);
+                }
+                else if (stack == animatable.getOffHandStack()) {
+                    poseStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(10f));
+                    poseStack.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(-20f));
+                    poseStack.translate(0, -0.4, -0.35);
+
+                    if (stack.getItem() instanceof ShieldItem) {
+                        poseStack.translate(0, -0.9, 0.5);
+                        poseStack.multiply(RotationAxis.POSITIVE_X.rotationDegrees(90));
+                        poseStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180));
+                    }
+                }
+
+                super.renderStackForBone(poseStack, bone, stack, animatable, bufferSource, partialTick, packedLight, packedOverlay);
+            }
+        });
+        // TODO: add layer for rendering armor
     }
 
     @Override
@@ -64,9 +117,9 @@ public class TulpaEntityRenderer extends GeoEntityRenderer<TulpaEntity> {
 
     @Override
     public RenderLayer getRenderType(TulpaEntity animatable, Identifier texture, @Nullable VertexConsumerProvider bufferSource, float partialTick) {
-        if(animatable.getSkinProfile() != null){
+        if (animatable.getSkinProfile() != null) {
             return getFusedTexture(animatable.getSkinProfile()).renderLayer;
-        }else if(animatable.getSkinUuid() != null){
+        } else if (animatable.getSkinUuid() != null) {
             GameProfile profile = new GameProfile(animatable.getSkinUuid(), "");
             animatable.setSkinProfile(profile);
             return getFusedTexture(animatable.getSkinProfile()).renderLayer;
@@ -98,7 +151,7 @@ public class TulpaEntityRenderer extends GeoEntityRenderer<TulpaEntity> {
 
     public final class AdditiveTexture implements AutoCloseable {
         public static final Logger LOGGER = LogManager.getLogger(Aylyth.MOD_ID + ":texturegen");
-        private static final Identifier TULPA_TEXTURE = TulpaEntityModel.TEXTURE;
+        private static final Identifier TULPA_TEXTURE = AylythUtil.id("textures/entity/living/tulpa/tulpa.png");
         private final Identifier base;
         private final boolean playerSkin;
         private final RenderLayer renderLayer;
