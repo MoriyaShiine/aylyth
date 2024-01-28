@@ -1,5 +1,8 @@
 package moriyashiine.aylyth.mixin;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.datagen.worldgen.terrain.AylythNoiseSettings;
 import net.minecraft.block.Blocks;
@@ -18,15 +21,12 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(NoiseChunkGenerator.class)
 public abstract class NoiseChunkGeneratorMixin {
 
-    @Shadow
-    private static native AquiferSampler.FluidLevelSampler createFluidLevelSampler(ChunkGeneratorSettings settings);
-
-    @Redirect(method = "method_45511", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/gen/chunk/NoiseChunkGenerator;createFluidLevelSampler(Lnet/minecraft/world/gen/chunk/ChunkGeneratorSettings;)Lnet/minecraft/world/gen/chunk/AquiferSampler$FluidLevelSampler;"))
-    private static AquiferSampler.FluidLevelSampler aylyth_init(ChunkGeneratorSettings settings, RegistryEntry<ChunkGeneratorSettings> settingsRegistryEntry) {
-        if (settingsRegistryEntry.matchesKey(AylythNoiseSettings.AYLYTH)) {
+    @WrapOperation(method = "method_45511", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/gen/chunk/NoiseChunkGenerator;createFluidLevelSampler(Lnet/minecraft/world/gen/chunk/ChunkGeneratorSettings;)Lnet/minecraft/world/gen/chunk/AquiferSampler$FluidLevelSampler;"))
+    private static AquiferSampler.FluidLevelSampler aylyth$init(ChunkGeneratorSettings settings, Operation<AquiferSampler.FluidLevelSampler> original, @Local(argsOnly = true) RegistryEntry<ChunkGeneratorSettings> settingsEntry) {
+        if (settingsEntry.matchesKey(AylythNoiseSettings.AYLYTH)) {
             return createAylythFluidLevelSampler(settings);
         }
-        return createFluidLevelSampler(settings);
+        return original.call(settings);
     }
 
     // [VanillaCopy]
