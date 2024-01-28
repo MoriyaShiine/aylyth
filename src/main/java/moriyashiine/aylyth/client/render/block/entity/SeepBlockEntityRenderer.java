@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.client.render.block.entity;
 
-import moriyashiine.aylyth.client.render.RenderTypes;
+import moriyashiine.aylyth.client.render.AylythRenderLayers;
 import moriyashiine.aylyth.common.block.entity.SeepBlockEntity;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -16,7 +16,7 @@ public class SeepBlockEntityRenderer implements BlockEntityRenderer<SeepBlockEnt
 	@Override
 	public void render(SeepBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
 		Matrix4f matrix = matrices.peek().getPositionMatrix();
-		VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderTypes.SEEP);
+		VertexConsumer vertexConsumer = vertexConsumers.getBuffer(AylythRenderLayers.SEEP);
 		this.renderSide(matrix, vertexConsumer, 0.0625F, 0.9375F, 0, 1, 0.9375F, 0.9375F, 0.9375F, 0.9375F);
 		this.renderSide(matrix, vertexConsumer, 0.0625F, 0.9375F, 1, 0, 0.0625F, 0.0625F, 0.0625F, 0.0625F);
 		this.renderSide(matrix, vertexConsumer, 0.9375F, 0.9375F, 1, 0, 0.0625F, 0.9375F, 0.9375F, 0.0625F);

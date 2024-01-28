@@ -12,7 +12,7 @@ import moriyashiine.aylyth.client.network.packet.UpdatePressingUpDownPacket;
 import moriyashiine.aylyth.client.particle.HindSmokeParticle;
 import moriyashiine.aylyth.client.particle.PilotLightParticle;
 import moriyashiine.aylyth.client.render.AylythDimensionRenderer;
-import moriyashiine.aylyth.client.render.RenderTypes;
+import moriyashiine.aylyth.client.render.AylythRenderLayers;
 import moriyashiine.aylyth.client.render.block.entity.SeepBlockEntityRenderer;
 import moriyashiine.aylyth.client.render.block.entity.SoulHearthBlockEntityRenderer;
 import moriyashiine.aylyth.client.render.block.entity.VitalThuribleBlockEntityRenderer;
@@ -33,7 +33,6 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
-import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
@@ -165,8 +164,8 @@ public class AylythClient implements ClientModInitializer {
 		HandledScreens.register(ModScreenHandlers.TULPA_SCREEN_HANDLER, TulpaScreen::new);
 
 		CoreShaderRegistrationCallback.EVENT.register(context -> {
-			context.register(AylythUtil.id("rendertype_seep"), VertexFormats.POSITION_COLOR_TEXTURE_LIGHT_NORMAL, shader -> RenderTypes.renderLayerSeep = shader);
-			context.register(AylythUtil.id("rendertype_tint"), VertexFormats.POSITION_TEXTURE, shader -> RenderTypes.renderLayerTint = shader);
+			context.register(AylythUtil.id("rendertype_seep"), VertexFormats.POSITION_COLOR_TEXTURE_LIGHT_NORMAL, shader -> AylythRenderLayers.renderLayerSeep = shader);
+			context.register(AylythUtil.id("rendertype_tint"), VertexFormats.POSITION_TEXTURE, shader -> AylythRenderLayers.renderLayerTint = shader);
 		});
 	}
 

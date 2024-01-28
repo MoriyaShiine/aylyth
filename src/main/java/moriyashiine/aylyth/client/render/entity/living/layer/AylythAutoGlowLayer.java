@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.client.render.entity.living.layer;
 
-import moriyashiine.aylyth.client.render.RenderTypes;
+import moriyashiine.aylyth.client.render.AylythRenderLayers;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
@@ -27,7 +27,7 @@ public class AylythAutoGlowLayer<E extends GeoAnimatable> extends GeoRenderLayer
 
     @Override
     public void render(MatrixStack matrixStackIn, E entity, BakedGeoModel bakedModel, RenderLayer renderType, VertexConsumerProvider bufferIn, VertexConsumer buffer, float partialTicks, int packedLightIn, int packedOverlay) {
-        RenderLayer renderLayer = RenderTypes.GLOWING_LAYER.apply(getTextureResource(entity));
+        RenderLayer renderLayer = AylythRenderLayers.GLOWING_LAYER.apply(getTextureResource(entity));
         getRenderer().reRender(getDefaultBakedModel(entity),
                 matrixStackIn,
                 bufferIn,

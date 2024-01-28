@@ -2,7 +2,7 @@ package moriyashiine.aylyth.client.render.block.entity;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture;
-import moriyashiine.aylyth.client.render.RenderTypes;
+import moriyashiine.aylyth.client.render.AylythRenderLayers;
 import moriyashiine.aylyth.common.block.entity.WoodyGrowthCacheBlockEntity;
 import moriyashiine.aylyth.mixin.client.SkullBlockEntityAccessor;
 import net.minecraft.block.BlockState;
@@ -41,7 +41,7 @@ public class WoodyGrowthBlockEntityRenderer implements BlockEntityRenderer<Woody
         }
 
         BlockState state = entity.getCachedState();
-        VertexConsumer consumer = VertexConsumers.union(vertexConsumers.getBuffer(RenderTypes.TINT), vertexConsumers.getBuffer(RenderLayer.getCutoutMipped()));
+        VertexConsumer consumer = VertexConsumers.union(vertexConsumers.getBuffer(AylythRenderLayers.TINT), vertexConsumers.getBuffer(RenderLayer.getCutoutMipped()));
         BakedModel model = MinecraftClient.getInstance().getBlockRenderManager().getModel(state);
         long renderingSeed = state.getRenderingSeed(entity.getPos());
         rand.setSeed(renderingSeed);
@@ -59,7 +59,7 @@ public class WoodyGrowthBlockEntityRenderer implements BlockEntityRenderer<Woody
                 matrices.translate(0, Math.sin(MathHelper.lerp(tickDelta, gameTime-1, gameTime) / 10D) / 10D, 0);
                 matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(MathHelper.lerp(tickDelta, gameTime-1, gameTime)));
                 matrices.translate(-0.5, -0.5, -0.5);
-                VertexConsumer buffer = vertexConsumers.getBuffer(RenderTypes.ENTITY_NO_OUTLINE_DEPTH_FIX.apply(texture));
+                VertexConsumer buffer = vertexConsumers.getBuffer(AylythRenderLayers.ENTITY_NO_OUTLINE_DEPTH_FIX.apply(texture));
                 renderBox(matrices, buffer, light, overlay);
                 // TODO: Render second layer too
                 matrices.pop();
