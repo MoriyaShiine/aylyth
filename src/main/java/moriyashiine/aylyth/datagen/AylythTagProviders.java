@@ -48,7 +48,6 @@ public class AylythTagProviders {
 
         @Override
         protected void configure(RegistryWrapper.WrapperLookup registries) {
-            getOrCreateTagBuilder(ModBlockTags.CARVED_NEPHRITE).add(ModBlocks.CARVED_SMOOTH_NEPHRITE, ModBlocks.CARVED_ANTLERED_NEPHRITE, ModBlocks.CARVED_NEPHRITE_PILLAR, ModBlocks.POLISHED_CARVED_NEPHRITE, ModBlocks.CARVED_NEPHRITE_TILES, ModBlocks.CARVED_WOODY_NEPHRITE);
             getOrCreateTagBuilder(BlockTags.AXE_MINEABLE).addTag(ModBlockTags.WOODY_GROWTHS).add(ModBlocks.AYLYTH_BUSH, ModBlocks.ANTLER_SHOOTS, ModBlocks.GRIPWEED, ModBlocks.NYSIAN_GRAPE_VINE, ModBlocks.OAK_SEEP, ModBlocks.SPRUCE_SEEP, ModBlocks.DARK_OAK_SEEP, ModBlocks.YMPE_SEEP, ModBlocks.SEEPING_WOOD, ModBlocks.SEEPING_WOOD_SEEP, ModBlocks.DARK_WOODS_TILES);
             getOrCreateTagBuilder(BlockTags.HOE_MINEABLE).add(ModBlocks.YMPE_LEAVES, ModBlocks.POMEGRANATE_LEAVES, ModBlocks.WRITHEWOOD_LEAVES);
             getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE).addTag(ModBlockTags.CARVED_NEPHRITE).add(ModBlocks.SOUL_HEARTH, ModBlocks.VITAL_THURIBLE, ModBlocks.ESSTLINE_BLOCK, ModBlocks.NEPHRITE_BLOCK);

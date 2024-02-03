@@ -98,8 +98,6 @@ public class ModItems {
 	public static final Item AYLYTH_BUSH = register("aylyth_bush", new BlockItem(ModBlocks.AYLYTH_BUSH, settings()));
 	public static final Item ANTLER_SHOOTS = register("antler_shoots", new BlockItem(ModBlocks.ANTLER_SHOOTS, settings()));
 	public static final Item GRIPWEED = register("gripweed", new BlockItem(ModBlocks.GRIPWEED, settings()));
-	public static final Item CORIC_SEED = register("coric_seed", new CoricSeedItem(settings()));
-
 	public static final Item NYSIAN_GRAPE_VINE = register("nysian_grape_vine", new BlockItem(ModBlocks.NYSIAN_GRAPE_VINE, settings()));
 	public static final Item MARIGOLD = register("marigolds", new BlockItem(ModBlocks.MARIGOLD, settings()));
 	public static final Item OAK_STREWN_LEAVES = register("oak_strewn_leaves", new BlockItem(ModBlocks.OAK_STREWN_LEAVES, settings()));
@@ -117,12 +115,11 @@ public class ModItems {
 	public static final Item SEEPING_WOOD_SEEP = register("seeping_wood_seep", new BlockItem(ModBlocks.SEEPING_WOOD_SEEP, settings()));
 
 //	public static final Item MYSTERIOUS_SKETCH = register("mysterious_sketch", new Item(new FabricItemSettings()));
-
 	public static final Item YMPE_DAGGER = register("ympe_dagger", new YmpeDaggerItem(ToolMaterials.NETHERITE, 1, -2, settings()));
 	public static final Item YMPE_GLAIVE = register("ympe_glaive", new YmpeGlaiveItem(4, -3.1F, (settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(1)));
 	public static final Item YMPE_LANCE = register("ympe_lance", new YmpeLanceItem(312, settings()));
-
 	public static final Item AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE = register("aylythian_upgrade_smithing_template", new AylythianSmithingTemplateUpgradeItem());
+	public static final Item CORIC_SEED = register("coric_seed", new CoricSeedItem(settings()));
 	public static final Item ESSTLINE = register("esstline", new Item(new FabricItemSettings()));
 	public static final Item NEPHRITE = register("nephrite", new Item(new FabricItemSettings()));
 
@@ -131,7 +128,6 @@ public class ModItems {
 	public static final Item CARVED_SMOOTH_NEPHRITE = register("carved_smooth_nephrite", new BlockItem(ModBlocks.CARVED_SMOOTH_NEPHRITE, settings()));
 	public static final Item CARVED_ANTLERED_NEPHRITE = register("carved_antlered_nephrite", new BlockItem(ModBlocks.CARVED_ANTLERED_NEPHRITE, settings()));
 	public static final Item CARVED_NEPHRITE_PILLAR = register("carved_nephrite_pillar", new BlockItem(ModBlocks.CARVED_NEPHRITE_PILLAR, settings()));
-	public static final Item POLISHED_CARVED_NEPHRITE = register("polished_carved_nephrite", new BlockItem(ModBlocks.POLISHED_CARVED_NEPHRITE, settings()));
 	public static final Item CARVED_NEPHRITE_TILES = register("carved_nephrite_tiles", new BlockItem(ModBlocks.CARVED_NEPHRITE_TILES, settings()));
 	public static final Item CARVED_WOODY_NEPHRITE = register("carved_woody_nephrite", new BlockItem(ModBlocks.CARVED_WOODY_NEPHRITE, settings()));
 

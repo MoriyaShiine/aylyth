@@ -96,7 +96,6 @@ public class AylythModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerSingleton(ModBlocks.CARVED_SMOOTH_NEPHRITE, TexturedModel.CUBE_ALL);
         blockStateModelGenerator.registerSingleton(ModBlocks.CARVED_ANTLERED_NEPHRITE, TexturedModel.CUBE_ALL);
         blockStateModelGenerator.registerAxisRotated(ModBlocks.CARVED_NEPHRITE_PILLAR, TexturedModel.END_FOR_TOP_CUBE_COLUMN, TexturedModel.END_FOR_TOP_CUBE_COLUMN_HORIZONTAL);
-        blockStateModelGenerator.registerSingleton(ModBlocks.POLISHED_CARVED_NEPHRITE, TexturedModel.CUBE_ALL);
         blockStateModelGenerator.registerSingleton(ModBlocks.CARVED_NEPHRITE_TILES, TexturedModel.CUBE_ALL);
         blockStateModelGenerator.registerSingleton(ModBlocks.CARVED_WOODY_NEPHRITE, TexturedModel.CUBE_ALL);
         Models.PARTICLE.upload(blockId("woody_growth_particles"), TextureMap.particle(blockId("aylyth_bush_trunk")), blockStateModelGenerator.modelCollector);

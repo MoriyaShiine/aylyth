@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "aylyth:block/carved_smooth_nephrite"
+    "all": "aylyth:block/carved_nephrite_smooth"
   }
 }
