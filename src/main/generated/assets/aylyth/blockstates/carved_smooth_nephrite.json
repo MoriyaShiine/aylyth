@@ -1,7 +1,20 @@
 {
   "variants": {
-    "": {
-      "model": "aylyth:block/carved_smooth_nephrite"
-    }
+    "": [
+      {
+        "model": "aylyth:block/carved_smooth_nephrite"
+      },
+      {
+        "model": "aylyth:block/carved_smooth_nephrite_mirrored"
+      },
+      {
+        "model": "aylyth:block/carved_smooth_nephrite",
+        "y": 180
+      },
+      {
+        "model": "aylyth:block/carved_smooth_nephrite_mirrored",
+        "y": 180
+      }
+    ]
   }
 }
