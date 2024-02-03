@@ -31,13 +31,13 @@ public class ScionFeatureRenderer extends FeatureRenderer<ScionEntity, BipedEnti
         if(entity.getStoredPlayerUUID() != null){
             this.getContextModel().copyBipedStateTo(OVERLAY_MODEL);
             OVERLAY_MODEL.child = false;
-            OVERLAY_MODEL.render(matrices, vertexConsumers.getBuffer(RenderLayer.getEntityTranslucent(AylythUtil.id("textures/entity/living/scion/scion_overlay.png"))), light, OverlayTexture.DEFAULT_UV, 1,1,1,1);
+            OVERLAY_MODEL.render(matrices, vertexConsumers.getBuffer(RenderLayer.getEntityTranslucent(AylythUtil.id("textures/entity/living/scion_overlay.png"))), light, OverlayTexture.DEFAULT_UV, 1,1,1,1);
 
         }
         matrices.pop();
     }
 
     public Identifier getScionTexture(){
-        return AylythUtil.id("textures/entity/living/scion/scion.png");
+        return AylythUtil.id("textures/entity/living/scion.png");
     }
 }

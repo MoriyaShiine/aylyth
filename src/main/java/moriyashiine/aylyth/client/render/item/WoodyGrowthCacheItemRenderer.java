@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.client.render.item;
 
-import moriyashiine.aylyth.client.render.RenderTypes;
+import moriyashiine.aylyth.client.render.AylythRenderLayers;
 import moriyashiine.aylyth.common.Aylyth;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.minecraft.client.MinecraftClient;
@@ -8,7 +8,6 @@ import net.minecraft.client.render.*;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.BakedQuad;
-import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
@@ -37,7 +36,7 @@ public class WoodyGrowthCacheItemRenderer implements BuiltinItemRendererRegistry
             }
             return;
         }
-        VertexConsumer consumer = VertexConsumers.union(vertexConsumers.getBuffer(RenderTypes.TINT), vertexConsumers.getBuffer(RenderLayers.getItemLayer(stack, true)));
+        VertexConsumer consumer = VertexConsumers.union(vertexConsumers.getBuffer(AylythRenderLayers.TINT), vertexConsumers.getBuffer(RenderLayers.getItemLayer(stack, true)));
         matrices.push();
         matrices.translate(0.5, 0.5, 0.5);
         model.getTransformation().getTransformation(mode).apply(mode == ModelTransformationMode.FIRST_PERSON_LEFT_HAND, matrices);

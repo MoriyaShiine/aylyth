@@ -42,7 +42,6 @@
     "client.ParticleManagerMixin",
     "client.PlayerEntityRendererMixin",
     "client.PlayerSkinTextureAccessor",
-    "client.RenderLayerAccessor",
     "client.SkullBlockEntityAccessor",
     "client.SpriteAtlasHolderMixin",
     "client.WorldRendererAccessor"

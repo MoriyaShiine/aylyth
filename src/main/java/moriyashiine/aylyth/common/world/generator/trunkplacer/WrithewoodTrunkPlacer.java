@@ -48,7 +48,7 @@ public class WrithewoodTrunkPlacer extends StraightTrunkPlacer {
             placeOnCardinals(mutable, blockPos -> getAndSetState(world, replacer, random, blockPos, config));
             mutable.move(Direction.UP);
         }
-        placeOnCardinals(mutable, blockPos -> getAndSetState(world, replacer, random, blockPos, config, state -> ModBlocks.WRITHEWOOD_BLOCKS.wood.getDefaultState()));
+        placeOnCardinals(mutable, blockPos -> getAndSetState(world, replacer, random, blockPos, config, state -> ModBlocks.WRITHEWOOD_WOOD.getDefaultState()));
 
         // branches
         //  decide the number of branches on the height/5 give or take two.

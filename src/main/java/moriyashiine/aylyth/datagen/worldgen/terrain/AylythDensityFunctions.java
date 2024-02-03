@@ -89,8 +89,8 @@ public class AylythDensityFunctions {
     }
 
     private static DensityFunction aylythY() {
-        var min = DimensionType.MIN_HEIGHT * 2;
-        var max = DimensionType.MAX_COLUMN_HEIGHT * 2;
+        int min = DimensionType.MIN_HEIGHT * 2;
+        int max = DimensionType.MAX_COLUMN_HEIGHT * 2;
         return yClampedGradient(
                 min,
                 max,
@@ -162,7 +162,7 @@ public class AylythDensityFunctions {
         );
     }
 
-    private static DensityFunction cavesSpaghetti2d(RegistryEntry<DensityFunction> caveSpaghetti2dThiknessModulator, RegistryEntryLookup<DoublePerlinNoiseSampler.NoiseParameters> noiseParameters) {
+    private static DensityFunction cavesSpaghetti2d(RegistryEntry<DensityFunction> caveSpaghetti2dThicknessModulator, RegistryEntryLookup<DoublePerlinNoiseSampler.NoiseParameters> noiseParameters) {
         return max(
                     add(
                             weirdScaledSampler(
@@ -172,7 +172,7 @@ public class AylythDensityFunctions {
                             ),
                             mul(
                                  constant(0.083),
-                                 holderFunction(caveSpaghetti2dThiknessModulator)
+                                 holderFunction(caveSpaghetti2dThicknessModulator)
                             )
                     ),
                     add(
@@ -191,7 +191,7 @@ public class AylythDensityFunctions {
                                             -40.0
                                     )
                             ).abs(),
-                            holderFunction(caveSpaghetti2dThiknessModulator)
+                            holderFunction(caveSpaghetti2dThicknessModulator)
                     )
         ).clamp(-1.0, 1.0);
     }

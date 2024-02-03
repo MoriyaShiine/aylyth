@@ -15,8 +15,8 @@ public class ModBoatTypes {
 	public static final RegistryKey<TerraformBoatType> WRITHEWOOD_BOAT_TYPE = TerraformBoatTypeRegistry.createKey(AylythUtil.id("writhewood"));
 
 	public static void init() {
-		Registry.register(TerraformBoatTypeRegistry.INSTANCE, YMPE_BOAT_TYPE, new TerraformBoatType.Builder().item(ModItems.YMPE_ITEMS.boat).chestItem(ModItems.YMPE_ITEMS.chestBoat).planks(ModItems.YMPE_ITEMS.planks).build());
-		Registry.register(TerraformBoatTypeRegistry.INSTANCE, POMEGRANATE_BOAT_TYPE, new TerraformBoatType.Builder().item(ModItems.POMEGRANATE_ITEMS.boat).chestItem(ModItems.POMEGRANATE_ITEMS.chestBoat).planks(ModItems.POMEGRANATE_ITEMS.planks).build());
-		Registry.register(TerraformBoatTypeRegistry.INSTANCE, WRITHEWOOD_BOAT_TYPE, new TerraformBoatType.Builder().item(ModItems.WRITHEWOOD_ITEMS.boat).chestItem(ModItems.WRITHEWOOD_ITEMS.chestBoat).planks(ModItems.WRITHEWOOD_ITEMS.planks).build());
+		Registry.register(TerraformBoatTypeRegistry.INSTANCE, YMPE_BOAT_TYPE, new TerraformBoatType.Builder().item(ModItems.YMPE_BOAT).chestItem(ModItems.YMPE_CHEST_BOAT).planks(ModItems.YMPE_PLANKS).build());
+		Registry.register(TerraformBoatTypeRegistry.INSTANCE, POMEGRANATE_BOAT_TYPE, new TerraformBoatType.Builder().item(ModItems.POMEGRANATE_BOAT).chestItem(ModItems.POMEGRANATE_CHEST_BOAT).planks(ModItems.POMEGRANATE_PLANKS).build());
+		Registry.register(TerraformBoatTypeRegistry.INSTANCE, WRITHEWOOD_BOAT_TYPE, new TerraformBoatType.Builder().item(ModItems.WRITHEWOOD_BOAT).chestItem(ModItems.WRITHEWOOD_CHEST_BOAT).planks(ModItems.WRITHEWOOD_PLANKS).build());
 	}
 }

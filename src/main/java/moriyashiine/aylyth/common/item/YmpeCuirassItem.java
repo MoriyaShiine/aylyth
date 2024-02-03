@@ -26,7 +26,7 @@ public class YmpeCuirassItem extends TrinketItem {
                     comp.setStageTimer(comp.getStageTimer() + 1);
                     if(comp.getStageTimer() >= TIME_UNTIL_STAGE_INCREASES){
                         if(comp.getStage() % 4 == 0){
-                            player.getWorld().playSoundFromEntity(null, player, ModSoundEvents.ENTITY_PLAYER_INCREASE_YMPE_INFESTATION_STAGE, SoundCategory.PLAYERS, 1, player.getSoundPitch());
+                            player.getWorld().playSoundFromEntity(null, player, ModSoundEvents.ENTITY_PLAYER_INCREASE_YMPE_INFESTATION_STAGE.value(), SoundCategory.PLAYERS, 1, player.getSoundPitch());
                         }
                         comp.setStage((comp.getStage() + 1));
                         comp.setStageTimer(0);

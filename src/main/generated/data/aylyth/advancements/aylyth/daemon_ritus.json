@@ -9,7 +9,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "aylyth.advancements.aylyth.daemon_ritus.desc"
+      "translate": "advancements.aylyth.aylyth.daemon_ritus.desc"
     },
     "frame": "goal",
     "hidden": false,
@@ -19,7 +19,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "aylyth.advancements.aylyth.daemon_ritus.title"
+      "translate": "advancements.aylyth.aylyth.daemon_ritus.title"
     }
   },
   "requirements": [

@@ -16,6 +16,7 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.BiomeAdditionsSound;
 import net.minecraft.sound.BiomeMoodSound;
+import net.minecraft.sound.MusicSound;
 import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.carver.ConfiguredCarver;
@@ -82,32 +83,32 @@ public class ModBiomes {
 	public static final BiomeEffects.GrassColorModifier AYLYTH_NOISE = ClassTinkerers.getEnum(BiomeEffects.GrassColorModifier.class, "AYLYTH_NOISE");
 
 	public static void bootstrap(Registerable<Biome> context) {
-		var sounds = context.getRegistryLookup(RegistryKeys.SOUND_EVENT);
 		var placedFeatures = context.getRegistryLookup(RegistryKeys.PLACED_FEATURE);
 		var configuredCarvers = context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER);
 
-		// TODO bad
-		var overgrownClearingAmbience = new BiomeAdditionsSound(sounds.getOrThrow(RegistryKey.of(RegistryKeys.SOUND_EVENT, ModSoundEvents.AMBIENT_FOREST_ADDITIONS.getId())), 0.001);
-		var forestAmbiance = new BiomeAdditionsSound(sounds.getOrThrow(RegistryKey.of(RegistryKeys.SOUND_EVENT, ModSoundEvents.AMBIENT_FOREST_ADDITIONS.getId())), 0.005);
+		var overgrownClearingAmbience = new BiomeAdditionsSound(ModSoundEvents.AMBIENT_FOREST_ADDITIONS, 0.001);
+		var forestAmbiance = new BiomeAdditionsSound(ModSoundEvents.AMBIENT_FOREST_ADDITIONS, 0.005);
+		var music = new MusicSound(ModSoundEvents.AMBIENT_MUSIC, 12000, 24000, false);
 
-		context.register(CLEARING_ID, createClearing(false, SpawnSettingsBuilder.none(), overgrownClearingAmbience, placedFeatures, configuredCarvers));
-		context.register(OVERGROWN_CLEARING_ID, createClearing(true, SpawnSettingsBuilder.builder().ambient(ModEntityTypes.PILOT_LIGHT, 1, 1, 1).spawnChance(0.1F).build(), overgrownClearingAmbience, placedFeatures, configuredCarvers));
-		context.register(COPSE_ID, createForest(false, COPSE_MOBS, forestAmbiance, placedFeatures, configuredCarvers));
-		context.register(DEEPWOOD_ID, createForest(true, DEEPWOOD_MOBS, forestAmbiance, placedFeatures, configuredCarvers));
-		context.register(CONIFEROUS_COPSE_ID, createConiferousForest(false, COPSE_MOBS, forestAmbiance, placedFeatures, configuredCarvers));
-		context.register(CONIFEROUS_DEEPWOOD_ID, createConiferousForest(true, DEEPWOOD_MOBS, forestAmbiance, placedFeatures, configuredCarvers));
-		context.register(UPLANDS_ID, createUplands(UPLANDS_MOBS, placedFeatures, configuredCarvers));
-		context.register(MIRE_ID, createMire(MIRE_MOBS, placedFeatures, configuredCarvers));
-		context.register(BOWELS_ID, createBowels(BOWELS_MOBS, placedFeatures, configuredCarvers));
+		context.register(CLEARING, createClearing(false, SpawnSettingsBuilder.none(), music, overgrownClearingAmbience, placedFeatures, configuredCarvers));
+		context.register(OVERGROWN_CLEARING, createClearing(true, SpawnSettingsBuilder.builder().ambient(ModEntityTypes.PILOT_LIGHT, 1, 1, 1).spawnChance(0.1F).build(), music, overgrownClearingAmbience, placedFeatures, configuredCarvers));
+		context.register(COPSE, createForest(false, COPSE_MOBS, music, forestAmbiance, placedFeatures, configuredCarvers));
+		context.register(DEEPWOOD, createForest(true, DEEPWOOD_MOBS, music, forestAmbiance, placedFeatures, configuredCarvers));
+		context.register(CONIFEROUS_COPSE, createConiferousForest(false, COPSE_MOBS, music, forestAmbiance, placedFeatures, configuredCarvers));
+		context.register(CONIFEROUS_DEEPWOOD, createConiferousForest(true, DEEPWOOD_MOBS, music, forestAmbiance, placedFeatures, configuredCarvers));
+		context.register(UPLANDS, createUplands(UPLANDS_MOBS, music, placedFeatures, configuredCarvers));
+		context.register(MIRE, createMire(MIRE_MOBS, music, placedFeatures, configuredCarvers));
+		context.register(BOWELS, createBowels(BOWELS_MOBS, music, placedFeatures, configuredCarvers));
 	}
 	
-	private static Biome createClearing(boolean overgrown, SpawnSettings spawnSettings, BiomeAdditionsSound overgrownClearingAmbience, RegistryEntryLookup<PlacedFeature> placedFeatures, RegistryEntryLookup<ConfiguredCarver<?>> configuredCarvers) {
+	private static Biome createClearing(boolean overgrown, SpawnSettings spawnSettings, MusicSound musicSound, BiomeAdditionsSound overgrownClearingAmbience, RegistryEntryLookup<PlacedFeature> placedFeatures, RegistryEntryLookup<ConfiguredCarver<?>> configuredCarvers) {
 		return BiomeBuilder.builder(Biome.Precipitation.RAIN, 0.7F, 0.8F)
 				.biomeEffects(FOG_COLOR, WATER_COLOR, UNDERWATER_COLOR, SKY_COLOR, biomeEffectsBuilder -> {
 					biomeEffectsBuilder.foliageColor(AYLYTHIAN_FOLIAGE_COLOR)
 							.grassColor(overgrown ? 0xBC953A : 0xA1BA48)
 							.grassColorModifier(AYLYTH_NOISE)
 							.moodSound(BiomeMoodSound.CAVE)
+							.music(musicSound)
 							.particleConfig(ModParticles.AMBIENT_PILOT_LIGHT, 0.0025F);
 					if (overgrown) {
 						biomeEffectsBuilder.additionsSound(overgrownClearingAmbience);
@@ -125,6 +126,7 @@ public class ModBiomes {
 							.add(DefaultBiomeFeatures::addFrozenTopLayer);
 					if (overgrown) {
 						generationSettingsBuilder.lakesFeature(ModPlacedFeatures.SPRING)
+								.vegetalDecoFeature(ModPlacedFeatures.SPRUCE_SEEP)
 								.vegetalDecoFeature(ModPlacedFeatures.OVERGROWTH_CLEARING_TREES_PLACED)
 								.vegetalDecoFeature(ModPlacedFeatures.BUSHES)
 								.vegetalDecoFeature(VegetationPlacedFeatures.PATCH_TALL_GRASS)
@@ -133,13 +135,14 @@ public class ModBiomes {
 				}, placedFeatures, configuredCarvers).build();
 	}
 	
-	private static Biome createForest(boolean deep, SpawnSettings spawnSettings, BiomeAdditionsSound forestAmbiance, RegistryEntryLookup<PlacedFeature> placedFeatures, RegistryEntryLookup<ConfiguredCarver<?>> configuredCarvers) {
+	private static Biome createForest(boolean deep, SpawnSettings spawnSettings, MusicSound musicSound, BiomeAdditionsSound forestAmbiance, RegistryEntryLookup<PlacedFeature> placedFeatures, RegistryEntryLookup<ConfiguredCarver<?>> configuredCarvers) {
 		return BiomeBuilder.builder(Biome.Precipitation.RAIN, 0.7F, 0.8F)
 				.biomeEffects(FOG_COLOR, WATER_COLOR, UNDERWATER_COLOR, SKY_COLOR, biomeEffectsBuilder -> {
 					biomeEffectsBuilder.foliageColor(deep ? DEEP_AYLYTHIAN_FOLIAGE_COLOR : AYLYTHIAN_FOLIAGE_COLOR)
 							.grassColor(deep ? 0xAD6903 : 0xB5883B)
 							.grassColorModifier(deep ? AYLYTH_NOISE : BiomeEffects.GrassColorModifier.NONE)
 							.moodSound(BiomeMoodSound.CAVE)
+							.music(musicSound)
 							.particleConfig(ParticleTypes.MYCELIUM, deep ? 0.1F : 0.025F)
 							.additionsSound(forestAmbiance);
 				})
@@ -160,7 +163,8 @@ public class ModBiomes {
 							.add(ModBiomes::addStrewnLeaves)
 							.add(ModBiomes::addWaterSprings)
 							.add(DefaultBiomeFeatures::addFrozenTopLayer)
-							.vegetalDecoFeature(ModPlacedFeatures.YMPE_SEEP);
+							.vegetalDecoFeature(ModPlacedFeatures.YMPE_SEEP)
+							.vegetalDecoFeature(ModPlacedFeatures.DARK_OAK_SEEP);
 					if (deep) {
 						generationSettingsBuilder.vegetalDecoFeature(VegetationPlacedFeatures.PATCH_TALL_GRASS_2)
 								.add(ModBiomes::addWoodyGrowths)
@@ -172,13 +176,14 @@ public class ModBiomes {
 				}, placedFeatures, configuredCarvers).build();
 	}
 	
-	private static Biome createConiferousForest(boolean deep, SpawnSettings spawnSettings, BiomeAdditionsSound forestAmbiance, RegistryEntryLookup<PlacedFeature> placedFeatures, RegistryEntryLookup<ConfiguredCarver<?>> configuredCarvers) {
+	private static Biome createConiferousForest(boolean deep, SpawnSettings spawnSettings, MusicSound musicSound, BiomeAdditionsSound forestAmbiance, RegistryEntryLookup<PlacedFeature> placedFeatures, RegistryEntryLookup<ConfiguredCarver<?>> configuredCarvers) {
 		return BiomeBuilder.builder(Biome.Precipitation.RAIN, 0.7F, 0.8F)
 				.biomeEffects(FOG_COLOR, WATER_COLOR, UNDERWATER_COLOR, SKY_COLOR, biomeEffectsBuilder -> {
 					biomeEffectsBuilder.foliageColor(deep ? DEEP_AYLYTHIAN_FOLIAGE_COLOR : AYLYTHIAN_FOLIAGE_COLOR)
 							.grassColor(deep ? 0x3E682B : 0x4D7C44)
 							.grassColorModifier(deep ? AYLYTH_NOISE : BiomeEffects.GrassColorModifier.NONE)
 							.moodSound(BiomeMoodSound.CAVE)
+							.music(musicSound)
 							.particleConfig(ParticleTypes.MYCELIUM, deep ? 0.1F : 0.025F)
 							.additionsSound(forestAmbiance);
 				})
@@ -196,7 +201,8 @@ public class ModBiomes {
 							.add(ModBiomes::addStrewnLeaves)
 							.add(ModBiomes::addWaterSprings)
 							.add(DefaultBiomeFeatures::addFrozenTopLayer)
-							.vegetalDecoFeature(ModPlacedFeatures.YMPE_SEEP);
+							.vegetalDecoFeature(ModPlacedFeatures.YMPE_SEEP)
+							.vegetalDecoFeature(ModPlacedFeatures.SPRUCE_SEEP);
 					if (deep) {
 						builder.vegetalDecoFeature(ModPlacedFeatures.CONIFEROUS_DEEP_ROOF_TREES_PLACED)
 								.vegetalDecoFeature(ModPlacedFeatures.SHELF_JACK_O_LANTERN_MUSHROOM_PATCHES_DEEPWOOD_PLACED)
@@ -207,12 +213,13 @@ public class ModBiomes {
 				}, placedFeatures, configuredCarvers).build();
 	}
 
-	private static Biome createUplands(SpawnSettings spawnSettings, RegistryEntryLookup<PlacedFeature> placedFeatures, RegistryEntryLookup<ConfiguredCarver<?>> configuredCarvers) {
+	private static Biome createUplands(SpawnSettings spawnSettings, MusicSound musicSound, RegistryEntryLookup<PlacedFeature> placedFeatures, RegistryEntryLookup<ConfiguredCarver<?>> configuredCarvers) {
 		return BiomeBuilder.builder(Biome.Precipitation.NONE, 0.8F, 0.3F)
 				.biomeEffects(FOG_COLOR, WATER_COLOR, UNDERWATER_COLOR, SKY_COLOR, biomeEffectsBuilder -> {
 					biomeEffectsBuilder.foliageColor(AYLYTHIAN_FOLIAGE_COLOR)
 							.grassColor(0xB5883B)
-							.moodSound(BiomeMoodSound.CAVE);
+							.moodSound(BiomeMoodSound.CAVE)
+							.music(musicSound);
 				})
 				.spawnSettings(spawnSettings)
 				.generationSettings(builder -> {
@@ -222,12 +229,13 @@ public class ModBiomes {
 				}, placedFeatures, configuredCarvers).build();
 	}
 
-	private static Biome createMire(SpawnSettings spawnSettings, RegistryEntryLookup<PlacedFeature> placedFeatures, RegistryEntryLookup<ConfiguredCarver<?>> configuredCarvers) {
+	private static Biome createMire(SpawnSettings spawnSettings, MusicSound musicSound, RegistryEntryLookup<PlacedFeature> placedFeatures, RegistryEntryLookup<ConfiguredCarver<?>> configuredCarvers) {
 		return BiomeBuilder.builder(Biome.Precipitation.RAIN, 0.8F, 0.3F)
 				.biomeEffects(FOG_COLOR, MIRE_WATER_COLOR, MIRE_UNDERWATER_COLOR, SKY_COLOR, biomeEffectsBuilder -> {
 					biomeEffectsBuilder.foliageColor(MIRE_FOLIAGE_COLOR)
 							.grassColor(MIRE_FOLIAGE_COLOR)
-							.grassColorModifier(AYLYTH_NOISE);
+							.grassColorModifier(AYLYTH_NOISE)
+							.music(musicSound);
 				})
 				.spawnSettings(spawnSettings)
 				.generationSettings(builder -> {
@@ -241,14 +249,17 @@ public class ModBiomes {
 							.add(ModBiomes::addBasicVanillaOres)
 							.add(ModBiomes::addWoodyGrowths)
 							.add(DefaultBiomeFeatures::addLargeFerns)
-							.add(DefaultBiomeFeatures::addDefaultGrass);
+							.add(DefaultBiomeFeatures::addDefaultGrass)
+							.vegetalDecoFeature(ModPlacedFeatures.SPRUCE_SEEP);
 				}, placedFeatures, configuredCarvers)
 				.build();
 	}
 
-	private static Biome createBowels(SpawnSettings spawnSettings, RegistryEntryLookup<PlacedFeature> placedFeatures, RegistryEntryLookup<ConfiguredCarver<?>> configuredCarvers) {
+	private static Biome createBowels(SpawnSettings spawnSettings, MusicSound musicSound, RegistryEntryLookup<PlacedFeature> placedFeatures, RegistryEntryLookup<ConfiguredCarver<?>> configuredCarvers) {
 		return BiomeBuilder.builder(Biome.Precipitation.NONE, 0.5f, 0.0f)
-				.biomeEffects(FOG_COLOR, WATER_COLOR, UNDERWATER_COLOR, SKY_COLOR)
+				.biomeEffects(FOG_COLOR, WATER_COLOR, UNDERWATER_COLOR, SKY_COLOR, biomeEffectsBuilder -> {
+					biomeEffectsBuilder.music(musicSound);
+				})
 				.spawnSettings(spawnSettings)
 				.generationSettings(builder -> {
 					builder.vegetalDecoFeature(ModPlacedFeatures.WOODY_GROWTH_BOWELS_PATCH_PLACED)

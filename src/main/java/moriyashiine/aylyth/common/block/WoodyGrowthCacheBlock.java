@@ -90,7 +90,7 @@ public class WoodyGrowthCacheBlock extends LargeWoodyGrowthBlock implements Bloc
 
     @Override
     public List<ItemStack> getDroppedStacks(BlockState state, LootContextParameterSet.Builder builder) {
-        BlockEntity be = builder.get(LootContextParameters.BLOCK_ENTITY);
+        BlockEntity be = builder.getOptional(LootContextParameters.BLOCK_ENTITY);
         if (be instanceof WoodyGrowthCacheBlockEntity cache) {
             builder.addDynamicDrop(CONTENTS, consumer -> {
                 for (int i = 0; i < cache.size(); i++) {

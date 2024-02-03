@@ -3,6 +3,12 @@
   "downfall": 0.0,
   "effects": {
     "fog_color": 6710886,
+    "music": {
+      "max_delay": 24000,
+      "min_delay": 12000,
+      "replace_current_music": false,
+      "sound": "aylyth:music.aylyth.ambient"
+    },
     "sky_color": 0,
     "water_color": 4159204,
     "water_fog_color": 329011

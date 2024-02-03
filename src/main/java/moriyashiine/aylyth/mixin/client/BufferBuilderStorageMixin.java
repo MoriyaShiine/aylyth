@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.mixin.client;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
-import moriyashiine.aylyth.client.render.RenderTypes;
+import moriyashiine.aylyth.client.render.AylythRenderLayers;
 import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.BufferBuilderStorage;
 import net.minecraft.client.render.RenderLayer;
@@ -15,8 +15,8 @@ public class BufferBuilderStorageMixin {
 
     @Inject(method = "assignBufferBuilder", at = @At("HEAD"))
     private static void aylyth_assignBufferBuilder(Object2ObjectLinkedOpenHashMap<RenderLayer, BufferBuilder> builderStorage, RenderLayer layer, CallbackInfo ci) {
-        if (!builderStorage.containsKey(RenderTypes.TINT)) {
-            builderStorage.put(RenderTypes.TINT, new BufferBuilder(RenderTypes.TINT.getExpectedBufferSize()));
+        if (!builderStorage.containsKey(AylythRenderLayers.TINT)) {
+            builderStorage.put(AylythRenderLayers.TINT, new BufferBuilder(AylythRenderLayers.TINT.getExpectedBufferSize()));
         }
     }
 }

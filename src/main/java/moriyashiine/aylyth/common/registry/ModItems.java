@@ -1,8 +1,8 @@
 package moriyashiine.aylyth.common.registry;
 
+import com.terraformersmc.terraform.boat.impl.item.TerraformBoatItem;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.item.*;
-import moriyashiine.aylyth.common.registry.util.ItemWoodSuite;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
@@ -18,11 +18,11 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.math.Direction;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ModItems {
-	public static final Map<Item, Identifier> ITEMS = new LinkedHashMap<>();
+	public static final List<Item> ITEMS = new ArrayList<>();
 
 
 	public static final RegistryKey<ItemGroup> GROUP = RegistryKey.of(RegistryKeys.ITEM_GROUP, AylythUtil.id(Aylyth.MOD_ID));
@@ -30,16 +30,67 @@ public class ModItems {
 	public static final ItemGroup.Builder GROUP_BUILDER = FabricItemGroup.builder().icon(() -> new ItemStack(ModItems.YMPE_DAGGER)).displayName(Text.translatable("itemGroup.aylyth.main"));
 
 	public static final Item DEBUG_WAND = register("debug_wand", new DebugWandItem(new FabricItemSettings()));
+
+	public static final Item YMPE_STRIPPED_LOG = register("stripped_ympe_log", new BlockItem(ModBlocks.YMPE_STRIPPED_LOG, settings()));
+	public static final Item YMPE_STRIPPED_WOOD = register("stripped_ympe_wood", new BlockItem(ModBlocks.YMPE_STRIPPED_WOOD, settings()));
+	public static final Item YMPE_LOG = register("ympe_log", new BlockItem(ModBlocks.YMPE_LOG, settings()));
+	public static final Item YMPE_WOOD = register("ympe_wood", new BlockItem(ModBlocks.YMPE_WOOD, settings()));
+	public static final Item YMPE_SAPLING = register("ympe_sapling", new BlockItem(ModBlocks.YMPE_SAPLING, settings()));
+	public static final Item YMPE_PLANKS = register("ympe_planks", new BlockItem(ModBlocks.YMPE_PLANKS, settings()));
+	public static final Item YMPE_STAIRS = register("ympe_stairs", new BlockItem(ModBlocks.YMPE_STAIRS, settings()));
+	public static final Item YMPE_SLAB = register("ympe_slab", new BlockItem(ModBlocks.YMPE_SLAB, settings()));
+	public static final Item YMPE_FENCE = register("ympe_fence", new BlockItem(ModBlocks.YMPE_FENCE, settings()));
+	public static final Item YMPE_FENCE_GATE = register("ympe_fence_gate", new BlockItem(ModBlocks.YMPE_FENCE_GATE, settings()));
+	public static final Item YMPE_PRESSURE_PLATE = register("ympe_pressure_plate", new BlockItem(ModBlocks.YMPE_PRESSURE_PLATE, settings()));
+	public static final Item YMPE_BUTTON = register("ympe_button", new BlockItem(ModBlocks.YMPE_BUTTON, settings()));
+	public static final Item YMPE_TRAPDOOR = register("ympe_trapdoor", new BlockItem(ModBlocks.YMPE_TRAPDOOR, settings()));
+	public static final Item YMPE_DOOR = register("ympe_door", new TallBlockItem(ModBlocks.YMPE_DOOR, settings()));
+	public static final Item YMPE_SIGN = register("ympe_sign", new SignItem(settings().maxCount(16), ModBlocks.YMPE_SIGN, ModBlocks.YMPE_WALL_SIGN));
+	public static final Item YMPE_BOAT = register("ympe_boat", new TerraformBoatItem(ModBoatTypes.YMPE_BOAT_TYPE, false, settings().maxCount(1)));
+	public static final Item YMPE_CHEST_BOAT = register("ympe_chest_boat", new TerraformBoatItem(ModBoatTypes.YMPE_BOAT_TYPE, true, settings().maxCount(1)));
+	public static final Item YMPE_HANGING_SIGN = register("ympe_hanging_sign", new HangingSignItem(ModBlocks.YMPE_HANGING_SIGN, ModBlocks.YMPE_WALL_HANGING_SIGN, settings()));
+	public static final Item YMPE_LEAVES = register("ympe_leaves", new BlockItem(ModBlocks.YMPE_LEAVES, settings()));
 	public static final Item FRUIT_BEARING_YMPE_LOG = register("fruit_bearing_ympe_log", new BlockItem(ModBlocks.FRUIT_BEARING_YMPE_LOG, settings()));
 
-	public static final Item YMPE_LEAVES = register("ympe_leaves", new BlockItem(ModBlocks.YMPE_LEAVES, settings()));
-	public static final ItemWoodSuite YMPE_ITEMS = ItemWoodSuite.of(new Identifier(Aylyth.MOD_ID, "ympe"), ModBlocks.YMPE_BLOCKS, new ItemWoodSuite.GroupedSettings(), Registries.ITEM, ModBoatTypes.YMPE_BOAT_TYPE, GROUP_BUILDER);
-
+	public static final Item POMEGRANATE_STRIPPED_LOG = register("stripped_pomegranate_log", new BlockItem(ModBlocks.POMEGRANATE_STRIPPED_LOG, settings()));
+	public static final Item POMEGRANATE_STRIPPED_WOOD = register("stripped_pomegranate_wood", new BlockItem(ModBlocks.POMEGRANATE_STRIPPED_WOOD, settings()));
+	public static final Item POMEGRANATE_LOG = register("pomegranate_log", new BlockItem(ModBlocks.POMEGRANATE_LOG, settings()));
+	public static final Item POMEGRANATE_WOOD = register("pomegranate_wood", new BlockItem(ModBlocks.POMEGRANATE_WOOD, settings()));
+	public static final Item POMEGRANATE_SAPLING = register("pomegranate_sapling", new BlockItem(ModBlocks.POMEGRANATE_SAPLING, settings()));
+	public static final Item POMEGRANATE_PLANKS = register("pomegranate_planks", new BlockItem(ModBlocks.POMEGRANATE_PLANKS, settings()));
+	public static final Item POMEGRANATE_STAIRS = register("pomegranate_stairs", new BlockItem(ModBlocks.POMEGRANATE_STAIRS, settings()));
+	public static final Item POMEGRANATE_SLAB = register("pomegranate_slab", new BlockItem(ModBlocks.POMEGRANATE_SLAB, settings()));
+	public static final Item POMEGRANATE_FENCE = register("pomegranate_fence", new BlockItem(ModBlocks.POMEGRANATE_FENCE, settings()));
+	public static final Item POMEGRANATE_FENCE_GATE = register("pomegranate_fence_gate", new BlockItem(ModBlocks.POMEGRANATE_FENCE_GATE, settings()));
+	public static final Item POMEGRANATE_PRESSURE_PLATE = register("pomegranate_pressure_plate", new BlockItem(ModBlocks.POMEGRANATE_PRESSURE_PLATE, settings()));
+	public static final Item POMEGRANATE_BUTTON = register("pomegranate_button", new BlockItem(ModBlocks.POMEGRANATE_BUTTON, settings()));
+	public static final Item POMEGRANATE_TRAPDOOR = register("pomegranate_trapdoor", new BlockItem(ModBlocks.POMEGRANATE_TRAPDOOR, settings()));
+	public static final Item POMEGRANATE_DOOR = register("pomegranate_door", new TallBlockItem(ModBlocks.POMEGRANATE_DOOR, settings()));
+	public static final Item POMEGRANATE_SIGN = register("pomegranate_sign", new SignItem(settings().maxCount(16), ModBlocks.POMEGRANATE_SIGN, ModBlocks.POMEGRANATE_WALL_SIGN));
+	public static final Item POMEGRANATE_BOAT = register("pomegranate_boat", new TerraformBoatItem(ModBoatTypes.POMEGRANATE_BOAT_TYPE, false, settings().maxCount(1)));
+	public static final Item POMEGRANATE_CHEST_BOAT = register("pomegranate_chest_boat", new TerraformBoatItem(ModBoatTypes.YMPE_BOAT_TYPE, true, settings().maxCount(1)));
+	public static final Item POMEGRANATE_HANGING_SIGN = register("pomegranate_hanging_sign", new HangingSignItem(ModBlocks.POMEGRANATE_HANGING_SIGN, ModBlocks.POMEGRANATE_WALL_HANGING_SIGN, settings()));
 	public static final Item POMEGRANATE_LEAVES = register("pomegranate_leaves", new BlockItem(ModBlocks.POMEGRANATE_LEAVES, settings()));
-	public static final ItemWoodSuite POMEGRANATE_ITEMS = ItemWoodSuite.of(new Identifier(Aylyth.MOD_ID, "pomegranate"), ModBlocks.POMEGRANATE_BLOCKS, new ItemWoodSuite.GroupedSettings(), Registries.ITEM, ModBoatTypes.POMEGRANATE_BOAT_TYPE, GROUP_BUILDER);
 
+	public static final Item WRITHEWOOD_STRIPPED_LOG = register("stripped_writhewood_log", new BlockItem(ModBlocks.WRITHEWOOD_STRIPPED_LOG, settings()));
+	public static final Item WRITHEWOOD_STRIPPED_WOOD = register("stripped_writhewood_wood", new BlockItem(ModBlocks.WRITHEWOOD_STRIPPED_WOOD, settings()));
+	public static final Item WRITHEWOOD_LOG = register("writhewood_log", new BlockItem(ModBlocks.WRITHEWOOD_LOG, settings()));
+	public static final Item WRITHEWOOD_WOOD = register("writhewood_wood", new BlockItem(ModBlocks.WRITHEWOOD_WOOD, settings()));
+	public static final Item WRITHEWOOD_SAPLING = register("writhewood_sapling", new BlockItem(ModBlocks.WRITHEWOOD_SAPLING, settings()));
+	public static final Item WRITHEWOOD_PLANKS = register("writhewood_planks", new BlockItem(ModBlocks.WRITHEWOOD_PLANKS, settings()));
+	public static final Item WRITHEWOOD_STAIRS = register("writhewood_stairs", new BlockItem(ModBlocks.WRITHEWOOD_STAIRS, settings()));
+	public static final Item WRITHEWOOD_SLAB = register("writhewood_slab", new BlockItem(ModBlocks.WRITHEWOOD_SLAB, settings()));
+	public static final Item WRITHEWOOD_FENCE = register("writhewood_fence", new BlockItem(ModBlocks.WRITHEWOOD_FENCE, settings()));
+	public static final Item WRITHEWOOD_FENCE_GATE = register("writhewood_fence_gate", new BlockItem(ModBlocks.WRITHEWOOD_FENCE_GATE, settings()));
+	public static final Item WRITHEWOOD_PRESSURE_PLATE = register("writhewood_pressure_plate", new BlockItem(ModBlocks.WRITHEWOOD_PRESSURE_PLATE, settings()));
+	public static final Item WRITHEWOOD_BUTTON = register("writhewood_button", new BlockItem(ModBlocks.WRITHEWOOD_BUTTON, settings()));
+	public static final Item WRITHEWOOD_TRAPDOOR = register("writhewood_trapdoor", new BlockItem(ModBlocks.WRITHEWOOD_TRAPDOOR, settings()));
+	public static final Item WRITHEWOOD_DOOR = register("writhewood_door", new TallBlockItem(ModBlocks.WRITHEWOOD_DOOR, settings()));
+	public static final Item WRITHEWOOD_SIGN = register("writhewood_sign", new SignItem(settings().maxCount(16), ModBlocks.WRITHEWOOD_SIGN, ModBlocks.WRITHEWOOD_WALL_SIGN));
+	public static final Item WRITHEWOOD_BOAT = register("writhewood_boat", new TerraformBoatItem(ModBoatTypes.WRITHEWOOD_BOAT_TYPE, false, settings().maxCount(1)));
+	public static final Item WRITHEWOOD_CHEST_BOAT = register("writhewood_chest_boat", new TerraformBoatItem(ModBoatTypes.YMPE_BOAT_TYPE, true, settings().maxCount(1)));
+	public static final Item WRITHEWOOD_HANGING_SIGN = register("writhewood_hanging_sign", new HangingSignItem(ModBlocks.WRITHEWOOD_HANGING_SIGN, ModBlocks.WRITHEWOOD_WALL_HANGING_SIGN, settings()));
 	public static final Item WRITHEWOOD_LEAVES = register("writhewood_leaves", new BlockItem(ModBlocks.WRITHEWOOD_LEAVES, settings()));
-	public static final ItemWoodSuite WRITHEWOOD_ITEMS = ItemWoodSuite.of(new Identifier(Aylyth.MOD_ID, "writhewood"), ModBlocks.WRITHEWOOD_BLOCKS, new ItemWoodSuite.GroupedSettings(), Registries.ITEM, ModBoatTypes.WRITHEWOOD_BOAT_TYPE, GROUP_BUILDER);
 
 	public static final Item SEEPING_WOOD = register("seeping_wood", new BlockItem(ModBlocks.SEEPING_WOOD, settings()));
 	public static final Item GIRASOL_SEED = register("girasol_seed", new AliasedBlockItem(ModBlocks.GIRASOL_SAPLING, settings()));
@@ -70,7 +121,8 @@ public class ModItems {
 	public static final Item YMPE_DAGGER = register("ympe_dagger", new YmpeDaggerItem(ToolMaterials.NETHERITE, 1, -2, settings()));
 	public static final Item YMPE_GLAIVE = register("ympe_glaive", new YmpeGlaiveItem(4, -3.1F, (settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(1)));
 	public static final Item YMPE_LANCE = register("ympe_lance", new YmpeLanceItem(312, settings()));
-	public static final Item AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE = register("aylythian_upgrade_smithing_template", new Item(new FabricItemSettings()));
+
+	public static final Item AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE = register("aylythian_upgrade_smithing_template", new AylythianSmithingTemplateUpgradeItem());
 	public static final Item ESSTLINE = register("esstline", new Item(new FabricItemSettings()));
 	public static final Item NEPHRITE = register("nephrite", new Item(new FabricItemSettings()));
 
@@ -84,10 +136,10 @@ public class ModItems {
 	public static final Item CARVED_WOODY_NEPHRITE = register("carved_woody_nephrite", new BlockItem(ModBlocks.CARVED_WOODY_NEPHRITE, settings()));
 
 	public static final Item NEPHRITE_SWORD = register("nephrite_sword", new SwordItem(ModToolMaterials.NEPHRITE, 4, -2.4f, settings()));
-	public static final Item NEPHRITE_SHOVEL = register("nephrite_shovel", new ShovelItem(ModToolMaterials.NEPHRITE, 2.5f, -3.0f, settings()));
-	public static final Item NEPHRITE_PICKAXE = register("nephrite_pickaxe", new PickaxeItem(ModToolMaterials.NEPHRITE, 2, -2.8f, settings()));
-	public static final Item NEPHRITE_AXE = register("nephrite_axe", new AxeItem(ModToolMaterials.NEPHRITE, 6, -3.0f, settings()));
-	public static final Item NEPHRITE_HOE = register("nephrite_hoe", new HoeItem(ModToolMaterials.NEPHRITE, -2, 0f, settings()));
+	public static final Item NEPHRITE_SHOVEL = register("nephrite_shovel", new ShovelItem(ModToolMaterials.NEPHRITE, 1.5f, -3.0f, settings()));
+	public static final Item NEPHRITE_PICKAXE = register("nephrite_pickaxe", new PickaxeItem(ModToolMaterials.NEPHRITE, 1, -2.8f, settings()));
+	public static final Item NEPHRITE_AXE = register("nephrite_axe", new AxeItem(ModToolMaterials.NEPHRITE, 5, -3.0f, settings()));
+	public static final Item NEPHRITE_HOE = register("nephrite_hoe", new HoeItem(ModToolMaterials.NEPHRITE, -3, 0f, settings()));
 
 	public static final Item YMPE_CUIRASS = register("ympe_cuirass", new YmpeCuirassItem(settings()));
 
@@ -114,11 +166,12 @@ public class ModItems {
 
 	public static final Item YMPE_EFFIGY_ITEM = register("ympe_effigy", new YmpeEffigyItem((settings()).fireproof().rarity(Rarity.RARE).maxCount(1)));
 
-	public static final Item YMPEMOULD_ITEM = register("ympemould", new YmpemouldItem((settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(16)));
+	public static final Item POMEGRANATE_CASSETTE = register("pomegranate_cassette", new MusicDiscItem(14, ModSoundEvents.POMEGRANATE_MUSIC_DISC.value(), settings().maxCount(1).rarity(Rarity.RARE), 118));
 
 
 	private static <T extends Item> T register(String name, T item) {
-		ITEMS.put(item, new Identifier(Aylyth.MOD_ID, name));
+		Registry.register(Registries.ITEM, new Identifier(Aylyth.MOD_ID, name), item);
+		ITEMS.add(item);
 		return item;
 	}
 
@@ -128,34 +181,26 @@ public class ModItems {
 	}
 
 	public static void init() {
-		ITEMS.keySet().forEach(item -> Registry.register(Registries.ITEM, ITEMS.get(item), item));
-		var ympeItems = YMPE_ITEMS.register();
-		var pomegranateItems = POMEGRANATE_ITEMS.register();
-		var writhewoodItems = WRITHEWOOD_ITEMS.register();
-
 		GROUP_BUILDER.entries((context, entries) -> {
-			ITEMS.keySet().forEach(entries::add);
-			ympeItems.forEach(entries::add);
-			pomegranateItems.forEach(entries::add);
-			writhewoodItems.forEach(entries::add);
+			ITEMS.forEach(entries::add);
 		});
 
 		Registry.register(Registries.ITEM_GROUP, GROUP, GROUP_BUILDER.build());
 
 		FuelRegistry fuelRegistry = FuelRegistry.INSTANCE;
-		fuelRegistry.add(YMPE_ITEMS.fence, 300);
-		fuelRegistry.add(YMPE_ITEMS.fenceGate, 300);
-		fuelRegistry.add(POMEGRANATE_ITEMS.fence, 300);
-		fuelRegistry.add(POMEGRANATE_ITEMS.fenceGate, 300);
-		fuelRegistry.add(WRITHEWOOD_ITEMS.fence, 300);
-		fuelRegistry.add(WRITHEWOOD_ITEMS.fenceGate, 300);
+		fuelRegistry.add(YMPE_FENCE, 300);
+		fuelRegistry.add(YMPE_FENCE_GATE, 300);
+		fuelRegistry.add(POMEGRANATE_FENCE, 300);
+		fuelRegistry.add(POMEGRANATE_FENCE_GATE, 300);
+		fuelRegistry.add(WRITHEWOOD_FENCE, 300);
+		fuelRegistry.add(WRITHEWOOD_FENCE_GATE, 300);
 		CompostingChanceRegistry compostRegistry = CompostingChanceRegistry.INSTANCE;
 		compostRegistry.add(YMPE_LEAVES, 0.3f);
-		compostRegistry.add(YMPE_ITEMS.sapling, 0.3f);
+		compostRegistry.add(YMPE_SAPLING, 0.3f);
 		compostRegistry.add(POMEGRANATE_LEAVES, 0.3f);
-		compostRegistry.add(POMEGRANATE_ITEMS.sapling, 0.3f);
+		compostRegistry.add(POMEGRANATE_SAPLING, 0.3f);
 		compostRegistry.add(WRITHEWOOD_LEAVES, 0.3f);
-		compostRegistry.add(WRITHEWOOD_ITEMS.sapling, 0.3f);
+		compostRegistry.add(WRITHEWOOD_SAPLING, 0.3f);
 		compostRegistry.add(OAK_STREWN_LEAVES, 0.3f);
 		compostRegistry.add(YMPE_STREWN_LEAVES, 0.3f);
 		compostRegistry.add(JACK_O_LANTERN_MUSHROOM, 0.3f);

@@ -170,7 +170,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHol
             if(bl2 || bl3){
                 component.setStage(0);
                 component.setStageTimer(0);
-                player.getWorld().playSoundFromEntity(null, player, ModSoundEvents.ENTITY_PLAYER_INCREASE_YMPE_INFESTATION_STAGE, SoundCategory.PLAYERS, 1, player.getSoundPitch());
+                player.getWorld().playSoundFromEntity(null, player, ModSoundEvents.ENTITY_PLAYER_INCREASE_YMPE_INFESTATION_STAGE.value(), SoundCategory.PLAYERS, 1, player.getSoundPitch());
                 return amount;
             } else if(bl){
                 return amount;
@@ -178,7 +178,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHol
                 while (component.getStage() > 0) {
                     amount--;
                     component.setStage(component.getStage() - 1);
-                    player.getWorld().playSoundFromEntity(null, player, ModSoundEvents.ENTITY_PLAYER_INCREASE_YMPE_INFESTATION_STAGE, SoundCategory.PLAYERS, 1, player.getSoundPitch());
+                    player.getWorld().playSoundFromEntity(null, player, ModSoundEvents.ENTITY_PLAYER_INCREASE_YMPE_INFESTATION_STAGE.value(), SoundCategory.PLAYERS, 1, player.getSoundPitch());
                 }
                 return amount;
             }

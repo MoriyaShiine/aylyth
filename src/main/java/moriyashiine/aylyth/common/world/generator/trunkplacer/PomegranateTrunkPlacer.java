@@ -26,7 +26,7 @@ public class PomegranateTrunkPlacer extends StraightTrunkPlacer {
 
     public static final Codec<PomegranateTrunkPlacer> CODEC = RecordCodecBuilder.create((instance) -> fillTrunkPlacerFields(instance).apply(instance, PomegranateTrunkPlacer::new));
 
-    private static final BlockState WOOD_STATE = ModBlocks.POMEGRANATE_BLOCKS.wood.getDefaultState();
+    private static final BlockState WOOD_STATE = ModBlocks.POMEGRANATE_WOOD.getDefaultState();
 
     public PomegranateTrunkPlacer(int baseHeight, int firstRandomHeight, int secondRandomHeight) {
         super(baseHeight, firstRandomHeight, secondRandomHeight);

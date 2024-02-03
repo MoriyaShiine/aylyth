@@ -7,7 +7,7 @@
 		"pitch": 0.6
 	  }
 	],
-	"subtitle": "aylyth.subtitles.block.ympe_log.pick_fruit"
+	"subtitle": "subtitles.aylyth.block.ympe_log.pick_fruit"
   },
   "block.strewn_leaves.step": {
     "sounds": [
@@ -18,25 +18,25 @@
       "aylyth:block/strewn_leaves/step/step_on_leaf_5",
       "aylyth:block/strewn_leaves/step/step_on_leaf_6"
     ],
-    "subtitle": "aylyth.subtitles.block.strewn_leaves.step"
+    "subtitle": "subtitles.aylyth.block.strewn_leaves.step"
   },
   "block.strewn_leaves.pile_destroy": {
     "sounds": [
       "aylyth:block/strewn_leaves/place/placing_leaves_1"
     ],
-    "subtitle": "aylyth.subtitles.block.strewn_leaves.pile_destroy"
+    "subtitle": "subtitles.aylyth.block.strewn_leaves.pile_destroy"
   },
   "block.strewn_leaves.pile_step": {
     "sounds": [
       "aylyth:block/strewn_leaves/pile_step/step_1"
     ],
-    "subtitle": "aylyth.subtitles.block.strewn_leaves.pile_step"
+    "subtitle": "subtitles.aylyth.block.strewn_leaves.pile_step"
   },
   "block.stick_break": {
     "sounds": [
       "aylyth:block/stick_break_1"
     ],
-    "subtitle": "aylyth.subtitles.block.stick_break"
+    "subtitle": "subtitles.aylyth.block.stick_break"
   },
   "entity.player.increase_ympe_infestation_stage": {
 	"sounds": [
@@ -45,7 +45,7 @@
 	  "aylyth:entity/player/increase_ympe_infestation_stage_3",
 	  "aylyth:entity/player/increase_ympe_infestation_stage_4"
 	],
-	"subtitle": "aylyth.subtitles.entity.player.increase_ympe_infestation_stage"
+	"subtitle": "subtitles.aylyth.entity.player.increase_ympe_infestation_stage"
   },
   "entity.generic.shucked": {
 	"sounds": [
@@ -55,55 +55,7 @@
         "block/honeyblock/break4",
         "block/honeyblock/break5"
 	],
-	"subtitle": "aylyth.subtitles.entity.generic.shucked"
-  },
-  "entity.aylythian.ambient": {
-	"sounds": [
-	  "aylyth:entity/aylythian/say1",
-	  "aylyth:entity/aylythian/say2",
-	  "aylyth:entity/aylythian/say3",
-	  "aylyth:entity/aylythian/say4"
-	],
-	"subtitle": "aylyth.subtitles.entity.aylythian.ambient"
-  },
-  "entity.aylythian.hurt": {
-	"sounds": [
-	  "aylyth:entity/aylythian/hurt1",
-	  "aylyth:entity/aylythian/hurt2",
-	  "aylyth:entity/aylythian/hurt3",
-	  "aylyth:entity/aylythian/hurt4"
-	],
-	"subtitle": "aylyth.subtitles.entity.aylythian.hurt"
-  },
-  "entity.aylythian.death": {
-	"sounds": [
-	  "aylyth:entity/aylythian/death"
-	],
-	"subtitle": "aylyth.subtitles.entity.aylythian.death"
-  },
-  "entity.elder_aylythian.ambient": {
-	"sounds": [
-	  "aylyth:entity/elder_aylythian/say1",
-	  "aylyth:entity/elder_aylythian/say2",
-	  "aylyth:entity/elder_aylythian/say3",
-	  "aylyth:entity/elder_aylythian/say4"
-	],
-	"subtitle": "aylyth.subtitles.entity.elder_aylythian.ambient"
-  },
-  "entity.elder_aylythian.hurt": {
-	"sounds": [
-	  "aylyth:entity/elder_aylythian/hurt1",
-	  "aylyth:entity/elder_aylythian/hurt2",
-	  "aylyth:entity/elder_aylythian/hurt3",
-	  "aylyth:entity/elder_aylythian/hurt4"
-	],
-	"subtitle": "aylyth.subtitles.entity.elder_aylythian.hurt"
-  },
-  "entity.elder_aylythian.death": {
-	"sounds": [
-	  "aylyth:entity/elder_aylythian/death"
-	],
-	"subtitle": "aylyth.subtitles.entity.elder_aylythian.death"
+	"subtitle": "subtitles.aylyth.entity.generic.shucked"
   },
   "ambient.forest.additions": {
 	"sounds": [
@@ -115,12 +67,104 @@
 	  "aylyth:ambient/wood_ambiance_6"
 	]
   },
+  "music.aylyth.ambient": {
+	"sounds": [
+	  {
+		"name": "aylyth:music/game/bark",
+		"stream": true,
+		"volume": 0.4
+	  },
+	  {
+		"name": "aylyth:music/game/mud",
+		"stream": true,
+		"volume": 0.4
+	  },
+	  {
+		"name": "aylyth:music/game/scion",
+		"stream": true,
+		"volume": 0.4
+	  },
+	  {
+		"name": "aylyth:music/game/sticks",
+		"stream": true,
+		"volume": 0.4
+	  },
+	  {
+		"name": "aylyth:music/game/wisp",
+		"stream": true,
+		"volume": 0.4
+	  }
+	]
+  },
+  "music.aylyth.boss.fight": {
+	"sounds": [
+	  "aylyth:music/boss/dark_eyes"
+	]
+  },
+  "music.aylyth.boss.victory": {
+	"sounds": [
+	  "aylyth:music/boss/victory"
+	]
+  },
+  "music_disc.aylyth.pomegranate": {
+	"sounds": [
+	  "aylyth:records/pomegranate"
+	]
+  },
+  "entity.aylythian.ambient": {
+	"sounds": [
+	  "aylyth:entity/aylythian/say1",
+	  "aylyth:entity/aylythian/say2",
+	  "aylyth:entity/aylythian/say3",
+	  "aylyth:entity/aylythian/say4"
+	],
+	"subtitle": "subtitles.aylyth.entity.aylythian.ambient"
+  },
+  "entity.aylythian.hurt": {
+	"sounds": [
+	  "aylyth:entity/aylythian/hurt1",
+	  "aylyth:entity/aylythian/hurt2",
+	  "aylyth:entity/aylythian/hurt3",
+	  "aylyth:entity/aylythian/hurt4"
+	],
+	"subtitle": "subtitles.aylyth.entity.aylythian.hurt"
+  },
+  "entity.aylythian.death": {
+	"sounds": [
+	  "aylyth:entity/aylythian/death"
+	],
+	"subtitle": "subtitles.aylyth.entity.aylythian.death"
+  },
+  "entity.elder_aylythian.ambient": {
+	"sounds": [
+	  "aylyth:entity/elder_aylythian/say1",
+	  "aylyth:entity/elder_aylythian/say2",
+	  "aylyth:entity/elder_aylythian/say3",
+	  "aylyth:entity/elder_aylythian/say4"
+	],
+	"subtitle": "subtitles.aylyth.entity.elder_aylythian.ambient"
+  },
+  "entity.elder_aylythian.hurt": {
+	"sounds": [
+	  "aylyth:entity/elder_aylythian/hurt1",
+	  "aylyth:entity/elder_aylythian/hurt2",
+	  "aylyth:entity/elder_aylythian/hurt3",
+	  "aylyth:entity/elder_aylythian/hurt4"
+	],
+	"subtitle": "subtitles.aylyth.entity.elder_aylythian.hurt"
+  },
+  "entity.elder_aylythian.death": {
+	"sounds": [
+	  "aylyth:entity/elder_aylythian/death"
+	],
+	"subtitle": "subtitles.aylyth.entity.elder_aylythian.death"
+  },
 	"entity.soulmould.ambient": {
 		"sounds": [
 			"aylyth:entity/soulmould/soulmould_ambient_1",
 			"aylyth:entity/soulmould/soulmould_ambient_2"
 		],
-		"subtitle": "aylyth.subtitles.entity.soulmould.ambient"
+		"subtitle": "subtitles.aylyth.entity.soulmould.ambient"
 	},
 	"entity.soulmould.attack": {
 		"sounds": [
@@ -128,19 +172,19 @@
 			"aylyth:entity/soulmould/soulmould_attack_2",
 			"aylyth:entity/soulmould/soulmould_attack_3"
 		],
-		"subtitle": "aylyth.subtitles.entity.soulmould.attack"
+		"subtitle": "subtitles.aylyth.entity.soulmould.attack"
 	},
 	"entity.soulmould.hurt": {
 		"sounds": [
 			"aylyth:entity/soulmould/soulmould_damage_1"
 		],
-		"subtitle": "aylyth.subtitles.entity.soulmould.hurt"
+		"subtitle": "subtitles.aylyth.entity.soulmould.hurt"
 	},
 	"entity.soulmould.death": {
 		"sounds": [
 			"aylyth:entity/soulmould/soulmould_death_1"
 		],
-		"subtitle": "aylyth.subtitles.entity.soulmould.death"
+		"subtitle": "subtitles.aylyth.entity.soulmould.death"
 	},
 
 
@@ -152,7 +196,7 @@
 			"aylyth:entity/scion/say3",
 			"aylyth:entity/scion/say4"
 		],
-		"subtitle": "aylyth.subtitles.entity.scion.ambient"
+		"subtitle": "subtitles.aylyth.entity.scion.ambient"
 	},
 	"entity.scion.hurt": {
 		"sounds": [
@@ -161,13 +205,13 @@
 			"aylyth:entity/scion/hurt3",
 			"aylyth:entity/scion/hurt4"
 		],
-		"subtitle": "aylyth.subtitles.entity.scion.hurt"
+		"subtitle": "subtitles.aylyth.entity.scion.hurt"
 	},
 	"entity.scion.death": {
 		"sounds": [
 			"aylyth:entity/scion/death"
 		],
-		"subtitle": "aylyth.subtitles.entity.scion.death"
+		"subtitle": "subtitles.aylyth.entity.scion.death"
 	},
 
 
@@ -179,7 +223,7 @@
 			"aylyth:entity/wreathed_hind/say4",
 			"aylyth:entity/wreathed_hind/say5"
 		],
-		"subtitle": "aylyth.subtitles.entity.wreathed_hind.ambient"
+		"subtitle": "subtitles.aylyth.entity.wreathed_hind.ambient"
 	},
 	"entity.wreathed_hind.hurt": {
 		"sounds": [
@@ -188,7 +232,7 @@
 			"aylyth:entity/wreathed_hind/hurt3",
 			"aylyth:entity/wreathed_hind/hurt4"
 		],
-		"subtitle": "aylyth.subtitles.entity.wreathed_hind.hurt"
+		"subtitle": "subtitles.aylyth.entity.wreathed_hind.hurt"
 	},
 	"entity.wreathed_hind.death": {
 		"sounds": [
@@ -197,7 +241,7 @@
 			"aylyth:entity/wreathed_hind/death3",
 			"aylyth:entity/wreathed_hind/death4"
 		],
-		"subtitle": "aylyth.subtitles.entity.wreathed_hind.death"
+		"subtitle": "subtitles.aylyth.entity.wreathed_hind.death"
 	},
 	"entity.faunaylythian.ambient": {
 		"sounds": [
@@ -205,7 +249,7 @@
 			"aylyth:entity/faunaylythian/say2",
 			"aylyth:entity/faunaylythian/say3"
 		],
-		"subtitle": "aylyth.subtitles.entity.faunaylythian.ambient"
+		"subtitle": "subtitles.aylyth.entity.faunaylythian.ambient"
 	},
 	"entity.faunaylythian.hurt": {
 		"sounds": [
@@ -213,12 +257,12 @@
 			"aylyth:entity/faunaylythian/hurt2",
 			"aylyth:entity/faunaylythian/hurt3"
 		],
-		"subtitle": "aylyth.subtitles.entity.faunaylythian.hurt"
+		"subtitle": "subtitles.aylyth.entity.faunaylythian.hurt"
 	},
 	"entity.faunaylythian.death": {
 		"sounds": [
 			"aylyth:entity/faunaylythian/death"
 		],
-		"subtitle": "aylyth.subtitles.entity.faunaylythian.death"
+		"subtitle": "subtitles.aylyth.entity.faunaylythian.death"
 	}
 }

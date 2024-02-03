@@ -120,20 +120,21 @@ public class YmpeLanceEntity extends PersistentProjectileEntity {
 	public void tickRiding() {
 		super.tickRiding();
 
-		if(target != null && target == getVehicle() && !getWorld().isClient()) {
+		if (target != null && target == getVehicle() && !getWorld().isClient()) {
 			YmpeThornsComponent thornsComponent = ModComponents.YMPE_THORNS.get(target);
 
-			if(timeStuck >= 140) {
+			if (timeStuck >= 140 || target.isDead()) {
 				target = null;
 				stopRiding();
 				return;
 			}
 
-			if(timeStuck % 40 == 0 && timeStuck > 0) {
+			if (timeStuck % 40 == 0 && timeStuck > 0) {
 				target.damage(getWorld().modDamageSources().ympe(), 4);
 
-				if(thornsComponent.getThornProgress() < 3)
-					thornsComponent.setThornProgress(thornsComponent.getThornProgress() + 1);
+				if (thornsComponent.getThornProgress() < 3) {
+					thornsComponent.incrementThornProgress(1);
+				}
 			}
 
 			timeStuck++;

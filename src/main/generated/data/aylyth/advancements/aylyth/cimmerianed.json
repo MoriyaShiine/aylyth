@@ -3,14 +3,14 @@
   "aylyth:custom_display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "aylyth.advancements.aylyth.cimmerianed.desc"
+      "translate": "advancements.aylyth.aylyth.cimmerianed.desc"
     },
     "frame": "task",
     "hidden": false,
     "show_toast": true,
     "texture": "aylyth:textures/mob_effect/cimmerian.png",
     "title": {
-      "translate": "aylyth.advancements.aylyth.cimmerianed.title"
+      "translate": "advancements.aylyth.aylyth.cimmerianed.title"
     }
   },
   "criteria": {

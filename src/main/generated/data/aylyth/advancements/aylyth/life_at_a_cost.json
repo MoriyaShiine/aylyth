@@ -17,7 +17,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "aylyth.advancements.aylyth.life_at_a_cost.desc"
+      "translate": "advancements.aylyth.aylyth.life_at_a_cost.desc"
     },
     "frame": "task",
     "hidden": false,
@@ -26,7 +26,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "aylyth.advancements.aylyth.life_at_a_cost.title"
+      "translate": "advancements.aylyth.aylyth.life_at_a_cost.title"
     }
   },
   "requirements": [

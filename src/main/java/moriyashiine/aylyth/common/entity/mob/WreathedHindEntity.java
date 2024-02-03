@@ -214,7 +214,7 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
                 if(possiblePositions.size() >= i){
                     BlockPos placePos = Util.getRandom(possiblePositions, this.random);
                     world.setBlockState(placePos, ModBlocks.OAK_STREWN_LEAVES.getDefaultState());
-                    playSound(ModSoundEvents.BLOCK_STREWN_LEAVES_STEP, getSoundVolume(), getSoundPitch());
+                    playSound(ModSoundEvents.BLOCK_STREWN_LEAVES_STEP.value(), getSoundVolume(), getSoundPitch());
                 }
             }
         }
@@ -287,7 +287,7 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return ModSoundEvents.ENTITY_WREATHED_HIND_AMBIENT;
+        return ModSoundEvents.ENTITY_WREATHED_HIND_AMBIENT.value();
     }
 
     @Override
@@ -297,12 +297,12 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return ModSoundEvents.ENTITY_WREATHED_HIND_HURT;
+        return ModSoundEvents.ENTITY_WREATHED_HIND_HURT.value();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return ModSoundEvents.ENTITY_WREATHED_HIND_DEATH;
+        return ModSoundEvents.ENTITY_WREATHED_HIND_DEATH.value();
     }
 
     @Nullable

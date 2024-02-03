@@ -4,12 +4,9 @@ import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.ModEntityTypes;
 import moriyashiine.aylyth.common.registry.ModItems;
 import moriyashiine.aylyth.common.registry.ModPotions;
-import moriyashiine.aylyth.common.registry.util.WoodSuite;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.fabricmc.loader.impl.util.StringUtil;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
 
 public class AylythLanguageProvider extends FabricLanguageProvider {
 
@@ -25,16 +22,61 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
 
         // BLOCKS
 
-        String ympe = "Ympe";
-        addWoodsuite(builder, ModBlocks.YMPE_BLOCKS, ympe);
+        builder.add(ModBlocks.YMPE_STRIPPED_LOG, "Stripped Ympe Log");
+        builder.add(ModBlocks.YMPE_STRIPPED_WOOD, "Stripped Ympe Wood");
+        builder.add(ModBlocks.YMPE_LOG, "Ympe Log");
+        builder.add(ModBlocks.YMPE_WOOD, "Ympe Wood");
+        builder.add(ModBlocks.YMPE_SAPLING, "Ympe Sapling");
+        builder.add(ModBlocks.YMPE_POTTED_SAPLING, "Potted Ympe Sapling");
+        builder.add(ModBlocks.YMPE_PLANKS, "Ympe Planks");
+        builder.add(ModBlocks.YMPE_STAIRS, "Ympe Stairs");
+        builder.add(ModBlocks.YMPE_SLAB, "Ympe Slab");
+        builder.add(ModBlocks.YMPE_FENCE, "Ympe Fence");
+        builder.add(ModBlocks.YMPE_FENCE_GATE, "Ympe Fence Gate");
+        builder.add(ModBlocks.YMPE_PRESSURE_PLATE, "Ympe Pressure Plate");
+        builder.add(ModBlocks.YMPE_BUTTON, "Ympe Button");
+        builder.add(ModBlocks.YMPE_TRAPDOOR, "Ympe Trapdoor");
+        builder.add(ModBlocks.YMPE_DOOR, "Ympe Door");
+        builder.add(ModBlocks.YMPE_SIGN, "Ympe Sign");
+        builder.add(ModBlocks.YMPE_HANGING_SIGN, "Ympe Hanging Sign");
+        builder.add(ModBlocks.YMPE_LEAVES, "Ympe Leaves");
         builder.add(ModBlocks.FRUIT_BEARING_YMPE_LOG, "Fruit Bearing Ympe Log");
-        leaves(builder, ModBlocks.YMPE_LEAVES, ympe);
-        String pomegranate = "Pomegranate";
-        addWoodsuite(builder, ModBlocks.POMEGRANATE_BLOCKS, pomegranate);
-        leaves(builder, ModBlocks.POMEGRANATE_LEAVES, pomegranate);
-        String writhewood = "Writhewood";
-        addWoodsuite(builder, ModBlocks.WRITHEWOOD_BLOCKS, writhewood);
-        leaves(builder, ModBlocks.WRITHEWOOD_LEAVES, writhewood);
+        builder.add(ModBlocks.POMEGRANATE_STRIPPED_LOG, "Stripped Pomegranate Log");
+        builder.add(ModBlocks.POMEGRANATE_STRIPPED_WOOD, "Stripped Pomegranate Wood");
+        builder.add(ModBlocks.POMEGRANATE_LOG, "Pomegranate Log");
+        builder.add(ModBlocks.POMEGRANATE_WOOD, "Pomegranate Wood");
+        builder.add(ModBlocks.POMEGRANATE_SAPLING, "Pomegranate Sapling");
+        builder.add(ModBlocks.POMEGRANATE_POTTED_SAPLING, "Potted Pomegranate Sapling");
+        builder.add(ModBlocks.POMEGRANATE_PLANKS, "Pomegranate Planks");
+        builder.add(ModBlocks.POMEGRANATE_STAIRS, "Pomegranate Stairs");
+        builder.add(ModBlocks.POMEGRANATE_SLAB, "Pomegranate Slab");
+        builder.add(ModBlocks.POMEGRANATE_FENCE, "Pomegranate Fence");
+        builder.add(ModBlocks.POMEGRANATE_FENCE_GATE, "Pomegranate Fence Gate");
+        builder.add(ModBlocks.POMEGRANATE_PRESSURE_PLATE, "Pomegranate Pressure Plate");
+        builder.add(ModBlocks.POMEGRANATE_BUTTON, "Pomegranate Button");
+        builder.add(ModBlocks.POMEGRANATE_TRAPDOOR, "Pomegranate Trapdoor");
+        builder.add(ModBlocks.POMEGRANATE_DOOR, "Pomegranate Door");
+        builder.add(ModBlocks.POMEGRANATE_SIGN, "Pomegranate Sign");
+        builder.add(ModBlocks.POMEGRANATE_HANGING_SIGN, "Pomegranate Hanging Sign");
+        builder.add(ModBlocks.POMEGRANATE_LEAVES, "Pomegranate Leaves");
+        builder.add(ModBlocks.WRITHEWOOD_STRIPPED_LOG, "Stripped Writhewood Log");
+        builder.add(ModBlocks.WRITHEWOOD_STRIPPED_WOOD, "Stripped Writhewood Wood");
+        builder.add(ModBlocks.WRITHEWOOD_LOG, "Writhewood Log");
+        builder.add(ModBlocks.WRITHEWOOD_WOOD, "Writhewood Wood");
+        builder.add(ModBlocks.WRITHEWOOD_SAPLING, "Writhewood Sapling");
+        builder.add(ModBlocks.WRITHEWOOD_POTTED_SAPLING, "Potted Writhewood Sapling");
+        builder.add(ModBlocks.WRITHEWOOD_PLANKS, "Writhewood Planks");
+        builder.add(ModBlocks.WRITHEWOOD_STAIRS, "Writhewood Stairs");
+        builder.add(ModBlocks.WRITHEWOOD_SLAB, "Writhewood Slab");
+        builder.add(ModBlocks.WRITHEWOOD_FENCE, "Writhewood Fence");
+        builder.add(ModBlocks.WRITHEWOOD_FENCE_GATE, "Writhewood Fence Gate");
+        builder.add(ModBlocks.WRITHEWOOD_PRESSURE_PLATE, "Writhewood Pressure Plate");
+        builder.add(ModBlocks.WRITHEWOOD_BUTTON, "Writhewood Button");
+        builder.add(ModBlocks.WRITHEWOOD_TRAPDOOR, "Writhewood Trapdoor");
+        builder.add(ModBlocks.WRITHEWOOD_DOOR, "Writhewood Door");
+        builder.add(ModBlocks.WRITHEWOOD_SIGN, "Writhewood Sign");
+        builder.add(ModBlocks.WRITHEWOOD_HANGING_SIGN, "Writhewood Hanging Sign");
+        builder.add(ModBlocks.WRITHEWOOD_LEAVES, "Writhewood Leaves");
         builder.add(ModBlocks.AYLYTH_BUSH, "Aylyth Bush");
         builder.add(ModBlocks.ANTLER_SHOOTS, "Antler Shoots");
         builder.add(ModBlocks.GRIPWEED, "Gripweed");
@@ -70,13 +112,13 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         // ITEMS
 
         builder.add(ModItems.DEBUG_WAND, "Debug Wand");
-        boat(builder, ModItems.YMPE_ITEMS.boat, ympe);
-        chestBoat(builder, ModItems.YMPE_ITEMS.chestBoat, ympe);
-        boat(builder, ModItems.POMEGRANATE_ITEMS.boat, pomegranate);
-        chestBoat(builder, ModItems.POMEGRANATE_ITEMS.chestBoat, pomegranate);
-        boat(builder, ModItems.WRITHEWOOD_ITEMS.boat, writhewood);
-        chestBoat(builder, ModItems.WRITHEWOOD_ITEMS.chestBoat, writhewood);
-        builder.add(ModItems.POMEGRANATE, pomegranate);
+        builder.add(ModItems.YMPE_BOAT, "Ympe Boat");
+        builder.add(ModItems.YMPE_CHEST_BOAT, "Ympe Chest Boat");
+        builder.add(ModItems.POMEGRANATE_BOAT, "Pomegranate Boat");
+        builder.add(ModItems.POMEGRANATE_CHEST_BOAT, "Pomegranate Chest Boat");
+        builder.add(ModItems.WRITHEWOOD_BOAT, "Writhewood Boat");
+        builder.add(ModItems.WRITHEWOOD_CHEST_BOAT, "Writhewood Chest Boat");
+        builder.add(ModItems.POMEGRANATE, "Pomegranate");
         builder.add(ModItems.GHOSTCAP_MUSHROOM, "Ghostcap Mushroom");
         builder.add(ModItems.YMPE_DAGGER, "Ympe Dagger");
         builder.add(ModItems.YMPE_LANCE, "Ympe Lance");
@@ -94,7 +136,6 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add(ModItems.WREATHED_HIND_SPAWN_EGG, "Wreathed Hind Spawn Egg");
         builder.add(ModItems.AYLYTHIAN_SPAWN_EGG, "Aylythian Spawn Egg");
         builder.add(ModItems.ELDER_AYLYTHIAN_SPAWN_EGG, "Elder Aylythian Spawn Egg");
-        builder.add(ModItems.YMPEMOULD_ITEM, "Ympemould");
         builder.add(ModItems.YMPE_EFFIGY_ITEM, "Ympe Effigy");
         builder.add(ModItems.WRONGMEAT, "Wrongmeat");
         builder.add(ModItems.YMPE_CUIRASS, "Ympe Cuirass");
@@ -107,9 +148,17 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add(ModItems.NEPHRITE_PICKAXE, "Nephrite Pickaxe");
         builder.add(ModItems.NEPHRITE_AXE, "Nephrite Axe");
         builder.add(ModItems.NEPHRITE_HOE, "Nephrite Hoe");
+        builder.add(ModItems.POMEGRANATE_CASSETTE, "Cassette");
         potionSet(builder, "mortechis");
         potionSet(builder, "cimmerian");
         potionSet(builder, "wyrded");
+
+        builder.add("item.aylyth.pomegranate_cassette.desc", "DEMON AND MAX - Pomegranate");
+        builder.add("item.aylyth.smithing_template.aylythian_upgrade.applies_to", "Ympe Sapling");
+        builder.add("item.aylyth.smithing_template.aylythian_upgrade.ingredients", "Esstline");
+        builder.add("item.aylyth.smithing_template.aylythian_upgrade.base_slot_description", "Ympe Sapling");
+        builder.add("item.aylyth.smithing_template.aylythian_upgrade.additions_slot_description", "Esstline");
+        builder.add("upgrade.aylyth.aylythian_upgrade", "Aylythian Upgrade");
 
         // ENTITIES
 
@@ -132,40 +181,40 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
 
         // ADVANCEMENTS
 
-        builder.add("aylyth.advancements.aylyth.root.title", "Into the Unknown");
-        builder.add("aylyth.advancements.aylyth.root.desc", "In the midst of the journey of our life, I found myself in a dark wood without paths.");
-        builder.add("aylyth.advancements.aylyth.cimmerianed.title", "Cimmerianed");
-        builder.add("aylyth.advancements.aylyth.cimmerianed.desc", "Play some hide and seek with the undead");
-        builder.add("aylyth.advancements.aylyth.wyrded.title", "Wyrded");
-        builder.add("aylyth.advancements.aylyth.wyrded.desc", "Try approaching a seep!");
-        builder.add("aylyth.advancements.aylyth.in_the_branches.title", "In the Branches");
-        builder.add("aylyth.advancements.aylyth.in_the_branches.desc", "Become infested by Ympe Branches. There has to be a cure...");
-        builder.add("aylyth.advancements.aylyth.life_at_a_cost.title", "Life at a cost");
-        builder.add("aylyth.advancements.aylyth.life_at_a_cost.desc", "Obtain an Ympe Fruit, used to help subside the Branches, among other things.");
-        builder.add("aylyth.advancements.aylyth.daemon_ritus.title", "Daemon Ritus");
-        builder.add("aylyth.advancements.aylyth.daemon_ritus.desc", "Using a Shucked Ympe Fruit and an Ympe Dagger, store the soul of a mob in the hollowed fruit (this may require murder)");
-        builder.add("aylyth.advancements.aylyth.manufactured_for_a_purpose.title", "Manufactured for a Purpose");
-        builder.add("aylyth.advancements.aylyth.manufactured_for_a_purpose.desc", "Obtain a Coric Seed, perhaps one can find the way to make one hidden in dungeons and lost structures...");
-        builder.add("aylyth.advancements.aylyth.laccus.title", "Laccus");
-        builder.add("aylyth.advancements.aylyth.laccus.desc", "Find and harvest Nysian Grapes.");
-        builder.add("aylyth.advancements.aylyth.libations.title", "Libations");
-        builder.add("aylyth.advancements.aylyth.libations.desc", "Brew Nysian Grapes into a special potion that protects those near death.");
-        builder.add("aylyth.advancements.aylyth.come_wayward_souls.title", "Come Wayward Souls");
-        builder.add("aylyth.advancements.aylyth.come_wayward_souls.desc", "Give a Wreathed Hind, the deer-like creatures found in the Deepest of Woods, Nysian Grapes in order to earn its protection.");
-        builder.add("aylyth.advancements.aylyth.dont_look_back.title", "Don’t Look Back");
-        builder.add("aylyth.advancements.aylyth.dont_look_back.desc", "Reach out to a Pilot Light so it may guide you back home, requires 5 XP levels.");
-        builder.add("aylyth.advancements.aylyth.into_the_fire_we_fly.title", "Into the Fire we Fly");
-        builder.add("aylyth.advancements.aylyth.into_the_fire_we_fly.desc", "Obtain an Aylythian Heart, a drop from certain stronger creatures, and use it to avoid death, at the cost of returning to Aylyth.");
-        builder.add("aylyth.advancements.aylyth.something_between_life_and_death.title", "Between Life and Death");
-        builder.add("aylyth.advancements.aylyth.something_between_life_and_death.desc", "Create a Soul Hearth, give it Pomegranates, and then right-click on it to activate it, allowing you to set spawn in Aylyth.");
-        builder.add("aylyth.advancements.aylyth.meat_found.title", "Meat Found!");
-        builder.add("aylyth.advancements.aylyth.meat_found.desc", "Slay certain Aylythian entities with an Ympe Dagger, and collect their special drop.");
-        builder.add("aylyth.advancements.aylyth.flesh_increased_by_two.title", "Flesh Increased by 2");
-        builder.add("aylyth.advancements.aylyth.flesh_increased_by_two.desc", "Create a Vital Thurible, and place 5 Wrongmeat in it, to gain additional health! Watch out for spectral entities and Ympe, however...");
-        builder.add("aylyth.advancements.aylyth.way_of_the_wood.title", "Way of the Wood");
-        builder.add("aylyth.advancements.aylyth.way_of_the_wood.desc", "Encounter every biome in Aylyth.");
-        builder.add("aylyth.advancements.aylyth.see_you_in_the_trees.title", "I’ll see you in the Trees");
-        builder.add("aylyth.advancements.aylyth.see_you_in_the_trees.desc", "Create a Girasol Seed, and plant it in the Overworld, to create a new Seep.");
+        builder.add("advancements.aylyth.aylyth.root.title", "Into the Unknown");
+        builder.add("advancements.aylyth.aylyth.root.desc", "In the midst of the journey of our life, I found myself in a dark wood without paths.");
+        builder.add("advancements.aylyth.aylyth.cimmerianed.title", "Cimmerianed");
+        builder.add("advancements.aylyth.aylyth.cimmerianed.desc", "Play some hide and seek with the undead");
+        builder.add("advancements.aylyth.aylyth.wyrded.title", "Wyrded");
+        builder.add("advancements.aylyth.aylyth.wyrded.desc", "Try approaching a seep!");
+        builder.add("advancements.aylyth.aylyth.in_the_branches.title", "In the Branches");
+        builder.add("advancements.aylyth.aylyth.in_the_branches.desc", "Become infested by Ympe Branches. There has to be a cure...");
+        builder.add("advancements.aylyth.aylyth.life_at_a_cost.title", "Life at a cost");
+        builder.add("advancements.aylyth.aylyth.life_at_a_cost.desc", "Obtain an Ympe Fruit, used to help subside the Branches, among other things.");
+        builder.add("advancements.aylyth.aylyth.daemon_ritus.title", "Daemon Ritus");
+        builder.add("advancements.aylyth.aylyth.daemon_ritus.desc", "Using a Shucked Ympe Fruit and an Ympe Dagger, store the soul of a mob in the hollowed fruit (this may require murder)");
+        builder.add("advancements.aylyth.aylyth.manufactured_for_a_purpose.title", "Manufactured for a Purpose");
+        builder.add("advancements.aylyth.aylyth.manufactured_for_a_purpose.desc", "Obtain a Coric Seed, perhaps one can find the way to make one hidden in dungeons and lost structures...");
+        builder.add("advancements.aylyth.aylyth.laccus.title", "Laccus");
+        builder.add("advancements.aylyth.aylyth.laccus.desc", "Find and harvest Nysian Grapes.");
+        builder.add("advancements.aylyth.aylyth.libations.title", "Libations");
+        builder.add("advancements.aylyth.aylyth.libations.desc", "Brew Nysian Grapes into a special potion that protects those near death.");
+        builder.add("advancements.aylyth.aylyth.come_wayward_souls.title", "Come Wayward Souls");
+        builder.add("advancements.aylyth.aylyth.come_wayward_souls.desc", "Give a Wreathed Hind, the deer-like creatures found in the Deepest of Woods, Nysian Grapes in order to earn its protection.");
+        builder.add("advancements.aylyth.aylyth.dont_look_back.title", "Don’t Look Back");
+        builder.add("advancements.aylyth.aylyth.dont_look_back.desc", "Reach out to a Pilot Light so it may guide you back home, requires 5 XP levels.");
+        builder.add("advancements.aylyth.aylyth.into_the_fire_we_fly.title", "Into the Fire we Fly");
+        builder.add("advancements.aylyth.aylyth.into_the_fire_we_fly.desc", "Obtain an Aylythian Heart, a drop from certain stronger creatures, and use it to avoid death, at the cost of returning to Aylyth.");
+        builder.add("advancements.aylyth.aylyth.something_between_life_and_death.title", "Between Life and Death");
+        builder.add("advancements.aylyth.aylyth.something_between_life_and_death.desc", "Create a Soul Hearth, give it Pomegranates, and then right-click on it to activate it, allowing you to set spawn in Aylyth.");
+        builder.add("advancements.aylyth.aylyth.meat_found.title", "Meat Found!");
+        builder.add("advancements.aylyth.aylyth.meat_found.desc", "Slay certain Aylythian entities with an Ympe Dagger, and collect their special drop.");
+        builder.add("advancements.aylyth.aylyth.flesh_increased_by_two.title", "Flesh Increased by 2");
+        builder.add("advancements.aylyth.aylyth.flesh_increased_by_two.desc", "Create a Vital Thurible, and place 5 Wrongmeat in it, to gain additional health! Watch out for spectral entities and Ympe, however...");
+        builder.add("advancements.aylyth.aylyth.way_of_the_wood.title", "Way of the Wood");
+        builder.add("advancements.aylyth.aylyth.way_of_the_wood.desc", "Encounter every biome in Aylyth.");
+        builder.add("advancements.aylyth.aylyth.see_you_in_the_trees.title", "I’ll see you in the Trees");
+        builder.add("advancements.aylyth.aylyth.see_you_in_the_trees.desc", "Create a Girasol Seed, and plant it in the Overworld, to create a new Seep.");
 
         // DEATH MESSAGES
 
@@ -175,39 +224,39 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
 
         // SUBTITLES
 
-        builder.add("aylyth.subtitles.block.ympe_log.pick_fruit", "Fruit picked");
-        builder.add("aylyth.subtitles.entity.player.increase_ympe_infestation_stage", "Branches spread");
-        builder.add("aylyth.subtitles.entity.generic.shucked", "Entity shucked");
-        builder.add("aylyth.subtitles.entity.aylythian.ambient", "Aylythian groans");
-        builder.add("aylyth.subtitles.entity.aylythian.hurt", "Aylythian hurts");
-        builder.add("aylyth.subtitles.entity.aylythian.death", "Aylythian dies");
-        builder.add("aylyth.subtitles.entity.faunaylythian.ambient", "Faunaylythian snarls");
-        builder.add("aylyth.subtitles.entity.faunaylythian.hurt", "Faunaylythian hurts");
-        builder.add("aylyth.subtitles.entity.faunaylythian.death", "Faunaylythian dies");
-        builder.add("aylyth.subtitles.entity.elder_aylythian.ambient", "Elder Aylythian rumbles");
-        builder.add("aylyth.subtitles.entity.elder_aylythian.hurt", "Elder Aylythian hurts");
-        builder.add("aylyth.subtitles.entity.elder_aylythian.death", "Elder Aylythian dies");
-        builder.add("aylyth.subtitles.entity.soulmould.ambient", "Soulmould groans");
-        builder.add("aylyth.subtitles.entity.soulmould.attack", "Soulmould attack");
-        builder.add("aylyth.subtitles.entity.soulmould.damage", "Soulmould hurt");
-        builder.add("aylyth.subtitles.entity.soulmould.death", "Soulmould dies");
-        builder.add("aylyth.subtitles.block.stick_break", "Stick cracks");
-        builder.add("aylyth.subtitles.block.strewn_leaves.step", "Leaves crunch");
-        builder.add("aylyth.subtitles.block.strewn_leaves.pile_destroy", "Leaves scatter");
-        builder.add("aylyth.subtitles.block.strewn_leaves.pile_step", "Leaf pile crunches");
+        builder.add("subtitles.aylyth.block.ympe_log.pick_fruit", "Fruit picked");
+        builder.add("subtitles.aylyth.entity.player.increase_ympe_infestation_stage", "Branches spread");
+        builder.add("subtitles.aylyth.entity.generic.shucked", "Entity shucked");
+        builder.add("subtitles.aylyth.entity.aylythian.ambient", "Aylythian groans");
+        builder.add("subtitles.aylyth.entity.aylythian.hurt", "Aylythian hurts");
+        builder.add("subtitles.aylyth.entity.aylythian.death", "Aylythian dies");
+        builder.add("subtitles.aylyth.entity.faunaylythian.ambient", "Faunaylythian snarls");
+        builder.add("subtitles.aylyth.entity.faunaylythian.hurt", "Faunaylythian hurts");
+        builder.add("subtitles.aylyth.entity.faunaylythian.death", "Faunaylythian dies");
+        builder.add("subtitles.aylyth.entity.elder_aylythian.ambient", "Elder Aylythian rumbles");
+        builder.add("subtitles.aylyth.entity.elder_aylythian.hurt", "Elder Aylythian hurts");
+        builder.add("subtitles.aylyth.entity.elder_aylythian.death", "Elder Aylythian dies");
+        builder.add("subtitles.aylyth.entity.soulmould.ambient", "Soulmould groans");
+        builder.add("subtitles.aylyth.entity.soulmould.attack", "Soulmould attack");
+        builder.add("subtitles.aylyth.entity.soulmould.damage", "Soulmould hurt");
+        builder.add("subtitles.aylyth.entity.soulmould.death", "Soulmould dies");
+        builder.add("subtitles.aylyth.block.stick_break", "Stick cracks");
+        builder.add("subtitles.aylyth.block.strewn_leaves.step", "Leaves crunch");
+        builder.add("subtitles.aylyth.block.strewn_leaves.pile_destroy", "Leaves scatter");
+        builder.add("subtitles.aylyth.block.strewn_leaves.pile_step", "Leaf pile crunches");
 
-        builder.add("aylyth.subtitles.entity.wreathed_hind.ambient", "Wreathed Hind groans");
-        builder.add("aylyth.subtitles.entity.wreathed_hind.hurt", "Wreathed Hind hurt");
-        builder.add("aylyth.subtitles.entity.wreathed_hind.death", "Wreathed Hind dies");
+        builder.add("subtitles.aylyth.entity.wreathed_hind.ambient", "Wreathed Hind groans");
+        builder.add("subtitles.aylyth.entity.wreathed_hind.hurt", "Wreathed Hind hurt");
+        builder.add("subtitles.aylyth.entity.wreathed_hind.death", "Wreathed Hind dies");
 
-        builder.add("aylyth.subtitles.entity.scion.ambient", "Scion groans");
-        builder.add("aylyth.subtitles.entity.scion.hurt", "Scion hurt");
-        builder.add("aylyth.subtitles.entity.scion.death", "Scion dies");
+        builder.add("subtitles.aylyth.entity.scion.ambient", "Scion groans");
+        builder.add("subtitles.aylyth.entity.scion.hurt", "Scion hurt");
+        builder.add("subtitles.aylyth.entity.scion.death", "Scion dies");
 
         // INFO
 
-        builder.add("info.aylyth.mould_activate", "Mould of Souls Activated");
-        builder.add("info.aylyth.mould_deactivate", "Mould of Souls Deactivated");
+        builder.add("info.aylyth.ympemould_activate", "Ympemould Activated");
+        builder.add("info.aylyth.ympemould_deactivate", "Ympemould Deactivated");
 
         builder.add("info.aylyth.tulpa_wander", "Wander");
         builder.add("info.aylyth.tulpa_follow", "Follow");
@@ -234,36 +283,5 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add("item.minecraft.splash_potion.effect.%s".formatted(effectName), "Splash Potion of %s".formatted(StringUtil.capitalize(effectName)));
         builder.add("item.minecraft.tipped_arrow.effect.%s".formatted(effectName), "Arrow of %s".formatted(StringUtil.capitalize(effectName)));
         builder.add("item.minecraft.lingering_potion.effect.%s".formatted(effectName), "Lingering Potion of %s".formatted(StringUtil.capitalize(effectName)));
-    }
-
-    private void leaves(TranslationBuilder builder, Block block, String woodName) {
-        builder.add(block, "%s Leaves".formatted(woodName));
-    }
-
-    private void chestBoat(TranslationBuilder builder, Item boatItem, String woodName) {
-        builder.add(boatItem, "%s Boat with Chest".formatted(woodName));
-    }
-
-    private void boat(TranslationBuilder builder, Item boatItem, String woodName) {
-        builder.add(boatItem, "%s Boat".formatted(woodName));
-    }
-
-    private void addWoodsuite(TranslationBuilder builder, WoodSuite suite, String woodName) {
-        builder.add(suite.strippedLog, "Stripped %s Log".formatted(woodName));
-        builder.add(suite.strippedWood, "Stripped %s Wood".formatted(woodName));
-        builder.add(suite.log, "%s Log".formatted(woodName));
-        builder.add(suite.wood, "%s Wood".formatted(woodName));
-        builder.add(suite.sapling, "%s Sapling".formatted(woodName));
-        builder.add(suite.pottedSapling, "Potted %s Sapling".formatted(woodName));
-        builder.add(suite.planks, "%s Planks".formatted(woodName));
-        builder.add(suite.stairs, "%s Stairs".formatted(woodName));
-        builder.add(suite.slab, "%s Slab".formatted(woodName));
-        builder.add(suite.fence, "%s Fence".formatted(woodName));
-        builder.add(suite.fenceGate, "%s Fence Gate".formatted(woodName));
-        builder.add(suite.pressurePlate, "%s Pressure Plate".formatted(woodName));
-        builder.add(suite.button, "%s Button".formatted(woodName));
-        builder.add(suite.trapdoor, "%s Trapdoor".formatted(woodName));
-        builder.add(suite.door, "%s Door".formatted(woodName));
-        builder.add(suite.floorSign, "%s Sign".formatted(woodName));
     }
 }

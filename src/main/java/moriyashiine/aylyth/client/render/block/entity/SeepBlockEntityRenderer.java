@@ -1,27 +1,22 @@
 package moriyashiine.aylyth.client.render.block.entity;
 
-import moriyashiine.aylyth.common.Aylyth;
+import moriyashiine.aylyth.client.render.AylythRenderLayers;
 import moriyashiine.aylyth.common.block.entity.SeepBlockEntity;
-import moriyashiine.aylyth.mixin.client.RenderLayerAccessor;
-import net.minecraft.client.gl.ShaderProgram;
-import net.minecraft.client.render.*;
+import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.Identifier;
 import org.joml.Matrix4f;
 
 public class SeepBlockEntityRenderer implements BlockEntityRenderer<SeepBlockEntity> { // TODO: just have different seep blocks duh, not dynamic rendering. IIRC can use dynamic fabric models for this
-	public static ShaderProgram renderTypeSeepShader;
-	public static final RenderLayer.MultiPhase SEEP = RenderLayerAccessor.callOf("seep", VertexFormats.POSITION, VertexFormat.DrawMode.QUADS, 256, false, false, RenderLayer.MultiPhaseParameters.builder().program(new RenderPhase.ShaderProgram(() -> renderTypeSeepShader)).texture(RenderPhase.Textures.create().add(new Identifier(Aylyth.MOD_ID, "textures/environment/seep_0.png"), false, false).add(new Identifier(Aylyth.MOD_ID, "textures/environment/seep_1.png"), false, false).build()).build(false));
-	
 	public SeepBlockEntityRenderer(BlockEntityRendererFactory.Context ctx) {
 	}
 	
 	@Override
 	public void render(SeepBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
 		Matrix4f matrix = matrices.peek().getPositionMatrix();
-		VertexConsumer vertexConsumer = vertexConsumers.getBuffer(SEEP);
+		VertexConsumer vertexConsumer = vertexConsumers.getBuffer(AylythRenderLayers.SEEP);
 		this.renderSide(matrix, vertexConsumer, 0.0625F, 0.9375F, 0, 1, 0.9375F, 0.9375F, 0.9375F, 0.9375F);
 		this.renderSide(matrix, vertexConsumer, 0.0625F, 0.9375F, 1, 0, 0.0625F, 0.0625F, 0.0625F, 0.0625F);
 		this.renderSide(matrix, vertexConsumer, 0.9375F, 0.9375F, 1, 0, 0.0625F, 0.9375F, 0.9375F, 0.0625F);

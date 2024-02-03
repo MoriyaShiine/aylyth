@@ -22,6 +22,12 @@
       "sound": "minecraft:ambient.cave",
       "tick_delay": 6000
     },
+    "music": {
+      "max_delay": 24000,
+      "min_delay": 12000,
+      "replace_current_music": false,
+      "sound": "aylyth:music.aylyth.ambient"
+    },
     "particle": {
       "options": {
         "type": "minecraft:mycelium"
@@ -60,6 +66,7 @@
       "aylyth:aylyth_weeds",
       "aylyth:ghostcap_mushroom_patch",
       "aylyth:ympe_seep",
+      "aylyth:dark_oak_seep",
       "aylyth:deep_roof_trees",
       "aylyth:deepwood_trees",
       "aylyth:red_mushroom_patch_deepwood",

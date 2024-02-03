@@ -170,17 +170,17 @@ public class ScionEntity extends HostileEntity {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return ModSoundEvents.ENTITY_SCION_AMBIENT;
+        return ModSoundEvents.ENTITY_SCION_AMBIENT.value();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return ModSoundEvents.ENTITY_SCION_HURT;
+        return ModSoundEvents.ENTITY_SCION_HURT.value();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return ModSoundEvents.ENTITY_SCION_DEATH;
+        return ModSoundEvents.ENTITY_SCION_DEATH.value();
     }
 
     public static boolean canSpawn(EntityType<ScionEntity> scionEntityEntityType, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos blockPos, Random random) {

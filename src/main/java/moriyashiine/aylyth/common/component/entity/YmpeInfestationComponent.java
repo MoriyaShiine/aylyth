@@ -51,7 +51,7 @@ public class YmpeInfestationComponent implements AutoSyncedComponent, ServerTick
 			}
 		}
 		if (getInfestationTimer() >= TIME_UNTIL_STAGE_INCREASES) {
-			obj.getWorld().playSoundFromEntity(null, obj, ModSoundEvents.ENTITY_PLAYER_INCREASE_YMPE_INFESTATION_STAGE, SoundCategory.PLAYERS, 1, obj.getSoundPitch());
+			obj.getWorld().playSoundFromEntity(null, obj, ModSoundEvents.ENTITY_PLAYER_INCREASE_YMPE_INFESTATION_STAGE.value(), SoundCategory.PLAYERS, 1, obj.getSoundPitch());
 			setStage((byte) (getStage() + 1));
 			setInfestationTimer((short) 0);
 			if (getStage() >= 6) {

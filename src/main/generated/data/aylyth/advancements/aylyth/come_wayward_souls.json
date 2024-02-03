@@ -9,7 +9,7 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "aylyth.advancements.aylyth.come_wayward_souls.desc"
+      "translate": "advancements.aylyth.aylyth.come_wayward_souls.desc"
     },
     "frame": "task",
     "hidden": false,
@@ -18,7 +18,7 @@
     },
     "show_toast": true,
     "title": {
-      "translate": "aylyth.advancements.aylyth.come_wayward_souls.title"
+      "translate": "advancements.aylyth.aylyth.come_wayward_souls.title"
     }
   },
   "requirements": [

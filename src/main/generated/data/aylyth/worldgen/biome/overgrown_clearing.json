@@ -21,6 +21,12 @@
       "sound": "minecraft:ambient.cave",
       "tick_delay": 6000
     },
+    "music": {
+      "max_delay": 24000,
+      "min_delay": 12000,
+      "replace_current_music": false,
+      "sound": "aylyth:music.aylyth.ambient"
+    },
     "particle": {
       "options": {
         "type": "aylyth:ambient_pilot_light"
@@ -54,6 +60,7 @@
       "minecraft:patch_grass_plain",
       "aylyth:pomegranate_tree_placed",
       "aylyth:marigolds",
+      "aylyth:spruce_seep",
       "aylyth:overgrowth_clearing_trees",
       "aylyth:bushes",
       "minecraft:patch_tall_grass",
