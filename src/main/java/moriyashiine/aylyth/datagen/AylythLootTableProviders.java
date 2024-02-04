@@ -104,7 +104,6 @@ public class AylythLootTableProviders {
             addDrop(ModBlocks.CARVED_SMOOTH_NEPHRITE);
             addDrop(ModBlocks.CARVED_ANTLERED_NEPHRITE);
             addDrop(ModBlocks.CARVED_NEPHRITE_PILLAR);
-            addDrop(ModBlocks.POLISHED_CARVED_NEPHRITE);
             addDrop(ModBlocks.CARVED_NEPHRITE_TILES);
             addDrop(ModBlocks.CARVED_WOODY_NEPHRITE);
             addDrop(ModBlocks.YMPE_HANGING_SIGN);

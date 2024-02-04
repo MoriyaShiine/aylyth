@@ -199,7 +199,6 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
         createStonecutting(exporter, ModItemTags.CARVED_NEPHRITE, ModBlocks.CARVED_SMOOTH_NEPHRITE, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CARVED_SMOOTH_NEPHRITE);
         createStonecutting(exporter, ModItemTags.CARVED_NEPHRITE, ModBlocks.CARVED_SMOOTH_NEPHRITE, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CARVED_ANTLERED_NEPHRITE);
         createStonecutting(exporter, ModItemTags.CARVED_NEPHRITE, ModBlocks.CARVED_SMOOTH_NEPHRITE, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CARVED_NEPHRITE_PILLAR);
-        createStonecutting(exporter, ModItemTags.CARVED_NEPHRITE, ModBlocks.CARVED_SMOOTH_NEPHRITE, RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_CARVED_NEPHRITE);
         createStonecutting(exporter, ModItemTags.CARVED_NEPHRITE, ModBlocks.CARVED_SMOOTH_NEPHRITE, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CARVED_NEPHRITE_TILES);
         createStonecutting(exporter, ModItemTags.CARVED_NEPHRITE, ModBlocks.CARVED_SMOOTH_NEPHRITE, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CARVED_WOODY_NEPHRITE);
 
