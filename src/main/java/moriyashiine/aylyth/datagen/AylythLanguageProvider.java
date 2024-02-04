@@ -148,6 +148,7 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add(ModItems.NEPHRITE_AXE, "Nephrite Axe");
         builder.add(ModItems.NEPHRITE_HOE, "Nephrite Hoe");
         builder.add(ModItems.POMEGRANATE_CASSETTE, "Cassette");
+        builder.add(ModItems.BARK, "Bark");
         potionSet(builder, "mortechis");
         potionSet(builder, "cimmerian");
         potionSet(builder, "wyrded");

@@ -75,10 +75,8 @@ public class AylythModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerLog(ModBlocks.POMEGRANATE_STRIPPED_LOG).log(ModBlocks.POMEGRANATE_STRIPPED_LOG).wood(ModBlocks.POMEGRANATE_STRIPPED_WOOD);
         blockStateModelGenerator.registerLog(ModBlocks.POMEGRANATE_LOG).log(ModBlocks.POMEGRANATE_LOG).wood(ModBlocks.POMEGRANATE_WOOD);
         blockStateModelGenerator.registerFlowerPotPlant(ModBlocks.POMEGRANATE_SAPLING, ModBlocks.POMEGRANATE_POTTED_SAPLING, BlockStateModelGenerator.TintType.NOT_TINTED);
-        blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.POMEGRANATE_PLANKS)
-                .family(POMEGRANATE);
+        blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.POMEGRANATE_PLANKS).family(POMEGRANATE);
         blockStateModelGenerator.registerHangingSign(ModBlocks.POMEGRANATE_STRIPPED_LOG, ModBlocks.POMEGRANATE_HANGING_SIGN, ModBlocks.POMEGRANATE_WALL_HANGING_SIGN);
-        
         fruitingLeaves(blockStateModelGenerator, ModBlocks.POMEGRANATE_LEAVES, blockId("pomegranate_leaves"), blockId("pomegranate_leaves_fruiting_0"), blockId("pomegranate_leaves_fruiting_1"), blockId("pomegranate_leaves_fruiting_2"));
         TexturedModel.CUBE_ALL.upload(ModBlocks.POMEGRANATE_LEAVES, blockStateModelGenerator.modelCollector);
 
@@ -88,16 +86,19 @@ public class AylythModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.WRITHEWOOD_PLANKS)
                 .family(WRITHEWOOD);
         blockStateModelGenerator.registerHangingSign(ModBlocks.WRITHEWOOD_STRIPPED_LOG, ModBlocks.WRITHEWOOD_HANGING_SIGN, ModBlocks.WRITHEWOOD_WALL_HANGING_SIGN);
-        
         variantState(blockStateModelGenerator, ModBlocks.WRITHEWOOD_LEAVES);
+
         blockStateModelGenerator.registerSingleton(ModBlocks.DARK_WOODS_TILES, TexturedModel.CUBE_ALL);
+
         blockStateModelGenerator.registerSingleton(ModBlocks.ESSTLINE_BLOCK, TexturedModel.CUBE_ALL);
         blockStateModelGenerator.registerSingleton(ModBlocks.NEPHRITE_BLOCK, TexturedModel.CUBE_ALL);
-        blockStateModelGenerator.registerSingleton(ModBlocks.CARVED_SMOOTH_NEPHRITE, TexturedModel.CUBE_ALL);
+
+        blockStateModelGenerator.registerMirrorable(ModBlocks.CARVED_SMOOTH_NEPHRITE);
         blockStateModelGenerator.registerSingleton(ModBlocks.CARVED_ANTLERED_NEPHRITE, TexturedModel.CUBE_ALL);
         blockStateModelGenerator.registerAxisRotated(ModBlocks.CARVED_NEPHRITE_PILLAR, TexturedModel.END_FOR_TOP_CUBE_COLUMN, TexturedModel.END_FOR_TOP_CUBE_COLUMN_HORIZONTAL);
         blockStateModelGenerator.registerSingleton(ModBlocks.CARVED_NEPHRITE_TILES, TexturedModel.CUBE_ALL);
         blockStateModelGenerator.registerSingleton(ModBlocks.CARVED_WOODY_NEPHRITE, TexturedModel.CUBE_ALL);
+
         Models.PARTICLE.upload(blockId("woody_growth_particles"), TextureMap.particle(blockId("aylyth_bush_trunk")), blockStateModelGenerator.modelCollector);
         woodyGrowth(blockStateModelGenerator);
         generateWoodBlock(blockStateModelGenerator, ModBlocks.SEEPING_WOOD, "block/aylyth_bush_trunk");
