@@ -1,8 +1,8 @@
 package moriyashiine.aylyth.datagen.worldgen.biomes.util;
 
 import com.mojang.datafixers.util.Pair;
-import it.unimi.dsi.fastutil.objects.Object2IntMap;
-import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
+import it.unimi.dsi.fastutil.objects.Reference2IntMap;
+import it.unimi.dsi.fastutil.objects.Reference2IntOpenHashMap;
 import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
@@ -20,7 +20,7 @@ import java.util.function.Consumer;
 
 public class GenerationSettingsBuilder {
 
-    private static final Object2IntMap<RegistryKey<PlacedFeature>> FEATURE_PLACE = new Object2IntOpenHashMap<>();
+    private static final Reference2IntMap<RegistryKey<PlacedFeature>> FEATURE_PLACE = new Reference2IntOpenHashMap<>();
     GenerationSettings.LookupBackedBuilder delegate;
     List<Pair<Integer, RegistryKey<PlacedFeature>>> features = new LinkedList<>();
 
