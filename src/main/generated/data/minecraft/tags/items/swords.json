@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
-    "aylyth:nephrite_sword"
+    "aylyth:nephrite_sword",
+    "aylyth:vampiric_sword",
+    "aylyth:blighted_sword"
   ]
 }

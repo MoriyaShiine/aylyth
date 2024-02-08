@@ -206,8 +206,23 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
         offerHangingSignRecipe(exporter, ModItems.POMEGRANATE_HANGING_SIGN, ModItems.POMEGRANATE_STRIPPED_LOG);
         offerHangingSignRecipe(exporter, ModItems.WRITHEWOOD_HANGING_SIGN, ModItems.WRITHEWOOD_STRIPPED_LOG);
 
+        createSmithingUpgrade(exporter, ModItems.AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE, ModItems.NEPHRITE_SWORD, ModItems.BLIGHTED_THORNS, ModItems.BLIGHTED_SWORD, RecipeCategory.COMBAT);
+        createSmithingUpgrade(exporter, ModItems.AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE, ModItems.NEPHRITE_PICKAXE, ModItems.BLIGHTED_THORNS, ModItems.BLIGHTED_PICKAXE, RecipeCategory.COMBAT);
+        createSmithingUpgrade(exporter, ModItems.AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE, ModItems.NEPHRITE_AXE, ModItems.BLIGHTED_THORNS, ModItems.BLIGHTED_AXE, RecipeCategory.COMBAT);
+        createSmithingUpgrade(exporter, ModItems.AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE, ModItems.NEPHRITE_HOE, ModItems.BLIGHTED_THORNS, ModItems.BLIGHTED_HOE, RecipeCategory.COMBAT);
+
+        createSmithingUpgrade(exporter, ModItems.AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE, ModItems.NEPHRITE_SWORD, ModItems.AYLYTHIAN_HEART, ModItems.VAMPIRIC_SWORD, RecipeCategory.COMBAT);
+        createSmithingUpgrade(exporter, ModItems.AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE, ModItems.NEPHRITE_PICKAXE, ModItems.AYLYTHIAN_HEART, ModItems.VAMPIRIC_PICKAXE, RecipeCategory.COMBAT);
+        createSmithingUpgrade(exporter, ModItems.AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE, ModItems.NEPHRITE_AXE, ModItems.AYLYTHIAN_HEART, ModItems.VAMPIRIC_AXE, RecipeCategory.COMBAT);
+        createSmithingUpgrade(exporter, ModItems.AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE, ModItems.NEPHRITE_HOE, ModItems.AYLYTHIAN_HEART, ModItems.VAMPIRIC_HOE, RecipeCategory.COMBAT);
+        
         YmpeDaggerRecipeJsonBuilder.create(ModEntityTypes.WREATHED_HIND_ENTITY, ModItems.WRONGMEAT, 0.2f, 3, 5)
                 .offerTo(exporter);
+    }
+
+    private void createSmithingUpgrade(Consumer<RecipeJsonProvider> exporter, ItemConvertible template, ItemConvertible base, ItemConvertible addition, ItemConvertible result, RecipeCategory category) {
+        SmithingTransformRecipeJsonBuilder.create(Ingredient.ofItems(template), Ingredient.ofItems(base), Ingredient.ofItems(addition), category, result.asItem())
+                .criterion("has_" + RecipeProvider.getItemPath(result), RecipeProvider.conditionsFromItem(addition)).offerTo(exporter, RecipeProvider.getItemPath(result) + "_smithing");
     }
 
     private void createStonecutting(Consumer<RecipeJsonProvider> exporter, TagKey<Item> inputTag, ItemConvertible baseItem, RecipeCategory recipeCategory, ItemConvertible output) {

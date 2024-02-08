@@ -1,5 +1,6 @@
 package moriyashiine.aylyth.common.item;
 
+import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
 import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
@@ -33,19 +34,12 @@ import net.minecraft.world.World;
 import java.util.*;
 
 public class YmpeDaggerItem extends SwordItem {
-	private static final EntityAttributeModifier REACH_MODIFIER = new EntityAttributeModifier(YmpeLanceItem.BASE_REACH_MODIFIER, "Weapon modifier", -0.5, EntityAttributeModifier.Operation.ADDITION);
-
-	public YmpeDaggerItem(ToolMaterial toolMaterial, int attackDamage, float attackSpeed, Settings settings) {
+	public YmpeDaggerItem(ToolMaterial toolMaterial, int attackDamage, float attackSpeed, float attackReach, Settings settings) {
 		super(toolMaterial, attackDamage, attackSpeed, settings);
-	}
-
-	@Override
-	public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot slot) {
-		Multimap<EntityAttribute, EntityAttributeModifier> map = LinkedHashMultimap.create(super.getAttributeModifiers(slot));
-		if (slot == EquipmentSlot.MAINHAND) {
-			map.put(ReachEntityAttributes.ATTACK_RANGE, REACH_MODIFIER);
-		}
-		return map;
+		ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableMultimap.builder();
+		builder.putAll(this.attributeModifiers);
+		builder.put(ReachEntityAttributes.ATTACK_RANGE, new EntityAttributeModifier(YmpeLanceItem.BASE_REACH_MODIFIER, "Weapon modifier", attackReach, EntityAttributeModifier.Operation.ADDITION));
+		this.attributeModifiers = builder.build();
 	}
 
 	@Override

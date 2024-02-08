@@ -124,6 +124,8 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add(ModItems.YMPE_GLAIVE, "Ympe Glaive");
         builder.add("item.aylyth.glaive.desc_1", "\u00a76\u00a7oIt is the lament of the fallen");
         builder.add("item.aylyth.glaive.desc_2", "\u00a76\u00a7owhich pushes the living onward.");
+        builder.add(ModItems.YMPE_FLAMBERGE, "Ympe Flamberge");
+        builder.add(ModItems.YMPE_SCYTHE, "Ympe Scythe");
         builder.add(ModItems.YMPE_FRUIT, "Ympe Fruit");
         builder.add(ModItems.SHUCKED_YMPE_FRUIT, "Shucked Ympe Fruit");
         builder.add(ModItems.NYSIAN_GRAPES, "Nysian Grapes");
@@ -147,8 +149,17 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add(ModItems.NEPHRITE_PICKAXE, "Nephrite Pickaxe");
         builder.add(ModItems.NEPHRITE_AXE, "Nephrite Axe");
         builder.add(ModItems.NEPHRITE_HOE, "Nephrite Hoe");
+        builder.add(ModItems.VAMPIRIC_SWORD, "Vampiric Sword");
+        builder.add(ModItems.VAMPIRIC_PICKAXE, "Vampiric Pick");
+        builder.add(ModItems.VAMPIRIC_AXE, "Vampiric Axe");
+        builder.add(ModItems.VAMPIRIC_HOE, "Vampiric Sickle");
+        builder.add(ModItems.BLIGHTED_SWORD, "Blighted Sword");
+        builder.add(ModItems.BLIGHTED_PICKAXE, "Blighted Pick");
+        builder.add(ModItems.BLIGHTED_AXE, "Blighted Axe");
+        builder.add(ModItems.BLIGHTED_HOE, "Blighted Sickle");
         builder.add(ModItems.POMEGRANATE_CASSETTE, "Cassette");
         builder.add(ModItems.BARK, "Bark");
+        builder.add(ModItems.BLIGHTED_THORNS, "Blighted Thorns");
         potionSet(builder, "mortechis");
         potionSet(builder, "cimmerian");
         potionSet(builder, "wyrded");

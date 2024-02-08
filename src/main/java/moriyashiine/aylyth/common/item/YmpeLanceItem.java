@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
 import moriyashiine.aylyth.common.entity.projectile.YmpeLanceEntity;
+import moriyashiine.aylyth.common.registry.ModToolMaterials;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EquipmentSlot;
@@ -90,6 +91,11 @@ public class YmpeLanceItem extends Item implements Vanishable {
 	@Override
 	public boolean canMine(BlockState state, World world, BlockPos pos, PlayerEntity miner) {
 		return !miner.isCreative();
+	}
+
+	@Override
+	public boolean canRepair(ItemStack stack, ItemStack ingredient) {
+		return ModToolMaterials.NEPHRITE.getRepairIngredient().test(ingredient);
 	}
 
 	@Override

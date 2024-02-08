@@ -27,7 +27,9 @@ public class ModItems {
 
 	public static final RegistryKey<ItemGroup> GROUP = RegistryKey.of(RegistryKeys.ITEM_GROUP, AylythUtil.id(Aylyth.MOD_ID));
 
-	public static final ItemGroup.Builder GROUP_BUILDER = FabricItemGroup.builder().icon(() -> new ItemStack(ModItems.YMPE_DAGGER)).displayName(Text.translatable("itemGroup.aylyth.main"));
+	public static final ItemGroup.Builder GROUP_BUILDER = FabricItemGroup.builder()
+			.icon(() -> new ItemStack(ModItems.YMPE_DAGGER))
+			.displayName(Text.translatable("itemGroup.aylyth.main"));
 
 	public static final Item DEBUG_WAND = register("debug_wand", new DebugWandItem(new FabricItemSettings()));
 
@@ -116,13 +118,16 @@ public class ModItems {
 	public static final Item DARK_WOODS_TILES = register("dark_woods_tiles", new BlockItem(ModBlocks.DARK_WOODS_TILES, settings()));
 //	public static final Item MYSTERIOUS_SKETCH = register("mysterious_sketch", new Item(new FabricItemSettings()));
 	public static final Item BARK = register("bark", new Item(new FabricItemSettings()));
-	public static final Item YMPE_DAGGER = register("ympe_dagger", new YmpeDaggerItem(ToolMaterials.NETHERITE, 1, -2, settings()));
-	public static final Item YMPE_GLAIVE = register("ympe_glaive", new YmpeGlaiveItem(4, -3.1F, (settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(1)));
+	public static final Item YMPE_DAGGER = register("ympe_dagger", new YmpeDaggerItem(ModToolMaterials.NEPHRITE, 2, -2, -0.5f, settings()));
+	public static final Item YMPE_GLAIVE = register("ympe_glaive", new YmpeGlaiveItem(5, -3.1F, (settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(1)));
 	public static final Item YMPE_LANCE = register("ympe_lance", new YmpeLanceItem(312, settings()));
+	public static final Item YMPE_FLAMBERGE = register("ympe_flamberge", new YmpeFlamberge(ModToolMaterials.NEPHRITE, 5, -3.1F, (settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(1)));
+	public static final Item YMPE_SCYTHE = register("ympe_scythe", new YmpeScythe(ModToolMaterials.NEPHRITE, 5, -3.1F, (settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(1)));
 	public static final Item AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE = register("aylythian_upgrade_smithing_template", new AylythianSmithingTemplateUpgradeItem());
 	public static final Item CORIC_SEED = register("coric_seed", new CoricSeedItem(settings()));
 	public static final Item ESSTLINE = register("esstline", new Item(new FabricItemSettings()));
 	public static final Item NEPHRITE = register("nephrite", new Item(new FabricItemSettings()));
+	public static final Item BLIGHTED_THORNS = register("blighted_thorns", new Item(new FabricItemSettings()));
 
 	public static final Item ESSTLINE_BLOCK = register("esstline_block", new BlockItem(ModBlocks.ESSTLINE_BLOCK, settings()));
 	public static final Item NEPHRITE_BLOCK = register("nephrite_block", new BlockItem(ModBlocks.NEPHRITE_BLOCK, settings()));
@@ -137,6 +142,16 @@ public class ModItems {
 	public static final Item NEPHRITE_PICKAXE = register("nephrite_pickaxe", new PickaxeItem(ModToolMaterials.NEPHRITE, 1, -2.8f, settings()));
 	public static final Item NEPHRITE_AXE = register("nephrite_axe", new AxeItem(ModToolMaterials.NEPHRITE, 5, -3.0f, settings()));
 	public static final Item NEPHRITE_HOE = register("nephrite_hoe", new HoeItem(ModToolMaterials.NEPHRITE, -3, 0f, settings()));
+
+	public static final Item VAMPIRIC_SWORD = register("vampiric_sword", new SwordItem(ModToolMaterials.NEPHRITE_SPECIAL, 4, -2.4f, settings()));
+	public static final Item VAMPIRIC_PICKAXE = register("vampiric_pick", new PickaxeItem(ModToolMaterials.NEPHRITE_SPECIAL, 1, -2.8f, settings()));
+	public static final Item VAMPIRIC_AXE = register("vampiric_axe", new AxeItem(ModToolMaterials.NEPHRITE_SPECIAL, 5, -3.0f, settings()));
+	public static final Item VAMPIRIC_HOE = register("vampiric_sickle", new HoeItem(ModToolMaterials.NEPHRITE_SPECIAL, -3, 0f, settings()));
+
+	public static final Item BLIGHTED_SWORD = register("blighted_sword", new SwordItem(ModToolMaterials.NEPHRITE_SPECIAL, 4, -2.4f, settings()));
+	public static final Item BLIGHTED_PICKAXE = register("blighted_pick", new PickaxeItem(ModToolMaterials.NEPHRITE_SPECIAL, 1, -2.8f, settings()));
+	public static final Item BLIGHTED_AXE = register("blighted_axe", new AxeItem(ModToolMaterials.NEPHRITE_SPECIAL, 5, -3.0f, settings()));
+	public static final Item BLIGHTED_HOE = register("blighted_sickle", new HoeItem(ModToolMaterials.NEPHRITE_SPECIAL, -3, 0f, settings()));
 
 	public static final Item YMPE_CUIRASS = register("ympe_cuirass", new YmpeCuirassItem(settings()));
 
@@ -190,6 +205,7 @@ public class ModItems {
 		fuelRegistry.add(POMEGRANATE_FENCE_GATE, 300);
 		fuelRegistry.add(WRITHEWOOD_FENCE, 300);
 		fuelRegistry.add(WRITHEWOOD_FENCE_GATE, 300);
+		fuelRegistry.add(BARK, 100);
 		CompostingChanceRegistry compostRegistry = CompostingChanceRegistry.INSTANCE;
 		compostRegistry.add(YMPE_LEAVES, 0.3f);
 		compostRegistry.add(YMPE_SAPLING, 0.3f);

@@ -3,12 +3,16 @@ accessible class net/minecraft/client/render/RenderLayer$MultiPhase
 accessible class net/minecraft/client/render/RenderLayer$MultiPhaseParameters
 accessible class net/minecraft/client/render/RenderPhase$ShaderProgram
 accessible class net/minecraft/client/render/RenderPhase$Textures
-accessible class net/minecraft/world/gen/densityfunction/DensityFunctionTypes$WeirdScaledSampler
 accessible class net/minecraft/client/gui/screen/advancement/AdvancementTabType
+
+accessible class net/minecraft/world/gen/densityfunction/DensityFunctionTypes$WeirdScaledSampler
 extendable class net/minecraft/world/gen/foliage/FoliagePlacer$TreeNode
 extendable class net/minecraft/world/biome/BiomeEffects$GrassColorModifier
 accessible field net/minecraft/world/biome/GenerationSettings$LookupBackedBuilder placedFeatureLookup Lnet/minecraft/registry/RegistryEntryLookup;
 accessible field net/minecraft/world/biome/GenerationSettings$LookupBackedBuilder configuredCarverLookup Lnet/minecraft/registry/RegistryEntryLookup;
+
+accessible field net/minecraft/item/SwordItem attributeModifiers Lcom/google/common/collect/Multimap;
+mutable field net/minecraft/item/SwordItem attributeModifiers Lcom/google/common/collect/Multimap;
 
 accessible field net/minecraft/data/client/ItemModelGenerator writer Ljava/util/function/BiConsumer;
 accessible field net/minecraft/entity/Entity vehicle Lnet/minecraft/entity/Entity;

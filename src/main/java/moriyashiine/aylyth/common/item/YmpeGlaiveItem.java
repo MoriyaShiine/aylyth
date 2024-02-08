@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
 import moriyashiine.aylyth.common.registry.ModItems;
+import moriyashiine.aylyth.common.registry.ModToolMaterials;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -32,14 +33,10 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class YmpeGlaiveItem extends SwordItem {
-    private final float attackDamage;
-    public final Multimap<EntityAttribute, EntityAttributeModifier> attributeModifiers;
     public YmpeGlaiveItem(int attackDamage, float attackSpeed, Settings settings) {
-        super(ToolMaterials.NETHERITE, attackDamage, attackSpeed, settings);
-        this.attackDamage = ToolMaterials.NETHERITE.getAttackDamage() + attackDamage;
+        super(ModToolMaterials.NEPHRITE, attackDamage, attackSpeed, settings);
         ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableMultimap.builder();
-        builder.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Weapon modifier", this.attackDamage, EntityAttributeModifier.Operation.ADDITION));
-        builder.put(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "Weapon modifier", attackSpeed, EntityAttributeModifier.Operation.ADDITION));
+        builder.putAll(this.attributeModifiers);
         builder.put(ReachEntityAttributes.REACH, new EntityAttributeModifier(YmpeLanceItem.BASE_REACH_MODIFIER, "Weapon modifier", 1.2D, EntityAttributeModifier.Operation.ADDITION));
         builder.put(ReachEntityAttributes.ATTACK_RANGE, new EntityAttributeModifier(YmpeLanceItem.BASE_REACH_MODIFIER, "Weapon modifier", 1.2D, EntityAttributeModifier.Operation.ADDITION));
         this.attributeModifiers = builder.build();
@@ -53,15 +50,10 @@ public class YmpeGlaiveItem extends SwordItem {
     }
 
     @Override
-    public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot equipmentSlot) {
-        return equipmentSlot == EquipmentSlot.MAINHAND ? attributeModifiers : super.getAttributeModifiers(equipmentSlot);
-    }
-
-    @Override
     public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         if(attacker instanceof PlayerEntity player) {
             player.spawnSweepAttackParticles();
-            target.damage(attacker.getWorld().modDamageSources().soulRip(player), this.attackDamage);
+            target.damage(attacker.getWorld().modDamageSources().soulRip(player), this.getAttackDamage());
         }
         return super.postHit(stack, target, attacker);
     }
@@ -80,7 +72,7 @@ public class YmpeGlaiveItem extends SwordItem {
                     if(!(target instanceof ArmorStandEntity)) {
                         target.takeKnockback(0.4D, MathHelper.sin(player.getYaw() * 0.0175F), -MathHelper.cos(player.getYaw() * 0.0175F));
                     }
-                    target.damage(world.modDamageSources().soulRip(player), this.attackDamage);
+                    target.damage(world.modDamageSources().soulRip(player), this.getAttackDamage());
                 }
             });
             player.getWorld().playSoundFromEntity(null, player, SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, player.getSoundCategory(), 1F, 1F);

@@ -1,5 +1,6 @@
 package moriyashiine.aylyth.datagen;
 
+import dev.architectury.platform.Mod;
 import moriyashiine.aylyth.common.registry.*;
 import moriyashiine.aylyth.common.registry.key.ModBiomeKeys;
 import moriyashiine.aylyth.common.registry.key.ModDamageTypeKeys;
@@ -152,11 +153,11 @@ public class AylythTagProviders {
             copy(ModBlockTags.CARVED_NEPHRITE, ModItemTags.CARVED_NEPHRITE);
             getOrCreateTagBuilder(ModItemTags.PLEDGE_ITEMS).add(ModItems.NYSIAN_GRAPES);
             getOrCreateTagBuilder(ModItemTags.NEPHRITE_REPAIR_ITEMS).add(ModItems.NEPHRITE);
-            getOrCreateTagBuilder(ItemTags.SWORDS).add(ModItems.NEPHRITE_SWORD);
+            getOrCreateTagBuilder(ItemTags.SWORDS).add(ModItems.NEPHRITE_SWORD, ModItems.VAMPIRIC_SWORD, ModItems.BLIGHTED_SWORD);
             getOrCreateTagBuilder(ItemTags.SHOVELS).add(ModItems.NEPHRITE_SHOVEL);
-            getOrCreateTagBuilder(ItemTags.PICKAXES).add(ModItems.NEPHRITE_PICKAXE);
-            getOrCreateTagBuilder(ItemTags.AXES).add(ModItems.NEPHRITE_AXE);
-            getOrCreateTagBuilder(ItemTags.HOES).add(ModItems.NEPHRITE_HOE);
+            getOrCreateTagBuilder(ItemTags.PICKAXES).add(ModItems.NEPHRITE_PICKAXE, ModItems.VAMPIRIC_PICKAXE, ModItems.BLIGHTED_PICKAXE);
+            getOrCreateTagBuilder(ItemTags.AXES).add(ModItems.NEPHRITE_AXE, ModItems.VAMPIRIC_AXE, ModItems.BLIGHTED_AXE);
+            getOrCreateTagBuilder(ItemTags.HOES).add(ModItems.NEPHRITE_HOE, ModItems.VAMPIRIC_HOE, ModItems.BLIGHTED_HOE);
             getOrCreateTagBuilder(ItemTags.MUSIC_DISCS).add(ModItems.POMEGRANATE_CASSETTE);
         }
     }

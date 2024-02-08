@@ -131,6 +131,19 @@ public class AylythModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.FAUNAYLYTHIAN_SPAWN_EGG, SPAWN_EGG);
 //        Models.GENERATED.upload(AylythUtil.id("item/" + Registries.ITEM.getId(ModItems.MYSTERIOUS_SKETCH).getPath() + "_generated"), TextureMap.layer0(AylythUtil.id("item/" + Registries.ITEM.getId(ModItems.MYSTERIOUS_SKETCH).getPath())), itemModelGenerator.writer);
         itemModelGenerator.register(ModItems.POMEGRANATE_CASSETTE, Models.GENERATED);
+        itemModelGenerator.register(ModItems.BLIGHTED_THORNS, Models.GENERATED);
+        itemModelGenerator.register(ModItems.YMPE_FLAMBERGE, BUILTIN);
+        itemModelGenerator.register(ModItems.YMPE_SCYTHE, BUILTIN);
+        
+        itemModelGenerator.register(ModItems.VAMPIRIC_SWORD, Models.HANDHELD);
+        itemModelGenerator.register(ModItems.VAMPIRIC_PICKAXE, Models.HANDHELD);
+        itemModelGenerator.register(ModItems.VAMPIRIC_AXE, Models.HANDHELD);
+        itemModelGenerator.register(ModItems.VAMPIRIC_HOE, Models.HANDHELD);
+
+        itemModelGenerator.register(ModItems.BLIGHTED_SWORD, Models.HANDHELD);
+        itemModelGenerator.register(ModItems.BLIGHTED_PICKAXE, Models.HANDHELD);
+        itemModelGenerator.register(ModItems.BLIGHTED_AXE, Models.HANDHELD);
+        itemModelGenerator.register(ModItems.BLIGHTED_HOE, Models.HANDHELD);
     }
 
     private void generateWoodBlock(BlockStateModelGenerator generator, Block woodBlock, String texturePath) {

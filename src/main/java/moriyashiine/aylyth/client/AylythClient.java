@@ -139,6 +139,7 @@ public class AylythClient implements ClientModInitializer {
 		TerraformBoatClientHelper.registerModelLayers(new Identifier(Aylyth.MOD_ID, "ympe"), false);
 		TerraformBoatClientHelper.registerModelLayers(new Identifier(Aylyth.MOD_ID, "pomegranate"), false);
 		TerraformBoatClientHelper.registerModelLayers(new Identifier(Aylyth.MOD_ID, "writhewood"), false);
+
 		ClientTickEvents.START_CLIENT_TICK.register(client -> {
 			if (client.world != null && client.player != null && client.world.getTime() % 20 == 0) {
 				AylythDimensionRenderer.determineConditions(client.world, client.world.getBiome(client.player.getBlockPos()));
@@ -156,6 +157,8 @@ public class AylythClient implements ClientModInitializer {
 
 		registerBigItemRenderer(ModItems.YMPE_LANCE);
 		registerBigItemRenderer(ModItems.YMPE_GLAIVE);
+		registerBigItemRenderer(ModItems.YMPE_FLAMBERGE);
+		registerBigItemRenderer(ModItems.YMPE_SCYTHE);
 
 //		ModelLoadingRegistry.INSTANCE.registerModelProvider((manager, out) -> out.accept(new ModelIdentifier(AylythUtil.id("%s_generated".formatted(Registries.ITEM.getId(ModItems.MYSTERIOUS_SKETCH).getPath())), "inventory")));
 		BuiltinItemRendererRegistry.INSTANCE.register(ModItems.WOODY_GROWTH_CACHE, new WoodyGrowthCacheItemRenderer());

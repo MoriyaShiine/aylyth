@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "aylyth:aylythian_heart"
+  },
+  "base": {
+    "item": "aylyth:nephrite_pickaxe"
+  },
+  "result": {
+    "item": "aylyth:vampiric_pick"
+  },
+  "template": {
+    "item": "aylyth:aylythian_upgrade_smithing_template"
+  }
+}

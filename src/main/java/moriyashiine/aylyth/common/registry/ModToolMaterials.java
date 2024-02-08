@@ -9,7 +9,8 @@ import net.minecraft.recipe.Ingredient;
 import java.util.function.Supplier;
 
 public enum ModToolMaterials implements ToolMaterial {
-    NEPHRITE(MiningLevels.NETHERITE, 400, 8.0f, 3.5f, 22, () -> Ingredient.fromTag(ModItemTags.NEPHRITE_REPAIR_ITEMS));
+    NEPHRITE(MiningLevels.NETHERITE, 400, 8.0f, 3.5f, 22, () -> Ingredient.fromTag(ModItemTags.NEPHRITE_REPAIR_ITEMS)),
+    NEPHRITE_SPECIAL(MiningLevels.NETHERITE, 800, 8.0f, 3.5f, 22, () -> Ingredient.fromTag(ModItemTags.NEPHRITE_REPAIR_ITEMS));
 
     private final int miningLevel;
     private final int itemDurability;
