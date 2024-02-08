@@ -37,6 +37,7 @@ import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.*;
+import net.fabricmc.fabric.api.renderer.v1.model.ForwardingBakedModel;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -51,6 +52,7 @@ import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.VertexFormats;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
+import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.client.util.SpriteIdentifier;
@@ -177,10 +179,20 @@ public class AylythClient implements ClientModInitializer {
 		BigItemRenderer bigItemRenderer = new BigItemRenderer(bigId);
 		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(bigItemRenderer);
 		BuiltinItemRendererRegistry.INSTANCE.register(item, bigItemRenderer);
-		ModelLoadingPlugin.register(pluginContext -> pluginContext.addModels(
-				new ModelIdentifier(bigId.withSuffixedPath("_gui"), "inventory"),
-				new ModelIdentifier(bigId.withSuffixedPath("_handheld"), "inventory")
-		));
+		ModelLoadingPlugin.register(pluginContext -> {
+			pluginContext.addModels(
+					new ModelIdentifier(bigId.withSuffixedPath("_gui"), "inventory"),
+					new ModelIdentifier(bigId.withSuffixedPath("_handheld"), "inventory")
+			);
+
+			final Identifier basicModel = new ModelIdentifier(bigId, "inventory");
+			pluginContext.modifyModelAfterBake().register((model, context) -> {
+				if (context.id().equals(basicModel)) {
+					return new BigItemModel(model);
+				}
+				return model;
+			});
+		});
 	}
 
 	private static Block[] cutoutBlocks() {
@@ -243,6 +255,17 @@ public class AylythClient implements ClientModInitializer {
 				partialTicks = 0;
 			}
 			calcDelta();
+		}
+	}
+
+	public static class BigItemModel extends ForwardingBakedModel {
+		public BigItemModel(BakedModel model) {
+			this.wrapped = model;
+		}
+
+		@Override
+		public boolean isSideLit() {
+			return false;
 		}
 	}
 }

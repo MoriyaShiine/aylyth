@@ -36,7 +36,6 @@
     "client.GameRendererMixin",
     "client.HeldItemRendererAccessor",
     "client.InGameHudMixin",
-    "client.ItemRendererMixin",
     "client.LivingEntityRendererMixin",
     "client.MinecraftClientMixin",
     "client.ParticleManagerMixin",
