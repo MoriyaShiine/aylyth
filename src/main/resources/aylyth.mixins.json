@@ -24,6 +24,7 @@
     "TrunkPlacerTypeAccessor",
     "VineBlockMixin",
     "WorldMixin",
+    "MilkBucketItemMixin",
     "cimmerian.MobEntityMixin",
     "cimmerian.ZoglinEntityMixin"
   ],

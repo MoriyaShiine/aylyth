@@ -2,6 +2,7 @@ package moriyashiine.aylyth.common.world;
 
 import moriyashiine.aylyth.common.entity.mob.WreathedHindEntity;
 import moriyashiine.aylyth.common.registry.key.ModDamageTypeKeys;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -30,6 +31,10 @@ public class ModDamageSources {
 
 	public DamageSource soulRip(PlayerEntity player) {
 		return new DamageSource(damageTypeRegistry.entryOf(ModDamageTypeKeys.SOUL_RIP), player);
+	}
+
+	public DamageSource blight() {
+		return new DamageSource(damageTypeRegistry.entryOf(ModDamageTypeKeys.BLIGHT));
 	}
 
 	/*
