@@ -153,7 +153,7 @@ public class ModItems {
 	public static final Item BLIGHTED_AXE = register("blighted_axe", new AxeItem(ModToolMaterials.NEPHRITE_SPECIAL, 5, -3.0f, settings()));
 	public static final Item BLIGHTED_HOE = register("blighted_sickle", new HoeItem(ModToolMaterials.NEPHRITE_SPECIAL, -3, 0f, settings()));
 
-	public static final Item YMPE_CUIRASS = register("ympe_cuirass", new YmpeCuirassItem(settings()));
+	public static final Item YMPE_CUIRASS = register("ympe_cuirass", new YmpeCuirassItem(settings().maxCount(1)));
 
 	public static final Item YMPE_FRUIT = register("ympe_fruit", new Item(settings().food(ModFoodComponents.YMPE_FRUIT)));
 	public static final Item SHUCKED_YMPE_FRUIT = register("shucked_ympe_fruit", new ShuckedYmpeFruitItem(settings().maxCount(1)));

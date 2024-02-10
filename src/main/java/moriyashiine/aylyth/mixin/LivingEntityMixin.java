@@ -1,6 +1,7 @@
 package moriyashiine.aylyth.mixin;
 
 import moriyashiine.aylyth.api.interfaces.ProlongedDeath;
+import moriyashiine.aylyth.common.item.YmpeEffigyItem;
 import moriyashiine.aylyth.common.registry.*;
 import moriyashiine.aylyth.common.registry.tag.ModEffectTags;
 import moriyashiine.aylyth.common.registry.tag.ModItemTags;
@@ -37,15 +38,12 @@ import java.util.stream.Stream;
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity {
 
-	@Shadow public abstract int getArmor();
-
 	@Shadow public abstract boolean hasStatusEffect(StatusEffect effect);
-
-	@Shadow public abstract boolean addStatusEffect(StatusEffectInstance effect);
 
 	public LivingEntityMixin(EntityType<?> type, World world) {
 		super(type, world);
 	}
+
 	@ModifyVariable(method = "damage", at = @At("HEAD"), argsOnly = true)
 	float aylyth$damage(float value, DamageSource source) {
 		if(source.getAttacker() instanceof LivingEntity entity && !source.getAttacker().getWorld().isClient) {
@@ -117,7 +115,7 @@ public abstract class LivingEntityMixin extends Entity {
 			boolean bypassesEffigy = TagUtil.isIn(ModEffectTags.EFFIGY_BYPASSING, effect.getEffectType());
             if(entity instanceof PlayerEntity
 					&& !bypassesEffigy
-					&& ((PlayerEntity) entity).getInventory().contains(ModItems.YMPE_EFFIGY_ITEM.getDefaultStack())) {
+					&& YmpeEffigyItem.isEquipped(entity)) {
                 cir.setReturnValue(false);
             }
 

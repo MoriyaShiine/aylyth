@@ -1,10 +1,12 @@
 package moriyashiine.aylyth.mixin;
 
+import dev.emi.trinkets.api.TrinketsApi;
 import moriyashiine.aylyth.api.interfaces.HindPledgeHolder;
 import moriyashiine.aylyth.api.interfaces.VitalHolder;
 import moriyashiine.aylyth.common.block.SoulHearthBlock;
 import moriyashiine.aylyth.common.component.entity.CuirassComponent;
 import moriyashiine.aylyth.common.entity.mob.BoneflyEntity;
+import moriyashiine.aylyth.common.item.YmpeEffigyItem;
 import moriyashiine.aylyth.common.registry.ModComponents;
 import moriyashiine.aylyth.common.registry.key.ModDamageTypeKeys;
 import moriyashiine.aylyth.common.registry.ModItems;
@@ -55,19 +57,12 @@ import static moriyashiine.aylyth.common.block.SoulHearthBlock.HALF;
 public abstract class PlayerEntityMixin extends LivingEntity implements VitalHolder, HindPledgeHolder {
 
     @Shadow
-    protected boolean isSubmergedInWater;
-
-    @Shadow
     public abstract PlayerInventory getInventory();
 
     @Shadow
     public abstract boolean isInvulnerableTo(DamageSource var1);
 
     @Shadow public abstract void remove(RemovalReason reason);
-
-    @Shadow public abstract void increaseStat(Stat<?> stat, int amount);
-
-    @Shadow public abstract void increaseStat(Identifier stat, int amount);
 
     protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
@@ -211,12 +206,12 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHol
 
     @Override
     public EntityGroup getGroup() {
-        return this.getInventory().contains(ModItems.YMPE_EFFIGY_ITEM.getDefaultStack()) ? EntityGroup.UNDEAD : super.getGroup();
+        return  YmpeEffigyItem.isEquipped(this) ? EntityGroup.UNDEAD : super.getGroup();
     }
 
     @Override
     public boolean hurtByWater() {
-        return this.getInventory().contains(ModItems.YMPE_EFFIGY_ITEM.getDefaultStack()) && (this.getWorld().getBiome(this.getBlockPos()).isIn(BiomeTags.IS_RIVER) || fluidHeight.getDouble(FluidTags.WATER) > 0) || super.hurtByWater();
+        return YmpeEffigyItem.isEquipped(this) && (this.getWorld().getBiome(this.getBlockPos()).isIn(BiomeTags.IS_RIVER) || fluidHeight.getDouble(FluidTags.WATER) > 0) || super.hurtByWater();
     }
 
     @Inject(method = "onDeath", at = @At("TAIL"))
