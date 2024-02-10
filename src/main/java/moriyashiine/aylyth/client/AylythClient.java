@@ -19,6 +19,9 @@ import moriyashiine.aylyth.client.render.block.entity.VitalThuribleBlockEntityRe
 import moriyashiine.aylyth.client.render.block.entity.WoodyGrowthBlockEntityRenderer;
 import moriyashiine.aylyth.client.render.entity.RootPropEntityRenderer;
 import moriyashiine.aylyth.client.render.entity.living.*;
+import moriyashiine.aylyth.client.render.entity.living.feature.CuirassFeatureRenderer;
+import moriyashiine.aylyth.client.render.entity.living.feature.YmpeInfestationFeature;
+import moriyashiine.aylyth.client.render.entity.living.feature.YmpeThornRingFeature;
 import moriyashiine.aylyth.client.render.entity.projectile.SphereEntityRenderer;
 import moriyashiine.aylyth.client.render.entity.projectile.YmpeLanceEntityRenderer;
 import moriyashiine.aylyth.client.render.item.BigItemRenderer;
@@ -51,11 +54,16 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.VertexFormats;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
+import net.minecraft.client.render.entity.PlayerEntityRenderer;
+import net.minecraft.client.render.entity.feature.FeatureRendererContext;
+import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.client.util.SpriteIdentifier;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemConvertible;
@@ -137,6 +145,14 @@ public class AylythClient implements ClientModInitializer {
 		EntityRendererRegistry.register(ModEntityTypes.SPHERE_ENTITY, SphereEntityRenderer::new);
 		EntityRendererRegistry.register(ModEntityTypes.FAUNAYLYTHIAN, FaunaylythianEntityRenderer::new);
 		EntityRendererRegistry.register(ModEntityTypes.SCION, ScionEntityRenderer::new);
+
+		LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, entityRenderer, registrationHelper, context) -> {
+			if (entityType == EntityType.PLAYER) {
+				registrationHelper.register(new YmpeInfestationFeature((PlayerEntityRenderer)entityRenderer, context.getModelLoader()));
+				registrationHelper.register(new CuirassFeatureRenderer((PlayerEntityRenderer)entityRenderer, context.getModelLoader()));
+			}
+			registrationHelper.register(new YmpeThornRingFeature((FeatureRendererContext<LivingEntity, EntityModel<LivingEntity>>) entityRenderer, context.getModelLoader()));
+		});
 
 		TerraformBoatClientHelper.registerModelLayers(new Identifier(Aylyth.MOD_ID, "ympe"), false);
 		TerraformBoatClientHelper.registerModelLayers(new Identifier(Aylyth.MOD_ID, "pomegranate"), false);

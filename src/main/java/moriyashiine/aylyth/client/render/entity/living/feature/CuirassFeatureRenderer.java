@@ -17,11 +17,9 @@ import net.minecraft.util.Identifier;
 public class CuirassFeatureRenderer extends FeatureRenderer<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>> {
     private static final Identifier TEXTURE = new Identifier(Aylyth.MOD_ID, "textures/entity/living/ympe_cuirass.png");
     private static final CuirassModel[] MODELS = new CuirassModel[5];
-    private final boolean slim;
 
-    public CuirassFeatureRenderer(FeatureRendererContext<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>> context, EntityModelLoader loader, boolean slim) {
+    public CuirassFeatureRenderer(FeatureRendererContext<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>> context, EntityModelLoader loader) {
         super(context);
-        this.slim = slim;
         if (MODELS[0] == null) {
             MODELS[0] = new CuirassModel(loader.getModelPart(CuirassModel.LAYER_LOCATION_1));
             MODELS[1] = new CuirassModel(loader.getModelPart(CuirassModel.LAYER_LOCATION_2));
@@ -48,7 +46,7 @@ public class CuirassFeatureRenderer extends FeatureRenderer<AbstractClientPlayer
                  model = MODELS[4];
             }
             getContextModel().copyBipedStateTo(model);
-            model.adjustArmPivots(slim);
+            model.adjustArmPivots(entity.getModel().equals("slim"));
             model.render(matrices, vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(TEXTURE)), light, OverlayTexture.DEFAULT_UV, 1, 1, 1, 1);
         }
     }

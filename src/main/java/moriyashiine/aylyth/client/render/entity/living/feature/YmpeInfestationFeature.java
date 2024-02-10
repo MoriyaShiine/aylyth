@@ -18,11 +18,9 @@ import net.minecraft.util.Identifier;
 public class YmpeInfestationFeature extends FeatureRenderer<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>> {
 	private static final Identifier TEXTURE = new Identifier(Aylyth.MOD_ID, "textures/entity/living/branches_overlay.png");
 	private static final YmpeInfestationModel[] MODELS = new YmpeInfestationModel[5];
-	private final boolean slim;
-	
-	public YmpeInfestationFeature(FeatureRendererContext<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>> context, EntityModelLoader loader, boolean slim) {
+
+	public YmpeInfestationFeature(FeatureRendererContext<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>> context, EntityModelLoader loader) {
 		super(context);
-		this.slim = slim;
 		if (MODELS[0] == null) {
 			MODELS[0] = new YmpeInfestationModel(loader.getModelPart(AylythClient.YMPE_INFESTATION_STAGE_1_MODEL_LAYER));
 			MODELS[1] = new YmpeInfestationModel(loader.getModelPart(AylythClient.YMPE_INFESTATION_STAGE_2_MODEL_LAYER));
@@ -38,7 +36,7 @@ public class YmpeInfestationFeature extends FeatureRenderer<AbstractClientPlayer
 		if (stage > 0) {
 			YmpeInfestationModel model = MODELS[Math.min(4, stage - 1)];
 			getContextModel().copyBipedStateTo(model);
-			model.adjustArmPivots(slim);
+			model.adjustArmPivots(entity.getModel().equals("slim"));
 			model.render(matrices, vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(TEXTURE)), light, OverlayTexture.DEFAULT_UV, 1, 1, 1, 1);
 		}
 	}
