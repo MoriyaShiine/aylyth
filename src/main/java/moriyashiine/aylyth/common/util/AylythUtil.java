@@ -55,13 +55,10 @@ public class AylythUtil {
 	}
 
 	public static void decreaseStack(ItemStack stack, @Nullable LivingEntity living) {
-		if (living instanceof PlayerEntity player) {
-			if (!player.getAbilities().creativeMode) {
-				stack.decrement(1);
-			}
-		} else {
-			stack.decrement(1);
+		if (living instanceof PlayerEntity player && player.getAbilities().creativeMode) {
+			return;
 		}
+		stack.decrement(1);
 	}
 
 	/**
