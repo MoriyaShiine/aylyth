@@ -242,7 +242,7 @@ public class AylythUtil {
             attacker.heal(originalValue * 0.5f);
 
             if (isSword && target.getAbsorptionAmount() > 0) {
-				target.setAbsorptionAmount(attacker.getAbsorptionAmount() <= 1 ? attacker.getAbsorptionAmount() / 2f : 0);
+				target.setAbsorptionAmount(target.getAbsorptionAmount() <= 1 ? target.getAbsorptionAmount() / 2f : 0);
             }
 
             if (isHoe) {
@@ -265,7 +265,7 @@ public class AylythUtil {
 			target.addStatusEffect(new StatusEffectInstance(ModPotions.BLIGHT_EFFECT, 20 * 4, amplifier));
 
 			if (isSword && attacker.getAbsorptionAmount() > 0) {
-				attacker.setAbsorptionAmount(attacker.getAbsorptionAmount() <= 1 ? attacker.getAbsorptionAmount() / 2f : 0);
+				attacker.setAbsorptionAmount(target.getAbsorptionAmount() <= 1 ? target.getAbsorptionAmount() / 2f : 0);
 			}
 
 			if (isHoe) {
