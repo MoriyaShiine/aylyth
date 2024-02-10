@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "aylyth:crimson_curse",
+    "minecraft:wither",
+    "minecraft:instant_damage",
+    "minecraft:instant_health"
+  ]
+}

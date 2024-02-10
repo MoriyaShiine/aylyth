@@ -23,6 +23,7 @@ public class AylythDatagen implements DataGeneratorEntrypoint {
         var blockTags = pack.addProvider(AylythTagProviders.ModBlockTagProvider::new);
         pack.addProvider((output, registries) -> new AylythTagProviders.ModItemTagProvider(output, registries, blockTags));
         pack.addProvider(AylythTagProviders.ModEntityTypeTagProvider::new);
+        pack.addProvider(AylythTagProviders.PotionTagProvider::new);
         pack.addProvider(AylythTagProviders.ModDamageTypeTagProvider::new);
 
         pack.addProvider(AylythLootTableProviders.BlockLoot::new);

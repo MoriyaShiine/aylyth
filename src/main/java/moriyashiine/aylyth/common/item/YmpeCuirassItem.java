@@ -2,7 +2,6 @@ package moriyashiine.aylyth.common.item;
 
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketItem;
-import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.registry.ModComponents;
 import moriyashiine.aylyth.common.registry.ModSoundEvents;
 import net.minecraft.entity.LivingEntity;
