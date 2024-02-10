@@ -13,6 +13,8 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.damage.DamageType;
+import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.*;
@@ -160,6 +162,21 @@ public class AylythTagProviders {
             getOrCreateTagBuilder(ItemTags.HOES).add(ModItems.NEPHRITE_HOE, ModItems.VAMPIRIC_HOE, ModItems.BLIGHTED_HOE);
             getOrCreateTagBuilder(ItemTags.MUSIC_DISCS).add(ModItems.POMEGRANATE_CASSETTE);
             getOrCreateTagBuilder(ModItemTags.YMPE_WEAPONS).add(ModItems.YMPE_DAGGER, ModItems.YMPE_LANCE, ModItems.YMPE_GLAIVE, ModItems.YMPE_FLAMBERGE, ModItems.YMPE_SCYTHE);
+            getOrCreateTagBuilder(ModItemTags.VAMPIRIC_WEAPON).add(ModItems.VAMPIRIC_AXE, ModItems.VAMPIRIC_HOE, ModItems.VAMPIRIC_PICKAXE, ModItems.VAMPIRIC_SWORD);
+            getOrCreateTagBuilder(ModItemTags.BLIGHTED_WEAPON).add(ModItems.BLIGHTED_AXE, ModItems.BLIGHTED_HOE, ModItems.BLIGHTED_PICKAXE, ModItems.BLIGHTED_SWORD);
+        }
+    }
+
+    public static class PotionTagProvider extends FabricTagProvider<StatusEffect> {
+        public PotionTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registries) {
+            super(output, RegistryKeys.STATUS_EFFECT, registries);
+        }
+
+        @Override
+        protected void configure(RegistryWrapper.WrapperLookup registries) {
+            getOrCreateTagBuilder(ModEffectTags.EFFIGY_BYPASSING).add(ModPotions.CRIMSON_CURSE_EFFECT,
+                    StatusEffects.WITHER, StatusEffects.INSTANT_DAMAGE, StatusEffects.INSTANT_HEALTH );
+            getOrCreateTagBuilder(ModEffectTags.MILK_BYPASSING).add(ModPotions.CRIMSON_CURSE_EFFECT);
         }
     }
 
@@ -184,9 +201,9 @@ public class AylythTagProviders {
 
         @Override
         protected void configure(RegistryWrapper.WrapperLookup registries) {
-            getOrCreateTagBuilder(DamageTypeTags.BYPASSES_ARMOR).add(ModDamageTypeKeys.YMPE, ModDamageTypeKeys.KILLING_BLOW, ModDamageTypeKeys.SOUL_RIP);
-            getOrCreateTagBuilder(DamageTypeTags.BYPASSES_ENCHANTMENTS).add(ModDamageTypeKeys.YMPE, ModDamageTypeKeys.KILLING_BLOW);
-            getOrCreateTagBuilder(DamageTypeTags.BYPASSES_RESISTANCE).add(ModDamageTypeKeys.YMPE, ModDamageTypeKeys.KILLING_BLOW);
+            getOrCreateTagBuilder(DamageTypeTags.BYPASSES_ARMOR).add(ModDamageTypeKeys.YMPE, ModDamageTypeKeys.KILLING_BLOW, ModDamageTypeKeys.SOUL_RIP, ModDamageTypeKeys.BLIGHT);
+            getOrCreateTagBuilder(DamageTypeTags.BYPASSES_ENCHANTMENTS).add(ModDamageTypeKeys.YMPE, ModDamageTypeKeys.KILLING_BLOW, ModDamageTypeKeys.BLIGHT);
+            getOrCreateTagBuilder(DamageTypeTags.BYPASSES_RESISTANCE).add(ModDamageTypeKeys.YMPE, ModDamageTypeKeys.KILLING_BLOW, ModDamageTypeKeys.BLIGHT);
 //            getOrCreateTagBuilder(DamageTypeTags.BYPASSES_INVULNERABILITY).add(ModDamageTypeKeys.YMPE, ModDamageTypeKeys.UNBLOCKABLE);
             getOrCreateTagBuilder(DamageTypeTags.BYPASSES_EFFECTS).add(ModDamageTypeKeys.KILLING_BLOW);
             getOrCreateTagBuilder(DamageTypeTags.WITCH_RESISTANT_TO).add(ModDamageTypeKeys.SOUL_RIP);
