@@ -23,8 +23,5 @@ public class ModSensorTypes {
         return Registry.register(Registries.SENSOR_TYPE, new Identifier(id), new SensorType<>(factory));
     }
 
-
-    public static void init() {
-
-    }
+    public static void init() {}
 }

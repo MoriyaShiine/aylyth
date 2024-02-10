@@ -28,8 +28,10 @@ public class YmpeEffigyItem extends TrinketItem {
 
     @Override
     public void onEquip(ItemStack stack, SlotReference slot, LivingEntity entity) {
-        if(entity instanceof PlayerEntity player)
+        if (entity instanceof PlayerEntity player) {
             this.cleanBadEffects(player);
+        }
+
 
         super.onEquip(stack, slot, entity);
     }

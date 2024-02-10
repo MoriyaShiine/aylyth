@@ -2,6 +2,7 @@ package moriyashiine.aylyth.common.registry;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import moriyashiine.aylyth.common.Aylyth;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.particle.ParticleTextureSheet;
@@ -13,24 +14,25 @@ import net.minecraft.client.texture.AbstractTexture;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.texture.TextureManager;
 import net.minecraft.particle.DefaultParticleType;
+import net.minecraft.particle.ParticleEffect;
+import net.minecraft.particle.ParticleType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import org.lwjgl.opengl.GL11;
 
 public class ModParticles {
-	public static final DefaultParticleType PILOT_LIGHT = FabricParticleTypes.simple(true);
-	public static final DefaultParticleType AMBIENT_PILOT_LIGHT = FabricParticleTypes.simple(true);
+	public static final DefaultParticleType PILOT_LIGHT = register("pilot_light", FabricParticleTypes.simple(true));
+	public static final DefaultParticleType AMBIENT_PILOT_LIGHT = register("ambient_pilot_light", FabricParticleTypes.simple(true));
 
-	public static final DefaultParticleType HIND_SMOKE = FabricParticleTypes.simple(true);
+	public static final DefaultParticleType HIND_SMOKE = register("hind_smoke", FabricParticleTypes.simple(true));
 
-
-
-	public static void init() {
-		Registry.register(Registries.PARTICLE_TYPE, new Identifier(Aylyth.MOD_ID, "pilot_light"), PILOT_LIGHT);
-		Registry.register(Registries.PARTICLE_TYPE, new Identifier(Aylyth.MOD_ID, "ambient_pilot_light"), AMBIENT_PILOT_LIGHT);
-		Registry.register(Registries.PARTICLE_TYPE, new Identifier(Aylyth.MOD_ID, "hind_smoke"), HIND_SMOKE);
+	private static <P extends ParticleType<T>, T extends ParticleEffect> P register(String id, P particleType) {
+		Registry.register(Registries.PARTICLE_TYPE, AylythUtil.id(id), particleType);
+		return particleType;
 	}
+
+	public static void init() {}
 
 	public static class ParticleTextureSheets {
 		public static final ParticleTextureSheet GLOWING = new ParticleTextureSheet() {

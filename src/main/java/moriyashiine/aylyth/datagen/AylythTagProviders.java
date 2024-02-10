@@ -174,9 +174,9 @@ public class AylythTagProviders {
 
         @Override
         protected void configure(RegistryWrapper.WrapperLookup registries) {
-            getOrCreateTagBuilder(ModEffectTags.EFFIGY_BYPASSING).add(ModPotions.CRIMSON_CURSE_EFFECT,
+            getOrCreateTagBuilder(ModEffectTags.EFFIGY_BYPASSING).add(ModStatusEffects.CRIMSON_CURSE,
                     StatusEffects.WITHER, StatusEffects.INSTANT_DAMAGE, StatusEffects.INSTANT_HEALTH );
-            getOrCreateTagBuilder(ModEffectTags.MILK_BYPASSING).add(ModPotions.CRIMSON_CURSE_EFFECT);
+            getOrCreateTagBuilder(ModEffectTags.MILK_BYPASSING).add(ModStatusEffects.CRIMSON_CURSE);
         }
     }
 

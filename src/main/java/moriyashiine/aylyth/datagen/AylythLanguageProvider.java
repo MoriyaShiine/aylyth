@@ -1,9 +1,6 @@
 package moriyashiine.aylyth.datagen;
 
-import moriyashiine.aylyth.common.registry.ModBlocks;
-import moriyashiine.aylyth.common.registry.ModEntityTypes;
-import moriyashiine.aylyth.common.registry.ModItems;
-import moriyashiine.aylyth.common.registry.ModPotions;
+import moriyashiine.aylyth.common.registry.*;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.fabricmc.loader.impl.util.StringUtil;
@@ -186,9 +183,9 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
 
         // STATUS EFFECTS
 
-        builder.add(ModPotions.MORTECHIS_EFFECT, "Mortechis");
-        builder.add(ModPotions.CIMMERIAN_EFFECT, "Cimmerian");
-        builder.add(ModPotions.WYRDED_EFFECT, "Wyrded");
+        builder.add(ModStatusEffects.MORTECHIS, "Mortechis");
+        builder.add(ModStatusEffects.CIMMERIAN, "Cimmerian");
+        builder.add(ModStatusEffects.WYRDED, "Wyrded");
 
         // ADVANCEMENTS
 

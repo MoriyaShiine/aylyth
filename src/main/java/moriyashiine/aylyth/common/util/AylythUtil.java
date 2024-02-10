@@ -8,6 +8,7 @@ import moriyashiine.aylyth.common.item.YmpeLanceItem;
 import moriyashiine.aylyth.common.registry.ModItems;
 import moriyashiine.aylyth.common.registry.ModPotions;
 import moriyashiine.aylyth.common.registry.ModSoundEvents;
+import moriyashiine.aylyth.common.registry.ModStatusEffects;
 import moriyashiine.aylyth.common.registry.key.ModDamageTypeKeys;
 import moriyashiine.aylyth.common.registry.tag.ModBlockTags;
 import moriyashiine.aylyth.common.registry.tag.ModDamageTypeTags;
@@ -108,7 +109,7 @@ public class AylythUtil {
 	}
 
 	public static boolean shouldUndeadAttack(LivingEntity target, LivingEntity attacker) {
-		return attacker.getAttacker() != target && target.hasStatusEffect(ModPotions.CIMMERIAN_EFFECT) && attacker.getGroup() == EntityGroup.UNDEAD;
+		return attacker.getAttacker() != target && target.hasStatusEffect(ModStatusEffects.CIMMERIAN) && attacker.getGroup() == EntityGroup.UNDEAD;
 	}
 
 	public static boolean isNearSeep(LivingEntity livingEntity, int radius) {
@@ -241,7 +242,7 @@ public class AylythUtil {
             }
 
             if (isHoe) {
-				target.addStatusEffect(new StatusEffectInstance(ModPotions.CRIMSON_CURSE_EFFECT, 20 * 10, 0));
+				target.addStatusEffect(new StatusEffectInstance(ModStatusEffects.CRIMSON_CURSE, 20 * 10, 0));
             }
 
             return originalValue * (isPickaxe && target.getArmor() > 10f ? 1.2f : 1f);
@@ -256,8 +257,8 @@ public class AylythUtil {
 		boolean isSword = stack.isOf(ModItems.BLIGHTED_SWORD);
 
 		if (attacker.getRandom().nextFloat() >= 0.75) {
-			int amplifier = attacker.getRandom().nextFloat() <= 0.85 && target.hasStatusEffect(ModPotions.BLIGHT_EFFECT) ? 1 : 0;
-			target.addStatusEffect(new StatusEffectInstance(ModPotions.BLIGHT_EFFECT, 20 * 4, amplifier));
+			int amplifier = attacker.getRandom().nextFloat() <= 0.85 && target.hasStatusEffect(ModStatusEffects.BLIGHT) ? 1 : 0;
+			target.addStatusEffect(new StatusEffectInstance(ModStatusEffects.BLIGHT, 20 * 4, amplifier));
 
 			if (isSword && target.getAbsorptionAmount() > 0) {
 				target.setAbsorptionAmount(target.getAbsorptionAmount() <= 1 ? target.getAbsorptionAmount() / 2f : 0);

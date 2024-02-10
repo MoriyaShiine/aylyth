@@ -65,7 +65,7 @@ public abstract class LivingEntityMixin extends Entity {
 
 	@Inject(method = "heal", at = @At("HEAD"), cancellable = true)
 	private void preventHeal(float amount, CallbackInfo callbackInfo) {
-		if(this.hasStatusEffect(ModPotions.CRIMSON_CURSE_EFFECT)) {
+		if(this.hasStatusEffect(ModStatusEffects.CRIMSON_CURSE)) {
 			callbackInfo.cancel();
 		}
 	}

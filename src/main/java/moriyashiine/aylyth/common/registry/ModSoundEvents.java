@@ -62,8 +62,7 @@ public class ModSoundEvents {
 	private static RegistryEntry<SoundEvent> register(String name) {
 		Identifier id = AylythUtil.id(name);
 		SoundEvent soundEvent = SoundEvent.of(id);
-		RegistryEntry<SoundEvent> registered = Registry.registerReference(Registries.SOUND_EVENT, AylythUtil.id(name), soundEvent);
-		return registered;
+        return Registry.registerReference(Registries.SOUND_EVENT, id, soundEvent);
 	}
 
 	public static void init() {}
