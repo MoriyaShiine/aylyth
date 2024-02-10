@@ -1,9 +1,6 @@
 package moriyashiine.aylyth.common.entity.ai.task;
 
 import com.google.common.collect.ImmutableMap;
-import moriyashiine.aylyth.common.entity.ai.brain.WreathedHindBrain;
-import moriyashiine.aylyth.common.entity.mob.TulpaEntity;
-import moriyashiine.aylyth.common.entity.mob.WreathedHindEntity;
 import moriyashiine.aylyth.common.util.BrainUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -14,8 +11,6 @@ import net.minecraft.entity.ai.brain.task.MultiTickTask;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Hand;
-
-import java.util.function.Predicate;
 
 public class GeckoMeleeAttackTask<T extends MobEntity> extends MultiTickTask<T> {
     private final int interval;

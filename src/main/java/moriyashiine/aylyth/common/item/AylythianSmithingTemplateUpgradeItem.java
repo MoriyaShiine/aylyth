@@ -4,7 +4,6 @@ import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.item.SmithingTemplateItem;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 
 import java.util.List;

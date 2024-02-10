@@ -8,7 +8,6 @@ import net.minecraft.sound.MusicSound;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.biome.BiomeEffects;
 import net.minecraft.world.biome.BiomeParticleConfig;
-import org.jetbrains.annotations.NotNull;
 
 // NOTE: could maybe also extend BiomeEffects itself to add special abilities via mixin
 public class BiomeEffectsBuilder {

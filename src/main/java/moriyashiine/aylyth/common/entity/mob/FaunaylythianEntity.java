@@ -1,7 +1,6 @@
 package moriyashiine.aylyth.common.entity.mob;
 
 import moriyashiine.aylyth.common.entity.ai.goal.PounceAttackGoal;
-import moriyashiine.aylyth.common.entity.ai.goal.RootPropAttack;
 import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.ModSoundEvents;
 import net.minecraft.block.Block;

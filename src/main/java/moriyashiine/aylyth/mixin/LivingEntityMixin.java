@@ -2,7 +2,9 @@ package moriyashiine.aylyth.mixin;
 
 import moriyashiine.aylyth.api.interfaces.ProlongedDeath;
 import moriyashiine.aylyth.common.item.YmpeEffigyItem;
-import moriyashiine.aylyth.common.registry.*;
+import moriyashiine.aylyth.common.registry.ModComponents;
+import moriyashiine.aylyth.common.registry.ModItems;
+import moriyashiine.aylyth.common.registry.ModStatusEffects;
 import moriyashiine.aylyth.common.registry.tag.ModEffectTags;
 import moriyashiine.aylyth.common.registry.tag.ModItemTags;
 import moriyashiine.aylyth.common.util.AylythUtil;

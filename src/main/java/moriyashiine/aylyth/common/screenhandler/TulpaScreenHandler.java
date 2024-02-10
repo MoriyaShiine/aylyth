@@ -1,7 +1,6 @@
 package moriyashiine.aylyth.common.screenhandler;
 
 import com.mojang.datafixers.util.Pair;
-import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import moriyashiine.aylyth.common.entity.mob.TulpaEntity;
 import moriyashiine.aylyth.common.registry.ModScreenHandlers;
 import moriyashiine.aylyth.mixin.MobEntityAccessor;

@@ -1,7 +1,6 @@
 package moriyashiine.aylyth.client.render.entity.living;
 
 import moriyashiine.aylyth.client.model.entity.WreathedHindEntityModel;
-import moriyashiine.aylyth.client.render.entity.living.layer.AylythAutoGlowLayer;
 import moriyashiine.aylyth.client.render.entity.living.layer.WreathedHindGlowLayerRenderer;
 import moriyashiine.aylyth.common.entity.mob.WreathedHindEntity;
 import moriyashiine.aylyth.common.registry.ModParticles;

@@ -1,8 +1,8 @@
 package moriyashiine.aylyth.common.item;
 
 import moriyashiine.aylyth.common.registry.ModBlocks;
-import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.common.registry.key.ModDimensionKeys;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;

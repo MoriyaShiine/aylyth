@@ -2,12 +2,9 @@ package moriyashiine.aylyth.common.registry;
 
 import com.terraformersmc.terraform.boat.api.TerraformBoatType;
 import com.terraformersmc.terraform.boat.api.TerraformBoatTypeRegistry;
-import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.util.AylythUtil;
-import net.minecraft.item.Items;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
-import net.minecraft.util.Identifier;
 
 public class ModBoatTypes {
 	public static final RegistryKey<TerraformBoatType> YMPE_BOAT_TYPE = TerraformBoatTypeRegistry.createKey(AylythUtil.id("ympe"));

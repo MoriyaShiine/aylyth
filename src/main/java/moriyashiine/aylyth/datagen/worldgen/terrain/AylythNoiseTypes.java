@@ -1,23 +1,11 @@
 package moriyashiine.aylyth.datagen.worldgen.terrain;
 
-import com.mojang.datafixers.util.Either;
 import it.unimi.dsi.fastutil.doubles.DoubleList;
-import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.util.AylythUtil;
-import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
-import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.entity.damage.DamageType;
 import net.minecraft.registry.Registerable;
-import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.noise.DoublePerlinNoiseSampler.NoiseParameters;
-import java.util.Optional;
-import java.util.function.Predicate;
-import java.util.stream.Stream;
 
 public class AylythNoiseTypes {
 

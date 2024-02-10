@@ -2,8 +2,8 @@ package moriyashiine.aylyth.common.registry;
 
 import moriyashiine.aylyth.common.entity.ai.sensor.HindAttackablesSensor;
 import moriyashiine.aylyth.common.entity.ai.sensor.NearbyPledgedPlayerSensor;
-import moriyashiine.aylyth.common.entity.ai.sensor.ScionSpecificSensor;
 import moriyashiine.aylyth.common.entity.ai.sensor.OwningPlayerSensor;
+import moriyashiine.aylyth.common.entity.ai.sensor.ScionSpecificSensor;
 import moriyashiine.aylyth.common.entity.mob.TulpaEntity;
 import moriyashiine.aylyth.common.entity.mob.WreathedHindEntity;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
@@ -11,6 +11,7 @@ import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+
 import java.util.function.Supplier;
 
 public class ModSensorTypes {

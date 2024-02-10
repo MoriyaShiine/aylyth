@@ -4,7 +4,10 @@ import moriyashiine.aylyth.common.Aylyth;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.registry.*;
+import net.minecraft.registry.Registerable;
+import net.minecraft.registry.RegistryEntryLookup;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.noise.DoublePerlinNoiseSampler;
 import net.minecraft.world.biome.source.util.MultiNoiseUtil;
@@ -16,7 +19,6 @@ import net.minecraft.world.gen.noise.NoiseRouter;
 import java.util.List;
 
 import static moriyashiine.aylyth.datagen.worldgen.terrain.AylythDensityFunctions.*;
-import static moriyashiine.aylyth.datagen.worldgen.terrain.AylythDensityFunctions.CAVES_PILLARS_FUNCTION_KEY;
 import static moriyashiine.aylyth.datagen.worldgen.terrain.AylythNoiseTypes.*;
 import static net.minecraft.world.gen.densityfunction.DensityFunctionTypes.*;
 

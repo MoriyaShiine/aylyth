@@ -20,8 +20,6 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.UseAction;
 
-import static moriyashiine.aylyth.common.entity.mob.TulpaEntity.*;
-
 public class TulpaPlayerEntityRenderer extends LivingEntityRenderer<TulpaPlayerEntity, BipedEntityModel<TulpaPlayerEntity>> {
     private final BipedEntityModel normalModel;
     private final BipedEntityModel slimModel;

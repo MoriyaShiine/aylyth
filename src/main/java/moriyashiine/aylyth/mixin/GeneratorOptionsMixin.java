@@ -1,8 +1,6 @@
 package moriyashiine.aylyth.mixin;
 
 import moriyashiine.aylyth.common.world.dimension.AylythBiomeSource;
-import net.minecraft.registry.Registry;
-import net.minecraft.world.dimension.DimensionOptions;
 import net.minecraft.world.gen.GeneratorOptions;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

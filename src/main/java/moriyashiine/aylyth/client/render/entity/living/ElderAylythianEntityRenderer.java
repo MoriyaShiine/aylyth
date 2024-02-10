@@ -1,7 +1,6 @@
 package moriyashiine.aylyth.client.render.entity.living;
 
 import moriyashiine.aylyth.client.model.entity.ElderAylythianEntityModel;
-import moriyashiine.aylyth.client.render.entity.living.layer.AylythAutoGlowLayer;
 import moriyashiine.aylyth.client.render.entity.living.layer.ElderAylythianGlowLayerRenderer;
 import moriyashiine.aylyth.common.entity.mob.ElderAylythianEntity;
 import net.minecraft.client.render.entity.EntityRendererFactory;

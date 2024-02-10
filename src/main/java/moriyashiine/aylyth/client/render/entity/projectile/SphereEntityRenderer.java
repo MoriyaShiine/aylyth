@@ -3,7 +3,6 @@ package moriyashiine.aylyth.client.render.entity.projectile;
 import moriyashiine.aylyth.common.entity.projectile.SphereEntity;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.util.Identifier;
 

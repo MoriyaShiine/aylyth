@@ -1,7 +1,6 @@
 package moriyashiine.aylyth.common.world.generator.trunkplacer;
 
 import com.google.common.collect.ImmutableList;
-import com.mojang.datafixers.kinds.App;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.ints.IntArraySet;
@@ -9,7 +8,6 @@ import it.unimi.dsi.fastutil.ints.IntSet;
 import moriyashiine.aylyth.common.block.LargeWoodyGrowthBlock;
 import moriyashiine.aylyth.common.block.SeepBlock;
 import moriyashiine.aylyth.common.registry.ModBlocks;
-import moriyashiine.aylyth.common.registry.ModFeatures;
 import moriyashiine.aylyth.common.registry.ModTrunkPlacerTypes;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;

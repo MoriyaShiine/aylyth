@@ -1,11 +1,9 @@
 package moriyashiine.aylyth.client.model;
 
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.client.model.*;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.entity.feature.ArmorFeatureRenderer;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;

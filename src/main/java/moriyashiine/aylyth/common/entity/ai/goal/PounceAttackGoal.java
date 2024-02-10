@@ -3,8 +3,6 @@ package moriyashiine.aylyth.common.entity.ai.goal;
 import moriyashiine.aylyth.common.entity.mob.FaunaylythianEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.passive.FoxEntity;
 import net.minecraft.util.math.Vec3d;
 
 import java.util.EnumSet;

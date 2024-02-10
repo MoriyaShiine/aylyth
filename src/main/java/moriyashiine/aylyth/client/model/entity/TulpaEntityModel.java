@@ -5,10 +5,7 @@ import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
-import software.bernie.geckolib.constant.DataTickets;
-import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.DefaultedEntityGeoModel;
-import software.bernie.geckolib.model.GeoModel;
 
 public class TulpaEntityModel extends DefaultedEntityGeoModel<TulpaEntity> {
     public TulpaEntityModel() {

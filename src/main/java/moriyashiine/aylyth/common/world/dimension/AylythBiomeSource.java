@@ -17,8 +17,8 @@ import net.minecraft.world.biome.source.util.MultiNoiseUtil;
 
 import java.util.stream.Stream;
 
-import static net.minecraft.world.biome.source.util.MultiNoiseUtil.createNoiseHypercube;
 import static net.minecraft.world.biome.source.util.MultiNoiseUtil.ParameterRange.of;
+import static net.minecraft.world.biome.source.util.MultiNoiseUtil.createNoiseHypercube;
 
 public class AylythBiomeSource extends BiomeSource {
     public static long SEED_HOLDER = 0L;

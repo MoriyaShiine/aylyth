@@ -6,10 +6,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 public class ModSoundEvents {
 	public static final RegistryEntry<SoundEvent> BLOCK_YMPE_LOG_PICK_FRUIT = register("block.ympe_log.pick_fruit");
