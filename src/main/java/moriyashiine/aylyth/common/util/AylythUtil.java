@@ -264,7 +264,7 @@ public class AylythUtil {
 			int amplifier = attacker.getRandom().nextFloat() <= 0.85 && target.hasStatusEffect(ModPotions.BLIGHT_EFFECT) ? 1 : 0;
 			target.addStatusEffect(new StatusEffectInstance(ModPotions.BLIGHT_EFFECT, 20 * 4, amplifier));
 
-			if (isSword && attacker.getAbsorptionAmount() > 0) {
+			if (isSword && target.getAbsorptionAmount() > 0) {
 				target.setAbsorptionAmount(target.getAbsorptionAmount() <= 1 ? target.getAbsorptionAmount() / 2f : 0);
 			}
 
