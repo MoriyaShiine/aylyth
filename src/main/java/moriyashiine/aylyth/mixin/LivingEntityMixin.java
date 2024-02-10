@@ -6,7 +6,6 @@ import moriyashiine.aylyth.common.registry.*;
 import moriyashiine.aylyth.common.registry.tag.ModEffectTags;
 import moriyashiine.aylyth.common.registry.tag.ModItemTags;
 import moriyashiine.aylyth.common.util.AylythUtil;
-import moriyashiine.aylyth.datagen.AylythTagProviders;
 import net.fabricmc.fabric.api.tag.convention.v1.TagUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -15,25 +14,16 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import java.util.Arrays;
-import java.util.function.Predicate;
-import java.util.stream.Stream;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity {
@@ -79,7 +69,7 @@ public abstract class LivingEntityMixin extends Entity {
 	
 	@Inject(method = "eatFood", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;applyFoodEffects(Lnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/entity/LivingEntity;)V"))
 	private void aylyth_decreaseYmpeInfestationStage(World world, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
-		if ((LivingEntity) (Object) this instanceof PlayerEntity player && stack.isIn(ModItemTags.YMPE_FOODS)) {
+		if ((LivingEntity) (Object) this instanceof PlayerEntity player && stack.isIn(ModItemTags.DECREASES_BRANCHES)) {
 			ModComponents.YMPE_INFESTATION.maybeGet(player).ifPresent(ympeInfestationComponent -> {
 				if (ympeInfestationComponent.getStage() > 0) {
 					ympeInfestationComponent.setStage((byte) (ympeInfestationComponent.getStage() - 1));
@@ -112,7 +102,7 @@ public abstract class LivingEntityMixin extends Entity {
         if (this.isPlayer()) {
             LivingEntity entity = ((LivingEntity) (Object) this);
 
-			boolean bypassesEffigy = TagUtil.isIn(ModEffectTags.EFFIGY_BYPASSING, effect.getEffectType());
+			boolean bypassesEffigy = TagUtil.isIn(ModEffectTags.BYPASSES_EFFIGY, effect.getEffectType());
             if(entity instanceof PlayerEntity
 					&& !bypassesEffigy
 					&& YmpeEffigyItem.isEquipped(entity)) {

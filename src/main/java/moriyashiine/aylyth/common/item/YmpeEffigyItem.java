@@ -40,7 +40,7 @@ public class YmpeEffigyItem extends TrinketItem {
     private void cleanBadEffects(PlayerEntity player) {
         for (StatusEffectInstance effectInstance : player.getStatusEffects()) {
             StatusEffect effectType = effectInstance.getEffectType();
-            if (!TagUtil.isIn(ModEffectTags.EFFIGY_BYPASSING, effectType)) {
+            if (!TagUtil.isIn(ModEffectTags.BYPASSES_EFFIGY, effectType)) {
                 player.removeStatusEffect(effectType);
             }
         }

@@ -11,7 +11,6 @@ import net.minecraft.item.MilkBucketItem;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Mixin(MilkBucketItem.class)
@@ -21,7 +20,7 @@ public class MilkBucketItemMixin {
 
         List<StatusEffectInstance> arr = new ObjectArrayList<>();
         for (StatusEffectInstance persistentStatusEffect : player.getStatusEffects()) {
-            if (TagUtil.isIn(ModEffectTags.MILK_BYPASSING, persistentStatusEffect.getEffectType())) {
+            if (TagUtil.isIn(ModEffectTags.BYPASSES_MILK, persistentStatusEffect.getEffectType())) {
                 arr.add(persistentStatusEffect);
             }
         }

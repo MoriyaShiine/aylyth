@@ -1,6 +1,5 @@
 package moriyashiine.aylyth.datagen;
 
-import dev.architectury.platform.Mod;
 import moriyashiine.aylyth.common.registry.*;
 import moriyashiine.aylyth.common.registry.key.ModBiomeKeys;
 import moriyashiine.aylyth.common.registry.key.ModDamageTypeKeys;
@@ -9,7 +8,6 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBiomeTags;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalEntityTypeTags;
-import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.damage.DamageType;
@@ -134,7 +132,7 @@ public class AylythTagProviders {
         protected void configure(RegistryWrapper.WrapperLookup registries) {
             getOrCreateTagBuilder(ItemTags.BOATS).add(ModItems.YMPE_BOAT, ModItems.POMEGRANATE_BOAT, ModItems.WRITHEWOOD_BOAT);
             getOrCreateTagBuilder(ItemTags.CHEST_BOATS).add(ModItems.YMPE_CHEST_BOAT, ModItems.POMEGRANATE_CHEST_BOAT, ModItems.WRITHEWOOD_CHEST_BOAT);
-            getOrCreateTagBuilder(ModItemTags.YMPE_FOODS).add(ModItems.YMPE_FRUIT);
+            getOrCreateTagBuilder(ModItemTags.DECREASES_BRANCHES).add(ModItems.YMPE_FRUIT);
             copy(ModBlockTags.YMPE_LOGS, ModItemTags.YMPE_LOGS);
             copy(ModBlockTags.POMEGRANATE_LOGS, ModItemTags.POMEGRANATE_LOGS);
             copy(ModBlockTags.WRITHEWOOD_LOGS, ModItemTags.WRITHEWOOD_LOGS);
@@ -154,7 +152,7 @@ public class AylythTagProviders {
             copy(ModBlockTags.SEEPS, ModItemTags.SEEPS);
             copy(ModBlockTags.CARVED_NEPHRITE, ModItemTags.CARVED_NEPHRITE);
             getOrCreateTagBuilder(ModItemTags.PLEDGE_ITEMS).add(ModItems.NYSIAN_GRAPES);
-            getOrCreateTagBuilder(ModItemTags.NEPHRITE_REPAIR_ITEMS).add(ModItems.NEPHRITE);
+            getOrCreateTagBuilder(ModItemTags.NEPHRITE_TOOL_MATERIALS).add(ModItems.NEPHRITE);
             getOrCreateTagBuilder(ItemTags.SWORDS).add(ModItems.NEPHRITE_SWORD, ModItems.VAMPIRIC_SWORD, ModItems.BLIGHTED_SWORD);
             getOrCreateTagBuilder(ItemTags.SHOVELS).add(ModItems.NEPHRITE_SHOVEL);
             getOrCreateTagBuilder(ItemTags.PICKAXES).add(ModItems.NEPHRITE_PICKAXE, ModItems.VAMPIRIC_PICKAXE, ModItems.BLIGHTED_PICKAXE);
@@ -174,9 +172,9 @@ public class AylythTagProviders {
 
         @Override
         protected void configure(RegistryWrapper.WrapperLookup registries) {
-            getOrCreateTagBuilder(ModEffectTags.EFFIGY_BYPASSING).add(ModStatusEffects.CRIMSON_CURSE,
+            getOrCreateTagBuilder(ModEffectTags.BYPASSES_EFFIGY).add(ModStatusEffects.CRIMSON_CURSE,
                     StatusEffects.WITHER, StatusEffects.INSTANT_DAMAGE, StatusEffects.INSTANT_HEALTH );
-            getOrCreateTagBuilder(ModEffectTags.MILK_BYPASSING).add(ModStatusEffects.CRIMSON_CURSE);
+            getOrCreateTagBuilder(ModEffectTags.BYPASSES_MILK).add(ModStatusEffects.CRIMSON_CURSE);
         }
     }
 
@@ -189,7 +187,7 @@ public class AylythTagProviders {
         @Override
         protected void configure(RegistryWrapper.WrapperLookup registries) {
             getOrCreateTagBuilder(ModEntityTypeTags.GRIPWEED_IMMUNE).add(ModEntityTypes.AYLYTHIAN, ModEntityTypes.ELDER_AYLYTHIAN);
-            getOrCreateTagBuilder(ModEntityTypeTags.SHUCK_BLACKLIST).forceAddTag(ConventionalEntityTypeTags.BOSSES).add(EntityType.ELDER_GUARDIAN);
+            getOrCreateTagBuilder(ModEntityTypeTags.NON_SHUCKABLE).forceAddTag(ConventionalEntityTypeTags.BOSSES).add(EntityType.ELDER_GUARDIAN);
         }
     }
 

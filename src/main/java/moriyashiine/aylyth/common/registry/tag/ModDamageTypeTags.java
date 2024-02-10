@@ -6,5 +6,9 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 
 public class ModDamageTypeTags {
-    public static final TagKey<DamageType> IS_YMPE = TagKey.of(RegistryKeys.DAMAGE_TYPE, AylythUtil.id("is_ympe"));
+    public static final TagKey<DamageType> IS_YMPE = create("is_ympe");
+
+    private static TagKey<DamageType> create(String tag) {
+        return TagKey.of(RegistryKeys.DAMAGE_TYPE, AylythUtil.id(tag));
+    }
 }

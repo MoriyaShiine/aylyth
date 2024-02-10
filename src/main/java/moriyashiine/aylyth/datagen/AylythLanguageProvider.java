@@ -280,10 +280,15 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add("tag.aylyth.ympe_logs", "Ympe Logs");
         builder.add("tag.aylyth.pomegranate_logs", "Pomegranate Logs");
         builder.add("tag.aylyth.writhewood_logs", "Writhewood Logs");
-        builder.add("tag.aylyth.woody_growths", "Woody Growths");
-        builder.add("tag.aylyth.ympe_foods", "Ympe Foods");
-        builder.add("tag.aylyth.pledge_items", "Pledge Items");
         builder.add("tag.aylyth.seeps", "Logs with Seep");
+        builder.add("tag.aylyth.carved_nephrite", "Carved Nephrite");
+        builder.add("tag.aylyth.woody_growths", "Woody Growths");
+        builder.add("tag.aylyth.decreases_branches", "Heals Branches");
+        builder.add("tag.aylyth.pledge_items", "Pledge Items");
+        builder.add("tag.aylyth.nephrite_tool_materials", "Nephrite Tool Materials");
+        builder.add("tag.aylyth.ympe_weapons", "Ympe Weapons");
+        builder.add("tag.aylyth.blighted_weapons", "Blighted Weapons");
+        builder.add("tag.aylyth.vampiric_weapons", "Vampiric Weapons");
     }
 
     private void potionSet(TranslationBuilder builder, String effectName) {
