@@ -30,7 +30,7 @@ public class AdvancementBuilderMixin {
 
     }
 
-    @Inject(method = "fromJson", at = @At(value = "INVOKE", target = "Lnet/minecraft/advancement/AdvancementCriterion;criteriaFromJson(Lcom/google/gson/JsonObject;Lnet/minecraft/predicate/entity/AdvancementEntityPredicateDeserializer;)Ljava/util/Map;"))
+    @Inject(method = "fromJson", at = @At(value = "INVOKE", target = "Lnet/minecraft/advancement/AdvancementRewards;fromJson(Lcom/google/gson/JsonObject;)Lnet/minecraft/advancement/AdvancementRewards;"))
     private static void aylyth_fromJson(JsonObject obj, AdvancementEntityPredicateDeserializer predicateDeserializer, CallbackInfoReturnable<Advancement.Builder> cir, @Local LocalRef<AdvancementDisplay> displayRef) {
         if (obj.has("aylyth:custom_display")) {
             displayRef.set(CustomAdvancementDisplay.fromJson(JsonHelper.getObject(obj, "aylyth:custom_display")));
