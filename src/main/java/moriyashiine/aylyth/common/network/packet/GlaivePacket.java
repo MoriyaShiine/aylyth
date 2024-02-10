@@ -19,9 +19,6 @@ import org.jetbrains.annotations.Nullable;
 public class GlaivePacket {
     public static final Identifier ID = new Identifier(Aylyth.MOD_ID, "glaive");
 
-    public GlaivePacket() {
-    }
-
     public static void send(@Nullable Entity entity) {
         PacketByteBuf buf = PacketByteBufs.create();
         if (entity != null) {

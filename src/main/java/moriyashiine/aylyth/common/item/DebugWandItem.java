@@ -38,7 +38,7 @@ public class DebugWandItem extends Item {
             if (!world.isClient()) {
                 WoodyGrowthCacheBlock.spawnInventory(world, pos, player);
             }
-        }else if(player.isSneaking()){
+        } else if (player.isSneaking()) {
             player.damage(world.modDamageSources().ympe(), Integer.MAX_VALUE);
         }
         return super.useOnBlock(context);
