@@ -92,7 +92,7 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
                 .criterion("has_dagger", conditionsFromItem(ModItems.YMPE_DAGGER))
                 .offerTo(exporter);
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, ModItems.YMPE_EFFIGY_ITEM)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, ModItems.YMPE_EFFIGY)
                 .input('D', Items.SOUL_SOIL)
                 .input('S', ModItems.YMPE_SAPLING)
                 .input('E', ModItems.ESSTLINE)

@@ -288,7 +288,7 @@ public class BoneflyEntity extends HostileEntity implements GeoEntity, TameableH
     @Override
     public boolean damage(DamageSource source, float amount) {
         if(!getWorld().isClient()) {
-            if (source.getAttacker() != null && source.getAttacker() instanceof PlayerEntity player && player.isHolding(ModItems.YMPE_EFFIGY_ITEM)) {
+            if (source.getAttacker() != null && source.getAttacker() instanceof PlayerEntity player && player.isHolding(ModItems.YMPE_EFFIGY)) {
                 this.setOwner(player);
             }
         }

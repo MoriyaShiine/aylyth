@@ -45,6 +45,6 @@ public class YmpeEffigyItem extends TrinketItem {
     }
 
     public static boolean isEquipped(LivingEntity entity) {
-        return TrinketsApi.getTrinketComponent(entity).isPresent() && TrinketsApi.getTrinketComponent(entity).get().isEquipped(ModItems.YMPE_EFFIGY_ITEM);
+        return TrinketsApi.getTrinketComponent(entity).isPresent() && TrinketsApi.getTrinketComponent(entity).get().isEquipped(ModItems.YMPE_EFFIGY);
     }
 }

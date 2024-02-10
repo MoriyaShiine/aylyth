@@ -175,7 +175,7 @@ public class ModItems {
 	public static final Item ELDER_AYLYTHIAN_SPAWN_EGG = register("elder_aylythian_spawn_egg", new SpawnEggItem(ModEntityTypes.ELDER_AYLYTHIAN, 0x513425, 0xFFDC9B, settings()));
 	public static final Item WREATHED_HIND_SPAWN_EGG = register("wreathed_hind_spawn_egg", new SpawnEggItem(ModEntityTypes.WREATHED_HIND_ENTITY, 0x5C4F42, 0xE1B886, settings()));
 
-	public static final Item YMPE_EFFIGY_ITEM = register("ympe_effigy", new YmpeEffigyItem((settings()).fireproof().rarity(Rarity.RARE).maxCount(1)));
+	public static final Item YMPE_EFFIGY = register("ympe_effigy", new YmpeEffigyItem((settings()).fireproof().rarity(Rarity.RARE).maxCount(1)));
 
 	public static final Item POMEGRANATE_CASSETTE = register("pomegranate_cassette", new MusicDiscItem(14, ModSoundEvents.POMEGRANATE_MUSIC_DISC.value(), settings().maxCount(1).rarity(Rarity.RARE), 118));
 
