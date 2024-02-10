@@ -19,8 +19,6 @@ import java.util.ArrayList;
 
 @Mixin(MilkBucketItem.class)
 public class MilkBucketItemMixin {
-    @Unique
-
     @WrapOperation(method = "finishUsing", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;clearStatusEffects()Z"))
     private boolean finishUsing(LivingEntity player, Operation<Boolean> original, @Local(argsOnly = true) ItemStack stack) {
 

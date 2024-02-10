@@ -17,7 +17,7 @@ public class BlightEffect extends StatusEffect {
     @Override
     public void applyUpdateEffect(LivingEntity entity, int amplifier) {
         if(entity.age % (20 - Math.max(1f * amplifier, 3) * 5 )  == 0)
-            entity.damage(entity.getWorld().modDamageSources().blight(), 1);
+            entity.damage(entity.getWorld().modDamageSources().blight(null), 1);
 
         super.applyUpdateEffect(entity, amplifier);
     }

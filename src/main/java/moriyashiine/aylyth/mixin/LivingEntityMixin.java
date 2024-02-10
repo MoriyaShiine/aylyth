@@ -4,6 +4,7 @@ import moriyashiine.aylyth.api.interfaces.ProlongedDeath;
 import moriyashiine.aylyth.common.registry.*;
 import moriyashiine.aylyth.common.registry.tag.ModEffectTags;
 import moriyashiine.aylyth.common.registry.tag.ModItemTags;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.datagen.AylythTagProviders;
 import net.fabricmc.fabric.api.tag.convention.v1.TagUtil;
 import net.minecraft.entity.Entity;
@@ -54,55 +55,10 @@ public abstract class LivingEntityMixin extends Entity {
 			boolean usingVampiric = stack.isIn(ModItemTags.VAMPIRIC_WEAPON);
 			boolean usingBlight =  stack.isIn(ModItemTags.BLIGHTED_WEAPON);
 
-            if (value < attkDMG) {
-                return value; // if not a normal attack or higher...
+            if (value >= attkDMG) { // Prevents using non critical attacks to spam the weapons
+				if(usingVampiric) return AylythUtil.getSpecialVampiricWeaponEffect(entity, (LivingEntity) (Object) this, stack, value);
+				if(usingBlight) return AylythUtil.getSpecialBlightWeaponEffect(entity, (LivingEntity) (Object) this, stack, value);
             }
-
-            if(usingVampiric) {
-				boolean isSword = entity.getMainHandStack().isOf(ModItems.VAMPIRIC_SWORD);
-				boolean isPickaxe = entity.getMainHandStack().isOf(ModItems.VAMPIRIC_PICKAXE);
-				boolean isHoe = entity.getMainHandStack().isOf(ModItems.VAMPIRIC_HOE);
-
-				if(entity.getRandom().nextFloat() <= 0.8)
-					return value; // 20% chance of healing by 50%. all the other effects
-
-				entity.heal(value * 0.5f);
-				if(isSword && entity.getAbsorptionAmount() > 0) {
-					entity.setAbsorptionAmount(entity.getAbsorptionAmount() <= 1 ? entity.getAbsorptionAmount() / 2f : 0);
-					return value;
-				}
-
-				if(isHoe) {
-					this.addStatusEffect(new StatusEffectInstance(ModPotions.CRIMSON_CURSE_EFFECT, 20 * 10, 0));
-				}
-
-				return value * (isPickaxe && this.getArmor() > 10f ? 1.2f : 1f);
-			}
-
-			if(usingBlight) {
-				boolean isPickaxe = entity.getMainHandStack().isOf(ModItems.BLIGHTED_PICKAXE);
-				boolean isHoe = entity.getMainHandStack().isOf(ModItems.BLIGHTED_HOE);
-				boolean isSword = entity.getMainHandStack().isOf(ModItems.BLIGHTED_SWORD);
-
-				if(entity.getRandom().nextFloat() <= 0.75)
-					return value;
-
-				int amplifier = 0;
-				if(entity.getRandom().nextFloat() <= 0.85 && this.hasStatusEffect(ModPotions.BLIGHT_EFFECT))
-					amplifier = 1;
-
-				this.addStatusEffect(new StatusEffectInstance(ModPotions.BLIGHT_EFFECT, 20 * 4, amplifier));
-
-				if(isSword && entity.getAbsorptionAmount() > 0) {
-					entity.setAbsorptionAmount(entity.getAbsorptionAmount() <= 1 ? entity.getAbsorptionAmount() / 2f : 0);
-					return value;
-				}
-
-				if(isHoe)
-					this.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, 20 * 2, 0));
-
-				return value * (isPickaxe && this.getArmor() > 10f ? 1.2f : 1f);
-			}
 
 		}
 

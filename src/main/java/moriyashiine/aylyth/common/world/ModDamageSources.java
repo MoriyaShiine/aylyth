@@ -1,5 +1,6 @@
 package moriyashiine.aylyth.common.world;
 
+import blue.endless.jankson.annotation.Nullable;
 import moriyashiine.aylyth.common.entity.mob.WreathedHindEntity;
 import moriyashiine.aylyth.common.registry.key.ModDamageTypeKeys;
 import net.minecraft.entity.LivingEntity;
@@ -33,8 +34,8 @@ public class ModDamageSources {
 		return new DamageSource(damageTypeRegistry.entryOf(ModDamageTypeKeys.SOUL_RIP), player);
 	}
 
-	public DamageSource blight() {
-		return new DamageSource(damageTypeRegistry.entryOf(ModDamageTypeKeys.BLIGHT));
+	public DamageSource blight(@Nullable PlayerEntity player) {
+		return new DamageSource(damageTypeRegistry.entryOf(ModDamageTypeKeys.BLIGHT), player);
 	}
 
 	/*
