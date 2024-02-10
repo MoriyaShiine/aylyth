@@ -233,46 +233,46 @@ public class AylythUtil {
 		}
 	}
 
-	public static float getSpecialVampiricWeaponEffect(LivingEntity entity, LivingEntity originalEntity, ItemStack stack, float originalValue) {
+	public static float getVampiricWeaponEffect(LivingEntity attacker, LivingEntity target, ItemStack stack, float originalValue) {
 		boolean isSword = stack.isOf(ModItems.VAMPIRIC_SWORD);
 		boolean isPickaxe = stack.isOf(ModItems.VAMPIRIC_PICKAXE);
 		boolean isHoe = stack.isOf(ModItems.VAMPIRIC_HOE);
 
-        if (entity.getRandom().nextFloat() >= 0.8) {
-            entity.heal(originalValue * 0.5f);
+        if (attacker.getRandom().nextFloat() >= 0.8) {
+            attacker.heal(originalValue * 0.5f);
 
-            if (isSword && entity.getAbsorptionAmount() > 0) {
-                entity.setAbsorptionAmount(entity.getAbsorptionAmount() <= 1 ? entity.getAbsorptionAmount() / 2f : 0);
+            if (isSword && target.getAbsorptionAmount() > 0) {
+				target.setAbsorptionAmount(attacker.getAbsorptionAmount() <= 1 ? attacker.getAbsorptionAmount() / 2f : 0);
             }
 
             if (isHoe) {
-				originalEntity.addStatusEffect(new StatusEffectInstance(ModPotions.CRIMSON_CURSE_EFFECT, 20 * 10, 0));
+				target.addStatusEffect(new StatusEffectInstance(ModPotions.CRIMSON_CURSE_EFFECT, 20 * 10, 0));
             }
 
-            return originalValue * (isPickaxe && originalEntity.getArmor() > 10f ? 1.2f : 1f);
+            return originalValue * (isPickaxe && target.getArmor() > 10f ? 1.2f : 1f);
         }
 
 		return originalValue;
     }
 
-	public static float getSpecialBlightWeaponEffect(LivingEntity entity, LivingEntity originalEntity, ItemStack stack, float originalValue) {
+	public static float getBlightedWeaponEffect(LivingEntity attacker, LivingEntity target, ItemStack stack, float originalValue) {
 		boolean isPickaxe = stack.isOf(ModItems.BLIGHTED_PICKAXE);
 		boolean isHoe = stack.isOf(ModItems.BLIGHTED_HOE);
 		boolean isSword = stack.isOf(ModItems.BLIGHTED_SWORD);
 
-		if (entity.getRandom().nextFloat() >= 0.75) {
-			int amplifier = entity.getRandom().nextFloat() <= 0.85 && originalEntity.hasStatusEffect(ModPotions.BLIGHT_EFFECT) ? 1 : 0;
-			entity.addStatusEffect(new StatusEffectInstance(ModPotions.BLIGHT_EFFECT, 20 * 4, amplifier));
+		if (attacker.getRandom().nextFloat() >= 0.75) {
+			int amplifier = attacker.getRandom().nextFloat() <= 0.85 && target.hasStatusEffect(ModPotions.BLIGHT_EFFECT) ? 1 : 0;
+			target.addStatusEffect(new StatusEffectInstance(ModPotions.BLIGHT_EFFECT, 20 * 4, amplifier));
 
-			if (isSword && entity.getAbsorptionAmount() > 0) {
-				entity.setAbsorptionAmount(entity.getAbsorptionAmount() <= 1 ? entity.getAbsorptionAmount() / 2f : 0);
+			if (isSword && attacker.getAbsorptionAmount() > 0) {
+				attacker.setAbsorptionAmount(attacker.getAbsorptionAmount() <= 1 ? attacker.getAbsorptionAmount() / 2f : 0);
 			}
 
 			if (isHoe) {
-				entity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 20 * 2, 0));
+				target.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 20 * 2, 0));
 			}
 
-			return originalValue * (isPickaxe && originalEntity.getArmor() > 10f ? 1.2f : 1f);
+			return originalValue * (isPickaxe && target.getArmor() > 10f ? 1.2f : 1f);
 		}
 
 		return originalValue;

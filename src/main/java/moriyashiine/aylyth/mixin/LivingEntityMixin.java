@@ -56,8 +56,8 @@ public abstract class LivingEntityMixin extends Entity {
 			boolean usingBlight =  stack.isIn(ModItemTags.BLIGHTED_WEAPON);
 
             if (value >= attkDMG) { // Prevents using non critical attacks to spam the weapons
-				if(usingVampiric) return AylythUtil.getSpecialVampiricWeaponEffect(entity, (LivingEntity) (Object) this, stack, value);
-				if(usingBlight) return AylythUtil.getSpecialBlightWeaponEffect(entity, (LivingEntity) (Object) this, stack, value);
+				if(usingVampiric) return AylythUtil.getVampiricWeaponEffect(entity, (LivingEntity) (Object) this, stack, value);
+				if(usingBlight) return AylythUtil.getBlightedWeaponEffect(entity, (LivingEntity) (Object) this, stack, value);
             }
 
 		}
@@ -114,11 +114,13 @@ public abstract class LivingEntityMixin extends Entity {
         if (this.isPlayer()) {
             LivingEntity entity = ((LivingEntity) (Object) this);
 
+			boolean bypassesEffigy = TagUtil.isIn(ModEffectTags.EFFIGY_BYPASSING, effect.getEffectType());
             if(entity instanceof PlayerEntity
-					&& TagUtil.isIn(ModEffectTags.EFFIGY_BYPASSING, effect.getEffectType())
+					&& !bypassesEffigy
 					&& ((PlayerEntity) entity).getInventory().contains(ModItems.YMPE_EFFIGY_ITEM.getDefaultStack())) {
-                cir.setReturnValue(true);
+                cir.setReturnValue(false);
             }
+
         }
 	}
 
