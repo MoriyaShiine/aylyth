@@ -17,6 +17,11 @@ public class ModItemTags {
     public static final TagKey<Item> PLEDGE_ITEMS = TagKey.of(RegistryKeys.ITEM, new Identifier(Aylyth.MOD_ID, "pledge_items"));
     public static final TagKey<Item> SEEPS = TagKey.of(RegistryKeys.ITEM, new Identifier(Aylyth.MOD_ID, "seeps"));
     public static final TagKey<Item> NEPHRITE_REPAIR_ITEMS = TagKey.of(RegistryKeys.ITEM, new Identifier(Aylyth.MOD_ID, "repairs_nephrite"));
+
+    public static final TagKey<Item> VAMPIRIC_WEAPON = TagKey.of(RegistryKeys.ITEM, new Identifier(Aylyth.MOD_ID, "vampiric_weapon"));
+
+    public static final TagKey<Item> BLIGHTED_WEAPON = TagKey.of(RegistryKeys.ITEM, new Identifier(Aylyth.MOD_ID, "blighted_weapon"));
+
     public static final TagKey<Item> CARVED_NEPHRITE = create("carved_nephrite");
 
     private static final TagKey<Item> create(String id) {

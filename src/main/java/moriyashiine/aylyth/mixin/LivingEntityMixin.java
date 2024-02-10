@@ -2,7 +2,10 @@ package moriyashiine.aylyth.mixin;
 
 import moriyashiine.aylyth.api.interfaces.ProlongedDeath;
 import moriyashiine.aylyth.common.registry.*;
+import moriyashiine.aylyth.common.registry.tag.ModEffectTags;
 import moriyashiine.aylyth.common.registry.tag.ModItemTags;
+import moriyashiine.aylyth.datagen.AylythTagProviders;
+import net.fabricmc.fabric.api.tag.convention.v1.TagUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -15,11 +18,13 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -30,34 +35,24 @@ import java.util.stream.Stream;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity {
-	@Shadow public int deathTime;
 
 	@Shadow public abstract int getArmor();
 
-	@Shadow @Nullable public abstract StatusEffectInstance getStatusEffect(StatusEffect effect);
-
 	@Shadow public abstract boolean hasStatusEffect(StatusEffect effect);
 
-	@Shadow public abstract void setHealth(float health);
-
-	@Shadow public abstract float getHealth();
-
-	@Shadow public abstract boolean isHolding(Item item);
-
 	@Shadow public abstract boolean addStatusEffect(StatusEffectInstance effect);
-
-	@Shadow public abstract boolean isHolding(Predicate<ItemStack> predicate);
 
 	public LivingEntityMixin(EntityType<?> type, World world) {
 		super(type, world);
 	}
 	@ModifyVariable(method = "damage", at = @At("HEAD"), argsOnly = true)
-	float damage(float value, DamageSource source) {
+	float aylyth$damage(float value, DamageSource source) {
 		if(source.getAttacker() instanceof LivingEntity entity && !source.getAttacker().getWorld().isClient) {
 			// #TODO add particles
 			double attkDMG = entity.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
-			boolean usingVampiric = Stream.of(ModItems.VAMPIRIC_SWORD, ModItems.VAMPIRIC_HOE, ModItems.VAMPIRIC_AXE, ModItems.VAMPIRIC_PICKAXE).anyMatch(item -> entity.getMainHandStack().isOf(item));
-			boolean usingBlight = Stream.of(ModItems.BLIGHTED_SWORD, ModItems.BLIGHTED_HOE, ModItems.BLIGHTED_AXE, ModItems.BLIGHTED_PICKAXE).anyMatch(item -> entity.getMainHandStack().isOf(item));
+			ItemStack stack = entity.getMainHandStack();
+			boolean usingVampiric = stack.isIn(ModItemTags.VAMPIRIC_WEAPON);
+			boolean usingBlight =  stack.isIn(ModItemTags.BLIGHTED_WEAPON);
 
             if (value < attkDMG) {
                 return value; // if not a normal attack or higher...
@@ -87,7 +82,7 @@ public abstract class LivingEntityMixin extends Entity {
 			if(usingBlight) {
 				boolean isPickaxe = entity.getMainHandStack().isOf(ModItems.BLIGHTED_PICKAXE);
 				boolean isHoe = entity.getMainHandStack().isOf(ModItems.BLIGHTED_HOE);
-				boolean isSword = entity.getMainHandStack().isOf(ModItems.VAMPIRIC_SWORD);
+				boolean isSword = entity.getMainHandStack().isOf(ModItems.BLIGHTED_SWORD);
 
 				if(entity.getRandom().nextFloat() <= 0.75)
 					return value;
@@ -157,17 +152,18 @@ public abstract class LivingEntityMixin extends Entity {
 	}
 
 
-	private static final StatusEffect[] persistentStatusEffects = { ModPotions.CRIMSON_CURSE_EFFECT,
-			StatusEffects.WITHER, StatusEffects.INSTANT_DAMAGE, StatusEffects.INSTANT_HEALTH };
 
 	@Inject(method = "canHaveStatusEffect", at = @At("HEAD"), cancellable = true)
 	public void aylyth_canHaveStatusEffect(StatusEffectInstance effect, CallbackInfoReturnable<Boolean> cir) {
-        if (!this.isPlayer()) {
-            return;
-		}
+        if (this.isPlayer()) {
+            LivingEntity entity = ((LivingEntity) (Object) this);
 
-        LivingEntity entity = ((LivingEntity) (Object) this);
-        if(entity instanceof PlayerEntity && ((PlayerEntity) entity).getInventory().contains(ModItems.YMPE_EFFIGY_ITEM.getDefaultStack()))
-            Arrays.stream(persistentStatusEffects).filter(entity::hasStatusEffect).map(persistentStatusEffect -> false).forEach(cir::setReturnValue);
+            if(entity instanceof PlayerEntity
+					&& TagUtil.isIn(ModEffectTags.EFFIGY_BYPASSING, effect.getEffectType())
+					&& ((PlayerEntity) entity).getInventory().contains(ModItems.YMPE_EFFIGY_ITEM.getDefaultStack())) {
+                cir.setReturnValue(true);
+            }
+        }
 	}
+
 }
