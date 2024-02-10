@@ -159,6 +159,7 @@ public class AylythTagProviders {
             getOrCreateTagBuilder(ItemTags.AXES).add(ModItems.NEPHRITE_AXE, ModItems.VAMPIRIC_AXE, ModItems.BLIGHTED_AXE);
             getOrCreateTagBuilder(ItemTags.HOES).add(ModItems.NEPHRITE_HOE, ModItems.VAMPIRIC_HOE, ModItems.BLIGHTED_HOE);
             getOrCreateTagBuilder(ItemTags.MUSIC_DISCS).add(ModItems.POMEGRANATE_CASSETTE);
+            getOrCreateTagBuilder(ModItemTags.YMPE_WEAPONS).add(ModItems.YMPE_DAGGER, ModItems.YMPE_LANCE, ModItems.YMPE_GLAIVE, ModItems.YMPE_FLAMBERGE, ModItems.YMPE_SCYTHE);
         }
     }
 

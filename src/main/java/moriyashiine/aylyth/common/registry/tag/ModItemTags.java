@@ -10,6 +10,7 @@ import net.minecraft.util.Identifier;
 
 public class ModItemTags {
     public static final TagKey<Item> YMPE_FOODS = TagKey.of(RegistryKeys.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_foods"));
+    public static final TagKey<Item> YMPE_WEAPONS = create("ympe_weapons");
     public static final TagKey<Item> YMPE_LOGS = TagKey.of(RegistryKeys.ITEM, new Identifier(Aylyth.MOD_ID, "ympe_logs"));
     public static final TagKey<Item> POMEGRANATE_LOGS = TagKey.of(RegistryKeys.ITEM, new Identifier(Aylyth.MOD_ID, "pomegranate_logs"));
     public static final TagKey<Item> WRITHEWOOD_LOGS = TagKey.of(RegistryKeys.ITEM, new Identifier(Aylyth.MOD_ID, "writhewood_logs"));

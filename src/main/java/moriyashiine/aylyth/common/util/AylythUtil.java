@@ -10,6 +10,7 @@ import moriyashiine.aylyth.common.registry.ModSoundEvents;
 import moriyashiine.aylyth.common.registry.key.ModDamageTypeKeys;
 import moriyashiine.aylyth.common.registry.tag.ModBlockTags;
 import moriyashiine.aylyth.common.registry.tag.ModDamageTypeTags;
+import moriyashiine.aylyth.common.registry.tag.ModItemTags;
 import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.LivingEntity;
@@ -159,10 +160,7 @@ public class AylythUtil {
 	 * @return true if the source is some for of ympe
 	 */
 	public static boolean isSourceYmpe(DamageSource source) {
-		if (source.getSource() instanceof LivingEntity livingEntity && (
-						livingEntity.getMainHandStack().getItem() instanceof YmpeDaggerItem ||
-						livingEntity.getMainHandStack().getItem() instanceof YmpeLanceItem ||
-						livingEntity.getMainHandStack().getItem() instanceof YmpeGlaiveItem)) {
+		if (source.getSource() instanceof LivingEntity livingEntity && livingEntity.getMainHandStack().isIn(ModItemTags.YMPE_WEAPONS)) {
 			return true;
 		}
 		return source.isIn(ModDamageTypeTags.IS_YMPE);
