@@ -6,7 +6,7 @@ import net.minecraft.entity.effect.StatusEffectCategory;
 
 public class BlightEffect extends StatusEffect {
     public BlightEffect() {
-        super(StatusEffectCategory.HARMFUL, 0xFFAABB);
+        super(StatusEffectCategory.HARMFUL, 0x434B1A);
     }
 
     @Override

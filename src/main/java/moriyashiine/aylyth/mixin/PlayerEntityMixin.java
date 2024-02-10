@@ -142,7 +142,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHol
     @Inject(method = "shouldDismount", at = {@At("HEAD")}, cancellable = true)
     private void aylyth_webbingScuffedry(CallbackInfoReturnable<Boolean> cir) {
         Entity var3 = this.getVehicle();
-        if (var3 instanceof BoneflyEntity fly) {
+        if (var3 instanceof BoneflyEntity) {
             if (!Objects.equals(this.getVehicle().getFirstPassenger(), this)) {
                 cir.setReturnValue(false);
             }
