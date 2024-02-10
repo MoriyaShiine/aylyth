@@ -20,7 +20,7 @@ import java.util.ArrayList;
 @Mixin(MilkBucketItem.class)
 public class MilkBucketItemMixin {
     @WrapOperation(method = "finishUsing", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;clearStatusEffects()Z"))
-    private boolean finishUsing(LivingEntity player, Operation<Boolean> original, @Local(argsOnly = true) ItemStack stack) {
+    private boolean finishUsing(LivingEntity player, Operation<Boolean> original) {
 
         ArrayList<StatusEffectInstance> arr = new ArrayList<>();
         for (StatusEffectInstance persistentStatusEffect : player.getStatusEffects()) {
