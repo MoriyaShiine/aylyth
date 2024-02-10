@@ -1,5 +1,7 @@
 package moriyashiine.aylyth.mixin.client;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import moriyashiine.aylyth.client.advancement.CustomAdvancementWidget;
 import moriyashiine.aylyth.common.advancement.CustomAdvancementDisplay;
 import net.minecraft.advancement.Advancement;
@@ -9,10 +11,9 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.advancement.AdvancementTab;
 import net.minecraft.client.gui.screen.advancement.AdvancementTabType;
 import net.minecraft.client.gui.screen.advancement.AdvancementWidget;
-import net.minecraft.client.gui.screen.advancement.AdvancementsScreen;
+import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -20,40 +21,31 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(AdvancementTab.class)
 public abstract class AdvancementTabMixin {
-
-    @Shadow protected abstract void addWidget(AdvancementWidget widget, Advancement advancement);
-
     @Shadow @Final private AdvancementDisplay display;
 
-    @Shadow @Final private AdvancementTabType type;
-
-    @Shadow @Final private int index;
-
-    @Shadow @Final @Mutable private AdvancementWidget rootWidget;
-
-    @Inject(method = "<init>", at = @At("TAIL"))
-    private void aylyth_init(MinecraftClient client, AdvancementsScreen screen, AdvancementTabType type, int index, Advancement root, AdvancementDisplay display, CallbackInfo ci) {
+    @WrapOperation(method = "<init>", at = @At(value = "NEW", target = "(Lnet/minecraft/client/gui/screen/advancement/AdvancementTab;Lnet/minecraft/client/MinecraftClient;Lnet/minecraft/advancement/Advancement;Lnet/minecraft/advancement/AdvancementDisplay;)Lnet/minecraft/client/gui/screen/advancement/AdvancementWidget;"))
+    private AdvancementWidget aylyth_init(AdvancementTab tab, MinecraftClient client, Advancement advancement, AdvancementDisplay display, Operation<AdvancementWidget> original) {
         if (display instanceof CustomAdvancementDisplay customAdvancementDisplay) {
-            this.rootWidget = new CustomAdvancementWidget((AdvancementTab) (Object) this, client, root, customAdvancementDisplay);
-            this.addWidget(this.rootWidget, root);
+            return new CustomAdvancementWidget((AdvancementTab) (Object) this, client, advancement, customAdvancementDisplay);
+        } else {
+            return original.call(tab, client, advancement, display);
         }
     }
 
-    @Inject(method = "addAdvancement", at = @At("HEAD"), cancellable = true)
-    private void aylyth_addAdvancement(Advancement advancement, CallbackInfo ci) {
+    @WrapOperation(method = "addAdvancement", at = @At(value = "NEW", target = "(Lnet/minecraft/client/gui/screen/advancement/AdvancementTab;Lnet/minecraft/client/MinecraftClient;Lnet/minecraft/advancement/Advancement;Lnet/minecraft/advancement/AdvancementDisplay;)Lnet/minecraft/client/gui/screen/advancement/AdvancementWidget;"))
+    private AdvancementWidget aylyth_addAdvancement(AdvancementTab tab, MinecraftClient client, Advancement advancement, AdvancementDisplay display, Operation<AdvancementWidget> original) {
         if (advancement.getDisplay() instanceof CustomAdvancementDisplay customAdvancementDisplay) {
-            CustomAdvancementWidget custom = new CustomAdvancementWidget((AdvancementTab) (Object) this, MinecraftClient.getInstance(), advancement, customAdvancementDisplay);
-            addWidget(custom, advancement);
-            ci.cancel();
+            return new CustomAdvancementWidget((AdvancementTab) (Object) this, MinecraftClient.getInstance(), advancement, customAdvancementDisplay);
         }
+        return original.call(tab, client, advancement, display);
     }
 
-    @Inject(method = "drawIcon", at = @At("HEAD"))
-    private void aylyth_drawIcon(DrawContext context, int x, int y, CallbackInfo ci) {
+    @WrapOperation(method = "drawIcon", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/advancement/AdvancementTabType;drawIcon(Lnet/minecraft/client/gui/DrawContext;IIILnet/minecraft/item/ItemStack;)V"))
+    private void aylyth_drawIcon(AdvancementTabType instance, DrawContext context, int x, int y, int index, ItemStack stack, Operation<Void> original) {
         if (this.display instanceof CustomAdvancementDisplay customAdvancementDisplay) {
-            int i = x + this.type.getTabX(this.index);
-            int j = y + this.type.getTabY(this.index);
-            switch (this.type) {
+            int i = x + instance.getTabX(index);
+            int j = y + instance.getTabY(index);
+            switch (instance) {
                 case ABOVE -> {
                     i += 6;
                     j += 9;
@@ -73,6 +65,8 @@ public abstract class AdvancementTabMixin {
             }
 
             context.drawTexture(customAdvancementDisplay.getTexture(), i, j, 0, 0, 16, 16, 16, 16);
+        } else {
+            original.call(instance, context, x, y, index, stack);
         }
     }
 }
