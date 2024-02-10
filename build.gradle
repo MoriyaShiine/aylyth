@@ -117,6 +117,8 @@ dependencies {
     mappings "net.fabricmc:yarn:${yarn_mappings}:v2"
     modImplementation "net.fabricmc:fabric-loader:${loader_version}"
 
+    compileOnly("org.jetbrains:annotations:24.1.0")
+
     modImplementation(include("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${cardinal_components_version}"))
     modImplementation(include("dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${cardinal_components_version}"))
     modImplementation(include("com.jamieswhiteshirt:reach-entity-attributes:${reach_entity_attributes_version}"))
