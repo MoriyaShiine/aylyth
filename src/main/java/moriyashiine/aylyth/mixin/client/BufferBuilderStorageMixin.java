@@ -13,10 +13,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(BufferBuilderStorage.class)
 public class BufferBuilderStorageMixin {
 
-    @Inject(method = "assignBufferBuilder", at = @At("HEAD"))
-    private static void aylyth_assignBufferBuilder(Object2ObjectLinkedOpenHashMap<RenderLayer, BufferBuilder> builderStorage, RenderLayer layer, CallbackInfo ci) {
-        if (!builderStorage.containsKey(AylythRenderLayers.TINT)) {
-            builderStorage.put(AylythRenderLayers.TINT, new BufferBuilder(AylythRenderLayers.TINT.getExpectedBufferSize()));
-        }
+    // TODO: Make this toggleable for sodium/iris support
+    @Inject(method = "method_22999", at = @At(value = "INVOKE", target = "Ljava/util/List;forEach(Ljava/util/function/Consumer;)V"))
+    private void aylyth_assignBufferBuilder(Object2ObjectLinkedOpenHashMap<RenderLayer, BufferBuilder> map, CallbackInfo ci) {
+        map.put(AylythRenderLayers.TINT, new BufferBuilder(AylythRenderLayers.TINT.getExpectedBufferSize()));
     }
 }
