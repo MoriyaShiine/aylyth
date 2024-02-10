@@ -1,7 +1,6 @@
 package moriyashiine.aylyth.client.render.entity.living;
 
 import moriyashiine.aylyth.client.model.entity.SoulmouldEntityModel;
-import moriyashiine.aylyth.client.render.entity.living.layer.SoulmouldEyesLayer;
 import moriyashiine.aylyth.common.entity.mob.SoulmouldEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
@@ -19,7 +18,6 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 public class SoulmouldEntityRenderer extends GeoEntityRenderer<SoulmouldEntity> {
     public SoulmouldEntityRenderer(EntityRendererFactory.Context ctx) {
         super(ctx, new SoulmouldEntityModel());
-        this.addRenderLayer(new SoulmouldEyesLayer(this));
     }
 
     @Override
