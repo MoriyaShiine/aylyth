@@ -15,6 +15,7 @@ classes/
 *.iml
 *.ipr
 *.iws
+custom_idea_annotations
 
 # vscode
 
