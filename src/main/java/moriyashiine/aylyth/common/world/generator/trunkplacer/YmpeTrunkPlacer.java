@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import moriyashiine.aylyth.common.registry.ModFeatures;
+import moriyashiine.aylyth.common.registry.ModTrunkPlacerTypes;
 import net.minecraft.block.BlockState;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
@@ -31,7 +32,7 @@ public class YmpeTrunkPlacer extends StraightTrunkPlacer {
 	
 	@Override
 	protected TrunkPlacerType<YmpeTrunkPlacer> getType() {
-		return ModFeatures.YMPE_TRUNK_PLACER;
+		return ModTrunkPlacerTypes.YMPE_TRUNK_PLACER;
 	}
 	
 	@Override

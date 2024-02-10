@@ -3,6 +3,7 @@ package moriyashiine.aylyth.common.world.generator.foliageplacer;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import moriyashiine.aylyth.common.registry.ModFeatures;
+import moriyashiine.aylyth.common.registry.ModFoliagePlacerTypes;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.intprovider.IntProvider;
@@ -24,7 +25,7 @@ public class GirasolFoliagePlacer extends FoliagePlacer {
 
     @Override
     protected FoliagePlacerType<?> getType() {
-        return ModFeatures.GIRASOL_FOLIAGE_PLACER;
+        return ModFoliagePlacerTypes.GIRASOL_FOLIAGE_PLACER;
     }
 
     @Override

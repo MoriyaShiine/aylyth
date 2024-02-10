@@ -4,7 +4,7 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import moriyashiine.aylyth.common.registry.ModBlocks;
-import moriyashiine.aylyth.common.registry.ModFeatures;
+import moriyashiine.aylyth.common.registry.ModTreeDecoratorTypes;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.VineBlock;
 import net.minecraft.state.property.BooleanProperty;
@@ -34,7 +34,7 @@ public class GrapeVineDecorator extends TreeDecorator {
 	
 	@Override
 	protected TreeDecoratorType<?> getType() {
-		return ModFeatures.GRAPE_VINE;
+		return ModTreeDecoratorTypes.GRAPE_VINE;
 	}
 	
 	@Override

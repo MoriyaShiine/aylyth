@@ -6,6 +6,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.ModFeatures;
+import moriyashiine.aylyth.common.registry.ModTrunkPlacerTypes;
 import moriyashiine.aylyth.common.world.generator.foliageplacer.WrithewoodFoliagePlacer;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -34,7 +35,7 @@ public class WrithewoodTrunkPlacer extends StraightTrunkPlacer {
 
     @Override
     protected TrunkPlacerType<?> getType() {
-        return ModFeatures.WRITHEWOOD_TRUNK_PLACER;
+        return ModTrunkPlacerTypes.WRITHEWOOD_TRUNK_PLACER;
     }
 
     @Override

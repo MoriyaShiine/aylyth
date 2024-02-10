@@ -70,6 +70,9 @@ public class Aylyth implements ModInitializer {
 		ModSoundEvents.init();
 		ModRecipeTypes.init();
 		ModFeatures.init();
+		ModTrunkPlacerTypes.init();
+		ModTreeDecoratorTypes.init();
+		ModFoliagePlacerTypes.init();
 		ModBoatTypes.init();
 		ModMemoryTypes.init();
 		ModSensorTypes.init();

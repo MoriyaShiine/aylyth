@@ -5,6 +5,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.ModFeatures;
+import moriyashiine.aylyth.common.registry.ModTrunkPlacerTypes;
 import moriyashiine.aylyth.common.world.generator.foliageplacer.DirectionalTreeNode;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.PillarBlock;
@@ -34,7 +35,7 @@ public class PomegranateTrunkPlacer extends StraightTrunkPlacer {
 
     @Override
     protected TrunkPlacerType<?> getType() {
-        return ModFeatures.POMEGRANATE_TRUNK_PLACER;
+        return ModTrunkPlacerTypes.POMEGRANATE_TRUNK_PLACER;
     }
 
     @Override

@@ -4,7 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import moriyashiine.aylyth.common.block.LargeWoodyGrowthBlock;
 import moriyashiine.aylyth.common.registry.ModBlocks;
-import moriyashiine.aylyth.common.registry.ModFeatures;
+import moriyashiine.aylyth.common.registry.ModTreeDecoratorTypes;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.util.Util;
@@ -34,7 +34,7 @@ public class RangedTreeDecorator extends TreeDecorator {
 
     @Override
     protected TreeDecoratorType<?> getType() {
-        return ModFeatures.RANGED;
+        return ModTreeDecoratorTypes.RANGED;
     }
 
     @Override

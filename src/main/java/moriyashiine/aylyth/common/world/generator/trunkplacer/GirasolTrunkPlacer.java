@@ -10,6 +10,7 @@ import moriyashiine.aylyth.common.block.LargeWoodyGrowthBlock;
 import moriyashiine.aylyth.common.block.SeepBlock;
 import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.ModFeatures;
+import moriyashiine.aylyth.common.registry.ModTrunkPlacerTypes;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.enums.DoubleBlockHalf;
@@ -45,7 +46,7 @@ public class GirasolTrunkPlacer extends TrunkPlacer {
 
     @Override
     protected TrunkPlacerType<?> getType() {
-        return ModFeatures.GIRASOL_TRUNK_PLACER;
+        return ModTrunkPlacerTypes.GIRASOL_TRUNK_PLACER;
     }
 
     @Override

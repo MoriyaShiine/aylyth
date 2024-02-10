@@ -5,6 +5,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import moriyashiine.aylyth.common.block.PomegranateLeavesBlock;
 import moriyashiine.aylyth.common.registry.ModFeatures;
+import moriyashiine.aylyth.common.registry.ModFoliagePlacerTypes;
 import net.minecraft.block.BlockState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.state.property.Properties;
@@ -33,7 +34,7 @@ public class PomegranateFoliagePlacer extends FoliagePlacer {
 
     @Override
     protected FoliagePlacerType<?> getType() {
-        return ModFeatures.POMEGRANATE_FOLIAGE_PLACER;
+        return ModFoliagePlacerTypes.POMEGRANATE_FOLIAGE_PLACER;
     }
 
     @Override

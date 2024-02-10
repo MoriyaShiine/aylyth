@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import moriyashiine.aylyth.common.registry.ModFeatures;
+import moriyashiine.aylyth.common.registry.ModTrunkPlacerTypes;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -30,7 +31,7 @@ public class AylthianTrunkPlacer extends GiantTrunkPlacer {
 	
 	@Override
 	protected TrunkPlacerType<AylthianTrunkPlacer> getType() {
-		return ModFeatures.AYLYTHIAN_TRUNK_PLACER;
+		return ModTrunkPlacerTypes.AYLYTHIAN_TRUNK_PLACER;
 	}
 
 	@Override
