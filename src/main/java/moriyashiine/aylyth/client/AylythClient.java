@@ -7,6 +7,7 @@ import moriyashiine.aylyth.client.model.entity.layer.YmpeInfestationModel;
 import moriyashiine.aylyth.client.model.entity.layer.YmpeThornRingModel;
 import moriyashiine.aylyth.client.model.entity.RootPropEntityModel;
 import moriyashiine.aylyth.client.model.entity.ScionEntityModel;
+import moriyashiine.aylyth.client.model.item.BigItemModel;
 import moriyashiine.aylyth.common.network.packet.SpawnShuckParticlesPacket;
 import moriyashiine.aylyth.common.network.packet.UpdatePressingUpDownPacket;
 import moriyashiine.aylyth.client.particle.HindSmokeParticle;
@@ -40,6 +41,7 @@ import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.*;
+import net.fabricmc.fabric.api.renderer.v1.RendererAccess;
 import net.fabricmc.fabric.api.renderer.v1.model.ForwardingBakedModel;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.block.Block;
@@ -194,19 +196,32 @@ public class AylythClient implements ClientModInitializer {
 
 	private void registerBigItemRenderer(ItemConvertible item) {
 		Identifier bigId = Registries.ITEM.getId(item.asItem());
+		Identifier guiId = new ModelIdentifier(bigId.withSuffixedPath("_gui"), "inventory");
+		Identifier handheldId = new ModelIdentifier(bigId.withSuffixedPath("_handheld"), "inventory");
+//		ModelLoadingPlugin.register(pluginContext -> {
+//			pluginContext.addModels(guiId, handheldId);
+//
+//			final Identifier basicModel = new ModelIdentifier(bigId, "inventory");
+//			pluginContext.modifyModelAfterBake().register((model, context) -> {
+//				if (context.id().equals(basicModel)) {
+//					return new BigItemModel(
+//							context.baker().bake(guiId, context.settings()),
+//							context.baker().bake(handheldId, context.settings())
+//					);
+//				}
+//				return model;
+//			});
+//		});
 		BigItemRenderer bigItemRenderer = new BigItemRenderer(bigId);
 		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(bigItemRenderer);
 		BuiltinItemRendererRegistry.INSTANCE.register(item, bigItemRenderer);
 		ModelLoadingPlugin.register(pluginContext -> {
-			pluginContext.addModels(
-					new ModelIdentifier(bigId.withSuffixedPath("_gui"), "inventory"),
-					new ModelIdentifier(bigId.withSuffixedPath("_handheld"), "inventory")
-			);
+			pluginContext.addModels(guiId, handheldId);
 
 			final Identifier basicModel = new ModelIdentifier(bigId, "inventory");
 			pluginContext.modifyModelAfterBake().register((model, context) -> {
 				if (context.id().equals(basicModel)) {
-					return new BigItemModel(model);
+					return new WrappedBigItemModel(model);
 				}
 				return model;
 			});
@@ -276,8 +291,8 @@ public class AylythClient implements ClientModInitializer {
 		}
 	}
 
-	public static class BigItemModel extends ForwardingBakedModel {
-		public BigItemModel(BakedModel model) {
+	public static class WrappedBigItemModel extends ForwardingBakedModel {
+		public WrappedBigItemModel(BakedModel model) {
 			this.wrapped = model;
 		}
 
