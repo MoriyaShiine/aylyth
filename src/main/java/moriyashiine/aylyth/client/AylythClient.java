@@ -2,9 +2,9 @@ package moriyashiine.aylyth.client;
 
 import com.terraformersmc.terraform.boat.api.client.TerraformBoatClientHelper;
 import com.terraformersmc.terraform.sign.SpriteIdentifierRegistry;
-import moriyashiine.aylyth.client.model.CuirassModel;
-import moriyashiine.aylyth.client.model.YmpeInfestationModel;
-import moriyashiine.aylyth.client.model.YmpeThornRingModel;
+import moriyashiine.aylyth.client.model.entity.layer.CuirassModel;
+import moriyashiine.aylyth.client.model.entity.layer.YmpeInfestationModel;
+import moriyashiine.aylyth.client.model.entity.layer.YmpeThornRingModel;
 import moriyashiine.aylyth.client.model.entity.RootPropEntityModel;
 import moriyashiine.aylyth.client.model.entity.ScionEntityModel;
 import moriyashiine.aylyth.common.network.packet.SpawnShuckParticlesPacket;
@@ -172,6 +172,8 @@ public class AylythClient implements ClientModInitializer {
 				UpdatePressingUpDownPacket.send(MinecraftClient.getInstance().options.jumpKey.isPressed(), DESCEND.isPressed());
 			}
 		});
+
+
 
 		registerBigItemRenderer(ModItems.YMPE_LANCE);
 		registerBigItemRenderer(ModItems.YMPE_GLAIVE);

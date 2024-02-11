@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.client.render.entity.living.feature;
 
-import moriyashiine.aylyth.client.model.CuirassModel;
+import moriyashiine.aylyth.client.model.entity.layer.CuirassModel;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.registry.ModComponents;
 import net.minecraft.client.network.AbstractClientPlayerEntity;

@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.client.model;
+package moriyashiine.aylyth.client.model.entity.layer;
 
 import net.minecraft.client.model.*;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
