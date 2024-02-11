@@ -5,6 +5,6 @@ import net.minecraft.entity.effect.StatusEffectCategory;
 
 public class CrimsonCurseEffect extends StatusEffect {
     public CrimsonCurseEffect() {
-        super(StatusEffectCategory.HARMFUL, 0x882222);
+        super(StatusEffectCategory.HARMFUL, 0x79181D);
     }
 }
