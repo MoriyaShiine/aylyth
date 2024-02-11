@@ -71,8 +71,9 @@ public class YmpeDaggerEMIRecipe implements EmiRecipe {
 
         widgets.addDrawable(18,18,20,20, (matrices, mouseX, mouseY, delta) -> {
             if (target instanceof LivingEntity livingEntity) {
-                int y = livingEntity instanceof WreathedHindEntity || livingEntity instanceof ElderAylythianEntity ? 16 : 18;
-                int size = livingEntity instanceof WreathedHindEntity || livingEntity instanceof ElderAylythianEntity ? 12 : 20;
+                boolean needsResize = livingEntity instanceof WreathedHindEntity || livingEntity instanceof ElderAylythianEntity;
+                int y = needsResize ? 16 : 18;
+                int size = needsResize ? 12 : 20;
                 RenderUtils.drawEntity(18, y, size, mouseX, mouseY, livingEntity, null);
             }
         });

@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.client.network.packet;
+package moriyashiine.aylyth.common.network.packet;
 
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.registry.ModComponents;

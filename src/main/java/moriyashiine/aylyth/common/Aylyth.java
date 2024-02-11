@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common;
 
-import moriyashiine.aylyth.client.network.packet.SpawnShuckParticlesPacket;
-import moriyashiine.aylyth.client.network.packet.UpdatePressingUpDownPacket;
+import moriyashiine.aylyth.common.network.packet.SpawnShuckParticlesPacket;
+import moriyashiine.aylyth.common.network.packet.UpdatePressingUpDownPacket;
 import moriyashiine.aylyth.common.entity.mob.ScionEntity;
 import moriyashiine.aylyth.common.event.LivingEntityDeathEvents;
 import moriyashiine.aylyth.common.item.ShuckedYmpeFruitItem;

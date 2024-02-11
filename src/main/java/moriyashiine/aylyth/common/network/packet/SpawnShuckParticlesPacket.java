@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.client.network.packet;
+package moriyashiine.aylyth.common.network.packet;
 
 import moriyashiine.aylyth.common.Aylyth;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
