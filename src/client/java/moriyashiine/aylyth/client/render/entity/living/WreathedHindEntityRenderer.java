@@ -4,13 +4,13 @@ import moriyashiine.aylyth.client.model.entity.WreathedHindEntityModel;
 import moriyashiine.aylyth.client.render.entity.living.layer.WreathedHindGlowLayerRenderer;
 import moriyashiine.aylyth.common.entity.mob.WreathedHindEntity;
 import moriyashiine.aylyth.common.registry.ModParticles;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class WreathedHindEntityRenderer extends GeoEntityRenderer<WreathedHindEntity> {
-    private int currentTick = -1;
     public WreathedHindEntityRenderer(EntityRendererFactory.Context renderManager) {
         super(renderManager, new WreathedHindEntityModel());
         this.addRenderLayer(new WreathedHindGlowLayerRenderer(this));
@@ -19,8 +19,7 @@ public class WreathedHindEntityRenderer extends GeoEntityRenderer<WreathedHindEn
 
     @Override
     public void render(WreathedHindEntity animatable, float entityYaw, float partialTick, MatrixStack poseStack, VertexConsumerProvider bufferSource, int packedLight) {
-        if (currentTick < 0 || currentTick != animatable.age) {
-            this.currentTick = animatable.age;
+        if (animatable.getWorld().getTime() % 2 == 0) {
             if (model.getBone("iGuessThisistheHead").isPresent()) {
                 double x = model.getBone("iGuessThisistheHead").get().getWorldPosition().x;
                 double y = model.getBone("iGuessThisistheHead").get().getWorldPosition().y;
