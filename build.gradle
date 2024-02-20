@@ -148,8 +148,8 @@ dependencies {
 
     // Testing compat
     // runtimeOnly 'com.github.JOML-CI:JOML:1.10.5'
-    // modRuntimeOnly "curse.maven:sodium-394468:3957319"
-    // modRuntimeOnly "curse.maven:iris-455508:4385033"
+    // modRuntimeOnly "com.github.CaffeineMC:sodium-fabric:mc1.20.1-0.5.8"
+    // modRuntimeOnly "curse.maven:iris-455508:5095005"
 
     // Trinkets
     modImplementation "dev.emi:trinkets:${trinkets_version}"
@@ -160,8 +160,8 @@ dependencies {
     modImplementation("vazkii.patchouli:Patchouli:${patchouli_version}")
     modImplementation("maven.modrinth:midnightlib:${midnightlib_version}")
     modImplementation("com.github.emilyploszaj:step-height-entity-attribute:${step_height_version}")
-    modImplementation(include("io.github.ladysnake:PlayerAbilityLib:${pal_version}"))
-    modImplementation(include("me.lucko:fabric-permissions-api:${fabric_permissions_api_version}"))
+    modImplementation("io.github.ladysnake:PlayerAbilityLib:${pal_version}")
+    modImplementation("me.lucko:fabric-permissions-api:${fabric_permissions_api_version}")
     modImplementation("org.ladysnake:impersonate:${impersonate_version}") {
         transitive = false
     }
