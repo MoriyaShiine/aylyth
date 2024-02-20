@@ -2,9 +2,10 @@ package moriyashiine.aylyth.mixin.client;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.sugar.Local;
-import moriyashiine.aylyth.common.network.packet.GlaivePacket;
+import moriyashiine.aylyth.common.network.packets.GlaivePacketC2S;
 import moriyashiine.aylyth.common.registry.ModItems;
 import moriyashiine.aylyth.common.registry.key.ModDimensionKeys;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.registry.entry.RegistryEntry;
@@ -36,7 +37,9 @@ public abstract class MinecraftClientMixin {
         if(player != null) {
             if(player.getStackInHand(player.getActiveHand()).isOf(ModItems.YMPE_GLAIVE)) {
                 if(player.getAttackCooldownProgress(0.5F) == 1F && (!player.getItemCooldownManager().isCoolingDown(player.getMainHandStack().getItem())) && crosshairTarget != null) {
-                    GlaivePacket.send(crosshairTarget.getType() == HitResult.Type.ENTITY ? ((EntityHitResult) crosshairTarget).getEntity() : null);
+                    if (crosshairTarget instanceof EntityHitResult entityHitResult) {
+                        ClientPlayNetworking.send(new GlaivePacketC2S(entityHitResult.getEntity().getId()));
+                    }
 
                     if(crosshairTarget.getType() == HitResult.Type.BLOCK)
                         player.resetLastAttackedTicks();

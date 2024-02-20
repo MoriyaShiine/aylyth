@@ -7,8 +7,9 @@ import moriyashiine.aylyth.client.model.entity.layer.YmpeInfestationModel;
 import moriyashiine.aylyth.client.model.entity.layer.YmpeThornRingModel;
 import moriyashiine.aylyth.client.model.entity.RootPropEntityModel;
 import moriyashiine.aylyth.client.model.entity.ScionEntityModel;
-import moriyashiine.aylyth.common.network.packet.SpawnShuckParticlesPacket;
-import moriyashiine.aylyth.common.network.packet.UpdatePressingUpDownPacket;
+import moriyashiine.aylyth.client.network.AylythClientNetworkHandler;
+import moriyashiine.aylyth.common.network.AylythPacketTypes;
+import moriyashiine.aylyth.common.network.packets.UpdatePressingUpDownPacketC2S;
 import moriyashiine.aylyth.client.particle.HindSmokeParticle;
 import moriyashiine.aylyth.client.particle.PilotLightParticle;
 import moriyashiine.aylyth.client.render.AylythDimensionRenderer;
@@ -40,7 +41,6 @@ import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.*;
-import net.fabricmc.fabric.api.renderer.v1.RendererAccess;
 import net.fabricmc.fabric.api.renderer.v1.model.ForwardingBakedModel;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.block.Block;
@@ -87,7 +87,7 @@ public class AylythClient implements ClientModInitializer {
 		DimensionRenderingRegistry.registerSkyRenderer(ModDimensionKeys.AYLYTH, AylythDimensionRenderer.SKY_RENDERER);
 		DimensionRenderingRegistry.registerCloudRenderer(ModDimensionKeys.AYLYTH, context -> {});
 
-		ClientPlayNetworking.registerGlobalReceiver(SpawnShuckParticlesPacket.ID, SpawnShuckParticlesPacket::receive);
+		ClientPlayNetworking.registerGlobalReceiver(AylythPacketTypes.SHUCK_PARTICLES_PACKET, AylythClientNetworkHandler::handleSpawnShuckParticles);
 
 		ParticleFactoryRegistry.getInstance().register(ModParticles.PILOT_LIGHT, PilotLightParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(ModParticles.AMBIENT_PILOT_LIGHT, PilotLightParticle.AmbientFactory::new);
@@ -170,7 +170,7 @@ public class AylythClient implements ClientModInitializer {
 		ClientTickEvents.END_CLIENT_TICK.register((world) -> {
 			PlayerEntity player = MinecraftClient.getInstance().player;
 			if (player != null) {
-				UpdatePressingUpDownPacket.send(MinecraftClient.getInstance().options.jumpKey.isPressed(), DESCEND.isPressed());
+				ClientPlayNetworking.send(new UpdatePressingUpDownPacketC2S(MinecraftClient.getInstance().options.jumpKey.isPressed(), DESCEND.isPressed()));
 			}
 		});
 

@@ -25,22 +25,6 @@
     "cimmerian.MobEntityMixin",
     "cimmerian.ZoglinEntityMixin"
   ],
-  "client": [
-    "client.AdvancementTabMixin",
-    "client.AdvancementToastMixin",
-    "client.AdvancementWidgetAccessor",
-    "client.BackgroundRendererMixin",
-    "client.BufferBuilderStorageMixin",
-    "client.GameRendererMixin",
-    "client.HeldItemRendererAccessor",
-    "client.InGameHudMixin",
-    "client.MinecraftClientMixin",
-    "client.ParticleManagerMixin",
-    "client.PlayerSkinTextureAccessor",
-    "client.SkullBlockEntityAccessor",
-    "client.SpriteAtlasHolderMixin",
-    "client.WorldRendererAccessor"
-  ],
   "injectors": {
     "defaultRequire": 1
 	}

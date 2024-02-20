@@ -1,11 +1,13 @@
 package moriyashiine.aylyth.common;
 
-import moriyashiine.aylyth.common.network.packet.SpawnShuckParticlesPacket;
-import moriyashiine.aylyth.common.network.packet.UpdatePressingUpDownPacket;
+import moriyashiine.aylyth.common.network.AylythPacketTypes;
+import moriyashiine.aylyth.common.network.AylythServerPacketHandler;
+import moriyashiine.aylyth.common.network.packets.SpawnShuckParticlesPacketS2C;
+import moriyashiine.aylyth.common.network.packets.UpdatePressingUpDownPacketC2S;
 import moriyashiine.aylyth.common.entity.mob.ScionEntity;
 import moriyashiine.aylyth.common.event.LivingEntityDeathEvents;
 import moriyashiine.aylyth.common.item.ShuckedYmpeFruitItem;
-import moriyashiine.aylyth.common.network.packet.GlaivePacket;
+import moriyashiine.aylyth.common.network.packets.GlaivePacketC2S;
 import moriyashiine.aylyth.common.recipe.YmpeDaggerDropRecipe;
 import moriyashiine.aylyth.common.registry.*;
 import moriyashiine.aylyth.common.registry.tag.ModBiomeTags;
@@ -81,8 +83,8 @@ public class Aylyth implements ModInitializer {
 
 		LivingEntityDeathEvents.init();
 
-		ServerPlayNetworking.registerGlobalReceiver(GlaivePacket.ID, GlaivePacket::handle);
-		ServerPlayNetworking.registerGlobalReceiver(UpdatePressingUpDownPacket.ID, UpdatePressingUpDownPacket::handle);
+		ServerPlayNetworking.registerGlobalReceiver(AylythPacketTypes.GLAIVE_SPECIAL_PACKET, AylythServerPacketHandler::handleGlaiveSpecial);
+		ServerPlayNetworking.registerGlobalReceiver(AylythPacketTypes.UPDATE_RIDER_PACKET, AylythServerPacketHandler::handleUpdatePressingUpDown);
 
 		ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register(this::daggerDrops);
 		UseBlockCallback.EVENT.register(this::interactSoulCampfire);
@@ -116,7 +118,7 @@ public class Aylyth implements ModInitializer {
 						mob.setVelocity(Vec3d.ZERO);
 						mob.fallDistance = 0;
 						ModComponents.PREVENT_DROPS.get(mob).setPreventsDrops(true);
-						PlayerLookup.tracking(mob).forEach(trackingPlayer -> SpawnShuckParticlesPacket.send(trackingPlayer, mob));
+						PlayerLookup.tracking(mob).forEach(trackingPlayer -> SpawnShuckParticlesPacketS2C.send(trackingPlayer, mob));
 						world.playSound(null, mob.getBlockPos(), ModSoundEvents.ENTITY_GENERIC_SHUCKED.value(), mob.getSoundCategory(), 1, mob.getSoundPitch());
 						ShuckedYmpeFruitItem.setStoredEntity(offhand, mob);
 						mob.remove(Entity.RemovalReason.DISCARDED);

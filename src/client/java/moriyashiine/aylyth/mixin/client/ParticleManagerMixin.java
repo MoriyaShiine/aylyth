@@ -1,6 +1,7 @@
 package moriyashiine.aylyth.mixin.client;
 
 import com.google.common.collect.ImmutableList;
+import moriyashiine.aylyth.client.particle.AylythParticleTextureSheets;
 import moriyashiine.aylyth.common.registry.ModParticles;
 import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.client.particle.ParticleTextureSheet;
@@ -25,6 +26,6 @@ public class ParticleManagerMixin {
 	
 	@Inject(method = "<init>", at = @At("RETURN"))
 	private void addAylythParticles(ClientWorld world, TextureManager textureManager, CallbackInfo ci) {
-		PARTICLE_TEXTURE_SHEETS = ImmutableList.<ParticleTextureSheet>builder().addAll(PARTICLE_TEXTURE_SHEETS).add(ModParticles.ParticleTextureSheets.GLOWING).build();
+		PARTICLE_TEXTURE_SHEETS = ImmutableList.<ParticleTextureSheet>builder().addAll(PARTICLE_TEXTURE_SHEETS).add(AylythParticleTextureSheets.GLOWING).build();
 	}
 }

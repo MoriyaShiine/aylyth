@@ -24,26 +24,27 @@
             "moriyashiine.aylyth.common.Aylyth"
         ],
         "client": [
-            "moriyashiine.aylyth.client.AylythClient"
+          "moriyashiine.aylyth.client.AylythClient"
         ],
         "cardinal-components-entity": [
             "moriyashiine.aylyth.common.registry.ModComponents"
         ],
         "rei_client": [
-            "moriyashiine.aylyth.client.integration.rei.ModREIPlugin"
+          "moriyashiine.aylyth.client.integration.rei.ModREIPlugin"
         ],
         "fabric-datagen": [
             "moriyashiine.aylyth.datagen.AylythDatagen"
         ],
         "emi": [
-            "moriyashiine.aylyth.client.integration.emi.ModEMIPlugin"
+          "moriyashiine.aylyth.client.integration.emi.ModEMIPlugin"
         ],
         "mm:early_risers": [
             "moriyashiine.aylyth.common.asm.EarlyRiser"
         ]
     },
     "mixins": [
-        "aylyth.mixins.json"
+        "aylyth.mixins.json",
+        "aylyth.client.mixins.json"
     ],
     "accessWidener": "aylyth.accesswidener",
     "depends": {

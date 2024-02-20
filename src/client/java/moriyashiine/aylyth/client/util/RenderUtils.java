@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.common.util;
+package moriyashiine.aylyth.client.util;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.shedaniel.math.Rectangle;

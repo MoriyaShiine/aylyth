@@ -3,11 +3,9 @@ package moriyashiine.aylyth.common.advancement;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import moriyashiine.aylyth.client.advancement.CustomAdvancementWidget;
 import moriyashiine.aylyth.mixin.AdvancementDisplayAccessor;
 import net.minecraft.advancement.AdvancementDisplay;
 import net.minecraft.advancement.AdvancementFrame;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.text.Text;
@@ -104,9 +102,5 @@ public class CustomAdvancementDisplay extends AdvancementDisplay {
         CustomAdvancementDisplay advancementDisplay = new CustomAdvancementDisplay(texture, text, text2, identifier, advancementFrame, bl, false, bl2);
         advancementDisplay.setPos(buf.readFloat(), buf.readFloat());
         return advancementDisplay;
-    }
-
-    public interface Renderer {
-        void render(MatrixStack matrices, int x, int y, CustomAdvancementWidget widget);
     }
 }

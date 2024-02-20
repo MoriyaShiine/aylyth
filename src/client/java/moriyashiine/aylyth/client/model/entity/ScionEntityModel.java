@@ -30,7 +30,7 @@ public class ScionEntityModel<T extends ScionEntity> extends BipedEntityModel<T>
 	}
 
 	public static TexturedModelData createBodyLayer() {
-		ModelData data = BipedEntityModel.getModelData(Dilation.NONE, 0);
+		ModelData data = getModelData(Dilation.NONE, 0);
 		ModelPartData ModelPartData = data.getRoot();
 /*
 		ModelPartData body = ModelPartData.addChild(EntityModelPartNames.BODY, ModelPartBuilder.create().uv(78, 79).cuboid(-4.5F, -0.5F, -2.5F, 9.0F, 13.0F, 5.0F, new Dilation(0.1F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));

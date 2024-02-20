@@ -6,7 +6,6 @@ import moriyashiine.aylyth.common.component.entity.YmpeInfestationComponent;
 import moriyashiine.aylyth.common.entity.mob.ScionEntity;
 import moriyashiine.aylyth.common.registry.ModComponents;
 import moriyashiine.aylyth.common.registry.ModItems;
-import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -86,16 +85,12 @@ public class DebugWandItem extends Item {
 
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-        if(Screen.hasShiftDown()){
-            tooltip.add(Text.literal("While pressing shift:"));
-            tooltip.add(Text.literal("Use to give you VitalThurible Buff."));
-            tooltip.add(Text.literal("Use on block to deal deal max Ympe damage to yourself"));
-        } else {
-            tooltip.add(Text.literal("Use to Summon a Scion-copy of you."));
-            tooltip.add(Text.literal("Use on Block Woody growth in off-hand"));
-            tooltip.add(Text.literal("to spawn cache"));
-            tooltip.add(Text.literal("Hold [Shift] for more info").formatted(Formatting.YELLOW));
-        }
+        tooltip.add(Text.literal("Use to Summon a Scion-copy of you."));
+        tooltip.add(Text.literal("Use on Block Woody growth in off-hand"));
+        tooltip.add(Text.literal("to spawn cache"));
+        tooltip.add(Text.literal("While pressing shift:"));
+        tooltip.add(Text.literal("Use to give you VitalThurible Buff."));
+        tooltip.add(Text.literal("Use on block to deal deal max Ympe damage to yourself"));
         super.appendTooltip(stack, world, tooltip, context);
     }
 }

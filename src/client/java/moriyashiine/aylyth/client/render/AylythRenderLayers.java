@@ -62,12 +62,12 @@ public class AylythRenderLayers extends RenderLayer {
     public static final Function<Identifier, RenderLayer> GLOWING_LAYER = Util.memoize(texture -> {
         MultiPhaseParameters multiPhaseParameters = MultiPhaseParameters.builder()
                 .texture(new Texture(texture, false, false))
-                .transparency(Transparency.TRANSLUCENT_TRANSPARENCY)
+                .transparency(TRANSLUCENT_TRANSPARENCY)
                 .cull(DISABLE_CULLING).lightmap(ENABLE_LIGHTMAP)
                 .overlay(DISABLE_OVERLAY_COLOR)
                 .layering(VIEW_OFFSET_Z_LAYERING)
                 .program(ENERGY_SWIRL_PROGRAM)
                 .build(true);
-        return RenderLayer.of("glowing_layer", VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, VertexFormat.DrawMode.QUADS, 256, false, false, multiPhaseParameters);
+        return of("glowing_layer", VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, VertexFormat.DrawMode.QUADS, 256, false, false, multiPhaseParameters);
     });
 }

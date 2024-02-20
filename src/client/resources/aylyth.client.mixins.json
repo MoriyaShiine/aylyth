@@ -1,0 +1,25 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "moriyashiine.aylyth.mixin.client",
+  "compatibilityLevel": "JAVA_17",
+  "client": [
+    "AdvancementTabMixin",
+    "AdvancementToastMixin",
+    "AdvancementWidgetAccessor",
+    "BackgroundRendererMixin",
+    "BufferBuilderStorageMixin",
+    "GameRendererMixin",
+    "HeldItemRendererAccessor",
+    "InGameHudMixin",
+    "MinecraftClientMixin",
+    "ParticleManagerMixin",
+    "PlayerSkinTextureAccessor",
+    "SkullBlockEntityAccessor",
+    "SpriteAtlasHolderMixin",
+    "WorldRendererAccessor"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

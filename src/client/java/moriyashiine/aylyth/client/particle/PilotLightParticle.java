@@ -1,6 +1,5 @@
 package moriyashiine.aylyth.client.particle;
 
-import moriyashiine.aylyth.common.registry.ModParticles;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.DefaultParticleType;
@@ -21,7 +20,7 @@ public class PilotLightParticle extends AbstractSlowingParticle {
 	}
 	
 	public ParticleTextureSheet getType() {
-		return ModParticles.ParticleTextureSheets.GLOWING;
+		return AylythParticleTextureSheets.GLOWING;
 	}
 	
 	public void move(double dx, double dy, double dz) {

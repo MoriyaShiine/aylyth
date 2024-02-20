@@ -11,6 +11,7 @@ version = project.mod_version
 group = project.maven_group
 
 loom {
+    splitEnvironmentSourceSets()
     accessWidenerPath = file("src/main/resources/aylyth.accesswidener")
 	
 	runs {
@@ -116,6 +117,7 @@ dependencies {
     minecraft "com.mojang:minecraft:${minecraft_version}"
     mappings "net.fabricmc:yarn:${yarn_mappings}:v2"
     modImplementation "net.fabricmc:fabric-loader:${loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
 
     compileOnly("org.jetbrains:annotations:24.1.0")
 
@@ -125,7 +127,6 @@ dependencies {
     modImplementation(include("com.terraformersmc.terraform-api:terraform-wood-api-v1:${terraform_wood_api_version}"))
     modImplementation(include('com.github.Chocohead:Fabric-ASM:v2.3'))
 
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
     modImplementation "software.bernie.geckolib:geckolib-fabric-${geckolib_version}"
 
     modImplementation "net.tslat.smartbrainlib:SmartBrainLib-fabric-${minecraft_version}:${sbl_version}"
