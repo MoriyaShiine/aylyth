@@ -13,6 +13,7 @@ import net.minecraft.entity.decoration.ArmorStandEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
+import net.minecraft.item.ToolMaterial;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.server.world.ServerWorld;
@@ -30,8 +31,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class YmpeGlaiveItem extends SwordItem {
-    public YmpeGlaiveItem(int attackDamage, float attackSpeed, Settings settings) {
-        super(ModToolMaterials.NEPHRITE, attackDamage, attackSpeed, settings);
+    public YmpeGlaiveItem(ToolMaterial toolMaterial, int attackDamage, float attackSpeed, Settings settings) {
+        super(toolMaterial, attackDamage, attackSpeed, settings);
         ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableMultimap.builder();
         builder.putAll(this.attributeModifiers);
         builder.put(ReachEntityAttributes.REACH, new EntityAttributeModifier(YmpeLanceItem.BASE_REACH_MODIFIER, "Weapon modifier", 1.2D, EntityAttributeModifier.Operation.ADDITION));

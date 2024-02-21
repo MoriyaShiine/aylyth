@@ -119,7 +119,7 @@ public class ModItems {
 //	public static final Item MYSTERIOUS_SKETCH = register("mysterious_sketch", new Item(new FabricItemSettings()));
 	public static final Item BARK = register("bark", new Item(new FabricItemSettings()));
 	public static final Item YMPE_DAGGER = register("ympe_dagger", new YmpeDaggerItem(ModToolMaterials.NEPHRITE, 2, -2, -0.5f, settings()));
-	public static final Item YMPE_GLAIVE = register("ympe_glaive", new YmpeGlaiveItem(5, -3.1F, (settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(1)));
+	public static final Item YMPE_GLAIVE = register("ympe_glaive", new YmpeGlaiveItem(ModToolMaterials.NEPHRITE, 5, -3.1F, (settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(1)));
 	public static final Item YMPE_LANCE = register("ympe_lance", new YmpeLanceItem(312, settings()));
 	public static final Item YMPE_FLAMBERGE = register("ympe_flamberge", new YmpeFlamberge(ModToolMaterials.NEPHRITE, 5, -3.1F, (settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(1)));
 	public static final Item YMPE_SCYTHE = register("ympe_scythe", new YmpeScythe(ModToolMaterials.NEPHRITE, 5, -3.1F, (settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(1)));
