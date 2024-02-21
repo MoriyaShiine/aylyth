@@ -31,5 +31,6 @@ bin/
 
 # fabric
 
-run/
+run/*
+!run/config/fabric_loader_dependencies.json
 .cache/
