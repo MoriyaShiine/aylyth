@@ -20,7 +20,6 @@ import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.CampfireBlockEntity;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -44,17 +43,23 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.GenerationStep;
 import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Aylyth implements ModInitializer {
 	public static final String MOD_ID = "aylyth";
+	public static final Logger LOGGER = LoggerFactory.getLogger("Aylyth");
 
-	private static boolean debugMode = true;
+	public static final boolean DEBUG = System.getProperty("aylyth.debug") != null;
 	public static boolean isDebugMode() {
-		return debugMode && FabricLoader.getInstance().isDevelopmentEnvironment();
+		return DEBUG;
 	}
 
 	@Override
 	public void onInitialize() {
+		if (DEBUG) {
+			LOGGER.info("Debug mode enabled!");
+		}
 		ModParticles.init();
 		ModBlocks.init();
 		ModItems.init();
