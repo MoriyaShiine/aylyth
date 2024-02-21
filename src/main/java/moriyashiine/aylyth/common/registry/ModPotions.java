@@ -1,12 +1,13 @@
 package moriyashiine.aylyth.common.registry;
 
 import moriyashiine.aylyth.common.util.AylythUtil;
-import moriyashiine.aylyth.mixin.BrewingRecipeRegistryAccessor;
+import net.fabricmc.fabric.api.registry.FabricBrewingRecipeRegistry;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.Items;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.Potions;
+import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 
@@ -29,9 +30,9 @@ public class ModPotions {
 	}
 
 	public static void init() {
-		BrewingRecipeRegistryAccessor.callRegisterPotionRecipe(Potions.AWKWARD, ModItems.NYSIAN_GRAPES, MORTECHIS_POTION);
-		BrewingRecipeRegistryAccessor.callRegisterPotionRecipe(MORTECHIS_POTION, Items.FERMENTED_SPIDER_EYE, Potions.THICK);
-		BrewingRecipeRegistryAccessor.callRegisterPotionRecipe(MORTECHIS_POTION, Items.REDSTONE, LONG_MORTECHIS_POTION);
-		BrewingRecipeRegistryAccessor.callRegisterPotionRecipe(MORTECHIS_POTION, Items.GLOWSTONE_DUST, STRONG_MORTECHIS_POTION);
+		FabricBrewingRecipeRegistry.registerPotionRecipe(Potions.AWKWARD, Ingredient.ofItems(ModItems.NYSIAN_GRAPES), MORTECHIS_POTION);
+		FabricBrewingRecipeRegistry.registerPotionRecipe(MORTECHIS_POTION, Ingredient.ofItems(Items.FERMENTED_SPIDER_EYE), Potions.THICK);
+		FabricBrewingRecipeRegistry.registerPotionRecipe(MORTECHIS_POTION, Ingredient.ofItems(Items.REDSTONE), LONG_MORTECHIS_POTION);
+		FabricBrewingRecipeRegistry.registerPotionRecipe(MORTECHIS_POTION, Ingredient.ofItems(Items.GLOWSTONE_DUST), STRONG_MORTECHIS_POTION);
 	}
 }
