@@ -10,6 +10,15 @@ base {
 version = project.mod_version
 group = project.maven_group
 
+sourceSets {
+    main
+    test
+    data {
+        compileClasspath += main.compileClasspath + main.output
+        runtimeClasspath += main.runtimeClasspath + main.output
+    }
+}
+
 loom {
     splitEnvironmentSourceSets()
     accessWidenerPath.set(file("src/main/resources/aylyth.accesswidener"))
@@ -27,6 +36,8 @@ loom {
 		datagen {
             server()
 
+            source(sourceSets.data)
+
 			name "Minecraft Data"
 			vmArg "-Dfabric-api.datagen"
 			vmArg "-Dfabric-api.datagen.output-dir=${file("src/main/generated")}"
@@ -40,6 +51,7 @@ loom {
         "${archives_base_name}" {
             sourceSet(sourceSets.main)
             sourceSet(sourceSets.client)
+            sourceSet(sourceSets.data)
         }
     }
 }
