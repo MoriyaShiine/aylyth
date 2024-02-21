@@ -73,7 +73,7 @@ import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
 
 public class AylythClient implements ClientModInitializer {
-	private static KeyBinding DESCEND;
+	public static final KeyBinding DESCEND = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.aylyth.descend", InputUtil.Type.KEYSYM, InputUtil.GLFW_KEY_G, "category.aylyth.keybind"));
 	public static final EntityModelLayer YMPE_INFESTATION_STAGE_1_MODEL_LAYER = new EntityModelLayer(new Identifier(Aylyth.MOD_ID, "ympe_infestation_1"), "main");
 	public static final EntityModelLayer YMPE_INFESTATION_STAGE_2_MODEL_LAYER = new EntityModelLayer(new Identifier(Aylyth.MOD_ID, "ympe_infestation_2"), "main");
 	public static final EntityModelLayer YMPE_INFESTATION_STAGE_3_MODEL_LAYER = new EntityModelLayer(new Identifier(Aylyth.MOD_ID, "ympe_infestation_3"), "main");
@@ -165,7 +165,6 @@ public class AylythClient implements ClientModInitializer {
 			}
 		});
 
-		DESCEND = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.aylyth.descend", InputUtil.Type.KEYSYM, 71, "category.aylyth.keybind"));
 		ClientTickEvents.END_CLIENT_TICK.register(ClientTickHandler::clientTickEnd);
 		ClientTickEvents.END_CLIENT_TICK.register((world) -> {
 			PlayerEntity player = MinecraftClient.getInstance().player;
