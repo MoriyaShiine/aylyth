@@ -24,7 +24,6 @@ import java.util.List;
 public class ModItems {
 	public static final List<Item> ITEMS = new ArrayList<>();
 
-
 	public static final RegistryKey<ItemGroup> GROUP = RegistryKey.of(RegistryKeys.ITEM_GROUP, AylythUtil.id(Aylyth.MOD_ID));
 
 	public static final ItemGroup.Builder GROUP_BUILDER = FabricItemGroup.builder()

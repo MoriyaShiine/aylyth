@@ -60,6 +60,7 @@ public class AylythTagProviders {
             getOrCreateTagBuilder(BlockTags.AXE_MINEABLE).addTag(ModBlockTags.WOODY_GROWTHS).add(ModBlocks.AYLYTH_BUSH, ModBlocks.ANTLER_SHOOTS, ModBlocks.GRIPWEED, ModBlocks.NYSIAN_GRAPE_VINE, ModBlocks.OAK_SEEP, ModBlocks.SPRUCE_SEEP, ModBlocks.DARK_OAK_SEEP, ModBlocks.YMPE_SEEP, ModBlocks.SEEPING_WOOD, ModBlocks.SEEPING_WOOD_SEEP, ModBlocks.DARK_WOODS_TILES);
             getOrCreateTagBuilder(BlockTags.HOE_MINEABLE).add(ModBlocks.YMPE_LEAVES, ModBlocks.POMEGRANATE_LEAVES, ModBlocks.WRITHEWOOD_LEAVES);
             getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE).addTag(ModBlockTags.CARVED_NEPHRITE).add(ModBlocks.SOUL_HEARTH, ModBlocks.VITAL_THURIBLE, ModBlocks.ESSTLINE_BLOCK, ModBlocks.NEPHRITE_BLOCK);
+            getOrCreateTagBuilder(BlockTags.NEEDS_IRON_TOOL).addTag(ModBlockTags.CARVED_NEPHRITE).add(ModBlocks.NEPHRITE_BLOCK, ModBlocks.ESSTLINE_BLOCK);
             getOrCreateTagBuilder(BlockTags.INSIDE_STEP_SOUND_BLOCKS).add(ModBlocks.OAK_STREWN_LEAVES, ModBlocks.YMPE_STREWN_LEAVES);
             getOrCreateTagBuilder(BlockTags.CLIMBABLE).add(ModBlocks.NYSIAN_GRAPE_VINE);
             getOrCreateTagBuilder(ModBlockTags.SEEPS).add(ModBlocks.OAK_SEEP, ModBlocks.SPRUCE_SEEP, ModBlocks.DARK_OAK_SEEP, ModBlocks.YMPE_SEEP, ModBlocks.SEEPING_WOOD_SEEP);
