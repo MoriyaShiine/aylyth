@@ -30,24 +30,6 @@ import java.util.concurrent.CompletableFuture;
 
 public class AylythTagProviders {
 
-    public static class ModBiomeTagProvider extends FabricTagProvider<Biome> {
-        public ModBiomeTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registries) {
-            super(output, RegistryKeys.BIOME, registries);
-        }
-
-        @Override
-        protected void configure(RegistryWrapper.WrapperLookup registries) {
-            getOrCreateTagBuilder(ModBiomeTags.IS_CLEARING).add(ModBiomeKeys.CLEARING, ModBiomeKeys.OVERGROWN_CLEARING);
-            getOrCreateTagBuilder(ModBiomeTags.IS_COPSE).add(ModBiomeKeys.COPSE, ModBiomeKeys.CONIFEROUS_COPSE);
-            getOrCreateTagBuilder(ModBiomeTags.IS_DEEPWOOD).add(ModBiomeKeys.DEEPWOOD, ModBiomeKeys.CONIFEROUS_DEEPWOOD);
-            getOrCreateTagBuilder(ModBiomeTags.IS_CONIFEROUS).add(ModBiomeKeys.CONIFEROUS_COPSE, ModBiomeKeys.CONIFEROUS_DEEPWOOD);
-            getOrCreateTagBuilder(ModBiomeTags.IS_FOREST_LIKE).add(ModBiomeKeys.OVERGROWN_CLEARING, ModBiomeKeys.COPSE, ModBiomeKeys.DEEPWOOD);
-            getOrCreateTagBuilder(ModBiomeTags.IS_TAIGA_LIKE).addTag(ModBiomeTags.IS_CONIFEROUS).add(ModBiomeKeys.DEEPWOOD);
-            getOrCreateTagBuilder(ModBiomeTags.GENERATES_SEEP).addOptionalTag(ConventionalBiomeTags.FOREST).addOptionalTag(ConventionalBiomeTags.TAIGA);
-            getOrCreateTagBuilder(BiomeTags.HAS_CLOSER_WATER_FOG).add(ModBiomeKeys.MIRE);
-        }
-    }
-
     public static class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
         public ModBlockTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registries) {
@@ -68,7 +50,7 @@ public class AylythTagProviders {
             getOrCreateTagBuilder(ModBlockTags.JACK_O_LANTERN_GENERATE_ON).add(Blocks.DARK_OAK_LOG, Blocks.OAK_LOG);
             getOrCreateTagBuilder(ModBlockTags.GHOSTCAP_REPLACEABLE).add(Blocks.GRASS_BLOCK);
 
-            getOrCreateTagBuilder(ModBlockTags.YMPE_LOGS).add(ModBlocks.YMPE_LOG, ModBlocks.YMPE_WOOD, ModBlocks.YMPE_STRIPPED_LOG, ModBlocks.YMPE_STRIPPED_WOOD);
+            getOrCreateTagBuilder(ModBlockTags.YMPE_LOGS).add(ModBlocks.YMPE_LOG, ModBlocks.YMPE_WOOD, ModBlocks.YMPE_STRIPPED_LOG, ModBlocks.YMPE_STRIPPED_WOOD, ModBlocks.FRUIT_BEARING_YMPE_LOG);
             getOrCreateTagBuilder(BlockTags.LOGS_THAT_BURN).addTag(ModBlockTags.YMPE_LOGS);
             getOrCreateTagBuilder(BlockTags.PLANKS).add(ModBlocks.YMPE_PLANKS);
             getOrCreateTagBuilder(BlockTags.WOODEN_STAIRS).add(ModBlocks.YMPE_STAIRS);
@@ -85,7 +67,6 @@ public class AylythTagProviders {
             getOrCreateTagBuilder(BlockTags.FLOWER_POTS).add(ModBlocks.YMPE_POTTED_SAPLING);
             getOrCreateTagBuilder(BlockTags.CEILING_HANGING_SIGNS).add(ModBlocks.YMPE_HANGING_SIGN);
             getOrCreateTagBuilder(BlockTags.WALL_HANGING_SIGNS).add(ModBlocks.YMPE_WALL_HANGING_SIGN);
-            getOrCreateTagBuilder(ModBlockTags.YMPE_LOGS).add(ModBlocks.FRUIT_BEARING_YMPE_LOG);
 
             getOrCreateTagBuilder(ModBlockTags.POMEGRANATE_LOGS).add(ModBlocks.POMEGRANATE_LOG, ModBlocks.POMEGRANATE_WOOD, ModBlocks.POMEGRANATE_STRIPPED_LOG, ModBlocks.POMEGRANATE_STRIPPED_WOOD);
             getOrCreateTagBuilder(BlockTags.LOGS_THAT_BURN).addTag(ModBlockTags.POMEGRANATE_LOGS);
@@ -122,7 +103,7 @@ public class AylythTagProviders {
             getOrCreateTagBuilder(BlockTags.FLOWER_POTS).add(ModBlocks.WRITHEWOOD_POTTED_SAPLING);
             getOrCreateTagBuilder(BlockTags.CEILING_HANGING_SIGNS).add(ModBlocks.WRITHEWOOD_HANGING_SIGN);
             getOrCreateTagBuilder(BlockTags.WALL_HANGING_SIGNS).add(ModBlocks.WRITHEWOOD_WALL_HANGING_SIGN);
-            
+
             getOrCreateTagBuilder(BlockTags.LEAVES).add(ModBlocks.YMPE_LEAVES, ModBlocks.POMEGRANATE_LEAVES, ModBlocks.WRITHEWOOD_LEAVES);
             getOrCreateTagBuilder(ModBlockTags.WOODY_GROWTHS_GENERATE_ON).add(Blocks.MUD);
             getOrCreateTagBuilder(BlockTags.LOGS_THAT_BURN).add(ModBlocks.SEEPING_WOOD);
@@ -161,7 +142,7 @@ public class AylythTagProviders {
             getOrCreateTagBuilder(ModItemTags.DECREASES_BRANCHES).add(ModItems.YMPE_FRUIT);
             getOrCreateTagBuilder(ModItemTags.PLEDGE_ITEMS).add(ModItems.NYSIAN_GRAPES);
             getOrCreateTagBuilder(ModItemTags.NEPHRITE_TOOL_MATERIALS).add(ModItems.NEPHRITE);
-            getOrCreateTagBuilder(ItemTags.SWORDS).add(ModItems.NEPHRITE_SWORD, ModItems.VAMPIRIC_SWORD, ModItems.BLIGHTED_SWORD);
+            getOrCreateTagBuilder(ItemTags.SWORDS).add(ModItems.YMPE_DAGGER, ModItems.NEPHRITE_SWORD, ModItems.VAMPIRIC_SWORD, ModItems.BLIGHTED_SWORD);
             getOrCreateTagBuilder(ItemTags.SHOVELS).add(ModItems.NEPHRITE_SHOVEL);
             getOrCreateTagBuilder(ItemTags.PICKAXES).add(ModItems.NEPHRITE_PICKAXE, ModItems.VAMPIRIC_PICKAXE, ModItems.BLIGHTED_PICKAXE);
             getOrCreateTagBuilder(ItemTags.AXES).add(ModItems.NEPHRITE_AXE, ModItems.VAMPIRIC_AXE, ModItems.BLIGHTED_AXE);
@@ -175,15 +156,33 @@ public class AylythTagProviders {
         }
     }
 
-    public static class PotionTagProvider extends FabricTagProvider<StatusEffect> {
-        public PotionTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registries) {
+    public static class ModBiomeTagProvider extends FabricTagProvider<Biome> {
+        public ModBiomeTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registries) {
+            super(output, RegistryKeys.BIOME, registries);
+        }
+
+        @Override
+        protected void configure(RegistryWrapper.WrapperLookup registries) {
+            getOrCreateTagBuilder(ModBiomeTags.IS_CLEARING).add(ModBiomeKeys.CLEARING, ModBiomeKeys.OVERGROWN_CLEARING);
+            getOrCreateTagBuilder(ModBiomeTags.IS_COPSE).add(ModBiomeKeys.COPSE, ModBiomeKeys.CONIFEROUS_COPSE);
+            getOrCreateTagBuilder(ModBiomeTags.IS_DEEPWOOD).add(ModBiomeKeys.DEEPWOOD, ModBiomeKeys.CONIFEROUS_DEEPWOOD);
+            getOrCreateTagBuilder(ModBiomeTags.IS_CONIFEROUS).add(ModBiomeKeys.CONIFEROUS_COPSE, ModBiomeKeys.CONIFEROUS_DEEPWOOD);
+            getOrCreateTagBuilder(ModBiomeTags.IS_FOREST_LIKE).add(ModBiomeKeys.OVERGROWN_CLEARING, ModBiomeKeys.COPSE, ModBiomeKeys.DEEPWOOD);
+            getOrCreateTagBuilder(ModBiomeTags.IS_TAIGA_LIKE).addTag(ModBiomeTags.IS_CONIFEROUS).add(ModBiomeKeys.DEEPWOOD);
+            getOrCreateTagBuilder(ModBiomeTags.GENERATES_SEEP).addOptionalTag(ConventionalBiomeTags.FOREST).addOptionalTag(ConventionalBiomeTags.TAIGA);
+            getOrCreateTagBuilder(BiomeTags.HAS_CLOSER_WATER_FOG).add(ModBiomeKeys.MIRE);
+        }
+    }
+
+    public static class StatusEffectTagProvider extends FabricTagProvider<StatusEffect> {
+        public StatusEffectTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registries) {
             super(output, RegistryKeys.STATUS_EFFECT, registries);
         }
 
         @Override
         protected void configure(RegistryWrapper.WrapperLookup registries) {
             getOrCreateTagBuilder(ModEffectTags.BYPASSES_EFFIGY).add(ModStatusEffects.CRIMSON_CURSE,
-                    StatusEffects.WITHER, StatusEffects.INSTANT_DAMAGE, StatusEffects.INSTANT_HEALTH );
+                    StatusEffects.WITHER, StatusEffects.INSTANT_DAMAGE, StatusEffects.INSTANT_HEALTH);
             getOrCreateTagBuilder(ModEffectTags.BYPASSES_MILK).add(ModStatusEffects.CRIMSON_CURSE);
         }
     }
