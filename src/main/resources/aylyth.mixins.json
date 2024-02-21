@@ -7,7 +7,6 @@
     "AdvancementBuilderMixin",
     "AdvancementDisplayAccessor",
     "AdvancementDisplayMixin",
-    "BlocksAccessor",
     "EnchantmentTargetMixin",
     "EntityAccessor",
     "EntityMixin",

@@ -5,8 +5,8 @@ import com.terraformersmc.terraform.sign.block.TerraformSignBlock;
 import com.terraformersmc.terraform.sign.block.TerraformWallHangingSignBlock;
 import com.terraformersmc.terraform.sign.block.TerraformWallSignBlock;
 import moriyashiine.aylyth.common.block.*;
+import moriyashiine.aylyth.common.registry.key.ModConfiguredFeatureKeys;
 import moriyashiine.aylyth.common.util.AylythUtil;
-import moriyashiine.aylyth.mixin.BlocksAccessor;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder;
@@ -19,7 +19,6 @@ import net.minecraft.block.sapling.SaplingGenerator;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
@@ -35,7 +34,7 @@ public class ModBlocks {
 	private static final WoodType POMEGRANATE_WOOD_TYPE = new WoodTypeBuilder().register(AylythUtil.id("pomegranate"), POMEGRANATE_BLOCK_SET_TYPE);
 	private static final WoodType WRITHEWOOD_WOOD_TYPE = new WoodTypeBuilder().register(AylythUtil.id("writhewood"), WRITHEWOOD_BLOCK_SET_TYPE);
 
-	public static final FabricBlockSettings STREWN_LEAVES = FabricBlockSettings.create().mapColor(MapColor.DARK_GREEN).notSolid().pistonBehavior(PistonBehavior.DESTROY).replaceable();
+	public static final AbstractBlock.Settings STREWN_LEAVES = AbstractBlock.Settings.create().mapColor(MapColor.DARK_GREEN).notSolid().pistonBehavior(PistonBehavior.DESTROY).replaceable();
 
 	public static final Block YMPE_STRIPPED_LOG = register("stripped_ympe_log", new PillarBlock(copyOf(Blocks.STRIPPED_OAK_LOG)));
 	public static final Block YMPE_STRIPPED_WOOD = register("stripped_ympe_wood", new PillarBlock(copyOf(Blocks.STRIPPED_OAK_WOOD)));
@@ -45,12 +44,12 @@ public class ModBlocks {
 
 		@Override
 		protected @Nullable RegistryKey<ConfiguredFeature<?, ?>> getLargeTreeFeature(Random random) {
-			return RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, AylythUtil.id("big_ympe_tree"));
+			return ModConfiguredFeatureKeys.BIG_YMPE_TREE;
 		}
 
 		@Override
 		protected @Nullable RegistryKey<ConfiguredFeature<?, ?>> getTreeFeature(Random random, boolean bees) {
-			return RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, AylythUtil.id("ympe_tree"));
+			return ModConfiguredFeatureKeys.YMPE_TREE;
 		}
 	}, copyOf(Blocks.OAK_SAPLING)));
 	public static final Block YMPE_POTTED_SAPLING = register("potted_ympe_sapling", new FlowerPotBlock(YMPE_SAPLING, copyOf(Blocks.POTTED_OAK_SAPLING)));
@@ -67,7 +66,7 @@ public class ModBlocks {
 	public static final Block YMPE_WALL_SIGN = register("ympe_wall_sign", new TerraformWallSignBlock(AylythUtil.id("entity/signs/ympe"), copyOf(Blocks.OAK_WALL_SIGN).dropsLike(YMPE_SIGN)));
 	public static final TerraformHangingSignBlock YMPE_HANGING_SIGN = register("ympe_hanging_sign", new TerraformHangingSignBlock(AylythUtil.id("entity/signs/hanging/ympe"), AylythUtil.id("textures/gui/hanging_signs/ympe"), copyOf(Blocks.OAK_HANGING_SIGN)));
 	public static final Block YMPE_WALL_HANGING_SIGN = register("ympe_wall_hanging_sign", new TerraformWallHangingSignBlock(AylythUtil.id("entity/signs/hanging/ympe"), AylythUtil.id("textures/gui/hanging_signs/ympe"), copyOf(Blocks.OAK_HANGING_SIGN).dropsLike(YMPE_HANGING_SIGN)));
-	public static final Block YMPE_LEAVES = register("ympe_leaves", BlocksAccessor.callCreateLeavesBlock(BlockSoundGroup.GRASS));
+	public static final Block YMPE_LEAVES = register("ympe_leaves", new LeavesBlock(copyOf(Blocks.OAK_LEAVES).mapColor(MapColor.ORANGE)));
 	public static final Block FRUIT_BEARING_YMPE_LOG = register("fruit_bearing_ympe_log", new FruitBearingYmpeLogBlock(copyOf(ModBlocks.YMPE_LOG)));
 
 	public static final Block POMEGRANATE_STRIPPED_LOG = register("stripped_pomegranate_log", new PillarBlock(copyOf(Blocks.STRIPPED_OAK_LOG)));
@@ -79,7 +78,7 @@ public class ModBlocks {
 		@Nullable
 		@Override
 		protected RegistryKey<ConfiguredFeature<?, ?>> getTreeFeature(Random random, boolean bees) {
-			return RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, AylythUtil.id("pomegranate_tree"));
+			return ModConfiguredFeatureKeys.POMEGRANATE_TREE;
 		}
 	}, copyOf(Blocks.OAK_SAPLING)));
 	public static final Block POMEGRANATE_POTTED_SAPLING = register("potted_pomegranate_sapling", new FlowerPotBlock(POMEGRANATE_SAPLING, copyOf(Blocks.POTTED_OAK_SAPLING)));
@@ -107,7 +106,7 @@ public class ModBlocks {
 		@Nullable
 		@Override
 		protected RegistryKey<ConfiguredFeature<?, ?>> getTreeFeature(Random random, boolean bees) {
-			return RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, AylythUtil.id("writhewood_tree"));
+			return ModConfiguredFeatureKeys.WRITHEWOOD_TREE;
 		}
 	}, copyOf(Blocks.OAK_SAPLING)));
 	public static final Block WRITHEWOOD_POTTED_SAPLING = register("potted_writhewood_sapling", new FlowerPotBlock(WRITHEWOOD_SAPLING, copyOf(Blocks.POTTED_OAK_SAPLING)));
@@ -124,14 +123,14 @@ public class ModBlocks {
 	public static final Block WRITHEWOOD_WALL_SIGN = register("writhewood_wall_sign", new TerraformWallSignBlock(AylythUtil.id("entity/signs/writhewood"), copyOf(Blocks.OAK_WALL_SIGN).dropsLike(WRITHEWOOD_SIGN)));
 	public static final TerraformHangingSignBlock WRITHEWOOD_HANGING_SIGN = register("writhewood_hanging_sign", new TerraformHangingSignBlock(AylythUtil.id("entity/signs/hanging/writhewood"), AylythUtil.id("textures/gui/hanging_signs/writhewood"), copyOf(Blocks.OAK_HANGING_SIGN)));
 	public static final Block WRITHEWOOD_WALL_HANGING_SIGN = register("writhewood_wall_hanging_sign", new TerraformWallHangingSignBlock(AylythUtil.id("entity/signs/hanging/writhewood"), AylythUtil.id("textures/gui/hanging_signs/writhewood"), copyOf(Blocks.OAK_HANGING_SIGN).dropsLike(WRITHEWOOD_HANGING_SIGN)));
-	public static final Block WRITHEWOOD_LEAVES = register("writhewood_leaves", BlocksAccessor.callCreateLeavesBlock(BlockSoundGroup.GRASS));
+	public static final Block WRITHEWOOD_LEAVES = register("writhewood_leaves", new LeavesBlock(copyOf(Blocks.OAK_LEAVES).mapColor(MapColor.ORANGE)));
 
 	public static final Block SEEPING_WOOD = register("seeping_wood", new PillarBlock(copyOf(Blocks.OAK_WOOD)));
 	public static final Block GIRASOL_SAPLING = register("girasol_sapling", new GirasolSaplingBlock(new SaplingGenerator() {
 		@Nullable
 		@Override
 		protected RegistryKey<ConfiguredFeature<?, ?>> getTreeFeature(Random random, boolean bees) {
-			return RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, AylythUtil.id("seeping_tree"));
+			return ModConfiguredFeatureKeys.GIRASOL_TREE;
 		}
 	}, copyOf(Blocks.OAK_SAPLING)));
 	public static final Block GIRASOL_SAPLING_POTTED = register("potted_girasol_sapling", new FlowerPotBlock(GIRASOL_SAPLING, copyOf(Blocks.FLOWER_POT)));
