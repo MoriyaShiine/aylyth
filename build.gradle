@@ -170,8 +170,8 @@ dependencies {
 
     // Testing compat
     // runtimeOnly 'com.github.JOML-CI:JOML:1.10.5'
-    // modRuntimeOnly "com.github.CaffeineMC:sodium-fabric:mc1.20.1-0.5.8"
-    // modRuntimeOnly "curse.maven:iris-455508:5095005"
+    modRuntimeOnly "maven.modrinth:sodium:mc1.20.1-0.5.8"
+    modCompileOnly "maven.modrinth:iris:1.6.17+1.20.1"
 
     // Trinkets
     modImplementation "dev.emi:trinkets:${trinkets_version}"
