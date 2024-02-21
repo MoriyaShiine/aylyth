@@ -28,7 +28,7 @@ public class SoulHearthBlockEntityRenderer implements BlockEntityRenderer<SoulHe
                 matrices.push();
                 matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees((90 + (180 * i)) % 360));
                 matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(90 * i));
-                MinecraftClient.getInstance().getItemRenderer().renderItem(ModItems.POMEGRANATE.getDefaultStack(), ModelTransformationMode.FIXED, light, overlay, matrices, vertexConsumers, null, 0);
+                MinecraftClient.getInstance().getItemRenderer().renderItem(ModItems.POMEGRANATE.getDefaultStack(), ModelTransformationMode.FIXED, light, overlay, matrices, vertexConsumers, entity.getWorld(), 0);
                 matrices.pop();
             }
         }
