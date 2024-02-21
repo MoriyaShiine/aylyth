@@ -12,7 +12,7 @@ group = project.maven_group
 
 loom {
     splitEnvironmentSourceSets()
-    accessWidenerPath = file("src/main/resources/aylyth.accesswidener")
+    accessWidenerPath.set(file("src/main/resources/aylyth.accesswidener"))
 	
 	runs {
         client {
@@ -32,7 +32,7 @@ loom {
 			vmArg "-Dfabric-api.datagen.output-dir=${file("src/main/generated")}"
 //			vmArg "-Dfabric-api.datagen.strict-validation"
 
-			runDir "build/datagen"
+			runDir "run"
 		}
 	}
 
