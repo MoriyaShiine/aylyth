@@ -25,7 +25,6 @@ import net.minecraft.world.biome.Biome;
 
 public class AylythDimensionRenderer {
 	public static final DimensionEffects DIMENSION_EFFECTS = new AylythDimensionEffects();
-	public static final DimensionRenderingRegistry.SkyRenderer SKY_RENDERER = new AylythSkyRenderer();
 	public static final Identifier SUN = new Identifier(Aylyth.MOD_ID, "textures/environment/sun.png");
 	public static final Identifier MOON = new Identifier(Aylyth.MOD_ID, "textures/environment/moon.png");
 	public static int goalFogStrength = 0;
@@ -84,86 +83,82 @@ public class AylythDimensionRenderer {
 	}
 
 	// [VanillaCopy] WorldRenderer::renderSky
-	private static class AylythSkyRenderer implements DimensionRenderingRegistry.SkyRenderer {
-
-		@Override
-		public void render(WorldRenderContext context) {
-			ClientWorld world = context.world();
-			Camera camera = context.camera();
-			float tickDelta = context.tickDelta();
-			var renderer = (WorldRendererAccessor) context.worldRenderer();
-			VertexBuffer lightSkyBuffer = renderer.getLightSkyBuffer();
-			VertexBuffer starsBuffer = renderer.getStarsBuffer();
-			MatrixStack matrices = context.matrixStack();
-			var matrix4f = context.projectionMatrix();
-			Vec3d vec3d = world.getSkyColor(camera.getPos(), tickDelta);
-			float skyRed = (float) vec3d.x;
-			float skyGreen = (float) vec3d.y;
-			float skyBlue = (float) vec3d.z;
-			BackgroundRenderer.setFogBlack();
-			BufferBuilder bufferBuilder = Tessellator.getInstance().getBuffer();
-			RenderSystem.depthMask(false);
-			RenderSystem.setShaderColor(skyRed, skyGreen, skyBlue, 1.0F);
-			ShaderProgram shader = RenderSystem.getShader();
-			lightSkyBuffer.bind();
-			lightSkyBuffer.draw(matrices.peek().getPositionMatrix(), matrix4f, shader);
-			VertexBuffer.unbind();
-			RenderSystem.enableBlend();
-			RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
+	public static void renderSky(WorldRenderContext context) {
+		ClientWorld world = context.world();
+		Camera camera = context.camera();
+		float tickDelta = context.tickDelta();
+		var renderer = (WorldRendererAccessor) context.worldRenderer();
+		VertexBuffer lightSkyBuffer = renderer.getLightSkyBuffer();
+		VertexBuffer starsBuffer = renderer.getStarsBuffer();
+		MatrixStack matrices = context.matrixStack();
+		var matrix4f = context.projectionMatrix();
+		Vec3d vec3d = world.getSkyColor(camera.getPos(), tickDelta);
+		float skyRed = (float) vec3d.x;
+		float skyGreen = (float) vec3d.y;
+		float skyBlue = (float) vec3d.z;
+		BackgroundRenderer.setFogBlack();
+		BufferBuilder bufferBuilder = Tessellator.getInstance().getBuffer();
+		RenderSystem.depthMask(false);
+		RenderSystem.setShaderColor(skyRed, skyGreen, skyBlue, 1.0F);
+		ShaderProgram shader = RenderSystem.getShader();
+		lightSkyBuffer.bind();
+		lightSkyBuffer.draw(matrices.peek().getPositionMatrix(), matrix4f, shader);
+		VertexBuffer.unbind();
+		RenderSystem.enableBlend();
+		RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
+		matrices.push();
+		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 0);
+		matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-90.0F));
+		matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(world.getSkyAngle(tickDelta) * 360.0F));
+		matrices.translate(0, -80, 0);
+		var positionMatrix = matrices.peek().getPositionMatrix();
+		float celestialSize = 13.0F;
+		RenderSystem.setShader(GameRenderer::getPositionTexProgram);
+		RenderSystem.setShaderTexture(0, SUN);
+		bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
+		bufferBuilder.vertex(positionMatrix, -celestialSize, 100.0F, -celestialSize).texture(0.0F, 0.0F).next();
+		bufferBuilder.vertex(positionMatrix, celestialSize, 100.0F, -celestialSize).texture(0.0F, 1.0F).next();
+		bufferBuilder.vertex(positionMatrix, celestialSize, 100.0F, celestialSize).texture(1.0F, 1.0F).next();
+		bufferBuilder.vertex(positionMatrix, -celestialSize, 100.0F, celestialSize).texture(1.0F, 0.0F).next();
+		BufferRenderer.drawWithGlobalProgram(bufferBuilder.end());
+		matrices.translate(0, 160, 0);
+		RenderSystem.setShaderTexture(0, MOON);
+		bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
+		bufferBuilder.vertex(positionMatrix, -celestialSize, -100.0F, celestialSize).texture(0.0F, 0.0F).next();
+		bufferBuilder.vertex(positionMatrix, celestialSize, -100.0F, celestialSize).texture(0.0F, 1.0F).next();
+		bufferBuilder.vertex(positionMatrix, celestialSize, -100.0F, -celestialSize).texture(1.0F, 1.0F).next();
+		bufferBuilder.vertex(positionMatrix, -celestialSize, -100.0F, -celestialSize).texture(1.0F, 0.0F).next();
+		BufferRenderer.drawWithGlobalProgram(bufferBuilder.end());
+		float starPower = world.method_23787(tickDelta);
+		if (starPower > 0.0F) {
 			matrices.push();
-			RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 0);
 			matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-90.0F));
 			matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(world.getSkyAngle(tickDelta) * 360.0F));
-			matrices.translate(0, -80, 0);
-			var positionMatrix = matrices.peek().getPositionMatrix();
-			float celestialSize = 13.0F;
-			RenderSystem.setShader(GameRenderer::getPositionTexProgram);
-			RenderSystem.setShaderTexture(0, SUN);
-			bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
-			bufferBuilder.vertex(positionMatrix, -celestialSize, 100.0F, -celestialSize).texture(0.0F, 0.0F).next();
-			bufferBuilder.vertex(positionMatrix, celestialSize, 100.0F, -celestialSize).texture(0.0F, 1.0F).next();
-			bufferBuilder.vertex(positionMatrix, celestialSize, 100.0F, celestialSize).texture(1.0F, 1.0F).next();
-			bufferBuilder.vertex(positionMatrix, -celestialSize, 100.0F, celestialSize).texture(1.0F, 0.0F).next();
-			BufferRenderer.drawWithGlobalProgram(bufferBuilder.end());
-			matrices.translate(0, 160, 0);
-			RenderSystem.setShaderTexture(0, MOON);
-			bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
-			bufferBuilder.vertex(positionMatrix, -celestialSize, -100.0F, celestialSize).texture(0.0F, 0.0F).next();
-			bufferBuilder.vertex(positionMatrix, celestialSize, -100.0F, celestialSize).texture(0.0F, 1.0F).next();
-			bufferBuilder.vertex(positionMatrix, celestialSize, -100.0F, -celestialSize).texture(1.0F, 1.0F).next();
-			bufferBuilder.vertex(positionMatrix, -celestialSize, -100.0F, -celestialSize).texture(1.0F, 0.0F).next();
-			BufferRenderer.drawWithGlobalProgram(bufferBuilder.end());
-			float starPower = world.method_23787(tickDelta);
-			if (starPower > 0.0F) {
-				matrices.push();
-				matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-90.0F));
-				matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(world.getSkyAngle(tickDelta) * 360.0F));
-				matrices.scale(0.1f, 0.1f, 0.1f);
-				RenderSystem.setShaderColor(starPower, starPower, starPower, starPower);
-				BackgroundRenderer.clearFog();
-				starsBuffer.bind();
-				starsBuffer.draw(matrices.peek().getPositionMatrix(), matrix4f, GameRenderer.getPositionProgram());
-				VertexBuffer.unbind();
-				matrices.pop();
-			}
-
-			RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-			RenderSystem.disableBlend();
-			RenderSystem.defaultBlendFunc();
+			matrices.scale(0.1f, 0.1f, 0.1f);
+			RenderSystem.setShaderColor(starPower, starPower, starPower, starPower);
+			BackgroundRenderer.clearFog();
+			starsBuffer.bind();
+			starsBuffer.draw(matrices.peek().getPositionMatrix(), matrix4f, GameRenderer.getPositionProgram());
+			VertexBuffer.unbind();
 			matrices.pop();
-			RenderSystem.setShaderColor(0.0F, 0.0F, 0.0F, 1.0F);
-			double d = MinecraftClient.getInstance().player.getCameraPosVec(tickDelta).y - world.getLevelProperties().getSkyDarknessHeight(world);
-			if (d < 0.0) {
-				matrices.push();
-				matrices.translate(0.0F, 12.0F, 0.0F);
-				renderer.getDarkSkyBuffer().bind();
-				renderer.getDarkSkyBuffer().draw(matrices.peek().getPositionMatrix(), matrix4f, shader);
-				VertexBuffer.unbind();
-				matrices.pop();
-			}
-
-			RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-			RenderSystem.depthMask(true);
 		}
+
+		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+		RenderSystem.disableBlend();
+		RenderSystem.defaultBlendFunc();
+		matrices.pop();
+		RenderSystem.setShaderColor(0.0F, 0.0F, 0.0F, 1.0F);
+		double d = MinecraftClient.getInstance().player.getCameraPosVec(tickDelta).y - world.getLevelProperties().getSkyDarknessHeight(world);
+		if (d < 0.0) {
+			matrices.push();
+			matrices.translate(0.0F, 12.0F, 0.0F);
+			renderer.getDarkSkyBuffer().bind();
+			renderer.getDarkSkyBuffer().draw(matrices.peek().getPositionMatrix(), matrix4f, shader);
+			VertexBuffer.unbind();
+			matrices.pop();
+		}
+
+		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+		RenderSystem.depthMask(true);
 	}
 }

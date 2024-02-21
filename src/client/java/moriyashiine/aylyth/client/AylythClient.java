@@ -84,7 +84,7 @@ public class AylythClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		DimensionRenderingRegistry.registerDimensionEffects(ModDimensionKeys.AYLYTH.getValue(), AylythDimensionRenderer.DIMENSION_EFFECTS);
-		DimensionRenderingRegistry.registerSkyRenderer(ModDimensionKeys.AYLYTH, AylythDimensionRenderer.SKY_RENDERER);
+		DimensionRenderingRegistry.registerSkyRenderer(ModDimensionKeys.AYLYTH, AylythDimensionRenderer::renderSky);
 		DimensionRenderingRegistry.registerCloudRenderer(ModDimensionKeys.AYLYTH, context -> {});
 
 		ClientPlayNetworking.registerGlobalReceiver(AylythPacketTypes.SHUCK_PARTICLES_PACKET, AylythClientNetworkHandler::handleSpawnShuckParticles);
