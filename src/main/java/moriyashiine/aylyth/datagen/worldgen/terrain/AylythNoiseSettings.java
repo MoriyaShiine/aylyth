@@ -1,14 +1,12 @@
 package moriyashiine.aylyth.datagen.worldgen.terrain;
 
-import moriyashiine.aylyth.common.Aylyth;
+import moriyashiine.aylyth.common.registry.key.ModDimensionKeys;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryEntryLookup;
-import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.noise.DoublePerlinNoiseSampler;
 import net.minecraft.world.biome.source.util.MultiNoiseUtil;
 import net.minecraft.world.gen.chunk.ChunkGeneratorSettings;
@@ -18,16 +16,15 @@ import net.minecraft.world.gen.noise.NoiseRouter;
 
 import java.util.List;
 
+import static moriyashiine.aylyth.common.registry.key.ModDensityFunctionKeys.*;
+import static moriyashiine.aylyth.common.registry.key.ModNoiseKeys.*;
 import static moriyashiine.aylyth.datagen.worldgen.terrain.AylythDensityFunctions.*;
-import static moriyashiine.aylyth.datagen.worldgen.terrain.AylythNoiseTypes.*;
 import static net.minecraft.world.gen.densityfunction.DensityFunctionTypes.*;
 
 public class AylythNoiseSettings {
 
-    public static final RegistryKey<ChunkGeneratorSettings> AYLYTH = RegistryKey.of(RegistryKeys.CHUNK_GENERATOR_SETTINGS, new Identifier(Aylyth.MOD_ID, "aylyth_settings"));
-
     public static void bootstrap(Registerable<ChunkGeneratorSettings> context) {
-        context.register(AYLYTH, createSettings(context.getRegistryLookup(RegistryKeys.DENSITY_FUNCTION), context.getRegistryLookup(RegistryKeys.NOISE_PARAMETERS)));
+        context.register(ModDimensionKeys.AYLYTH_CHUNK_GEN_SETTINGS, createSettings(context.getRegistryLookup(RegistryKeys.DENSITY_FUNCTION), context.getRegistryLookup(RegistryKeys.NOISE_PARAMETERS)));
     }
 
     static ChunkGeneratorSettings createSettings(RegistryEntryLookup<DensityFunction> functions, RegistryEntryLookup<DoublePerlinNoiseSampler.NoiseParameters> noiseParameters) {

@@ -1,6 +1,7 @@
 package moriyashiine.aylyth.datagen.worldgen.features;
 
 import moriyashiine.aylyth.common.registry.ModBlocks;
+import moriyashiine.aylyth.common.registry.key.ModConfiguredFeatureKeys;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.registry.Registerable;
@@ -11,114 +12,62 @@ import net.minecraft.world.gen.feature.PlacedFeature;
 import net.minecraft.world.gen.feature.PlacedFeatures;
 import net.minecraft.world.gen.placementmodifier.*;
 
+import static moriyashiine.aylyth.common.registry.key.ModPlacedFeatureKeys.*;
+
 import java.util.List;
 
 public class ModPlacedFeatures {
 
     private static final PlacementModifier NOT_IN_SURFACE_WATER_MODIFIER = SurfaceWaterDepthFilterPlacementModifier.of(0);
 
-    public static final RegistryKey<PlacedFeature> AYLYTHIAN_DARK_OAK = RegistryKey.of(RegistryKeys.PLACED_FEATURE, AylythUtil.id("aylythian_dark_oak"));
-    public static final RegistryKey<PlacedFeature> AYLYTHIAN_MEGA_DARK_OAK = RegistryKey.of(RegistryKeys.PLACED_FEATURE, AylythUtil.id("aylythian_mega_dark_oak"));
-    public static final RegistryKey<PlacedFeature> YMPE_TREE = RegistryKey.of(RegistryKeys.PLACED_FEATURE, AylythUtil.id("ympe_tree"));
-    public static final RegistryKey<PlacedFeature> BIG_YMPE_TREE = RegistryKey.of(RegistryKeys.PLACED_FEATURE, AylythUtil.id("big_ympe_tree"));
-    public static final RegistryKey<PlacedFeature> POMEGRANATE_TREE = RegistryKey.of(RegistryKeys.PLACED_FEATURE, AylythUtil.id("pomegranate_tree"));
-    public static final RegistryKey<PlacedFeature> WRITHEWOOD_TREE = RegistryKey.of(RegistryKeys.PLACED_FEATURE, AylythUtil.id("writhewood_tree"));
-
-    public static final RegistryKey<PlacedFeature> SPRING = RegistryKey.of(RegistryKeys.PLACED_FEATURE, AylythUtil.id("spring"));
-    public static final RegistryKey<PlacedFeature> BUSHES = RegistryKey.of(RegistryKeys.PLACED_FEATURE, AylythUtil.id("bushes"));
-    public static final RegistryKey<PlacedFeature> OAK_LEAF_PILE = RegistryKey.of(RegistryKeys.PLACED_FEATURE, AylythUtil.id("oak_leaf_pile"));
-    public static final RegistryKey<PlacedFeature> YMPE_LEAF_PILE = RegistryKey.of(RegistryKeys.PLACED_FEATURE, AylythUtil.id("ympe_leaf_pile"));
-    public static final RegistryKey<PlacedFeature> OAK_STREWN_LEAVES = RegistryKey.of(RegistryKeys.PLACED_FEATURE, AylythUtil.id("oak_strewn_leaves"));
-    public static final RegistryKey<PlacedFeature> YMPE_STREWN_LEAVES = RegistryKey.of(RegistryKeys.PLACED_FEATURE, AylythUtil.id("ympe_strewn_leaves"));
-    public static final RegistryKey<PlacedFeature> AYLYTH_WEEDS = RegistryKey.of(RegistryKeys.PLACED_FEATURE, AylythUtil.id("aylyth_weeds"));
-    public static final RegistryKey<PlacedFeature> MARIGOLDS = RegistryKey.of(RegistryKeys.PLACED_FEATURE, AylythUtil.id("marigolds"));
-    public static final RegistryKey<PlacedFeature> SHELF_JACK_O_LANTERN_MUSHROOMS = RegistryKey.of(RegistryKeys.PLACED_FEATURE, AylythUtil.id("shelf_jack_o_lantern_mushrooms"));
-    public static final RegistryKey<PlacedFeature> ANTLER_SHOOTS_WATER = RegistryKey.of(RegistryKeys.PLACED_FEATURE, AylythUtil.id("antler_shoots_water"));
-    public static final RegistryKey<PlacedFeature> ANTLER_SHOOTS = RegistryKey.of(RegistryKeys.PLACED_FEATURE, AylythUtil.id("antler_shoots"));
-    public static final RegistryKey<PlacedFeature> SMALL_WOODY_GROWTH_WATER = RegistryKey.of(RegistryKeys.PLACED_FEATURE, AylythUtil.id("small_woody_growth_water"));
-    public static final RegistryKey<PlacedFeature> LARGE_WOODY_GROWTH_WATER = RegistryKey.of(RegistryKeys.PLACED_FEATURE, AylythUtil.id("large_woody_growth_water"));
-
-    public static final RegistryKey<PlacedFeature> OAK_SEEP = RegistryKey.of(RegistryKeys.PLACED_FEATURE, AylythUtil.id("oak_seep"));
-    public static final RegistryKey<PlacedFeature> SPRUCE_SEEP = RegistryKey.of(RegistryKeys.PLACED_FEATURE, AylythUtil.id("spruce_seep"));
-    public static final RegistryKey<PlacedFeature> DARK_OAK_SEEP = RegistryKey.of(RegistryKeys.PLACED_FEATURE, AylythUtil.id("dark_oak_seep"));
-    public static final RegistryKey<PlacedFeature> YMPE_SEEP = RegistryKey.of(RegistryKeys.PLACED_FEATURE, AylythUtil.id("ympe_seep"));
-
-    public static final RegistryKey<PlacedFeature> DEEP_ROOF_TREES_PLACED = RegistryKey.of(RegistryKeys.PLACED_FEATURE, AylythUtil.id("deep_roof_trees"));
-    public static final RegistryKey<PlacedFeature> CONIFEROUS_DEEP_ROOF_TREES_PLACED = RegistryKey.of(RegistryKeys.PLACED_FEATURE, AylythUtil.id("coniferous_deep_roof_trees"));
-    public static final RegistryKey<PlacedFeature> COPSE_TREES_PLACED = RegistryKey.of(RegistryKeys.PLACED_FEATURE, AylythUtil.id("copse_trees"));
-    public static final RegistryKey<PlacedFeature> DEEPWOOD_TREES_PLACED = RegistryKey.of(RegistryKeys.PLACED_FEATURE, AylythUtil.id("deepwood_trees"));
-    public static final RegistryKey<PlacedFeature> CONIFEROUS_COPSE_TREES_PLACED = RegistryKey.of(RegistryKeys.PLACED_FEATURE, AylythUtil.id("coniferous_copse_trees"));
-    public static final RegistryKey<PlacedFeature> CONIFEROUS_DEEPWOOD_TREES_PLACED = RegistryKey.of(RegistryKeys.PLACED_FEATURE, AylythUtil.id("coniferous_deepwood_trees"));
-    public static final RegistryKey<PlacedFeature> OVERGROWTH_CLEARING_TREES_PLACED = RegistryKey.of(RegistryKeys.PLACED_FEATURE, AylythUtil.id("overgrowth_clearing_trees"));
-    public static final RegistryKey<PlacedFeature> MIRE_WATER_TREES_PLACED = RegistryKey.of(RegistryKeys.PLACED_FEATURE, AylythUtil.id("mire_water_trees"));
-    public static final RegistryKey<PlacedFeature> MIRE_LAND_TREES_PLACED = RegistryKey.of(RegistryKeys.PLACED_FEATURE, AylythUtil.id("mire_land_trees"));
-
-    public static final RegistryKey<PlacedFeature> RED_MUSHROOM_PATCHES_PLACED = RegistryKey.of(RegistryKeys.PLACED_FEATURE, AylythUtil.id("red_mushroom_patch"));
-    public static final RegistryKey<PlacedFeature> BROWN_MUSHROOM_PATCHES_PLACED = RegistryKey.of(RegistryKeys.PLACED_FEATURE, AylythUtil.id("brown_mushroom_patch"));
-    public static final RegistryKey<PlacedFeature> RED_MUSHROOM_PATCHES_DEEPWOOD_PLACED = RegistryKey.of(RegistryKeys.PLACED_FEATURE, AylythUtil.id("red_mushroom_patch_deepwood"));
-    public static final RegistryKey<PlacedFeature> BROWN_MUSHROOM_PATCHES_DEEPWOOD_PLACED = RegistryKey.of(RegistryKeys.PLACED_FEATURE, AylythUtil.id("brown_mushroom_patch_deepwood"));
-    public static final RegistryKey<PlacedFeature> GLOW_LICHEN_PLACED = RegistryKey.of(RegistryKeys.PLACED_FEATURE, AylythUtil.id("glow_lichen"));
-    public static final RegistryKey<PlacedFeature> SHELF_JACK_O_LANTERN_MUSHROOM_PATCHES_COMMON_PLACED = RegistryKey.of(RegistryKeys.PLACED_FEATURE, AylythUtil.id("shelf_jack_o_lantern_mushroom_common_patch"));
-    public static final RegistryKey<PlacedFeature> SHELF_JACK_O_LANTERN_MUSHROOM_PATCHES_DEEPWOOD_PLACED = RegistryKey.of(RegistryKeys.PLACED_FEATURE, AylythUtil.id("shelf_jack_o_lantern_mushroom_deepwood_patch"));
-    public static final RegistryKey<PlacedFeature> GHOSTCAP_MUSHROOM_PATCHES_PLACED = RegistryKey.of(RegistryKeys.PLACED_FEATURE, AylythUtil.id("ghostcap_mushroom_patch"));
-    public static final RegistryKey<PlacedFeature> POMEGRANATE_TREE_VEG_PLACED = RegistryKey.of(RegistryKeys.PLACED_FEATURE, AylythUtil.id("pomegranate_tree_placed"));
-    public static final RegistryKey<PlacedFeature> WOODY_GROWTH_PATCH_PLACED = RegistryKey.of(RegistryKeys.PLACED_FEATURE, AylythUtil.id("woody_growth_patch"));
-    public static final RegistryKey<PlacedFeature> WOODY_GROWTH_BOWELS_PATCH_PLACED = RegistryKey.of(RegistryKeys.PLACED_FEATURE, AylythUtil.id("woody_growth_bowels_patch"));
-    public static final RegistryKey<PlacedFeature> STREWN_LEAVES_PATCH_PLACED = RegistryKey.of(RegistryKeys.PLACED_FEATURE, AylythUtil.id("strewn_leaves_patch"));
-    public static final RegistryKey<PlacedFeature> ANTLER_SHOOTS_WATER_PATCH_PLACED = RegistryKey.of(RegistryKeys.PLACED_FEATURE, AylythUtil.id("antler_shoots_water_patch"));
-    public static final RegistryKey<PlacedFeature> ANTLER_SHOOTS_PATCH_PLACED = RegistryKey.of(RegistryKeys.PLACED_FEATURE, AylythUtil.id("antler_shoots_patch"));
-    public static final RegistryKey<PlacedFeature> WOODY_GROWTHS_WATER_SELECTOR_PLACED = RegistryKey.of(RegistryKeys.PLACED_FEATURE, AylythUtil.id("woody_growth_water_selector"));
-
-    public static final RegistryKey<PlacedFeature> WOODY_GROWTH_WATER_PATCH_PLACED = RegistryKey.of(RegistryKeys.PLACED_FEATURE, AylythUtil.id("woody_growth_water_patch"));
-
     public static void bootstrap(Registerable<PlacedFeature> context) {
         var features = context.getRegistryLookup(RegistryKeys.CONFIGURED_FEATURE);
 
-        var aylythianDarkOak = features.getOrThrow(ModConfiguredFeatures.AYLYTHIAN_DARK_OAK);
-        var aylythianMegaDarkOak = features.getOrThrow(ModConfiguredFeatures.AYLYTHIAN_MEGA_DARK_OAK);
-        var ympe = features.getOrThrow(ModConfiguredFeatures.YMPE_TREE);
-        var bigYmpe = features.getOrThrow(ModConfiguredFeatures.BIG_YMPE_TREE);
-        var pomegranate = features.getOrThrow(ModConfiguredFeatures.POMEGRANATE_TREE);
-        var writhewood = features.getOrThrow(ModConfiguredFeatures.WRITHEWOOD_TREE);
-        var spring = features.getOrThrow(ModConfiguredFeatures.SPRING);
-        var bushes = features.getOrThrow(ModConfiguredFeatures.BUSHES);
-        var oakLeafPile = features.getOrThrow(ModConfiguredFeatures.OAK_LEAF_PILE);
-        var ympeLeafPile = features.getOrThrow(ModConfiguredFeatures.YMPE_LEAF_PILE);
-        var oakStrewnLeaves = features.getOrThrow(ModConfiguredFeatures.OAK_STREWN_LEAVES);
-        var ympeStrewnLeaves = features.getOrThrow(ModConfiguredFeatures.YMPE_STREWN_LEAVES);
-        var aylythWeeds = features.getOrThrow(ModConfiguredFeatures.AYLYTH_WEEDS);
-        var marigolds = features.getOrThrow(ModConfiguredFeatures.MARIGOLDS);
-        var shelfJackOlanternMushrooms = features.getOrThrow(ModConfiguredFeatures.SHELF_JACK_O_LANTERN_MUSHROOMS);
-        var antlerShootsWater = features.getOrThrow(ModConfiguredFeatures.ANTLER_SHOOTS_WATER);
-        var antlerShoots = features.getOrThrow(ModConfiguredFeatures.ANTLER_SHOOTS);
-        var smallWoodyGrowthWater = features.getOrThrow(ModConfiguredFeatures.SMALL_WOODY_GROWTH_WATER);
-        var largeWoodyGrowthWater = features.getOrThrow(ModConfiguredFeatures.LARGE_WOODY_GROWTH_WATER);
-        var oakSeep = features.getOrThrow(ModConfiguredFeatures.OAK_SEEP);
-        var spruceSeep = features.getOrThrow(ModConfiguredFeatures.SPRUCE_SEEP);
-        var darkOakSeep = features.getOrThrow(ModConfiguredFeatures.DARK_OAK_SEEP);
-        var ympeSeep = features.getOrThrow(ModConfiguredFeatures.YMPE_SEEP);
-        var deepRoofTrees = features.getOrThrow(ModConfiguredFeatures.DEEP_ROOF_TREES);
-        var coniferousDeepRoofTrees = features.getOrThrow(ModConfiguredFeatures.CONIFEROUS_DEEP_ROOF_TREES);
-        var copseTrees = features.getOrThrow(ModConfiguredFeatures.COPSE_TREES);
-        var deepWoodTrees = features.getOrThrow(ModConfiguredFeatures.DEEPWOOD_TREES);
-        var coniferousCopseTrees = features.getOrThrow(ModConfiguredFeatures.CONIFEROUS_COPSE_TREES);
-        var coniferousDeepWoodTrees = features.getOrThrow(ModConfiguredFeatures.CONIFEROUS_DEEPWOOD_TREES);
-        var overgrowthClearingTrees = features.getOrThrow(ModConfiguredFeatures.OVERGROWTH_CLEARING_TREES);
-        var mireWaterTrees = features.getOrThrow(ModConfiguredFeatures.MIRE_WATER_TREES);
-        var mireLandTrees = features.getOrThrow(ModConfiguredFeatures.MIRE_LAND_TREES);
-        var redMushroomPatches = features.getOrThrow(ModConfiguredFeatures.RED_MUSHROOM_PATCHES);
-        var brownMushroomPatches = features.getOrThrow(ModConfiguredFeatures.BROWN_MUSHROOM_PATCHES);
-        var glowLichen = features.getOrThrow(ModConfiguredFeatures.GLOW_LICHEN);
-        var shelfJackOLanternMushroomPatches = features.getOrThrow(ModConfiguredFeatures.SHELF_JACK_O_LANTERN_MUSHROOM_PATCHES);
-        var ghostcapMushroomPatches = features.getOrThrow(ModConfiguredFeatures.GHOSTCAP_MUSHROOM_PATCHES);
-        var pomegranateTree = features.getOrThrow(ModConfiguredFeatures.POMEGRANATE_TREE);
-        var woodyGrowthPatch = features.getOrThrow(ModConfiguredFeatures.WOODY_GROWTH_PATCH);
-        var woodyGrowthBowelsPatch = features.getOrThrow(ModConfiguredFeatures.WOODY_GROWTH_BOWELS_PATCH);
-        var strewnLeavesPatch = features.getOrThrow(ModConfiguredFeatures.STREWN_LEAVES_PATCH);
-        var antlerShootsWaterPatch = features.getOrThrow(ModConfiguredFeatures.ANTLER_SHOOTS_WATER_PATCH);
-        var antlerShootsPatch = features.getOrThrow(ModConfiguredFeatures.ANTLER_SHOOTS_PATCH);
-        var woodyGrowthsWaterSelector = features.getOrThrow(ModConfiguredFeatures.WOODY_GROWTHS_WATER_SELECTOR);
-        var woodyGrowthsWaterPatch = features.getOrThrow(ModConfiguredFeatures.WOODY_GROWTH_WATER_PATCH);
+        var aylythianDarkOak = features.getOrThrow(ModConfiguredFeatureKeys.AYLYTHIAN_DARK_OAK);
+        var aylythianMegaDarkOak = features.getOrThrow(ModConfiguredFeatureKeys.AYLYTHIAN_MEGA_DARK_OAK);
+        var ympe = features.getOrThrow(ModConfiguredFeatureKeys.YMPE_TREE);
+        var bigYmpe = features.getOrThrow(ModConfiguredFeatureKeys.BIG_YMPE_TREE);
+        var pomegranate = features.getOrThrow(ModConfiguredFeatureKeys.POMEGRANATE_TREE);
+        var writhewood = features.getOrThrow(ModConfiguredFeatureKeys.WRITHEWOOD_TREE);
+        var spring = features.getOrThrow(ModConfiguredFeatureKeys.SPRING);
+        var bushes = features.getOrThrow(ModConfiguredFeatureKeys.BUSHES);
+        var oakLeafPile = features.getOrThrow(ModConfiguredFeatureKeys.OAK_LEAF_PILE);
+        var ympeLeafPile = features.getOrThrow(ModConfiguredFeatureKeys.YMPE_LEAF_PILE);
+        var oakStrewnLeaves = features.getOrThrow(ModConfiguredFeatureKeys.OAK_STREWN_LEAVES);
+        var ympeStrewnLeaves = features.getOrThrow(ModConfiguredFeatureKeys.YMPE_STREWN_LEAVES);
+        var aylythWeeds = features.getOrThrow(ModConfiguredFeatureKeys.AYLYTH_WEEDS);
+        var marigolds = features.getOrThrow(ModConfiguredFeatureKeys.MARIGOLDS);
+        var shelfJackOlanternMushrooms = features.getOrThrow(ModConfiguredFeatureKeys.SHELF_JACK_O_LANTERN_MUSHROOMS);
+        var antlerShootsWater = features.getOrThrow(ModConfiguredFeatureKeys.ANTLER_SHOOTS_WATER);
+        var antlerShoots = features.getOrThrow(ModConfiguredFeatureKeys.ANTLER_SHOOTS);
+        var smallWoodyGrowthWater = features.getOrThrow(ModConfiguredFeatureKeys.SMALL_WOODY_GROWTH_WATER);
+        var largeWoodyGrowthWater = features.getOrThrow(ModConfiguredFeatureKeys.LARGE_WOODY_GROWTH_WATER);
+        var oakSeep = features.getOrThrow(ModConfiguredFeatureKeys.OAK_SEEP);
+        var spruceSeep = features.getOrThrow(ModConfiguredFeatureKeys.SPRUCE_SEEP);
+        var darkOakSeep = features.getOrThrow(ModConfiguredFeatureKeys.DARK_OAK_SEEP);
+        var ympeSeep = features.getOrThrow(ModConfiguredFeatureKeys.YMPE_SEEP);
+        var deepRoofTrees = features.getOrThrow(ModConfiguredFeatureKeys.DEEP_ROOF_TREES);
+        var coniferousDeepRoofTrees = features.getOrThrow(ModConfiguredFeatureKeys.CONIFEROUS_DEEP_ROOF_TREES);
+        var copseTrees = features.getOrThrow(ModConfiguredFeatureKeys.COPSE_TREES);
+        var deepWoodTrees = features.getOrThrow(ModConfiguredFeatureKeys.DEEPWOOD_TREES);
+        var coniferousCopseTrees = features.getOrThrow(ModConfiguredFeatureKeys.CONIFEROUS_COPSE_TREES);
+        var coniferousDeepWoodTrees = features.getOrThrow(ModConfiguredFeatureKeys.CONIFEROUS_DEEPWOOD_TREES);
+        var overgrowthClearingTrees = features.getOrThrow(ModConfiguredFeatureKeys.OVERGROWTH_CLEARING_TREES);
+        var mireWaterTrees = features.getOrThrow(ModConfiguredFeatureKeys.MIRE_WATER_TREES);
+        var mireLandTrees = features.getOrThrow(ModConfiguredFeatureKeys.MIRE_LAND_TREES);
+        var redMushroomPatches = features.getOrThrow(ModConfiguredFeatureKeys.RED_MUSHROOM_PATCHES);
+        var brownMushroomPatches = features.getOrThrow(ModConfiguredFeatureKeys.BROWN_MUSHROOM_PATCHES);
+        var glowLichen = features.getOrThrow(ModConfiguredFeatureKeys.GLOW_LICHEN);
+        var shelfJackOLanternMushroomPatches = features.getOrThrow(ModConfiguredFeatureKeys.SHELF_JACK_O_LANTERN_MUSHROOM_PATCHES);
+        var ghostcapMushroomPatches = features.getOrThrow(ModConfiguredFeatureKeys.GHOSTCAP_MUSHROOM_PATCHES);
+        var pomegranateTree = features.getOrThrow(ModConfiguredFeatureKeys.POMEGRANATE_TREE);
+        var woodyGrowthPatch = features.getOrThrow(ModConfiguredFeatureKeys.WOODY_GROWTH_PATCH);
+        var woodyGrowthBowelsPatch = features.getOrThrow(ModConfiguredFeatureKeys.WOODY_GROWTH_BOWELS_PATCH);
+        var strewnLeavesPatch = features.getOrThrow(ModConfiguredFeatureKeys.STREWN_LEAVES_PATCH);
+        var antlerShootsWaterPatch = features.getOrThrow(ModConfiguredFeatureKeys.ANTLER_SHOOTS_WATER_PATCH);
+        var antlerShootsPatch = features.getOrThrow(ModConfiguredFeatureKeys.ANTLER_SHOOTS_PATCH);
+        var woodyGrowthsWaterSelector = features.getOrThrow(ModConfiguredFeatureKeys.WOODY_GROWTHS_WATER_SELECTOR);
+        var woodyGrowthsWaterPatch = features.getOrThrow(ModConfiguredFeatureKeys.WOODY_GROWTH_WATER_PATCH);
 
         PlacedFeatures.register(context, AYLYTHIAN_DARK_OAK, aylythianDarkOak, List.of(PlacedFeatures.createCountExtraModifier(8, 0.25F, 2), PlacedFeatures.wouldSurvive(ModBlocks.YMPE_SAPLING), BiomePlacementModifier.of())); //decorate(Decorators.SQUARE_HEIGHTMAP_OCEAN_FLOOR_NO_WATER).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(8, 0.3F, 2)));
         PlacedFeatures.register(context, AYLYTHIAN_MEGA_DARK_OAK, aylythianMegaDarkOak, List.of(CountPlacementModifier.of(1), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, PlacedFeatures.wouldSurvive(ModBlocks.YMPE_SAPLING)));

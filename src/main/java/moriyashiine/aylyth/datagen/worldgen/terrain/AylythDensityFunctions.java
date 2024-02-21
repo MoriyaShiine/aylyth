@@ -1,45 +1,21 @@
 package moriyashiine.aylyth.datagen.worldgen.terrain;
 
-import moriyashiine.aylyth.common.Aylyth;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryEntryLookup;
-import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.noise.DoublePerlinNoiseSampler;
 import net.minecraft.util.math.noise.InterpolatedNoiseSampler;
 import net.minecraft.world.biome.source.util.VanillaTerrainParametersCreator;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.densityfunction.DensityFunction;
 
-import static moriyashiine.aylyth.datagen.worldgen.terrain.AylythNoiseTypes.*;
 import static net.minecraft.world.gen.densityfunction.DensityFunctionTypes.*;
 
+import static moriyashiine.aylyth.common.registry.key.ModDensityFunctionKeys.*;
+import static moriyashiine.aylyth.common.registry.key.ModNoiseKeys.*;
+
 public class AylythDensityFunctions {
-
-    public static final RegistryKey<DensityFunction> SHIFT_X_KEY = functionKey("shift_x");
-    public static final RegistryKey<DensityFunction> SHIFT_Z_KEY = functionKey("shift_z");
-    public static final RegistryKey<DensityFunction> RIDGES_FUNCTION_KEY = functionKey("ridges");
-    public static final RegistryKey<DensityFunction> RIDGES_FOLDED_FUNCTION_KEY = functionKey("ridges_folded");
-    public static final RegistryKey<DensityFunction> CONTINENTS_FUNCTION_KEY = functionKey("continents");
-    public static final RegistryKey<DensityFunction> EROSION_FUNCTION_KEY = functionKey("erosion");
-    public static final RegistryKey<DensityFunction> OFFSET_FUNCTION_KEY = functionKey("offset");
-    public static final RegistryKey<DensityFunction> FACTOR_FUNCTION_KEY = functionKey("factor");
-    public static final RegistryKey<DensityFunction> JAGGEDNESS_FUNCTION_KEY = functionKey("jaggedness");
-    public static final RegistryKey<DensityFunction> DEPTH_FUNCTION_KEY = functionKey("depth");
-    public static final RegistryKey<DensityFunction> SLOPED_CHEESE_FUNCTION_KEY = functionKey("sloped_cheese");
-    public static final RegistryKey<DensityFunction> Y_FUNCTION_KEY = functionKey("y");
-    public static final RegistryKey<DensityFunction> CAVES_SPAGHETTI_ROUGHNESS_FUNCTION_KEY = functionKey("caves/spaghetti_roughness");
-    public static final RegistryKey<DensityFunction> CAVES_SPAGHETTI_2D_THICKNESS_MODULATOR_FUNCTION_KEY = functionKey("caves/spaghetti_2d_thickness_modulator");
-    public static final RegistryKey<DensityFunction> CAVES_SPAGHETTI_2D_FUNCTION_KEY = functionKey("caves/spaghetti_2d");
-    public static final RegistryKey<DensityFunction> CAVES_NOODLE_FUNCTION_KEY = functionKey("caves/noodle");
-    public static final RegistryKey<DensityFunction> CAVES_PILLARS_FUNCTION_KEY = functionKey("caves/pillars");
-    public static final RegistryKey<DensityFunction> CAVES_ENTRANCES_FUNCTION_KEY = functionKey("caves/entrances");
-
-    private static RegistryKey<DensityFunction> functionKey(String id) {
-        return RegistryKey.of(RegistryKeys.DENSITY_FUNCTION, new Identifier(Aylyth.MOD_ID, id));
-    }
 
     public static void bootstrap(Registerable<DensityFunction> context) {
         var noiseParameters = context.getRegistryLookup(RegistryKeys.NOISE_PARAMETERS);

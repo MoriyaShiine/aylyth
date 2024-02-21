@@ -1,11 +1,8 @@
 package moriyashiine.aylyth.datagen.worldgen.features;
 
-import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.util.math.floatprovider.ConstantFloatProvider;
 import net.minecraft.util.math.floatprovider.TrapezoidFloatProvider;
@@ -14,10 +11,9 @@ import net.minecraft.world.gen.YOffset;
 import net.minecraft.world.gen.carver.*;
 import net.minecraft.world.gen.heightprovider.UniformHeightProvider;
 
-public class ModCarvers {
+import static moriyashiine.aylyth.common.registry.key.ModConfiguredCarverKeys.*;
 
-    public static final RegistryKey<ConfiguredCarver<?>> CAVES = RegistryKey.of(RegistryKeys.CONFIGURED_CARVER, AylythUtil.id("caves"));
-    public static final RegistryKey<ConfiguredCarver<?>> CANYONS = RegistryKey.of(RegistryKeys.CONFIGURED_CARVER, AylythUtil.id("canyons"));
+public class ModCarvers {
 
     public static void bootstrap(Registerable<ConfiguredCarver<?>> context) {
         context.register(CAVES, Carver.CAVE.configure(

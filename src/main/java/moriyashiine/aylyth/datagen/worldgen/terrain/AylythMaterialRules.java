@@ -1,6 +1,7 @@
 package moriyashiine.aylyth.datagen.worldgen.terrain;
 
 import moriyashiine.aylyth.common.registry.key.ModBiomeKeys;
+import moriyashiine.aylyth.common.registry.key.ModNoiseKeys;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.RegistryKey;
@@ -9,17 +10,14 @@ import net.minecraft.util.math.noise.DoublePerlinNoiseSampler;
 import net.minecraft.world.gen.YOffset;
 import net.minecraft.world.gen.surfacebuilder.MaterialRules;
 
-import static moriyashiine.aylyth.datagen.worldgen.terrain.AylythNoiseTypes.PODZOL_COMMON;
-import static moriyashiine.aylyth.datagen.worldgen.terrain.AylythNoiseTypes.PODZOL_RARE;
-
 public class AylythMaterialRules extends MaterialRules {
 
     static MaterialRule materialRules() {
         var dirt = block(Blocks.DIRT);
         var grass = block(Blocks.GRASS_BLOCK);
         var onReplaceWithGrass = condition(water(0, 0), grass);
-        var commonPodzol = podzol(PODZOL_COMMON, 0.3, Double.MAX_VALUE);
-        var rarePodzol = podzol(PODZOL_RARE, 0.95, Double.MAX_VALUE);
+        var commonPodzol = podzol(ModNoiseKeys.PODZOL_COMMON, 0.3, Double.MAX_VALUE);
+        var rarePodzol = podzol(ModNoiseKeys.PODZOL_RARE, 0.95, Double.MAX_VALUE);
         var podzolDecoCommon = sequence(condition(biome(ModBiomeKeys.DEEPWOOD, ModBiomeKeys.CONIFEROUS_DEEPWOOD), commonPodzol));
         var podzolDecoRare = condition(biome(ModBiomeKeys.COPSE, ModBiomeKeys.OVERGROWN_CLEARING), rarePodzol);
         var onSurface = condition(
@@ -52,7 +50,7 @@ public class AylythMaterialRules extends MaterialRules {
     }
 
     static MaterialRule bowels() {
-        return condition(biome(ModBiomeKeys.BOWELS), sequence(condition(stoneDepth(0, false, 0, VerticalSurfaceType.FLOOR), condition(water(0, 0), noiseBlock(AylythNoiseTypes.BOWELS_SOUL_SAND, Blocks.SOUL_SAND, 0.6, Double.MAX_VALUE))), condition(waterWithStoneDepth(-6, -1), condition(stoneDepth(0, true, 0, VerticalSurfaceType.FLOOR), block(Blocks.SOUL_SOIL)))));
+        return condition(biome(ModBiomeKeys.BOWELS), sequence(condition(stoneDepth(0, false, 0, VerticalSurfaceType.FLOOR), condition(water(0, 0), noiseBlock(ModNoiseKeys.BOWELS_SOUL_SAND, Blocks.SOUL_SAND, 0.6, Double.MAX_VALUE))), condition(waterWithStoneDepth(-6, -1), condition(stoneDepth(0, true, 0, VerticalSurfaceType.FLOOR), block(Blocks.SOUL_SOIL)))));
     }
 
     static MaterialRule podzol(RegistryKey<DoublePerlinNoiseSampler.NoiseParameters> noise, double min, double max) {
@@ -64,7 +62,7 @@ public class AylythMaterialRules extends MaterialRules {
     }
 
     static MaterialRule surfaceNoiseBlock(Block block, double min, double max) {
-        return condition(noiseThreshold(AylythNoiseTypes.SURFACE, min, max), block(block));
+        return condition(noiseThreshold(ModNoiseKeys.SURFACE, min, max), block(block));
     }
 
     static MaterialRule block(Block block) {

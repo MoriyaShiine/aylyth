@@ -4,10 +4,10 @@ import com.chocohead.mm.api.ClassTinkerers;
 import moriyashiine.aylyth.common.registry.ModEntityTypes;
 import moriyashiine.aylyth.common.registry.ModParticles;
 import moriyashiine.aylyth.common.registry.ModSoundEvents;
+import moriyashiine.aylyth.common.registry.key.ModConfiguredCarverKeys;
+import moriyashiine.aylyth.common.registry.key.ModPlacedFeatureKeys;
 import moriyashiine.aylyth.datagen.worldgen.biomes.util.BiomeBuilder;
 import moriyashiine.aylyth.datagen.worldgen.biomes.util.SpawnSettingsBuilder;
-import moriyashiine.aylyth.datagen.worldgen.features.ModCarvers;
-import moriyashiine.aylyth.datagen.worldgen.features.ModPlacedFeatures;
 import net.minecraft.entity.EntityType;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.Registerable;
@@ -122,15 +122,15 @@ public class ModBiomes {
 							.add(ModBiomes::addLandCarversNotLavaLakes)
 							.add(ModBiomes::addBasicVanillaOres)
 							.vegetalDecoFeature(VegetationPlacedFeatures.PATCH_GRASS_PLAIN)
-							.vegetalDecoFeature(ModPlacedFeatures.POMEGRANATE_TREE_VEG_PLACED)
+							.vegetalDecoFeature(ModPlacedFeatureKeys.POMEGRANATE_TREE_VEG_PLACED)
 							.add(ModBiomes::addMarigolds)
 							.add(ModBiomes::addWaterSprings)
 							.add(DefaultBiomeFeatures::addFrozenTopLayer);
 					if (overgrown) {
-						generationSettingsBuilder.lakesFeature(ModPlacedFeatures.SPRING)
-								.vegetalDecoFeature(ModPlacedFeatures.SPRUCE_SEEP)
-								.vegetalDecoFeature(ModPlacedFeatures.OVERGROWTH_CLEARING_TREES_PLACED)
-								.vegetalDecoFeature(ModPlacedFeatures.BUSHES)
+						generationSettingsBuilder.lakesFeature(ModPlacedFeatureKeys.SPRING)
+								.vegetalDecoFeature(ModPlacedFeatureKeys.SPRUCE_SEEP)
+								.vegetalDecoFeature(ModPlacedFeatureKeys.OVERGROWTH_CLEARING_TREES_PLACED)
+								.vegetalDecoFeature(ModPlacedFeatureKeys.BUSHES)
 								.vegetalDecoFeature(VegetationPlacedFeatures.PATCH_TALL_GRASS)
 								.add(ModBiomes::addStrewnLeaves);
 					}
@@ -152,28 +152,28 @@ public class ModBiomes {
 				.generationSettings(generationSettingsBuilder -> {
 					generationSettingsBuilder.add(ModBiomes::addLandCarversNotLavaLakes)
 							.add(ModBiomes::addBasicVanillaOres)
-							.lakesFeature(ModPlacedFeatures.SPRING)
-							.vegetalDecoFeature(deep ? ModPlacedFeatures.DEEP_ROOF_TREES_PLACED : ModPlacedFeatures.AYLYTHIAN_DARK_OAK)
-							.vegetalDecoFeature(deep ? ModPlacedFeatures.DEEPWOOD_TREES_PLACED : ModPlacedFeatures.COPSE_TREES_PLACED)
+							.lakesFeature(ModPlacedFeatureKeys.SPRING)
+							.vegetalDecoFeature(deep ? ModPlacedFeatureKeys.DEEP_ROOF_TREES_PLACED : ModPlacedFeatureKeys.AYLYTHIAN_DARK_OAK)
+							.vegetalDecoFeature(deep ? ModPlacedFeatureKeys.DEEPWOOD_TREES_PLACED : ModPlacedFeatureKeys.COPSE_TREES_PLACED)
 							.vegetalDecoFeature(VegetationPlacedFeatures.PATCH_GRASS_TAIGA)
-							.vegetalDecoFeature(ModPlacedFeatures.BUSHES)
+							.vegetalDecoFeature(ModPlacedFeatureKeys.BUSHES)
 							.vegetalDecoFeature(VegetationPlacedFeatures.PATCH_TALL_GRASS)
-							.vegetalDecoFeature(ModPlacedFeatures.AYLYTH_WEEDS)
+							.vegetalDecoFeature(ModPlacedFeatureKeys.AYLYTH_WEEDS)
 							.add(deep ? ModBiomes::addMushroomsDeepwood : ModBiomes::addMushroomsCommon)
-							.vegetalDecoFeature(deep ? ModPlacedFeatures.SHELF_JACK_O_LANTERN_MUSHROOM_PATCHES_DEEPWOOD_PLACED : ModPlacedFeatures.SHELF_JACK_O_LANTERN_MUSHROOM_PATCHES_COMMON_PLACED)
-							.vegetalDecoFeature(ModPlacedFeatures.GHOSTCAP_MUSHROOM_PATCHES_PLACED)
+							.vegetalDecoFeature(deep ? ModPlacedFeatureKeys.SHELF_JACK_O_LANTERN_MUSHROOM_PATCHES_DEEPWOOD_PLACED : ModPlacedFeatureKeys.SHELF_JACK_O_LANTERN_MUSHROOM_PATCHES_COMMON_PLACED)
+							.vegetalDecoFeature(ModPlacedFeatureKeys.GHOSTCAP_MUSHROOM_PATCHES_PLACED)
 							.add(ModBiomes::addStrewnLeaves)
 							.add(ModBiomes::addWaterSprings)
 							.add(DefaultBiomeFeatures::addFrozenTopLayer)
-							.vegetalDecoFeature(ModPlacedFeatures.YMPE_SEEP)
-							.vegetalDecoFeature(ModPlacedFeatures.DARK_OAK_SEEP);
+							.vegetalDecoFeature(ModPlacedFeatureKeys.YMPE_SEEP)
+							.vegetalDecoFeature(ModPlacedFeatureKeys.DARK_OAK_SEEP);
 					if (deep) {
 						generationSettingsBuilder.vegetalDecoFeature(VegetationPlacedFeatures.PATCH_TALL_GRASS_2)
 								.add(ModBiomes::addWoodyGrowths)
 								.add(ModBiomes::addLeafPiles)
 								.add(DefaultBiomeFeatures::addLargeFerns);
 					} else {
-						generationSettingsBuilder.vegetalDecoFeature(ModPlacedFeatures.POMEGRANATE_TREE_VEG_PLACED);
+						generationSettingsBuilder.vegetalDecoFeature(ModPlacedFeatureKeys.POMEGRANATE_TREE_VEG_PLACED);
 					}
 				}, placedFeatures, configuredCarvers).build();
 	}
@@ -194,20 +194,20 @@ public class ModBiomes {
 					builder.add(ModBiomes::addLandCarversNotLavaLakes)
 							.add(ModBiomes::addBasicVanillaOres)
 							.add(DefaultBiomeFeatures::addForestFlowers)
-							.lakesFeature(ModPlacedFeatures.SPRING)
+							.lakesFeature(ModPlacedFeatureKeys.SPRING)
 							.vegetalDecoFeature(VegetationPlacedFeatures.PATCH_GRASS_TAIGA)
-							.vegetalDecoFeature(ModPlacedFeatures.AYLYTH_WEEDS)
-							.vegetalDecoFeature(deep ? ModPlacedFeatures.CONIFEROUS_DEEPWOOD_TREES_PLACED : ModPlacedFeatures.CONIFEROUS_COPSE_TREES_PLACED)
+							.vegetalDecoFeature(ModPlacedFeatureKeys.AYLYTH_WEEDS)
+							.vegetalDecoFeature(deep ? ModPlacedFeatureKeys.CONIFEROUS_DEEPWOOD_TREES_PLACED : ModPlacedFeatureKeys.CONIFEROUS_COPSE_TREES_PLACED)
 							.add(deep ? ModBiomes::addMushroomsDeepwood : ModBiomes::addMushroomsCommon)
-							.vegetalDecoFeature(ModPlacedFeatures.GHOSTCAP_MUSHROOM_PATCHES_PLACED)
+							.vegetalDecoFeature(ModPlacedFeatureKeys.GHOSTCAP_MUSHROOM_PATCHES_PLACED)
 							.add(ModBiomes::addStrewnLeaves)
 							.add(ModBiomes::addWaterSprings)
 							.add(DefaultBiomeFeatures::addFrozenTopLayer)
-							.vegetalDecoFeature(ModPlacedFeatures.YMPE_SEEP)
-							.vegetalDecoFeature(ModPlacedFeatures.SPRUCE_SEEP);
+							.vegetalDecoFeature(ModPlacedFeatureKeys.YMPE_SEEP)
+							.vegetalDecoFeature(ModPlacedFeatureKeys.SPRUCE_SEEP);
 					if (deep) {
-						builder.vegetalDecoFeature(ModPlacedFeatures.CONIFEROUS_DEEP_ROOF_TREES_PLACED)
-								.vegetalDecoFeature(ModPlacedFeatures.SHELF_JACK_O_LANTERN_MUSHROOM_PATCHES_DEEPWOOD_PLACED)
+						builder.vegetalDecoFeature(ModPlacedFeatureKeys.CONIFEROUS_DEEP_ROOF_TREES_PLACED)
+								.vegetalDecoFeature(ModPlacedFeatureKeys.SHELF_JACK_O_LANTERN_MUSHROOM_PATCHES_DEEPWOOD_PLACED)
 								.add(ModBiomes::addWoodyGrowths)
 								.add(ModBiomes::addLeafPiles)
 								.add(DefaultBiomeFeatures::addLargeFerns);
@@ -241,18 +241,18 @@ public class ModBiomes {
 				})
 				.spawnSettings(spawnSettings)
 				.generationSettings(builder -> {
-					builder.vegetalDecoFeature(ModPlacedFeatures.WOODY_GROWTH_WATER_PATCH_PLACED)
-							.vegetalDecoFeature(ModPlacedFeatures.ANTLER_SHOOTS_WATER_PATCH_PLACED)
-							.vegetalDecoFeature(ModPlacedFeatures.ANTLER_SHOOTS_PATCH_PLACED)
-							.vegetalDecoFeature(ModPlacedFeatures.STREWN_LEAVES_PATCH_PLACED)
-							.vegetalDecoFeature(ModPlacedFeatures.AYLYTH_WEEDS)
-							.vegetalDecoFeature(ModPlacedFeatures.MIRE_WATER_TREES_PLACED)
-							.vegetalDecoFeature(ModPlacedFeatures.MIRE_LAND_TREES_PLACED)
+					builder.vegetalDecoFeature(ModPlacedFeatureKeys.WOODY_GROWTH_WATER_PATCH_PLACED)
+							.vegetalDecoFeature(ModPlacedFeatureKeys.ANTLER_SHOOTS_WATER_PATCH_PLACED)
+							.vegetalDecoFeature(ModPlacedFeatureKeys.ANTLER_SHOOTS_PATCH_PLACED)
+							.vegetalDecoFeature(ModPlacedFeatureKeys.STREWN_LEAVES_PATCH_PLACED)
+							.vegetalDecoFeature(ModPlacedFeatureKeys.AYLYTH_WEEDS)
+							.vegetalDecoFeature(ModPlacedFeatureKeys.MIRE_WATER_TREES_PLACED)
+							.vegetalDecoFeature(ModPlacedFeatureKeys.MIRE_LAND_TREES_PLACED)
 							.add(ModBiomes::addBasicVanillaOres)
 							.add(ModBiomes::addWoodyGrowths)
 							.add(DefaultBiomeFeatures::addLargeFerns)
 							.add(DefaultBiomeFeatures::addDefaultGrass)
-							.vegetalDecoFeature(ModPlacedFeatures.SPRUCE_SEEP);
+							.vegetalDecoFeature(ModPlacedFeatureKeys.SPRUCE_SEEP);
 				}, placedFeatures, configuredCarvers)
 				.build();
 	}
@@ -264,15 +264,15 @@ public class ModBiomes {
 				})
 				.spawnSettings(spawnSettings)
 				.generationSettings(builder -> {
-					builder.vegetalDecoFeature(ModPlacedFeatures.WOODY_GROWTH_BOWELS_PATCH_PLACED)
+					builder.vegetalDecoFeature(ModPlacedFeatureKeys.WOODY_GROWTH_BOWELS_PATCH_PLACED)
 							.vegetalDecoFeature(NetherPlacedFeatures.PATCH_SOUL_FIRE);
 				}, placedFeatures, configuredCarvers)
 				.build();
 	}
 
 	private static void addLandCarversNotLavaLakes(GenerationSettings.LookupBackedBuilder builder) {
-		builder.carver(GenerationStep.Carver.AIR, ModCarvers.CAVES);
-		builder.carver(GenerationStep.Carver.AIR, ModCarvers.CANYONS);
+		builder.carver(GenerationStep.Carver.AIR, ModConfiguredCarverKeys.CAVES);
+		builder.carver(GenerationStep.Carver.AIR, ModConfiguredCarverKeys.CANYONS);
 	}
 
 	private static void addWaterSprings(GenerationSettings.LookupBackedBuilder builder) {
@@ -287,30 +287,30 @@ public class ModBiomes {
 	}
 
 	private static void addMarigolds(GenerationSettings.LookupBackedBuilder builder) {
-		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.MARIGOLDS);
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatureKeys.MARIGOLDS);
 	}
 
 	private static void addLeafPiles(GenerationSettings.LookupBackedBuilder builder) {
-		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.OAK_LEAF_PILE);
-		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.YMPE_LEAF_PILE);
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatureKeys.OAK_LEAF_PILE);
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatureKeys.YMPE_LEAF_PILE);
 	}
 
 	private static void addStrewnLeaves(GenerationSettings.LookupBackedBuilder builder) {
-		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.OAK_STREWN_LEAVES);
-		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.YMPE_STREWN_LEAVES);
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatureKeys.OAK_STREWN_LEAVES);
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatureKeys.YMPE_STREWN_LEAVES);
 	}
 
 	private static void addMushroomsCommon(GenerationSettings.LookupBackedBuilder builder) {
-		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.RED_MUSHROOM_PATCHES_PLACED);
-		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.BROWN_MUSHROOM_PATCHES_PLACED);
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatureKeys.RED_MUSHROOM_PATCHES_PLACED);
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatureKeys.BROWN_MUSHROOM_PATCHES_PLACED);
 	}
 
 	private static void addMushroomsDeepwood(GenerationSettings.LookupBackedBuilder builder) {
-		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.RED_MUSHROOM_PATCHES_DEEPWOOD_PLACED);
-		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.BROWN_MUSHROOM_PATCHES_DEEPWOOD_PLACED);
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatureKeys.RED_MUSHROOM_PATCHES_DEEPWOOD_PLACED);
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatureKeys.BROWN_MUSHROOM_PATCHES_DEEPWOOD_PLACED);
 	}
 
 	private static void addWoodyGrowths(GenerationSettings.LookupBackedBuilder builder) {
-		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.WOODY_GROWTH_PATCH_PLACED);
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatureKeys.WOODY_GROWTH_PATCH_PLACED);
 	}
 }
