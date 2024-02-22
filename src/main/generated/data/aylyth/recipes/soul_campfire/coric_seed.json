@@ -1,0 +1,20 @@
+{
+  "type": "aylyth:soul_ritual",
+  "ingredients": [
+    {
+      "item": "aylyth:aylythian_heart"
+    },
+    {
+      "item": "aylyth:wrongmeat"
+    },
+    {
+      "item": "aylyth:wrongmeat"
+    },
+    {
+      "item": "aylyth:shucked_ympe_fruit"
+    }
+  ],
+  "result": {
+    "item": "aylyth:coric_seed"
+  }
+}

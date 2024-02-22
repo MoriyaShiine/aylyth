@@ -1,6 +1,5 @@
 package moriyashiine.aylyth.common.registry;
 
-import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.recipe.ShuckingRecipe;
 import moriyashiine.aylyth.common.recipe.SoulCampfireRecipe;
 import moriyashiine.aylyth.common.recipe.YmpeDaggerDropRecipe;
@@ -18,13 +17,8 @@ public class ModRecipeTypes {
 	public static final RecipeSerializer<YmpeDaggerDropRecipe> YMPE_DAGGER_DROP_RECIPE_SERIALIZER = registerSerializer("ympe_dagger_drop", new YmpeDaggerDropRecipe.Serializer());
 	public static final RecipeType<YmpeDaggerDropRecipe> YMPE_DAGGER_DROP_RECIPE_TYPE = registerType("ympe_dagger_drop");
 
-	public static final RecipeSerializer<SoulCampfireRecipe> SOULFIRE_RECIPE_SERIALIZER = new SoulCampfireRecipe.Serializer();
-	public static final RecipeType<SoulCampfireRecipe> SOULFIRE_RECIPE_TYPE = new RecipeType<>() {
-		@Override
-		public String toString() {
-			return Aylyth.MOD_ID + ":soul_fire";
-		}
-	};
+	public static final RecipeSerializer<SoulCampfireRecipe> SOULFIRE_RECIPE_SERIALIZER = registerSerializer("soul_ritual", new SoulCampfireRecipe.Serializer());
+	public static final RecipeType<SoulCampfireRecipe> SOULFIRE_RECIPE_TYPE = registerType("soul_ritual");
 
 	private static <T extends Recipe<?>> RecipeType<T> registerType(String id) {
 		Identifier identifier = AylythUtil.id(id);

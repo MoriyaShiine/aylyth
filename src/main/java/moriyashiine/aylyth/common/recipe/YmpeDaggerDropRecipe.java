@@ -85,7 +85,7 @@ public class YmpeDaggerDropRecipe implements Recipe<Inventory> {
 		public YmpeDaggerDropRecipe read(Identifier id, PacketByteBuf buf) {
 			return new YmpeDaggerDropRecipe(
 					id,
-					Registries.ENTITY_TYPE.get(new Identifier(buf.readString())),
+					buf.readRegistryValue(Registries.ENTITY_TYPE),
 					buf.readItemStack(),
 					buf.readFloat(),
 					buf.readInt(),
@@ -95,8 +95,8 @@ public class YmpeDaggerDropRecipe implements Recipe<Inventory> {
 		
 		@Override
 		public void write(PacketByteBuf buf, YmpeDaggerDropRecipe recipe) {
-			buf.writeString(Registries.ENTITY_TYPE.getId(recipe.entity_type).toString());
-			buf.writeItemStack(recipe.getOutput(DynamicRegistryManager.EMPTY));
+			buf.writeRegistryValue(Registries.ENTITY_TYPE, recipe.entity_type);
+			buf.writeItemStack(recipe.output);
 			buf.writeFloat(recipe.chance);
 			buf.writeInt(recipe.min);
 			buf.writeInt(recipe.max);

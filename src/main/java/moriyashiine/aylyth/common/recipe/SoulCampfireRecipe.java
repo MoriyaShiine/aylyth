@@ -3,6 +3,8 @@ package moriyashiine.aylyth.common.recipe;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import moriyashiine.aylyth.common.registry.ModRecipeTypes;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
@@ -13,9 +15,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class SoulCampfireRecipe implements Recipe<Inventory> {
     private final Identifier identifier;
@@ -30,39 +29,23 @@ public class SoulCampfireRecipe implements Recipe<Inventory> {
 
     @Override
     public boolean matches(Inventory inventory, World world) {
-        return matches(inventory, input);
-    }
-
-    public static boolean matches(Inventory inv, DefaultedList<Ingredient> input) {
-        List<ItemStack> checklist = new ArrayList<>();
-        for (int i = 0; i < inv.size(); i++) {
-            ItemStack stack = inv.getStack(i);
+        RecipeMatcher matcher = new RecipeMatcher();
+        int numItems = 0;
+        for (int i = 0; i < inventory.size(); i++) {
+            ItemStack stack = inventory.getStack(i).copy();
             if (!stack.isEmpty()) {
-                checklist.add(stack);
-            }
-        }
-        if (input.size() != checklist.size()) {
-            return false;
-        }
-        for (Ingredient ingredient : input) {
-            boolean found = false;
-            for (ItemStack stack : checklist) {
-                if (ingredient.test(stack)) {
-                    found = true;
-                    checklist.remove(stack);
-                    break;
+                while (!stack.isEmpty()) {
+                    numItems++;
+                    matcher.addInput(stack.split(1));
                 }
             }
-            if (!found) {
-                return false;
-            }
         }
-        return true;
+        return numItems == input.size() && matcher.match(this, null);
     }
 
     @Override
     public ItemStack craft(Inventory inventory, DynamicRegistryManager registryManager) {
-        return output;
+        return output.copy();
     }
 
     @Override
@@ -73,6 +56,11 @@ public class SoulCampfireRecipe implements Recipe<Inventory> {
     @Override
     public ItemStack getOutput(DynamicRegistryManager registryManager) {
         return output;
+    }
+
+    @Override
+    public DefaultedList<Ingredient> getIngredients() {
+        return input;
     }
 
     @Override

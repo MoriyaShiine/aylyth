@@ -18,6 +18,7 @@ import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.fabricmc.fabric.api.entity.event.v1.ServerEntityCombatEvents;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
+import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.Blocks;
@@ -29,6 +30,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.loot.LootDataType;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -101,7 +103,7 @@ public class Aylyth implements ModInitializer {
 		if(hand == Hand.MAIN_HAND && world.getBlockState(blockHitResult.getBlockPos()).isOf(Blocks.SOUL_CAMPFIRE) && world.getBlockEntity(blockHitResult.getBlockPos()) instanceof CampfireBlockEntity campfireBlockEntity){
 			ItemStack itemStack = playerEntity.getMainHandStack();
 			if(itemStack.isOf(ModItems.AYLYTHIAN_HEART) || itemStack.isOf(ModItems.WRONGMEAT) || (itemStack.isOf(ModItems.SHUCKED_YMPE_FRUIT) && (itemStack.hasNbt() && itemStack.getNbt().contains("StoredEntity")))){
-				if (!world.isClient && campfireBlockEntity.addItem(playerEntity, itemStack,  Integer.MAX_VALUE)) {
+				if (!world.isClient && campfireBlockEntity.addItem(playerEntity, itemStack, Integer.MAX_VALUE)) {
 					playerEntity.incrementStat(Stats.INTERACT_WITH_CAMPFIRE);
 					return ActionResult.SUCCESS;
 				}
@@ -141,8 +143,8 @@ public class Aylyth implements ModInitializer {
 	private void daggerDrops(ServerWorld serverWorld, Entity entity, LivingEntity killedEntity) {
 		if (entity instanceof LivingEntity living && living.getMainHandStack().isOf(ModItems.YMPE_DAGGER)) {
 			for (YmpeDaggerDropRecipe recipe : serverWorld.getRecipeManager().listAllOfType(ModRecipeTypes.YMPE_DAGGER_DROP_RECIPE_TYPE)) {
-				if (recipe.entity_type.equals(killedEntity.getType()) && serverWorld.random.nextFloat() < recipe.chance * (EnchantmentHelper.getLooting(living) + 1)) {
-					ItemStack drop = recipe.getOutput(DynamicRegistryManager.EMPTY).copy();
+				if (recipe.entity_type == killedEntity.getType() && serverWorld.random.nextFloat() < recipe.chance * (EnchantmentHelper.getLooting(living) + 1)) {
+					ItemStack drop = recipe.getOutput(serverWorld.getRegistryManager()).copy();
 					if (recipe.entity_type == EntityType.PLAYER) {
 						drop.getOrCreateNbt().putString("SkullOwner", killedEntity.getName().getString());
 					}

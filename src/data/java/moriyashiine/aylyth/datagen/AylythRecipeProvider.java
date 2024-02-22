@@ -4,6 +4,7 @@ import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.ModEntityTypes;
 import moriyashiine.aylyth.common.registry.ModItems;
 import moriyashiine.aylyth.common.registry.tag.ModItemTags;
+import moriyashiine.aylyth.datagen.recipe.SoulCampfireRecipeBuilder;
 import moriyashiine.aylyth.datagen.recipe.YmpeDaggerRecipeJsonBuilder;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
@@ -18,6 +19,7 @@ import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.function.Consumer;
 
 public class AylythRecipeProvider extends FabricRecipeProvider {
@@ -218,6 +220,11 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
         
         YmpeDaggerRecipeJsonBuilder.create(ModEntityTypes.WREATHED_HIND_ENTITY, ModItems.WRONGMEAT, 0.2f, 3, 5)
                 .offerTo(exporter);
+
+        SoulCampfireRecipeBuilder.create(
+                List.of(ModItems.AYLYTHIAN_HEART, ModItems.WRONGMEAT, ModItems.WRONGMEAT, ModItems.SHUCKED_YMPE_FRUIT),
+                ModItems.CORIC_SEED
+        ).offerTo(exporter);
     }
 
     private void createSmithingUpgrade(Consumer<RecipeJsonProvider> exporter, ItemConvertible template, ItemConvertible base, ItemConvertible addition, ItemConvertible result, RecipeCategory category) {
