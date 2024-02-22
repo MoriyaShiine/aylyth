@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "aylyth:copse",
+    "aylyth:coniferous_copse",
+    "aylyth:deepwood",
+    "aylyth:coniferous_deepwood",
+    "aylyth:mire",
+    "aylyth:bowels"
+  ]
+}

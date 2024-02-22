@@ -14,6 +14,9 @@ public class ModBiomeTags {
     public static final TagKey<Biome> IS_CONIFEROUS = createTag("is_coniferous");
     public static final TagKey<Biome> IS_FOREST_LIKE = createTag("is_forest_like");
     public static final TagKey<Biome> IS_TAIGA_LIKE = createTag("is_taiga_like");
+    public static final TagKey<Biome> HAS_WEAK_FOG = createTag("has_weak_fog");
+    public static final TagKey<Biome> HAS_AVERAGE_FOG = createTag("has_average_fog");
+    public static final TagKey<Biome> HAS_STRONG_FOG = createTag("has_strong_fog");
 
     private static TagKey<Biome> createTag(String tag) {
         return TagKey.of(RegistryKeys.BIOME, AylythUtil.id(tag));

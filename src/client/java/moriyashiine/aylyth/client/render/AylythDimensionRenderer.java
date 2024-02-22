@@ -5,6 +5,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.registry.key.ModBiomeKeys;
 import moriyashiine.aylyth.common.registry.key.ModDimensionKeys;
+import moriyashiine.aylyth.common.registry.tag.ModBiomeTags;
 import moriyashiine.aylyth.mixin.client.WorldRendererAccessor;
 import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
@@ -48,20 +49,14 @@ public class AylythDimensionRenderer {
 		}
 	}
 
-	public static void determineConditions(ClientWorld world, RegistryEntry<Biome> biome) {// TODO: Use tags
-		if (world.getRegistryKey() == ModDimensionKeys.AYLYTH) {
-			Identifier biomeId = world.getRegistryManager().get(RegistryKeys.BIOME).getId(biome.value());
-			if (biomeId == ModBiomeKeys.CLEARING.getValue() || biomeId == ModBiomeKeys.UPLANDS.getValue()) {
-				goalFogStrength = 40;
-			}
-			else if (biomeId == ModBiomeKeys.OVERGROWN_CLEARING.getValue()) {
-				goalFogStrength = 24;
-			}
-			else {
-				goalFogStrength = 16;
-			}
-		}
-		else {
+	public static void determineConditions(RegistryEntry<Biome> biome) {// TODO: Use tags
+		if (biome.isIn(ModBiomeTags.HAS_WEAK_FOG)) {
+			goalFogStrength = 40;
+		} else if (biome.isIn(ModBiomeTags.HAS_AVERAGE_FOG)) {
+			goalFogStrength = 24;
+		} else if (biome.isIn(ModBiomeTags.HAS_STRONG_FOG)) {
+			goalFogStrength = 16;
+		} else {
 			goalFogStrength = 0;
 		}
 	}

@@ -161,7 +161,7 @@ public class AylythClient implements ClientModInitializer {
 
 		ClientTickEvents.START_CLIENT_TICK.register(client -> {
 			if (client.world != null && client.player != null && client.world.getTime() % 20 == 0) {
-				AylythDimensionRenderer.determineConditions(client.world, client.world.getBiome(client.player.getBlockPos()));
+				AylythDimensionRenderer.determineConditions(client.world.getBiome(client.player.getBlockPos()));
 			}
 		});
 
