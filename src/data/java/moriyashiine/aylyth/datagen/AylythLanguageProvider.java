@@ -195,9 +195,9 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add("advancements.aylyth.aylyth.root.title", "Into the Unknown");
         builder.add("advancements.aylyth.aylyth.root.desc", "In the midst of the journey of our life, I found myself in a dark wood without paths.");
         builder.add("advancements.aylyth.aylyth.cimmerianed.title", "Cimmerianed");
-        builder.add("advancements.aylyth.aylyth.cimmerianed.desc", "Play some hide and seek with the undead");
+        builder.add("advancements.aylyth.aylyth.cimmerianed.desc", "Hidden from the undead...");
         builder.add("advancements.aylyth.aylyth.wyrded.title", "Wyrded");
-        builder.add("advancements.aylyth.aylyth.wyrded.desc", "Try approaching a seep!");
+        builder.add("advancements.aylyth.aylyth.wyrded.desc", "The seep seem to beg that I stay...");
         builder.add("advancements.aylyth.aylyth.in_the_branches.title", "In the Branches");
         builder.add("advancements.aylyth.aylyth.in_the_branches.desc", "Become infested by Ympe Branches. There has to be a cure...");
         builder.add("advancements.aylyth.aylyth.life_at_a_cost.title", "Life at a cost");
