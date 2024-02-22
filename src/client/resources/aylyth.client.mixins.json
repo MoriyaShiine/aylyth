@@ -7,6 +7,7 @@
     "AdvancementTabMixin",
     "AdvancementToastMixin",
     "AdvancementWidgetAccessor",
+    "AdvancementWidgetMixin",
     "BackgroundRendererMixin",
     "BufferBuilderStorageMixin",
     "GameRendererMixin",
