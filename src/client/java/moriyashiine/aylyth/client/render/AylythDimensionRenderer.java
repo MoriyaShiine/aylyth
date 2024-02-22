@@ -37,7 +37,7 @@ public class AylythDimensionRenderer {
 			ClientPlayerEntity player = MinecraftClient.getInstance().player;
 			ClientWorld world = MinecraftClient.getInstance().world;
 			if (world.getBiome(player.getBlockPos()).isIn(BiomeTags.HAS_CLOSER_WATER_FOG)) {
-				fogStrength *= 0.75;
+				fogStrength *= 0.75f;
 			}
 		}
 		RenderSystem.setShaderFogStart(0F);
@@ -49,7 +49,7 @@ public class AylythDimensionRenderer {
 		}
 	}
 
-	public static void determineConditions(RegistryEntry<Biome> biome) {// TODO: Use tags
+	public static void determineConditions(RegistryEntry<Biome> biome) {
 		if (biome.isIn(ModBiomeTags.HAS_WEAK_FOG)) {
 			goalFogStrength = 40;
 		} else if (biome.isIn(ModBiomeTags.HAS_AVERAGE_FOG)) {

@@ -1,9 +1,13 @@
 package moriyashiine.aylyth.mixin.client;
 
+import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import com.mojang.blaze3d.systems.RenderSystem;
+import moriyashiine.aylyth.api.interfaces.AylythGameHud;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.component.entity.YmpeInfestationComponent;
 import moriyashiine.aylyth.common.registry.ModComponents;
+import moriyashiine.aylyth.common.registry.tag.ModBlockTags;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
@@ -18,22 +22,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(InGameHud.class)
-public abstract class InGameHudMixin {
-	@Unique
-	private static final Identifier YMPE_OUTLINE_0_TEXTURE = new Identifier(Aylyth.MOD_ID, "textures/gui/ympe_outline_0.png");
-	
-	@Unique
-	private static final Identifier YMPE_OUTLINE_1_TEXTURE = new Identifier(Aylyth.MOD_ID, "textures/gui/ympe_outline_1.png");
-	
-	@Unique
-	private static final Identifier YMPE_OUTLINE_2_TEXTURE = new Identifier(Aylyth.MOD_ID, "textures/gui/ympe_outline_2.png");
-	
-	@Unique
-	private static final Identifier YMPE_HEALTH_TEXTURES = new Identifier(Aylyth.MOD_ID, "textures/gui/icons.png");
-	
-	@Unique
-	private boolean shouldRebind = false;
-	
+public abstract class InGameHudMixin implements AylythGameHud {
 	@Shadow
 	@Final
 	private MinecraftClient client;
@@ -57,22 +46,24 @@ public abstract class InGameHudMixin {
 				renderOverlay(context, YMPE_OUTLINE_2_TEXTURE, stage == 5 ? (float) ympeInfestationComponent.getInfestationTimer() / YmpeInfestationComponent.TIME_UNTIL_STAGE_INCREASES : 1);
 			}
 		});
-		//TODO: render seep over screen when inside a seep block
+
+		if (client.world.getBlockState(client.player.getBlockPos()).isIn(ModBlockTags.SEEPS)) {
+			renderOverlay(context, SEEP_OVERLAY, 1);
+		}
 	}
 	
 	@Inject(method = "renderHealthBar", at = @At("HEAD"))
-	private void aylyth_renderYmpeHealthBarHead(DrawContext context, PlayerEntity player, int x, int y, int lines, int regeneratingHeartIndex, float maxHealth, int lastHealth, int health, int absorption, boolean blinking, CallbackInfo ci) {
+	private void aylyth_renderYmpeHealthBarHead(DrawContext context, PlayerEntity player, int x, int y, int lines, int regeneratingHeartIndex, float maxHealth, int lastHealth, int health, int absorption, boolean blinking, CallbackInfo ci, @Share("shouldRebind") LocalBooleanRef shouldRebind) {
 		if (ModComponents.YMPE_INFESTATION.get(player).getStage() > 0) {
 			RenderSystem.setShaderTexture(0, YMPE_HEALTH_TEXTURES);
-			shouldRebind = true;
+			shouldRebind.set(true);
 		}
 	}
 	
 	@Inject(method = "renderHealthBar", at = @At("TAIL"))
-	private void aylyth_renderYmpeHealthBarTail(DrawContext context, PlayerEntity player, int x, int y, int lines, int regeneratingHeartIndex, float maxHealth, int lastHealth, int health, int absorption, boolean blinking, CallbackInfo ci) {
-		if (shouldRebind) {
+	private void aylyth_renderYmpeHealthBarTail(DrawContext context, PlayerEntity player, int x, int y, int lines, int regeneratingHeartIndex, float maxHealth, int lastHealth, int health, int absorption, boolean blinking, CallbackInfo ci, @Share("shouldRebind") LocalBooleanRef shouldRebind) {
+		if (shouldRebind.get()) {
 			RenderSystem.setShaderTexture(0, ICONS);
-			shouldRebind = false;
 		}
 	}
 }
