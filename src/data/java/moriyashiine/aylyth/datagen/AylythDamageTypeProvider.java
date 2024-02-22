@@ -5,7 +5,7 @@ import net.minecraft.entity.damage.DamageScaling;
 import net.minecraft.entity.damage.DamageType;
 import net.minecraft.registry.Registerable;
 
-public class AylythDamageTypes {
+public class AylythDamageTypeProvider {
 
     public static void bootstrap(Registerable<DamageType> context) {
         context.register(ModDamageTypeKeys.YMPE, new DamageType("ympe", DamageScaling.ALWAYS, 0));

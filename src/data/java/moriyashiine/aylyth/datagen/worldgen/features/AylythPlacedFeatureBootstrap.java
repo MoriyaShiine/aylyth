@@ -2,10 +2,8 @@ package moriyashiine.aylyth.datagen.worldgen.features;
 
 import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.key.ModConfiguredFeatureKeys;
-import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.registry.Registerable;
-import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.world.gen.blockpredicate.BlockPredicate;
 import net.minecraft.world.gen.feature.PlacedFeature;
@@ -16,7 +14,7 @@ import static moriyashiine.aylyth.common.registry.key.ModPlacedFeatureKeys.*;
 
 import java.util.List;
 
-public class ModPlacedFeatures {
+public class AylythPlacedFeatureBootstrap {
 
     private static final PlacementModifier NOT_IN_SURFACE_WATER_MODIFIER = SurfaceWaterDepthFilterPlacementModifier.of(0);
 

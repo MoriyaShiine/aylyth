@@ -10,7 +10,7 @@ import net.minecraft.util.math.noise.DoublePerlinNoiseSampler;
 import net.minecraft.world.gen.YOffset;
 import net.minecraft.world.gen.surfacebuilder.MaterialRules;
 
-public class AylythMaterialRules extends MaterialRules {
+public class AylythMaterialRuleBootstrap extends MaterialRules {
 
     static MaterialRule materialRules() {
         var dirt = block(Blocks.DIRT);

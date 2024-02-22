@@ -26,7 +26,7 @@ import net.minecraft.world.gen.feature.*;
 
 import static moriyashiine.aylyth.common.registry.key.ModBiomeKeys.*;
 
-public class ModBiomes {
+public class AylythBiomeBootstrap {
 	public static final SpawnSettings COPSE_MOBS = SpawnSettingsBuilder.builder()
 			.spawnCost(ModEntityTypes.AYLYTHIAN, 0.7, 0.13)
 			.spawnCost(ModEntityTypes.FAUNAYLYTHIAN, 0.7, 0.13)
@@ -119,12 +119,12 @@ public class ModBiomes {
 				.spawnSettings(spawnSettings)
 				.generationSettings(generationSettingsBuilder -> {
 					generationSettingsBuilder
-							.add(ModBiomes::addLandCarversNotLavaLakes)
-							.add(ModBiomes::addBasicVanillaOres)
+							.add(AylythBiomeBootstrap::addLandCarversNotLavaLakes)
+							.add(AylythBiomeBootstrap::addBasicVanillaOres)
 							.vegetalDecoFeature(VegetationPlacedFeatures.PATCH_GRASS_PLAIN)
 							.vegetalDecoFeature(ModPlacedFeatureKeys.POMEGRANATE_TREE_VEG_PLACED)
-							.add(ModBiomes::addMarigolds)
-							.add(ModBiomes::addWaterSprings)
+							.add(AylythBiomeBootstrap::addMarigolds)
+							.add(AylythBiomeBootstrap::addWaterSprings)
 							.add(DefaultBiomeFeatures::addFrozenTopLayer);
 					if (overgrown) {
 						generationSettingsBuilder.lakesFeature(ModPlacedFeatureKeys.SPRING)
@@ -132,7 +132,7 @@ public class ModBiomes {
 								.vegetalDecoFeature(ModPlacedFeatureKeys.OVERGROWTH_CLEARING_TREES_PLACED)
 								.vegetalDecoFeature(ModPlacedFeatureKeys.BUSHES)
 								.vegetalDecoFeature(VegetationPlacedFeatures.PATCH_TALL_GRASS)
-								.add(ModBiomes::addStrewnLeaves);
+								.add(AylythBiomeBootstrap::addStrewnLeaves);
 					}
 				}, placedFeatures, configuredCarvers).build();
 	}
@@ -150,8 +150,8 @@ public class ModBiomes {
 				})
 				.spawnSettings(spawnSettings)
 				.generationSettings(generationSettingsBuilder -> {
-					generationSettingsBuilder.add(ModBiomes::addLandCarversNotLavaLakes)
-							.add(ModBiomes::addBasicVanillaOres)
+					generationSettingsBuilder.add(AylythBiomeBootstrap::addLandCarversNotLavaLakes)
+							.add(AylythBiomeBootstrap::addBasicVanillaOres)
 							.lakesFeature(ModPlacedFeatureKeys.SPRING)
 							.vegetalDecoFeature(deep ? ModPlacedFeatureKeys.DEEP_ROOF_TREES_PLACED : ModPlacedFeatureKeys.AYLYTHIAN_DARK_OAK)
 							.vegetalDecoFeature(deep ? ModPlacedFeatureKeys.DEEPWOOD_TREES_PLACED : ModPlacedFeatureKeys.COPSE_TREES_PLACED)
@@ -159,18 +159,18 @@ public class ModBiomes {
 							.vegetalDecoFeature(ModPlacedFeatureKeys.BUSHES)
 							.vegetalDecoFeature(VegetationPlacedFeatures.PATCH_TALL_GRASS)
 							.vegetalDecoFeature(ModPlacedFeatureKeys.AYLYTH_WEEDS)
-							.add(deep ? ModBiomes::addMushroomsDeepwood : ModBiomes::addMushroomsCommon)
+							.add(deep ? AylythBiomeBootstrap::addMushroomsDeepwood : AylythBiomeBootstrap::addMushroomsCommon)
 							.vegetalDecoFeature(deep ? ModPlacedFeatureKeys.SHELF_JACK_O_LANTERN_MUSHROOM_PATCHES_DEEPWOOD_PLACED : ModPlacedFeatureKeys.SHELF_JACK_O_LANTERN_MUSHROOM_PATCHES_COMMON_PLACED)
 							.vegetalDecoFeature(ModPlacedFeatureKeys.GHOSTCAP_MUSHROOM_PATCHES_PLACED)
-							.add(ModBiomes::addStrewnLeaves)
-							.add(ModBiomes::addWaterSprings)
+							.add(AylythBiomeBootstrap::addStrewnLeaves)
+							.add(AylythBiomeBootstrap::addWaterSprings)
 							.add(DefaultBiomeFeatures::addFrozenTopLayer)
 							.vegetalDecoFeature(ModPlacedFeatureKeys.YMPE_SEEP)
 							.vegetalDecoFeature(ModPlacedFeatureKeys.DARK_OAK_SEEP);
 					if (deep) {
 						generationSettingsBuilder.vegetalDecoFeature(VegetationPlacedFeatures.PATCH_TALL_GRASS_2)
-								.add(ModBiomes::addWoodyGrowths)
-								.add(ModBiomes::addLeafPiles)
+								.add(AylythBiomeBootstrap::addWoodyGrowths)
+								.add(AylythBiomeBootstrap::addLeafPiles)
 								.add(DefaultBiomeFeatures::addLargeFerns);
 					} else {
 						generationSettingsBuilder.vegetalDecoFeature(ModPlacedFeatureKeys.POMEGRANATE_TREE_VEG_PLACED);
@@ -191,25 +191,25 @@ public class ModBiomes {
 				})
 				.spawnSettings(spawnSettings)
 				.generationSettings(builder -> {
-					builder.add(ModBiomes::addLandCarversNotLavaLakes)
-							.add(ModBiomes::addBasicVanillaOres)
+					builder.add(AylythBiomeBootstrap::addLandCarversNotLavaLakes)
+							.add(AylythBiomeBootstrap::addBasicVanillaOres)
 							.add(DefaultBiomeFeatures::addForestFlowers)
 							.lakesFeature(ModPlacedFeatureKeys.SPRING)
 							.vegetalDecoFeature(VegetationPlacedFeatures.PATCH_GRASS_TAIGA)
 							.vegetalDecoFeature(ModPlacedFeatureKeys.AYLYTH_WEEDS)
 							.vegetalDecoFeature(deep ? ModPlacedFeatureKeys.CONIFEROUS_DEEPWOOD_TREES_PLACED : ModPlacedFeatureKeys.CONIFEROUS_COPSE_TREES_PLACED)
-							.add(deep ? ModBiomes::addMushroomsDeepwood : ModBiomes::addMushroomsCommon)
+							.add(deep ? AylythBiomeBootstrap::addMushroomsDeepwood : AylythBiomeBootstrap::addMushroomsCommon)
 							.vegetalDecoFeature(ModPlacedFeatureKeys.GHOSTCAP_MUSHROOM_PATCHES_PLACED)
-							.add(ModBiomes::addStrewnLeaves)
-							.add(ModBiomes::addWaterSprings)
+							.add(AylythBiomeBootstrap::addStrewnLeaves)
+							.add(AylythBiomeBootstrap::addWaterSprings)
 							.add(DefaultBiomeFeatures::addFrozenTopLayer)
 							.vegetalDecoFeature(ModPlacedFeatureKeys.YMPE_SEEP)
 							.vegetalDecoFeature(ModPlacedFeatureKeys.SPRUCE_SEEP);
 					if (deep) {
 						builder.vegetalDecoFeature(ModPlacedFeatureKeys.CONIFEROUS_DEEP_ROOF_TREES_PLACED)
 								.vegetalDecoFeature(ModPlacedFeatureKeys.SHELF_JACK_O_LANTERN_MUSHROOM_PATCHES_DEEPWOOD_PLACED)
-								.add(ModBiomes::addWoodyGrowths)
-								.add(ModBiomes::addLeafPiles)
+								.add(AylythBiomeBootstrap::addWoodyGrowths)
+								.add(AylythBiomeBootstrap::addLeafPiles)
 								.add(DefaultBiomeFeatures::addLargeFerns);
 					}
 				}, placedFeatures, configuredCarvers).build();
@@ -225,9 +225,9 @@ public class ModBiomes {
 				})
 				.spawnSettings(spawnSettings)
 				.generationSettings(builder -> {
-					builder.add(ModBiomes::addLandCarversNotLavaLakes)
-							.add(ModBiomes::addBasicVanillaOres)
-							.add(ModBiomes::addWaterSprings);
+					builder.add(AylythBiomeBootstrap::addLandCarversNotLavaLakes)
+							.add(AylythBiomeBootstrap::addBasicVanillaOres)
+							.add(AylythBiomeBootstrap::addWaterSprings);
 				}, placedFeatures, configuredCarvers).build();
 	}
 
@@ -248,8 +248,8 @@ public class ModBiomes {
 							.vegetalDecoFeature(ModPlacedFeatureKeys.AYLYTH_WEEDS)
 							.vegetalDecoFeature(ModPlacedFeatureKeys.MIRE_WATER_TREES_PLACED)
 							.vegetalDecoFeature(ModPlacedFeatureKeys.MIRE_LAND_TREES_PLACED)
-							.add(ModBiomes::addBasicVanillaOres)
-							.add(ModBiomes::addWoodyGrowths)
+							.add(AylythBiomeBootstrap::addBasicVanillaOres)
+							.add(AylythBiomeBootstrap::addWoodyGrowths)
 							.add(DefaultBiomeFeatures::addLargeFerns)
 							.add(DefaultBiomeFeatures::addDefaultGrass)
 							.vegetalDecoFeature(ModPlacedFeatureKeys.SPRUCE_SEEP);

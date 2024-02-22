@@ -6,7 +6,7 @@ import net.minecraft.util.math.noise.DoublePerlinNoiseSampler.NoiseParameters;
 
 import static moriyashiine.aylyth.common.registry.key.ModNoiseKeys.*;
 
-public class AylythNoiseTypes {
+public class AylythNoiseTypeBootstrap {
 
     public static void init() {}
 

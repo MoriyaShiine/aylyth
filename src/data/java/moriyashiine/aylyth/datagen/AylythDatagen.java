@@ -1,12 +1,12 @@
 package moriyashiine.aylyth.datagen;
 
-import moriyashiine.aylyth.datagen.worldgen.biomes.ModBiomes;
-import moriyashiine.aylyth.datagen.worldgen.features.ModCarvers;
-import moriyashiine.aylyth.datagen.worldgen.features.ModConfiguredFeatures;
-import moriyashiine.aylyth.datagen.worldgen.features.ModPlacedFeatures;
-import moriyashiine.aylyth.datagen.worldgen.terrain.AylythDensityFunctions;
-import moriyashiine.aylyth.datagen.worldgen.terrain.AylythNoiseSettings;
-import moriyashiine.aylyth.datagen.worldgen.terrain.AylythNoiseTypes;
+import moriyashiine.aylyth.datagen.worldgen.biomes.AylythBiomeBootstrap;
+import moriyashiine.aylyth.datagen.worldgen.features.AylythConfiguredCarverBootstrap;
+import moriyashiine.aylyth.datagen.worldgen.features.AylythConfiguredFeatureBootstrap;
+import moriyashiine.aylyth.datagen.worldgen.features.AylythPlacedFeatureBootstrap;
+import moriyashiine.aylyth.datagen.worldgen.terrain.AylythDensityFunctionBootstrap;
+import moriyashiine.aylyth.datagen.worldgen.terrain.AylythNoiseSettingBootstrap;
+import moriyashiine.aylyth.datagen.worldgen.terrain.AylythNoiseTypeBootstrap;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.registry.RegistryBuilder;
@@ -37,13 +37,13 @@ public class AylythDatagen implements DataGeneratorEntrypoint {
 
     @Override
     public void buildRegistry(RegistryBuilder registryBuilder) {
-        registryBuilder.addRegistry(RegistryKeys.NOISE_PARAMETERS, AylythNoiseTypes::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.DENSITY_FUNCTION, AylythDensityFunctions::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.CHUNK_GENERATOR_SETTINGS, AylythNoiseSettings::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.CONFIGURED_CARVER, ModCarvers::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, ModConfiguredFeatures::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, ModPlacedFeatures::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.BIOME, ModBiomes::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.DAMAGE_TYPE, AylythDamageTypes::bootstrap);
+        registryBuilder.addRegistry(RegistryKeys.NOISE_PARAMETERS, AylythNoiseTypeBootstrap::bootstrap);
+        registryBuilder.addRegistry(RegistryKeys.DENSITY_FUNCTION, AylythDensityFunctionBootstrap::bootstrap);
+        registryBuilder.addRegistry(RegistryKeys.CHUNK_GENERATOR_SETTINGS, AylythNoiseSettingBootstrap::bootstrap);
+        registryBuilder.addRegistry(RegistryKeys.CONFIGURED_CARVER, AylythConfiguredCarverBootstrap::bootstrap);
+        registryBuilder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, AylythConfiguredFeatureBootstrap::bootstrap);
+        registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, AylythPlacedFeatureBootstrap::bootstrap);
+        registryBuilder.addRegistry(RegistryKeys.BIOME, AylythBiomeBootstrap::bootstrap);
+        registryBuilder.addRegistry(RegistryKeys.DAMAGE_TYPE, AylythDamageTypeProvider::bootstrap);
     }
 }

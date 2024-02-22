@@ -13,7 +13,7 @@ import net.minecraft.world.gen.heightprovider.UniformHeightProvider;
 
 import static moriyashiine.aylyth.common.registry.key.ModConfiguredCarverKeys.*;
 
-public class ModCarvers {
+public class AylythConfiguredCarverBootstrap {
 
     public static void bootstrap(Registerable<ConfiguredCarver<?>> context) {
         context.register(CAVES, Carver.CAVE.configure(

@@ -15,7 +15,7 @@ import static net.minecraft.world.gen.densityfunction.DensityFunctionTypes.*;
 import static moriyashiine.aylyth.common.registry.key.ModDensityFunctionKeys.*;
 import static moriyashiine.aylyth.common.registry.key.ModNoiseKeys.*;
 
-public class AylythDensityFunctions {
+public class AylythDensityFunctionBootstrap {
 
     public static void bootstrap(Registerable<DensityFunction> context) {
         var noiseParameters = context.getRegistryLookup(RegistryKeys.NOISE_PARAMETERS);

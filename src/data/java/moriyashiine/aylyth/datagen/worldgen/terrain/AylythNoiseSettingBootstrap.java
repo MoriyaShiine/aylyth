@@ -18,10 +18,10 @@ import java.util.List;
 
 import static moriyashiine.aylyth.common.registry.key.ModDensityFunctionKeys.*;
 import static moriyashiine.aylyth.common.registry.key.ModNoiseKeys.*;
-import static moriyashiine.aylyth.datagen.worldgen.terrain.AylythDensityFunctions.*;
+import static moriyashiine.aylyth.datagen.worldgen.terrain.AylythDensityFunctionBootstrap.*;
 import static net.minecraft.world.gen.densityfunction.DensityFunctionTypes.*;
 
-public class AylythNoiseSettings {
+public class AylythNoiseSettingBootstrap {
 
     public static void bootstrap(Registerable<ChunkGeneratorSettings> context) {
         context.register(ModDimensionKeys.AYLYTH_CHUNK_GEN_SETTINGS, createSettings(context.getRegistryLookup(RegistryKeys.DENSITY_FUNCTION), context.getRegistryLookup(RegistryKeys.NOISE_PARAMETERS)));
@@ -33,7 +33,7 @@ public class AylythNoiseSettings {
         var aquifers = true;
         var oreVeins = false;
         var legacyRandom = false;
-        return new ChunkGeneratorSettings(shapeConfig(), defaultState(Blocks.DEEPSLATE), defaultState(Blocks.WATER), noiseRouter(functions, noiseParameters), AylythMaterialRules.materialRules(), spawnTargets(), seaLevel, disableMobGen, aquifers, oreVeins, legacyRandom);
+        return new ChunkGeneratorSettings(shapeConfig(), defaultState(Blocks.DEEPSLATE), defaultState(Blocks.WATER), noiseRouter(functions, noiseParameters), AylythMaterialRuleBootstrap.materialRules(), spawnTargets(), seaLevel, disableMobGen, aquifers, oreVeins, legacyRandom);
     }
 
     static BlockState defaultState(Block block) {
