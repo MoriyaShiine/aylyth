@@ -4,6 +4,8 @@ accessible class net/minecraft/client/render/RenderLayer$MultiPhaseParameters
 accessible class net/minecraft/client/render/RenderPhase$ShaderProgram
 accessible class net/minecraft/client/render/RenderPhase$Textures
 accessible class net/minecraft/client/gui/screen/advancement/AdvancementTabType
+extendable class net/minecraft/client/particle/BlockLeakParticle$FallingHoney
+accessible method net/minecraft/client/particle/BlockLeakParticle$FallingHoney <init> (Lnet/minecraft/client/world/ClientWorld;DDDLnet/minecraft/fluid/Fluid;Lnet/minecraft/particle/ParticleEffect;)V
 
 accessible class net/minecraft/world/gen/densityfunction/DensityFunctionTypes$WeirdScaledSampler
 extendable class net/minecraft/world/gen/foliage/FoliagePlacer$TreeNode

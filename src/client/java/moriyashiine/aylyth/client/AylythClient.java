@@ -8,6 +8,7 @@ import moriyashiine.aylyth.client.model.entity.layer.YmpeThornRingModel;
 import moriyashiine.aylyth.client.model.entity.RootPropEntityModel;
 import moriyashiine.aylyth.client.model.entity.ScionEntityModel;
 import moriyashiine.aylyth.client.network.AylythClientNetworkHandler;
+import moriyashiine.aylyth.client.particle.ParticleFactories;
 import moriyashiine.aylyth.common.network.AylythPacketTypes;
 import moriyashiine.aylyth.common.network.packets.UpdatePressingUpDownPacketC2S;
 import moriyashiine.aylyth.client.particle.HindSmokeParticle;
@@ -87,11 +88,15 @@ public class AylythClient implements ClientModInitializer {
 		DimensionRenderingRegistry.registerSkyRenderer(ModDimensionKeys.AYLYTH, AylythDimensionRenderer::renderSky);
 		DimensionRenderingRegistry.registerCloudRenderer(ModDimensionKeys.AYLYTH, context -> {});
 
-		ClientPlayNetworking.registerGlobalReceiver(AylythPacketTypes.SHUCK_PARTICLES_PACKET, AylythClientNetworkHandler::handleSpawnShuckParticles);
+		ClientPlayNetworking.registerGlobalReceiver(AylythPacketTypes.SPAWN_PARTICLES_AROUND_PACKET, AylythClientNetworkHandler::handleSpawnParticlesAround);
 
 		ParticleFactoryRegistry.getInstance().register(ModParticles.PILOT_LIGHT, PilotLightParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(ModParticles.AMBIENT_PILOT_LIGHT, PilotLightParticle.AmbientFactory::new);
 		ParticleFactoryRegistry.getInstance().register(ModParticles.HIND_SMOKE, HindSmokeParticle.ShortSmokeFactory::new);
+		ParticleFactoryRegistry.getInstance().register(ModParticles.VAMPIRIC_DRIP, ParticleFactories::createVampiricDrip);
+		ParticleFactoryRegistry.getInstance().register(ModParticles.VAMPIRIC_LAND, ParticleFactories::createVampiricLand);
+		ParticleFactoryRegistry.getInstance().register(ModParticles.BLIGHT_DRIP, ParticleFactories::createBlightDrip);
+		ParticleFactoryRegistry.getInstance().register(ModParticles.BLIGHT_LAND, ParticleFactories::createBlightLand);
 
 		SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, ModBlocks.YMPE_SIGN.getTexture()));
 		SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, ModBlocks.POMEGRANATE_SIGN.getTexture()));

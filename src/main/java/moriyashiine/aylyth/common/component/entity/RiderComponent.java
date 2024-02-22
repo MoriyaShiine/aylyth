@@ -4,6 +4,7 @@ import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import moriyashiine.aylyth.common.registry.ModComponents;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.network.ServerPlayerEntity;
 
 public class RiderComponent implements AutoSyncedComponent {
     private final PlayerEntity entity;
@@ -38,7 +39,6 @@ public class RiderComponent implements AutoSyncedComponent {
         if (pressing) {
             ModComponents.RIDER_COMPONENT.sync(this.entity);
         }
-
     }
 
     public void setPressingDown(boolean pressingDown) {
@@ -47,6 +47,10 @@ public class RiderComponent implements AutoSyncedComponent {
         if (pressing) {
             ModComponents.RIDER_COMPONENT.sync(this.entity);
         }
+    }
 
+    @Override
+    public boolean shouldSyncWith(ServerPlayerEntity player) {
+        return player == this.entity;
     }
 }

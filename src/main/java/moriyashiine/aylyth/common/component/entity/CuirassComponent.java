@@ -7,7 +7,7 @@ import net.minecraft.nbt.NbtCompound;
 
 public class CuirassComponent implements AutoSyncedComponent {
     //Under the hood value but in reality should be 5 stages of growth times 2 for each heart and 2 again for halved damage thingy
-    public float MAX_STAGE = 20;
+    public static final float MAX_STAGE = 20;
     private float stage = 0;
     private int stageTimer = 0;
     private final PlayerEntity player;

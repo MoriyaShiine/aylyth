@@ -2,13 +2,17 @@ package moriyashiine.aylyth.common.util;
 
 import moriyashiine.aylyth.api.interfaces.ExtraPlayerData;
 import moriyashiine.aylyth.common.Aylyth;
+import moriyashiine.aylyth.common.network.packets.SpawnParticlesAroundPacketS2C;
 import moriyashiine.aylyth.common.registry.ModItems;
+import moriyashiine.aylyth.common.registry.ModParticles;
 import moriyashiine.aylyth.common.registry.ModSoundEvents;
 import moriyashiine.aylyth.common.registry.ModStatusEffects;
 import moriyashiine.aylyth.common.registry.tag.ModBlockTags;
 import moriyashiine.aylyth.common.registry.tag.ModDamageTypeTags;
 import moriyashiine.aylyth.common.registry.tag.ModItemTags;
 import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
+import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
@@ -26,6 +30,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.registry.RegistryKey;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Identifier;
@@ -232,6 +237,14 @@ public class AylythUtil {
         if (attacker.getRandom().nextFloat() >= 0.8) {
             attacker.heal(originalValue * 0.5f);
 
+			PlayerLookup.tracking(attacker).forEach(trackingPlayer -> {
+				ServerPlayNetworking.send(trackingPlayer, new SpawnParticlesAroundPacketS2C(attacker.getId(), 32, List.of(ModParticles.VAMPIRIC_DRIP)));
+			});
+
+			if (attacker instanceof ServerPlayerEntity player) {
+				ServerPlayNetworking.send(player, new SpawnParticlesAroundPacketS2C(player.getId(), 32, List.of(ModParticles.VAMPIRIC_DRIP)));
+			}
+
             if (isSword && target.getAbsorptionAmount() > 0) {
 				target.setAbsorptionAmount(target.getAbsorptionAmount() <= 1 ? target.getAbsorptionAmount() / 2f : 0);
             }
@@ -247,13 +260,17 @@ public class AylythUtil {
     }
 
 	public static float getBlightedWeaponEffect(LivingEntity attacker, LivingEntity target, ItemStack stack, float originalValue) {
+		boolean isSword = stack.isOf(ModItems.BLIGHTED_SWORD);
 		boolean isPickaxe = stack.isOf(ModItems.BLIGHTED_PICKAXE);
 		boolean isHoe = stack.isOf(ModItems.BLIGHTED_HOE);
-		boolean isSword = stack.isOf(ModItems.BLIGHTED_SWORD);
 
 		if (attacker.getRandom().nextFloat() >= 0.75) {
 			int amplifier = attacker.getRandom().nextFloat() <= 0.85 && target.hasStatusEffect(ModStatusEffects.BLIGHT) ? 1 : 0;
 			target.addStatusEffect(new StatusEffectInstance(ModStatusEffects.BLIGHT, 20 * 4, amplifier));
+
+			PlayerLookup.tracking(target).forEach(trackingPlayer -> {
+				ServerPlayNetworking.send(trackingPlayer, new SpawnParticlesAroundPacketS2C(target.getId(), 32, List.of(ModParticles.BLIGHT_DRIP)));
+			});
 
 			if (isSword && target.getAbsorptionAmount() > 0) {
 				target.setAbsorptionAmount(target.getAbsorptionAmount() <= 1 ? target.getAbsorptionAmount() / 2f : 0);

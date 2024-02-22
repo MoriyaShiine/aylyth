@@ -45,7 +45,7 @@ public abstract class LivingEntityMixin extends Entity {
 			boolean usingVampiric = stack.isIn(ModItemTags.VAMPIRIC_WEAPON);
 			boolean usingBlight =  stack.isIn(ModItemTags.BLIGHTED_WEAPON);
 
-            if (value >= attkDMG) { // Prevents using non critical attacks to spam the weapons
+            if (value >= attkDMG) { // Prevents using non-critical attacks to spam the weapons
 				if(usingVampiric) return AylythUtil.getVampiricWeaponEffect(entity, (LivingEntity) (Object) this, stack, value);
 				if(usingBlight) return AylythUtil.getBlightedWeaponEffect(entity, (LivingEntity) (Object) this, stack, value);
             }

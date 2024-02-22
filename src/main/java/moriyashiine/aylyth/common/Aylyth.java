@@ -2,7 +2,7 @@ package moriyashiine.aylyth.common;
 
 import moriyashiine.aylyth.common.network.AylythPacketTypes;
 import moriyashiine.aylyth.common.network.AylythServerPacketHandler;
-import moriyashiine.aylyth.common.network.packets.SpawnShuckParticlesPacketS2C;
+import moriyashiine.aylyth.common.network.packets.SpawnParticlesAroundPacketS2C;
 import moriyashiine.aylyth.common.entity.mob.ScionEntity;
 import moriyashiine.aylyth.common.event.LivingEntityDeathEvents;
 import moriyashiine.aylyth.common.item.ShuckedYmpeFruitItem;
@@ -29,6 +29,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -45,6 +46,8 @@ import net.minecraft.world.gen.GenerationStep;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 public class Aylyth implements ModInitializer {
 	public static final String MOD_ID = "aylyth";
@@ -121,7 +124,9 @@ public class Aylyth implements ModInitializer {
 						mob.setVelocity(Vec3d.ZERO);
 						mob.fallDistance = 0;
 						ModComponents.PREVENT_DROPS.get(mob).setPreventsDrops(true);
-						PlayerLookup.tracking(mob).forEach(trackingPlayer -> SpawnShuckParticlesPacketS2C.send(trackingPlayer, mob));
+						PlayerLookup.tracking(mob).forEach(trackingPlayer -> {
+							ServerPlayNetworking.send(trackingPlayer, new SpawnParticlesAroundPacketS2C(mob.getId(), 32, List.of(ParticleTypes.SMOKE, ParticleTypes.FALLING_HONEY)));
+						});
 						world.playSound(null, mob.getBlockPos(), ModSoundEvents.ENTITY_GENERIC_SHUCKED.value(), mob.getSoundCategory(), 1, mob.getSoundPitch());
 						ShuckedYmpeFruitItem.setStoredEntity(offhand, mob);
 						mob.remove(Entity.RemovalReason.DISCARDED);
