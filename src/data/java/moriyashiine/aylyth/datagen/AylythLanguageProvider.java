@@ -4,9 +4,14 @@ import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.ModEntityTypes;
 import moriyashiine.aylyth.common.registry.ModItems;
 import moriyashiine.aylyth.common.registry.ModStatusEffects;
+import moriyashiine.aylyth.common.registry.key.ModBiomeKeys;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.fabricmc.loader.impl.util.StringUtil;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.world.biome.Biome;
 
 public class AylythLanguageProvider extends FabricLanguageProvider {
 
@@ -122,8 +127,6 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add(ModItems.YMPE_DAGGER, "Ympe Dagger");
         builder.add(ModItems.YMPE_LANCE, "Ympe Lance");
         builder.add(ModItems.YMPE_GLAIVE, "Ympe Glaive");
-        builder.add("item.aylyth.glaive.desc_1", "\u00a76\u00a7oIt is the lament of the fallen");
-        builder.add("item.aylyth.glaive.desc_2", "\u00a76\u00a7owhich pushes the living onward.");
         builder.add(ModItems.YMPE_FLAMBERGE, "Ympe Flamberge");
         builder.add(ModItems.YMPE_SCYTHE, "Ympe Scythe");
         builder.add(ModItems.YMPE_FRUIT, "Ympe Fruit");
@@ -164,6 +167,8 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         potionSet(builder, "cimmerian");
         potionSet(builder, "wyrded");
 
+        builder.add("item.aylyth.glaive.desc_1", "\u00a76\u00a7oIt is the lament of the fallen");
+        builder.add("item.aylyth.glaive.desc_2", "\u00a76\u00a7owhich pushes the living onward.");
         builder.add("item.aylyth.pomegranate_cassette.desc", "DEMON AND MAX - Pomegranate");
         builder.add("item.aylyth.smithing_template.aylythian_upgrade.applies_to", "Ympe Sapling");
         builder.add("item.aylyth.smithing_template.aylythian_upgrade.ingredients", "Esstline");
@@ -273,6 +278,16 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add("info.aylyth.tulpa_follow", "Follow");
         builder.add("info.aylyth.tulpa_stay", "Stay");
 
+        biome(builder, ModBiomeKeys.COPSE, "Copse");
+        biome(builder, ModBiomeKeys.CONIFEROUS_COPSE, "Coniferous Copse");
+        biome(builder, ModBiomeKeys.DEEPWOOD, "Deepwood");
+        biome(builder, ModBiomeKeys.CONIFEROUS_DEEPWOOD, "Coniferous Deepwood");
+        biome(builder, ModBiomeKeys.CLEARING, "Clearing");
+        biome(builder, ModBiomeKeys.OVERGROWN_CLEARING, "Overgrown Clearing");
+        biome(builder, ModBiomeKeys.UPLANDS, "Uplands");
+        biome(builder, ModBiomeKeys.MIRE, "Mire");
+        biome(builder, ModBiomeKeys.BOWELS, "Bowels");
+
         // COMPAT - REI
 
         builder.add("rei.aylyth.ympe_dagger_drops", "Ympe Dagger Drops");
@@ -292,6 +307,10 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add("tag.aylyth.ympe_weapons", "Ympe Weapons");
         builder.add("tag.aylyth.blighted_weapons", "Blighted Weapons");
         builder.add("tag.aylyth.vampiric_weapons", "Vampiric Weapons");
+    }
+    
+    private void biome(TranslationBuilder builder, RegistryKey<Biome> biomeKey, String translation) {
+        builder.add(biomeKey.getValue().toTranslationKey("biome"), translation);
     }
 
     private void potionSet(TranslationBuilder builder, String effectName) {
