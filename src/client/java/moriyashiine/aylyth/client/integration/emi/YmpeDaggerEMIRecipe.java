@@ -12,6 +12,7 @@ import moriyashiine.aylyth.common.recipe.YmpeDaggerDropRecipe;
 import moriyashiine.aylyth.common.registry.ModItems;
 import moriyashiine.aylyth.client.util.RenderUtils;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -69,12 +70,13 @@ public class YmpeDaggerEMIRecipe implements EmiRecipe {
     public void addWidgets(WidgetHolder widgets) {
         Entity target = entityType == EntityType.PLAYER ? MinecraftClient.getInstance().player : entityType.create(MinecraftClient.getInstance().world);
 
-        widgets.addDrawable(18,18,20,20, (matrices, mouseX, mouseY, delta) -> {
+        widgets.addDrawable(18,18,20,20, (context, mouseX, mouseY, delta) -> {
             if (target instanceof LivingEntity livingEntity) {
                 boolean needsResize = livingEntity instanceof WreathedHindEntity || livingEntity instanceof ElderAylythianEntity;
                 int y = needsResize ? 16 : 18;
-                int size = needsResize ? 12 : 20;
-                RenderUtils.drawEntity(18, y, size, mouseX, mouseY, livingEntity, null);
+                int size = needsResize ? 10 : 18;
+                InventoryScreen.drawEntity(context, 9, y, size, 27 - mouseX, y - 9 - mouseY, livingEntity);
+//                RenderUtils.drawEntity(context, 9, y, size, mouseX, mouseY, livingEntity);
             }
         });
 
