@@ -2,6 +2,7 @@ package moriyashiine.aylyth.datagen;
 
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.advancement.CustomAdvancementDisplay;
+import moriyashiine.aylyth.common.advancement.renderdata.TextureRendererData;
 import moriyashiine.aylyth.common.criteria.HindPledgeCriterion;
 import moriyashiine.aylyth.common.criteria.ShuckingCriterion;
 import moriyashiine.aylyth.common.criteria.YmpeInfestationCriterion;
@@ -44,12 +45,12 @@ public class AylythAdvancementProvider extends FabricAdvancementProvider {
                 .build(consumer, "aylyth:aylyth/root");
         Advancement.Builder.create()
                 .parent(root)
-                .display(new CustomAdvancementDisplay(AylythUtil.id("textures/mob_effect/cimmerian.png"), Text.translatable("advancements.aylyth.aylyth.cimmerianed.title"), Text.translatable("advancements.aylyth.aylyth.cimmerianed.desc"), null, AdvancementFrame.TASK, true, true, false))
+                .display(new CustomAdvancementDisplay(TextureRendererData.standard(AylythUtil.id("textures/mob_effect/cimmerian.png")), Text.translatable("advancements.aylyth.aylyth.cimmerianed.title"), Text.translatable("advancements.aylyth.aylyth.cimmerianed.desc"), null, AdvancementFrame.TASK, true, true, false))
                 .criterion("has_cimmerian_effect", effectsChangedCriteria(EntityEffectPredicate.create().withEffect(ModStatusEffects.CIMMERIAN)))
                 .build(consumer, "aylyth:aylyth/cimmerianed");
         Advancement.Builder.create()
                 .parent(root)
-                .display(new CustomAdvancementDisplay(AylythUtil.id("textures/mob_effect/wyrded.png"), Text.translatable("advancements.aylyth.aylyth.wyrded.title"), Text.translatable("advancements.aylyth.aylyth.wyrded.desc"), null, AdvancementFrame.TASK, true, true, false))
+                .display(new CustomAdvancementDisplay(TextureRendererData.standard(AylythUtil.id("textures/mob_effect/wyrded.png")), Text.translatable("advancements.aylyth.aylyth.wyrded.title"), Text.translatable("advancements.aylyth.aylyth.wyrded.desc"), null, AdvancementFrame.TASK, true, true, false))
                 .criterion("has_wyrded_effect", effectsChangedCriteria(EntityEffectPredicate.create().withEffect(ModStatusEffects.WYRDED)))
                 .build(consumer, "aylyth:aylyth/wyrded");
         var inTheBranches = Advancement.Builder.create()
@@ -89,7 +90,7 @@ public class AylythAdvancementProvider extends FabricAdvancementProvider {
                 .build(consumer, "aylyth:aylyth/come_wayward_souls");
         var dontLookBack = Advancement.Builder.create()
                 .parent(root)
-                .display(Items.SOUL_CAMPFIRE, Text.translatable("advancements.aylyth.aylyth.dont_look_back.title"), Text.translatable("advancements.aylyth.aylyth.dont_look_back.desc"), null, AdvancementFrame.TASK, true, true, false)
+                .display(new CustomAdvancementDisplay(new TextureRendererData(AylythUtil.id("textures/particle/pilot_light.png"), 0xFFFF33FF), Text.translatable("advancements.aylyth.aylyth.dont_look_back.title"), Text.translatable("advancements.aylyth.aylyth.dont_look_back.desc"), null, AdvancementFrame.TASK, true, true, false))
                 .criterion("has_interacted_with_pilot_light", PlayerInteractedWithEntityCriterion.Conditions.create(ItemPredicate.Builder.create(), EntityPredicate.asLootContextPredicate(EntityPredicate.Builder.create().type(ModEntityTypes.PILOT_LIGHT).build())))
                 .build(consumer, "aylyth:aylyth/dont_look_back");
         Advancement.Builder.create()

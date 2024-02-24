@@ -1,5 +1,22 @@
 {
   "parent": "aylyth:aylyth/root",
+  "aylyth:custom_display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.aylyth.aylyth.dont_look_back.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "renderer": {
+      "type": "aylyth:texture",
+      "color": -52225,
+      "texture": "aylyth:textures/particle/pilot_light.png"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.aylyth.aylyth.dont_look_back.title"
+    }
+  },
   "criteria": {
     "has_interacted_with_pilot_light": {
       "conditions": {
@@ -15,21 +32,6 @@
         "item": {}
       },
       "trigger": "minecraft:player_interacted_with_entity"
-    }
-  },
-  "display": {
-    "announce_to_chat": true,
-    "description": {
-      "translate": "advancements.aylyth.aylyth.dont_look_back.desc"
-    },
-    "frame": "task",
-    "hidden": false,
-    "icon": {
-      "item": "minecraft:soul_campfire"
-    },
-    "show_toast": true,
-    "title": {
-      "translate": "advancements.aylyth.aylyth.dont_look_back.title"
     }
   },
   "requirements": [

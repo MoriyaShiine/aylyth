@@ -8,6 +8,7 @@ import moriyashiine.aylyth.common.event.LivingEntityDeathEvents;
 import moriyashiine.aylyth.common.item.ShuckedYmpeFruitItem;
 import moriyashiine.aylyth.common.recipe.YmpeDaggerDropRecipe;
 import moriyashiine.aylyth.common.registry.*;
+import moriyashiine.aylyth.common.registry.custom.CustomRegistries;
 import moriyashiine.aylyth.common.registry.key.ModPlacedFeatureKeys;
 import moriyashiine.aylyth.common.registry.tag.ModBiomeTags;
 import moriyashiine.aylyth.common.registry.tag.ModEntityTypeTags;
@@ -87,6 +88,9 @@ public class Aylyth implements ModInitializer {
 		ModLootConditions.init();
 		ModScreenHandlers.init();
 		ModDataTrackers.init();
+		CustomRegistries.init();
+		ModAdvancementRendererData.init();
+
 		biomeModifications();
 
 		LivingEntityDeathEvents.init();

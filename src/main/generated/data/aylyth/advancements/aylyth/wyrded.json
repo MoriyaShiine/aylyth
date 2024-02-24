@@ -7,8 +7,11 @@
     },
     "frame": "task",
     "hidden": false,
+    "renderer": {
+      "type": "aylyth:texture",
+      "texture": "aylyth:textures/mob_effect/wyrded.png"
+    },
     "show_toast": true,
-    "texture": "aylyth:textures/mob_effect/wyrded.png",
     "title": {
       "translate": "advancements.aylyth.aylyth.wyrded.title"
     }

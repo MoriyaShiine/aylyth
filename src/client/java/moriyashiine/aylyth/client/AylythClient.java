@@ -2,6 +2,7 @@ package moriyashiine.aylyth.client;
 
 import com.terraformersmc.terraform.boat.api.client.TerraformBoatClientHelper;
 import com.terraformersmc.terraform.sign.SpriteIdentifierRegistry;
+import moriyashiine.aylyth.client.advancement.AdvancementIconRendererRegistry;
 import moriyashiine.aylyth.client.model.entity.layer.CuirassModel;
 import moriyashiine.aylyth.client.model.entity.layer.YmpeInfestationModel;
 import moriyashiine.aylyth.client.model.entity.layer.YmpeThornRingModel;
@@ -178,8 +179,6 @@ public class AylythClient implements ClientModInitializer {
 			}
 		});
 
-
-
 		registerBigItemRenderer(ModItems.YMPE_LANCE);
 		registerBigItemRenderer(ModItems.YMPE_GLAIVE);
 		registerBigItemRenderer(ModItems.YMPE_FLAMBERGE);
@@ -195,6 +194,8 @@ public class AylythClient implements ClientModInitializer {
 			context.register(AylythUtil.id("rendertype_seep"), VertexFormats.POSITION_COLOR_TEXTURE_LIGHT_NORMAL, shader -> AylythRenderLayers.renderLayerSeep = shader);
 			context.register(AylythUtil.id("rendertype_tint"), VertexFormats.POSITION_TEXTURE, shader -> AylythRenderLayers.renderLayerTint = shader);
 		});
+
+		AdvancementIconRendererRegistry.init();
 	}
 
 	private void registerBigItemRenderer(ItemConvertible item) {

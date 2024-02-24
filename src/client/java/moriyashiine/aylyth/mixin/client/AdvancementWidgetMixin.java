@@ -2,6 +2,8 @@ package moriyashiine.aylyth.mixin.client;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import moriyashiine.aylyth.client.advancement.AdvancementIconRenderer;
+import moriyashiine.aylyth.client.advancement.AdvancementIconRendererRegistry;
 import moriyashiine.aylyth.common.advancement.CustomAdvancementDisplay;
 import net.fabricmc.fabric.api.util.TriState;
 import net.minecraft.advancement.AdvancementDisplay;
@@ -30,7 +32,7 @@ public class AdvancementWidgetMixin {
         }
 
         if (aylyth_customDisplay.get()) {
-            instance.drawTexture(((CustomAdvancementDisplay)display).getTexture(), x, y, 0, 0, 16, 16, 16, 16);
+            AdvancementIconRenderer.render(instance, ((CustomAdvancementDisplay)display).getRendererData(), x, y);
         } else {
             original.call(instance, stack, x, y);
         }
@@ -39,8 +41,7 @@ public class AdvancementWidgetMixin {
     @WrapOperation(method = "drawTooltip", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawItemWithoutEntity(Lnet/minecraft/item/ItemStack;II)V"))
     private void wrapCustomTooltip(DrawContext instance, ItemStack stack, int x, int y, Operation<Void> original) {
         if (aylyth_customDisplay.get()) {
-            instance.drawTexture(((CustomAdvancementDisplay)display).getTexture(), x, y, 0, 0, 16, 16, 16, 16);
-
+            AdvancementIconRenderer.render(instance, ((CustomAdvancementDisplay)display).getRendererData(), x, y);
         } else {
             original.call(instance, stack, x, y);
         }
