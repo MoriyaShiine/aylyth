@@ -153,6 +153,7 @@ public class ModItems {
 	public static final Item BLIGHTED_HOE = register("blighted_sickle", new HoeItem(ModToolMaterials.NEPHRITE_SPECIAL, -3, 0f, settings()));
 
 	public static final Item YMPE_CUIRASS = register("ympe_cuirass", new YmpeCuirassItem(settings().maxCount(1)));
+	public static final Item YMPE_EFFIGY = register("ympe_effigy", new YmpeEffigyItem((settings()).fireproof().rarity(Rarity.RARE).maxCount(1)));
 
 	public static final Item YMPE_FRUIT = register("ympe_fruit", new Item(settings().food(ModFoodComponents.YMPE_FRUIT)));
 	public static final Item SHUCKED_YMPE_FRUIT = register("shucked_ympe_fruit", new ShuckedYmpeFruitItem(settings().maxCount(1)));
@@ -168,13 +169,14 @@ public class ModItems {
 	public static final Item VITAL_THURIBLE = register("vital_thurible", new BlockItem(ModBlocks.VITAL_THURIBLE, settings()));
 
 	public static final Item PILOT_LIGHT_SPAWN_EGG = register("pilot_light_spawn_egg", new SpawnEggItem(ModEntityTypes.PILOT_LIGHT, 0xFFD972, 0x9FD9F6, settings()));
-	public static final Item SCION_SPAWN_EGG = register("scion_spawn_egg", new SpawnEggItem(ModEntityTypes.SCION, 0x463428, 0xE58E03, settings()));
 	public static final Item AYLYTHIAN_SPAWN_EGG = register("aylythian_spawn_egg", new SpawnEggItem(ModEntityTypes.AYLYTHIAN, 0x6A4831, 0xE58E03, settings()));
-	public static final Item FAUNAYLYTHIAN_SPAWN_EGG = register("faunaylythian_spawn_egg", new SpawnEggItem(ModEntityTypes.FAUNAYLYTHIAN, 0x6A4831, 0xE1AC20, settings()));
 	public static final Item ELDER_AYLYTHIAN_SPAWN_EGG = register("elder_aylythian_spawn_egg", new SpawnEggItem(ModEntityTypes.ELDER_AYLYTHIAN, 0x513425, 0xFFDC9B, settings()));
+	public static final Item FAUNAYLYTHIAN_SPAWN_EGG = register("faunaylythian_spawn_egg", new SpawnEggItem(ModEntityTypes.FAUNAYLYTHIAN, 0x6A4831, 0xE1AC20, settings()));
 	public static final Item WREATHED_HIND_SPAWN_EGG = register("wreathed_hind_spawn_egg", new SpawnEggItem(ModEntityTypes.WREATHED_HIND_ENTITY, 0x5C4F42, 0xE1B886, settings()));
-
-	public static final Item YMPE_EFFIGY = register("ympe_effigy", new YmpeEffigyItem((settings()).fireproof().rarity(Rarity.RARE).maxCount(1)));
+	public static final Item SCION_SPAWN_EGG = register("scion_spawn_egg", new SpawnEggItem(ModEntityTypes.SCION, 0x463428, 0xE58E03, settings()));
+	public static final Item YMPEMOULD_SPAWN_EGG = register("ympemould_spawn_egg", new SpawnEggItem(ModEntityTypes.SOULMOULD, 0x42423E, 0xE58E03, settings()));
+	public static final Item BONEFLY_SPAWN_EGG = register("bonefly_spawn_egg", new SpawnEggItem(ModEntityTypes.BONEFLY, 0xE2E2D6, 0x3A2E2B, settings()));
+	public static final Item TULPA_SPAWN_EGG = register("tulpa_spawn_egg", new SpawnEggItem(ModEntityTypes.TULPA, 0xE2E2D6, 0x73868F, settings()));
 
 	public static final Item POMEGRANATE_CASSETTE = register("pomegranate_cassette", new MusicDiscItem(14, ModSoundEvents.POMEGRANATE_MUSIC_DISC.value(), settings().maxCount(1).rarity(Rarity.RARE), 118));
 

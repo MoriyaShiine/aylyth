@@ -20,22 +20,21 @@ public class ModEntityTypes {
 	public static final EntityType<PilotLightEntity> PILOT_LIGHT = registerLiving("pilot_light", FabricEntityTypeBuilder.create(SpawnGroup.AMBIENT, PilotLightEntity::new).dimensions(EntityDimensions.fixed(0.5F, 0.5F)).build(), PilotLightEntity.createAttributes());
 	public static final EntityType<AylythianEntity> AYLYTHIAN = registerLiving("aylythian", FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, AylythianEntity::new).dimensions(EntityDimensions.fixed(0.6F, 2.3F)).build(), AylythianEntity.createAttributes());
 	public static final EntityType<ElderAylythianEntity> ELDER_AYLYTHIAN = registerLiving("elder_aylythian", FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, ElderAylythianEntity::new).dimensions(EntityDimensions.fixed(1.4F, 2.3F)).build(), ElderAylythianEntity.createAttributes());
-	public static final EntityType<YmpeLanceEntity> YMPE_LANCE = register("ympe_lance", FabricEntityTypeBuilder.<YmpeLanceEntity>create(SpawnGroup.MISC, YmpeLanceEntity::new).dimensions(EntityDimensions.fixed(0.5F, 0.5F)).build());
+	public static final EntityType<ScionEntity> SCION = registerLiving("scion", FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, ScionEntity::new).dimensions(EntityDimensions.fixed(0.6F, 1.95F)).fireImmune().build(), ScionEntity.createAttributes());
+	public static final EntityType<FaunaylythianEntity> FAUNAYLYTHIAN = registerLiving("faunaylythian", FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, FaunaylythianEntity::new).dimensions(EntityDimensions.fixed(1.2F, 1.5F)).build(), FaunaylythianEntity.createAttributes());
+	public static final EntityType<WreathedHindEntity> WREATHED_HIND_ENTITY = registerLiving("wreathed_hind", FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, WreathedHindEntity::new).dimensions(EntityDimensions.fixed(1.6F, 2.5F)).build(), WreathedHindEntity.createAttributes());
+
+	public static final EntityType<RippedSoulEntity> RIPPED_SOUL = registerLiving("ripped_soul", FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, RippedSoulEntity::new).dimensions(EntityDimensions.changing(0.9F, 0.9F)).build(), RippedSoulEntity.createVexAttributes());
 
 	public static final EntityType<SoulmouldEntity> SOULMOULD = registerLiving("soulmould", FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, SoulmouldEntity::new).dimensions(EntityDimensions.fixed(0.85F, 2.7F)).fireImmune().build(), SoulmouldEntity.createSoulmouldAttributes());
 	public static final EntityType<BoneflyEntity> BONEFLY = registerLiving("bonefly", FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, BoneflyEntity::new).dimensions(EntityDimensions.fixed(1.4F, 2.1F)).fireImmune().build(), BoneflyEntity.createBoneflyAttributes());
-
-	public static final EntityType<ScionEntity> SCION = registerLiving("scion", FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, ScionEntity::new).dimensions(EntityDimensions.fixed(0.6F, 1.95F)).fireImmune().build(), ScionEntity.createAttributes());
-	public static final EntityType<RootPropEntity> ROOT_PROP = register("root_prop", FabricEntityTypeBuilder.<RootPropEntity>create(SpawnGroup.MISC, RootPropEntity::new).dimensions(EntityDimensions.fixed(0.5F, 0.5F)).build());
-	public static final EntityType<RippedSoulEntity> RIPPED_SOUL = registerLiving("ripped_soul", FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, RippedSoulEntity::new).dimensions(EntityDimensions.changing(0.9F, 0.9F)).build(), RippedSoulEntity.createVexAttributes());
 	public static final EntityType<TulpaEntity> TULPA = registerLiving("tulpa", FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, TulpaEntity::new).dimensions(EntityDimensions.fixed(0.6F, 1.95F)).fireImmune().build(), TulpaEntity.createTulpaAttributes());
 	public static final EntityType<TulpaPlayerEntity> TULPA_PLAYER = registerLiving("tulpa_player", FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, TulpaPlayerEntity::new).dimensions(EntityDimensions.fixed(0.6F, 1.95F)).build(), TulpaEntity.createTulpaAttributes());
 
-	public static final EntityType<WreathedHindEntity> WREATHED_HIND_ENTITY = registerLiving("wreathed_hind", FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, WreathedHindEntity::new).dimensions(EntityDimensions.fixed(1.6F, 2.5F)).build(), WreathedHindEntity.createAttributes());
-
+	public static final EntityType<RootPropEntity> ROOT_PROP = register("root_prop", FabricEntityTypeBuilder.<RootPropEntity>create(SpawnGroup.MISC, RootPropEntity::new).dimensions(EntityDimensions.fixed(0.5F, 0.5F)).build());
 	public static final EntityType<SphereEntity> SPHERE_ENTITY = register("sphere", FabricEntityTypeBuilder.<SphereEntity>create(SpawnGroup.MISC, SphereEntity::new).dimensions(EntityDimensions.fixed(0.25f,0.25f)).build());
+	public static final EntityType<YmpeLanceEntity> YMPE_LANCE = register("ympe_lance", FabricEntityTypeBuilder.<YmpeLanceEntity>create(SpawnGroup.MISC, YmpeLanceEntity::new).dimensions(EntityDimensions.fixed(0.5F, 0.5F)).build());
 
-	public static final EntityType<FaunaylythianEntity> FAUNAYLYTHIAN = registerLiving("faunaylythian", FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, FaunaylythianEntity::new).dimensions(EntityDimensions.fixed(1.2F, 1.5F)).build(), FaunaylythianEntity.createAttributes());
 
 	private static <T extends MobEntity> EntityType<T> registerMob(String id, EntityType<T> entityType,
 																   DefaultAttributeContainer.Builder attributeBuilder,

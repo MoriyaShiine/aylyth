@@ -135,11 +135,14 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add(ModItems.CORIC_SEED, "Coric Seed");
         builder.add(ModItems.AYLYTHIAN_HEART, "Aylythian Heart");
         builder.add(ModItems.PILOT_LIGHT_SPAWN_EGG, "Pilot Light Spawn Egg");
+        builder.add(ModItems.AYLYTHIAN_SPAWN_EGG, "Aylythian Spawn Egg");
+        builder.add(ModItems.ELDER_AYLYTHIAN_SPAWN_EGG, "Elder Aylythian Spawn Egg");
         builder.add(ModItems.SCION_SPAWN_EGG, "Scion Spawn Egg");
         builder.add(ModItems.FAUNAYLYTHIAN_SPAWN_EGG, "Faunaylytian Spawn Egg");
         builder.add(ModItems.WREATHED_HIND_SPAWN_EGG, "Wreathed Hind Spawn Egg");
-        builder.add(ModItems.AYLYTHIAN_SPAWN_EGG, "Aylythian Spawn Egg");
-        builder.add(ModItems.ELDER_AYLYTHIAN_SPAWN_EGG, "Elder Aylythian Spawn Egg");
+        builder.add(ModItems.YMPEMOULD_SPAWN_EGG, "Ympemould Spawn Egg");
+        builder.add(ModItems.BONEFLY_SPAWN_EGG, "Bonefly Spawn Egg");
+        builder.add(ModItems.TULPA_SPAWN_EGG, "Tulpa Spawn Egg");
         builder.add(ModItems.YMPE_EFFIGY, "Ympe Effigy");
         builder.add(ModItems.WRONGMEAT, "Wrongmeat");
         builder.add(ModItems.YMPE_CUIRASS, "Ympe Cuirass");

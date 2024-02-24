@@ -130,6 +130,9 @@ public class AylythModelProvider extends FabricModelProvider {
 //        itemModelGenerator.register(ModItems.MYSTERIOUS_SKETCH, BUILTIN);
         itemModelGenerator.register(ModItems.WREATHED_HIND_SPAWN_EGG, SPAWN_EGG);
         itemModelGenerator.register(ModItems.FAUNAYLYTHIAN_SPAWN_EGG, SPAWN_EGG);
+        itemModelGenerator.register(ModItems.YMPEMOULD_SPAWN_EGG, SPAWN_EGG);
+        itemModelGenerator.register(ModItems.BONEFLY_SPAWN_EGG, SPAWN_EGG);
+        itemModelGenerator.register(ModItems.TULPA_SPAWN_EGG, SPAWN_EGG);
 //        Models.GENERATED.upload(AylythUtil.id("item/" + Registries.ITEM.getId(ModItems.MYSTERIOUS_SKETCH).getPath() + "_generated"), TextureMap.layer0(AylythUtil.id("item/" + Registries.ITEM.getId(ModItems.MYSTERIOUS_SKETCH).getPath())), itemModelGenerator.writer);
         itemModelGenerator.register(ModItems.POMEGRANATE_CASSETTE, Models.GENERATED);
         itemModelGenerator.register(ModItems.BLIGHTED_THORNS, Models.GENERATED);
