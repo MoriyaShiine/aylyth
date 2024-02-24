@@ -11,18 +11,17 @@ import net.minecraft.client.util.math.MatrixStack;
 import java.util.NoSuchElementException;
 
 public class YmpeInfestationModel extends BipedEntityModel<AbstractClientPlayerEntity> {
-	private ModelPart ympe_infestation_l_arm, ympe_infestation_r_arm;
-	
+	private ModelPart leftArmBranches;
+	private ModelPart rightArmBranches;
+
 	public YmpeInfestationModel(ModelPart root) {
 		super(root, RenderLayer::getArmorCutoutNoCull);
 		try {
-			ympe_infestation_r_arm = rightArm.getChild("ympe_infestation_r_arm");
-			ympe_infestation_l_arm = leftArm.getChild("ympe_infestation_l_arm");
-		} catch (NoSuchElementException ignored) {
-		}
-		
+			rightArmBranches = rightArm.getChild("ympe_infestation_r_arm");
+			leftArmBranches = leftArm.getChild("ympe_infestation_l_arm");
+		} catch (NoSuchElementException ignored) {}
 	}
-	
+
 	private static ModelData getBaseData() {
 		ModelData data = new ModelData();
 		ModelPartData root = data.getRoot();
@@ -35,12 +34,12 @@ public class YmpeInfestationModel extends BipedEntityModel<AbstractClientPlayerE
 		root.addChild(EntityModelPartNames.LEFT_LEG, ModelPartBuilder.create(), ModelTransform.pivot(1.9F, 12.0F, 0.0F));
 		return data;
 	}
-	
+
 	public static TexturedModelData getTexturedModelData1() {
 		ModelData data = getBaseData();
 		ModelPartData root = data.getRoot();
 		ModelPartData rightLeg = root.getChild(EntityModelPartNames.RIGHT_LEG);
-		
+
 		ModelPartData ympe_infestation_01_main = rightLeg.addChild("ympe_infestation_01_main", ModelPartBuilder.create(), ModelTransform.of(-2.0F, 10.0F, 0.0F, 0.0F, 0.0F, 0.0F));
 		ModelPartData branch01a = ympe_infestation_01_main.addChild("branch01a", ModelPartBuilder.create().uv(88, 0).cuboid(-0.51F, 0.5F, -0.25F, 1.0F, 2.0F, 2.0F), ModelTransform.of(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F));
 		branch01a.addChild("cube_r1", ModelPartBuilder.create().uv(97, 0).cuboid(-0.5F, -3.0F, -0.5F, 1.0F, 4.0F, 1.0F), ModelTransform.of(0.0F, 0.0F, 0.0F, 0.5672F, 0.0F, 0.0F));
@@ -88,7 +87,7 @@ public class YmpeInfestationModel extends BipedEntityModel<AbstractClientPlayerE
 		branch04d.addChild("cube_r10", ModelPartBuilder.create().uv(91, 4).cuboid(-0.5F, -0.5F, -1.75F, 1.0F, 1.0F, 2.0F, new Dilation(-0.3F, -0.3F, -0.3F)), ModelTransform.of(0.0F, 0.0F, 0.0F, 0.0F, 0.2618F, 0.0F));
 		return TexturedModelData.of(data, 128, 128);
 	}
-	
+
 	public static TexturedModelData getTexturedModelData2() {
 		ModelData data = getBaseData();
 		ModelPartData root = data.getRoot();
@@ -183,7 +182,7 @@ public class YmpeInfestationModel extends BipedEntityModel<AbstractClientPlayerE
 		branch02i.addChild("branch02iLeaf_r1", ModelPartBuilder.create().uv(102, 23).cuboid(-2.5F, -2.0F, 0.0F, 3.0F, 3.0F, 0.0F), ModelTransform.of(0.0F, -3.0F, 0.0F, -0.3491F, 0.48F, 0.4363F));
 		return TexturedModelData.of(data, 128, 128);
 	}
-	
+
 	public static TexturedModelData getTexturedModelData3() {
 		ModelData data = getBaseData();
 		ModelPartData root = data.getRoot();
@@ -282,7 +281,7 @@ public class YmpeInfestationModel extends BipedEntityModel<AbstractClientPlayerE
 		branch02k.addChild("branch02kLeaf_r1", ModelPartBuilder.create().uv(86, 20).cuboid(-1.5F, -1.25F, 0.25F, 2.0F, 2.0F, 0.0F), ModelTransform.of(0.0F, -3.0F, 0.0F, -0.3491F, 0.48F, 0.8727F));
 		return TexturedModelData.of(data, 128, 128);
 	}
-	
+
 	public static TexturedModelData getTexturedModelData4() {
 		ModelData data = getBaseData();
 		ModelPartData root = data.getRoot();
@@ -399,7 +398,7 @@ public class YmpeInfestationModel extends BipedEntityModel<AbstractClientPlayerE
 		branch02k.addChild("branch02kLeaf_r1", ModelPartBuilder.create().uv(102, 23).cuboid(-2.5F, -2.25F, 0.25F, 3.0F, 3.0F, 0.0F), ModelTransform.of(0.0F, -3.0F, 0.0F, -0.3491F, 0.48F, 0.8727F));
 		return TexturedModelData.of(data, 128, 128);
 	}
-	
+
 	public static TexturedModelData getTexturedModelData5() {
 		ModelData data = getBaseData();
 		ModelPartData root = data.getRoot();
@@ -542,18 +541,18 @@ public class YmpeInfestationModel extends BipedEntityModel<AbstractClientPlayerE
 		branch02k.addChild("branch02kLeaf_r1", ModelPartBuilder.create().uv(102, 23).cuboid(-2.5F, -2.25F, 0.25F, 3.0F, 3.0F, 0.0F), ModelTransform.of(0.0F, -3.0F, 0.0F, -0.3491F, 0.48F, 0.8727F));
 		return TexturedModelData.of(data, 128, 128);
 	}
-	
+
 	@Override
 	public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha) {
 		super.render(matrices, vertices, light, overlay, red, green, blue, alpha);
 	}
-	
+
 	public void adjustArmPivots(boolean slim) {
-		if (ympe_infestation_r_arm != null) {
-			ympe_infestation_r_arm.pivotX = slim ? 1.0F : -0.5F;
+		if (rightArmBranches != null) {
+			rightArmBranches.pivotX = slim ? 1.0F : -0.5F;
 		}
-		if (ympe_infestation_l_arm != null) {
-			ympe_infestation_l_arm.pivotX = slim ? 0.0F : 1.5F;
+		if (leftArmBranches != null) {
+			leftArmBranches.pivotX = slim ? 0.0F : 1.5F;
 		}
 	}
 }
