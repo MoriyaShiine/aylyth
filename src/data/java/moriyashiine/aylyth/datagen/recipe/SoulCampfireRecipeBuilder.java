@@ -31,6 +31,10 @@ public class SoulCampfireRecipeBuilder {
         return create(items.stream().map(Ingredient::ofItems).toList(), new ItemStack(output.asItem()));
     }
 
+    public static SoulCampfireRecipeBuilder createWithIngredients(List<Ingredient> items, ItemConvertible output) {
+        return create(items, new ItemStack(output.asItem()));
+    }
+
     public static SoulCampfireRecipeBuilder create(List<Ingredient> ingredients, ItemStack output) {
         if (ingredients.size() > 4) {
             throw new IllegalArgumentException("Cannot have more than 4 ingredients in soul campfire recipe");

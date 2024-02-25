@@ -8,10 +8,17 @@
       "item": "aylyth:wrongmeat"
     },
     {
-      "item": "aylyth:wrongmeat"
+      "item": "aylyth:esstline"
     },
     {
-      "item": "aylyth:shucked_ympe_fruit"
+      "fabric:type": "fabric:nbt",
+      "base": {
+        "item": "aylyth:shucked_ympe_fruit"
+      },
+      "nbt": {
+        "StoredEntity": {}
+      },
+      "strict": false
     }
   ],
   "result": {

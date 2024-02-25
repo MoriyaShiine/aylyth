@@ -8,11 +8,13 @@ import moriyashiine.aylyth.datagen.recipe.SoulCampfireRecipeBuilder;
 import moriyashiine.aylyth.datagen.recipe.YmpeDaggerRecipeJsonBuilder;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
+import net.fabricmc.fabric.api.recipe.v1.ingredient.CustomIngredient;
 import net.fabricmc.fabric.api.recipe.v1.ingredient.DefaultCustomIngredients;
 import net.minecraft.data.server.recipe.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.tag.TagKey;
@@ -221,8 +223,15 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
         YmpeDaggerRecipeJsonBuilder.create(ModEntityTypes.WREATHED_HIND_ENTITY, ModItems.WRONGMEAT, 0.2f, 3, 5)
                 .offerTo(exporter);
 
-        SoulCampfireRecipeBuilder.create(
-                List.of(ModItems.AYLYTHIAN_HEART, ModItems.WRONGMEAT, ModItems.WRONGMEAT, ModItems.SHUCKED_YMPE_FRUIT),
+        NbtCompound shucked = new NbtCompound();
+        shucked.put("StoredEntity", new NbtCompound());
+        SoulCampfireRecipeBuilder.createWithIngredients(
+                List.of(
+                        Ingredient.ofItems(ModItems.AYLYTHIAN_HEART),
+                        Ingredient.ofItems(ModItems.WRONGMEAT),
+                        Ingredient.ofItems(ModItems.ESSTLINE),
+                        DefaultCustomIngredients.nbt(Ingredient.ofItems(ModItems.SHUCKED_YMPE_FRUIT), shucked, false)
+                ),
                 ModItems.CORIC_SEED
         ).offerTo(exporter);
     }
