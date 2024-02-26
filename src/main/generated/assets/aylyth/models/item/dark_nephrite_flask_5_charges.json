@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "aylyth:item/dark_nephrite_flask_5_charges"
+  }
+}

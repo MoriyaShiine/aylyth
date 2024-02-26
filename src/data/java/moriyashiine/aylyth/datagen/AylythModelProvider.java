@@ -1,6 +1,8 @@
 package moriyashiine.aylyth.datagen;
 
 import com.google.common.collect.ImmutableList;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.block.LargeWoodyGrowthBlock;
 import moriyashiine.aylyth.common.block.PomegranateLeavesBlock;
@@ -18,6 +20,7 @@ import net.minecraft.data.client.*;
 import net.minecraft.data.family.BlockFamilies;
 import net.minecraft.data.family.BlockFamily;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemConvertible;
 import net.minecraft.registry.Registries;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.Identifier;
@@ -148,6 +151,32 @@ public class AylythModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.BLIGHTED_PICKAXE, Models.HANDHELD);
         itemModelGenerator.register(ModItems.BLIGHTED_AXE, Models.HANDHELD);
         itemModelGenerator.register(ModItems.BLIGHTED_HOE, Models.HANDHELD);
+
+        registerFlask(itemModelGenerator, ModItems.NEPHRITE_FLASK);
+        registerFlask(itemModelGenerator, ModItems.DARK_NEPHRITE_FLASK);
+    }
+
+    private void registerFlask(ItemModelGenerator generator, ItemConvertible flask) {
+        Identifier id = Registries.ITEM.getId(flask.asItem()).withPrefixedPath("item/");
+        Models.GENERATED.upload(id, TextureMap.layer0(flask.asItem()), generator.writer, (id1, textures) -> {
+            JsonObject main = Models.GENERATED.createJson(id1, textures);
+            JsonArray overrides = new JsonArray();
+            for (int i = 1; i < 7; i++) {
+                JsonObject predicate = new JsonObject();
+                JsonObject overrideEntry = new JsonObject();
+                predicate.addProperty("aylyth:uses", i / 6f);
+                overrideEntry.add("predicate", predicate);
+                overrideEntry.addProperty("model", id.withSuffixedPath("_" + i + "_charges").toString());
+                overrides.add(overrideEntry);
+            }
+
+            main.add("overrides", overrides);
+            return main;
+        });
+
+        for (int i = 1; i < 7; i++) {
+            generator.register(flask.asItem(), "_" + i + "_charges", Models.GENERATED);
+        }
     }
 
     private void generateWoodBlock(BlockStateModelGenerator generator, Block woodBlock, String texturePath) {

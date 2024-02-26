@@ -18,6 +18,7 @@ public class ModItemTags {
     public static final TagKey<Item> YMPE_WEAPONS = create("ympe_weapons");
     public static final TagKey<Item> VAMPIRIC_WEAPON = create("vampiric_weapons");
     public static final TagKey<Item> BLIGHTED_WEAPON = create("blighted_weapons");
+    public static final TagKey<Item> NEPHRITE_FLASKS = create("nephrite_flasks");
 
     private static TagKey<Item> create(String tag) {
         return TagKey.of(RegistryKeys.ITEM, AylythUtil.id(tag));

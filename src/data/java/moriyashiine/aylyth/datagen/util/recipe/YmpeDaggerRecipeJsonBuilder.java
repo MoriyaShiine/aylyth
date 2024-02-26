@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.datagen.recipe;
+package moriyashiine.aylyth.datagen.util.recipe;
 
 import com.google.gson.JsonObject;
 import moriyashiine.aylyth.common.Aylyth;

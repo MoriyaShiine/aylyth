@@ -120,8 +120,8 @@ public class ModItems {
 	public static final Item YMPE_DAGGER = register("ympe_dagger", new YmpeDaggerItem(ModToolMaterials.NEPHRITE, 2, -2, -0.5f, settings()));
 	public static final Item YMPE_GLAIVE = register("ympe_glaive", new YmpeGlaiveItem(ModToolMaterials.NEPHRITE, 5, -3.1F, (settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(1)));
 	public static final Item YMPE_LANCE = register("ympe_lance", new YmpeLanceItem(312, settings()));
-	public static final Item YMPE_FLAMBERGE = register("ympe_flamberge", new YmpeFlamberge(ModToolMaterials.NEPHRITE, 5, -3.1F, (settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(1)));
-	public static final Item YMPE_SCYTHE = register("ympe_scythe", new YmpeScythe(ModToolMaterials.NEPHRITE, 5, -3.1F, (settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(1)));
+	public static final Item YMPE_FLAMBERGE = register("ympe_flamberge", new YmpeFlambergeItem(ModToolMaterials.NEPHRITE, 5, -3.1F, (settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(1)));
+	public static final Item YMPE_SCYTHE = register("ympe_scythe", new YmpeScytheItem(ModToolMaterials.NEPHRITE, 5, -3.1F, (settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(1)));
 	public static final Item AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE = register("aylythian_upgrade_smithing_template", new AylythianSmithingTemplateUpgradeItem());
 	public static final Item CORIC_SEED = register("coric_seed", new CoricSeedItem(settings()));
 	public static final Item ESSTLINE = register("esstline", new Item(new FabricItemSettings()));
@@ -154,6 +154,8 @@ public class ModItems {
 
 	public static final Item YMPE_CUIRASS = register("ympe_cuirass", new YmpeCuirassItem(settings().maxCount(1)));
 	public static final Item YMPE_EFFIGY = register("ympe_effigy", new YmpeEffigyItem((settings()).fireproof().rarity(Rarity.RARE).maxCount(1)));
+	public static final Item NEPHRITE_FLASK = register("nephrite_flask", new NephriteFlaskItem(settings().maxCount(1)));
+	public static final Item DARK_NEPHRITE_FLASK = register("dark_nephrite_flask", new NephriteFlaskItem(settings().maxCount(1)));
 
 	public static final Item YMPE_FRUIT = register("ympe_fruit", new Item(settings().food(ModFoodComponents.YMPE_FRUIT)));
 	public static final Item SHUCKED_YMPE_FRUIT = register("shucked_ympe_fruit", new ShuckedYmpeFruitItem(settings().maxCount(1)));

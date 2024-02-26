@@ -45,10 +45,10 @@ import java.util.Optional;
 
 public class SoulHearthBlock extends Block implements BlockEntityProvider {
 
-    public static final IntProperty CHARGES;
+    public static final EnumProperty<DoubleBlockHalf> HALF = Properties.DOUBLE_BLOCK_HALF;
+    public static final IntProperty CHARGES = IntProperty.of("charged", 0, 5);
     private static final ImmutableList<Vec3i> VALID_HORIZONTAL_SPAWN_OFFSETS;
     private static final ImmutableList<Vec3i> VALID_SPAWN_OFFSETS;
-    public static final EnumProperty<DoubleBlockHalf> HALF;
     private static final VoxelShape LOWER_SHAPES;
     private static final VoxelShape UPPER_SHAPES;
 
@@ -57,36 +57,28 @@ public class SoulHearthBlock extends Block implements BlockEntityProvider {
         this.setDefaultState(this.stateManager.getDefaultState().with(CHARGES, 0).with(HALF, DoubleBlockHalf.LOWER));
     }
 
-
-    public static boolean isAylyth(World world) {
-        return world.getRegistryKey().equals(ModDimensionKeys.AYLYTH);
-    }
-
-
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+        BlockPos finalPos = pos;
         if (state.get(HALF) == DoubleBlockHalf.UPPER) {
-            pos = pos.down();
+            finalPos = finalPos.down();
         }
 
         ItemStack itemStack = player.getStackInHand(hand);
         if (hand == Hand.MAIN_HAND && !isChargeItem(itemStack) && isChargeItem(player.getStackInHand(Hand.OFF_HAND))) {
             return ActionResult.PASS;
         } else if (isChargeItem(itemStack) && canCharge(state)) {
-            charge(world, pos, state);
+            charge(world, finalPos, state);
             AylythUtil.decreaseStack(itemStack, player);
             if (!world.isClient) {
-                ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity)player;
-                serverPlayerEntity.setSpawnPoint(world.getRegistryKey(), pos, 0.0F, true, true);
-                world.playSound(null, (double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5, SoundEvents.BLOCK_RESPAWN_ANCHOR_SET_SPAWN, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity) player;
+                serverPlayerEntity.setSpawnPoint(world.getRegistryKey(), finalPos, 0.0F, true, true);
+                world.playSound(null, (double) finalPos.getX() + 0.5, (double) finalPos.getY() + 0.5, (double) finalPos.getZ() + 0.5, SoundEvents.BLOCK_RESPAWN_ANCHOR_SET_SPAWN, SoundCategory.BLOCKS, 1.0F, 1.0F);
                 return ActionResult.SUCCESS;
             }
             return ActionResult.success(true);
-        } else if (state.get(CHARGES) == 0) {
-            return ActionResult.PASS;
-        } else {
-            return ActionResult.CONSUME;
         }
+        return super.onUse(state, world, pos, player, hand, hit);
     }
 
     private static boolean isChargeItem(ItemStack stack) {
@@ -204,8 +196,6 @@ public class SoulHearthBlock extends Block implements BlockEntityProvider {
     }
 
     static {
-        HALF = Properties.DOUBLE_BLOCK_HALF;
-        CHARGES = IntProperty.of("charged", 0, 5);
         VALID_HORIZONTAL_SPAWN_OFFSETS = ImmutableList.of(new Vec3i(0, 0, -1), new Vec3i(-1, 0, 0), new Vec3i(0, 0, 1), new Vec3i(1, 0, 0), new Vec3i(-1, 0, -1), new Vec3i(1, 0, -1), new Vec3i(-1, 0, 1), new Vec3i(1, 0, 1));
         VALID_SPAWN_OFFSETS = new ImmutableList.Builder<Vec3i>()
                 .addAll(VALID_HORIZONTAL_SPAWN_OFFSETS)

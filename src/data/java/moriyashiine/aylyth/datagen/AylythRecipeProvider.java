@@ -4,15 +4,15 @@ import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.ModEntityTypes;
 import moriyashiine.aylyth.common.registry.ModItems;
 import moriyashiine.aylyth.common.registry.tag.ModItemTags;
-import moriyashiine.aylyth.datagen.recipe.SoulCampfireRecipeBuilder;
-import moriyashiine.aylyth.datagen.recipe.YmpeDaggerRecipeJsonBuilder;
+import moriyashiine.aylyth.datagen.util.recipe.SoulCampfireRecipeBuilder;
+import moriyashiine.aylyth.datagen.util.recipe.YmpeDaggerRecipeJsonBuilder;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
-import net.fabricmc.fabric.api.recipe.v1.ingredient.CustomIngredient;
 import net.fabricmc.fabric.api.recipe.v1.ingredient.DefaultCustomIngredients;
 import net.minecraft.data.server.recipe.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.recipe.Ingredient;
@@ -34,6 +34,8 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
     public void generate(Consumer<RecipeJsonProvider> exporter) {
         offerSingleOutputShapelessRecipe(exporter, Items.ORANGE_DYE, ModItems.MARIGOLD, "");
         createTwoByTwo(exporter, RecipeCategory.DECORATIONS, Items.SHROOMLIGHT, 1, ModItems.JACK_O_LANTERN_MUSHROOM, "shroomlight_from_jack_o_lantern_mushroom");
+
+        offerChestBoatRecipe(exporter, ModItems.YMPE_CHEST_BOAT, ModItems.YMPE_BOAT);
 
         offerBarkBlockRecipe(exporter, ModItems.POMEGRANATE_STRIPPED_WOOD, ModItems.POMEGRANATE_STRIPPED_LOG);
         offerBarkBlockRecipe(exporter, ModItems.POMEGRANATE_WOOD, ModItems.POMEGRANATE_LOG);
@@ -66,9 +68,6 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
         offerChestBoatRecipe(exporter, ModItems.WRITHEWOOD_CHEST_BOAT, ModItems.WRITHEWOOD_BOAT);
         
         offerShapeless(exporter, RecipeCategory.MISC, ModItems.GHOSTCAP_MUSHROOM_SPORES, 1, ModItems.GHOSTCAP_MUSHROOM, null);
-        offerChestBoatRecipe(exporter, ModItems.YMPE_CHEST_BOAT, ModItems.YMPE_BOAT);
-
-
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModBlocks.DARK_WOODS_TILES, 8)
                 .input('Y', ModBlocks.YMPE_PLANKS)
@@ -197,6 +196,30 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
                 .criterion("has_nephrite", conditionsFromItem(ModItems.NEPHRITE))
                 .offerTo(exporter);
 
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BREWING, ModItems.NEPHRITE_FLASK)
+                .input('N', ModItems.NEPHRITE)
+                .input('E', Items.STICK)
+                .pattern("NEN")
+                .pattern(" N ")
+                .criterion("has_nephrite", conditionsFromItem(ModItems.NEPHRITE))
+                .offerTo(exporter);
+
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.BREWING, ModItems.NEPHRITE_FLASK)
+                .input(ModItems.DARK_NEPHRITE_FLASK)
+                .input(ModItems.AYLYTHIAN_HEART)
+                .group("flask_conversion")
+                .criterion("has_nephrite_flask", conditionsFromTag(ModItemTags.NEPHRITE_FLASKS))
+                .offerTo(exporter, "nephrite_flask_from_dark_nephrite_flask");
+
+        ItemStack flask = new ItemStack(ModItems.NEPHRITE_FLASK);
+        flask.getOrCreateSubNbt("tag").putInt("uses", 0);
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.BREWING, ModItems.DARK_NEPHRITE_FLASK)
+                .input(DefaultCustomIngredients.nbt(new ItemStack(ModItems.NEPHRITE_FLASK), true))
+                .input(ModItems.BLIGHTED_THORNS)
+                .group("flask_conversion")
+                .criterion("has_nephrite_flask", conditionsFromTag(ModItemTags.NEPHRITE_FLASKS))
+                .offerTo(exporter, "dark_nephrite_flask_from_nephrite_flask");
+
         offerReversibleCompactingRecipesWithReverseRecipeGroup(exporter, RecipeCategory.MISC, ModItems.ESSTLINE, RecipeCategory.BUILDING_BLOCKS, ModItems.ESSTLINE_BLOCK, "esstline_from_esstline_block", "esstline");
         offerReversibleCompactingRecipesWithReverseRecipeGroup(exporter, RecipeCategory.MISC, ModItems.NEPHRITE, RecipeCategory.BUILDING_BLOCKS, ModItems.NEPHRITE_BLOCK, "nephrite_from_nephrite_block", "nephrite");
         createTwoByTwo(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CARVED_SMOOTH_NEPHRITE, 8, ModItems.NEPHRITE, "carved_smooth_nephrite");
@@ -276,9 +299,5 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
 
     private ShapelessRecipeJsonBuilder shapeless(ItemConvertible output, RecipeCategory category, int outputCount) {
         return ShapelessRecipeJsonBuilder.create(category, output, outputCount);
-    }
-
-    private ShapedRecipeJsonBuilder shaped(ItemConvertible output, RecipeCategory category, int outputCount) {
-        return ShapedRecipeJsonBuilder.create(category, output, outputCount);
     }
 }
