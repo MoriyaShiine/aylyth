@@ -21,6 +21,7 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.stat.Stats;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.IntProperty;
@@ -68,13 +69,13 @@ public class SoulHearthBlock extends Block implements BlockEntityProvider {
         if (hand == Hand.MAIN_HAND && !isChargeItem(itemStack) && isChargeItem(player.getStackInHand(Hand.OFF_HAND))) {
             return ActionResult.PASS;
         } else if (isChargeItem(itemStack) && canCharge(state)) {
+            player.incrementStat(Stats.USED.getOrCreateStat(itemStack.getItem()));
             charge(world, finalPos, state);
             AylythUtil.decreaseStack(itemStack, player);
             if (!world.isClient) {
                 ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity) player;
                 serverPlayerEntity.setSpawnPoint(world.getRegistryKey(), finalPos, 0.0F, true, true);
                 world.playSound(null, (double) finalPos.getX() + 0.5, (double) finalPos.getY() + 0.5, (double) finalPos.getZ() + 0.5, SoundEvents.BLOCK_RESPAWN_ANCHOR_SET_SPAWN, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                return ActionResult.SUCCESS;
             }
             return ActionResult.success(true);
         }

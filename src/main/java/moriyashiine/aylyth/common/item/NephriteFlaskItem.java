@@ -3,6 +3,7 @@ package moriyashiine.aylyth.common.item;
 import moriyashiine.aylyth.common.block.SoulHearthBlock;
 import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.ModItems;
+import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
@@ -12,9 +13,10 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
-import net.minecraft.item.SplashPotionItem;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.stat.Stats;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
@@ -39,6 +41,9 @@ public class NephriteFlaskItem extends Item {
             world.setBlockState(pos, state.with(SoulHearthBlock.CHARGES, state.get(SoulHearthBlock.CHARGES)-1), Block.NOTIFY_ALL);
             world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.BLOCKS, 1.0f, 1.0f);
             fill(stack);
+            if (context.getPlayer() != null) {
+                context.getPlayer().incrementStat(Stats.USED.getOrCreateStat(stack.getItem()));
+            }
             return ActionResult.success(world.isClient);
         }
         return super.useOnBlock(context);
@@ -65,6 +70,10 @@ public class NephriteFlaskItem extends Item {
             user.addStatusEffect(new StatusEffectInstance(StatusEffects.INSTANT_HEALTH, 1));
         } else if (this == ModItems.DARK_NEPHRITE_FLASK) {
             user.addStatusEffect(new StatusEffectInstance(StatusEffects.INSTANT_DAMAGE, 1));
+        }
+        if (user instanceof ServerPlayerEntity serverPlayerEntity) {
+            Criteria.CONSUME_ITEM.trigger(serverPlayerEntity, stack);
+            serverPlayerEntity.incrementStat(Stats.USED.getOrCreateStat(stack.getItem()));
         }
         return super.finishUsing(stack, world, user);
     }
