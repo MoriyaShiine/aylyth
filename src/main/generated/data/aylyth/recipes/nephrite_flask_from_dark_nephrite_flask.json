@@ -4,7 +4,11 @@
   "group": "flask_conversion",
   "ingredients": [
     {
-      "item": "aylyth:dark_nephrite_flask"
+      "fabric:type": "fabric:nbt",
+      "base": {
+        "item": "aylyth:dark_nephrite_flask"
+      },
+      "strict": true
     },
     {
       "item": "aylyth:aylythian_heart"

@@ -205,7 +205,7 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
                 .offerTo(exporter);
 
         ShapelessRecipeJsonBuilder.create(RecipeCategory.BREWING, ModItems.NEPHRITE_FLASK)
-                .input(ModItems.DARK_NEPHRITE_FLASK)
+                .input(DefaultCustomIngredients.nbt(new ItemStack(ModItems.DARK_NEPHRITE_FLASK), true))
                 .input(ModItems.AYLYTHIAN_HEART)
                 .group("flask_conversion")
                 .criterion("has_nephrite_flask", conditionsFromTag(ModItemTags.NEPHRITE_FLASKS))
