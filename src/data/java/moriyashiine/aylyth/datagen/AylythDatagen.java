@@ -1,12 +1,13 @@
 package moriyashiine.aylyth.datagen;
 
-import moriyashiine.aylyth.datagen.worldgen.biomes.AylythBiomeBootstrap;
-import moriyashiine.aylyth.datagen.worldgen.features.AylythConfiguredCarverBootstrap;
-import moriyashiine.aylyth.datagen.worldgen.features.AylythConfiguredFeatureBootstrap;
-import moriyashiine.aylyth.datagen.worldgen.features.AylythPlacedFeatureBootstrap;
-import moriyashiine.aylyth.datagen.worldgen.terrain.AylythDensityFunctionBootstrap;
-import moriyashiine.aylyth.datagen.worldgen.terrain.AylythNoiseSettingBootstrap;
-import moriyashiine.aylyth.datagen.worldgen.terrain.AylythNoiseTypeBootstrap;
+import moriyashiine.aylyth.datagen.dynamic.AylythDamageTypeBootstrap;
+import moriyashiine.aylyth.datagen.dynamic.biomes.AylythBiomeBootstrap;
+import moriyashiine.aylyth.datagen.dynamic.features.AylythConfiguredCarverBootstrap;
+import moriyashiine.aylyth.datagen.dynamic.features.AylythConfiguredFeatureBootstrap;
+import moriyashiine.aylyth.datagen.dynamic.features.AylythPlacedFeatureBootstrap;
+import moriyashiine.aylyth.datagen.dynamic.terrain.AylythDensityFunctionBootstrap;
+import moriyashiine.aylyth.datagen.dynamic.terrain.AylythNoiseSettingBootstrap;
+import moriyashiine.aylyth.datagen.dynamic.terrain.AylythNoiseTypeBootstrap;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.registry.RegistryBuilder;
@@ -44,6 +45,6 @@ public class AylythDatagen implements DataGeneratorEntrypoint {
         registryBuilder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, AylythConfiguredFeatureBootstrap::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, AylythPlacedFeatureBootstrap::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.BIOME, AylythBiomeBootstrap::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.DAMAGE_TYPE, AylythDamageTypeProvider::bootstrap);
+        registryBuilder.addRegistry(RegistryKeys.DAMAGE_TYPE, AylythDamageTypeBootstrap::bootstrap);
     }
 }

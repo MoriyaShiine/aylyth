@@ -151,6 +151,7 @@ public class AylythTagProviders {
             getOrCreateTagBuilder(ModItemTags.YMPE_WEAPONS).add(ModItems.YMPE_DAGGER, ModItems.YMPE_LANCE, ModItems.YMPE_GLAIVE, ModItems.YMPE_FLAMBERGE, ModItems.YMPE_SCYTHE);
             getOrCreateTagBuilder(ModItemTags.VAMPIRIC_WEAPON).add(ModItems.VAMPIRIC_AXE, ModItems.VAMPIRIC_HOE, ModItems.VAMPIRIC_PICKAXE, ModItems.VAMPIRIC_SWORD);
             getOrCreateTagBuilder(ModItemTags.BLIGHTED_WEAPON).add(ModItems.BLIGHTED_AXE, ModItems.BLIGHTED_HOE, ModItems.BLIGHTED_PICKAXE, ModItems.BLIGHTED_SWORD);
+            getOrCreateTagBuilder(ModItemTags.NEPHRITE_FLASKS).add(ModItems.NEPHRITE_FLASK, ModItems.DARK_NEPHRITE_FLASK);
 
             getOrCreateTagBuilder(BWTags.BARKS).add(ModItems.BARK);
         }

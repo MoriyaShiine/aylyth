@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.datagen.worldgen.features;
+package moriyashiine.aylyth.datagen.dynamic.features;
 
 import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.key.ModConfiguredFeatureKeys;

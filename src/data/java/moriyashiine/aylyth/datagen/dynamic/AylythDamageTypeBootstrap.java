@@ -1,11 +1,11 @@
-package moriyashiine.aylyth.datagen;
+package moriyashiine.aylyth.datagen.dynamic;
 
 import moriyashiine.aylyth.common.registry.key.ModDamageTypeKeys;
 import net.minecraft.entity.damage.DamageScaling;
 import net.minecraft.entity.damage.DamageType;
 import net.minecraft.registry.Registerable;
 
-public class AylythDamageTypeProvider {
+public class AylythDamageTypeBootstrap {
 
     public static void bootstrap(Registerable<DamageType> context) {
         context.register(ModDamageTypeKeys.YMPE, new DamageType("ympe", DamageScaling.ALWAYS, 0));

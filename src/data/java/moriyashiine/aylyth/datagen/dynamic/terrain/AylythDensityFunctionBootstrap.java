@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.datagen.worldgen.terrain;
+package moriyashiine.aylyth.datagen.dynamic.terrain;
 
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryEntryLookup;

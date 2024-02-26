@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.datagen.worldgen.biomes.util;
+package moriyashiine.aylyth.datagen.util.biome;
 
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.registry.entry.RegistryEntry;

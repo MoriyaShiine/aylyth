@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.datagen.worldgen.terrain;
+package moriyashiine.aylyth.datagen.dynamic.terrain;
 
 import moriyashiine.aylyth.common.registry.key.ModDimensionKeys;
 import net.minecraft.block.Block;
@@ -18,7 +18,7 @@ import java.util.List;
 
 import static moriyashiine.aylyth.common.registry.key.ModDensityFunctionKeys.*;
 import static moriyashiine.aylyth.common.registry.key.ModNoiseKeys.*;
-import static moriyashiine.aylyth.datagen.worldgen.terrain.AylythDensityFunctionBootstrap.*;
+import static moriyashiine.aylyth.datagen.dynamic.terrain.AylythDensityFunctionBootstrap.*;
 import static net.minecraft.world.gen.densityfunction.DensityFunctionTypes.*;
 
 public class AylythNoiseSettingBootstrap {

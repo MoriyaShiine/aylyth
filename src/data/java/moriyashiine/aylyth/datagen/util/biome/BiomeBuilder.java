@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.datagen.worldgen.biomes.util;
+package moriyashiine.aylyth.datagen.util.biome;
 
 import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.util.math.BlockPos;

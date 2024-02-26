@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.datagen.worldgen.features;
+package moriyashiine.aylyth.datagen.dynamic.features;
 
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.Registerable;

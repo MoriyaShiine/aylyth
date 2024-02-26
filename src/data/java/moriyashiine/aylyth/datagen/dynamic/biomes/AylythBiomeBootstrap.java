@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.datagen.worldgen.biomes;
+package moriyashiine.aylyth.datagen.dynamic.biomes;
 
 import com.chocohead.mm.api.ClassTinkerers;
 import moriyashiine.aylyth.common.registry.ModEntityTypes;
@@ -6,8 +6,8 @@ import moriyashiine.aylyth.common.registry.ModParticles;
 import moriyashiine.aylyth.common.registry.ModSoundEvents;
 import moriyashiine.aylyth.common.registry.key.ModConfiguredCarverKeys;
 import moriyashiine.aylyth.common.registry.key.ModPlacedFeatureKeys;
-import moriyashiine.aylyth.datagen.worldgen.biomes.util.BiomeBuilder;
-import moriyashiine.aylyth.datagen.worldgen.biomes.util.SpawnSettingsBuilder;
+import moriyashiine.aylyth.datagen.util.biome.BiomeBuilder;
+import moriyashiine.aylyth.datagen.util.biome.SpawnSettingsBuilder;
 import net.minecraft.entity.EntityType;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.Registerable;

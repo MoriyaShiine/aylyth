@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.datagen.worldgen.terrain;
+package moriyashiine.aylyth.datagen.dynamic.terrain;
 
 import moriyashiine.aylyth.common.registry.key.ModBiomeKeys;
 import moriyashiine.aylyth.common.registry.key.ModNoiseKeys;

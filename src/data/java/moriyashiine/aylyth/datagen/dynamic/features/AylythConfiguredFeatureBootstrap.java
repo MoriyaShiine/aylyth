@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.datagen.worldgen.features;
+package moriyashiine.aylyth.datagen.dynamic.features;
 
 import com.google.common.collect.ImmutableList;
 import moriyashiine.aylyth.common.block.SmallWoodyGrowthBlock;

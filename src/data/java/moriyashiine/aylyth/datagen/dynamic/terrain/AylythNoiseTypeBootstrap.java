@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.datagen.worldgen.terrain;
+package moriyashiine.aylyth.datagen.dynamic.terrain;
 
 import it.unimi.dsi.fastutil.doubles.DoubleList;
 import net.minecraft.registry.Registerable;
