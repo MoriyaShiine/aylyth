@@ -3,6 +3,8 @@ package moriyashiine.aylyth.common.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
@@ -20,9 +22,9 @@ public class JackolanternShelfMushroomBlock extends ShelfMushroomBlock {
 
     public static final BooleanProperty GLOWING = BooleanProperty.of("glowing");
 
-    private final Supplier<Block> groundBlock;
+    private final Supplier<StagedMushroomPlantBlock> groundBlock;
 
-    public JackolanternShelfMushroomBlock(Supplier<Block> groundBlock, Settings settings) {
+    public JackolanternShelfMushroomBlock(Supplier<StagedMushroomPlantBlock> groundBlock, Settings settings) {
         super(settings);
         this.groundBlock = groundBlock;
         setDefaultState(stateManager.getDefaultState().with(GLOWING, false));
@@ -64,8 +66,11 @@ public class JackolanternShelfMushroomBlock extends ShelfMushroomBlock {
 
     @Override
     public Optional<BlockState> findGrowState(WorldAccess world, BlockPos pos) {
-        if (world.getRandom().nextFloat() < 0.5 && world.getBlockState(pos.down()).isSideSolidFullSquare(world, pos.down(), Direction.UP)) {
-            return Optional.of(groundBlock.get().getDefaultState());
+        if (world.getRandom().nextFloat() < 0.5) {
+            Optional<BlockState> groundState = groundBlock.get().findGrowState(world, pos);
+            if (groundState.isPresent()) {
+                return groundState;
+            }
         }
         return super.findGrowState(world, pos);
     }
