@@ -27,9 +27,9 @@ public class SphereEntity extends ProjectileEntity {
         this(ModEntityTypes.SPHERE_ENTITY, world);
         this.setOwner(owner);
         this.setPosition(
-                owner.getX() - (double)(owner.getWidth() + 1.0F) * 0.5 * (double) MathHelper.sin(owner.bodyYaw * (float) (Math.PI / 180.0)),
+                owner.getX() - (double)(owner.getWidth() + 1.0F) * 0.5 * (double) MathHelper.sin(owner.bodyYaw * MathHelper.RADIANS_PER_DEGREE),
                 owner.getEyeY() - 0.1F,
-                owner.getZ() + (double)(owner.getWidth() + 1.0F) * 0.5 * (double) MathHelper.cos(owner.bodyYaw * (float) (Math.PI / 180.0))
+                owner.getZ() + (double)(owner.getWidth() + 1.0F) * 0.5 * (double) MathHelper.cos(owner.bodyYaw * MathHelper.RADIANS_PER_DEGREE)
         );
     }
 

@@ -59,7 +59,7 @@ public class YmpeGlaiveItem extends SwordItem {
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
         ItemStack stack = player.getStackInHand(hand);
-        if(!player.getItemCooldownManager().isCoolingDown(ModItems.YMPE_GLAIVE)) {
+        if(!player.getItemCooldownManager().isCoolingDown(this)) {
             float yaw = player.getYaw() * 0.017453292F;
             Vec3d pos = player.getPos().add(-MathHelper.sin(yaw) * 1.4D, player.getHeight() / 2D, MathHelper.cos(yaw) * 1.4D);
             List<LivingEntity> targets = player.getWorld().getEntitiesByClass(LivingEntity.class, Box.from(pos).offset(-0.5D, -0.5D, -0.5D).expand(3D, 1D, 3D), EntityPredicates.EXCEPT_SPECTATOR);
@@ -76,7 +76,7 @@ public class YmpeGlaiveItem extends SwordItem {
             player.getWorld().playSoundFromEntity(null, player, SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, player.getSoundCategory(), 1F, 1F);
             player.swingHand(hand);
             spawnSweepAttackParticles(player);
-            player.getItemCooldownManager().set(ModItems.YMPE_GLAIVE, 35);
+            player.getItemCooldownManager().set(this, 35);
             return TypedActionResult.success(stack);
         }
         return super.use(world, player, hand);
@@ -85,8 +85,8 @@ public class YmpeGlaiveItem extends SwordItem {
     private void spawnSweepAttackParticles(PlayerEntity player) {
         if (player.getWorld() instanceof ServerWorld serverWorld) {
             for(int i = 0; i <= 6; i++) {
-                double d = -MathHelper.sin((player.getYaw() + i*20 - 60) * ((float)Math.PI / 180)) * 3;
-                double e = MathHelper.cos((player.getYaw() + i*20 - 60) * ((float)Math.PI / 180)) * 3;
+                double d = -MathHelper.sin((player.getYaw() + i*20 - 60) * MathHelper.RADIANS_PER_DEGREE) * 3;
+                double e = MathHelper.cos((player.getYaw() + i*20 - 60) * MathHelper.RADIANS_PER_DEGREE) * 3;
                 serverWorld.spawnParticles(ParticleTypes.SWEEP_ATTACK, player.getX() + d, player.getBodyY(0.5), player.getZ() + e, 0, d, 0.0, e, 0.0);
             }
         }

@@ -37,6 +37,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -340,7 +341,7 @@ public class BoneflyEntity extends HostileEntity implements GeoEntity, TameableH
         if(getFirstPassenger() == passenger) {
             float f = 0.5f;
             float g = (float) ((this.isRemoved() ? (double) 0.01f : this.getMountedHeightOffset()) + passenger.getHeightOffset());
-            Vec3d vec3d = new Vec3d(f, 0.0, 0.0).rotateY(-this.getYaw() * ((float) Math.PI / 180) - 1.5707964f);
+            Vec3d vec3d = new Vec3d(f, 0.0, 0.0).rotateY(-this.getYaw() * MathHelper.RADIANS_PER_DEGREE - MathHelper.HALF_PI);
             passenger.setPosition(this.getX() + vec3d.x, this.getY() + (double) g, this.getZ() + vec3d.z);
             passenger.setYaw(passenger.getYaw());
             passenger.setHeadYaw(passenger.getHeadYaw());

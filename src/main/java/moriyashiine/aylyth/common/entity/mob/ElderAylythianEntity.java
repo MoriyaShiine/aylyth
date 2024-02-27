@@ -20,6 +20,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
@@ -146,8 +147,8 @@ public class ElderAylythianEntity extends HostileEntity implements GeoEntity {
 	protected void dropEquipment(DamageSource source, int lootingMultiplier, boolean allowDrops) {
 		super.dropEquipment(source, lootingMultiplier, allowDrops);
 		if (!getWorld().isClient) {
-			int xOffset = Math.sin(bodyYaw * Math.PI / 180) > 0 ? 1 : -1;
-			int zOffset = Math.cos(bodyYaw * Math.PI / 180) > 0 ? 1 : -1;
+			int xOffset = Math.sin(bodyYaw * MathHelper.RADIANS_PER_DEGREE) > 0 ? 1 : -1;
+			int zOffset = Math.cos(bodyYaw * MathHelper.RADIANS_PER_DEGREE) > 0 ? 1 : -1;
 			BlockPos[] checkPoses = {getBlockPos(), getBlockPos().add(xOffset, 0, 0), getBlockPos().add(0, 0, zOffset), getBlockPos().add(xOffset, 0, zOffset)};
 			boolean hasPlaced = false;
 			for (BlockPos checkPos : checkPoses) {
