@@ -14,6 +14,7 @@ import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.Event;
+import net.minecraft.advancement.Advancement;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageTypes;
@@ -163,7 +164,9 @@ public class LivingEntityDeathEvents {
                     case NORMAL -> 0.2f;
                     case HARD -> 0.3f;
                 };
-                if (player.getRandom().nextFloat() <= chance) {
+                // TODO: take another look at this later if people complain abt this not working with an advancement removal mod
+                Advancement netherRoot = player.server.getAdvancementLoader().get(new Identifier("nether/root"));
+                if (player.getRandom().nextFloat() <= chance && player.getAdvancementTracker().getProgress(netherRoot).isDone()) {
                     if (damageSource.getAttacker() instanceof WitchEntity) {
                         teleport = true;
                     }
