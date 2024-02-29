@@ -10,6 +10,7 @@ import moriyashiine.aylyth.client.model.entity.RootPropEntityModel;
 import moriyashiine.aylyth.client.model.entity.ScionEntityModel;
 import moriyashiine.aylyth.client.network.AylythClientNetworkHandler;
 import moriyashiine.aylyth.client.particle.ParticleFactories;
+import moriyashiine.aylyth.client.render.entity.projectile.ThornFlechetteRenderer;
 import moriyashiine.aylyth.common.item.NephriteFlaskItem;
 import moriyashiine.aylyth.common.item.ShuckedYmpeFruitItem;
 import moriyashiine.aylyth.common.network.AylythPacketTypes;
@@ -158,6 +159,7 @@ public class AylythClient implements ClientModInitializer {
 		EntityRendererRegistry.register(ModEntityTypes.SPHERE_ENTITY, SphereEntityRenderer::new);
 		EntityRendererRegistry.register(ModEntityTypes.FAUNAYLYTHIAN, FaunaylythianEntityRenderer::new);
 		EntityRendererRegistry.register(ModEntityTypes.SCION, ScionEntityRenderer::new);
+		EntityRendererRegistry.register(ModEntityTypes.THORN_FLECHETTE, ThornFlechetteRenderer::new);
 
 		LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, entityRenderer, registrationHelper, context) -> {
 			if (entityType == EntityType.PLAYER) {

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    {
+      "item": "aylyth:blighted_thorns"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "item": "aylyth:blighted_thorn_flechette"
+  }
+}

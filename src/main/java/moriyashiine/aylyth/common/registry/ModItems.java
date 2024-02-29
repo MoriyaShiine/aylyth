@@ -154,6 +154,9 @@ public class ModItems {
 	public static final Item BLIGHTED_AXE = register("blighted_axe", new AxeItem(ModToolMaterials.NEPHRITE_SPECIAL, 5, -3.0f, settings()));
 	public static final Item BLIGHTED_HOE = register("blighted_sickle", new HoeItem(ModToolMaterials.NEPHRITE_SPECIAL, -3, 0f, settings()));
 
+	public static final Item THORN_FLECHETTE = register("thorn_flechette", new ThornFlechetteItem(settings()));
+	public static final Item BLIGHTED_THORN_FLECHETTE = register("blighted_thorn_flechette", new ThornFlechetteItem(settings(), new ThornFlechetteEffect(new StatusEffectInstance(ModStatusEffects.BLIGHT, 100), 0.5f)));
+
 	public static final Item YMPE_CUIRASS = register("ympe_cuirass", new YmpeCuirassItem(settings().maxCount(1)));
 	public static final Item YMPE_EFFIGY = register("ympe_effigy", new YmpeEffigyItem((settings()).fireproof().rarity(Rarity.RARE).maxCount(1)));
 	public static final Item NEPHRITE_FLASK = register("nephrite_flask", new NephriteFlaskItem(settings().maxCount(1)));

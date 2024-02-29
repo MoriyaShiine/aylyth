@@ -220,6 +220,8 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
                 .criterion("has_nephrite_flask", conditionsFromTag(ModItemTags.NEPHRITE_FLASKS))
                 .offerTo(exporter, "dark_nephrite_flask_from_nephrite_flask");
 
+        offerShapeless(exporter, RecipeCategory.COMBAT, ModItems.BLIGHTED_THORN_FLECHETTE, 4, ModItems.BLIGHTED_THORNS);
+
         offerReversibleCompactingRecipesWithReverseRecipeGroup(exporter, RecipeCategory.MISC, ModItems.ESSTLINE, RecipeCategory.BUILDING_BLOCKS, ModItems.ESSTLINE_BLOCK, "esstline_from_esstline_block", "esstline");
         offerReversibleCompactingRecipesWithReverseRecipeGroup(exporter, RecipeCategory.MISC, ModItems.NEPHRITE, RecipeCategory.BUILDING_BLOCKS, ModItems.NEPHRITE_BLOCK, "nephrite_from_nephrite_block", "nephrite");
         createTwoByTwo(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CARVED_SMOOTH_NEPHRITE, 8, ModItems.NEPHRITE, "carved_smooth_nephrite");
@@ -279,6 +281,10 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
 
     private void createTwoByTwo(Consumer<RecipeJsonProvider> exporter, RecipeCategory category, ItemConvertible output, int outputCount, ItemConvertible input, String group, String recipeId) {
         ShapedRecipeJsonBuilder.create(category, output, outputCount).input('#', input).pattern("## ").pattern("## ").group(group).criterion(RecipeProvider.hasItem(input), conditionsFromItem(input)).offerTo(exporter, recipeId);
+    }
+
+    private void offerShapeless(Consumer<RecipeJsonProvider> exporter, RecipeCategory category, ItemConvertible output, int outputCount, ItemConvertible input) {
+        offerShapeless(exporter, category, output, outputCount, input, null);
     }
 
     private void offerShapeless(Consumer<RecipeJsonProvider> exporter, RecipeCategory category, ItemConvertible output, int outputCount, ItemConvertible input, @Nullable String group) {

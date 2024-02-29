@@ -141,7 +141,9 @@ public class AylythModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.BLIGHTED_THORNS, Models.GENERATED);
         itemModelGenerator.register(ModItems.YMPE_FLAMBERGE, BUILTIN);
         itemModelGenerator.register(ModItems.YMPE_SCYTHE, BUILTIN);
-        
+        itemModelGenerator.register(ModItems.THORN_FLECHETTE, Models.GENERATED);
+        itemModelGenerator.register(ModItems.BLIGHTED_THORN_FLECHETTE, Models.GENERATED);
+
         itemModelGenerator.register(ModItems.VAMPIRIC_SWORD, Models.HANDHELD);
         itemModelGenerator.register(ModItems.VAMPIRIC_PICKAXE, Models.HANDHELD);
         itemModelGenerator.register(ModItems.VAMPIRIC_AXE, Models.HANDHELD);

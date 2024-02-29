@@ -5,6 +5,7 @@ import moriyashiine.aylyth.common.entity.mob.*;
 import moriyashiine.aylyth.common.entity.mob.TulpaEntity.TulpaPlayerEntity;
 import moriyashiine.aylyth.common.entity.passive.PilotLightEntity;
 import moriyashiine.aylyth.common.entity.projectile.SphereEntity;
+import moriyashiine.aylyth.common.entity.projectile.ThornFlechetteEntity;
 import moriyashiine.aylyth.common.entity.projectile.YmpeLanceEntity;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
@@ -34,6 +35,7 @@ public class ModEntityTypes {
 	public static final EntityType<RootPropEntity> ROOT_PROP = register("root_prop", FabricEntityTypeBuilder.<RootPropEntity>create(SpawnGroup.MISC, RootPropEntity::new).dimensions(EntityDimensions.fixed(0.5F, 0.5F)).build());
 	public static final EntityType<SphereEntity> SPHERE_ENTITY = register("sphere", FabricEntityTypeBuilder.<SphereEntity>create(SpawnGroup.MISC, SphereEntity::new).dimensions(EntityDimensions.fixed(0.25f,0.25f)).build());
 	public static final EntityType<YmpeLanceEntity> YMPE_LANCE = register("ympe_lance", FabricEntityTypeBuilder.<YmpeLanceEntity>create(SpawnGroup.MISC, YmpeLanceEntity::new).dimensions(EntityDimensions.fixed(0.5F, 0.5F)).build());
+	public static final EntityType<ThornFlechetteEntity> THORN_FLECHETTE = register("thorn_flechette", FabricEntityTypeBuilder.<ThornFlechetteEntity>create(SpawnGroup.MISC, ThornFlechetteEntity::new).dimensions(EntityDimensions.fixed(0.5F, 0.5F)).build());
 
 
 	private static <T extends MobEntity> EntityType<T> registerMob(String id, EntityType<T> entityType,

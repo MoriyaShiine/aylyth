@@ -168,6 +168,8 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add(ModItems.BLIGHTED_THORNS, "Blighted Thorns");
         builder.add(ModItems.NEPHRITE_FLASK, "Nephrite Flask");
         builder.add(ModItems.DARK_NEPHRITE_FLASK, "Dark Nephrite Flask");
+        builder.add(ModItems.THORN_FLECHETTE, "Thorn Flechette");
+        builder.add(ModItems.BLIGHTED_THORN_FLECHETTE, "Blighted Thorn Flechette");
         potionSet(builder, "mortechis");
         potionSet(builder, "cimmerian");
         potionSet(builder, "wyrded");
