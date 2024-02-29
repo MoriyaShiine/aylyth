@@ -5,6 +5,7 @@ import com.google.common.collect.Multimap;
 import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
 import moriyashiine.aylyth.common.entity.projectile.YmpeLanceEntity;
 import moriyashiine.aylyth.common.registry.ModToolMaterials;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EquipmentSlot;
@@ -36,8 +37,8 @@ public class YmpeLanceItem extends Item implements Vanishable {
 	private static final int MIN_CHARGE_TICKS = 10;
 	private final Multimap<EntityAttribute, EntityAttributeModifier> modifiers;
 
-	public YmpeLanceItem(int durability, Settings settings) {
-		super(settings.maxCount(1).maxDamage(durability));
+	public YmpeLanceItem(Settings settings) {
+		super(settings);
 		ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableMultimap.builder();
 		builder.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, ATTACK_DAMAGE_MODIFIER);
 		builder.put(EntityAttributes.GENERIC_ATTACK_SPEED, ATTACK_SPEED_MODIFIER);
@@ -77,8 +78,7 @@ public class YmpeLanceItem extends Item implements Vanishable {
 					world.spawnEntity(lanceEntity);
 					world.playSoundFromEntity(null, lanceEntity, SoundEvents.ITEM_TRIDENT_THROW, SoundCategory.PLAYERS, 1F, 1F);
 
-					if(!player.getAbilities().creativeMode)
-						player.getInventory().removeOne(stack);
+					AylythUtil.decreaseStack(stack, player);
 				}
 
 				player.incrementStat(Stats.USED.getOrCreateStat(this));
