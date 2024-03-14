@@ -119,11 +119,13 @@ public class ModItems {
 	public static final Item DARK_WOODS_TILES = register("dark_woods_tiles", new BlockItem(ModBlocks.DARK_WOODS_TILES, settings()));
 //	public static final Item MYSTERIOUS_SKETCH = register("mysterious_sketch", new Item(new FabricItemSettings()));
 	public static final Item BARK = register("bark", new Item(new FabricItemSettings()));
+
 	public static final Item YMPE_DAGGER = register("ympe_dagger", new YmpeDaggerItem(ModToolMaterials.NEPHRITE, 2, -2, -0.5f, settings()));
 	public static final Item YMPE_GLAIVE = register("ympe_glaive", new YmpeGlaiveItem(ModToolMaterials.NEPHRITE, 5, -2.8F, (settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(1)));
 	public static final Item YMPE_LANCE = register("ympe_lance", new YmpeLanceItem(settings().maxCount(1).maxDamage(312)));
 	public static final Item YMPE_FLAMBERGE = register("ympe_flamberge", new YmpeFlambergeItem(ModToolMaterials.NEPHRITE, 5, -3.1F, (settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(1)));
-	public static final Item YMPE_SCYTHE = register("ympe_scythe", new YmpeScytheItem(ModToolMaterials.NEPHRITE, 5, -3.1F, (settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(1)));
+	public static final Item YMPE_SCYTHE = register("ympe_scythe", new YmpeScytheItem(ModToolMaterials.NEPHRITE, 4, -2.7F, (settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(1)));
+
 	public static final Item AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE = register("aylythian_upgrade_smithing_template", new AylythianSmithingTemplateUpgradeItem());
 	public static final Item CORIC_SEED = register("coric_seed", new CoricSeedItem(settings()));
 	public static final Item ESSTLINE = register("esstline", new Item(new FabricItemSettings()));

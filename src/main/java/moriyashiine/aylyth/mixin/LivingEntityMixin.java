@@ -39,7 +39,6 @@ public abstract class LivingEntityMixin extends Entity {
 	@ModifyVariable(method = "damage", at = @At("HEAD"), argsOnly = true)
 	float aylyth$damage(float value, DamageSource source) {
 		if(source.getAttacker() instanceof LivingEntity entity && !source.getAttacker().getWorld().isClient) {
-			// #TODO add particles
 			double attkDMG = entity.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
 			ItemStack stack = entity.getMainHandStack();
 			boolean usingVampiric = stack.isIn(ModItemTags.VAMPIRIC_WEAPON);
