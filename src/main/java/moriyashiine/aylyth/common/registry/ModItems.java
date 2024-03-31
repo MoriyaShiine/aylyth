@@ -176,6 +176,7 @@ public class ModItems {
 
 	public static final Item SOUL_HEARTH = register("soul_hearth", new BlockItem(ModBlocks.SOUL_HEARTH, settings()));
 	public static final Item VITAL_THURIBLE = register("vital_thurible", new BlockItem(ModBlocks.VITAL_THURIBLE, settings()));
+	public static final Item BLACK_WELL = register("black_well", new BlockItem(ModBlocks.BLACK_WELL, settings()));
 
 	public static final Item PILOT_LIGHT_SPAWN_EGG = register("pilot_light_spawn_egg", new SpawnEggItem(ModEntityTypes.PILOT_LIGHT, 0xFFD972, 0x9FD9F6, settings()));
 	public static final Item AYLYTHIAN_SPAWN_EGG = register("aylythian_spawn_egg", new SpawnEggItem(ModEntityTypes.AYLYTHIAN, 0x6A4831, 0xE58E03, settings()));

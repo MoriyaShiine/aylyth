@@ -111,6 +111,7 @@ public class AylythModelProvider extends FabricModelProvider {
         TextureMap girasolMap = TextureMap.plant(ModBlocks.GIRASOL_SAPLING);
         Identifier pottedSaplingId = BlockStateModelGenerator.TintType.NOT_TINTED.getFlowerPotCrossModel().upload(ModBlocks.GIRASOL_SAPLING_POTTED, girasolMap, blockStateModelGenerator.modelCollector);
         blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(ModBlocks.GIRASOL_SAPLING_POTTED, pottedSaplingId));
+        variantState(blockStateModelGenerator, ModBlocks.BLACK_WELL);
     }
 
     @Override
@@ -276,7 +277,7 @@ public class AylythModelProvider extends FabricModelProvider {
 
     /** This just does a simple single model, not dependent on any states*/
     private void variantState(BlockStateModelGenerator generator, Block block) {
-        generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block, BlockStateVariant.create().put(VariantSettings.MODEL, blockId(Registries.BLOCK.getId(block).getPath()))));
+        generator.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(block, blockId(Registries.BLOCK.getId(block).getPath())));
     }
 
     private void generated(ItemModelGenerator generator, Item item) {

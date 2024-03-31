@@ -2,10 +2,10 @@
 	"credit": "Made with Blockbench",
 	"parent": "minecraft:block/cube_all",
 	"textures": {
-		"0": "aylyth:blocks/black_well_stone",
-		"1": "aylyth:blocks/black_well_oil",
-		"2": "aylyth:blocks/black_well_pebbles",
-		"particle": "aylyth:blocks/black_well_stone"
+		"0": "aylyth:block/black_well_stone",
+		"1": "aylyth:block/black_well_oil",
+		"2": "aylyth:block/black_well_pebbles",
+		"particle": "aylyth:block/black_well_stone"
 	},
 	"elements": [
 		{

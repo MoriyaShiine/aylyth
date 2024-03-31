@@ -4,6 +4,7 @@ import com.terraformersmc.terraform.sign.block.TerraformHangingSignBlock;
 import com.terraformersmc.terraform.sign.block.TerraformSignBlock;
 import com.terraformersmc.terraform.sign.block.TerraformWallHangingSignBlock;
 import com.terraformersmc.terraform.sign.block.TerraformWallSignBlock;
+import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.block.*;
 import moriyashiine.aylyth.common.registry.key.ModConfiguredFeatureKeys;
 import moriyashiine.aylyth.common.util.AylythUtil;
@@ -106,7 +107,6 @@ public class ModBlocks {
 	public static final Block WRITHEWOOD_LOG = register("writhewood_log", new PillarBlock(copyOf(Blocks.OAK_LOG)));
 	public static final Block WRITHEWOOD_WOOD = register("writhewood_wood", new PillarBlock(copyOf(Blocks.OAK_WOOD)));
 	public static final Block WRITHEWOOD_SAPLING = register("writhewood_sapling", new WaterloggableSaplingBlock(new SaplingGenerator() {
-
 		@Nullable
 		@Override
 		protected RegistryKey<ConfiguredFeature<?, ?>> getTreeFeature(Random random, boolean bees) {
@@ -147,7 +147,7 @@ public class ModBlocks {
 
 	public static final Block MARIGOLD = register("marigolds", new FlowerBlock(ModStatusEffects.MORTECHIS, 9, copyOf(Blocks.DANDELION)));
 	public static final Block MARIGOLD_POTTED = register("potted_marigolds", new FlowerPotBlock(MARIGOLD, copyOf(Blocks.FLOWER_POT)));
-	public static final StagedMushroomPlantBlock JACK_O_LANTERN_MUSHROOM = register("jack_o_lantern_mushroom", new JackolanternMushroomBlock(ModBlocks::wallSupplier, FabricBlockSettings.create().notSolid().pistonBehavior(PistonBehavior.DESTROY).sounds(BlockSoundGroup.WART_BLOCK).noCollision().nonOpaque().ticksRandomly().luminance(state -> state.get(JackolanternShelfMushroomBlock.GLOWING) ? state.get(StagedMushroomPlantBlock.STAGE)+4 : 0)));
+	public static final StagedMushroomPlantBlock JACK_O_LANTERN_MUSHROOM = register("jack_o_lantern_mushroom", new JackolanternMushroomBlock(() -> (SpreadingPlantBlock) Registries.BLOCK.get(AylythUtil.id("shelf_jack_o_lantern_mushroom")), FabricBlockSettings.create().notSolid().pistonBehavior(PistonBehavior.DESTROY).sounds(BlockSoundGroup.WART_BLOCK).noCollision().nonOpaque().ticksRandomly().luminance(state -> state.get(JackolanternShelfMushroomBlock.GLOWING) ? state.get(StagedMushroomPlantBlock.STAGE)+4 : 0)));
 	public static final ShelfMushroomBlock SHELF_JACK_O_LANTERN_MUSHROOM = register("shelf_jack_o_lantern_mushroom", new JackolanternShelfMushroomBlock(() -> JACK_O_LANTERN_MUSHROOM, FabricBlockSettings.create().notSolid().pistonBehavior(PistonBehavior.DESTROY).sounds(BlockSoundGroup.WART_BLOCK).noCollision().nonOpaque().ticksRandomly().luminance(state -> state.get(JackolanternShelfMushroomBlock.GLOWING) ? 5 : 0)));
 	public static final Block GHOSTCAP_MUSHROOM = register("ghostcap_mushroom", new SpreadingPlantBlock(FabricBlockSettings.create().notSolid().pistonBehavior(PistonBehavior.DESTROY).sounds(BlockSoundGroup.GLOW_LICHEN).noCollision().nonOpaque().ticksRandomly()));
 
@@ -176,6 +176,7 @@ public class ModBlocks {
 
 	public static final Block SOUL_HEARTH = register("soul_hearth", new SoulHearthBlock(copyOf(Blocks.DEEPSLATE)));
 	public static final Block VITAL_THURIBLE = register("vital_thurible", new VitalThuribleBlock(copyOf(Blocks.DEEPSLATE)));
+	public static final Block BLACK_WELL = register("black_well", new BlackWellBlock(copyOf(Blocks.DEEPSLATE)));
 
 	private static <T extends Block> T register(String name, T item) {
 		Registry.register(Registries.BLOCK, AylythUtil.id(name), item);
@@ -226,9 +227,5 @@ public class ModBlocks {
 
 		StrippableBlockRegistry.register(WRITHEWOOD_LOG, WRITHEWOOD_STRIPPED_LOG);
 		StrippableBlockRegistry.register(WRITHEWOOD_WOOD, WRITHEWOOD_STRIPPED_WOOD);
-	}
-
-	private static SpreadingPlantBlock wallSupplier() {
-		return SHELF_JACK_O_LANTERN_MUSHROOM;
 	}
 }

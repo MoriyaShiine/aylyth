@@ -257,7 +257,8 @@ public class AylythClient implements ClientModInitializer {
 				ModBlocks.VITAL_THURIBLE,
 				ModBlocks.LARGE_WOODY_GROWTH,
 				ModBlocks.GIRASOL_SAPLING,
-				ModBlocks.GIRASOL_SAPLING_POTTED
+				ModBlocks.GIRASOL_SAPLING_POTTED,
+				ModBlocks.BLACK_WELL
 		};
 	}
 
