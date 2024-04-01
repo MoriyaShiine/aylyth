@@ -1,11 +1,13 @@
 package moriyashiine.aylyth.common.block;
 
 import moriyashiine.aylyth.common.registry.ModItems;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.item.PlayerInventoryStorage;
+import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LeavesBlock;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -19,6 +21,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
+@SuppressWarnings("UnstableApiUsage")
 public class PomegranateLeavesBlock extends LeavesBlock {
 
     public static final IntProperty FRUITING = IntProperty.of("fruiting_stage", 0, 3);
@@ -30,12 +33,14 @@ public class PomegranateLeavesBlock extends LeavesBlock {
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (state.get(FRUITING) == 3 && player.getStackInHand(hand).getItem() != Items.DEBUG_STICK) {
-            world.playSound(player, hit.getBlockPos(), SoundEvents.BLOCK_GRASS_BREAK, SoundCategory.BLOCKS, 1.0f, 1.0f);
-            if (!world.isClient()) {
-                world.setBlockState(pos, state.with(FRUITING, 0));
-                player.giveItemStack(new ItemStack(ModItems.POMEGRANATE));
+        if (state.get(FRUITING) == 3 && player.getStackInHand(hand).isOf(Items.DEBUG_STICK)) {
+            world.setBlockState(pos, state.with(FRUITING, 0));
+            PlayerInventoryStorage storage = PlayerInventoryStorage.of(player);
+            try (Transaction transaction = Transaction.openOuter()) {
+                storage.offerOrDrop(ItemVariant.of(ModItems.POMEGRANATE), 1, transaction);
+                transaction.commit();
             }
+            world.playSound(null, hit.getBlockPos(), SoundEvents.BLOCK_GRASS_BREAK, SoundCategory.BLOCKS, 1.0f, 1.0f);
             return ActionResult.success(world.isClient());
         }
         return super.onUse(state, world, pos, player, hand, hit);
