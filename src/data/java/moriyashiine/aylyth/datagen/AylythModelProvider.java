@@ -157,6 +157,9 @@ public class AylythModelProvider extends FabricModelProvider {
 
         registerFlask(itemModelGenerator, ModItems.NEPHRITE_FLASK);
         registerFlask(itemModelGenerator, ModItems.DARK_NEPHRITE_FLASK);
+        Models.GENERATED_TWO_LAYERS.upload(AylythUtil.id("item/coker_cola"), TextureMap.layered(AylythUtil.id("item/blight_potion"), AylythUtil.id("item/blight_potion")), itemModelGenerator.writer);
+        Models.GENERATED_TWO_LAYERS.upload(AylythUtil.id("item/coker_cola_splash"), TextureMap.layered(AylythUtil.id("item/blight_potion_splash"), AylythUtil.id("item/blight_potion_splash")), itemModelGenerator.writer);
+        Models.GENERATED_TWO_LAYERS.upload(AylythUtil.id("item/coker_cola_lingering"), TextureMap.layered(AylythUtil.id("item/blight_potion_lingering"), AylythUtil.id("item/blight_potion_lingering")), itemModelGenerator.writer);
     }
 
     private void registerFlask(ItemModelGenerator generator, ItemConvertible flask) {

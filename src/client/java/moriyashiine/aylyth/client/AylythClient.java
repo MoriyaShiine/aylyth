@@ -37,6 +37,7 @@ import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.block.StrewnLeavesBlock;
 import moriyashiine.aylyth.common.registry.*;
 import moriyashiine.aylyth.common.registry.key.ModDimensionKeys;
+import moriyashiine.aylyth.common.registry.tag.ModPotionTags;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
@@ -66,6 +67,9 @@ import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.render.model.BakedModel;
+import net.minecraft.client.render.model.json.JsonUnbakedModel;
+import net.minecraft.client.render.model.json.ModelOverride;
+import net.minecraft.client.render.model.json.ModelOverrideList;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.client.util.SpriteIdentifier;
@@ -74,9 +78,13 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemConvertible;
+import net.minecraft.item.Items;
+import net.minecraft.potion.PotionUtil;
 import net.minecraft.registry.Registries;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
+
+import java.util.List;
 
 public class AylythClient implements ClientModInitializer {
 	public static final KeyBinding DESCEND = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.aylyth.descend", InputUtil.Type.KEYSYM, InputUtil.GLFW_KEY_G, "category.aylyth.keybind"));
@@ -125,6 +133,9 @@ public class AylythClient implements ClientModInitializer {
 		ClampedModelPredicateProvider flaskProvider = (stack, world, entity, seed) -> NephriteFlaskItem.getCharges(stack) / 6f;
 		ModelPredicateProviderRegistry.register(ModItems.NEPHRITE_FLASK, AylythUtil.id("uses"), flaskProvider);
 		ModelPredicateProviderRegistry.register(ModItems.DARK_NEPHRITE_FLASK, AylythUtil.id("uses"), flaskProvider);
+		ModelPredicateProviderRegistry.register(Items.POTION, AylythUtil.id("blight_potion"), (stack, world, entity, seed) -> Registries.POTION.getEntry(PotionUtil.getPotion(stack)).isIn(ModPotionTags.BLIGHT) ? 1 : 0);
+		ModelPredicateProviderRegistry.register(Items.SPLASH_POTION, AylythUtil.id("blight_potion"), (stack, world, entity, seed) -> Registries.POTION.getEntry(PotionUtil.getPotion(stack)).isIn(ModPotionTags.BLIGHT) ? 1 : 0);
+		ModelPredicateProviderRegistry.register(Items.LINGERING_POTION, AylythUtil.id("blight_potion"), (stack, world, entity, seed) -> Registries.POTION.getEntry(PotionUtil.getPotion(stack)).isIn(ModPotionTags.BLIGHT) ? 1 : 0);
 
 		BlockEntityRendererFactories.register(ModBlockEntityTypes.SEEP_BLOCK_ENTITY_TYPE, SeepBlockEntityRenderer::new);
 		BlockEntityRendererFactories.register(ModBlockEntityTypes.VITAL_THURIBLE_BLOCK_ENTITY, VitalThuribleBlockEntityRenderer::new);
@@ -191,6 +202,39 @@ public class AylythClient implements ClientModInitializer {
 		registerBigItemRenderer(ModItems.YMPE_GLAIVE);
 		registerBigItemRenderer(ModItems.YMPE_FLAMBERGE);
 		registerBigItemRenderer(ModItems.YMPE_SCYTHE);
+
+		ModelLoadingPlugin.register(pluginContext -> {
+			pluginContext.addModels(
+					AylythUtil.id("item/coker_cola"),
+					AylythUtil.id("item/coker_cola_splash"),
+					AylythUtil.id("item/coker_cola_lingering")
+			);
+			pluginContext.modifyModelBeforeBake().register((model, context) -> {
+				if (context.id().equals(ModelIdentifier.ofVanilla("potion", "inventory"))) {
+					if (model instanceof JsonUnbakedModel jsonModel) {
+						List<ModelOverride.Condition> conditions = List.of(
+								new ModelOverride.Condition(AylythUtil.id("blight_potion"), 1f)
+						);
+						jsonModel.getOverrides().add(new ModelOverride(AylythUtil.id("item/coker_cola"), conditions));
+					}
+				} else if (context.id().equals(ModelIdentifier.ofVanilla("splash_potion", "inventory"))) {
+					if (model instanceof JsonUnbakedModel jsonModel) {
+						List<ModelOverride.Condition> conditions = List.of(
+								new ModelOverride.Condition(AylythUtil.id("blight_potion"), 1f)
+						);
+						jsonModel.getOverrides().add(new ModelOverride(AylythUtil.id("item/coker_cola_splash"), conditions));
+					}
+				} else if (context.id().equals(ModelIdentifier.ofVanilla("lingering_potion", "inventory"))) {
+					if (model instanceof JsonUnbakedModel jsonModel) {
+						List<ModelOverride.Condition> conditions = List.of(
+								new ModelOverride.Condition(AylythUtil.id("blight_potion"), 1f)
+						);
+						jsonModel.getOverrides().add(new ModelOverride(AylythUtil.id("item/coker_cola_lingering"), conditions));
+					}
+				}
+				return model;
+			});
+		});
 
 //		ModelLoadingRegistry.INSTANCE.registerModelProvider((manager, out) -> out.accept(new ModelIdentifier(AylythUtil.id("%s_generated".formatted(Registries.ITEM.getId(ModItems.MYSTERIOUS_SKETCH).getPath())), "inventory")));
 		BuiltinItemRendererRegistry.INSTANCE.register(ModItems.WOODY_GROWTH_CACHE, new WoodyGrowthCacheItemRenderer());

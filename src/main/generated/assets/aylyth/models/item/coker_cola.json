@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "aylyth:item/blight_potion",
+    "layer1": "aylyth:item/blight_potion"
+  }
+}

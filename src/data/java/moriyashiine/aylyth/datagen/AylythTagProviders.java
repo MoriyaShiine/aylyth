@@ -1,9 +1,6 @@
 package moriyashiine.aylyth.datagen;
 
-import moriyashiine.aylyth.common.registry.ModBlocks;
-import moriyashiine.aylyth.common.registry.ModEntityTypes;
-import moriyashiine.aylyth.common.registry.ModItems;
-import moriyashiine.aylyth.common.registry.ModStatusEffects;
+import moriyashiine.aylyth.common.registry.*;
 import moriyashiine.aylyth.common.registry.key.ModBiomeKeys;
 import moriyashiine.aylyth.common.registry.key.ModDamageTypeKeys;
 import moriyashiine.aylyth.common.registry.tag.*;
@@ -17,6 +14,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.damage.DamageType;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.potion.Potion;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.BiomeTags;
@@ -205,7 +203,6 @@ public class AylythTagProviders {
     }
 
     public static class ModDamageTypeTagProvider extends FabricTagProvider<DamageType> {
-
         public ModDamageTypeTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registries) {
             super(output, RegistryKeys.DAMAGE_TYPE, registries);
         }
@@ -221,6 +218,17 @@ public class AylythTagProviders {
             getOrCreateTagBuilder(DamageTypeTags.AVOIDS_GUARDIAN_THORNS).add(ModDamageTypeKeys.SOUL_RIP);
             getOrCreateTagBuilder(DamageTypeTags.ALWAYS_TRIGGERS_SILVERFISH).add(ModDamageTypeKeys.SOUL_RIP);
             getOrCreateTagBuilder(ModDamageTypeTags.IS_YMPE).add(ModDamageTypeKeys.YMPE, ModDamageTypeKeys.YMPE_ENTITY);
+        }
+    }
+
+    public static class ModPotionTagProvider extends FabricTagProvider<Potion> {
+        public ModPotionTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registries) {
+            super(output, RegistryKeys.POTION, registries);
+        }
+
+        @Override
+        protected void configure(RegistryWrapper.WrapperLookup registries) {
+            getOrCreateTagBuilder(ModPotionTags.BLIGHT).add(ModPotions.BLIGHT_POTION, ModPotions.LONG_BLIGHT_POTION, ModPotions.STRONG_BLIGHT_POTION);
         }
     }
 }

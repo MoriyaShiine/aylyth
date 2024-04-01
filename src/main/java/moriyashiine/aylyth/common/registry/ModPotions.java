@@ -24,6 +24,10 @@ public class ModPotions {
 	public static final Potion LONG_WYRDED_POTION = register("long_wyrded", new Potion("wyrded", new StatusEffectInstance(ModStatusEffects.WYRDED, 9600)));
 	public static final Potion STRONG_WYRDED_POTION = register("strong_wyrded", new Potion("wyrded", new StatusEffectInstance(ModStatusEffects.WYRDED, 1800, 1)));
 
+	public static final Potion BLIGHT_POTION = register("blight", new Potion(new StatusEffectInstance(ModStatusEffects.BLIGHT, 3600)));
+	public static final Potion LONG_BLIGHT_POTION = register("long_blight", new Potion("blight", new StatusEffectInstance(ModStatusEffects.BLIGHT, 9600)));
+	public static final Potion STRONG_BLIGHT_POTION = register("strong_blight", new Potion("blight", new StatusEffectInstance(ModStatusEffects.BLIGHT, 1800, 1)));
+
 	private static Potion register(String id, Potion potion) {
 		Registry.register(Registries.POTION, AylythUtil.id(id), potion);
 		return potion;

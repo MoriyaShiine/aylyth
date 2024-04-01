@@ -12,7 +12,6 @@ import net.minecraft.entity.effect.StatusEffectCategory;
 import java.util.UUID;
 
 public class WyrdedStatusEffect extends StatusEffect {
-
     private static final UUID MODIFIER_UUID = UUID.fromString("55683eb4-97eb-41a0-8b6a-3ffaf5dfb21b");
 
     public WyrdedStatusEffect() {
@@ -33,11 +32,6 @@ public class WyrdedStatusEffect extends StatusEffect {
                 instance.addTemporaryModifier(new EntityAttributeModifier(MODIFIER_UUID, this::getTranslationKey, -(0.45 + (Math.sqrt(amplifier) / 10) + ((5.0 - distance) / 12.5)), EntityAttributeModifier.Operation.MULTIPLY_TOTAL));
             }
         }
-    }
-
-    @Override
-    public void onApplied(LivingEntity entity, AttributeContainer attributes, int amplifier) {
-        // NO-OP
     }
 
     @Override

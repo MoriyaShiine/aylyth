@@ -27,6 +27,7 @@ public class AylythDatagen implements DataGeneratorEntrypoint {
         pack.addProvider(AylythTagProviders.ModEntityTypeTagProvider::new);
         pack.addProvider(AylythTagProviders.StatusEffectTagProvider::new);
         pack.addProvider(AylythTagProviders.ModDamageTypeTagProvider::new);
+        pack.addProvider(AylythTagProviders.ModPotionTagProvider::new);
 
         pack.addProvider(AylythLootTableProviders.BlockLoot::new);
         pack.addProvider(AylythLootTableProviders.EntityLoot::new);
