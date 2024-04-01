@@ -1,7 +1,12 @@
 package moriyashiine.aylyth.common.block;
 
+import com.google.common.base.Supplier;
+import com.google.common.base.Suppliers;
 import moriyashiine.aylyth.common.registry.ModItems;
 import moriyashiine.aylyth.common.registry.ModSoundEvents;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.item.PlayerInventoryStorage;
+import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.PillarBlock;
@@ -20,9 +25,11 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
-@SuppressWarnings("removal")
+@SuppressWarnings({"deprecated", "UnstableApiUsage"})
 public class FruitBearingYmpeLogBlock extends PillarBlock {
 	public static final Property<Integer> AGE = IntProperty.of("age", 0, 4);
+
+	public static final Supplier<ItemVariant> YMPE_FRUIT_VARIANT = Suppliers.memoize(() -> ItemVariant.of(ModItems.YMPE_FRUIT));
 	
 	public FruitBearingYmpeLogBlock(Settings settings) {
 		super(settings);
@@ -35,7 +42,11 @@ public class FruitBearingYmpeLogBlock extends PillarBlock {
 			if (!world.isClient) {
 				world.setBlockState(pos, state.with(AGE, 0));
 				world.playSound(null, pos, ModSoundEvents.BLOCK_YMPE_LOG_PICK_FRUIT.value(), SoundCategory.BLOCKS, 1, 1);
-				player.giveItemStack(new ItemStack(ModItems.YMPE_FRUIT));
+				PlayerInventoryStorage storage = PlayerInventoryStorage.of(player);
+				try (Transaction transaction = Transaction.openOuter()) {
+					storage.offerOrDrop(YMPE_FRUIT_VARIANT.get(), 1, transaction);
+					transaction.commit();
+				}
 			}
 			return ActionResult.success(world.isClient);
 		}
