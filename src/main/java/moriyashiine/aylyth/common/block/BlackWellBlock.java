@@ -37,7 +37,7 @@ public class BlackWellBlock extends Block {
                 if (storage.exchange(BLIGHT_POTION.get(), 1, transaction) == 1) {
                     transaction.commit();
                 }
-                world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.PLAYERS, 1.0f, 1.0f);
+                world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.BLOCKS, 1.0f, 1.0f);
                 return ActionResult.success(world.isClient);
             }
         }
