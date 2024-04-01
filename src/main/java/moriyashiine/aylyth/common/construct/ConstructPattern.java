@@ -32,7 +32,6 @@ public class ConstructPattern {
             }
         }
         return true;
-
     }
 
     public BlockPos getRelativeSummonBlock() {
