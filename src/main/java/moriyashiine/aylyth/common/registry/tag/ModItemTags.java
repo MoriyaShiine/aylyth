@@ -15,6 +15,7 @@ public class ModItemTags {
     public static final TagKey<Item> DECREASES_BRANCHES = create("decreases_branches");
     public static final TagKey<Item> PLEDGE_ITEMS = create("pledge_items");
     public static final TagKey<Item> NEPHRITE_TOOL_MATERIALS = create("nephrite_tool_materials");
+    public static final TagKey<Item> HEART_HARVESTERS = create("heart_harvesters");
     public static final TagKey<Item> YMPE_WEAPONS = create("ympe_weapons");
     public static final TagKey<Item> VAMPIRIC_WEAPON = create("vampiric_weapons");
     public static final TagKey<Item> BLIGHTED_WEAPON = create("blighted_weapons");

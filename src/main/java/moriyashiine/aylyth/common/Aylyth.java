@@ -13,6 +13,7 @@ import moriyashiine.aylyth.common.registry.custom.CustomRegistries;
 import moriyashiine.aylyth.common.registry.key.ModPlacedFeatureKeys;
 import moriyashiine.aylyth.common.registry.tag.ModBiomeTags;
 import moriyashiine.aylyth.common.registry.tag.ModEntityTypeTags;
+import moriyashiine.aylyth.common.registry.tag.ModItemTags;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
@@ -121,7 +122,7 @@ public class Aylyth implements ModInitializer {
 	}
 
 	private ActionResult attackWithYmpeDagger(PlayerEntity attacker, World world, Hand hand, Entity target, @Nullable EntityHitResult hitResult) {
-		if (target instanceof MobEntity mob) {
+		if (attacker.getStackInHand(hand).isOf(ModItems.YMPE_DAGGER) && target instanceof MobEntity mob) {
 			ItemStack offhand = attacker.getOffHandStack();
 			if (offhand.isOf(ModItems.SHUCKED_YMPE_FRUIT)) {
 				if (!ShuckedYmpeFruitItem.hasStoredEntity(offhand) && !mob.getType().isIn(ModEntityTypeTags.NON_SHUCKABLE)) {
@@ -149,7 +150,7 @@ public class Aylyth implements ModInitializer {
 	}
 
 	private void daggerDrops(ServerWorld serverWorld, Entity entity, LivingEntity killedEntity) {
-		if (entity instanceof LivingEntity living && living.getMainHandStack().isOf(ModItems.YMPE_DAGGER)) {
+		if (entity instanceof LivingEntity living && living.getMainHandStack().isIn(ModItemTags.HEART_HARVESTERS)) {
 			for (YmpeDaggerDropRecipe recipe : serverWorld.getRecipeManager().listAllOfType(ModRecipeTypes.YMPE_DAGGER_DROP_RECIPE_TYPE)) {
 				if (recipe.entity_type == killedEntity.getType() && serverWorld.random.nextFloat() < recipe.chance * (EnchantmentHelper.getLooting(living) + 1)) {
 					ItemStack drop = recipe.getOutput(serverWorld.getRegistryManager()).copy();
