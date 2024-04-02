@@ -96,8 +96,6 @@ public abstract class LivingEntityMixin extends Entity {
 		}
 	}
 
-
-
 	@Inject(method = "canHaveStatusEffect", at = @At("HEAD"), cancellable = true)
 	public void aylyth_canHaveStatusEffect(StatusEffectInstance effect, CallbackInfoReturnable<Boolean> cir) {
         if (this.isPlayer()) {
@@ -112,5 +110,4 @@ public abstract class LivingEntityMixin extends Entity {
 
         }
 	}
-
 }

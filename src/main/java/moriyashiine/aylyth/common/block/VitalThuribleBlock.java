@@ -29,7 +29,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
-public class VitalThuribleBlock extends HorizontalFacingBlock implements BlockEntityProvider{
+public class VitalThuribleBlock extends HorizontalFacingBlock implements BlockEntityProvider {
     public static final BooleanProperty ACTIVE = BooleanProperty.of("active");
     private static final VoxelShape SHAPES;
 
@@ -44,27 +44,27 @@ public class VitalThuribleBlock extends HorizontalFacingBlock implements BlockEn
         if (hand == Hand.MAIN_HAND && !isActivateItem(itemStack) && isActivateItem(player.getStackInHand(Hand.OFF_HAND))) {
             return ActionResult.PASS;
         } else if (isActivateItem(itemStack) && !state.get(ACTIVE)) {
-            if(!world.isClient() && world.getBlockEntity(pos) != null){
-                ((VitalThuribleBlockEntity) Objects.requireNonNull(world.getBlockEntity(pos))).onUse(player, hand);
+            if (!world.isClient() && world.getBlockEntity(pos) instanceof VitalThuribleBlockEntity vitalThuribleBlockEntity) {
+                vitalThuribleBlockEntity.onUse(player, hand);
             }
             return ActionResult.success(true);
         }
         return super.onUse(state, world, pos, player, hand, hit);
     }
 
-    private static boolean isActivateItem(ItemStack stack) {
+    public static boolean isActivateItem(ItemStack stack) {
         return stack.isOf(ModItems.WRONGMEAT);
     }
 
     public static void activate(World world, BlockPos pos, BlockState state) {
-        if(!state.get(ACTIVE)){
+        if (!state.get(ACTIVE)) {
             world.setBlockState(pos, state.with(ACTIVE, true));
             world.playSound(null, (double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5, SoundEvents.ENTITY_GHAST_SHOOT, SoundCategory.BLOCKS, 1.0F, 1.0F);
         }
     }
 
     public void genParticle(ParticleEffect particleEffect, World world, BlockPos pos, Random random){
-        for(int i = 0; i < random.nextInt(1) + 1; ++i) {
+        for (int i = 0; i < random.nextInt(1) + 1; ++i) {
             double d = (double)pos.getX() + 0.25 + random.nextDouble() / 2;
             double e = (double)pos.getY() + random.nextDouble() / 2;
             double f = (double)pos.getZ() + 0.25 + random.nextDouble() / 2;
@@ -91,7 +91,7 @@ public class VitalThuribleBlock extends HorizontalFacingBlock implements BlockEn
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(ACTIVE).add(FACING);
+        builder.add(ACTIVE, FACING);
     }
 
 
@@ -121,5 +121,4 @@ public class VitalThuribleBlock extends HorizontalFacingBlock implements BlockEn
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
         return (tickerWorld, pos, tickerState, blockEntity) -> VitalThuribleBlockEntity.tick(tickerWorld, pos, tickerState, (VitalThuribleBlockEntity) blockEntity);
     }
-
 }

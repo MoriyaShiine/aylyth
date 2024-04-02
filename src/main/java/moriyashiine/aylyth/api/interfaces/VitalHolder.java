@@ -13,5 +13,4 @@ public interface VitalHolder {
     int getVitalThuribleLevel();
 
     void setVitalThuribleLevel(int vital);
-
 }
