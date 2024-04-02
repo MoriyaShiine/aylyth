@@ -81,8 +81,6 @@ public class WoodyGrowthCacheBlock extends LargeWoodyGrowthBlock implements Bloc
             if (be instanceof WoodyGrowthCacheBlockEntity cache) {
                 cache.setPlayerUuid(player);
                 i = cache.fill(list, i);
-            } else {
-                throw new IllegalStateException("Something has gone wrong."); // TODO?
             }
         }
     }

@@ -32,7 +32,7 @@ public class NysianGrapeVineBlock extends VineBlock implements Fertilizable {
 	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
 		if (state.get(AGE) >= 3) {
 			if (!world.isClient) {
-				dropStack(world, pos, new ItemStack(ModItems.NYSIAN_GRAPES, MathHelper.nextInt(world.random, 1, 2)));
+				dropStack(world, pos, new ItemStack(ModItems.NYSIAN_GRAPES, world.random.nextBetween(1, 2)));
 				world.playSound(null, pos, SoundEvents.BLOCK_SWEET_BERRY_BUSH_PICK_BERRIES, SoundCategory.BLOCKS, 1.0F, 0.8F + world.random.nextFloat() * 0.4F);
 				world.setBlockState(pos, state.with(AGE, 0));
 			}
