@@ -49,7 +49,6 @@ import java.util.UUID;
 
 public class AylythUtil {
 	public static final int MAX_TRIES = 8;
-	public static final TrackedData<Integer> VITAL = DataTracker.registerData(PlayerEntity.class, TrackedDataHandlerRegistry.INTEGER);
 	public static final TrackedData<Optional<UUID>> HIND_UUID = DataTracker.registerData(PlayerEntity.class, TrackedDataHandlerRegistry.OPTIONAL_UUID);
 
 	private static final List<EntityAttributeModifier> VITAL_ATTRIBUTES = new ArrayList<>(genAtt());

@@ -75,7 +75,6 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHol
     @Inject(method = "writeCustomDataToNbt", at = @At("TAIL"))
     private void writeAylythData(NbtCompound nbtCompound, CallbackInfo info) {
         NbtCompound nbt = new NbtCompound();
-        nbt.putInt("Vital", getVitalThuribleLevel());
         if (this.getHindUuid() != null) {
             nbt.putUuid("HindUuid", getHindUuid());
         }
@@ -85,9 +84,6 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHol
     @Inject(method = "readCustomDataFromNbt", at = @At("TAIL"))
     public void readAylythData(NbtCompound nbtCompound, CallbackInfo info) {
         NbtCompound nbt = (NbtCompound) nbtCompound.get("AylythData");
-        if (nbt != null) {
-            setVitalThuribleLevel(nbt.getInt("Vital"));
-        }
         if (nbt != null && nbt.containsUuid("HindUuid")) {
             UUID ownerUUID = nbt.getUuid("HindUuid");
             this.setHindUuid(ownerUUID);
@@ -96,18 +92,12 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHol
 
     @Override
     public int getVitalThuribleLevel() {
-        return dataTracker.get(AylythUtil.VITAL);
+        return ModComponents.VITAL_HEALTH.get(this).getVitalThuribleLevel();
     }
 
     @Override
     public void setVitalThuribleLevel(int vital) {
-        if(vital <= 10){
-            dataTracker.set(AylythUtil.VITAL, vital);
-            PlayerEntity player = (PlayerEntity) (Object) this;
-            EntityAttributeInstance healthAttribute = player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH);
-            int level = dataTracker.get(AylythUtil.VITAL);
-            AylythUtil.handleVital(healthAttribute, level);
-        }
+        ModComponents.VITAL_HEALTH.get(this).setVitalThuribleLevel(vital);
     }
 
     @Override
@@ -122,7 +112,6 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHol
 
     @Inject(method = "initDataTracker()V", at = @At("TAIL"))
     private void addAylythTrackers(CallbackInfo info) {
-        dataTracker.startTracking(AylythUtil.VITAL, 0);
         dataTracker.startTracking(AylythUtil.HIND_UUID, Optional.empty());
     }
 

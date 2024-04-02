@@ -142,7 +142,6 @@ public class LivingEntityDeathEvents {
         if (oldPlayer.getWorld().getRegistryKey().equals(ModDimensionKeys.AYLYTH)) {
             AylythUtil.teleportTo(ModDimensionKeys.AYLYTH, newPlayer, 0);
         }
-        VitalHolder.of(newPlayer).ifPresent(vital -> vital.setVitalThuribleLevel(((VitalHolder) oldPlayer).getVitalThuribleLevel()));
     }
 
     private static boolean allowDeath(LivingEntity livingEntity, DamageSource damageSource, float damageAmount) {

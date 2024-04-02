@@ -14,6 +14,7 @@ public class ModComponents implements EntityComponentInitializer {
 	public static final ComponentKey<YmpeThornsComponent> YMPE_THORNS = ComponentRegistry.getOrCreate(AylythUtil.id("ympe_thorns"), YmpeThornsComponent.class);
 	public static final ComponentKey<YmpeInfestationComponent> YMPE_INFESTATION = ComponentRegistry.getOrCreate(AylythUtil.id("ympe_infestation"), YmpeInfestationComponent.class);
 	public static final ComponentKey<PreventDropsComponent> PREVENT_DROPS = ComponentRegistry.getOrCreate(AylythUtil.id("prevent_drops"), PreventDropsComponent.class);
+	public static final ComponentKey<VitalHealthComponent> VITAL_HEALTH = ComponentRegistry.getOrCreate(AylythUtil.id("vital_health"), VitalHealthComponent.class);
 
 	public static final ComponentKey<RiderComponent> RIDER_COMPONENT = ComponentRegistry.getOrCreate(AylythUtil.id("rider"), RiderComponent.class);
 	public static final ComponentKey<CuirassComponent> CUIRASS_COMPONENT = ComponentRegistry.getOrCreate(AylythUtil.id("cuirass"), CuirassComponent.class);
@@ -23,6 +24,7 @@ public class ModComponents implements EntityComponentInitializer {
 		registry.beginRegistration(LivingEntity.class, YMPE_THORNS).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(YmpeThornsComponent::new);
 		registry.registerForPlayers(YMPE_INFESTATION, YmpeInfestationComponent::new, RespawnCopyStrategy.LOSSLESS_ONLY);
 		registry.registerFor(MobEntity.class, PREVENT_DROPS, entity -> new PreventDropsComponent());
+		registry.registerForPlayers(VITAL_HEALTH, VitalHealthComponent::new, RespawnCopyStrategy.ALWAYS_COPY);
 		registry.registerForPlayers(RIDER_COMPONENT, RiderComponent::new, RespawnCopyStrategy.NEVER_COPY);
 		registry.registerForPlayers(CUIRASS_COMPONENT, CuirassComponent::new, RespawnCopyStrategy.LOSSLESS_ONLY);
 	}
