@@ -8,6 +8,7 @@ import moriyashiine.aylyth.datagen.dynamic.features.AylythPlacedFeatureBootstrap
 import moriyashiine.aylyth.datagen.dynamic.terrain.AylythDensityFunctionBootstrap;
 import moriyashiine.aylyth.datagen.dynamic.terrain.AylythNoiseSettingBootstrap;
 import moriyashiine.aylyth.datagen.dynamic.terrain.AylythNoiseTypeBootstrap;
+import moriyashiine.aylyth.datagen.tags.*;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.registry.RegistryBuilder;
@@ -21,13 +22,13 @@ public class AylythDatagen implements DataGeneratorEntrypoint {
         pack.addProvider(AylythModelProvider::new);
         pack.addProvider(AylythLanguageProvider::new);
 
-        pack.addProvider(AylythTagProviders.ModBiomeTagProvider::new);
-        var blockTags = pack.addProvider(AylythTagProviders.ModBlockTagProvider::new);
-        pack.addProvider((output, registries) -> new AylythTagProviders.ModItemTagProvider(output, registries, blockTags));
-        pack.addProvider(AylythTagProviders.ModEntityTypeTagProvider::new);
-        pack.addProvider(AylythTagProviders.StatusEffectTagProvider::new);
-        pack.addProvider(AylythTagProviders.ModDamageTypeTagProvider::new);
-        pack.addProvider(AylythTagProviders.ModPotionTagProvider::new);
+        var blockTags = pack.addProvider(AylythBlockTagProvider::new);
+        pack.addProvider((output, registries) -> new AylythItemTagProvider(output, registries, blockTags));
+        pack.addProvider(AylythEntityTypeTagProvider::new);
+        pack.addProvider(AylythStatusEffectTagProvider::new);
+        pack.addProvider(AylythPotionTagProvider::new);
+        pack.addProvider(AylythBiomeTagProvider::new);
+        pack.addProvider(AylythDamageTypeTagProvider::new);
 
         pack.addProvider(AylythLootTableProviders.BlockLoot::new);
         pack.addProvider(AylythLootTableProviders.EntityLoot::new);
