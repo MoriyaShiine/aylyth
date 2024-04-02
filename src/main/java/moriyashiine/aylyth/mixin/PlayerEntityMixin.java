@@ -10,6 +10,7 @@ import moriyashiine.aylyth.common.registry.ModComponents;
 import moriyashiine.aylyth.common.registry.ModSoundEvents;
 import moriyashiine.aylyth.common.registry.key.ModDamageTypeKeys;
 import moriyashiine.aylyth.common.registry.key.ModDimensionKeys;
+import moriyashiine.aylyth.common.registry.tag.ModDamageTypeTags;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.common.world.ModWorldState;
 import net.minecraft.block.Block;
@@ -145,17 +146,15 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHol
         if (!getWorld().isClient) {
             PlayerEntity player = (PlayerEntity) (Object) this;
             CuirassComponent component = ModComponents.CUIRASS_COMPONENT.get(player);
-            boolean bl = source.isOf(DamageTypes.MAGIC) || source.isIn(DamageTypeTags.IS_FALL) || source.isOf(DamageTypes.OUT_OF_WORLD);
-            boolean bl2 = source.getAttacker() != null && source.getAttacker() instanceof LivingEntity livingEntity1 && livingEntity1.getMainHandStack().getItem() instanceof AxeItem;
-            boolean bl3 = source.isIn(DamageTypeTags.IS_FIRE);
-            if(bl2 || bl3){
+            boolean bypassesCuirass = source.isIn(ModDamageTypeTags.BYPASSES_CUIRASS);
+            boolean isAxe = source.getAttacker() instanceof LivingEntity livingEntity1 && livingEntity1.getMainHandStack().getItem() instanceof AxeItem;
+            boolean isFireDamage = source.isIn(DamageTypeTags.IS_FIRE);
+            if (isAxe || isFireDamage) {
                 component.setStage(0);
                 component.setStageTimer(0);
                 player.getWorld().playSoundFromEntity(null, player, ModSoundEvents.ENTITY_PLAYER_INCREASE_YMPE_INFESTATION_STAGE.value(), SoundCategory.PLAYERS, 1, player.getSoundPitch());
                 return amount;
-            } else if(bl){
-                return amount;
-            } else {
+            } else if (!bypassesCuirass) {
                 while (component.getStage() > 0) {
                     amount--;
                     component.setStage(component.getStage() - 1);

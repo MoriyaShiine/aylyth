@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:is_fall",
+    "minecraft:magic",
+    "minecraft:out_of_world"
+  ]
+}
