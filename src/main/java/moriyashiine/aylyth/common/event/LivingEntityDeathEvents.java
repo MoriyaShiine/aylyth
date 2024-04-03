@@ -50,7 +50,6 @@ public class LivingEntityDeathEvents {
         ServerLivingEntityEvents.AFTER_DEATH.register(LivingEntityDeathEvents::checkVital);
         ServerLivingEntityEvents.AFTER_DEATH.register(LivingEntityDeathEvents::spawnRippedSoul);
 
-        ServerPlayerEvents.AFTER_RESPAWN.register(LivingEntityDeathEvents::afterRespawn);
         ServerPlayerEvents.AFTER_RESPAWN.register(LivingEntityDeathEvents::restoreInv);
     }
 
@@ -138,12 +137,6 @@ public class LivingEntityDeathEvents {
         }
     }
 
-    private static void afterRespawn(ServerPlayerEntity oldPlayer, ServerPlayerEntity newPlayer, boolean alive) {
-        if (oldPlayer.getWorld().getRegistryKey().equals(ModDimensionKeys.AYLYTH)) {
-            AylythUtil.teleportTo(ModDimensionKeys.AYLYTH, newPlayer, 0);
-        }
-    }
-
     private static boolean allowDeath(LivingEntity livingEntity, DamageSource damageSource, float damageAmount) {
         if(livingEntity instanceof ServerPlayerEntity player){
             if (damageSource.isOf(DamageTypes.OUT_OF_WORLD)) {
@@ -164,8 +157,7 @@ public class LivingEntityDeathEvents {
                     case HARD -> 0.3f;
                 };
                 // TODO: take another look at this later if people complain abt this not working with an advancement removal mod
-                Advancement netherRoot = player.server.getAdvancementLoader().get(new Identifier("nether/root"));
-                if (player.getRandom().nextFloat() <= chance && player.getAdvancementTracker().getProgress(netherRoot).isDone()) {
+                if (player.getRandom().nextFloat() <= chance && hasPlayerBeenToNether(player)) {
                     if (damageSource.getAttacker() instanceof WitchEntity) {
                         teleport = true;
                     }
@@ -208,5 +200,10 @@ public class LivingEntityDeathEvents {
             return true;
         }
         return true;
+    }
+
+    private static boolean hasPlayerBeenToNether(ServerPlayerEntity player) {
+        Advancement advancement = player.server.getAdvancementLoader().get(new Identifier("nether/root"));
+        return player.getAdvancementTracker().getProgress(advancement).isDone();
     }
 }

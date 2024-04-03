@@ -30,8 +30,6 @@ public abstract class InGameHudMixin implements AylythGameHud {
 	@Shadow
 	protected abstract void renderOverlay(DrawContext context, Identifier texture, float opacity);
 
-	@Shadow @Final private static Identifier ICONS;
-
 	@Shadow protected abstract void drawHeart(DrawContext context, InGameHud.HeartType type, int x, int y, int v, boolean blinking, boolean halfHeart);
 
 	@Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/MathHelper;lerp(FFF)F", ordinal = 1))
