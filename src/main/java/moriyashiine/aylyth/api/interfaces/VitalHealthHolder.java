@@ -10,7 +10,7 @@ public interface VitalHealthHolder {
         return Optional.ofNullable(AylythEntityApi.VITAL_HOLDER.find(context, null));
     }
 
-    static VitalHealthHolder ofNullable(Entity context) {
+    static VitalHealthHolder find(Entity context) {
         return AylythEntityApi.VITAL_HOLDER.find(context, null);
     }
 

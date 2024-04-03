@@ -51,8 +51,6 @@ public class AylythUtil {
 	public static final int MAX_TRIES = 8;
 	public static final TrackedData<Optional<UUID>> HIND_UUID = DataTracker.registerData(PlayerEntity.class, TrackedDataHandlerRegistry.OPTIONAL_UUID);
 
-	private static final List<EntityAttributeModifier> VITAL_ATTRIBUTES = new ArrayList<>(genAtt());
-
 	public static Identifier id(String string){
 		return new Identifier(Aylyth.MOD_ID, string);
 	}
@@ -63,19 +61,6 @@ public class AylythUtil {
 		}
 		stack.decrement(1);
 	}
-
-	/**
-	 * Generates a list of unique health attributes for the vital thurible
-	 * @return the generated list
-	 */
-	private static List<EntityAttributeModifier> genAtt(){
-		List<EntityAttributeModifier> VITAL = new ArrayList<>();
-		for(int i = 0; i < 10; i++){
-			VITAL.add(new EntityAttributeModifier(UUID.fromString(i + "ee98b0b-7181-46ac-97ce-d8f7307bffb1"), "vital_modifier_1", 2, EntityAttributeModifier.Operation.ADDITION));
-		}
-		return VITAL;
-	}
-
 
 	public static BlockPos getSafePosition(World world, BlockPos.Mutable pos, int tries) {
 		if (tries >= MAX_TRIES) {
@@ -138,20 +123,6 @@ public class AylythUtil {
 			}
 		}
 		return -1;
-	}
-
-	/**
-	 * Removes and restored all health modifiers depending on the level
-	 * @param healthAttribute type of health attribute
-	 * @param level level of health to be added
-	 */
-	public static void handleVital(EntityAttributeInstance healthAttribute, int level) {
-		for(EntityAttributeModifier attributes : VITAL_ATTRIBUTES){
-			healthAttribute.removeModifier(attributes);
-		}
-		for(int i = 0; i < level; i++){
-			healthAttribute.addPersistentModifier(VITAL_ATTRIBUTES.get(i));
-		}
 	}
 
 	/**
