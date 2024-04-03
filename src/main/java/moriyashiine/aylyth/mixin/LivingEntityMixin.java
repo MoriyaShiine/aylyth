@@ -38,15 +38,15 @@ public abstract class LivingEntityMixin extends Entity {
 
 	@ModifyVariable(method = "damage", at = @At("HEAD"), argsOnly = true)
 	float aylyth$damage(float value, DamageSource source) {
-		if(source.getAttacker() instanceof LivingEntity entity && !source.getAttacker().getWorld().isClient) {
+		if (source.getAttacker() instanceof LivingEntity entity && !source.getAttacker().getWorld().isClient) {
 			double attkDMG = entity.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
 			ItemStack stack = entity.getMainHandStack();
 			boolean usingVampiric = stack.isIn(ModItemTags.VAMPIRIC_WEAPON);
 			boolean usingBlight =  stack.isIn(ModItemTags.BLIGHTED_WEAPON);
 
             if (value >= attkDMG) { // Prevents using non-critical attacks to spam the weapons
-				if(usingVampiric) return AylythUtil.getVampiricWeaponEffect(entity, (LivingEntity) (Object) this, stack, value);
-				if(usingBlight) return AylythUtil.getBlightedWeaponEffect(entity, (LivingEntity) (Object) this, stack, value);
+				if (usingVampiric) return AylythUtil.getVampiricWeaponEffect(entity, (LivingEntity) (Object) this, stack, value);
+				if (usingBlight) return AylythUtil.getBlightedWeaponEffect(entity, (LivingEntity) (Object) this, stack, value);
             }
 
 		}
@@ -56,7 +56,7 @@ public abstract class LivingEntityMixin extends Entity {
 
 	@Inject(method = "heal", at = @At("HEAD"), cancellable = true)
 	private void preventHeal(float amount, CallbackInfo callbackInfo) {
-		if(this.hasStatusEffect(ModStatusEffects.CRIMSON_CURSE)) {
+		if (this.hasStatusEffect(ModStatusEffects.CRIMSON_CURSE)) {
 			callbackInfo.cancel();
 		}
 	}
@@ -102,12 +102,9 @@ public abstract class LivingEntityMixin extends Entity {
             LivingEntity entity = ((LivingEntity) (Object) this);
 
 			boolean bypassesEffigy = TagUtil.isIn(ModEffectTags.BYPASSES_EFFIGY, effect.getEffectType());
-            if(entity instanceof PlayerEntity
-					&& !bypassesEffigy
-					&& YmpeEffigyItem.isEquipped(entity)) {
+            if (!bypassesEffigy && YmpeEffigyItem.isEquipped(entity)) {
                 cir.setReturnValue(false);
             }
-
         }
 	}
 }
