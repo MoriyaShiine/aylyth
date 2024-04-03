@@ -1,12 +1,13 @@
 package moriyashiine.aylyth.mixin;
 
 import moriyashiine.aylyth.api.interfaces.HindPledgeHolder;
-import moriyashiine.aylyth.api.interfaces.VitalHolder;
+import moriyashiine.aylyth.api.interfaces.VitalHealthHolder;
 import moriyashiine.aylyth.common.block.SoulHearthBlock;
 import moriyashiine.aylyth.common.component.entity.CuirassComponent;
 import moriyashiine.aylyth.common.entity.mob.BoneflyEntity;
 import moriyashiine.aylyth.common.item.YmpeEffigyItem;
 import moriyashiine.aylyth.common.registry.ModComponents;
+import moriyashiine.aylyth.common.registry.ModEntityAttributes;
 import moriyashiine.aylyth.common.registry.ModSoundEvents;
 import moriyashiine.aylyth.common.registry.key.ModDamageTypeKeys;
 import moriyashiine.aylyth.common.registry.key.ModDimensionKeys;
@@ -20,10 +21,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.EntityAttributeInstance;
-import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.AxeItem;
@@ -37,6 +36,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+import org.objectweb.asm.Opcodes;
+import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -51,8 +52,9 @@ import java.util.UUID;
 
 import static moriyashiine.aylyth.common.block.SoulHearthBlock.HALF;
 
+@Debug(export = true, print = true)
 @Mixin(PlayerEntity.class)
-public abstract class PlayerEntityMixin extends LivingEntity implements VitalHolder, HindPledgeHolder {
+public abstract class PlayerEntityMixin extends LivingEntity implements VitalHealthHolder, HindPledgeHolder {
 
     @Shadow
     public abstract PlayerInventory getInventory();
@@ -73,6 +75,11 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHol
 //        }
 //    }
 
+    @Inject(method = "createPlayerAttributes", at = @At("RETURN"), allow = 1)
+    private static void addAttributes(CallbackInfoReturnable<DefaultAttributeContainer.Builder> cir) {
+        cir.getReturnValue().add(ModEntityAttributes.MAX_VITAL_HEALTH);
+    }
+
     @Inject(method = "writeCustomDataToNbt", at = @At("TAIL"))
     private void writeAylythData(NbtCompound nbtCompound, CallbackInfo info) {
         NbtCompound nbt = new NbtCompound();
@@ -92,13 +99,13 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHol
     }
 
     @Override
-    public int getVitalThuribleLevel() {
-        return ModComponents.VITAL_HEALTH.get(this).getVitalThuribleLevel();
+    public float get() {
+        return ModComponents.VITAL_HEALTH.get(this).get();
     }
 
     @Override
-    public void setVitalThuribleLevel(int vital) {
-        ModComponents.VITAL_HEALTH.get(this).setVitalThuribleLevel(vital);
+    public void set(float vital) {
+        ModComponents.VITAL_HEALTH.get(this).set(vital);
     }
 
     @Override
@@ -138,7 +145,6 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHol
                 cir.setReturnValue(false);
             }
         }
-
     }
 
     @ModifyVariable(method = "applyDamage", at = @At(value = "INVOKE", ordinal = 0, target = "Lnet/minecraft/entity/player/PlayerEntity;getHealth()F"), ordinal = 0, argsOnly = true)
@@ -166,10 +172,17 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHol
         return amount;
     }
 
-
+    @ModifyVariable(method = "applyDamage", at = @At(value = "LOAD", opcode = Opcodes.FLOAD, ordinal = 2))
+    private float vitalAbsorption(float damage) {
+        return VitalHealthHolder.of(this).map(vitalHealthHolder -> {
+            float absorbed = Math.max(damage-vitalHealthHolder.get(), 0);
+            vitalHealthHolder.set((int) (vitalHealthHolder.get()-damage));
+            return absorbed;
+        }).orElse(damage);
+    }
 
     @Inject(method = "tick", at = @At("TAIL"))
-    private void aylyth_removePledgeASAP(CallbackInfo ci){
+    private void removePledgeASAP(CallbackInfo ci){
         if(getHindUuid() != null && !getWorld().isClient()){
             ModWorldState modWorldState = ModWorldState.get(getWorld());
             PlayerEntity player = (PlayerEntity) (Object) this;
@@ -200,7 +213,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHol
     }
 
     @Inject(method = "onDeath", at = @At("TAIL"))
-    private void aylyth_unpledgeHind(DamageSource damageSource, CallbackInfo ci) {
+    private void unpledgeHind(DamageSource damageSource, CallbackInfo ci) {
         PlayerEntity thiz = (PlayerEntity) (Object) this;
         if (damageSource.isOf(ModDamageTypeKeys.KILLING_BLOW)) {
             HindPledgeHolder.of(thiz).ifPresent(hindPledgeHolder -> {

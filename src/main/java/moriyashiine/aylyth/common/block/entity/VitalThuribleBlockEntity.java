@@ -1,13 +1,16 @@
 package moriyashiine.aylyth.common.block.entity;
 
-import moriyashiine.aylyth.api.interfaces.VitalHolder;
+import moriyashiine.aylyth.api.interfaces.VitalHealthHolder;
 import moriyashiine.aylyth.common.block.VitalThuribleBlock;
 import moriyashiine.aylyth.common.registry.ModBlockEntityTypes;
+import moriyashiine.aylyth.common.registry.ModEntityAttributes;
 import moriyashiine.aylyth.common.registry.ModItems;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.attribute.EntityAttributeInstance;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.SingleStackInventory;
@@ -111,13 +114,14 @@ public class VitalThuribleBlockEntity extends BlockEntity implements SingleStack
                     if (blockEntity.timer > 20 * 2) {
                         if (blockEntity.targetUUID != null) {
                             PlayerEntity player = world.getPlayerByUuid(blockEntity.targetUUID);
-
-                            VitalHolder.of(player).ifPresent(vital -> {
-                                if(vital.getVitalThuribleLevel() < 10){
-                                    vital.setVitalThuribleLevel(vital.getVitalThuribleLevel() + 1);
-                                }
-
-                            });
+                            EntityAttributeInstance instance = player.getAttributeInstance(ModEntityAttributes.MAX_VITAL_HEALTH);
+                            if (instance != null) {
+                                EntityAttributeModifier modifier = instance.getModifier(VitalThuribleBlock.MAX_VITAL_MODIFIER);
+                                double newMax = modifier == null ? 2 : modifier.getValue() + 2;
+                                instance.removeModifier(VitalThuribleBlock.MAX_VITAL_MODIFIER);
+                                instance.addPersistentModifier(new EntityAttributeModifier(VitalThuribleBlock.MAX_VITAL_MODIFIER, "Vital Thurible Buff", newMax, EntityAttributeModifier.Operation.ADDITION));
+                                VitalHealthHolder.ofNullable(player).set(VitalHealthHolder.ofNullable(player).get()+2);
+                            }
                         }
 
                         blockEntity.clear();

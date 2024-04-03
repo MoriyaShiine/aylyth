@@ -10,4 +10,5 @@ public interface AylythGameHud {
     Identifier YMPE_OUTLINE_2_TEXTURE = new Identifier(Aylyth.MOD_ID, "textures/gui/ympe_outline_2.png");
     Identifier YMPE_HEALTH_TEXTURES = new Identifier(Aylyth.MOD_ID, "textures/gui/icons.png");
     Identifier SEEP_OVERLAY = AylythUtil.id("textures/environment/seep_overlay.png");
+    Identifier HEARTS = AylythUtil.id("textures/gui/aylyth_hearts.png");
 }

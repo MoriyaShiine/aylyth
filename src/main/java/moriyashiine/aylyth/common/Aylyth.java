@@ -1,5 +1,7 @@
 package moriyashiine.aylyth.common;
 
+import moriyashiine.aylyth.api.AylythEntityApi;
+import moriyashiine.aylyth.api.interfaces.VitalHealthHolder;
 import moriyashiine.aylyth.common.network.AylythPacketTypes;
 import moriyashiine.aylyth.common.network.AylythServerPacketHandler;
 import moriyashiine.aylyth.common.network.packets.SpawnParticlesAroundPacketS2C;
@@ -67,6 +69,8 @@ public class Aylyth implements ModInitializer {
 		if (DEBUG) {
 			LOGGER.info("Debug mode enabled!");
 		}
+
+		ModEntityAttributes.init();
 		ModParticles.init();
 		ModBlocks.init();
 		ModItems.init();
@@ -93,6 +97,7 @@ public class Aylyth implements ModInitializer {
 		ModAdvancementRendererData.init();
 
 		biomeModifications();
+		registerApis();
 
 		LivingEntityDeathEvents.init();
 
@@ -102,6 +107,7 @@ public class Aylyth implements ModInitializer {
 		ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register(this::daggerDrops);
 		UseBlockCallback.EVENT.register(this::interactSoulCampfire);
 		AttackEntityCallback.EVENT.register(this::attackWithYmpeDagger);
+
 	}
 
 	private ActionResult interactSoulCampfire(PlayerEntity playerEntity, World world, Hand hand, BlockHitResult blockHitResult) {
@@ -180,5 +186,9 @@ public class Aylyth implements ModInitializer {
 					context.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatureKeys.SPRUCE_SEEP);
 					context.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatureKeys.DARK_OAK_SEEP);
 				});
+	}
+
+	private void registerApis() {
+		AylythEntityApi.VITAL_HOLDER.registerForType((entity, unused) -> (VitalHealthHolder) entity, EntityType.PLAYER);
 	}
 }

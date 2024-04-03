@@ -1,5 +1,6 @@
 package moriyashiine.aylyth.common.item;
 
+import moriyashiine.aylyth.api.interfaces.VitalHealthHolder;
 import moriyashiine.aylyth.common.block.SoulHearthBlock;
 import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.ModItems;
@@ -66,11 +67,19 @@ public class NephriteFlaskItem extends Item {
     @Override
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
         growBy(stack, -1);
-        if (this == ModItems.NEPHRITE_FLASK) {
-            user.addStatusEffect(new StatusEffectInstance(StatusEffects.INSTANT_HEALTH, 1));
-        } else if (this == ModItems.DARK_NEPHRITE_FLASK) {
-            user.addStatusEffect(new StatusEffectInstance(StatusEffects.INSTANT_DAMAGE, 1));
+        if (user.getHealth() == user.getMaxHealth()) {
+            VitalHealthHolder.of(user).ifPresent(vitalHolder -> {
+                vitalHolder.set(vitalHolder.get()+4);
+            });
+        } else {
+            // TODO: Switch to component for more versatility
+            if (this == ModItems.NEPHRITE_FLASK) {
+                user.addStatusEffect(new StatusEffectInstance(StatusEffects.INSTANT_HEALTH, 1));
+            } else if (this == ModItems.DARK_NEPHRITE_FLASK) {
+                user.addStatusEffect(new StatusEffectInstance(StatusEffects.INSTANT_DAMAGE, 1));
+            }
         }
+
         if (user instanceof ServerPlayerEntity serverPlayerEntity) {
             Criteria.CONSUME_ITEM.trigger(serverPlayerEntity, stack);
             serverPlayerEntity.incrementStat(Stats.USED.getOrCreateStat(stack.getItem()));

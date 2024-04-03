@@ -28,8 +28,10 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
+import java.util.UUID;
 
 public class VitalThuribleBlock extends HorizontalFacingBlock implements BlockEntityProvider {
+    public static final UUID MAX_VITAL_MODIFIER = UUID.fromString("1ee98b0b-7181-46ac-97ce-d8f7307bffb1");
     public static final BooleanProperty ACTIVE = BooleanProperty.of("active");
     private static final VoxelShape SHAPES;
 

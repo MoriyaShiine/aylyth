@@ -1,22 +1,26 @@
 package moriyashiine.aylyth.mixin.client;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import com.mojang.blaze3d.systems.RenderSystem;
 import moriyashiine.aylyth.api.interfaces.AylythGameHud;
-import moriyashiine.aylyth.common.Aylyth;
+import moriyashiine.aylyth.api.interfaces.VitalHealthHolder;
 import moriyashiine.aylyth.common.component.entity.YmpeInfestationComponent;
 import moriyashiine.aylyth.common.registry.ModComponents;
+import moriyashiine.aylyth.common.registry.ModEntityAttributes;
 import moriyashiine.aylyth.common.registry.tag.ModBlockTags;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.MathHelper;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -32,8 +36,10 @@ public abstract class InGameHudMixin implements AylythGameHud {
 
 	@Shadow @Final private static Identifier ICONS;
 
+	@Shadow protected abstract void drawHeart(DrawContext context, InGameHud.HeartType type, int x, int y, int v, boolean blinking, boolean halfHeart);
+
 	@Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/MathHelper;lerp(FFF)F", ordinal = 1))
-	private void aylyth_renderYmpeInfestationOverlay(DrawContext context, float tickDelta, CallbackInfo ci) {
+	private void renderYmpeInfestationOverlay(DrawContext context, float tickDelta, CallbackInfo ci) {
 		ModComponents.YMPE_INFESTATION.maybeGet(client.player).ifPresent(ympeInfestationComponent -> {
 			int stage = ympeInfestationComponent.getStage();
 			if (stage >= 3) {
@@ -47,13 +53,18 @@ public abstract class InGameHudMixin implements AylythGameHud {
 			}
 		});
 
+		// TODO: Make more efficient
 		if (client.world.getBlockState(client.player.getBlockPos()).isIn(ModBlockTags.SEEPS)) {
 			renderOverlay(context, SEEP_OVERLAY, 1);
 		}
 	}
-	
+
+	// TODO: Fix, these don't work any more. Need to mixin to the heart draw method
 	@Inject(method = "renderHealthBar", at = @At("HEAD"))
-	private void aylyth_renderYmpeHealthBarHead(DrawContext context, PlayerEntity player, int x, int y, int lines, int regeneratingHeartIndex, float maxHealth, int lastHealth, int health, int absorption, boolean blinking, CallbackInfo ci, @Share("shouldRebind") LocalBooleanRef shouldRebind) {
+	private void renderYmpeHealthBarHead(DrawContext context, PlayerEntity player, int x, int y, int lines,
+												int regeneratingHeartIndex, float maxHealth, int lastHealth, int health,
+												int absorption, boolean blinking, CallbackInfo ci,
+												@Share("shouldRebind") LocalBooleanRef shouldRebind) {
 		if (ModComponents.YMPE_INFESTATION.get(player).getStage() > 0) {
 			RenderSystem.setShaderTexture(0, YMPE_HEALTH_TEXTURES);
 			shouldRebind.set(true);
@@ -61,9 +72,46 @@ public abstract class InGameHudMixin implements AylythGameHud {
 	}
 	
 	@Inject(method = "renderHealthBar", at = @At("TAIL"))
-	private void aylyth_renderYmpeHealthBarTail(DrawContext context, PlayerEntity player, int x, int y, int lines, int regeneratingHeartIndex, float maxHealth, int lastHealth, int health, int absorption, boolean blinking, CallbackInfo ci, @Share("shouldRebind") LocalBooleanRef shouldRebind) {
+	private void renderYmpeHealthBarTail(DrawContext context, PlayerEntity player, int x, int y, int lines,
+												int regeneratingHeartIndex, float maxHealth, int lastHealth, int health,
+												int absorption, boolean blinking, CallbackInfo ci,
+												@Share("shouldRebind") LocalBooleanRef shouldRebind) {
 		if (shouldRebind.get()) {
 			RenderSystem.setShaderTexture(0, ICONS);
+		}
+	}
+
+	@Inject(method = "renderHealthBar", at = @At("TAIL"))
+	private void drawAylythHearts(DrawContext context, PlayerEntity player, int x, int y, int lines,
+								  int regeneratingHeartIndex, float maxHealth, int lastHealth, int health,
+								  int absorption, boolean blinking, CallbackInfo ci,
+								  @Local(ordinal = 8) int j, @Local(ordinal = 9) int k) {
+		int maxVitalHealth = (int) player.getAttributeValue(ModEntityAttributes.MAX_VITAL_HEALTH);
+		if (maxVitalHealth == 0) {
+			return;
+		}
+		float vitalHealth = VitalHealthHolder.of(player).map(VitalHealthHolder::get).orElse(0f);
+		int heartsToDraw = MathHelper.ceil((double)maxVitalHealth / 2);
+		int firstHeartIndex = j + k;
+		for (int i = heartsToDraw + firstHeartIndex - 1; i >= firstHeartIndex; i--) {
+			int actualX = x + (i % 10) * 8;
+			int actualY = y - (i / 10) * lines;
+
+			drawHeart(context, InGameHud.HeartType.CONTAINER, actualX, actualY, 0, blinking, false);
+
+			int representedHealth = i*2;
+			if (representedHealth < maxHealth+absorption+vitalHealth) {
+				int u = 0;
+				if (ModComponents.YMPE_INFESTATION.get(player).getStage() > 0) {
+					u += 16;
+				}
+				if (representedHealth+1 == maxHealth+absorption+vitalHealth) {
+					u += 9;
+				}
+				context.drawTexture(AylythGameHud.HEARTS, actualX+1, actualY+1, 0, u, 0, 7, 7, 64, 64);
+			} else {
+				context.drawTexture(AylythGameHud.HEARTS, actualX+1, actualY+1, 0, 32, 0, 7, 7, 64, 64);
+			}
 		}
 	}
 }

@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.common.item;
 
-import moriyashiine.aylyth.api.interfaces.VitalHolder;
+import moriyashiine.aylyth.api.interfaces.VitalHealthHolder;
 import moriyashiine.aylyth.common.block.WoodyGrowthCacheBlock;
 import moriyashiine.aylyth.common.component.entity.YmpeInfestationComponent;
 import moriyashiine.aylyth.common.entity.mob.ScionEntity;
@@ -13,7 +13,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
@@ -47,11 +46,11 @@ public class DebugWandItem extends Item {
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         if(!world.isClient()){
             if(user.isSneaking()){
-                VitalHolder.of(user).ifPresent(vital -> {
-                    if(vital.getVitalThuribleLevel() == 0){
-                        vital.setVitalThuribleLevel(5);
+                VitalHealthHolder.of(user).ifPresent(vital -> {
+                    if(vital.get() == 0){
+                        vital.set(10);
                     }else{
-                        vital.setVitalThuribleLevel(0);
+                        vital.set(0);
                     }
                 });
             }else{

@@ -2,7 +2,7 @@ package moriyashiine.aylyth.common.event;
 
 import moriyashiine.aylyth.api.interfaces.ExtraPlayerData;
 import moriyashiine.aylyth.api.interfaces.HindPledgeHolder;
-import moriyashiine.aylyth.api.interfaces.VitalHolder;
+import moriyashiine.aylyth.api.interfaces.VitalHealthHolder;
 import moriyashiine.aylyth.common.block.WoodyGrowthCacheBlock;
 import moriyashiine.aylyth.common.entity.mob.RippedSoulEntity;
 import moriyashiine.aylyth.common.entity.mob.ScionEntity;
@@ -115,7 +115,7 @@ public class LivingEntityDeathEvents {
      */
     private static void checkVital(LivingEntity livingEntity, DamageSource source) {
         if(livingEntity instanceof PlayerEntity player && AylythUtil.isSourceYmpe(source)){
-            VitalHolder.of(player).ifPresent(vital -> vital.setVitalThuribleLevel(0));
+            VitalHealthHolder.of(player).ifPresent(vital -> vital.set(0));
         }
     }
 
