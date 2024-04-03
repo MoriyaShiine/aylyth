@@ -4,7 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
-import moriyashiine.aylyth.common.registry.ModComponents;
+import moriyashiine.aylyth.common.registry.ModEntityComponents;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.advancement.criterion.AbstractCriterion;
 import net.minecraft.advancement.criterion.AbstractCriterionConditions;
@@ -47,7 +47,7 @@ public class YmpeInfestationCriterion extends AbstractCriterion<YmpeInfestationC
         }
 
         public boolean matches(ServerPlayerEntity player) {
-            return ModComponents.YMPE_INFESTATION.maybeGet(player).map(component -> stage.getMin() <= component.getStage() && stage.getMax() >= component.getStage()).orElse(false);
+            return ModEntityComponents.YMPE_INFESTATION.maybeGet(player).map(component -> stage.getMin() <= component.getStage() && stage.getMax() >= component.getStage()).orElse(false);
         }
 
         @Override
