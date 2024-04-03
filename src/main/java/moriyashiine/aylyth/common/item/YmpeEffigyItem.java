@@ -22,7 +22,7 @@ public class YmpeEffigyItem extends TrinketItem {
         super.tick(stack, slot, entity);
         if (entity instanceof PlayerEntity player) {
             player.getHungerManager().setFoodLevel(20);
-            player.getHungerManager().setSaturationLevel(0.0F);
+            player.getHungerManager().setSaturationLevel(10.0F);
         }
     }
 
