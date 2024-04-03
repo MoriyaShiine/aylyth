@@ -3,9 +3,11 @@ package moriyashiine.aylyth.common.event;
 import moriyashiine.aylyth.api.interfaces.ExtraPlayerData;
 import moriyashiine.aylyth.api.interfaces.HindPledgeHolder;
 import moriyashiine.aylyth.api.interfaces.VitalHealthHolder;
+import moriyashiine.aylyth.common.block.VitalThuribleBlock;
 import moriyashiine.aylyth.common.block.WoodyGrowthCacheBlock;
 import moriyashiine.aylyth.common.entity.mob.RippedSoulEntity;
 import moriyashiine.aylyth.common.entity.mob.ScionEntity;
+import moriyashiine.aylyth.common.registry.ModEntityAttributes;
 import moriyashiine.aylyth.common.registry.ModEntityTypes;
 import moriyashiine.aylyth.common.registry.ModItems;
 import moriyashiine.aylyth.common.registry.key.ModDamageTypeKeys;
@@ -16,6 +18,7 @@ import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.Event;
 import net.minecraft.advancement.Advancement;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -47,10 +50,10 @@ public class LivingEntityDeathEvents {
         ServerLivingEntityEvents.ALLOW_DEATH.register(lateEvent, LivingEntityDeathEvents::hindKeepInv);
         ServerLivingEntityEvents.ALLOW_DEATH.register(LivingEntityDeathEvents::allowDeath);
 
-        ServerLivingEntityEvents.AFTER_DEATH.register(LivingEntityDeathEvents::checkVital);
         ServerLivingEntityEvents.AFTER_DEATH.register(LivingEntityDeathEvents::spawnRippedSoul);
 
         ServerPlayerEvents.AFTER_RESPAWN.register(LivingEntityDeathEvents::restoreInv);
+        ServerPlayerEvents.COPY_FROM.register(LivingEntityDeathEvents::retainVitalHealthAttribute);
     }
 
     /**
@@ -70,6 +73,19 @@ public class LivingEntityDeathEvents {
                 AylythUtil.getPlayerData(newPlayer).remove("RestoreInv");
             }
             ((HindPledgeHolder) newPlayer).setHindUuid(null);
+        }
+    }
+
+    /**
+     * Copies the max vital health attribute from the vital thurible as long as the damage source was not from ympe
+     */
+    private static void retainVitalHealthAttribute(ServerPlayerEntity oldPlayer, ServerPlayerEntity newPlayer, boolean alive) {
+        if (!AylythUtil.isSourceYmpe(oldPlayer.getRecentDamageSource())) {
+            EntityAttributeInstance oldInstance = oldPlayer.getAttributeInstance(ModEntityAttributes.MAX_VITAL_HEALTH);
+            EntityAttributeInstance newInstance = newPlayer.getAttributeInstance(ModEntityAttributes.MAX_VITAL_HEALTH);
+            if (oldInstance != null && newInstance != null && oldInstance.getModifier(VitalThuribleBlock.MAX_VITAL_MODIFIER) != null) {
+                newInstance.addPersistentModifier(oldInstance.getModifier(VitalThuribleBlock.MAX_VITAL_MODIFIER));
+            }
         }
     }
 
@@ -105,17 +121,6 @@ public class LivingEntityDeathEvents {
             }
         }
         return true;
-    }
-
-    /**
-     * Resets extra health after death if the source of death was {@link AylythUtil#isSourceYmpe}
-     * @param livingEntity the entity who maybe has vital
-     * @param source the damage source
-     */
-    private static void checkVital(LivingEntity livingEntity, DamageSource source) {
-        if(livingEntity instanceof PlayerEntity player && AylythUtil.isSourceYmpe(source)){
-            VitalHealthHolder.of(player).ifPresent(vital -> vital.set(0));
-        }
     }
 
     private static void spawnRippedSoul(LivingEntity livingEntity, DamageSource source) {
