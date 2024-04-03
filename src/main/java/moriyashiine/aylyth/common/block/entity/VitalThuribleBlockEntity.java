@@ -6,6 +6,7 @@ import moriyashiine.aylyth.common.registry.ModBlockEntityTypes;
 import moriyashiine.aylyth.common.registry.ModEntityAttributes;
 import moriyashiine.aylyth.common.registry.ModItems;
 import moriyashiine.aylyth.common.util.AylythUtil;
+import net.minecraft.SharedConstants;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -33,6 +34,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.UUID;
 
 public class VitalThuribleBlockEntity extends BlockEntity implements SingleStackInventory {
+    public static final int VITAL_INCREMENT = 2;
+    public static final int MAX_VITAL_MODIFIER = 20;
+
     protected DefaultedList<ItemStack> inventory = DefaultedList.ofSize(1, ItemStack.EMPTY);
     public UUID targetUUID = null;
     private int timer = 0;
@@ -111,16 +115,19 @@ public class VitalThuribleBlockEntity extends BlockEntity implements SingleStack
                     }
                 }
                 if (!world.isClient) {
-                    if (blockEntity.timer > 20 * 2) {
+                    if (blockEntity.timer > SharedConstants.TICKS_PER_SECOND * 2) {
                         if (blockEntity.targetUUID != null) {
                             PlayerEntity player = world.getPlayerByUuid(blockEntity.targetUUID);
                             EntityAttributeInstance instance = player.getAttributeInstance(ModEntityAttributes.MAX_VITAL_HEALTH);
                             if (instance != null) {
                                 EntityAttributeModifier modifier = instance.getModifier(VitalThuribleBlock.MAX_VITAL_MODIFIER);
-                                double newMax = modifier == null ? 2 : modifier.getValue() + 2;
-                                instance.removeModifier(VitalThuribleBlock.MAX_VITAL_MODIFIER);
-                                instance.addPersistentModifier(new EntityAttributeModifier(VitalThuribleBlock.MAX_VITAL_MODIFIER, "Vital Thurible Buff", newMax, EntityAttributeModifier.Operation.ADDITION));
-                                VitalHealthHolder.find(player).set(VitalHealthHolder.find(player).get()+2);
+                                double currentMax = modifier != null ? modifier.getValue() : 0;
+                                if (currentMax < MAX_VITAL_MODIFIER) {
+                                    double newMax = Math.min(currentMax + VITAL_INCREMENT, MAX_VITAL_MODIFIER);
+                                    instance.removeModifier(VitalThuribleBlock.MAX_VITAL_MODIFIER);
+                                    instance.addPersistentModifier(new EntityAttributeModifier(VitalThuribleBlock.MAX_VITAL_MODIFIER, "Vital Thurible Buff", newMax, EntityAttributeModifier.Operation.ADDITION));
+                                    VitalHealthHolder.find(player).set(VitalHealthHolder.find(player).get() + VITAL_INCREMENT);
+                                }
                             }
                         }
 
@@ -128,7 +135,6 @@ public class VitalThuribleBlockEntity extends BlockEntity implements SingleStack
                         blockEntity.timer = 0;
                         blockEntity.targetUUID = null;
                         blockEntity.sync();
-                        markDirty(world, pos, state);
                         world.setBlockState(pos, state.with(VitalThuribleBlock.ACTIVE, false));
                         world.playSound(null, (double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 1.0F, 1.0F);
                     }
