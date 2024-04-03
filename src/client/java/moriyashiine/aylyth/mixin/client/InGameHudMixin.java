@@ -23,6 +23,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(InGameHud.class)
@@ -59,26 +60,12 @@ public abstract class InGameHudMixin implements AylythGameHud {
 		}
 	}
 
-	// TODO: Fix, these don't work any more. Need to mixin to the heart draw method
-	@Inject(method = "renderHealthBar", at = @At("HEAD"))
-	private void renderYmpeHealthBarHead(DrawContext context, PlayerEntity player, int x, int y, int lines,
-												int regeneratingHeartIndex, float maxHealth, int lastHealth, int health,
-												int absorption, boolean blinking, CallbackInfo ci,
-												@Share("shouldRebind") LocalBooleanRef shouldRebind) {
-		if (ModComponents.YMPE_INFESTATION.get(player).getStage() > 0) {
-			RenderSystem.setShaderTexture(0, YMPE_HEALTH_TEXTURES);
-			shouldRebind.set(true);
+	@ModifyArg(method = "drawHeart", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawTexture(Lnet/minecraft/util/Identifier;IIIIII)V"))
+	private Identifier drawBranchingHearts(Identifier id) {
+		if (ModComponents.YMPE_INFESTATION.get(client.player).getStage() > 0) {
+			return AylythGameHud.YMPE_HEALTH_TEXTURES;
 		}
-	}
-	
-	@Inject(method = "renderHealthBar", at = @At("TAIL"))
-	private void renderYmpeHealthBarTail(DrawContext context, PlayerEntity player, int x, int y, int lines,
-												int regeneratingHeartIndex, float maxHealth, int lastHealth, int health,
-												int absorption, boolean blinking, CallbackInfo ci,
-												@Share("shouldRebind") LocalBooleanRef shouldRebind) {
-		if (shouldRebind.get()) {
-			RenderSystem.setShaderTexture(0, ICONS);
-		}
+		return id;
 	}
 
 	@Inject(method = "renderHealthBar", at = @At("TAIL"))
