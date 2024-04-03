@@ -2,7 +2,6 @@ package moriyashiine.aylyth.common.event;
 
 import moriyashiine.aylyth.api.interfaces.ExtraPlayerData;
 import moriyashiine.aylyth.api.interfaces.HindPledgeHolder;
-import moriyashiine.aylyth.api.interfaces.VitalHealthHolder;
 import moriyashiine.aylyth.common.block.VitalThuribleBlock;
 import moriyashiine.aylyth.common.block.WoodyGrowthCacheBlock;
 import moriyashiine.aylyth.common.entity.mob.RippedSoulEntity;
@@ -80,7 +79,7 @@ public class LivingEntityDeathEvents {
      * Copies the max vital health attribute from the vital thurible as long as the damage source was not from ympe
      */
     private static void retainVitalHealthAttribute(ServerPlayerEntity oldPlayer, ServerPlayerEntity newPlayer, boolean alive) {
-        if (!AylythUtil.isSourceYmpe(oldPlayer.getRecentDamageSource())) {
+        if (oldPlayer.getRecentDamageSource() == null || !AylythUtil.isSourceYmpe(oldPlayer.getRecentDamageSource())) {
             EntityAttributeInstance oldInstance = oldPlayer.getAttributeInstance(ModEntityAttributes.MAX_VITAL_HEALTH);
             EntityAttributeInstance newInstance = newPlayer.getAttributeInstance(ModEntityAttributes.MAX_VITAL_HEALTH);
             if (oldInstance != null && newInstance != null && oldInstance.getModifier(VitalThuribleBlock.MAX_VITAL_MODIFIER) != null) {
@@ -162,7 +161,7 @@ public class LivingEntityDeathEvents {
                     case HARD -> 0.3f;
                 };
                 // TODO: take another look at this later if people complain abt this not working with an advancement removal mod
-                if (player.getRandom().nextFloat() <= chance && hasPlayerBeenToNether(player)) {
+                if (player.getRandom().nextFloat() <= chance && canPlayerDieIntoAylyth(player)) {
                     if (damageSource.getAttacker() instanceof WitchEntity) {
                         teleport = true;
                     }
@@ -207,8 +206,12 @@ public class LivingEntityDeathEvents {
         return true;
     }
 
-    private static boolean hasPlayerBeenToNether(ServerPlayerEntity player) {
+    private static boolean canPlayerDieIntoAylyth(ServerPlayerEntity player) {
         Advancement advancement = player.server.getAdvancementLoader().get(new Identifier("nether/root"));
+        if (player.getAdvancementTracker().getProgress(advancement).isDone()) {
+            return true;
+        }
+        advancement = player.server.getAdvancementLoader().get(AylythUtil.id("aylyth/root"));
         return player.getAdvancementTracker().getProgress(advancement).isDone();
     }
 }
