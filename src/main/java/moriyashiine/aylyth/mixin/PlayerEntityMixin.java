@@ -5,8 +5,7 @@ import moriyashiine.aylyth.api.interfaces.VitalHealthHolder;
 import moriyashiine.aylyth.common.block.SoulHearthBlock;
 import moriyashiine.aylyth.common.component.entity.CuirassComponent;
 import moriyashiine.aylyth.common.entity.mob.BoneflyEntity;
-import moriyashiine.aylyth.common.item.YmpeEffigyItem;
-import moriyashiine.aylyth.common.registry.ModComponents;
+import moriyashiine.aylyth.common.registry.ModEntityComponents;
 import moriyashiine.aylyth.common.registry.ModEntityAttributes;
 import moriyashiine.aylyth.common.registry.ModSoundEvents;
 import moriyashiine.aylyth.common.registry.key.ModDamageTypeKeys;
@@ -18,7 +17,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -27,9 +25,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.AxeItem;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.tag.BiomeTags;
 import net.minecraft.registry.tag.DamageTypeTags;
-import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.math.BlockPos;
@@ -37,7 +33,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.objectweb.asm.Opcodes;
-import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -99,12 +94,12 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHea
 
     @Override
     public float get() {
-        return ModComponents.VITAL_HEALTH.get(this).get();
+        return ModEntityComponents.VITAL_HEALTH.get(this).get();
     }
 
     @Override
     public void set(float vital) {
-        ModComponents.VITAL_HEALTH.get(this).set(vital);
+        ModEntityComponents.VITAL_HEALTH.get(this).set(vital);
     }
 
     @Override
@@ -150,7 +145,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHea
     private float modifyDamageForCuirass(float amount, DamageSource source) {
         if (!getWorld().isClient) {
             PlayerEntity player = (PlayerEntity) (Object) this;
-            CuirassComponent component = ModComponents.CUIRASS_COMPONENT.get(player);
+            CuirassComponent component = ModEntityComponents.CUIRASS_COMPONENT.get(player);
             boolean bypassesCuirass = source.isIn(ModDamageTypeTags.BYPASSES_CUIRASS);
             boolean isAxe = source.getAttacker() instanceof LivingEntity livingEntity1 && livingEntity1.getMainHandStack().getItem() instanceof AxeItem;
             boolean isFireDamage = source.isIn(DamageTypeTags.IS_FIRE);

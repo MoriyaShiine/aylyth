@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.component.entity;
 
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
-import moriyashiine.aylyth.common.registry.ModComponents;
+import moriyashiine.aylyth.common.registry.ModEntityComponents;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 
@@ -34,7 +34,7 @@ public class CuirassComponent implements AutoSyncedComponent {
 
     public void setStage(float stage) {
         this.stage = stage;
-        ModComponents.CUIRASS_COMPONENT.sync(player);
+        ModEntityComponents.CUIRASS_COMPONENT.sync(player);
     }
 
     public int getStageTimer() {
@@ -43,6 +43,6 @@ public class CuirassComponent implements AutoSyncedComponent {
 
     public void setStageTimer(int stageTimer) {
         this.stageTimer = stageTimer;
-        ModComponents.CUIRASS_COMPONENT.sync(player);
+        ModEntityComponents.CUIRASS_COMPONENT.sync(player);
     }
 }

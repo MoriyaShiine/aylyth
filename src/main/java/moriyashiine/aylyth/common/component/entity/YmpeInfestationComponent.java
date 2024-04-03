@@ -2,7 +2,7 @@ package moriyashiine.aylyth.common.component.entity;
 
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import dev.onyxstudios.cca.api.v3.component.tick.ServerTickingComponent;
-import moriyashiine.aylyth.common.registry.ModComponents;
+import moriyashiine.aylyth.common.registry.ModEntityComponents;
 import moriyashiine.aylyth.common.registry.ModCriteria;
 import moriyashiine.aylyth.common.registry.ModSoundEvents;
 import moriyashiine.aylyth.common.registry.key.ModDimensionKeys;
@@ -82,7 +82,7 @@ public class YmpeInfestationComponent implements AutoSyncedComponent, ServerTick
 	
 	public void setStage(byte stage) {
 		this.stage = stage;
-		ModComponents.YMPE_INFESTATION.sync(obj);
+		ModEntityComponents.YMPE_INFESTATION.sync(obj);
 		if (obj instanceof ServerPlayerEntity serverPlayer) {
 			ModCriteria.YMPE_INFESTATION.trigger(serverPlayer);
 		}
@@ -94,6 +94,6 @@ public class YmpeInfestationComponent implements AutoSyncedComponent, ServerTick
 	
 	public void setInfestationTimer(short infestationTimer) {
 		this.infestationTimer = infestationTimer;
-		ModComponents.YMPE_INFESTATION.sync(obj);
+		ModEntityComponents.YMPE_INFESTATION.sync(obj);
 	}
 }

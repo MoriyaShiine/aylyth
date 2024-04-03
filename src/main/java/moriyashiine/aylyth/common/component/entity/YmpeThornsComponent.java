@@ -2,7 +2,7 @@ package moriyashiine.aylyth.common.component.entity;
 
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import dev.onyxstudios.cca.api.v3.component.tick.ServerTickingComponent;
-import moriyashiine.aylyth.common.registry.ModComponents;
+import moriyashiine.aylyth.common.registry.ModEntityComponents;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
@@ -62,7 +62,7 @@ public class YmpeThornsComponent implements AutoSyncedComponent, ServerTickingCo
 			timer = 0;
 
 		thornProgress = progress;
-		ModComponents.YMPE_THORNS.sync(entity);
+		ModEntityComponents.YMPE_THORNS.sync(entity);
 	}
 
 	public void incrementThornProgress(int progress) {

@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.component.entity;
 
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
-import moriyashiine.aylyth.common.registry.ModComponents;
+import moriyashiine.aylyth.common.registry.ModEntityComponents;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -37,7 +37,7 @@ public class RiderComponent implements AutoSyncedComponent {
         boolean pressing = pressingUp == this.pressingUp;
         this.pressingUp = pressingUp;
         if (pressing) {
-            ModComponents.RIDER_COMPONENT.sync(this.entity);
+            ModEntityComponents.RIDER_COMPONENT.sync(this.entity);
         }
     }
 
@@ -45,7 +45,7 @@ public class RiderComponent implements AutoSyncedComponent {
         boolean pressing = pressingDown == this.pressingDown;
         this.pressingDown = pressingDown;
         if (pressing) {
-            ModComponents.RIDER_COMPONENT.sync(this.entity);
+            ModEntityComponents.RIDER_COMPONENT.sync(this.entity);
         }
     }
 

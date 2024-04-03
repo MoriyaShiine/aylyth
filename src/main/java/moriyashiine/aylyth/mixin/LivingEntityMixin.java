@@ -3,7 +3,7 @@ package moriyashiine.aylyth.mixin;
 import moriyashiine.aylyth.api.interfaces.ProlongedDeath;
 import moriyashiine.aylyth.common.entity.mob.BoneflyEntity;
 import moriyashiine.aylyth.common.item.YmpeEffigyItem;
-import moriyashiine.aylyth.common.registry.ModComponents;
+import moriyashiine.aylyth.common.registry.ModEntityComponents;
 import moriyashiine.aylyth.common.registry.ModItems;
 import moriyashiine.aylyth.common.registry.ModStatusEffects;
 import moriyashiine.aylyth.common.registry.tag.ModEffectTags;
@@ -67,7 +67,7 @@ public abstract class LivingEntityMixin extends Entity {
 
 	@Inject(method = "drop", at = @At("HEAD"), cancellable = true)
 	private void shuckLogic(DamageSource source, CallbackInfo ci) {
-		if ((LivingEntity) (Object) this instanceof MobEntity mob && ModComponents.PREVENT_DROPS.get(mob).getPreventsDrops()) {
+		if ((LivingEntity) (Object) this instanceof MobEntity mob && ModEntityComponents.PREVENT_DROPS.get(mob).getPreventsDrops()) {
 			ci.cancel();
 		}
 	}
@@ -75,7 +75,7 @@ public abstract class LivingEntityMixin extends Entity {
 	@Inject(method = "eatFood", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;applyFoodEffects(Lnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/entity/LivingEntity;)V"))
 	private void decreaseYmpeInfestationStage(World world, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
 		if ((LivingEntity) (Object) this instanceof PlayerEntity player && stack.isIn(ModItemTags.DECREASES_BRANCHES)) {
-			ModComponents.YMPE_INFESTATION.maybeGet(player).ifPresent(ympeInfestationComponent -> {
+			ModEntityComponents.YMPE_INFESTATION.maybeGet(player).ifPresent(ympeInfestationComponent -> {
 				if (ympeInfestationComponent.getStage() > 0) {
 					ympeInfestationComponent.setStage((byte) (ympeInfestationComponent.getStage() - 1));
 				}

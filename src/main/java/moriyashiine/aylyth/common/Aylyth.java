@@ -140,7 +140,7 @@ public class Aylyth implements ModInitializer {
 						mob.setFrozenTicks(0);
 						mob.setVelocity(Vec3d.ZERO);
 						mob.fallDistance = 0;
-						ModComponents.PREVENT_DROPS.get(mob).setPreventsDrops(true);
+						ModEntityComponents.PREVENT_DROPS.get(mob).setPreventsDrops(true);
 						PlayerLookup.tracking(mob).forEach(trackingPlayer -> {
 							ServerPlayNetworking.send(trackingPlayer, new SpawnParticlesAroundPacketS2C(mob.getId(), 32, List.of(ParticleTypes.SMOKE, ParticleTypes.FALLING_HONEY)));
 						});

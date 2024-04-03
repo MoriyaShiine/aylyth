@@ -2,7 +2,7 @@ package moriyashiine.aylyth.common.network;
 
 import moriyashiine.aylyth.common.network.packets.GlaivePacketC2S;
 import moriyashiine.aylyth.common.network.packets.UpdatePressingUpDownPacketC2S;
-import moriyashiine.aylyth.common.registry.ModComponents;
+import moriyashiine.aylyth.common.registry.ModEntityComponents;
 import moriyashiine.aylyth.common.registry.ModItems;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -13,8 +13,8 @@ import net.minecraft.util.Hand;
 
 public class AylythServerPacketHandler {
     public static void handleUpdatePressingUpDown(UpdatePressingUpDownPacketC2S packet, ServerPlayerEntity player, PacketSender responseSender) {
-        ModComponents.RIDER_COMPONENT.get(player).setPressingUp(packet.pressingUp());
-        ModComponents.RIDER_COMPONENT.get(player).setPressingDown(packet.pressingDown());
+        ModEntityComponents.RIDER_COMPONENT.get(player).setPressingUp(packet.pressingUp());
+        ModEntityComponents.RIDER_COMPONENT.get(player).setPressingDown(packet.pressingDown());
     }
 
     public static void handleGlaiveSpecial(GlaivePacketC2S packet, ServerPlayerEntity player, PacketSender sender) {

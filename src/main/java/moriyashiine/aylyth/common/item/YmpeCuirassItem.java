@@ -3,7 +3,7 @@ package moriyashiine.aylyth.common.item;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketItem;
 import moriyashiine.aylyth.common.component.entity.CuirassComponent;
-import moriyashiine.aylyth.common.registry.ModComponents;
+import moriyashiine.aylyth.common.registry.ModEntityComponents;
 import moriyashiine.aylyth.common.registry.ModSoundEvents;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -21,7 +21,7 @@ public class YmpeCuirassItem extends TrinketItem {
     public void tick(ItemStack stack, SlotReference slot, LivingEntity entity) {
         super.tick(stack, slot, entity);
         if (entity instanceof PlayerEntity player && player.getSteppingBlockState().isIn(BlockTags.DIRT)) {
-            ModComponents.CUIRASS_COMPONENT.maybeGet(player).ifPresent(comp -> {
+            ModEntityComponents.CUIRASS_COMPONENT.maybeGet(player).ifPresent(comp -> {
                 if (comp.getStage() < CuirassComponent.MAX_STAGE) {
                     comp.setStageTimer(comp.getStageTimer() + 1);
                     if (comp.getStageTimer() >= TIME_UNTIL_STAGE_INCREASES) {
@@ -40,7 +40,7 @@ public class YmpeCuirassItem extends TrinketItem {
     public void onUnequip(ItemStack stack, SlotReference slot, LivingEntity entity) {
         super.onUnequip(stack, slot, entity);
         if(entity instanceof PlayerEntity player){
-            ModComponents.CUIRASS_COMPONENT.maybeGet(player).ifPresent(comp -> {
+            ModEntityComponents.CUIRASS_COMPONENT.maybeGet(player).ifPresent(comp -> {
                 comp.setStage(0.0F);
                 comp.setStageTimer(0);
             });

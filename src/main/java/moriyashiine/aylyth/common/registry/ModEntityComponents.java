@@ -10,7 +10,7 @@ import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.mob.MobEntity;
 
-public class ModComponents implements EntityComponentInitializer {
+public class ModEntityComponents implements EntityComponentInitializer {
 	public static final ComponentKey<YmpeThornsComponent> YMPE_THORNS = ComponentRegistry.getOrCreate(AylythUtil.id("ympe_thorns"), YmpeThornsComponent.class);
 	public static final ComponentKey<YmpeInfestationComponent> YMPE_INFESTATION = ComponentRegistry.getOrCreate(AylythUtil.id("ympe_infestation"), YmpeInfestationComponent.class);
 	public static final ComponentKey<PreventDropsComponent> PREVENT_DROPS = ComponentRegistry.getOrCreate(AylythUtil.id("prevent_drops"), PreventDropsComponent.class);

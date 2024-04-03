@@ -4,7 +4,7 @@ import moriyashiine.aylyth.api.interfaces.VitalHealthHolder;
 import moriyashiine.aylyth.common.block.WoodyGrowthCacheBlock;
 import moriyashiine.aylyth.common.component.entity.YmpeInfestationComponent;
 import moriyashiine.aylyth.common.entity.mob.ScionEntity;
-import moriyashiine.aylyth.common.registry.ModComponents;
+import moriyashiine.aylyth.common.registry.ModEntityComponents;
 import moriyashiine.aylyth.common.registry.ModItems;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
@@ -55,7 +55,7 @@ public class DebugWandItem extends Item {
                 });
             }else{
                 if (user.getOffHandStack().isOf(ModItems.YMPE_FRUIT)) {
-                    Optional<YmpeInfestationComponent> optional = ModComponents.YMPE_INFESTATION.maybeGet(user);
+                    Optional<YmpeInfestationComponent> optional = ModEntityComponents.YMPE_INFESTATION.maybeGet(user);
                     optional.ifPresent(ympeInfestationComponent -> {
                         ympeInfestationComponent.setStage((byte)(ympeInfestationComponent.getStage() + 1));
                         ympeInfestationComponent.setInfestationTimer((short)2400);
