@@ -1,6 +1,7 @@
 package moriyashiine.aylyth.mixin;
 
 import moriyashiine.aylyth.api.interfaces.ProlongedDeath;
+import moriyashiine.aylyth.common.entity.mob.BoneflyEntity;
 import moriyashiine.aylyth.common.item.YmpeEffigyItem;
 import moriyashiine.aylyth.common.registry.ModComponents;
 import moriyashiine.aylyth.common.registry.ModItems;
@@ -10,6 +11,7 @@ import moriyashiine.aylyth.common.registry.tag.ModItemTags;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.fabric.api.tag.convention.v1.TagUtil;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -19,6 +21,8 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.tag.BiomeTags;
+import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -37,7 +41,7 @@ public abstract class LivingEntityMixin extends Entity {
 	}
 
 	@ModifyVariable(method = "damage", at = @At("HEAD"), argsOnly = true)
-	float aylyth$damage(float value, DamageSource source) {
+	private float applySpecialDamage(float value, DamageSource source) {
 		if (source.getAttacker() instanceof LivingEntity entity && !source.getAttacker().getWorld().isClient) {
 			double attkDMG = entity.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
 			ItemStack stack = entity.getMainHandStack();
@@ -62,14 +66,14 @@ public abstract class LivingEntityMixin extends Entity {
 	}
 
 	@Inject(method = "drop", at = @At("HEAD"), cancellable = true)
-	private void aylyth_shuckLogic(DamageSource source, CallbackInfo ci) {
+	private void shuckLogic(DamageSource source, CallbackInfo ci) {
 		if ((LivingEntity) (Object) this instanceof MobEntity mob && ModComponents.PREVENT_DROPS.get(mob).getPreventsDrops()) {
 			ci.cancel();
 		}
 	}
 	
 	@Inject(method = "eatFood", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;applyFoodEffects(Lnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/entity/LivingEntity;)V"))
-	private void aylyth_decreaseYmpeInfestationStage(World world, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
+	private void decreaseYmpeInfestationStage(World world, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
 		if ((LivingEntity) (Object) this instanceof PlayerEntity player && stack.isIn(ModItemTags.DECREASES_BRANCHES)) {
 			ModComponents.YMPE_INFESTATION.maybeGet(player).ifPresent(ympeInfestationComponent -> {
 				if (ympeInfestationComponent.getStage() > 0) {
@@ -82,14 +86,35 @@ public abstract class LivingEntityMixin extends Entity {
 		}
 	}
 
+	@Inject(method = "stopRiding", at = @At("HEAD"))
+	private void dismountAllFromBonefly(CallbackInfo ci) {
+		if ((LivingEntity) (Object) this instanceof PlayerEntity && this.getVehicle() instanceof BoneflyEntity fly) {
+			fly.getPassengerList().forEach(Entity::dismountVehicle);
+		}
+	}
+
+	@Inject(method = "getGroup", at = @At("HEAD"), cancellable = true)
+	private void makeUndeadWithEffigy(CallbackInfoReturnable<EntityGroup> cir) {
+		if (YmpeEffigyItem.isEquipped((LivingEntity)(Object)this)) {
+			cir.setReturnValue(EntityGroup.UNDEAD);
+		}
+	}
+
+	@Inject(method = "hurtByWater", at = @At("HEAD"), cancellable = true)
+	private void waterHurtsWithEffigy(CallbackInfoReturnable<Boolean> cir) {
+		if (YmpeEffigyItem.isEquipped((LivingEntity)(Object)this) && (this.getWorld().getBiome(this.getBlockPos()).isIn(BiomeTags.IS_RIVER) || fluidHeight.getDouble(FluidTags.WATER) > 0)) {
+			cir.setReturnValue(true);
+		}
+	}
+
 	@ModifyConstant(method = "updatePostDeath", constant = @Constant(intValue = 20))
-	private int aylyth_updatePostDeath(int constant){
+	private int updatePostDeath(int constant){
 		LivingEntity living = (LivingEntity) (Object) this;
 		return ProlongedDeath.of(living).map(ProlongedDeath::getDeathAnimationTime).orElse(constant);
 	}
 
 	@Inject(method = "updatePostDeath", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;sendEntityStatus(Lnet/minecraft/entity/Entity;B)V"))
-	private void aylyth_injectLootDrop(CallbackInfo ci){
+	private void injectLootDrop(CallbackInfo ci){
 		LivingEntity living = (LivingEntity) (Object) this;
 		if(living instanceof ProlongedDeath){
 			ItemScatterer.spawn(living.getWorld(), living.getX(), living.getY() + 1.5D, living.getZ(), ModItems.CORIC_SEED.getDefaultStack());
@@ -97,7 +122,7 @@ public abstract class LivingEntityMixin extends Entity {
 	}
 
 	@Inject(method = "canHaveStatusEffect", at = @At("HEAD"), cancellable = true)
-	public void aylyth_canHaveStatusEffect(StatusEffectInstance effect, CallbackInfoReturnable<Boolean> cir) {
+	public void canHaveStatusEffect(StatusEffectInstance effect, CallbackInfoReturnable<Boolean> cir) {
         if (this.isPlayer()) {
             LivingEntity entity = ((LivingEntity) (Object) this);
 

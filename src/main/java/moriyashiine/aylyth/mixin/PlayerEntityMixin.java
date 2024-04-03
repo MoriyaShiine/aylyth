@@ -52,7 +52,6 @@ import java.util.UUID;
 
 import static moriyashiine.aylyth.common.block.SoulHearthBlock.HALF;
 
-@Debug(export = true, print = true)
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin extends LivingEntity implements VitalHealthHolder, HindPledgeHolder {
 
@@ -124,21 +123,21 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHea
     }
 
     @Inject(method = "findRespawnPosition", at = @At(value = "HEAD", target = "Lnet/minecraft/block/BlockState;getBlock()Lnet/minecraft/block/Block;"), cancellable = true)
-    private static void aylyth_injectSoulHeartRespawn(ServerWorld world, BlockPos pos, float angle, boolean forced, boolean alive, CallbackInfoReturnable<Optional<Vec3d>> cir){
+    private static void soulHearthRespawn(ServerWorld world, BlockPos pos, float angle, boolean forced, boolean alive, CallbackInfoReturnable<Optional<Vec3d>> cir){
         BlockState blockState = world.getBlockState(pos);
         Block block = blockState.getBlock();
         if (block instanceof SoulHearthBlock && blockState.get(SoulHearthBlock.CHARGES) > 0 && blockState.get(HALF) == DoubleBlockHalf.LOWER && world.getRegistryKey() == ModDimensionKeys.AYLYTH) {
             Optional<Vec3d> optional = SoulHearthBlock.findRespawnPosition(EntityType.PLAYER, world, pos);
             if (!alive && optional.isPresent()) {
-                world.setBlockState(pos, blockState.with(SoulHearthBlock.CHARGES, blockState.get(SoulHearthBlock.CHARGES) - 1).with(HALF, DoubleBlockHalf.LOWER), Block.NOTIFY_ALL);
-                world.setBlockState(pos.up(), blockState.with(SoulHearthBlock.CHARGES, blockState.get(SoulHearthBlock.CHARGES) - 1).with(HALF, DoubleBlockHalf.UPPER), Block.NOTIFY_ALL);
+                world.setBlockState(pos, blockState.with(SoulHearthBlock.CHARGES, blockState.get(SoulHearthBlock.CHARGES) - 1).with(HALF, DoubleBlockHalf.LOWER));
+                world.setBlockState(pos.up(), blockState.with(SoulHearthBlock.CHARGES, blockState.get(SoulHearthBlock.CHARGES) - 1).with(HALF, DoubleBlockHalf.UPPER));
             }
             cir.setReturnValue(optional);
         }
     }
 
     @Inject(method = "shouldDismount", at = {@At("HEAD")}, cancellable = true)
-    private void aylyth_webbingScuffedry(CallbackInfoReturnable<Boolean> cir) {
+    private void webbingScuffedry(CallbackInfoReturnable<Boolean> cir) {
         Entity var3 = this.getVehicle();
         if (var3 instanceof BoneflyEntity) {
             if (!Objects.equals(this.getVehicle().getFirstPassenger(), this)) {
@@ -148,7 +147,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHea
     }
 
     @ModifyVariable(method = "applyDamage", at = @At(value = "INVOKE", ordinal = 0, target = "Lnet/minecraft/entity/player/PlayerEntity;getHealth()F"), ordinal = 0, argsOnly = true)
-    private float aylyth$modifyDamageForCuirass(float amount, DamageSource source) {
+    private float modifyDamageForCuirass(float amount, DamageSource source) {
         if (!getWorld().isClient) {
             PlayerEntity player = (PlayerEntity) (Object) this;
             CuirassComponent component = ModComponents.CUIRASS_COMPONENT.get(player);
@@ -194,31 +193,10 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHea
         }
     }
 
-    @Override
-    public void stopRiding() {
-        if (this.getVehicle() instanceof BoneflyEntity fly) {
-            fly.getPassengerList().forEach(Entity::dismountVehicle);
-        }
-        super.stopRiding();
-    }
-
-    @Override
-    public EntityGroup getGroup() {
-        return  YmpeEffigyItem.isEquipped(this) ? EntityGroup.UNDEAD : super.getGroup();
-    }
-
-    @Override
-    public boolean hurtByWater() {
-        return YmpeEffigyItem.isEquipped(this) && (this.getWorld().getBiome(this.getBlockPos()).isIn(BiomeTags.IS_RIVER) || fluidHeight.getDouble(FluidTags.WATER) > 0) || super.hurtByWater();
-    }
-
     @Inject(method = "onDeath", at = @At("TAIL"))
     private void unpledgeHind(DamageSource damageSource, CallbackInfo ci) {
-        PlayerEntity thiz = (PlayerEntity) (Object) this;
         if (damageSource.isOf(ModDamageTypeKeys.KILLING_BLOW)) {
-            HindPledgeHolder.of(thiz).ifPresent(hindPledgeHolder -> {
-                hindPledgeHolder.setHindUuid(null);
-            });
+            setHindUuid(null);
         }
     }
 }
