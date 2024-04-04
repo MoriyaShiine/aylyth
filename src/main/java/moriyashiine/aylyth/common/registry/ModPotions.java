@@ -38,5 +38,8 @@ public class ModPotions {
 		FabricBrewingRecipeRegistry.registerPotionRecipe(MORTECHIS_POTION, Ingredient.ofItems(Items.FERMENTED_SPIDER_EYE), Potions.THICK);
 		FabricBrewingRecipeRegistry.registerPotionRecipe(MORTECHIS_POTION, Ingredient.ofItems(Items.REDSTONE), LONG_MORTECHIS_POTION);
 		FabricBrewingRecipeRegistry.registerPotionRecipe(MORTECHIS_POTION, Ingredient.ofItems(Items.GLOWSTONE_DUST), STRONG_MORTECHIS_POTION);
+		FabricBrewingRecipeRegistry.registerPotionRecipe(Potions.AWKWARD, Ingredient.ofItems(ModItems.BLIGHTED_THORNS), BLIGHT_POTION);
+		FabricBrewingRecipeRegistry.registerPotionRecipe(BLIGHT_POTION, Ingredient.ofItems(Items.REDSTONE), LONG_BLIGHT_POTION);
+		FabricBrewingRecipeRegistry.registerPotionRecipe(BLIGHT_POTION, Ingredient.ofItems(Items.GLOWSTONE_DUST), STRONG_BLIGHT_POTION);
 	}
 }
