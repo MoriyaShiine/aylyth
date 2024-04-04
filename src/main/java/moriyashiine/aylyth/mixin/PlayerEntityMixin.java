@@ -24,7 +24,6 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.AxeItem;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -62,59 +61,29 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHea
         super(entityType, world);
     }
 
-//    @Inject(method = "dropInventory", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;vanishCursedItems()V"), cancellable = true)
-//    private void aylyth_keepPledgeInv(CallbackInfo ci) {
-//        if (getHindUuid() != null) {
-//            ci.cancel();
-//        }
-//    }
-
     @Inject(method = "createPlayerAttributes", at = @At("RETURN"), allow = 1)
     private static void addAttributes(CallbackInfoReturnable<DefaultAttributeContainer.Builder> cir) {
         cir.getReturnValue().add(ModEntityAttributes.MAX_VITAL_HEALTH);
     }
 
-    @Inject(method = "writeCustomDataToNbt", at = @At("TAIL"))
-    private void writeAylythData(NbtCompound nbtCompound, CallbackInfo info) {
-        NbtCompound nbt = new NbtCompound();
-        if (this.getHindUuid() != null) {
-            nbt.putUuid("HindUuid", getHindUuid());
-        }
-        nbtCompound.put("AylythData", nbt);
-    }
-
-    @Inject(method = "readCustomDataFromNbt", at = @At("TAIL"))
-    public void readAylythData(NbtCompound nbtCompound, CallbackInfo info) {
-        NbtCompound nbt = (NbtCompound) nbtCompound.get("AylythData");
-        if (nbt != null && nbt.containsUuid("HindUuid")) {
-            UUID ownerUUID = nbt.getUuid("HindUuid");
-            this.setHindUuid(ownerUUID);
-        }
+    @Override
+    public float getCurrentVitalHealth() {
+        return ModEntityComponents.VITAL_HEALTH.get(this).getCurrentVitalHealth();
     }
 
     @Override
-    public float get() {
-        return ModEntityComponents.VITAL_HEALTH.get(this).get();
-    }
-
-    @Override
-    public void set(float vital) {
-        ModEntityComponents.VITAL_HEALTH.get(this).set(vital);
+    public void setCurrentVitalHealth(float vital) {
+        ModEntityComponents.VITAL_HEALTH.get(this).setCurrentVitalHealth(vital);
     }
 
     @Override
     public UUID getHindUuid() {
-        return  this.dataTracker.get(AylythUtil.HIND_UUID).orElse(null);
+        return ModEntityComponents.HIND_PLEDGE.get(this).getHindUuid();
     }
 
     @Override
     public void setHindUuid(@Nullable UUID uuid) {
-        this.dataTracker.set(AylythUtil.HIND_UUID, Optional.ofNullable(uuid));
-    }
-
-    @Inject(method = "initDataTracker()V", at = @At("TAIL"))
-    private void addAylythTrackers(CallbackInfo info) {
-        dataTracker.startTracking(AylythUtil.HIND_UUID, Optional.empty());
+        ModEntityComponents.HIND_PLEDGE.get(this).setHindUuid(uuid);
     }
 
     @Inject(method = "findRespawnPosition", at = @At(value = "HEAD", target = "Lnet/minecraft/block/BlockState;getBlock()Lnet/minecraft/block/Block;"), cancellable = true)
@@ -168,11 +137,9 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHea
 
     @ModifyVariable(method = "applyDamage", at = @At(value = "LOAD", opcode = Opcodes.FLOAD, ordinal = 2))
     private float vitalAbsorption(float damage) {
-        return VitalHealthHolder.of(this).map(vitalHealthHolder -> {
-            float absorbed = Math.max(damage-vitalHealthHolder.get(), 0);
-            vitalHealthHolder.set((int) (vitalHealthHolder.get()-damage));
-            return absorbed;
-        }).orElse(damage);
+        float absorbed = Math.max(damage-getCurrentVitalHealth(), 0);
+        setCurrentVitalHealth((int) (getCurrentVitalHealth()-damage));
+        return absorbed;
     }
 
     @Inject(method = "tick", at = @At("TAIL"))
