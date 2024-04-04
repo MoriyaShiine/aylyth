@@ -5,7 +5,6 @@ import moriyashiine.aylyth.common.item.component.ThornFlechetteEffect;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundCategory;
