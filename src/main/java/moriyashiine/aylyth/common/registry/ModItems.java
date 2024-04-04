@@ -172,8 +172,10 @@ public class ModItems {
 	public static final Item GHOSTCAP_MUSHROOM = register("ghostcap_mushroom", new Item(settings().food(ModFoodComponents.GHOSTCAPS)));
 	public static final Item POMEGRANATE = register("pomegranate", new PomegranateItem(settings().food(ModFoodComponents.POMEGRANATE)));
 
-	public static final Item AYLYTHIAN_HEART = register("aylythian_heart", new AylythianHeartItem(settings()));
 	public static final Item WRONGMEAT = register("wrongmeat", new Item(settings().food(ModFoodComponents.WRONGMEAT)));
+	public static final Item AYLYTHIAN_HEART = register("aylythian_heart", new AylythianHeartItem(settings()));
+	public static final Item NEPHRITE_HEART = register("nephrite_heart", new Item(settings()));
+	public static final Item YHONDYTH_HEART = register("yhondyth_heart", new Item(settings()));
 
 	public static final Item SOUL_HEARTH = register("soul_hearth", new BlockItem(ModBlocks.SOUL_HEARTH, settings()));
 	public static final Item VITAL_THURIBLE = register("vital_thurible", new BlockItem(ModBlocks.VITAL_THURIBLE, settings()));

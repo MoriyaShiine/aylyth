@@ -135,6 +135,8 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add(ModItems.NYSIAN_GRAPES, "Nysian Grapes");
         builder.add(ModItems.CORIC_SEED, "Coric Seed");
         builder.add(ModItems.AYLYTHIAN_HEART, "Aylythian Heart");
+        builder.add(ModItems.NEPHRITE_HEART, "Nephrite Heart");
+        builder.add(ModItems.YHONDYTH_HEART, "Yhondyth Heart");
         builder.add(ModItems.PILOT_LIGHT_SPAWN_EGG, "Pilot Light Spawn Egg");
         builder.add(ModItems.AYLYTHIAN_SPAWN_EGG, "Aylythian Spawn Egg");
         builder.add(ModItems.ELDER_AYLYTHIAN_SPAWN_EGG, "Elder Aylythian Spawn Egg");

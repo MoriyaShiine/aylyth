@@ -126,6 +126,8 @@ public class AylythModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.WRITHEWOOD_CHEST_BOAT, Models.GENERATED);
         itemModelGenerator.register(ModItems.DEBUG_WAND, Models.HANDHELD);
         itemModelGenerator.register(ModItems.WRONGMEAT, Models.GENERATED);
+        itemModelGenerator.register(ModItems.NEPHRITE_HEART, Models.GENERATED);
+        itemModelGenerator.register(ModItems.YHONDYTH_HEART, Models.GENERATED);
         itemModelGenerator.register(ModItems.GIRASOL_SEED, Models.GENERATED);
         itemModelGenerator.register(ModItems.LARGE_WOODY_GROWTH, Models.GENERATED);
         itemModelGenerator.register(ModItems.WOODY_GROWTH_CACHE, BUILTIN);
