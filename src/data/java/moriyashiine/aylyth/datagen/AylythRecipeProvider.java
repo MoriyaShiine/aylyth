@@ -9,6 +9,7 @@ import moriyashiine.aylyth.datagen.util.recipe.YmpeDaggerRecipeJsonBuilder;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.fabricmc.fabric.api.recipe.v1.ingredient.DefaultCustomIngredients;
+import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
 import net.minecraft.data.server.recipe.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
@@ -17,6 +18,7 @@ import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.book.RecipeCategory;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
@@ -203,6 +205,14 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
                 .pattern(" N ")
                 .criterion("has_nephrite", conditionsFromItem(ModItems.NEPHRITE))
                 .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, Items.TORCH)
+                .input('S', Items.STICK)
+                .input('C', ModItems.BARK)
+                .pattern("C")
+                .pattern("S")
+                .criterion("has_bark", conditionsFromItem(ModItems.BARK))
+                .offerTo(exporter, "torch_from_bark");
 
         ShapelessRecipeJsonBuilder.create(RecipeCategory.BREWING, ModItems.NEPHRITE_FLASK)
                 .input(DefaultCustomIngredients.nbt(new ItemStack(ModItems.DARK_NEPHRITE_FLASK), true))
