@@ -2,14 +2,14 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "C": {
-      "item": "aylyth:coric_seed"
-    },
     "D": {
       "item": "minecraft:soul_soil"
     },
     "E": {
       "item": "aylyth:esstline"
+    },
+    "H": {
+      "tag": "aylyth:boss_hearts"
     },
     "S": {
       "item": "aylyth:ympe_sapling"
@@ -17,7 +17,7 @@
   },
   "pattern": [
     "DED",
-    "ECE",
+    "EHE",
     "SDS"
   ],
   "result": {

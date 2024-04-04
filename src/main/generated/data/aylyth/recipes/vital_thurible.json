@@ -9,7 +9,7 @@
       "item": "aylyth:esstline"
     },
     "H": {
-      "item": "aylyth:aylythian_heart"
+      "tag": "aylyth:boss_hearts"
     },
     "P": {
       "item": "minecraft:polished_deepslate_wall"

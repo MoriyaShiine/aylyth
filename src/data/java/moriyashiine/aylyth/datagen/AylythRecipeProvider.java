@@ -101,23 +101,23 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
                 .input('D', Items.SOUL_SOIL)
                 .input('S', ModItems.YMPE_SAPLING)
                 .input('E', ModItems.ESSTLINE)
-                .input('C', ModItems.CORIC_SEED)
+                .input('H', ModItemTags.BOSS_HEARTS)
                 .pattern("DED")
-                .pattern("ECE")
+                .pattern("EHE")
                 .pattern("SDS")
-                .criterion("has_coric_seed", conditionsFromItem(ModItems.CORIC_SEED))
+                .criterion("has_coric_seed", conditionsFromTag(ModItemTags.BOSS_HEARTS))
                 .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.VITAL_THURIBLE)
                 .input('S', Items.POLISHED_DEEPSLATE_SLAB)
-                .input('H', ModItems.AYLYTHIAN_HEART)
+                .input('H', ModItemTags.BOSS_HEARTS)
                 .input('P', Items.POLISHED_DEEPSLATE_WALL)
                 .input('E', ModItems.ESSTLINE)
                 .input('C', Items.SOUL_CAMPFIRE)
                 .pattern("SHS")
                 .pattern("PEP")
                 .pattern("PCP")
-                .criterion("has_heart", conditionsFromItem(ModItems.AYLYTHIAN_HEART))
+                .criterion("has_heart", conditionsFromTag(ModItemTags.BOSS_HEARTS))
                 .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.SOUL_HEARTH)

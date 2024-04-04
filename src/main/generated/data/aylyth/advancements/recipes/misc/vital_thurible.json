@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "aylyth:aylythian_heart"
-            ]
+            "tag": "aylyth:boss_hearts"
           }
         ]
       },

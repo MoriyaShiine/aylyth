@@ -43,6 +43,7 @@ public class AylythItemTagProvider extends FabricTagProvider.ItemTagProvider {
         getOrCreateTagBuilder(ItemTags.CHEST_BOATS).add(ModItems.YMPE_CHEST_BOAT, ModItems.POMEGRANATE_CHEST_BOAT, ModItems.WRITHEWOOD_CHEST_BOAT);
         getOrCreateTagBuilder(ModItemTags.DECREASES_BRANCHES).add(ModItems.YMPE_FRUIT);
         getOrCreateTagBuilder(ModItemTags.PLEDGE_ITEMS).add(ModItems.NYSIAN_GRAPES);
+        getOrCreateTagBuilder(ModItemTags.BOSS_HEARTS).add(ModItems.YHONDYTH_HEART);
         getOrCreateTagBuilder(ModItemTags.NEPHRITE_TOOL_MATERIALS).add(ModItems.NEPHRITE);
         getOrCreateTagBuilder(ItemTags.SWORDS).add(ModItems.YMPE_DAGGER, ModItems.NEPHRITE_SWORD, ModItems.VAMPIRIC_SWORD, ModItems.BLIGHTED_SWORD);
         getOrCreateTagBuilder(ItemTags.SHOVELS).add(ModItems.NEPHRITE_SHOVEL);
