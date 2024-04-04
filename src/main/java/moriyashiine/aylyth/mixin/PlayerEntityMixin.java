@@ -135,7 +135,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHea
         return amount;
     }
 
-    @ModifyVariable(method = "applyDamage", at = @At(value = "LOAD", opcode = Opcodes.FLOAD, ordinal = 2))
+    @ModifyVariable(method = "applyDamage", at = @At(value = "LOAD", opcode = Opcodes.FLOAD, ordinal = 2), argsOnly = true)
     private float vitalAbsorption(float damage) {
         float absorbed = Math.max(damage-getCurrentVitalHealth(), 0);
         setCurrentVitalHealth((int) (getCurrentVitalHealth()-damage));
@@ -144,6 +144,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHea
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void removePledgeASAP(CallbackInfo ci){
+        // Could also put this in a server tick event?, checking that the player is online/available
         if(getHindUuid() != null && !getWorld().isClient()){
             ModWorldState modWorldState = ModWorldState.get(getWorld());
             PlayerEntity player = (PlayerEntity) (Object) this;
