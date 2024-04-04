@@ -47,10 +47,10 @@ public class DebugWandItem extends Item {
         if(!world.isClient()){
             if(user.isSneaking()){
                 VitalHealthHolder.of(user).ifPresent(vital -> {
-                    if(vital.get() == 0){
-                        vital.set(10);
+                    if(vital.getCurrentVitalHealth() == 0){
+                        vital.setCurrentVitalHealth(10);
                     }else{
-                        vital.set(0);
+                        vital.setCurrentVitalHealth(0);
                     }
                 });
             }else{

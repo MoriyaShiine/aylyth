@@ -69,7 +69,7 @@ public class NephriteFlaskItem extends Item {
         growBy(stack, -1);
         if (user.getHealth() == user.getMaxHealth()) {
             VitalHealthHolder.of(user).ifPresent(vitalHolder -> {
-                vitalHolder.set(vitalHolder.get()+4);
+                vitalHolder.setCurrentVitalHealth(vitalHolder.getCurrentVitalHealth()+4);
             });
         } else {
             // TODO: Switch to component for more versatility

@@ -20,7 +20,7 @@ public class VitalHealthComponent implements AutoSyncedComponent, VitalHealthHol
 
     @Override
     public void readFromNbt(NbtCompound tag) {
-        set(tag.getFloat("vital_level"));
+        setCurrentVitalHealth(tag.getFloat("vital_level"));
     }
 
     @Override
@@ -44,12 +44,12 @@ public class VitalHealthComponent implements AutoSyncedComponent, VitalHealthHol
     }
 
     @Override
-    public float get() {
+    public float getCurrentVitalHealth() {
         return vitalLevel;
     }
 
     @Override
-    public void set(float vital) {
+    public void setCurrentVitalHealth(float vital) {
         if (vital == vitalLevel) {
             return;
         }

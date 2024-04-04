@@ -14,7 +14,7 @@ public interface VitalHealthHolder {
         return AylythEntityApi.VITAL_HOLDER.find(context, null);
     }
 
-    float get();
+    float getCurrentVitalHealth();
 
-    void set(float vital);
+    void setCurrentVitalHealth(float vital);
 }

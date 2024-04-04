@@ -126,7 +126,7 @@ public class VitalThuribleBlockEntity extends BlockEntity implements SingleStack
                                     double newMax = Math.min(currentMax + VITAL_INCREMENT, MAX_VITAL_MODIFIER);
                                     instance.removeModifier(VitalThuribleBlock.MAX_VITAL_MODIFIER);
                                     instance.addPersistentModifier(new EntityAttributeModifier(VitalThuribleBlock.MAX_VITAL_MODIFIER, "Vital Thurible Buff", newMax, EntityAttributeModifier.Operation.ADDITION));
-                                    VitalHealthHolder.find(player).set(VitalHealthHolder.find(player).get() + VITAL_INCREMENT);
+                                    VitalHealthHolder.find(player).setCurrentVitalHealth(VitalHealthHolder.find(player).getCurrentVitalHealth() + VITAL_INCREMENT);
                                 }
                             }
                         }

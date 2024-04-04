@@ -70,7 +70,7 @@ public abstract class InGameHudMixin implements AylythGameHud {
 		if (maxVitalHealth == 0) {
 			return;
 		}
-		float vitalHealth = VitalHealthHolder.of(player).map(VitalHealthHolder::get).orElse(0f);
+		float vitalHealth = VitalHealthHolder.of(player).map(VitalHealthHolder::getCurrentVitalHealth).orElse(0f);
 		int heartsToDraw = MathHelper.ceil((double)maxVitalHealth / 2);
 		int firstHeartIndex = j + k;
 		for (int i = heartsToDraw + firstHeartIndex - 1; i >= firstHeartIndex; i--) {
