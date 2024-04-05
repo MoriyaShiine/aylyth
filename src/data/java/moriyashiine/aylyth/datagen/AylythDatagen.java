@@ -8,8 +8,8 @@ import moriyashiine.aylyth.datagen.dynamic.features.AylythPlacedFeatureBootstrap
 import moriyashiine.aylyth.datagen.dynamic.terrain.AylythDensityFunctionBootstrap;
 import moriyashiine.aylyth.datagen.dynamic.terrain.AylythNoiseSettingBootstrap;
 import moriyashiine.aylyth.datagen.dynamic.terrain.AylythNoiseTypeBootstrap;
-import moriyashiine.aylyth.datagen.loot.ModBlockLootTableProvider;
-import moriyashiine.aylyth.datagen.loot.ModEntityLootTableProvider;
+import moriyashiine.aylyth.datagen.loot.AylythBlockLootTableProvider;
+import moriyashiine.aylyth.datagen.loot.AylythEntityLootTableProvider;
 import moriyashiine.aylyth.datagen.tags.*;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
@@ -32,8 +32,8 @@ public class AylythDatagen implements DataGeneratorEntrypoint {
         pack.addProvider(AylythBiomeTagProvider::new);
         pack.addProvider(AylythDamageTypeTagProvider::new);
 
-        pack.addProvider(ModBlockLootTableProvider::new);
-        pack.addProvider(ModEntityLootTableProvider::new);
+        pack.addProvider(AylythBlockLootTableProvider::new);
+        pack.addProvider(AylythEntityLootTableProvider::new);
 
         pack.addProvider(AylythDynamicDataProvider::new);
         pack.addProvider(AylythRecipeProvider::new);

@@ -24,11 +24,11 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
-public class ModEntityLootTableProvider extends SimpleFabricLootTableProvider {
+public class AylythEntityLootTableProvider extends SimpleFabricLootTableProvider {
 
     private final Map<Identifier, LootTable.Builder> loot = Maps.newHashMap();
 
-    public ModEntityLootTableProvider(FabricDataOutput dataGenerator) {
+    public AylythEntityLootTableProvider(FabricDataOutput dataGenerator) {
         super(dataGenerator, LootContextTypes.ENTITY);
     }
 

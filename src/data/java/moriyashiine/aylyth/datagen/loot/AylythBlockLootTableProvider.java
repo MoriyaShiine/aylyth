@@ -25,8 +25,8 @@ import net.minecraft.predicate.StatePredicate;
 import net.minecraft.predicate.item.ItemPredicate;
 import net.minecraft.registry.tag.ItemTags;
 
-public class ModBlockLootTableProvider extends FabricBlockLootTableProvider {
-    public ModBlockLootTableProvider(FabricDataOutput dataGenerator) {
+public class AylythBlockLootTableProvider extends FabricBlockLootTableProvider {
+    public AylythBlockLootTableProvider(FabricDataOutput dataGenerator) {
         super(dataGenerator);
     }
 
