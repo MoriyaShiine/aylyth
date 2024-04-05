@@ -18,7 +18,6 @@
     "PlayerEntityMixin",
     "PlayerManagerMixin",
     "SaplingBlockAccessor",
-    "ServerPlayerEntityMixin",
     "VineBlockMixin",
     "WorldMixin",
     "cimmerian.MobEntityMixin",
