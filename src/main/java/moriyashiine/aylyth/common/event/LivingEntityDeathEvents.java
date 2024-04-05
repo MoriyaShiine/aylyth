@@ -127,7 +127,7 @@ public class LivingEntityDeathEvents {
                             }
                         }
                     }
-                    teleport |= AylythUtil.isNearSeep(player, 8);
+                    teleport |= AylythUtil.isNearSeep(player.getServerWorld(), player, 8);
                 }
                 if (!teleport) {
                     for (Hand hand : Hand.values()) {

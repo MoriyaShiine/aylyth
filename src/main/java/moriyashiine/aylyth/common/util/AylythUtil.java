@@ -6,6 +6,7 @@ import moriyashiine.aylyth.common.registry.ModItems;
 import moriyashiine.aylyth.common.registry.ModParticles;
 import moriyashiine.aylyth.common.registry.ModSoundEvents;
 import moriyashiine.aylyth.common.registry.ModStatusEffects;
+import moriyashiine.aylyth.common.registry.key.ModPoiTypeKeys;
 import moriyashiine.aylyth.common.registry.tag.ModBlockTags;
 import moriyashiine.aylyth.common.registry.tag.ModDamageTypeTags;
 import moriyashiine.aylyth.common.registry.tag.ModItemTags;
@@ -30,6 +31,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.TeleportTarget;
 import net.minecraft.world.World;
+import net.minecraft.world.poi.PointOfInterestStorage;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -82,33 +84,14 @@ public class AylythUtil {
 		return attacker.getAttacker() != target && target.hasStatusEffect(ModStatusEffects.CIMMERIAN) && attacker.getGroup() == EntityGroup.UNDEAD;
 	}
 
-	public static boolean isNearSeep(LivingEntity livingEntity, int radius) {
-		BlockPos.Mutable mutable = new BlockPos.Mutable();
-		for (int x = -radius; x <= radius; x++) {
-			for (int y = -radius; y <= radius; y++) {
-				for (int z = -radius; z <= radius; z++) {
-					if (livingEntity.getWorld().getBlockState(mutable.set(livingEntity.getX() + x, livingEntity.getY() + y, livingEntity.getZ() + z)).isIn(ModBlockTags.SEEPS)) {
-						return true;
-					}
-				}
-			}
-		}
-		return false;
+	public static boolean isNearSeep(ServerWorld serverWorld, LivingEntity livingEntity, int radius) {
+		return serverWorld.getPointOfInterestStorage().getNearestPosition(entry -> entry.matchesKey(ModPoiTypeKeys.SEEP), livingEntity.getBlockPos(), radius, PointOfInterestStorage.OccupationStatus.ANY).isPresent();
 	}
 
-	public static double distanceIfNearSeep(LivingEntity livingEntity, int radius) {
-		BlockPos.Mutable mutable = new BlockPos.Mutable();
-		for (int x = -radius; x <= radius; x++) {
-			for (int y = -radius; y <= radius; y++) {
-				for (int z = -radius; z <= radius; z++) {
-					mutable.set(livingEntity.getX() + x, livingEntity.getY() + y, livingEntity.getZ() + z);
-					if (livingEntity.getWorld().getBlockState(mutable).isIn(ModBlockTags.SEEPS)) {
-						return Math.sqrt(mutable.getSquaredDistance(livingEntity.getBlockPos().getX(), livingEntity.getBlockPos().getY(), livingEntity.getBlockPos().getZ()));
-					}
-				}
-			}
-		}
-		return -1;
+	public static double distanceToSeep(ServerWorld serverWorld, LivingEntity livingEntity, int radius) {
+		return serverWorld.getPointOfInterestStorage().getNearestPosition(entry -> entry.matchesKey(ModPoiTypeKeys.SEEP), livingEntity.getBlockPos(), radius, PointOfInterestStorage.OccupationStatus.ANY)
+				.map(blockPos -> Math.sqrt(blockPos.getSquaredDistance(livingEntity.getBlockPos())))
+				.orElse(-1d);
 	}
 
 	/**

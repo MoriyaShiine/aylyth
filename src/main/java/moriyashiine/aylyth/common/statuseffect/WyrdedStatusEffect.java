@@ -8,6 +8,7 @@ import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
+import net.minecraft.server.world.ServerWorld;
 
 import java.util.UUID;
 
@@ -20,15 +21,15 @@ public class WyrdedStatusEffect extends StatusEffect {
 
     @Override
     public void applyUpdateEffect(LivingEntity entity, int amplifier) {
-        EntityAttributeInstance instance = entity.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
-        double distance = AylythUtil.distanceIfNearSeep(entity, 5);
-        if (distance == -1) {
-            if (instance != null) {
-                instance.tryRemoveModifier(MODIFIER_UUID);
+        if (entity.getWorld() instanceof ServerWorld serverWorld) {
+            EntityAttributeInstance instance = entity.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
+            if (instance == null) {
+                return;
             }
-        } else {
-            entity.damage(entity.getDamageSources().magic(), 2f + ((float)amplifier * 2));
-            if (instance != null && (instance.tryRemoveModifier(MODIFIER_UUID) || instance.getModifier(MODIFIER_UUID) == null)) {
+            instance.removeModifier(MODIFIER_UUID);
+            double distance = AylythUtil.distanceToSeep(serverWorld, entity, 5);
+            if (distance != -1) {
+                entity.damage(entity.getDamageSources().magic(), 2f + ((float)amplifier * 2));
                 instance.addTemporaryModifier(new EntityAttributeModifier(MODIFIER_UUID, this::getTranslationKey, -(0.45 + (Math.sqrt(amplifier) / 10) + ((5.0 - distance) / 12.5)), EntityAttributeModifier.Operation.MULTIPLY_TOTAL));
             }
         }
@@ -36,7 +37,10 @@ public class WyrdedStatusEffect extends StatusEffect {
 
     @Override
     public void onRemoved(LivingEntity entity, AttributeContainer attributes, int amplifier) {
-        entity.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).tryRemoveModifier(MODIFIER_UUID);
+        EntityAttributeInstance instance = entity.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
+        if (instance != null) {
+            instance.removeModifier(MODIFIER_UUID);
+        }
     }
 
     @Override
