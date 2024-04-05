@@ -95,6 +95,7 @@ public class Aylyth implements ModInitializer {
 		ModDataTrackers.init();
 		CustomRegistries.init();
 		ModAdvancementRendererData.init();
+		ModAttachmentTypes.init();
 
 		biomeModifications();
 		registerApis();

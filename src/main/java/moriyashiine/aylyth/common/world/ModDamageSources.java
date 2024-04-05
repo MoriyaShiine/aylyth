@@ -13,13 +13,15 @@ import org.jetbrains.annotations.Nullable;
 
 public class ModDamageSources {
 	private final Registry<DamageType> damageTypeRegistry;
+	private final DamageSource ympe;
 
 	public ModDamageSources(DynamicRegistryManager dynamicRegistryManager) {
 		damageTypeRegistry = dynamicRegistryManager.get(RegistryKeys.DAMAGE_TYPE);
+		this.ympe = new DamageSource(damageTypeRegistry.entryOf(ModDamageTypeKeys.YMPE));
 	}
 
 	public DamageSource ympe() {
-		return new DamageSource(damageTypeRegistry.entryOf(ModDamageTypeKeys.YMPE));
+		return ympe;
 	}
 
 	public DamageSource ympeEntity(Entity entity) {

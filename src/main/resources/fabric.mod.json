@@ -66,8 +66,7 @@
             "aylyth:prevent_drops",
             "aylyth:rider",
             "aylyth:cuirass",
-            "aylyth:vital_health",
-            "aylyth:hind_pledge"
+            "aylyth:vital_health"
         ],
         "loom:injected_interfaces": {
             "net/minecraft/class_1937": ["moriyashiine/aylyth/api/interfaces/ModDamageSourcesProvider"]

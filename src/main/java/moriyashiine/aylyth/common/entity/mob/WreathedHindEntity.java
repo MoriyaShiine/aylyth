@@ -1,13 +1,14 @@
 package moriyashiine.aylyth.common.entity.mob;
 
 import com.mojang.serialization.Dynamic;
-import moriyashiine.aylyth.api.interfaces.HindPledgeHolder;
 import moriyashiine.aylyth.api.interfaces.Pledgeable;
 import moriyashiine.aylyth.common.entity.ai.brain.WreathedHindBrain;
 import moriyashiine.aylyth.common.registry.*;
 import moriyashiine.aylyth.common.registry.tag.ModItemTags;
 import moriyashiine.aylyth.common.util.AylythUtil;
+import net.fabricmc.fabric.api.attachment.v1.AttachmentTarget;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.brain.Brain;
@@ -37,6 +38,7 @@ import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -58,7 +60,6 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     public static final TrackedData<AttackType> ATTACK_TYPE = DataTracker.registerData(WreathedHindEntity.class, ModDataTrackers.WREATHED_HIND_ATTACKS);
     public static final TrackedData<Boolean> IS_PLEDGED = DataTracker.registerData(WreathedHindEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-    private UUID pledgedPlayer = null;
 
     public WreathedHindEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
@@ -94,6 +95,11 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
         } else if (modifiableattributeinstance.hasModifier(SNEAKY_SPEED_PENALTY)) {
             modifiableattributeinstance.removeModifier(SNEAKY_SPEED_PENALTY);
         }
+        if (age % 20 == 0) {
+            if (getPledgedPlayerUUID() == null) {
+                setIsPledged(false);
+            }
+        }
     }
 
     @Override
@@ -112,23 +118,6 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
     }
 
     @Override
-    public void writeCustomDataToNbt(NbtCompound nbt) {
-        super.writeCustomDataToNbt(nbt);
-        if (getPledgedPlayerUUID() != null) {
-            nbt.putUuid("pledged_player", getPledgedPlayerUUID());
-        }
-    }
-
-    @Override
-    public void readCustomDataFromNbt(NbtCompound nbt) {
-        super.readCustomDataFromNbt(nbt);
-        if (nbt.contains("pledged_player")) {
-            pledgedPlayer = nbt.getUuid("pledged_player");
-            setIsPledged(true);
-        }
-    }
-
-    @Override
     protected ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack stack = player.getStackInHand(hand);
         if(stack.isIn(ModItemTags.PLEDGE_ITEMS) && getPledgedPlayerUUID() == null) {
@@ -136,7 +125,6 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
                 ModCriteria.HIND_PLEDGE.trigger(serverPlayer, this);
             }
             setPledgedPlayer(player);
-            HindPledgeHolder.of(player).ifPresent(hindHolder -> hindHolder.setHindUuid(this.getUuid()));
             AylythUtil.decreaseStack(stack, player);
         }
         return super.interactMob(player, hand);
@@ -145,7 +133,7 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
     @Override
     public void remove(RemovalReason reason) {
         super.remove(reason);
-        addPledgeToRemove(getWorld());
+        ((AttachmentTarget)getWorld()).getAttachedOrCreate(ModAttachmentTypes.PLEDGE_STATE).removePledge(this);
     }
 
     @Override
@@ -223,6 +211,15 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
                 }
             }
         }
+    }
+
+    @Nullable
+    @Override
+    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
+        if (getPledgedPlayerUUID() != null) {
+
+        }
+        return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
     }
 
     @Override
@@ -313,17 +310,24 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
     @Nullable
     @Override
     public UUID getPledgedPlayerUUID() {
-        return pledgedPlayer;
+        if (!getWorld().isClient) {
+            return ((AttachmentTarget)getWorld()).getAttachedOrCreate(ModAttachmentTypes.PLEDGE_STATE).getPledged(this);
+        }
+        return null;
     }
 
     public void setPledgedPlayer(PlayerEntity player) {
-        this.pledgedPlayer = player.getUuid();
+        if (!getWorld().isClient) {
+            ((AttachmentTarget)getWorld()).getAttachedOrCreate(ModAttachmentTypes.PLEDGE_STATE).addPledge(player.getUuid(), this.getUuid());
+        }
         setIsPledged(true);
     }
 
     @Override
     public void removePledge() {
-        this.pledgedPlayer = null;
+        if (!getWorld().isClient) {
+            ((AttachmentTarget)getWorld()).getAttachedOrCreate(ModAttachmentTypes.PLEDGE_STATE).removePledge(this);
+        }
         setIsPledged(false);
     }
 

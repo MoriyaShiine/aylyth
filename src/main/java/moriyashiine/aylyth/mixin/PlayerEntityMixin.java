@@ -2,17 +2,18 @@ package moriyashiine.aylyth.mixin;
 
 import moriyashiine.aylyth.api.interfaces.HindPledgeHolder;
 import moriyashiine.aylyth.api.interfaces.VitalHealthHolder;
+import moriyashiine.aylyth.common.attachment.PledgeState;
 import moriyashiine.aylyth.common.block.SoulHearthBlock;
 import moriyashiine.aylyth.common.component.entity.CuirassComponent;
 import moriyashiine.aylyth.common.entity.mob.BoneflyEntity;
+import moriyashiine.aylyth.common.registry.ModAttachmentTypes;
 import moriyashiine.aylyth.common.registry.ModEntityComponents;
 import moriyashiine.aylyth.common.registry.ModEntityAttributes;
 import moriyashiine.aylyth.common.registry.ModSoundEvents;
 import moriyashiine.aylyth.common.registry.key.ModDamageTypeKeys;
 import moriyashiine.aylyth.common.registry.key.ModDimensionKeys;
 import moriyashiine.aylyth.common.registry.tag.ModDamageTypeTags;
-import moriyashiine.aylyth.common.util.AylythUtil;
-import moriyashiine.aylyth.common.world.ModWorldState;
+import net.fabricmc.fabric.api.attachment.v1.AttachmentTarget;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.enums.DoubleBlockHalf;
@@ -78,12 +79,19 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHea
 
     @Override
     public UUID getHindUuid() {
-        return ModEntityComponents.HIND_PLEDGE.get(this).getHindUuid();
+        if (!getWorld().isClient) {
+            PledgeState pledgeState = ((AttachmentTarget)getWorld()).getAttachedOrCreate(ModAttachmentTypes.PLEDGE_STATE);
+            return pledgeState.getPledge((PlayerEntity)(Object) this);
+        }
+        return null;
     }
 
     @Override
     public void setHindUuid(@Nullable UUID uuid) {
-        ModEntityComponents.HIND_PLEDGE.get(this).setHindUuid(uuid);
+        if (!getWorld().isClient) {
+            PledgeState pledgeState = ((AttachmentTarget)getWorld()).getAttachedOrCreate(ModAttachmentTypes.PLEDGE_STATE);
+            pledgeState.addPledge(getUuid(), uuid);
+        }
     }
 
     @Inject(method = "findRespawnPosition", at = @At(value = "HEAD", target = "Lnet/minecraft/block/BlockState;getBlock()Lnet/minecraft/block/Block;"), cancellable = true)
@@ -140,20 +148,6 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHea
         float absorbed = Math.max(damage-getCurrentVitalHealth(), 0);
         setCurrentVitalHealth((int) (getCurrentVitalHealth()-damage));
         return absorbed;
-    }
-
-    @Inject(method = "tick", at = @At("TAIL"))
-    private void removePledgeASAP(CallbackInfo ci){
-        // Could also put this in a server tick event?, checking that the player is online/available
-        if(getHindUuid() != null && !getWorld().isClient()){
-            ModWorldState modWorldState = ModWorldState.get(getWorld());
-            PlayerEntity player = (PlayerEntity) (Object) this;
-            if (modWorldState.hasPledgesToRemove()) {
-                if (modWorldState.removePledge(player.getUuid())) {
-                    setHindUuid(null);
-                }
-            }
-        }
     }
 
     @Inject(method = "onDeath", at = @At("TAIL"))

@@ -1,6 +1,5 @@
 package moriyashiine.aylyth.common.event;
 
-import moriyashiine.aylyth.api.interfaces.ExtraPlayerData;
 import moriyashiine.aylyth.api.interfaces.HindPledgeHolder;
 import moriyashiine.aylyth.common.block.VitalThuribleBlock;
 import moriyashiine.aylyth.common.block.WoodyGrowthCacheBlock;
@@ -14,7 +13,6 @@ import moriyashiine.aylyth.common.registry.key.ModDimensionKeys;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
-import net.fabricmc.fabric.api.event.Event;
 import net.minecraft.advancement.Advancement;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
@@ -24,10 +22,7 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.WitchEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtList;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.BiomeTags;
@@ -41,45 +36,21 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 
 public class LivingEntityDeathEvents {
-    private static Identifier lateEvent = AylythUtil.id("late");
 
     public static void init(){
-        ServerLivingEntityEvents.ALLOW_DEATH.addPhaseOrdering(Event.DEFAULT_PHASE, lateEvent);
-
-        ServerLivingEntityEvents.ALLOW_DEATH.register(lateEvent, LivingEntityDeathEvents::hindKeepInv);
         ServerLivingEntityEvents.ALLOW_DEATH.register(LivingEntityDeathEvents::allowDeath);
 
         ServerLivingEntityEvents.AFTER_DEATH.register(LivingEntityDeathEvents::spawnRippedSoul);
 
-        ServerPlayerEvents.AFTER_RESPAWN.register(LivingEntityDeathEvents::restoreInv);
         ServerPlayerEvents.COPY_FROM.register(LivingEntityDeathEvents::retainVitalHealthAttribute);
-    }
-
-    /**
-     * If the player has stored extra data {@link ExtraPlayerData} of the old players inventory it will restore
-     * it to the new player and then clear the extra data. Clears Hind pledge after
-     * @param oldPlayer the player who died
-     * @param newPlayer the player who spawned
-     * @param alive if player was alive on respawn
-     */
-    private static void restoreInv(ServerPlayerEntity oldPlayer, ServerPlayerEntity newPlayer, boolean alive) {
-        if(!alive){
-            NbtCompound playerData = AylythUtil.getPlayerData(newPlayer);
-            if (!newPlayer.getWorld().isClient() && playerData.contains("RestoreInv")) {
-                NbtList nbtList = playerData.getList("RestoreInv", 10);
-                AylythUtil.loadInv(nbtList, newPlayer.getInventory());
-                AylythUtil.getPlayerData(newPlayer).getList("RestoreInv", 10).clear();
-                AylythUtil.getPlayerData(newPlayer).remove("RestoreInv");
-            }
-            ((HindPledgeHolder) newPlayer).setHindUuid(null);
-        }
+        ServerPlayerEvents.COPY_FROM.register(LivingEntityDeathEvents::retainInventoryWhenPledged);
     }
 
     /**
      * Copies the max vital health attribute from the vital thurible as long as the damage source was not from ympe
      */
     private static void retainVitalHealthAttribute(ServerPlayerEntity oldPlayer, ServerPlayerEntity newPlayer, boolean alive) {
-        if (oldPlayer.getRecentDamageSource() == null || !AylythUtil.isSourceYmpe(oldPlayer.getRecentDamageSource())) {
+        if (!alive && (oldPlayer.getRecentDamageSource() == null || !AylythUtil.isSourceYmpe(oldPlayer.getRecentDamageSource()))) {
             EntityAttributeInstance oldInstance = oldPlayer.getAttributeInstance(ModEntityAttributes.MAX_VITAL_HEALTH);
             EntityAttributeInstance newInstance = newPlayer.getAttributeInstance(ModEntityAttributes.MAX_VITAL_HEALTH);
             if (oldInstance != null && newInstance != null && oldInstance.getModifier(VitalThuribleBlock.MAX_VITAL_MODIFIER) != null) {
@@ -88,38 +59,21 @@ public class LivingEntityDeathEvents {
         }
     }
 
-    /**
-     * Checks if the player is pledged and died by the Ympe damage source and if that's the case store the
-     * players inventory in {@link ExtraPlayerData} to be restored upon respawn
-     * @param livingEntity entity which died
-     * @param damageSource source of damage
-     * @param damageAmount amount of damage
-     * @return true if the entity should die
-     */
-    private static boolean hindKeepInv(LivingEntity livingEntity, DamageSource damageSource, float damageAmount) {
-        if(livingEntity instanceof PlayerEntity player){
-            if (player.getWorld().isClient() || player.isCreative() || player.isSpectator()) {
-                return true;
-            }
-
-            if(!player.getWorld().getGameRules().getBoolean(GameRules.KEEP_INVENTORY)){
-                HindPledgeHolder.of(player).ifPresent(hind -> {
-                    if(damageSource.isOf(ModDamageTypeKeys.YMPE) && hind.getHindUuid() != null){
-                        PlayerInventory newInv = new PlayerInventory(null);
-                        NbtList nbtList = new NbtList();
-
-                        AylythUtil.transferList(newInv.armor, player.getInventory().armor);
-                        AylythUtil.transferList(newInv.offHand, player.getInventory().offHand);
-                        AylythUtil.transferList(newInv.main, player.getInventory().main);
-                        if(!newInv.isEmpty()){
-                            newInv.writeNbt(nbtList);
-                            AylythUtil.getPlayerData(player).put("RestoreInv", nbtList);
-                        }
-                    }
-                });
-            }
+    private static void retainInventoryWhenPledged(ServerPlayerEntity oldPlayer, ServerPlayerEntity newPlayer, boolean alive) {
+        if (alive || oldPlayer.getRecentDamageSource() == null || !oldPlayer.getRecentDamageSource().isOf(ModDamageTypeKeys.YMPE)) {
+            return;
         }
-        return true;
+
+        if (oldPlayer.getWorld().getGameRules().getBoolean(GameRules.KEEP_INVENTORY)) {
+            return;
+        }
+
+        HindPledgeHolder.of(oldPlayer).ifPresent(hind -> {
+            if (hind.getHindUuid() != null) {
+                newPlayer.getInventory().clone(oldPlayer.getInventory());
+            }
+            hind.setHindUuid(null);
+        });
     }
 
     private static void spawnRippedSoul(LivingEntity livingEntity, DamageSource source) {

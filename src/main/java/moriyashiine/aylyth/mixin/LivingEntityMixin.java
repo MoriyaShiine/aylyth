@@ -1,11 +1,15 @@
 package moriyashiine.aylyth.mixin;
 
+import com.llamalad7.mixinextras.injector.WrapWithCondition;
+import com.llamalad7.mixinextras.sugar.Local;
+import moriyashiine.aylyth.api.interfaces.HindPledgeHolder;
 import moriyashiine.aylyth.api.interfaces.ProlongedDeath;
 import moriyashiine.aylyth.common.entity.mob.BoneflyEntity;
 import moriyashiine.aylyth.common.item.YmpeEffigyItem;
 import moriyashiine.aylyth.common.registry.ModEntityComponents;
 import moriyashiine.aylyth.common.registry.ModItems;
 import moriyashiine.aylyth.common.registry.ModStatusEffects;
+import moriyashiine.aylyth.common.registry.key.ModDamageTypeKeys;
 import moriyashiine.aylyth.common.registry.tag.ModEffectTags;
 import moriyashiine.aylyth.common.registry.tag.ModItemTags;
 import moriyashiine.aylyth.common.util.AylythUtil;
@@ -71,6 +75,11 @@ public abstract class LivingEntityMixin extends Entity {
 			ci.cancel();
 		}
 	}
+
+	@WrapWithCondition(method = "drop", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;dropInventory()V"))
+	private boolean keepPledgedInv(LivingEntity instance, @Local(argsOnly = true) DamageSource damageSource) {
+        return !(instance instanceof PlayerEntity player) || !damageSource.isOf(ModDamageTypeKeys.YMPE) || ((HindPledgeHolder) player).getHindUuid() == null;
+    }
 	
 	@Inject(method = "eatFood", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;applyFoodEffects(Lnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/entity/LivingEntity;)V"))
 	private void decreaseYmpeInfestationStage(World world, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
