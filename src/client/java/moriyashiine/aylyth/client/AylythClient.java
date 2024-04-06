@@ -3,6 +3,7 @@ package moriyashiine.aylyth.client;
 import com.terraformersmc.terraform.boat.api.client.TerraformBoatClientHelper;
 import com.terraformersmc.terraform.sign.SpriteIdentifierRegistry;
 import moriyashiine.aylyth.client.advancement.AdvancementIconRendererRegistry;
+import moriyashiine.aylyth.client.model.block.SoulHearthBlockModel;
 import moriyashiine.aylyth.client.model.entity.layer.CuirassModel;
 import moriyashiine.aylyth.client.model.entity.layer.YmpeInfestationModel;
 import moriyashiine.aylyth.client.model.entity.layer.YmpeThornRingModel;
@@ -235,6 +236,17 @@ public class AylythClient implements ClientModInitializer {
 				return model;
 			});
 		});
+
+		if (false) {
+			ModelLoadingPlugin.register(pluginContext -> {
+				pluginContext.modifyModelAfterBake().register((model, context) -> {
+					if (context.id().getPath().contains("soul_hearth_charged")) {
+						return new SoulHearthBlockModel(model);
+					}
+					return model;
+				});
+			});
+		}
 
 //		ModelLoadingRegistry.INSTANCE.registerModelProvider((manager, out) -> out.accept(new ModelIdentifier(AylythUtil.id("%s_generated".formatted(Registries.ITEM.getId(ModItems.MYSTERIOUS_SKETCH).getPath())), "inventory")));
 		BuiltinItemRendererRegistry.INSTANCE.register(ModItems.WOODY_GROWTH_CACHE, new WoodyGrowthCacheItemRenderer());
