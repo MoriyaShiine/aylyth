@@ -1,7 +1,9 @@
 package moriyashiine.aylyth.datagen.util.recipe;
 
+import com.google.common.base.Preconditions;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.registry.ModRecipeTypes;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
@@ -11,8 +13,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.collection.DefaultedList;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -22,35 +24,43 @@ public class SoulCampfireRecipeBuilder {
     private final List<Ingredient> ingredients;
     private final ItemStack result;
 
-    public SoulCampfireRecipeBuilder(DefaultedList<Ingredient> ingredients, ItemStack result) {
-        this.ingredients = ingredients;
+    public SoulCampfireRecipeBuilder(ItemStack result) {
+        this.ingredients = new ObjectArrayList<>();
         this.result = result;
     }
 
-    public static SoulCampfireRecipeBuilder create(List<Item> items, ItemConvertible output) {
-        return create(items.stream().map(Ingredient::ofItems).toList(), new ItemStack(output.asItem()));
+    public static SoulCampfireRecipeBuilder create(ItemConvertible output) {
+        return create(new ItemStack(output.asItem()));
     }
 
-    public static SoulCampfireRecipeBuilder createWithIngredients(List<Ingredient> items, ItemConvertible output) {
-        return create(items, new ItemStack(output.asItem()));
+    public static SoulCampfireRecipeBuilder create(ItemStack output) {
+        return new SoulCampfireRecipeBuilder(output);
     }
 
-    public static SoulCampfireRecipeBuilder create(List<Ingredient> ingredients, ItemStack output) {
-        if (ingredients.size() > 4) {
-            throw new IllegalArgumentException("Cannot have more than 4 ingredients in soul campfire recipe");
-        }
-        DefaultedList<Ingredient> list = DefaultedList.ofSize(4, Ingredient.EMPTY);
-        for (int i = 0; i < ingredients.size(); i++) {
-            list.set(i, ingredients.get(i));
-        }
-        return new SoulCampfireRecipeBuilder(list, output);
+    public SoulCampfireRecipeBuilder with(ItemConvertible itemConvertible) {
+        return with(Ingredient.ofItems(itemConvertible));
+    }
+
+    public SoulCampfireRecipeBuilder with(TagKey<Item> tag) {
+        return with(Ingredient.fromTag(tag));
+    }
+
+    public SoulCampfireRecipeBuilder with(Ingredient ingredient) {
+        checkSize();
+        ingredients.add(ingredient);
+        return this;
     }
 
     public void offerTo(Consumer<RecipeJsonProvider> exporter) {
         this.offerTo(exporter, new Identifier(Aylyth.MOD_ID, "soul_campfire/%s".formatted(Registries.ITEM.getId(result.getItem()).getPath())));
     }
 
+    private void checkSize() {
+        Preconditions.checkState(ingredients.size() < 5, "Campfire recipes may only have 4 ingredients");
+    }
+
     public void offerTo(Consumer<RecipeJsonProvider> exporter, Identifier recipeId) {
+        Preconditions.checkState(ingredients.isEmpty(), "Must have positive number of ingredients");
         exporter.accept(new RecipeJsonProvider() {
             @Override
             public void serialize(JsonObject json) {

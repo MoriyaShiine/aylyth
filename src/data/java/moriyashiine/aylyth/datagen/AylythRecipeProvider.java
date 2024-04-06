@@ -260,15 +260,12 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
 
         NbtCompound shucked = new NbtCompound();
         shucked.put("StoredEntity", new NbtCompound());
-        SoulCampfireRecipeBuilder.createWithIngredients(
-                List.of(
-                        Ingredient.ofItems(ModItems.AYLYTHIAN_HEART),
-                        Ingredient.ofItems(ModItems.WRONGMEAT),
-                        Ingredient.ofItems(ModItems.ESSTLINE),
-                        DefaultCustomIngredients.nbt(Ingredient.ofItems(ModItems.SHUCKED_YMPE_FRUIT), shucked, false)
-                ),
-                ModItems.CORIC_SEED
-        ).offerTo(exporter);
+        SoulCampfireRecipeBuilder.create(ModItems.CORIC_SEED)
+                .with(ModItems.AYLYTHIAN_HEART)
+                .with(ModItems.WRONGMEAT)
+                .with(ModItems.ESSTLINE)
+                .with(DefaultCustomIngredients.nbt(Ingredient.ofItems(ModItems.SHUCKED_YMPE_FRUIT), shucked, false))
+                .offerTo(exporter);
     }
 
     private void createSmithingUpgrade(Consumer<RecipeJsonProvider> exporter, ItemConvertible template, ItemConvertible base, ItemConvertible addition, ItemConvertible result, RecipeCategory category) {
