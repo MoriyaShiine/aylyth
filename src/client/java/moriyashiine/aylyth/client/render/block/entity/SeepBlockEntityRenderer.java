@@ -1,10 +1,10 @@
 package moriyashiine.aylyth.client.render.block.entity;
 
+import moriyashiine.aylyth.client.integration.iris.IrisCompat;
 import moriyashiine.aylyth.client.render.AylythRenderLayers;
 import moriyashiine.aylyth.common.block.entity.SeepBlockEntity;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.loader.api.FabricLoader;
-import net.irisshaders.iris.api.v0.IrisApi;
 import net.minecraft.client.render.*;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
@@ -19,7 +19,7 @@ public class SeepBlockEntityRenderer implements BlockEntityRenderer<SeepBlockEnt
 	public void render(SeepBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
 		MatrixStack.Entry matrix = matrices.peek();
 		VertexConsumer vertexConsumer;
-		if (!FabricLoader.getInstance().isModLoaded("iris") || !IrisApi.getInstance().isShaderPackInUse()) {
+		if (!FabricLoader.getInstance().isModLoaded("iris") || !IrisCompat.isShaderPackInUse()) {
 			vertexConsumer = vertexConsumers.getBuffer(AylythRenderLayers.SEEP);
 			this.renderSide(matrix.getPositionMatrix(), vertexConsumer, 0.0625F, 0.9375F, 0, 1, 0.9375F, 0.9375F);
 			this.renderSide(matrix.getPositionMatrix(), vertexConsumer, 0.0625F, 0.9375F, 1, 0, 0.0625F, 0.0625F);
