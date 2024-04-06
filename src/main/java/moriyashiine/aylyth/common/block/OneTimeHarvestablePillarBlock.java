@@ -11,15 +11,15 @@ import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.function.UnaryOperator;
 
 @SuppressWarnings("UnstableApiUsage")
 public class OneTimeHarvestablePillarBlock extends HarvestablePillarBlock {
     public static final BooleanProperty HARVESTABLE = BooleanProperty.of("harvestable");
-    private final Function<BlockState, BlockState> harvestState;
+    private final UnaryOperator<BlockState> harvestState;
 
-    public OneTimeHarvestablePillarBlock(Supplier<ItemVariant> harvest, Function<BlockState, BlockState> harvestState, Settings settings) {
+    public OneTimeHarvestablePillarBlock(Supplier<ItemVariant> harvest, UnaryOperator<BlockState> harvestState, Settings settings) {
         super(harvest, settings);
         this.harvestState = harvestState;
         setDefaultState(getDefaultState().with(HARVESTABLE, true));
