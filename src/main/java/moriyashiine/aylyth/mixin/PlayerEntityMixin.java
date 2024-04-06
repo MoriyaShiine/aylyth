@@ -90,7 +90,12 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHea
     public void setHindUuid(@Nullable UUID uuid) {
         if (!getWorld().isClient) {
             PledgeState pledgeState = ((AttachmentTarget)getWorld()).getAttachedOrCreate(ModAttachmentTypes.PLEDGE_STATE);
-            pledgeState.addPledge(getUuid(), uuid);
+            if (uuid == null) {
+                pledgeState.removePledge((PlayerEntity)(Object) this);
+            } else {
+                pledgeState.addPledge(getUuid(), uuid);
+            }
+
         }
     }
 
