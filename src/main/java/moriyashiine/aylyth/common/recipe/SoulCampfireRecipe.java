@@ -69,6 +69,11 @@ public class SoulCampfireRecipe implements Recipe<Inventory> {
     }
 
     @Override
+    public boolean isIgnoredInRecipeBook() {
+        return true;
+    }
+
+    @Override
     public RecipeSerializer<?> getSerializer() {
         return ModRecipeTypes.SOULFIRE_RECIPE_SERIALIZER;
     }
