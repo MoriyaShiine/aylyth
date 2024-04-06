@@ -1,11 +1,20 @@
 package moriyashiine.aylyth.common.block;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.MapMaker;
 import com.google.common.collect.UnmodifiableIterator;
 import moriyashiine.aylyth.common.block.entity.SoulHearthBlockEntity;
 import moriyashiine.aylyth.common.registry.ModItems;
-import moriyashiine.aylyth.common.registry.key.ModDimensionKeys;
-import moriyashiine.aylyth.common.util.AylythUtil;
+import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.item.PlayerInventoryStorage;
+import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
+import net.fabricmc.fabric.api.transfer.v1.storage.StorageUtil;
+import net.fabricmc.fabric.api.transfer.v1.storage.base.InsertionOnlyStorage;
+import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
+import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
+import net.fabricmc.fabric.api.transfer.v1.transaction.base.SnapshotParticipant;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.enums.DoubleBlockHalf;
@@ -26,6 +35,7 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
+import net.minecraft.state.property.Property;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -42,7 +52,9 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Map;
 import java.util.Optional;
+import java.util.function.UnaryOperator;
 
 public class SoulHearthBlock extends Block implements BlockEntityProvider {
 
@@ -65,35 +77,31 @@ public class SoulHearthBlock extends Block implements BlockEntityProvider {
             finalPos = finalPos.down();
         }
 
-        ItemStack itemStack = player.getStackInHand(hand);
-        if (hand == Hand.MAIN_HAND && !isChargeItem(itemStack) && isChargeItem(player.getStackInHand(Hand.OFF_HAND))) {
-            return ActionResult.PASS;
-        } else if (isChargeItem(itemStack) && canCharge(state)) {
-            player.incrementStat(Stats.USED.getOrCreateStat(itemStack.getItem()));
-            charge(world, finalPos, state);
-            AylythUtil.decreaseStack(itemStack, player);
+        boolean insertSuccess = false;
+        ContainerItemContext storage = ContainerItemContext.forPlayerInteraction(player, hand);
+        ItemVariant variant = storage.getItemVariant();
+        if (!storage.getItemVariant().isBlank()) {
+            Storage<ItemVariant> soulHearthStorage = ItemStorage.SIDED.find(world, finalPos, null);
+            try (Transaction transaction = Transaction.openOuter()) {
+                if (StorageUtil.move(storage.getMainSlot(), soulHearthStorage, itemVariant -> true, 1, transaction) == 1) {
+                    transaction.commit();
+                    insertSuccess = true;
+                }
+            }
+        }
+
+        if (insertSuccess) {
             if (!world.isClient) {
                 ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity) player;
-                serverPlayerEntity.setSpawnPoint(world.getRegistryKey(), finalPos, 0.0F, true, true);
-                world.playSound(null, (double) finalPos.getX() + 0.5, (double) finalPos.getY() + 0.5, (double) finalPos.getZ() + 0.5, SoundEvents.BLOCK_RESPAWN_ANCHOR_SET_SPAWN, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                player.incrementStat(Stats.USED.getOrCreateStat(variant.getItem()));
+                if (!finalPos.equals(serverPlayerEntity.getSpawnPointPosition())) {
+                    serverPlayerEntity.setSpawnPoint(world.getRegistryKey(), finalPos, 0.0F, true, true);
+                    world.playSound(null, (double) finalPos.getX() + 0.5, (double) finalPos.getY() + 0.5, (double) finalPos.getZ() + 0.5, SoundEvents.BLOCK_RESPAWN_ANCHOR_SET_SPAWN, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                }
             }
-            return ActionResult.success(true);
+            return ActionResult.success(world.isClient);
         }
         return super.onUse(state, world, pos, player, hand, hit);
-    }
-
-    private static boolean isChargeItem(ItemStack stack) {
-        return stack.isOf(ModItems.POMEGRANATE);
-    }
-
-    private static boolean canCharge(BlockState state) {
-        return state.get(CHARGES) < 5;
-    }
-
-    public static void charge(World world, BlockPos pos, BlockState state) {
-        world.setBlockState(pos, state.with(CHARGES, state.get(CHARGES) + 1).with(HALF, DoubleBlockHalf.LOWER));
-        world.setBlockState(pos.up(), state.with(CHARGES, state.get(CHARGES) + 1).with(HALF, DoubleBlockHalf.UPPER));
-        world.playSound(null, (double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5, SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, SoundCategory.BLOCKS, 1.0F, 1.0F);
     }
 
     public void genParticle(ParticleEffect particleEffect, World world, BlockPos pos, Random random){
@@ -119,7 +127,7 @@ public class SoulHearthBlock extends Block implements BlockEntityProvider {
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(CHARGES).add(HALF);
+        super.appendProperties(builder.add(CHARGES, HALF));
     }
 
     @Nullable
@@ -131,8 +139,7 @@ public class SoulHearthBlock extends Block implements BlockEntityProvider {
 
     @Override
     public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
-        BlockPos blockPos = pos.up();
-        world.setBlockState(blockPos, this.getDefaultState().with(CHARGES, world.getBlockState(pos).get(CHARGES)).with(HALF, DoubleBlockHalf.UPPER), Block.NOTIFY_ALL);
+        world.setBlockState(pos.up(), this.getDefaultState().with(CHARGES, state.get(CHARGES)).with(HALF, DoubleBlockHalf.UPPER));
     }
 
     @Override
@@ -145,7 +152,7 @@ public class SoulHearthBlock extends Block implements BlockEntityProvider {
 
     public static Optional<Vec3d> findRespawnPosition(EntityType<?> entity, CollisionView world, BlockPos pos) {
         Optional<Vec3d> optional = findRespawnPosition(entity, world, pos, true);
-        return optional.isPresent() ? optional : findRespawnPosition(entity, world, pos, false);
+        return optional.or(() -> findRespawnPosition(entity, world, pos, false));
     }
 
     private static Optional<Vec3d> findRespawnPosition(EntityType<?> entity, CollisionView world, BlockPos pos, boolean ignoreInvalidPos) {
@@ -183,11 +190,7 @@ public class SoulHearthBlock extends Block implements BlockEntityProvider {
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        if (state.get(HALF) == DoubleBlockHalf.LOWER) {
-            return LOWER_SHAPES;
-        }else{
-            return UPPER_SHAPES;
-        }
+        return state.get(HALF) == DoubleBlockHalf.LOWER ? LOWER_SHAPES : UPPER_SHAPES;
     }
 
     @Nullable
@@ -228,5 +231,71 @@ public class SoulHearthBlock extends Block implements BlockEntityProvider {
                 createCuboidShape(4, 5, 4, 12, 8, 12)
         );
 
+    }
+
+    public static class SoulHearthStorage extends SnapshotParticipant<Integer> implements InsertionOnlyStorage<ItemVariant> {
+        private static final Map<MutableBlockReference, SoulHearthStorage> COLLECTION_CACHE = new MapMaker().concurrencyLevel(1).weakValues().makeMap();
+
+        private final MutableBlockReference reference;
+        private int charge;
+
+        private SoulHearthStorage(MutableBlockReference reference) {
+            this.reference = reference;
+            this.charge = reference.getBlockState().get(CHARGES);
+        }
+
+        public static SoulHearthStorage getOrCreate(World world, BlockPos pos) {
+            return COLLECTION_CACHE.computeIfAbsent(new MutableBlockReference(world, pos), SoulHearthStorage::new);
+        }
+
+        @Override
+        protected Integer createSnapshot() {
+            return charge;
+        }
+
+        @Override
+        protected void readSnapshot(Integer snapshot) {
+            this.charge = snapshot;
+        }
+
+        @Override
+        protected void onFinalCommit() {
+            reference.setWithProperty(state -> state.with(CHARGES, charge));
+            reference.setWithProperty(Direction.UP, state -> state.with(CHARGES, charge));
+            reference.world.playSound(null, (double)reference.pos.getX() + 0.5, (double)reference.pos.getY() + 0.5, (double)reference.pos.getZ() + 0.5, SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, SoundCategory.BLOCKS, 1.0F, 1.0F);
+        }
+
+        @Override
+        public long insert(ItemVariant resource, long maxAmount, TransactionContext transaction) {
+            if (maxAmount < 0) return 0;
+            if (!resource.isOf(ModItems.POMEGRANATE)) return 0;
+            int currCharges = reference.getBlockState().get(CHARGES);
+            if (currCharges == 5) return 0;
+
+            long inserted = Math.min(5-currCharges, maxAmount);
+            charge = currCharges+(int)inserted;
+            updateSnapshots(transaction);
+
+            return inserted;
+        }
+
+        public record MutableBlockReference(World world, BlockPos pos) {
+            public void setBlockState(BlockState state) {
+                world.setBlockState(pos, state);
+            }
+
+            public void setWithProperty(UnaryOperator<BlockState> stateOperator) {
+                setBlockState(stateOperator.apply(getBlockState()));
+            }
+
+            public void setWithProperty(Direction posOffset, UnaryOperator<BlockState> stateOperator) {
+                BlockPos offsetPos = pos.offset(posOffset);
+                world.setBlockState(offsetPos, stateOperator.apply(world.getBlockState(offsetPos)));
+            }
+
+            public BlockState getBlockState() {
+                return world.getBlockState(pos);
+            }
+        }
     }
 }

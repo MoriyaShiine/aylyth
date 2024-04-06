@@ -2,6 +2,7 @@ package moriyashiine.aylyth.common;
 
 import moriyashiine.aylyth.api.AylythEntityApi;
 import moriyashiine.aylyth.api.interfaces.VitalHealthHolder;
+import moriyashiine.aylyth.common.block.SoulHearthBlock;
 import moriyashiine.aylyth.common.network.AylythPacketTypes;
 import moriyashiine.aylyth.common.network.AylythServerPacketHandler;
 import moriyashiine.aylyth.common.network.packets.SpawnParticlesAroundPacketS2C;
@@ -25,8 +26,10 @@ import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.CampfireBlockEntity;
+import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -191,5 +194,12 @@ public class Aylyth implements ModInitializer {
 
 	private void registerApis() {
 		AylythEntityApi.VITAL_HOLDER.registerForType((entity, unused) -> (VitalHealthHolder) entity, EntityType.PLAYER);
+
+		ItemStorage.SIDED.registerForBlocks((world, pos, state, blockEntity, context) -> {
+			if (state.get(SoulHearthBlock.HALF) == DoubleBlockHalf.LOWER) {
+				return SoulHearthBlock.SoulHearthStorage.getOrCreate(world, pos);
+			}
+			return null;
+		}, ModBlocks.SOUL_HEARTH);
 	}
 }
