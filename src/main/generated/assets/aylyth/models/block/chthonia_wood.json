@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "aylyth:block/chthonia_wood",
+    "side": "aylyth:block/chthonia_wood"
+  }
+}

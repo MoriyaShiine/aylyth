@@ -18,7 +18,7 @@ public class AylythBlockTagProvider extends FabricTagProvider.BlockTagProvider {
     @Override
     protected void configure(RegistryWrapper.WrapperLookup registries) {
         getOrCreateTagBuilder(ModBlockTags.CARVED_NEPHRITE).add(ModBlocks.CARVED_SMOOTH_NEPHRITE, ModBlocks.CARVED_ANTLERED_NEPHRITE, ModBlocks.CARVED_NEPHRITE_PILLAR, ModBlocks.CARVED_NEPHRITE_TILES, ModBlocks.CARVED_WOODY_NEPHRITE);
-        getOrCreateTagBuilder(BlockTags.AXE_MINEABLE).addTag(ModBlockTags.WOODY_GROWTHS).add(ModBlocks.AYLYTH_BUSH, ModBlocks.ANTLER_SHOOTS, ModBlocks.GRIPWEED, ModBlocks.NYSIAN_GRAPE_VINE, ModBlocks.OAK_SEEP, ModBlocks.SPRUCE_SEEP, ModBlocks.DARK_OAK_SEEP, ModBlocks.YMPE_SEEP, ModBlocks.SEEPING_WOOD, ModBlocks.SEEPING_WOOD_SEEP, ModBlocks.DARK_WOODS_TILES);
+        getOrCreateTagBuilder(BlockTags.AXE_MINEABLE).addTag(ModBlockTags.WOODY_GROWTHS).addTag(ModBlockTags.CHTHONIA_WOOD).add(ModBlocks.AYLYTH_BUSH, ModBlocks.ANTLER_SHOOTS, ModBlocks.GRIPWEED, ModBlocks.NYSIAN_GRAPE_VINE, ModBlocks.OAK_SEEP, ModBlocks.SPRUCE_SEEP, ModBlocks.DARK_OAK_SEEP, ModBlocks.YMPE_SEEP, ModBlocks.SEEPING_WOOD, ModBlocks.SEEPING_WOOD_SEEP, ModBlocks.DARK_WOODS_TILES);
         getOrCreateTagBuilder(BlockTags.HOE_MINEABLE).add(ModBlocks.YMPE_LEAVES, ModBlocks.POMEGRANATE_LEAVES, ModBlocks.WRITHEWOOD_LEAVES);
         getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE).addTag(ModBlockTags.CARVED_NEPHRITE).add(ModBlocks.SOUL_HEARTH, ModBlocks.VITAL_THURIBLE, ModBlocks.ESSTLINE_BLOCK, ModBlocks.NEPHRITE_BLOCK);
         getOrCreateTagBuilder(BlockTags.NEEDS_IRON_TOOL).addTag(ModBlockTags.CARVED_NEPHRITE).add(ModBlocks.NEPHRITE_BLOCK, ModBlocks.ESSTLINE_BLOCK);
@@ -28,6 +28,7 @@ public class AylythBlockTagProvider extends FabricTagProvider.BlockTagProvider {
         getOrCreateTagBuilder(ModBlockTags.WOODY_GROWTHS).add(ModBlocks.SMALL_WOODY_GROWTH, ModBlocks.LARGE_WOODY_GROWTH, ModBlocks.WOODY_GROWTH_CACHE);
         getOrCreateTagBuilder(ModBlockTags.JACK_O_LANTERN_GENERATE_ON).add(Blocks.DARK_OAK_LOG, Blocks.OAK_LOG);
         getOrCreateTagBuilder(ModBlockTags.GHOSTCAP_REPLACEABLE).add(Blocks.GRASS_BLOCK);
+        getOrCreateTagBuilder(ModBlockTags.CHTHONIA_WOOD).add(ModBlocks.CHTHONIA_WOOD, ModBlocks.NEPHRITIC_CHTHONIA_WOOD);
 
         getOrCreateTagBuilder(ModBlockTags.YMPE_LOGS).add(ModBlocks.YMPE_LOG, ModBlocks.YMPE_WOOD, ModBlocks.YMPE_STRIPPED_LOG, ModBlocks.YMPE_STRIPPED_WOOD, ModBlocks.FRUIT_BEARING_YMPE_LOG);
         getOrCreateTagBuilder(BlockTags.LOGS_THAT_BURN).addTag(ModBlockTags.YMPE_LOGS);

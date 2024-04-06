@@ -113,6 +113,8 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add(ModBlocks.CARVED_NEPHRITE_TILES, "Carved Nephrite Tiles");
         builder.add(ModBlocks.CARVED_WOODY_NEPHRITE, "Carved Woody Nephrite");
         builder.add(ModBlocks.BLACK_WELL, "Black Well");
+        builder.add(ModBlocks.CHTHONIA_WOOD, "Chthonia Wood");
+        builder.add(ModBlocks.NEPHRITIC_CHTHONIA_WOOD, "Nephritic Chthonia Wood");
 
         // ITEMS
 

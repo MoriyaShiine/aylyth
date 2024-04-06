@@ -1,6 +1,6 @@
 {
 	"credit": "Made with Blockbench",
-	"parent": "chthonia_wood_nephritic",
+	"parent": "block/block",
 	"textures": {
 		"0": "aylyth:block/chthonia_wood_nephritic",
 		"1": "aylyth:block/chthonia_wood_nephritic_nephrite",

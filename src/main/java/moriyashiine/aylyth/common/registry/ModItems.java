@@ -98,6 +98,9 @@ public class ModItems {
 	public static final Item SEEPING_WOOD = register("seeping_wood", new BlockItem(ModBlocks.SEEPING_WOOD, settings()));
 	public static final Item GIRASOL_SEED = register("girasol_seed", new AliasedBlockItem(ModBlocks.GIRASOL_SAPLING, settings()));
 
+	public static final Item CHTHONIA_WOOD = register("chthonia_wood", new BlockItem(ModBlocks.CHTHONIA_WOOD, settings()));
+	public static final Item NEPHRITIC_CHTHONIA_WOOD = register("nephritic_chthonia_wood", new BlockItem(ModBlocks.NEPHRITIC_CHTHONIA_WOOD, settings()));
+
 	public static final Item AYLYTH_BUSH = register("aylyth_bush", new BlockItem(ModBlocks.AYLYTH_BUSH, settings()));
 	public static final Item ANTLER_SHOOTS = register("antler_shoots", new BlockItem(ModBlocks.ANTLER_SHOOTS, settings()));
 	public static final Item GRIPWEED = register("gripweed", new BlockItem(ModBlocks.GRIPWEED, settings()));

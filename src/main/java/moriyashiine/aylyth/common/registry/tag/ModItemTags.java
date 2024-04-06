@@ -12,6 +12,7 @@ public class ModItemTags {
     public static final TagKey<Item> SEEPS = create("seeps");
     public static final TagKey<Item> CARVED_NEPHRITE = create("carved_nephrite");
     public static final TagKey<Item> WOODY_GROWTHS = create("woody_growths");
+    public static final TagKey<Item> CHTHONIA_WOOD = create("chthonia_wood");
     public static final TagKey<Item> DECREASES_BRANCHES = create("decreases_branches");
     public static final TagKey<Item> PLEDGE_ITEMS = create("pledge_items");
     public static final TagKey<Item> NEPHRITE_TOOL_MATERIALS = create("nephrite_tool_materials");

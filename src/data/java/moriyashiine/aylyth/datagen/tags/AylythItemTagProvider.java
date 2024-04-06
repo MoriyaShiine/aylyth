@@ -39,6 +39,7 @@ public class AylythItemTagProvider extends FabricTagProvider.ItemTagProvider {
         copy(ModBlockTags.WOODY_GROWTHS, ModItemTags.WOODY_GROWTHS);
         copy(ModBlockTags.SEEPS, ModItemTags.SEEPS);
         copy(ModBlockTags.CARVED_NEPHRITE, ModItemTags.CARVED_NEPHRITE);
+        copy(ModBlockTags.CHTHONIA_WOOD, ModItemTags.CHTHONIA_WOOD);
         getOrCreateTagBuilder(ItemTags.BOATS).add(ModItems.YMPE_BOAT, ModItems.POMEGRANATE_BOAT, ModItems.WRITHEWOOD_BOAT);
         getOrCreateTagBuilder(ItemTags.CHEST_BOATS).add(ModItems.YMPE_CHEST_BOAT, ModItems.POMEGRANATE_CHEST_BOAT, ModItems.WRITHEWOOD_CHEST_BOAT);
         getOrCreateTagBuilder(ModItemTags.DECREASES_BRANCHES).add(ModItems.YMPE_FRUIT);

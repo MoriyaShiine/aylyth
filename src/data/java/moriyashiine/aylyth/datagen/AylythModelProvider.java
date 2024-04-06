@@ -92,6 +92,9 @@ public class AylythModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerHangingSign(ModBlocks.WRITHEWOOD_STRIPPED_LOG, ModBlocks.WRITHEWOOD_HANGING_SIGN, ModBlocks.WRITHEWOOD_WALL_HANGING_SIGN);
         variantState(blockStateModelGenerator, ModBlocks.WRITHEWOOD_LEAVES);
 
+        blockStateModelGenerator.registerAxisRotated(ModBlocks.CHTHONIA_WOOD, TexturedModel.makeFactory(block -> new TextureMap().put(TextureKey.SIDE, ModelIds.getBlockModelId(ModBlocks.CHTHONIA_WOOD)).put(TextureKey.END, ModelIds.getBlockModelId(ModBlocks.CHTHONIA_WOOD)), Models.CUBE_COLUMN));
+        blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createAxisRotatedBlockState(ModBlocks.NEPHRITIC_CHTHONIA_WOOD, ModelIds.getBlockModelId(ModBlocks.NEPHRITIC_CHTHONIA_WOOD)));
+
         blockStateModelGenerator.registerSingleton(ModBlocks.DARK_WOODS_TILES, TexturedModel.CUBE_ALL);
 
         blockStateModelGenerator.registerSingleton(ModBlocks.ESSTLINE_BLOCK, TexturedModel.CUBE_ALL);
@@ -190,7 +193,7 @@ public class AylythModelProvider extends FabricModelProvider {
 
     private void generateWoodBlock(BlockStateModelGenerator generator, Block woodBlock, String texturePath) {
         TextureMap textureMap = new TextureMap();
-        textureMap.put(TextureKey.SIDE, new Identifier(Aylyth.MOD_ID, texturePath));
+        textureMap.put(TextureKey.SIDE, id(texturePath));
         textureMap.put(TextureKey.END, textureMap.getTexture(TextureKey.SIDE));
         Identifier identifier = Models.CUBE_COLUMN.upload(woodBlock, textureMap, generator.modelCollector);
         generator.blockStateCollector.accept(BlockStateModelGenerator.createAxisRotatedBlockState(woodBlock, identifier));

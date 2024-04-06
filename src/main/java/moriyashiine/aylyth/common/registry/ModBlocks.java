@@ -1,10 +1,10 @@
 package moriyashiine.aylyth.common.registry;
 
+import com.google.common.base.Suppliers;
 import com.terraformersmc.terraform.sign.block.TerraformHangingSignBlock;
 import com.terraformersmc.terraform.sign.block.TerraformSignBlock;
 import com.terraformersmc.terraform.sign.block.TerraformWallHangingSignBlock;
 import com.terraformersmc.terraform.sign.block.TerraformWallSignBlock;
-import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.block.*;
 import moriyashiine.aylyth.common.registry.key.ModConfiguredFeatureKeys;
 import moriyashiine.aylyth.common.util.AylythUtil;
@@ -13,6 +13,7 @@ import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.block.sapling.LargeTreeSaplingGenerator;
@@ -20,14 +21,10 @@ import net.minecraft.block.sapling.SaplingGenerator;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.function.Supplier;
 
 import static net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings.copyOf;
 
@@ -72,7 +69,7 @@ public class ModBlocks {
 	public static final TerraformHangingSignBlock YMPE_HANGING_SIGN = register("ympe_hanging_sign", new TerraformHangingSignBlock(AylythUtil.id("entity/signs/hanging/ympe"), AylythUtil.id("textures/gui/hanging_signs/ympe"), copyOf(Blocks.OAK_HANGING_SIGN)));
 	public static final Block YMPE_WALL_HANGING_SIGN = register("ympe_wall_hanging_sign", new TerraformWallHangingSignBlock(AylythUtil.id("entity/signs/hanging/ympe"), AylythUtil.id("textures/gui/hanging_signs/ympe"), copyOf(Blocks.OAK_HANGING_SIGN).dropsLike(YMPE_HANGING_SIGN)));
 	public static final Block YMPE_LEAVES = register("ympe_leaves", new LeavesBlock(copyOf(Blocks.OAK_LEAVES).mapColor(MapColor.ORANGE)));
-	public static final Block FRUIT_BEARING_YMPE_LOG = register("fruit_bearing_ympe_log", new FruitBearingYmpeLogBlock(copyOf(ModBlocks.YMPE_LOG)));
+	public static final Block FRUIT_BEARING_YMPE_LOG = register("fruit_bearing_ympe_log", new GrowingHarvestablePillarBlock(Suppliers.memoize(() -> ItemVariant.of(ModItems.YMPE_FRUIT)), copyOf(ModBlocks.YMPE_LOG)));
 
 	public static final Block POMEGRANATE_STRIPPED_LOG = register("stripped_pomegranate_log", new PillarBlock(copyOf(Blocks.STRIPPED_OAK_LOG)));
 	public static final Block POMEGRANATE_STRIPPED_WOOD = register("stripped_pomegranate_wood", new PillarBlock(copyOf(Blocks.STRIPPED_OAK_WOOD)));
@@ -138,6 +135,9 @@ public class ModBlocks {
 		}
 	}, copyOf(Blocks.OAK_SAPLING)));
 	public static final Block GIRASOL_SAPLING_POTTED = register("potted_girasol_sapling", new FlowerPotBlock(GIRASOL_SAPLING, copyOf(Blocks.FLOWER_POT)));
+
+	public static final Block CHTHONIA_WOOD = register("chthonia_wood", new PillarBlock(copyOf(Blocks.OAK_WOOD)));
+	public static final Block NEPHRITIC_CHTHONIA_WOOD = register("nephritic_chthonia_wood", new OneTimeHarvestablePillarBlock(Suppliers.memoize(() -> ItemVariant.of(ModItems.NEPHRITE)), state -> ModBlocks.CHTHONIA_WOOD.getDefaultState().with(PillarBlock.AXIS, state.get(PillarBlock.AXIS)), copyOf(Blocks.OAK_WOOD)));
 
 	public static final Block AYLYTH_BUSH = register("aylyth_bush", new BushBlock());
 	public static final Block ANTLER_SHOOTS = register("antler_shoots", new AntlerShootsBlock());

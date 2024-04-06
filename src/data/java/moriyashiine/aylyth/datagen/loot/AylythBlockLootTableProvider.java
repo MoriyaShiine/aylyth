@@ -93,6 +93,28 @@ public class AylythBlockLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(ModBlocks.YMPE_HANGING_SIGN);
         addDrop(ModBlocks.POMEGRANATE_HANGING_SIGN);
         addDrop(ModBlocks.WRITHEWOOD_HANGING_SIGN);
+        addDrop(ModBlocks.CHTHONIA_WOOD);
+        addDrop(ModBlocks.NEPHRITIC_CHTHONIA_WOOD, block -> nephriticChthoniaWood(block, ModBlocks.CHTHONIA_WOOD));
+    }
+
+    private LootTable.Builder nephriticChthoniaWood(Block block, Block emptyLog) {
+        return LootTable.builder().type(LootContextTypes.BLOCK)
+                .pool(
+                        LootPool.builder().with(
+                                ItemEntry.builder(emptyLog)
+                        )
+                ).pool(
+                        LootPool.builder().with(
+                                ItemEntry.builder(ModItems.NEPHRITE)
+                                        .conditionally(
+                                                BlockStatePropertyLootCondition.builder(block)
+                                                        .properties(
+                                                                StatePredicate.Builder.create()
+                                                                        .exactMatch(OneTimeHarvestablePillarBlock.HARVESTABLE, true)
+                                                        )
+                                        )
+                        )
+                );
     }
 
     private LootTable.Builder woodyGrowthCaches(Block block) {

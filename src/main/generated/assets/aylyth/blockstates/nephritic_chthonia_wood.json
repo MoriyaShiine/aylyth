@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "aylyth:block/nephritic_chthonia_wood",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "aylyth:block/nephritic_chthonia_wood"
+    },
+    "axis=z": {
+      "model": "aylyth:block/nephritic_chthonia_wood",
+      "x": 90
+    }
+  }
+}
