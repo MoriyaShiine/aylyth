@@ -60,7 +60,7 @@ public class SoulCampfireRecipeBuilder {
     }
 
     public void offerTo(Consumer<RecipeJsonProvider> exporter, Identifier recipeId) {
-        Preconditions.checkState(ingredients.isEmpty(), "Must have positive number of ingredients");
+        Preconditions.checkState(!ingredients.isEmpty(), "Must have positive number of ingredients");
         exporter.accept(new RecipeJsonProvider() {
             @Override
             public void serialize(JsonObject json) {
