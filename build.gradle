@@ -170,6 +170,7 @@ dependencies {
 
     // Testing compat
     modRuntimeOnly "maven.modrinth:sodium:mc1.20.1-0.5.8"
+    modRuntimeOnly "maven.modrinth:indium:1.0.30+mc1.20.4"
     modCompileOnly "maven.modrinth:iris:1.6.17+1.20.1"
 
     // Bewitchment
