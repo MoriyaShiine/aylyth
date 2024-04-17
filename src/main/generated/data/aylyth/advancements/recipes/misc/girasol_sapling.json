@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "aylyth:girasol_seed"
+        "recipe": "aylyth:girasol_sapling"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "aylyth:girasol_seed"
+      "aylyth:girasol_sapling"
     ]
   },
   "sends_telemetry_event": false

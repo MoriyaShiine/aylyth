@@ -24,6 +24,12 @@ public class AylythItemTagProvider extends FabricTagProvider.ItemTagProvider {
         copy(ModBlockTags.YMPE_LOGS, ModItemTags.YMPE_LOGS);
         copy(ModBlockTags.POMEGRANATE_LOGS, ModItemTags.POMEGRANATE_LOGS);
         copy(ModBlockTags.WRITHEWOOD_LOGS, ModItemTags.WRITHEWOOD_LOGS);
+        copy(ModBlockTags.WOODY_GROWTHS, ModItemTags.WOODY_GROWTHS);
+        copy(ModBlockTags.SEEPS, ModItemTags.SEEPS);
+        copy(ModBlockTags.CARVED_NEPHRITE, ModItemTags.CARVED_NEPHRITE);
+        copy(ModBlockTags.CHTHONIA_WOOD, ModItemTags.CHTHONIA_WOOD);
+        copy(ModBlockTags.STORAGE_BLOCKS_ESSTLINE, ModItemTags.STORAGE_BLOCKS_ESSTLINE);
+        copy(ModBlockTags.STORAGE_BLOCKS_NEPHRITE, ModItemTags.STORAGE_BLOCKS_NEPHRITE);
         copy(BlockTags.LOGS_THAT_BURN, ItemTags.LOGS_THAT_BURN);
         copy(BlockTags.PLANKS, ItemTags.PLANKS);
         copy(BlockTags.WOODEN_STAIRS, ItemTags.WOODEN_STAIRS);
@@ -36,16 +42,18 @@ public class AylythItemTagProvider extends FabricTagProvider.ItemTagProvider {
         copy(BlockTags.STANDING_SIGNS, ItemTags.SIGNS);
         copy(BlockTags.LEAVES, ItemTags.LEAVES);
         copy(BlockTags.SAPLINGS, ItemTags.SAPLINGS);
-        copy(ModBlockTags.WOODY_GROWTHS, ModItemTags.WOODY_GROWTHS);
-        copy(ModBlockTags.SEEPS, ModItemTags.SEEPS);
-        copy(ModBlockTags.CARVED_NEPHRITE, ModItemTags.CARVED_NEPHRITE);
-        copy(ModBlockTags.CHTHONIA_WOOD, ModItemTags.CHTHONIA_WOOD);
-        getOrCreateTagBuilder(ItemTags.BOATS).add(ModItems.YMPE_BOAT, ModItems.POMEGRANATE_BOAT, ModItems.WRITHEWOOD_BOAT);
-        getOrCreateTagBuilder(ItemTags.CHEST_BOATS).add(ModItems.YMPE_CHEST_BOAT, ModItems.POMEGRANATE_CHEST_BOAT, ModItems.WRITHEWOOD_CHEST_BOAT);
+        copy(BlockTags.SMALL_FLOWERS, ItemTags.SMALL_FLOWERS);
         getOrCreateTagBuilder(ModItemTags.DECREASES_BRANCHES).add(ModItems.YMPE_FRUIT);
         getOrCreateTagBuilder(ModItemTags.PLEDGE_ITEMS).add(ModItems.NYSIAN_GRAPES);
         getOrCreateTagBuilder(ModItemTags.BOSS_HEARTS).add(ModItems.YHONDYTH_HEART);
         getOrCreateTagBuilder(ModItemTags.NEPHRITE_TOOL_MATERIALS).add(ModItems.NEPHRITE);
+        getOrCreateTagBuilder(ModItemTags.YMPE_WEAPONS).add(ModItems.YMPE_DAGGER, ModItems.YMPE_LANCE, ModItems.YMPE_GLAIVE, ModItems.YMPE_FLAMBERGE, ModItems.YMPE_SCYTHE);
+        getOrCreateTagBuilder(ModItemTags.VAMPIRIC_WEAPONS).add(ModItems.VAMPIRIC_AXE, ModItems.VAMPIRIC_HOE, ModItems.VAMPIRIC_PICKAXE, ModItems.VAMPIRIC_SWORD);
+        getOrCreateTagBuilder(ModItemTags.BLIGHTED_WEAPONS).add(ModItems.BLIGHTED_AXE, ModItems.BLIGHTED_HOE, ModItems.BLIGHTED_PICKAXE, ModItems.BLIGHTED_SWORD);
+        getOrCreateTagBuilder(ModItemTags.NEPHRITE_FLASKS).add(ModItems.NEPHRITE_FLASK, ModItems.DARK_NEPHRITE_FLASK);
+        getOrCreateTagBuilder(ModItemTags.HEART_HARVESTERS).add(ModItems.LANCEOLATE_DAGGER, ModItems.YMPE_DAGGER);
+        getOrCreateTagBuilder(ItemTags.BOATS).add(ModItems.YMPE_BOAT, ModItems.POMEGRANATE_BOAT, ModItems.WRITHEWOOD_BOAT);
+        getOrCreateTagBuilder(ItemTags.CHEST_BOATS).add(ModItems.YMPE_CHEST_BOAT, ModItems.POMEGRANATE_CHEST_BOAT, ModItems.WRITHEWOOD_CHEST_BOAT);
         getOrCreateTagBuilder(ItemTags.SWORDS).add(ModItems.YMPE_DAGGER, ModItems.NEPHRITE_SWORD, ModItems.VAMPIRIC_SWORD, ModItems.BLIGHTED_SWORD);
         getOrCreateTagBuilder(ItemTags.SHOVELS).add(ModItems.NEPHRITE_SHOVEL);
         getOrCreateTagBuilder(ItemTags.PICKAXES).add(ModItems.NEPHRITE_PICKAXE, ModItems.VAMPIRIC_PICKAXE, ModItems.BLIGHTED_PICKAXE);
@@ -53,11 +61,6 @@ public class AylythItemTagProvider extends FabricTagProvider.ItemTagProvider {
         getOrCreateTagBuilder(ItemTags.HOES).add(ModItems.NEPHRITE_HOE, ModItems.VAMPIRIC_HOE, ModItems.BLIGHTED_HOE);
         getOrCreateTagBuilder(ItemTags.MUSIC_DISCS).add(ModItems.POMEGRANATE_CASSETTE);
         getOrCreateTagBuilder(ItemTags.COALS).add(ModItems.BARK);
-        getOrCreateTagBuilder(ModItemTags.YMPE_WEAPONS).add(ModItems.YMPE_DAGGER, ModItems.YMPE_LANCE, ModItems.YMPE_GLAIVE, ModItems.YMPE_FLAMBERGE, ModItems.YMPE_SCYTHE);
-        getOrCreateTagBuilder(ModItemTags.VAMPIRIC_WEAPON).add(ModItems.VAMPIRIC_AXE, ModItems.VAMPIRIC_HOE, ModItems.VAMPIRIC_PICKAXE, ModItems.VAMPIRIC_SWORD);
-        getOrCreateTagBuilder(ModItemTags.BLIGHTED_WEAPON).add(ModItems.BLIGHTED_AXE, ModItems.BLIGHTED_HOE, ModItems.BLIGHTED_PICKAXE, ModItems.BLIGHTED_SWORD);
-        getOrCreateTagBuilder(ModItemTags.NEPHRITE_FLASKS).add(ModItems.NEPHRITE_FLASK, ModItems.DARK_NEPHRITE_FLASK);
-        getOrCreateTagBuilder(ModItemTags.HEART_HARVESTERS).add(ModItems.LANCEOLATE_DAGGER, ModItems.YMPE_DAGGER);
 
         getOrCreateTagBuilder(BWTags.BARKS).add(ModItems.BARK);
     }

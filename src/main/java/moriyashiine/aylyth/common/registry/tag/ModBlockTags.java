@@ -11,6 +11,8 @@ public class ModBlockTags {
     public static final TagKey<Block> WRITHEWOOD_LOGS = create("writhewood_logs");
     public static final TagKey<Block> SEEPS = create("seeps");
     public static final TagKey<Block> CARVED_NEPHRITE = create("carved_nephrite");
+    public static final TagKey<Block> STORAGE_BLOCKS_ESSTLINE = create("storage_blocks/esstline");
+    public static final TagKey<Block> STORAGE_BLOCKS_NEPHRITE = create("storage_blocks/nephrite");
     public static final TagKey<Block> WOODY_GROWTHS = create("woody_growths");
     public static final TagKey<Block> CHTHONIA_WOOD = create("chthonia_wood");
     public static final TagKey<Block> JACK_O_LANTERN_GENERATE_ON = create("jack_o_lantern_generate_on");

@@ -96,7 +96,7 @@ public class ModItems {
 	public static final Item WRITHEWOOD_LEAVES = register("writhewood_leaves", new BlockItem(ModBlocks.WRITHEWOOD_LEAVES, settings()));
 
 	public static final Item SEEPING_WOOD = register("seeping_wood", new BlockItem(ModBlocks.SEEPING_WOOD, settings()));
-	public static final Item GIRASOL_SEED = register("girasol_seed", new AliasedBlockItem(ModBlocks.GIRASOL_SAPLING, settings()));
+	public static final Item GIRASOL_SEED = register("girasol_sapling", new AliasedBlockItem(ModBlocks.GIRASOL_SAPLING, settings()));
 
 	public static final Item CHTHONIA_WOOD = register("chthonia_wood", new BlockItem(ModBlocks.CHTHONIA_WOOD, settings()));
 	public static final Item NEPHRITIC_CHTHONIA_WOOD = register("nephritic_chthonia_wood", new BlockItem(ModBlocks.NEPHRITIC_CHTHONIA_WOOD, settings()));
@@ -119,6 +119,7 @@ public class ModItems {
 	public static final Item DARK_OAK_SEEP = register("dark_oak_seep", new BlockItem(ModBlocks.DARK_OAK_SEEP, settings()));
 	public static final Item YMPE_SEEP = register("ympe_seep", new BlockItem(ModBlocks.YMPE_SEEP, settings()));
 	public static final Item SEEPING_WOOD_SEEP = register("seeping_wood_seep", new BlockItem(ModBlocks.SEEPING_WOOD_SEEP, settings()));
+
 	public static final Item DARK_WOODS_TILES = register("dark_woods_tiles", new BlockItem(ModBlocks.DARK_WOODS_TILES, settings()));
 //	public static final Item MYSTERIOUS_SKETCH = register("mysterious_sketch", new Item(new FabricItemSettings()));
 	public static final Item BARK = register("bark", new Item(new FabricItemSettings()));
@@ -198,7 +199,10 @@ public class ModItems {
 
 
 	private static <T extends Item> T register(String name, T item) {
-		Registry.register(Registries.ITEM, new Identifier(Aylyth.MOD_ID, name), item);
+		if (item instanceof BlockItem blockItem) {
+			blockItem.appendBlocks(Item.BLOCK_ITEMS, item);
+		}
+		Registry.register(Registries.ITEM, AylythUtil.id(name), item);
 		ITEMS.add(item);
 		return item;
 	}

@@ -1,9 +1,9 @@
 {
   "replace": false,
   "values": [
+    "aylyth:seeping_wood",
     "#aylyth:ympe_logs",
     "#aylyth:pomegranate_logs",
-    "#aylyth:writhewood_logs",
-    "aylyth:seeping_wood"
+    "#aylyth:writhewood_logs"
   ]
 }
