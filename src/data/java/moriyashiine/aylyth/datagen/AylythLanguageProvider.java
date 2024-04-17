@@ -1,9 +1,6 @@
 package moriyashiine.aylyth.datagen;
 
-import moriyashiine.aylyth.common.registry.ModBlocks;
-import moriyashiine.aylyth.common.registry.ModEntityTypes;
-import moriyashiine.aylyth.common.registry.ModItems;
-import moriyashiine.aylyth.common.registry.ModStatusEffects;
+import moriyashiine.aylyth.common.registry.*;
 import moriyashiine.aylyth.common.registry.key.ModBiomeKeys;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -11,6 +8,8 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.fabricmc.loader.impl.util.StringUtil;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.biome.Biome;
 
 public class AylythLanguageProvider extends FabricLanguageProvider {
@@ -256,34 +255,32 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
 
         // SUBTITLES
 
-        builder.add("subtitles.aylyth.block.ympe_log.pick_fruit", "Fruit picked");
-        builder.add("subtitles.aylyth.entity.player.increase_ympe_infestation_stage", "Branches spread");
-        builder.add("subtitles.aylyth.entity.generic.shucked", "Entity shucked");
-        builder.add("subtitles.aylyth.entity.aylythian.ambient", "Aylythian groans");
-        builder.add("subtitles.aylyth.entity.aylythian.hurt", "Aylythian hurts");
-        builder.add("subtitles.aylyth.entity.aylythian.death", "Aylythian dies");
-        builder.add("subtitles.aylyth.entity.faunaylythian.ambient", "Faunaylythian snarls");
-        builder.add("subtitles.aylyth.entity.faunaylythian.hurt", "Faunaylythian hurts");
-        builder.add("subtitles.aylyth.entity.faunaylythian.death", "Faunaylythian dies");
-        builder.add("subtitles.aylyth.entity.elder_aylythian.ambient", "Elder Aylythian rumbles");
-        builder.add("subtitles.aylyth.entity.elder_aylythian.hurt", "Elder Aylythian hurts");
-        builder.add("subtitles.aylyth.entity.elder_aylythian.death", "Elder Aylythian dies");
-        builder.add("subtitles.aylyth.entity.soulmould.ambient", "Soulmould groans");
-        builder.add("subtitles.aylyth.entity.soulmould.attack", "Soulmould attack");
-        builder.add("subtitles.aylyth.entity.soulmould.damage", "Soulmould hurt");
-        builder.add("subtitles.aylyth.entity.soulmould.death", "Soulmould dies");
-        builder.add("subtitles.aylyth.block.stick_break", "Stick cracks");
-        builder.add("subtitles.aylyth.block.strewn_leaves.step", "Leaves crunch");
-        builder.add("subtitles.aylyth.block.strewn_leaves.pile_destroy", "Leaves scatter");
-        builder.add("subtitles.aylyth.block.strewn_leaves.pile_step", "Leaf pile crunches");
-
-        builder.add("subtitles.aylyth.entity.wreathed_hind.ambient", "Wreathed Hind groans");
-        builder.add("subtitles.aylyth.entity.wreathed_hind.hurt", "Wreathed Hind hurt");
-        builder.add("subtitles.aylyth.entity.wreathed_hind.death", "Wreathed Hind dies");
-
-        builder.add("subtitles.aylyth.entity.scion.ambient", "Scion groans");
-        builder.add("subtitles.aylyth.entity.scion.hurt", "Scion hurt");
-        builder.add("subtitles.aylyth.entity.scion.death", "Scion dies");
+        subtitle(builder, ModSoundEvents.BLOCK_YMPE_LOG_PICK_FRUIT, "Fruit picked");
+        subtitle(builder, ModSoundEvents.ENTITY_PLAYER_INCREASE_YMPE_INFESTATION_STAGE, "Branches spread");
+        subtitle(builder, ModSoundEvents.ENTITY_GENERIC_SHUCKED, "Entity shucked");
+        subtitle(builder, ModSoundEvents.ENTITY_AYLYTHIAN_AMBIENT, "Aylythian groans");
+        subtitle(builder, ModSoundEvents.ENTITY_AYLYTHIAN_HURT, "Aylythian hurts");
+        subtitle(builder, ModSoundEvents.ENTITY_AYLYTHIAN_DEATH, "Aylythian dies");
+        subtitle(builder, ModSoundEvents.ENTITY_ELDER_AYLYTHIAN_AMBIENT, "Elder Aylythian rumbles");
+        subtitle(builder, ModSoundEvents.ENTITY_ELDER_AYLYTHIAN_HURT, "Elder Aylythian hurts");
+        subtitle(builder, ModSoundEvents.ENTITY_ELDER_AYLYTHIAN_DEATH, "Elder Aylythian dies");
+        subtitle(builder, ModSoundEvents.ENTITY_FAUNAYLYTHIAN_AMBIENT, "Faunaylythian snarls");
+        subtitle(builder, ModSoundEvents.ENTITY_FAUNAYLYTHIAN_HURT, "Faunaylythian hurts");
+        subtitle(builder, ModSoundEvents.ENTITY_FAUNAYLYTHIAN_DEATH, "Faunaylythian dies");
+        subtitle(builder, ModSoundEvents.ENTITY_WREATHED_HIND_AMBIENT, "Wreathed Hind groans");
+        subtitle(builder, ModSoundEvents.ENTITY_WREATHED_HIND_HURT, "Wreathed Hind hurt");
+        subtitle(builder, ModSoundEvents.ENTITY_WREATHED_HIND_DEATH, "Wreathed Hind dies");
+        subtitle(builder, ModSoundEvents.ENTITY_SOULMOULD_AMBIENT, "Soulmould groans");
+        subtitle(builder, ModSoundEvents.ENTITY_SOULMOULD_ATTACK, "Soulmould attacks");
+        subtitle(builder, ModSoundEvents.ENTITY_SOULMOULD_HURT, "Soulmould hurts");
+        subtitle(builder, ModSoundEvents.ENTITY_SOULMOULD_DEATH, "Soulmould dies");
+        subtitle(builder, ModSoundEvents.ENTITY_SCION_AMBIENT, "Scion groans");
+        subtitle(builder, ModSoundEvents.ENTITY_SCION_HURT, "Scion hurt");
+        subtitle(builder, ModSoundEvents.ENTITY_SCION_DEATH, "Scion dies");
+        subtitle(builder, ModSoundEvents.BLOCK_STICK_BREAK, "Stick cracks");
+        subtitle(builder, ModSoundEvents.BLOCK_STREWN_LEAVES_STEP, "Leaves crunch");
+        subtitle(builder, ModSoundEvents.BLOCK_STREWN_LEAVES_PILE_DESTROY, "Leaves scatter");
+        subtitle(builder, ModSoundEvents.BLOCK_STREWN_LEAVES_PILE_STEP, "Leaf pile crunches");
 
         // INFO
 
@@ -324,6 +321,10 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add("tag.aylyth.blighted_weapons", "Blighted Weapons");
         builder.add("tag.aylyth.vampiric_weapons", "Vampiric Weapons");
         builder.add("tag.aylyth.nephrite_flasks", "Nephrite Flasks");
+    }
+
+    private void subtitle(TranslationBuilder builder, RegistryEntry<SoundEvent> entry, String translation) {
+        builder.add(entry.getKey().orElseThrow().getValue().toTranslationKey("subtitles"), translation);
     }
     
     private void biome(TranslationBuilder builder, RegistryKey<Biome> biomeKey, String translation) {
