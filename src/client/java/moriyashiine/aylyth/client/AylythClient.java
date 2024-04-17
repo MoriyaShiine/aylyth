@@ -98,7 +98,9 @@ public class AylythClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
-		DimensionRenderingRegistry.registerDimensionEffects(ModDimensionKeys.AYLYTH.getValue(), AylythDimensionRenderer.DIMENSION_EFFECTS);
+		try { // IDEA thinks this will always throw because of fabric's DimensionEffectsAccessor... wrap it so that it doesn't show a whole chunk of "unreachable code"
+			DimensionRenderingRegistry.registerDimensionEffects(ModDimensionKeys.AYLYTH.getValue(), AylythDimensionRenderer.DIMENSION_EFFECTS);
+		} catch (Exception ignored) {}
 		DimensionRenderingRegistry.registerSkyRenderer(ModDimensionKeys.AYLYTH, AylythDimensionRenderer::renderSky);
 		DimensionRenderingRegistry.registerCloudRenderer(ModDimensionKeys.AYLYTH, context -> {});
 
