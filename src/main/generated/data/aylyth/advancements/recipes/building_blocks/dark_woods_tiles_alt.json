@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "aylyth:dark_woods_tiles_2"
+        "recipe": "aylyth:dark_woods_tiles_alt"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "aylyth:dark_woods_tiles_2"
+      "aylyth:dark_woods_tiles_alt"
     ]
   },
   "sends_telemetry_event": false

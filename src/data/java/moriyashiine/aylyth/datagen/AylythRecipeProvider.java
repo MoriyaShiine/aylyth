@@ -85,7 +85,7 @@ public class AylythRecipeProvider extends FabricRecipeProvider {
                 .pattern("WY")
                 .pattern("YW")
                 .criterion("has_writhe", conditionsFromItem(ModBlocks.WRITHEWOOD_PLANKS))
-                .offerTo(exporter, "aylyth:dark_woods_tiles_2");
+                .offerTo(exporter, "aylyth:dark_woods_tiles_alt");
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.YMPE_GLAIVE)
                 .input('D', ModItems.YMPE_DAGGER)
