@@ -33,4 +33,5 @@ bin/
 
 run/*
 !run/config/fabric_loader_dependencies.json
+!build/datagen/config/fabric_loader_dependencies.json
 .cache/
