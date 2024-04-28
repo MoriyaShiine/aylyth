@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "overrides": {
+    "terraform-wood-api-v1": {
+      "-depends": {
+        "fabric-rendering-v1": ""
+      }
+    }
+  }
+}
