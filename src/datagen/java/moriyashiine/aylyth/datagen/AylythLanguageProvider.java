@@ -2,13 +2,12 @@ package moriyashiine.aylyth.datagen;
 
 import moriyashiine.aylyth.common.registry.*;
 import moriyashiine.aylyth.common.registry.key.ModBiomeKeys;
-import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.fabricmc.loader.impl.util.StringUtil;
 import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.biome.Biome;
 
@@ -314,19 +313,24 @@ public class AylythLanguageProvider extends FabricLanguageProvider {
         builder.add("tag.aylyth.seeps", "Logs with Seep");
         builder.add("tag.aylyth.carved_nephrite", "Carved Nephrite");
         builder.add("tag.aylyth.woody_growths", "Woody Growths");
+        builder.add("tag.aylyth.chthonia_wood", "Chthonia Wood");
+        builder.add("tag.aylyth.storage_blocks.esstline", "Esstline Storage Blocks");
+        builder.add("tag.aylyth.storage_blocks.nephrite", "Nephrite Storage Blocks");
         builder.add("tag.aylyth.decreases_branches", "Heals Branches");
         builder.add("tag.aylyth.pledge_items", "Pledge Items");
+        builder.add("tag.aylyth.boss_hearts", "Boss Hearts");
+        builder.add("tag.aylyth.nephrite_flasks", "Nephrite Flasks");
         builder.add("tag.aylyth.nephrite_tool_materials", "Nephrite Tool Materials");
         builder.add("tag.aylyth.ympe_weapons", "Ympe Weapons");
         builder.add("tag.aylyth.blighted_weapons", "Blighted Weapons");
         builder.add("tag.aylyth.vampiric_weapons", "Vampiric Weapons");
-        builder.add("tag.aylyth.nephrite_flasks", "Nephrite Flasks");
+        builder.add("tag.aylyth.heart_harvesters", "Heart Harvesters");
     }
 
     private void subtitle(TranslationBuilder builder, RegistryEntry<SoundEvent> entry, String translation) {
         builder.add(entry.getKey().orElseThrow().getValue().toTranslationKey("subtitles"), translation);
     }
-    
+
     private void biome(TranslationBuilder builder, RegistryKey<Biome> biomeKey, String translation) {
         builder.add(biomeKey.getValue().toTranslationKey("biome"), translation);
     }
