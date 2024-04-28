@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "aylyth:deepwood",
+    "aylyth:coniferous_deepwood",
+    "aylyth:copse",
+    "aylyth:coniferous_copse",
+    "aylyth:clearing",
+    "aylyth:overgrown_clearing",
+    "aylyth:uplands",
+    "aylyth:bowels",
+    "aylyth:mire"
+  ]
+}
