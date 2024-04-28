@@ -25,6 +25,8 @@ public class AylythBiomeTagProvider extends FabricTagProvider<Biome> {
         getOrCreateTagBuilder(ModBiomeTags.IS_CONIFEROUS).add(ModBiomeKeys.CONIFEROUS_COPSE, ModBiomeKeys.CONIFEROUS_DEEPWOOD);
         getOrCreateTagBuilder(ModBiomeTags.IS_FOREST_LIKE).add(ModBiomeKeys.OVERGROWN_CLEARING, ModBiomeKeys.COPSE, ModBiomeKeys.DEEPWOOD);
         getOrCreateTagBuilder(ModBiomeTags.IS_TAIGA_LIKE).addTag(ModBiomeTags.IS_CONIFEROUS).add(ModBiomeKeys.DEEPWOOD);
+        getOrCreateTagBuilder(ModBiomeTags.IS_AYLYTH).add(ModBiomeKeys.DEEPWOOD, ModBiomeKeys.CONIFEROUS_DEEPWOOD, ModBiomeKeys.COPSE, ModBiomeKeys.CONIFEROUS_COPSE, ModBiomeKeys.CLEARING, ModBiomeKeys.OVERGROWN_CLEARING, ModBiomeKeys.UPLANDS, ModBiomeKeys.BOWELS, ModBiomeKeys.MIRE);
+        getOrCreateTagBuilder(ModBiomeTags.BLACK_WELL_HAS_STRUCTURE).add(ModBiomeKeys.COPSE, ModBiomeKeys.CLEARING, ModBiomeKeys.OVERGROWN_CLEARING);
         getOrCreateTagBuilder(ModBiomeTags.GENERATES_SEEP).addOptionalTag(ConventionalBiomeTags.FOREST).addOptionalTag(ConventionalBiomeTags.TAIGA);
         getOrCreateTagBuilder(ModBiomeTags.HAS_WEAK_FOG).add(ModBiomeKeys.CLEARING, ModBiomeKeys.UPLANDS);
         getOrCreateTagBuilder(ModBiomeTags.HAS_AVERAGE_FOG).add(ModBiomeKeys.OVERGROWN_CLEARING);

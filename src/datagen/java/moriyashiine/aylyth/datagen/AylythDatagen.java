@@ -5,6 +5,9 @@ import moriyashiine.aylyth.datagen.dynamic.biomes.AylythBiomeBootstrap;
 import moriyashiine.aylyth.datagen.dynamic.features.AylythConfiguredCarverBootstrap;
 import moriyashiine.aylyth.datagen.dynamic.features.AylythConfiguredFeatureBootstrap;
 import moriyashiine.aylyth.datagen.dynamic.features.AylythPlacedFeatureBootstrap;
+import moriyashiine.aylyth.datagen.dynamic.structures.AylythStructureBootstrap;
+import moriyashiine.aylyth.datagen.dynamic.structures.AylythStructurePoolBootstrap;
+import moriyashiine.aylyth.datagen.dynamic.structures.AylythStructureSetBootstrap;
 import moriyashiine.aylyth.datagen.dynamic.terrain.AylythDensityFunctionBootstrap;
 import moriyashiine.aylyth.datagen.dynamic.terrain.AylythNoiseSettingBootstrap;
 import moriyashiine.aylyth.datagen.dynamic.terrain.AylythNoiseTypeBootstrap;
@@ -49,6 +52,9 @@ public class AylythDatagen implements DataGeneratorEntrypoint {
         registryBuilder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, AylythConfiguredFeatureBootstrap::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, AylythPlacedFeatureBootstrap::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.BIOME, AylythBiomeBootstrap::bootstrap);
+        registryBuilder.addRegistry(RegistryKeys.TEMPLATE_POOL, AylythStructurePoolBootstrap::bootstrap);
+        registryBuilder.addRegistry(RegistryKeys.STRUCTURE, AylythStructureBootstrap::bootstrap);
+        registryBuilder.addRegistry(RegistryKeys.STRUCTURE_SET, AylythStructureSetBootstrap::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.DAMAGE_TYPE, AylythDamageTypeBootstrap::bootstrap);
     }
 }

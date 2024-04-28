@@ -11,12 +11,14 @@ version = project.mod_version
 group = project.maven_group
 
 sourceSets {
-    main
-    test
-    data {
-        compileClasspath += main.compileClasspath + main.output
-        runtimeClasspath += main.runtimeClasspath + main.output
+    main {
+        resources {
+            srcDirs += [
+                    'src/generated/resources'
+            ]
+        }
     }
+    test
 }
 
 loom {
@@ -35,26 +37,20 @@ loom {
 
             vmArg "-Daylyth.debug"
         }
-		datagen {
-            server()
-
-            source(sourceSets.data)
-
-			name "Minecraft Data"
-			vmArg "-Dfabric-api.datagen"
-			vmArg "-Dfabric-api.datagen.output-dir=${file("src/main/generated")}"
-//			vmArg "-Dfabric-api.datagen.strict-validation"
-
-			runDir "run"
-		}
 	}
 
     mods {
         "${archives_base_name}" {
             sourceSet(sourceSets.main)
             sourceSet(sourceSets.client)
-            sourceSet(sourceSets.data)
         }
+    }
+}
+
+fabricApi {
+    configureDataGeneration {
+        setCreateSourceSet(true)
+        setModId("aylyth-datagen")
     }
 }
 
@@ -63,8 +59,6 @@ idea {
         inheritOutputDirs = false
     }
 }
-
-sourceSets.main.resources.srcDirs += ['src/main/generated']
 
 repositories {
     mavenLocal() {
