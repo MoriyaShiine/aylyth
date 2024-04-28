@@ -1,5 +1,6 @@
 package moriyashiine.aylyth.datagen;
 
+import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.datagen.dynamic.AylythDamageTypeBootstrap;
 import moriyashiine.aylyth.datagen.dynamic.biomes.AylythBiomeBootstrap;
 import moriyashiine.aylyth.datagen.dynamic.features.AylythConfiguredCarverBootstrap;
@@ -18,6 +19,7 @@ import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.registry.RegistryBuilder;
 import net.minecraft.registry.RegistryKeys;
+import org.jetbrains.annotations.Nullable;
 
 public class AylythDatagen implements DataGeneratorEntrypoint {
     @Override
@@ -56,5 +58,10 @@ public class AylythDatagen implements DataGeneratorEntrypoint {
         registryBuilder.addRegistry(RegistryKeys.STRUCTURE, AylythStructureBootstrap::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.STRUCTURE_SET, AylythStructureSetBootstrap::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.DAMAGE_TYPE, AylythDamageTypeBootstrap::bootstrap);
+    }
+
+    @Override
+    public @Nullable String getEffectiveModId() {
+        return Aylyth.MOD_ID;
     }
 }
