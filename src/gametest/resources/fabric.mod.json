@@ -1,0 +1,12 @@
+{
+    "schemaVersion": 1,
+    "id": "aylyth-gametest",
+    "version": "1.0.0",
+    "name": "Aylyth Gametest",
+    "environment": "*",
+    "entrypoints": {
+        "fabric-gametest": [
+            "moriyashiine.aylyth.AylythTests"
+        ]
+    }
+}

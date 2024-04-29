@@ -12,6 +12,10 @@ group = project.maven_group
 
 sourceSets {
     main.resources.srcDirs += [ 'src/generated/resources' ]
+    gametest {
+        compileClasspath += main.compileClasspath + main.output
+        runtimeClasspath += main.runtimeClasspath + main.output
+    }
 }
 
 loom {
@@ -30,12 +34,28 @@ loom {
 
             vmArg "-Daylyth.debug"
         }
+        gametestServer {
+            server()
+            name "Game Test"
+            vmArg "-Dfabric-api.gametest"
+            vmArg "-Dfabric-api.gametest.report-file=${file("build")}/junit.xml"
+            runDir "build/gametest"
+            source sourceSets.gametest
+        }
+        gametestClient {
+            client()
+            name "Game Test Client"
+            source sourceSets.gametest
+        }
 	}
 
     mods {
         "${archives_base_name}" {
             sourceSet(sourceSets.main)
             sourceSet(sourceSets.client)
+        }
+        "aylyth-gametest" {
+            sourceSet(sourceSets.gametest)
         }
     }
 }
