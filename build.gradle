@@ -82,10 +82,6 @@ repositories {
         }
     }
     maven {
-        name "cardinal components"
-        url "https://maven.ladysnake.org/releases"
-    }
-    maven {
         name "reach entity attributes"
         url "https://maven.jamieswhiteshirt.com/libs-release"
     }
