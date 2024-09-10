@@ -1,9 +1,9 @@
 package moriyashiine.aylyth.common.entity.ai.task;
 
 import moriyashiine.aylyth.common.entity.RootPropEntity;
-import moriyashiine.aylyth.common.entity.ai.BasicAttackType;
+import moriyashiine.aylyth.common.entity.ai.BaseAttackType;
 import moriyashiine.aylyth.common.entity.mob.TulpaEntity;
-import moriyashiine.aylyth.common.registry.ModMemoryTypes;
+import moriyashiine.aylyth.common.registry.AylythMemoryTypes;
 import moriyashiine.aylyth.common.util.BrainUtils;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
@@ -24,8 +24,8 @@ public class RootAttackTask<E extends TulpaEntity> extends MultiTickTask<E> {
     public RootAttackTask() {
         super(Map.of(
                 MemoryModuleType.ATTACK_TARGET, MemoryModuleState.VALUE_PRESENT,
-                ModMemoryTypes.ROOT_ATTACK_COOLDOWN, MemoryModuleState.VALUE_ABSENT,
-                ModMemoryTypes.ROOT_ATTACK_DELAY, MemoryModuleState.REGISTERED
+                AylythMemoryTypes.ROOT_ATTACK_COOLDOWN, MemoryModuleState.VALUE_ABSENT,
+                AylythMemoryTypes.ROOT_ATTACK_DELAY, MemoryModuleState.REGISTERED
         ), 21);
     }
 
@@ -40,8 +40,8 @@ public class RootAttackTask<E extends TulpaEntity> extends MultiTickTask<E> {
     @Override
     protected void run(ServerWorld world, E entity, long time) {
         entity.playSound(SoundEvents.ENTITY_EVOKER_PREPARE_ATTACK, 1.0F, 1.0F);
-        entity.getBrain().remember(ModMemoryTypes.ROOT_ATTACK_DELAY, Unit.INSTANCE, 20);
-        entity.getDataTracker().set(TulpaEntity.ATTACK_TYPE, BasicAttackType.RANGED);
+        entity.getBrain().remember(AylythMemoryTypes.ROOT_ATTACK_DELAY, Unit.INSTANCE, 20);
+        entity.getDataTracker().set(TulpaEntity.ATTACK_TYPE, BaseAttackType.RANGED);
     }
 
     @Override
@@ -51,7 +51,7 @@ public class RootAttackTask<E extends TulpaEntity> extends MultiTickTask<E> {
 
     @Override
     protected void keepRunning(ServerWorld world, E entity, long time) {
-        if (!entity.getBrain().hasMemoryModule(ModMemoryTypes.ROOT_ATTACK_DELAY)) {
+        if (!entity.getBrain().hasMemoryModule(AylythMemoryTypes.ROOT_ATTACK_DELAY)) {
             castSpell(world, entity);
             entity.playSound(SoundEvents.ENTITY_TURTLE_EGG_BREAK, 1.0F, 1.0F);
         }
@@ -59,8 +59,8 @@ public class RootAttackTask<E extends TulpaEntity> extends MultiTickTask<E> {
 
     @Override
     protected void finishRunning(ServerWorld world, E entity, long time) {
-        entity.getBrain().remember(ModMemoryTypes.ROOT_ATTACK_COOLDOWN, Unit.INSTANCE, 100);
-        entity.getDataTracker().set(TulpaEntity.ATTACK_TYPE, BasicAttackType.NONE);
+        entity.getBrain().remember(AylythMemoryTypes.ROOT_ATTACK_COOLDOWN, Unit.INSTANCE, 100);
+        entity.getDataTracker().set(TulpaEntity.ATTACK_TYPE, BaseAttackType.NONE);
     }
 
 

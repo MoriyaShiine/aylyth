@@ -3,8 +3,8 @@ package moriyashiine.aylyth.common.world.generator.treedecorator;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import moriyashiine.aylyth.common.registry.ModBlocks;
-import moriyashiine.aylyth.common.registry.ModTreeDecoratorTypes;
+import moriyashiine.aylyth.common.registry.AylythBlocks;
+import moriyashiine.aylyth.common.registry.AylythTreeDecoratorTypes;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.VineBlock;
 import net.minecraft.state.property.BooleanProperty;
@@ -34,7 +34,7 @@ public class GrapeVineDecorator extends TreeDecorator {
 	
 	@Override
 	protected TreeDecoratorType<?> getType() {
-		return ModTreeDecoratorTypes.GRAPE_VINE;
+		return AylythTreeDecoratorTypes.GRAPE_VINE;
 	}
 	
 	@Override
@@ -75,7 +75,7 @@ public class GrapeVineDecorator extends TreeDecorator {
 	}
 	
 	protected static BlockState placeGrapeVine(BiConsumer<BlockPos, BlockState> replacer, BlockPos pos, BooleanProperty facing) {
-		BlockState state = ModBlocks.NYSIAN_GRAPE_VINE.getDefaultState().with(facing, true);
+		BlockState state = AylythBlocks.NYSIAN_GRAPE_VINE.getDefaultState().with(facing, true);
 		replacer.accept(pos, state);
 		return state;
 	}

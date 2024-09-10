@@ -3,7 +3,7 @@ package moriyashiine.aylyth.common.world.generator.feature;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import moriyashiine.aylyth.common.block.SeepBlock;
-import moriyashiine.aylyth.common.registry.ModBlocks;
+import moriyashiine.aylyth.common.registry.AylythBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
@@ -37,7 +37,7 @@ public class SeepFeature extends Feature<SeepFeature.SeepFeatureConfig> {
 
 						for (BlockPos pos : BlockPos.iterateRandomly(context.getRandom(), context.getConfig().placeAroundTries, origin, 3)) {
 							pos = pos.withY(world.getTopY(Heightmap.Type.WORLD_SURFACE_WG, pos.getX(), pos.getZ()));
-							if (context.getRandom().nextFloat() <= context.getConfig().placeAroundChance && TreeFeature.canReplace(world, pos) && ModBlocks.MARIGOLD.getDefaultState().canPlaceAt(world, pos)) {
+							if (context.getRandom().nextFloat() <= context.getConfig().placeAroundChance && TreeFeature.canReplace(world, pos) && AylythBlocks.MARIGOLD.getDefaultState().canPlaceAt(world, pos)) {
 								setBlockState(world, pos, context.getConfig().placeAround);
 							}
 						}

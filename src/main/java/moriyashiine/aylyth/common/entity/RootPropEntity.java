@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.common.entity;
 
-import moriyashiine.aylyth.common.registry.ModEntityTypes;
+import moriyashiine.aylyth.common.registry.AylythEntityTypes;
 import net.minecraft.entity.EntityStatuses;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -23,7 +23,7 @@ public class RootPropEntity extends EvokerFangsEntity {
     }
 
     public RootPropEntity(World world, double x, double y, double z, float yaw, int warmup, LivingEntity owner) {
-        this(ModEntityTypes.ROOT_PROP, world);
+        this(AylythEntityTypes.ROOT_PROP, world);
         this.warmup = warmup;
         this.setYaw(yaw * 57.295776F);
         this.setPosition(x, y, z);

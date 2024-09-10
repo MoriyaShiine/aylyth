@@ -3,7 +3,7 @@ package moriyashiine.aylyth.mixin.client;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import moriyashiine.aylyth.common.network.packets.GlaivePacketC2S;
-import moriyashiine.aylyth.common.registry.ModItems;
+import moriyashiine.aylyth.common.registry.AylythItems;
 import moriyashiine.aylyth.common.data.world.AylythDimensionData;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.MinecraftClient;
@@ -35,7 +35,7 @@ public abstract class MinecraftClientMixin {
     @Inject(method = "handleInputEvents", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;doAttack()Z", ordinal = 0))
     public void aylyth_glaiveStab(CallbackInfo info) {
         if(player != null) {
-            if(player.getStackInHand(player.getActiveHand()).isOf(ModItems.YMPE_GLAIVE)) {
+            if(player.getStackInHand(player.getActiveHand()).isOf(AylythItems.YMPE_GLAIVE)) {
                 if(player.getAttackCooldownProgress(0.5F) == 1F && (!player.getItemCooldownManager().isCoolingDown(player.getMainHandStack().getItem())) && crosshairTarget != null) {
                     if (crosshairTarget instanceof EntityHitResult entityHitResult) {
                         ClientPlayNetworking.send(new GlaivePacketC2S(entityHitResult.getEntity().getId()));

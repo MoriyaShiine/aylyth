@@ -2,8 +2,8 @@ package moriyashiine.aylyth.common.item;
 
 import moriyashiine.aylyth.api.interfaces.VitalHealthHolder;
 import moriyashiine.aylyth.common.block.SoulHearthBlock;
-import moriyashiine.aylyth.common.registry.ModBlocks;
-import moriyashiine.aylyth.common.registry.ModItems;
+import moriyashiine.aylyth.common.registry.AylythBlocks;
+import moriyashiine.aylyth.common.registry.AylythItems;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -38,7 +38,7 @@ public class NephriteFlaskItem extends Item {
         BlockPos pos = context.getBlockPos();
         ItemStack stack = context.getStack();
         BlockState state = world.getBlockState(pos);
-        if (state.isOf(ModBlocks.SOUL_HEARTH) && state.get(SoulHearthBlock.CHARGES) > 0) {
+        if (state.isOf(AylythBlocks.SOUL_HEARTH) && state.get(SoulHearthBlock.CHARGES) > 0) {
             world.setBlockState(pos, state.with(SoulHearthBlock.CHARGES, state.get(SoulHearthBlock.CHARGES)-1), Block.NOTIFY_ALL);
             world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.BLOCKS, 1.0f, 1.0f);
             fill(stack);
@@ -73,9 +73,9 @@ public class NephriteFlaskItem extends Item {
             });
         } else {
             // TODO: Switch to component for more versatility
-            if (this == ModItems.NEPHRITE_FLASK) {
+            if (this == AylythItems.NEPHRITE_FLASK) {
                 user.addStatusEffect(new StatusEffectInstance(StatusEffects.INSTANT_HEALTH, 1));
-            } else if (this == ModItems.DARK_NEPHRITE_FLASK) {
+            } else if (this == AylythItems.DARK_NEPHRITE_FLASK) {
                 user.addStatusEffect(new StatusEffectInstance(StatusEffects.INSTANT_DAMAGE, 1));
             }
         }

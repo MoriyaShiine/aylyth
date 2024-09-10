@@ -3,8 +3,8 @@ package moriyashiine.aylyth.common.world.generator.trunkplacer;
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import moriyashiine.aylyth.common.registry.ModBlocks;
-import moriyashiine.aylyth.common.registry.ModTrunkPlacerTypes;
+import moriyashiine.aylyth.common.registry.AylythBlocks;
+import moriyashiine.aylyth.common.registry.AylythTrunkPlacerTypes;
 import moriyashiine.aylyth.common.world.generator.foliageplacer.DirectionalTreeNode;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.PillarBlock;
@@ -26,7 +26,7 @@ public class PomegranateTrunkPlacer extends StraightTrunkPlacer {
 
     public static final Codec<PomegranateTrunkPlacer> CODEC = RecordCodecBuilder.create((instance) -> fillTrunkPlacerFields(instance).apply(instance, PomegranateTrunkPlacer::new));
 
-    private static final BlockState WOOD_STATE = ModBlocks.POMEGRANATE_WOOD.getDefaultState();
+    private static final BlockState WOOD_STATE = AylythBlocks.POMEGRANATE_WOOD.getDefaultState();
 
     public PomegranateTrunkPlacer(int baseHeight, int firstRandomHeight, int secondRandomHeight) {
         super(baseHeight, firstRandomHeight, secondRandomHeight);
@@ -34,7 +34,7 @@ public class PomegranateTrunkPlacer extends StraightTrunkPlacer {
 
     @Override
     protected TrunkPlacerType<?> getType() {
-        return ModTrunkPlacerTypes.POMEGRANATE_TRUNK_PLACER;
+        return AylythTrunkPlacerTypes.POMEGRANATE;
     }
 
     @Override

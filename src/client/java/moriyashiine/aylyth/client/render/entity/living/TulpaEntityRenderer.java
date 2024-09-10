@@ -6,7 +6,7 @@ import moriyashiine.aylyth.client.model.entity.TulpaEntityModel;
 import moriyashiine.aylyth.client.render.block.entity.WoodyGrowthBlockEntityRenderer;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.entity.mob.TulpaEntity;
-import moriyashiine.aylyth.common.registry.ModEntityTypes;
+import moriyashiine.aylyth.common.registry.AylythEntityTypes;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.mixin.client.PlayerSkinTextureAccessor;
 import net.minecraft.client.MinecraftClient;
@@ -270,7 +270,7 @@ public class TulpaEntityRenderer extends GeoEntityRenderer<TulpaEntity> {
     private void copyEntityStateAndRender(MatrixStack matrixStack, TulpaEntity entity, float entityYaw, float partialTicks, VertexConsumerProvider bufferIn, int packedLightIn){
         matrixStack.push();
         if(tulpaPlayerEntity == null) {
-            tulpaPlayerEntity = ModEntityTypes.TULPA_PLAYER.create(entity.getWorld());
+            tulpaPlayerEntity = AylythEntityTypes.TULPA_PLAYER.create(entity.getWorld());
         }else{
             tulpaPlayerEntity.age = entity.age;
             tulpaPlayerEntity.hurtTime = entity.hurtTime;

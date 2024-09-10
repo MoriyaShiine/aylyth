@@ -2,8 +2,8 @@ package moriyashiine.aylyth.common.entity.mob;
 
 import com.mojang.serialization.Dynamic;
 import moriyashiine.aylyth.common.entity.ai.brain.ScionBrain;
-import moriyashiine.aylyth.common.registry.ModEntityTypes;
-import moriyashiine.aylyth.common.registry.ModSoundEvents;
+import moriyashiine.aylyth.common.registry.AylythEntityTypes;
+import moriyashiine.aylyth.common.registry.AylythSoundEvents;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -124,7 +124,7 @@ public class ScionEntity extends HostileEntity {
     }
 
     public static void summonPlayerScion(PlayerEntity playerEntity) {
-        ScionEntity scionEntity = ModEntityTypes.SCION.create(playerEntity.getWorld());
+        ScionEntity scionEntity = AylythEntityTypes.SCION.create(playerEntity.getWorld());
         if (scionEntity != null) {
             scionEntity.setStoredPlayerUUID(playerEntity.getUuid());
             Iterable<ItemStack> armorItems = playerEntity.getArmorItems();
@@ -170,17 +170,17 @@ public class ScionEntity extends HostileEntity {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return ModSoundEvents.ENTITY_SCION_AMBIENT.value();
+        return AylythSoundEvents.ENTITY_SCION_AMBIENT.value();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return ModSoundEvents.ENTITY_SCION_HURT.value();
+        return AylythSoundEvents.ENTITY_SCION_HURT.value();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return ModSoundEvents.ENTITY_SCION_DEATH.value();
+        return AylythSoundEvents.ENTITY_SCION_DEATH.value();
     }
 
     public static boolean canSpawn(EntityType<ScionEntity> scionEntityEntityType, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos blockPos, Random random) {

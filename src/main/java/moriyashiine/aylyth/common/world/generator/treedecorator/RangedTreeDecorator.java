@@ -3,8 +3,8 @@ package moriyashiine.aylyth.common.world.generator.treedecorator;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import moriyashiine.aylyth.common.block.LargeWoodyGrowthBlock;
-import moriyashiine.aylyth.common.registry.ModBlocks;
-import moriyashiine.aylyth.common.registry.ModTreeDecoratorTypes;
+import moriyashiine.aylyth.common.registry.AylythBlocks;
+import moriyashiine.aylyth.common.registry.AylythTreeDecoratorTypes;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.util.Util;
@@ -34,7 +34,7 @@ public class RangedTreeDecorator extends TreeDecorator {
 
     @Override
     protected TreeDecoratorType<?> getType() {
-        return ModTreeDecoratorTypes.RANGED;
+        return AylythTreeDecoratorTypes.RANGED;
     }
 
     @Override
@@ -71,7 +71,7 @@ public class RangedTreeDecorator extends TreeDecorator {
             if (TreeFeature.canReplace(generator.getWorld(), pos)) {
                 BlockState blockState = Util.getRandom(blockStates, generator.getRandom());
                 if (generator.getWorld().testBlockState(pos.down(), state -> !state.isReplaceable()) && TreeFeature.canReplace(generator.getWorld(), pos)) {
-                    if (blockState.isOf(ModBlocks.LARGE_WOODY_GROWTH)) {
+                    if (blockState.isOf(AylythBlocks.LARGE_WOODY_GROWTH)) {
                         if (TreeFeature.canReplace(generator.getWorld(), pos.up())) {
                             generator.replace(pos, blockState.with(LargeWoodyGrowthBlock.HALF, DoubleBlockHalf.LOWER));
                             generator.replace(pos.up(), blockState.with(LargeWoodyGrowthBlock.HALF, DoubleBlockHalf.UPPER));

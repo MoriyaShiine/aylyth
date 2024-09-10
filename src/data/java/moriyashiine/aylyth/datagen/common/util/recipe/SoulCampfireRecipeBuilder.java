@@ -80,7 +80,7 @@ public class SoulCampfireRecipeBuilder {
 
             @Override
             public RecipeSerializer<?> getSerializer() {
-                return ModRecipeTypes.SOULFIRE_RECIPE_SERIALIZER;
+                return ModRecipeTypes.SOULFIRE_SERIALIZER;
             }
 
             @Nullable

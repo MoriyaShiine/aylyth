@@ -7,8 +7,8 @@ import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.block.LargeWoodyGrowthBlock;
 import moriyashiine.aylyth.common.block.PomegranateLeavesBlock;
 import moriyashiine.aylyth.common.block.StrewnLeavesBlock;
-import moriyashiine.aylyth.common.registry.ModBlocks;
-import moriyashiine.aylyth.common.registry.ModItems;
+import moriyashiine.aylyth.common.registry.AylythBlocks;
+import moriyashiine.aylyth.common.registry.AylythItems;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
@@ -31,8 +31,8 @@ import java.util.stream.Stream;
 
 public class AylythModelProvider extends FabricModelProvider {
 
-    private static final BlockFamily POMEGRANATE = BlockFamilies.register(ModBlocks.POMEGRANATE_PLANKS).button(ModBlocks.POMEGRANATE_BUTTON).fence(ModBlocks.POMEGRANATE_FENCE).fenceGate(ModBlocks.POMEGRANATE_FENCE_GATE).pressurePlate(ModBlocks.POMEGRANATE_PRESSURE_PLATE).sign(ModBlocks.POMEGRANATE_SIGN, ModBlocks.POMEGRANATE_WALL_SIGN).slab(ModBlocks.POMEGRANATE_SLAB).stairs(ModBlocks.POMEGRANATE_STAIRS).door(ModBlocks.POMEGRANATE_DOOR).trapdoor(ModBlocks.POMEGRANATE_TRAPDOOR).group("wooden").unlockCriterionName("has_planks").build();
-    private static final BlockFamily WRITHEWOOD = BlockFamilies.register(ModBlocks.WRITHEWOOD_PLANKS).button(ModBlocks.WRITHEWOOD_BUTTON).fence(ModBlocks.WRITHEWOOD_FENCE).fenceGate(ModBlocks.WRITHEWOOD_FENCE_GATE).pressurePlate(ModBlocks.WRITHEWOOD_PRESSURE_PLATE).sign(ModBlocks.WRITHEWOOD_SIGN, ModBlocks.WRITHEWOOD_WALL_SIGN).slab(ModBlocks.WRITHEWOOD_SLAB).stairs(ModBlocks.WRITHEWOOD_STAIRS).door(ModBlocks.WRITHEWOOD_DOOR).trapdoor(ModBlocks.WRITHEWOOD_TRAPDOOR).group("wooden").unlockCriterionName("has_planks").build();
+    private static final BlockFamily POMEGRANATE = BlockFamilies.register(AylythBlocks.POMEGRANATE_PLANKS).button(AylythBlocks.POMEGRANATE_BUTTON).fence(AylythBlocks.POMEGRANATE_FENCE).fenceGate(AylythBlocks.POMEGRANATE_FENCE_GATE).pressurePlate(AylythBlocks.POMEGRANATE_PRESSURE_PLATE).sign(AylythBlocks.POMEGRANATE_SIGN, AylythBlocks.POMEGRANATE_WALL_SIGN).slab(AylythBlocks.POMEGRANATE_SLAB).stairs(AylythBlocks.POMEGRANATE_STAIRS).door(AylythBlocks.POMEGRANATE_DOOR).trapdoor(AylythBlocks.POMEGRANATE_TRAPDOOR).group("wooden").unlockCriterionName("has_planks").build();
+    private static final BlockFamily WRITHEWOOD = BlockFamilies.register(AylythBlocks.WRITHEWOOD_PLANKS).button(AylythBlocks.WRITHEWOOD_BUTTON).fence(AylythBlocks.WRITHEWOOD_FENCE).fenceGate(AylythBlocks.WRITHEWOOD_FENCE_GATE).pressurePlate(AylythBlocks.WRITHEWOOD_PRESSURE_PLATE).sign(AylythBlocks.WRITHEWOOD_SIGN, AylythBlocks.WRITHEWOOD_WALL_SIGN).slab(AylythBlocks.WRITHEWOOD_SLAB).stairs(AylythBlocks.WRITHEWOOD_STAIRS).door(AylythBlocks.WRITHEWOOD_DOOR).trapdoor(AylythBlocks.WRITHEWOOD_TRAPDOOR).group("wooden").unlockCriterionName("has_planks").build();
 
     private static final Identifier STREWN_LEAVES_TEMPLATE = new Identifier(Aylyth.MOD_ID, "block/strewn_leaves_template");
     private static final Identifier LEAF_PILE_1_TEMPLATE = new Identifier(Aylyth.MOD_ID, "block/leaf_pile_1");
@@ -69,100 +69,100 @@ public class AylythModelProvider extends FabricModelProvider {
 
     @Override
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
-        blockStateModelGenerator.registerDoor(ModBlocks.YMPE_DOOR);
-        blockStateModelGenerator.registerFlowerPotPlant(ModBlocks.MARIGOLD, ModBlocks.MARIGOLD_POTTED, BlockStateModelGenerator.TintType.NOT_TINTED);
-        generateStrewnLeaves(blockStateModelGenerator, ModBlocks.OAK_STREWN_LEAVES, Blocks.OAK_LEAVES, id("block/fallen_oak_leaves_01"), id("block/fallen_oak_leaves_02"), id("block/fallen_oak_leaves_03"), id("block/fallen_oak_leaves_04"), id("block/fallen_oak_leaves_05"), id("block/fallen_oak_leaves_06"), id("block/fallen_oak_leaves_07"), id("block/fallen_oak_leaves_08"), id("block/fallen_oak_leaves_09"), id("block/fallen_oak_leaves_10"));
-        generateStrewnLeaves(blockStateModelGenerator, ModBlocks.YMPE_STREWN_LEAVES, ModBlocks.YMPE_LEAVES, id("block/fallen_ympe_leaves_01"), id("block/fallen_ympe_leaves_02"));
+        blockStateModelGenerator.registerDoor(AylythBlocks.YMPE_DOOR);
+        blockStateModelGenerator.registerFlowerPotPlant(AylythBlocks.MARIGOLD, AylythBlocks.MARIGOLD_POTTED, BlockStateModelGenerator.TintType.NOT_TINTED);
+        generateStrewnLeaves(blockStateModelGenerator, AylythBlocks.OAK_STREWN_LEAVES, Blocks.OAK_LEAVES, id("block/fallen_oak_leaves_01"), id("block/fallen_oak_leaves_02"), id("block/fallen_oak_leaves_03"), id("block/fallen_oak_leaves_04"), id("block/fallen_oak_leaves_05"), id("block/fallen_oak_leaves_06"), id("block/fallen_oak_leaves_07"), id("block/fallen_oak_leaves_08"), id("block/fallen_oak_leaves_09"), id("block/fallen_oak_leaves_10"));
+        generateStrewnLeaves(blockStateModelGenerator, AylythBlocks.YMPE_STREWN_LEAVES, AylythBlocks.YMPE_LEAVES, id("block/fallen_ympe_leaves_01"), id("block/fallen_ympe_leaves_02"));
 
-        blockStateModelGenerator.registerHangingSign(ModBlocks.YMPE_STRIPPED_LOG, ModBlocks.YMPE_HANGING_SIGN, ModBlocks.YMPE_WALL_HANGING_SIGN);
+        blockStateModelGenerator.registerHangingSign(AylythBlocks.YMPE_STRIPPED_LOG, AylythBlocks.YMPE_HANGING_SIGN, AylythBlocks.YMPE_WALL_HANGING_SIGN);
 
-        blockStateModelGenerator.registerLog(ModBlocks.POMEGRANATE_STRIPPED_LOG).log(ModBlocks.POMEGRANATE_STRIPPED_LOG).wood(ModBlocks.POMEGRANATE_STRIPPED_WOOD);
-        blockStateModelGenerator.registerLog(ModBlocks.POMEGRANATE_LOG).log(ModBlocks.POMEGRANATE_LOG).wood(ModBlocks.POMEGRANATE_WOOD);
-        blockStateModelGenerator.registerFlowerPotPlant(ModBlocks.POMEGRANATE_SAPLING, ModBlocks.POMEGRANATE_POTTED_SAPLING, BlockStateModelGenerator.TintType.NOT_TINTED);
-        blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.POMEGRANATE_PLANKS).family(POMEGRANATE);
-        blockStateModelGenerator.registerHangingSign(ModBlocks.POMEGRANATE_STRIPPED_LOG, ModBlocks.POMEGRANATE_HANGING_SIGN, ModBlocks.POMEGRANATE_WALL_HANGING_SIGN);
-        fruitingLeaves(blockStateModelGenerator, ModBlocks.POMEGRANATE_LEAVES, blockId("pomegranate_leaves"), blockId("pomegranate_leaves_fruiting_0"), blockId("pomegranate_leaves_fruiting_1"), blockId("pomegranate_leaves_fruiting_2"));
-        TexturedModel.CUBE_ALL.upload(ModBlocks.POMEGRANATE_LEAVES, blockStateModelGenerator.modelCollector);
+        blockStateModelGenerator.registerLog(AylythBlocks.POMEGRANATE_STRIPPED_LOG).log(AylythBlocks.POMEGRANATE_STRIPPED_LOG).wood(AylythBlocks.POMEGRANATE_STRIPPED_WOOD);
+        blockStateModelGenerator.registerLog(AylythBlocks.POMEGRANATE_LOG).log(AylythBlocks.POMEGRANATE_LOG).wood(AylythBlocks.POMEGRANATE_WOOD);
+        blockStateModelGenerator.registerFlowerPotPlant(AylythBlocks.POMEGRANATE_SAPLING, AylythBlocks.POMEGRANATE_POTTED_SAPLING, BlockStateModelGenerator.TintType.NOT_TINTED);
+        blockStateModelGenerator.registerCubeAllModelTexturePool(AylythBlocks.POMEGRANATE_PLANKS).family(POMEGRANATE);
+        blockStateModelGenerator.registerHangingSign(AylythBlocks.POMEGRANATE_STRIPPED_LOG, AylythBlocks.POMEGRANATE_HANGING_SIGN, AylythBlocks.POMEGRANATE_WALL_HANGING_SIGN);
+        fruitingLeaves(blockStateModelGenerator, AylythBlocks.POMEGRANATE_LEAVES, blockId("pomegranate_leaves"), blockId("pomegranate_leaves_fruiting_0"), blockId("pomegranate_leaves_fruiting_1"), blockId("pomegranate_leaves_fruiting_2"));
+        TexturedModel.CUBE_ALL.upload(AylythBlocks.POMEGRANATE_LEAVES, blockStateModelGenerator.modelCollector);
 
-        blockStateModelGenerator.registerLog(ModBlocks.WRITHEWOOD_STRIPPED_LOG).log(ModBlocks.WRITHEWOOD_STRIPPED_LOG).wood(ModBlocks.WRITHEWOOD_STRIPPED_WOOD);
-        blockStateModelGenerator.registerLog(ModBlocks.WRITHEWOOD_LOG).log(ModBlocks.WRITHEWOOD_LOG).wood(ModBlocks.WRITHEWOOD_WOOD);
-        blockStateModelGenerator.registerFlowerPotPlant(ModBlocks.WRITHEWOOD_SAPLING, ModBlocks.WRITHEWOOD_POTTED_SAPLING, BlockStateModelGenerator.TintType.NOT_TINTED);
-        blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.WRITHEWOOD_PLANKS)
+        blockStateModelGenerator.registerLog(AylythBlocks.WRITHEWOOD_STRIPPED_LOG).log(AylythBlocks.WRITHEWOOD_STRIPPED_LOG).wood(AylythBlocks.WRITHEWOOD_STRIPPED_WOOD);
+        blockStateModelGenerator.registerLog(AylythBlocks.WRITHEWOOD_LOG).log(AylythBlocks.WRITHEWOOD_LOG).wood(AylythBlocks.WRITHEWOOD_WOOD);
+        blockStateModelGenerator.registerFlowerPotPlant(AylythBlocks.WRITHEWOOD_SAPLING, AylythBlocks.WRITHEWOOD_POTTED_SAPLING, BlockStateModelGenerator.TintType.NOT_TINTED);
+        blockStateModelGenerator.registerCubeAllModelTexturePool(AylythBlocks.WRITHEWOOD_PLANKS)
                 .family(WRITHEWOOD);
-        blockStateModelGenerator.registerHangingSign(ModBlocks.WRITHEWOOD_STRIPPED_LOG, ModBlocks.WRITHEWOOD_HANGING_SIGN, ModBlocks.WRITHEWOOD_WALL_HANGING_SIGN);
-        variantState(blockStateModelGenerator, ModBlocks.WRITHEWOOD_LEAVES);
+        blockStateModelGenerator.registerHangingSign(AylythBlocks.WRITHEWOOD_STRIPPED_LOG, AylythBlocks.WRITHEWOOD_HANGING_SIGN, AylythBlocks.WRITHEWOOD_WALL_HANGING_SIGN);
+        variantState(blockStateModelGenerator, AylythBlocks.WRITHEWOOD_LEAVES);
 
-        blockStateModelGenerator.registerAxisRotated(ModBlocks.CHTHONIA_WOOD, TexturedModel.makeFactory(block -> new TextureMap().put(TextureKey.SIDE, ModelIds.getBlockModelId(ModBlocks.CHTHONIA_WOOD)).put(TextureKey.END, ModelIds.getBlockModelId(ModBlocks.CHTHONIA_WOOD)), Models.CUBE_COLUMN));
-        blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createAxisRotatedBlockState(ModBlocks.NEPHRITIC_CHTHONIA_WOOD, ModelIds.getBlockModelId(ModBlocks.NEPHRITIC_CHTHONIA_WOOD)));
+        blockStateModelGenerator.registerAxisRotated(AylythBlocks.CHTHONIA_WOOD, TexturedModel.makeFactory(block -> new TextureMap().put(TextureKey.SIDE, ModelIds.getBlockModelId(AylythBlocks.CHTHONIA_WOOD)).put(TextureKey.END, ModelIds.getBlockModelId(AylythBlocks.CHTHONIA_WOOD)), Models.CUBE_COLUMN));
+        blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createAxisRotatedBlockState(AylythBlocks.NEPHRITIC_CHTHONIA_WOOD, ModelIds.getBlockModelId(AylythBlocks.NEPHRITIC_CHTHONIA_WOOD)));
 
-        blockStateModelGenerator.registerSingleton(ModBlocks.DARK_WOODS_TILES, TexturedModel.CUBE_ALL);
+        blockStateModelGenerator.registerSingleton(AylythBlocks.DARK_WOODS_TILES, TexturedModel.CUBE_ALL);
 
-        blockStateModelGenerator.registerSingleton(ModBlocks.ESSTLINE_BLOCK, TexturedModel.CUBE_ALL);
-        blockStateModelGenerator.registerSingleton(ModBlocks.NEPHRITE_BLOCK, TexturedModel.CUBE_ALL);
+        blockStateModelGenerator.registerSingleton(AylythBlocks.ESSTLINE_BLOCK, TexturedModel.CUBE_ALL);
+        blockStateModelGenerator.registerSingleton(AylythBlocks.NEPHRITE_BLOCK, TexturedModel.CUBE_ALL);
 
-        blockStateModelGenerator.registerMirrorable(ModBlocks.CARVED_SMOOTH_NEPHRITE);
-        blockStateModelGenerator.registerSingleton(ModBlocks.CARVED_ANTLERED_NEPHRITE, TexturedModel.CUBE_ALL);
-        blockStateModelGenerator.registerAxisRotated(ModBlocks.CARVED_NEPHRITE_PILLAR, TexturedModel.END_FOR_TOP_CUBE_COLUMN, TexturedModel.END_FOR_TOP_CUBE_COLUMN_HORIZONTAL);
-        blockStateModelGenerator.registerSingleton(ModBlocks.CARVED_NEPHRITE_TILES, TexturedModel.CUBE_ALL);
-        blockStateModelGenerator.registerSingleton(ModBlocks.CARVED_WOODY_NEPHRITE, TexturedModel.CUBE_ALL);
+        blockStateModelGenerator.registerMirrorable(AylythBlocks.CARVED_SMOOTH_NEPHRITE);
+        blockStateModelGenerator.registerSingleton(AylythBlocks.CARVED_ANTLERED_NEPHRITE, TexturedModel.CUBE_ALL);
+        blockStateModelGenerator.registerAxisRotated(AylythBlocks.CARVED_NEPHRITE_PILLAR, TexturedModel.END_FOR_TOP_CUBE_COLUMN, TexturedModel.END_FOR_TOP_CUBE_COLUMN_HORIZONTAL);
+        blockStateModelGenerator.registerSingleton(AylythBlocks.CARVED_NEPHRITE_TILES, TexturedModel.CUBE_ALL);
+        blockStateModelGenerator.registerSingleton(AylythBlocks.CARVED_WOODY_NEPHRITE, TexturedModel.CUBE_ALL);
 
         Models.PARTICLE.upload(blockId("woody_growth_particles"), TextureMap.particle(blockId("aylyth_bush_trunk")), blockStateModelGenerator.modelCollector);
         woodyGrowth(blockStateModelGenerator);
-        generateWoodBlock(blockStateModelGenerator, ModBlocks.SEEPING_WOOD, "block/aylyth_bush_trunk");
+        generateWoodBlock(blockStateModelGenerator, AylythBlocks.SEEPING_WOOD, "block/aylyth_bush_trunk");
 
-        blockStateModelGenerator.registerTintableCrossBlockState(ModBlocks.GIRASOL_SAPLING, BlockStateModelGenerator.TintType.NOT_TINTED);
-        TextureMap girasolMap = TextureMap.plant(ModBlocks.GIRASOL_SAPLING);
-        Identifier pottedSaplingId = BlockStateModelGenerator.TintType.NOT_TINTED.getFlowerPotCrossModel().upload(ModBlocks.GIRASOL_SAPLING_POTTED, girasolMap, blockStateModelGenerator.modelCollector);
-        blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(ModBlocks.GIRASOL_SAPLING_POTTED, pottedSaplingId));
-        variantState(blockStateModelGenerator, ModBlocks.BLACK_WELL);
+        blockStateModelGenerator.registerTintableCrossBlockState(AylythBlocks.GIRASOL_SAPLING, BlockStateModelGenerator.TintType.NOT_TINTED);
+        TextureMap girasolMap = TextureMap.plant(AylythBlocks.GIRASOL_SAPLING);
+        Identifier pottedSaplingId = BlockStateModelGenerator.TintType.NOT_TINTED.getFlowerPotCrossModel().upload(AylythBlocks.GIRASOL_SAPLING_POTTED, girasolMap, blockStateModelGenerator.modelCollector);
+        blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(AylythBlocks.GIRASOL_SAPLING_POTTED, pottedSaplingId));
+        variantState(blockStateModelGenerator, AylythBlocks.BLACK_WELL);
     }
 
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
-        generateStrewnLeavesItemModel(ModItems.OAK_STREWN_LEAVES, id("block/fallen_oak_leaves_01"), itemModelGenerator);
-        generateStrewnLeavesItemModel(ModItems.YMPE_STREWN_LEAVES, id("block/fallen_ympe_leaves_01"), itemModelGenerator);
-        itemModelGenerator.register(ModItems.POMEGRANATE, Models.GENERATED);
-        itemModelGenerator.register(ModItems.GHOSTCAP_MUSHROOM_SPORES, Models.GENERATED);
-        itemModelGenerator.register(ModItems.POMEGRANATE_BOAT, Models.GENERATED);
-        itemModelGenerator.register(ModItems.POMEGRANATE_CHEST_BOAT, Models.GENERATED);
-        itemModelGenerator.register(ModItems.WRITHEWOOD_BOAT, Models.GENERATED);
-        itemModelGenerator.register(ModItems.WRITHEWOOD_CHEST_BOAT, Models.GENERATED);
-        itemModelGenerator.register(ModItems.DEBUG_WAND, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.WRONGMEAT, Models.GENERATED);
-        itemModelGenerator.register(ModItems.NEPHRITE_HEART, Models.GENERATED);
-        itemModelGenerator.register(ModItems.YHONDYTH_HEART, Models.GENERATED);
-        itemModelGenerator.register(ModItems.GIRASOL_SEED, Models.GENERATED);
-        itemModelGenerator.register(ModItems.LARGE_WOODY_GROWTH, Models.GENERATED);
-        itemModelGenerator.register(ModItems.WOODY_GROWTH_CACHE, BUILTIN);
-        itemModelGenerator.register(ModItems.SMALL_WOODY_GROWTH, Models.GENERATED);
-        itemModelGenerator.register(ModItems.YMPE_CUIRASS, Models.GENERATED);
+        generateStrewnLeavesItemModel(AylythItems.OAK_STREWN_LEAVES, id("block/fallen_oak_leaves_01"), itemModelGenerator);
+        generateStrewnLeavesItemModel(AylythItems.YMPE_STREWN_LEAVES, id("block/fallen_ympe_leaves_01"), itemModelGenerator);
+        itemModelGenerator.register(AylythItems.POMEGRANATE, Models.GENERATED);
+        itemModelGenerator.register(AylythItems.GHOSTCAP_MUSHROOM_SPORES, Models.GENERATED);
+        itemModelGenerator.register(AylythItems.POMEGRANATE_BOAT, Models.GENERATED);
+        itemModelGenerator.register(AylythItems.POMEGRANATE_CHEST_BOAT, Models.GENERATED);
+        itemModelGenerator.register(AylythItems.WRITHEWOOD_BOAT, Models.GENERATED);
+        itemModelGenerator.register(AylythItems.WRITHEWOOD_CHEST_BOAT, Models.GENERATED);
+        itemModelGenerator.register(AylythItems.DEBUG_WAND, Models.HANDHELD);
+        itemModelGenerator.register(AylythItems.WRONGMEAT, Models.GENERATED);
+        itemModelGenerator.register(AylythItems.NEPHRITE_HEART, Models.GENERATED);
+        itemModelGenerator.register(AylythItems.YHONDYTH_HEART, Models.GENERATED);
+        itemModelGenerator.register(AylythItems.GIRASOL_SEED, Models.GENERATED);
+        itemModelGenerator.register(AylythItems.LARGE_WOODY_GROWTH, Models.GENERATED);
+        itemModelGenerator.register(AylythItems.WOODY_GROWTH_CACHE, BUILTIN);
+        itemModelGenerator.register(AylythItems.SMALL_WOODY_GROWTH, Models.GENERATED);
+        itemModelGenerator.register(AylythItems.YMPE_CUIRASS, Models.GENERATED);
 //        itemModelGenerator.register(ModItems.MYSTERIOUS_SKETCH, BUILTIN);
-        itemModelGenerator.register(ModItems.WREATHED_HIND_SPAWN_EGG, SPAWN_EGG);
-        itemModelGenerator.register(ModItems.FAUNAYLYTHIAN_SPAWN_EGG, SPAWN_EGG);
-        itemModelGenerator.register(ModItems.YMPEMOULD_SPAWN_EGG, SPAWN_EGG);
-        itemModelGenerator.register(ModItems.BONEFLY_SPAWN_EGG, SPAWN_EGG);
-        itemModelGenerator.register(ModItems.TULPA_SPAWN_EGG, SPAWN_EGG);
+        itemModelGenerator.register(AylythItems.WREATHED_HIND_SPAWN_EGG, SPAWN_EGG);
+        itemModelGenerator.register(AylythItems.FAUNAYLYTHIAN_SPAWN_EGG, SPAWN_EGG);
+        itemModelGenerator.register(AylythItems.YMPEMOULD_SPAWN_EGG, SPAWN_EGG);
+        itemModelGenerator.register(AylythItems.BONEFLY_SPAWN_EGG, SPAWN_EGG);
+        itemModelGenerator.register(AylythItems.TULPA_SPAWN_EGG, SPAWN_EGG);
 //        Models.GENERATED.upload(AylythUtil.id("item/" + Registries.ITEM.getId(ModItems.MYSTERIOUS_SKETCH).getPath() + "_generated"), TextureMap.layer0(AylythUtil.id("item/" + Registries.ITEM.getId(ModItems.MYSTERIOUS_SKETCH).getPath())), itemModelGenerator.writer);
-        itemModelGenerator.register(ModItems.POMEGRANATE_CASSETTE, Models.GENERATED);
-        itemModelGenerator.register(ModItems.BLIGHTED_THORNS, Models.GENERATED);
-        itemModelGenerator.register(ModItems.YMPE_FLAMBERGE, BUILTIN);
-        itemModelGenerator.register(ModItems.YMPE_SCYTHE, BUILTIN);
-        itemModelGenerator.register(ModItems.THORN_FLECHETTE, Models.GENERATED);
-        itemModelGenerator.register(ModItems.BLIGHTED_THORN_FLECHETTE, Models.GENERATED);
-        itemModelGenerator.register(ModItems.LANCEOLATE_DAGGER, Models.HANDHELD);
+        itemModelGenerator.register(AylythItems.POMEGRANATE_CASSETTE, Models.GENERATED);
+        itemModelGenerator.register(AylythItems.BLIGHTED_THORNS, Models.GENERATED);
+        itemModelGenerator.register(AylythItems.YMPE_FLAMBERGE, BUILTIN);
+        itemModelGenerator.register(AylythItems.YMPE_SCYTHE, BUILTIN);
+        itemModelGenerator.register(AylythItems.THORN_FLECHETTE, Models.GENERATED);
+        itemModelGenerator.register(AylythItems.BLIGHTED_THORN_FLECHETTE, Models.GENERATED);
+        itemModelGenerator.register(AylythItems.LANCEOLATE_DAGGER, Models.HANDHELD);
 
-        itemModelGenerator.register(ModItems.VAMPIRIC_SWORD, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.VAMPIRIC_PICKAXE, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.VAMPIRIC_AXE, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.VAMPIRIC_HOE, Models.HANDHELD);
+        itemModelGenerator.register(AylythItems.VAMPIRIC_SWORD, Models.HANDHELD);
+        itemModelGenerator.register(AylythItems.VAMPIRIC_PICKAXE, Models.HANDHELD);
+        itemModelGenerator.register(AylythItems.VAMPIRIC_AXE, Models.HANDHELD);
+        itemModelGenerator.register(AylythItems.VAMPIRIC_HOE, Models.HANDHELD);
 
-        itemModelGenerator.register(ModItems.BLIGHTED_SWORD, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.BLIGHTED_PICKAXE, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.BLIGHTED_AXE, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.BLIGHTED_HOE, Models.HANDHELD);
+        itemModelGenerator.register(AylythItems.BLIGHTED_SWORD, Models.HANDHELD);
+        itemModelGenerator.register(AylythItems.BLIGHTED_PICKAXE, Models.HANDHELD);
+        itemModelGenerator.register(AylythItems.BLIGHTED_AXE, Models.HANDHELD);
+        itemModelGenerator.register(AylythItems.BLIGHTED_HOE, Models.HANDHELD);
 
-        registerFlask(itemModelGenerator, ModItems.NEPHRITE_FLASK);
-        registerFlask(itemModelGenerator, ModItems.DARK_NEPHRITE_FLASK);
+        registerFlask(itemModelGenerator, AylythItems.NEPHRITE_FLASK);
+        registerFlask(itemModelGenerator, AylythItems.DARK_NEPHRITE_FLASK);
         Models.GENERATED_TWO_LAYERS.upload(AylythUtil.id("item/coker_cola"), TextureMap.layered(AylythUtil.id("item/blight_potion"), AylythUtil.id("item/blight_potion")), itemModelGenerator.writer);
         Models.GENERATED_TWO_LAYERS.upload(AylythUtil.id("item/coker_cola_splash"), TextureMap.layered(AylythUtil.id("item/blight_potion_splash"), AylythUtil.id("item/blight_potion_splash")), itemModelGenerator.writer);
         Models.GENERATED_TWO_LAYERS.upload(AylythUtil.id("item/coker_cola_lingering"), TextureMap.layered(AylythUtil.id("item/blight_potion_lingering"), AylythUtil.id("item/blight_potion_lingering")), itemModelGenerator.writer);
@@ -201,7 +201,7 @@ public class AylythModelProvider extends FabricModelProvider {
 
     private void woodyGrowth(BlockStateModelGenerator generator) {
         generator.blockStateCollector.accept(
-                VariantsBlockStateSupplier.create(ModBlocks.LARGE_WOODY_GROWTH).
+                VariantsBlockStateSupplier.create(AylythBlocks.LARGE_WOODY_GROWTH).
                         coordinate(BlockStateVariantMap.create(LargeWoodyGrowthBlock.HALF)
                                 .register(DoubleBlockHalf.LOWER,
                                         List.of(
@@ -228,7 +228,7 @@ public class AylythModelProvider extends FabricModelProvider {
                                 )))
         );
         generator.blockStateCollector.accept(
-                VariantsBlockStateSupplier.create(ModBlocks.WOODY_GROWTH_CACHE).
+                VariantsBlockStateSupplier.create(AylythBlocks.WOODY_GROWTH_CACHE).
                         coordinate(BlockStateVariantMap.create(LargeWoodyGrowthBlock.HALF)
                                 .register(DoubleBlockHalf.LOWER,
                                         List.of(
@@ -254,7 +254,7 @@ public class AylythModelProvider extends FabricModelProvider {
                                         BlockStateVariant.create().put(VariantSettings.MODEL, blockId("woody_growth_particles"))
                                 )))
         );
-        generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(ModBlocks.SMALL_WOODY_GROWTH,
+        generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(AylythBlocks.SMALL_WOODY_GROWTH,
                 modelVariantWithYRotation(AylythUtil.id("block/small_woody_growth_1"), VariantSettings.Rotation.R90),
                 modelVariantWithYRotation(AylythUtil.id("block/small_woody_growth_1"), VariantSettings.Rotation.R180),
                 modelVariantWithYRotation(AylythUtil.id("block/small_woody_growth_1"), VariantSettings.Rotation.R0),

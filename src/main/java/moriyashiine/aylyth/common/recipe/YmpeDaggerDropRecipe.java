@@ -60,12 +60,12 @@ public class YmpeDaggerDropRecipe implements Recipe<Inventory> {
 	
 	@Override
 	public RecipeSerializer<?> getSerializer() {
-		return ModRecipeTypes.YMPE_DAGGER_DROP_RECIPE_SERIALIZER;
+		return ModRecipeTypes.YMPE_DAGGER_DROP_SERIALIZER;
 	}
 	
 	@Override
 	public RecipeType<?> getType() {
-		return ModRecipeTypes.YMPE_DAGGER_DROP_RECIPE_TYPE;
+		return ModRecipeTypes.YMPE_DAGGER_DROP_TYPE;
 	}
 	
 	public static class Serializer implements RecipeSerializer<YmpeDaggerDropRecipe> {

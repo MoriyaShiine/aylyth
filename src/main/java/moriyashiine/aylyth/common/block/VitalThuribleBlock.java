@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.block;
 
 import moriyashiine.aylyth.common.block.entity.VitalThuribleBlockEntity;
-import moriyashiine.aylyth.common.registry.ModItems;
+import moriyashiine.aylyth.common.registry.AylythItems;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -27,7 +27,6 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Objects;
 import java.util.UUID;
 
 public class VitalThuribleBlock extends HorizontalFacingBlock implements BlockEntityProvider {
@@ -55,7 +54,7 @@ public class VitalThuribleBlock extends HorizontalFacingBlock implements BlockEn
     }
 
     public static boolean isActivateItem(ItemStack stack) {
-        return stack.isOf(ModItems.WRONGMEAT);
+        return stack.isOf(AylythItems.WRONGMEAT);
     }
 
     public static void activate(World world, BlockPos pos, BlockState state) {

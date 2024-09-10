@@ -2,7 +2,7 @@ package moriyashiine.aylyth.common.item;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import moriyashiine.aylyth.common.recipe.SoulCampfireRecipe;
-import moriyashiine.aylyth.common.registry.ModBlocks;
+import moriyashiine.aylyth.common.registry.AylythBlocks;
 import moriyashiine.aylyth.common.registry.ModRecipeTypes;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -37,7 +37,7 @@ public class YmpeDaggerItem extends DaggerItem {
 				DefaultedList<ItemStack> items = campfireBlockEntity.getItemsBeingCooked();
 				SimpleInventory inv = new SimpleInventory(4);
 				items.forEach(inv::addStack);
-				SoulCampfireRecipe recipe = world.getRecipeManager().getFirstMatch(ModRecipeTypes.SOULFIRE_RECIPE_TYPE, inv, world).orElse(null);
+				SoulCampfireRecipe recipe = world.getRecipeManager().getFirstMatch(ModRecipeTypes.SOULFIRE_TYPE, inv, world).orElse(null);
 				List<BlockPos> saplingsAround = getSaplingsAround(world, blockPos);
 				if (recipe != null && !saplingsAround.isEmpty()) {
 					world.playSound(null, blockPos, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.BLOCKS, 1, 1);
@@ -58,7 +58,7 @@ public class YmpeDaggerItem extends DaggerItem {
 		List<BlockPos> saplings = new ObjectArrayList<>();
 		for (Direction dir : Direction.Type.HORIZONTAL) {
 			BlockPos saplingPos = blockPos.add(dir.getOffsetX() ,0, dir.getOffsetZ());
-			if (!world.getBlockState(saplingPos).isOf(ModBlocks.YMPE_SAPLING)) {
+			if (!world.getBlockState(saplingPos).isOf(AylythBlocks.YMPE_SAPLING)) {
 				return List.of();
 			}
 			saplings.add(saplingPos);

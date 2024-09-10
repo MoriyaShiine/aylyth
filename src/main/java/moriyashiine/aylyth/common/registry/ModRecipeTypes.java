@@ -9,31 +9,32 @@ import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
 
-public class ModRecipeTypes {
-	public static final RecipeSerializer<ShuckingRecipe> SHUCKING_RECIPE_SERIALIZER = registerSerializer("shucking", new ShuckingRecipe.Serializer());
+public interface ModRecipeTypes {
+
+	RecipeSerializer<ShuckingRecipe> SHUCKING_SERIALIZER = registerSerializer("shucking", new ShuckingRecipe.Serializer());
 	
-	public static final RecipeSerializer<YmpeDaggerDropRecipe> YMPE_DAGGER_DROP_RECIPE_SERIALIZER = registerSerializer("ympe_dagger_drop", new YmpeDaggerDropRecipe.Serializer());
-	public static final RecipeType<YmpeDaggerDropRecipe> YMPE_DAGGER_DROP_RECIPE_TYPE = registerType("ympe_dagger_drop");
+	RecipeSerializer<YmpeDaggerDropRecipe> YMPE_DAGGER_DROP_SERIALIZER = registerSerializer("ympe_dagger_drop", new YmpeDaggerDropRecipe.Serializer());
+	RecipeType<YmpeDaggerDropRecipe> YMPE_DAGGER_DROP_TYPE = registerType("ympe_dagger_drop");
 
-	public static final RecipeSerializer<SoulCampfireRecipe> SOULFIRE_RECIPE_SERIALIZER = registerSerializer("soul_ritual", new SoulCampfireRecipe.Serializer());
-	public static final RecipeType<SoulCampfireRecipe> SOULFIRE_RECIPE_TYPE = registerType("soul_ritual");
+	RecipeSerializer<SoulCampfireRecipe> SOULFIRE_SERIALIZER = registerSerializer("soul_ritual", new SoulCampfireRecipe.Serializer());
+	RecipeType<SoulCampfireRecipe> SOULFIRE_TYPE = registerType("soul_ritual");
 
-	private static <T extends Recipe<?>> RecipeType<T> registerType(String id) {
-		Identifier identifier = AylythUtil.id(id);
-		return Registry.register(Registries.RECIPE_TYPE, identifier, new RecipeType<>() {
+	private static <R extends Recipe<?>> RecipeSerializer<R> registerSerializer(String name, RecipeSerializer<R> serializer) {
+		return Registry.register(Registries.RECIPE_SERIALIZER, AylythUtil.id(name), serializer);
+	}
+
+	private static <R extends Recipe<?>> RecipeType<R> registerType(String name) {
+		var id = AylythUtil.id(name);
+
+		return Registry.register(Registries.RECIPE_TYPE, id, new RecipeType<>() {
 			@Override
 			public String toString() {
-				return identifier.toString();
+				return id.toString();
 			}
 		});
 	}
 
-	private static <T extends Recipe<?>> RecipeSerializer<T> registerSerializer(String id, RecipeSerializer<T> serializer) {
-		Registry.register(Registries.RECIPE_SERIALIZER, AylythUtil.id(id), serializer);
-		return serializer;
-	}
-	
-	public static void init() {}
+	// Load static initializer
+	static void register() {}
 }

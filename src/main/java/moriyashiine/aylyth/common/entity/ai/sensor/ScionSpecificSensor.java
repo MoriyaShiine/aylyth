@@ -2,7 +2,7 @@ package moriyashiine.aylyth.common.entity.ai.sensor;
 
 import com.google.common.collect.ImmutableSet;
 import moriyashiine.aylyth.common.entity.mob.ScionEntity;
-import moriyashiine.aylyth.common.registry.ModMemoryTypes;
+import moriyashiine.aylyth.common.registry.AylythMemoryTypes;
 import moriyashiine.aylyth.common.data.tag.AylythBlockTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
@@ -24,7 +24,7 @@ public class ScionSpecificSensor extends Sensor<ScionEntity> {
         return ImmutableSet.of(
                 MemoryModuleType.VISIBLE_MOBS,
                 MemoryModuleType.NEAREST_REPELLENT,
-                ModMemoryTypes.NEAREST_VISIBLE_PLAYER_NEMESIS
+                AylythMemoryTypes.NEAREST_VISIBLE_PLAYER_NEMESIS
         );
     }
 
@@ -39,7 +39,7 @@ public class ScionSpecificSensor extends Sensor<ScionEntity> {
                 optional = Optional.of(playerEntity);
             }
         }
-        brain.remember(ModMemoryTypes.NEAREST_VISIBLE_PLAYER_NEMESIS, optional);
+        brain.remember(AylythMemoryTypes.NEAREST_VISIBLE_PLAYER_NEMESIS, optional);
     }
 
     private static Optional<BlockPos> findRepellent(ServerWorld world, LivingEntity entity) {

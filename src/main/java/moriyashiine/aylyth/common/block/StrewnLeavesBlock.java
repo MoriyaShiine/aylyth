@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.common.block;
 
-import moriyashiine.aylyth.common.registry.ModSoundEvents;
+import moriyashiine.aylyth.common.registry.AylythSoundEvents;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalEntityTypeTags;
 import net.minecraft.block.Block;
@@ -51,7 +51,7 @@ public class StrewnLeavesBlock extends Block implements IContextBlockSoundGroup 
         if (stack.getItem() instanceof BlockItem blockItem) {
             if (blockItem.getBlock().equals(this) && state.get(LEAVES) < 7) {
                 world.setBlockState(pos, state.with(LEAVES, state.get(LEAVES)+1));
-                world.playSound(null, pos, ModSoundEvents.BLOCK_STREWN_LEAVES_STEP.value(), SoundCategory.BLOCKS, 1.0F, 1.0F);
+                world.playSound(null, pos, AylythSoundEvents.BLOCK_STREWN_LEAVES_STEP.value(), SoundCategory.BLOCKS, 1.0F, 1.0F);
                 AylythUtil.decreaseStack(stack, player);
                 return ActionResult.success(world.isClient);
             }
@@ -99,7 +99,7 @@ public class StrewnLeavesBlock extends Block implements IContextBlockSoundGroup 
 
     @Override
     public BlockSoundGroup getSoundGroup(BlockState state) {
-        return state.get(LEAVES) == 0 ? super.getSoundGroup(state) : ModSoundEvents.LEAF_PILES;
+        return state.get(LEAVES) == 0 ? super.getSoundGroup(state) : AylythSoundEvents.LEAF_PILES;
     }
 
     @Override
@@ -111,6 +111,6 @@ public class StrewnLeavesBlock extends Block implements IContextBlockSoundGroup 
     @Override
     public BlockSoundGroup getBlockSoundGroup(BlockState state, BlockPos pos, BlockSoundGroup currentSoundGroup, Entity entity) {
         Random random = entity.getWorld().random;
-        return random.nextFloat() < 0.025 ? state.get(LEAVES) > 0 ? ModSoundEvents.LEAF_PILES_STICK : ModSoundEvents.STREWN_LEAVES_STICK : state.get(LEAVES) > 0 ? ModSoundEvents.LEAF_PILES : ModSoundEvents.STREWN_LEAVES;
+        return random.nextFloat() < 0.025 ? state.get(LEAVES) > 0 ? AylythSoundEvents.LEAF_PILES_STICK : AylythSoundEvents.STREWN_LEAVES_STICK : state.get(LEAVES) > 0 ? AylythSoundEvents.LEAF_PILES : AylythSoundEvents.STREWN_LEAVES;
     }
 }

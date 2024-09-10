@@ -7,8 +7,8 @@ import moriyashiine.aylyth.api.interfaces.ProlongedDeath;
 import moriyashiine.aylyth.common.entity.mob.BoneflyEntity;
 import moriyashiine.aylyth.common.item.YmpeEffigyItem;
 import moriyashiine.aylyth.common.registry.ModEntityComponents;
-import moriyashiine.aylyth.common.registry.ModItems;
-import moriyashiine.aylyth.common.registry.ModStatusEffects;
+import moriyashiine.aylyth.common.registry.AylythItems;
+import moriyashiine.aylyth.common.registry.AylythEntityStatusEffects;
 import moriyashiine.aylyth.common.data.AylythDamageTypes;
 import moriyashiine.aylyth.common.data.tag.AylythStatusEffectTags;
 import moriyashiine.aylyth.common.data.tag.AylythItemTags;
@@ -64,7 +64,7 @@ public abstract class LivingEntityMixin extends Entity {
 
 	@Inject(method = "heal", at = @At("HEAD"), cancellable = true)
 	private void preventHeal(float amount, CallbackInfo callbackInfo) {
-		if (this.hasStatusEffect(ModStatusEffects.CRIMSON_CURSE)) {
+		if (this.hasStatusEffect(AylythEntityStatusEffects.CRIMSON_CURSE)) {
 			callbackInfo.cancel();
 		}
 	}
@@ -126,7 +126,7 @@ public abstract class LivingEntityMixin extends Entity {
 	private void injectLootDrop(CallbackInfo ci){
 		LivingEntity living = (LivingEntity) (Object) this;
 		if(living instanceof ProlongedDeath){
-			ItemScatterer.spawn(living.getWorld(), living.getX(), living.getY() + 1.5D, living.getZ(), ModItems.CORIC_SEED.getDefaultStack());
+			ItemScatterer.spawn(living.getWorld(), living.getX(), living.getY() + 1.5D, living.getZ(), AylythItems.CORIC_SEED.getDefaultStack());
 		}
 	}
 

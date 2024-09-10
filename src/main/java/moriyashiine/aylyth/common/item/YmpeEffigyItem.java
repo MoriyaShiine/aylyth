@@ -3,7 +3,7 @@ package moriyashiine.aylyth.common.item;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketItem;
 import dev.emi.trinkets.api.TrinketsApi;
-import moriyashiine.aylyth.common.registry.ModItems;
+import moriyashiine.aylyth.common.registry.AylythItems;
 import moriyashiine.aylyth.common.data.tag.AylythStatusEffectTags;
 import net.fabricmc.fabric.api.tag.convention.v1.TagUtil;
 import net.minecraft.entity.LivingEntity;
@@ -47,6 +47,6 @@ public class YmpeEffigyItem extends TrinketItem {
     }
 
     public static boolean isEquipped(LivingEntity entity) {
-        return TrinketsApi.getTrinketComponent(entity).isPresent() && TrinketsApi.getTrinketComponent(entity).get().isEquipped(ModItems.YMPE_EFFIGY);
+        return TrinketsApi.getTrinketComponent(entity).isPresent() && TrinketsApi.getTrinketComponent(entity).get().isEquipped(AylythItems.YMPE_EFFIGY);
     }
 }

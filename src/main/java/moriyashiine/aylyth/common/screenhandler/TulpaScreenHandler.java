@@ -2,7 +2,7 @@ package moriyashiine.aylyth.common.screenhandler;
 
 import com.mojang.datafixers.util.Pair;
 import moriyashiine.aylyth.common.entity.mob.TulpaEntity;
-import moriyashiine.aylyth.common.registry.ModScreenHandlers;
+import moriyashiine.aylyth.common.registry.AylythScreenHandlerTypes;
 import moriyashiine.aylyth.mixin.MobEntityAccessor;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
 import net.minecraft.entity.EquipmentSlot;
@@ -39,11 +39,10 @@ public class TulpaScreenHandler extends ScreenHandler {
 
     public TulpaScreenHandler(int syncId, PlayerInventory playerInventory, TulpaEntity tulpaEntity) {
         this(syncId, playerInventory, tulpaEntity.getInventory(), ((MobEntityAccessor)tulpaEntity).armorItems(), ((MobEntityAccessor)tulpaEntity).handItems(), tulpaEntity);
-
     }
 
     public TulpaScreenHandler(int id, PlayerInventory playerInventory, SimpleInventory inventory, DefaultedList<ItemStack> armorItems, DefaultedList<ItemStack> handItems, TulpaEntity tulpaEntity) {
-        super(ModScreenHandlers.TULPA_SCREEN_HANDLER, id);
+        super(AylythScreenHandlerTypes.TULPA, id);
         this.inventory = inventory;
         this.armorInventory = new SimpleInventory(armorItems.toArray(ItemStack[]::new));
         this.handInventory = new SimpleInventory(handItems.toArray(ItemStack[]::new));

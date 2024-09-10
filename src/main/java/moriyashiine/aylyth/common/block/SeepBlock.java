@@ -1,9 +1,9 @@
 package moriyashiine.aylyth.common.block;
 
 import moriyashiine.aylyth.common.block.entity.SeepBlockEntity;
-import moriyashiine.aylyth.common.registry.ModBlocks;
+import moriyashiine.aylyth.common.registry.AylythBlocks;
 import moriyashiine.aylyth.common.data.world.AylythDimensionData;
-import moriyashiine.aylyth.common.data.AylythPointOfInterestTypes;
+import moriyashiine.aylyth.common.registry.AylythPointOfInterestTypes;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -66,7 +66,7 @@ public class SeepBlock extends Block implements BlockEntityProvider {
 				ServerWorld toWorld = world.getRegistryKey() == AylythDimensionData.AYLYTH ? server.getOverworld() : server.getWorld(AylythDimensionData.AYLYTH);
 				toWorld.getChunkManager().addTicket(ChunkTicketType.PORTAL, new ChunkPos(pos), 3, pos);
 				Optional<BlockPos> connectedSeep;
-				if (state.isOf(ModBlocks.SEEPING_WOOD_SEEP)) {
+				if (state.isOf(AylythBlocks.SEEPING_WOOD_SEEP)) {
 					connectedSeep = findConnectedSeepSpawn(serverWorld, pos);
 				} else {
 					connectedSeep = Optional.empty();

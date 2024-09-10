@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.entity.projectile;
 
 import moriyashiine.aylyth.common.entity.mob.WreathedHindEntity;
-import moriyashiine.aylyth.common.registry.ModEntityTypes;
+import moriyashiine.aylyth.common.registry.AylythEntityTypes;
 import moriyashiine.aylyth.common.registry.ModParticles;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.entity.Entity;
@@ -24,7 +24,7 @@ public class SphereEntity extends ProjectileEntity {
 
 
     public SphereEntity(World world, WreathedHindEntity owner) {
-        this(ModEntityTypes.SPHERE_ENTITY, world);
+        this(AylythEntityTypes.SPHERE_ENTITY, world);
         this.setOwner(owner);
         this.setPosition(
                 owner.getX() - (double)(owner.getWidth() + 1.0F) * 0.5 * (double) MathHelper.sin(owner.bodyYaw * MathHelper.RADIANS_PER_DEGREE),

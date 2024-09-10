@@ -4,11 +4,10 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.MapMaker;
 import com.google.common.collect.UnmodifiableIterator;
 import moriyashiine.aylyth.common.block.entity.SoulHearthBlockEntity;
-import moriyashiine.aylyth.common.registry.ModItems;
+import moriyashiine.aylyth.common.registry.AylythItems;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
-import net.fabricmc.fabric.api.transfer.v1.item.PlayerInventoryStorage;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.storage.StorageUtil;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.InsertionOnlyStorage;
@@ -35,7 +34,6 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
-import net.minecraft.state.property.Property;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -268,7 +266,7 @@ public class SoulHearthBlock extends Block implements BlockEntityProvider {
         @Override
         public long insert(ItemVariant resource, long maxAmount, TransactionContext transaction) {
             if (maxAmount < 0) return 0;
-            if (!resource.isOf(ModItems.POMEGRANATE)) return 0;
+            if (!resource.isOf(AylythItems.POMEGRANATE)) return 0;
             int currCharges = reference.getBlockState().get(CHARGES);
             if (currCharges == 5) return 0;
 

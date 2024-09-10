@@ -1,8 +1,8 @@
 package moriyashiine.aylyth.datagen.common.loot;
 
 import moriyashiine.aylyth.common.block.*;
-import moriyashiine.aylyth.common.registry.ModBlocks;
-import moriyashiine.aylyth.common.registry.ModItems;
+import moriyashiine.aylyth.common.registry.AylythBlocks;
+import moriyashiine.aylyth.common.registry.AylythItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
@@ -32,69 +32,69 @@ public class AylythBlockLootProvider extends FabricBlockLootTableProvider {
 
     @Override
     public void generate() {
-        addDrop(ModBlocks.MARIGOLD);
-        addPottedPlantDrops(ModBlocks.MARIGOLD_POTTED);
-        addDrop(ModBlocks.OAK_STREWN_LEAVES, this::strewnLeaves);
-        addDrop(ModBlocks.YMPE_STREWN_LEAVES, this::strewnLeaves);
-        addDrop(ModBlocks.JACK_O_LANTERN_MUSHROOM, this::standingJackolantern);
-        addDrop(ModBlocks.SHELF_JACK_O_LANTERN_MUSHROOM);
-        addDrop(ModBlocks.GHOSTCAP_MUSHROOM, () -> ModItems.GHOSTCAP_MUSHROOM);
-        addDrop(ModBlocks.YMPE_LEAVES, block -> leavesDrops(block, ModBlocks.YMPE_SAPLING, 0.05f, 0.0625f, 0.083333336f, 0.1f));
-        addDrop(ModBlocks.POMEGRANATE_STRIPPED_LOG);
-        addDrop(ModBlocks.POMEGRANATE_STRIPPED_WOOD);
-        addDrop(ModBlocks.POMEGRANATE_LOG);
-        addDrop(ModBlocks.POMEGRANATE_WOOD);
-        addDrop(ModBlocks.POMEGRANATE_SAPLING);
-        addPottedPlantDrops(ModBlocks.POMEGRANATE_POTTED_SAPLING);
-        addDrop(ModBlocks.POMEGRANATE_PLANKS);
-        addDrop(ModBlocks.POMEGRANATE_STAIRS);
-        addDrop(ModBlocks.POMEGRANATE_SLAB, this::slabDrops);
-        addDrop(ModBlocks.POMEGRANATE_FENCE);
-        addDrop(ModBlocks.POMEGRANATE_FENCE_GATE);
-        addDrop(ModBlocks.POMEGRANATE_PRESSURE_PLATE);
-        addDrop(ModBlocks.POMEGRANATE_BUTTON);
-        addDrop(ModBlocks.POMEGRANATE_DOOR, this::doorDrops);
-        addDrop(ModBlocks.POMEGRANATE_TRAPDOOR);
-        addDrop(ModBlocks.POMEGRANATE_SIGN);
-        addDrop(ModBlocks.POMEGRANATE_LEAVES, block -> pomegranateLeavesDrop(block, ModBlocks.POMEGRANATE_SAPLING, 0.05f, 0.0625f, 0.083333336f, 0.1f));
-        addDrop(ModBlocks.WRITHEWOOD_STRIPPED_LOG);
-        addDrop(ModBlocks.WRITHEWOOD_STRIPPED_WOOD);
-        addDrop(ModBlocks.WRITHEWOOD_LOG);
-        addDrop(ModBlocks.WRITHEWOOD_WOOD);
-        addDrop(ModBlocks.WRITHEWOOD_SAPLING);
-        addPottedPlantDrops(ModBlocks.WRITHEWOOD_POTTED_SAPLING);
-        addDrop(ModBlocks.WRITHEWOOD_PLANKS);
-        addDrop(ModBlocks.WRITHEWOOD_STAIRS);
-        addDrop(ModBlocks.WRITHEWOOD_SLAB, this::slabDrops);
-        addDrop(ModBlocks.WRITHEWOOD_FENCE);
-        addDrop(ModBlocks.WRITHEWOOD_FENCE_GATE);
-        addDrop(ModBlocks.WRITHEWOOD_PRESSURE_PLATE);
-        addDrop(ModBlocks.WRITHEWOOD_BUTTON);
-        addDrop(ModBlocks.WRITHEWOOD_DOOR, this::doorDrops);
-        addDrop(ModBlocks.WRITHEWOOD_TRAPDOOR);
-        addDrop(ModBlocks.WRITHEWOOD_SIGN);
-        addDrop(ModBlocks.WRITHEWOOD_LEAVES, block -> leavesDrops(block, ModBlocks.WRITHEWOOD_SAPLING, 0.05f, 0.0625f, 0.083333336f, 0.1f));
-        addDrop(ModBlocks.VITAL_THURIBLE);
-        addDrop(ModBlocks.SOUL_HEARTH, this::doorDrops);
-        addDrop(ModBlocks.WOODY_GROWTH_CACHE, this::woodyGrowthCaches);
-        addDrop(ModBlocks.SMALL_WOODY_GROWTH);
-        addDrop(ModBlocks.LARGE_WOODY_GROWTH, this::woodyGrowths);
-        addDrop(ModBlocks.SEEPING_WOOD);
-        addDrop(ModBlocks.SEEPING_WOOD_SEEP);
-        addDrop(ModBlocks.GIRASOL_SAPLING);
-        addDrop(ModBlocks.DARK_WOODS_TILES);
-        addDrop(ModBlocks.ESSTLINE_BLOCK);
-        addDrop(ModBlocks.NEPHRITE_BLOCK);
-        addDrop(ModBlocks.CARVED_SMOOTH_NEPHRITE);
-        addDrop(ModBlocks.CARVED_ANTLERED_NEPHRITE);
-        addDrop(ModBlocks.CARVED_NEPHRITE_PILLAR);
-        addDrop(ModBlocks.CARVED_NEPHRITE_TILES);
-        addDrop(ModBlocks.CARVED_WOODY_NEPHRITE);
-        addDrop(ModBlocks.YMPE_HANGING_SIGN);
-        addDrop(ModBlocks.POMEGRANATE_HANGING_SIGN);
-        addDrop(ModBlocks.WRITHEWOOD_HANGING_SIGN);
-        addDrop(ModBlocks.CHTHONIA_WOOD);
-        addDrop(ModBlocks.NEPHRITIC_CHTHONIA_WOOD, block -> nephriticChthoniaWood(block, ModBlocks.CHTHONIA_WOOD));
+        addDrop(AylythBlocks.MARIGOLD);
+        addPottedPlantDrops(AylythBlocks.MARIGOLD_POTTED);
+        addDrop(AylythBlocks.OAK_STREWN_LEAVES, this::strewnLeaves);
+        addDrop(AylythBlocks.YMPE_STREWN_LEAVES, this::strewnLeaves);
+        addDrop(AylythBlocks.JACK_O_LANTERN_MUSHROOM, this::standingJackolantern);
+        addDrop(AylythBlocks.SHELF_JACK_O_LANTERN_MUSHROOM);
+        addDrop(AylythBlocks.GHOSTCAP_MUSHROOM, () -> AylythItems.GHOSTCAP_MUSHROOM);
+        addDrop(AylythBlocks.YMPE_LEAVES, block -> leavesDrops(block, AylythBlocks.YMPE_SAPLING, 0.05f, 0.0625f, 0.083333336f, 0.1f));
+        addDrop(AylythBlocks.POMEGRANATE_STRIPPED_LOG);
+        addDrop(AylythBlocks.POMEGRANATE_STRIPPED_WOOD);
+        addDrop(AylythBlocks.POMEGRANATE_LOG);
+        addDrop(AylythBlocks.POMEGRANATE_WOOD);
+        addDrop(AylythBlocks.POMEGRANATE_SAPLING);
+        addPottedPlantDrops(AylythBlocks.POMEGRANATE_POTTED_SAPLING);
+        addDrop(AylythBlocks.POMEGRANATE_PLANKS);
+        addDrop(AylythBlocks.POMEGRANATE_STAIRS);
+        addDrop(AylythBlocks.POMEGRANATE_SLAB, this::slabDrops);
+        addDrop(AylythBlocks.POMEGRANATE_FENCE);
+        addDrop(AylythBlocks.POMEGRANATE_FENCE_GATE);
+        addDrop(AylythBlocks.POMEGRANATE_PRESSURE_PLATE);
+        addDrop(AylythBlocks.POMEGRANATE_BUTTON);
+        addDrop(AylythBlocks.POMEGRANATE_DOOR, this::doorDrops);
+        addDrop(AylythBlocks.POMEGRANATE_TRAPDOOR);
+        addDrop(AylythBlocks.POMEGRANATE_SIGN);
+        addDrop(AylythBlocks.POMEGRANATE_LEAVES, block -> pomegranateLeavesDrop(block, AylythBlocks.POMEGRANATE_SAPLING, 0.05f, 0.0625f, 0.083333336f, 0.1f));
+        addDrop(AylythBlocks.WRITHEWOOD_STRIPPED_LOG);
+        addDrop(AylythBlocks.WRITHEWOOD_STRIPPED_WOOD);
+        addDrop(AylythBlocks.WRITHEWOOD_LOG);
+        addDrop(AylythBlocks.WRITHEWOOD_WOOD);
+        addDrop(AylythBlocks.WRITHEWOOD_SAPLING);
+        addPottedPlantDrops(AylythBlocks.WRITHEWOOD_POTTED_SAPLING);
+        addDrop(AylythBlocks.WRITHEWOOD_PLANKS);
+        addDrop(AylythBlocks.WRITHEWOOD_STAIRS);
+        addDrop(AylythBlocks.WRITHEWOOD_SLAB, this::slabDrops);
+        addDrop(AylythBlocks.WRITHEWOOD_FENCE);
+        addDrop(AylythBlocks.WRITHEWOOD_FENCE_GATE);
+        addDrop(AylythBlocks.WRITHEWOOD_PRESSURE_PLATE);
+        addDrop(AylythBlocks.WRITHEWOOD_BUTTON);
+        addDrop(AylythBlocks.WRITHEWOOD_DOOR, this::doorDrops);
+        addDrop(AylythBlocks.WRITHEWOOD_TRAPDOOR);
+        addDrop(AylythBlocks.WRITHEWOOD_SIGN);
+        addDrop(AylythBlocks.WRITHEWOOD_LEAVES, block -> leavesDrops(block, AylythBlocks.WRITHEWOOD_SAPLING, 0.05f, 0.0625f, 0.083333336f, 0.1f));
+        addDrop(AylythBlocks.VITAL_THURIBLE);
+        addDrop(AylythBlocks.SOUL_HEARTH, this::doorDrops);
+        addDrop(AylythBlocks.WOODY_GROWTH_CACHE, this::woodyGrowthCaches);
+        addDrop(AylythBlocks.SMALL_WOODY_GROWTH);
+        addDrop(AylythBlocks.LARGE_WOODY_GROWTH, this::woodyGrowths);
+        addDrop(AylythBlocks.SEEPING_WOOD);
+        addDrop(AylythBlocks.SEEPING_WOOD_SEEP);
+        addDrop(AylythBlocks.GIRASOL_SAPLING);
+        addDrop(AylythBlocks.DARK_WOODS_TILES);
+        addDrop(AylythBlocks.ESSTLINE_BLOCK);
+        addDrop(AylythBlocks.NEPHRITE_BLOCK);
+        addDrop(AylythBlocks.CARVED_SMOOTH_NEPHRITE);
+        addDrop(AylythBlocks.CARVED_ANTLERED_NEPHRITE);
+        addDrop(AylythBlocks.CARVED_NEPHRITE_PILLAR);
+        addDrop(AylythBlocks.CARVED_NEPHRITE_TILES);
+        addDrop(AylythBlocks.CARVED_WOODY_NEPHRITE);
+        addDrop(AylythBlocks.YMPE_HANGING_SIGN);
+        addDrop(AylythBlocks.POMEGRANATE_HANGING_SIGN);
+        addDrop(AylythBlocks.WRITHEWOOD_HANGING_SIGN);
+        addDrop(AylythBlocks.CHTHONIA_WOOD);
+        addDrop(AylythBlocks.NEPHRITIC_CHTHONIA_WOOD, block -> nephriticChthoniaWood(block, AylythBlocks.CHTHONIA_WOOD));
     }
 
     private LootTable.Builder nephriticChthoniaWood(Block block, Block emptyLog) {
@@ -105,7 +105,7 @@ public class AylythBlockLootProvider extends FabricBlockLootTableProvider {
                         )
                 ).pool(
                         LootPool.builder().with(
-                                ItemEntry.builder(ModItems.NEPHRITE)
+                                ItemEntry.builder(AylythItems.NEPHRITE)
                                         .conditionally(
                                                 BlockStatePropertyLootCondition.builder(block)
                                                         .properties(
@@ -144,16 +144,16 @@ public class AylythBlockLootProvider extends FabricBlockLootTableProvider {
                                         ItemEntry.builder(Items.SPRUCE_LOG)
                                                 .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 2)))
                                                 .conditionally(RandomChanceLootCondition.builder(0.24f)),
-                                        ItemEntry.builder(ModItems.YMPE_LOG)
+                                        ItemEntry.builder(AylythItems.YMPE_LOG)
                                                 .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 2)))
                                                 .conditionally(RandomChanceLootCondition.builder(0.24f)),
-                                        ItemEntry.builder(ModItems.POMEGRANATE_LOG)
+                                        ItemEntry.builder(AylythItems.POMEGRANATE_LOG)
                                                 .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 2)))
                                                 .conditionally(RandomChanceLootCondition.builder(0.24f)),
-                                        ItemEntry.builder(ModItems.WRITHEWOOD_LOG)
+                                        ItemEntry.builder(AylythItems.WRITHEWOOD_LOG)
                                                 .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 2)))
                                                 .conditionally(RandomChanceLootCondition.builder(0.24f)),
-                                        ItemEntry.builder(ModItems.YMPE_FRUIT)
+                                        ItemEntry.builder(AylythItems.YMPE_FRUIT)
                                                 .apply(SetCountLootFunction.builder(ConstantLootNumberProvider.create(1)))
                                                 .conditionally(RandomChanceLootCondition.builder(0.1f))
                                 ).conditionally(BlockStatePropertyLootCondition.builder(block)
@@ -161,7 +161,7 @@ public class AylythBlockLootProvider extends FabricBlockLootTableProvider {
                                                 .exactMatch(SmallWoodyGrowthBlock.NATURAL, true)
                                         )
                                 )
-                        ).with(ItemEntry.builder(ModItems.LARGE_WOODY_GROWTH))
+                        ).with(ItemEntry.builder(AylythItems.LARGE_WOODY_GROWTH))
                         .conditionally(BlockStatePropertyLootCondition.builder(block)
                                 .properties(StatePredicate.Builder.create().exactMatch(LargeWoodyGrowthBlock.HALF, DoubleBlockHalf.LOWER))
                         )
@@ -177,7 +177,7 @@ public class AylythBlockLootProvider extends FabricBlockLootTableProvider {
                         .with(applyExplosionDecay(leaves, ItemEntry.builder(Items.STICK)
                                 .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 2.0f))))
                                 .conditionally(TableBonusLootCondition.builder(Enchantments.FORTUNE, 0.02f, 0.022222223f, 0.025f, 0.033333335f, 0.1f)))
-                        .with(applyExplosionDecay(leaves, ItemEntry.builder(ModItems.POMEGRANATE)
+                        .with(applyExplosionDecay(leaves, ItemEntry.builder(AylythItems.POMEGRANATE)
                                 .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 2.0f))))
                                 .conditionally(BlockStatePropertyLootCondition.builder(leaves).properties(StatePredicate.Builder.create().exactMatch(PomegranateLeavesBlock.FRUITING, 3)))));
     }

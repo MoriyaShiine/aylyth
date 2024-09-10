@@ -9,8 +9,7 @@ import dev.emi.emi.api.widget.WidgetHolder;
 import moriyashiine.aylyth.common.entity.mob.ElderAylythianEntity;
 import moriyashiine.aylyth.common.entity.mob.WreathedHindEntity;
 import moriyashiine.aylyth.common.recipe.YmpeDaggerDropRecipe;
-import moriyashiine.aylyth.common.registry.ModItems;
-import moriyashiine.aylyth.client.util.RenderUtils;
+import moriyashiine.aylyth.common.registry.AylythItems;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.entity.Entity;
@@ -33,7 +32,7 @@ public class YmpeDaggerEMIRecipe implements EmiRecipe {
         this.id = recipe.getId();
         entityType = recipe.entity_type;
         this.output = List.of(EmiStack.of(recipe.getOutput(DynamicRegistryManager.EMPTY)));
-        this.input = List.of(EmiStack.of(new ItemStack(ModItems.YMPE_DAGGER)));
+        this.input = List.of(EmiStack.of(new ItemStack(AylythItems.YMPE_DAGGER)));
     }
 
     @Override

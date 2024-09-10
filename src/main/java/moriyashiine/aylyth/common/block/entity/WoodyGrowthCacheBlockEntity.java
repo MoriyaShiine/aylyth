@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.block.entity;
 
 import com.google.common.collect.Lists;
-import moriyashiine.aylyth.common.registry.ModBlockEntityTypes;
+import moriyashiine.aylyth.common.registry.AylythBlockEntityTypes;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -29,7 +29,7 @@ public class WoodyGrowthCacheBlockEntity extends BlockEntity {
     protected UUID playerUuid;
 
     public WoodyGrowthCacheBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntityTypes.WOODY_GROWTH_CACHE_BLOCK_ENTITY, pos, state);
+        super(AylythBlockEntityTypes.WOODY_GROWTH_CACHE, pos, state);
     }
 
     @Override

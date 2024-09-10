@@ -3,8 +3,8 @@ package moriyashiine.aylyth.common.component.entity;
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import dev.onyxstudios.cca.api.v3.component.tick.ServerTickingComponent;
 import moriyashiine.aylyth.common.registry.ModEntityComponents;
-import moriyashiine.aylyth.common.registry.ModCriteria;
-import moriyashiine.aylyth.common.registry.ModSoundEvents;
+import moriyashiine.aylyth.common.registry.AylythCriteria;
+import moriyashiine.aylyth.common.registry.AylythSoundEvents;
 import moriyashiine.aylyth.common.data.world.AylythDimensionData;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -53,7 +53,7 @@ public class YmpeInfestationComponent implements AutoSyncedComponent, ServerTick
 			}
 		}
 		if (getInfestationTimer() >= TIME_UNTIL_STAGE_INCREASES) {
-			obj.getWorld().playSoundFromEntity(null, obj, ModSoundEvents.ENTITY_PLAYER_INCREASE_YMPE_INFESTATION_STAGE.value(), SoundCategory.PLAYERS, 1, obj.getSoundPitch());
+			obj.getWorld().playSoundFromEntity(null, obj, AylythSoundEvents.ENTITY_PLAYER_INCREASE_YMPE_INFESTATION_STAGE.value(), SoundCategory.PLAYERS, 1, obj.getSoundPitch());
 			setStage((byte) (getStage() + 1));
 			setInfestationTimer((short) 0);
 			if (getStage() >= 6) {
@@ -84,7 +84,7 @@ public class YmpeInfestationComponent implements AutoSyncedComponent, ServerTick
 		this.stage = stage;
 		ModEntityComponents.YMPE_INFESTATION.sync(obj);
 		if (obj instanceof ServerPlayerEntity serverPlayer) {
-			ModCriteria.YMPE_INFESTATION.trigger(serverPlayer);
+			AylythCriteria.YMPE_INFESTATION.trigger(serverPlayer);
 		}
 	}
 	

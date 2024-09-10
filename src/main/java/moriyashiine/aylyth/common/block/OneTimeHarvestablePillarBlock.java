@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.common.block;
 
-import moriyashiine.aylyth.common.registry.ModSoundEvents;
+import moriyashiine.aylyth.common.registry.AylythSoundEvents;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -37,7 +37,7 @@ public class OneTimeHarvestablePillarBlock extends HarvestablePillarBlock {
 
     @Override
     public RegistryEntry<SoundEvent> getHarvestSound(BlockState state) {
-        return ModSoundEvents.BLOCK_YMPE_LOG_PICK_FRUIT;
+        return AylythSoundEvents.BLOCK_YMPE_LOG_PICK_FRUIT;
     }
 
     @Override

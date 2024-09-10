@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.common.entity.ai;
 
-public enum BasicAttackType {
+public enum BaseAttackType {
     NONE,
     MELEE,
     RANGED

@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.common.item;
 
-import moriyashiine.aylyth.common.registry.ModBlocks;
+import moriyashiine.aylyth.common.registry.AylythBlocks;
 import moriyashiine.aylyth.common.data.world.AylythDimensionData;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.block.BlockState;
@@ -39,8 +39,8 @@ public class AylythianHeartItem extends Item {
 			if (player.isCreative() || player.experienceLevel >= 5) {
 				for (BlockPos pos : BlockPos.iterateRandomly(world.random, world.random.nextInt(5), player.getBlockPos(), 3)) {
 					BlockState state = world.getBlockState(pos);
-					if (state.isAir() && ModBlocks.MARIGOLD.getDefaultState().canPlaceAt(world, pos)) {
-						world.setBlockState(pos, ModBlocks.MARIGOLD.getDefaultState());
+					if (state.isAir() && AylythBlocks.MARIGOLD.getDefaultState().canPlaceAt(world, pos)) {
+						world.setBlockState(pos, AylythBlocks.MARIGOLD.getDefaultState());
 					}
 				}
 				AylythUtil.teleportTo(player, serverWorld.getServer().getWorld(AylythDimensionData.AYLYTH), 0);

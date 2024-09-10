@@ -3,6 +3,7 @@ package moriyashiine.aylyth.common;
 import moriyashiine.aylyth.api.AylythEntityApi;
 import moriyashiine.aylyth.api.interfaces.VitalHealthHolder;
 import moriyashiine.aylyth.common.block.SoulHearthBlock;
+import moriyashiine.aylyth.common.registry.AylythPointOfInterestTypes;
 import moriyashiine.aylyth.common.network.AylythPacketTypes;
 import moriyashiine.aylyth.common.network.AylythServerPacketHandler;
 import moriyashiine.aylyth.common.network.packets.SpawnParticlesAroundPacketS2C;
@@ -13,14 +14,9 @@ import moriyashiine.aylyth.common.recipe.SoulCampfireRecipe;
 import moriyashiine.aylyth.common.recipe.YmpeDaggerDropRecipe;
 import moriyashiine.aylyth.common.registry.*;
 import moriyashiine.aylyth.common.registry.custom.CustomRegistries;
-import moriyashiine.aylyth.common.data.world.AylythPlacedFeatures;
-import moriyashiine.aylyth.common.data.tag.AylythBiomeTags;
 import moriyashiine.aylyth.common.data.tag.AylythEntityTypeTags;
 import moriyashiine.aylyth.common.data.tag.AylythItemTags;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.fabricmc.fabric.api.entity.event.v1.ServerEntityCombatEvents;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
@@ -44,13 +40,11 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.GenerationStep;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -73,34 +67,46 @@ public class Aylyth implements ModInitializer {
 			LOGGER.info("Debug mode enabled!");
 		}
 
-		ModEntityAttributes.init();
-		ModParticles.init();
-		ModBlocks.init();
-		ModItems.init();
-		ModBlockEntityTypes.init();
-		ModEntityTypes.init();
-		ModStatusEffects.init();
-		ModPotions.init();
-		ModSoundEvents.init();
-		ModRecipeTypes.init();
-		ModFeatures.init();
-		ModTrunkPlacerTypes.init();
-		ModTreeDecoratorTypes.init();
-		ModFoliagePlacerTypes.init();
-		ModBoatTypes.init();
-		ModMemoryTypes.init();
-		ModSensorTypes.init();
-		ModBiomeSources.init();
-		ModPoiTypes.init();
-		ModCriteria.init();
-		ModLootConditions.init();
-		ModScreenHandlers.init();
-		ModDataTrackers.init();
+		ModAdvancementRendererData.register();
+		AylythCriteria.register();
+		ModLootConditionTypes.register();
+		ModRecipeTypes.register();
+
+		AylythSoundEvents.register();
+		ModParticles.register();
+
+		AylythScreenHandlerTypes.register();
+
+		AylythBlocks.register();
+		AylythFlammable.register();
+		AylythStrippable.register();
+		AylythBlockEntityTypes.register();
+		AylythPointOfInterestTypes.register();
+
+		AylythEntityAttributes.register();
+
+		AylythMemoryTypes.register();
+		ModSensorTypes.register();
+		AylythEntityDataTrackers.register();
+		AylythEntityTypes.register();
+		AylythEntityStatusEffects.register();
+
+		AylythItems.register();
+		AylythFuels.register();
+		AylythPotions.register();
+
+		AylythBoatTypes.register();
+
+		AylythFeatures.register();
+		AylythTrunkPlacerTypes.register();
+		AylythFoliagePlacerTypes.register();
+		AylythTreeDecoratorTypes.register();
+		AylythBiomeSources.register();
+		AylythBiomeModifications.register();
+
 		CustomRegistries.init();
-		ModAdvancementRendererData.init();
 		ModAttachmentTypes.init();
 
-		biomeModifications();
 		registerApis();
 
 		LivingEntityDeathEvents.init();
@@ -111,13 +117,12 @@ public class Aylyth implements ModInitializer {
 		ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register(this::daggerDrops);
 		UseBlockCallback.EVENT.register(this::interactSoulCampfire);
 		AttackEntityCallback.EVENT.register(this::attackWithYmpeDagger);
-
 	}
 
 	private ActionResult interactSoulCampfire(PlayerEntity playerEntity, World world, Hand hand, BlockHitResult blockHitResult) {
 		if(hand == Hand.MAIN_HAND && world.getBlockState(blockHitResult.getBlockPos()).isOf(Blocks.SOUL_CAMPFIRE) && world.getBlockEntity(blockHitResult.getBlockPos()) instanceof CampfireBlockEntity campfireBlockEntity){
 			ItemStack itemStack = playerEntity.getMainHandStack();
-			List<Ingredient> allowedIngredients = world.getRecipeManager().listAllOfType(ModRecipeTypes.SOULFIRE_RECIPE_TYPE).stream()
+			List<Ingredient> allowedIngredients = world.getRecipeManager().listAllOfType(ModRecipeTypes.SOULFIRE_TYPE).stream()
 					.map(SoulCampfireRecipe::getIngredients)
 					.flatMap(Collection::stream)
 					.toList();
@@ -132,12 +137,12 @@ public class Aylyth implements ModInitializer {
 	}
 
 	private ActionResult attackWithYmpeDagger(PlayerEntity attacker, World world, Hand hand, Entity target, @Nullable EntityHitResult hitResult) {
-		if (attacker.getStackInHand(hand).isOf(ModItems.YMPE_DAGGER) && target instanceof MobEntity mob) {
+		if (attacker.getStackInHand(hand).isOf(AylythItems.YMPE_DAGGER) && target instanceof MobEntity mob) {
 			ItemStack offhand = attacker.getOffHandStack();
-			if (offhand.isOf(ModItems.SHUCKED_YMPE_FRUIT)) {
+			if (offhand.isOf(AylythItems.SHUCKED_YMPE_FRUIT)) {
 				if (!ShuckedYmpeFruitItem.hasStoredEntity(offhand) && !mob.getType().isIn(AylythEntityTypeTags.NON_SHUCKABLE)) {
 					if (attacker instanceof ServerPlayerEntity serverPlayer) {
-						ModCriteria.SHUCKING.trigger(serverPlayer, mob);
+						AylythCriteria.SHUCKING.trigger(serverPlayer, mob);
 						mob.setHealth(mob.getMaxHealth()); // TODO: check whether this is intended behavior
 						mob.clearStatusEffects();
 						mob.extinguish();
@@ -148,7 +153,7 @@ public class Aylyth implements ModInitializer {
 						PlayerLookup.tracking(mob).forEach(trackingPlayer -> {
 							ServerPlayNetworking.send(trackingPlayer, new SpawnParticlesAroundPacketS2C(mob.getId(), 32, List.of(ParticleTypes.SMOKE, ParticleTypes.FALLING_HONEY)));
 						});
-						world.playSound(null, mob.getBlockPos(), ModSoundEvents.ENTITY_GENERIC_SHUCKED.value(), mob.getSoundCategory(), 1, mob.getSoundPitch());
+						world.playSound(null, mob.getBlockPos(), AylythSoundEvents.ENTITY_GENERIC_SHUCKED.value(), mob.getSoundCategory(), 1, mob.getSoundPitch());
 						ShuckedYmpeFruitItem.setStoredEntity(offhand, mob);
 						mob.remove(Entity.RemovalReason.DISCARDED);
 					}
@@ -161,13 +166,13 @@ public class Aylyth implements ModInitializer {
 
 	private void daggerDrops(ServerWorld serverWorld, Entity entity, LivingEntity killedEntity) {
 		if (entity instanceof LivingEntity living && living.getMainHandStack().isIn(AylythItemTags.HEART_HARVESTERS)) {
-			for (YmpeDaggerDropRecipe recipe : serverWorld.getRecipeManager().listAllOfType(ModRecipeTypes.YMPE_DAGGER_DROP_RECIPE_TYPE)) {
+			for (YmpeDaggerDropRecipe recipe : serverWorld.getRecipeManager().listAllOfType(ModRecipeTypes.YMPE_DAGGER_DROP_TYPE)) {
 				if (recipe.entity_type == killedEntity.getType() && serverWorld.random.nextFloat() < recipe.chance * (EnchantmentHelper.getLooting(living) + 1)) {
 					ItemStack drop = recipe.getOutput(serverWorld.getRegistryManager()).copy();
 					if (recipe.entity_type == EntityType.PLAYER) {
 						drop.getOrCreateNbt().putString("SkullOwner", killedEntity.getName().getString());
 					}
-					if (recipe.entity_type == ModEntityTypes.SCION && entity instanceof ScionEntity scionEntity && scionEntity.getStoredPlayerUUID() != null) {
+					if (recipe.entity_type == AylythEntityTypes.SCION && entity instanceof ScionEntity scionEntity && scionEntity.getStoredPlayerUUID() != null) {
 						return;
 					}
 					int random = 1;
@@ -182,16 +187,6 @@ public class Aylyth implements ModInitializer {
 		}
 	}
 
-	private void biomeModifications() {
-		// TODO: These need to be changed. It replaces structure logs too, obv.
-		BiomeModifications.create(new Identifier(Aylyth.MOD_ID, "world_features"))
-				.add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(AylythBiomeTags.GENERATES_SEEP), context -> {
-					context.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, AylythPlacedFeatures.OAK_SEEP);
-					context.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, AylythPlacedFeatures.SPRUCE_SEEP);
-					context.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, AylythPlacedFeatures.DARK_OAK_SEEP);
-				});
-	}
-
 	private void registerApis() {
 		AylythEntityApi.VITAL_HOLDER.registerForType((entity, unused) -> (VitalHealthHolder) entity, EntityType.PLAYER);
 
@@ -200,6 +195,6 @@ public class Aylyth implements ModInitializer {
 				return SoulHearthBlock.SoulHearthStorage.getOrCreate(world, pos);
 			}
 			return null;
-		}, ModBlocks.SOUL_HEARTH);
+		}, AylythBlocks.SOUL_HEARTH);
 	}
 }

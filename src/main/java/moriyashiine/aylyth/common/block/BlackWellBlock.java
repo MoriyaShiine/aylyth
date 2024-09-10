@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.block;
 
 import com.google.common.base.Suppliers;
-import moriyashiine.aylyth.common.registry.ModPotions;
+import moriyashiine.aylyth.common.registry.AylythPotions;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
@@ -23,7 +23,7 @@ import java.util.function.Supplier;
 
 @SuppressWarnings("UnstableApiUsage")
 public class BlackWellBlock extends Block {
-    private static final Supplier<ItemVariant> BLIGHT_POTION = Suppliers.memoize(() -> ItemVariant.of(PotionUtil.setPotion(new ItemStack(Items.POTION), ModPotions.BLIGHT_POTION)));
+    private static final Supplier<ItemVariant> BLIGHT_POTION = Suppliers.memoize(() -> ItemVariant.of(PotionUtil.setPotion(new ItemStack(Items.POTION), AylythPotions.BLIGHT)));
 
     public BlackWellBlock(Settings settings) {
         super(settings);

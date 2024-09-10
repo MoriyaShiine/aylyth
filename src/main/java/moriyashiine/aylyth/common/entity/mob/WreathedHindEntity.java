@@ -58,7 +58,7 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
     private EntityAttributeInstance modifiableattributeinstance = this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-    public static final TrackedData<AttackType> ATTACK_TYPE = DataTracker.registerData(WreathedHindEntity.class, ModDataTrackers.WREATHED_HIND_ATTACKS);
+    public static final TrackedData<AttackType> ATTACK_TYPE = DataTracker.registerData(WreathedHindEntity.class, AylythEntityDataTrackers.WREATHED_ATTACK_TYPE);
     public static final TrackedData<Boolean> IS_PLEDGED = DataTracker.registerData(WreathedHindEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
     public WreathedHindEntity(EntityType<? extends HostileEntity> entityType, World world) {
@@ -122,7 +122,7 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
         ItemStack stack = player.getStackInHand(hand);
         if(stack.isIn(AylythItemTags.PLEDGE_ITEMS) && getPledgedPlayerUUID() == null) {
             if (player instanceof ServerPlayerEntity serverPlayer) {
-                ModCriteria.HIND_PLEDGE.trigger(serverPlayer, this);
+                AylythCriteria.HIND_PLEDGE.trigger(serverPlayer, this);
             }
             setPledgedPlayer(player);
             AylythUtil.decreaseStack(stack, player);
@@ -173,10 +173,10 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
         if (result) {
             Entity attacker = source.getAttacker();
             if (attacker != null && attacker.getUuid().equals(getPledgedPlayerUUID())) {
-                if (!getBrain().hasMemoryModule(ModMemoryTypes.SECOND_CHANCE)) {
-                    getBrain().remember(ModMemoryTypes.SECOND_CHANCE, WreathedHindBrain.SecondChance.WARNING, 600);
+                if (!getBrain().hasMemoryModule(AylythMemoryTypes.SECOND_CHANCE)) {
+                    getBrain().remember(AylythMemoryTypes.SECOND_CHANCE, WreathedHindBrain.SecondChance.WARNING, 600);
                 } else {
-                    getBrain().remember(ModMemoryTypes.SECOND_CHANCE, WreathedHindBrain.SecondChance.BETRAY, 600);
+                    getBrain().remember(AylythMemoryTypes.SECOND_CHANCE, WreathedHindBrain.SecondChance.BETRAY, 600);
                 }
             }
         }
@@ -206,8 +206,8 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
             for(int i = 0; i < random; i++){
                 if(possiblePositions.size() >= i){
                     BlockPos placePos = Util.getRandom(possiblePositions, this.random);
-                    world.setBlockState(placePos, ModBlocks.OAK_STREWN_LEAVES.getDefaultState());
-                    playSound(ModSoundEvents.BLOCK_STREWN_LEAVES_STEP.value(), getSoundVolume(), getSoundPitch());
+                    world.setBlockState(placePos, AylythBlocks.OAK_STREWN_LEAVES.getDefaultState());
+                    playSound(AylythSoundEvents.BLOCK_STREWN_LEAVES_STEP.value(), getSoundVolume(), getSoundPitch());
                 }
             }
         }
@@ -289,7 +289,7 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return ModSoundEvents.ENTITY_WREATHED_HIND_AMBIENT.value();
+        return AylythSoundEvents.ENTITY_WREATHED_HIND_AMBIENT.value();
     }
 
     @Override
@@ -299,12 +299,12 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return ModSoundEvents.ENTITY_WREATHED_HIND_HURT.value();
+        return AylythSoundEvents.ENTITY_WREATHED_HIND_HURT.value();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return ModSoundEvents.ENTITY_WREATHED_HIND_DEATH.value();
+        return AylythSoundEvents.ENTITY_WREATHED_HIND_DEATH.value();
     }
 
     @Nullable

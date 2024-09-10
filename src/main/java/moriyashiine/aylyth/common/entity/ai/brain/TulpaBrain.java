@@ -6,7 +6,7 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Dynamic;
 import moriyashiine.aylyth.common.entity.ai.task.*;
 import moriyashiine.aylyth.common.entity.mob.TulpaEntity;
-import moriyashiine.aylyth.common.registry.ModMemoryTypes;
+import moriyashiine.aylyth.common.registry.AylythMemoryTypes;
 import moriyashiine.aylyth.common.registry.ModSensorTypes;
 import moriyashiine.aylyth.common.util.BrainUtils;
 import net.minecraft.entity.LivingEntity;
@@ -50,10 +50,10 @@ public class TulpaBrain {
             MemoryModuleType.ATE_RECENTLY,
             MemoryModuleType.HURT_BY_ENTITY,
             MemoryModuleType.INTERACTION_TARGET,
-            ModMemoryTypes.SHOULD_FOLLOW_OWNER,
-            ModMemoryTypes.OWNER_PLAYER,
-            ModMemoryTypes.ROOT_ATTACK_COOLDOWN,
-            ModMemoryTypes.ROOT_ATTACK_DELAY
+            AylythMemoryTypes.SHOULD_FOLLOW_OWNER,
+            AylythMemoryTypes.OWNER_PLAYER,
+            AylythMemoryTypes.ROOT_ATTACK_COOLDOWN,
+            AylythMemoryTypes.ROOT_ATTACK_DELAY
     );
 
     public TulpaBrain() {}
@@ -169,7 +169,7 @@ public class TulpaBrain {
     }
 
     private static boolean canUseRangedAttack(TulpaEntity entity) {
-        return BrainUtils.isHoldingUsableRangedWeapon(entity) || !entity.getBrain().hasMemoryModule(ModMemoryTypes.ROOT_ATTACK_COOLDOWN);
+        return BrainUtils.isHoldingUsableRangedWeapon(entity) || !entity.getBrain().hasMemoryModule(AylythMemoryTypes.ROOT_ATTACK_COOLDOWN);
     }
 
     private static boolean shouldAttackHurtBy(TulpaEntity entity) {
@@ -179,10 +179,10 @@ public class TulpaBrain {
 
     public static void setShouldFollowOwner(TulpaEntity tulpaEntity, boolean should) {
         if (should) {
-            tulpaEntity.getBrain().remember(ModMemoryTypes.SHOULD_FOLLOW_OWNER, Unit.INSTANCE);
+            tulpaEntity.getBrain().remember(AylythMemoryTypes.SHOULD_FOLLOW_OWNER, Unit.INSTANCE);
             tulpaEntity.getBrain().forget(MemoryModuleType.WALK_TARGET);
         } else {
-            tulpaEntity.getBrain().forget(ModMemoryTypes.SHOULD_FOLLOW_OWNER);
+            tulpaEntity.getBrain().forget(AylythMemoryTypes.SHOULD_FOLLOW_OWNER);
         }
     }
 }

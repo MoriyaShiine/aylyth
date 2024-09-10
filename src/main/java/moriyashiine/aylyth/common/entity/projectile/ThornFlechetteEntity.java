@@ -1,8 +1,7 @@
 package moriyashiine.aylyth.common.entity.projectile;
 
 import moriyashiine.aylyth.common.item.ThornFlechetteItem;
-import moriyashiine.aylyth.common.registry.ModEntityTypes;
-import moriyashiine.aylyth.common.registry.ModItems;
+import moriyashiine.aylyth.common.registry.AylythEntityTypes;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.data.DataTracker;
@@ -21,7 +20,7 @@ public class ThornFlechetteEntity extends PersistentProjectileEntity {
     }
 
     public ThornFlechetteEntity(LivingEntity owner, World world) {
-        super(ModEntityTypes.THORN_FLECHETTE, owner, world);
+        super(AylythEntityTypes.THORN_FLECHETTE, owner, world);
         this.setOwner(owner);
     }
 

@@ -3,7 +3,7 @@ package moriyashiine.aylyth.common.world.generator.trunkplacer;
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import moriyashiine.aylyth.common.registry.ModTrunkPlacerTypes;
+import moriyashiine.aylyth.common.registry.AylythTrunkPlacerTypes;
 import net.minecraft.block.BlockState;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
@@ -31,7 +31,7 @@ public class YmpeTrunkPlacer extends StraightTrunkPlacer {
 	
 	@Override
 	protected TrunkPlacerType<YmpeTrunkPlacer> getType() {
-		return ModTrunkPlacerTypes.YMPE_TRUNK_PLACER;
+		return AylythTrunkPlacerTypes.YMPE;
 	}
 	
 	@Override

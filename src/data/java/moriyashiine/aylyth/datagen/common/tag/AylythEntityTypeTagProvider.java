@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.datagen.common.tag;
 
-import moriyashiine.aylyth.common.registry.ModEntityTypes;
+import moriyashiine.aylyth.common.registry.AylythEntityTypes;
 import moriyashiine.aylyth.common.data.tag.AylythEntityTypeTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
@@ -17,7 +17,7 @@ public final class AylythEntityTypeTagProvider extends FabricTagProvider.EntityT
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup registries) {
-        getOrCreateTagBuilder(AylythEntityTypeTags.GRIPWEED_IMMUNE).add(ModEntityTypes.AYLYTHIAN, ModEntityTypes.ELDER_AYLYTHIAN);
+        getOrCreateTagBuilder(AylythEntityTypeTags.GRIPWEED_IMMUNE).add(AylythEntityTypes.AYLYTHIAN, AylythEntityTypes.ELDER_AYLYTHIAN);
         getOrCreateTagBuilder(AylythEntityTypeTags.NON_SHUCKABLE).forceAddTag(ConventionalEntityTypeTags.BOSSES).add(EntityType.ELDER_GUARDIAN);
     }
 }

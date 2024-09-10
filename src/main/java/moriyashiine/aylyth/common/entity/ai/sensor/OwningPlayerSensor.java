@@ -2,7 +2,7 @@ package moriyashiine.aylyth.common.entity.ai.sensor;
 
 import com.google.common.collect.ImmutableSet;
 import moriyashiine.aylyth.common.entity.mob.TameableHostileEntity;
-import moriyashiine.aylyth.common.registry.ModMemoryTypes;
+import moriyashiine.aylyth.common.registry.AylythMemoryTypes;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
@@ -19,7 +19,7 @@ public class OwningPlayerSensor<E extends LivingEntity & TameableHostileEntity> 
     public Set<MemoryModuleType<?>> getOutputMemoryModules() {
         return ImmutableSet.of(
                 MemoryModuleType.NEAREST_PLAYERS,
-                ModMemoryTypes.OWNER_PLAYER
+                AylythMemoryTypes.OWNER_PLAYER
         );
     }
 
@@ -31,7 +31,7 @@ public class OwningPlayerSensor<E extends LivingEntity & TameableHostileEntity> 
         List<PlayerEntity> players = entity.getBrain().getOptionalMemory(MemoryModuleType.NEAREST_PLAYERS).get();
         if (players.contains(player)) {
             Brain<?> brain = entity.getBrain();
-            brain.remember(ModMemoryTypes.OWNER_PLAYER, player);
+            brain.remember(AylythMemoryTypes.OWNER_PLAYER, player);
         }
     }
 }

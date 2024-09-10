@@ -2,9 +2,9 @@ package moriyashiine.aylyth.common.block.entity;
 
 import moriyashiine.aylyth.api.interfaces.VitalHealthHolder;
 import moriyashiine.aylyth.common.block.VitalThuribleBlock;
-import moriyashiine.aylyth.common.registry.ModBlockEntityTypes;
-import moriyashiine.aylyth.common.registry.ModEntityAttributes;
-import moriyashiine.aylyth.common.registry.ModItems;
+import moriyashiine.aylyth.common.registry.AylythBlockEntityTypes;
+import moriyashiine.aylyth.common.registry.AylythEntityAttributes;
+import moriyashiine.aylyth.common.registry.AylythItems;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.SharedConstants;
 import net.minecraft.block.Block;
@@ -42,7 +42,7 @@ public class VitalThuribleBlockEntity extends BlockEntity implements SingleStack
     private int timer = 0;
 
     public VitalThuribleBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntityTypes.VITAL_THURIBLE_BLOCK_ENTITY, pos, state);
+        super(AylythBlockEntityTypes.VITAL_THURIBLE, pos, state);
     }
 
     @Override
@@ -99,7 +99,7 @@ public class VitalThuribleBlockEntity extends BlockEntity implements SingleStack
 
     public static void tick(World world, BlockPos pos, BlockState state, VitalThuribleBlockEntity blockEntity) {
         if (world != null) {
-            if (blockEntity.getStack().isOf(ModItems.WRONGMEAT) && blockEntity.getStack().getCount() == 5) {
+            if (blockEntity.getStack().isOf(AylythItems.WRONGMEAT) && blockEntity.getStack().getCount() == 5) {
                 blockEntity.timer++;
                 if (world.isClient) {
                     if (blockEntity.timer > 0) {
@@ -118,7 +118,7 @@ public class VitalThuribleBlockEntity extends BlockEntity implements SingleStack
                     if (blockEntity.timer > SharedConstants.TICKS_PER_SECOND * 2) {
                         if (blockEntity.targetUUID != null) {
                             PlayerEntity player = world.getPlayerByUuid(blockEntity.targetUUID);
-                            EntityAttributeInstance instance = player.getAttributeInstance(ModEntityAttributes.MAX_VITAL_HEALTH);
+                            EntityAttributeInstance instance = player.getAttributeInstance(AylythEntityAttributes.MAX_VITAL_HEALTH);
                             if (instance != null) {
                                 EntityAttributeModifier modifier = instance.getModifier(VitalThuribleBlock.MAX_VITAL_MODIFIER);
                                 double currentMax = modifier != null ? modifier.getValue() : 0;

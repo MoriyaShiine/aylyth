@@ -2,7 +2,7 @@ package moriyashiine.aylyth.common.block;
 
 import com.google.common.collect.Lists;
 import moriyashiine.aylyth.common.block.entity.WoodyGrowthCacheBlockEntity;
-import moriyashiine.aylyth.common.registry.ModBlocks;
+import moriyashiine.aylyth.common.registry.AylythBlocks;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -65,7 +65,7 @@ public class WoodyGrowthCacheBlock extends LargeWoodyGrowthBlock implements Bloc
         while (numCaches-- > 0 && iter.hasNext()) {
             BlockPos placePos = iter.next();
             int y = pos.getY()+1;
-            BlockState state = ModBlocks.WOODY_GROWTH_CACHE.getDefaultState();
+            BlockState state = AylythBlocks.WOODY_GROWTH_CACHE.getDefaultState();
             do {
                 placePos = placePos.withY(y);
             } while (isInvalidPosition(placePos, state, world) && y-- > world.getBottomY());

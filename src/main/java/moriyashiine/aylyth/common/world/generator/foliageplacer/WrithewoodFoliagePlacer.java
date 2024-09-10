@@ -2,7 +2,7 @@ package moriyashiine.aylyth.common.world.generator.foliageplacer;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import moriyashiine.aylyth.common.registry.ModFoliagePlacerTypes;
+import moriyashiine.aylyth.common.registry.AylythFoliagePlacerTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.intprovider.IntProvider;
@@ -21,7 +21,7 @@ public class WrithewoodFoliagePlacer extends FoliagePlacer {
 
     @Override
     protected FoliagePlacerType<?> getType() {
-        return ModFoliagePlacerTypes.WRITHEWOOD_FOLIAGE_PLACER;
+        return AylythFoliagePlacerTypes.WRITHEWOOD;
     }
 
     @Override

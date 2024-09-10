@@ -1,9 +1,8 @@
 package moriyashiine.aylyth.client.model.block;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import moriyashiine.aylyth.common.block.SoulHearthBlock;
-import moriyashiine.aylyth.common.registry.ModBlocks;
-import moriyashiine.aylyth.common.registry.ModItems;
+import moriyashiine.aylyth.common.registry.AylythBlocks;
+import moriyashiine.aylyth.common.registry.AylythItems;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.fabric.api.renderer.v1.model.ForwardingBakedModel;
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
@@ -36,7 +35,7 @@ public class SoulHearthBlockModel extends ForwardingBakedModel {
     @Override
     public void emitBlockQuads(BlockRenderView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, RenderContext context) {
         super.emitBlockQuads(blockView, state, pos, randomSupplier, context);
-        if (state.isOf(ModBlocks.SOUL_HEARTH) && state.get(SoulHearthBlock.HALF) == DoubleBlockHalf.LOWER) {
+        if (state.isOf(AylythBlocks.SOUL_HEARTH) && state.get(SoulHearthBlock.HALF) == DoubleBlockHalf.LOWER) {
             BakedModel model = MinecraftClient.getInstance().getBakedModelManager().getModel(new ModelIdentifier(AylythUtil.id("pomegranate"), "inventory"));
             MatrixStack stack = new MatrixStack();
             stack.push();
@@ -57,7 +56,7 @@ public class SoulHearthBlockModel extends ForwardingBakedModel {
                     }
                     return true;
                 });
-                model.emitItemQuads(new ItemStack(ModItems.POMEGRANATE), randomSupplier, context);
+                model.emitItemQuads(new ItemStack(AylythItems.POMEGRANATE), randomSupplier, context);
                 context.popTransform();
                 stack.pop();
             }

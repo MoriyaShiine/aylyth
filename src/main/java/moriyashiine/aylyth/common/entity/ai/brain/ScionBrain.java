@@ -5,7 +5,7 @@ import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Dynamic;
 import moriyashiine.aylyth.common.entity.mob.ScionEntity;
-import moriyashiine.aylyth.common.registry.ModMemoryTypes;
+import moriyashiine.aylyth.common.registry.AylythMemoryTypes;
 import moriyashiine.aylyth.common.registry.ModSensorTypes;
 import moriyashiine.aylyth.common.util.BrainUtils;
 import net.minecraft.entity.Entity;
@@ -56,7 +56,7 @@ public class ScionBrain {
             MemoryModuleType.PACIFIED,
             MemoryModuleType.NEAREST_REPELLENT,
             MemoryModuleType.AVOID_TARGET,
-            ModMemoryTypes.NEAREST_VISIBLE_PLAYER_NEMESIS
+            AylythMemoryTypes.NEAREST_VISIBLE_PLAYER_NEMESIS
     );
 
     public ScionBrain(){}
@@ -78,7 +78,7 @@ public class ScionBrain {
                 Activity.CORE,
                 0,
                 ImmutableList.of(
-                        MemoryTransferTask.create(VALID_ENTITY, ModMemoryTypes.NEAREST_VISIBLE_PLAYER_NEMESIS, MemoryModuleType.AVOID_TARGET, GO_TO_NEMESIS_MEMORY_DURATION),
+                        MemoryTransferTask.create(VALID_ENTITY, AylythMemoryTypes.NEAREST_VISIBLE_PLAYER_NEMESIS, MemoryModuleType.AVOID_TARGET, GO_TO_NEMESIS_MEMORY_DURATION),
                         new StayAboveWaterTask(0.6f),
                         new LookAroundTask(45, 90),
                         new WanderAroundTask(),
@@ -133,7 +133,7 @@ public class ScionBrain {
         if(optional.isPresent() && Sensor.testAttackableTargetPredicateIgnoreVisibility(scionEntity, optional.get())){
             return optional;
         }
-        Optional<PlayerEntity> optional2 = brain.getOptionalRegisteredMemory(ModMemoryTypes.NEAREST_VISIBLE_PLAYER_NEMESIS);
+        Optional<PlayerEntity> optional2 = brain.getOptionalRegisteredMemory(AylythMemoryTypes.NEAREST_VISIBLE_PLAYER_NEMESIS);
         if (optional2.isPresent()) {
             return optional2;
         }

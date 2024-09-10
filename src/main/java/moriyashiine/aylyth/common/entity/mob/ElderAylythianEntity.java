@@ -1,9 +1,8 @@
 package moriyashiine.aylyth.common.entity.mob;
 
 import moriyashiine.aylyth.common.entity.ai.goal.RootPropAttack;
-import moriyashiine.aylyth.common.registry.ModBlocks;
-import moriyashiine.aylyth.common.registry.ModItems;
-import moriyashiine.aylyth.common.registry.ModSoundEvents;
+import moriyashiine.aylyth.common.registry.AylythBlocks;
+import moriyashiine.aylyth.common.registry.AylythSoundEvents;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -95,17 +94,17 @@ public class ElderAylythianEntity extends HostileEntity implements GeoEntity {
 	@Nullable
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return ModSoundEvents.ENTITY_ELDER_AYLYTHIAN_AMBIENT.value();
+		return AylythSoundEvents.ENTITY_ELDER_AYLYTHIAN_AMBIENT.value();
 	}
 	
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return ModSoundEvents.ENTITY_ELDER_AYLYTHIAN_HURT.value();
+		return AylythSoundEvents.ENTITY_ELDER_AYLYTHIAN_HURT.value();
 	}
 	
 	@Override
 	protected SoundEvent getDeathSound() {
-		return ModSoundEvents.ENTITY_ELDER_AYLYTHIAN_DEATH.value();
+		return AylythSoundEvents.ENTITY_ELDER_AYLYTHIAN_DEATH.value();
 	}
 	
 	@Override
@@ -152,13 +151,13 @@ public class ElderAylythianEntity extends HostileEntity implements GeoEntity {
 			BlockPos[] checkPoses = {getBlockPos(), getBlockPos().add(xOffset, 0, 0), getBlockPos().add(0, 0, zOffset), getBlockPos().add(xOffset, 0, zOffset)};
 			boolean hasPlaced = false;
 			for (BlockPos checkPos : checkPoses) {
-				if (getWorld().getBlockState(checkPos).isReplaceable() && ModBlocks.YMPE_SAPLING.getDefaultState().canPlaceAt(getWorld(), checkPos)) {
-					getWorld().setBlockState(checkPos, ModBlocks.YMPE_SAPLING.getDefaultState());
+				if (getWorld().getBlockState(checkPos).isReplaceable() && AylythBlocks.YMPE_SAPLING.getDefaultState().canPlaceAt(getWorld(), checkPos)) {
+					getWorld().setBlockState(checkPos, AylythBlocks.YMPE_SAPLING.getDefaultState());
 					hasPlaced = true;
 				}
 			}
 			if (hasPlaced) {
-				playSound(ModBlocks.YMPE_SAPLING.getDefaultState().getSoundGroup().getPlaceSound(), getSoundVolume(), getSoundPitch());
+				playSound(AylythBlocks.YMPE_SAPLING.getDefaultState().getSoundGroup().getPlaceSound(), getSoundVolume(), getSoundPitch());
 			}
 		}
 		// TODO: Commented out due to a ympe dagger recipe already existing for this drop

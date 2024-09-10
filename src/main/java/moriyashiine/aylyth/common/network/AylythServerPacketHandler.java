@@ -3,7 +3,7 @@ package moriyashiine.aylyth.common.network;
 import moriyashiine.aylyth.common.network.packets.GlaivePacketC2S;
 import moriyashiine.aylyth.common.network.packets.UpdatePressingUpDownPacketC2S;
 import moriyashiine.aylyth.common.registry.ModEntityComponents;
-import moriyashiine.aylyth.common.registry.ModItems;
+import moriyashiine.aylyth.common.registry.AylythItems;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -18,7 +18,7 @@ public class AylythServerPacketHandler {
     }
 
     public static void handleGlaiveSpecial(GlaivePacketC2S packet, ServerPlayerEntity player, PacketSender sender) {
-        if (player.getStackInHand(Hand.MAIN_HAND).getItem().equals(ModItems.YMPE_GLAIVE)) {
+        if (player.getStackInHand(Hand.MAIN_HAND).getItem().equals(AylythItems.YMPE_GLAIVE)) {
             float f = (float)player.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
             float g = EnchantmentHelper.getAttackDamage(player.getMainHandStack(), player.getGroup());
             float h = player.getAttackCooldownProgress(0.5F);

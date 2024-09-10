@@ -4,8 +4,8 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Sets;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import moriyashiine.aylyth.common.registry.ModBlocks;
-import moriyashiine.aylyth.common.registry.ModTrunkPlacerTypes;
+import moriyashiine.aylyth.common.registry.AylythBlocks;
+import moriyashiine.aylyth.common.registry.AylythTrunkPlacerTypes;
 import moriyashiine.aylyth.common.world.generator.foliageplacer.WrithewoodFoliagePlacer;
 import net.minecraft.block.BlockState;
 import net.minecraft.state.property.Properties;
@@ -33,7 +33,7 @@ public class WrithewoodTrunkPlacer extends StraightTrunkPlacer {
 
     @Override
     protected TrunkPlacerType<?> getType() {
-        return ModTrunkPlacerTypes.WRITHEWOOD_TRUNK_PLACER;
+        return AylythTrunkPlacerTypes.WRITHEWOOD;
     }
 
     @Override
@@ -47,7 +47,7 @@ public class WrithewoodTrunkPlacer extends StraightTrunkPlacer {
             placeOnCardinals(mutable, blockPos -> getAndSetState(world, replacer, random, blockPos, config));
             mutable.move(Direction.UP);
         }
-        placeOnCardinals(mutable, blockPos -> getAndSetState(world, replacer, random, blockPos, config, state -> ModBlocks.WRITHEWOOD_WOOD.getDefaultState()));
+        placeOnCardinals(mutable, blockPos -> getAndSetState(world, replacer, random, blockPos, config, state -> AylythBlocks.WRITHEWOOD_WOOD.getDefaultState()));
 
         // branches
         //  decide the number of branches on the height/5 give or take two.

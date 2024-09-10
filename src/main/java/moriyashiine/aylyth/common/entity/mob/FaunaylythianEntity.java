@@ -1,8 +1,8 @@
 package moriyashiine.aylyth.common.entity.mob;
 
 import moriyashiine.aylyth.common.entity.ai.goal.PounceAttackGoal;
-import moriyashiine.aylyth.common.registry.ModBlocks;
-import moriyashiine.aylyth.common.registry.ModSoundEvents;
+import moriyashiine.aylyth.common.registry.AylythBlocks;
+import moriyashiine.aylyth.common.registry.AylythSoundEvents;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityGroup;
@@ -105,10 +105,10 @@ public class FaunaylythianEntity extends HostileEntity implements GeoEntity {
     protected void dropEquipment(DamageSource source, int lootingMultiplier, boolean allowDrops) {
         super.dropEquipment(source, lootingMultiplier, allowDrops);
         double random = this.random.nextDouble();
-        if (random <= 0.20 && !getWorld().isClient && getWorld().getBlockState(getBlockPos()).isReplaceable() && ModBlocks.YMPE_SAPLING.getDefaultState().canPlaceAt(getWorld(), getBlockPos())) {
-            getWorld().setBlockState(getBlockPos(), ModBlocks.YMPE_SAPLING.getDefaultState());
+        if (random <= 0.20 && !getWorld().isClient && getWorld().getBlockState(getBlockPos()).isReplaceable() && AylythBlocks.YMPE_SAPLING.getDefaultState().canPlaceAt(getWorld(), getBlockPos())) {
+            getWorld().setBlockState(getBlockPos(), AylythBlocks.YMPE_SAPLING.getDefaultState());
             playSound(SoundEvents.BLOCK_GRASS_PLACE, getSoundVolume(), getSoundPitch());
-        } else if (random <= 0.30 && !getWorld().isClient && getWorld().getBlockState(getBlockPos()).isReplaceable() && ModBlocks.LARGE_WOODY_GROWTH.getDefaultState().canPlaceAt(getWorld(), getBlockPos())) {
+        } else if (random <= 0.30 && !getWorld().isClient && getWorld().getBlockState(getBlockPos()).isReplaceable() && AylythBlocks.LARGE_WOODY_GROWTH.getDefaultState().canPlaceAt(getWorld(), getBlockPos())) {
             placeWoodyGrowths(getWorld(), getBlockPos());
         }
     }
@@ -130,7 +130,7 @@ public class FaunaylythianEntity extends HostileEntity implements GeoEntity {
 
         if (!listPos.isEmpty()) {
             int random = world.getRandom().nextBetween(1, 3);
-            Block largeWoodyGrowth = ModBlocks.LARGE_WOODY_GROWTH;
+            Block largeWoodyGrowth = AylythBlocks.LARGE_WOODY_GROWTH;
             for (int i = 0; i < random; i++) {
                 if (listPos.size() >= i) {
                     BlockPos placePos = listPos.get(world.getRandom().nextInt(listPos.size()));
@@ -139,7 +139,7 @@ public class FaunaylythianEntity extends HostileEntity implements GeoEntity {
                             world.setBlockState(placePos,largeWoodyGrowth.getDefaultState());
                         }
                     } else {
-                        world.setBlockState(placePos, ModBlocks.SMALL_WOODY_GROWTH.getDefaultState());
+                        world.setBlockState(placePos, AylythBlocks.SMALL_WOODY_GROWTH.getDefaultState());
                     }
                     playSound(SoundEvents.BLOCK_GRASS_PLACE, getSoundVolume(), getSoundPitch());
                 }
@@ -195,17 +195,17 @@ public class FaunaylythianEntity extends HostileEntity implements GeoEntity {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return ModSoundEvents.ENTITY_FAUNAYLYTHIAN_AMBIENT.value();
+        return AylythSoundEvents.ENTITY_FAUNAYLYTHIAN_AMBIENT.value();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return ModSoundEvents.ENTITY_FAUNAYLYTHIAN_HURT.value();
+        return AylythSoundEvents.ENTITY_FAUNAYLYTHIAN_HURT.value();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return ModSoundEvents.ENTITY_FAUNAYLYTHIAN_DEATH.value();
+        return AylythSoundEvents.ENTITY_FAUNAYLYTHIAN_DEATH.value();
     }
 
     @Override

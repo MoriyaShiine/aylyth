@@ -4,8 +4,8 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import moriyashiine.aylyth.api.interfaces.ProlongedDeath;
 import moriyashiine.aylyth.common.registry.ModEntityComponents;
-import moriyashiine.aylyth.common.registry.ModEntityTypes;
-import moriyashiine.aylyth.common.registry.ModItems;
+import moriyashiine.aylyth.common.registry.AylythEntityTypes;
+import moriyashiine.aylyth.common.registry.AylythItems;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.mixin.EntityAccessor;
 import net.minecraft.advancement.criterion.Criteria;
@@ -289,7 +289,7 @@ public class BoneflyEntity extends HostileEntity implements GeoEntity, TameableH
     @Override
     public boolean damage(DamageSource source, float amount) {
         if(!getWorld().isClient()) {
-            if (source.getAttacker() != null && source.getAttacker() instanceof PlayerEntity player && player.isHolding(ModItems.YMPE_EFFIGY)) {
+            if (source.getAttacker() != null && source.getAttacker() instanceof PlayerEntity player && player.isHolding(AylythItems.YMPE_EFFIGY)) {
                 this.setOwner(player);
             }
         }
@@ -482,7 +482,7 @@ public class BoneflyEntity extends HostileEntity implements GeoEntity, TameableH
     }
 
     public static BoneflyEntity create(World world, BlockPos pos, float yaw, float pitch, @Nullable PlayerEntity owner) {
-        BoneflyEntity bonefly = ModEntityTypes.BONEFLY.create(world);
+        BoneflyEntity bonefly = AylythEntityTypes.BONEFLY.create(world);
         bonefly.refreshPositionAndAngles(pos, yaw, pitch);
         if (owner != null) {
             bonefly.setOwner(owner);

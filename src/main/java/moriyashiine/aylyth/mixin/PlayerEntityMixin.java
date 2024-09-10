@@ -8,8 +8,8 @@ import moriyashiine.aylyth.common.component.entity.CuirassComponent;
 import moriyashiine.aylyth.common.entity.mob.BoneflyEntity;
 import moriyashiine.aylyth.common.registry.ModAttachmentTypes;
 import moriyashiine.aylyth.common.registry.ModEntityComponents;
-import moriyashiine.aylyth.common.registry.ModEntityAttributes;
-import moriyashiine.aylyth.common.registry.ModSoundEvents;
+import moriyashiine.aylyth.common.registry.AylythEntityAttributes;
+import moriyashiine.aylyth.common.registry.AylythSoundEvents;
 import moriyashiine.aylyth.common.data.AylythDamageTypes;
 import moriyashiine.aylyth.common.data.world.AylythDimensionData;
 import moriyashiine.aylyth.common.data.tag.AylythDamageTypeTags;
@@ -64,7 +64,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHea
 
     @Inject(method = "createPlayerAttributes", at = @At("RETURN"), allow = 1)
     private static void addAttributes(CallbackInfoReturnable<DefaultAttributeContainer.Builder> cir) {
-        cir.getReturnValue().add(ModEntityAttributes.MAX_VITAL_HEALTH);
+        cir.getReturnValue().add(AylythEntityAttributes.MAX_VITAL_HEALTH);
     }
 
     @Override
@@ -134,13 +134,13 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHea
             if (isAxe || isFireDamage) {
                 component.setStage(0);
                 component.setStageTimer(0);
-                player.getWorld().playSoundFromEntity(null, player, ModSoundEvents.ENTITY_PLAYER_INCREASE_YMPE_INFESTATION_STAGE.value(), SoundCategory.PLAYERS, 1, player.getSoundPitch());
+                player.getWorld().playSoundFromEntity(null, player, AylythSoundEvents.ENTITY_PLAYER_INCREASE_YMPE_INFESTATION_STAGE.value(), SoundCategory.PLAYERS, 1, player.getSoundPitch());
                 return amount;
             } else if (!bypassesCuirass) {
                 while (component.getStage() > 0) {
                     amount--;
                     component.setStage(component.getStage() - 1);
-                    player.getWorld().playSoundFromEntity(null, player, ModSoundEvents.ENTITY_PLAYER_INCREASE_YMPE_INFESTATION_STAGE.value(), SoundCategory.PLAYERS, 1, player.getSoundPitch());
+                    player.getWorld().playSoundFromEntity(null, player, AylythSoundEvents.ENTITY_PLAYER_INCREASE_YMPE_INFESTATION_STAGE.value(), SoundCategory.PLAYERS, 1, player.getSoundPitch());
                 }
                 return amount;
             }

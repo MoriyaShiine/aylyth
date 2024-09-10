@@ -5,9 +5,9 @@ import moriyashiine.aylyth.common.block.VitalThuribleBlock;
 import moriyashiine.aylyth.common.block.WoodyGrowthCacheBlock;
 import moriyashiine.aylyth.common.entity.mob.RippedSoulEntity;
 import moriyashiine.aylyth.common.entity.mob.ScionEntity;
-import moriyashiine.aylyth.common.registry.ModEntityAttributes;
-import moriyashiine.aylyth.common.registry.ModEntityTypes;
-import moriyashiine.aylyth.common.registry.ModItems;
+import moriyashiine.aylyth.common.registry.AylythEntityAttributes;
+import moriyashiine.aylyth.common.registry.AylythEntityTypes;
+import moriyashiine.aylyth.common.registry.AylythItems;
 import moriyashiine.aylyth.common.data.AylythDamageTypes;
 import moriyashiine.aylyth.common.data.world.AylythDimensionData;
 import moriyashiine.aylyth.common.util.AylythUtil;
@@ -51,8 +51,8 @@ public class LivingEntityDeathEvents {
      */
     private static void retainVitalHealthAttribute(ServerPlayerEntity oldPlayer, ServerPlayerEntity newPlayer, boolean alive) {
         if (!alive && (oldPlayer.getRecentDamageSource() == null || !AylythUtil.isSourceYmpe(oldPlayer.getRecentDamageSource()))) {
-            EntityAttributeInstance oldInstance = oldPlayer.getAttributeInstance(ModEntityAttributes.MAX_VITAL_HEALTH);
-            EntityAttributeInstance newInstance = newPlayer.getAttributeInstance(ModEntityAttributes.MAX_VITAL_HEALTH);
+            EntityAttributeInstance oldInstance = oldPlayer.getAttributeInstance(AylythEntityAttributes.MAX_VITAL_HEALTH);
+            EntityAttributeInstance newInstance = newPlayer.getAttributeInstance(AylythEntityAttributes.MAX_VITAL_HEALTH);
             if (oldInstance != null && newInstance != null && oldInstance.getModifier(VitalThuribleBlock.MAX_VITAL_MODIFIER) != null) {
                 newInstance.addPersistentModifier(oldInstance.getModifier(VitalThuribleBlock.MAX_VITAL_MODIFIER));
             }
@@ -80,14 +80,14 @@ public class LivingEntityDeathEvents {
         World world = livingEntity.getWorld();
         if(!world.isClient) {
             if(source.isOf(AylythDamageTypes.SOUL_RIP)) {
-                RippedSoulEntity soul = new RippedSoulEntity(ModEntityTypes.RIPPED_SOUL, world);
+                RippedSoulEntity soul = new RippedSoulEntity(AylythEntityTypes.RIPPED_SOUL, world);
                 if (source.getAttacker() != null) {
                     soul.setOwner((PlayerEntity) source.getAttacker());
                     soul.setPosition(livingEntity.getPos().add(0, 1, 0));
                     world.spawnEntity(soul);
                 }
-            }else if((source.getAttacker() != null && source.getAttacker() instanceof PlayerEntity playerEntity && playerEntity.getMainHandStack().isOf(ModItems.YMPE_GLAIVE))){
-                RippedSoulEntity soul = new RippedSoulEntity(ModEntityTypes.RIPPED_SOUL, world);
+            }else if((source.getAttacker() != null && source.getAttacker() instanceof PlayerEntity playerEntity && playerEntity.getMainHandStack().isOf(AylythItems.YMPE_GLAIVE))){
+                RippedSoulEntity soul = new RippedSoulEntity(AylythEntityTypes.RIPPED_SOUL, world);
                 soul.setOwner(playerEntity);
                 soul.setPosition(playerEntity.getPos().add(0, 1, 0));
                 world.spawnEntity(soul);
@@ -132,7 +132,7 @@ public class LivingEntityDeathEvents {
                 if (!teleport) {
                     for (Hand hand : Hand.values()) {
                         ItemStack stack = player.getStackInHand(hand);
-                        if (stack.isOf(ModItems.AYLYTHIAN_HEART)) {
+                        if (stack.isOf(AylythItems.AYLYTHIAN_HEART)) {
                             teleport = true;
                             AylythUtil.decreaseStack(stack, player);
                             break;

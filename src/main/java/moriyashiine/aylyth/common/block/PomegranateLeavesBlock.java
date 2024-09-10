@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.common.block;
 
-import moriyashiine.aylyth.common.registry.ModItems;
+import moriyashiine.aylyth.common.registry.AylythItems;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.item.PlayerInventoryStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
@@ -37,7 +37,7 @@ public class PomegranateLeavesBlock extends LeavesBlock {
             world.setBlockState(pos, state.with(FRUITING, 0));
             PlayerInventoryStorage storage = PlayerInventoryStorage.of(player);
             try (Transaction transaction = Transaction.openOuter()) {
-                storage.offerOrDrop(ItemVariant.of(ModItems.POMEGRANATE), 1, transaction);
+                storage.offerOrDrop(ItemVariant.of(AylythItems.POMEGRANATE), 1, transaction);
                 transaction.commit();
             }
             world.playSound(null, hit.getBlockPos(), SoundEvents.BLOCK_GRASS_BREAK, SoundCategory.BLOCKS, 1.0f, 1.0f);

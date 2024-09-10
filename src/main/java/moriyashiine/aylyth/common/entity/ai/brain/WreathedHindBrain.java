@@ -7,7 +7,7 @@ import com.mojang.serialization.Dynamic;
 import moriyashiine.aylyth.common.entity.ai.task.BoltRangedAttackTask;
 import moriyashiine.aylyth.common.entity.ai.task.GeckoMeleeAttackTask;
 import moriyashiine.aylyth.common.entity.mob.WreathedHindEntity;
-import moriyashiine.aylyth.common.registry.ModMemoryTypes;
+import moriyashiine.aylyth.common.registry.AylythMemoryTypes;
 import moriyashiine.aylyth.common.registry.ModSensorTypes;
 import moriyashiine.aylyth.common.util.BrainUtils;
 import net.minecraft.entity.Entity;
@@ -52,8 +52,8 @@ public class WreathedHindBrain {
             MemoryModuleType.ATTACK_COOLING_DOWN,
             MemoryModuleType.NEAREST_ATTACKABLE,
             MemoryModuleType.AVOID_TARGET,
-            ModMemoryTypes.PLEDGED_PLAYER,
-            ModMemoryTypes.SECOND_CHANCE
+            AylythMemoryTypes.PLEDGED_PLAYER,
+            AylythMemoryTypes.SECOND_CHANCE
     );
 
     public WreathedHindBrain() {}
@@ -91,7 +91,7 @@ public class WreathedHindBrain {
                 Activity.IDLE,
                 ImmutableList.of(
                         Pair.of(0, WalkTowardsLookTargetTask.create(living -> {
-                            Optional<PlayerEntity> pledgedPlayer = living.getBrain().getOptionalMemory(ModMemoryTypes.PLEDGED_PLAYER);
+                            Optional<PlayerEntity> pledgedPlayer = living.getBrain().getOptionalMemory(AylythMemoryTypes.PLEDGED_PLAYER);
                             return pledgedPlayer.map(player -> new EntityLookTarget(player, true));
                         }, living -> true, 3, 10, 0.8f)),
                         Pair.of(1, new RandomTask<>(
@@ -144,7 +144,7 @@ public class WreathedHindBrain {
     public static boolean shouldAttackHurtBy(WreathedHindEntity entity) {
         Entity attackedBy = entity.getBrain().getOptionalMemory(MemoryModuleType.HURT_BY_ENTITY).get();
         if (attackedBy.getUuid().equals(entity.getPledgedPlayerUUID())) {
-            return entity.getBrain().getOptionalMemory(ModMemoryTypes.SECOND_CHANCE).filter(SecondChance::shouldBetray).isPresent();
+            return entity.getBrain().getOptionalMemory(AylythMemoryTypes.SECOND_CHANCE).filter(SecondChance::shouldBetray).isPresent();
         }
         return true;
     }

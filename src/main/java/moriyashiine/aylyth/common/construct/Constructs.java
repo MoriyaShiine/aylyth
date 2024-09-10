@@ -4,9 +4,9 @@ import it.unimi.dsi.fastutil.objects.Reference2ObjectOpenHashMap;
 import moriyashiine.aylyth.common.entity.mob.BoneflyEntity;
 import moriyashiine.aylyth.common.entity.mob.SoulmouldEntity;
 import moriyashiine.aylyth.common.entity.mob.TulpaEntity;
-import moriyashiine.aylyth.common.registry.ModBlocks;
-import moriyashiine.aylyth.common.registry.ModEntityTypes;
-import moriyashiine.aylyth.common.registry.ModItems;
+import moriyashiine.aylyth.common.registry.AylythBlocks;
+import moriyashiine.aylyth.common.registry.AylythEntityTypes;
+import moriyashiine.aylyth.common.registry.AylythItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -36,30 +36,30 @@ public class Constructs {
                                 .layer("W")
                                 .layer("W")
                                 .where('S', 'H', cachedBlockPosition -> cachedBlockPosition.getBlockState().isOf(Blocks.SOUL_SOIL))
-                                .where('W', cachedBlockPosition -> cachedBlockPosition.getBlockState().isOf(ModBlocks.LARGE_WOODY_GROWTH))
+                                .where('W', cachedBlockPosition -> cachedBlockPosition.getBlockState().isOf(AylythBlocks.LARGE_WOODY_GROWTH))
                                 .build(),
                         (serverWorld, usageContext, groundPos) -> {
-                            TulpaEntity tulpaEntity = new TulpaEntity(ModEntityTypes.TULPA, serverWorld);
+                            TulpaEntity tulpaEntity = new TulpaEntity(AylythEntityTypes.TULPA, serverWorld);
                             tulpaEntity.refreshPositionAndAngles(groundPos, usageContext.getSide().asRotation(), 0.0F);
                             tulpaEntity.setOwner(usageContext.getPlayer());
                             return tulpaEntity;
                         }
                 )
         );
-        map.put(ModBlocks.ESSTLINE_BLOCK,
+        map.put(AylythBlocks.ESSTLINE_BLOCK,
                 Construct.of(
                         ConstructPattern.builder()
                                 .layer(" D ")
                                 .layer("DED")
                                 .whereSummonerIs('E')
                                 .where('D', cachedBlockPosition -> cachedBlockPosition.getBlockState().isOf(Blocks.POLISHED_DEEPSLATE))
-                                .where('E', cachedBlockPosition -> cachedBlockPosition.getBlockState().isOf(ModBlocks.ESSTLINE_BLOCK))
+                                .where('E', cachedBlockPosition -> cachedBlockPosition.getBlockState().isOf(AylythBlocks.ESSTLINE_BLOCK))
                                 .build(),
                         (serverWorld, usageContext, groundPos) -> {
-                            SoulmouldEntity soulmouldEntity = new SoulmouldEntity(ModEntityTypes.SOULMOULD, serverWorld);
+                            SoulmouldEntity soulmouldEntity = new SoulmouldEntity(AylythEntityTypes.SOULMOULD, serverWorld);
                             soulmouldEntity.refreshPositionAndAngles(groundPos, usageContext.getSide().asRotation(), 0.0F);
                             soulmouldEntity.setOwner(usageContext.getPlayer());
-                            soulmouldEntity.equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModItems.YMPE_GLAIVE));
+                            soulmouldEntity.equipStack(EquipmentSlot.MAINHAND, new ItemStack(AylythItems.YMPE_GLAIVE));
                             soulmouldEntity.handDropChances[EquipmentSlot.MAINHAND.getEntitySlotId()] = 0.0F;
                             return soulmouldEntity;
                         }

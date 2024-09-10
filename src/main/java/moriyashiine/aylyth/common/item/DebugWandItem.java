@@ -5,7 +5,7 @@ import moriyashiine.aylyth.common.block.WoodyGrowthCacheBlock;
 import moriyashiine.aylyth.common.component.entity.YmpeInfestationComponent;
 import moriyashiine.aylyth.common.entity.mob.ScionEntity;
 import moriyashiine.aylyth.common.registry.ModEntityComponents;
-import moriyashiine.aylyth.common.registry.ModItems;
+import moriyashiine.aylyth.common.registry.AylythItems;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -32,7 +32,7 @@ public class DebugWandItem extends Item {
         World world = context.getWorld();
         BlockPos pos = context.getBlockPos();
         PlayerEntity player = context.getPlayer();
-        if (player != null && player.getStackInHand(Hand.OFF_HAND).isOf(ModItems.WOODY_GROWTH_CACHE)) {
+        if (player != null && player.getStackInHand(Hand.OFF_HAND).isOf(AylythItems.WOODY_GROWTH_CACHE)) {
             if (!world.isClient()) {
                 WoodyGrowthCacheBlock.spawnInventory(world, pos, player);
             }
@@ -54,7 +54,7 @@ public class DebugWandItem extends Item {
                     }
                 });
             }else{
-                if (user.getOffHandStack().isOf(ModItems.YMPE_FRUIT)) {
+                if (user.getOffHandStack().isOf(AylythItems.YMPE_FRUIT)) {
                     Optional<YmpeInfestationComponent> optional = ModEntityComponents.YMPE_INFESTATION.maybeGet(user);
                     optional.ifPresent(ympeInfestationComponent -> {
                         ympeInfestationComponent.setStage((byte)(ympeInfestationComponent.getStage() + 1));

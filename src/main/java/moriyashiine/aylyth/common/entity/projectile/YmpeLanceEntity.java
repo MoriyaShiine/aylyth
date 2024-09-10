@@ -2,8 +2,8 @@ package moriyashiine.aylyth.common.entity.projectile;
 
 import moriyashiine.aylyth.common.component.entity.YmpeThornsComponent;
 import moriyashiine.aylyth.common.registry.ModEntityComponents;
-import moriyashiine.aylyth.common.registry.ModEntityTypes;
-import moriyashiine.aylyth.common.registry.ModItems;
+import moriyashiine.aylyth.common.registry.AylythEntityTypes;
+import moriyashiine.aylyth.common.registry.AylythItems;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -25,7 +25,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public class YmpeLanceEntity extends PersistentProjectileEntity {
-	private ItemStack stack = new ItemStack(ModItems.YMPE_LANCE);
+	private ItemStack stack = new ItemStack(AylythItems.YMPE_LANCE);
 	private LivingEntity target;
 	private int timeStuck = 0;
 	private boolean dealtDamage = false;
@@ -35,7 +35,7 @@ public class YmpeLanceEntity extends PersistentProjectileEntity {
 	}
 
 	public YmpeLanceEntity(World world, PlayerEntity owner, ItemStack stack) {
-		super(ModEntityTypes.YMPE_LANCE, owner, world);
+		super(AylythEntityTypes.YMPE_LANCE, owner, world);
 		this.stack = stack.copy();
 	}
 

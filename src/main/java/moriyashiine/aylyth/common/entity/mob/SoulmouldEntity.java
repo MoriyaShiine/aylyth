@@ -1,8 +1,8 @@
 package moriyashiine.aylyth.common.entity.mob;
 
 import moriyashiine.aylyth.api.interfaces.ProlongedDeath;
-import moriyashiine.aylyth.common.registry.ModItems;
-import moriyashiine.aylyth.common.registry.ModSoundEvents;
+import moriyashiine.aylyth.common.registry.AylythItems;
+import moriyashiine.aylyth.common.registry.AylythSoundEvents;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.TargetPredicate;
@@ -123,12 +123,12 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return ModSoundEvents.ENTITY_SOULMOULD_HURT.value();
+        return AylythSoundEvents.ENTITY_SOULMOULD_HURT.value();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return ModSoundEvents.ENTITY_SOULMOULD_DEATH.value();
+        return AylythSoundEvents.ENTITY_SOULMOULD_DEATH.value();
     }
 
     @Override
@@ -301,7 +301,7 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
 
     protected void initEquipment(Random random, LocalDifficulty localDifficulty) {
         super.initEquipment(random, localDifficulty);
-        this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModItems.YMPE_GLAIVE));
+        this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(AylythItems.YMPE_GLAIVE));
         this.handDropChances[EquipmentSlot.MAINHAND.getEntitySlotId()] = 0.0F;
     }
 
@@ -332,12 +332,12 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
             if (!isDormant()) {
                 if ((this.getTarget() == null || (this.getTarget() != null && this.getDormantPos().isPresent() && !this.getDormantPos().get().isWithinDistance(this.getTarget().getBlockPos(), 16))) && forwardSpeed == 0 && this.getNavigation().isIdle() && isAtDormantPos()) {
                     setDormant(true);
-                    this.playSound(ModSoundEvents.ENTITY_SOULMOULD_AMBIENT.value(), 1f, 1f);
+                    this.playSound(AylythSoundEvents.ENTITY_SOULMOULD_AMBIENT.value(), 1f, 1f);
                     this.updatePositionAndAngles(getDormantPos().get().getX() + 0.5, getDormantPos().get().getY(), getDormantPos().get().getZ() + 0.5, this.getYaw(), this.getPitch());
                 }
             } else if (getTarget() != null && squaredDistanceTo(getTarget()) < 100 && dataTracker.get(ACTION_STATE) != 0) {
                 if(activationTicks == 0) {
-                    this.playSound(ModSoundEvents.ENTITY_SOULMOULD_AMBIENT.value(), 1f, 1f);
+                    this.playSound(AylythSoundEvents.ENTITY_SOULMOULD_AMBIENT.value(), 1f, 1f);
                 }
                 activationTicks++;
                 setAttackState(1);
@@ -550,7 +550,7 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
                 }
             }
             if(ticks == 10 || ticks == 13 || ticks == 15) {
-                mould.playSound(ModSoundEvents.ENTITY_SOULMOULD_ATTACK.value(), 1f, 1f);
+                mould.playSound(AylythSoundEvents.ENTITY_SOULMOULD_ATTACK.value(), 1f, 1f);
                 List<LivingEntity> entities = mould.getWorld().getEntitiesByClass(LivingEntity.class, mould.getBoundingBox().expand(4, 3, 4), livingEntity -> livingEntity != mould && livingEntity != mould.getOwner() && !(livingEntity instanceof SoulmouldEntity smould && smould.getOwner() == mould.getOwner()) && mould.distanceTo(livingEntity) <= 4 + livingEntity.getWidth() / 2 && livingEntity.getY() <= mould.getY() + 3);
                 for(LivingEntity entity: entities) {
                     Vec3d vec = entity.getPos().subtract(mould.getPos()).normalize().negate();

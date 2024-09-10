@@ -64,7 +64,7 @@ public class YmpeDaggerRecipeJsonBuilder {
 
             @Override
             public RecipeSerializer<?> getSerializer() {
-                return ModRecipeTypes.YMPE_DAGGER_DROP_RECIPE_SERIALIZER;
+                return ModRecipeTypes.YMPE_DAGGER_DROP_SERIALIZER;
             }
 
             @Nullable

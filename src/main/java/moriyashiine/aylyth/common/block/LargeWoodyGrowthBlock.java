@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.common.block;
 
-import moriyashiine.aylyth.common.registry.ModBlocks;
+import moriyashiine.aylyth.common.registry.AylythBlocks;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.entity.LivingEntity;
@@ -46,10 +46,10 @@ public class LargeWoodyGrowthBlock extends SmallWoodyGrowthBlock {
      * @param world Desired world
      * @param pos The BlockPos to test and place at. Large woody growths will place another state above it.*/
     public static void placeInWorld(BlockState state, World world, BlockPos pos) {
-        if (state.isOf(ModBlocks.LARGE_WOODY_GROWTH) || state.isOf(ModBlocks.WOODY_GROWTH_CACHE)) {
+        if (state.isOf(AylythBlocks.LARGE_WOODY_GROWTH) || state.isOf(AylythBlocks.WOODY_GROWTH_CACHE)) {
             world.setBlockState(pos, state.with(WATERLOGGED, world.testFluidState(pos, fluidState -> fluidState.getFluid() == Fluids.WATER)));
             world.setBlockState(pos.up(), state.with(HALF, DoubleBlockHalf.UPPER).with(WATERLOGGED, world.testFluidState(pos.up(), fluidState -> fluidState.getFluid() == Fluids.WATER)));
-        } else if (state.isOf(ModBlocks.SMALL_WOODY_GROWTH)) {
+        } else if (state.isOf(AylythBlocks.SMALL_WOODY_GROWTH)) {
             world.setBlockState(pos, state.with(WATERLOGGED, world.testFluidState(pos, fluidState -> fluidState.getFluid() == Fluids.WATER)));
         }
     }

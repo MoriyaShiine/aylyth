@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.world.generator.treedecorator;
 
 import com.mojang.serialization.Codec;
-import moriyashiine.aylyth.common.registry.ModBlocks;
+import moriyashiine.aylyth.common.registry.AylythBlocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.gen.treedecorator.TreeDecorator;
@@ -21,7 +21,7 @@ public class StrewnLeavesDecorator extends TreeDecorator {
         for (BlockPos pos : generator.getLeavesPositions()) {
             pos = generator.getWorld().getTopPosition(Heightmap.Type.WORLD_SURFACE_WG, pos);
             if (generator.getRandom().nextFloat() > 0.75) {
-                generator.replace(pos, ModBlocks.OAK_STREWN_LEAVES.getDefaultState());
+                generator.replace(pos, AylythBlocks.OAK_STREWN_LEAVES.getDefaultState());
             }
         }
     }

@@ -2,8 +2,6 @@ package moriyashiine.aylyth.common.item;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
-import moriyashiine.aylyth.common.registry.ModItems;
-import moriyashiine.aylyth.common.registry.ModToolMaterials;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;

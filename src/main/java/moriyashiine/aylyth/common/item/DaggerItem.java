@@ -2,7 +2,7 @@ package moriyashiine.aylyth.common.item;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
-import moriyashiine.aylyth.common.registry.ModItems;
+import moriyashiine.aylyth.common.registry.AylythItems;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.item.PlayerInventoryStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
@@ -42,7 +42,7 @@ public class DaggerItem extends SwordItem {
                 context.getStack().damage(1, context.getPlayer(), player -> player.sendToolBreakStatus(context.getHand()));
                 try (Transaction transaction = Transaction.openOuter()) {
                     PlayerInventoryStorage storage = PlayerInventoryStorage.of(context.getPlayer());
-                    storage.offerOrDrop(ItemVariant.of(ModItems.BARK), 1, transaction);
+                    storage.offerOrDrop(ItemVariant.of(AylythItems.BARK), 1, transaction);
                     transaction.commit();
                 }
             }

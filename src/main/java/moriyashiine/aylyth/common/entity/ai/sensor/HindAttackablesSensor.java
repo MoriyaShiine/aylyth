@@ -2,7 +2,7 @@ package moriyashiine.aylyth.common.entity.ai.sensor;
 
 import com.google.common.collect.ImmutableSet;
 import moriyashiine.aylyth.common.entity.mob.WreathedHindEntity;
-import moriyashiine.aylyth.common.registry.ModMemoryTypes;
+import moriyashiine.aylyth.common.registry.AylythMemoryTypes;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.LivingTargetCache;
@@ -20,7 +20,7 @@ public class HindAttackablesSensor extends Sensor<WreathedHindEntity> {
     @Override
     public Set<MemoryModuleType<?>> getOutputMemoryModules() {
         return ImmutableSet.of(
-                ModMemoryTypes.PLEDGED_PLAYER,
+                AylythMemoryTypes.PLEDGED_PLAYER,
                 MemoryModuleType.VISIBLE_MOBS,
                 MemoryModuleType.ANGRY_AT,
                 MemoryModuleType.NEAREST_ATTACKABLE
@@ -34,8 +34,8 @@ public class HindAttackablesSensor extends Sensor<WreathedHindEntity> {
         Optional<LivingEntity> enemyOptional = Optional.empty();
         if (brain.hasMemoryModule(MemoryModuleType.ANGRY_AT)) {
             enemyOptional = LookTargetUtil.getEntity(entity, MemoryModuleType.ANGRY_AT);
-        } else if (brain.hasMemoryModule(ModMemoryTypes.PLEDGED_PLAYER)) {
-            PlayerEntity pledgedPlayer = brain.getOptionalMemory(ModMemoryTypes.PLEDGED_PLAYER).get();
+        } else if (brain.hasMemoryModule(AylythMemoryTypes.PLEDGED_PLAYER)) {
+            PlayerEntity pledgedPlayer = brain.getOptionalMemory(AylythMemoryTypes.PLEDGED_PLAYER).get();
             if (pledgedPlayer.getHealth() <= 6) {
                 enemyOptional = Optional.of(pledgedPlayer);
             } else {

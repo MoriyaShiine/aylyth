@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.common.block;
 
-import moriyashiine.aylyth.common.registry.ModItems;
+import moriyashiine.aylyth.common.registry.AylythItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Fertilizable;
@@ -16,7 +16,6 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
@@ -32,7 +31,7 @@ public class NysianGrapeVineBlock extends VineBlock implements Fertilizable {
 	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
 		if (state.get(AGE) >= 3) {
 			if (!world.isClient) {
-				dropStack(world, pos, new ItemStack(ModItems.NYSIAN_GRAPES, world.random.nextBetween(1, 2)));
+				dropStack(world, pos, new ItemStack(AylythItems.NYSIAN_GRAPES, world.random.nextBetween(1, 2)));
 				world.playSound(null, pos, SoundEvents.BLOCK_SWEET_BERRY_BUSH_PICK_BERRIES, SoundCategory.BLOCKS, 1.0F, 0.8F + world.random.nextFloat() * 0.4F);
 				world.setBlockState(pos, state.with(AGE, 0));
 			}

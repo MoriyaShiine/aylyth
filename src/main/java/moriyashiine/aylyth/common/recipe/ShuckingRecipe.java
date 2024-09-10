@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.recipe;
 
 import com.google.gson.JsonObject;
-import moriyashiine.aylyth.common.registry.ModItems;
+import moriyashiine.aylyth.common.registry.AylythItems;
 import moriyashiine.aylyth.common.registry.ModRecipeTypes;
 import net.minecraft.inventory.RecipeInputInventory;
 import net.minecraft.item.ItemStack;
@@ -25,7 +25,7 @@ public class ShuckingRecipe extends ShapelessRecipe {
 		DefaultedList<ItemStack> defaultedList = DefaultedList.ofSize(inventory.size(), ItemStack.EMPTY);
 		for (int i = 0; i < defaultedList.size(); i++) {
 			ItemStack stack = inventory.getStack(i);
-			if (stack.isOf(ModItems.YMPE_DAGGER)) {
+			if (stack.isOf(AylythItems.YMPE_DAGGER)) {
 				ItemStack dagger = stack.copy();
 				dagger.damage(1, RANDOM, null);
 				if (dagger.getDamage() >= dagger.getMaxDamage()) {
@@ -39,7 +39,7 @@ public class ShuckingRecipe extends ShapelessRecipe {
 	
 	@Override
 	public RecipeSerializer<?> getSerializer() {
-		return ModRecipeTypes.SHUCKING_RECIPE_SERIALIZER;
+		return ModRecipeTypes.SHUCKING_SERIALIZER;
 	}
 	
 	public static class Serializer implements RecipeSerializer<ShuckingRecipe> {

@@ -5,7 +5,7 @@ import moriyashiine.aylyth.api.interfaces.AylythGameHud;
 import moriyashiine.aylyth.api.interfaces.VitalHealthHolder;
 import moriyashiine.aylyth.common.component.entity.YmpeInfestationComponent;
 import moriyashiine.aylyth.common.registry.ModEntityComponents;
-import moriyashiine.aylyth.common.registry.ModEntityAttributes;
+import moriyashiine.aylyth.common.registry.AylythEntityAttributes;
 import moriyashiine.aylyth.common.data.tag.AylythBlockTags;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
@@ -66,7 +66,7 @@ public abstract class InGameHudMixin implements AylythGameHud {
 								  int regeneratingHeartIndex, float maxHealth, int lastHealth, int health,
 								  int absorption, boolean blinking, CallbackInfo ci,
 								  @Local(ordinal = 8) int j, @Local(ordinal = 9) int k) {
-		int maxVitalHealth = (int) player.getAttributeValue(ModEntityAttributes.MAX_VITAL_HEALTH);
+		int maxVitalHealth = (int) player.getAttributeValue(AylythEntityAttributes.MAX_VITAL_HEALTH);
 		if (maxVitalHealth == 0) {
 			return;
 		}

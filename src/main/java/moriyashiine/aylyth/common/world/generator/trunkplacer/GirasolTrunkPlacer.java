@@ -7,8 +7,8 @@ import it.unimi.dsi.fastutil.ints.IntArraySet;
 import it.unimi.dsi.fastutil.ints.IntSet;
 import moriyashiine.aylyth.common.block.LargeWoodyGrowthBlock;
 import moriyashiine.aylyth.common.block.SeepBlock;
-import moriyashiine.aylyth.common.registry.ModBlocks;
-import moriyashiine.aylyth.common.registry.ModTrunkPlacerTypes;
+import moriyashiine.aylyth.common.registry.AylythBlocks;
+import moriyashiine.aylyth.common.registry.AylythTrunkPlacerTypes;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.enums.DoubleBlockHalf;
@@ -44,7 +44,7 @@ public class GirasolTrunkPlacer extends TrunkPlacer {
 
     @Override
     protected TrunkPlacerType<?> getType() {
-        return ModTrunkPlacerTypes.GIRASOL_TRUNK_PLACER;
+        return AylythTrunkPlacerTypes.GIRASOL;
     }
 
     @Override
@@ -117,11 +117,11 @@ public class GirasolTrunkPlacer extends TrunkPlacer {
                     int zDiff = topCenter.getZ() - pos.getZ();
                     if (canReplace(world, pos.up()) && Math.sqrt((xDiff * xDiff + zDiff * zDiff)) <= woodyGrowthRange && random.nextInt(10) == 0) {
                         if (canReplace(world, pos.up()) && random.nextInt(3) == 0) {
-                            replacer.accept(pos.up(), ModBlocks.SMALL_WOODY_GROWTH.getDefaultState());
+                            replacer.accept(pos.up(), AylythBlocks.SMALL_WOODY_GROWTH.getDefaultState());
                         } else {
                             if (canReplace(world, pos.up()) && canReplace(world, pos.up(2))) {
-                                replacer.accept(pos.up(), ModBlocks.LARGE_WOODY_GROWTH.getDefaultState().with(LargeWoodyGrowthBlock.HALF, DoubleBlockHalf.LOWER));
-                                replacer.accept(pos.up(2), ModBlocks.LARGE_WOODY_GROWTH.getDefaultState().with(LargeWoodyGrowthBlock.HALF, DoubleBlockHalf.UPPER));
+                                replacer.accept(pos.up(), AylythBlocks.LARGE_WOODY_GROWTH.getDefaultState().with(LargeWoodyGrowthBlock.HALF, DoubleBlockHalf.LOWER));
+                                replacer.accept(pos.up(2), AylythBlocks.LARGE_WOODY_GROWTH.getDefaultState().with(LargeWoodyGrowthBlock.HALF, DoubleBlockHalf.UPPER));
                             }
                         }
                     } else if (random.nextInt(5) == 0) {

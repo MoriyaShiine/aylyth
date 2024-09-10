@@ -4,9 +4,9 @@ import com.mojang.authlib.GameProfile;
 import com.mojang.serialization.Dynamic;
 import moriyashiine.aylyth.api.interfaces.ProlongedDeath;
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.entity.ai.BasicAttackType;
+import moriyashiine.aylyth.common.entity.ai.BaseAttackType;
 import moriyashiine.aylyth.common.entity.ai.brain.TulpaBrain;
-import moriyashiine.aylyth.common.registry.ModDataTrackers;
+import moriyashiine.aylyth.common.registry.AylythEntityDataTrackers;
 import moriyashiine.aylyth.common.screenhandler.TulpaScreenHandler;
 import moriyashiine.aylyth.mixin.MobEntityAccessor;
 import moriyashiine.bewitchment.api.BewitchmentAPI;
@@ -67,11 +67,11 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
     private GameProfile skinProfile;
     private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
     private static final TrackedData<Byte> TAMEABLE = DataTracker.registerData(TulpaEntity.class, TrackedDataHandlerRegistry.BYTE);
-    public static final TrackedData<ActionState> ACTION_STATE = DataTracker.registerData(TulpaEntity.class, ModDataTrackers.TULPA_ACTION_STATE);
+    public static final TrackedData<ActionState> ACTION_STATE = DataTracker.registerData(TulpaEntity.class, AylythEntityDataTrackers.TULPA_ACTION_STATE);
     private static final TrackedData<Optional<UUID>> OWNER_UUID = DataTracker.registerData(TulpaEntity.class, TrackedDataHandlerRegistry.OPTIONAL_UUID);
     private static final TrackedData<Optional<UUID>> SKIN_UUID = DataTracker.registerData(TulpaEntity.class, TrackedDataHandlerRegistry.OPTIONAL_UUID);
     public static final TrackedData<Boolean> TRANSFORMING = DataTracker.registerData(TulpaEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-    public static final TrackedData<BasicAttackType> ATTACK_TYPE = DataTracker.registerData(TulpaEntity.class, ModDataTrackers.BASIC_ATTACK);
+    public static final TrackedData<BaseAttackType> ATTACK_TYPE = DataTracker.registerData(TulpaEntity.class, AylythEntityDataTrackers.BASE_ATTACK_TYPE);
     private final SimpleInventory inventory = new SimpleInventory(12);
     public static final int MAX_TRANSFORM_TIME = 20 * 5;
     public int transformTime = MAX_TRANSFORM_TIME;
@@ -145,7 +145,7 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
         this.dataTracker.startTracking(SKIN_UUID, Optional.empty());
         this.dataTracker.startTracking(TAMEABLE, (byte) 0);
         this.dataTracker.startTracking(TRANSFORMING, false);
-        this.dataTracker.startTracking(ATTACK_TYPE, BasicAttackType.NONE);
+        this.dataTracker.startTracking(ATTACK_TYPE, BaseAttackType.NONE);
     }
 
     public ActionState getActionState() {
@@ -455,7 +455,7 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
             return PlayState.CONTINUE;
         } else if (this.getSkinProfile() != null) {
             builder.then("tulpa_transform", Animation.LoopType.HOLD_ON_LAST_FRAME);
-        } else if (this.getDataTracker().get(ATTACK_TYPE) == BasicAttackType.MELEE) {
+        } else if (this.getDataTracker().get(ATTACK_TYPE) == BaseAttackType.MELEE) {
             // TODO: Rewrite better
             if (event.getController().getCurrentAnimation().animation().name().contains("attacking_right") || event.getController().getCurrentAnimation().animation().name().contains("attacking_left")) {
                 return PlayState.CONTINUE;
@@ -469,7 +469,7 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
             lastUsedArm = lastUsedArm.getOpposite();
             event.getController().setAnimation(builder);
             return PlayState.CONTINUE;
-        } else if (this.getDataTracker().get(ATTACK_TYPE) == BasicAttackType.RANGED) {
+        } else if (this.getDataTracker().get(ATTACK_TYPE) == BaseAttackType.RANGED) {
             builder.thenLoop("tulpa_attacking_ranged");
             event.getController().setAnimation(builder);
             return PlayState.CONTINUE;
