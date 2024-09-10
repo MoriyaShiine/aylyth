@@ -10,9 +10,9 @@ import moriyashiine.aylyth.common.registry.ModAttachmentTypes;
 import moriyashiine.aylyth.common.registry.ModEntityComponents;
 import moriyashiine.aylyth.common.registry.ModEntityAttributes;
 import moriyashiine.aylyth.common.registry.ModSoundEvents;
-import moriyashiine.aylyth.common.registry.key.ModDamageTypeKeys;
-import moriyashiine.aylyth.common.registry.key.ModDimensionKeys;
-import moriyashiine.aylyth.common.registry.tag.ModDamageTypeTags;
+import moriyashiine.aylyth.common.data.AylythDamageTypes;
+import moriyashiine.aylyth.common.data.world.AylythDimensionData;
+import moriyashiine.aylyth.common.data.tag.AylythDamageTypeTags;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentTarget;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -103,7 +103,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHea
     private static void soulHearthRespawn(ServerWorld world, BlockPos pos, float angle, boolean forced, boolean alive, CallbackInfoReturnable<Optional<Vec3d>> cir){
         BlockState blockState = world.getBlockState(pos);
         Block block = blockState.getBlock();
-        if (block instanceof SoulHearthBlock && blockState.get(SoulHearthBlock.CHARGES) > 0 && blockState.get(HALF) == DoubleBlockHalf.LOWER && world.getRegistryKey() == ModDimensionKeys.AYLYTH) {
+        if (block instanceof SoulHearthBlock && blockState.get(SoulHearthBlock.CHARGES) > 0 && blockState.get(HALF) == DoubleBlockHalf.LOWER && world.getRegistryKey() == AylythDimensionData.AYLYTH) {
             Optional<Vec3d> optional = SoulHearthBlock.findRespawnPosition(EntityType.PLAYER, world, pos);
             if (!alive && optional.isPresent()) {
                 world.setBlockState(pos, blockState.with(SoulHearthBlock.CHARGES, blockState.get(SoulHearthBlock.CHARGES) - 1).with(HALF, DoubleBlockHalf.LOWER));
@@ -128,7 +128,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHea
         if (!getWorld().isClient) {
             PlayerEntity player = (PlayerEntity) (Object) this;
             CuirassComponent component = ModEntityComponents.CUIRASS_COMPONENT.get(player);
-            boolean bypassesCuirass = source.isIn(ModDamageTypeTags.BYPASSES_CUIRASS);
+            boolean bypassesCuirass = source.isIn(AylythDamageTypeTags.BYPASSES_CUIRASS);
             boolean isAxe = source.getAttacker() instanceof LivingEntity livingEntity1 && livingEntity1.getMainHandStack().getItem() instanceof AxeItem;
             boolean isFireDamage = source.isIn(DamageTypeTags.IS_FIRE);
             if (isAxe || isFireDamage) {
@@ -157,7 +157,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHea
 
     @Inject(method = "onDeath", at = @At("TAIL"))
     private void unpledgeHind(DamageSource damageSource, CallbackInfo ci) {
-        if (damageSource.isOf(ModDamageTypeKeys.KILLING_BLOW)) {
+        if (damageSource.isOf(AylythDamageTypes.KILLING_BLOW)) {
             setHindUuid(null);
         }
     }

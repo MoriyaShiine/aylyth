@@ -4,7 +4,7 @@ import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import moriyashiine.aylyth.common.network.packets.GlaivePacketC2S;
 import moriyashiine.aylyth.common.registry.ModItems;
-import moriyashiine.aylyth.common.registry.key.ModDimensionKeys;
+import moriyashiine.aylyth.common.data.world.AylythDimensionData;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -53,7 +53,7 @@ public abstract class MinecraftClientMixin {
 
     @ModifyReturnValue(method = "getMusicType", at = @At(value = "RETURN", ordinal = 4))
     private MusicSound aylyth$getMusicType(MusicSound original, @Local RegistryEntry<Biome> biome) {
-        if (player.getWorld().getRegistryKey() == ModDimensionKeys.AYLYTH) {
+        if (player.getWorld().getRegistryKey() == AylythDimensionData.AYLYTH) {
             return biome.value().getMusic().orElse(original);
         }
         return original;

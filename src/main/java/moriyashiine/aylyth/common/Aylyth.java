@@ -13,10 +13,10 @@ import moriyashiine.aylyth.common.recipe.SoulCampfireRecipe;
 import moriyashiine.aylyth.common.recipe.YmpeDaggerDropRecipe;
 import moriyashiine.aylyth.common.registry.*;
 import moriyashiine.aylyth.common.registry.custom.CustomRegistries;
-import moriyashiine.aylyth.common.registry.key.ModPlacedFeatureKeys;
-import moriyashiine.aylyth.common.registry.tag.ModBiomeTags;
-import moriyashiine.aylyth.common.registry.tag.ModEntityTypeTags;
-import moriyashiine.aylyth.common.registry.tag.ModItemTags;
+import moriyashiine.aylyth.common.data.world.AylythPlacedFeatures;
+import moriyashiine.aylyth.common.data.tag.AylythBiomeTags;
+import moriyashiine.aylyth.common.data.tag.AylythEntityTypeTags;
+import moriyashiine.aylyth.common.data.tag.AylythItemTags;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
@@ -135,7 +135,7 @@ public class Aylyth implements ModInitializer {
 		if (attacker.getStackInHand(hand).isOf(ModItems.YMPE_DAGGER) && target instanceof MobEntity mob) {
 			ItemStack offhand = attacker.getOffHandStack();
 			if (offhand.isOf(ModItems.SHUCKED_YMPE_FRUIT)) {
-				if (!ShuckedYmpeFruitItem.hasStoredEntity(offhand) && !mob.getType().isIn(ModEntityTypeTags.NON_SHUCKABLE)) {
+				if (!ShuckedYmpeFruitItem.hasStoredEntity(offhand) && !mob.getType().isIn(AylythEntityTypeTags.NON_SHUCKABLE)) {
 					if (attacker instanceof ServerPlayerEntity serverPlayer) {
 						ModCriteria.SHUCKING.trigger(serverPlayer, mob);
 						mob.setHealth(mob.getMaxHealth()); // TODO: check whether this is intended behavior
@@ -160,7 +160,7 @@ public class Aylyth implements ModInitializer {
 	}
 
 	private void daggerDrops(ServerWorld serverWorld, Entity entity, LivingEntity killedEntity) {
-		if (entity instanceof LivingEntity living && living.getMainHandStack().isIn(ModItemTags.HEART_HARVESTERS)) {
+		if (entity instanceof LivingEntity living && living.getMainHandStack().isIn(AylythItemTags.HEART_HARVESTERS)) {
 			for (YmpeDaggerDropRecipe recipe : serverWorld.getRecipeManager().listAllOfType(ModRecipeTypes.YMPE_DAGGER_DROP_RECIPE_TYPE)) {
 				if (recipe.entity_type == killedEntity.getType() && serverWorld.random.nextFloat() < recipe.chance * (EnchantmentHelper.getLooting(living) + 1)) {
 					ItemStack drop = recipe.getOutput(serverWorld.getRegistryManager()).copy();
@@ -185,10 +185,10 @@ public class Aylyth implements ModInitializer {
 	private void biomeModifications() {
 		// TODO: These need to be changed. It replaces structure logs too, obv.
 		BiomeModifications.create(new Identifier(Aylyth.MOD_ID, "world_features"))
-				.add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(ModBiomeTags.GENERATES_SEEP), context -> {
-					context.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatureKeys.OAK_SEEP);
-					context.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatureKeys.SPRUCE_SEEP);
-					context.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatureKeys.DARK_OAK_SEEP);
+				.add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(AylythBiomeTags.GENERATES_SEEP), context -> {
+					context.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, AylythPlacedFeatures.OAK_SEEP);
+					context.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, AylythPlacedFeatures.SPRUCE_SEEP);
+					context.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, AylythPlacedFeatures.DARK_OAK_SEEP);
 				});
 	}
 
