@@ -2,8 +2,8 @@ package moriyashiine.aylyth.common.block;
 
 import moriyashiine.aylyth.common.block.entity.SeepBlockEntity;
 import moriyashiine.aylyth.common.registry.ModBlocks;
-import moriyashiine.aylyth.common.registry.key.ModDimensionKeys;
-import moriyashiine.aylyth.common.registry.key.ModPoiTypeKeys;
+import moriyashiine.aylyth.common.data.levelgen.AylythDimensionData;
+import moriyashiine.aylyth.common.data.AylythPointsOfInterestTypes;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -63,7 +63,7 @@ public class SeepBlock extends Block implements BlockEntityProvider {
 		if (world instanceof ServerWorld serverWorld) {
 			if (entity.getPos().distanceTo(new Vec3d(pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F)) < 0.6F) {
 				MinecraftServer server = serverWorld.getServer();
-				ServerWorld toWorld = world.getRegistryKey() == ModDimensionKeys.AYLYTH ? server.getOverworld() : server.getWorld(ModDimensionKeys.AYLYTH);
+				ServerWorld toWorld = world.getRegistryKey() == AylythDimensionData.AYLYTH ? server.getOverworld() : server.getWorld(AylythDimensionData.AYLYTH);
 				toWorld.getChunkManager().addTicket(ChunkTicketType.PORTAL, new ChunkPos(pos), 3, pos);
 				Optional<BlockPos> connectedSeep;
 				if (state.isOf(ModBlocks.SEEPING_WOOD_SEEP)) {
@@ -80,7 +80,7 @@ public class SeepBlock extends Block implements BlockEntityProvider {
 
 	public Optional<BlockPos> findConnectedSeepSpawn(ServerWorld world, BlockPos center) {
 		return world.getPointOfInterestStorage()
-				.getInSquare(point -> point.matchesKey(ModPoiTypeKeys.SEEP), center, 32, PointOfInterestStorage.OccupationStatus.ANY)
+				.getInSquare(point -> point.matchesKey(AylythPointsOfInterestTypes.SEEP), center, 32, PointOfInterestStorage.OccupationStatus.ANY)
 				.findFirst()
 				.flatMap(pointOfInterest -> {
 					for (Direction dir : Direction.Type.HORIZONTAL) {

@@ -8,8 +8,8 @@ import moriyashiine.aylyth.common.entity.mob.ScionEntity;
 import moriyashiine.aylyth.common.registry.ModEntityAttributes;
 import moriyashiine.aylyth.common.registry.ModEntityTypes;
 import moriyashiine.aylyth.common.registry.ModItems;
-import moriyashiine.aylyth.common.registry.key.ModDamageTypeKeys;
-import moriyashiine.aylyth.common.registry.key.ModDimensionKeys;
+import moriyashiine.aylyth.common.data.AylythDamageTypes;
+import moriyashiine.aylyth.common.data.levelgen.AylythDimensionData;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
@@ -60,7 +60,7 @@ public class LivingEntityDeathEvents {
     }
 
     private static void retainInventoryWhenPledged(ServerPlayerEntity oldPlayer, ServerPlayerEntity newPlayer, boolean alive) {
-        if (alive || oldPlayer.getRecentDamageSource() == null || !oldPlayer.getRecentDamageSource().isOf(ModDamageTypeKeys.YMPE)) {
+        if (alive || oldPlayer.getRecentDamageSource() == null || !oldPlayer.getRecentDamageSource().isOf(AylythDamageTypes.YMPE)) {
             return;
         }
 
@@ -79,7 +79,7 @@ public class LivingEntityDeathEvents {
     private static void spawnRippedSoul(LivingEntity livingEntity, DamageSource source) {
         World world = livingEntity.getWorld();
         if(!world.isClient) {
-            if(source.isOf(ModDamageTypeKeys.SOUL_RIP)) {
+            if(source.isOf(AylythDamageTypes.SOUL_RIP)) {
                 RippedSoulEntity soul = new RippedSoulEntity(ModEntityTypes.RIPPED_SOUL, world);
                 if (source.getAttacker() != null) {
                     soul.setOwner((PlayerEntity) source.getAttacker());
@@ -100,13 +100,13 @@ public class LivingEntityDeathEvents {
             if (damageSource.isOf(DamageTypes.OUT_OF_WORLD)) {
                 return true;
             }
-            if (damageSource.isOf(ModDamageTypeKeys.YMPE) && ((HindPledgeHolder)player).getHindUuid() == null) {
+            if (damageSource.isOf(AylythDamageTypes.YMPE) && ((HindPledgeHolder)player).getHindUuid() == null) {
                 ScionEntity.summonPlayerScion(player);
                 WoodyGrowthCacheBlock.spawnInventory(player.getWorld(), player.getBlockPos(), player);
                 return true;
             }
             RegistryKey<World> toWorld = null;
-            if (player.getWorld().getRegistryKey() != ModDimensionKeys.AYLYTH) {
+            if (player.getWorld().getRegistryKey() != AylythDimensionData.AYLYTH) {
                 boolean teleport = false;
                 float chance = switch (player.getWorld().getDifficulty()) {
                     case PEACEFUL -> 0;
@@ -140,7 +140,7 @@ public class LivingEntityDeathEvents {
                     }
                 }
                 if (teleport) {
-                    toWorld = ModDimensionKeys.AYLYTH;
+                    toWorld = AylythDimensionData.AYLYTH;
                 }
             }
             if (toWorld != null) {

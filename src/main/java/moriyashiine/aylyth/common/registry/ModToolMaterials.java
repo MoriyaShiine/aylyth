@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.registry;
 
 import com.google.common.base.Suppliers;
-import moriyashiine.aylyth.common.registry.tag.ModItemTags;
+import moriyashiine.aylyth.common.data.tag.AylythItemTags;
 import net.fabricmc.yarn.constants.MiningLevels;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.recipe.Ingredient;
@@ -9,8 +9,8 @@ import net.minecraft.recipe.Ingredient;
 import java.util.function.Supplier;
 
 public enum ModToolMaterials implements ToolMaterial {
-    NEPHRITE(MiningLevels.NETHERITE, 400, 8.0f, 3.5f, 22, () -> Ingredient.fromTag(ModItemTags.NEPHRITE_TOOL_MATERIALS)),
-    NEPHRITE_SPECIAL(MiningLevels.NETHERITE, 800, 8.0f, 3.5f, 22, () -> Ingredient.fromTag(ModItemTags.NEPHRITE_TOOL_MATERIALS));
+    NEPHRITE(MiningLevels.NETHERITE, 400, 8.0f, 3.5f, 22, () -> Ingredient.fromTag(AylythItemTags.NEPHRITE_TOOL_MATERIALS)),
+    NEPHRITE_SPECIAL(MiningLevels.NETHERITE, 800, 8.0f, 3.5f, 22, () -> Ingredient.fromTag(AylythItemTags.NEPHRITE_TOOL_MATERIALS));
 
     private final int miningLevel;
     private final int itemDurability;

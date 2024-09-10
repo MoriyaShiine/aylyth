@@ -3,11 +3,8 @@ package moriyashiine.aylyth.client.render;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.registry.key.ModBiomeKeys;
-import moriyashiine.aylyth.common.registry.key.ModDimensionKeys;
-import moriyashiine.aylyth.common.registry.tag.ModBiomeTags;
+import moriyashiine.aylyth.common.data.tag.AylythBiomeTags;
 import moriyashiine.aylyth.mixin.client.WorldRendererAccessor;
-import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.ShaderProgram;
@@ -16,7 +13,6 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.*;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.BiomeTags;
 import net.minecraft.util.Identifier;
@@ -50,11 +46,11 @@ public class AylythDimensionRenderer {
 	}
 
 	public static void determineConditions(RegistryEntry<Biome> biome) {
-		if (biome.isIn(ModBiomeTags.HAS_WEAK_FOG)) {
+		if (biome.isIn(AylythBiomeTags.HAS_WEAK_FOG)) {
 			goalFogStrength = 40;
-		} else if (biome.isIn(ModBiomeTags.HAS_AVERAGE_FOG)) {
+		} else if (biome.isIn(AylythBiomeTags.HAS_AVERAGE_FOG)) {
 			goalFogStrength = 24;
-		} else if (biome.isIn(ModBiomeTags.HAS_STRONG_FOG)) {
+		} else if (biome.isIn(AylythBiomeTags.HAS_STRONG_FOG)) {
 			goalFogStrength = 16;
 		} else {
 			goalFogStrength = 0;

@@ -4,7 +4,7 @@ import com.mojang.serialization.Dynamic;
 import moriyashiine.aylyth.api.interfaces.Pledgeable;
 import moriyashiine.aylyth.common.entity.ai.brain.WreathedHindBrain;
 import moriyashiine.aylyth.common.registry.*;
-import moriyashiine.aylyth.common.registry.tag.ModItemTags;
+import moriyashiine.aylyth.common.data.tag.AylythItemTags;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentTarget;
 import net.minecraft.entity.Entity;
@@ -120,7 +120,7 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
     @Override
     protected ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack stack = player.getStackInHand(hand);
-        if(stack.isIn(ModItemTags.PLEDGE_ITEMS) && getPledgedPlayerUUID() == null) {
+        if(stack.isIn(AylythItemTags.PLEDGE_ITEMS) && getPledgedPlayerUUID() == null) {
             if (player instanceof ServerPlayerEntity serverPlayer) {
                 ModCriteria.HIND_PLEDGE.trigger(serverPlayer, this);
             }

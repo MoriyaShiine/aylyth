@@ -6,7 +6,7 @@ import moriyashiine.aylyth.api.interfaces.VitalHealthHolder;
 import moriyashiine.aylyth.common.component.entity.YmpeInfestationComponent;
 import moriyashiine.aylyth.common.registry.ModEntityComponents;
 import moriyashiine.aylyth.common.registry.ModEntityAttributes;
-import moriyashiine.aylyth.common.registry.tag.ModBlockTags;
+import moriyashiine.aylyth.common.data.tag.AylythBlockTags;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
@@ -48,7 +48,7 @@ public abstract class InGameHudMixin implements AylythGameHud {
 		});
 
 		// TODO: Make more efficient
-		if (client.world.getBlockState(client.player.getBlockPos()).isIn(ModBlockTags.SEEPS)) {
+		if (client.world.getBlockState(client.player.getBlockPos()).isIn(AylythBlockTags.SEEPS)) {
 			renderOverlay(context, SEEP_OVERLAY, 1);
 		}
 	}

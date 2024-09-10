@@ -3,7 +3,7 @@ package moriyashiine.aylyth.mixin;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import moriyashiine.aylyth.common.registry.tag.ModEffectTags;
+import moriyashiine.aylyth.common.data.tag.AylythStatusEffectTags;
 import net.fabricmc.fabric.api.tag.convention.v1.TagUtil;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -20,7 +20,7 @@ public class MilkBucketItemMixin {
 
         List<StatusEffectInstance> arr = new ObjectArrayList<>();
         for (StatusEffectInstance persistentStatusEffect : player.getStatusEffects()) {
-            if (TagUtil.isIn(ModEffectTags.BYPASSES_MILK, persistentStatusEffect.getEffectType())) {
+            if (TagUtil.isIn(AylythStatusEffectTags.BYPASSES_MILK, persistentStatusEffect.getEffectType())) {
                 arr.add(persistentStatusEffect);
             }
         }

@@ -1,9 +1,9 @@
 package moriyashiine.aylyth.common.registry;
 
-import moriyashiine.aylyth.common.criteria.HindPledgeCriterion;
-import moriyashiine.aylyth.common.criteria.ShuckingCriterion;
-import moriyashiine.aylyth.common.criteria.TameHostileCriterion;
-import moriyashiine.aylyth.common.criteria.YmpeInfestationCriterion;
+import moriyashiine.aylyth.common.advancement.criteria.HindPledgeCriterion;
+import moriyashiine.aylyth.common.advancement.criteria.ShuckingCriterion;
+import moriyashiine.aylyth.common.advancement.criteria.TameHostileCriterion;
+import moriyashiine.aylyth.common.advancement.criteria.YmpeInfestationCriterion;
 import net.minecraft.advancement.criterion.Criteria;
 
 public class ModCriteria {

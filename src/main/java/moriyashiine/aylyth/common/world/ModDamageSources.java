@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.world;
 
 import moriyashiine.aylyth.common.entity.mob.WreathedHindEntity;
-import moriyashiine.aylyth.common.registry.key.ModDamageTypeKeys;
+import moriyashiine.aylyth.common.data.AylythDamageTypes;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageType;
@@ -17,7 +17,7 @@ public class ModDamageSources {
 
 	public ModDamageSources(DynamicRegistryManager dynamicRegistryManager) {
 		damageTypeRegistry = dynamicRegistryManager.get(RegistryKeys.DAMAGE_TYPE);
-		this.ympe = new DamageSource(damageTypeRegistry.entryOf(ModDamageTypeKeys.YMPE));
+		this.ympe = new DamageSource(damageTypeRegistry.entryOf(AylythDamageTypes.YMPE));
 	}
 
 	public DamageSource ympe() {
@@ -25,18 +25,18 @@ public class ModDamageSources {
 	}
 
 	public DamageSource ympeEntity(Entity entity) {
-		return new DamageSource(damageTypeRegistry.entryOf(ModDamageTypeKeys.YMPE_ENTITY), entity);
+		return new DamageSource(damageTypeRegistry.entryOf(AylythDamageTypes.YMPE_ENTITY), entity);
 	}
 
 	public DamageSource killingBlow(WreathedHindEntity wreathedHindEntity) {
-		return new DamageSource(damageTypeRegistry.entryOf(ModDamageTypeKeys.KILLING_BLOW), wreathedHindEntity);
+		return new DamageSource(damageTypeRegistry.entryOf(AylythDamageTypes.KILLING_BLOW), wreathedHindEntity);
 	}
 
 	public DamageSource soulRip(PlayerEntity player) {
-		return new DamageSource(damageTypeRegistry.entryOf(ModDamageTypeKeys.SOUL_RIP), player);
+		return new DamageSource(damageTypeRegistry.entryOf(AylythDamageTypes.SOUL_RIP), player);
 	}
 
 	public DamageSource blight(@Nullable PlayerEntity player) {
-		return new DamageSource(damageTypeRegistry.entryOf(ModDamageTypeKeys.BLIGHT), player);
+		return new DamageSource(damageTypeRegistry.entryOf(AylythDamageTypes.BLIGHT), player);
 	}
 }

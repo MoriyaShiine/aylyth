@@ -9,9 +9,9 @@ import moriyashiine.aylyth.common.item.YmpeEffigyItem;
 import moriyashiine.aylyth.common.registry.ModEntityComponents;
 import moriyashiine.aylyth.common.registry.ModItems;
 import moriyashiine.aylyth.common.registry.ModStatusEffects;
-import moriyashiine.aylyth.common.registry.key.ModDamageTypeKeys;
-import moriyashiine.aylyth.common.registry.tag.ModEffectTags;
-import moriyashiine.aylyth.common.registry.tag.ModItemTags;
+import moriyashiine.aylyth.common.data.AylythDamageTypes;
+import moriyashiine.aylyth.common.data.tag.AylythStatusEffectTags;
+import moriyashiine.aylyth.common.data.tag.AylythItemTags;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.fabric.api.tag.convention.v1.TagUtil;
 import net.minecraft.entity.Entity;
@@ -49,8 +49,8 @@ public abstract class LivingEntityMixin extends Entity {
 		if (source.getAttacker() instanceof LivingEntity entity && !source.getAttacker().getWorld().isClient) {
 			double attkDMG = entity.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
 			ItemStack stack = entity.getMainHandStack();
-			boolean usingVampiric = stack.isIn(ModItemTags.VAMPIRIC_WEAPON);
-			boolean usingBlight =  stack.isIn(ModItemTags.BLIGHTED_WEAPON);
+			boolean usingVampiric = stack.isIn(AylythItemTags.VAMPIRIC_WEAPON);
+			boolean usingBlight =  stack.isIn(AylythItemTags.BLIGHTED_WEAPON);
 
             if (value >= attkDMG) { // Prevents using non-critical attacks to spam the weapons
 				if (usingVampiric) return AylythUtil.getVampiricWeaponEffect(entity, (LivingEntity) (Object) this, stack, value);
@@ -78,12 +78,12 @@ public abstract class LivingEntityMixin extends Entity {
 
 	@WrapWithCondition(method = "drop", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;dropInventory()V"))
 	private boolean keepPledgedInv(LivingEntity instance, @Local(argsOnly = true) DamageSource damageSource) {
-        return !(instance instanceof PlayerEntity player) || !damageSource.isOf(ModDamageTypeKeys.YMPE) || ((HindPledgeHolder) player).getHindUuid() == null;
+        return !(instance instanceof PlayerEntity player) || !damageSource.isOf(AylythDamageTypes.YMPE) || ((HindPledgeHolder) player).getHindUuid() == null;
     }
 	
 	@Inject(method = "eatFood", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;applyFoodEffects(Lnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/entity/LivingEntity;)V"))
 	private void decreaseYmpeInfestationStage(World world, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
-		if ((LivingEntity) (Object) this instanceof PlayerEntity player && stack.isIn(ModItemTags.DECREASES_BRANCHES)) {
+		if ((LivingEntity) (Object) this instanceof PlayerEntity player && stack.isIn(AylythItemTags.DECREASES_BRANCHES)) {
 			ModEntityComponents.YMPE_INFESTATION.maybeGet(player).ifPresent(ympeInfestationComponent -> {
 				if (ympeInfestationComponent.getStage() > 0) {
 					ympeInfestationComponent.setStage((byte) (ympeInfestationComponent.getStage() - 1));
@@ -135,7 +135,7 @@ public abstract class LivingEntityMixin extends Entity {
         if (this.isPlayer()) {
             LivingEntity entity = ((LivingEntity) (Object) this);
 
-			boolean bypassesEffigy = TagUtil.isIn(ModEffectTags.BYPASSES_EFFIGY, effect.getEffectType());
+			boolean bypassesEffigy = TagUtil.isIn(AylythStatusEffectTags.BYPASSES_EFFIGY, effect.getEffectType());
             if (!bypassesEffigy && YmpeEffigyItem.isEquipped(entity)) {
                 cir.setReturnValue(false);
             }

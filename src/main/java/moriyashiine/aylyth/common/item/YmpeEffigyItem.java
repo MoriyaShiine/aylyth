@@ -4,7 +4,7 @@ import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketItem;
 import dev.emi.trinkets.api.TrinketsApi;
 import moriyashiine.aylyth.common.registry.ModItems;
-import moriyashiine.aylyth.common.registry.tag.ModEffectTags;
+import moriyashiine.aylyth.common.data.tag.AylythStatusEffectTags;
 import net.fabricmc.fabric.api.tag.convention.v1.TagUtil;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
@@ -40,7 +40,7 @@ public class YmpeEffigyItem extends TrinketItem {
     private void cleanBadEffects(PlayerEntity player) {
         for (StatusEffectInstance effectInstance : player.getStatusEffects()) {
             StatusEffect effectType = effectInstance.getEffectType();
-            if (!TagUtil.isIn(ModEffectTags.BYPASSES_EFFIGY, effectType)) {
+            if (!TagUtil.isIn(AylythStatusEffectTags.BYPASSES_EFFIGY, effectType)) {
                 player.removeStatusEffect(effectType);
             }
         }

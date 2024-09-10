@@ -3,7 +3,7 @@ package moriyashiine.aylyth.common.entity.ai.sensor;
 import com.google.common.collect.ImmutableSet;
 import moriyashiine.aylyth.common.entity.mob.ScionEntity;
 import moriyashiine.aylyth.common.registry.ModMemoryTypes;
-import moriyashiine.aylyth.common.registry.tag.ModBlockTags;
+import moriyashiine.aylyth.common.data.tag.AylythBlockTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.brain.Brain;
@@ -48,7 +48,7 @@ public class ScionSpecificSensor extends Sensor<ScionEntity> {
 
     private static boolean isRepellent(ServerWorld world, BlockPos pos) {
         BlockState blockState = world.getBlockState(pos);
-        return blockState.isIn(ModBlockTags.SCION_REPELLENT);
+        return blockState.isIn(AylythBlockTags.SCION_REPELLENT);
     }
 
 }

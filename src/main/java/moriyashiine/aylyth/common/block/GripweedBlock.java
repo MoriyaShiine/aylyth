@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.block;
 
 import moriyashiine.aylyth.common.registry.ModEntityComponents;
-import moriyashiine.aylyth.common.registry.tag.ModEntityTypeTags;
+import moriyashiine.aylyth.common.data.tag.AylythEntityTypeTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.PlantBlock;
@@ -30,7 +30,7 @@ public class GripweedBlock extends PlantBlock {
 
 	@Override
 	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
-		if (entity.getType().isIn(ModEntityTypeTags.GRIPWEED_IMMUNE)) {
+		if (entity.getType().isIn(AylythEntityTypeTags.GRIPWEED_IMMUNE)) {
 			return;
 		}
 		if (entity instanceof LivingEntity living && EnchantmentHelper.hasSoulSpeed(living)) {
