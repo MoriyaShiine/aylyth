@@ -8,7 +8,7 @@ import moriyashiine.aylyth.common.entity.ai.task.BoltRangedAttackTask;
 import moriyashiine.aylyth.common.entity.ai.task.GeckoMeleeAttackTask;
 import moriyashiine.aylyth.common.entity.mob.WreathedHindEntity;
 import moriyashiine.aylyth.common.registry.AylythMemoryTypes;
-import moriyashiine.aylyth.common.registry.ModSensorTypes;
+import moriyashiine.aylyth.common.registry.AylythSensorTypes;
 import moriyashiine.aylyth.common.util.BrainUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -31,8 +31,8 @@ public class WreathedHindBrain {
             SensorType.NEAREST_PLAYERS,
             SensorType.NEAREST_LIVING_ENTITIES,
             SensorType.HURT_BY,
-            ModSensorTypes.NEARBY_PLEDGED_PLAYER,
-            ModSensorTypes.HIND_ATTACKABLES
+            AylythSensorTypes.NEARBY_PLEDGED_PLAYER,
+            AylythSensorTypes.HIND_ATTACKABLES
 
     );
 

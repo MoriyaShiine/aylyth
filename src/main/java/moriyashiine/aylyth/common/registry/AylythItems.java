@@ -1,7 +1,6 @@
 package moriyashiine.aylyth.common.registry;
 
 import com.terraformersmc.terraform.boat.impl.item.TerraformBoatItem;
-import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.item.*;
 import moriyashiine.aylyth.common.item.component.ThornFlechetteEffect;
 import moriyashiine.aylyth.common.util.AylythUtil;
@@ -181,9 +180,7 @@ public interface AylythItems {
 
     Item POMEGRANATE_CASSETTE = register("pomegranate_cassette", new MusicDiscItem(14, AylythSoundEvents.POMEGRANATE_MUSIC_DISC.value(), settings().maxCount(1).rarity(Rarity.RARE), 118));
 
-	RegistryKey<ItemGroup> GROUP = RegistryKey.of(RegistryKeys.ITEM_GROUP, AylythUtil.id(Aylyth.MOD_ID));
-
-	private static Item.Settings settings() {
+    private static Item.Settings settings() {
 		return new FabricItemSettings();
 	}
 

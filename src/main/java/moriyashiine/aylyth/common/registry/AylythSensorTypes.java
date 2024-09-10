@@ -11,11 +11,10 @@ import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
 
 import java.util.function.Supplier;
 
-public interface ModSensorTypes {
+public interface AylythSensorTypes {
 
     SensorType<ScionSpecificSensor> SCION_SPECIFIC = register("scion_specific", ScionSpecificSensor::new);
     SensorType<OwningPlayerSensor<TulpaEntity>> TULPA_SPECIFIC = register("tulpa_specific", OwningPlayerSensor::new);

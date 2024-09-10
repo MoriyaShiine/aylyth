@@ -6,7 +6,7 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Dynamic;
 import moriyashiine.aylyth.common.entity.mob.ScionEntity;
 import moriyashiine.aylyth.common.registry.AylythMemoryTypes;
-import moriyashiine.aylyth.common.registry.ModSensorTypes;
+import moriyashiine.aylyth.common.registry.AylythSensorTypes;
 import moriyashiine.aylyth.common.util.BrainUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -35,7 +35,7 @@ public class ScionBrain {
             SensorType.NEAREST_PLAYERS,
             SensorType.NEAREST_LIVING_ENTITIES,
             SensorType.HURT_BY,
-            ModSensorTypes.SCION_SPECIFIC
+            AylythSensorTypes.SCION_SPECIFIC
     );
 
     private static final List<MemoryModuleType<?>> MEMORIES = List.of(

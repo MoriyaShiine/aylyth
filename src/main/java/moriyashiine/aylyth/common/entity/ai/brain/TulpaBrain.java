@@ -7,7 +7,7 @@ import com.mojang.serialization.Dynamic;
 import moriyashiine.aylyth.common.entity.ai.task.*;
 import moriyashiine.aylyth.common.entity.mob.TulpaEntity;
 import moriyashiine.aylyth.common.registry.AylythMemoryTypes;
-import moriyashiine.aylyth.common.registry.ModSensorTypes;
+import moriyashiine.aylyth.common.registry.AylythSensorTypes;
 import moriyashiine.aylyth.common.util.BrainUtils;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.brain.Activity;
@@ -27,7 +27,7 @@ public class TulpaBrain {
             SensorType.NEAREST_PLAYERS,
             SensorType.NEAREST_LIVING_ENTITIES,
             SensorType.HURT_BY,
-            ModSensorTypes.TULPA_SPECIFIC
+            AylythSensorTypes.TULPA_SPECIFIC
     );
     private static final List<MemoryModuleType<?>> MEMORIES = List.of(
             MemoryModuleType.MOBS,
