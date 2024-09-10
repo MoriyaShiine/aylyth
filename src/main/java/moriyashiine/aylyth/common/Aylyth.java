@@ -94,6 +94,7 @@ public class Aylyth implements ModInitializer {
 		AylythItems.register();
 		AylythFuels.register();
 		AylythPotions.register();
+		AylythItemGroups.register();
 
 		AylythBoatTypes.register();
 
