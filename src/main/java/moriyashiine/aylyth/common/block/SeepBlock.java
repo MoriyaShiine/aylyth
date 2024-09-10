@@ -2,8 +2,8 @@ package moriyashiine.aylyth.common.block;
 
 import moriyashiine.aylyth.common.block.entity.SeepBlockEntity;
 import moriyashiine.aylyth.common.registry.ModBlocks;
-import moriyashiine.aylyth.common.data.levelgen.AylythDimensionData;
-import moriyashiine.aylyth.common.data.AylythPointsOfInterestTypes;
+import moriyashiine.aylyth.common.data.world.AylythDimensionData;
+import moriyashiine.aylyth.common.data.AylythPointOfInterestTypes;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -80,7 +80,7 @@ public class SeepBlock extends Block implements BlockEntityProvider {
 
 	public Optional<BlockPos> findConnectedSeepSpawn(ServerWorld world, BlockPos center) {
 		return world.getPointOfInterestStorage()
-				.getInSquare(point -> point.matchesKey(AylythPointsOfInterestTypes.SEEP), center, 32, PointOfInterestStorage.OccupationStatus.ANY)
+				.getInSquare(point -> point.matchesKey(AylythPointOfInterestTypes.SEEP), center, 32, PointOfInterestStorage.OccupationStatus.ANY)
 				.findFirst()
 				.flatMap(pointOfInterest -> {
 					for (Direction dir : Direction.Type.HORIZONTAL) {

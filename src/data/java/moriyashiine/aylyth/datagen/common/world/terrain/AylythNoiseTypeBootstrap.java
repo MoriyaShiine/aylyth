@@ -1,10 +1,10 @@
-package moriyashiine.aylyth.datagen.common.levelgen.terrain;
+package moriyashiine.aylyth.datagen.common.world.terrain;
 
 import it.unimi.dsi.fastutil.doubles.DoubleList;
 import net.minecraft.registry.Registerable;
 import net.minecraft.util.math.noise.DoublePerlinNoiseSampler.NoiseParameters;
 
-import static moriyashiine.aylyth.common.data.levelgen.AylythNoises.*;
+import static moriyashiine.aylyth.common.data.world.AylythNoises.*;
 
 public final class AylythNoiseTypeBootstrap {
     private AylythNoiseTypeBootstrap() {}

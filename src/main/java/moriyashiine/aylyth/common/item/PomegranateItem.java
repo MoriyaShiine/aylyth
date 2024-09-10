@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.item;
 
 import com.mojang.datafixers.util.Pair;
-import moriyashiine.aylyth.common.data.levelgen.AylythDimensionData;
+import moriyashiine.aylyth.common.data.world.AylythDimensionData;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.LivingEntity;

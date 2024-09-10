@@ -1,11 +1,11 @@
-package moriyashiine.aylyth.common.data.levelgen;
+package moriyashiine.aylyth.common.data.world;
 
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.world.gen.feature.PlacedFeature;
 
-public interface AylythPlacements {
+public interface AylythPlacedFeatures {
 
     RegistryKey<PlacedFeature> AYLYTHIAN_DARK_OAK = bind("aylythian_dark_oak");
     RegistryKey<PlacedFeature> AYLYTHIAN_MEGA_DARK_OAK = bind("aylythian_mega_dark_oak");

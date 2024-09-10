@@ -5,7 +5,7 @@ import dev.onyxstudios.cca.api.v3.component.tick.ServerTickingComponent;
 import moriyashiine.aylyth.common.registry.ModEntityComponents;
 import moriyashiine.aylyth.common.registry.ModCriteria;
 import moriyashiine.aylyth.common.registry.ModSoundEvents;
-import moriyashiine.aylyth.common.data.levelgen.AylythDimensionData;
+import moriyashiine.aylyth.common.data.world.AylythDimensionData;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;

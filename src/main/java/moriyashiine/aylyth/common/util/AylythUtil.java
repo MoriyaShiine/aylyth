@@ -6,7 +6,7 @@ import moriyashiine.aylyth.common.registry.ModItems;
 import moriyashiine.aylyth.common.registry.ModParticles;
 import moriyashiine.aylyth.common.registry.ModSoundEvents;
 import moriyashiine.aylyth.common.registry.ModStatusEffects;
-import moriyashiine.aylyth.common.data.AylythPointsOfInterestTypes;
+import moriyashiine.aylyth.common.data.AylythPointOfInterestTypes;
 import moriyashiine.aylyth.common.data.tag.AylythDamageTypeTags;
 import moriyashiine.aylyth.common.data.tag.AylythItemTags;
 import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
@@ -84,11 +84,11 @@ public class AylythUtil {
 	}
 
 	public static boolean isNearSeep(ServerWorld serverWorld, LivingEntity livingEntity, int radius) {
-		return serverWorld.getPointOfInterestStorage().getNearestPosition(entry -> entry.matchesKey(AylythPointsOfInterestTypes.SEEP), livingEntity.getBlockPos(), radius, PointOfInterestStorage.OccupationStatus.ANY).isPresent();
+		return serverWorld.getPointOfInterestStorage().getNearestPosition(entry -> entry.matchesKey(AylythPointOfInterestTypes.SEEP), livingEntity.getBlockPos(), radius, PointOfInterestStorage.OccupationStatus.ANY).isPresent();
 	}
 
 	public static double distanceToSeep(ServerWorld serverWorld, LivingEntity livingEntity, int radius) {
-		return serverWorld.getPointOfInterestStorage().getNearestPosition(entry -> entry.matchesKey(AylythPointsOfInterestTypes.SEEP), livingEntity.getBlockPos(), radius, PointOfInterestStorage.OccupationStatus.ANY)
+		return serverWorld.getPointOfInterestStorage().getNearestPosition(entry -> entry.matchesKey(AylythPointOfInterestTypes.SEEP), livingEntity.getBlockPos(), radius, PointOfInterestStorage.OccupationStatus.ANY)
 				.map(blockPos -> Math.sqrt(blockPos.getSquaredDistance(livingEntity.getBlockPos())))
 				.orElse(-1d);
 	}

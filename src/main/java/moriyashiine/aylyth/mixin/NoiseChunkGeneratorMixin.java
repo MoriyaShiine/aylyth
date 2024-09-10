@@ -3,7 +3,7 @@ package moriyashiine.aylyth.mixin;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
-import moriyashiine.aylyth.common.data.levelgen.AylythDimensionData;
+import moriyashiine.aylyth.common.data.world.AylythDimensionData;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.world.gen.chunk.AquiferSampler;
 import net.minecraft.world.gen.chunk.ChunkGeneratorSettings;

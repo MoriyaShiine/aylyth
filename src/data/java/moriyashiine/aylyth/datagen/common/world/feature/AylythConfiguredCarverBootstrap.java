@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.datagen.common.levelgen.feature;
+package moriyashiine.aylyth.datagen.common.world.feature;
 
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.Registerable;
@@ -11,7 +11,7 @@ import net.minecraft.world.gen.YOffset;
 import net.minecraft.world.gen.carver.*;
 import net.minecraft.world.gen.heightprovider.UniformHeightProvider;
 
-import static moriyashiine.aylyth.common.data.levelgen.AylythConfiguredCarvers.*;
+import static moriyashiine.aylyth.common.data.world.AylythConfiguredCarvers.*;
 
 public final class AylythConfiguredCarverBootstrap {
     private AylythConfiguredCarverBootstrap() {}

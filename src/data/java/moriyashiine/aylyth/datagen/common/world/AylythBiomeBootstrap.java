@@ -1,11 +1,11 @@
-package moriyashiine.aylyth.datagen.common.levelgen;
+package moriyashiine.aylyth.datagen.common.world;
 
 import com.chocohead.mm.api.ClassTinkerers;
 import moriyashiine.aylyth.common.registry.ModEntityTypes;
 import moriyashiine.aylyth.common.registry.ModParticles;
 import moriyashiine.aylyth.common.registry.ModSoundEvents;
-import moriyashiine.aylyth.common.data.levelgen.AylythConfiguredCarvers;
-import moriyashiine.aylyth.common.data.levelgen.AylythPlacements;
+import moriyashiine.aylyth.common.data.world.AylythConfiguredCarvers;
+import moriyashiine.aylyth.common.data.world.AylythPlacedFeatures;
 import moriyashiine.aylyth.datagen.common.util.biome.BiomeBuilder;
 import moriyashiine.aylyth.datagen.common.util.biome.SpawnSettingsBuilder;
 import net.minecraft.entity.EntityType;
@@ -24,7 +24,7 @@ import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.carver.ConfiguredCarver;
 import net.minecraft.world.gen.feature.*;
 
-import static moriyashiine.aylyth.common.data.levelgen.AylythBiomes.*;
+import static moriyashiine.aylyth.common.data.world.AylythBiomes.*;
 
 public final class AylythBiomeBootstrap {
 	private AylythBiomeBootstrap() {}
@@ -124,15 +124,15 @@ public final class AylythBiomeBootstrap {
 							.add(AylythBiomeBootstrap::addLandCarversNotLavaLakes)
 							.add(AylythBiomeBootstrap::addBasicVanillaOres)
 							.vegetalDecoFeature(VegetationPlacedFeatures.PATCH_GRASS_PLAIN)
-							.vegetalDecoFeature(AylythPlacements.POMEGRANATE_TREE_VEG_PLACED)
+							.vegetalDecoFeature(AylythPlacedFeatures.POMEGRANATE_TREE_VEG_PLACED)
 							.add(AylythBiomeBootstrap::addMarigolds)
 							.add(AylythBiomeBootstrap::addWaterSprings)
 							.add(DefaultBiomeFeatures::addFrozenTopLayer);
 					if (overgrown) {
-						generationSettingsBuilder.lakesFeature(AylythPlacements.SPRING)
-								.vegetalDecoFeature(AylythPlacements.SPRUCE_SEEP)
-								.vegetalDecoFeature(AylythPlacements.OVERGROWTH_CLEARING_TREES_PLACED)
-								.vegetalDecoFeature(AylythPlacements.BUSHES)
+						generationSettingsBuilder.lakesFeature(AylythPlacedFeatures.SPRING)
+								.vegetalDecoFeature(AylythPlacedFeatures.SPRUCE_SEEP)
+								.vegetalDecoFeature(AylythPlacedFeatures.OVERGROWTH_CLEARING_TREES_PLACED)
+								.vegetalDecoFeature(AylythPlacedFeatures.BUSHES)
 								.vegetalDecoFeature(VegetationPlacedFeatures.PATCH_TALL_GRASS)
 								.add(AylythBiomeBootstrap::addStrewnLeaves);
 					}
@@ -154,28 +154,28 @@ public final class AylythBiomeBootstrap {
 				.generationSettings(generationSettingsBuilder -> {
 					generationSettingsBuilder.add(AylythBiomeBootstrap::addLandCarversNotLavaLakes)
 							.add(AylythBiomeBootstrap::addBasicVanillaOres)
-							.lakesFeature(AylythPlacements.SPRING)
-							.vegetalDecoFeature(deep ? AylythPlacements.DEEP_ROOF_TREES_PLACED : AylythPlacements.AYLYTHIAN_DARK_OAK)
-							.vegetalDecoFeature(deep ? AylythPlacements.DEEPWOOD_TREES_PLACED : AylythPlacements.COPSE_TREES_PLACED)
+							.lakesFeature(AylythPlacedFeatures.SPRING)
+							.vegetalDecoFeature(deep ? AylythPlacedFeatures.DEEP_ROOF_TREES_PLACED : AylythPlacedFeatures.AYLYTHIAN_DARK_OAK)
+							.vegetalDecoFeature(deep ? AylythPlacedFeatures.DEEPWOOD_TREES_PLACED : AylythPlacedFeatures.COPSE_TREES_PLACED)
 							.vegetalDecoFeature(VegetationPlacedFeatures.PATCH_GRASS_TAIGA)
-							.vegetalDecoFeature(AylythPlacements.BUSHES)
+							.vegetalDecoFeature(AylythPlacedFeatures.BUSHES)
 							.vegetalDecoFeature(VegetationPlacedFeatures.PATCH_TALL_GRASS)
-							.vegetalDecoFeature(AylythPlacements.AYLYTH_WEEDS)
+							.vegetalDecoFeature(AylythPlacedFeatures.AYLYTH_WEEDS)
 							.add(deep ? AylythBiomeBootstrap::addMushroomsDeepwood : AylythBiomeBootstrap::addMushroomsCommon)
-							.vegetalDecoFeature(deep ? AylythPlacements.SHELF_JACK_O_LANTERN_MUSHROOM_PATCHES_DEEPWOOD_PLACED : AylythPlacements.SHELF_JACK_O_LANTERN_MUSHROOM_PATCHES_COMMON_PLACED)
-							.vegetalDecoFeature(AylythPlacements.GHOSTCAP_MUSHROOM_PATCHES_PLACED)
+							.vegetalDecoFeature(deep ? AylythPlacedFeatures.SHELF_JACK_O_LANTERN_MUSHROOM_PATCHES_DEEPWOOD_PLACED : AylythPlacedFeatures.SHELF_JACK_O_LANTERN_MUSHROOM_PATCHES_COMMON_PLACED)
+							.vegetalDecoFeature(AylythPlacedFeatures.GHOSTCAP_MUSHROOM_PATCHES_PLACED)
 							.add(AylythBiomeBootstrap::addStrewnLeaves)
 							.add(AylythBiomeBootstrap::addWaterSprings)
 							.add(DefaultBiomeFeatures::addFrozenTopLayer)
-							.vegetalDecoFeature(AylythPlacements.YMPE_SEEP)
-							.vegetalDecoFeature(AylythPlacements.DARK_OAK_SEEP);
+							.vegetalDecoFeature(AylythPlacedFeatures.YMPE_SEEP)
+							.vegetalDecoFeature(AylythPlacedFeatures.DARK_OAK_SEEP);
 					if (deep) {
 						generationSettingsBuilder.vegetalDecoFeature(VegetationPlacedFeatures.PATCH_TALL_GRASS_2)
 								.add(AylythBiomeBootstrap::addWoodyGrowths)
 								.add(AylythBiomeBootstrap::addLeafPiles)
 								.add(DefaultBiomeFeatures::addLargeFerns);
 					} else {
-						generationSettingsBuilder.vegetalDecoFeature(AylythPlacements.POMEGRANATE_TREE_VEG_PLACED);
+						generationSettingsBuilder.vegetalDecoFeature(AylythPlacedFeatures.POMEGRANATE_TREE_VEG_PLACED);
 					}
 				}, placedFeatures, configuredCarvers).build();
 	}
@@ -196,20 +196,20 @@ public final class AylythBiomeBootstrap {
 					builder.add(AylythBiomeBootstrap::addLandCarversNotLavaLakes)
 							.add(AylythBiomeBootstrap::addBasicVanillaOres)
 							.add(DefaultBiomeFeatures::addForestFlowers)
-							.lakesFeature(AylythPlacements.SPRING)
+							.lakesFeature(AylythPlacedFeatures.SPRING)
 							.vegetalDecoFeature(VegetationPlacedFeatures.PATCH_GRASS_TAIGA)
-							.vegetalDecoFeature(AylythPlacements.AYLYTH_WEEDS)
-							.vegetalDecoFeature(deep ? AylythPlacements.CONIFEROUS_DEEPWOOD_TREES_PLACED : AylythPlacements.CONIFEROUS_COPSE_TREES_PLACED)
+							.vegetalDecoFeature(AylythPlacedFeatures.AYLYTH_WEEDS)
+							.vegetalDecoFeature(deep ? AylythPlacedFeatures.CONIFEROUS_DEEPWOOD_TREES_PLACED : AylythPlacedFeatures.CONIFEROUS_COPSE_TREES_PLACED)
 							.add(deep ? AylythBiomeBootstrap::addMushroomsDeepwood : AylythBiomeBootstrap::addMushroomsCommon)
-							.vegetalDecoFeature(AylythPlacements.GHOSTCAP_MUSHROOM_PATCHES_PLACED)
+							.vegetalDecoFeature(AylythPlacedFeatures.GHOSTCAP_MUSHROOM_PATCHES_PLACED)
 							.add(AylythBiomeBootstrap::addStrewnLeaves)
 							.add(AylythBiomeBootstrap::addWaterSprings)
 							.add(DefaultBiomeFeatures::addFrozenTopLayer)
-							.vegetalDecoFeature(AylythPlacements.YMPE_SEEP)
-							.vegetalDecoFeature(AylythPlacements.SPRUCE_SEEP);
+							.vegetalDecoFeature(AylythPlacedFeatures.YMPE_SEEP)
+							.vegetalDecoFeature(AylythPlacedFeatures.SPRUCE_SEEP);
 					if (deep) {
-						builder.vegetalDecoFeature(AylythPlacements.CONIFEROUS_DEEP_ROOF_TREES_PLACED)
-								.vegetalDecoFeature(AylythPlacements.SHELF_JACK_O_LANTERN_MUSHROOM_PATCHES_DEEPWOOD_PLACED)
+						builder.vegetalDecoFeature(AylythPlacedFeatures.CONIFEROUS_DEEP_ROOF_TREES_PLACED)
+								.vegetalDecoFeature(AylythPlacedFeatures.SHELF_JACK_O_LANTERN_MUSHROOM_PATCHES_DEEPWOOD_PLACED)
 								.add(AylythBiomeBootstrap::addWoodyGrowths)
 								.add(AylythBiomeBootstrap::addLeafPiles)
 								.add(DefaultBiomeFeatures::addLargeFerns);
@@ -243,18 +243,18 @@ public final class AylythBiomeBootstrap {
 				})
 				.spawnSettings(spawnSettings)
 				.generationSettings(builder -> {
-					builder.vegetalDecoFeature(AylythPlacements.WOODY_GROWTH_WATER_PATCH_PLACED)
-							.vegetalDecoFeature(AylythPlacements.ANTLER_SHOOTS_WATER_PATCH_PLACED)
-							.vegetalDecoFeature(AylythPlacements.ANTLER_SHOOTS_PATCH_PLACED)
-							.vegetalDecoFeature(AylythPlacements.STREWN_LEAVES_PATCH_PLACED)
-							.vegetalDecoFeature(AylythPlacements.AYLYTH_WEEDS)
-							.vegetalDecoFeature(AylythPlacements.MIRE_WATER_TREES_PLACED)
-							.vegetalDecoFeature(AylythPlacements.MIRE_LAND_TREES_PLACED)
+					builder.vegetalDecoFeature(AylythPlacedFeatures.WOODY_GROWTH_WATER_PATCH_PLACED)
+							.vegetalDecoFeature(AylythPlacedFeatures.ANTLER_SHOOTS_WATER_PATCH_PLACED)
+							.vegetalDecoFeature(AylythPlacedFeatures.ANTLER_SHOOTS_PATCH_PLACED)
+							.vegetalDecoFeature(AylythPlacedFeatures.STREWN_LEAVES_PATCH_PLACED)
+							.vegetalDecoFeature(AylythPlacedFeatures.AYLYTH_WEEDS)
+							.vegetalDecoFeature(AylythPlacedFeatures.MIRE_WATER_TREES_PLACED)
+							.vegetalDecoFeature(AylythPlacedFeatures.MIRE_LAND_TREES_PLACED)
 							.add(AylythBiomeBootstrap::addBasicVanillaOres)
 							.add(AylythBiomeBootstrap::addWoodyGrowths)
 							.add(DefaultBiomeFeatures::addLargeFerns)
 							.add(DefaultBiomeFeatures::addDefaultGrass)
-							.vegetalDecoFeature(AylythPlacements.SPRUCE_SEEP);
+							.vegetalDecoFeature(AylythPlacedFeatures.SPRUCE_SEEP);
 				}, placedFeatures, configuredCarvers)
 				.build();
 	}
@@ -266,7 +266,7 @@ public final class AylythBiomeBootstrap {
 				})
 				.spawnSettings(spawnSettings)
 				.generationSettings(builder -> {
-					builder.vegetalDecoFeature(AylythPlacements.WOODY_GROWTH_BOWELS_PATCH_PLACED)
+					builder.vegetalDecoFeature(AylythPlacedFeatures.WOODY_GROWTH_BOWELS_PATCH_PLACED)
 							.vegetalDecoFeature(NetherPlacedFeatures.PATCH_SOUL_FIRE);
 				}, placedFeatures, configuredCarvers)
 				.build();
@@ -289,30 +289,30 @@ public final class AylythBiomeBootstrap {
 	}
 
 	private static void addMarigolds(GenerationSettings.LookupBackedBuilder builder) {
-		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, AylythPlacements.MARIGOLDS);
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, AylythPlacedFeatures.MARIGOLDS);
 	}
 
 	private static void addLeafPiles(GenerationSettings.LookupBackedBuilder builder) {
-		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, AylythPlacements.OAK_LEAF_PILE);
-		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, AylythPlacements.YMPE_LEAF_PILE);
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, AylythPlacedFeatures.OAK_LEAF_PILE);
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, AylythPlacedFeatures.YMPE_LEAF_PILE);
 	}
 
 	private static void addStrewnLeaves(GenerationSettings.LookupBackedBuilder builder) {
-		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, AylythPlacements.OAK_STREWN_LEAVES);
-		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, AylythPlacements.YMPE_STREWN_LEAVES);
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, AylythPlacedFeatures.OAK_STREWN_LEAVES);
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, AylythPlacedFeatures.YMPE_STREWN_LEAVES);
 	}
 
 	private static void addMushroomsCommon(GenerationSettings.LookupBackedBuilder builder) {
-		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, AylythPlacements.RED_MUSHROOM_PATCHES_PLACED);
-		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, AylythPlacements.BROWN_MUSHROOM_PATCHES_PLACED);
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, AylythPlacedFeatures.RED_MUSHROOM_PATCHES_PLACED);
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, AylythPlacedFeatures.BROWN_MUSHROOM_PATCHES_PLACED);
 	}
 
 	private static void addMushroomsDeepwood(GenerationSettings.LookupBackedBuilder builder) {
-		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, AylythPlacements.RED_MUSHROOM_PATCHES_DEEPWOOD_PLACED);
-		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, AylythPlacements.BROWN_MUSHROOM_PATCHES_DEEPWOOD_PLACED);
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, AylythPlacedFeatures.RED_MUSHROOM_PATCHES_DEEPWOOD_PLACED);
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, AylythPlacedFeatures.BROWN_MUSHROOM_PATCHES_DEEPWOOD_PLACED);
 	}
 
 	private static void addWoodyGrowths(GenerationSettings.LookupBackedBuilder builder) {
-		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, AylythPlacements.WOODY_GROWTH_PATCH_PLACED);
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, AylythPlacedFeatures.WOODY_GROWTH_PATCH_PLACED);
 	}
 }

@@ -13,7 +13,7 @@ import moriyashiine.aylyth.common.recipe.SoulCampfireRecipe;
 import moriyashiine.aylyth.common.recipe.YmpeDaggerDropRecipe;
 import moriyashiine.aylyth.common.registry.*;
 import moriyashiine.aylyth.common.registry.custom.CustomRegistries;
-import moriyashiine.aylyth.common.data.levelgen.AylythPlacements;
+import moriyashiine.aylyth.common.data.world.AylythPlacedFeatures;
 import moriyashiine.aylyth.common.data.tag.AylythBiomeTags;
 import moriyashiine.aylyth.common.data.tag.AylythEntityTypeTags;
 import moriyashiine.aylyth.common.data.tag.AylythItemTags;
@@ -186,9 +186,9 @@ public class Aylyth implements ModInitializer {
 		// TODO: These need to be changed. It replaces structure logs too, obv.
 		BiomeModifications.create(new Identifier(Aylyth.MOD_ID, "world_features"))
 				.add(ModificationPhase.ADDITIONS, BiomeSelectors.tag(AylythBiomeTags.GENERATES_SEEP), context -> {
-					context.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, AylythPlacements.OAK_SEEP);
-					context.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, AylythPlacements.SPRUCE_SEEP);
-					context.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, AylythPlacements.DARK_OAK_SEEP);
+					context.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, AylythPlacedFeatures.OAK_SEEP);
+					context.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, AylythPlacedFeatures.SPRUCE_SEEP);
+					context.getGenerationSettings().addFeature(GenerationStep.Feature.VEGETAL_DECORATION, AylythPlacedFeatures.DARK_OAK_SEEP);
 				});
 	}
 

@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.datagen.common.tag;
 
 import moriyashiine.aylyth.common.registry.ModPotions;
-import moriyashiine.aylyth.common.data.tag.ModPotionTags;
+import moriyashiine.aylyth.common.data.tag.AylythPotionTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.potion.Potion;
@@ -17,6 +17,6 @@ public final class AylythPotionTagProvider extends FabricTagProvider<Potion> {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup registries) {
-        getOrCreateTagBuilder(ModPotionTags.BLIGHT).add(ModPotions.BLIGHT_POTION, ModPotions.LONG_BLIGHT_POTION, ModPotions.STRONG_BLIGHT_POTION);
+        getOrCreateTagBuilder(AylythPotionTags.BLIGHT).add(ModPotions.BLIGHT_POTION, ModPotions.LONG_BLIGHT_POTION, ModPotions.STRONG_BLIGHT_POTION);
     }
 }

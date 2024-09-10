@@ -37,8 +37,8 @@ import moriyashiine.aylyth.client.screen.TulpaScreen;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.block.StrewnLeavesBlock;
 import moriyashiine.aylyth.common.registry.*;
-import moriyashiine.aylyth.common.data.levelgen.AylythDimensionData;
-import moriyashiine.aylyth.common.data.tag.ModPotionTags;
+import moriyashiine.aylyth.common.data.world.AylythDimensionData;
+import moriyashiine.aylyth.common.data.tag.AylythPotionTags;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
@@ -133,9 +133,9 @@ public class AylythClient implements ClientModInitializer {
 		ClampedModelPredicateProvider flaskProvider = (stack, world, entity, seed) -> NephriteFlaskItem.getCharges(stack) / 6f;
 		ModelPredicateProviderRegistry.register(ModItems.NEPHRITE_FLASK, AylythUtil.id("uses"), flaskProvider);
 		ModelPredicateProviderRegistry.register(ModItems.DARK_NEPHRITE_FLASK, AylythUtil.id("uses"), flaskProvider);
-		ModelPredicateProviderRegistry.register(Items.POTION, AylythUtil.id("blight_potion"), (stack, world, entity, seed) -> Registries.POTION.getEntry(PotionUtil.getPotion(stack)).isIn(ModPotionTags.BLIGHT) ? 1 : 0);
-		ModelPredicateProviderRegistry.register(Items.SPLASH_POTION, AylythUtil.id("blight_potion"), (stack, world, entity, seed) -> Registries.POTION.getEntry(PotionUtil.getPotion(stack)).isIn(ModPotionTags.BLIGHT) ? 1 : 0);
-		ModelPredicateProviderRegistry.register(Items.LINGERING_POTION, AylythUtil.id("blight_potion"), (stack, world, entity, seed) -> Registries.POTION.getEntry(PotionUtil.getPotion(stack)).isIn(ModPotionTags.BLIGHT) ? 1 : 0);
+		ModelPredicateProviderRegistry.register(Items.POTION, AylythUtil.id("blight_potion"), (stack, world, entity, seed) -> Registries.POTION.getEntry(PotionUtil.getPotion(stack)).isIn(AylythPotionTags.BLIGHT) ? 1 : 0);
+		ModelPredicateProviderRegistry.register(Items.SPLASH_POTION, AylythUtil.id("blight_potion"), (stack, world, entity, seed) -> Registries.POTION.getEntry(PotionUtil.getPotion(stack)).isIn(AylythPotionTags.BLIGHT) ? 1 : 0);
+		ModelPredicateProviderRegistry.register(Items.LINGERING_POTION, AylythUtil.id("blight_potion"), (stack, world, entity, seed) -> Registries.POTION.getEntry(PotionUtil.getPotion(stack)).isIn(AylythPotionTags.BLIGHT) ? 1 : 0);
 
 		BlockEntityRendererFactories.register(ModBlockEntityTypes.SEEP_BLOCK_ENTITY_TYPE, SeepBlockEntityRenderer::new);
 		BlockEntityRendererFactories.register(ModBlockEntityTypes.VITAL_THURIBLE_BLOCK_ENTITY, VitalThuribleBlockEntityRenderer::new);

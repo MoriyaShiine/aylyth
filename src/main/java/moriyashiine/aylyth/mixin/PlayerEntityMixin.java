@@ -11,7 +11,7 @@ import moriyashiine.aylyth.common.registry.ModEntityComponents;
 import moriyashiine.aylyth.common.registry.ModEntityAttributes;
 import moriyashiine.aylyth.common.registry.ModSoundEvents;
 import moriyashiine.aylyth.common.data.AylythDamageTypes;
-import moriyashiine.aylyth.common.data.levelgen.AylythDimensionData;
+import moriyashiine.aylyth.common.data.world.AylythDimensionData;
 import moriyashiine.aylyth.common.data.tag.AylythDamageTypeTags;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentTarget;
 import net.minecraft.block.Block;

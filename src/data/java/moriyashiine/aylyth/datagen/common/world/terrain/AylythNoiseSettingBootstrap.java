@@ -1,6 +1,6 @@
-package moriyashiine.aylyth.datagen.common.levelgen.terrain;
+package moriyashiine.aylyth.datagen.common.world.terrain;
 
-import moriyashiine.aylyth.common.data.levelgen.AylythDimensionData;
+import moriyashiine.aylyth.common.data.world.AylythDimensionData;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -16,8 +16,8 @@ import net.minecraft.world.gen.noise.NoiseRouter;
 
 import java.util.List;
 
-import static moriyashiine.aylyth.common.data.levelgen.AylythDensityFunctions.*;
-import static moriyashiine.aylyth.common.data.levelgen.AylythNoises.*;
+import static moriyashiine.aylyth.common.data.world.AylythDensityFunctions.*;
+import static moriyashiine.aylyth.common.data.world.AylythNoises.*;
 import static net.minecraft.world.gen.densityfunction.DensityFunctionTypes.*;
 
 public final class AylythNoiseSettingBootstrap {

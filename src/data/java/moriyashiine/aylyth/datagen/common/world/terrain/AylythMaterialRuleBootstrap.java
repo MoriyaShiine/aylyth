@@ -1,7 +1,7 @@
-package moriyashiine.aylyth.datagen.common.levelgen.terrain;
+package moriyashiine.aylyth.datagen.common.world.terrain;
 
-import moriyashiine.aylyth.common.data.levelgen.AylythBiomes;
-import moriyashiine.aylyth.common.data.levelgen.AylythNoises;
+import moriyashiine.aylyth.common.data.world.AylythBiomes;
+import moriyashiine.aylyth.common.data.world.AylythNoises;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.RegistryKey;

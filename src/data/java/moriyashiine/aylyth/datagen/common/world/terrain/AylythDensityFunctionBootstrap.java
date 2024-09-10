@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.datagen.common.levelgen.terrain;
+package moriyashiine.aylyth.datagen.common.world.terrain;
 
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryEntryLookup;
@@ -12,8 +12,8 @@ import net.minecraft.world.gen.densityfunction.DensityFunction;
 
 import static net.minecraft.world.gen.densityfunction.DensityFunctionTypes.*;
 
-import static moriyashiine.aylyth.common.data.levelgen.AylythDensityFunctions.*;
-import static moriyashiine.aylyth.common.data.levelgen.AylythNoises.*;
+import static moriyashiine.aylyth.common.data.world.AylythDensityFunctions.*;
+import static moriyashiine.aylyth.common.data.world.AylythNoises.*;
 
 public final class AylythDensityFunctionBootstrap {
     private AylythDensityFunctionBootstrap() {}

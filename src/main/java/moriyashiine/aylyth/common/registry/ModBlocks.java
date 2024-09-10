@@ -6,7 +6,7 @@ import com.terraformersmc.terraform.sign.block.TerraformSignBlock;
 import com.terraformersmc.terraform.sign.block.TerraformWallHangingSignBlock;
 import com.terraformersmc.terraform.sign.block.TerraformWallSignBlock;
 import moriyashiine.aylyth.common.block.*;
-import moriyashiine.aylyth.common.data.levelgen.AylythConfiguredFeautres;
+import moriyashiine.aylyth.common.data.world.AylythConfiguredFeatures;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeBuilder;
@@ -46,12 +46,12 @@ public class ModBlocks {
 
 		@Override
 		protected @Nullable RegistryKey<ConfiguredFeature<?, ?>> getLargeTreeFeature(Random random) {
-			return AylythConfiguredFeautres.BIG_YMPE_TREE;
+			return AylythConfiguredFeatures.BIG_YMPE_TREE;
 		}
 
 		@Override
 		protected @Nullable RegistryKey<ConfiguredFeature<?, ?>> getTreeFeature(Random random, boolean bees) {
-			return AylythConfiguredFeautres.YMPE_TREE;
+			return AylythConfiguredFeatures.YMPE_TREE;
 		}
 	}, copyOf(Blocks.OAK_SAPLING)));
 	public static final Block YMPE_POTTED_SAPLING = register("potted_ympe_sapling", new FlowerPotBlock(YMPE_SAPLING, copyOf(Blocks.POTTED_OAK_SAPLING)));
@@ -80,7 +80,7 @@ public class ModBlocks {
 		@Nullable
 		@Override
 		protected RegistryKey<ConfiguredFeature<?, ?>> getTreeFeature(Random random, boolean bees) {
-			return AylythConfiguredFeautres.POMEGRANATE_TREE;
+			return AylythConfiguredFeatures.POMEGRANATE_TREE;
 		}
 	}, copyOf(Blocks.OAK_SAPLING)));
 	public static final Block POMEGRANATE_POTTED_SAPLING = register("potted_pomegranate_sapling", new FlowerPotBlock(POMEGRANATE_SAPLING, copyOf(Blocks.POTTED_OAK_SAPLING)));
@@ -107,7 +107,7 @@ public class ModBlocks {
 		@Nullable
 		@Override
 		protected RegistryKey<ConfiguredFeature<?, ?>> getTreeFeature(Random random, boolean bees) {
-			return AylythConfiguredFeautres.WRITHEWOOD_TREE;
+			return AylythConfiguredFeatures.WRITHEWOOD_TREE;
 		}
 	}, copyOf(Blocks.OAK_SAPLING)));
 	public static final Block WRITHEWOOD_POTTED_SAPLING = register("potted_writhewood_sapling", new FlowerPotBlock(WRITHEWOOD_SAPLING, copyOf(Blocks.POTTED_OAK_SAPLING)));
@@ -131,7 +131,7 @@ public class ModBlocks {
 		@Nullable
 		@Override
 		protected RegistryKey<ConfiguredFeature<?, ?>> getTreeFeature(Random random, boolean bees) {
-			return AylythConfiguredFeautres.GIRASOL_TREE;
+			return AylythConfiguredFeatures.GIRASOL_TREE;
 		}
 	}, copyOf(Blocks.OAK_SAPLING)));
 	public static final Block GIRASOL_SAPLING_POTTED = register("potted_girasol_sapling", new FlowerPotBlock(GIRASOL_SAPLING, copyOf(Blocks.FLOWER_POT)));

@@ -1,10 +1,10 @@
-package moriyashiine.aylyth.datagen.common.levelgen.feature;
+package moriyashiine.aylyth.datagen.common.world.feature;
 
 import com.google.common.collect.ImmutableList;
 import moriyashiine.aylyth.common.block.SmallWoodyGrowthBlock;
 import moriyashiine.aylyth.common.registry.ModBlocks;
 import moriyashiine.aylyth.common.registry.ModFeatures;
-import moriyashiine.aylyth.common.data.levelgen.AylythPlacements;
+import moriyashiine.aylyth.common.data.world.AylythPlacedFeatures;
 import moriyashiine.aylyth.common.data.tag.AylythBlockTags;
 import moriyashiine.aylyth.common.world.generator.feature.HorizontalFacingFeature;
 import moriyashiine.aylyth.common.world.generator.feature.LeafPileFeature;
@@ -33,7 +33,7 @@ import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
 
-import static moriyashiine.aylyth.common.data.levelgen.AylythConfiguredFeautres.*;
+import static moriyashiine.aylyth.common.data.world.AylythConfiguredFeatures.*;
 
 import java.util.List;
 
@@ -59,11 +59,11 @@ public final class AylythConfiguredFeatureBootstrap {
         var spruceChecked = placements.getOrThrow(TreePlacedFeatures.SPRUCE_CHECKED);
         var megaSpruceChecked = placements.getOrThrow(TreePlacedFeatures.MEGA_SPRUCE_CHECKED);
         var darkOakChecked = placements.getOrThrow(TreePlacedFeatures.DARK_OAK_CHECKED);
-        var antlerShootsWater = placements.getOrThrow(AylythPlacements.ANTLER_SHOOTS_WATER);
-        var antlerShoots = placements.getOrThrow(AylythPlacements.ANTLER_SHOOTS);
-        var largeWoodyGrowthWater = placements.getOrThrow(AylythPlacements.LARGE_WOODY_GROWTH_WATER);
-        var smallWoodyGrowthWater = placements.getOrThrow(AylythPlacements.SMALL_WOODY_GROWTH_WATER);
-        var woodyGrowthsWaterSelector = placements.getOrThrow(AylythPlacements.WOODY_GROWTHS_WATER_SELECTOR_PLACED);
+        var antlerShootsWater = placements.getOrThrow(AylythPlacedFeatures.ANTLER_SHOOTS_WATER);
+        var antlerShoots = placements.getOrThrow(AylythPlacedFeatures.ANTLER_SHOOTS);
+        var largeWoodyGrowthWater = placements.getOrThrow(AylythPlacedFeatures.LARGE_WOODY_GROWTH_WATER);
+        var smallWoodyGrowthWater = placements.getOrThrow(AylythPlacedFeatures.SMALL_WOODY_GROWTH_WATER);
+        var woodyGrowthsWaterSelector = placements.getOrThrow(AylythPlacedFeatures.WOODY_GROWTHS_WATER_SELECTOR_PLACED);
 
         ConfiguredFeatures.register(context, AYLYTHIAN_DARK_OAK, Feature.TREE, new TreeFeatureConfig.Builder(SimpleBlockStateProvider.of(Blocks.DARK_OAK_LOG.getDefaultState()), new AylthianTrunkPlacer(), SimpleBlockStateProvider.of(Blocks.DARK_OAK_LEAVES.getDefaultState()), new DarkOakFoliagePlacer(ConstantIntProvider.create(1), ConstantIntProvider.create(0)), new TwoLayersFeatureSize(1, 1, 2)).ignoreVines().decorators(ImmutableList.of(new GrapeVineDecorator(UniformIntProvider.create(0, 9), 1))).build());
         ConfiguredFeatures.register(context, AYLYTHIAN_MEGA_DARK_OAK, Feature.TREE, new TreeFeatureConfig.Builder(SimpleBlockStateProvider.of(Blocks.DARK_OAK_LOG.getDefaultState()), new AylthianTrunkPlacer(18, 6, 7), SimpleBlockStateProvider.of(Blocks.DARK_OAK_LEAVES.getDefaultState()), new DarkOakFoliagePlacer(ConstantIntProvider.create(1), ConstantIntProvider.create(0)), new TwoLayersFeatureSize(1, 1, 2)).decorators(ImmutableList.of(new GrapeVineDecorator(UniformIntProvider.create(0, 9), 1))).ignoreVines().build());

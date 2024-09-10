@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.entity.passive;
 
 import moriyashiine.aylyth.common.registry.ModParticles;
-import moriyashiine.aylyth.common.data.levelgen.AylythDimensionData;
+import moriyashiine.aylyth.common.data.world.AylythDimensionData;
 import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.control.FlightMoveControl;

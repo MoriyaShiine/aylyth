@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import moriyashiine.aylyth.common.data.levelgen.AylythDimensionData;
+import moriyashiine.aylyth.common.data.world.AylythDimensionData;
 import net.minecraft.server.PlayerManager;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;

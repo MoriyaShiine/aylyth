@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.common.data.levelgen;
+package moriyashiine.aylyth.common.data.world;
 
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.registry.RegistryKey;
