@@ -73,7 +73,7 @@ public class Aylyth implements ModInitializer {
 		ModRecipeTypes.register();
 
 		AylythSoundEvents.register();
-		ModParticles.register();
+		AylythParticleTypes.register();
 
 		AylythScreenHandlerTypes.register();
 

@@ -8,7 +8,7 @@ import net.minecraft.particle.ParticleType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 
-public interface ModParticles {
+public interface AylythParticleTypes {
 
 	DefaultParticleType PILOT_LIGHT = register("pilot_light", FabricParticleTypes.simple(true));
 	DefaultParticleType AMBIENT_PILOT_LIGHT = register("ambient_pilot_light", FabricParticleTypes.simple(true));

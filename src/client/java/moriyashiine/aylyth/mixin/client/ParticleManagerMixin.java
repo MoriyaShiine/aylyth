@@ -2,7 +2,6 @@ package moriyashiine.aylyth.mixin.client;
 
 import com.google.common.collect.ImmutableList;
 import moriyashiine.aylyth.client.particle.AylythParticleTextureSheets;
-import moriyashiine.aylyth.common.registry.ModParticles;
 import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.client.particle.ParticleTextureSheet;
 import net.minecraft.client.texture.TextureManager;

@@ -103,13 +103,13 @@ public class AylythClient implements ClientModInitializer {
 
 		ClientPlayNetworking.registerGlobalReceiver(AylythPacketTypes.SPAWN_PARTICLES_AROUND_PACKET, AylythClientNetworkHandler::handleSpawnParticlesAround);
 
-		ParticleFactoryRegistry.getInstance().register(ModParticles.PILOT_LIGHT, PilotLightParticle.Factory::new);
-		ParticleFactoryRegistry.getInstance().register(ModParticles.AMBIENT_PILOT_LIGHT, PilotLightParticle.AmbientFactory::new);
-		ParticleFactoryRegistry.getInstance().register(ModParticles.HIND_SMOKE, HindSmokeParticle.ShortSmokeFactory::new);
-		ParticleFactoryRegistry.getInstance().register(ModParticles.VAMPIRIC_DRIP, ParticleFactories::createVampiricDrip);
-		ParticleFactoryRegistry.getInstance().register(ModParticles.VAMPIRIC_LAND, ParticleFactories::createVampiricLand);
-		ParticleFactoryRegistry.getInstance().register(ModParticles.BLIGHT_DRIP, ParticleFactories::createBlightDrip);
-		ParticleFactoryRegistry.getInstance().register(ModParticles.BLIGHT_LAND, ParticleFactories::createBlightLand);
+		ParticleFactoryRegistry.getInstance().register(AylythParticleTypes.PILOT_LIGHT, PilotLightParticle.Factory::new);
+		ParticleFactoryRegistry.getInstance().register(AylythParticleTypes.AMBIENT_PILOT_LIGHT, PilotLightParticle.AmbientFactory::new);
+		ParticleFactoryRegistry.getInstance().register(AylythParticleTypes.HIND_SMOKE, HindSmokeParticle.ShortSmokeFactory::new);
+		ParticleFactoryRegistry.getInstance().register(AylythParticleTypes.VAMPIRIC_DRIP, ParticleFactories::createVampiricDrip);
+		ParticleFactoryRegistry.getInstance().register(AylythParticleTypes.VAMPIRIC_LAND, ParticleFactories::createVampiricLand);
+		ParticleFactoryRegistry.getInstance().register(AylythParticleTypes.BLIGHT_DRIP, ParticleFactories::createBlightDrip);
+		ParticleFactoryRegistry.getInstance().register(AylythParticleTypes.BLIGHT_LAND, ParticleFactories::createBlightLand);
 
 		SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, AylythBlocks.YMPE_SIGN.getTexture()));
 		SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, AylythBlocks.POMEGRANATE_SIGN.getTexture()));

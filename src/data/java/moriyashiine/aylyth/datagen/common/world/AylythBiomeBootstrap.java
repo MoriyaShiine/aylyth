@@ -2,7 +2,7 @@ package moriyashiine.aylyth.datagen.common.world;
 
 import com.chocohead.mm.api.ClassTinkerers;
 import moriyashiine.aylyth.common.registry.AylythEntityTypes;
-import moriyashiine.aylyth.common.registry.ModParticles;
+import moriyashiine.aylyth.common.registry.AylythParticleTypes;
 import moriyashiine.aylyth.common.registry.AylythSoundEvents;
 import moriyashiine.aylyth.common.data.world.AylythConfiguredCarvers;
 import moriyashiine.aylyth.common.data.world.AylythPlacedFeatures;
@@ -113,7 +113,7 @@ public final class AylythBiomeBootstrap {
 							.grassColorModifier(AYLYTH_NOISE)
 							.moodSound(BiomeMoodSound.CAVE)
 							.music(musicSound)
-							.particleConfig(ModParticles.AMBIENT_PILOT_LIGHT, 0.0025F);
+							.particleConfig(AylythParticleTypes.AMBIENT_PILOT_LIGHT, 0.0025F);
 					if (overgrown) {
 						biomeEffectsBuilder.additionsSound(overgrownClearingAmbience);
 					}

@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.common.entity.passive;
 
-import moriyashiine.aylyth.common.registry.ModParticles;
+import moriyashiine.aylyth.common.registry.AylythParticleTypes;
 import moriyashiine.aylyth.common.data.world.AylythDimensionData;
 import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
 import net.minecraft.entity.*;
@@ -64,9 +64,9 @@ public class PilotLightEntity extends AmbientEntity implements Flutterer {
 
 		if (getWorld().isClient) {
 			if (!isBlue()) {
-				getWorld().addParticle(ModParticles.PILOT_LIGHT, getParticleX(0.25), getY() + 0.125F + MathHelper.nextDouble(random, -0.125, 0.125), getParticleZ(0.25), 1, 1, 0.2F);
+				getWorld().addParticle(AylythParticleTypes.PILOT_LIGHT, getParticleX(0.25), getY() + 0.125F + MathHelper.nextDouble(random, -0.125, 0.125), getParticleZ(0.25), 1, 1, 0.2F);
 			} else {
-				getWorld().addParticle(ModParticles.PILOT_LIGHT, getParticleX(0.25), getY() + 0.125F + MathHelper.nextDouble(random, -0.125, 0.125), getParticleZ(0.25), 0.25, 0.25, 1);
+				getWorld().addParticle(AylythParticleTypes.PILOT_LIGHT, getParticleX(0.25), getY() + 0.125F + MathHelper.nextDouble(random, -0.125, 0.125), getParticleZ(0.25), 0.25, 0.25, 1);
 			}
 		}
 	}

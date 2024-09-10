@@ -2,7 +2,7 @@ package moriyashiine.aylyth.common.entity.projectile;
 
 import moriyashiine.aylyth.common.entity.mob.WreathedHindEntity;
 import moriyashiine.aylyth.common.registry.AylythEntityTypes;
-import moriyashiine.aylyth.common.registry.ModParticles;
+import moriyashiine.aylyth.common.registry.AylythParticleTypes;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -38,7 +38,7 @@ public class SphereEntity extends ProjectileEntity {
     @Override
     public void tick() {
         super.tick();
-        getWorld().addParticle(ModParticles.PILOT_LIGHT, getParticleX(0.25), getY() + 0.125F + MathHelper.nextDouble(random, -0.125, 0.125), getParticleZ(0.25), 0.25, 0.25, 1);
+        getWorld().addParticle(AylythParticleTypes.PILOT_LIGHT, getParticleX(0.25), getY() + 0.125F + MathHelper.nextDouble(random, -0.125, 0.125), getParticleZ(0.25), 0.25, 0.25, 1);
 
 
         Vec3d vec3d = this.getVelocity();
@@ -90,7 +90,7 @@ public class SphereEntity extends ProjectileEntity {
 
         for(int i = 0; i < 7; ++i) {
             double g = 0.4 + 0.1 * (double)i;
-            this.getWorld().addParticle(ModParticles.PILOT_LIGHT, this.getX(), this.getY(), this.getZ(), d * g, e, f * g);
+            this.getWorld().addParticle(AylythParticleTypes.PILOT_LIGHT, this.getX(), this.getY(), this.getZ(), d * g, e, f * g);
         }
 
         this.setVelocity(d, e, f);

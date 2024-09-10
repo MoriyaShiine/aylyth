@@ -3,7 +3,7 @@ package moriyashiine.aylyth.common.util;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.network.packets.SpawnParticlesAroundPacketS2C;
 import moriyashiine.aylyth.common.registry.AylythItems;
-import moriyashiine.aylyth.common.registry.ModParticles;
+import moriyashiine.aylyth.common.registry.AylythParticleTypes;
 import moriyashiine.aylyth.common.registry.AylythSoundEvents;
 import moriyashiine.aylyth.common.registry.AylythEntityStatusEffects;
 import moriyashiine.aylyth.common.registry.AylythPointOfInterestTypes;
@@ -114,11 +114,11 @@ public class AylythUtil {
             attacker.heal(originalValue * 0.5f);
 
 			PlayerLookup.tracking(attacker).forEach(trackingPlayer -> {
-				ServerPlayNetworking.send(trackingPlayer, new SpawnParticlesAroundPacketS2C(attacker.getId(), 32, List.of(ModParticles.VAMPIRIC_DRIP)));
+				ServerPlayNetworking.send(trackingPlayer, new SpawnParticlesAroundPacketS2C(attacker.getId(), 32, List.of(AylythParticleTypes.VAMPIRIC_DRIP)));
 			});
 
 			if (attacker instanceof ServerPlayerEntity player) {
-				ServerPlayNetworking.send(player, new SpawnParticlesAroundPacketS2C(player.getId(), 32, List.of(ModParticles.VAMPIRIC_DRIP)));
+				ServerPlayNetworking.send(player, new SpawnParticlesAroundPacketS2C(player.getId(), 32, List.of(AylythParticleTypes.VAMPIRIC_DRIP)));
 			}
 
             if (isSword && target.getAbsorptionAmount() > 0) {
@@ -145,7 +145,7 @@ public class AylythUtil {
 			target.addStatusEffect(new StatusEffectInstance(AylythEntityStatusEffects.BLIGHT, 20 * 4, amplifier));
 
 			PlayerLookup.tracking(target).forEach(trackingPlayer -> {
-				ServerPlayNetworking.send(trackingPlayer, new SpawnParticlesAroundPacketS2C(target.getId(), 32, List.of(ModParticles.BLIGHT_DRIP)));
+				ServerPlayNetworking.send(trackingPlayer, new SpawnParticlesAroundPacketS2C(target.getId(), 32, List.of(AylythParticleTypes.BLIGHT_DRIP)));
 			});
 
 			if (isSword && target.getAbsorptionAmount() > 0) {
