@@ -2,7 +2,7 @@ package moriyashiine.aylyth.common.item.type;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import moriyashiine.aylyth.common.recipe.SoulCampfireRecipe;
-import moriyashiine.aylyth.common.registry.AylythBlocks;
+import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.registry.AylythRecipeTypes;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;

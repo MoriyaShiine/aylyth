@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.item.type;
 
 import moriyashiine.aylyth.api.interfaces.VitalHealthHolder;
-import moriyashiine.aylyth.common.block.WoodyGrowthCacheBlock;
+import moriyashiine.aylyth.common.block.type.WoodyGrowthCacheBlock;
 import moriyashiine.aylyth.common.component.entity.YmpeInfestationComponent;
 import moriyashiine.aylyth.common.entity.type.mob.ScionEntity;
 import moriyashiine.aylyth.common.registry.ModEntityComponents;

@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.datagen.common.loot;
 
-import moriyashiine.aylyth.common.block.*;
-import moriyashiine.aylyth.common.registry.AylythBlocks;
+import moriyashiine.aylyth.common.block.AylythBlocks;
+import moriyashiine.aylyth.common.block.type.*;
 import moriyashiine.aylyth.common.item.AylythItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;

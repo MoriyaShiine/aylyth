@@ -1,6 +1,7 @@
 package moriyashiine.aylyth.common.item;
 
 import com.terraformersmc.terraform.boat.impl.item.TerraformBoatItem;
+import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.entity.AylythEntityTypes;
 import moriyashiine.aylyth.common.entity.statuseffect.AylythStatusEffects;
 import moriyashiine.aylyth.common.item.type.*;

@@ -2,7 +2,11 @@ package moriyashiine.aylyth.common;
 
 import moriyashiine.aylyth.api.AylythEntityApi;
 import moriyashiine.aylyth.api.interfaces.VitalHealthHolder;
-import moriyashiine.aylyth.common.block.SoulHearthBlock;
+import moriyashiine.aylyth.common.block.entity.AylythBlockEntityTypes;
+import moriyashiine.aylyth.common.block.AylythBlocks;
+import moriyashiine.aylyth.common.block.AylythFlammables;
+import moriyashiine.aylyth.common.block.AylythStrippables;
+import moriyashiine.aylyth.common.block.type.SoulHearthBlock;
 import moriyashiine.aylyth.common.entity.attribute.AylythAttributes;
 import moriyashiine.aylyth.common.entity.AylythEntityTypes;
 import moriyashiine.aylyth.common.entity.trackeddata.AylythTrackedDataHandlers;

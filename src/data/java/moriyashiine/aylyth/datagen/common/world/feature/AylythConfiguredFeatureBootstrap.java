@@ -1,8 +1,8 @@
 package moriyashiine.aylyth.datagen.common.world.feature;
 
 import com.google.common.collect.ImmutableList;
-import moriyashiine.aylyth.common.block.SmallWoodyGrowthBlock;
-import moriyashiine.aylyth.common.registry.AylythBlocks;
+import moriyashiine.aylyth.common.block.type.SmallWoodyGrowthBlock;
+import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.registry.AylythFeatures;
 import moriyashiine.aylyth.common.data.world.AylythPlacedFeatures;
 import moriyashiine.aylyth.common.data.tag.AylythBlockTags;

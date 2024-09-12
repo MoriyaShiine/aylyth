@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.common.item.type;
 
-import moriyashiine.aylyth.common.registry.AylythBlocks;
+import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.data.world.AylythDimensionData;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.block.BlockState;

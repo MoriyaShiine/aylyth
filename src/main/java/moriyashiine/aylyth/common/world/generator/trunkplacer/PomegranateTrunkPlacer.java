@@ -3,7 +3,7 @@ package moriyashiine.aylyth.common.world.generator.trunkplacer;
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import moriyashiine.aylyth.common.registry.AylythBlocks;
+import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.registry.AylythTrunkPlacerTypes;
 import moriyashiine.aylyth.common.world.generator.foliageplacer.DirectionalTreeNode;
 import net.minecraft.block.BlockState;

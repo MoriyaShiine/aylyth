@@ -3,7 +3,7 @@ package moriyashiine.aylyth.common.world.generator.treedecorator;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import moriyashiine.aylyth.common.registry.AylythBlocks;
+import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.registry.AylythTreeDecoratorTypes;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.VineBlock;

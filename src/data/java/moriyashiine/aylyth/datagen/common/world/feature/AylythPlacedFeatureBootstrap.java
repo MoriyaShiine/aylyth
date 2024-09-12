@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.datagen.common.world.feature;
 
-import moriyashiine.aylyth.common.registry.AylythBlocks;
+import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.data.world.AylythConfiguredFeatures;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.registry.Registerable;

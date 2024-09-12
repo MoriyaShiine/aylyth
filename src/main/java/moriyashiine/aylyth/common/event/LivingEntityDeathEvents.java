@@ -1,8 +1,9 @@
 package moriyashiine.aylyth.common.event;
 
 import moriyashiine.aylyth.api.interfaces.HindPledgeHolder;
-import moriyashiine.aylyth.common.block.VitalThuribleBlock;
-import moriyashiine.aylyth.common.block.WoodyGrowthCacheBlock;
+import moriyashiine.aylyth.common.block.type.VitalThuribleBlock;
+import moriyashiine.aylyth.common.block.type.WoodyGrowthCacheBlock;
+import moriyashiine.aylyth.common.block.type.WoodyGrowthCacheBlock;
 import moriyashiine.aylyth.common.entity.type.mob.RippedSoulEntity;
 import moriyashiine.aylyth.common.entity.type.mob.ScionEntity;
 import moriyashiine.aylyth.common.entity.attribute.AylythAttributes;

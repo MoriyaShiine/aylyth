@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.mixin;
 
-import moriyashiine.aylyth.common.block.IContextBlockSoundGroup;
+import moriyashiine.aylyth.common.block.type.IContextBlockSoundGroup;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.registry.tag.BlockTags;

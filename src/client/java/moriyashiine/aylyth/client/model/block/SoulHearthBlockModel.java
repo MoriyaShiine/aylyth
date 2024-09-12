@@ -1,7 +1,8 @@
 package moriyashiine.aylyth.client.model.block;
 
-import moriyashiine.aylyth.common.block.SoulHearthBlock;
-import moriyashiine.aylyth.common.registry.AylythBlocks;
+import moriyashiine.aylyth.common.block.type.SoulHearthBlock;
+import moriyashiine.aylyth.common.block.AylythBlocks;
+import moriyashiine.aylyth.common.block.type.SoulHearthBlock;
 import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.fabric.api.renderer.v1.model.ForwardingBakedModel;

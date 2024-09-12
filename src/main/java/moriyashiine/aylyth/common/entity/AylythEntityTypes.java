@@ -1,7 +1,6 @@
 package moriyashiine.aylyth.common.entity;
 
 import moriyashiine.aylyth.common.entity.type.RootPropEntity;
-import moriyashiine.aylyth.common.entity.mob.*;
 import moriyashiine.aylyth.common.entity.type.mob.*;
 import moriyashiine.aylyth.common.entity.type.mob.TulpaEntity.TulpaPlayerEntity;
 import moriyashiine.aylyth.common.entity.type.passive.PilotLightEntity;

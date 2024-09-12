@@ -2,6 +2,7 @@ package moriyashiine.aylyth.common.entity.type.mob;
 
 import com.mojang.serialization.Dynamic;
 import moriyashiine.aylyth.api.interfaces.Pledgeable;
+import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.entity.trackeddata.AylythTrackedDataHandlers;
 import moriyashiine.aylyth.common.entity.ai.AylythMemoryTypes;
 import moriyashiine.aylyth.common.entity.ai.brain.WreathedHindBrain;

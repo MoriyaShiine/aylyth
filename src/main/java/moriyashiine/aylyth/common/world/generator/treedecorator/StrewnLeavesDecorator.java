@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.world.generator.treedecorator;
 
 import com.mojang.serialization.Codec;
-import moriyashiine.aylyth.common.registry.AylythBlocks;
+import moriyashiine.aylyth.common.block.AylythBlocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.gen.treedecorator.TreeDecorator;

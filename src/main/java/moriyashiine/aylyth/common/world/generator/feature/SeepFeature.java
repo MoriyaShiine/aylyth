@@ -2,8 +2,8 @@ package moriyashiine.aylyth.common.world.generator.feature;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import moriyashiine.aylyth.common.block.SeepBlock;
-import moriyashiine.aylyth.common.registry.AylythBlocks;
+import moriyashiine.aylyth.common.block.type.SeepBlock;
+import moriyashiine.aylyth.common.block.AylythBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;

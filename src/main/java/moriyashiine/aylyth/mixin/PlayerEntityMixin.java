@@ -3,7 +3,7 @@ package moriyashiine.aylyth.mixin;
 import moriyashiine.aylyth.api.interfaces.HindPledgeHolder;
 import moriyashiine.aylyth.api.interfaces.VitalHealthHolder;
 import moriyashiine.aylyth.common.attachment.PledgeState;
-import moriyashiine.aylyth.common.block.SoulHearthBlock;
+import moriyashiine.aylyth.common.block.type.SoulHearthBlock;
 import moriyashiine.aylyth.common.component.entity.CuirassComponent;
 import moriyashiine.aylyth.common.entity.type.mob.BoneflyEntity;
 import moriyashiine.aylyth.common.registry.ModAttachmentTypes;
@@ -45,7 +45,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
-import static moriyashiine.aylyth.common.block.SoulHearthBlock.HALF;
+import static moriyashiine.aylyth.common.block.type.SoulHearthBlock.HALF;
 
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin extends LivingEntity implements VitalHealthHolder, HindPledgeHolder {
