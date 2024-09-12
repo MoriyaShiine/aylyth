@@ -5,8 +5,8 @@ import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import static moriyashiine.aylyth.common.registry.AylythItems.*;
 
 // TODO better name
-public final class AylythCompositing {
-    private AylythCompositing() {}
+public final class AylythCompostingChances {
+    private AylythCompostingChances() {}
 
     public static void register() {
         var registry = CompostingChanceRegistry.INSTANCE;
