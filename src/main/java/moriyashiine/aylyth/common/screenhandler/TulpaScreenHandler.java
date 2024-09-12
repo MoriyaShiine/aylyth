@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.screenhandler;
 
 import com.mojang.datafixers.util.Pair;
-import moriyashiine.aylyth.common.entity.mob.TulpaEntity;
+import moriyashiine.aylyth.common.entity.type.mob.TulpaEntity;
 import moriyashiine.aylyth.common.registry.AylythScreenHandlerTypes;
 import moriyashiine.aylyth.mixin.MobEntityAccessor;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;

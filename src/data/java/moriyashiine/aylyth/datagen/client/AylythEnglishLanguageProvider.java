@@ -1,5 +1,7 @@
 package moriyashiine.aylyth.datagen.client;
 
+import moriyashiine.aylyth.common.entity.AylythEntityTypes;
+import moriyashiine.aylyth.common.entity.statuseffect.AylythStatusEffects;
 import moriyashiine.aylyth.common.registry.*;
 import moriyashiine.aylyth.common.data.world.AylythBiomes;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;

@@ -7,6 +7,7 @@ import com.terraformersmc.terraform.sign.block.TerraformWallHangingSignBlock;
 import com.terraformersmc.terraform.sign.block.TerraformWallSignBlock;
 import moriyashiine.aylyth.common.block.*;
 import moriyashiine.aylyth.common.data.world.AylythConfiguredFeatures;
+import moriyashiine.aylyth.common.entity.statuseffect.AylythStatusEffects;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeBuilder;

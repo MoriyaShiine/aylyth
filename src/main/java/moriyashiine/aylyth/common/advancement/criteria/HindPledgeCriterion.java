@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.advancement.criteria;
 
 import com.google.gson.JsonObject;
-import moriyashiine.aylyth.common.entity.mob.WreathedHindEntity;
+import moriyashiine.aylyth.common.entity.type.mob.WreathedHindEntity;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.advancement.criterion.AbstractCriterion;
 import net.minecraft.advancement.criterion.AbstractCriterionConditions;

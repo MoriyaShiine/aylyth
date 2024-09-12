@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.client.render.entity.projectile;
 
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.entity.projectile.ThornFlechetteEntity;
+import moriyashiine.aylyth.common.entity.type.projectile.ThornFlechetteEntity;
 import moriyashiine.aylyth.common.registry.AylythItems;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.ProjectileEntityRenderer;

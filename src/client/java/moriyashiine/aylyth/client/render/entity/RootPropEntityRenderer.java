@@ -2,7 +2,7 @@ package moriyashiine.aylyth.client.render.entity;
 
 import moriyashiine.aylyth.client.model.entity.RootPropEntityModel;
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.entity.RootPropEntity;
+import moriyashiine.aylyth.common.entity.type.RootPropEntity;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;

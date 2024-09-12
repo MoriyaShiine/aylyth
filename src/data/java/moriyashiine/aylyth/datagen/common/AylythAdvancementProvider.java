@@ -6,6 +6,8 @@ import moriyashiine.aylyth.common.advancement.renderdata.TextureRendererData;
 import moriyashiine.aylyth.common.advancement.criteria.HindPledgeCriterion;
 import moriyashiine.aylyth.common.advancement.criteria.ShuckingCriterion;
 import moriyashiine.aylyth.common.advancement.criteria.YmpeInfestationCriterion;
+import moriyashiine.aylyth.common.entity.AylythEntityTypes;
+import moriyashiine.aylyth.common.entity.statuseffect.AylythStatusEffects;
 import moriyashiine.aylyth.common.registry.*;
 import moriyashiine.aylyth.common.data.world.AylythBiomes;
 import moriyashiine.aylyth.common.data.world.AylythDimensionData;

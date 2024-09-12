@@ -1,6 +1,8 @@
 package moriyashiine.aylyth.common.registry;
 
 import com.terraformersmc.terraform.boat.impl.item.TerraformBoatItem;
+import moriyashiine.aylyth.common.entity.AylythEntityTypes;
+import moriyashiine.aylyth.common.entity.statuseffect.AylythStatusEffects;
 import moriyashiine.aylyth.common.item.*;
 import moriyashiine.aylyth.common.item.component.ThornFlechetteEffect;
 import moriyashiine.aylyth.common.util.AylythUtil;

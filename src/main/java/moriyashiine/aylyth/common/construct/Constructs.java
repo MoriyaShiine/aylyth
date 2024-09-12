@@ -1,11 +1,11 @@
 package moriyashiine.aylyth.common.construct;
 
 import it.unimi.dsi.fastutil.objects.Reference2ObjectOpenHashMap;
-import moriyashiine.aylyth.common.entity.mob.BoneflyEntity;
-import moriyashiine.aylyth.common.entity.mob.SoulmouldEntity;
-import moriyashiine.aylyth.common.entity.mob.TulpaEntity;
+import moriyashiine.aylyth.common.entity.type.mob.BoneflyEntity;
+import moriyashiine.aylyth.common.entity.type.mob.SoulmouldEntity;
+import moriyashiine.aylyth.common.entity.type.mob.TulpaEntity;
 import moriyashiine.aylyth.common.registry.AylythBlocks;
-import moriyashiine.aylyth.common.registry.AylythEntityTypes;
+import moriyashiine.aylyth.common.entity.AylythEntityTypes;
 import moriyashiine.aylyth.common.registry.AylythItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

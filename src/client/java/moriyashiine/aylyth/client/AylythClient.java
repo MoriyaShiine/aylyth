@@ -12,6 +12,7 @@ import moriyashiine.aylyth.client.model.entity.ScionEntityModel;
 import moriyashiine.aylyth.client.network.AylythClientNetworkHandler;
 import moriyashiine.aylyth.client.particle.ParticleFactories;
 import moriyashiine.aylyth.client.render.entity.projectile.ThornFlechetteRenderer;
+import moriyashiine.aylyth.common.entity.AylythEntityTypes;
 import moriyashiine.aylyth.common.item.NephriteFlaskItem;
 import moriyashiine.aylyth.common.item.ShuckedYmpeFruitItem;
 import moriyashiine.aylyth.common.network.AylythPacketTypes;

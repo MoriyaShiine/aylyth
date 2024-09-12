@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.datagen.common;
 
 import moriyashiine.aylyth.common.registry.AylythBlocks;
-import moriyashiine.aylyth.common.registry.AylythEntityTypes;
+import moriyashiine.aylyth.common.entity.AylythEntityTypes;
 import moriyashiine.aylyth.common.registry.AylythItems;
 import moriyashiine.aylyth.common.data.tag.AylythItemTags;
 import moriyashiine.aylyth.datagen.common.util.recipe.SoulCampfireRecipeBuilder;

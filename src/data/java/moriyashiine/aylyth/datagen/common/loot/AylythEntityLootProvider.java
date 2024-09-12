@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.datagen.common.loot;
 
 import com.google.common.collect.Maps;
-import moriyashiine.aylyth.common.registry.AylythEntityTypes;
+import moriyashiine.aylyth.common.entity.AylythEntityTypes;
 import moriyashiine.aylyth.common.registry.AylythItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;

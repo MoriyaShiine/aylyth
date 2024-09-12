@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.client.render.entity.living;
 
 import moriyashiine.aylyth.client.model.entity.FaunaylythianEntityModel;
-import moriyashiine.aylyth.common.entity.mob.FaunaylythianEntity;
+import moriyashiine.aylyth.common.entity.type.mob.FaunaylythianEntity;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 

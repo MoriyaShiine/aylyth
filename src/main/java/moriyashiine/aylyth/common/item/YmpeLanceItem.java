@@ -3,7 +3,7 @@ package moriyashiine.aylyth.common.item;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
-import moriyashiine.aylyth.common.entity.projectile.YmpeLanceEntity;
+import moriyashiine.aylyth.common.entity.type.projectile.YmpeLanceEntity;
 import moriyashiine.aylyth.common.registry.ModToolMaterials;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.block.BlockState;

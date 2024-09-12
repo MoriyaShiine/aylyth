@@ -2,7 +2,7 @@ package moriyashiine.aylyth.client.render.entity.living;
 
 import moriyashiine.aylyth.client.model.entity.WreathedHindEntityModel;
 import moriyashiine.aylyth.client.render.entity.living.layer.WreathedHindGlowLayerRenderer;
-import moriyashiine.aylyth.common.entity.mob.WreathedHindEntity;
+import moriyashiine.aylyth.common.entity.type.mob.WreathedHindEntity;
 import moriyashiine.aylyth.common.registry.AylythParticleTypes;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;

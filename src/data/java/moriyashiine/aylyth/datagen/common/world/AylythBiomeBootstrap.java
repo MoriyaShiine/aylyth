@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.datagen.common.world;
 
 import com.chocohead.mm.api.ClassTinkerers;
-import moriyashiine.aylyth.common.registry.AylythEntityTypes;
+import moriyashiine.aylyth.common.entity.AylythEntityTypes;
 import moriyashiine.aylyth.common.registry.AylythParticleTypes;
 import moriyashiine.aylyth.common.registry.AylythSoundEvents;
 import moriyashiine.aylyth.common.data.world.AylythConfiguredCarvers;

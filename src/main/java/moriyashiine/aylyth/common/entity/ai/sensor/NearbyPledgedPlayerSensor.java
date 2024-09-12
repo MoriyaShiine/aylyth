@@ -2,7 +2,7 @@ package moriyashiine.aylyth.common.entity.ai.sensor;
 
 import com.google.common.collect.ImmutableSet;
 import moriyashiine.aylyth.api.interfaces.Pledgeable;
-import moriyashiine.aylyth.common.registry.AylythMemoryTypes;
+import moriyashiine.aylyth.common.entity.ai.AylythMemoryTypes;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.sensor.Sensor;

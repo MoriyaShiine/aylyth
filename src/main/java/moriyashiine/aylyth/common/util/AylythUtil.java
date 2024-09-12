@@ -5,7 +5,7 @@ import moriyashiine.aylyth.common.network.packets.SpawnParticlesAroundPacketS2C;
 import moriyashiine.aylyth.common.registry.AylythItems;
 import moriyashiine.aylyth.common.registry.AylythParticleTypes;
 import moriyashiine.aylyth.common.registry.AylythSoundEvents;
-import moriyashiine.aylyth.common.registry.AylythStatusEffects;
+import moriyashiine.aylyth.common.entity.statuseffect.AylythStatusEffects;
 import moriyashiine.aylyth.common.registry.AylythPointOfInterestTypes;
 import moriyashiine.aylyth.common.data.tag.AylythDamageTypeTags;
 import moriyashiine.aylyth.common.data.tag.AylythItemTags;

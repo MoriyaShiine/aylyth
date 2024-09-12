@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.client.render.entity.living;
 
 import moriyashiine.aylyth.client.model.entity.SoulmouldEntityModel;
-import moriyashiine.aylyth.common.entity.mob.SoulmouldEntity;
+import moriyashiine.aylyth.common.entity.type.mob.SoulmouldEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;

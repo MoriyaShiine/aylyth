@@ -5,7 +5,7 @@ import moriyashiine.aylyth.api.interfaces.AylythGameHud;
 import moriyashiine.aylyth.api.interfaces.VitalHealthHolder;
 import moriyashiine.aylyth.common.component.entity.YmpeInfestationComponent;
 import moriyashiine.aylyth.common.registry.ModEntityComponents;
-import moriyashiine.aylyth.common.registry.AylythAttributes;
+import moriyashiine.aylyth.common.entity.attribute.AylythAttributes;
 import moriyashiine.aylyth.common.data.tag.AylythBlockTags;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
