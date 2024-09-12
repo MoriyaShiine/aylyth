@@ -67,6 +67,8 @@ public class Aylyth implements ModInitializer {
 			LOGGER.info("Debug mode enabled!");
 		}
 
+		CustomRegistries.init();
+
 		AdvancementRendererDataTypes.register();
 		AylythCriteria.register();
 		AylythLootConditionTypes.register();
@@ -105,7 +107,6 @@ public class Aylyth implements ModInitializer {
 		AylythBiomeSources.register();
 		AylythBiomeModifications.register();
 
-		CustomRegistries.init();
 		ModAttachmentTypes.init();
 
 		registerApis();
