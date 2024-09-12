@@ -2,7 +2,7 @@ package moriyashiine.aylyth.common.item;
 
 import com.terraformersmc.terraform.boat.api.TerraformBoatType;
 import com.terraformersmc.terraform.boat.api.TerraformBoatTypeRegistry;
-import moriyashiine.aylyth.common.util.AylythUtil;
+import moriyashiine.aylyth.common.other.util.AylythUtil;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 

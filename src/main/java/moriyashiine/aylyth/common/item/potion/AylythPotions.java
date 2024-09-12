@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.item.potion;
 
 import moriyashiine.aylyth.common.entity.AylythStatusEffects;
-import moriyashiine.aylyth.common.util.AylythUtil;
+import moriyashiine.aylyth.common.other.util.AylythUtil;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.potion.Potion;

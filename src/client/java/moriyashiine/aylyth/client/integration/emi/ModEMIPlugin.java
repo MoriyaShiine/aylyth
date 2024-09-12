@@ -7,7 +7,7 @@ import dev.emi.emi.api.stack.EmiStack;
 import moriyashiine.aylyth.common.recipe.YmpeDaggerDropRecipe;
 import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.aylyth.common.recipe.AylythRecipeTypes;
-import moriyashiine.aylyth.common.util.AylythUtil;
+import moriyashiine.aylyth.common.other.util.AylythUtil;
 import net.minecraft.recipe.RecipeManager;
 
 public class ModEMIPlugin implements EmiPlugin {

@@ -3,7 +3,7 @@ package moriyashiine.aylyth.common.network;
 import moriyashiine.aylyth.common.network.packets.GlaivePacketC2S;
 import moriyashiine.aylyth.common.network.packets.SpawnParticlesAroundPacketS2C;
 import moriyashiine.aylyth.common.network.packets.UpdatePressingUpDownPacketC2S;
-import moriyashiine.aylyth.common.util.AylythUtil;
+import moriyashiine.aylyth.common.other.util.AylythUtil;
 import net.fabricmc.fabric.api.networking.v1.PacketType;
 
 public class AylythPacketTypes {

@@ -5,6 +5,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import com.mojang.serialization.JsonOps;
 import moriyashiine.aylyth.common.Aylyth;
+import moriyashiine.aylyth.common.advancement.renderdata.AdvancementRendererData;
+import moriyashiine.aylyth.common.advancement.renderdata.AdvancementRendererDataType;
 import moriyashiine.aylyth.mixin.AdvancementDisplayAccessor;
 import net.minecraft.advancement.AdvancementDisplay;
 import net.minecraft.advancement.AdvancementFrame;

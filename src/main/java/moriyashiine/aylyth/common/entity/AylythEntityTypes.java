@@ -7,7 +7,7 @@ import moriyashiine.aylyth.common.entity.type.passive.PilotLightEntity;
 import moriyashiine.aylyth.common.entity.type.projectile.SphereEntity;
 import moriyashiine.aylyth.common.entity.type.projectile.ThornFlechetteEntity;
 import moriyashiine.aylyth.common.entity.type.projectile.YmpeLanceEntity;
-import moriyashiine.aylyth.common.util.AylythUtil;
+import moriyashiine.aylyth.common.other.util.AylythUtil;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.*;
 import net.minecraft.registry.Registries;

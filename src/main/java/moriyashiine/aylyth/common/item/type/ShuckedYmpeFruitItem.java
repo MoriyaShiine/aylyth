@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.item.type;
 
 import moriyashiine.aylyth.common.entity.AylythEntityComponents;
-import moriyashiine.aylyth.common.util.AylythUtil;
+import moriyashiine.aylyth.common.other.util.AylythUtil;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.mob.MobEntity;

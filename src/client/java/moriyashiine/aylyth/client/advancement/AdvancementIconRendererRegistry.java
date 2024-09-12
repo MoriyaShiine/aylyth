@@ -2,11 +2,11 @@ package moriyashiine.aylyth.client.advancement;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import it.unimi.dsi.fastutil.objects.Reference2ObjectOpenHashMap;
-import moriyashiine.aylyth.common.advancement.AdvancementRendererData;
-import moriyashiine.aylyth.common.advancement.AdvancementRendererDataType;
+import moriyashiine.aylyth.common.advancement.renderdata.AdvancementRendererData;
+import moriyashiine.aylyth.common.advancement.renderdata.AdvancementRendererDataType;
 import moriyashiine.aylyth.common.advancement.renderdata.TextureRendererData;
-import moriyashiine.aylyth.common.advancement.AdvancementRendererDataTypes;
-import moriyashiine.aylyth.common.other.custom.CustomRegistries;
+import moriyashiine.aylyth.common.advancement.renderdata.AdvancementRendererDataTypes;
+import moriyashiine.aylyth.common.other.customregistry.CustomRegistries;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.*;
 import org.joml.Matrix4f;

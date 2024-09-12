@@ -1,11 +1,11 @@
-package moriyashiine.aylyth.common.util;
+package moriyashiine.aylyth.common.other.util;
 
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.network.packets.SpawnParticlesAroundPacketS2C;
 import moriyashiine.aylyth.common.item.AylythItems;
+import moriyashiine.aylyth.common.entity.AylythStatusEffects;
 import moriyashiine.aylyth.common.other.AylythParticleTypes;
 import moriyashiine.aylyth.common.other.AylythSoundEvents;
-import moriyashiine.aylyth.common.entity.AylythStatusEffects;
 import moriyashiine.aylyth.common.world.AylythPointOfInterestTypes;
 import moriyashiine.aylyth.common.data.tag.AylythDamageTypeTags;
 import moriyashiine.aylyth.common.data.tag.AylythItemTags;

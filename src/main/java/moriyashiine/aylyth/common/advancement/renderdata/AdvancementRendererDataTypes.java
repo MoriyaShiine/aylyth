@@ -1,8 +1,7 @@
-package moriyashiine.aylyth.common.advancement;
+package moriyashiine.aylyth.common.advancement.renderdata;
 
-import moriyashiine.aylyth.common.advancement.renderdata.TextureRendererData;
-import moriyashiine.aylyth.common.other.custom.CustomRegistries;
-import moriyashiine.aylyth.common.util.AylythUtil;
+import moriyashiine.aylyth.common.other.customregistry.CustomRegistries;
+import moriyashiine.aylyth.common.other.util.AylythUtil;
 import net.minecraft.registry.Registry;
 
 public interface AdvancementRendererDataTypes {

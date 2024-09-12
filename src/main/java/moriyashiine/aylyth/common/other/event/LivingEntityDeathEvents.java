@@ -1,8 +1,7 @@
-package moriyashiine.aylyth.common.event;
+package moriyashiine.aylyth.common.other.event;
 
 import moriyashiine.aylyth.api.interfaces.HindPledgeHolder;
 import moriyashiine.aylyth.common.block.type.VitalThuribleBlock;
-import moriyashiine.aylyth.common.block.type.WoodyGrowthCacheBlock;
 import moriyashiine.aylyth.common.block.type.WoodyGrowthCacheBlock;
 import moriyashiine.aylyth.common.entity.type.mob.RippedSoulEntity;
 import moriyashiine.aylyth.common.entity.type.mob.ScionEntity;
@@ -11,7 +10,7 @@ import moriyashiine.aylyth.common.entity.AylythEntityTypes;
 import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.aylyth.common.data.AylythDamageTypes;
 import moriyashiine.aylyth.common.data.world.AylythDimensionData;
-import moriyashiine.aylyth.common.util.AylythUtil;
+import moriyashiine.aylyth.common.other.util.AylythUtil;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.minecraft.advancement.Advancement;

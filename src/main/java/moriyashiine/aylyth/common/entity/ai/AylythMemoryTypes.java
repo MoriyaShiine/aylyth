@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.entity.ai;
 
 import moriyashiine.aylyth.common.entity.ai.brain.WreathedHindBrain;
-import moriyashiine.aylyth.common.util.AylythUtil;
+import moriyashiine.aylyth.common.other.util.AylythUtil;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.Registries;

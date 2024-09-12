@@ -7,7 +7,7 @@ import moriyashiine.aylyth.common.entity.AylythStatusEffects;
 import moriyashiine.aylyth.common.item.type.*;
 import moriyashiine.aylyth.common.item.component.ThornFlechetteEffect;
 import moriyashiine.aylyth.common.other.*;
-import moriyashiine.aylyth.common.util.AylythUtil;
+import moriyashiine.aylyth.common.other.util.AylythUtil;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;

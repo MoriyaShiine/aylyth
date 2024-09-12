@@ -1,8 +1,7 @@
 package moriyashiine.aylyth.common.entity;
 
 import moriyashiine.aylyth.common.entity.statuseffect.*;
-import moriyashiine.aylyth.common.entity.statuseffect.type.*;
-import moriyashiine.aylyth.common.util.AylythUtil;
+import moriyashiine.aylyth.common.other.util.AylythUtil;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;

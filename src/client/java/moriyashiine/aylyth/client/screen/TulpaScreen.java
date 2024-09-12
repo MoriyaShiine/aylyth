@@ -3,7 +3,7 @@ package moriyashiine.aylyth.client.screen;
 import com.mojang.blaze3d.systems.RenderSystem;
 import moriyashiine.aylyth.common.entity.type.mob.TulpaEntity;
 import moriyashiine.aylyth.common.screenhandler.TulpaScreenHandler;
-import moriyashiine.aylyth.common.util.AylythUtil;
+import moriyashiine.aylyth.common.other.util.AylythUtil;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;

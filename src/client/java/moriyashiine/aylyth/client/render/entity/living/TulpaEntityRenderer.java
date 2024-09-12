@@ -7,7 +7,7 @@ import moriyashiine.aylyth.client.render.block.entity.WoodyGrowthBlockEntityRend
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.entity.type.mob.TulpaEntity;
 import moriyashiine.aylyth.common.entity.AylythEntityTypes;
-import moriyashiine.aylyth.common.util.AylythUtil;
+import moriyashiine.aylyth.common.other.util.AylythUtil;
 import moriyashiine.aylyth.mixin.client.PlayerSkinTextureAccessor;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;

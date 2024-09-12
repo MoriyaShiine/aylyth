@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.item.type;
 
-import moriyashiine.aylyth.common.construct.Constructs;
-import moriyashiine.aylyth.common.util.AylythUtil;
+import moriyashiine.aylyth.common.other.construct.Constructs;
+import moriyashiine.aylyth.common.other.util.AylythUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
