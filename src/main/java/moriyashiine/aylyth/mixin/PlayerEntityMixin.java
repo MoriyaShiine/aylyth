@@ -2,7 +2,7 @@ package moriyashiine.aylyth.mixin;
 
 import moriyashiine.aylyth.api.interfaces.HindPledgeHolder;
 import moriyashiine.aylyth.api.interfaces.VitalHealthHolder;
-import moriyashiine.aylyth.common.attachment.PledgeState;
+import moriyashiine.aylyth.common.entity.attachment.PledgeState;
 import moriyashiine.aylyth.common.block.type.SoulHearthBlock;
 import moriyashiine.aylyth.common.entity.component.CuirassComponent;
 import moriyashiine.aylyth.common.entity.type.mob.BoneflyEntity;
