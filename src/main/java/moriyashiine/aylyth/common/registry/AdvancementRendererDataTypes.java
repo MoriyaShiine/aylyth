@@ -6,11 +6,12 @@ import moriyashiine.aylyth.common.registry.custom.CustomRegistries;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.registry.Registry;
 
-public class ModAdvancementRendererData {
-    public static final AdvancementRendererDataType<TextureRendererData> TEXTURE_RENDERER_DATA = register("texture", () -> TextureRendererData.CODEC);
+public interface AdvancementRendererDataTypes {
 
-    private static <T extends AdvancementRendererDataType<?>> T register(String id, T type) {
-        return Registry.register(CustomRegistries.ADVANCEMENT_RENDERER_DATA_TYPE, AylythUtil.id(id), type);
+    AdvancementRendererDataType<TextureRendererData> TEXTURE_RENDERER_DATA = register("texture", () -> TextureRendererData.CODEC);
+
+    private static <T extends AdvancementRendererDataType<?>> T register(String name, T type) {
+        return Registry.register(CustomRegistries.ADVANCEMENT_RENDERER_DATA_TYPE, AylythUtil.id(name), type);
     }
 
     // Load static initializer

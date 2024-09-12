@@ -67,7 +67,7 @@ public class Aylyth implements ModInitializer {
 			LOGGER.info("Debug mode enabled!");
 		}
 
-		ModAdvancementRendererData.register();
+		AdvancementRendererDataTypes.register();
 		AylythCriteria.register();
 		ModLootConditionTypes.register();
 		AylythRecipeTypes.register();

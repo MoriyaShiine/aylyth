@@ -5,9 +5,8 @@ import it.unimi.dsi.fastutil.objects.Reference2ObjectOpenHashMap;
 import moriyashiine.aylyth.common.advancement.AdvancementRendererData;
 import moriyashiine.aylyth.common.advancement.AdvancementRendererDataType;
 import moriyashiine.aylyth.common.advancement.renderdata.TextureRendererData;
-import moriyashiine.aylyth.common.registry.ModAdvancementRendererData;
+import moriyashiine.aylyth.common.registry.AdvancementRendererDataTypes;
 import moriyashiine.aylyth.common.registry.custom.CustomRegistries;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.*;
 import org.joml.Matrix4f;
@@ -30,7 +29,7 @@ public class AdvancementIconRendererRegistry {
     }
 
     public static void init() {
-        register(ModAdvancementRendererData.TEXTURE_RENDERER_DATA, AdvancementIconRendererRegistry::renderTexture);
+        register(AdvancementRendererDataTypes.TEXTURE_RENDERER_DATA, AdvancementIconRendererRegistry::renderTexture);
     }
 
     private static void renderTexture(DrawContext drawContext, TextureRendererData data, int x, int y) {
