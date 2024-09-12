@@ -200,11 +200,11 @@ public class AylythEnglishLanguageProvider extends FabricLanguageProvider {
 
         // STATUS EFFECTS
 
-        builder.add(AylythEntityStatusEffects.MORTECHIS, "Mortechis");
-        builder.add(AylythEntityStatusEffects.CIMMERIAN, "Cimmerian");
-        builder.add(AylythEntityStatusEffects.WYRDED, "Wyrded");
-        builder.add(AylythEntityStatusEffects.BLIGHT, "Blight");
-        builder.add(AylythEntityStatusEffects.CRIMSON_CURSE, "Crimson Curse");
+        builder.add(AylythStatusEffects.MORTECHIS, "Mortechis");
+        builder.add(AylythStatusEffects.CIMMERIAN, "Cimmerian");
+        builder.add(AylythStatusEffects.WYRDED, "Wyrded");
+        builder.add(AylythStatusEffects.BLIGHT, "Blight");
+        builder.add(AylythStatusEffects.CRIMSON_CURSE, "Crimson Curse");
 
         // ADVANCEMENTS
 

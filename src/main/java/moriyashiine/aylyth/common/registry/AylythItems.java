@@ -145,7 +145,7 @@ public interface AylythItems {
     Item BLIGHTED_HOE = register("blighted_sickle", new HoeItem(ModToolMaterials.NEPHRITE_SPECIAL, -3, 0f, settings()));
 
     Item THORN_FLECHETTE = register("thorn_flechette", new ThornFlechetteItem(settings()));
-    Item BLIGHTED_THORN_FLECHETTE = register("blighted_thorn_flechette", new ThornFlechetteItem(settings(), new ThornFlechetteEffect(new StatusEffectInstance(AylythEntityStatusEffects.BLIGHT, 100), 0.5f)));
+    Item BLIGHTED_THORN_FLECHETTE = register("blighted_thorn_flechette", new ThornFlechetteItem(settings(), new ThornFlechetteEffect(new StatusEffectInstance(AylythStatusEffects.BLIGHT, 100), 0.5f)));
 
     Item YMPE_CUIRASS = register("ympe_cuirass", new YmpeCuirassItem(settings().maxCount(1)));
     Item YMPE_EFFIGY = register("ympe_effigy", new YmpeEffigyItem((settings()).fireproof().rarity(Rarity.RARE).maxCount(1)));

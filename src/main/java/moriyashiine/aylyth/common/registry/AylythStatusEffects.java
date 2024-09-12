@@ -6,7 +6,7 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 
-public interface AylythEntityStatusEffects {
+public interface AylythStatusEffects {
 
     StatusEffect MORTECHIS = register("mortechis", new MortechisStatusEffect());
     StatusEffect CIMMERIAN = register("cimmerian", new CimmerianStatusEffect());

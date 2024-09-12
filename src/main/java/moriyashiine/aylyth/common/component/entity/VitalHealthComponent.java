@@ -3,7 +3,7 @@ package moriyashiine.aylyth.common.component.entity;
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import moriyashiine.aylyth.api.interfaces.VitalHealthHolder;
 import moriyashiine.aylyth.common.registry.ModEntityComponents;
-import moriyashiine.aylyth.common.registry.AylythEntityAttributes;
+import moriyashiine.aylyth.common.registry.AylythAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
@@ -53,7 +53,7 @@ public class VitalHealthComponent implements AutoSyncedComponent, VitalHealthHol
         if (vital == vitalLevel) {
             return;
         }
-        this.vitalLevel = (float) MathHelper.clamp(vital, 0, obj.getAttributeValue(AylythEntityAttributes.MAX_VITAL_HEALTH));
+        this.vitalLevel = (float) MathHelper.clamp(vital, 0, obj.getAttributeValue(AylythAttributes.MAX_VITAL_HEALTH));
         ModEntityComponents.VITAL_HEALTH.sync(obj);
     }
 }

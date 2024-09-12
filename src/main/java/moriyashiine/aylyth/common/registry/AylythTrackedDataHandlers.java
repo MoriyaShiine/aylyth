@@ -6,7 +6,7 @@ import moriyashiine.aylyth.common.entity.mob.WreathedHindEntity;
 import net.minecraft.entity.data.TrackedDataHandler;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 
-public interface AylythEntityDataTrackers {
+public interface AylythTrackedDataHandlers {
 
     TrackedDataHandler<TulpaEntity.ActionState> TULPA_ACTION_STATE = register(TrackedDataHandler.ofEnum(TulpaEntity.ActionState.class));
     TrackedDataHandler<WreathedHindEntity.AttackType> WREATHED_ATTACK_TYPE = register(TrackedDataHandler.ofEnum(WreathedHindEntity.AttackType.class));

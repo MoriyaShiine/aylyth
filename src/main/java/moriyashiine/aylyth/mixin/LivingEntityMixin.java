@@ -8,7 +8,7 @@ import moriyashiine.aylyth.common.entity.mob.BoneflyEntity;
 import moriyashiine.aylyth.common.item.YmpeEffigyItem;
 import moriyashiine.aylyth.common.registry.ModEntityComponents;
 import moriyashiine.aylyth.common.registry.AylythItems;
-import moriyashiine.aylyth.common.registry.AylythEntityStatusEffects;
+import moriyashiine.aylyth.common.registry.AylythStatusEffects;
 import moriyashiine.aylyth.common.data.AylythDamageTypes;
 import moriyashiine.aylyth.common.data.tag.AylythStatusEffectTags;
 import moriyashiine.aylyth.common.data.tag.AylythItemTags;
@@ -64,7 +64,7 @@ public abstract class LivingEntityMixin extends Entity {
 
 	@Inject(method = "heal", at = @At("HEAD"), cancellable = true)
 	private void preventHeal(float amount, CallbackInfo callbackInfo) {
-		if (this.hasStatusEffect(AylythEntityStatusEffects.CRIMSON_CURSE)) {
+		if (this.hasStatusEffect(AylythStatusEffects.CRIMSON_CURSE)) {
 			callbackInfo.cancel();
 		}
 	}

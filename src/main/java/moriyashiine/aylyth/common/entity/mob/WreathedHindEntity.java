@@ -58,7 +58,7 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
     private EntityAttributeInstance modifiableattributeinstance = this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-    public static final TrackedData<AttackType> ATTACK_TYPE = DataTracker.registerData(WreathedHindEntity.class, AylythEntityDataTrackers.WREATHED_ATTACK_TYPE);
+    public static final TrackedData<AttackType> ATTACK_TYPE = DataTracker.registerData(WreathedHindEntity.class, AylythTrackedDataHandlers.WREATHED_ATTACK_TYPE);
     public static final TrackedData<Boolean> IS_PLEDGED = DataTracker.registerData(WreathedHindEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
     public WreathedHindEntity(EntityType<? extends HostileEntity> entityType, World world) {

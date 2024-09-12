@@ -5,7 +5,7 @@ import moriyashiine.aylyth.common.block.VitalThuribleBlock;
 import moriyashiine.aylyth.common.block.WoodyGrowthCacheBlock;
 import moriyashiine.aylyth.common.entity.mob.RippedSoulEntity;
 import moriyashiine.aylyth.common.entity.mob.ScionEntity;
-import moriyashiine.aylyth.common.registry.AylythEntityAttributes;
+import moriyashiine.aylyth.common.registry.AylythAttributes;
 import moriyashiine.aylyth.common.registry.AylythEntityTypes;
 import moriyashiine.aylyth.common.registry.AylythItems;
 import moriyashiine.aylyth.common.data.AylythDamageTypes;
@@ -51,8 +51,8 @@ public class LivingEntityDeathEvents {
      */
     private static void retainVitalHealthAttribute(ServerPlayerEntity oldPlayer, ServerPlayerEntity newPlayer, boolean alive) {
         if (!alive && (oldPlayer.getRecentDamageSource() == null || !AylythUtil.isSourceYmpe(oldPlayer.getRecentDamageSource()))) {
-            EntityAttributeInstance oldInstance = oldPlayer.getAttributeInstance(AylythEntityAttributes.MAX_VITAL_HEALTH);
-            EntityAttributeInstance newInstance = newPlayer.getAttributeInstance(AylythEntityAttributes.MAX_VITAL_HEALTH);
+            EntityAttributeInstance oldInstance = oldPlayer.getAttributeInstance(AylythAttributes.MAX_VITAL_HEALTH);
+            EntityAttributeInstance newInstance = newPlayer.getAttributeInstance(AylythAttributes.MAX_VITAL_HEALTH);
             if (oldInstance != null && newInstance != null && oldInstance.getModifier(VitalThuribleBlock.MAX_VITAL_MODIFIER) != null) {
                 newInstance.addPersistentModifier(oldInstance.getModifier(VitalThuribleBlock.MAX_VITAL_MODIFIER));
             }

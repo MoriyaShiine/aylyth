@@ -5,7 +5,7 @@ import moriyashiine.aylyth.common.network.packets.SpawnParticlesAroundPacketS2C;
 import moriyashiine.aylyth.common.registry.AylythItems;
 import moriyashiine.aylyth.common.registry.AylythParticleTypes;
 import moriyashiine.aylyth.common.registry.AylythSoundEvents;
-import moriyashiine.aylyth.common.registry.AylythEntityStatusEffects;
+import moriyashiine.aylyth.common.registry.AylythStatusEffects;
 import moriyashiine.aylyth.common.registry.AylythPointOfInterestTypes;
 import moriyashiine.aylyth.common.data.tag.AylythDamageTypeTags;
 import moriyashiine.aylyth.common.data.tag.AylythItemTags;
@@ -80,7 +80,7 @@ public class AylythUtil {
 	}
 
 	public static boolean shouldUndeadAttack(LivingEntity target, LivingEntity attacker) {
-		return attacker.getAttacker() != target && target.hasStatusEffect(AylythEntityStatusEffects.CIMMERIAN) && attacker.getGroup() == EntityGroup.UNDEAD;
+		return attacker.getAttacker() != target && target.hasStatusEffect(AylythStatusEffects.CIMMERIAN) && attacker.getGroup() == EntityGroup.UNDEAD;
 	}
 
 	public static boolean isNearSeep(ServerWorld serverWorld, LivingEntity livingEntity, int radius) {
@@ -126,7 +126,7 @@ public class AylythUtil {
             }
 
             if (isHoe) {
-				target.addStatusEffect(new StatusEffectInstance(AylythEntityStatusEffects.CRIMSON_CURSE, 20 * 10, 0));
+				target.addStatusEffect(new StatusEffectInstance(AylythStatusEffects.CRIMSON_CURSE, 20 * 10, 0));
             }
 
             return originalValue * (isPickaxe && target.getArmor() > 10f ? 1.2f : 1f);
@@ -141,8 +141,8 @@ public class AylythUtil {
 		boolean isHoe = stack.isOf(AylythItems.BLIGHTED_HOE);
 
 		if (attacker.getRandom().nextFloat() >= 0.75) {
-			int amplifier = attacker.getRandom().nextFloat() <= 0.85 && target.hasStatusEffect(AylythEntityStatusEffects.BLIGHT) ? 1 : 0;
-			target.addStatusEffect(new StatusEffectInstance(AylythEntityStatusEffects.BLIGHT, 20 * 4, amplifier));
+			int amplifier = attacker.getRandom().nextFloat() <= 0.85 && target.hasStatusEffect(AylythStatusEffects.BLIGHT) ? 1 : 0;
+			target.addStatusEffect(new StatusEffectInstance(AylythStatusEffects.BLIGHT, 20 * 4, amplifier));
 
 			PlayerLookup.tracking(target).forEach(trackingPlayer -> {
 				ServerPlayNetworking.send(trackingPlayer, new SpawnParticlesAroundPacketS2C(target.getId(), 32, List.of(AylythParticleTypes.BLIGHT_DRIP)));

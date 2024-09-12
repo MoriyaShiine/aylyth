@@ -45,12 +45,12 @@ public final class AylythAdvancementProvider extends FabricAdvancementProvider {
         Advancement.Builder.create()
                 .parent(root)
                 .display(new CustomAdvancementDisplay(TextureRendererData.standard(AylythUtil.id("textures/mob_effect/cimmerian.png")), Text.translatable("advancements.aylyth.aylyth.cimmerianed.title"), Text.translatable("advancements.aylyth.aylyth.cimmerianed.desc"), null, AdvancementFrame.TASK, true, true, false))
-                .criterion("has_cimmerian_effect", effectsChangedCriteria(EntityEffectPredicate.create().withEffect(AylythEntityStatusEffects.CIMMERIAN)))
+                .criterion("has_cimmerian_effect", effectsChangedCriteria(EntityEffectPredicate.create().withEffect(AylythStatusEffects.CIMMERIAN)))
                 .build(consumer, "aylyth:aylyth/cimmerianed");
         Advancement.Builder.create()
                 .parent(root)
                 .display(new CustomAdvancementDisplay(TextureRendererData.standard(AylythUtil.id("textures/mob_effect/wyrded.png")), Text.translatable("advancements.aylyth.aylyth.wyrded.title"), Text.translatable("advancements.aylyth.aylyth.wyrded.desc"), null, AdvancementFrame.TASK, true, true, false))
-                .criterion("has_wyrded_effect", effectsChangedCriteria(EntityEffectPredicate.create().withEffect(AylythEntityStatusEffects.WYRDED)))
+                .criterion("has_wyrded_effect", effectsChangedCriteria(EntityEffectPredicate.create().withEffect(AylythStatusEffects.WYRDED)))
                 .build(consumer, "aylyth:aylyth/wyrded");
         var inTheBranches = Advancement.Builder.create()
                 .parent(root)

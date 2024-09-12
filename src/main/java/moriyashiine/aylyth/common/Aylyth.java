@@ -83,13 +83,13 @@ public class Aylyth implements ModInitializer {
 		AylythBlockEntityTypes.register();
 		AylythPointOfInterestTypes.register();
 
-		AylythEntityAttributes.register();
+		AylythAttributes.register();
 
 		AylythMemoryTypes.register();
 		AylythSensorTypes.register();
-		AylythEntityDataTrackers.register();
+		AylythTrackedDataHandlers.register();
 		AylythEntityTypes.register();
-		AylythEntityStatusEffects.register();
+		AylythStatusEffects.register();
 
 		AylythItems.register();
 		AylythFuels.register();
