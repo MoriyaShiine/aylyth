@@ -10,10 +10,10 @@ import net.minecraft.recipe.RecipeType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 
-public interface ModRecipeTypes {
+public interface AylythRecipeTypes {
 
 	RecipeSerializer<ShuckingRecipe> SHUCKING_SERIALIZER = registerSerializer("shucking", new ShuckingRecipe.Serializer());
-	
+
 	RecipeSerializer<YmpeDaggerDropRecipe> YMPE_DAGGER_DROP_SERIALIZER = registerSerializer("ympe_dagger_drop", new YmpeDaggerDropRecipe.Serializer());
 	RecipeType<YmpeDaggerDropRecipe> YMPE_DAGGER_DROP_TYPE = registerType("ympe_dagger_drop");
 
@@ -26,7 +26,6 @@ public interface ModRecipeTypes {
 
 	private static <R extends Recipe<?>> RecipeType<R> registerType(String name) {
 		var id = AylythUtil.id(name);
-
 		return Registry.register(Registries.RECIPE_TYPE, id, new RecipeType<>() {
 			@Override
 			public String toString() {
@@ -34,6 +33,7 @@ public interface ModRecipeTypes {
 			}
 		});
 	}
+
 
 	// Load static initializer
 	static void register() {}

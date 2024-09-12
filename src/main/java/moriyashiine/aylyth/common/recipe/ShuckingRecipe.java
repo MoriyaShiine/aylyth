@@ -2,7 +2,7 @@ package moriyashiine.aylyth.common.recipe;
 
 import com.google.gson.JsonObject;
 import moriyashiine.aylyth.common.registry.AylythItems;
-import moriyashiine.aylyth.common.registry.ModRecipeTypes;
+import moriyashiine.aylyth.common.registry.AylythRecipeTypes;
 import net.minecraft.inventory.RecipeInputInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
@@ -39,7 +39,7 @@ public class ShuckingRecipe extends ShapelessRecipe {
 	
 	@Override
 	public RecipeSerializer<?> getSerializer() {
-		return ModRecipeTypes.SHUCKING_SERIALIZER;
+		return AylythRecipeTypes.SHUCKING_SERIALIZER;
 	}
 	
 	public static class Serializer implements RecipeSerializer<ShuckingRecipe> {

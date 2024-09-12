@@ -2,7 +2,7 @@ package moriyashiine.aylyth.datagen.common.util.recipe;
 
 import com.google.gson.JsonObject;
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.registry.ModRecipeTypes;
+import moriyashiine.aylyth.common.registry.AylythRecipeTypes;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
@@ -64,7 +64,7 @@ public class YmpeDaggerRecipeJsonBuilder {
 
             @Override
             public RecipeSerializer<?> getSerializer() {
-                return ModRecipeTypes.YMPE_DAGGER_DROP_SERIALIZER;
+                return AylythRecipeTypes.YMPE_DAGGER_DROP_SERIALIZER;
             }
 
             @Nullable

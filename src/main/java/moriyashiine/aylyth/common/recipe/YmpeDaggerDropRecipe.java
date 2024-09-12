@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.recipe;
 
 import com.google.gson.JsonObject;
-import moriyashiine.aylyth.common.registry.ModRecipeTypes;
+import moriyashiine.aylyth.common.registry.AylythRecipeTypes;
 import net.minecraft.entity.EntityType;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
@@ -60,12 +60,12 @@ public class YmpeDaggerDropRecipe implements Recipe<Inventory> {
 	
 	@Override
 	public RecipeSerializer<?> getSerializer() {
-		return ModRecipeTypes.YMPE_DAGGER_DROP_SERIALIZER;
+		return AylythRecipeTypes.YMPE_DAGGER_DROP_SERIALIZER;
 	}
 	
 	@Override
 	public RecipeType<?> getType() {
-		return ModRecipeTypes.YMPE_DAGGER_DROP_TYPE;
+		return AylythRecipeTypes.YMPE_DAGGER_DROP_TYPE;
 	}
 	
 	public static class Serializer implements RecipeSerializer<YmpeDaggerDropRecipe> {

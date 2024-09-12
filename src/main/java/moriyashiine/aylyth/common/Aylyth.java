@@ -70,7 +70,7 @@ public class Aylyth implements ModInitializer {
 		ModAdvancementRendererData.register();
 		AylythCriteria.register();
 		ModLootConditionTypes.register();
-		ModRecipeTypes.register();
+		AylythRecipeTypes.register();
 
 		AylythSoundEvents.register();
 		AylythParticleTypes.register();
@@ -123,7 +123,7 @@ public class Aylyth implements ModInitializer {
 	private ActionResult interactSoulCampfire(PlayerEntity playerEntity, World world, Hand hand, BlockHitResult blockHitResult) {
 		if(hand == Hand.MAIN_HAND && world.getBlockState(blockHitResult.getBlockPos()).isOf(Blocks.SOUL_CAMPFIRE) && world.getBlockEntity(blockHitResult.getBlockPos()) instanceof CampfireBlockEntity campfireBlockEntity){
 			ItemStack itemStack = playerEntity.getMainHandStack();
-			List<Ingredient> allowedIngredients = world.getRecipeManager().listAllOfType(ModRecipeTypes.SOULFIRE_TYPE).stream()
+			List<Ingredient> allowedIngredients = world.getRecipeManager().listAllOfType(AylythRecipeTypes.SOULFIRE_TYPE).stream()
 					.map(SoulCampfireRecipe::getIngredients)
 					.flatMap(Collection::stream)
 					.toList();
@@ -167,7 +167,7 @@ public class Aylyth implements ModInitializer {
 
 	private void daggerDrops(ServerWorld serverWorld, Entity entity, LivingEntity killedEntity) {
 		if (entity instanceof LivingEntity living && living.getMainHandStack().isIn(AylythItemTags.HEART_HARVESTERS)) {
-			for (YmpeDaggerDropRecipe recipe : serverWorld.getRecipeManager().listAllOfType(ModRecipeTypes.YMPE_DAGGER_DROP_TYPE)) {
+			for (YmpeDaggerDropRecipe recipe : serverWorld.getRecipeManager().listAllOfType(AylythRecipeTypes.YMPE_DAGGER_DROP_TYPE)) {
 				if (recipe.entity_type == killedEntity.getType() && serverWorld.random.nextFloat() < recipe.chance * (EnchantmentHelper.getLooting(living) + 1)) {
 					ItemStack drop = recipe.getOutput(serverWorld.getRegistryManager()).copy();
 					if (recipe.entity_type == EntityType.PLAYER) {

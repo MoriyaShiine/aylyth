@@ -6,7 +6,7 @@ import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.stack.EmiStack;
 import moriyashiine.aylyth.common.recipe.YmpeDaggerDropRecipe;
 import moriyashiine.aylyth.common.registry.AylythItems;
-import moriyashiine.aylyth.common.registry.ModRecipeTypes;
+import moriyashiine.aylyth.common.registry.AylythRecipeTypes;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.recipe.RecipeManager;
 
@@ -21,7 +21,7 @@ public class ModEMIPlugin implements EmiPlugin {
     public void register(EmiRegistry emiRegistry) {
         emiRegistry.addCategory(YMPE_DAGGER_CATEGORY);
         RecipeManager manager = emiRegistry.getRecipeManager();
-        for (YmpeDaggerDropRecipe recipe : manager.listAllOfType(ModRecipeTypes.YMPE_DAGGER_DROP_TYPE)) {
+        for (YmpeDaggerDropRecipe recipe : manager.listAllOfType(AylythRecipeTypes.YMPE_DAGGER_DROP_TYPE)) {
             emiRegistry.addRecipe(new YmpeDaggerEMIRecipe(recipe));
         }
     }

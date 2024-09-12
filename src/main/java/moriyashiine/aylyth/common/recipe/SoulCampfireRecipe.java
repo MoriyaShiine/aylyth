@@ -3,7 +3,7 @@ package moriyashiine.aylyth.common.recipe;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import moriyashiine.aylyth.common.registry.ModRecipeTypes;
+import moriyashiine.aylyth.common.registry.AylythRecipeTypes;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
@@ -73,12 +73,12 @@ public class SoulCampfireRecipe implements Recipe<Inventory> {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return ModRecipeTypes.SOULFIRE_SERIALIZER;
+        return AylythRecipeTypes.SOULFIRE_SERIALIZER;
     }
 
     @Override
     public RecipeType<?> getType() {
-        return ModRecipeTypes.SOULFIRE_TYPE;
+        return AylythRecipeTypes.SOULFIRE_TYPE;
     }
 
     public static class Serializer implements RecipeSerializer<SoulCampfireRecipe> {
