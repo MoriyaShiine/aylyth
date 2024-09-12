@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.common.item;
+package moriyashiine.aylyth.common.item.type;
 
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketItem;

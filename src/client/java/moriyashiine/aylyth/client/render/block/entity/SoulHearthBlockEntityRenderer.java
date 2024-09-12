@@ -3,7 +3,7 @@ package moriyashiine.aylyth.client.render.block.entity;
 import moriyashiine.aylyth.common.block.SoulHearthBlock;
 import moriyashiine.aylyth.common.block.entity.SoulHearthBlockEntity;
 import moriyashiine.aylyth.common.registry.AylythBlocks;
-import moriyashiine.aylyth.common.registry.AylythItems;
+import moriyashiine.aylyth.common.item.AylythItems;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;

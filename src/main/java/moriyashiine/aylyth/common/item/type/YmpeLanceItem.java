@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.common.item;
+package moriyashiine.aylyth.common.item.type;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;

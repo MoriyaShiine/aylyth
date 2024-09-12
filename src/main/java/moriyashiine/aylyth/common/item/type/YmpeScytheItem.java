@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.common.item;
+package moriyashiine.aylyth.common.item.type;
 
 import net.minecraft.item.SwordItem;
 import net.minecraft.item.ToolMaterial;

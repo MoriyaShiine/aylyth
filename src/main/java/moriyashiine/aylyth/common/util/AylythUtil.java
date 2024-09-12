@@ -2,7 +2,7 @@ package moriyashiine.aylyth.common.util;
 
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.network.packets.SpawnParticlesAroundPacketS2C;
-import moriyashiine.aylyth.common.registry.AylythItems;
+import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.aylyth.common.registry.AylythParticleTypes;
 import moriyashiine.aylyth.common.registry.AylythSoundEvents;
 import moriyashiine.aylyth.common.entity.statuseffect.AylythStatusEffects;

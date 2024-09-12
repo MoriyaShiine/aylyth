@@ -2,6 +2,8 @@ package moriyashiine.aylyth.datagen.client;
 
 import moriyashiine.aylyth.common.entity.AylythEntityTypes;
 import moriyashiine.aylyth.common.entity.statuseffect.AylythStatusEffects;
+import moriyashiine.aylyth.common.item.AylythItemGroup;
+import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.aylyth.common.registry.*;
 import moriyashiine.aylyth.common.data.world.AylythBiomes;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -20,7 +22,7 @@ public class AylythEnglishLanguageProvider extends FabricLanguageProvider {
     public void generateTranslations(TranslationBuilder builder) {
         // MOD ITEMGROUP
 
-        builder.add(AylythItemGroups.MAIN, "Aylyth");
+        builder.add(AylythItemGroup.MAIN, "Aylyth");
 
         // BLOCKS
 

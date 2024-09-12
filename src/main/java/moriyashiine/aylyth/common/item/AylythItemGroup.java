@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.common.registry;
+package moriyashiine.aylyth.common.item;
 
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.util.AylythUtil;
@@ -11,7 +11,7 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
 
-public interface AylythItemGroups {
+public interface AylythItemGroup {
 
     RegistryKey<ItemGroup> MAIN = RegistryKey.of(RegistryKeys.ITEM_GROUP, AylythUtil.id(Aylyth.MOD_ID));
 

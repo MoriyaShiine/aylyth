@@ -1,9 +1,9 @@
-package moriyashiine.aylyth.common.item;
+package moriyashiine.aylyth.common.item.type;
 
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketItem;
 import dev.emi.trinkets.api.TrinketsApi;
-import moriyashiine.aylyth.common.registry.AylythItems;
+import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.aylyth.common.data.tag.AylythStatusEffectTags;
 import net.fabricmc.fabric.api.tag.convention.v1.TagUtil;
 import net.minecraft.entity.LivingEntity;

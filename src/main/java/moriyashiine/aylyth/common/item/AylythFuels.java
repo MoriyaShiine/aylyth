@@ -1,8 +1,8 @@
-package moriyashiine.aylyth.common.registry;
+package moriyashiine.aylyth.common.item;
 
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 
-import static moriyashiine.aylyth.common.registry.AylythItems.*;
+import static moriyashiine.aylyth.common.item.AylythItems.*;
 
 public final class AylythFuels {
     private AylythFuels() {}

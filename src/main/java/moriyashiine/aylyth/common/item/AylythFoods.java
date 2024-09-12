@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.common.registry;
+package moriyashiine.aylyth.common.item;
 
 import moriyashiine.aylyth.common.entity.statuseffect.AylythStatusEffects;
 import net.minecraft.entity.effect.StatusEffectInstance;

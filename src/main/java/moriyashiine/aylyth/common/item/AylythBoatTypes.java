@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.common.registry;
+package moriyashiine.aylyth.common.item;
 
 import com.terraformersmc.terraform.boat.api.TerraformBoatType;
 import com.terraformersmc.terraform.boat.api.TerraformBoatTypeRegistry;

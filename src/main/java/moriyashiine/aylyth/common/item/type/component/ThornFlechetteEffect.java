@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.common.item.component;
+package moriyashiine.aylyth.common.item.type.component;
 
 import net.minecraft.entity.effect.StatusEffectInstance;
 

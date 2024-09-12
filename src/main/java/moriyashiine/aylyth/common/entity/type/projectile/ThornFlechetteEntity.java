@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.common.entity.type.projectile;
 
-import moriyashiine.aylyth.common.item.ThornFlechetteItem;
+import moriyashiine.aylyth.common.item.type.ThornFlechetteItem;
 import moriyashiine.aylyth.common.entity.AylythEntityTypes;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;

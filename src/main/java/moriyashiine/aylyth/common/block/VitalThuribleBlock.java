@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.block;
 
 import moriyashiine.aylyth.common.block.entity.VitalThuribleBlockEntity;
-import moriyashiine.aylyth.common.registry.AylythItems;
+import moriyashiine.aylyth.common.item.AylythItems;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;

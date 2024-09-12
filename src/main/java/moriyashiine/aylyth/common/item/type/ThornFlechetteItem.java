@@ -1,7 +1,7 @@
-package moriyashiine.aylyth.common.item;
+package moriyashiine.aylyth.common.item.type;
 
 import moriyashiine.aylyth.common.entity.type.projectile.ThornFlechetteEntity;
-import moriyashiine.aylyth.common.item.component.ThornFlechetteEffect;
+import moriyashiine.aylyth.common.item.type.component.ThornFlechetteEffect;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;

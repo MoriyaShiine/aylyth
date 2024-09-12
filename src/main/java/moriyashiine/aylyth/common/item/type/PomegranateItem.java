@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.common.item;
+package moriyashiine.aylyth.common.item.type;
 
 import com.mojang.datafixers.util.Pair;
 import moriyashiine.aylyth.common.data.world.AylythDimensionData;

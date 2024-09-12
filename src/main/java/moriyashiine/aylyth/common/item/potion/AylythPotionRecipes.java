@@ -1,5 +1,6 @@
-package moriyashiine.aylyth.common.registry;
+package moriyashiine.aylyth.common.item.potion;
 
+import moriyashiine.aylyth.common.item.AylythItems;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.potion.Potion;

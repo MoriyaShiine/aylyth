@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.common.item;
+package moriyashiine.aylyth.common.item.type;
 
 import moriyashiine.aylyth.common.construct.Constructs;
 import moriyashiine.aylyth.common.util.AylythUtil;

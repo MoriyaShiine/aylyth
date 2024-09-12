@@ -1,10 +1,11 @@
-package moriyashiine.aylyth.common.registry;
+package moriyashiine.aylyth.common.item;
 
 import com.terraformersmc.terraform.boat.impl.item.TerraformBoatItem;
 import moriyashiine.aylyth.common.entity.AylythEntityTypes;
 import moriyashiine.aylyth.common.entity.statuseffect.AylythStatusEffects;
-import moriyashiine.aylyth.common.item.*;
-import moriyashiine.aylyth.common.item.component.ThornFlechetteEffect;
+import moriyashiine.aylyth.common.item.type.*;
+import moriyashiine.aylyth.common.item.type.component.ThornFlechetteEffect;
+import moriyashiine.aylyth.common.registry.*;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.block.Block;

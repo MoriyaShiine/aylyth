@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.common.item;
+package moriyashiine.aylyth.common.item.type;
 
 import moriyashiine.aylyth.common.registry.AylythBlocks;
 import moriyashiine.aylyth.common.data.world.AylythDimensionData;

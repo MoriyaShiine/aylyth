@@ -4,7 +4,7 @@ import moriyashiine.aylyth.api.interfaces.VitalHealthHolder;
 import moriyashiine.aylyth.common.block.VitalThuribleBlock;
 import moriyashiine.aylyth.common.registry.AylythBlockEntityTypes;
 import moriyashiine.aylyth.common.entity.attribute.AylythAttributes;
-import moriyashiine.aylyth.common.registry.AylythItems;
+import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.SharedConstants;
 import net.minecraft.block.Block;

@@ -3,7 +3,7 @@ package moriyashiine.aylyth.common.network;
 import moriyashiine.aylyth.common.network.packets.GlaivePacketC2S;
 import moriyashiine.aylyth.common.network.packets.UpdatePressingUpDownPacketC2S;
 import moriyashiine.aylyth.common.registry.ModEntityComponents;
-import moriyashiine.aylyth.common.registry.AylythItems;
+import moriyashiine.aylyth.common.item.AylythItems;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;

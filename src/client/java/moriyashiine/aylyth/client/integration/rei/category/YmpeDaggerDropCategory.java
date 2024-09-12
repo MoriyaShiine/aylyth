@@ -11,7 +11,7 @@ import me.shedaniel.rei.api.common.entry.EntryStack;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import moriyashiine.aylyth.client.integration.rei.ModREIPlugin;
 import moriyashiine.aylyth.client.integration.rei.display.YmpeDaggerDropDisplay;
-import moriyashiine.aylyth.common.registry.AylythItems;
+import moriyashiine.aylyth.common.item.AylythItems;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 

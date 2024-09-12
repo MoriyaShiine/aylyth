@@ -9,13 +9,18 @@ import moriyashiine.aylyth.common.entity.trackeddata.AylythTrackedDataHandlers;
 import moriyashiine.aylyth.common.entity.ai.AylythMemoryTypes;
 import moriyashiine.aylyth.common.entity.ai.AylythSensorTypes;
 import moriyashiine.aylyth.common.entity.statuseffect.AylythStatusEffects;
+import moriyashiine.aylyth.common.item.AylythBoatTypes;
+import moriyashiine.aylyth.common.item.AylythFuels;
+import moriyashiine.aylyth.common.item.AylythItemGroup;
+import moriyashiine.aylyth.common.item.AylythItems;
+import moriyashiine.aylyth.common.item.potion.AylythPotions;
 import moriyashiine.aylyth.common.registry.AylythPointOfInterestTypes;
 import moriyashiine.aylyth.common.network.AylythPacketTypes;
 import moriyashiine.aylyth.common.network.AylythServerPacketHandler;
 import moriyashiine.aylyth.common.network.packets.SpawnParticlesAroundPacketS2C;
 import moriyashiine.aylyth.common.entity.type.mob.ScionEntity;
 import moriyashiine.aylyth.common.event.LivingEntityDeathEvents;
-import moriyashiine.aylyth.common.item.ShuckedYmpeFruitItem;
+import moriyashiine.aylyth.common.item.type.ShuckedYmpeFruitItem;
 import moriyashiine.aylyth.common.recipe.SoulCampfireRecipe;
 import moriyashiine.aylyth.common.recipe.YmpeDaggerDropRecipe;
 import moriyashiine.aylyth.common.registry.*;
@@ -102,7 +107,7 @@ public class Aylyth implements ModInitializer {
 		AylythItems.register();
 		AylythFuels.register();
 		AylythPotions.register();
-		AylythItemGroups.register();
+		AylythItemGroup.register();
 
 		AylythBoatTypes.register();
 

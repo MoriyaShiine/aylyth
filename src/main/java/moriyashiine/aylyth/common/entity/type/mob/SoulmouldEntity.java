@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.entity.type.mob;
 
 import moriyashiine.aylyth.api.interfaces.ProlongedDeath;
-import moriyashiine.aylyth.common.registry.AylythItems;
+import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.aylyth.common.registry.AylythSoundEvents;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
