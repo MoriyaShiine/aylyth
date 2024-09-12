@@ -4,8 +4,8 @@ import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 
 import static moriyashiine.aylyth.common.registry.AylythBlocks.*;
 
-public final class AylythFlammable {
-    private AylythFlammable() {}
+public final class AylythFlammables {
+    private AylythFlammables() {}
 
     public static void register() {
         var registry = FlammableBlockRegistry.getDefaultInstance();

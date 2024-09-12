@@ -4,8 +4,8 @@ import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 
 import static moriyashiine.aylyth.common.registry.AylythBlocks.*;
 
-public final class AylythStrippable {
-    private AylythStrippable() {}
+public final class AylythStrippables {
+    private AylythStrippables() {}
 
     public static void register() {
         StrippableBlockRegistry.register(YMPE_LOG, YMPE_STRIPPED_LOG);

@@ -78,8 +78,8 @@ public class Aylyth implements ModInitializer {
 		AylythScreenHandlerTypes.register();
 
 		AylythBlocks.register();
-		AylythFlammable.register();
-		AylythStrippable.register();
+		AylythFlammables.register();
+		AylythStrippables.register();
 		AylythBlockEntityTypes.register();
 		AylythPointOfInterestTypes.register();
 
