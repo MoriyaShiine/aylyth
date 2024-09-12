@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.entity.ai.task;
 
 import moriyashiine.aylyth.common.entity.RootPropEntity;
-import moriyashiine.aylyth.common.entity.ai.BaseAttackType;
+import moriyashiine.aylyth.common.entity.ai.BasicAttackType;
 import moriyashiine.aylyth.common.entity.mob.TulpaEntity;
 import moriyashiine.aylyth.common.registry.AylythMemoryTypes;
 import moriyashiine.aylyth.common.util.BrainUtils;
@@ -41,7 +41,7 @@ public class RootAttackTask<E extends TulpaEntity> extends MultiTickTask<E> {
     protected void run(ServerWorld world, E entity, long time) {
         entity.playSound(SoundEvents.ENTITY_EVOKER_PREPARE_ATTACK, 1.0F, 1.0F);
         entity.getBrain().remember(AylythMemoryTypes.ROOT_ATTACK_DELAY, Unit.INSTANCE, 20);
-        entity.getDataTracker().set(TulpaEntity.ATTACK_TYPE, BaseAttackType.RANGED);
+        entity.getDataTracker().set(TulpaEntity.ATTACK_TYPE, BasicAttackType.RANGED);
     }
 
     @Override
@@ -60,7 +60,7 @@ public class RootAttackTask<E extends TulpaEntity> extends MultiTickTask<E> {
     @Override
     protected void finishRunning(ServerWorld world, E entity, long time) {
         entity.getBrain().remember(AylythMemoryTypes.ROOT_ATTACK_COOLDOWN, Unit.INSTANCE, 100);
-        entity.getDataTracker().set(TulpaEntity.ATTACK_TYPE, BaseAttackType.NONE);
+        entity.getDataTracker().set(TulpaEntity.ATTACK_TYPE, BasicAttackType.NONE);
     }
 
 
