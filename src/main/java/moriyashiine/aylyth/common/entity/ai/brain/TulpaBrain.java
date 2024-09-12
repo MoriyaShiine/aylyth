@@ -8,7 +8,6 @@ import moriyashiine.aylyth.common.entity.ai.task.*;
 import moriyashiine.aylyth.common.entity.type.mob.TulpaEntity;
 import moriyashiine.aylyth.common.entity.ai.AylythMemoryTypes;
 import moriyashiine.aylyth.common.entity.ai.AylythSensorTypes;
-import moriyashiine.aylyth.common.util.BrainUtils;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.brain.Activity;
 import net.minecraft.entity.ai.brain.Brain;

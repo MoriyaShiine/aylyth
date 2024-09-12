@@ -3,7 +3,7 @@ package moriyashiine.aylyth.client.render.entity.living.feature;
 import moriyashiine.aylyth.client.AylythClient;
 import moriyashiine.aylyth.client.model.entity.layer.YmpeInfestationModel;
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.registry.ModEntityComponents;
+import moriyashiine.aylyth.common.entity.AylythEntityComponents;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
@@ -32,7 +32,7 @@ public class YmpeInfestationFeature extends FeatureRenderer<AbstractClientPlayer
 	
 	@Override
 	public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, AbstractClientPlayerEntity entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
-		int stage = ModEntityComponents.YMPE_INFESTATION.get(entity).getStage();
+		int stage = AylythEntityComponents.YMPE_INFESTATION.get(entity).getStage();
 		if (stage > 0) {
 			YmpeInfestationModel model = MODELS[Math.min(4, stage - 1)];
 			getContextModel().copyBipedStateTo(model);

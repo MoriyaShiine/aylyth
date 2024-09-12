@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.common.item;
 
-import moriyashiine.aylyth.common.entity.statuseffect.AylythStatusEffects;
+import moriyashiine.aylyth.common.entity.AylythStatusEffects;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.FoodComponent;

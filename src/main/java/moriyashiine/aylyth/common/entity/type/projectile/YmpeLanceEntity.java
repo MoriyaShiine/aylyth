@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.entity.type.projectile;
 
-import moriyashiine.aylyth.common.component.entity.YmpeThornsComponent;
-import moriyashiine.aylyth.common.registry.ModEntityComponents;
+import moriyashiine.aylyth.common.entity.component.YmpeThornsComponent;
+import moriyashiine.aylyth.common.entity.AylythEntityComponents;
 import moriyashiine.aylyth.common.entity.AylythEntityTypes;
 import moriyashiine.aylyth.common.item.AylythItems;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -121,7 +121,7 @@ public class YmpeLanceEntity extends PersistentProjectileEntity {
 		super.tickRiding();
 
 		if (target != null && target == getVehicle() && !getWorld().isClient()) {
-			YmpeThornsComponent thornsComponent = ModEntityComponents.YMPE_THORNS.get(target);
+			YmpeThornsComponent thornsComponent = AylythEntityComponents.YMPE_THORNS.get(target);
 
 			if (timeStuck >= 140 || target.isDead()) {
 				target = null;

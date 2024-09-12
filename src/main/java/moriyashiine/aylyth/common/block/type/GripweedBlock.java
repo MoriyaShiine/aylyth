@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.common.block.type;
 
-import moriyashiine.aylyth.common.registry.ModEntityComponents;
+import moriyashiine.aylyth.common.entity.AylythEntityComponents;
 import moriyashiine.aylyth.common.data.tag.AylythEntityTypeTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -36,7 +36,7 @@ public class GripweedBlock extends PlantBlock {
 		if (entity instanceof LivingEntity living && EnchantmentHelper.hasSoulSpeed(living)) {
 			return;
 		}
-		if (entity instanceof PlayerEntity player && ModEntityComponents.YMPE_INFESTATION.get(player).getStage() >= 2) {
+		if (entity instanceof PlayerEntity player && AylythEntityComponents.YMPE_INFESTATION.get(player).getStage() >= 2) {
 			return;
 		}
 		entity.slowMovement(state, new Vec3d(0.5, 0.5, 0.5));

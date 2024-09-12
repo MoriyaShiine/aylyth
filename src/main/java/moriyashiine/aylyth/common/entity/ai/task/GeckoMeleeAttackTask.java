@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.entity.ai.task;
 
 import com.google.common.collect.ImmutableMap;
-import moriyashiine.aylyth.common.util.BrainUtils;
+import moriyashiine.aylyth.common.entity.ai.brain.BrainUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.brain.MemoryModuleState;

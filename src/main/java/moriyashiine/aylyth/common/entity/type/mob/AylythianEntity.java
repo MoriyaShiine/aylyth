@@ -2,7 +2,7 @@ package moriyashiine.aylyth.common.entity.type.mob;
 
 import moriyashiine.aylyth.common.block.type.LargeWoodyGrowthBlock;
 import moriyashiine.aylyth.common.block.AylythBlocks;
-import moriyashiine.aylyth.common.registry.AylythSoundEvents;
+import moriyashiine.aylyth.common.other.AylythSoundEvents;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;

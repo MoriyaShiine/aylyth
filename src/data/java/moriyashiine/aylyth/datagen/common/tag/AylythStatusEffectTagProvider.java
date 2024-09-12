@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.datagen.common.tag;
 
-import moriyashiine.aylyth.common.entity.statuseffect.AylythStatusEffects;
+import moriyashiine.aylyth.common.entity.AylythStatusEffects;
 import moriyashiine.aylyth.common.data.tag.AylythStatusEffectTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;

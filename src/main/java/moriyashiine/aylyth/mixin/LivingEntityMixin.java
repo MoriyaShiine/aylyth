@@ -6,9 +6,9 @@ import moriyashiine.aylyth.api.interfaces.HindPledgeHolder;
 import moriyashiine.aylyth.api.interfaces.ProlongedDeath;
 import moriyashiine.aylyth.common.entity.type.mob.BoneflyEntity;
 import moriyashiine.aylyth.common.item.type.YmpeEffigyItem;
-import moriyashiine.aylyth.common.registry.ModEntityComponents;
+import moriyashiine.aylyth.common.entity.AylythEntityComponents;
 import moriyashiine.aylyth.common.item.AylythItems;
-import moriyashiine.aylyth.common.entity.statuseffect.AylythStatusEffects;
+import moriyashiine.aylyth.common.entity.AylythStatusEffects;
 import moriyashiine.aylyth.common.data.AylythDamageTypes;
 import moriyashiine.aylyth.common.data.tag.AylythStatusEffectTags;
 import moriyashiine.aylyth.common.data.tag.AylythItemTags;
@@ -71,7 +71,7 @@ public abstract class LivingEntityMixin extends Entity {
 
 	@Inject(method = "drop", at = @At("HEAD"), cancellable = true)
 	private void shuckLogic(DamageSource source, CallbackInfo ci) {
-		if ((LivingEntity) (Object) this instanceof MobEntity mob && ModEntityComponents.PREVENT_DROPS.get(mob).getPreventsDrops()) {
+		if ((LivingEntity) (Object) this instanceof MobEntity mob && AylythEntityComponents.PREVENT_DROPS.get(mob).getPreventsDrops()) {
 			ci.cancel();
 		}
 	}
@@ -84,7 +84,7 @@ public abstract class LivingEntityMixin extends Entity {
 	@Inject(method = "eatFood", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;applyFoodEffects(Lnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/entity/LivingEntity;)V"))
 	private void decreaseYmpeInfestationStage(World world, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
 		if ((LivingEntity) (Object) this instanceof PlayerEntity player && stack.isIn(AylythItemTags.DECREASES_BRANCHES)) {
-			ModEntityComponents.YMPE_INFESTATION.maybeGet(player).ifPresent(ympeInfestationComponent -> {
+			AylythEntityComponents.YMPE_INFESTATION.maybeGet(player).ifPresent(ympeInfestationComponent -> {
 				if (ympeInfestationComponent.getStage() > 0) {
 					ympeInfestationComponent.setStage((byte) (ympeInfestationComponent.getStage() - 1));
 				}

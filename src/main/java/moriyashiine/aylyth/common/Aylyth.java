@@ -2,23 +2,27 @@ package moriyashiine.aylyth.common;
 
 import moriyashiine.aylyth.api.AylythEntityApi;
 import moriyashiine.aylyth.api.interfaces.VitalHealthHolder;
+import moriyashiine.aylyth.common.advancement.AdvancementRendererDataTypes;
+import moriyashiine.aylyth.common.advancement.AylythCriteria;
 import moriyashiine.aylyth.common.block.entity.AylythBlockEntityTypes;
 import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.block.AylythFlammables;
 import moriyashiine.aylyth.common.block.AylythStrippables;
 import moriyashiine.aylyth.common.block.type.SoulHearthBlock;
+import moriyashiine.aylyth.common.entity.*;
 import moriyashiine.aylyth.common.entity.attribute.AylythAttributes;
-import moriyashiine.aylyth.common.entity.AylythEntityTypes;
-import moriyashiine.aylyth.common.entity.trackeddata.AylythTrackedDataHandlers;
 import moriyashiine.aylyth.common.entity.ai.AylythMemoryTypes;
 import moriyashiine.aylyth.common.entity.ai.AylythSensorTypes;
-import moriyashiine.aylyth.common.entity.statuseffect.AylythStatusEffects;
 import moriyashiine.aylyth.common.item.AylythBoatTypes;
 import moriyashiine.aylyth.common.item.AylythFuels;
 import moriyashiine.aylyth.common.item.AylythItemGroup;
 import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.aylyth.common.item.potion.AylythPotions;
-import moriyashiine.aylyth.common.registry.AylythPointOfInterestTypes;
+import moriyashiine.aylyth.common.loot.AylythLootConditionTypes;
+import moriyashiine.aylyth.common.recipe.AylythRecipeTypes;
+import moriyashiine.aylyth.common.screenhandler.AylythScreenHandlerTypes;
+import moriyashiine.aylyth.common.world.gen.biome.AylythBiomeModifications;
+import moriyashiine.aylyth.common.world.AylythPointOfInterestTypes;
 import moriyashiine.aylyth.common.network.AylythPacketTypes;
 import moriyashiine.aylyth.common.network.AylythServerPacketHandler;
 import moriyashiine.aylyth.common.network.packets.SpawnParticlesAroundPacketS2C;
@@ -27,10 +31,15 @@ import moriyashiine.aylyth.common.event.LivingEntityDeathEvents;
 import moriyashiine.aylyth.common.item.type.ShuckedYmpeFruitItem;
 import moriyashiine.aylyth.common.recipe.SoulCampfireRecipe;
 import moriyashiine.aylyth.common.recipe.YmpeDaggerDropRecipe;
-import moriyashiine.aylyth.common.registry.*;
-import moriyashiine.aylyth.common.registry.custom.CustomRegistries;
+import moriyashiine.aylyth.common.other.*;
+import moriyashiine.aylyth.common.other.custom.CustomRegistries;
 import moriyashiine.aylyth.common.data.tag.AylythEntityTypeTags;
 import moriyashiine.aylyth.common.data.tag.AylythItemTags;
+import moriyashiine.aylyth.common.world.gen.biome.AylythBiomeSources;
+import moriyashiine.aylyth.common.world.gen.AylythFeatures;
+import moriyashiine.aylyth.common.world.gen.AylythFoliagePlacerTypes;
+import moriyashiine.aylyth.common.world.gen.AylythTreeDecoratorTypes;
+import moriyashiine.aylyth.common.world.gen.AylythTrunkPlacerTypes;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.entity.event.v1.ServerEntityCombatEvents;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
@@ -122,7 +131,7 @@ public class Aylyth implements ModInitializer {
 		AylythBiomeSources.register();
 		AylythBiomeModifications.register();
 
-		ModAttachmentTypes.init();
+		EntityAttachmentTypes.register();
 
 		registerApis();
 
@@ -166,7 +175,7 @@ public class Aylyth implements ModInitializer {
 						mob.setFrozenTicks(0);
 						mob.setVelocity(Vec3d.ZERO);
 						mob.fallDistance = 0;
-						ModEntityComponents.PREVENT_DROPS.get(mob).setPreventsDrops(true);
+						AylythEntityComponents.PREVENT_DROPS.get(mob).setPreventsDrops(true);
 						PlayerLookup.tracking(mob).forEach(trackingPlayer -> {
 							ServerPlayNetworking.send(trackingPlayer, new SpawnParticlesAroundPacketS2C(mob.getId(), 32, List.of(ParticleTypes.SMOKE, ParticleTypes.FALLING_HONEY)));
 						});

@@ -8,7 +8,7 @@ import moriyashiine.aylyth.common.advancement.criteria.ShuckingCriterion;
 import moriyashiine.aylyth.common.advancement.criteria.YmpeInfestationCriterion;
 import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.entity.AylythEntityTypes;
-import moriyashiine.aylyth.common.entity.statuseffect.AylythStatusEffects;
+import moriyashiine.aylyth.common.entity.AylythStatusEffects;
 import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.aylyth.common.item.potion.AylythPotions;
 import moriyashiine.aylyth.common.data.world.AylythBiomes;

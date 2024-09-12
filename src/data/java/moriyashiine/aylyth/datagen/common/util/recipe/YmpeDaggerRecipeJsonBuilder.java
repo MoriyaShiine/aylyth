@@ -2,7 +2,7 @@ package moriyashiine.aylyth.datagen.common.util.recipe;
 
 import com.google.gson.JsonObject;
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.registry.AylythRecipeTypes;
+import moriyashiine.aylyth.common.recipe.AylythRecipeTypes;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;

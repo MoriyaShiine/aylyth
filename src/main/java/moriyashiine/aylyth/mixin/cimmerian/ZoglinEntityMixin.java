@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.mixin.cimmerian;
 
-import moriyashiine.aylyth.common.entity.statuseffect.AylythStatusEffects;
+import moriyashiine.aylyth.common.entity.AylythStatusEffects;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.mob.ZoglinEntity;
 import org.spongepowered.asm.mixin.Mixin;

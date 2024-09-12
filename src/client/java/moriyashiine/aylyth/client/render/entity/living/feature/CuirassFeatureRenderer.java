@@ -2,7 +2,7 @@ package moriyashiine.aylyth.client.render.entity.living.feature;
 
 import moriyashiine.aylyth.client.model.entity.layer.CuirassModel;
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.registry.ModEntityComponents;
+import moriyashiine.aylyth.common.entity.AylythEntityComponents;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
@@ -31,7 +31,7 @@ public class CuirassFeatureRenderer extends FeatureRenderer<AbstractClientPlayer
 
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, AbstractClientPlayerEntity entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
-        float stage = ModEntityComponents.CUIRASS_COMPONENT.get(entity).getStage();
+        float stage = AylythEntityComponents.CUIRASS_COMPONENT.get(entity).getStage();
         if (stage > 0) {
             CuirassModel model;
              if(stage < 5){

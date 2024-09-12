@@ -4,7 +4,7 @@ import moriyashiine.aylyth.common.entity.type.RootPropEntity;
 import moriyashiine.aylyth.common.entity.ai.BasicAttackType;
 import moriyashiine.aylyth.common.entity.type.mob.TulpaEntity;
 import moriyashiine.aylyth.common.entity.ai.AylythMemoryTypes;
-import moriyashiine.aylyth.common.util.BrainUtils;
+import moriyashiine.aylyth.common.entity.ai.brain.BrainUtils;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.brain.MemoryModuleState;

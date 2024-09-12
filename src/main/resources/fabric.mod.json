@@ -27,7 +27,7 @@
             "moriyashiine.aylyth.client.AylythClient"
         ],
         "cardinal-components-entity": [
-          "moriyashiine.aylyth.common.registry.ModEntityComponents"
+            "moriyashiine.aylyth.common.entity.AylythEntityComponents"
         ],
         "rei_client": [
             "moriyashiine.aylyth.client.integration.rei.ModREIPlugin"

@@ -2,7 +2,6 @@ package moriyashiine.aylyth.common.recipe;
 
 import com.google.gson.JsonObject;
 import moriyashiine.aylyth.common.item.AylythItems;
-import moriyashiine.aylyth.common.registry.AylythRecipeTypes;
 import net.minecraft.inventory.RecipeInputInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;

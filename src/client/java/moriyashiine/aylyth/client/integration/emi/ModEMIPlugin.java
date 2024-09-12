@@ -6,7 +6,7 @@ import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.stack.EmiStack;
 import moriyashiine.aylyth.common.recipe.YmpeDaggerDropRecipe;
 import moriyashiine.aylyth.common.item.AylythItems;
-import moriyashiine.aylyth.common.registry.AylythRecipeTypes;
+import moriyashiine.aylyth.common.recipe.AylythRecipeTypes;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.recipe.RecipeManager;
 

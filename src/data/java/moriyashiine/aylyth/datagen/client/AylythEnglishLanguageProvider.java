@@ -2,7 +2,7 @@ package moriyashiine.aylyth.datagen.client;
 
 import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.entity.AylythEntityTypes;
-import moriyashiine.aylyth.common.entity.statuseffect.AylythStatusEffects;
+import moriyashiine.aylyth.common.entity.AylythStatusEffects;
 import moriyashiine.aylyth.common.item.AylythItemGroup;
 import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.aylyth.common.data.world.AylythBiomes;

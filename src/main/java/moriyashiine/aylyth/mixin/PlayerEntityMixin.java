@@ -4,12 +4,12 @@ import moriyashiine.aylyth.api.interfaces.HindPledgeHolder;
 import moriyashiine.aylyth.api.interfaces.VitalHealthHolder;
 import moriyashiine.aylyth.common.attachment.PledgeState;
 import moriyashiine.aylyth.common.block.type.SoulHearthBlock;
-import moriyashiine.aylyth.common.component.entity.CuirassComponent;
+import moriyashiine.aylyth.common.entity.component.CuirassComponent;
 import moriyashiine.aylyth.common.entity.type.mob.BoneflyEntity;
-import moriyashiine.aylyth.common.registry.ModAttachmentTypes;
-import moriyashiine.aylyth.common.registry.ModEntityComponents;
+import moriyashiine.aylyth.common.entity.EntityAttachmentTypes;
+import moriyashiine.aylyth.common.entity.AylythEntityComponents;
 import moriyashiine.aylyth.common.entity.attribute.AylythAttributes;
-import moriyashiine.aylyth.common.registry.AylythSoundEvents;
+import moriyashiine.aylyth.common.other.AylythSoundEvents;
 import moriyashiine.aylyth.common.data.AylythDamageTypes;
 import moriyashiine.aylyth.common.data.world.AylythDimensionData;
 import moriyashiine.aylyth.common.data.tag.AylythDamageTypeTags;
@@ -69,18 +69,18 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHea
 
     @Override
     public float getCurrentVitalHealth() {
-        return ModEntityComponents.VITAL_HEALTH.get(this).getCurrentVitalHealth();
+        return AylythEntityComponents.VITAL_HEALTH.get(this).getCurrentVitalHealth();
     }
 
     @Override
     public void setCurrentVitalHealth(float vital) {
-        ModEntityComponents.VITAL_HEALTH.get(this).setCurrentVitalHealth(vital);
+        AylythEntityComponents.VITAL_HEALTH.get(this).setCurrentVitalHealth(vital);
     }
 
     @Override
     public UUID getHindUuid() {
         if (!getWorld().isClient) {
-            PledgeState pledgeState = ((AttachmentTarget)getWorld()).getAttachedOrCreate(ModAttachmentTypes.PLEDGE_STATE);
+            PledgeState pledgeState = ((AttachmentTarget)getWorld()).getAttachedOrCreate(EntityAttachmentTypes.PLEDGE_STATE);
             return pledgeState.getPledge((PlayerEntity)(Object) this);
         }
         return null;
@@ -89,7 +89,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHea
     @Override
     public void setHindUuid(@Nullable UUID uuid) {
         if (!getWorld().isClient) {
-            PledgeState pledgeState = ((AttachmentTarget)getWorld()).getAttachedOrCreate(ModAttachmentTypes.PLEDGE_STATE);
+            PledgeState pledgeState = ((AttachmentTarget)getWorld()).getAttachedOrCreate(EntityAttachmentTypes.PLEDGE_STATE);
             if (uuid == null) {
                 pledgeState.removePledge((PlayerEntity)(Object) this);
             } else {
@@ -127,7 +127,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHea
     private float modifyDamageForCuirass(float amount, DamageSource source) {
         if (!getWorld().isClient) {
             PlayerEntity player = (PlayerEntity) (Object) this;
-            CuirassComponent component = ModEntityComponents.CUIRASS_COMPONENT.get(player);
+            CuirassComponent component = AylythEntityComponents.CUIRASS_COMPONENT.get(player);
             boolean bypassesCuirass = source.isIn(AylythDamageTypeTags.BYPASSES_CUIRASS);
             boolean isAxe = source.getAttacker() instanceof LivingEntity livingEntity1 && livingEntity1.getMainHandStack().getItem() instanceof AxeItem;
             boolean isFireDamage = source.isIn(DamageTypeTags.IS_FIRE);

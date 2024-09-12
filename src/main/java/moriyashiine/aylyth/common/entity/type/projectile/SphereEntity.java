@@ -2,7 +2,7 @@ package moriyashiine.aylyth.common.entity.type.projectile;
 
 import moriyashiine.aylyth.common.entity.type.mob.WreathedHindEntity;
 import moriyashiine.aylyth.common.entity.AylythEntityTypes;
-import moriyashiine.aylyth.common.registry.AylythParticleTypes;
+import moriyashiine.aylyth.common.other.AylythParticleTypes;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;

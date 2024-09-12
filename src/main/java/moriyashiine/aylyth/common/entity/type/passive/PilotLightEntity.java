@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.common.entity.type.passive;
 
-import moriyashiine.aylyth.common.registry.AylythParticleTypes;
+import moriyashiine.aylyth.common.other.AylythParticleTypes;
 import moriyashiine.aylyth.common.data.world.AylythDimensionData;
 import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
 import net.minecraft.entity.*;

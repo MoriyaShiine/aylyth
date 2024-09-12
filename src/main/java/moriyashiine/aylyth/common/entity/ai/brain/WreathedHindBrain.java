@@ -9,7 +9,6 @@ import moriyashiine.aylyth.common.entity.ai.task.GeckoMeleeAttackTask;
 import moriyashiine.aylyth.common.entity.type.mob.WreathedHindEntity;
 import moriyashiine.aylyth.common.entity.ai.AylythMemoryTypes;
 import moriyashiine.aylyth.common.entity.ai.AylythSensorTypes;
-import moriyashiine.aylyth.common.util.BrainUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.brain.Activity;

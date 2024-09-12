@@ -4,7 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import moriyashiine.aylyth.common.advancement.AdvancementRendererData;
 import moriyashiine.aylyth.common.advancement.AdvancementRendererDataType;
-import moriyashiine.aylyth.common.registry.AdvancementRendererDataTypes;
+import moriyashiine.aylyth.common.advancement.AdvancementRendererDataTypes;
 import net.minecraft.util.Identifier;
 
 public record TextureRendererData(Identifier texture, int color) implements AdvancementRendererData {

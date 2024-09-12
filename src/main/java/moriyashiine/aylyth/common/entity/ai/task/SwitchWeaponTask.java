@@ -2,7 +2,7 @@ package moriyashiine.aylyth.common.entity.ai.task;
 
 import com.google.common.collect.ImmutableMap;
 import moriyashiine.aylyth.common.entity.type.mob.TulpaEntity;
-import moriyashiine.aylyth.common.util.BrainUtils;
+import moriyashiine.aylyth.common.entity.ai.brain.BrainUtils;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
