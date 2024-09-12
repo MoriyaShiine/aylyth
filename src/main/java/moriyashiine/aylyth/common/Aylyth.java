@@ -69,7 +69,7 @@ public class Aylyth implements ModInitializer {
 
 		AdvancementRendererDataTypes.register();
 		AylythCriteria.register();
-		ModLootConditionTypes.register();
+		AylythLootConditionTypes.register();
 		AylythRecipeTypes.register();
 
 		AylythSoundEvents.register();

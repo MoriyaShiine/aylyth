@@ -15,5 +15,5 @@ public interface AdvancementRendererDataTypes {
     }
 
     // Load static initializer
-    public static void register() {}
+    static void register() {}
 }

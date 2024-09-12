@@ -7,7 +7,7 @@ import com.google.gson.JsonSerializationContext;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
 import moriyashiine.aylyth.common.entity.mob.ScionEntity;
-import moriyashiine.aylyth.common.registry.ModLootConditionTypes;
+import moriyashiine.aylyth.common.registry.AylythLootConditionTypes;
 import net.minecraft.entity.Entity;
 import net.minecraft.loot.condition.LootCondition;
 import net.minecraft.loot.condition.LootConditionType;
@@ -27,7 +27,7 @@ public class ScionIsPlayerLootCondition implements LootCondition {
 
     @Override
     public LootConditionType getType() {
-        return ModLootConditionTypes.SCION_IS_PLAYER;
+        return AylythLootConditionTypes.SCION_IS_PLAYER;
     }
 
     @Override
