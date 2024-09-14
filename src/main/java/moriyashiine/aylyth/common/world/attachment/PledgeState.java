@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.common.entity.attachment;
+package moriyashiine.aylyth.common.world.attachment;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
