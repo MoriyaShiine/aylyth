@@ -35,9 +35,11 @@ import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 
+// TODO split into several classes, each of which implements a specific feature &
+//  move them to the corresponding packages (block/entity/item)
 public class LivingEntityDeathEvents {
 
-    public static void init(){
+    public static void init() {
         ServerLivingEntityEvents.ALLOW_DEATH.register(LivingEntityDeathEvents::allowDeath);
 
         ServerLivingEntityEvents.AFTER_DEATH.register(LivingEntityDeathEvents::spawnRippedSoul);

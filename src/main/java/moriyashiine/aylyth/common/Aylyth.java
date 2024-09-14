@@ -141,6 +141,7 @@ public class Aylyth implements ModInitializer {
 		ServerPlayNetworking.registerGlobalReceiver(AylythPacketTypes.GLAIVE_SPECIAL_PACKET, AylythServerPacketHandler::handleGlaiveSpecial);
 		ServerPlayNetworking.registerGlobalReceiver(AylythPacketTypes.UPDATE_RIDER_PACKET, AylythServerPacketHandler::handleUpdatePressingUpDown);
 
+		// TODO move to the LivingEntityDeathEvents
 		ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register(this::daggerDrops);
 		UseBlockCallback.EVENT.register(this::interactSoulCampfire);
 		AttackEntityCallback.EVENT.register(this::attackWithYmpeDagger);
