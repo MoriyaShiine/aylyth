@@ -20,7 +20,7 @@ public interface AylythItemGroup {
                 .icon(() -> new ItemStack(AylythItems.YMPE_DAGGER))
                 .displayName(Text.translatable("itemGroup.aylyth.main"))
                 .entries((displayContext, entries) -> Registries.ITEM.forEach(item -> {
-                    if (Registries.ITEM.getId(item).getNamespace().equals(Aylyth.MOD_ID)) {
+                    if (item.getRegistryEntry().registryKey().getValue().getNamespace().equals(Aylyth.MOD_ID)) {
                         entries.add(item);
                     }
                 }))
