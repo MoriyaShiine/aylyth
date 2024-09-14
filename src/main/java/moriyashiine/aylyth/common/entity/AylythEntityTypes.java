@@ -3,7 +3,7 @@ package moriyashiine.aylyth.common.entity;
 import moriyashiine.aylyth.common.entity.types.RootPropEntity;
 import moriyashiine.aylyth.common.entity.types.mob.*;
 import moriyashiine.aylyth.common.entity.types.mob.TulpaEntity.TulpaPlayerEntity;
-import moriyashiine.aylyth.common.entity.types.passive.PilotLightEntity;
+import moriyashiine.aylyth.common.entity.types.mob.passive.PilotLightEntity;
 import moriyashiine.aylyth.common.entity.types.projectile.SphereEntity;
 import moriyashiine.aylyth.common.entity.types.projectile.ThornFlechetteEntity;
 import moriyashiine.aylyth.common.entity.types.projectile.YmpeLanceEntity;
