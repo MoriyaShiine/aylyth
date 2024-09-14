@@ -25,7 +25,6 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
-import org.jetbrains.annotations.Nullable;
 
 import static net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings.copyOf;
 
@@ -38,24 +37,11 @@ public interface AylythBlocks {
 	WoodType POMEGRANATE_WOOD_TYPE = new WoodTypeBuilder().register(AylythUtil.id("pomegranate"), POMEGRANATE_BLOCK_SET_TYPE);
 	WoodType WRITHEWOOD_WOOD_TYPE = new WoodTypeBuilder().register(AylythUtil.id("writhewood"), WRITHEWOOD_BLOCK_SET_TYPE);
 
-	AbstractBlock.Settings STREWN_LEAVES = AbstractBlock.Settings.create().mapColor(MapColor.DARK_GREEN).notSolid().pistonBehavior(PistonBehavior.DESTROY).replaceable();
-
 	Block YMPE_STRIPPED_LOG = register("stripped_ympe_log", new PillarBlock(copyOf(Blocks.STRIPPED_OAK_LOG)));
 	Block YMPE_STRIPPED_WOOD = register("stripped_ympe_wood", new PillarBlock(copyOf(Blocks.STRIPPED_OAK_WOOD)));
 	Block YMPE_LOG = register("ympe_log", new PillarBlock(copyOf(Blocks.OAK_LOG)));
 	Block YMPE_WOOD = register("ympe_wood", new PillarBlock(copyOf(Blocks.OAK_WOOD)));
-	Block YMPE_SAPLING = register("ympe_sapling", new SaplingBlock(new LargeTreeSaplingGenerator() {
-
-		@Override
-		protected @Nullable RegistryKey<ConfiguredFeature<?, ?>> getLargeTreeFeature(Random random) {
-			return AylythConfiguredFeatures.BIG_YMPE_TREE;
-		}
-
-		@Override
-		protected @Nullable RegistryKey<ConfiguredFeature<?, ?>> getTreeFeature(Random random, boolean bees) {
-			return AylythConfiguredFeatures.YMPE_TREE;
-		}
-	}, copyOf(Blocks.OAK_SAPLING)));
+	Block YMPE_SAPLING = register("ympe_sapling", new SaplingBlock(simpleLargeSaplingGenerator(AylythConfiguredFeatures.YMPE_TREE, AylythConfiguredFeatures.BIG_YMPE_TREE), copyOf(Blocks.OAK_SAPLING)));
 	Block YMPE_POTTED_SAPLING = register("potted_ympe_sapling", new FlowerPotBlock(YMPE_SAPLING, copyOf(Blocks.POTTED_OAK_SAPLING)));
 	Block YMPE_PLANKS = register("ympe_planks", new Block(copyOf(Blocks.OAK_PLANKS)));
 	Block YMPE_STAIRS = register("ympe_stairs", new StairsBlock(YMPE_PLANKS.getDefaultState(), copyOf(Blocks.OAK_STAIRS)));
@@ -77,14 +63,7 @@ public interface AylythBlocks {
 	Block POMEGRANATE_STRIPPED_WOOD = register("stripped_pomegranate_wood", new PillarBlock(copyOf(Blocks.STRIPPED_OAK_WOOD)));
 	Block POMEGRANATE_LOG = register("pomegranate_log", new PillarBlock(copyOf(Blocks.OAK_LOG)));
 	Block POMEGRANATE_WOOD = register("pomegranate_wood", new PillarBlock(copyOf(Blocks.OAK_WOOD)));
-	Block POMEGRANATE_SAPLING = register("pomegranate_sapling", new SaplingBlock(new SaplingGenerator() {
-
-		@Nullable
-		@Override
-		protected RegistryKey<ConfiguredFeature<?, ?>> getTreeFeature(Random random, boolean bees) {
-			return AylythConfiguredFeatures.POMEGRANATE_TREE;
-		}
-	}, copyOf(Blocks.OAK_SAPLING)));
+	Block POMEGRANATE_SAPLING = register("pomegranate_sapling", new SaplingBlock(simpleSaplingGenerator(AylythConfiguredFeatures.POMEGRANATE_TREE), copyOf(Blocks.OAK_SAPLING)));
 	Block POMEGRANATE_POTTED_SAPLING = register("potted_pomegranate_sapling", new FlowerPotBlock(POMEGRANATE_SAPLING, copyOf(Blocks.POTTED_OAK_SAPLING)));
 	Block POMEGRANATE_PLANKS = register("pomegranate_planks", new Block(copyOf(Blocks.OAK_PLANKS)));
 	Block POMEGRANATE_STAIRS = register("pomegranate_stairs", new StairsBlock(POMEGRANATE_PLANKS.getDefaultState(), copyOf(Blocks.OAK_STAIRS)));
@@ -105,13 +84,7 @@ public interface AylythBlocks {
 	Block WRITHEWOOD_STRIPPED_WOOD = register("stripped_writhewood_wood", new PillarBlock(copyOf(Blocks.STRIPPED_OAK_WOOD)));
 	Block WRITHEWOOD_LOG = register("writhewood_log", new PillarBlock(copyOf(Blocks.OAK_LOG)));
 	Block WRITHEWOOD_WOOD = register("writhewood_wood", new PillarBlock(copyOf(Blocks.OAK_WOOD)));
-	Block WRITHEWOOD_SAPLING = register("writhewood_sapling", new WaterloggableSaplingBlock(new SaplingGenerator() {
-		@Nullable
-		@Override
-		protected RegistryKey<ConfiguredFeature<?, ?>> getTreeFeature(Random random, boolean bees) {
-			return AylythConfiguredFeatures.WRITHEWOOD_TREE;
-		}
-	}, copyOf(Blocks.OAK_SAPLING)));
+	Block WRITHEWOOD_SAPLING = register("writhewood_sapling", new WaterloggableSaplingBlock(simpleSaplingGenerator(AylythConfiguredFeatures.WRITHEWOOD_TREE), copyOf(Blocks.OAK_SAPLING)));
 	Block WRITHEWOOD_POTTED_SAPLING = register("potted_writhewood_sapling", new FlowerPotBlock(WRITHEWOOD_SAPLING, copyOf(Blocks.POTTED_OAK_SAPLING)));
 	Block WRITHEWOOD_PLANKS = register("writhewood_planks", new Block(copyOf(Blocks.OAK_PLANKS)));
 	Block WRITHEWOOD_STAIRS = register("writhewood_stairs", new StairsBlock(WRITHEWOOD_PLANKS.getDefaultState(), copyOf(Blocks.OAK_STAIRS)));
@@ -129,13 +102,7 @@ public interface AylythBlocks {
 	Block WRITHEWOOD_LEAVES = register("writhewood_leaves", new LeavesBlock(copyOf(Blocks.OAK_LEAVES).mapColor(MapColor.ORANGE)));
 
 	Block SEEPING_WOOD = register("seeping_wood", new PillarBlock(copyOf(Blocks.OAK_WOOD)));
-	Block GIRASOL_SAPLING = register("girasol_sapling", new GirasolSaplingBlock(new SaplingGenerator() {
-		@Nullable
-		@Override
-		protected RegistryKey<ConfiguredFeature<?, ?>> getTreeFeature(Random random, boolean bees) {
-			return AylythConfiguredFeatures.GIRASOL_TREE;
-		}
-	}, copyOf(Blocks.OAK_SAPLING)));
+	Block GIRASOL_SAPLING = register("girasol_sapling", new GirasolSaplingBlock(simpleSaplingGenerator(AylythConfiguredFeatures.GIRASOL_TREE), copyOf(Blocks.OAK_SAPLING)));
 	Block GIRASOL_SAPLING_POTTED = register("potted_girasol_sapling", new FlowerPotBlock(GIRASOL_SAPLING, copyOf(Blocks.FLOWER_POT)));
 
 	Block CHTHONIA_WOOD = register("chthonia_wood", new PillarBlock(copyOf(Blocks.OAK_WOOD)));
@@ -153,8 +120,8 @@ public interface AylythBlocks {
 	ShelfMushroomBlock SHELF_JACK_O_LANTERN_MUSHROOM = register("shelf_jack_o_lantern_mushroom", new JackolanternShelfMushroomBlock(() -> JACK_O_LANTERN_MUSHROOM, FabricBlockSettings.create().notSolid().pistonBehavior(PistonBehavior.DESTROY).sounds(BlockSoundGroup.WART_BLOCK).noCollision().nonOpaque().ticksRandomly().luminance(state -> state.get(JackolanternShelfMushroomBlock.GLOWING) ? 5 : 0)));
 	Block GHOSTCAP_MUSHROOM = register("ghostcap_mushroom", new SpreadingPlantBlock(FabricBlockSettings.create().notSolid().pistonBehavior(PistonBehavior.DESTROY).sounds(BlockSoundGroup.GLOW_LICHEN).noCollision().nonOpaque().ticksRandomly()));
 
-	Block OAK_STREWN_LEAVES = register("oak_strewn_leaves", new StrewnLeavesBlock(FabricBlockSettings.copyOf(STREWN_LEAVES).sounds(AylythSoundEvents.STREWN_LEAVES)));
-	Block YMPE_STREWN_LEAVES = register("ympe_strewn_leaves", new StrewnLeavesBlock(FabricBlockSettings.copyOf(STREWN_LEAVES).sounds(AylythSoundEvents.STREWN_LEAVES)));
+	Block OAK_STREWN_LEAVES = register("oak_strewn_leaves", new StrewnLeavesBlock(AbstractBlock.Settings.create().mapColor(MapColor.DARK_GREEN).notSolid().pistonBehavior(PistonBehavior.DESTROY).replaceable().sounds(AylythSoundEvents.STREWN_LEAVES)));
+	Block YMPE_STREWN_LEAVES = register("ympe_strewn_leaves", new StrewnLeavesBlock(AbstractBlock.Settings.create().mapColor(MapColor.DARK_GREEN).notSolid().pistonBehavior(PistonBehavior.DESTROY).replaceable().sounds(AylythSoundEvents.STREWN_LEAVES)));
 
 	Block SMALL_WOODY_GROWTH = register("small_woody_growth", new SmallWoodyGrowthBlock(FabricBlockSettings.create().burnable().strength(2.0f).sounds(BlockSoundGroup.WOOD)));
 	Block LARGE_WOODY_GROWTH = register("large_woody_growth", new LargeWoodyGrowthBlock(FabricBlockSettings.create().burnable().strength(2.0f).sounds(BlockSoundGroup.WOOD)));
@@ -184,6 +151,31 @@ public interface AylythBlocks {
 		return Registry.register(Registries.BLOCK, AylythUtil.id(name), block);
 	}
 
+	// TODO move to separate classes
+
+	private static SaplingGenerator simpleSaplingGenerator(RegistryKey<ConfiguredFeature<?, ?>> tree) {
+		return new SaplingGenerator() {
+			@Override
+			protected RegistryKey<ConfiguredFeature<?, ?>> getTreeFeature(Random random, boolean bees) {
+				return tree;
+			}
+		};
+	}
+
+	private static LargeTreeSaplingGenerator simpleLargeSaplingGenerator(RegistryKey<ConfiguredFeature<?, ?>> tree, RegistryKey<ConfiguredFeature<?, ?>> largeTree) {
+		return new LargeTreeSaplingGenerator() {
+			@Override
+			protected RegistryKey<ConfiguredFeature<?, ?>> getTreeFeature(Random random, boolean bees) {
+				return tree;
+			}
+
+			@Override
+			protected RegistryKey<ConfiguredFeature<?, ?>> getLargeTreeFeature(Random random) {
+				return largeTree;
+			}
+		};
+	}
+
 	// Load static initializer
-	public static void register() {}
+	static void register() {}
 }
