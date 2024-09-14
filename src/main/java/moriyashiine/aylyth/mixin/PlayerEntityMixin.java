@@ -6,7 +6,7 @@ import moriyashiine.aylyth.common.world.attachment.PledgeState;
 import moriyashiine.aylyth.common.block.types.SoulHearthBlock;
 import moriyashiine.aylyth.common.entity.component.CuirassComponent;
 import moriyashiine.aylyth.common.entity.types.mob.BoneflyEntity;
-import moriyashiine.aylyth.common.world.WorldAttachmentTypes;
+import moriyashiine.aylyth.common.world.AylythWorldAttachmentTypes;
 import moriyashiine.aylyth.common.entity.AylythEntityComponents;
 import moriyashiine.aylyth.common.entity.attribute.AylythAttributes;
 import moriyashiine.aylyth.common.world.effects.AylythSoundEvents;
@@ -80,7 +80,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHea
     @Override
     public UUID getHindUuid() {
         if (!getWorld().isClient) {
-            PledgeState pledgeState = ((AttachmentTarget)getWorld()).getAttachedOrCreate(WorldAttachmentTypes.PLEDGE_STATE);
+            PledgeState pledgeState = ((AttachmentTarget)getWorld()).getAttachedOrCreate(AylythWorldAttachmentTypes.PLEDGE_STATE);
             return pledgeState.getPledge((PlayerEntity)(Object) this);
         }
         return null;
@@ -89,7 +89,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHea
     @Override
     public void setHindUuid(@Nullable UUID uuid) {
         if (!getWorld().isClient) {
-            PledgeState pledgeState = ((AttachmentTarget)getWorld()).getAttachedOrCreate(WorldAttachmentTypes.PLEDGE_STATE);
+            PledgeState pledgeState = ((AttachmentTarget)getWorld()).getAttachedOrCreate(AylythWorldAttachmentTypes.PLEDGE_STATE);
             if (uuid == null) {
                 pledgeState.removePledge((PlayerEntity)(Object) this);
             } else {
