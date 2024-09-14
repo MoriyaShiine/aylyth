@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.common.other.event;
+package moriyashiine.aylyth.common.event;
 
 import moriyashiine.aylyth.api.interfaces.HindPledgeHolder;
 import moriyashiine.aylyth.common.block.types.VitalThuribleBlock;
