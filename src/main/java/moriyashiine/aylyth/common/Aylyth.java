@@ -33,7 +33,7 @@ import moriyashiine.aylyth.common.event.LivingEntityDeathEvents;
 import moriyashiine.aylyth.common.item.types.ShuckedYmpeFruitItem;
 import moriyashiine.aylyth.common.recipe.SoulCampfireRecipe;
 import moriyashiine.aylyth.common.recipe.YmpeDaggerDropRecipe;
-import moriyashiine.aylyth.common.other.customregistry.CustomRegistries;
+import moriyashiine.aylyth.common.registry.AylythRegistries;
 import moriyashiine.aylyth.common.data.tag.AylythEntityTypeTags;
 import moriyashiine.aylyth.common.data.tag.AylythItemTags;
 import moriyashiine.aylyth.common.world.gen.biome.AylythBiomeSources;
@@ -92,7 +92,7 @@ public class Aylyth implements ModInitializer {
 			LOGGER.info("Debug mode enabled!");
 		}
 
-		CustomRegistries.init();
+		AylythRegistries.register();
 
 		AdvancementRendererDataTypes.register();
 		AylythCriteria.register();
