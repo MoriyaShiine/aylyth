@@ -5,7 +5,7 @@ import moriyashiine.aylyth.common.block.entity.types.SeepBlockEntity;
 import moriyashiine.aylyth.common.block.entity.types.SoulHearthBlockEntity;
 import moriyashiine.aylyth.common.block.entity.types.VitalThuribleBlockEntity;
 import moriyashiine.aylyth.common.block.entity.types.WoodyGrowthCacheBlockEntity;
-import moriyashiine.aylyth.common.other.util.AylythUtil;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder.Factory;
 import net.minecraft.block.Block;

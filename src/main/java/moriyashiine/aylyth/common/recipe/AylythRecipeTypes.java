@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.common.recipe;
 
-import moriyashiine.aylyth.common.other.util.AylythUtil;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;

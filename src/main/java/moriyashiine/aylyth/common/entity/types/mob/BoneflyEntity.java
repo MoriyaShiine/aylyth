@@ -6,7 +6,7 @@ import moriyashiine.aylyth.api.interfaces.ProlongedDeath;
 import moriyashiine.aylyth.common.entity.AylythEntityComponents;
 import moriyashiine.aylyth.common.entity.AylythEntityTypes;
 import moriyashiine.aylyth.common.item.AylythItems;
-import moriyashiine.aylyth.common.other.util.AylythUtil;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.mixin.EntityAccessor;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.BlockState;

@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.world.gen;
 
 import com.mojang.serialization.Codec;
-import moriyashiine.aylyth.common.other.util.AylythUtil;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.common.world.gen.trunkplacer.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;

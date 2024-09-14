@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.world.gen;
 
 import com.mojang.serialization.Codec;
-import moriyashiine.aylyth.common.other.util.AylythUtil;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.common.world.gen.foliageplacer.GirasolFoliagePlacer;
 import moriyashiine.aylyth.common.world.gen.foliageplacer.PomegranateFoliagePlacer;
 import moriyashiine.aylyth.common.world.gen.foliageplacer.WrithewoodFoliagePlacer;

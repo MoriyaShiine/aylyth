@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.common.other.util;
+package moriyashiine.aylyth.common.util;
 
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.network.packets.SpawnParticlesAroundPacketS2C;

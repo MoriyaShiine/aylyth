@@ -3,7 +3,7 @@ package moriyashiine.aylyth.client.render.block.entity;
 import moriyashiine.aylyth.client.integration.iris.IrisCompat;
 import moriyashiine.aylyth.client.render.AylythRenderLayers;
 import moriyashiine.aylyth.common.block.entity.types.SeepBlockEntity;
-import moriyashiine.aylyth.common.other.util.AylythUtil;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.render.*;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;

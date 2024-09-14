@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.mixin.cimmerian;
 
-import moriyashiine.aylyth.common.other.util.AylythUtil;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.mob.MobEntity;
 import org.jetbrains.annotations.Nullable;

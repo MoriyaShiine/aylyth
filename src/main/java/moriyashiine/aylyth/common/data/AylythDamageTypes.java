@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.common.data;
 
-import moriyashiine.aylyth.common.other.util.AylythUtil;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.entity.damage.DamageType;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;

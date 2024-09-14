@@ -6,7 +6,7 @@ import moriyashiine.aylyth.common.entity.ai.sensor.OwningPlayerSensor;
 import moriyashiine.aylyth.common.entity.ai.sensor.ScionSpecificSensor;
 import moriyashiine.aylyth.common.entity.types.mob.TulpaEntity;
 import moriyashiine.aylyth.common.entity.types.mob.WreathedHindEntity;
-import moriyashiine.aylyth.common.other.util.AylythUtil;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.registry.Registries;

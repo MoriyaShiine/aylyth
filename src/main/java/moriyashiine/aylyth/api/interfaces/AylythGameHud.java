@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.api.interfaces;
 
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.other.util.AylythUtil;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.util.Identifier;
 
 public interface AylythGameHud {

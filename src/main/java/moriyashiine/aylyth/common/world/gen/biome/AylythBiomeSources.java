@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.common.world.gen.biome;
 
-import moriyashiine.aylyth.common.other.util.AylythUtil;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 

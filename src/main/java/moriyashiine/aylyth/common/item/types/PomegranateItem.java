@@ -2,7 +2,7 @@ package moriyashiine.aylyth.common.item.types;
 
 import com.mojang.datafixers.util.Pair;
 import moriyashiine.aylyth.common.data.world.AylythDimensionData;
-import moriyashiine.aylyth.common.other.util.AylythUtil;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;

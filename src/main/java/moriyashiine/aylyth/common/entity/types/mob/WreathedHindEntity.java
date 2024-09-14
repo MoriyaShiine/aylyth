@@ -10,7 +10,7 @@ import moriyashiine.aylyth.common.entity.ai.AylythMemoryTypes;
 import moriyashiine.aylyth.common.entity.ai.brain.WreathedHindBrain;
 import moriyashiine.aylyth.common.other.*;
 import moriyashiine.aylyth.common.data.tag.AylythItemTags;
-import moriyashiine.aylyth.common.other.util.AylythUtil;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentTarget;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityData;

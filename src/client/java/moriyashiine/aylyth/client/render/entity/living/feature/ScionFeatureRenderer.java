@@ -2,7 +2,7 @@ package moriyashiine.aylyth.client.render.entity.living.feature;
 
 import moriyashiine.aylyth.client.model.entity.ScionEntityModel;
 import moriyashiine.aylyth.common.entity.types.mob.ScionEntity;
-import moriyashiine.aylyth.common.other.util.AylythUtil;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumerProvider;

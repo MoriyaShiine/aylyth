@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.world;
 
 import moriyashiine.aylyth.common.block.AylythBlocks;
-import moriyashiine.aylyth.common.other.util.AylythUtil;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.fabric.api.object.builder.v1.world.poi.PointOfInterestHelper;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;

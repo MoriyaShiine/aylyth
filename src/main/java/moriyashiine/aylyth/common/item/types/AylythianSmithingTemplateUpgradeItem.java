@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.common.item.types;
 
-import moriyashiine.aylyth.common.other.util.AylythUtil;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.item.SmithingTemplateItem;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;

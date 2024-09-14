@@ -5,7 +5,7 @@ import moriyashiine.aylyth.common.block.entity.AylythBlockEntityTypes;
 import moriyashiine.aylyth.common.block.types.VitalThuribleBlock;
 import moriyashiine.aylyth.common.entity.attribute.AylythAttributes;
 import moriyashiine.aylyth.common.item.AylythItems;
-import moriyashiine.aylyth.common.other.util.AylythUtil;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.SharedConstants;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

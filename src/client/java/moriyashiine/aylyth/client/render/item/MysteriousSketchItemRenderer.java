@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.client.render.item;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import moriyashiine.aylyth.common.other.util.AylythUtil;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.mixin.client.HeldItemRendererAccessor;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;

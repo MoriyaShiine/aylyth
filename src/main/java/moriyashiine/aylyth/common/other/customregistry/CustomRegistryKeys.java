@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.other.customregistry;
 
 import moriyashiine.aylyth.common.advancement.renderdata.AdvancementRendererDataType;
-import moriyashiine.aylyth.common.other.util.AylythUtil;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 

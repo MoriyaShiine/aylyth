@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.common.data.tag;
 
-import moriyashiine.aylyth.common.other.util.AylythUtil;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;

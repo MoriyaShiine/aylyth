@@ -12,7 +12,7 @@ import moriyashiine.aylyth.common.entity.AylythStatusEffects;
 import moriyashiine.aylyth.common.data.AylythDamageTypes;
 import moriyashiine.aylyth.common.data.tag.AylythStatusEffectTags;
 import moriyashiine.aylyth.common.data.tag.AylythItemTags;
-import moriyashiine.aylyth.common.other.util.AylythUtil;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.fabric.api.tag.convention.v1.TagUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityGroup;

@@ -9,7 +9,7 @@ import moriyashiine.aylyth.common.block.types.PomegranateLeavesBlock;
 import moriyashiine.aylyth.common.block.types.StrewnLeavesBlock;
 import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.item.AylythItems;
-import moriyashiine.aylyth.common.other.util.AylythUtil;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.block.Block;

@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.client.model.entity;
 
 import moriyashiine.aylyth.common.entity.types.mob.TulpaEntity;
-import moriyashiine.aylyth.common.other.util.AylythUtil;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;

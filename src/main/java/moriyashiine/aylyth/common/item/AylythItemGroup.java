@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.item;
 
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.other.util.AylythUtil;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;

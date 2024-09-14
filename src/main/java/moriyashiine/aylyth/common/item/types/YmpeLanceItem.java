@@ -5,7 +5,7 @@ import com.google.common.collect.Multimap;
 import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
 import moriyashiine.aylyth.common.entity.types.projectile.YmpeLanceEntity;
 import moriyashiine.aylyth.common.item.ModToolMaterials;
-import moriyashiine.aylyth.common.other.util.AylythUtil;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EquipmentSlot;

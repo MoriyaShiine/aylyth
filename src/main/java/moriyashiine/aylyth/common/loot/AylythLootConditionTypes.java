@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.common.loot;
 
-import moriyashiine.aylyth.common.other.util.AylythUtil;
+import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.loot.condition.LootCondition;
 import net.minecraft.loot.condition.LootConditionType;
 import net.minecraft.registry.Registries;
