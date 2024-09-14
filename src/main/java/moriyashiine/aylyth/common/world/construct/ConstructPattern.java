@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.common.other.construct;
+package moriyashiine.aylyth.common.world.construct;
 
 import it.unimi.dsi.fastutil.chars.Char2ObjectMap;
 import it.unimi.dsi.fastutil.chars.Char2ObjectOpenHashMap;

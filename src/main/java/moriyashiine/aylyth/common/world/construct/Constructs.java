@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.common.other.construct;
+package moriyashiine.aylyth.common.world.construct;
 
 import it.unimi.dsi.fastutil.objects.Reference2ObjectOpenHashMap;
 import moriyashiine.aylyth.common.entity.types.mob.BoneflyEntity;
