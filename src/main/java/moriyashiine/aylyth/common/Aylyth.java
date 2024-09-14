@@ -21,6 +21,7 @@ import moriyashiine.aylyth.common.item.potion.AylythPotions;
 import moriyashiine.aylyth.common.loot.AylythLootConditionTypes;
 import moriyashiine.aylyth.common.recipe.AylythRecipeTypes;
 import moriyashiine.aylyth.common.screenhandler.AylythScreenHandlerTypes;
+import moriyashiine.aylyth.common.world.WorldAttachmentTypes;
 import moriyashiine.aylyth.common.world.effects.AylythParticleTypes;
 import moriyashiine.aylyth.common.world.effects.AylythSoundEvents;
 import moriyashiine.aylyth.common.world.gen.biome.AylythBiomeModifications;
@@ -132,7 +133,7 @@ public class Aylyth implements ModInitializer {
 		AylythBiomeSources.register();
 		AylythBiomeModifications.register();
 
-		EntityAttachmentTypes.register();
+		WorldAttachmentTypes.register();
 
 		registerApis();
 

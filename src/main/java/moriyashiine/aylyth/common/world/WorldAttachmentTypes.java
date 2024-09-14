@@ -1,11 +1,11 @@
-package moriyashiine.aylyth.common.entity;
+package moriyashiine.aylyth.common.world;
 
-import moriyashiine.aylyth.common.world.attachment.PledgeState;
 import moriyashiine.aylyth.common.util.AylythUtil;
+import moriyashiine.aylyth.common.world.attachment.PledgeState;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
 
-public interface EntityAttachmentTypes {
+public interface WorldAttachmentTypes {
 
     AttachmentType<PledgeState> PLEDGE_STATE = AttachmentRegistry.<PledgeState>builder()
             .persistent(PledgeState.CODEC)

@@ -5,7 +5,7 @@ import moriyashiine.aylyth.api.interfaces.Pledgeable;
 import moriyashiine.aylyth.common.advancement.AylythCriteria;
 import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.entity.AylythTrackedDataHandlers;
-import moriyashiine.aylyth.common.entity.EntityAttachmentTypes;
+import moriyashiine.aylyth.common.world.WorldAttachmentTypes;
 import moriyashiine.aylyth.common.entity.ai.AylythMemoryTypes;
 import moriyashiine.aylyth.common.entity.ai.brain.WreathedHindBrain;
 import moriyashiine.aylyth.common.data.tag.AylythItemTags;
@@ -138,7 +138,7 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
     @Override
     public void remove(RemovalReason reason) {
         super.remove(reason);
-        ((AttachmentTarget)getWorld()).getAttachedOrCreate(EntityAttachmentTypes.PLEDGE_STATE).removePledge(this);
+        ((AttachmentTarget)getWorld()).getAttachedOrCreate(WorldAttachmentTypes.PLEDGE_STATE).removePledge(this);
     }
 
     @Override
@@ -316,14 +316,14 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
     @Override
     public UUID getPledgedPlayerUUID() {
         if (!getWorld().isClient) {
-            return ((AttachmentTarget)getWorld()).getAttachedOrCreate(EntityAttachmentTypes.PLEDGE_STATE).getPledged(this);
+            return ((AttachmentTarget)getWorld()).getAttachedOrCreate(WorldAttachmentTypes.PLEDGE_STATE).getPledged(this);
         }
         return null;
     }
 
     public void setPledgedPlayer(PlayerEntity player) {
         if (!getWorld().isClient) {
-            ((AttachmentTarget)getWorld()).getAttachedOrCreate(EntityAttachmentTypes.PLEDGE_STATE).addPledge(player.getUuid(), this.getUuid());
+            ((AttachmentTarget)getWorld()).getAttachedOrCreate(WorldAttachmentTypes.PLEDGE_STATE).addPledge(player.getUuid(), this.getUuid());
         }
         setIsPledged(true);
     }
@@ -331,7 +331,7 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
     @Override
     public void removePledge() {
         if (!getWorld().isClient) {
-            ((AttachmentTarget)getWorld()).getAttachedOrCreate(EntityAttachmentTypes.PLEDGE_STATE).removePledge(this);
+            ((AttachmentTarget)getWorld()).getAttachedOrCreate(WorldAttachmentTypes.PLEDGE_STATE).removePledge(this);
         }
         setIsPledged(false);
     }
