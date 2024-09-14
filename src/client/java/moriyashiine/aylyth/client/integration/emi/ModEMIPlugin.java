@@ -4,7 +4,7 @@ import dev.emi.emi.api.EmiPlugin;
 import dev.emi.emi.api.EmiRegistry;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.stack.EmiStack;
-import moriyashiine.aylyth.common.recipe.YmpeDaggerDropRecipe;
+import moriyashiine.aylyth.common.recipe.types.YmpeDaggerDropRecipe;
 import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.aylyth.common.recipe.AylythRecipeTypes;
 import moriyashiine.aylyth.common.util.AylythUtil;

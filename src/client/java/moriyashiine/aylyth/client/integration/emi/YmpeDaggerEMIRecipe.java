@@ -8,7 +8,7 @@ import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
 import moriyashiine.aylyth.common.entity.types.mob.ElderAylythianEntity;
 import moriyashiine.aylyth.common.entity.types.mob.WreathedHindEntity;
-import moriyashiine.aylyth.common.recipe.YmpeDaggerDropRecipe;
+import moriyashiine.aylyth.common.recipe.types.YmpeDaggerDropRecipe;
 import moriyashiine.aylyth.common.item.AylythItems;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;

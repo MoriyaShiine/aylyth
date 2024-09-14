@@ -7,7 +7,7 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import moriyashiine.aylyth.client.integration.rei.category.YmpeDaggerDropCategory;
 import moriyashiine.aylyth.client.integration.rei.display.YmpeDaggerDropDisplay;
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.recipe.YmpeDaggerDropRecipe;
+import moriyashiine.aylyth.common.recipe.types.YmpeDaggerDropRecipe;
 import net.minecraft.util.Identifier;
 
 public class ModREIPlugin implements REIClientPlugin {

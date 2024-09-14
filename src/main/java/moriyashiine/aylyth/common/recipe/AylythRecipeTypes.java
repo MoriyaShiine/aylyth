@@ -1,5 +1,8 @@
 package moriyashiine.aylyth.common.recipe;
 
+import moriyashiine.aylyth.common.recipe.types.ShuckingRecipe;
+import moriyashiine.aylyth.common.recipe.types.SoulCampfireRecipe;
+import moriyashiine.aylyth.common.recipe.types.YmpeDaggerDropRecipe;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
