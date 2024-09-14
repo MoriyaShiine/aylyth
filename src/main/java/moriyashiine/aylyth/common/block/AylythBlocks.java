@@ -9,7 +9,7 @@ import moriyashiine.aylyth.common.block.types.*;
 import moriyashiine.aylyth.common.data.world.AylythConfiguredFeatures;
 import moriyashiine.aylyth.common.entity.AylythStatusEffects;
 import moriyashiine.aylyth.common.item.AylythItems;
-import moriyashiine.aylyth.common.other.AylythSoundEvents;
+import moriyashiine.aylyth.common.world.effects.AylythSoundEvents;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeBuilder;

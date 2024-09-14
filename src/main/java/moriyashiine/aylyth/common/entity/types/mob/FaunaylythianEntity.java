@@ -2,7 +2,7 @@ package moriyashiine.aylyth.common.entity.types.mob;
 
 import moriyashiine.aylyth.common.entity.ai.goal.PounceAttackGoal;
 import moriyashiine.aylyth.common.block.AylythBlocks;
-import moriyashiine.aylyth.common.other.AylythSoundEvents;
+import moriyashiine.aylyth.common.world.effects.AylythSoundEvents;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityGroup;

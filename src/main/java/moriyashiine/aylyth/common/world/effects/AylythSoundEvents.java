@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.common.other;
+package moriyashiine.aylyth.common.world.effects;
 
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.registry.Registries;

@@ -9,7 +9,7 @@ import moriyashiine.aylyth.common.entity.types.mob.BoneflyEntity;
 import moriyashiine.aylyth.common.entity.EntityAttachmentTypes;
 import moriyashiine.aylyth.common.entity.AylythEntityComponents;
 import moriyashiine.aylyth.common.entity.attribute.AylythAttributes;
-import moriyashiine.aylyth.common.other.AylythSoundEvents;
+import moriyashiine.aylyth.common.world.effects.AylythSoundEvents;
 import moriyashiine.aylyth.common.data.AylythDamageTypes;
 import moriyashiine.aylyth.common.data.world.AylythDimensionData;
 import moriyashiine.aylyth.common.data.tag.AylythDamageTypeTags;

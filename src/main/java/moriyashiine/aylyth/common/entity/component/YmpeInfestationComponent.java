@@ -4,7 +4,7 @@ import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import dev.onyxstudios.cca.api.v3.component.tick.ServerTickingComponent;
 import moriyashiine.aylyth.common.entity.AylythEntityComponents;
 import moriyashiine.aylyth.common.advancement.AylythCriteria;
-import moriyashiine.aylyth.common.other.AylythSoundEvents;
+import moriyashiine.aylyth.common.world.effects.AylythSoundEvents;
 import moriyashiine.aylyth.common.data.world.AylythDimensionData;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;

@@ -3,7 +3,7 @@ package moriyashiine.aylyth.client.render.entity.living;
 import moriyashiine.aylyth.client.model.entity.WreathedHindEntityModel;
 import moriyashiine.aylyth.client.render.entity.living.layer.WreathedHindGlowLayerRenderer;
 import moriyashiine.aylyth.common.entity.types.mob.WreathedHindEntity;
-import moriyashiine.aylyth.common.other.AylythParticleTypes;
+import moriyashiine.aylyth.common.world.effects.AylythParticleTypes;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;

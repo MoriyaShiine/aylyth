@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.common.block.types;
 
-import moriyashiine.aylyth.common.other.AylythSoundEvents;
+import moriyashiine.aylyth.common.world.effects.AylythSoundEvents;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalEntityTypeTags;
 import net.minecraft.block.Block;

@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.block.types;
 
 import com.google.common.base.Supplier;
-import moriyashiine.aylyth.common.other.AylythSoundEvents;
+import moriyashiine.aylyth.common.world.effects.AylythSoundEvents;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
