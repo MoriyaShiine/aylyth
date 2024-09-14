@@ -5,7 +5,7 @@ import com.terraformersmc.terraform.sign.block.TerraformHangingSignBlock;
 import com.terraformersmc.terraform.sign.block.TerraformSignBlock;
 import com.terraformersmc.terraform.sign.block.TerraformWallHangingSignBlock;
 import com.terraformersmc.terraform.sign.block.TerraformWallSignBlock;
-import moriyashiine.aylyth.common.block.type.*;
+import moriyashiine.aylyth.common.block.types.*;
 import moriyashiine.aylyth.common.data.world.AylythConfiguredFeatures;
 import moriyashiine.aylyth.common.entity.AylythStatusEffects;
 import moriyashiine.aylyth.common.item.AylythItems;

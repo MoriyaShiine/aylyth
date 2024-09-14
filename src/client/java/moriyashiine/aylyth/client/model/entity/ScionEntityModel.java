@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.client.model.entity;
 
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.entity.type.mob.ScionEntity;
+import moriyashiine.aylyth.common.entity.types.mob.ScionEntity;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.*;
 import net.minecraft.util.Identifier;

@@ -3,7 +3,7 @@ package moriyashiine.aylyth.common.entity.attachment;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.mojang.serialization.Codec;
-import moriyashiine.aylyth.common.entity.type.mob.WreathedHindEntity;
+import moriyashiine.aylyth.common.entity.types.mob.WreathedHindEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Uuids;
 

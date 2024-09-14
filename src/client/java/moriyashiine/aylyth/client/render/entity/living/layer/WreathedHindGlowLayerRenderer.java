@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.client.render.entity.living.layer;
 
-import moriyashiine.aylyth.common.entity.type.mob.WreathedHindEntity;
+import moriyashiine.aylyth.common.entity.types.mob.WreathedHindEntity;
 import moriyashiine.aylyth.common.other.util.AylythUtil;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib.renderer.GeoRenderer;

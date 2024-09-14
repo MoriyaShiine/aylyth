@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.entity.ai.task;
 
 import com.google.common.collect.ImmutableMap;
-import moriyashiine.aylyth.common.entity.type.mob.TulpaEntity;
+import moriyashiine.aylyth.common.entity.types.mob.TulpaEntity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.ai.brain.MemoryModuleState;
 import net.minecraft.entity.ai.brain.MemoryModuleType;

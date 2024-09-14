@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.client.model.entity;
 
-import moriyashiine.aylyth.common.entity.type.mob.SoulmouldEntity;
+import moriyashiine.aylyth.common.entity.types.mob.SoulmouldEntity;
 import moriyashiine.aylyth.common.other.util.AylythUtil;
 import software.bernie.geckolib.model.DefaultedEntityGeoModel;
 

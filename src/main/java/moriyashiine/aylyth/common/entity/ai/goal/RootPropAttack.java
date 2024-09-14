@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.common.entity.ai.goal;
 
-import moriyashiine.aylyth.common.entity.type.RootPropEntity;
+import moriyashiine.aylyth.common.entity.types.RootPropEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;

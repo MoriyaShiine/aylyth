@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.client.render.block.entity;
 
-import moriyashiine.aylyth.common.block.type.SoulHearthBlock;
-import moriyashiine.aylyth.common.block.entity.type.SoulHearthBlockEntity;
+import moriyashiine.aylyth.common.block.types.SoulHearthBlock;
+import moriyashiine.aylyth.common.block.entity.types.SoulHearthBlockEntity;
 import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.item.AylythItems;
 import net.minecraft.block.enums.DoubleBlockHalf;

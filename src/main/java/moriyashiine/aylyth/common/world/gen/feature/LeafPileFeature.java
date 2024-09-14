@@ -2,7 +2,7 @@ package moriyashiine.aylyth.common.world.gen.feature;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import moriyashiine.aylyth.common.block.type.StrewnLeavesBlock;
+import moriyashiine.aylyth.common.block.types.StrewnLeavesBlock;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

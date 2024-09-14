@@ -1,8 +1,8 @@
 package moriyashiine.aylyth.common.entity.ai.task;
 
 import com.google.common.collect.ImmutableMap;
-import moriyashiine.aylyth.common.entity.type.mob.WreathedHindEntity;
-import moriyashiine.aylyth.common.entity.type.projectile.SphereEntity;
+import moriyashiine.aylyth.common.entity.types.mob.WreathedHindEntity;
+import moriyashiine.aylyth.common.entity.types.projectile.SphereEntity;
 import moriyashiine.aylyth.common.entity.ai.brain.BrainUtils;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.brain.MemoryModuleState;

@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.common.entity.ai.goal;
 
-import moriyashiine.aylyth.common.entity.type.mob.FaunaylythianEntity;
+import moriyashiine.aylyth.common.entity.types.mob.FaunaylythianEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.util.math.Vec3d;

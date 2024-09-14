@@ -5,7 +5,7 @@ import com.mojang.authlib.GameProfile;
 import moriyashiine.aylyth.client.model.entity.TulpaEntityModel;
 import moriyashiine.aylyth.client.render.block.entity.WoodyGrowthBlockEntityRenderer;
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.entity.type.mob.TulpaEntity;
+import moriyashiine.aylyth.common.entity.types.mob.TulpaEntity;
 import moriyashiine.aylyth.common.entity.AylythEntityTypes;
 import moriyashiine.aylyth.common.other.util.AylythUtil;
 import moriyashiine.aylyth.mixin.client.PlayerSkinTextureAccessor;

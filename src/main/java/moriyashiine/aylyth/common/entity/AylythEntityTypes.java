@@ -1,12 +1,12 @@
 package moriyashiine.aylyth.common.entity;
 
-import moriyashiine.aylyth.common.entity.type.RootPropEntity;
-import moriyashiine.aylyth.common.entity.type.mob.*;
-import moriyashiine.aylyth.common.entity.type.mob.TulpaEntity.TulpaPlayerEntity;
-import moriyashiine.aylyth.common.entity.type.passive.PilotLightEntity;
-import moriyashiine.aylyth.common.entity.type.projectile.SphereEntity;
-import moriyashiine.aylyth.common.entity.type.projectile.ThornFlechetteEntity;
-import moriyashiine.aylyth.common.entity.type.projectile.YmpeLanceEntity;
+import moriyashiine.aylyth.common.entity.types.RootPropEntity;
+import moriyashiine.aylyth.common.entity.types.mob.*;
+import moriyashiine.aylyth.common.entity.types.mob.TulpaEntity.TulpaPlayerEntity;
+import moriyashiine.aylyth.common.entity.types.passive.PilotLightEntity;
+import moriyashiine.aylyth.common.entity.types.projectile.SphereEntity;
+import moriyashiine.aylyth.common.entity.types.projectile.ThornFlechetteEntity;
+import moriyashiine.aylyth.common.entity.types.projectile.YmpeLanceEntity;
 import moriyashiine.aylyth.common.other.util.AylythUtil;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.*;

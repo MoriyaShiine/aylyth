@@ -1,10 +1,10 @@
 package moriyashiine.aylyth.common.block.entity;
 
 import moriyashiine.aylyth.common.block.AylythBlocks;
-import moriyashiine.aylyth.common.block.entity.type.SeepBlockEntity;
-import moriyashiine.aylyth.common.block.entity.type.SoulHearthBlockEntity;
-import moriyashiine.aylyth.common.block.entity.type.VitalThuribleBlockEntity;
-import moriyashiine.aylyth.common.block.entity.type.WoodyGrowthCacheBlockEntity;
+import moriyashiine.aylyth.common.block.entity.types.SeepBlockEntity;
+import moriyashiine.aylyth.common.block.entity.types.SoulHearthBlockEntity;
+import moriyashiine.aylyth.common.block.entity.types.VitalThuribleBlockEntity;
+import moriyashiine.aylyth.common.block.entity.types.WoodyGrowthCacheBlockEntity;
 import moriyashiine.aylyth.common.other.util.AylythUtil;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder.Factory;

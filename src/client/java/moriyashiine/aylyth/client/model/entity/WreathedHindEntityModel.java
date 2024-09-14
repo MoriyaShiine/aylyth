@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.client.model.entity;
 
-import moriyashiine.aylyth.common.entity.type.mob.WreathedHindEntity;
+import moriyashiine.aylyth.common.entity.types.mob.WreathedHindEntity;
 import moriyashiine.aylyth.common.other.util.AylythUtil;
 import software.bernie.geckolib.model.DefaultedEntityGeoModel;
 

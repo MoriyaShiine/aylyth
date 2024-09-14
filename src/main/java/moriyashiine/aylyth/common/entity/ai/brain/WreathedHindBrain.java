@@ -6,7 +6,7 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Dynamic;
 import moriyashiine.aylyth.common.entity.ai.task.BoltRangedAttackTask;
 import moriyashiine.aylyth.common.entity.ai.task.GeckoMeleeAttackTask;
-import moriyashiine.aylyth.common.entity.type.mob.WreathedHindEntity;
+import moriyashiine.aylyth.common.entity.types.mob.WreathedHindEntity;
 import moriyashiine.aylyth.common.entity.ai.AylythMemoryTypes;
 import moriyashiine.aylyth.common.entity.ai.AylythSensorTypes;
 import net.minecraft.entity.Entity;

@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.mixin;
 
-import moriyashiine.aylyth.common.item.type.YmpeLanceItem;
+import moriyashiine.aylyth.common.item.types.YmpeLanceItem;
 import net.minecraft.item.Item;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

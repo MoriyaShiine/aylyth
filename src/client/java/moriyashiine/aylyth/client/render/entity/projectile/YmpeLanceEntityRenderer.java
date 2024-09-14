@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.client.render.entity.projectile;
 
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.entity.type.projectile.YmpeLanceEntity;
+import moriyashiine.aylyth.common.entity.types.projectile.YmpeLanceEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;

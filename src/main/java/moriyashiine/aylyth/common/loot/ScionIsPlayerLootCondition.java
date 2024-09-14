@@ -6,7 +6,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
-import moriyashiine.aylyth.common.entity.type.mob.ScionEntity;
+import moriyashiine.aylyth.common.entity.types.mob.ScionEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.loot.condition.LootCondition;
 import net.minecraft.loot.condition.LootConditionType;

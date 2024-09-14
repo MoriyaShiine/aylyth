@@ -1,8 +1,8 @@
 package moriyashiine.aylyth.common.entity.ai.task;
 
-import moriyashiine.aylyth.common.entity.type.RootPropEntity;
+import moriyashiine.aylyth.common.entity.types.RootPropEntity;
 import moriyashiine.aylyth.common.entity.ai.BasicAttackType;
-import moriyashiine.aylyth.common.entity.type.mob.TulpaEntity;
+import moriyashiine.aylyth.common.entity.types.mob.TulpaEntity;
 import moriyashiine.aylyth.common.entity.ai.AylythMemoryTypes;
 import moriyashiine.aylyth.common.entity.ai.brain.BrainUtils;
 import net.minecraft.block.BlockState;

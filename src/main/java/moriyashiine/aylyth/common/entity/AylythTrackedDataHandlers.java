@@ -1,8 +1,8 @@
 package moriyashiine.aylyth.common.entity;
 
 import moriyashiine.aylyth.common.entity.ai.BasicAttackType;
-import moriyashiine.aylyth.common.entity.type.mob.TulpaEntity;
-import moriyashiine.aylyth.common.entity.type.mob.WreathedHindEntity;
+import moriyashiine.aylyth.common.entity.types.mob.TulpaEntity;
+import moriyashiine.aylyth.common.entity.types.mob.WreathedHindEntity;
 import net.minecraft.entity.data.TrackedDataHandler;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 

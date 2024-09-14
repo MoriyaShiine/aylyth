@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.client.model.entity;
 
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.entity.type.mob.ElderAylythianEntity;
+import moriyashiine.aylyth.common.entity.types.mob.ElderAylythianEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import software.bernie.geckolib.constant.DataTickets;

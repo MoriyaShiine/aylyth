@@ -3,7 +3,7 @@ package moriyashiine.aylyth.client.render.block.entity;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture;
 import moriyashiine.aylyth.client.render.AylythRenderLayers;
-import moriyashiine.aylyth.common.block.entity.type.WoodyGrowthCacheBlockEntity;
+import moriyashiine.aylyth.common.block.entity.types.WoodyGrowthCacheBlockEntity;
 import moriyashiine.aylyth.mixin.client.SkullBlockEntityAccessor;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.SkullBlockEntity;
