@@ -2,9 +2,9 @@ package moriyashiine.aylyth.common.item.types;
 
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketItem;
-import moriyashiine.aylyth.common.entity.component.CuirassComponent;
+import moriyashiine.aylyth.common.entity.components.CuirassComponent;
 import moriyashiine.aylyth.common.entity.AylythEntityComponents;
-import moriyashiine.aylyth.common.world.effects.AylythSoundEvents;
+import moriyashiine.aylyth.common.world.AylythSoundEvents;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;

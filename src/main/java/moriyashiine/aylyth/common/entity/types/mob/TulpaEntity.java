@@ -5,7 +5,7 @@ import com.mojang.serialization.Dynamic;
 import moriyashiine.aylyth.api.interfaces.ProlongedDeath;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.entity.ai.BasicAttackType;
-import moriyashiine.aylyth.common.entity.ai.brain.TulpaBrain;
+import moriyashiine.aylyth.common.entity.ai.brains.TulpaBrain;
 import moriyashiine.aylyth.common.entity.AylythTrackedDataHandlers;
 import moriyashiine.aylyth.common.screenhandler.TulpaScreenHandler;
 import moriyashiine.aylyth.mixin.MobEntityAccessor;

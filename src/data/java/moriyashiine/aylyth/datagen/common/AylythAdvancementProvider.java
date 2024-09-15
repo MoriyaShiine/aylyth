@@ -44,7 +44,7 @@ public final class AylythAdvancementProvider extends FabricAdvancementProvider {
     public void generateAdvancement(Consumer<Advancement> consumer) {
         var root = Advancement.Builder.create()
                 .display(AylythItems.YMPE_SAPLING.getDefaultStack(), Text.translatable("advancements.aylyth.aylyth.root.title"), Text.translatable("advancements.aylyth.aylyth.root.desc"), new Identifier(Aylyth.MOD_ID, "textures/block/ympe_planks.png"), AdvancementFrame.TASK, true, true, false)
-                .criterion("entered_aylyth", ChangedDimensionCriterion.Conditions.to(AylythDimensionData.AYLYTH))
+                .criterion("entered_aylyth", ChangedDimensionCriterion.Conditions.to(AylythDimensionData.WORLD))
                 .build(consumer, "aylyth:aylyth/root");
         Advancement.Builder.create()
                 .parent(root)

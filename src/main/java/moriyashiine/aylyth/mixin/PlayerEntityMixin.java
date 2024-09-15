@@ -2,14 +2,14 @@ package moriyashiine.aylyth.mixin;
 
 import moriyashiine.aylyth.api.interfaces.HindPledgeHolder;
 import moriyashiine.aylyth.api.interfaces.VitalHealthHolder;
-import moriyashiine.aylyth.common.world.attachment.PledgeState;
+import moriyashiine.aylyth.common.world.attachments.PledgeState;
 import moriyashiine.aylyth.common.block.types.SoulHearthBlock;
-import moriyashiine.aylyth.common.entity.component.CuirassComponent;
+import moriyashiine.aylyth.common.entity.components.CuirassComponent;
 import moriyashiine.aylyth.common.entity.types.mob.BoneflyEntity;
 import moriyashiine.aylyth.common.world.AylythWorldAttachmentTypes;
 import moriyashiine.aylyth.common.entity.AylythEntityComponents;
-import moriyashiine.aylyth.common.entity.attribute.AylythAttributes;
-import moriyashiine.aylyth.common.world.effects.AylythSoundEvents;
+import moriyashiine.aylyth.common.entity.AylythAttributes;
+import moriyashiine.aylyth.common.world.AylythSoundEvents;
 import moriyashiine.aylyth.common.data.AylythDamageTypes;
 import moriyashiine.aylyth.common.data.world.AylythDimensionData;
 import moriyashiine.aylyth.common.data.tag.AylythDamageTypeTags;
@@ -103,7 +103,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHea
     private static void soulHearthRespawn(ServerWorld world, BlockPos pos, float angle, boolean forced, boolean alive, CallbackInfoReturnable<Optional<Vec3d>> cir){
         BlockState blockState = world.getBlockState(pos);
         Block block = blockState.getBlock();
-        if (block instanceof SoulHearthBlock && blockState.get(SoulHearthBlock.CHARGES) > 0 && blockState.get(HALF) == DoubleBlockHalf.LOWER && world.getRegistryKey() == AylythDimensionData.AYLYTH) {
+        if (block instanceof SoulHearthBlock && blockState.get(SoulHearthBlock.CHARGES) > 0 && blockState.get(HALF) == DoubleBlockHalf.LOWER && world.getRegistryKey() == AylythDimensionData.WORLD) {
             Optional<Vec3d> optional = SoulHearthBlock.findRespawnPosition(EntityType.PLAYER, world, pos);
             if (!alive && optional.isPresent()) {
                 world.setBlockState(pos, blockState.with(SoulHearthBlock.CHARGES, blockState.get(SoulHearthBlock.CHARGES) - 1).with(HALF, DoubleBlockHalf.LOWER));

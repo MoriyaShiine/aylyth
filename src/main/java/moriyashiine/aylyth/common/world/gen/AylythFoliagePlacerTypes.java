@@ -2,9 +2,9 @@ package moriyashiine.aylyth.common.world.gen;
 
 import com.mojang.serialization.Codec;
 import moriyashiine.aylyth.common.util.AylythUtil;
-import moriyashiine.aylyth.common.world.gen.foliageplacer.GirasolFoliagePlacer;
-import moriyashiine.aylyth.common.world.gen.foliageplacer.PomegranateFoliagePlacer;
-import moriyashiine.aylyth.common.world.gen.foliageplacer.WrithewoodFoliagePlacer;
+import moriyashiine.aylyth.common.world.gen.foliageplacers.GirasolFoliagePlacer;
+import moriyashiine.aylyth.common.world.gen.foliageplacers.PomegranateFoliagePlacer;
+import moriyashiine.aylyth.common.world.gen.foliageplacers.WrithewoodFoliagePlacer;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.world.gen.foliage.FoliagePlacer;

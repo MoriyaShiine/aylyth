@@ -11,7 +11,7 @@ import net.minecraft.world.gen.YOffset;
 import net.minecraft.world.gen.carver.*;
 import net.minecraft.world.gen.heightprovider.UniformHeightProvider;
 
-import static moriyashiine.aylyth.common.data.world.AylythConfiguredCarvers.*;
+import static moriyashiine.aylyth.common.data.world.feature.AylythConfiguredCarvers.*;
 
 public final class AylythConfiguredCarverBootstrap {
     private AylythConfiguredCarverBootstrap() {}

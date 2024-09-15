@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.world.gen;
 
 import moriyashiine.aylyth.common.util.AylythUtil;
-import moriyashiine.aylyth.common.world.gen.feature.*;
+import moriyashiine.aylyth.common.world.gen.features.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.world.gen.feature.Feature;

@@ -4,7 +4,7 @@ import it.unimi.dsi.fastutil.doubles.DoubleList;
 import net.minecraft.registry.Registerable;
 import net.minecraft.util.math.noise.DoublePerlinNoiseSampler.NoiseParameters;
 
-import static moriyashiine.aylyth.common.data.world.AylythNoises.*;
+import static moriyashiine.aylyth.common.data.world.terrain.AylythNoises.*;
 
 public final class AylythNoiseTypeBootstrap {
     private AylythNoiseTypeBootstrap() {}

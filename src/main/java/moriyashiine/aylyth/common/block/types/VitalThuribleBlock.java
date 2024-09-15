@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.common.block.types;
 
-import moriyashiine.aylyth.common.block.entity.types.VitalThuribleBlockEntity;
+import moriyashiine.aylyth.common.block.entities.VitalThuribleBlockEntity;
 import moriyashiine.aylyth.common.item.AylythItems;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;

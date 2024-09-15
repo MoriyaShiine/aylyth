@@ -16,15 +16,15 @@ import net.minecraft.world.gen.noise.NoiseRouter;
 
 import java.util.List;
 
-import static moriyashiine.aylyth.common.data.world.AylythDensityFunctions.*;
-import static moriyashiine.aylyth.common.data.world.AylythNoises.*;
+import static moriyashiine.aylyth.common.data.world.terrain.AylythDensityFunctions.*;
+import static moriyashiine.aylyth.common.data.world.terrain.AylythNoises.*;
 import static net.minecraft.world.gen.densityfunction.DensityFunctionTypes.*;
 
 public final class AylythNoiseSettingBootstrap {
     private AylythNoiseSettingBootstrap() {}
 
     public static void bootstrap(Registerable<ChunkGeneratorSettings> context) {
-        context.register(AylythDimensionData.AYLYTH_CHUNK_GEN_SETTINGS, createSettings(context.getRegistryLookup(RegistryKeys.DENSITY_FUNCTION), context.getRegistryLookup(RegistryKeys.NOISE_PARAMETERS)));
+        context.register(AylythDimensionData.CHUNK_GEN_SETTINGS, createSettings(context.getRegistryLookup(RegistryKeys.DENSITY_FUNCTION), context.getRegistryLookup(RegistryKeys.NOISE_PARAMETERS)));
     }
 
     static ChunkGeneratorSettings createSettings(RegistryEntryLookup<DensityFunction> functions, RegistryEntryLookup<DoublePerlinNoiseSampler.NoiseParameters> noiseParameters) {

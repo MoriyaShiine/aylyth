@@ -12,7 +12,7 @@ import moriyashiine.aylyth.client.model.entity.ScionEntityModel;
 import moriyashiine.aylyth.client.network.AylythClientNetworkHandler;
 import moriyashiine.aylyth.client.particle.ParticleFactories;
 import moriyashiine.aylyth.client.render.entity.projectile.ThornFlechetteRenderer;
-import moriyashiine.aylyth.common.block.entity.AylythBlockEntityTypes;
+import moriyashiine.aylyth.common.block.AylythBlockEntityTypes;
 import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.entity.AylythEntityTypes;
 import moriyashiine.aylyth.common.item.AylythItems;
@@ -44,7 +44,7 @@ import moriyashiine.aylyth.common.data.world.AylythDimensionData;
 import moriyashiine.aylyth.common.data.tag.AylythPotionTags;
 import moriyashiine.aylyth.common.screenhandler.AylythScreenHandlerTypes;
 import moriyashiine.aylyth.common.util.AylythUtil;
-import moriyashiine.aylyth.common.world.effects.AylythParticleTypes;
+import moriyashiine.aylyth.common.world.AylythParticleTypes;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -102,9 +102,9 @@ public class AylythClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
-		DimensionRenderingRegistry.registerDimensionEffects(AylythDimensionData.AYLYTH.getValue(), AylythDimensionRenderer.DIMENSION_EFFECTS);
-		DimensionRenderingRegistry.registerSkyRenderer(AylythDimensionData.AYLYTH, AylythDimensionRenderer::renderSky);
-		DimensionRenderingRegistry.registerCloudRenderer(AylythDimensionData.AYLYTH, context -> {});
+		DimensionRenderingRegistry.registerDimensionEffects(AylythDimensionData.WORLD.getValue(), AylythDimensionRenderer.DIMENSION_EFFECTS);
+		DimensionRenderingRegistry.registerSkyRenderer(AylythDimensionData.WORLD, AylythDimensionRenderer::renderSky);
+		DimensionRenderingRegistry.registerCloudRenderer(AylythDimensionData.WORLD, context -> {});
 
 		ClientPlayNetworking.registerGlobalReceiver(AylythPacketTypes.SPAWN_PARTICLES_AROUND_PACKET, AylythClientNetworkHandler::handleSpawnParticlesAround);
 

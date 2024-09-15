@@ -1,9 +1,9 @@
 package moriyashiine.aylyth.common.entity.types.mob;
 
 import com.mojang.serialization.Dynamic;
-import moriyashiine.aylyth.common.entity.ai.brain.ScionBrain;
+import moriyashiine.aylyth.common.entity.ai.brains.ScionBrain;
 import moriyashiine.aylyth.common.entity.AylythEntityTypes;
-import moriyashiine.aylyth.common.world.effects.AylythSoundEvents;
+import moriyashiine.aylyth.common.world.AylythSoundEvents;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;

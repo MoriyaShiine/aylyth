@@ -2,10 +2,10 @@ package moriyashiine.aylyth.datagen.common.world;
 
 import com.chocohead.mm.api.ClassTinkerers;
 import moriyashiine.aylyth.common.entity.AylythEntityTypes;
-import moriyashiine.aylyth.common.world.effects.AylythParticleTypes;
-import moriyashiine.aylyth.common.world.effects.AylythSoundEvents;
-import moriyashiine.aylyth.common.data.world.AylythConfiguredCarvers;
-import moriyashiine.aylyth.common.data.world.AylythPlacedFeatures;
+import moriyashiine.aylyth.common.world.AylythParticleTypes;
+import moriyashiine.aylyth.common.world.AylythSoundEvents;
+import moriyashiine.aylyth.common.data.world.feature.AylythConfiguredCarvers;
+import moriyashiine.aylyth.common.data.world.feature.AylythPlacedFeatures;
 import moriyashiine.aylyth.datagen.common.util.biome.BiomeBuilder;
 import moriyashiine.aylyth.datagen.common.util.biome.SpawnSettingsBuilder;
 import net.minecraft.entity.EntityType;

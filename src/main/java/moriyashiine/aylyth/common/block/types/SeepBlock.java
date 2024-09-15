@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.common.block.types;
 
-import moriyashiine.aylyth.common.block.entity.types.SeepBlockEntity;
+import moriyashiine.aylyth.common.block.entities.SeepBlockEntity;
 import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.data.world.AylythDimensionData;
 import moriyashiine.aylyth.common.world.AylythPointOfInterestTypes;
@@ -63,7 +63,7 @@ public class SeepBlock extends Block implements BlockEntityProvider {
 		if (world instanceof ServerWorld serverWorld) {
 			if (entity.getPos().distanceTo(new Vec3d(pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F)) < 0.6F) {
 				MinecraftServer server = serverWorld.getServer();
-				ServerWorld toWorld = world.getRegistryKey() == AylythDimensionData.AYLYTH ? server.getOverworld() : server.getWorld(AylythDimensionData.AYLYTH);
+				ServerWorld toWorld = world.getRegistryKey() == AylythDimensionData.WORLD ? server.getOverworld() : server.getWorld(AylythDimensionData.WORLD);
 				toWorld.getChunkManager().addTicket(ChunkTicketType.PORTAL, new ChunkPos(pos), 3, pos);
 				Optional<BlockPos> connectedSeep;
 				if (state.isOf(AylythBlocks.SEEPING_WOOD_SEEP)) {

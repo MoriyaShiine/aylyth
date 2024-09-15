@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.common.entity.types.mob.passive;
 
-import moriyashiine.aylyth.common.world.effects.AylythParticleTypes;
+import moriyashiine.aylyth.common.world.AylythParticleTypes;
 import moriyashiine.aylyth.common.data.world.AylythDimensionData;
 import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
 import net.minecraft.entity.*;
@@ -84,7 +84,7 @@ public class PilotLightEntity extends AmbientEntity implements Flutterer {
 	
 	@Override
 	public ActionResult interactAt(PlayerEntity player, Vec3d hitPos, Hand hand) {
-		if (player instanceof ServerPlayerEntity serverPlayer && player.getWorld().getRegistryKey() == AylythDimensionData.AYLYTH) {
+		if (player instanceof ServerPlayerEntity serverPlayer && player.getWorld().getRegistryKey() == AylythDimensionData.WORLD) {
 			if (player.isCreative() || player.experienceLevel >= 5) {
 				if(player.getWorld().getServer() != null){
 					ServerWorld toWorld = player.getWorld().getServer().getWorld(serverPlayer.getSpawnPointDimension());

@@ -25,7 +25,7 @@ public class AylythianHeartItem extends Item {
 	public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
 		if (user.isSneaking()) {
 			if (user.isCreative() || user.experienceLevel >= 5) {
-				if (user.getWorld().getRegistryKey() != AylythDimensionData.AYLYTH) {
+				if (user.getWorld().getRegistryKey() != AylythDimensionData.WORLD) {
 					return ItemUsage.consumeHeldItem(world, user, hand);
 				}
 			}
@@ -35,7 +35,7 @@ public class AylythianHeartItem extends Item {
 	
 	@Override
 	public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
-		if (world instanceof ServerWorld serverWorld && user instanceof PlayerEntity player && serverWorld.getRegistryKey() != AylythDimensionData.AYLYTH) {
+		if (world instanceof ServerWorld serverWorld && user instanceof PlayerEntity player && serverWorld.getRegistryKey() != AylythDimensionData.WORLD) {
 			if (player.isCreative() || player.experienceLevel >= 5) {
 				for (BlockPos pos : BlockPos.iterateRandomly(world.random, world.random.nextInt(5), player.getBlockPos(), 3)) {
 					BlockState state = world.getBlockState(pos);
@@ -43,7 +43,7 @@ public class AylythianHeartItem extends Item {
 						world.setBlockState(pos, AylythBlocks.MARIGOLD.getDefaultState());
 					}
 				}
-				AylythUtil.teleportTo(player, serverWorld.getServer().getWorld(AylythDimensionData.AYLYTH), 0);
+				AylythUtil.teleportTo(player, serverWorld.getServer().getWorld(AylythDimensionData.WORLD), 0);
 				if (!player.isCreative()) {
 					player.addExperience(-55);
 					stack.decrement(1);

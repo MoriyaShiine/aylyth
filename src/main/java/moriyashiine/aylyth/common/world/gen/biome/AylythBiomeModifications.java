@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.world.gen.biome;
 
 import moriyashiine.aylyth.common.data.tag.AylythBiomeTags;
-import moriyashiine.aylyth.common.data.world.AylythPlacedFeatures;
+import moriyashiine.aylyth.common.data.world.feature.AylythPlacedFeatures;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;

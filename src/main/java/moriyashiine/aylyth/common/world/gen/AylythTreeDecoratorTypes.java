@@ -2,8 +2,8 @@ package moriyashiine.aylyth.common.world.gen;
 
 import com.mojang.serialization.Codec;
 import moriyashiine.aylyth.common.util.AylythUtil;
-import moriyashiine.aylyth.common.world.gen.treedecorator.GrapeVineDecorator;
-import moriyashiine.aylyth.common.world.gen.treedecorator.RangedTreeDecorator;
+import moriyashiine.aylyth.common.world.gen.treedecorators.GrapeVineDecorator;
+import moriyashiine.aylyth.common.world.gen.treedecorators.RangedTreeDecorator;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.world.gen.treedecorator.TreeDecorator;

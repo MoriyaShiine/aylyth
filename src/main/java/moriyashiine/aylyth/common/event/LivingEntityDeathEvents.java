@@ -5,7 +5,7 @@ import moriyashiine.aylyth.common.block.types.VitalThuribleBlock;
 import moriyashiine.aylyth.common.block.types.WoodyGrowthCacheBlock;
 import moriyashiine.aylyth.common.entity.types.mob.RippedSoulEntity;
 import moriyashiine.aylyth.common.entity.types.mob.ScionEntity;
-import moriyashiine.aylyth.common.entity.attribute.AylythAttributes;
+import moriyashiine.aylyth.common.entity.AylythAttributes;
 import moriyashiine.aylyth.common.entity.AylythEntityTypes;
 import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.aylyth.common.data.AylythDamageTypes;
@@ -108,7 +108,7 @@ public class LivingEntityDeathEvents {
                 return true;
             }
             RegistryKey<World> toWorld = null;
-            if (player.getWorld().getRegistryKey() != AylythDimensionData.AYLYTH) {
+            if (player.getWorld().getRegistryKey() != AylythDimensionData.WORLD) {
                 boolean teleport = false;
                 float chance = switch (player.getWorld().getDifficulty()) {
                     case PEACEFUL -> 0;
@@ -142,7 +142,7 @@ public class LivingEntityDeathEvents {
                     }
                 }
                 if (teleport) {
-                    toWorld = AylythDimensionData.AYLYTH;
+                    toWorld = AylythDimensionData.WORLD;
                 }
             }
             if (toWorld != null) {

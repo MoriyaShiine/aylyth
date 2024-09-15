@@ -1,9 +1,9 @@
 package moriyashiine.aylyth.common.entity.ai;
 
-import moriyashiine.aylyth.common.entity.ai.sensor.HindAttackablesSensor;
-import moriyashiine.aylyth.common.entity.ai.sensor.NearbyPledgedPlayerSensor;
-import moriyashiine.aylyth.common.entity.ai.sensor.OwningPlayerSensor;
-import moriyashiine.aylyth.common.entity.ai.sensor.ScionSpecificSensor;
+import moriyashiine.aylyth.common.entity.ai.sensors.HindAttackablesSensor;
+import moriyashiine.aylyth.common.entity.ai.sensors.NearbyPledgedPlayerSensor;
+import moriyashiine.aylyth.common.entity.ai.sensors.OwningPlayerSensor;
+import moriyashiine.aylyth.common.entity.ai.sensors.ScionSpecificSensor;
 import moriyashiine.aylyth.common.entity.types.mob.TulpaEntity;
 import moriyashiine.aylyth.common.entity.types.mob.WreathedHindEntity;
 import moriyashiine.aylyth.common.util.AylythUtil;

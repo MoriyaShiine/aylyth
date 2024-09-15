@@ -12,8 +12,8 @@ import net.minecraft.world.gen.densityfunction.DensityFunction;
 
 import static net.minecraft.world.gen.densityfunction.DensityFunctionTypes.*;
 
-import static moriyashiine.aylyth.common.data.world.AylythDensityFunctions.*;
-import static moriyashiine.aylyth.common.data.world.AylythNoises.*;
+import static moriyashiine.aylyth.common.data.world.terrain.AylythDensityFunctions.*;
+import static moriyashiine.aylyth.common.data.world.terrain.AylythNoises.*;
 
 public final class AylythDensityFunctionBootstrap {
     private AylythDensityFunctionBootstrap() {}

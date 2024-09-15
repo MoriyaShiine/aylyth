@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.datagen.common.world.feature;
 
 import moriyashiine.aylyth.common.block.AylythBlocks;
-import moriyashiine.aylyth.common.data.world.AylythConfiguredFeatures;
+import moriyashiine.aylyth.common.data.world.feature.AylythConfiguredFeatures;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKeys;
@@ -10,7 +10,7 @@ import net.minecraft.world.gen.feature.PlacedFeature;
 import net.minecraft.world.gen.feature.PlacedFeatures;
 import net.minecraft.world.gen.placementmodifier.*;
 
-import static moriyashiine.aylyth.common.data.world.AylythPlacedFeatures.*;
+import static moriyashiine.aylyth.common.data.world.feature.AylythPlacedFeatures.*;
 
 import java.util.List;
 

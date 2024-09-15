@@ -3,7 +3,7 @@ package moriyashiine.aylyth.common.block.types;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.MapMaker;
 import com.google.common.collect.UnmodifiableIterator;
-import moriyashiine.aylyth.common.block.entity.types.SoulHearthBlockEntity;
+import moriyashiine.aylyth.common.block.entities.SoulHearthBlockEntity;
 import moriyashiine.aylyth.common.item.AylythItems;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;

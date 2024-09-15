@@ -4,18 +4,18 @@ import com.google.common.collect.ImmutableList;
 import moriyashiine.aylyth.common.block.types.SmallWoodyGrowthBlock;
 import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.world.gen.AylythFeatures;
-import moriyashiine.aylyth.common.data.world.AylythPlacedFeatures;
+import moriyashiine.aylyth.common.data.world.feature.AylythPlacedFeatures;
 import moriyashiine.aylyth.common.data.tag.AylythBlockTags;
-import moriyashiine.aylyth.common.world.gen.feature.HorizontalFacingFeature;
-import moriyashiine.aylyth.common.world.gen.feature.LeafPileFeature;
-import moriyashiine.aylyth.common.world.gen.feature.SeepFeature;
-import moriyashiine.aylyth.common.world.gen.feature.StrewnLeavesFeature;
-import moriyashiine.aylyth.common.world.gen.foliageplacer.GirasolFoliagePlacer;
-import moriyashiine.aylyth.common.world.gen.foliageplacer.PomegranateFoliagePlacer;
-import moriyashiine.aylyth.common.world.gen.foliageplacer.WrithewoodFoliagePlacer;
-import moriyashiine.aylyth.common.world.gen.treedecorator.GrapeVineDecorator;
-import moriyashiine.aylyth.common.world.gen.treedecorator.RangedTreeDecorator;
-import moriyashiine.aylyth.common.world.gen.trunkplacer.*;
+import moriyashiine.aylyth.common.world.gen.features.HorizontalFacingFeature;
+import moriyashiine.aylyth.common.world.gen.features.LeafPileFeature;
+import moriyashiine.aylyth.common.world.gen.features.SeepFeature;
+import moriyashiine.aylyth.common.world.gen.features.StrewnLeavesFeature;
+import moriyashiine.aylyth.common.world.gen.foliageplacers.GirasolFoliagePlacer;
+import moriyashiine.aylyth.common.world.gen.foliageplacers.PomegranateFoliagePlacer;
+import moriyashiine.aylyth.common.world.gen.foliageplacers.WrithewoodFoliagePlacer;
+import moriyashiine.aylyth.common.world.gen.treedecorators.GrapeVineDecorator;
+import moriyashiine.aylyth.common.world.gen.treedecorators.RangedTreeDecorator;
+import moriyashiine.aylyth.common.world.gen.trunkplacers.*;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.Registerable;
@@ -33,7 +33,7 @@ import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
 
-import static moriyashiine.aylyth.common.data.world.AylythConfiguredFeatures.*;
+import static moriyashiine.aylyth.common.data.world.feature.AylythConfiguredFeatures.*;
 
 import java.util.List;
 

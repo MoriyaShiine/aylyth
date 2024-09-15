@@ -1,8 +1,8 @@
 package moriyashiine.aylyth.common.entity.types.mob;
 
-import moriyashiine.aylyth.common.entity.ai.goal.RootPropAttack;
+import moriyashiine.aylyth.common.entity.ai.goals.RootPropAttack;
 import moriyashiine.aylyth.common.block.AylythBlocks;
-import moriyashiine.aylyth.common.world.effects.AylythSoundEvents;
+import moriyashiine.aylyth.common.world.AylythSoundEvents;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;

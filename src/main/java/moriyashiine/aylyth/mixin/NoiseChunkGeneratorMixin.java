@@ -16,7 +16,7 @@ public abstract class NoiseChunkGeneratorMixin {
 
     @WrapOperation(method = "method_45511", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/gen/chunk/NoiseChunkGenerator;createFluidLevelSampler(Lnet/minecraft/world/gen/chunk/ChunkGeneratorSettings;)Lnet/minecraft/world/gen/chunk/AquiferSampler$FluidLevelSampler;"))
     private static AquiferSampler.FluidLevelSampler aylyth$init(ChunkGeneratorSettings settings, Operation<AquiferSampler.FluidLevelSampler> original, @Local(argsOnly = true) RegistryEntry<ChunkGeneratorSettings> settingsEntry) {
-        if (settingsEntry.matchesKey(AylythDimensionData.AYLYTH_CHUNK_GEN_SETTINGS)) {
+        if (settingsEntry.matchesKey(AylythDimensionData.CHUNK_GEN_SETTINGS)) {
             return createAylythFluidLevelSampler(settings);
         }
         return original.call(settings);
