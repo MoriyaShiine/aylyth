@@ -14,6 +14,7 @@ import moriyashiine.aylyth.common.entity.attribute.AylythAttributes;
 import moriyashiine.aylyth.common.entity.ai.AylythMemoryTypes;
 import moriyashiine.aylyth.common.entity.ai.AylythSensorTypes;
 import moriyashiine.aylyth.common.item.AylythBoatTypes;
+import moriyashiine.aylyth.common.item.AylythCompostingChances;
 import moriyashiine.aylyth.common.item.AylythFuels;
 import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.aylyth.common.item.potion.AylythPotions;
@@ -82,6 +83,7 @@ public class Aylyth implements ModInitializer {
 	public static final Logger LOGGER = LoggerFactory.getLogger("Aylyth");
 
 	public static final boolean DEBUG = System.getProperty("aylyth.debug") != null;
+
 	public static boolean isDebugMode() {
 		return DEBUG;
 	}
@@ -108,7 +110,6 @@ public class Aylyth implements ModInitializer {
 		AylythFlammables.register();
 		AylythStrippables.register();
 		AylythBlockEntityTypes.register();
-		AylythPointOfInterestTypes.register();
 
 		AylythAttributes.register();
 
@@ -120,6 +121,7 @@ public class Aylyth implements ModInitializer {
 
 		AylythItems.register();
 		AylythFuels.register();
+		AylythCompostingChances.register();
 		AylythPotions.register();
 
 		AylythBoatTypes.register();
@@ -132,6 +134,7 @@ public class Aylyth implements ModInitializer {
 		AylythBiomeModifications.register();
 
 		AylythWorldAttachmentTypes.register();
+		AylythPointOfInterestTypes.register();
 
 		registerApis();
 
