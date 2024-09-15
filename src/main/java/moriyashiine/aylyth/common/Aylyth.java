@@ -15,7 +15,6 @@ import moriyashiine.aylyth.common.entity.ai.AylythMemoryTypes;
 import moriyashiine.aylyth.common.entity.ai.AylythSensorTypes;
 import moriyashiine.aylyth.common.item.AylythBoatTypes;
 import moriyashiine.aylyth.common.item.AylythFuels;
-import moriyashiine.aylyth.common.item.AylythItemGroup;
 import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.aylyth.common.item.potion.AylythPotions;
 import moriyashiine.aylyth.common.loot.AylythLootConditionTypes;
@@ -122,7 +121,6 @@ public class Aylyth implements ModInitializer {
 		AylythItems.register();
 		AylythFuels.register();
 		AylythPotions.register();
-		AylythItemGroup.register();
 
 		AylythBoatTypes.register();
 

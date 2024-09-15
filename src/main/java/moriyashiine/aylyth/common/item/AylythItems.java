@@ -1,6 +1,8 @@
 package moriyashiine.aylyth.common.item;
 
 import com.terraformersmc.terraform.boat.impl.item.TerraformBoatItem;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.entity.AylythEntityTypes;
 import moriyashiine.aylyth.common.entity.AylythStatusEffects;
@@ -9,18 +11,25 @@ import moriyashiine.aylyth.common.item.component.ThornFlechetteEffect;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.common.world.effects.AylythSoundEvents;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.item.*;
 import net.minecraft.registry.*;
+import net.minecraft.text.Text;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.math.Direction;
 
+import java.util.List;
+
 public interface AylythItems {
 
-	Item DEBUG_WAND = register("debug_wand", new DebugWandItem(settings()));
+    List<Item> TEMPT_MAIN_ITEM_GROUP_ITEMS = new ObjectArrayList<>();
+    RegistryKey<ItemGroup> MAIN_ITEM_GROUP = RegistryKey.of(RegistryKeys.ITEM_GROUP, AylythUtil.id(Aylyth.MOD_ID));
+
+    Item DEBUG_WAND = register("debug_wand", new DebugWandItem(settings()));
 
 	Item YMPE_STRIPPED_LOG = registerBlockItem("stripped_ympe_log", AylythBlocks.YMPE_STRIPPED_LOG);
     Item YMPE_STRIPPED_WOOD = registerBlockItem("stripped_ympe_wood", AylythBlocks.YMPE_STRIPPED_WOOD);
@@ -172,6 +181,7 @@ public interface AylythItems {
     Item VITAL_THURIBLE = registerBlockItem("vital_thurible", AylythBlocks.VITAL_THURIBLE);
     Item BLACK_WELL = registerBlockItem("black_well", AylythBlocks.BLACK_WELL);
 
+    // TODO use simple numbers
     Item PILOT_LIGHT_SPAWN_EGG = registerSpawnEgg("pilot_light_spawn_egg", AylythEntityTypes.PILOT_LIGHT, 0xFFD972, 0x9FD9F6);
     Item AYLYTHIAN_SPAWN_EGG = registerSpawnEgg("aylythian_spawn_egg", AylythEntityTypes.AYLYTHIAN, 0x6A4831, 0xE58E03);
     Item ELDER_AYLYTHIAN_SPAWN_EGG = registerSpawnEgg("elder_aylythian_spawn_egg", AylythEntityTypes.ELDER_AYLYTHIAN, 0x513425, 0xFFDC9B);
@@ -189,6 +199,7 @@ public interface AylythItems {
 	}
 
 	private static <I extends Item> I register(String name, I item) {
+        TEMPT_MAIN_ITEM_GROUP_ITEMS.add(item);
 		return Registry.register(Registries.ITEM, AylythUtil.id(name), item);
 	}
 
@@ -208,6 +219,17 @@ public interface AylythItems {
 		return register(name, new SpawnEggItem(entityType, primaryColor, secondaryColor, settings()));
 	}
 
-	// Load static initializer
-	static void register() {}
+	static void register() {
+        Registry.register(Registries.ITEM_GROUP, MAIN_ITEM_GROUP, FabricItemGroup.builder()
+                .icon(AylythItems.YMPE_DAGGER::getDefaultStack)
+                .displayName(Text.translatable("itemGroup.aylyth.main"))
+                .entries((displayContext, entries) -> {
+                    for (var item : TEMPT_MAIN_ITEM_GROUP_ITEMS) {
+                        entries.add(item);
+                    }
+                    TEMPT_MAIN_ITEM_GROUP_ITEMS.clear();
+                })
+                .build()
+        );
+    }
 }
