@@ -199,7 +199,7 @@ public interface AylythItems {
 	}
 
 	private static <I extends Item> I register(String name, I item) {
-        TEMPT_MAIN_ITEM_GROUP_ITEMS.add(item);
+		TEMPT_MAIN_ITEM_GROUP_ITEMS.add(item);
 		return Registry.register(Registries.ITEM, AylythUtil.id(name), item);
 	}
 
