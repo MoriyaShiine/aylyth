@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.client.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import moriyashiine.aylyth.common.entity.mob.TulpaEntity;
+import moriyashiine.aylyth.common.entity.types.mob.TulpaEntity;
 import moriyashiine.aylyth.common.screenhandler.TulpaScreenHandler;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.client.gui.DrawContext;

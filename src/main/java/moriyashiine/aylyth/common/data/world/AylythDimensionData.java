@@ -10,8 +10,8 @@ import net.minecraft.world.gen.chunk.ChunkGeneratorSettings;
 
 public interface AylythDimensionData {
 
-	RegistryKey<DimensionOptions> AYLYTH_DIMENSION_OPTIONS = RegistryKey.of(RegistryKeys.DIMENSION, AylythUtil.id("aylyth"));
-	RegistryKey<DimensionType> AYLYTH_DIMENSION_TYPE = RegistryKey.of(RegistryKeys.DIMENSION_TYPE, AylythUtil.id("aylyth"));
-	RegistryKey<ChunkGeneratorSettings> AYLYTH_CHUNK_GEN_SETTINGS = RegistryKey.of(RegistryKeys.CHUNK_GENERATOR_SETTINGS, AylythUtil.id("aylyth_settings"));
-	RegistryKey<World> AYLYTH = RegistryKey.of(RegistryKeys.WORLD, AylythUtil.id("aylyth"));
+	RegistryKey<DimensionType> DIMENSION_TYPE = RegistryKey.of(RegistryKeys.DIMENSION_TYPE, AylythUtil.id("aylyth"));
+	RegistryKey<DimensionOptions> DIMENSION_OPTIONS = RegistryKey.of(RegistryKeys.DIMENSION, AylythUtil.id("aylyth"));
+	RegistryKey<ChunkGeneratorSettings> CHUNK_GEN_SETTINGS = RegistryKey.of(RegistryKeys.CHUNK_GENERATOR_SETTINGS, AylythUtil.id("aylyth_settings"));
+	RegistryKey<World> WORLD = RegistryKey.of(RegistryKeys.WORLD, AylythUtil.id("aylyth"));
 }

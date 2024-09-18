@@ -5,7 +5,7 @@ import me.shedaniel.rei.api.common.display.Display;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 import moriyashiine.aylyth.client.integration.rei.ModREIPlugin;
-import moriyashiine.aylyth.common.recipe.YmpeDaggerDropRecipe;
+import moriyashiine.aylyth.common.recipe.types.YmpeDaggerDropRecipe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.DynamicRegistryManager;

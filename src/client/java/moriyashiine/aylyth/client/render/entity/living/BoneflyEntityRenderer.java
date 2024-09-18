@@ -2,7 +2,7 @@ package moriyashiine.aylyth.client.render.entity.living;
 
 
 import moriyashiine.aylyth.client.model.entity.BoneflyEntityModel;
-import moriyashiine.aylyth.common.entity.mob.BoneflyEntity;
+import moriyashiine.aylyth.common.entity.types.mob.BoneflyEntity;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 

@@ -2,11 +2,11 @@ package moriyashiine.aylyth.common.util;
 
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.network.packets.SpawnParticlesAroundPacketS2C;
-import moriyashiine.aylyth.common.registry.ModItems;
-import moriyashiine.aylyth.common.registry.ModParticles;
-import moriyashiine.aylyth.common.registry.ModSoundEvents;
-import moriyashiine.aylyth.common.registry.ModStatusEffects;
-import moriyashiine.aylyth.common.data.AylythPointOfInterestTypes;
+import moriyashiine.aylyth.common.item.AylythItems;
+import moriyashiine.aylyth.common.entity.AylythStatusEffects;
+import moriyashiine.aylyth.common.world.AylythParticleTypes;
+import moriyashiine.aylyth.common.world.AylythSoundEvents;
+import moriyashiine.aylyth.common.world.AylythPointOfInterestTypes;
 import moriyashiine.aylyth.common.data.tag.AylythDamageTypeTags;
 import moriyashiine.aylyth.common.data.tag.AylythItemTags;
 import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
@@ -67,20 +67,20 @@ public class AylythUtil {
 	}
 
 	public static void teleportTo(LivingEntity living, ServerWorld newWorld, int tries) {
-		living.getWorld().playSoundFromEntity(living instanceof PlayerEntity player ? player : null, living, ModSoundEvents.ENTITY_GENERIC_SHUCKED.value(), SoundCategory.PLAYERS, 1, living.getSoundPitch());
+		living.getWorld().playSoundFromEntity(living instanceof PlayerEntity player ? player : null, living, AylythSoundEvents.ENTITY_GENERIC_SHUCKED.value(), SoundCategory.PLAYERS, 1, living.getSoundPitch());
 		FabricDimensions.teleport(living, newWorld, new TeleportTarget(Vec3d.of(AylythUtil.getSafePosition(newWorld, living.getBlockPos().mutableCopy(), tries)), Vec3d.ZERO, living.headYaw, living.getPitch()));
-		newWorld.playSoundFromEntity(null, living, ModSoundEvents.ENTITY_GENERIC_SHUCKED.value(), SoundCategory.PLAYERS, 1, living.getSoundPitch());
+		newWorld.playSoundFromEntity(null, living, AylythSoundEvents.ENTITY_GENERIC_SHUCKED.value(), SoundCategory.PLAYERS, 1, living.getSoundPitch());
 	}
 
 	public static void teleportTo(RegistryKey<World> world, LivingEntity living, int tries) {
-		living.getWorld().playSoundFromEntity(living instanceof PlayerEntity player ? player : null, living, ModSoundEvents.ENTITY_GENERIC_SHUCKED.value(), SoundCategory.PLAYERS, 1, living.getSoundPitch());
+		living.getWorld().playSoundFromEntity(living instanceof PlayerEntity player ? player : null, living, AylythSoundEvents.ENTITY_GENERIC_SHUCKED.value(), SoundCategory.PLAYERS, 1, living.getSoundPitch());
 		ServerWorld toWorld = living.getWorld().getServer().getWorld(world);
 		FabricDimensions.teleport(living, toWorld, new TeleportTarget(Vec3d.of(AylythUtil.getSafePosition(toWorld, living.getBlockPos().mutableCopy(), tries)), Vec3d.ZERO, living.headYaw, living.getPitch()));
-		toWorld.playSoundFromEntity(null, living, ModSoundEvents.ENTITY_GENERIC_SHUCKED.value(), SoundCategory.PLAYERS, 1, living.getSoundPitch());
+		toWorld.playSoundFromEntity(null, living, AylythSoundEvents.ENTITY_GENERIC_SHUCKED.value(), SoundCategory.PLAYERS, 1, living.getSoundPitch());
 	}
 
 	public static boolean shouldUndeadAttack(LivingEntity target, LivingEntity attacker) {
-		return attacker.getAttacker() != target && target.hasStatusEffect(ModStatusEffects.CIMMERIAN) && attacker.getGroup() == EntityGroup.UNDEAD;
+		return attacker.getAttacker() != target && target.hasStatusEffect(AylythStatusEffects.CIMMERIAN) && attacker.getGroup() == EntityGroup.UNDEAD;
 	}
 
 	public static boolean isNearSeep(ServerWorld serverWorld, LivingEntity livingEntity, int radius) {
@@ -106,19 +106,19 @@ public class AylythUtil {
 	}
 
 	public static float getVampiricWeaponEffect(LivingEntity attacker, LivingEntity target, ItemStack stack, float originalValue) {
-		boolean isSword = stack.isOf(ModItems.VAMPIRIC_SWORD);
-		boolean isPickaxe = stack.isOf(ModItems.VAMPIRIC_PICKAXE);
-		boolean isHoe = stack.isOf(ModItems.VAMPIRIC_HOE);
+		boolean isSword = stack.isOf(AylythItems.VAMPIRIC_SWORD);
+		boolean isPickaxe = stack.isOf(AylythItems.VAMPIRIC_PICKAXE);
+		boolean isHoe = stack.isOf(AylythItems.VAMPIRIC_HOE);
 
         if (attacker.getRandom().nextFloat() >= 0.8) {
             attacker.heal(originalValue * 0.5f);
 
 			PlayerLookup.tracking(attacker).forEach(trackingPlayer -> {
-				ServerPlayNetworking.send(trackingPlayer, new SpawnParticlesAroundPacketS2C(attacker.getId(), 32, List.of(ModParticles.VAMPIRIC_DRIP)));
+				ServerPlayNetworking.send(trackingPlayer, new SpawnParticlesAroundPacketS2C(attacker.getId(), 32, List.of(AylythParticleTypes.VAMPIRIC_DRIP)));
 			});
 
 			if (attacker instanceof ServerPlayerEntity player) {
-				ServerPlayNetworking.send(player, new SpawnParticlesAroundPacketS2C(player.getId(), 32, List.of(ModParticles.VAMPIRIC_DRIP)));
+				ServerPlayNetworking.send(player, new SpawnParticlesAroundPacketS2C(player.getId(), 32, List.of(AylythParticleTypes.VAMPIRIC_DRIP)));
 			}
 
             if (isSword && target.getAbsorptionAmount() > 0) {
@@ -126,7 +126,7 @@ public class AylythUtil {
             }
 
             if (isHoe) {
-				target.addStatusEffect(new StatusEffectInstance(ModStatusEffects.CRIMSON_CURSE, 20 * 10, 0));
+				target.addStatusEffect(new StatusEffectInstance(AylythStatusEffects.CRIMSON_CURSE, 20 * 10, 0));
             }
 
             return originalValue * (isPickaxe && target.getArmor() > 10f ? 1.2f : 1f);
@@ -136,16 +136,16 @@ public class AylythUtil {
     }
 
 	public static float getBlightedWeaponEffect(LivingEntity attacker, LivingEntity target, ItemStack stack, float originalValue) {
-		boolean isSword = stack.isOf(ModItems.BLIGHTED_SWORD);
-		boolean isPickaxe = stack.isOf(ModItems.BLIGHTED_PICKAXE);
-		boolean isHoe = stack.isOf(ModItems.BLIGHTED_HOE);
+		boolean isSword = stack.isOf(AylythItems.BLIGHTED_SWORD);
+		boolean isPickaxe = stack.isOf(AylythItems.BLIGHTED_PICKAXE);
+		boolean isHoe = stack.isOf(AylythItems.BLIGHTED_HOE);
 
 		if (attacker.getRandom().nextFloat() >= 0.75) {
-			int amplifier = attacker.getRandom().nextFloat() <= 0.85 && target.hasStatusEffect(ModStatusEffects.BLIGHT) ? 1 : 0;
-			target.addStatusEffect(new StatusEffectInstance(ModStatusEffects.BLIGHT, 20 * 4, amplifier));
+			int amplifier = attacker.getRandom().nextFloat() <= 0.85 && target.hasStatusEffect(AylythStatusEffects.BLIGHT) ? 1 : 0;
+			target.addStatusEffect(new StatusEffectInstance(AylythStatusEffects.BLIGHT, 20 * 4, amplifier));
 
 			PlayerLookup.tracking(target).forEach(trackingPlayer -> {
-				ServerPlayNetworking.send(trackingPlayer, new SpawnParticlesAroundPacketS2C(target.getId(), 32, List.of(ModParticles.BLIGHT_DRIP)));
+				ServerPlayNetworking.send(trackingPlayer, new SpawnParticlesAroundPacketS2C(target.getId(), 32, List.of(AylythParticleTypes.BLIGHT_DRIP)));
 			});
 
 			if (isSword && target.getAbsorptionAmount() > 0) {

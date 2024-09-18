@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.client.advancement;
 
-import moriyashiine.aylyth.common.advancement.AdvancementRendererData;
+import moriyashiine.aylyth.common.advancement.renderdata.AdvancementRendererData;
 import net.minecraft.client.gui.DrawContext;
 
 public interface AdvancementIconRenderer<T extends AdvancementRendererData> {

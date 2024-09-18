@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.advancement.criteria;
 
 import com.google.gson.JsonObject;
-import moriyashiine.aylyth.common.entity.mob.TameableHostileEntity;
+import moriyashiine.aylyth.common.entity.types.mob.TameableHostileEntity;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.advancement.criterion.AbstractCriterion;
 import net.minecraft.advancement.criterion.AbstractCriterionConditions;

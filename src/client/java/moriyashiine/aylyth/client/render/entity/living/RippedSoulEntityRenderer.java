@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.client.render.entity.living;
 
-import moriyashiine.aylyth.common.entity.mob.RippedSoulEntity;
+import moriyashiine.aylyth.common.entity.types.mob.RippedSoulEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;

@@ -3,9 +3,9 @@ package moriyashiine.aylyth.mixin.client;
 import com.llamalad7.mixinextras.sugar.Local;
 import moriyashiine.aylyth.api.interfaces.AylythGameHud;
 import moriyashiine.aylyth.api.interfaces.VitalHealthHolder;
-import moriyashiine.aylyth.common.component.entity.YmpeInfestationComponent;
-import moriyashiine.aylyth.common.registry.ModEntityComponents;
-import moriyashiine.aylyth.common.registry.ModEntityAttributes;
+import moriyashiine.aylyth.common.entity.components.YmpeInfestationComponent;
+import moriyashiine.aylyth.common.entity.AylythEntityComponents;
+import moriyashiine.aylyth.common.entity.AylythAttributes;
 import moriyashiine.aylyth.common.data.tag.AylythBlockTags;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
@@ -34,7 +34,7 @@ public abstract class InGameHudMixin implements AylythGameHud {
 
 	@Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/MathHelper;lerp(FFF)F", ordinal = 1))
 	private void renderYmpeInfestationOverlay(DrawContext context, float tickDelta, CallbackInfo ci) {
-		ModEntityComponents.YMPE_INFESTATION.maybeGet(client.player).ifPresent(ympeInfestationComponent -> {
+		AylythEntityComponents.YMPE_INFESTATION.maybeGet(client.player).ifPresent(ympeInfestationComponent -> {
 			int stage = ympeInfestationComponent.getStage();
 			if (stage >= 3) {
 				renderOverlay(context, YMPE_OUTLINE_1_TEXTURE, stage == 3 ? (float) ympeInfestationComponent.getInfestationTimer() / YmpeInfestationComponent.TIME_UNTIL_STAGE_INCREASES : 1);
@@ -55,7 +55,7 @@ public abstract class InGameHudMixin implements AylythGameHud {
 
 	@ModifyArg(method = "drawHeart", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawTexture(Lnet/minecraft/util/Identifier;IIIIII)V"))
 	private Identifier drawBranchingHearts(Identifier id) {
-		if (ModEntityComponents.YMPE_INFESTATION.get(client.player).getStage() > 0) {
+		if (AylythEntityComponents.YMPE_INFESTATION.get(client.player).getStage() > 0) {
 			return AylythGameHud.YMPE_HEALTH_TEXTURES;
 		}
 		return id;
@@ -66,7 +66,7 @@ public abstract class InGameHudMixin implements AylythGameHud {
 								  int regeneratingHeartIndex, float maxHealth, int lastHealth, int health,
 								  int absorption, boolean blinking, CallbackInfo ci,
 								  @Local(ordinal = 8) int j, @Local(ordinal = 9) int k) {
-		int maxVitalHealth = (int) player.getAttributeValue(ModEntityAttributes.MAX_VITAL_HEALTH);
+		int maxVitalHealth = (int) player.getAttributeValue(AylythAttributes.MAX_VITAL_HEALTH);
 		if (maxVitalHealth == 0) {
 			return;
 		}
@@ -82,7 +82,7 @@ public abstract class InGameHudMixin implements AylythGameHud {
 			int representedHealth = i*2;
 			if (representedHealth < maxHealth+absorption+vitalHealth) {
 				int u = 0;
-				if (ModEntityComponents.YMPE_INFESTATION.get(player).getStage() > 0) {
+				if (AylythEntityComponents.YMPE_INFESTATION.get(player).getStage() > 0) {
 					u += 16;
 				}
 				if (representedHealth+1 == maxHealth+absorption+vitalHealth) {

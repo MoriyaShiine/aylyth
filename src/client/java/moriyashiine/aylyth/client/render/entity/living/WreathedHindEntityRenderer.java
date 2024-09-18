@@ -2,9 +2,8 @@ package moriyashiine.aylyth.client.render.entity.living;
 
 import moriyashiine.aylyth.client.model.entity.WreathedHindEntityModel;
 import moriyashiine.aylyth.client.render.entity.living.layer.WreathedHindGlowLayerRenderer;
-import moriyashiine.aylyth.common.entity.mob.WreathedHindEntity;
-import moriyashiine.aylyth.common.registry.ModParticles;
-import net.minecraft.client.MinecraftClient;
+import moriyashiine.aylyth.common.entity.types.mob.WreathedHindEntity;
+import moriyashiine.aylyth.common.world.AylythParticleTypes;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
@@ -26,7 +25,7 @@ public class WreathedHindEntityRenderer extends GeoEntityRenderer<WreathedHindEn
                 double z = model.getBone("iGuessThisistheHead").get().getWorldPosition().z;
                 double randX = animatable.getRandom().nextDouble();
                 double randZ = animatable.getRandom().nextDouble();
-                animatable.getEntityWorld().addParticle(ModParticles.HIND_SMOKE,
+                animatable.getEntityWorld().addParticle(AylythParticleTypes.HIND_SMOKE,
                         randX + x - 0.5,
                         y,
                         randZ + z - 0.5,

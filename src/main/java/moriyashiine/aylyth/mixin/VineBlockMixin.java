@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.mixin;
 
-import moriyashiine.aylyth.common.block.NysianGrapeVineBlock;
+import moriyashiine.aylyth.common.block.types.NysianGrapeVineBlock;
 import net.minecraft.block.VineBlock;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;

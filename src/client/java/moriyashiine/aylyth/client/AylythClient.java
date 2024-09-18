@@ -12,8 +12,12 @@ import moriyashiine.aylyth.client.model.entity.ScionEntityModel;
 import moriyashiine.aylyth.client.network.AylythClientNetworkHandler;
 import moriyashiine.aylyth.client.particle.ParticleFactories;
 import moriyashiine.aylyth.client.render.entity.projectile.ThornFlechetteRenderer;
-import moriyashiine.aylyth.common.item.NephriteFlaskItem;
-import moriyashiine.aylyth.common.item.ShuckedYmpeFruitItem;
+import moriyashiine.aylyth.common.block.AylythBlockEntityTypes;
+import moriyashiine.aylyth.common.block.AylythBlocks;
+import moriyashiine.aylyth.common.entity.AylythEntityTypes;
+import moriyashiine.aylyth.common.item.AylythItems;
+import moriyashiine.aylyth.common.item.types.NephriteFlaskItem;
+import moriyashiine.aylyth.common.item.types.ShuckedYmpeFruitItem;
 import moriyashiine.aylyth.common.network.AylythPacketTypes;
 import moriyashiine.aylyth.common.network.packets.UpdatePressingUpDownPacketC2S;
 import moriyashiine.aylyth.client.particle.HindSmokeParticle;
@@ -35,11 +39,12 @@ import moriyashiine.aylyth.client.render.item.BigItemRenderer;
 import moriyashiine.aylyth.client.render.item.WoodyGrowthCacheItemRenderer;
 import moriyashiine.aylyth.client.screen.TulpaScreen;
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.block.StrewnLeavesBlock;
-import moriyashiine.aylyth.common.registry.*;
+import moriyashiine.aylyth.common.block.types.StrewnLeavesBlock;
 import moriyashiine.aylyth.common.data.world.AylythDimensionData;
 import moriyashiine.aylyth.common.data.tag.AylythPotionTags;
+import moriyashiine.aylyth.common.screenhandler.AylythScreenHandlerTypes;
 import moriyashiine.aylyth.common.util.AylythUtil;
+import moriyashiine.aylyth.common.world.AylythParticleTypes;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -97,50 +102,50 @@ public class AylythClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
-		DimensionRenderingRegistry.registerDimensionEffects(AylythDimensionData.AYLYTH.getValue(), AylythDimensionRenderer.DIMENSION_EFFECTS);
-		DimensionRenderingRegistry.registerSkyRenderer(AylythDimensionData.AYLYTH, AylythDimensionRenderer::renderSky);
-		DimensionRenderingRegistry.registerCloudRenderer(AylythDimensionData.AYLYTH, context -> {});
+		DimensionRenderingRegistry.registerDimensionEffects(AylythDimensionData.WORLD.getValue(), AylythDimensionRenderer.DIMENSION_EFFECTS);
+		DimensionRenderingRegistry.registerSkyRenderer(AylythDimensionData.WORLD, AylythDimensionRenderer::renderSky);
+		DimensionRenderingRegistry.registerCloudRenderer(AylythDimensionData.WORLD, context -> {});
 
 		ClientPlayNetworking.registerGlobalReceiver(AylythPacketTypes.SPAWN_PARTICLES_AROUND_PACKET, AylythClientNetworkHandler::handleSpawnParticlesAround);
 
-		ParticleFactoryRegistry.getInstance().register(ModParticles.PILOT_LIGHT, PilotLightParticle.Factory::new);
-		ParticleFactoryRegistry.getInstance().register(ModParticles.AMBIENT_PILOT_LIGHT, PilotLightParticle.AmbientFactory::new);
-		ParticleFactoryRegistry.getInstance().register(ModParticles.HIND_SMOKE, HindSmokeParticle.ShortSmokeFactory::new);
-		ParticleFactoryRegistry.getInstance().register(ModParticles.VAMPIRIC_DRIP, ParticleFactories::createVampiricDrip);
-		ParticleFactoryRegistry.getInstance().register(ModParticles.VAMPIRIC_LAND, ParticleFactories::createVampiricLand);
-		ParticleFactoryRegistry.getInstance().register(ModParticles.BLIGHT_DRIP, ParticleFactories::createBlightDrip);
-		ParticleFactoryRegistry.getInstance().register(ModParticles.BLIGHT_LAND, ParticleFactories::createBlightLand);
+		ParticleFactoryRegistry.getInstance().register(AylythParticleTypes.PILOT_LIGHT, PilotLightParticle.Factory::new);
+		ParticleFactoryRegistry.getInstance().register(AylythParticleTypes.AMBIENT_PILOT_LIGHT, PilotLightParticle.AmbientFactory::new);
+		ParticleFactoryRegistry.getInstance().register(AylythParticleTypes.HIND_SMOKE, HindSmokeParticle.ShortSmokeFactory::new);
+		ParticleFactoryRegistry.getInstance().register(AylythParticleTypes.VAMPIRIC_DRIP, ParticleFactories::createVampiricDrip);
+		ParticleFactoryRegistry.getInstance().register(AylythParticleTypes.VAMPIRIC_LAND, ParticleFactories::createVampiricLand);
+		ParticleFactoryRegistry.getInstance().register(AylythParticleTypes.BLIGHT_DRIP, ParticleFactories::createBlightDrip);
+		ParticleFactoryRegistry.getInstance().register(AylythParticleTypes.BLIGHT_LAND, ParticleFactories::createBlightLand);
 
-		SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, ModBlocks.YMPE_SIGN.getTexture()));
-		SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, ModBlocks.POMEGRANATE_SIGN.getTexture()));
-		SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, ModBlocks.WRITHEWOOD_SIGN.getTexture()));
-		SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, ModBlocks.YMPE_HANGING_SIGN.getTexture()));
-		SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, ModBlocks.POMEGRANATE_HANGING_SIGN.getTexture()));
-		SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, ModBlocks.WRITHEWOOD_HANGING_SIGN.getTexture()));
+		SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, AylythBlocks.YMPE_SIGN.getTexture()));
+		SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, AylythBlocks.POMEGRANATE_SIGN.getTexture()));
+		SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, AylythBlocks.WRITHEWOOD_SIGN.getTexture()));
+		SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, AylythBlocks.YMPE_HANGING_SIGN.getTexture()));
+		SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, AylythBlocks.POMEGRANATE_HANGING_SIGN.getTexture()));
+		SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, AylythBlocks.WRITHEWOOD_HANGING_SIGN.getTexture()));
 
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), cutoutBlocks());
 
-		ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.getDefaultColor(), ModBlocks.AYLYTH_BUSH);
-		ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> world != null && pos != null && state != null && state.getBlock() instanceof StrewnLeavesBlock && state.get(StrewnLeavesBlock.LEAVES) > 0 ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.getDefaultColor(), ModBlocks.OAK_STREWN_LEAVES);
-		ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> world != null && pos != null ? BiomeColors.getGrassColor(world, pos) : FoliageColors.getDefaultColor(), ModBlocks.ANTLER_SHOOTS, ModBlocks.GRIPWEED);
+		ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.getDefaultColor(), AylythBlocks.AYLYTH_BUSH);
+		ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> world != null && pos != null && state != null && state.getBlock() instanceof StrewnLeavesBlock && state.get(StrewnLeavesBlock.LEAVES) > 0 ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.getDefaultColor(), AylythBlocks.OAK_STREWN_LEAVES);
+		ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> world != null && pos != null ? BiomeColors.getGrassColor(world, pos) : FoliageColors.getDefaultColor(), AylythBlocks.ANTLER_SHOOTS, AylythBlocks.GRIPWEED);
 
 		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> {
 			BlockState blockState = ((BlockItem) stack.getItem()).getBlock().getDefaultState();
 			return MinecraftClient.getInstance().getBlockColors().getColor(blockState, null, null, tintIndex);
-		}, ModBlocks.AYLYTH_BUSH, ModBlocks.ANTLER_SHOOTS, ModBlocks.GRIPWEED);
+		}, AylythBlocks.AYLYTH_BUSH, AylythBlocks.ANTLER_SHOOTS, AylythBlocks.GRIPWEED);
 
-		ModelPredicateProviderRegistry.register(ModItems.SHUCKED_YMPE_FRUIT, AylythUtil.id("variant"), (stack, world, entity, seed) -> ShuckedYmpeFruitItem.hasStoredEntity(stack) ? 1 : 0);
+		ModelPredicateProviderRegistry.register(AylythItems.SHUCKED_YMPE_FRUIT, AylythUtil.id("variant"), (stack, world, entity, seed) -> ShuckedYmpeFruitItem.hasStoredEntity(stack) ? 1 : 0);
 		ClampedModelPredicateProvider flaskProvider = (stack, world, entity, seed) -> NephriteFlaskItem.getCharges(stack) / 6f;
-		ModelPredicateProviderRegistry.register(ModItems.NEPHRITE_FLASK, AylythUtil.id("uses"), flaskProvider);
-		ModelPredicateProviderRegistry.register(ModItems.DARK_NEPHRITE_FLASK, AylythUtil.id("uses"), flaskProvider);
+		ModelPredicateProviderRegistry.register(AylythItems.NEPHRITE_FLASK, AylythUtil.id("uses"), flaskProvider);
+		ModelPredicateProviderRegistry.register(AylythItems.DARK_NEPHRITE_FLASK, AylythUtil.id("uses"), flaskProvider);
 		ModelPredicateProviderRegistry.register(Items.POTION, AylythUtil.id("blight_potion"), (stack, world, entity, seed) -> Registries.POTION.getEntry(PotionUtil.getPotion(stack)).isIn(AylythPotionTags.BLIGHT) ? 1 : 0);
 		ModelPredicateProviderRegistry.register(Items.SPLASH_POTION, AylythUtil.id("blight_potion"), (stack, world, entity, seed) -> Registries.POTION.getEntry(PotionUtil.getPotion(stack)).isIn(AylythPotionTags.BLIGHT) ? 1 : 0);
 		ModelPredicateProviderRegistry.register(Items.LINGERING_POTION, AylythUtil.id("blight_potion"), (stack, world, entity, seed) -> Registries.POTION.getEntry(PotionUtil.getPotion(stack)).isIn(AylythPotionTags.BLIGHT) ? 1 : 0);
 
-		BlockEntityRendererFactories.register(ModBlockEntityTypes.SEEP_BLOCK_ENTITY_TYPE, SeepBlockEntityRenderer::new);
-		BlockEntityRendererFactories.register(ModBlockEntityTypes.VITAL_THURIBLE_BLOCK_ENTITY, VitalThuribleBlockEntityRenderer::new);
-		BlockEntityRendererFactories.register(ModBlockEntityTypes.SOUL_HEARTH_BLOCK_ENTITY, SoulHearthBlockEntityRenderer::new);
-		BlockEntityRendererFactories.register(ModBlockEntityTypes.WOODY_GROWTH_CACHE_BLOCK_ENTITY, WoodyGrowthBlockEntityRenderer::new);
+		BlockEntityRendererFactories.register(AylythBlockEntityTypes.SEEP, SeepBlockEntityRenderer::new);
+		BlockEntityRendererFactories.register(AylythBlockEntityTypes.VITAL_THURIBLE, VitalThuribleBlockEntityRenderer::new);
+		BlockEntityRendererFactories.register(AylythBlockEntityTypes.SOUL_HEARTH, SoulHearthBlockEntityRenderer::new);
+		BlockEntityRendererFactories.register(AylythBlockEntityTypes.WOODY_GROWTH_CACHE, WoodyGrowthBlockEntityRenderer::new);
 
 		EntityModelLayerRegistry.registerModelLayer(YMPE_INFESTATION_STAGE_1_MODEL_LAYER, YmpeInfestationModel::getTexturedModelData1);
 		EntityModelLayerRegistry.registerModelLayer(YMPE_INFESTATION_STAGE_2_MODEL_LAYER, YmpeInfestationModel::getTexturedModelData2);
@@ -156,21 +161,21 @@ public class AylythClient implements ClientModInitializer {
 		EntityModelLayerRegistry.registerModelLayer(ScionEntityModel.LAYER_LOCATION, ScionEntityModel::createBodyLayer);
 		EntityModelLayerRegistry.registerModelLayer(RootPropEntityModel.LAYER_LOCATION, RootPropEntityModel::createBodyLayer);
 
-		EntityRendererRegistry.register(ModEntityTypes.PILOT_LIGHT, PilotLightEntityRenderer::new);
-		EntityRendererRegistry.register(ModEntityTypes.AYLYTHIAN, AylythianEntityRenderer::new);
-		EntityRendererRegistry.register(ModEntityTypes.ELDER_AYLYTHIAN, ElderAylythianEntityRenderer::new);
-		EntityRendererRegistry.register(ModEntityTypes.YMPE_LANCE, YmpeLanceEntityRenderer::new);
-		EntityRendererRegistry.register(ModEntityTypes.SOULMOULD, SoulmouldEntityRenderer::new);
-		EntityRendererRegistry.register(ModEntityTypes.BONEFLY, BoneflyEntityRenderer::new);
-		EntityRendererRegistry.register(ModEntityTypes.ROOT_PROP, RootPropEntityRenderer::new);
-		EntityRendererRegistry.register(ModEntityTypes.RIPPED_SOUL, RippedSoulEntityRenderer::new);
-		EntityRendererRegistry.register(ModEntityTypes.TULPA, TulpaEntityRenderer::new);
-		EntityRendererRegistry.register(ModEntityTypes.TULPA_PLAYER, TulpaPlayerEntityRenderer::new);
-		EntityRendererRegistry.register(ModEntityTypes.WREATHED_HIND_ENTITY, WreathedHindEntityRenderer::new);
-		EntityRendererRegistry.register(ModEntityTypes.SPHERE_ENTITY, SphereEntityRenderer::new);
-		EntityRendererRegistry.register(ModEntityTypes.FAUNAYLYTHIAN, FaunaylythianEntityRenderer::new);
-		EntityRendererRegistry.register(ModEntityTypes.SCION, ScionEntityRenderer::new);
-		EntityRendererRegistry.register(ModEntityTypes.THORN_FLECHETTE, ThornFlechetteRenderer::new);
+		EntityRendererRegistry.register(AylythEntityTypes.PILOT_LIGHT, PilotLightEntityRenderer::new);
+		EntityRendererRegistry.register(AylythEntityTypes.AYLYTHIAN, AylythianEntityRenderer::new);
+		EntityRendererRegistry.register(AylythEntityTypes.ELDER_AYLYTHIAN, ElderAylythianEntityRenderer::new);
+		EntityRendererRegistry.register(AylythEntityTypes.YMPE_LANCE, YmpeLanceEntityRenderer::new);
+		EntityRendererRegistry.register(AylythEntityTypes.SOULMOULD, SoulmouldEntityRenderer::new);
+		EntityRendererRegistry.register(AylythEntityTypes.BONEFLY, BoneflyEntityRenderer::new);
+		EntityRendererRegistry.register(AylythEntityTypes.ROOT_PROP, RootPropEntityRenderer::new);
+		EntityRendererRegistry.register(AylythEntityTypes.RIPPED_SOUL, RippedSoulEntityRenderer::new);
+		EntityRendererRegistry.register(AylythEntityTypes.TULPA, TulpaEntityRenderer::new);
+		EntityRendererRegistry.register(AylythEntityTypes.TULPA_PLAYER, TulpaPlayerEntityRenderer::new);
+		EntityRendererRegistry.register(AylythEntityTypes.WREATHED_HIND_ENTITY, WreathedHindEntityRenderer::new);
+		EntityRendererRegistry.register(AylythEntityTypes.SPHERE_ENTITY, SphereEntityRenderer::new);
+		EntityRendererRegistry.register(AylythEntityTypes.FAUNAYLYTHIAN, FaunaylythianEntityRenderer::new);
+		EntityRendererRegistry.register(AylythEntityTypes.SCION, ScionEntityRenderer::new);
+		EntityRendererRegistry.register(AylythEntityTypes.THORN_FLECHETTE, ThornFlechetteRenderer::new);
 
 		LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, entityRenderer, registrationHelper, context) -> {
 			if (entityType == EntityType.PLAYER) {
@@ -198,10 +203,10 @@ public class AylythClient implements ClientModInitializer {
 			}
 		});
 
-		registerBigItemRenderer(ModItems.YMPE_LANCE);
-		registerBigItemRenderer(ModItems.YMPE_GLAIVE);
-		registerBigItemRenderer(ModItems.YMPE_FLAMBERGE);
-		registerBigItemRenderer(ModItems.YMPE_SCYTHE);
+		registerBigItemRenderer(AylythItems.YMPE_LANCE);
+		registerBigItemRenderer(AylythItems.YMPE_GLAIVE);
+		registerBigItemRenderer(AylythItems.YMPE_FLAMBERGE);
+		registerBigItemRenderer(AylythItems.YMPE_SCYTHE);
 
 		ModelLoadingPlugin.register(pluginContext -> {
 			pluginContext.addModels(
@@ -248,10 +253,10 @@ public class AylythClient implements ClientModInitializer {
 		}
 
 //		ModelLoadingRegistry.INSTANCE.registerModelProvider((manager, out) -> out.accept(new ModelIdentifier(AylythUtil.id("%s_generated".formatted(Registries.ITEM.getId(ModItems.MYSTERIOUS_SKETCH).getPath())), "inventory")));
-		BuiltinItemRendererRegistry.INSTANCE.register(ModItems.WOODY_GROWTH_CACHE, new WoodyGrowthCacheItemRenderer());
+		BuiltinItemRendererRegistry.INSTANCE.register(AylythItems.WOODY_GROWTH_CACHE, new WoodyGrowthCacheItemRenderer());
 //		BuiltinItemRendererRegistry.INSTANCE.register(ModItems.MYSTERIOUS_SKETCH, new MysteriousSketchItemRenderer());
 
-		HandledScreens.register(ModScreenHandlers.TULPA_SCREEN_HANDLER, TulpaScreen::new);
+		HandledScreens.register(AylythScreenHandlerTypes.TULPA, TulpaScreen::new);
 
 		CoreShaderRegistrationCallback.EVENT.register(context -> {
 			context.register(AylythUtil.id("rendertype_seep"), VertexFormats.POSITION_COLOR_TEXTURE_LIGHT_NORMAL, shader -> AylythRenderLayers.renderLayerSeep = shader);
@@ -283,37 +288,37 @@ public class AylythClient implements ClientModInitializer {
 
 	private static Block[] cutoutBlocks() {
 		return new Block[] {
-				ModBlocks.YMPE_SAPLING,
-				ModBlocks.YMPE_POTTED_SAPLING,
-				ModBlocks.YMPE_DOOR,
-				ModBlocks.YMPE_TRAPDOOR,
-				ModBlocks.POMEGRANATE_SAPLING,
-				ModBlocks.POMEGRANATE_POTTED_SAPLING,
-				ModBlocks.POMEGRANATE_DOOR,
-				ModBlocks.POMEGRANATE_TRAPDOOR,
-				ModBlocks.WRITHEWOOD_SAPLING,
-				ModBlocks.WRITHEWOOD_POTTED_SAPLING,
-				ModBlocks.WRITHEWOOD_DOOR,
-				ModBlocks.WRITHEWOOD_TRAPDOOR,
-				ModBlocks.AYLYTH_BUSH,
-				ModBlocks.ANTLER_SHOOTS,
-				ModBlocks.GRIPWEED,
-				ModBlocks.NYSIAN_GRAPE_VINE,
-				ModBlocks.MARIGOLD,
-				ModBlocks.MARIGOLD_POTTED,
-				ModBlocks.OAK_SEEP,
-				ModBlocks.SPRUCE_SEEP,
-				ModBlocks.DARK_OAK_SEEP,
-				ModBlocks.YMPE_SEEP,
-				ModBlocks.OAK_STREWN_LEAVES,
-				ModBlocks.YMPE_STREWN_LEAVES,
-				ModBlocks.GHOSTCAP_MUSHROOM,
-				ModBlocks.SOUL_HEARTH,
-				ModBlocks.VITAL_THURIBLE,
-				ModBlocks.LARGE_WOODY_GROWTH,
-				ModBlocks.GIRASOL_SAPLING,
-				ModBlocks.GIRASOL_SAPLING_POTTED,
-				ModBlocks.BLACK_WELL
+				AylythBlocks.YMPE_SAPLING,
+				AylythBlocks.YMPE_POTTED_SAPLING,
+				AylythBlocks.YMPE_DOOR,
+				AylythBlocks.YMPE_TRAPDOOR,
+				AylythBlocks.POMEGRANATE_SAPLING,
+				AylythBlocks.POMEGRANATE_POTTED_SAPLING,
+				AylythBlocks.POMEGRANATE_DOOR,
+				AylythBlocks.POMEGRANATE_TRAPDOOR,
+				AylythBlocks.WRITHEWOOD_SAPLING,
+				AylythBlocks.WRITHEWOOD_POTTED_SAPLING,
+				AylythBlocks.WRITHEWOOD_DOOR,
+				AylythBlocks.WRITHEWOOD_TRAPDOOR,
+				AylythBlocks.AYLYTH_BUSH,
+				AylythBlocks.ANTLER_SHOOTS,
+				AylythBlocks.GRIPWEED,
+				AylythBlocks.NYSIAN_GRAPE_VINE,
+				AylythBlocks.MARIGOLD,
+				AylythBlocks.MARIGOLD_POTTED,
+				AylythBlocks.OAK_SEEP,
+				AylythBlocks.SPRUCE_SEEP,
+				AylythBlocks.DARK_OAK_SEEP,
+				AylythBlocks.YMPE_SEEP,
+				AylythBlocks.OAK_STREWN_LEAVES,
+				AylythBlocks.YMPE_STREWN_LEAVES,
+				AylythBlocks.GHOSTCAP_MUSHROOM,
+				AylythBlocks.SOUL_HEARTH,
+				AylythBlocks.VITAL_THURIBLE,
+				AylythBlocks.LARGE_WOODY_GROWTH,
+				AylythBlocks.GIRASOL_SAPLING,
+				AylythBlocks.GIRASOL_SAPLING_POTTED,
+				AylythBlocks.BLACK_WELL
 		};
 	}
 

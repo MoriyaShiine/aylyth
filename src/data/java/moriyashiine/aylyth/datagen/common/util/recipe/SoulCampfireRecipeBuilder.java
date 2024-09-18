@@ -5,7 +5,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.registry.ModRecipeTypes;
+import moriyashiine.aylyth.common.recipe.AylythRecipeTypes;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
@@ -80,7 +80,7 @@ public class SoulCampfireRecipeBuilder {
 
             @Override
             public RecipeSerializer<?> getSerializer() {
-                return ModRecipeTypes.SOULFIRE_RECIPE_SERIALIZER;
+                return AylythRecipeTypes.SOULFIRE_SERIALIZER;
             }
 
             @Nullable

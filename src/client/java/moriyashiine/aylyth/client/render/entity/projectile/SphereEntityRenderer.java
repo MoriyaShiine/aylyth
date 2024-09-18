@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.client.render.entity.projectile;
 
-import moriyashiine.aylyth.common.entity.projectile.SphereEntity;
+import moriyashiine.aylyth.common.entity.types.projectile.SphereEntity;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.screen.PlayerScreenHandler;

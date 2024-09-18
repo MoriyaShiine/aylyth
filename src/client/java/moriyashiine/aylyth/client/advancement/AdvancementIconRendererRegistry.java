@@ -2,12 +2,11 @@ package moriyashiine.aylyth.client.advancement;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import it.unimi.dsi.fastutil.objects.Reference2ObjectOpenHashMap;
-import moriyashiine.aylyth.common.advancement.AdvancementRendererData;
-import moriyashiine.aylyth.common.advancement.AdvancementRendererDataType;
+import moriyashiine.aylyth.common.advancement.renderdata.AdvancementRendererData;
+import moriyashiine.aylyth.common.advancement.renderdata.AdvancementRendererDataType;
 import moriyashiine.aylyth.common.advancement.renderdata.TextureRendererData;
-import moriyashiine.aylyth.common.registry.ModAdvancementRendererData;
-import moriyashiine.aylyth.common.registry.custom.CustomRegistries;
-import net.minecraft.client.MinecraftClient;
+import moriyashiine.aylyth.common.advancement.renderdata.AdvancementRendererDataTypes;
+import moriyashiine.aylyth.common.registry.AylythRegistries;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.*;
 import org.joml.Matrix4f;
@@ -20,7 +19,7 @@ public class AdvancementIconRendererRegistry {
     public static AdvancementIconRenderer<AdvancementRendererData> getRenderer(AdvancementRendererDataType<?> type) {
         var renderer = REGISTRY.get(type);
         if (renderer == null) {
-            throw new IllegalStateException("Renderer for advancement icon data {%s} does not exist!".formatted(CustomRegistries.ADVANCEMENT_RENDERER_DATA_TYPE.getId(type)));
+            throw new IllegalStateException("Renderer for advancement icon data {%s} does not exist!".formatted(AylythRegistries.ADVANCEMENT_RENDERER_DATA_TYPE.getId(type)));
         }
         return renderer;
     }
@@ -30,7 +29,7 @@ public class AdvancementIconRendererRegistry {
     }
 
     public static void init() {
-        register(ModAdvancementRendererData.TEXTURE_RENDERER_DATA, AdvancementIconRendererRegistry::renderTexture);
+        register(AdvancementRendererDataTypes.TEXTURE_RENDERER_DATA, AdvancementIconRendererRegistry::renderTexture);
     }
 
     private static void renderTexture(DrawContext drawContext, TextureRendererData data, int x, int y) {

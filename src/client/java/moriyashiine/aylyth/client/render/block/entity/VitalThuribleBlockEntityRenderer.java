@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.client.render.block.entity;
 
-import moriyashiine.aylyth.common.block.entity.VitalThuribleBlockEntity;
+import moriyashiine.aylyth.common.block.entities.VitalThuribleBlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;

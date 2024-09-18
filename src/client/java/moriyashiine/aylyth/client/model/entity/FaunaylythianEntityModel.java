@@ -1,8 +1,8 @@
 package moriyashiine.aylyth.client.model.entity;
 
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.entity.mob.ElderAylythianEntity;
-import moriyashiine.aylyth.common.entity.mob.FaunaylythianEntity;
+import moriyashiine.aylyth.common.entity.types.mob.ElderAylythianEntity;
+import moriyashiine.aylyth.common.entity.types.mob.FaunaylythianEntity;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib.model.GeoModel;
 

@@ -2,7 +2,7 @@ package moriyashiine.aylyth.client.render.entity.living;
 
 import moriyashiine.aylyth.client.model.entity.AylythianEntityModel;
 import moriyashiine.aylyth.client.render.entity.living.layer.AylythAutoGlowLayer;
-import moriyashiine.aylyth.common.entity.mob.AylythianEntity;
+import moriyashiine.aylyth.common.entity.types.mob.AylythianEntity;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 

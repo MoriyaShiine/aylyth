@@ -11,7 +11,7 @@ import me.shedaniel.rei.api.common.entry.EntryStack;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import moriyashiine.aylyth.client.integration.rei.ModREIPlugin;
 import moriyashiine.aylyth.client.integration.rei.display.YmpeDaggerDropDisplay;
-import moriyashiine.aylyth.common.registry.ModItems;
+import moriyashiine.aylyth.common.item.AylythItems;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 
@@ -20,7 +20,7 @@ import java.util.List;
 
 public class YmpeDaggerDropCategory implements DisplayCategory<YmpeDaggerDropDisplay> {
 	public static final Text TITLE = Text.translatable("rei.aylyth.ympe_dagger_drops");
-	public static final EntryStack<ItemStack> ICON = EntryStacks.of(ModItems.YMPE_DAGGER);
+	public static final EntryStack<ItemStack> ICON = EntryStacks.of(AylythItems.YMPE_DAGGER);
 	
 	@Override
 	public Renderer getIcon() {

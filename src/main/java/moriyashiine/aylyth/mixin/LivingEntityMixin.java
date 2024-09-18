@@ -4,11 +4,11 @@ import com.llamalad7.mixinextras.injector.WrapWithCondition;
 import com.llamalad7.mixinextras.sugar.Local;
 import moriyashiine.aylyth.api.interfaces.HindPledgeHolder;
 import moriyashiine.aylyth.api.interfaces.ProlongedDeath;
-import moriyashiine.aylyth.common.entity.mob.BoneflyEntity;
-import moriyashiine.aylyth.common.item.YmpeEffigyItem;
-import moriyashiine.aylyth.common.registry.ModEntityComponents;
-import moriyashiine.aylyth.common.registry.ModItems;
-import moriyashiine.aylyth.common.registry.ModStatusEffects;
+import moriyashiine.aylyth.common.entity.types.mob.BoneflyEntity;
+import moriyashiine.aylyth.common.item.types.YmpeEffigyItem;
+import moriyashiine.aylyth.common.entity.AylythEntityComponents;
+import moriyashiine.aylyth.common.item.AylythItems;
+import moriyashiine.aylyth.common.entity.AylythStatusEffects;
 import moriyashiine.aylyth.common.data.AylythDamageTypes;
 import moriyashiine.aylyth.common.data.tag.AylythStatusEffectTags;
 import moriyashiine.aylyth.common.data.tag.AylythItemTags;
@@ -64,14 +64,14 @@ public abstract class LivingEntityMixin extends Entity {
 
 	@Inject(method = "heal", at = @At("HEAD"), cancellable = true)
 	private void preventHeal(float amount, CallbackInfo callbackInfo) {
-		if (this.hasStatusEffect(ModStatusEffects.CRIMSON_CURSE)) {
+		if (this.hasStatusEffect(AylythStatusEffects.CRIMSON_CURSE)) {
 			callbackInfo.cancel();
 		}
 	}
 
 	@Inject(method = "drop", at = @At("HEAD"), cancellable = true)
 	private void shuckLogic(DamageSource source, CallbackInfo ci) {
-		if ((LivingEntity) (Object) this instanceof MobEntity mob && ModEntityComponents.PREVENT_DROPS.get(mob).getPreventsDrops()) {
+		if ((LivingEntity) (Object) this instanceof MobEntity mob && AylythEntityComponents.PREVENT_DROPS.get(mob).getPreventsDrops()) {
 			ci.cancel();
 		}
 	}
@@ -84,7 +84,7 @@ public abstract class LivingEntityMixin extends Entity {
 	@Inject(method = "eatFood", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;applyFoodEffects(Lnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/entity/LivingEntity;)V"))
 	private void decreaseYmpeInfestationStage(World world, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
 		if ((LivingEntity) (Object) this instanceof PlayerEntity player && stack.isIn(AylythItemTags.DECREASES_BRANCHES)) {
-			ModEntityComponents.YMPE_INFESTATION.maybeGet(player).ifPresent(ympeInfestationComponent -> {
+			AylythEntityComponents.YMPE_INFESTATION.maybeGet(player).ifPresent(ympeInfestationComponent -> {
 				if (ympeInfestationComponent.getStage() > 0) {
 					ympeInfestationComponent.setStage((byte) (ympeInfestationComponent.getStage() - 1));
 				}
@@ -126,7 +126,7 @@ public abstract class LivingEntityMixin extends Entity {
 	private void injectLootDrop(CallbackInfo ci){
 		LivingEntity living = (LivingEntity) (Object) this;
 		if(living instanceof ProlongedDeath){
-			ItemScatterer.spawn(living.getWorld(), living.getX(), living.getY() + 1.5D, living.getZ(), ModItems.CORIC_SEED.getDefaultStack());
+			ItemScatterer.spawn(living.getWorld(), living.getX(), living.getY() + 1.5D, living.getZ(), AylythItems.CORIC_SEED.getDefaultStack());
 		}
 	}
 

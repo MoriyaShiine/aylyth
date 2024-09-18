@@ -1,11 +1,11 @@
 package moriyashiine.aylyth.datagen.common.world;
 
 import com.chocohead.mm.api.ClassTinkerers;
-import moriyashiine.aylyth.common.registry.ModEntityTypes;
-import moriyashiine.aylyth.common.registry.ModParticles;
-import moriyashiine.aylyth.common.registry.ModSoundEvents;
-import moriyashiine.aylyth.common.data.world.AylythConfiguredCarvers;
-import moriyashiine.aylyth.common.data.world.AylythPlacedFeatures;
+import moriyashiine.aylyth.common.entity.AylythEntityTypes;
+import moriyashiine.aylyth.common.world.AylythParticleTypes;
+import moriyashiine.aylyth.common.world.AylythSoundEvents;
+import moriyashiine.aylyth.common.data.world.feature.AylythConfiguredCarvers;
+import moriyashiine.aylyth.common.data.world.feature.AylythPlacedFeatures;
 import moriyashiine.aylyth.datagen.common.util.biome.BiomeBuilder;
 import moriyashiine.aylyth.datagen.common.util.biome.SpawnSettingsBuilder;
 import net.minecraft.entity.EntityType;
@@ -30,45 +30,45 @@ public final class AylythBiomeBootstrap {
 	private AylythBiomeBootstrap() {}
 
 	public static final SpawnSettings COPSE_MOBS = SpawnSettingsBuilder.builder()
-			.spawnCost(ModEntityTypes.AYLYTHIAN, 0.7, 0.13)
-			.spawnCost(ModEntityTypes.FAUNAYLYTHIAN, 0.7, 0.13)
+			.spawnCost(AylythEntityTypes.AYLYTHIAN, 0.7, 0.13)
+			.spawnCost(AylythEntityTypes.FAUNAYLYTHIAN, 0.7, 0.13)
 			.spawnCost(EntityType.ENDERMAN, 0.7, 0.13)
-			.spawnCost(ModEntityTypes.PILOT_LIGHT, 0.7, 0.13)
-			.monster(ModEntityTypes.AYLYTHIAN, 20, 1, 2)
-			.monster(ModEntityTypes.FAUNAYLYTHIAN, 10, 1, 3)
+			.spawnCost(AylythEntityTypes.PILOT_LIGHT, 0.7, 0.13)
+			.monster(AylythEntityTypes.AYLYTHIAN, 20, 1, 2)
+			.monster(AylythEntityTypes.FAUNAYLYTHIAN, 10, 1, 3)
 			.monster(EntityType.ENDERMAN, 1, 1, 4)
-			.ambient(ModEntityTypes.PILOT_LIGHT, 5, 1, 1)
+			.ambient(AylythEntityTypes.PILOT_LIGHT, 5, 1, 1)
 			.spawnChance(0.5f)
 			.build();
 	public static final SpawnSettings DEEPWOOD_MOBS = SpawnSettingsBuilder.builder()
-			.spawnCost(ModEntityTypes.AYLYTHIAN, 0.7, 0.13)
-			.spawnCost(ModEntityTypes.FAUNAYLYTHIAN, 0.7, 0.13)
-			.spawnCost(ModEntityTypes.SCION, 0.9, 0.13)
-			.spawnCost(ModEntityTypes.ELDER_AYLYTHIAN, 0.7, 0.12)
+			.spawnCost(AylythEntityTypes.AYLYTHIAN, 0.7, 0.13)
+			.spawnCost(AylythEntityTypes.FAUNAYLYTHIAN, 0.7, 0.13)
+			.spawnCost(AylythEntityTypes.SCION, 0.9, 0.13)
+			.spawnCost(AylythEntityTypes.ELDER_AYLYTHIAN, 0.7, 0.12)
 			.spawnCost(EntityType.ENDERMAN, 0.7, 0.12)
-			.spawnCost(ModEntityTypes.WREATHED_HIND_ENTITY, 4.5, 0.8)
-			.spawnCost(ModEntityTypes.PILOT_LIGHT, 0.7, 0.1)
-			.monster(ModEntityTypes.AYLYTHIAN, 50, 1, 3)
-			.monster(ModEntityTypes.SCION, 15, 1, 1)
-			.monster(ModEntityTypes.ELDER_AYLYTHIAN, 2, 1, 1)
-			.monster(ModEntityTypes.FAUNAYLYTHIAN, 20, 1, 3)
+			.spawnCost(AylythEntityTypes.WREATHED_HIND_ENTITY, 4.5, 0.8)
+			.spawnCost(AylythEntityTypes.PILOT_LIGHT, 0.7, 0.1)
+			.monster(AylythEntityTypes.AYLYTHIAN, 50, 1, 3)
+			.monster(AylythEntityTypes.SCION, 15, 1, 1)
+			.monster(AylythEntityTypes.ELDER_AYLYTHIAN, 2, 1, 1)
+			.monster(AylythEntityTypes.FAUNAYLYTHIAN, 20, 1, 3)
 			.monster(EntityType.ENDERMAN, 1, 1, 4)
-			.monster(ModEntityTypes.WREATHED_HIND_ENTITY, 1, 1, 1)
-			.ambient(ModEntityTypes.PILOT_LIGHT, 10, 1, 1)
+			.monster(AylythEntityTypes.WREATHED_HIND_ENTITY, 1, 1, 1)
+			.ambient(AylythEntityTypes.PILOT_LIGHT, 10, 1, 1)
 			.spawnChance(0.5f)
 			.build();
 	public static final SpawnSettings UPLANDS_MOBS = SpawnSettingsBuilder.none();
 	public static final SpawnSettings MIRE_MOBS = SpawnSettingsBuilder.builder()
-			.spawnCost(ModEntityTypes.AYLYTHIAN, 0.7, 0.13)
-			.spawnCost(ModEntityTypes.SCION, 0.9, 0.13)
-			.spawnCost(ModEntityTypes.WREATHED_HIND_ENTITY, 0.7, 0.12)
+			.spawnCost(AylythEntityTypes.AYLYTHIAN, 0.7, 0.13)
+			.spawnCost(AylythEntityTypes.SCION, 0.9, 0.13)
+			.spawnCost(AylythEntityTypes.WREATHED_HIND_ENTITY, 0.7, 0.12)
 			.spawnCost(EntityType.ENDERMAN, 0.7, 0.12)
-			.spawnCost(ModEntityTypes.PILOT_LIGHT, 0.7, 0.12)
-			.monster(ModEntityTypes.AYLYTHIAN, 20, 1, 1)
-			.monster(ModEntityTypes.SCION, 5, 1, 1)
-			.monster(ModEntityTypes.WREATHED_HIND_ENTITY, 2, 1, 1)
+			.spawnCost(AylythEntityTypes.PILOT_LIGHT, 0.7, 0.12)
+			.monster(AylythEntityTypes.AYLYTHIAN, 20, 1, 1)
+			.monster(AylythEntityTypes.SCION, 5, 1, 1)
+			.monster(AylythEntityTypes.WREATHED_HIND_ENTITY, 2, 1, 1)
 			.monster(EntityType.ENDERMAN, 1, 1, 4)
-			.ambient(ModEntityTypes.PILOT_LIGHT, 5, 1, 1)
+			.ambient(AylythEntityTypes.PILOT_LIGHT, 5, 1, 1)
 			.build();
 	public static final SpawnSettings BOWELS_MOBS = SpawnSettingsBuilder.builder()
 			.spawnCost(EntityType.ENDERMAN, 0.7, 0.09)
@@ -90,12 +90,12 @@ public final class AylythBiomeBootstrap {
 		var placedFeatures = context.getRegistryLookup(RegistryKeys.PLACED_FEATURE);
 		var configuredCarvers = context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER);
 
-		var overgrownClearingAmbience = new BiomeAdditionsSound(ModSoundEvents.AMBIENT_FOREST_ADDITIONS, 0.001);
-		var forestAmbiance = new BiomeAdditionsSound(ModSoundEvents.AMBIENT_FOREST_ADDITIONS, 0.005);
-		var music = new MusicSound(ModSoundEvents.AMBIENT_MUSIC, 12000, 24000, false);
+		var overgrownClearingAmbience = new BiomeAdditionsSound(AylythSoundEvents.AMBIENT_FOREST_ADDITIONS, 0.001);
+		var forestAmbiance = new BiomeAdditionsSound(AylythSoundEvents.AMBIENT_FOREST_ADDITIONS, 0.005);
+		var music = new MusicSound(AylythSoundEvents.AMBIENT_MUSIC, 12000, 24000, false);
 
 		context.register(CLEARING, createClearing(false, SpawnSettingsBuilder.none(), music, overgrownClearingAmbience, placedFeatures, configuredCarvers));
-		context.register(OVERGROWN_CLEARING, createClearing(true, SpawnSettingsBuilder.builder().ambient(ModEntityTypes.PILOT_LIGHT, 1, 1, 1).spawnChance(0.1F).build(), music, overgrownClearingAmbience, placedFeatures, configuredCarvers));
+		context.register(OVERGROWN_CLEARING, createClearing(true, SpawnSettingsBuilder.builder().ambient(AylythEntityTypes.PILOT_LIGHT, 1, 1, 1).spawnChance(0.1F).build(), music, overgrownClearingAmbience, placedFeatures, configuredCarvers));
 		context.register(COPSE, createForest(false, COPSE_MOBS, music, forestAmbiance, placedFeatures, configuredCarvers));
 		context.register(DEEPWOOD, createForest(true, DEEPWOOD_MOBS, music, forestAmbiance, placedFeatures, configuredCarvers));
 		context.register(CONIFEROUS_COPSE, createConiferousForest(false, COPSE_MOBS, music, forestAmbiance, placedFeatures, configuredCarvers));
@@ -113,7 +113,7 @@ public final class AylythBiomeBootstrap {
 							.grassColorModifier(AYLYTH_NOISE)
 							.moodSound(BiomeMoodSound.CAVE)
 							.music(musicSound)
-							.particleConfig(ModParticles.AMBIENT_PILOT_LIGHT, 0.0025F);
+							.particleConfig(AylythParticleTypes.AMBIENT_PILOT_LIGHT, 0.0025F);
 					if (overgrown) {
 						biomeEffectsBuilder.additionsSound(overgrownClearingAmbience);
 					}

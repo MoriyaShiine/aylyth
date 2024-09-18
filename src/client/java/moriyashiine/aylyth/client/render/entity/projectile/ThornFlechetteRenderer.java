@@ -1,8 +1,8 @@
 package moriyashiine.aylyth.client.render.entity.projectile;
 
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.entity.projectile.ThornFlechetteEntity;
-import moriyashiine.aylyth.common.registry.ModItems;
+import moriyashiine.aylyth.common.entity.types.projectile.ThornFlechetteEntity;
+import moriyashiine.aylyth.common.item.AylythItems;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.ProjectileEntityRenderer;
 import net.minecraft.util.Identifier;
@@ -17,6 +17,6 @@ public class ThornFlechetteRenderer extends ProjectileEntityRenderer<ThornFleche
 
     @Override
     public Identifier getTexture(ThornFlechetteEntity entity) {
-        return entity.asItemStack().getItem() == ModItems.THORN_FLECHETTE ? THORN_FLECHETTE : BLIGHTED_THORN_FLECHETTE;
+        return entity.asItemStack().getItem() == AylythItems.THORN_FLECHETTE ? THORN_FLECHETTE : BLIGHTED_THORN_FLECHETTE;
     }
 }

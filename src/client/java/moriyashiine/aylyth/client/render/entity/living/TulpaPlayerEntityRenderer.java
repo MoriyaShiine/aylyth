@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.client.render.entity.living;
 
 import moriyashiine.aylyth.client.render.entity.living.feature.AylythCapeFeatureRenderer;
-import moriyashiine.aylyth.common.entity.mob.TulpaEntity.TulpaPlayerEntity;
+import moriyashiine.aylyth.common.entity.types.mob.TulpaEntity.TulpaPlayerEntity;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;

@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.client.model.entity;
 
-import moriyashiine.aylyth.common.entity.mob.BoneflyEntity;
+import moriyashiine.aylyth.common.entity.types.mob.BoneflyEntity;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import software.bernie.geckolib.model.DefaultedEntityGeoModel;
 

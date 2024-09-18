@@ -1,8 +1,8 @@
 package moriyashiine.aylyth.datagen.common;
 
-import moriyashiine.aylyth.common.registry.ModBlocks;
-import moriyashiine.aylyth.common.registry.ModEntityTypes;
-import moriyashiine.aylyth.common.registry.ModItems;
+import moriyashiine.aylyth.common.block.AylythBlocks;
+import moriyashiine.aylyth.common.entity.AylythEntityTypes;
+import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.aylyth.common.data.tag.AylythItemTags;
 import moriyashiine.aylyth.datagen.common.util.recipe.SoulCampfireRecipeBuilder;
 import moriyashiine.aylyth.datagen.common.util.recipe.YmpeDaggerRecipeJsonBuilder;
@@ -30,73 +30,73 @@ public final class AylythRecipeProvider extends FabricRecipeProvider {
 
     @Override
     public void generate(Consumer<RecipeJsonProvider> exporter) {
-        offerSingleOutputShapelessRecipe(exporter, Items.ORANGE_DYE, ModItems.MARIGOLD, "");
-        createTwoByTwo(exporter, RecipeCategory.DECORATIONS, Items.SHROOMLIGHT, 1, ModItems.JACK_O_LANTERN_MUSHROOM, "shroomlight_from_jack_o_lantern_mushroom");
+        offerSingleOutputShapelessRecipe(exporter, Items.ORANGE_DYE, AylythItems.MARIGOLD, "");
+        createTwoByTwo(exporter, RecipeCategory.DECORATIONS, Items.SHROOMLIGHT, 1, AylythItems.JACK_O_LANTERN_MUSHROOM, "shroomlight_from_jack_o_lantern_mushroom");
 
-        offerChestBoatRecipe(exporter, ModItems.YMPE_CHEST_BOAT, ModItems.YMPE_BOAT);
+        offerChestBoatRecipe(exporter, AylythItems.YMPE_CHEST_BOAT, AylythItems.YMPE_BOAT);
 
-        offerBarkBlockRecipe(exporter, ModItems.POMEGRANATE_STRIPPED_WOOD, ModItems.POMEGRANATE_STRIPPED_LOG);
-        offerBarkBlockRecipe(exporter, ModItems.POMEGRANATE_WOOD, ModItems.POMEGRANATE_LOG);
-        offerPlanksRecipe(exporter, ModItems.POMEGRANATE_PLANKS, AylythItemTags.POMEGRANATE_LOGS, 4);
-        createStairsRecipe(ModItems.POMEGRANATE_STAIRS, Ingredient.ofItems(ModItems.POMEGRANATE_PLANKS)).group("wooden_stairs").criterion(RecipeProvider.hasItem(ModItems.POMEGRANATE_PLANKS), conditionsFromItem(ModItems.POMEGRANATE_PLANKS)).offerTo(exporter);
-        createSlabRecipe(RecipeCategory.BUILDING_BLOCKS, ModItems.POMEGRANATE_SLAB, Ingredient.ofItems(ModItems.POMEGRANATE_PLANKS)).group("wooden_slab").criterion(RecipeProvider.hasItem(ModItems.POMEGRANATE_PLANKS), conditionsFromItem(ModItems.POMEGRANATE_PLANKS)).offerTo(exporter);
-        createFenceRecipe(ModItems.POMEGRANATE_FENCE, Ingredient.ofItems(ModItems.POMEGRANATE_PLANKS)).group("wooden_fence").criterion(RecipeProvider.hasItem(ModItems.POMEGRANATE_PLANKS), conditionsFromItem(ModItems.POMEGRANATE_PLANKS)).offerTo(exporter);
-        createFenceGateRecipe(ModItems.POMEGRANATE_FENCE_GATE, Ingredient.ofItems(ModItems.POMEGRANATE_PLANKS)).group("wooden_fence_gate").criterion(RecipeProvider.hasItem(ModItems.POMEGRANATE_PLANKS), conditionsFromItem(ModItems.POMEGRANATE_PLANKS)).offerTo(exporter);
-        createPressurePlateRecipe(RecipeCategory.REDSTONE, ModItems.POMEGRANATE_PRESSURE_PLATE, Ingredient.ofItems(ModItems.POMEGRANATE_PLANKS)).group("wooden_pressure_plate").criterion(RecipeProvider.hasItem(ModItems.POMEGRANATE_PLANKS), conditionsFromItem(ModItems.POMEGRANATE_PLANKS)).offerTo(exporter);
-        offerShapeless(exporter, RecipeCategory.REDSTONE, ModItems.POMEGRANATE_BUTTON, 1, ModItems.POMEGRANATE_PLANKS, "wooden_button");
-        createTrapdoorRecipe(ModItems.POMEGRANATE_TRAPDOOR, Ingredient.ofItems(ModItems.POMEGRANATE_PLANKS)).group("wooden_trapdoor").criterion(RecipeProvider.hasItem(ModItems.POMEGRANATE_PLANKS), conditionsFromItem(ModItems.POMEGRANATE_PLANKS)).offerTo(exporter);
-        createDoorRecipe(ModItems.POMEGRANATE_DOOR, Ingredient.ofItems(ModItems.POMEGRANATE_PLANKS)).group("wooden_door").criterion(RecipeProvider.hasItem(ModItems.POMEGRANATE_PLANKS), conditionsFromItem(ModItems.POMEGRANATE_PLANKS)).offerTo(exporter);
-        createSignRecipe(ModItems.POMEGRANATE_SIGN, Ingredient.ofItems(ModItems.POMEGRANATE_PLANKS)).group("wooden_sign").criterion(RecipeProvider.hasItem(ModItems.POMEGRANATE_PLANKS), conditionsFromItem(ModItems.POMEGRANATE_PLANKS)).offerTo(exporter);
-        offerBoatRecipe(exporter, ModItems.POMEGRANATE_BOAT, ModItems.POMEGRANATE_PLANKS);
-        offerChestBoatRecipe(exporter, ModItems.POMEGRANATE_CHEST_BOAT, ModItems.POMEGRANATE_BOAT);
+        offerBarkBlockRecipe(exporter, AylythItems.POMEGRANATE_STRIPPED_WOOD, AylythItems.POMEGRANATE_STRIPPED_LOG);
+        offerBarkBlockRecipe(exporter, AylythItems.POMEGRANATE_WOOD, AylythItems.POMEGRANATE_LOG);
+        offerPlanksRecipe(exporter, AylythItems.POMEGRANATE_PLANKS, AylythItemTags.POMEGRANATE_LOGS, 4);
+        createStairsRecipe(AylythItems.POMEGRANATE_STAIRS, Ingredient.ofItems(AylythItems.POMEGRANATE_PLANKS)).group("wooden_stairs").criterion(RecipeProvider.hasItem(AylythItems.POMEGRANATE_PLANKS), conditionsFromItem(AylythItems.POMEGRANATE_PLANKS)).offerTo(exporter);
+        createSlabRecipe(RecipeCategory.BUILDING_BLOCKS, AylythItems.POMEGRANATE_SLAB, Ingredient.ofItems(AylythItems.POMEGRANATE_PLANKS)).group("wooden_slab").criterion(RecipeProvider.hasItem(AylythItems.POMEGRANATE_PLANKS), conditionsFromItem(AylythItems.POMEGRANATE_PLANKS)).offerTo(exporter);
+        createFenceRecipe(AylythItems.POMEGRANATE_FENCE, Ingredient.ofItems(AylythItems.POMEGRANATE_PLANKS)).group("wooden_fence").criterion(RecipeProvider.hasItem(AylythItems.POMEGRANATE_PLANKS), conditionsFromItem(AylythItems.POMEGRANATE_PLANKS)).offerTo(exporter);
+        createFenceGateRecipe(AylythItems.POMEGRANATE_FENCE_GATE, Ingredient.ofItems(AylythItems.POMEGRANATE_PLANKS)).group("wooden_fence_gate").criterion(RecipeProvider.hasItem(AylythItems.POMEGRANATE_PLANKS), conditionsFromItem(AylythItems.POMEGRANATE_PLANKS)).offerTo(exporter);
+        createPressurePlateRecipe(RecipeCategory.REDSTONE, AylythItems.POMEGRANATE_PRESSURE_PLATE, Ingredient.ofItems(AylythItems.POMEGRANATE_PLANKS)).group("wooden_pressure_plate").criterion(RecipeProvider.hasItem(AylythItems.POMEGRANATE_PLANKS), conditionsFromItem(AylythItems.POMEGRANATE_PLANKS)).offerTo(exporter);
+        offerShapeless(exporter, RecipeCategory.REDSTONE, AylythItems.POMEGRANATE_BUTTON, 1, AylythItems.POMEGRANATE_PLANKS, "wooden_button");
+        createTrapdoorRecipe(AylythItems.POMEGRANATE_TRAPDOOR, Ingredient.ofItems(AylythItems.POMEGRANATE_PLANKS)).group("wooden_trapdoor").criterion(RecipeProvider.hasItem(AylythItems.POMEGRANATE_PLANKS), conditionsFromItem(AylythItems.POMEGRANATE_PLANKS)).offerTo(exporter);
+        createDoorRecipe(AylythItems.POMEGRANATE_DOOR, Ingredient.ofItems(AylythItems.POMEGRANATE_PLANKS)).group("wooden_door").criterion(RecipeProvider.hasItem(AylythItems.POMEGRANATE_PLANKS), conditionsFromItem(AylythItems.POMEGRANATE_PLANKS)).offerTo(exporter);
+        createSignRecipe(AylythItems.POMEGRANATE_SIGN, Ingredient.ofItems(AylythItems.POMEGRANATE_PLANKS)).group("wooden_sign").criterion(RecipeProvider.hasItem(AylythItems.POMEGRANATE_PLANKS), conditionsFromItem(AylythItems.POMEGRANATE_PLANKS)).offerTo(exporter);
+        offerBoatRecipe(exporter, AylythItems.POMEGRANATE_BOAT, AylythItems.POMEGRANATE_PLANKS);
+        offerChestBoatRecipe(exporter, AylythItems.POMEGRANATE_CHEST_BOAT, AylythItems.POMEGRANATE_BOAT);
 
-        offerBarkBlockRecipe(exporter, ModItems.WRITHEWOOD_STRIPPED_WOOD, ModItems.WRITHEWOOD_STRIPPED_LOG);
-        offerBarkBlockRecipe(exporter, ModItems.WRITHEWOOD_WOOD, ModItems.WRITHEWOOD_LOG);
-        offerPlanksRecipe(exporter, ModItems.WRITHEWOOD_PLANKS, AylythItemTags.WRITHEWOOD_LOGS, 4);
-        createStairsRecipe(ModItems.WRITHEWOOD_STAIRS, Ingredient.ofItems(ModItems.WRITHEWOOD_PLANKS)).group("wooden_stairs").criterion(RecipeProvider.hasItem(ModItems.WRITHEWOOD_PLANKS), conditionsFromItem(ModItems.WRITHEWOOD_PLANKS)).offerTo(exporter);
-        createSlabRecipe(RecipeCategory.BUILDING_BLOCKS, ModItems.WRITHEWOOD_SLAB, Ingredient.ofItems(ModItems.WRITHEWOOD_PLANKS)).group("wooden_slab").criterion(RecipeProvider.hasItem(ModItems.WRITHEWOOD_PLANKS), conditionsFromItem(ModItems.WRITHEWOOD_PLANKS)).offerTo(exporter);
-        createFenceRecipe(ModItems.WRITHEWOOD_FENCE, Ingredient.ofItems(ModItems.WRITHEWOOD_PLANKS)).group("wooden_fence").criterion(RecipeProvider.hasItem(ModItems.WRITHEWOOD_PLANKS), conditionsFromItem(ModItems.WRITHEWOOD_PLANKS)).offerTo(exporter);
-        createFenceGateRecipe(ModItems.WRITHEWOOD_FENCE_GATE, Ingredient.ofItems(ModItems.WRITHEWOOD_PLANKS)).group("wooden_fence_gate").criterion(RecipeProvider.hasItem(ModItems.WRITHEWOOD_PLANKS), conditionsFromItem(ModItems.WRITHEWOOD_PLANKS)).offerTo(exporter);
-        createPressurePlateRecipe(RecipeCategory.REDSTONE, ModItems.WRITHEWOOD_PRESSURE_PLATE, Ingredient.ofItems(ModItems.WRITHEWOOD_PLANKS)).group("wooden_pressure_plate").criterion(RecipeProvider.hasItem(ModItems.WRITHEWOOD_PLANKS), conditionsFromItem(ModItems.WRITHEWOOD_PLANKS)).offerTo(exporter);
-        offerShapeless(exporter, RecipeCategory.REDSTONE, ModItems.WRITHEWOOD_BUTTON, 1, ModItems.WRITHEWOOD_PLANKS, "wooden_button");
-        createTrapdoorRecipe(ModItems.WRITHEWOOD_TRAPDOOR, Ingredient.ofItems(ModItems.WRITHEWOOD_PLANKS)).group("wooden_trapdoor").criterion(RecipeProvider.hasItem(ModItems.WRITHEWOOD_PLANKS), conditionsFromItem(ModItems.WRITHEWOOD_PLANKS)).offerTo(exporter);
-        createDoorRecipe(ModItems.WRITHEWOOD_DOOR, Ingredient.ofItems(ModItems.WRITHEWOOD_PLANKS)).group("wooden_door").criterion(RecipeProvider.hasItem(ModItems.WRITHEWOOD_PLANKS), conditionsFromItem(ModItems.WRITHEWOOD_PLANKS)).offerTo(exporter);
-        createSignRecipe(ModItems.WRITHEWOOD_SIGN, Ingredient.ofItems(ModItems.WRITHEWOOD_PLANKS)).group("wooden_sign").criterion(RecipeProvider.hasItem(ModItems.WRITHEWOOD_PLANKS), conditionsFromItem(ModItems.WRITHEWOOD_PLANKS)).offerTo(exporter);
-        offerBoatRecipe(exporter, ModItems.WRITHEWOOD_BOAT, ModItems.WRITHEWOOD_PLANKS);
-        offerChestBoatRecipe(exporter, ModItems.WRITHEWOOD_CHEST_BOAT, ModItems.WRITHEWOOD_BOAT);
+        offerBarkBlockRecipe(exporter, AylythItems.WRITHEWOOD_STRIPPED_WOOD, AylythItems.WRITHEWOOD_STRIPPED_LOG);
+        offerBarkBlockRecipe(exporter, AylythItems.WRITHEWOOD_WOOD, AylythItems.WRITHEWOOD_LOG);
+        offerPlanksRecipe(exporter, AylythItems.WRITHEWOOD_PLANKS, AylythItemTags.WRITHEWOOD_LOGS, 4);
+        createStairsRecipe(AylythItems.WRITHEWOOD_STAIRS, Ingredient.ofItems(AylythItems.WRITHEWOOD_PLANKS)).group("wooden_stairs").criterion(RecipeProvider.hasItem(AylythItems.WRITHEWOOD_PLANKS), conditionsFromItem(AylythItems.WRITHEWOOD_PLANKS)).offerTo(exporter);
+        createSlabRecipe(RecipeCategory.BUILDING_BLOCKS, AylythItems.WRITHEWOOD_SLAB, Ingredient.ofItems(AylythItems.WRITHEWOOD_PLANKS)).group("wooden_slab").criterion(RecipeProvider.hasItem(AylythItems.WRITHEWOOD_PLANKS), conditionsFromItem(AylythItems.WRITHEWOOD_PLANKS)).offerTo(exporter);
+        createFenceRecipe(AylythItems.WRITHEWOOD_FENCE, Ingredient.ofItems(AylythItems.WRITHEWOOD_PLANKS)).group("wooden_fence").criterion(RecipeProvider.hasItem(AylythItems.WRITHEWOOD_PLANKS), conditionsFromItem(AylythItems.WRITHEWOOD_PLANKS)).offerTo(exporter);
+        createFenceGateRecipe(AylythItems.WRITHEWOOD_FENCE_GATE, Ingredient.ofItems(AylythItems.WRITHEWOOD_PLANKS)).group("wooden_fence_gate").criterion(RecipeProvider.hasItem(AylythItems.WRITHEWOOD_PLANKS), conditionsFromItem(AylythItems.WRITHEWOOD_PLANKS)).offerTo(exporter);
+        createPressurePlateRecipe(RecipeCategory.REDSTONE, AylythItems.WRITHEWOOD_PRESSURE_PLATE, Ingredient.ofItems(AylythItems.WRITHEWOOD_PLANKS)).group("wooden_pressure_plate").criterion(RecipeProvider.hasItem(AylythItems.WRITHEWOOD_PLANKS), conditionsFromItem(AylythItems.WRITHEWOOD_PLANKS)).offerTo(exporter);
+        offerShapeless(exporter, RecipeCategory.REDSTONE, AylythItems.WRITHEWOOD_BUTTON, 1, AylythItems.WRITHEWOOD_PLANKS, "wooden_button");
+        createTrapdoorRecipe(AylythItems.WRITHEWOOD_TRAPDOOR, Ingredient.ofItems(AylythItems.WRITHEWOOD_PLANKS)).group("wooden_trapdoor").criterion(RecipeProvider.hasItem(AylythItems.WRITHEWOOD_PLANKS), conditionsFromItem(AylythItems.WRITHEWOOD_PLANKS)).offerTo(exporter);
+        createDoorRecipe(AylythItems.WRITHEWOOD_DOOR, Ingredient.ofItems(AylythItems.WRITHEWOOD_PLANKS)).group("wooden_door").criterion(RecipeProvider.hasItem(AylythItems.WRITHEWOOD_PLANKS), conditionsFromItem(AylythItems.WRITHEWOOD_PLANKS)).offerTo(exporter);
+        createSignRecipe(AylythItems.WRITHEWOOD_SIGN, Ingredient.ofItems(AylythItems.WRITHEWOOD_PLANKS)).group("wooden_sign").criterion(RecipeProvider.hasItem(AylythItems.WRITHEWOOD_PLANKS), conditionsFromItem(AylythItems.WRITHEWOOD_PLANKS)).offerTo(exporter);
+        offerBoatRecipe(exporter, AylythItems.WRITHEWOOD_BOAT, AylythItems.WRITHEWOOD_PLANKS);
+        offerChestBoatRecipe(exporter, AylythItems.WRITHEWOOD_CHEST_BOAT, AylythItems.WRITHEWOOD_BOAT);
         
-        offerShapeless(exporter, RecipeCategory.MISC, ModItems.GHOSTCAP_MUSHROOM_SPORES, 1, ModItems.GHOSTCAP_MUSHROOM, null);
+        offerShapeless(exporter, RecipeCategory.MISC, AylythItems.GHOSTCAP_MUSHROOM_SPORES, 1, AylythItems.GHOSTCAP_MUSHROOM, null);
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModBlocks.DARK_WOODS_TILES, 8)
-                .input('Y', ModBlocks.YMPE_PLANKS)
-                .input('W', ModBlocks.WRITHEWOOD_PLANKS)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, AylythBlocks.DARK_WOODS_TILES, 8)
+                .input('Y', AylythBlocks.YMPE_PLANKS)
+                .input('W', AylythBlocks.WRITHEWOOD_PLANKS)
                 .pattern("YW")
                 .pattern("WY")
-                .criterion("has_writhe", conditionsFromItem(ModBlocks.WRITHEWOOD_PLANKS))
+                .criterion("has_writhe", conditionsFromItem(AylythBlocks.WRITHEWOOD_PLANKS))
                 .offerTo(exporter);
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModBlocks.DARK_WOODS_TILES, 8)
-                .input('Y', ModBlocks.YMPE_PLANKS)
-                .input('W', ModBlocks.WRITHEWOOD_PLANKS)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, AylythBlocks.DARK_WOODS_TILES, 8)
+                .input('Y', AylythBlocks.YMPE_PLANKS)
+                .input('W', AylythBlocks.WRITHEWOOD_PLANKS)
                 .pattern("WY")
                 .pattern("YW")
-                .criterion("has_writhe", conditionsFromItem(ModBlocks.WRITHEWOOD_PLANKS))
+                .criterion("has_writhe", conditionsFromItem(AylythBlocks.WRITHEWOOD_PLANKS))
                 .offerTo(exporter, "aylyth:dark_woods_tiles_2");
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.YMPE_GLAIVE)
-                .input('D', ModItems.YMPE_DAGGER)
-                .input('S', ModItems.YMPE_SAPLING)
-                .input('C', ModItems.CORIC_SEED)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, AylythItems.YMPE_GLAIVE)
+                .input('D', AylythItems.YMPE_DAGGER)
+                .input('S', AylythItems.YMPE_SAPLING)
+                .input('C', AylythItems.CORIC_SEED)
                 .pattern(" CD")
                 .pattern(" SS")
                 .pattern("S  ")
-                .criterion("has_dagger", conditionsFromItem(ModItems.YMPE_DAGGER))
+                .criterion("has_dagger", conditionsFromItem(AylythItems.YMPE_DAGGER))
                 .offerTo(exporter);
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, ModItems.YMPE_EFFIGY)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, AylythItems.YMPE_EFFIGY)
                 .input('D', Items.SOUL_SOIL)
-                .input('S', ModItems.YMPE_SAPLING)
-                .input('E', ModItems.ESSTLINE)
+                .input('S', AylythItems.YMPE_SAPLING)
+                .input('E', AylythItems.ESSTLINE)
                 .input('H', AylythItemTags.BOSS_HEARTS)
                 .pattern("DED")
                 .pattern("EHE")
@@ -104,11 +104,11 @@ public final class AylythRecipeProvider extends FabricRecipeProvider {
                 .criterion("has_coric_seed", conditionsFromTag(AylythItemTags.BOSS_HEARTS))
                 .offerTo(exporter);
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.VITAL_THURIBLE)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, AylythItems.VITAL_THURIBLE)
                 .input('S', Items.POLISHED_DEEPSLATE_SLAB)
                 .input('H', AylythItemTags.BOSS_HEARTS)
                 .input('P', Items.POLISHED_DEEPSLATE_WALL)
-                .input('E', ModItems.ESSTLINE)
+                .input('E', AylythItems.ESSTLINE)
                 .input('C', Items.SOUL_CAMPFIRE)
                 .pattern("SHS")
                 .pattern("PEP")
@@ -116,151 +116,151 @@ public final class AylythRecipeProvider extends FabricRecipeProvider {
                 .criterion("has_heart", conditionsFromTag(AylythItemTags.BOSS_HEARTS))
                 .offerTo(exporter);
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.SOUL_HEARTH)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, AylythItems.SOUL_HEARTH)
                 .input('S', Items.POLISHED_DEEPSLATE_SLAB)
                 .input('W', Items.POLISHED_DEEPSLATE_WALL)
                 .input('C', Items.SOUL_CAMPFIRE)
-                .input('H', ModItems.AYLYTHIAN_HEART)
+                .input('H', AylythItems.AYLYTHIAN_HEART)
                 .pattern(" S ")
                 .pattern("WCW")
                 .pattern("WHW")
-                .criterion("has_heart", conditionsFromItem(ModItems.AYLYTHIAN_HEART))
+                .criterion("has_heart", conditionsFromItem(AylythItems.AYLYTHIAN_HEART))
                 .offerTo(exporter);
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.GIRASOL_SEED)
-                .input('Y', ModItems.YMPE_SAPLING)
-                .input('H', ModItems.AYLYTHIAN_HEART)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, AylythItems.GIRASOL_SEED)
+                .input('Y', AylythItems.YMPE_SAPLING)
+                .input('H', AylythItems.AYLYTHIAN_HEART)
                 .input('S', Ingredient.ofItems(Items.SOUL_SAND, Items.SOUL_SOIL))
                 .input('E', Items.ENDER_PEARL)
                 .pattern("YHY")
                 .pattern("SES")
                 .pattern("YSY")
-                .criterion("has_heart", conditionsFromItem(ModItems.AYLYTHIAN_HEART))
+                .criterion("has_heart", conditionsFromItem(AylythItems.AYLYTHIAN_HEART))
                 .offerTo(exporter);
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.YMPE_CUIRASS)
-                .input('W', ModItems.WRONGMEAT)
-                .input('H', ModItems.AYLYTHIAN_HEART)
-                .input('C', ModItems.CORIC_SEED)
-                .input('G', ModItems.LARGE_WOODY_GROWTH)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, AylythItems.YMPE_CUIRASS)
+                .input('W', AylythItems.WRONGMEAT)
+                .input('H', AylythItems.AYLYTHIAN_HEART)
+                .input('C', AylythItems.CORIC_SEED)
+                .input('G', AylythItems.LARGE_WOODY_GROWTH)
                 .pattern("GHG")
                 .pattern("WCW")
                 .pattern("G G")
-                .criterion("has_heart", conditionsFromItem(ModItems.AYLYTHIAN_HEART))
+                .criterion("has_heart", conditionsFromItem(AylythItems.AYLYTHIAN_HEART))
                 .offerTo(exporter);
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.NEPHRITE_SWORD)
-                .input('N', ModItems.NEPHRITE)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, AylythItems.NEPHRITE_SWORD)
+                .input('N', AylythItems.NEPHRITE)
                 .input('S', Items.STICK)
                 .pattern("N")
                 .pattern("N")
                 .pattern("S")
-                .criterion("has_nephrite", conditionsFromItem(ModItems.NEPHRITE))
+                .criterion("has_nephrite", conditionsFromItem(AylythItems.NEPHRITE))
                 .offerTo(exporter);
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.NEPHRITE_SHOVEL)
-                .input('N', ModItems.NEPHRITE)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, AylythItems.NEPHRITE_SHOVEL)
+                .input('N', AylythItems.NEPHRITE)
                 .input('S', Items.STICK)
                 .pattern("N")
                 .pattern("S")
                 .pattern("S")
-                .criterion("has_nephrite", conditionsFromItem(ModItems.NEPHRITE))
+                .criterion("has_nephrite", conditionsFromItem(AylythItems.NEPHRITE))
                 .offerTo(exporter);
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.NEPHRITE_PICKAXE)
-                .input('N', ModItems.NEPHRITE)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, AylythItems.NEPHRITE_PICKAXE)
+                .input('N', AylythItems.NEPHRITE)
                 .input('S', Items.STICK)
                 .pattern("NNN")
                 .pattern(" S ")
                 .pattern(" S ")
-                .criterion("has_nephrite", conditionsFromItem(ModItems.NEPHRITE))
+                .criterion("has_nephrite", conditionsFromItem(AylythItems.NEPHRITE))
                 .offerTo(exporter);
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.NEPHRITE_AXE)
-                .input('N', ModItems.NEPHRITE)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, AylythItems.NEPHRITE_AXE)
+                .input('N', AylythItems.NEPHRITE)
                 .input('S', Items.STICK)
                 .pattern("NN")
                 .pattern("NS")
                 .pattern(" S")
-                .criterion("has_nephrite", conditionsFromItem(ModItems.NEPHRITE))
+                .criterion("has_nephrite", conditionsFromItem(AylythItems.NEPHRITE))
                 .offerTo(exporter);
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.NEPHRITE_HOE)
-                .input('N', ModItems.NEPHRITE)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, AylythItems.NEPHRITE_HOE)
+                .input('N', AylythItems.NEPHRITE)
                 .input('S', Items.STICK)
                 .pattern("NN")
                 .pattern(" S")
                 .pattern(" S")
-                .criterion("has_nephrite", conditionsFromItem(ModItems.NEPHRITE))
+                .criterion("has_nephrite", conditionsFromItem(AylythItems.NEPHRITE))
                 .offerTo(exporter);
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.BREWING, ModItems.NEPHRITE_FLASK)
-                .input('N', ModItems.NEPHRITE)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BREWING, AylythItems.NEPHRITE_FLASK)
+                .input('N', AylythItems.NEPHRITE)
                 .input('E', Items.STICK)
                 .pattern("NEN")
                 .pattern(" N ")
-                .criterion("has_nephrite", conditionsFromItem(ModItems.NEPHRITE))
+                .criterion("has_nephrite", conditionsFromItem(AylythItems.NEPHRITE))
                 .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, Items.TORCH)
                 .input('S', Items.STICK)
-                .input('C', ModItems.BARK)
+                .input('C', AylythItems.BARK)
                 .pattern("C")
                 .pattern("S")
-                .criterion("has_bark", conditionsFromItem(ModItems.BARK))
+                .criterion("has_bark", conditionsFromItem(AylythItems.BARK))
                 .offerTo(exporter, "torch_from_bark");
 
-        ShapelessRecipeJsonBuilder.create(RecipeCategory.BREWING, ModItems.NEPHRITE_FLASK)
-                .input(DefaultCustomIngredients.nbt(new ItemStack(ModItems.DARK_NEPHRITE_FLASK), true))
-                .input(ModItems.AYLYTHIAN_HEART)
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.BREWING, AylythItems.NEPHRITE_FLASK)
+                .input(DefaultCustomIngredients.nbt(new ItemStack(AylythItems.DARK_NEPHRITE_FLASK), true))
+                .input(AylythItems.AYLYTHIAN_HEART)
                 .group("flask_conversion")
                 .criterion("has_nephrite_flask", conditionsFromTag(AylythItemTags.NEPHRITE_FLASKS))
                 .offerTo(exporter, "nephrite_flask_from_dark_nephrite_flask");
 
-        ItemStack flask = new ItemStack(ModItems.NEPHRITE_FLASK);
+        ItemStack flask = new ItemStack(AylythItems.NEPHRITE_FLASK);
         flask.getOrCreateSubNbt("tag").putInt("uses", 0);
-        ShapelessRecipeJsonBuilder.create(RecipeCategory.BREWING, ModItems.DARK_NEPHRITE_FLASK)
-                .input(DefaultCustomIngredients.nbt(new ItemStack(ModItems.NEPHRITE_FLASK), true))
-                .input(ModItems.BLIGHTED_THORNS)
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.BREWING, AylythItems.DARK_NEPHRITE_FLASK)
+                .input(DefaultCustomIngredients.nbt(new ItemStack(AylythItems.NEPHRITE_FLASK), true))
+                .input(AylythItems.BLIGHTED_THORNS)
                 .group("flask_conversion")
                 .criterion("has_nephrite_flask", conditionsFromTag(AylythItemTags.NEPHRITE_FLASKS))
                 .offerTo(exporter, "dark_nephrite_flask_from_nephrite_flask");
 
-        offerShapeless(exporter, RecipeCategory.COMBAT, ModItems.BLIGHTED_THORN_FLECHETTE, 4, ModItems.BLIGHTED_THORNS);
+        offerShapeless(exporter, RecipeCategory.COMBAT, AylythItems.BLIGHTED_THORN_FLECHETTE, 4, AylythItems.BLIGHTED_THORNS);
 
-        offerReversibleCompactingRecipesWithReverseRecipeGroup(exporter, RecipeCategory.MISC, ModItems.ESSTLINE, RecipeCategory.BUILDING_BLOCKS, ModItems.ESSTLINE_BLOCK, "esstline_from_esstline_block", "esstline");
-        offerReversibleCompactingRecipesWithReverseRecipeGroup(exporter, RecipeCategory.MISC, ModItems.NEPHRITE, RecipeCategory.BUILDING_BLOCKS, ModItems.NEPHRITE_BLOCK, "nephrite_from_nephrite_block", "nephrite");
-        createTwoByTwo(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CARVED_SMOOTH_NEPHRITE, 8, ModItems.NEPHRITE, "carved_smooth_nephrite");
-        createStonecutting(exporter, AylythItemTags.CARVED_NEPHRITE, ModBlocks.CARVED_SMOOTH_NEPHRITE, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CARVED_SMOOTH_NEPHRITE);
-        createStonecutting(exporter, AylythItemTags.CARVED_NEPHRITE, ModBlocks.CARVED_SMOOTH_NEPHRITE, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CARVED_ANTLERED_NEPHRITE);
-        createStonecutting(exporter, AylythItemTags.CARVED_NEPHRITE, ModBlocks.CARVED_SMOOTH_NEPHRITE, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CARVED_NEPHRITE_PILLAR);
-        createStonecutting(exporter, AylythItemTags.CARVED_NEPHRITE, ModBlocks.CARVED_SMOOTH_NEPHRITE, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CARVED_NEPHRITE_TILES);
-        createStonecutting(exporter, AylythItemTags.CARVED_NEPHRITE, ModBlocks.CARVED_SMOOTH_NEPHRITE, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CARVED_WOODY_NEPHRITE);
+        offerReversibleCompactingRecipesWithReverseRecipeGroup(exporter, RecipeCategory.MISC, AylythItems.ESSTLINE, RecipeCategory.BUILDING_BLOCKS, AylythItems.ESSTLINE_BLOCK, "esstline_from_esstline_block", "esstline");
+        offerReversibleCompactingRecipesWithReverseRecipeGroup(exporter, RecipeCategory.MISC, AylythItems.NEPHRITE, RecipeCategory.BUILDING_BLOCKS, AylythItems.NEPHRITE_BLOCK, "nephrite_from_nephrite_block", "nephrite");
+        createTwoByTwo(exporter, RecipeCategory.BUILDING_BLOCKS, AylythBlocks.CARVED_SMOOTH_NEPHRITE, 8, AylythItems.NEPHRITE, "carved_smooth_nephrite");
+        createStonecutting(exporter, AylythItemTags.CARVED_NEPHRITE, AylythBlocks.CARVED_SMOOTH_NEPHRITE, RecipeCategory.BUILDING_BLOCKS, AylythBlocks.CARVED_SMOOTH_NEPHRITE);
+        createStonecutting(exporter, AylythItemTags.CARVED_NEPHRITE, AylythBlocks.CARVED_SMOOTH_NEPHRITE, RecipeCategory.BUILDING_BLOCKS, AylythBlocks.CARVED_ANTLERED_NEPHRITE);
+        createStonecutting(exporter, AylythItemTags.CARVED_NEPHRITE, AylythBlocks.CARVED_SMOOTH_NEPHRITE, RecipeCategory.BUILDING_BLOCKS, AylythBlocks.CARVED_NEPHRITE_PILLAR);
+        createStonecutting(exporter, AylythItemTags.CARVED_NEPHRITE, AylythBlocks.CARVED_SMOOTH_NEPHRITE, RecipeCategory.BUILDING_BLOCKS, AylythBlocks.CARVED_NEPHRITE_TILES);
+        createStonecutting(exporter, AylythItemTags.CARVED_NEPHRITE, AylythBlocks.CARVED_SMOOTH_NEPHRITE, RecipeCategory.BUILDING_BLOCKS, AylythBlocks.CARVED_WOODY_NEPHRITE);
 
-        offerHangingSignRecipe(exporter, ModItems.YMPE_HANGING_SIGN, ModItems.YMPE_STRIPPED_LOG);
-        offerHangingSignRecipe(exporter, ModItems.POMEGRANATE_HANGING_SIGN, ModItems.POMEGRANATE_STRIPPED_LOG);
-        offerHangingSignRecipe(exporter, ModItems.WRITHEWOOD_HANGING_SIGN, ModItems.WRITHEWOOD_STRIPPED_LOG);
+        offerHangingSignRecipe(exporter, AylythItems.YMPE_HANGING_SIGN, AylythItems.YMPE_STRIPPED_LOG);
+        offerHangingSignRecipe(exporter, AylythItems.POMEGRANATE_HANGING_SIGN, AylythItems.POMEGRANATE_STRIPPED_LOG);
+        offerHangingSignRecipe(exporter, AylythItems.WRITHEWOOD_HANGING_SIGN, AylythItems.WRITHEWOOD_STRIPPED_LOG);
 
-        createSmithingUpgrade(exporter, ModItems.AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE, ModItems.NEPHRITE_SWORD, ModItems.BLIGHTED_THORNS, ModItems.BLIGHTED_SWORD, RecipeCategory.COMBAT);
-        createSmithingUpgrade(exporter, ModItems.AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE, ModItems.NEPHRITE_PICKAXE, ModItems.BLIGHTED_THORNS, ModItems.BLIGHTED_PICKAXE, RecipeCategory.COMBAT);
-        createSmithingUpgrade(exporter, ModItems.AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE, ModItems.NEPHRITE_AXE, ModItems.BLIGHTED_THORNS, ModItems.BLIGHTED_AXE, RecipeCategory.COMBAT);
-        createSmithingUpgrade(exporter, ModItems.AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE, ModItems.NEPHRITE_HOE, ModItems.BLIGHTED_THORNS, ModItems.BLIGHTED_HOE, RecipeCategory.COMBAT);
+        createSmithingUpgrade(exporter, AylythItems.AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE, AylythItems.NEPHRITE_SWORD, AylythItems.BLIGHTED_THORNS, AylythItems.BLIGHTED_SWORD, RecipeCategory.COMBAT);
+        createSmithingUpgrade(exporter, AylythItems.AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE, AylythItems.NEPHRITE_PICKAXE, AylythItems.BLIGHTED_THORNS, AylythItems.BLIGHTED_PICKAXE, RecipeCategory.COMBAT);
+        createSmithingUpgrade(exporter, AylythItems.AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE, AylythItems.NEPHRITE_AXE, AylythItems.BLIGHTED_THORNS, AylythItems.BLIGHTED_AXE, RecipeCategory.COMBAT);
+        createSmithingUpgrade(exporter, AylythItems.AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE, AylythItems.NEPHRITE_HOE, AylythItems.BLIGHTED_THORNS, AylythItems.BLIGHTED_HOE, RecipeCategory.COMBAT);
 
-        createSmithingUpgrade(exporter, ModItems.AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE, ModItems.NEPHRITE_SWORD, ModItems.AYLYTHIAN_HEART, ModItems.VAMPIRIC_SWORD, RecipeCategory.COMBAT);
-        createSmithingUpgrade(exporter, ModItems.AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE, ModItems.NEPHRITE_PICKAXE, ModItems.AYLYTHIAN_HEART, ModItems.VAMPIRIC_PICKAXE, RecipeCategory.COMBAT);
-        createSmithingUpgrade(exporter, ModItems.AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE, ModItems.NEPHRITE_AXE, ModItems.AYLYTHIAN_HEART, ModItems.VAMPIRIC_AXE, RecipeCategory.COMBAT);
-        createSmithingUpgrade(exporter, ModItems.AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE, ModItems.NEPHRITE_HOE, ModItems.AYLYTHIAN_HEART, ModItems.VAMPIRIC_HOE, RecipeCategory.COMBAT);
+        createSmithingUpgrade(exporter, AylythItems.AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE, AylythItems.NEPHRITE_SWORD, AylythItems.AYLYTHIAN_HEART, AylythItems.VAMPIRIC_SWORD, RecipeCategory.COMBAT);
+        createSmithingUpgrade(exporter, AylythItems.AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE, AylythItems.NEPHRITE_PICKAXE, AylythItems.AYLYTHIAN_HEART, AylythItems.VAMPIRIC_PICKAXE, RecipeCategory.COMBAT);
+        createSmithingUpgrade(exporter, AylythItems.AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE, AylythItems.NEPHRITE_AXE, AylythItems.AYLYTHIAN_HEART, AylythItems.VAMPIRIC_AXE, RecipeCategory.COMBAT);
+        createSmithingUpgrade(exporter, AylythItems.AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE, AylythItems.NEPHRITE_HOE, AylythItems.AYLYTHIAN_HEART, AylythItems.VAMPIRIC_HOE, RecipeCategory.COMBAT);
         
-        YmpeDaggerRecipeJsonBuilder.create(ModEntityTypes.WREATHED_HIND_ENTITY, ModItems.WRONGMEAT, 0.2f, 3, 5)
+        YmpeDaggerRecipeJsonBuilder.create(AylythEntityTypes.WREATHED_HIND_ENTITY, AylythItems.WRONGMEAT, 0.2f, 3, 5)
                 .offerTo(exporter);
 
         NbtCompound shucked = new NbtCompound();
         shucked.put("StoredEntity", new NbtCompound());
-        SoulCampfireRecipeBuilder.create(ModItems.CORIC_SEED)
-                .with(ModItems.AYLYTHIAN_HEART)
-                .with(ModItems.WRONGMEAT)
-                .with(ModItems.ESSTLINE)
-                .with(DefaultCustomIngredients.nbt(Ingredient.ofItems(ModItems.SHUCKED_YMPE_FRUIT), shucked, false))
+        SoulCampfireRecipeBuilder.create(AylythItems.CORIC_SEED)
+                .with(AylythItems.AYLYTHIAN_HEART)
+                .with(AylythItems.WRONGMEAT)
+                .with(AylythItems.ESSTLINE)
+                .with(DefaultCustomIngredients.nbt(Ingredient.ofItems(AylythItems.SHUCKED_YMPE_FRUIT), shucked, false))
                 .offerTo(exporter);
     }
 

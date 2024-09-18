@@ -1,8 +1,8 @@
 package moriyashiine.aylyth.datagen.common.loot;
 
 import com.google.common.collect.Maps;
-import moriyashiine.aylyth.common.registry.ModEntityTypes;
-import moriyashiine.aylyth.common.registry.ModItems;
+import moriyashiine.aylyth.common.entity.AylythEntityTypes;
+import moriyashiine.aylyth.common.item.AylythItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
 import net.minecraft.entity.Entity;
@@ -33,13 +33,13 @@ public class AylythEntityLootProvider extends SimpleFabricLootTableProvider {
     }
 
     protected void generateLoot() {
-        addDrop(ModEntityTypes.AYLYTHIAN, this::aylythianLoot);
-        addDrop(ModEntityTypes.ELDER_AYLYTHIAN, this::elderAylythianLoot);
-        addDrop(ModEntityTypes.SCION, this::scionLoot);
+        addDrop(AylythEntityTypes.AYLYTHIAN, this::aylythianLoot);
+        addDrop(AylythEntityTypes.ELDER_AYLYTHIAN, this::elderAylythianLoot);
+        addDrop(AylythEntityTypes.SCION, this::scionLoot);
         if (false) { // TODO: these drops are specified in the constructs doc. Normal loot that drops before post-death?
-            addDrop(ModEntityTypes.SOULMOULD, this::mouldOfSoulsLoot);
-            addDrop(ModEntityTypes.BONEFLY, this::boneflyLoot);
-            addDrop(ModEntityTypes.TULPA, this::tulpaLoot);
+            addDrop(AylythEntityTypes.SOULMOULD, this::mouldOfSoulsLoot);
+            addDrop(AylythEntityTypes.BONEFLY, this::boneflyLoot);
+            addDrop(AylythEntityTypes.TULPA, this::tulpaLoot);
         }
     }
 
@@ -47,21 +47,21 @@ public class AylythEntityLootProvider extends SimpleFabricLootTableProvider {
         return LootTable.builder()
                 .pool(LootPool.builder().with(ItemEntry.builder(Items.BONE)).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0, 2))).apply(LootingEnchantLootFunction.builder(UniformLootNumberProvider.create(0, 1))))
                 .pool(LootPool.builder().with(ItemEntry.builder(Items.STICK)).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0, 2))).apply(LootingEnchantLootFunction.builder(UniformLootNumberProvider.create(0, 1))))
-                .pool(LootPool.builder().with(ItemEntry.builder(ModItems.YMPE_FRUIT)).conditionally(KilledByPlayerLootCondition.builder().build()).conditionally(RandomChanceWithLootingLootCondition.builder(0.25f, 0.01f)));
+                .pool(LootPool.builder().with(ItemEntry.builder(AylythItems.YMPE_FRUIT)).conditionally(KilledByPlayerLootCondition.builder().build()).conditionally(RandomChanceWithLootingLootCondition.builder(0.25f, 0.01f)));
     }
 
     private LootTable.Builder elderAylythianLoot(EntityType<?> type) {
         return LootTable.builder()
                 .pool(LootPool.builder().with(ItemEntry.builder(Items.BONE)).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0, 2))).apply(LootingEnchantLootFunction.builder(UniformLootNumberProvider.create(0, 1))))
                 .pool(LootPool.builder().with(ItemEntry.builder(Items.STICK)).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0, 2))).apply(LootingEnchantLootFunction.builder(UniformLootNumberProvider.create(0, 1))))
-                .pool(LootPool.builder().with(ItemEntry.builder(ModItems.YMPE_FRUIT)).conditionally(KilledByPlayerLootCondition.builder().build()).conditionally(RandomChanceWithLootingLootCondition.builder(0.25f, 0.01f)));
+                .pool(LootPool.builder().with(ItemEntry.builder(AylythItems.YMPE_FRUIT)).conditionally(KilledByPlayerLootCondition.builder().build()).conditionally(RandomChanceWithLootingLootCondition.builder(0.25f, 0.01f)));
     }
 
     private LootTable.Builder scionLoot(EntityType<?> type) {
         return LootTable.builder()
-                .pool(LootPool.builder().with(GroupEntry.create(ItemEntry.builder(ModItems.POMEGRANATE), ItemEntry.builder(ModItems.NYSIAN_GRAPES))))
+                .pool(LootPool.builder().with(GroupEntry.create(ItemEntry.builder(AylythItems.POMEGRANATE), ItemEntry.builder(AylythItems.NYSIAN_GRAPES))))
                 .pool(LootPool.builder().with(ItemEntry.builder(Items.ROTTEN_FLESH).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 3)))))
-                .pool(LootPool.builder().with(ItemEntry.builder(ModItems.YMPE_SAPLING)));
+                .pool(LootPool.builder().with(ItemEntry.builder(AylythItems.YMPE_SAPLING)));
     }
 
     private LootTable.Builder mouldOfSoulsLoot(EntityType<?> type) {
