@@ -120,12 +120,12 @@ public interface AylythItems {
 	//Item MYSTERIOUS_SKETCH = registerSimple("mysterious_sketch");
     Item BARK = registerSimple("bark");
 
-    Item LANCEOLATE_DAGGER = register("lanceolate_dagger", new DaggerItem(ModToolMaterials.NEPHRITE, 1, -2, -0.5f, settings()));
-    Item YMPE_DAGGER = register("ympe_dagger", new YmpeDaggerItem(ModToolMaterials.NEPHRITE, 2, -2, -0.5f, settings()));
-    Item YMPE_GLAIVE = register("ympe_glaive", new YmpeGlaiveItem(ModToolMaterials.NEPHRITE, 5, -2.8F, (settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(1)));
+    Item LANCEOLATE_DAGGER = register("lanceolate_dagger", new DaggerItem(AylythToolMaterials.NEPHRITE, 1, -2, -0.5f, settings()));
+    Item YMPE_DAGGER = register("ympe_dagger", new YmpeDaggerItem(AylythToolMaterials.NEPHRITE, 2, -2, -0.5f, settings()));
+    Item YMPE_GLAIVE = register("ympe_glaive", new YmpeGlaiveItem(AylythToolMaterials.NEPHRITE, 5, -2.8F, (settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(1)));
     Item YMPE_LANCE = register("ympe_lance", new YmpeLanceItem(settings().maxCount(1).maxDamage(312)));
-    Item YMPE_FLAMBERGE = register("ympe_flamberge", new YmpeFlambergeItem(ModToolMaterials.NEPHRITE, 5, -3.1F, (settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(1)));
-    Item YMPE_SCYTHE = register("ympe_scythe", new YmpeScytheItem(ModToolMaterials.NEPHRITE, 4, -2.7F, (settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(1)));
+    Item YMPE_FLAMBERGE = register("ympe_flamberge", new YmpeFlambergeItem(AylythToolMaterials.NEPHRITE, 5, -3.1F, (settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(1)));
+    Item YMPE_SCYTHE = register("ympe_scythe", new YmpeScytheItem(AylythToolMaterials.NEPHRITE, 4, -2.7F, (settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(1)));
 
     Item AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE = register("aylythian_upgrade_smithing_template", new AylythianSmithingTemplateUpgradeItem());
     Item CORIC_SEED = register("coric_seed", new CoricSeedItem(settings()));
@@ -141,21 +141,21 @@ public interface AylythItems {
     Item CARVED_NEPHRITE_TILES = registerBlockItem("carved_nephrite_tiles", AylythBlocks.CARVED_NEPHRITE_TILES);
     Item CARVED_WOODY_NEPHRITE = registerBlockItem("carved_woody_nephrite", AylythBlocks.CARVED_WOODY_NEPHRITE);
 
-    Item NEPHRITE_SWORD = register("nephrite_sword", new SwordItem(ModToolMaterials.NEPHRITE, 4, -2.4f, settings()));
-    Item NEPHRITE_SHOVEL = register("nephrite_shovel", new ShovelItem(ModToolMaterials.NEPHRITE, 1.5f, -3.0f, settings()));
-    Item NEPHRITE_PICKAXE = register("nephrite_pickaxe", new PickaxeItem(ModToolMaterials.NEPHRITE, 1, -2.8f, settings()));
-    Item NEPHRITE_AXE = register("nephrite_axe", new AxeItem(ModToolMaterials.NEPHRITE, 5, -3.0f, settings()));
-    Item NEPHRITE_HOE = register("nephrite_hoe", new HoeItem(ModToolMaterials.NEPHRITE, -3, 0f, settings()));
+    Item NEPHRITE_SWORD = register("nephrite_sword", new SwordItem(AylythToolMaterials.NEPHRITE, 4, -2.4f, settings()));
+    Item NEPHRITE_SHOVEL = register("nephrite_shovel", new ShovelItem(AylythToolMaterials.NEPHRITE, 1.5f, -3.0f, settings()));
+    Item NEPHRITE_PICKAXE = register("nephrite_pickaxe", new PickaxeItem(AylythToolMaterials.NEPHRITE, 1, -2.8f, settings()));
+    Item NEPHRITE_AXE = register("nephrite_axe", new AxeItem(AylythToolMaterials.NEPHRITE, 5, -3.0f, settings()));
+    Item NEPHRITE_HOE = register("nephrite_hoe", new HoeItem(AylythToolMaterials.NEPHRITE, -3, 0f, settings()));
 
-    Item VAMPIRIC_SWORD = register("vampiric_sword", new SwordItem(ModToolMaterials.NEPHRITE_SPECIAL, 4, -2.4f, settings()));
-    Item VAMPIRIC_PICKAXE = register("vampiric_pick", new PickaxeItem(ModToolMaterials.NEPHRITE_SPECIAL, 1, -2.8f, settings()));
-    Item VAMPIRIC_AXE = register("vampiric_axe", new AxeItem(ModToolMaterials.NEPHRITE_SPECIAL, 5, -3.0f, settings()));
-    Item VAMPIRIC_HOE = register("vampiric_sickle", new HoeItem(ModToolMaterials.NEPHRITE_SPECIAL, -3, 0f, settings()));
+    Item VAMPIRIC_SWORD = register("vampiric_sword", new SwordItem(AylythToolMaterials.NEPHRITE_SPECIAL, 4, -2.4f, settings()));
+    Item VAMPIRIC_PICKAXE = register("vampiric_pick", new PickaxeItem(AylythToolMaterials.NEPHRITE_SPECIAL, 1, -2.8f, settings()));
+    Item VAMPIRIC_AXE = register("vampiric_axe", new AxeItem(AylythToolMaterials.NEPHRITE_SPECIAL, 5, -3.0f, settings()));
+    Item VAMPIRIC_HOE = register("vampiric_sickle", new HoeItem(AylythToolMaterials.NEPHRITE_SPECIAL, -3, 0f, settings()));
 
-    Item BLIGHTED_SWORD = register("blighted_sword", new SwordItem(ModToolMaterials.NEPHRITE_SPECIAL, 4, -2.4f, settings()));
-    Item BLIGHTED_PICKAXE = register("blighted_pick", new PickaxeItem(ModToolMaterials.NEPHRITE_SPECIAL, 1, -2.8f, settings()));
-    Item BLIGHTED_AXE = register("blighted_axe", new AxeItem(ModToolMaterials.NEPHRITE_SPECIAL, 5, -3.0f, settings()));
-    Item BLIGHTED_HOE = register("blighted_sickle", new HoeItem(ModToolMaterials.NEPHRITE_SPECIAL, -3, 0f, settings()));
+    Item BLIGHTED_SWORD = register("blighted_sword", new SwordItem(AylythToolMaterials.NEPHRITE_SPECIAL, 4, -2.4f, settings()));
+    Item BLIGHTED_PICKAXE = register("blighted_pick", new PickaxeItem(AylythToolMaterials.NEPHRITE_SPECIAL, 1, -2.8f, settings()));
+    Item BLIGHTED_AXE = register("blighted_axe", new AxeItem(AylythToolMaterials.NEPHRITE_SPECIAL, 5, -3.0f, settings()));
+    Item BLIGHTED_HOE = register("blighted_sickle", new HoeItem(AylythToolMaterials.NEPHRITE_SPECIAL, -3, 0f, settings()));
 
     Item THORN_FLECHETTE = register("thorn_flechette", new ThornFlechetteItem(settings()));
     Item BLIGHTED_THORN_FLECHETTE = register("blighted_thorn_flechette", new ThornFlechetteItem(settings(), new ThornFlechetteEffect(new StatusEffectInstance(AylythStatusEffects.BLIGHT, 100), 0.5f)));

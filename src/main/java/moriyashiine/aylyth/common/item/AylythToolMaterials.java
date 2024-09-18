@@ -8,7 +8,7 @@ import net.minecraft.recipe.Ingredient;
 
 import java.util.function.Supplier;
 
-public enum ModToolMaterials implements ToolMaterial {
+public enum AylythToolMaterials implements ToolMaterial {
     NEPHRITE(MiningLevels.NETHERITE, 400, 8.0f, 3.5f, 22, () -> Ingredient.fromTag(AylythItemTags.NEPHRITE_TOOL_MATERIALS)),
     NEPHRITE_SPECIAL(MiningLevels.NETHERITE, 800, 8.0f, 3.5f, 22, () -> Ingredient.fromTag(AylythItemTags.NEPHRITE_TOOL_MATERIALS));
 
@@ -19,7 +19,7 @@ public enum ModToolMaterials implements ToolMaterial {
     private final int enchantability;
     private final Supplier<Ingredient> repairIngredient;
 
-    ModToolMaterials(int miningLevel, int itemDurability, float miningSpeed, float attackDamage, int enchantability, Supplier<Ingredient> repairIngredient) {
+    AylythToolMaterials(int miningLevel, int itemDurability, float miningSpeed, float attackDamage, int enchantability, Supplier<Ingredient> repairIngredient) {
         this.miningLevel = miningLevel;
         this.itemDurability = itemDurability;
         this.miningSpeed = miningSpeed;
