@@ -5,6 +5,7 @@ import moriyashiine.aylyth.common.world.attachments.PledgeState;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
 
+@SuppressWarnings("UnstableApiUsage")
 public interface AylythWorldAttachmentTypes {
 
     AttachmentType<PledgeState> PLEDGE_STATE = AttachmentRegistry.<PledgeState>builder()
