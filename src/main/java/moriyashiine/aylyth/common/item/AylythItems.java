@@ -26,7 +26,7 @@ import java.util.List;
 
 public interface AylythItems {
 
-    List<Item> TEMPT_MAIN_ITEM_GROUP_ITEMS = new ObjectArrayList<>();
+    List<Item> TEMPT_MAIN_ITEM_GROUP_ITEMS = new ObjectArrayList<>(); // *private*
     RegistryKey<ItemGroup> MAIN_ITEM_GROUP = RegistryKey.of(RegistryKeys.ITEM_GROUP, AylythUtil.id(Aylyth.MOD_ID));
 
     Item DEBUG_WAND = register("debug_wand", new DebugWandItem(settings()));
@@ -181,7 +181,7 @@ public interface AylythItems {
     Item VITAL_THURIBLE = registerBlockItem("vital_thurible", AylythBlocks.VITAL_THURIBLE);
     Item BLACK_WELL = registerBlockItem("black_well", AylythBlocks.BLACK_WELL);
 
-    // TODO use simple numbers
+    // TODO convert hex to decimal
     Item PILOT_LIGHT_SPAWN_EGG = registerSpawnEgg("pilot_light_spawn_egg", AylythEntityTypes.PILOT_LIGHT, 0xFFD972, 0x9FD9F6);
     Item AYLYTHIAN_SPAWN_EGG = registerSpawnEgg("aylythian_spawn_egg", AylythEntityTypes.AYLYTHIAN, 0x6A4831, 0xE58E03);
     Item ELDER_AYLYTHIAN_SPAWN_EGG = registerSpawnEgg("elder_aylythian_spawn_egg", AylythEntityTypes.ELDER_AYLYTHIAN, 0x513425, 0xFFDC9B);
