@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.common.block.types;
+package moriyashiine.aylyth.common.block;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
