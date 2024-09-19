@@ -170,7 +170,7 @@ public interface AylythItems {
 
     Item NYSIAN_GRAPES = registerFood("nysian_grapes", AylythFoods.NYSIAN_GRAPES);
     Item GHOSTCAP_MUSHROOM = registerFood("ghostcap_mushroom", AylythFoods.GHOSTCAPS);
-    Item POMEGRANATE = registerFood("pomegranate", AylythFoods.POMEGRANATE);
+    Item POMEGRANATE = register("pomegranate", new PomegranateItem(settings().food(AylythFoods.POMEGRANATE)));
 
     Item WRONGMEAT = registerFood("wrongmeat", AylythFoods.WRONGMEAT);
     Item AYLYTHIAN_HEART = register("aylythian_heart", new AylythianHeartItem(settings()));
