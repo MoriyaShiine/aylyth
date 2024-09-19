@@ -152,6 +152,7 @@ public class Aylyth implements ModInitializer {
 	private ActionResult interactSoulCampfire(PlayerEntity playerEntity, World world, Hand hand, BlockHitResult blockHitResult) {
 		if(hand == Hand.MAIN_HAND && world.getBlockState(blockHitResult.getBlockPos()).isOf(Blocks.SOUL_CAMPFIRE) && world.getBlockEntity(blockHitResult.getBlockPos()) instanceof CampfireBlockEntity campfireBlockEntity){
 			ItemStack itemStack = playerEntity.getMainHandStack();
+			// TODO: Cache this?
 			List<Ingredient> allowedIngredients = world.getRecipeManager().listAllOfType(AylythRecipeTypes.SOULFIRE_TYPE).stream()
 					.map(SoulCampfireRecipe::getIngredients)
 					.flatMap(Collection::stream)
@@ -194,6 +195,7 @@ public class Aylyth implements ModInitializer {
 		return ActionResult.PASS;
 	}
 
+	// TODO: Change this system to loot tables
 	private void daggerDrops(ServerWorld serverWorld, Entity entity, LivingEntity killedEntity) {
 		if (entity instanceof LivingEntity living && living.getMainHandStack().isIn(AylythItemTags.HEART_HARVESTERS)) {
 			for (YmpeDaggerDropRecipe recipe : serverWorld.getRecipeManager().listAllOfType(AylythRecipeTypes.YMPE_DAGGER_DROP_TYPE)) {
