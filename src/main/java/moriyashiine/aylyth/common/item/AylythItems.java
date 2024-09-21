@@ -165,6 +165,7 @@ public interface AylythItems {
     Item NEPHRITE_FLASK = register("nephrite_flask", new NephriteFlaskItem(settings().maxCount(1)));
     Item DARK_NEPHRITE_FLASK = register("dark_nephrite_flask", new NephriteFlaskItem(settings().maxCount(1)));
 
+    Item YMPE_MUSH = registerFood("ympe_mush", AylythFoods.YMPE_MUSH);
     Item YMPE_FRUIT = registerFood("ympe_fruit", AylythFoods.YMPE_FRUIT);
     Item SHUCKED_YMPE_FRUIT = register("shucked_ympe_fruit", new ShuckedYmpeFruitItem(settings().maxCount(1)));
 

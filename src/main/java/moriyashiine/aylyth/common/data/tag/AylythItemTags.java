@@ -18,6 +18,7 @@ public interface AylythItemTags {
     TagKey<Item> PLEDGE_ITEMS = bind("pledge_items");
     TagKey<Item> NEPHRITE_TOOL_MATERIALS = bind("nephrite_tool_materials");
     TagKey<Item> HEART_HARVESTERS = bind("heart_harvesters");
+    TagKey<Item> YMPE_FRUIT_HARVESTERS = bind("ympe_fruit_harvesters");
     TagKey<Item> YMPE_WEAPONS = bind("ympe_weapons");
     TagKey<Item> VAMPIRIC_WEAPON = bind("vampiric_weapons");
     TagKey<Item> BLIGHTED_WEAPON = bind("blighted_weapons");

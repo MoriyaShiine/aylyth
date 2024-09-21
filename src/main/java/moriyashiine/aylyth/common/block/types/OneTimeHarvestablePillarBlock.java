@@ -37,7 +37,7 @@ public class OneTimeHarvestablePillarBlock extends HarvestablePillarBlock {
 
     @Override
     public RegistryEntry<SoundEvent> getHarvestSound(BlockState state) {
-        return AylythSoundEvents.BLOCK_YMPE_LOG_PICK_FRUIT;
+        return AylythSoundEvents.BLOCK_YMPE_LOG_PICK_FRUIT; // TODO: Change to different sound
     }
 
     @Override

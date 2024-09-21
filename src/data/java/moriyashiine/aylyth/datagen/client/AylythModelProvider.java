@@ -121,6 +121,7 @@ public class AylythModelProvider extends FabricModelProvider {
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
         generateStrewnLeavesItemModel(AylythItems.OAK_STREWN_LEAVES, id("block/fallen_oak_leaves_01"), itemModelGenerator);
         generateStrewnLeavesItemModel(AylythItems.YMPE_STREWN_LEAVES, id("block/fallen_ympe_leaves_01"), itemModelGenerator);
+        itemModelGenerator.register(AylythItems.YMPE_MUSH, Models.GENERATED);
         itemModelGenerator.register(AylythItems.POMEGRANATE, Models.GENERATED);
         itemModelGenerator.register(AylythItems.GHOSTCAP_MUSHROOM_SPORES, Models.GENERATED);
         itemModelGenerator.register(AylythItems.POMEGRANATE_BOAT, Models.GENERATED);

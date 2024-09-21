@@ -7,6 +7,8 @@ import net.minecraft.item.FoodComponent;
 
 public interface AylythFoods {
 
+	FoodComponent YMPE_MUSH = new FoodComponent.Builder().alwaysEdible().hunger(6).saturationModifier(0.5f).meat()
+			.statusEffect(new StatusEffectInstance(AylythStatusEffects.WYRDED, 6000, 0), 0.5f).build();
 	FoodComponent YMPE_FRUIT = new FoodComponent.Builder().alwaysEdible().hunger(6).saturationModifier(0.5f).meat().build();
 	FoodComponent NYSIAN_GRAPES = new FoodComponent.Builder().hunger(2).saturationModifier(0.5f).build();
 	FoodComponent GHOSTCAPS = new FoodComponent.Builder().hunger(1).saturationModifier(0.75f)
