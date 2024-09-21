@@ -11,7 +11,9 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Hand;
 
-public class AylythServerPacketHandler {
+public final class AylythServerPacketHandler {
+    private AylythServerPacketHandler() {}
+
     public static void handleUpdatePressingUpDown(UpdatePressingUpDownPacketC2S packet, ServerPlayerEntity player, PacketSender responseSender) {
         AylythEntityComponents.RIDER_COMPONENT.get(player).setPressingUp(packet.pressingUp());
         AylythEntityComponents.RIDER_COMPONENT.get(player).setPressingDown(packet.pressingDown());

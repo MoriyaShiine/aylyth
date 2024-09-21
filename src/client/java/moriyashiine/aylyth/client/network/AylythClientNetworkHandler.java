@@ -7,7 +7,9 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.particle.ParticleEffect;
 
-public class AylythClientNetworkHandler {
+public final class AylythClientNetworkHandler {
+    private AylythClientNetworkHandler() {}
+
     public static void handleSpawnParticlesAround(SpawnParticlesAroundPacketS2C packet, ClientPlayerEntity player, PacketSender responseSender) {
         ClientWorld world = player.clientWorld;
         if (world != null) {
