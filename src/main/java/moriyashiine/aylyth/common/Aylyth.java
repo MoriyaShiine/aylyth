@@ -119,12 +119,11 @@ public class Aylyth implements ModInitializer {
 		AylythEntityTypes.register();
 		AylythStatusEffects.register();
 
+		AylythBoatTypes.register();
 		AylythItems.register();
 		AylythFuels.register();
 		AylythCompostingChances.register();
 		AylythPotions.register();
-
-		AylythBoatTypes.register();
 
 		AylythFeatures.register();
 		AylythTrunkPlacerTypes.register();
