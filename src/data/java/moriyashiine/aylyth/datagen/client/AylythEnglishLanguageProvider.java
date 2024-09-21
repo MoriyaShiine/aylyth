@@ -130,6 +130,7 @@ public class AylythEnglishLanguageProvider extends FabricLanguageProvider {
         builder.add(AylythItems.YMPE_GLAIVE, "Ympe Glaive");
         builder.add(AylythItems.YMPE_FLAMBERGE, "Ympe Flamberge");
         builder.add(AylythItems.YMPE_SCYTHE, "Ympe Scythe");
+        builder.add(AylythItems.YMPE_MUSH, "Ympe Mush");
         builder.add(AylythItems.YMPE_FRUIT, "Ympe Fruit");
         builder.add(AylythItems.SHUCKED_YMPE_FRUIT, "Shucked Ympe Fruit");
         builder.add(AylythItems.NYSIAN_GRAPES, "Nysian Grapes");
