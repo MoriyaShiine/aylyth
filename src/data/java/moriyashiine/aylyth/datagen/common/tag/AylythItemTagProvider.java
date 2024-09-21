@@ -42,7 +42,7 @@ public final class AylythItemTagProvider extends FabricTagProvider.ItemTagProvid
         copy(AylythBlockTags.CHTHONIA_WOOD, AylythItemTags.CHTHONIA_WOOD);
         getOrCreateTagBuilder(ItemTags.BOATS).add(AylythItems.YMPE_BOAT, AylythItems.POMEGRANATE_BOAT, AylythItems.WRITHEWOOD_BOAT);
         getOrCreateTagBuilder(ItemTags.CHEST_BOATS).add(AylythItems.YMPE_CHEST_BOAT, AylythItems.POMEGRANATE_CHEST_BOAT, AylythItems.WRITHEWOOD_CHEST_BOAT);
-        getOrCreateTagBuilder(AylythItemTags.DECREASES_BRANCHES).add(AylythItems.YMPE_FRUIT);
+        getOrCreateTagBuilder(AylythItemTags.DECREASES_BRANCHES).add(AylythItems.YMPE_FRUIT, AylythItems.YMPE_MUSH);
         getOrCreateTagBuilder(AylythItemTags.PLEDGE_ITEMS).add(AylythItems.NYSIAN_GRAPES);
         getOrCreateTagBuilder(AylythItemTags.BOSS_HEARTS).add(AylythItems.YHONDYTH_HEART, Items.NETHER_STAR);
         getOrCreateTagBuilder(AylythItemTags.NEPHRITE_TOOL_MATERIALS).add(AylythItems.NEPHRITE);
