@@ -11,6 +11,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Property;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
@@ -20,8 +21,8 @@ import net.minecraft.world.World;
 public class GrowingHarvestablePillarBlock extends HarvestablePillarBlock {
 	public static final Property<Integer> AGE = IntProperty.of("age", 0, 4);
 
-	public GrowingHarvestablePillarBlock(Supplier<ItemVariant> harvest, Settings settings) {
-		super(harvest, settings);
+	public GrowingHarvestablePillarBlock(Identifier harvestLootTable, Settings settings) {
+		super(harvestLootTable, settings);
 		setDefaultState(getDefaultState().with(AXIS, Direction.Axis.Y).with(AGE, 4));
 	}
 

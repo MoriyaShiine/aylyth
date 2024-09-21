@@ -19,6 +19,7 @@ import moriyashiine.aylyth.common.item.AylythFuels;
 import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.aylyth.common.item.potion.AylythPotions;
 import moriyashiine.aylyth.common.loot.AylythLootConditionTypes;
+import moriyashiine.aylyth.common.loot.AylythLootContextTypes;
 import moriyashiine.aylyth.common.recipe.AylythRecipeTypes;
 import moriyashiine.aylyth.common.screenhandler.AylythScreenHandlerTypes;
 import moriyashiine.aylyth.common.world.AylythWorldAttachmentTypes;
@@ -97,6 +98,7 @@ public class Aylyth implements ModInitializer {
 		AylythRegistries.register();
 
 		AdvancementRendererDataTypes.register();
+		AylythLootContextTypes.register();
 		AylythCriteria.register();
 		AylythLootConditionTypes.register();
 		AylythRecipeTypes.register();

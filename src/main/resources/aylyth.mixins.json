@@ -12,6 +12,7 @@
     "EntityMixin",
     "GeneratorOptionsMixin",
     "LivingEntityMixin",
+    "LootContextTypesAccessor",
     "MilkBucketItemMixin",
     "MobEntityAccessor",
     "NoiseChunkGeneratorMixin",

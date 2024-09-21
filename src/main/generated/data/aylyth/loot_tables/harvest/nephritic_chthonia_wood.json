@@ -1,0 +1,15 @@
+{
+  "type": "aylyth:harvest",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "aylyth:nephrite"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}

@@ -8,6 +8,7 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -19,8 +20,8 @@ public class OneTimeHarvestablePillarBlock extends HarvestablePillarBlock {
     public static final BooleanProperty HARVESTABLE = BooleanProperty.of("harvestable");
     private final UnaryOperator<BlockState> harvestState;
 
-    public OneTimeHarvestablePillarBlock(Supplier<ItemVariant> harvest, UnaryOperator<BlockState> harvestState, Settings settings) {
-        super(harvest, settings);
+    public OneTimeHarvestablePillarBlock(Identifier harvestLootTable, UnaryOperator<BlockState> harvestState, Settings settings) {
+        super(harvestLootTable, settings);
         this.harvestState = harvestState;
         setDefaultState(getDefaultState().with(HARVESTABLE, true));
     }
