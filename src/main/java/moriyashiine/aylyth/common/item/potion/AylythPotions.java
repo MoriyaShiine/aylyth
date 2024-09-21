@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.item.potion;
 
+import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.entity.AylythStatusEffects;
-import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.potion.Potion;
@@ -44,7 +44,7 @@ public interface AylythPotions {
 	Potion STRONG_BLIGHT = registerUpgraded("strong_blight", "blight", new StatusEffectInstance(AylythStatusEffects.BLIGHT, 1800, 1));
 
 	private static Potion register(String name, Potion potion) {
-		return Registry.register(Registries.POTION, AylythUtil.id(name), potion);
+		return Registry.register(Registries.POTION, Aylyth.id(name), potion);
 	}
 
 	private static Potion registerBase(String name, StatusEffectInstance... effects) {

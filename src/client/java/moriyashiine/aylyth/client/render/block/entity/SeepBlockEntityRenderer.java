@@ -2,8 +2,8 @@ package moriyashiine.aylyth.client.render.block.entity;
 
 import moriyashiine.aylyth.client.integration.iris.IrisCompat;
 import moriyashiine.aylyth.client.render.AylythRenderLayers;
+import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.block.entities.SeepBlockEntity;
-import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.render.*;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
@@ -26,7 +26,7 @@ public class SeepBlockEntityRenderer implements BlockEntityRenderer<SeepBlockEnt
 			this.renderSide(matrix.getPositionMatrix(), vertexConsumer, 0.9375F, 0.9375F, 1, 0, 0.0625F, 0.9375F);
 			this.renderSide(matrix.getPositionMatrix(), vertexConsumer, 0.0625F, 0.0625F, 0, 1, 0.0625F, 0.9375F);
 		} else {
-			vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntitySolid(AylythUtil.id("textures/environment/seep_overlay.png")));
+			vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntitySolid(Aylyth.id("textures/environment/seep_overlay.png")));
 			this.renderCompatSide(matrix, vertexConsumer, 0.0625F, 0.9375F, 0, 1, 0.9375F, 0.9375F);
 			this.renderCompatSide(matrix, vertexConsumer, 0.0625F, 0.9375F, 1, 0, 0.0625F, 0.0625F);
 			this.renderCompatSide(matrix, vertexConsumer, 0.9375F, 0.9375F, 1, 0, 0.0625F, 0.9375F);

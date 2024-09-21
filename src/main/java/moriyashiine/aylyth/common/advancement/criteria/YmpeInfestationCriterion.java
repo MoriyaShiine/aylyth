@@ -4,8 +4,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
+import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.entity.AylythEntityComponents;
-import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.advancement.criterion.AbstractCriterion;
 import net.minecraft.advancement.criterion.AbstractCriterionConditions;
 import net.minecraft.predicate.entity.AdvancementEntityPredicateDeserializer;
@@ -16,7 +16,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.intprovider.IntProvider;
 
 public class YmpeInfestationCriterion extends AbstractCriterion<YmpeInfestationCriterion.Conditions> {
-    static final Identifier ID = AylythUtil.id("ympe_infestation");
+    static final Identifier ID = Aylyth.id("ympe_infestation");
 
     @Override
     protected Conditions conditionsFromJson(JsonObject obj, LootContextPredicate playerPredicate, AdvancementEntityPredicateDeserializer predicateDeserializer) {

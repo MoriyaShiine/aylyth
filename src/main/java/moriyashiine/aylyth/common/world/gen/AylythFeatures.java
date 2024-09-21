@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.common.world.gen;
 
-import moriyashiine.aylyth.common.util.AylythUtil;
+import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.world.gen.features.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -19,7 +19,7 @@ public interface AylythFeatures {
     DoubleBlockFeature DOUBLE_BLOCK_FEATURE = register("double_block_feature", new DoubleBlockFeature());
 
     private static <C extends FeatureConfig, F extends Feature<C>> F register(String name, F feature) {
-        return Registry.register(Registries.FEATURE, AylythUtil.id(name), feature);
+        return Registry.register(Registries.FEATURE, Aylyth.id(name), feature);
     }
 
     // Load static initializer

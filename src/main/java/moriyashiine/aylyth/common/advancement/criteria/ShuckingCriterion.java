@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.advancement.criteria;
 
 import com.google.gson.JsonObject;
-import moriyashiine.aylyth.common.util.AylythUtil;
+import moriyashiine.aylyth.common.Aylyth;
 import net.minecraft.advancement.criterion.AbstractCriterion;
 import net.minecraft.advancement.criterion.AbstractCriterionConditions;
 import net.minecraft.entity.LivingEntity;
@@ -17,7 +17,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
 public class ShuckingCriterion extends AbstractCriterion<ShuckingCriterion.Conditions> {
-    static final Identifier ID = AylythUtil.id("shucking");
+    static final Identifier ID = Aylyth.id("shucking");
 
     @Override
     protected Conditions conditionsFromJson(JsonObject obj, LootContextPredicate playerPredicate, AdvancementEntityPredicateDeserializer predicateDeserializer) {

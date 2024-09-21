@@ -7,7 +7,6 @@ import moriyashiine.aylyth.client.render.block.entity.WoodyGrowthBlockEntityRend
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.entity.types.mob.TulpaEntity;
 import moriyashiine.aylyth.common.entity.AylythEntityTypes;
-import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.mixin.client.PlayerSkinTextureAccessor;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
@@ -157,7 +156,7 @@ public class TulpaEntityRenderer extends GeoEntityRenderer<TulpaEntity> {
 
     public final class AdditiveTexture implements AutoCloseable {
         public static final Logger LOGGER = LogManager.getLogger(Aylyth.MOD_ID + ":texturegen");
-        private static final Identifier TULPA_TEXTURE = AylythUtil.id("textures/entity/living/tulpa/tulpa.png");
+        private static final Identifier TULPA_TEXTURE = Aylyth.id("textures/entity/living/tulpa/tulpa.png");
         private final Identifier base;
         private final boolean playerSkin;
         private final RenderLayer renderLayer;

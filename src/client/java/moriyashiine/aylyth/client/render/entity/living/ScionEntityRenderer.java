@@ -1,8 +1,8 @@
 package moriyashiine.aylyth.client.render.entity.living;
 
 import moriyashiine.aylyth.client.render.entity.living.feature.ScionFeatureRenderer;
+import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.entity.types.mob.ScionEntity;
-import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -52,7 +52,7 @@ public class ScionEntityRenderer extends BipedEntityRenderer<ScionEntity, BipedE
                 return abstractClientPlayerEntity.getSkinTexture();
             }
         }
-        return AylythUtil.id("textures/entity/living/scion_npc_base.png");
+        return Aylyth.id("textures/entity/living/scion_npc_base.png");
     }
 
     @Override

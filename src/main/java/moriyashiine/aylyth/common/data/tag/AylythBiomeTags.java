@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.common.data.tag;
 
-import moriyashiine.aylyth.common.util.AylythUtil;
+import moriyashiine.aylyth.common.Aylyth;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.world.biome.Biome;
@@ -22,6 +22,6 @@ public interface AylythBiomeTags {
     TagKey<Biome> HAS_STRONG_FOG = bind("has_strong_fog");
 
     private static TagKey<Biome> bind(String name) {
-        return TagKey.of(RegistryKeys.BIOME, AylythUtil.id(name));
+        return TagKey.of(RegistryKeys.BIOME, Aylyth.id(name));
     }
 }

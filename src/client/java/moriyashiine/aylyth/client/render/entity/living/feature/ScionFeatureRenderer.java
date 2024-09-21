@@ -1,8 +1,8 @@
 package moriyashiine.aylyth.client.render.entity.living.feature;
 
 import moriyashiine.aylyth.client.model.entity.ScionEntityModel;
+import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.entity.types.mob.ScionEntity;
-import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -32,13 +32,13 @@ public class ScionFeatureRenderer extends FeatureRenderer<ScionEntity, BipedEnti
         if(entity.getStoredPlayerUUID() != null){
             this.getContextModel().copyBipedStateTo(OVERLAY_MODEL);
             OVERLAY_MODEL.child = false;
-            OVERLAY_MODEL.render(matrices, vertexConsumers.getBuffer(RenderLayer.getEntityTranslucent(AylythUtil.id("textures/entity/living/scion_overlay.png"))), light, OverlayTexture.DEFAULT_UV, 1,1,1,1);
+            OVERLAY_MODEL.render(matrices, vertexConsumers.getBuffer(RenderLayer.getEntityTranslucent(Aylyth.id("textures/entity/living/scion_overlay.png"))), light, OverlayTexture.DEFAULT_UV, 1,1,1,1);
 
         }
         matrices.pop();
     }
 
     public Identifier getScionTexture(){
-        return AylythUtil.id("textures/entity/living/scion.png");
+        return Aylyth.id("textures/entity/living/scion.png");
     }
 }

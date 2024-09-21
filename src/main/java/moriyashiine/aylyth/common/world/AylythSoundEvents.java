@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.common.world;
 
-import moriyashiine.aylyth.common.util.AylythUtil;
+import moriyashiine.aylyth.common.Aylyth;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.entry.RegistryEntry;
@@ -56,7 +56,7 @@ public interface AylythSoundEvents {
 	BlockSoundGroup LEAF_PILES_STICK = new BlockSoundGroup(1f, 1f, BLOCK_STREWN_LEAVES_PILE_DESTROY.value(), BLOCK_STICK_BREAK.value(), BLOCK_STREWN_LEAVES_PILE_DESTROY.value(), BLOCK_STREWN_LEAVES_STEP.value(), BLOCK_STREWN_LEAVES_PILE_DESTROY.value());
 
 	private static RegistryEntry<SoundEvent> register(String name) {
-		var id = AylythUtil.id(name);
+		var id = Aylyth.id(name);
         return Registry.registerReference(Registries.SOUND_EVENT, id, SoundEvent.of(id));
 	}
 

@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.world.gen;
 
 import com.mojang.serialization.Codec;
-import moriyashiine.aylyth.common.util.AylythUtil;
+import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.world.gen.treedecorators.GrapeVineDecorator;
 import moriyashiine.aylyth.common.world.gen.treedecorators.RangedTreeDecorator;
 import net.minecraft.registry.Registries;
@@ -16,7 +16,7 @@ public interface AylythTreeDecoratorTypes {
     TreeDecoratorType<RangedTreeDecorator> RANGED = register("ranged_tree_decorator", RangedTreeDecorator.CODEC);
 
     private static <D extends TreeDecorator> TreeDecoratorType<D> register(String name, Codec<D> codec) {
-        return Registry.register(Registries.TREE_DECORATOR_TYPE, AylythUtil.id(name), new TreeDecoratorType<>(codec));
+        return Registry.register(Registries.TREE_DECORATOR_TYPE, Aylyth.id(name), new TreeDecoratorType<>(codec));
     }
 
     // Load static initializer

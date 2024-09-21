@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.world.gen;
 
 import com.mojang.serialization.Codec;
-import moriyashiine.aylyth.common.util.AylythUtil;
+import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.world.gen.trunkplacers.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -19,7 +19,7 @@ public interface AylythTrunkPlacerTypes {
     TrunkPlacerType<GirasolTrunkPlacer> GIRASOL = register("girasol_trunk_placer", GirasolTrunkPlacer.CODEC);
     
     private static <T extends TrunkPlacer> TrunkPlacerType<T> register(String name, Codec<T> codec) {
-        return Registry.register(Registries.TRUNK_PLACER_TYPE, AylythUtil.id(name), new TrunkPlacerType<>(codec));
+        return Registry.register(Registries.TRUNK_PLACER_TYPE, Aylyth.id(name), new TrunkPlacerType<>(codec));
     }
 
     // Load static initializer

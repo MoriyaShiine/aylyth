@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.common.data.world.terrain;
 
-import moriyashiine.aylyth.common.util.AylythUtil;
+import moriyashiine.aylyth.common.Aylyth;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.world.gen.densityfunction.DensityFunction;
@@ -27,6 +27,6 @@ public interface AylythDensityFunctions {
     RegistryKey<DensityFunction> CAVES_ENTRANCES_FUNCTION_KEY = bind("caves/entrances");
 
     private static RegistryKey<DensityFunction> bind(String name) {
-        return RegistryKey.of(RegistryKeys.DENSITY_FUNCTION, AylythUtil.id(name));
+        return RegistryKey.of(RegistryKeys.DENSITY_FUNCTION, Aylyth.id(name));
     }
 }

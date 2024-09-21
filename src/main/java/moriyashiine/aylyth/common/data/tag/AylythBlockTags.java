@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.common.data.tag;
 
-import moriyashiine.aylyth.common.util.AylythUtil;
+import moriyashiine.aylyth.common.Aylyth;
 import net.minecraft.block.Block;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
@@ -20,6 +20,6 @@ public interface AylythBlockTags {
     TagKey<Block> SCION_REPELLENT = bind("scion_repellent");
 
     private static TagKey<Block> bind(String name) {
-        return TagKey.of(RegistryKeys.BLOCK, AylythUtil.id(name));
+        return TagKey.of(RegistryKeys.BLOCK, Aylyth.id(name));
     }
 }

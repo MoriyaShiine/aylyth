@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.client.render.item;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import moriyashiine.aylyth.common.util.AylythUtil;
+import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.mixin.client.HeldItemRendererAccessor;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
@@ -102,7 +102,7 @@ public class MysteriousSketchItemRenderer implements BuiltinItemRendererRegistry
                 }
             }
         } else {
-            BakedModel model = MinecraftClient.getInstance().getBakedModelManager().getModel(new ModelIdentifier(AylythUtil.id("mysterious_sketch_generated"), "inventory"));
+            BakedModel model = MinecraftClient.getInstance().getBakedModelManager().getModel(new ModelIdentifier(Aylyth.id("mysterious_sketch_generated"), "inventory"));
             matrices.push();
             model.getTransformation().getTransformation(mode).apply(mode == ModelTransformationMode.FIRST_PERSON_LEFT_HAND, matrices);
             switch (mode) {

@@ -1,6 +1,7 @@
 package moriyashiine.aylyth.common.event;
 
 import moriyashiine.aylyth.api.interfaces.HindPledgeHolder;
+import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.block.types.VitalThuribleBlock;
 import moriyashiine.aylyth.common.block.types.WoodyGrowthCacheBlock;
 import moriyashiine.aylyth.common.entity.types.mob.RippedSoulEntity;
@@ -167,7 +168,7 @@ public class LivingEntityDeathEvents {
         if (player.getAdvancementTracker().getProgress(advancement).isDone()) {
             return true;
         }
-        advancement = player.server.getAdvancementLoader().get(AylythUtil.id("aylyth/root"));
+        advancement = player.server.getAdvancementLoader().get(Aylyth.id("aylyth/root"));
         return player.getAdvancementTracker().getProgress(advancement).isDone();
     }
 }

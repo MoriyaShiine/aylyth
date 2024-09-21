@@ -1,6 +1,5 @@
 package moriyashiine.aylyth.common.util;
 
-import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.network.packets.SpawnParticlesAroundPacketS2C;
 import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.aylyth.common.entity.AylythStatusEffects;
@@ -24,7 +23,6 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -37,10 +35,6 @@ import java.util.List;
 
 public class AylythUtil {
 	public static final int MAX_TRIES = 8;
-
-	public static Identifier id(String string){
-		return new Identifier(Aylyth.MOD_ID, string);
-	}
 
 	public static void decreaseStack(ItemStack stack, @Nullable LivingEntity living) {
 		if (living instanceof PlayerEntity player && player.getAbilities().creativeMode) {

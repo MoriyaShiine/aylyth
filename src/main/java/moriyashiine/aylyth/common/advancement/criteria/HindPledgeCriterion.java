@@ -1,8 +1,8 @@
 package moriyashiine.aylyth.common.advancement.criteria;
 
 import com.google.gson.JsonObject;
+import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.entity.types.mob.WreathedHindEntity;
-import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.advancement.criterion.AbstractCriterion;
 import net.minecraft.advancement.criterion.AbstractCriterionConditions;
 import net.minecraft.loot.context.LootContext;
@@ -14,7 +14,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
 public class HindPledgeCriterion extends AbstractCriterion<HindPledgeCriterion.Conditions> {
-    static final Identifier ID = AylythUtil.id("hind_pledge");
+    static final Identifier ID = Aylyth.id("hind_pledge");
 
     @Override
     protected Conditions conditionsFromJson(JsonObject obj, LootContextPredicate playerPredicate, AdvancementEntityPredicateDeserializer predicateDeserializer) {

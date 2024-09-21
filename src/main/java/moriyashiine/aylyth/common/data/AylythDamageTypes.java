@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.common.data;
 
-import moriyashiine.aylyth.common.util.AylythUtil;
+import moriyashiine.aylyth.common.Aylyth;
 import net.minecraft.entity.damage.DamageType;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
@@ -14,6 +14,6 @@ public interface AylythDamageTypes {
     RegistryKey<DamageType> BLIGHT = bind("blight");
 
     private static RegistryKey<DamageType> bind(String name) {
-        return RegistryKey.of(RegistryKeys.DAMAGE_TYPE, AylythUtil.id(name));
+        return RegistryKey.of(RegistryKeys.DAMAGE_TYPE, Aylyth.id(name));
     }
 }

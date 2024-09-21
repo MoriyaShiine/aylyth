@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.common.data.tag;
 
-import moriyashiine.aylyth.common.util.AylythUtil;
+import moriyashiine.aylyth.common.Aylyth;
 import net.minecraft.item.Item;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
@@ -26,6 +26,6 @@ public interface AylythItemTags {
     TagKey<Item> BOSS_HEARTS = bind("boss_hearts");
 
     private static TagKey<Item> bind(String name) {
-        return TagKey.of(RegistryKeys.ITEM, AylythUtil.id(name));
+        return TagKey.of(RegistryKeys.ITEM, Aylyth.id(name));
     }
 }

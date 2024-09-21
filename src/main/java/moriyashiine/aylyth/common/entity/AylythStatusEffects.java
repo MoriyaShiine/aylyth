@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.entity;
 
+import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.entity.statuseffects.*;
-import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -15,7 +15,7 @@ public interface AylythStatusEffects {
     StatusEffect BLIGHT = register("blight", new BlightEffect());
 
     private static <E extends StatusEffect> E register(String name, E effect) {
-        return Registry.register(Registries.STATUS_EFFECT, AylythUtil.id(name), effect);
+        return Registry.register(Registries.STATUS_EFFECT, Aylyth.id(name), effect);
     }
 
     // Load static initializer

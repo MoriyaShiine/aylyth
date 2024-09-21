@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.common.data.world.feature;
 
-import moriyashiine.aylyth.common.util.AylythUtil;
+import moriyashiine.aylyth.common.Aylyth;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
@@ -63,6 +63,6 @@ public interface AylythConfiguredFeatures {
     RegistryKey<ConfiguredFeature<?, ?>> WOODY_GROWTH_WATER_PATCH = bind("woody_growth_water_patch");
 
     private static RegistryKey<ConfiguredFeature<?, ?>> bind(String name) {
-        return RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, AylythUtil.id(name));
+        return RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, Aylyth.id(name));
     }
 }

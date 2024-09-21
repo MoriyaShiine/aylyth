@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.common.data.world.terrain;
 
-import moriyashiine.aylyth.common.util.AylythUtil;
+import moriyashiine.aylyth.common.Aylyth;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.math.noise.DoublePerlinNoiseSampler;
@@ -42,6 +42,6 @@ public interface AylythNoises {
     RegistryKey<DoublePerlinNoiseSampler.NoiseParameters> BOWELS_SOUL_SAND = bind("bowels_soul_sand");
 
     private static RegistryKey<DoublePerlinNoiseSampler.NoiseParameters> bind(String name) {
-        return RegistryKey.of(RegistryKeys.NOISE_PARAMETERS, AylythUtil.id(name));
+        return RegistryKey.of(RegistryKeys.NOISE_PARAMETERS, Aylyth.id(name));
     }
 }

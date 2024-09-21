@@ -9,7 +9,6 @@ import moriyashiine.aylyth.common.block.types.PomegranateLeavesBlock;
 import moriyashiine.aylyth.common.block.types.StrewnLeavesBlock;
 import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.item.AylythItems;
-import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.block.Block;
@@ -164,9 +163,9 @@ public class AylythModelProvider extends FabricModelProvider {
 
         registerFlask(itemModelGenerator, AylythItems.NEPHRITE_FLASK);
         registerFlask(itemModelGenerator, AylythItems.DARK_NEPHRITE_FLASK);
-        Models.GENERATED_TWO_LAYERS.upload(AylythUtil.id("item/coker_cola"), TextureMap.layered(AylythUtil.id("item/blight_potion"), AylythUtil.id("item/blight_potion")), itemModelGenerator.writer);
-        Models.GENERATED_TWO_LAYERS.upload(AylythUtil.id("item/coker_cola_splash"), TextureMap.layered(AylythUtil.id("item/blight_potion_splash"), AylythUtil.id("item/blight_potion_splash")), itemModelGenerator.writer);
-        Models.GENERATED_TWO_LAYERS.upload(AylythUtil.id("item/coker_cola_lingering"), TextureMap.layered(AylythUtil.id("item/blight_potion_lingering"), AylythUtil.id("item/blight_potion_lingering")), itemModelGenerator.writer);
+        Models.GENERATED_TWO_LAYERS.upload(Aylyth.id("item/coker_cola"), TextureMap.layered(Aylyth.id("item/blight_potion"), Aylyth.id("item/blight_potion")), itemModelGenerator.writer);
+        Models.GENERATED_TWO_LAYERS.upload(Aylyth.id("item/coker_cola_splash"), TextureMap.layered(Aylyth.id("item/blight_potion_splash"), Aylyth.id("item/blight_potion_splash")), itemModelGenerator.writer);
+        Models.GENERATED_TWO_LAYERS.upload(Aylyth.id("item/coker_cola_lingering"), TextureMap.layered(Aylyth.id("item/blight_potion_lingering"), Aylyth.id("item/blight_potion_lingering")), itemModelGenerator.writer);
     }
 
     private void registerFlask(ItemModelGenerator generator, ItemConvertible flask) {
@@ -206,22 +205,22 @@ public class AylythModelProvider extends FabricModelProvider {
                         coordinate(BlockStateVariantMap.create(LargeWoodyGrowthBlock.HALF)
                                 .register(DoubleBlockHalf.LOWER,
                                         List.of(
-                                        modelVariantWithYRotation(AylythUtil.id("block/large_woody_growth_1"), VariantSettings.Rotation.R0),
-                                        modelVariantWithYRotation(AylythUtil.id("block/large_woody_growth_1"), VariantSettings.Rotation.R90),
-                                        modelVariantWithYRotation(AylythUtil.id("block/large_woody_growth_1"), VariantSettings.Rotation.R180),
-                                        modelVariantWithYRotation(AylythUtil.id("block/large_woody_growth_1"), VariantSettings.Rotation.R270),
-                                        modelVariantWithYRotation(AylythUtil.id("block/large_woody_growth_2"), VariantSettings.Rotation.R0),
-                                        modelVariantWithYRotation(AylythUtil.id("block/large_woody_growth_2"), VariantSettings.Rotation.R90),
-                                        modelVariantWithYRotation(AylythUtil.id("block/large_woody_growth_2"), VariantSettings.Rotation.R180),
-                                        modelVariantWithYRotation(AylythUtil.id("block/large_woody_growth_2"), VariantSettings.Rotation.R270),
-                                        modelVariantWithYRotation(AylythUtil.id("block/large_woody_growth_3"), VariantSettings.Rotation.R0),
-                                        modelVariantWithYRotation(AylythUtil.id("block/large_woody_growth_3"), VariantSettings.Rotation.R90),
-                                        modelVariantWithYRotation(AylythUtil.id("block/large_woody_growth_3"), VariantSettings.Rotation.R180),
-                                        modelVariantWithYRotation(AylythUtil.id("block/large_woody_growth_3"), VariantSettings.Rotation.R270),
-                                        modelVariantWithYRotation(AylythUtil.id("block/large_woody_growth_4"), VariantSettings.Rotation.R0),
-                                        modelVariantWithYRotation(AylythUtil.id("block/large_woody_growth_4"), VariantSettings.Rotation.R90),
-                                        modelVariantWithYRotation(AylythUtil.id("block/large_woody_growth_4"), VariantSettings.Rotation.R180),
-                                        modelVariantWithYRotation(AylythUtil.id("block/large_woody_growth_4"), VariantSettings.Rotation.R270)
+                                        modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_1"), VariantSettings.Rotation.R0),
+                                        modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_1"), VariantSettings.Rotation.R90),
+                                        modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_1"), VariantSettings.Rotation.R180),
+                                        modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_1"), VariantSettings.Rotation.R270),
+                                        modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_2"), VariantSettings.Rotation.R0),
+                                        modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_2"), VariantSettings.Rotation.R90),
+                                        modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_2"), VariantSettings.Rotation.R180),
+                                        modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_2"), VariantSettings.Rotation.R270),
+                                        modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_3"), VariantSettings.Rotation.R0),
+                                        modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_3"), VariantSettings.Rotation.R90),
+                                        modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_3"), VariantSettings.Rotation.R180),
+                                        modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_3"), VariantSettings.Rotation.R270),
+                                        modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_4"), VariantSettings.Rotation.R0),
+                                        modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_4"), VariantSettings.Rotation.R90),
+                                        modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_4"), VariantSettings.Rotation.R180),
+                                        modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_4"), VariantSettings.Rotation.R270)
                                         )
                                 )
                                 .register(DoubleBlockHalf.UPPER, List.of(
@@ -233,22 +232,22 @@ public class AylythModelProvider extends FabricModelProvider {
                         coordinate(BlockStateVariantMap.create(LargeWoodyGrowthBlock.HALF)
                                 .register(DoubleBlockHalf.LOWER,
                                         List.of(
-                                                modelVariantWithYRotation(AylythUtil.id("block/large_woody_growth_1"), VariantSettings.Rotation.R0),
-                                                modelVariantWithYRotation(AylythUtil.id("block/large_woody_growth_1"), VariantSettings.Rotation.R90),
-                                                modelVariantWithYRotation(AylythUtil.id("block/large_woody_growth_1"), VariantSettings.Rotation.R180),
-                                                modelVariantWithYRotation(AylythUtil.id("block/large_woody_growth_1"), VariantSettings.Rotation.R270),
-                                                modelVariantWithYRotation(AylythUtil.id("block/large_woody_growth_2"), VariantSettings.Rotation.R0),
-                                                modelVariantWithYRotation(AylythUtil.id("block/large_woody_growth_2"), VariantSettings.Rotation.R90),
-                                                modelVariantWithYRotation(AylythUtil.id("block/large_woody_growth_2"), VariantSettings.Rotation.R180),
-                                                modelVariantWithYRotation(AylythUtil.id("block/large_woody_growth_2"), VariantSettings.Rotation.R270),
-                                                modelVariantWithYRotation(AylythUtil.id("block/large_woody_growth_3"), VariantSettings.Rotation.R0),
-                                                modelVariantWithYRotation(AylythUtil.id("block/large_woody_growth_3"), VariantSettings.Rotation.R90),
-                                                modelVariantWithYRotation(AylythUtil.id("block/large_woody_growth_3"), VariantSettings.Rotation.R180),
-                                                modelVariantWithYRotation(AylythUtil.id("block/large_woody_growth_3"), VariantSettings.Rotation.R270),
-                                                modelVariantWithYRotation(AylythUtil.id("block/large_woody_growth_4"), VariantSettings.Rotation.R0),
-                                                modelVariantWithYRotation(AylythUtil.id("block/large_woody_growth_4"), VariantSettings.Rotation.R90),
-                                                modelVariantWithYRotation(AylythUtil.id("block/large_woody_growth_4"), VariantSettings.Rotation.R180),
-                                                modelVariantWithYRotation(AylythUtil.id("block/large_woody_growth_4"), VariantSettings.Rotation.R270)
+                                                modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_1"), VariantSettings.Rotation.R0),
+                                                modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_1"), VariantSettings.Rotation.R90),
+                                                modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_1"), VariantSettings.Rotation.R180),
+                                                modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_1"), VariantSettings.Rotation.R270),
+                                                modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_2"), VariantSettings.Rotation.R0),
+                                                modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_2"), VariantSettings.Rotation.R90),
+                                                modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_2"), VariantSettings.Rotation.R180),
+                                                modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_2"), VariantSettings.Rotation.R270),
+                                                modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_3"), VariantSettings.Rotation.R0),
+                                                modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_3"), VariantSettings.Rotation.R90),
+                                                modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_3"), VariantSettings.Rotation.R180),
+                                                modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_3"), VariantSettings.Rotation.R270),
+                                                modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_4"), VariantSettings.Rotation.R0),
+                                                modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_4"), VariantSettings.Rotation.R90),
+                                                modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_4"), VariantSettings.Rotation.R180),
+                                                modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_4"), VariantSettings.Rotation.R270)
                                         )
                                 )
                                 .register(DoubleBlockHalf.UPPER, List.of(
@@ -256,18 +255,18 @@ public class AylythModelProvider extends FabricModelProvider {
                                 )))
         );
         generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(AylythBlocks.SMALL_WOODY_GROWTH,
-                modelVariantWithYRotation(AylythUtil.id("block/small_woody_growth_1"), VariantSettings.Rotation.R90),
-                modelVariantWithYRotation(AylythUtil.id("block/small_woody_growth_1"), VariantSettings.Rotation.R180),
-                modelVariantWithYRotation(AylythUtil.id("block/small_woody_growth_1"), VariantSettings.Rotation.R0),
-                modelVariantWithYRotation(AylythUtil.id("block/small_woody_growth_1"), VariantSettings.Rotation.R270),
-                modelVariantWithYRotation(AylythUtil.id("block/small_woody_growth_2"), VariantSettings.Rotation.R0),
-                modelVariantWithYRotation(AylythUtil.id("block/small_woody_growth_2"), VariantSettings.Rotation.R90),
-                modelVariantWithYRotation(AylythUtil.id("block/small_woody_growth_2"), VariantSettings.Rotation.R180),
-                modelVariantWithYRotation(AylythUtil.id("block/small_woody_growth_2"), VariantSettings.Rotation.R270),
-                modelVariantWithYRotation(AylythUtil.id("block/small_woody_growth_3"), VariantSettings.Rotation.R0),
-                modelVariantWithYRotation(AylythUtil.id("block/small_woody_growth_3"), VariantSettings.Rotation.R90),
-                modelVariantWithYRotation(AylythUtil.id("block/small_woody_growth_3"), VariantSettings.Rotation.R180),
-                modelVariantWithYRotation(AylythUtil.id("block/small_woody_growth_3"), VariantSettings.Rotation.R270)
+                modelVariantWithYRotation(Aylyth.id("block/small_woody_growth_1"), VariantSettings.Rotation.R90),
+                modelVariantWithYRotation(Aylyth.id("block/small_woody_growth_1"), VariantSettings.Rotation.R180),
+                modelVariantWithYRotation(Aylyth.id("block/small_woody_growth_1"), VariantSettings.Rotation.R0),
+                modelVariantWithYRotation(Aylyth.id("block/small_woody_growth_1"), VariantSettings.Rotation.R270),
+                modelVariantWithYRotation(Aylyth.id("block/small_woody_growth_2"), VariantSettings.Rotation.R0),
+                modelVariantWithYRotation(Aylyth.id("block/small_woody_growth_2"), VariantSettings.Rotation.R90),
+                modelVariantWithYRotation(Aylyth.id("block/small_woody_growth_2"), VariantSettings.Rotation.R180),
+                modelVariantWithYRotation(Aylyth.id("block/small_woody_growth_2"), VariantSettings.Rotation.R270),
+                modelVariantWithYRotation(Aylyth.id("block/small_woody_growth_3"), VariantSettings.Rotation.R0),
+                modelVariantWithYRotation(Aylyth.id("block/small_woody_growth_3"), VariantSettings.Rotation.R90),
+                modelVariantWithYRotation(Aylyth.id("block/small_woody_growth_3"), VariantSettings.Rotation.R180),
+                modelVariantWithYRotation(Aylyth.id("block/small_woody_growth_3"), VariantSettings.Rotation.R270)
                 )
         );
     }

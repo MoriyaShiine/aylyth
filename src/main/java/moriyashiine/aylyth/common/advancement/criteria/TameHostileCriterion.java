@@ -1,8 +1,8 @@
 package moriyashiine.aylyth.common.advancement.criteria;
 
 import com.google.gson.JsonObject;
+import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.entity.types.mob.TameableHostileEntity;
-import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.advancement.criterion.AbstractCriterion;
 import net.minecraft.advancement.criterion.AbstractCriterionConditions;
 import net.minecraft.entity.mob.HostileEntity;
@@ -17,7 +17,7 @@ import net.minecraft.util.Identifier;
 import java.util.function.Predicate;
 
 public class TameHostileCriterion extends AbstractCriterion<TameHostileCriterion.Conditions> {
-    static final Identifier ID = AylythUtil.id("tame_hostile");
+    static final Identifier ID = Aylyth.id("tame_hostile");
 
     @Override
     protected Conditions conditionsFromJson(JsonObject obj, LootContextPredicate playerPredicate, AdvancementEntityPredicateDeserializer predicateDeserializer) {

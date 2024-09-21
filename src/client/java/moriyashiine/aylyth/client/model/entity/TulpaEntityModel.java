@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.client.model.entity;
 
+import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.entity.types.mob.TulpaEntity;
-import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
@@ -9,7 +9,7 @@ import software.bernie.geckolib.model.DefaultedEntityGeoModel;
 
 public class TulpaEntityModel extends DefaultedEntityGeoModel<TulpaEntity> {
     public TulpaEntityModel() {
-        super(AylythUtil.id("living/tulpa"), true);
+        super(Aylyth.id("living/tulpa"), true);
     }
 
     public static class TulpaPlayerEntityModel extends TulpaEntityModel {

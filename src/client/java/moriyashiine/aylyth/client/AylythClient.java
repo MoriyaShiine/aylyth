@@ -43,7 +43,6 @@ import moriyashiine.aylyth.common.block.types.StrewnLeavesBlock;
 import moriyashiine.aylyth.common.data.world.AylythDimensionData;
 import moriyashiine.aylyth.common.data.tag.AylythPotionTags;
 import moriyashiine.aylyth.common.screenhandler.AylythScreenHandlerTypes;
-import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.common.world.AylythParticleTypes;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
@@ -134,13 +133,13 @@ public class AylythClient implements ClientModInitializer {
 			return MinecraftClient.getInstance().getBlockColors().getColor(blockState, null, null, tintIndex);
 		}, AylythBlocks.AYLYTH_BUSH, AylythBlocks.ANTLER_SHOOTS, AylythBlocks.GRIPWEED);
 
-		ModelPredicateProviderRegistry.register(AylythItems.SHUCKED_YMPE_FRUIT, AylythUtil.id("variant"), (stack, world, entity, seed) -> ShuckedYmpeFruitItem.hasStoredEntity(stack) ? 1 : 0);
+		ModelPredicateProviderRegistry.register(AylythItems.SHUCKED_YMPE_FRUIT, Aylyth.id("variant"), (stack, world, entity, seed) -> ShuckedYmpeFruitItem.hasStoredEntity(stack) ? 1 : 0);
 		ClampedModelPredicateProvider flaskProvider = (stack, world, entity, seed) -> NephriteFlaskItem.getCharges(stack) / 6f;
-		ModelPredicateProviderRegistry.register(AylythItems.NEPHRITE_FLASK, AylythUtil.id("uses"), flaskProvider);
-		ModelPredicateProviderRegistry.register(AylythItems.DARK_NEPHRITE_FLASK, AylythUtil.id("uses"), flaskProvider);
-		ModelPredicateProviderRegistry.register(Items.POTION, AylythUtil.id("blight_potion"), (stack, world, entity, seed) -> Registries.POTION.getEntry(PotionUtil.getPotion(stack)).isIn(AylythPotionTags.BLIGHT) ? 1 : 0);
-		ModelPredicateProviderRegistry.register(Items.SPLASH_POTION, AylythUtil.id("blight_potion"), (stack, world, entity, seed) -> Registries.POTION.getEntry(PotionUtil.getPotion(stack)).isIn(AylythPotionTags.BLIGHT) ? 1 : 0);
-		ModelPredicateProviderRegistry.register(Items.LINGERING_POTION, AylythUtil.id("blight_potion"), (stack, world, entity, seed) -> Registries.POTION.getEntry(PotionUtil.getPotion(stack)).isIn(AylythPotionTags.BLIGHT) ? 1 : 0);
+		ModelPredicateProviderRegistry.register(AylythItems.NEPHRITE_FLASK, Aylyth.id("uses"), flaskProvider);
+		ModelPredicateProviderRegistry.register(AylythItems.DARK_NEPHRITE_FLASK, Aylyth.id("uses"), flaskProvider);
+		ModelPredicateProviderRegistry.register(Items.POTION, Aylyth.id("blight_potion"), (stack, world, entity, seed) -> Registries.POTION.getEntry(PotionUtil.getPotion(stack)).isIn(AylythPotionTags.BLIGHT) ? 1 : 0);
+		ModelPredicateProviderRegistry.register(Items.SPLASH_POTION, Aylyth.id("blight_potion"), (stack, world, entity, seed) -> Registries.POTION.getEntry(PotionUtil.getPotion(stack)).isIn(AylythPotionTags.BLIGHT) ? 1 : 0);
+		ModelPredicateProviderRegistry.register(Items.LINGERING_POTION, Aylyth.id("blight_potion"), (stack, world, entity, seed) -> Registries.POTION.getEntry(PotionUtil.getPotion(stack)).isIn(AylythPotionTags.BLIGHT) ? 1 : 0);
 
 		BlockEntityRendererFactories.register(AylythBlockEntityTypes.SEEP, SeepBlockEntityRenderer::new);
 		BlockEntityRendererFactories.register(AylythBlockEntityTypes.VITAL_THURIBLE, VitalThuribleBlockEntityRenderer::new);
@@ -210,31 +209,31 @@ public class AylythClient implements ClientModInitializer {
 
 		ModelLoadingPlugin.register(pluginContext -> {
 			pluginContext.addModels(
-					AylythUtil.id("item/coker_cola"),
-					AylythUtil.id("item/coker_cola_splash"),
-					AylythUtil.id("item/coker_cola_lingering")
+					Aylyth.id("item/coker_cola"),
+					Aylyth.id("item/coker_cola_splash"),
+					Aylyth.id("item/coker_cola_lingering")
 			);
 			pluginContext.modifyModelBeforeBake().register((model, context) -> {
 				if (context.id().equals(ModelIdentifier.ofVanilla("potion", "inventory"))) {
 					if (model instanceof JsonUnbakedModel jsonModel) {
 						List<ModelOverride.Condition> conditions = List.of(
-								new ModelOverride.Condition(AylythUtil.id("blight_potion"), 1f)
+								new ModelOverride.Condition(Aylyth.id("blight_potion"), 1f)
 						);
-						jsonModel.getOverrides().add(new ModelOverride(AylythUtil.id("item/coker_cola"), conditions));
+						jsonModel.getOverrides().add(new ModelOverride(Aylyth.id("item/coker_cola"), conditions));
 					}
 				} else if (context.id().equals(ModelIdentifier.ofVanilla("splash_potion", "inventory"))) {
 					if (model instanceof JsonUnbakedModel jsonModel) {
 						List<ModelOverride.Condition> conditions = List.of(
-								new ModelOverride.Condition(AylythUtil.id("blight_potion"), 1f)
+								new ModelOverride.Condition(Aylyth.id("blight_potion"), 1f)
 						);
-						jsonModel.getOverrides().add(new ModelOverride(AylythUtil.id("item/coker_cola_splash"), conditions));
+						jsonModel.getOverrides().add(new ModelOverride(Aylyth.id("item/coker_cola_splash"), conditions));
 					}
 				} else if (context.id().equals(ModelIdentifier.ofVanilla("lingering_potion", "inventory"))) {
 					if (model instanceof JsonUnbakedModel jsonModel) {
 						List<ModelOverride.Condition> conditions = List.of(
-								new ModelOverride.Condition(AylythUtil.id("blight_potion"), 1f)
+								new ModelOverride.Condition(Aylyth.id("blight_potion"), 1f)
 						);
-						jsonModel.getOverrides().add(new ModelOverride(AylythUtil.id("item/coker_cola_lingering"), conditions));
+						jsonModel.getOverrides().add(new ModelOverride(Aylyth.id("item/coker_cola_lingering"), conditions));
 					}
 				}
 				return model;
@@ -259,8 +258,8 @@ public class AylythClient implements ClientModInitializer {
 		HandledScreens.register(AylythScreenHandlerTypes.TULPA, TulpaScreen::new);
 
 		CoreShaderRegistrationCallback.EVENT.register(context -> {
-			context.register(AylythUtil.id("rendertype_seep"), VertexFormats.POSITION_COLOR_TEXTURE_LIGHT_NORMAL, shader -> AylythRenderLayers.renderLayerSeep = shader);
-			context.register(AylythUtil.id("rendertype_tint"), VertexFormats.POSITION_TEXTURE, shader -> AylythRenderLayers.renderLayerTint = shader);
+			context.register(Aylyth.id("rendertype_seep"), VertexFormats.POSITION_COLOR_TEXTURE_LIGHT_NORMAL, shader -> AylythRenderLayers.renderLayerSeep = shader);
+			context.register(Aylyth.id("rendertype_tint"), VertexFormats.POSITION_TEXTURE, shader -> AylythRenderLayers.renderLayerTint = shader);
 		});
 
 		AdvancementIconRendererRegistry.init();

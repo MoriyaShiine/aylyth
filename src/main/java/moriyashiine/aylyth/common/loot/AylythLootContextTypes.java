@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.common.loot;
 
-import moriyashiine.aylyth.common.util.AylythUtil;
+import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.mixin.LootContextTypesAccessor;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.context.LootContextType;
@@ -16,7 +16,7 @@ public interface AylythLootContextTypes {
 
     private static LootContextType register(String name, UnaryOperator<LootContextType.Builder> builder) {
         LootContextType type = builder.apply(LootContextType.create()).build();
-        LootContextTypesAccessor.getMap().put(AylythUtil.id(name), type);
+        LootContextTypesAccessor.getMap().put(Aylyth.id(name), type);
         return type;
     }
 

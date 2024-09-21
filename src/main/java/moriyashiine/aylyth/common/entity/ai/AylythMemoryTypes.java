@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.entity.ai;
 
+import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.entity.ai.brains.WreathedHindBrain;
-import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.Registries;
@@ -21,7 +21,7 @@ public interface AylythMemoryTypes {
     MemoryModuleType<Unit> ROOT_ATTACK_DELAY = register("root_attack_delay");
 
     private static <M> MemoryModuleType<M> register(String name) {
-        return Registry.register(Registries.MEMORY_MODULE_TYPE, AylythUtil.id(name), new MemoryModuleType<>(Optional.empty()));
+        return Registry.register(Registries.MEMORY_MODULE_TYPE, Aylyth.id(name), new MemoryModuleType<>(Optional.empty()));
     }
 
     // Load static initializer

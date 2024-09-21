@@ -1,9 +1,9 @@
 package moriyashiine.aylyth.common.recipe;
 
+import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.recipe.types.ShuckingRecipe;
 import moriyashiine.aylyth.common.recipe.types.SoulCampfireRecipe;
 import moriyashiine.aylyth.common.recipe.types.YmpeDaggerDropRecipe;
-import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
@@ -21,11 +21,11 @@ public interface AylythRecipeTypes {
 	RecipeType<SoulCampfireRecipe> SOULFIRE_TYPE = registerType("soul_ritual");
 
 	private static <R extends Recipe<?>> RecipeSerializer<R> registerSerializer(String name, RecipeSerializer<R> serializer) {
-		return Registry.register(Registries.RECIPE_SERIALIZER, AylythUtil.id(name), serializer);
+		return Registry.register(Registries.RECIPE_SERIALIZER, Aylyth.id(name), serializer);
 	}
 
 	private static <R extends Recipe<?>> RecipeType<R> registerType(String name) {
-		var id = AylythUtil.id(name);
+		var id = Aylyth.id(name);
 		return Registry.register(Registries.RECIPE_TYPE, id, new RecipeType<>() {
 			@Override
 			public String toString() {

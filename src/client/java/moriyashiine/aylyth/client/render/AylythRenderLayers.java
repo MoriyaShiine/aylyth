@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.client.render;
 
-import moriyashiine.aylyth.common.util.AylythUtil;
+import moriyashiine.aylyth.common.Aylyth;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.RenderPhase;
 import net.minecraft.client.render.VertexFormat;
@@ -24,8 +24,8 @@ public class AylythRenderLayers extends RenderLayer {
             RenderLayer.MultiPhaseParameters.builder()
                     .program(new RenderPhase.ShaderProgram(() -> renderLayerSeep))
                     .texture(RenderPhase.Textures.create()
-                            .add(AylythUtil.id("textures/environment/seep_0.png"), false, false)
-                            .add(AylythUtil.id("textures/environment/seep_1.png"), false, false)
+                            .add(Aylyth.id("textures/environment/seep_0.png"), false, false)
+                            .add(Aylyth.id("textures/environment/seep_1.png"), false, false)
                             .build()
                     )
                     .build(false)
@@ -39,7 +39,7 @@ public class AylythRenderLayers extends RenderLayer {
             256, false, false,
             MultiPhaseParameters.builder()
                     .program(new ShaderProgram(() -> renderLayerTint))
-                    .texture(new Texture(AylythUtil.id("textures/misc/woody_growth_tint.png"), true, false))
+                    .texture(new Texture(Aylyth.id("textures/misc/woody_growth_tint.png"), true, false))
                     .writeMaskState(COLOR_MASK)
                     .cull(DISABLE_CULLING)
                     .depthTest(EQUAL_DEPTH_TEST)

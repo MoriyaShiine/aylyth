@@ -1,9 +1,9 @@
 package moriyashiine.aylyth.client.model.block;
 
+import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.block.types.SoulHearthBlock;
 import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.item.AylythItems;
-import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.fabric.api.renderer.v1.model.ForwardingBakedModel;
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
 import net.minecraft.block.BlockState;
@@ -36,7 +36,7 @@ public class SoulHearthBlockModel extends ForwardingBakedModel {
     public void emitBlockQuads(BlockRenderView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, RenderContext context) {
         super.emitBlockQuads(blockView, state, pos, randomSupplier, context);
         if (state.isOf(AylythBlocks.SOUL_HEARTH) && state.get(SoulHearthBlock.HALF) == DoubleBlockHalf.LOWER) {
-            BakedModel model = MinecraftClient.getInstance().getBakedModelManager().getModel(new ModelIdentifier(AylythUtil.id("pomegranate"), "inventory"));
+            BakedModel model = MinecraftClient.getInstance().getBakedModelManager().getModel(new ModelIdentifier(Aylyth.id("pomegranate"), "inventory"));
             MatrixStack stack = new MatrixStack();
             stack.push();
             float scale = 0.4f;

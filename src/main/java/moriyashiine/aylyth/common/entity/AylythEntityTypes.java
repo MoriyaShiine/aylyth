@@ -1,5 +1,6 @@
 package moriyashiine.aylyth.common.entity;
 
+import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.entity.types.RootPropEntity;
 import moriyashiine.aylyth.common.entity.types.mob.*;
 import moriyashiine.aylyth.common.entity.types.mob.TulpaEntity.TulpaPlayerEntity;
@@ -7,7 +8,6 @@ import moriyashiine.aylyth.common.entity.types.mob.passive.PilotLightEntity;
 import moriyashiine.aylyth.common.entity.types.projectile.SphereEntity;
 import moriyashiine.aylyth.common.entity.types.projectile.ThornFlechetteEntity;
 import moriyashiine.aylyth.common.entity.types.projectile.YmpeLanceEntity;
-import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.*;
 import net.minecraft.registry.Registries;
@@ -124,7 +124,7 @@ public interface AylythEntityTypes {
 	);
 
 	private static <E extends Entity> EntityType<E> register(String name, EntityType<E> type) {
-		return Registry.register(Registries.ENTITY_TYPE, AylythUtil.id(name), type);
+		return Registry.register(Registries.ENTITY_TYPE, Aylyth.id(name), type);
 	}
 
 	// Load static initializer

@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.common.data.world;
 
-import moriyashiine.aylyth.common.util.AylythUtil;
+import moriyashiine.aylyth.common.Aylyth;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.world.biome.Biome;
@@ -18,6 +18,6 @@ public interface AylythBiomes {
     RegistryKey<Biome> BOWELS = bind("bowels");
 
     private static RegistryKey<Biome> bind(String name) {
-        return RegistryKey.of(RegistryKeys.BIOME, AylythUtil.id(name));
+        return RegistryKey.of(RegistryKeys.BIOME, Aylyth.id(name));
     }
 }

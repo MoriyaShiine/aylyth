@@ -1,20 +1,17 @@
 package moriyashiine.aylyth.common.block;
 
-import com.google.common.base.Suppliers;
 import com.terraformersmc.terraform.sign.block.TerraformHangingSignBlock;
 import com.terraformersmc.terraform.sign.block.TerraformSignBlock;
 import com.terraformersmc.terraform.sign.block.TerraformWallHangingSignBlock;
 import com.terraformersmc.terraform.sign.block.TerraformWallSignBlock;
+import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.block.types.*;
 import moriyashiine.aylyth.common.data.world.feature.AylythConfiguredFeatures;
 import moriyashiine.aylyth.common.entity.AylythStatusEffects;
-import moriyashiine.aylyth.common.item.AylythItems;
-import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.common.world.AylythSoundEvents;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder;
-import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.block.sapling.LargeTreeSaplingGenerator;
@@ -30,12 +27,12 @@ import static net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSetting
 
 public interface AylythBlocks {
 
-	BlockSetType YMPE_BLOCK_SET_TYPE = new BlockSetTypeBuilder().register(AylythUtil.id("ympe"));
-	BlockSetType POMEGRANATE_BLOCK_SET_TYPE = new BlockSetTypeBuilder().register(AylythUtil.id("pomegranate"));
-	BlockSetType WRITHEWOOD_BLOCK_SET_TYPE = new BlockSetTypeBuilder().register(AylythUtil.id("writhewood"));
-	WoodType YMPE_WOOD_TYPE = new WoodTypeBuilder().register(AylythUtil.id("ympe"), YMPE_BLOCK_SET_TYPE);
-	WoodType POMEGRANATE_WOOD_TYPE = new WoodTypeBuilder().register(AylythUtil.id("pomegranate"), POMEGRANATE_BLOCK_SET_TYPE);
-	WoodType WRITHEWOOD_WOOD_TYPE = new WoodTypeBuilder().register(AylythUtil.id("writhewood"), WRITHEWOOD_BLOCK_SET_TYPE);
+	BlockSetType YMPE_BLOCK_SET_TYPE = new BlockSetTypeBuilder().register(Aylyth.id("ympe"));
+	BlockSetType POMEGRANATE_BLOCK_SET_TYPE = new BlockSetTypeBuilder().register(Aylyth.id("pomegranate"));
+	BlockSetType WRITHEWOOD_BLOCK_SET_TYPE = new BlockSetTypeBuilder().register(Aylyth.id("writhewood"));
+	WoodType YMPE_WOOD_TYPE = new WoodTypeBuilder().register(Aylyth.id("ympe"), YMPE_BLOCK_SET_TYPE);
+	WoodType POMEGRANATE_WOOD_TYPE = new WoodTypeBuilder().register(Aylyth.id("pomegranate"), POMEGRANATE_BLOCK_SET_TYPE);
+	WoodType WRITHEWOOD_WOOD_TYPE = new WoodTypeBuilder().register(Aylyth.id("writhewood"), WRITHEWOOD_BLOCK_SET_TYPE);
 
 	Block YMPE_STRIPPED_LOG = register("stripped_ympe_log", new PillarBlock(copyOf(Blocks.STRIPPED_OAK_LOG)));
 	Block YMPE_STRIPPED_WOOD = register("stripped_ympe_wood", new PillarBlock(copyOf(Blocks.STRIPPED_OAK_WOOD)));
@@ -52,12 +49,12 @@ public interface AylythBlocks {
 	Block YMPE_BUTTON = register("ympe_button", new ButtonBlock(copyOf(Blocks.OAK_BUTTON), YMPE_BLOCK_SET_TYPE, 30, true));
 	Block YMPE_TRAPDOOR = register("ympe_trapdoor", new TrapdoorBlock(copyOf(Blocks.OAK_TRAPDOOR), YMPE_BLOCK_SET_TYPE));
 	Block YMPE_DOOR = register("ympe_door", new DoorBlock(copyOf(Blocks.OAK_DOOR), YMPE_BLOCK_SET_TYPE));
-	TerraformSignBlock YMPE_SIGN = register("ympe_sign", new TerraformSignBlock(AylythUtil.id("entity/signs/ympe"), copyOf(Blocks.OAK_SIGN)));
-	Block YMPE_WALL_SIGN = register("ympe_wall_sign", new TerraformWallSignBlock(AylythUtil.id("entity/signs/ympe"), copyOf(Blocks.OAK_WALL_SIGN).dropsLike(YMPE_SIGN)));
-	TerraformHangingSignBlock YMPE_HANGING_SIGN = register("ympe_hanging_sign", new TerraformHangingSignBlock(AylythUtil.id("entity/signs/hanging/ympe"), AylythUtil.id("textures/gui/hanging_signs/ympe"), copyOf(Blocks.OAK_HANGING_SIGN)));
-	Block YMPE_WALL_HANGING_SIGN = register("ympe_wall_hanging_sign", new TerraformWallHangingSignBlock(AylythUtil.id("entity/signs/hanging/ympe"), AylythUtil.id("textures/gui/hanging_signs/ympe"), copyOf(Blocks.OAK_HANGING_SIGN).dropsLike(YMPE_HANGING_SIGN)));
+	TerraformSignBlock YMPE_SIGN = register("ympe_sign", new TerraformSignBlock(Aylyth.id("entity/signs/ympe"), copyOf(Blocks.OAK_SIGN)));
+	Block YMPE_WALL_SIGN = register("ympe_wall_sign", new TerraformWallSignBlock(Aylyth.id("entity/signs/ympe"), copyOf(Blocks.OAK_WALL_SIGN).dropsLike(YMPE_SIGN)));
+	TerraformHangingSignBlock YMPE_HANGING_SIGN = register("ympe_hanging_sign", new TerraformHangingSignBlock(Aylyth.id("entity/signs/hanging/ympe"), Aylyth.id("textures/gui/hanging_signs/ympe"), copyOf(Blocks.OAK_HANGING_SIGN)));
+	Block YMPE_WALL_HANGING_SIGN = register("ympe_wall_hanging_sign", new TerraformWallHangingSignBlock(Aylyth.id("entity/signs/hanging/ympe"), Aylyth.id("textures/gui/hanging_signs/ympe"), copyOf(Blocks.OAK_HANGING_SIGN).dropsLike(YMPE_HANGING_SIGN)));
 	Block YMPE_LEAVES = register("ympe_leaves", new LeavesBlock(copyOf(Blocks.OAK_LEAVES).mapColor(MapColor.ORANGE)));
-	Block FRUIT_BEARING_YMPE_LOG = register("fruit_bearing_ympe_log", new GrowingHarvestablePillarBlock(AylythUtil.id("harvest/fruit_bearing_ympe_log"), copyOf(AylythBlocks.YMPE_LOG)));
+	Block FRUIT_BEARING_YMPE_LOG = register("fruit_bearing_ympe_log", new GrowingHarvestablePillarBlock(Aylyth.id("harvest/fruit_bearing_ympe_log"), copyOf(AylythBlocks.YMPE_LOG)));
 
 	Block POMEGRANATE_STRIPPED_LOG = register("stripped_pomegranate_log", new PillarBlock(copyOf(Blocks.STRIPPED_OAK_LOG)));
 	Block POMEGRANATE_STRIPPED_WOOD = register("stripped_pomegranate_wood", new PillarBlock(copyOf(Blocks.STRIPPED_OAK_WOOD)));
@@ -74,10 +71,10 @@ public interface AylythBlocks {
 	Block POMEGRANATE_BUTTON = register("pomegranate_button", new ButtonBlock(copyOf(Blocks.OAK_BUTTON), POMEGRANATE_BLOCK_SET_TYPE, 30, true));
 	Block POMEGRANATE_TRAPDOOR = register("pomegranate_trapdoor", new TrapdoorBlock(copyOf(Blocks.OAK_TRAPDOOR), POMEGRANATE_BLOCK_SET_TYPE));
 	Block POMEGRANATE_DOOR = register("pomegranate_door", new DoorBlock(copyOf(Blocks.OAK_DOOR), POMEGRANATE_BLOCK_SET_TYPE));
-	TerraformSignBlock POMEGRANATE_SIGN = register("pomegranate_sign", new TerraformSignBlock(AylythUtil.id("entity/signs/pomegranate"), copyOf(Blocks.OAK_SIGN)));
-	Block POMEGRANATE_WALL_SIGN = register("pomegranate_wall_sign", new TerraformWallSignBlock(AylythUtil.id("entity/signs/pomegranate"), copyOf(Blocks.OAK_WALL_SIGN).dropsLike(POMEGRANATE_SIGN)));
-	TerraformHangingSignBlock POMEGRANATE_HANGING_SIGN = register("pomegranate_hanging_sign", new TerraformHangingSignBlock(AylythUtil.id("entity/signs/hanging/pomegranate"), AylythUtil.id("textures/gui/hanging_signs/pomegranate"), copyOf(Blocks.OAK_HANGING_SIGN)));
-	Block POMEGRANATE_WALL_HANGING_SIGN = register("pomegranate_wall_hanging_sign", new TerraformWallHangingSignBlock(AylythUtil.id("entity/signs/hanging/pomegranate"), AylythUtil.id("textures/gui/hanging_signs/pomegranate"), copyOf(Blocks.OAK_HANGING_SIGN).dropsLike(POMEGRANATE_HANGING_SIGN)));
+	TerraformSignBlock POMEGRANATE_SIGN = register("pomegranate_sign", new TerraformSignBlock(Aylyth.id("entity/signs/pomegranate"), copyOf(Blocks.OAK_SIGN)));
+	Block POMEGRANATE_WALL_SIGN = register("pomegranate_wall_sign", new TerraformWallSignBlock(Aylyth.id("entity/signs/pomegranate"), copyOf(Blocks.OAK_WALL_SIGN).dropsLike(POMEGRANATE_SIGN)));
+	TerraformHangingSignBlock POMEGRANATE_HANGING_SIGN = register("pomegranate_hanging_sign", new TerraformHangingSignBlock(Aylyth.id("entity/signs/hanging/pomegranate"), Aylyth.id("textures/gui/hanging_signs/pomegranate"), copyOf(Blocks.OAK_HANGING_SIGN)));
+	Block POMEGRANATE_WALL_HANGING_SIGN = register("pomegranate_wall_hanging_sign", new TerraformWallHangingSignBlock(Aylyth.id("entity/signs/hanging/pomegranate"), Aylyth.id("textures/gui/hanging_signs/pomegranate"), copyOf(Blocks.OAK_HANGING_SIGN).dropsLike(POMEGRANATE_HANGING_SIGN)));
 	Block POMEGRANATE_LEAVES = register("pomegranate_leaves", new PomegranateLeavesBlock(copyOf(Blocks.OAK_LEAVES)));
 
 	Block WRITHEWOOD_STRIPPED_LOG = register("stripped_writhewood_log", new PillarBlock(copyOf(Blocks.STRIPPED_OAK_LOG)));
@@ -95,10 +92,10 @@ public interface AylythBlocks {
 	Block WRITHEWOOD_BUTTON = register("writhewood_button", new ButtonBlock(copyOf(Blocks.OAK_BUTTON), WRITHEWOOD_BLOCK_SET_TYPE, 30, true));
 	Block WRITHEWOOD_TRAPDOOR = register("writhewood_trapdoor", new TrapdoorBlock(copyOf(Blocks.OAK_TRAPDOOR), WRITHEWOOD_BLOCK_SET_TYPE));
 	Block WRITHEWOOD_DOOR = register("writhewood_door", new DoorBlock(copyOf(Blocks.OAK_DOOR), WRITHEWOOD_BLOCK_SET_TYPE));
-	TerraformSignBlock WRITHEWOOD_SIGN = register("writhewood_sign", new TerraformSignBlock(AylythUtil.id("entity/signs/writhewood"), copyOf(Blocks.OAK_SIGN)));
-	Block WRITHEWOOD_WALL_SIGN = register("writhewood_wall_sign", new TerraformWallSignBlock(AylythUtil.id("entity/signs/writhewood"), copyOf(Blocks.OAK_WALL_SIGN).dropsLike(WRITHEWOOD_SIGN)));
-	TerraformHangingSignBlock WRITHEWOOD_HANGING_SIGN = register("writhewood_hanging_sign", new TerraformHangingSignBlock(AylythUtil.id("entity/signs/hanging/writhewood"), AylythUtil.id("textures/gui/hanging_signs/writhewood"), copyOf(Blocks.OAK_HANGING_SIGN)));
-	Block WRITHEWOOD_WALL_HANGING_SIGN = register("writhewood_wall_hanging_sign", new TerraformWallHangingSignBlock(AylythUtil.id("entity/signs/hanging/writhewood"), AylythUtil.id("textures/gui/hanging_signs/writhewood"), copyOf(Blocks.OAK_HANGING_SIGN).dropsLike(WRITHEWOOD_HANGING_SIGN)));
+	TerraformSignBlock WRITHEWOOD_SIGN = register("writhewood_sign", new TerraformSignBlock(Aylyth.id("entity/signs/writhewood"), copyOf(Blocks.OAK_SIGN)));
+	Block WRITHEWOOD_WALL_SIGN = register("writhewood_wall_sign", new TerraformWallSignBlock(Aylyth.id("entity/signs/writhewood"), copyOf(Blocks.OAK_WALL_SIGN).dropsLike(WRITHEWOOD_SIGN)));
+	TerraformHangingSignBlock WRITHEWOOD_HANGING_SIGN = register("writhewood_hanging_sign", new TerraformHangingSignBlock(Aylyth.id("entity/signs/hanging/writhewood"), Aylyth.id("textures/gui/hanging_signs/writhewood"), copyOf(Blocks.OAK_HANGING_SIGN)));
+	Block WRITHEWOOD_WALL_HANGING_SIGN = register("writhewood_wall_hanging_sign", new TerraformWallHangingSignBlock(Aylyth.id("entity/signs/hanging/writhewood"), Aylyth.id("textures/gui/hanging_signs/writhewood"), copyOf(Blocks.OAK_HANGING_SIGN).dropsLike(WRITHEWOOD_HANGING_SIGN)));
 	Block WRITHEWOOD_LEAVES = register("writhewood_leaves", new LeavesBlock(copyOf(Blocks.OAK_LEAVES).mapColor(MapColor.ORANGE)));
 
 	Block SEEPING_WOOD = register("seeping_wood", new PillarBlock(copyOf(Blocks.OAK_WOOD)));
@@ -106,7 +103,7 @@ public interface AylythBlocks {
 	Block GIRASOL_SAPLING_POTTED = register("potted_girasol_sapling", new FlowerPotBlock(GIRASOL_SAPLING, copyOf(Blocks.FLOWER_POT)));
 
 	Block CHTHONIA_WOOD = register("chthonia_wood", new PillarBlock(copyOf(Blocks.OAK_WOOD).mapColor(MapColor.PALE_GREEN)));
-	Block NEPHRITIC_CHTHONIA_WOOD = register("nephritic_chthonia_wood", new OneTimeHarvestablePillarBlock(AylythUtil.id("harvest/nephritic_chthonia_wood"), state -> AylythBlocks.CHTHONIA_WOOD.getDefaultState().with(PillarBlock.AXIS, state.get(PillarBlock.AXIS)), copyOf(Blocks.OAK_WOOD).mapColor(MapColor.PALE_GREEN)));
+	Block NEPHRITIC_CHTHONIA_WOOD = register("nephritic_chthonia_wood", new OneTimeHarvestablePillarBlock(Aylyth.id("harvest/nephritic_chthonia_wood"), state -> AylythBlocks.CHTHONIA_WOOD.getDefaultState().with(PillarBlock.AXIS, state.get(PillarBlock.AXIS)), copyOf(Blocks.OAK_WOOD).mapColor(MapColor.PALE_GREEN)));
 
 	Block AYLYTH_BUSH = register("aylyth_bush", new BushBlock());
 	Block ANTLER_SHOOTS = register("antler_shoots", new AntlerShootsBlock());
@@ -116,7 +113,7 @@ public interface AylythBlocks {
 
 	Block MARIGOLD = register("marigolds", new FlowerBlock(AylythStatusEffects.MORTECHIS, 9, copyOf(Blocks.DANDELION)));
 	Block MARIGOLD_POTTED = register("potted_marigolds", new FlowerPotBlock(MARIGOLD, copyOf(Blocks.FLOWER_POT)));
-	StagedMushroomPlantBlock JACK_O_LANTERN_MUSHROOM = register("jack_o_lantern_mushroom", new JackolanternMushroomBlock(() -> (SpreadingPlantBlock) Registries.BLOCK.get(AylythUtil.id("shelf_jack_o_lantern_mushroom")), FabricBlockSettings.create().notSolid().pistonBehavior(PistonBehavior.DESTROY).sounds(BlockSoundGroup.WART_BLOCK).noCollision().nonOpaque().ticksRandomly().luminance(state -> state.get(JackolanternShelfMushroomBlock.GLOWING) ? state.get(StagedMushroomPlantBlock.STAGE)+4 : 0)));
+	StagedMushroomPlantBlock JACK_O_LANTERN_MUSHROOM = register("jack_o_lantern_mushroom", new JackolanternMushroomBlock(() -> (SpreadingPlantBlock) Registries.BLOCK.get(Aylyth.id("shelf_jack_o_lantern_mushroom")), FabricBlockSettings.create().notSolid().pistonBehavior(PistonBehavior.DESTROY).sounds(BlockSoundGroup.WART_BLOCK).noCollision().nonOpaque().ticksRandomly().luminance(state -> state.get(JackolanternShelfMushroomBlock.GLOWING) ? state.get(StagedMushroomPlantBlock.STAGE)+4 : 0)));
 	ShelfMushroomBlock SHELF_JACK_O_LANTERN_MUSHROOM = register("shelf_jack_o_lantern_mushroom", new JackolanternShelfMushroomBlock(() -> JACK_O_LANTERN_MUSHROOM, FabricBlockSettings.create().notSolid().pistonBehavior(PistonBehavior.DESTROY).sounds(BlockSoundGroup.WART_BLOCK).noCollision().nonOpaque().ticksRandomly().luminance(state -> state.get(JackolanternShelfMushroomBlock.GLOWING) ? 5 : 0)));
 	Block GHOSTCAP_MUSHROOM = register("ghostcap_mushroom", new SpreadingPlantBlock(FabricBlockSettings.create().notSolid().pistonBehavior(PistonBehavior.DESTROY).sounds(BlockSoundGroup.GLOW_LICHEN).noCollision().nonOpaque().ticksRandomly()));
 
@@ -148,7 +145,7 @@ public interface AylythBlocks {
 	Block BLACK_WELL = register("black_well", new BlackWellBlock(copyOf(Blocks.DEEPSLATE)));
 
 	private static <B extends Block> B register(String name, B block) {
-		return Registry.register(Registries.BLOCK, AylythUtil.id(name), block);
+		return Registry.register(Registries.BLOCK, Aylyth.id(name), block);
 	}
 
 	// TODO move to separate classes

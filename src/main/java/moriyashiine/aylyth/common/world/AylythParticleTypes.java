@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.common.world;
 
-import moriyashiine.aylyth.common.util.AylythUtil;
+import moriyashiine.aylyth.common.Aylyth;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.particle.ParticleEffect;
@@ -19,7 +19,7 @@ public interface AylythParticleTypes {
 	DefaultParticleType BLIGHT_LAND = register("blight_land", FabricParticleTypes.simple(true));
 
 	private static <E extends ParticleEffect, P extends ParticleType<E>> P register(String id, P particleType) {
-		return Registry.register(Registries.PARTICLE_TYPE, AylythUtil.id(id), particleType);
+		return Registry.register(Registries.PARTICLE_TYPE, Aylyth.id(id), particleType);
 	}
 
 	// Load static initializer

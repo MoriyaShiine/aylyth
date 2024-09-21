@@ -1,9 +1,9 @@
 package moriyashiine.aylyth.client.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.entity.types.mob.TulpaEntity;
 import moriyashiine.aylyth.common.screenhandler.TulpaScreenHandler;
-import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
@@ -14,7 +14,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 public class TulpaScreen extends HandledScreen<TulpaScreenHandler> {
-    private static final Identifier TULPA_GUI_TEXTURES = AylythUtil.id("textures/gui/tulpa_inventory.png");
+    private static final Identifier TULPA_GUI_TEXTURES = Aylyth.id("textures/gui/tulpa_inventory.png");
 
     private final PlayerEntity player;
     private final TulpaEntity tulpaEntity;

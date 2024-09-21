@@ -67,6 +67,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
@@ -81,10 +82,12 @@ import java.util.List;
 
 public class Aylyth implements ModInitializer {
 	public static final String MOD_ID = "aylyth";
+	public static Identifier id(String string){
+		return new Identifier(MOD_ID, string);
+	}
+
 	public static final Logger LOGGER = LoggerFactory.getLogger("Aylyth");
-
 	public static final boolean DEBUG = System.getProperty("aylyth.debug") != null;
-
 	public static boolean isDebugMode() {
 		return DEBUG;
 	}

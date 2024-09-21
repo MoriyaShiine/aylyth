@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.common.screenhandler;
 
-import moriyashiine.aylyth.common.util.AylythUtil;
+import moriyashiine.aylyth.common.Aylyth;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType.ExtendedFactory;
 import net.minecraft.registry.Registries;
@@ -13,7 +13,7 @@ public interface AylythScreenHandlerTypes {
     ScreenHandlerType<TulpaScreenHandler> TULPA = register("tulpa", TulpaScreenHandler::new);
 
     private static <H extends ScreenHandler> ScreenHandlerType<H> register(String name, ExtendedFactory<H> handlerFactory) {
-        return Registry.register(Registries.SCREEN_HANDLER, AylythUtil.id(name), new ExtendedScreenHandlerType<>(handlerFactory));
+        return Registry.register(Registries.SCREEN_HANDLER, Aylyth.id(name), new ExtendedScreenHandlerType<>(handlerFactory));
     }
 
     static void register() {}

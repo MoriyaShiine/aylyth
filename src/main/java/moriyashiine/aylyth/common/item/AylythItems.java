@@ -8,7 +8,6 @@ import moriyashiine.aylyth.common.entity.AylythEntityTypes;
 import moriyashiine.aylyth.common.entity.AylythStatusEffects;
 import moriyashiine.aylyth.common.item.types.*;
 import moriyashiine.aylyth.common.item.components.ThornFlechetteEffect;
-import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.common.world.AylythSoundEvents;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
@@ -27,7 +26,7 @@ import java.util.List;
 public interface AylythItems {
 
     List<Item> TEMPT_MAIN_ITEM_GROUP_ITEMS = new ObjectArrayList<>(); // *private*
-    RegistryKey<ItemGroup> MAIN_ITEM_GROUP = RegistryKey.of(RegistryKeys.ITEM_GROUP, AylythUtil.id(Aylyth.MOD_ID));
+    RegistryKey<ItemGroup> MAIN_ITEM_GROUP = RegistryKey.of(RegistryKeys.ITEM_GROUP, Aylyth.id(Aylyth.MOD_ID));
 
     Item DEBUG_WAND = register("debug_wand", new DebugWandItem(settings()));
 
@@ -200,7 +199,7 @@ public interface AylythItems {
 
 	private static <I extends Item> I register(String name, I item) {
 		TEMPT_MAIN_ITEM_GROUP_ITEMS.add(item);
-		return Registry.register(Registries.ITEM, AylythUtil.id(name), item);
+		return Registry.register(Registries.ITEM, Aylyth.id(name), item);
 	}
 
 	private static Item registerSimple(String name) {

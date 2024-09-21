@@ -1,9 +1,9 @@
 package moriyashiine.aylyth.datagen.common.loot;
 
+import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.data.tag.AylythItemTags;
 import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.aylyth.common.loot.AylythLootContextTypes;
-import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
 import net.minecraft.loot.LootPool;
@@ -27,8 +27,8 @@ public final class AylythHarvestLootProvider extends SimpleFabricLootTableProvid
     }
 
     private void generate(BiConsumer<Identifier, LootTable.Builder> exporter) {
-        exporter.accept(AylythUtil.id("fruit_bearing_ympe_log"), fruitBearingYmpeLog());
-        exporter.accept(AylythUtil.id("nephritic_chthonia_wood"), nephriticChthoniaWood());
+        exporter.accept(Aylyth.id("fruit_bearing_ympe_log"), fruitBearingYmpeLog());
+        exporter.accept(Aylyth.id("nephritic_chthonia_wood"), nephriticChthoniaWood());
     }
 
     private LootTable.Builder fruitBearingYmpeLog() {

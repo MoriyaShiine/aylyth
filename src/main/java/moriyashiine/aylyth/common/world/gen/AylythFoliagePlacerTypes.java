@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.world.gen;
 
 import com.mojang.serialization.Codec;
-import moriyashiine.aylyth.common.util.AylythUtil;
+import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.world.gen.foliageplacers.GirasolFoliagePlacer;
 import moriyashiine.aylyth.common.world.gen.foliageplacers.PomegranateFoliagePlacer;
 import moriyashiine.aylyth.common.world.gen.foliageplacers.WrithewoodFoliagePlacer;
@@ -18,7 +18,7 @@ public interface AylythFoliagePlacerTypes {
     FoliagePlacerType<GirasolFoliagePlacer> GIRASOL = register("girasol_foliage_placer", GirasolFoliagePlacer.CODEC);
     
     private static <T extends FoliagePlacer> FoliagePlacerType<T> register(String id, Codec<T> codec) {
-        return Registry.register(Registries.FOLIAGE_PLACER_TYPE, AylythUtil.id(id), new FoliagePlacerType<>(codec));
+        return Registry.register(Registries.FOLIAGE_PLACER_TYPE, Aylyth.id(id), new FoliagePlacerType<>(codec));
     }
 
     // Load static initializer
