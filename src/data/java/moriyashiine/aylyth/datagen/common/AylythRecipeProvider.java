@@ -150,7 +150,7 @@ public final class AylythRecipeProvider extends FabricRecipeProvider {
                 .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, AylythItems.NEPHRITE_SWORD)
-                .input('N', AylythItems.NEPHRITE)
+                .input('N', AylythItemTags.NEPHRITE_TOOL_MATERIALS)
                 .input('S', Items.STICK)
                 .pattern("N")
                 .pattern("N")
@@ -159,7 +159,7 @@ public final class AylythRecipeProvider extends FabricRecipeProvider {
                 .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, AylythItems.NEPHRITE_SHOVEL)
-                .input('N', AylythItems.NEPHRITE)
+                .input('N', AylythItemTags.NEPHRITE_TOOL_MATERIALS)
                 .input('S', Items.STICK)
                 .pattern("N")
                 .pattern("S")
@@ -168,7 +168,7 @@ public final class AylythRecipeProvider extends FabricRecipeProvider {
                 .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, AylythItems.NEPHRITE_PICKAXE)
-                .input('N', AylythItems.NEPHRITE)
+                .input('N', AylythItemTags.NEPHRITE_TOOL_MATERIALS)
                 .input('S', Items.STICK)
                 .pattern("NNN")
                 .pattern(" S ")
@@ -177,7 +177,7 @@ public final class AylythRecipeProvider extends FabricRecipeProvider {
                 .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, AylythItems.NEPHRITE_AXE)
-                .input('N', AylythItems.NEPHRITE)
+                .input('N', AylythItemTags.NEPHRITE_TOOL_MATERIALS)
                 .input('S', Items.STICK)
                 .pattern("NN")
                 .pattern("NS")
@@ -186,7 +186,7 @@ public final class AylythRecipeProvider extends FabricRecipeProvider {
                 .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, AylythItems.NEPHRITE_HOE)
-                .input('N', AylythItems.NEPHRITE)
+                .input('N', AylythItemTags.NEPHRITE_TOOL_MATERIALS)
                 .input('S', Items.STICK)
                 .pattern("NN")
                 .pattern(" S")

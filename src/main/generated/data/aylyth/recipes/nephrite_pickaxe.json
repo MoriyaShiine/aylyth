@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "N": {
-      "item": "aylyth:nephrite"
+      "tag": "aylyth:nephrite_tool_materials"
     },
     "S": {
       "item": "minecraft:stick"
