@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "aylyth:block/jack_o_lantern_mushroom_block"
+  }
+}

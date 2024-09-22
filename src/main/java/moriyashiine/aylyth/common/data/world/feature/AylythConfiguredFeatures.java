@@ -14,6 +14,7 @@ public interface AylythConfiguredFeatures {
     RegistryKey<ConfiguredFeature<?, ?>> POMEGRANATE_TREE = bind("pomegranate_tree");
     RegistryKey<ConfiguredFeature<?, ?>> WRITHEWOOD_TREE = bind("writhewood_tree");
     RegistryKey<ConfiguredFeature<?, ?>> GIRASOL_TREE = bind("seeping_tree");
+    RegistryKey<ConfiguredFeature<?, ?>> GIANT_JACK__O_LANTERN_MUSHROOM = bind("giant_jack_o_lantern_mushroom");
 
     RegistryKey<ConfiguredFeature<?, ?>> SPRING = bind("spring");
     RegistryKey<ConfiguredFeature<?, ?>> BUSHES = bind("bushes");

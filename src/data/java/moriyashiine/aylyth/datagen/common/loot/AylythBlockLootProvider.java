@@ -95,6 +95,8 @@ public class AylythBlockLootProvider extends FabricBlockLootTableProvider {
         addDrop(AylythBlocks.WRITHEWOOD_HANGING_SIGN);
         addDrop(AylythBlocks.CHTHONIA_WOOD);
         addDrop(AylythBlocks.NEPHRITIC_CHTHONIA_WOOD, block -> nephriticChthoniaWood(block, AylythBlocks.CHTHONIA_WOOD));
+        addDrop(AylythBlocks.JACK_O_LANTERN_MUSHROOM_BLOCK, block -> mushroomBlockDrops(block, AylythItems.JACK_O_LANTERN_MUSHROOM));
+        addDropWithSilkTouch(AylythBlocks.JACK_O_LANTERN_MUSHROOM_STEM);
     }
 
     private LootTable.Builder nephriticChthoniaWood(Block block, Block emptyLog) {

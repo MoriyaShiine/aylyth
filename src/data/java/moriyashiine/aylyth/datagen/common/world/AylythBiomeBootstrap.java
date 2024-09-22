@@ -124,7 +124,7 @@ public final class AylythBiomeBootstrap {
 							.add(AylythBiomeBootstrap::addLandCarversNotLavaLakes)
 							.add(AylythBiomeBootstrap::addBasicVanillaOres)
 							.vegetalDecoFeature(VegetationPlacedFeatures.PATCH_GRASS_PLAIN)
-							.vegetalDecoFeature(AylythPlacedFeatures.POMEGRANATE_TREE_VEG_PLACED)
+							.vegetalDecoFeature(AylythPlacedFeatures.POMEGRANATE_TREE_CHECKED)
 							.add(AylythBiomeBootstrap::addMarigolds)
 							.add(AylythBiomeBootstrap::addWaterSprings)
 							.add(DefaultBiomeFeatures::addFrozenTopLayer);
@@ -175,7 +175,7 @@ public final class AylythBiomeBootstrap {
 								.add(AylythBiomeBootstrap::addLeafPiles)
 								.add(DefaultBiomeFeatures::addLargeFerns);
 					} else {
-						generationSettingsBuilder.vegetalDecoFeature(AylythPlacedFeatures.POMEGRANATE_TREE_VEG_PLACED);
+						generationSettingsBuilder.vegetalDecoFeature(AylythPlacedFeatures.POMEGRANATE_TREE_CHECKED);
 					}
 				}, placedFeatures, configuredCarvers).build();
 	}
@@ -210,6 +210,7 @@ public final class AylythBiomeBootstrap {
 					if (deep) {
 						builder.vegetalDecoFeature(AylythPlacedFeatures.CONIFEROUS_DEEP_ROOF_TREES_PLACED)
 								.vegetalDecoFeature(AylythPlacedFeatures.SHELF_JACK_O_LANTERN_MUSHROOM_PATCHES_DEEPWOOD_PLACED)
+								.vegetalDecoFeature(AylythPlacedFeatures.GIANT_JACK__O_LANTERN_MUSHROOM)
 								.add(AylythBiomeBootstrap::addWoodyGrowths)
 								.add(AylythBiomeBootstrap::addLeafPiles)
 								.add(DefaultBiomeFeatures::addLargeFerns);

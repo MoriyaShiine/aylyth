@@ -6,6 +6,7 @@ import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.world.gen.AylythFeatures;
 import moriyashiine.aylyth.common.data.world.feature.AylythPlacedFeatures;
 import moriyashiine.aylyth.common.data.tag.AylythBlockTags;
+import moriyashiine.aylyth.common.world.gen.features.GiantMushroomFeature;
 import moriyashiine.aylyth.common.world.gen.features.HorizontalFacingFeature;
 import moriyashiine.aylyth.common.world.gen.features.LeafPileFeature;
 import moriyashiine.aylyth.common.world.gen.features.SeepFeature;
@@ -18,6 +19,7 @@ import moriyashiine.aylyth.common.world.gen.treedecorators.RangedTreeDecorator;
 import moriyashiine.aylyth.common.world.gen.trunkplacers.*;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.MushroomBlock;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.state.property.Properties;
@@ -72,6 +74,8 @@ public final class AylythConfiguredFeatureBootstrap {
         ConfiguredFeatures.register(context, POMEGRANATE_TREE, Feature.TREE, new TreeFeatureConfig.Builder(SimpleBlockStateProvider.of(AylythBlocks.POMEGRANATE_LOG), new PomegranateTrunkPlacer(5, 0, 0), SimpleBlockStateProvider.of(AylythBlocks.POMEGRANATE_LEAVES.getDefaultState().with(Properties.PERSISTENT, false)), new PomegranateFoliagePlacer(ConstantIntProvider.create(1), ConstantIntProvider.create(0), 2), new TwoLayersFeatureSize(1, 1, 1)).ignoreVines().build());
         ConfiguredFeatures.register(context, WRITHEWOOD_TREE, Feature.TREE, new TreeFeatureConfig.Builder(SimpleBlockStateProvider.of(AylythBlocks.WRITHEWOOD_LOG), new WrithewoodTrunkPlacer(6, 4, 14), SimpleBlockStateProvider.of(AylythBlocks.WRITHEWOOD_LEAVES), new WrithewoodFoliagePlacer(ConstantIntProvider.create(1), ConstantIntProvider.create(1)), new TwoLayersFeatureSize(2, 1, 1)).ignoreVines().build());
         ConfiguredFeatures.register(context, GIRASOL_TREE, Feature.TREE, new TreeFeatureConfig.Builder(SimpleBlockStateProvider.of(AylythBlocks.SEEPING_WOOD), new GirasolTrunkPlacer(6, 1, 3, AylythBlocks.SEEPING_WOOD_SEEP.getDefaultState(), 6), SimpleBlockStateProvider.of(AylythBlocks.YMPE_LEAVES), new GirasolFoliagePlacer(ConstantIntProvider.create(1), ConstantIntProvider.create(1)), new TwoLayersFeatureSize(2, 1, 1)).ignoreVines().decorators(ImmutableList.of(new GrapeVineDecorator(UniformIntProvider.create(0, 9), 3), new RangedTreeDecorator(List.of(AylythBlocks.SMALL_WOODY_GROWTH.getDefaultState(), AylythBlocks.LARGE_WOODY_GROWTH.getDefaultState()), 12, 4), new RangedTreeDecorator(List.of(AylythBlocks.OAK_STREWN_LEAVES.getDefaultState(), AylythBlocks.YMPE_STREWN_LEAVES.getDefaultState()), 32, 6))).build());
+
+        ConfiguredFeatures.register(context, GIANT_JACK__O_LANTERN_MUSHROOM, AylythFeatures.GIANT_MUSHROOM, new GiantMushroomFeature.GiantMushroomConfig(BlockStateProvider.of(AylythBlocks.JACK_O_LANTERN_MUSHROOM_BLOCK.getDefaultState().with(MushroomBlock.DOWN, false)), BlockStateProvider.of(AylythBlocks.JACK_O_LANTERN_MUSHROOM_STEM), UniformIntProvider.create(2, 4), UniformIntProvider.create(3, 5)));
 
         ConfiguredFeatures.register(context, SPRING, AylythFeatures.SPRING_FEATURE, new SingleStateFeatureConfig(Blocks.WATER.getDefaultState()));
         ConfiguredFeatures.register(context, BUSHES, AylythFeatures.BUSH_FEATURE, FeatureConfig.DEFAULT);

@@ -106,6 +106,10 @@ public interface AylythItems {
     Item YMPE_STREWN_LEAVES = registerBlockItem("ympe_strewn_leaves", AylythBlocks.YMPE_STREWN_LEAVES);
     Item JACK_O_LANTERN_MUSHROOM = register("jack_o_lantern_mushroom", new VerticallyAttachableBlockItem(AylythBlocks.JACK_O_LANTERN_MUSHROOM, AylythBlocks.SHELF_JACK_O_LANTERN_MUSHROOM, settings(), Direction.DOWN));
     Item GHOSTCAP_MUSHROOM_SPORES = registerBlockItem("ghostcap_mushroom_spores", AylythBlocks.GHOSTCAP_MUSHROOM);
+
+    Item JACK_O_LANTERN_MUSHROOM_STEM = registerBlockItem("jack_o_lantern_mushroom_stem", AylythBlocks.JACK_O_LANTERN_MUSHROOM_STEM);
+    Item JACK_O_LANTERN_MUSHROOM_BLOCK = registerBlockItem("jack_o_lantern_mushroom_block", AylythBlocks.JACK_O_LANTERN_MUSHROOM_BLOCK);
+
     Item SMALL_WOODY_GROWTH = registerBlockItem("small_woody_growth", AylythBlocks.SMALL_WOODY_GROWTH);
     Item LARGE_WOODY_GROWTH = registerBlockItem("large_woody_growth", AylythBlocks.LARGE_WOODY_GROWTH);
     Item WOODY_GROWTH_CACHE = registerBlockItem("woody_growth_cache", AylythBlocks.WOODY_GROWTH_CACHE);

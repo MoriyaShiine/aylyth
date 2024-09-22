@@ -113,6 +113,8 @@ public class AylythEnglishLanguageProvider extends FabricLanguageProvider {
         builder.add(AylythBlocks.BLACK_WELL, "Black Well");
         builder.add(AylythBlocks.CHTHONIA_WOOD, "Chthonia Wood");
         builder.add(AylythBlocks.NEPHRITIC_CHTHONIA_WOOD, "Nephritic Chthonia Wood");
+        builder.add(AylythBlocks.JACK_O_LANTERN_MUSHROOM_STEM, "Jack O'Lantern Mushroom Stem");
+        builder.add(AylythBlocks.JACK_O_LANTERN_MUSHROOM_BLOCK, "Jack O'Lantern Mushroom Block");
 
         // ITEMS
 
