@@ -325,6 +325,10 @@ public class AylythEnglishLanguageProvider extends FabricLanguageProvider {
         builder.add("tag.aylyth.blighted_weapons", "Blighted Weapons");
         builder.add("tag.aylyth.vampiric_weapons", "Vampiric Weapons");
         builder.add("tag.aylyth.nephrite_flasks", "Nephrite Flasks");
+        builder.add("tag.aylyth.boss_hearts", "Hearts of Bosses");
+        builder.add("tag.aylyth.chthonia_wood", "Chthonia Wood");
+        builder.add("tag.aylyth.heart_harvesters", "Heart Harvesters");
+        builder.add("tag.aylyth.ympe_fruit_harvesters", "Ympe Fruit Harvesters");
     }
     
     private void biome(TranslationBuilder builder, RegistryKey<Biome> biomeKey, String translation) {
