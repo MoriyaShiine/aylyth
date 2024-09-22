@@ -17,7 +17,7 @@
       "predicate": {
         "type": "minecraft:would_survive",
         "state": {
-          "Name": "aylyth:ympe_sapling",
+          "Name": "aylyth:pomegranate_sapling",
           "Properties": {
             "stage": "0"
           }

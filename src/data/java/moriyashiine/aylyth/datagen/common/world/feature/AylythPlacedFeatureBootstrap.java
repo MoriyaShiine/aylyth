@@ -68,11 +68,11 @@ public final class AylythPlacedFeatureBootstrap {
         var woodyGrowthsWaterSelector = features.getOrThrow(AylythConfiguredFeatures.WOODY_GROWTHS_WATER_SELECTOR);
         var woodyGrowthsWaterPatch = features.getOrThrow(AylythConfiguredFeatures.WOODY_GROWTH_WATER_PATCH);
 
-        PlacedFeatures.register(context, AYLYTHIAN_DARK_OAK, aylythianDarkOak, List.of(PlacedFeatures.createCountExtraModifier(8, 0.25F, 2), PlacedFeatures.wouldSurvive(AylythBlocks.YMPE_SAPLING), BiomePlacementModifier.of())); //decorate(Decorators.SQUARE_HEIGHTMAP_OCEAN_FLOOR_NO_WATER).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(8, 0.3F, 2)));
+        PlacedFeatures.register(context, AYLYTHIAN_DARK_OAK, aylythianDarkOak, List.of(PlacedFeatures.createCountExtraModifier(8, 0.25F, 2), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, PlacedFeatures.wouldSurvive(AylythBlocks.YMPE_SAPLING), BiomePlacementModifier.of()));
         PlacedFeatures.register(context, AYLYTHIAN_MEGA_DARK_OAK, aylythianMegaDarkOak, List.of(CountPlacementModifier.of(1), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, PlacedFeatures.wouldSurvive(AylythBlocks.YMPE_SAPLING)));
         PlacedFeatures.register(context, YMPE_TREE, ympe, List.of(CountPlacementModifier.of(1), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, PlacedFeatures.wouldSurvive(AylythBlocks.YMPE_SAPLING)));
         PlacedFeatures.register(context, BIG_YMPE_TREE, bigYmpe, List.of(CountPlacementModifier.of(1), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, PlacedFeatures.wouldSurvive(AylythBlocks.YMPE_SAPLING)));
-        PlacedFeatures.register(context, POMEGRANATE_TREE, pomegranate, List.of(CountPlacementModifier.of(1), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, PlacedFeatures.wouldSurvive(AylythBlocks.YMPE_SAPLING)));
+        PlacedFeatures.register(context, POMEGRANATE_TREE, pomegranate, List.of(CountPlacementModifier.of(1), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, PlacedFeatures.wouldSurvive(AylythBlocks.POMEGRANATE_SAPLING)));
         PlacedFeatures.register(context, WRITHEWOOD_TREE, writhewood, List.of(PlacedFeatures.wouldSurvive(AylythBlocks.WRITHEWOOD_SAPLING)));
 
         PlacedFeatures.register(context, GIANT_JACK__O_LANTERN_MUSHROOM, features.getOrThrow(AylythConfiguredFeatures.GIANT_JACK__O_LANTERN_MUSHROOM), List.of(SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, PlacedFeatures.wouldSurvive(AylythBlocks.WRITHEWOOD_SAPLING), BiomePlacementModifier.of()));
@@ -96,33 +96,33 @@ public final class AylythPlacedFeatureBootstrap {
         PlacedFeatures.register(context, DARK_OAK_SEEP, darkOakSeep, List.of(RarityFilterPlacementModifier.of(10), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of())); //.spreadHorizontally().applyChance(10).repeatRandomly(4);
         PlacedFeatures.register(context, YMPE_SEEP, ympeSeep, List.of(CountPlacementModifier.of(4), RarityFilterPlacementModifier.of(10), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of())); //.spreadHorizontally().applyChance(10).repeatRandomly(4);
 
-        PlacedFeatures.register(context, DEEP_ROOF_TREES_PLACED, deepRoofTrees, treesSurvive(8, 0.5F, 3));
-        PlacedFeatures.register(context, CONIFEROUS_DEEP_ROOF_TREES_PLACED, coniferousDeepRoofTrees, treesSurvive(7, 0.5F, 2));
-        PlacedFeatures.register(context, COPSE_TREES_PLACED, copseTrees, treesSurvive(3, 0.1F, 1));
-        PlacedFeatures.register(context, DEEPWOOD_TREES_PLACED, deepWoodTrees, treesSurvive(4, 0.25F, 2));
-        PlacedFeatures.register(context, CONIFEROUS_COPSE_TREES_PLACED, coniferousCopseTrees, treesSurvive(5, 0.25F, 2));
-        PlacedFeatures.register(context, CONIFEROUS_DEEPWOOD_TREES_PLACED, coniferousDeepWoodTrees, treesSurvive(4, 0.25F, 2));
-        PlacedFeatures.register(context, OVERGROWTH_CLEARING_TREES_PLACED, overgrowthClearingTrees, treesSurvive(1, 0.5F, 2));
-        PlacedFeatures.register(context, MIRE_WATER_TREES_PLACED, mireWaterTrees, floodedTreesSurvive(2, 0.5F, 2));
-        PlacedFeatures.register(context, MIRE_LAND_TREES_PLACED, mireLandTrees, treesSurvive(2, 0.5F, 2));
+        PlacedFeatures.register(context, DEEP_ROOF_TREES, deepRoofTrees, treesSurvive(8, 0.5F, 3));
+        PlacedFeatures.register(context, CONIFEROUS_DEEP_ROOF_TREES, coniferousDeepRoofTrees, treesSurvive(7, 0.5F, 2));
+        PlacedFeatures.register(context, COPSE_TREES, copseTrees, treesSurvive(3, 0.1F, 1));
+        PlacedFeatures.register(context, DEEPWOOD_TREES, deepWoodTrees, treesSurvive(4, 0.25F, 2));
+        PlacedFeatures.register(context, CONIFEROUS_COPSE_TREES, coniferousCopseTrees, treesSurvive(5, 0.25F, 2));
+        PlacedFeatures.register(context, CONIFEROUS_DEEPWOOD_TREES, coniferousDeepWoodTrees, treesSurvive(4, 0.25F, 2));
+        PlacedFeatures.register(context, OVERGROWTH_CLEARING_TREES, overgrowthClearingTrees, treesSurvive(1, 0.5F, 2));
+        PlacedFeatures.register(context, MIRE_WATER_TREES, mireWaterTrees, floodedTreesSurvive(2, 0.5F, 2));
+        PlacedFeatures.register(context, MIRE_LAND_TREES, mireLandTrees, treesSurvive(2, 0.5F, 2));
 
-        PlacedFeatures.register(context, RED_MUSHROOM_PATCHES_PLACED, redMushroomPatches, List.of(RarityFilterPlacementModifier.of(256), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of()));
-        PlacedFeatures.register(context, BROWN_MUSHROOM_PATCHES_PLACED, brownMushroomPatches, List.of(RarityFilterPlacementModifier.of(256), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of()));
-        PlacedFeatures.register(context, RED_MUSHROOM_PATCHES_DEEPWOOD_PLACED, redMushroomPatches, List.of(RarityFilterPlacementModifier.of(64), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of()));
-        PlacedFeatures.register(context, BROWN_MUSHROOM_PATCHES_DEEPWOOD_PLACED, brownMushroomPatches, List.of(RarityFilterPlacementModifier.of(64), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of()));
-        PlacedFeatures.register(context, GLOW_LICHEN_PLACED, glowLichen, List.of(RarityFilterPlacementModifier.of(4), SquarePlacementModifier.of(), BiomePlacementModifier.of()));
-        PlacedFeatures.register(context, SHELF_JACK_O_LANTERN_MUSHROOM_PATCHES_COMMON_PLACED, shelfJackOLanternMushroomPatches, List.of(RarityFilterPlacementModifier.of(8), CountPlacementModifier.of(2), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of()));
-        PlacedFeatures.register(context, SHELF_JACK_O_LANTERN_MUSHROOM_PATCHES_DEEPWOOD_PLACED, shelfJackOLanternMushroomPatches, List.of(RarityFilterPlacementModifier.of(4), CountPlacementModifier.of(8), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of()));
-        PlacedFeatures.register(context, GHOSTCAP_MUSHROOM_PATCHES_PLACED, ghostcapMushroomPatches, List.of(RarityFilterPlacementModifier.of(16), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of()));
-        PlacedFeatures.register(context, POMEGRANATE_TREE_VEG_PLACED, pomegranateTree, List.of(RarityFilterPlacementModifier.of(32), SquarePlacementModifier.of(), NOT_IN_SURFACE_WATER_MODIFIER, PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP, BiomePlacementModifier.of(), PlacedFeatures.wouldSurvive(AylythBlocks.YMPE_SAPLING)));
-        PlacedFeatures.register(context, WOODY_GROWTH_PATCH_PLACED, woodyGrowthPatch, List.of(SquarePlacementModifier.of(), PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP, BiomePlacementModifier.of()));
-        PlacedFeatures.register(context, WOODY_GROWTH_BOWELS_PATCH_PLACED, woodyGrowthBowelsPatch, List.of(CountPlacementModifier.of(128), SquarePlacementModifier.of(), PlacedFeatures.BOTTOM_TO_120_RANGE, BiomePlacementModifier.of()));
-        PlacedFeatures.register(context, STREWN_LEAVES_PATCH_PLACED, strewnLeavesPatch, List.of(RarityFilterPlacementModifier.of(4), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of()));
-        PlacedFeatures.register(context, ANTLER_SHOOTS_WATER_PATCH_PLACED, antlerShootsWaterPatch, List.of(SquarePlacementModifier.of(), SurfaceWaterDepthFilterPlacementModifier.of(2), PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP, BiomePlacementModifier.of()));
-        PlacedFeatures.register(context, ANTLER_SHOOTS_PATCH_PLACED, antlerShootsPatch, List.of(SquarePlacementModifier.of(), PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP, BiomePlacementModifier.of()));
-        PlacedFeatures.register(context, WOODY_GROWTHS_WATER_SELECTOR_PLACED, woodyGrowthsWaterSelector, List.of(PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP));
+        PlacedFeatures.register(context, RED_MUSHROOM_PATCHES, redMushroomPatches, List.of(RarityFilterPlacementModifier.of(256), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of()));
+        PlacedFeatures.register(context, BROWN_MUSHROOM_PATCHES, brownMushroomPatches, List.of(RarityFilterPlacementModifier.of(256), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of()));
+        PlacedFeatures.register(context, RED_MUSHROOM_PATCHES_DEEPWOOD, redMushroomPatches, List.of(RarityFilterPlacementModifier.of(64), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of()));
+        PlacedFeatures.register(context, BROWN_MUSHROOM_PATCHES_DEEPWOOD, brownMushroomPatches, List.of(RarityFilterPlacementModifier.of(64), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of()));
+        PlacedFeatures.register(context, GLOW_LICHEN, glowLichen, List.of(RarityFilterPlacementModifier.of(4), SquarePlacementModifier.of(), BiomePlacementModifier.of()));
+        PlacedFeatures.register(context, SHELF_JACK_O_LANTERN_MUSHROOM_PATCHES_COMMON, shelfJackOLanternMushroomPatches, List.of(RarityFilterPlacementModifier.of(8), CountPlacementModifier.of(2), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of()));
+        PlacedFeatures.register(context, SHELF_JACK_O_LANTERN_MUSHROOM_PATCHES_DEEPWOOD, shelfJackOLanternMushroomPatches, List.of(RarityFilterPlacementModifier.of(4), CountPlacementModifier.of(8), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of()));
+        PlacedFeatures.register(context, GHOSTCAP_MUSHROOM_PATCHES, ghostcapMushroomPatches, List.of(RarityFilterPlacementModifier.of(16), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of()));
+        PlacedFeatures.register(context, POMEGRANATE_TREE_CHECKED, pomegranateTree, List.of(RarityFilterPlacementModifier.of(32), SquarePlacementModifier.of(), NOT_IN_SURFACE_WATER_MODIFIER, PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP, BiomePlacementModifier.of(), PlacedFeatures.wouldSurvive(AylythBlocks.YMPE_SAPLING)));
+        PlacedFeatures.register(context, WOODY_GROWTH_PATCH, woodyGrowthPatch, List.of(SquarePlacementModifier.of(), PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP, BiomePlacementModifier.of()));
+        PlacedFeatures.register(context, WOODY_GROWTH_BOWELS_PATCH, woodyGrowthBowelsPatch, List.of(CountPlacementModifier.of(128), SquarePlacementModifier.of(), PlacedFeatures.BOTTOM_TO_120_RANGE, BiomePlacementModifier.of()));
+        PlacedFeatures.register(context, STREWN_LEAVES_PATCH, strewnLeavesPatch, List.of(RarityFilterPlacementModifier.of(4), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of()));
+        PlacedFeatures.register(context, ANTLER_SHOOTS_WATER_PATCH, antlerShootsWaterPatch, List.of(SquarePlacementModifier.of(), SurfaceWaterDepthFilterPlacementModifier.of(2), PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP, BiomePlacementModifier.of()));
+        PlacedFeatures.register(context, ANTLER_SHOOTS_PATCH, antlerShootsPatch, List.of(SquarePlacementModifier.of(), PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP, BiomePlacementModifier.of()));
+        PlacedFeatures.register(context, WOODY_GROWTHS_WATER_SELECTOR, woodyGrowthsWaterSelector, List.of(PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP));
 
-        PlacedFeatures.register(context, WOODY_GROWTH_WATER_PATCH_PLACED, woodyGrowthsWaterPatch, List.of(SquarePlacementModifier.of(), SurfaceWaterDepthFilterPlacementModifier.of(2), PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP, BiomePlacementModifier.of()));
+        PlacedFeatures.register(context, WOODY_GROWTH_WATER_PATCH, woodyGrowthsWaterPatch, List.of(SquarePlacementModifier.of(), SurfaceWaterDepthFilterPlacementModifier.of(2), PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP, BiomePlacementModifier.of()));
     }
 
     private static List<PlacementModifier> treesSurvive(int count, float extraChance, int extraCount) {
