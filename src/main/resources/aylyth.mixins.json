@@ -10,7 +10,6 @@
     "EnchantmentTargetMixin",
     "EntityAccessor",
     "EntityMixin",
-    "GeneratorOptionsMixin",
     "LivingEntityMixin",
     "LootContextTypesAccessor",
     "MilkBucketItemMixin",

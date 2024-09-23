@@ -38,7 +38,6 @@ import moriyashiine.aylyth.common.recipe.types.YmpeDaggerDropRecipe;
 import moriyashiine.aylyth.common.registry.AylythRegistries;
 import moriyashiine.aylyth.common.data.tag.AylythEntityTypeTags;
 import moriyashiine.aylyth.common.data.tag.AylythItemTags;
-import moriyashiine.aylyth.common.world.gen.biome.AylythBiomeSources;
 import moriyashiine.aylyth.common.world.gen.AylythFeatures;
 import moriyashiine.aylyth.common.world.gen.AylythFoliagePlacerTypes;
 import moriyashiine.aylyth.common.world.gen.AylythTreeDecoratorTypes;
@@ -134,7 +133,6 @@ public class Aylyth implements ModInitializer {
 		AylythTrunkPlacerTypes.register();
 		AylythFoliagePlacerTypes.register();
 		AylythTreeDecoratorTypes.register();
-		AylythBiomeSources.register();
 		AylythBiomeModifications.register();
 
 		AylythWorldAttachmentTypes.register();
