@@ -17,7 +17,7 @@ import java.util.List;
 
 public class RangedTreeDecorator extends TreeDecorator {
     public static final Codec<RangedTreeDecorator> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            BlockState.CODEC.listOf().fieldOf("blockstates").forGetter(woodyGrowthsDecorator -> woodyGrowthsDecorator.blockStates),
+            BlockState.CODEC.listOf().fieldOf("block_states").forGetter(woodyGrowthsDecorator -> woodyGrowthsDecorator.blockStates),
             Codec.intRange(0, 64).fieldOf("tries").forGetter(woodyGrowthsDecorator -> woodyGrowthsDecorator.tries),
             Codec.intRange(0, 64).fieldOf("range").forGetter(woodyGrowthsDecorator -> woodyGrowthsDecorator.range)
     ).apply(instance, RangedTreeDecorator::new));

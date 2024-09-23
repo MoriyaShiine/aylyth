@@ -15,7 +15,7 @@
       },
       {
         "type": "aylyth:ranged_tree_decorator",
-        "blockstates": [
+        "block_states": [
           {
             "Name": "aylyth:small_woody_growth",
             "Properties": {
@@ -37,7 +37,7 @@
       },
       {
         "type": "aylyth:ranged_tree_decorator",
-        "blockstates": [
+        "block_states": [
           {
             "Name": "aylyth:oak_strewn_leaves",
             "Properties": {
