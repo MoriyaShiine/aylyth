@@ -9,14 +9,13 @@ import net.minecraft.world.gen.feature.FeatureConfig;
 
 public interface AylythFeatures {
 
-    // TODO remove "_feature"
     SpringFeature SPRING_FEATURE = register("spring", new SpringFeature());
     SeepFeature SEEP_FEATURE = register("seep", new SeepFeature());
     BushFeature BUSH_FEATURE = register("bushes", new BushFeature());
     LeafPileFeature LEAF_PILE_FEATURE = register("leaf_pile", new LeafPileFeature());
     StrewnLeavesFeature STREWN_LEAVES_FEATURE = register("strewn_leaves", new StrewnLeavesFeature());
-    HorizontalFacingFeature HORIZONTAL_FACING_FEATURE = register("horizontal_facing_feature", new HorizontalFacingFeature());
-    DoubleBlockFeature DOUBLE_BLOCK_FEATURE = register("double_block_feature", new DoubleBlockFeature());
+    HorizontalFacingFeature HORIZONTAL_FACING_FEATURE = register("horizontal_facing", new HorizontalFacingFeature());
+    DoubleBlockFeature DOUBLE_BLOCK_FEATURE = register("double_block", new DoubleBlockFeature());
     GiantMushroomFeature GIANT_MUSHROOM = register("giant_mushroom", new GiantMushroomFeature(GiantMushroomFeature.GiantMushroomConfig.CODEC));
 
     private static <C extends FeatureConfig, F extends Feature<C>> F register(String name, F feature) {

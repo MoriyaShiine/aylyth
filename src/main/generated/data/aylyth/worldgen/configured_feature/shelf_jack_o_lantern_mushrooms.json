@@ -1,5 +1,5 @@
 {
-  "type": "aylyth:horizontal_facing_feature",
+  "type": "aylyth:horizontal_facing",
   "config": {
     "facing_block": "aylyth:shelf_jack_o_lantern_mushroom",
     "test_against": "#aylyth:jack_o_lantern_generate_on"

@@ -12,10 +12,9 @@ import net.minecraft.world.gen.foliage.FoliagePlacerType;
 
 public interface AylythFoliagePlacerTypes {
 
-    // TODO remove "_foliage_placer"
-    FoliagePlacerType<PomegranateFoliagePlacer> POMEGRANATE = register("pomegranate_foliage_placer", PomegranateFoliagePlacer.CODEC);
-    FoliagePlacerType<WrithewoodFoliagePlacer> WRITHEWOOD = register("writhewood_foliage_placer", WrithewoodFoliagePlacer.CODEC);
-    FoliagePlacerType<GirasolFoliagePlacer> GIRASOL = register("girasol_foliage_placer", GirasolFoliagePlacer.CODEC);
+    FoliagePlacerType<PomegranateFoliagePlacer> POMEGRANATE = register("pomegranate", PomegranateFoliagePlacer.CODEC);
+    FoliagePlacerType<WrithewoodFoliagePlacer> WRITHEWOOD = register("writhewood", WrithewoodFoliagePlacer.CODEC);
+    FoliagePlacerType<GirasolFoliagePlacer> GIRASOL = register("girasol", GirasolFoliagePlacer.CODEC);
     
     private static <T extends FoliagePlacer> FoliagePlacerType<T> register(String id, Codec<T> codec) {
         return Registry.register(Registries.FOLIAGE_PLACER_TYPE, Aylyth.id(id), new FoliagePlacerType<>(codec));

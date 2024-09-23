@@ -1,5 +1,5 @@
 {
-  "type": "aylyth:double_block_feature",
+  "type": "aylyth:double_block",
   "config": {
     "to_place": {
       "type": "minecraft:simple_state_provider",

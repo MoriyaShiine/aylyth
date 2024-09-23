@@ -3,7 +3,7 @@
   "config": {
     "decorators": [
       {
-        "type": "aylyth:grape_vine_decorator",
+        "type": "aylyth:grape_vine",
         "chance_point": 3,
         "chance_range": {
           "type": "minecraft:uniform",
@@ -14,7 +14,7 @@
         }
       },
       {
-        "type": "aylyth:ranged_tree_decorator",
+        "type": "aylyth:place_around",
         "block_states": [
           {
             "Name": "aylyth:small_woody_growth",
@@ -36,7 +36,7 @@
         "tries": 12
       },
       {
-        "type": "aylyth:ranged_tree_decorator",
+        "type": "aylyth:place_around",
         "block_states": [
           {
             "Name": "aylyth:oak_strewn_leaves",
@@ -62,7 +62,7 @@
       }
     },
     "foliage_placer": {
-      "type": "aylyth:girasol_foliage_placer",
+      "type": "aylyth:girasol",
       "offset": 1,
       "radius": 1
     },
@@ -86,7 +86,7 @@
       "upper_size": 1
     },
     "trunk_placer": {
-      "type": "aylyth:girasol_trunk_placer",
+      "type": "aylyth:girasol",
       "base_height": 6,
       "height_rand_a": 1,
       "height_rand_b": 3,

@@ -3,7 +3,7 @@
   "config": {
     "decorators": [
       {
-        "type": "aylyth:grape_vine_decorator",
+        "type": "aylyth:grape_vine",
         "chance_point": 1,
         "chance_range": {
           "type": "minecraft:uniform",
@@ -45,7 +45,7 @@
       "upper_size": 2
     },
     "trunk_placer": {
-      "type": "aylyth:aylythian_trunk_placer",
+      "type": "aylyth:aylythian",
       "base_height": 12,
       "height_rand_a": 2,
       "height_rand_b": 5

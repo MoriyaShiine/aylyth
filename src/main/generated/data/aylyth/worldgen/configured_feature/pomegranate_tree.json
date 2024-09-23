@@ -9,7 +9,7 @@
       }
     },
     "foliage_placer": {
-      "type": "aylyth:pomegranate_foliage_placer",
+      "type": "aylyth:pomegranate",
       "height": 2,
       "offset": 0,
       "radius": 1
@@ -35,7 +35,7 @@
       "upper_size": 1
     },
     "trunk_placer": {
-      "type": "aylyth:pomegranate_trunk_placer",
+      "type": "aylyth:pomegranate",
       "base_height": 5,
       "height_rand_a": 0,
       "height_rand_b": 0
