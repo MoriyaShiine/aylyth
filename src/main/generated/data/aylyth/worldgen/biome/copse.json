@@ -60,8 +60,6 @@
       "aylyth:pomegranate_tree_checked",
       "aylyth:bushes",
       "minecraft:patch_tall_grass",
-      "aylyth:oak_strewn_leaves",
-      "aylyth:ympe_strewn_leaves",
       "aylyth:aylythian_dark_oak",
       "aylyth:copse_trees",
       "minecraft:patch_grass_taiga",
@@ -74,7 +72,9 @@
       "aylyth:dark_oak_seep"
     ],
     [
-      "minecraft:freeze_top_layer"
+      "minecraft:freeze_top_layer",
+      "aylyth:oak_strewn_leaves",
+      "aylyth:ympe_strewn_leaves"
     ]
   ],
   "has_precipitation": true,

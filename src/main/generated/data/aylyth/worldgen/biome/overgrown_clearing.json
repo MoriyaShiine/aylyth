@@ -63,12 +63,12 @@
       "aylyth:spruce_seep",
       "aylyth:overgrowth_clearing_trees",
       "aylyth:bushes",
-      "minecraft:patch_tall_grass",
-      "aylyth:oak_strewn_leaves",
-      "aylyth:ympe_strewn_leaves"
+      "minecraft:patch_tall_grass"
     ],
     [
-      "minecraft:freeze_top_layer"
+      "minecraft:freeze_top_layer",
+      "aylyth:oak_strewn_leaves",
+      "aylyth:ympe_strewn_leaves"
     ]
   ],
   "has_precipitation": true,

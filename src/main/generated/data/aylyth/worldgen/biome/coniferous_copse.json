@@ -58,8 +58,6 @@
     ],
     [
       "aylyth:spruce_seep",
-      "aylyth:oak_strewn_leaves",
-      "aylyth:ympe_strewn_leaves",
       "minecraft:patch_grass_taiga",
       "aylyth:aylyth_weeds",
       "aylyth:red_mushroom_patch",
@@ -70,7 +68,9 @@
       "aylyth:coniferous_copse_trees"
     ],
     [
-      "minecraft:freeze_top_layer"
+      "minecraft:freeze_top_layer",
+      "aylyth:oak_strewn_leaves",
+      "aylyth:ympe_strewn_leaves"
     ]
   ],
   "has_precipitation": true,

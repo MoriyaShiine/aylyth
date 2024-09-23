@@ -294,13 +294,13 @@ public final class AylythBiomeBootstrap {
 	}
 
 	private static void addLeafPiles(GenerationSettings.LookupBackedBuilder builder) {
-		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, AylythPlacedFeatures.OAK_LEAF_PILE);
-		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, AylythPlacedFeatures.YMPE_LEAF_PILE);
+		builder.feature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, AylythPlacedFeatures.OAK_LEAF_PILE);
+		builder.feature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, AylythPlacedFeatures.YMPE_LEAF_PILE);
 	}
 
 	private static void addStrewnLeaves(GenerationSettings.LookupBackedBuilder builder) {
-		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, AylythPlacedFeatures.OAK_STREWN_LEAVES);
-		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, AylythPlacedFeatures.YMPE_STREWN_LEAVES);
+		builder.feature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, AylythPlacedFeatures.OAK_STREWN_LEAVES);
+		builder.feature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, AylythPlacedFeatures.YMPE_STREWN_LEAVES);
 	}
 
 	private static void addMushroomsCommon(GenerationSettings.LookupBackedBuilder builder) {

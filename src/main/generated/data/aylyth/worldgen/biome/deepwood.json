@@ -60,8 +60,6 @@
     [
       "aylyth:bushes",
       "minecraft:patch_tall_grass",
-      "aylyth:oak_strewn_leaves",
-      "aylyth:ympe_strewn_leaves",
       "minecraft:patch_grass_taiga",
       "aylyth:aylyth_weeds",
       "aylyth:ghostcap_mushroom_patch",
@@ -74,12 +72,14 @@
       "aylyth:shelf_jack_o_lantern_mushroom_deepwood_patch",
       "minecraft:patch_tall_grass_2",
       "aylyth:woody_growth_patch",
-      "aylyth:oak_leaf_pile",
-      "aylyth:ympe_leaf_pile",
       "minecraft:patch_large_fern"
     ],
     [
-      "minecraft:freeze_top_layer"
+      "minecraft:freeze_top_layer",
+      "aylyth:oak_strewn_leaves",
+      "aylyth:ympe_strewn_leaves",
+      "aylyth:oak_leaf_pile",
+      "aylyth:ympe_leaf_pile"
     ]
   ],
   "has_precipitation": true,
