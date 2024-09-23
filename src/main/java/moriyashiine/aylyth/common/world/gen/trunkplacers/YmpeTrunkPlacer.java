@@ -1,8 +1,8 @@
 package moriyashiine.aylyth.common.world.gen.trunkplacers;
 
-import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import moriyashiine.aylyth.common.world.gen.AylythTrunkPlacerTypes;
 import net.minecraft.block.BlockState;
 import net.minecraft.state.property.Properties;
@@ -25,10 +25,6 @@ public class YmpeTrunkPlacer extends StraightTrunkPlacer {
 		super(heightMin, heightVar, heightVar2);
 	}
 	
-	public YmpeTrunkPlacer() {
-		this(3, 1, 4);
-	}
-	
 	@Override
 	protected TrunkPlacerType<YmpeTrunkPlacer> getType() {
 		return AylythTrunkPlacerTypes.YMPE;
@@ -36,7 +32,7 @@ public class YmpeTrunkPlacer extends StraightTrunkPlacer {
 	
 	@Override
 	public List<FoliagePlacer.TreeNode> generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, int height, BlockPos startPos, TreeFeatureConfig config) {
-		List<FoliagePlacer.TreeNode> list = Lists.newArrayList();
+		List<FoliagePlacer.TreeNode> list = new ObjectArrayList<>();
 		list.addAll(super.generate(world, replacer, random, height, startPos, config));
 		Direction lastDirection = Direction.DOWN;
 		for (int y = 0; y < height - 1; y++) {

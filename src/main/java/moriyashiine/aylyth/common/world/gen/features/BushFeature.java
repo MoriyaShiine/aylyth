@@ -29,9 +29,9 @@ public class BushFeature extends Feature<DefaultFeatureConfig> {
 			Iterable<BlockPos> positions = BlockPos.iterate(blockPos.add(-j, 0, -l), blockPos.add(j, 0, l));
 			for (BlockPos position : positions) {
 				if (position.getSquaredDistance(blockPos) <= (double) (f * f) && structureWorldAccess.testBlockState(position, blockState -> blockState.isReplaceable() && AylythBlocks.AYLYTH_BUSH.getDefaultState().canPlaceAt(structureWorldAccess, position))) {
-					structureWorldAccess.setBlockState(position, AylythBlocks.AYLYTH_BUSH.getDefaultState(), Block.NO_REDRAW);
+					structureWorldAccess.setBlockState(position, AylythBlocks.AYLYTH_BUSH.getDefaultState(), Block.NOTIFY_LISTENERS);
 					if (structureWorldAccess.isAir(position.up())) {
-						structureWorldAccess.setBlockState(position.up(), AylythBlocks.AYLYTH_BUSH.getDefaultState().with(BushBlock.BUSHY, true), Block.NO_REDRAW);
+						structureWorldAccess.setBlockState(position.up(), AylythBlocks.AYLYTH_BUSH.getDefaultState().with(BushBlock.BUSHY, true), Block.NOTIFY_LISTENERS);
 					}
 				}
 			}

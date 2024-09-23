@@ -24,10 +24,6 @@ public class AylthianTrunkPlacer extends GiantTrunkPlacer {
 		super(baseHeight, firstRandomHeight, secondRandomHeight);
 	}
 	
-	public AylthianTrunkPlacer() {
-		this(12, 2, 5);
-	}
-	
 	@Override
 	protected TrunkPlacerType<AylthianTrunkPlacer> getType() {
 		return AylythTrunkPlacerTypes.AYLYTHIAN;

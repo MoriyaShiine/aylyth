@@ -26,11 +26,14 @@ import net.minecraft.world.gen.trunk.TrunkPlacerType;
 import java.util.List;
 import java.util.function.BiConsumer;
 
+// TODO: Change this a bit to make the woody growth range and seep block as a decorator instead?
 public class GirasolTrunkPlacer extends TrunkPlacer {
     public static final Codec<GirasolTrunkPlacer> CODEC = RecordCodecBuilder.create((instance) ->
             fillTrunkPlacerFields(instance)
-                    .and(BlockState.CODEC.fieldOf("seep_block").forGetter(girasolTrunkPlacer -> girasolTrunkPlacer.seepBlock))
-                    .and(Codec.intRange(-1, 6).fieldOf("woody_growth_range").forGetter(girasolTrunkPlacer -> girasolTrunkPlacer.woodyGrowthRange))
+                    .and(instance.group(
+                            BlockState.CODEC.fieldOf("seep_block").forGetter(girasolTrunkPlacer -> girasolTrunkPlacer.seepBlock),
+                            Codec.intRange(-1, 6).fieldOf("woody_growth_range").forGetter(girasolTrunkPlacer -> girasolTrunkPlacer.woodyGrowthRange)
+                    ))
                     .apply(instance, GirasolTrunkPlacer::new));
 
     private final BlockState seepBlock;

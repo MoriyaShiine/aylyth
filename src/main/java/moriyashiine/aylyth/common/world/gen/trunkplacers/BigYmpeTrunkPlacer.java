@@ -1,8 +1,8 @@
 package moriyashiine.aylyth.common.world.gen.trunkplacers;
 
-import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import moriyashiine.aylyth.common.world.gen.AylythTrunkPlacerTypes;
 import net.minecraft.block.BlockState;
 import net.minecraft.state.property.Properties;
@@ -25,10 +25,6 @@ public class BigYmpeTrunkPlacer extends GiantTrunkPlacer {
 		super(heightMin, heightVar, heightVar2);
 	}
 	
-	public BigYmpeTrunkPlacer() {
-		this(6, 3, 4);
-	}
-	
 	@Override
 	protected TrunkPlacerType<BigYmpeTrunkPlacer> getType() {
 		return AylythTrunkPlacerTypes.BIG_YMPE;
@@ -36,7 +32,7 @@ public class BigYmpeTrunkPlacer extends GiantTrunkPlacer {
 	
 	@Override
 	public List<FoliagePlacer.TreeNode> generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, int height, BlockPos startPos, TreeFeatureConfig config) {
-		List<FoliagePlacer.TreeNode> list = Lists.newArrayList();
+		List<FoliagePlacer.TreeNode> list = new ObjectArrayList<>();
 		list.addAll(super.generate(world, replacer, random, height, startPos, config));
 		placeBranches(world, replacer, random, startPos, config, list, height, 0, 0, Direction.NORTH, Direction.WEST);
 		placeBranches(world, replacer, random, startPos, config, list, height, 1, 0, Direction.NORTH, Direction.EAST);

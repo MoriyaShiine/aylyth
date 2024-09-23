@@ -1,13 +1,12 @@
 package moriyashiine.aylyth.common.world.gen.trunkplacers;
 
-import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import moriyashiine.aylyth.common.block.AylythBlocks;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import moriyashiine.aylyth.common.world.gen.AylythTrunkPlacerTypes;
 import moriyashiine.aylyth.common.world.gen.foliageplacers.DirectionalTreeNode;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.PillarBlock;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
@@ -20,13 +19,10 @@ import net.minecraft.world.gen.trunk.TrunkPlacerType;
 import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 public class PomegranateTrunkPlacer extends StraightTrunkPlacer {
 
     public static final Codec<PomegranateTrunkPlacer> CODEC = RecordCodecBuilder.create((instance) -> fillTrunkPlacerFields(instance).apply(instance, PomegranateTrunkPlacer::new));
-
-    private static final BlockState WOOD_STATE = AylythBlocks.POMEGRANATE_WOOD.getDefaultState();
 
     public PomegranateTrunkPlacer(int baseHeight, int firstRandomHeight, int secondRandomHeight) {
         super(baseHeight, firstRandomHeight, secondRandomHeight);
@@ -39,27 +35,21 @@ public class PomegranateTrunkPlacer extends StraightTrunkPlacer {
 
     @Override
     public List<FoliagePlacer.TreeNode> generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, int height, BlockPos startPos, TreeFeatureConfig config) {
-        List<FoliagePlacer.TreeNode> list = Lists.newArrayList();
+        List<FoliagePlacer.TreeNode> list = new ObjectArrayList<>();
         list.addAll(super.generate(world, replacer, random, height, startPos, config));
         // I need to generate along the curve and know what the top is for the leaf generation
-        addIf(random.nextInt(3) == 0, list, () -> alongCurve(world, Direction.NORTH, startPos.offset(Direction.NORTH), replacer, random, height, config));
-        addIf(random.nextInt(3) == 0, list, () -> alongCurve(world, Direction.SOUTH, startPos.offset(Direction.SOUTH), replacer, random, height, config));
-        addIf(random.nextInt(3) == 0, list, () -> alongCurve(world, Direction.EAST, startPos.offset(Direction.EAST), replacer, random, height, config));
-        addIf(random.nextInt(3) == 0, list, () -> alongCurve(world, Direction.WEST, startPos.offset(Direction.WEST), replacer, random, height, config));
+        if (random.nextInt(3) == 0) list.add(alongCurve(world, Direction.NORTH, startPos.offset(Direction.NORTH), replacer, random, height, config));
+        if (random.nextInt(3) == 0) list.add(alongCurve(world, Direction.SOUTH, startPos.offset(Direction.SOUTH), replacer, random, height, config));
+        if (random.nextInt(3) == 0) list.add(alongCurve(world, Direction.EAST, startPos.offset(Direction.EAST), replacer, random, height, config));
+        if (random.nextInt(3) == 0) list.add(alongCurve(world, Direction.WEST, startPos.offset(Direction.WEST), replacer, random, height, config));
         return list;
-    }
-
-    protected void addIf(boolean test, List<FoliagePlacer.TreeNode> list, Supplier<FoliagePlacer.TreeNode> supplier) {
-        if (test) {
-            list.add(supplier.get());
-        }
     }
 
     protected FoliagePlacer.TreeNode alongCurve(TestableWorld world, Direction dir, BlockPos pos, BiConsumer<BlockPos, BlockState> replacer, Random random, int height, TreeFeatureConfig config) {
         BlockPos.Mutable mutable = pos.mutableCopy();
         getAndSetWoodState(world, replacer, random, mutable, config, state -> setWithAxis(state, dir));
         mutable.move(dir).move(Direction.UP);
-        getAndSetWoodState(world, replacer, random, mutable, config);
+        getAndSetWoodState(world, replacer, random, mutable, config, Function.identity());
         for (int i = 2; i < height-1; i++) {
             mutable.move(Direction.UP);
             getAndSetState(world, replacer, random, mutable, config);
@@ -67,13 +57,9 @@ public class PomegranateTrunkPlacer extends StraightTrunkPlacer {
         return new DirectionalTreeNode(mutable.move(Direction.UP).toImmutable(), 1, false, dir);
     }
 
-    protected boolean getAndSetWoodState(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, BlockPos pos, TreeFeatureConfig config) {
-        return getAndSetWoodState(world, replacer, random, pos, config, Function.identity());
-    }
-
-        protected boolean getAndSetWoodState(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, BlockPos pos, TreeFeatureConfig config, Function<BlockState, BlockState> function) {
+    protected boolean getAndSetWoodState(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, BlockPos pos, TreeFeatureConfig config, Function<BlockState, BlockState> function) {
         if (this.canReplace(world, pos)) {
-            replacer.accept(pos, function.apply(WOOD_STATE));
+            replacer.accept(pos, function.apply(config.trunkProvider.get(random, pos)));
             return true;
         } else {
             return false;
@@ -81,8 +67,8 @@ public class PomegranateTrunkPlacer extends StraightTrunkPlacer {
     }
 
     public BlockState setWithAxis(BlockState state, Direction dir) {
-        if (state.contains(PillarBlock.AXIS)) {
-            return state.with(PillarBlock.AXIS, dir.getAxis());
+        if (state.contains(Properties.AXIS)) {
+            return state.with(Properties.AXIS, dir.getAxis());
         }
         return state;
     }

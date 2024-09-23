@@ -15,6 +15,7 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.FeatureConfig;
 import net.minecraft.world.gen.feature.util.FeatureContext;
 
+// TODO: Convert this to just simple feature with placement checks?
 public class HorizontalFacingFeature extends Feature<HorizontalFacingFeature.HorizontalFacingBlockFeatureConfig> {
 
     public HorizontalFacingFeature() {
@@ -42,21 +43,16 @@ public class HorizontalFacingFeature extends Feature<HorizontalFacingFeature.Hor
         return world.testBlockState(pos, blockState -> blockState.isSideSolidFullSquare(world, pos, dir) && blockState.isIn(test));
     }
 
-    public static class HorizontalFacingBlockFeatureConfig implements FeatureConfig {
+    public record HorizontalFacingBlockFeatureConfig(Block facingBlock, TagKey<Block> tag) implements FeatureConfig {
         public static final Codec<HorizontalFacingBlockFeatureConfig> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                Registries.BLOCK.getCodec().fieldOf("facing_block").forGetter(config -> config.facingBlock),
-                TagKey.codec(RegistryKeys.BLOCK).fieldOf("test_against").forGetter(config -> config.tag)
+                Registries.BLOCK.getCodec().fieldOf("facing_block").forGetter(HorizontalFacingBlockFeatureConfig::facingBlock),
+                TagKey.codec(RegistryKeys.BLOCK).fieldOf("test_against").forGetter(HorizontalFacingBlockFeatureConfig::tag)
         ).apply(instance, HorizontalFacingBlockFeatureConfig::new));
 
-        final Block facingBlock;
-        final TagKey<Block> tag;
-
-        public HorizontalFacingBlockFeatureConfig(Block facingBlock, TagKey<Block> tag) {
+        public HorizontalFacingBlockFeatureConfig {
             if (facingBlock.getStateManager().getProperty("facing") == null) {
                 throw new IllegalArgumentException("FacingBlockFeatureConfig must have a block with the 'facing' block state");
             }
-            this.facingBlock = facingBlock;
-            this.tag = tag;
         }
     }
 }

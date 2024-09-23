@@ -14,6 +14,7 @@ import net.minecraft.world.gen.feature.FeatureConfig;
 import net.minecraft.world.gen.feature.TreeFeature;
 import net.minecraft.world.gen.feature.util.FeatureContext;
 
+// TODO: Rewrite. Make a new feature that places two placed features and split out the marigold generation into that.
 public class SeepFeature extends Feature<SeepFeature.SeepFeatureConfig> {
 	public SeepFeature() {
 		super(SeepFeatureConfig.CODEC);
@@ -48,27 +49,15 @@ public class SeepFeature extends Feature<SeepFeature.SeepFeatureConfig> {
 		}
 		return false;
 	}
-	
-	public static class SeepFeatureConfig implements FeatureConfig {
-		public static final Codec<SeepFeatureConfig> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
-				BlockState.CODEC.fieldOf("state").forGetter((treeFeatureConfig) -> treeFeatureConfig.state),
-				BlockState.CODEC.fieldOf("seep_state").forGetter((treeFeatureConfig) -> treeFeatureConfig.seepState),
-				BlockState.CODEC.fieldOf("placed_around_state").forGetter(seepFeatureConfig -> seepFeatureConfig.placeAround),
-				Codec.INT.fieldOf("placed_around_tries").forGetter(seepFeatureConfig -> seepFeatureConfig.placeAroundTries),
-				Codec.FLOAT.fieldOf("placed_around_chance").forGetter(seepFeatureConfig -> seepFeatureConfig.placeAroundChance)
-		).apply(instance, (SeepFeatureConfig::new)));
-		public final BlockState state;
-		public final BlockState seepState;
-		public final BlockState placeAround;
-		public final int placeAroundTries;
-		public final float placeAroundChance;
-		
-		public SeepFeatureConfig(BlockState state, BlockState seepState, BlockState placeAround, int placeAroundTries, float placeAroundChance) {
-			this.state = state;
-			this.seepState = seepState;
-			this.placeAround = placeAround;
-			this.placeAroundTries = placeAroundTries;
-			this.placeAroundChance = placeAroundChance;
-		}
+
+	public record SeepFeatureConfig(BlockState state, BlockState seepState, BlockState placeAround,
+									int placeAroundTries, float placeAroundChance) implements FeatureConfig {
+			public static final Codec<SeepFeatureConfig> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+					BlockState.CODEC.fieldOf("state").forGetter(SeepFeatureConfig::state),
+					BlockState.CODEC.fieldOf("seep_state").forGetter(SeepFeatureConfig::seepState),
+					BlockState.CODEC.fieldOf("placed_around_state").forGetter(SeepFeatureConfig::placeAround),
+					Codec.INT.fieldOf("placed_around_tries").forGetter(SeepFeatureConfig::placeAroundTries),
+					Codec.FLOAT.fieldOf("placed_around_chance").forGetter(SeepFeatureConfig::placeAroundChance)
+			).apply(instance, SeepFeatureConfig::new));
 	}
 }

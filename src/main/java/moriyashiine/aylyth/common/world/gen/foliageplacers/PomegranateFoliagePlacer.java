@@ -85,7 +85,7 @@ public class PomegranateFoliagePlacer extends FoliagePlacer {
 
     private void placeInIf(BlockPos pos1, BlockPos pos2, Random random, Set<BlockPos> posSet) {
         for (BlockPos blockPos : BlockPos.iterate(pos1, pos2)) {
-            if (chanceTester(random)) {
+            if (random.nextInt(4) < 3) {
                 posSet.add(blockPos.toImmutable());
             }
         }
@@ -102,10 +102,6 @@ public class PomegranateFoliagePlacer extends FoliagePlacer {
             }
             replacer.placeBlock(pos, blockState);
         }
-    }
-
-    private boolean chanceTester(Random random) {
-        return random.nextInt(4) < 3;
     }
 
     private void placeIn(BlockPos pos1, BlockPos pos2, Set<BlockPos> posSet) {
