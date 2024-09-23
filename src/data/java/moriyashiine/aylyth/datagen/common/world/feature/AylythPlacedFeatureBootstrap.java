@@ -106,6 +106,9 @@ public final class AylythPlacedFeatureBootstrap {
         PlacedFeatures.register(context, COPSE_TREES, copseTrees, trees(3, 0.1F, 1));
         PlacedFeatures.register(context, DEEPWOOD_TREES, deepWoodTrees, trees(4, 0.25F, 2));
         PlacedFeatures.register(context, CONIFEROUS_COPSE_TREES, coniferousCopseTrees, trees(5, 0.25F, 2));
+        PlacedFeatures.register(context, DEEP_ROOF_TREES, deepRoofTrees, trees(7, 0.5F, 3));
+        PlacedFeatures.register(context, DEEPWOOD_TREES, deepWoodTrees, trees(4, 0.25F, 2));
+        PlacedFeatures.register(context, CONIFEROUS_DEEP_ROOF_TREES, coniferousDeepRoofTrees, trees(7, 0.5F, 2));
         PlacedFeatures.register(context, CONIFEROUS_DEEPWOOD_TREES, coniferousDeepWoodTrees, trees(4, 0.25F, 2));
         PlacedFeatures.register(context, OVERGROWTH_CLEARING_TREES, overgrowthClearingTrees, trees(1, 0.5F, 2));
         PlacedFeatures.register(context, MIRE_WATER_TREES, mireWaterTrees, floodedTrees(2, 0.5F, 2));

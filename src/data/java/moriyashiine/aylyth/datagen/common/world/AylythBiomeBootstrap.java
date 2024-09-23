@@ -155,7 +155,6 @@ public final class AylythBiomeBootstrap {
 					generationSettingsBuilder.add(AylythBiomeBootstrap::addLandCarversNotLavaLakes)
 							.add(AylythBiomeBootstrap::addBasicVanillaOres)
 							.lakesFeature(AylythPlacedFeatures.SPRING)
-							.vegetalDecoFeature(deep ? AylythPlacedFeatures.DEEP_ROOF_TREES : AylythPlacedFeatures.AYLYTHIAN_DARK_OAK)
 							.vegetalDecoFeature(deep ? AylythPlacedFeatures.DEEPWOOD_TREES : AylythPlacedFeatures.COPSE_TREES)
 							.vegetalDecoFeature(VegetationPlacedFeatures.PATCH_GRASS_TAIGA)
 							.vegetalDecoFeature(AylythPlacedFeatures.BUSHES)
@@ -171,6 +170,7 @@ public final class AylythBiomeBootstrap {
 							.vegetalDecoFeature(AylythPlacedFeatures.DARK_OAK_SEEP);
 					if (deep) {
 						generationSettingsBuilder.vegetalDecoFeature(VegetationPlacedFeatures.PATCH_TALL_GRASS_2)
+								.vegetalDecoFeature(AylythPlacedFeatures.DEEP_ROOF_TREES)
 								.add(AylythBiomeBootstrap::addWoodyGrowths)
 								.add(AylythBiomeBootstrap::addLeafPiles)
 								.add(DefaultBiomeFeatures::addLargeFerns);
