@@ -101,10 +101,7 @@ public final class AylythPlacedFeatureBootstrap {
         PlacedFeatures.register(context, DARK_OAK_SEEP, darkOakSeep, List.of(RarityFilterPlacementModifier.of(10), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of())); //.spreadHorizontally().applyChance(10).repeatRandomly(4);
         PlacedFeatures.register(context, YMPE_SEEP, ympeSeep, List.of(CountPlacementModifier.of(4), RarityFilterPlacementModifier.of(10), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of())); //.spreadHorizontally().applyChance(10).repeatRandomly(4);
 
-        PlacedFeatures.register(context, DEEP_ROOF_TREES, deepRoofTrees, trees(6, 0.5F, 3));
-        PlacedFeatures.register(context, CONIFEROUS_DEEP_ROOF_TREES, coniferousDeepRoofTrees, trees(6, 0.5F, 2));
         PlacedFeatures.register(context, COPSE_TREES, copseTrees, trees(3, 0.1F, 1));
-        PlacedFeatures.register(context, DEEPWOOD_TREES, deepWoodTrees, trees(4, 0.25F, 2));
         PlacedFeatures.register(context, CONIFEROUS_COPSE_TREES, coniferousCopseTrees, trees(5, 0.25F, 2));
         PlacedFeatures.register(context, DEEP_ROOF_TREES, deepRoofTrees, trees(7, 0.5F, 3));
         PlacedFeatures.register(context, DEEPWOOD_TREES, deepWoodTrees, trees(4, 0.25F, 2));
