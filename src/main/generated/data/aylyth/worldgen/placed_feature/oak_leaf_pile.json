@@ -3,7 +3,7 @@
   "placement": [
     {
       "type": "minecraft:count",
-      "count": 4
+      "count": 16
     },
     {
       "type": "minecraft:in_square"
@@ -11,6 +11,27 @@
     {
       "type": "minecraft:heightmap",
       "heightmap": "WORLD_SURFACE_WG"
+    },
+    {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:would_survive",
+        "state": {
+          "Name": "aylyth:oak_strewn_leaves",
+          "Properties": {
+            "leaves": "0"
+          }
+        }
+      }
+    },
+    {
+      "type": "aylyth:environment_check",
+      "direction_to_scan": "up",
+      "max_steps": 30,
+      "target_predicate": {
+        "type": "minecraft:matching_blocks",
+        "blocks": "minecraft:dark_oak_leaves"
+      }
     },
     {
       "type": "minecraft:biome"

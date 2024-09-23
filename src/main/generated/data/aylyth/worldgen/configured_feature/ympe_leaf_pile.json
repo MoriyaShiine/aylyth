@@ -1,7 +1,45 @@
 {
   "type": "aylyth:leaf_pile",
   "config": {
-    "block": "aylyth:ympe_strewn_leaves",
-    "test_block": "aylyth:ympe_leaves"
+    "peak_provider": {
+      "type": "minecraft:randomized_int_state_provider",
+      "property": "leaves",
+      "source": {
+        "type": "minecraft:simple_state_provider",
+        "state": {
+          "Name": "aylyth:ympe_strewn_leaves",
+          "Properties": {
+            "leaves": "0"
+          }
+        }
+      },
+      "values": {
+        "type": "minecraft:uniform",
+        "value": {
+          "max_inclusive": 7,
+          "min_inclusive": 5
+        }
+      }
+    },
+    "slope_provider": {
+      "type": "minecraft:randomized_int_state_provider",
+      "property": "leaves",
+      "source": {
+        "type": "minecraft:simple_state_provider",
+        "state": {
+          "Name": "aylyth:ympe_strewn_leaves",
+          "Properties": {
+            "leaves": "0"
+          }
+        }
+      },
+      "values": {
+        "type": "minecraft:uniform",
+        "value": {
+          "max_inclusive": 5,
+          "min_inclusive": 0
+        }
+      }
+    }
   }
 }

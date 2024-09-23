@@ -15,6 +15,7 @@ import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.FeatureConfig;
 import net.minecraft.world.gen.feature.util.FeatureContext;
+import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 
 public class LeafPileFeature extends Feature<LeafPileFeature.LeafPileConfig> {
     public LeafPileFeature() {
@@ -23,48 +24,30 @@ public class LeafPileFeature extends Feature<LeafPileFeature.LeafPileConfig> {
 
     @Override
     public boolean generate(FeatureContext<LeafPileConfig> context) {
-        Block testBlock = context.getConfig().testBlock;
-        Block block = context.getConfig().block;
         StructureWorldAccess world = context.getWorld();
         Random random = context.getRandom();
-        BlockPos origin;
-        origin = context.getOrigin();
-        origin = origin.withY(world.getTopY(Heightmap.Type.WORLD_SURFACE_WG, origin.getX(), origin.getZ()));
-        if (world.testBlockState(origin, AbstractBlock.AbstractBlockState::isAir)) {
-            for (int i = 0; i < 30; i++) {
-                if (world.testBlockState(origin.up(i), blockState -> blockState.getBlock() == testBlock)) {
-                    setBlockState(world, origin, block.getDefaultState().with(StrewnLeavesBlock.LEAVES, random.nextBetween(5, 7)));
-                    for (Direction dir : Direction.Type.HORIZONTAL) {
-                        BlockPos offset = origin.offset(dir, 1);
-                        BlockState setState = block.getDefaultState().with(StrewnLeavesBlock.LEAVES, random.nextBetween(0, 5));
-                        if (world.isAir(offset) && setState.canPlaceAt(world, offset)) {
-                            setBlockState(world, offset, setState);
-                        }
-                    }
-                    return true;
+        BlockPos origin = context.getOrigin();
+        if (world.isAir(origin)) {
+            BlockState peakState = context.getConfig().peakProvider().get(random, origin);
+            world.setBlockState(origin, peakState, Block.NOTIFY_LISTENERS);
+            for (Direction dir : Direction.Type.HORIZONTAL) {
+                BlockPos offset = origin.offset(dir, 1);
+                BlockState slopeState = context.getConfig().slopeProvider().get(random, origin);
+                if (world.isAir(offset) && slopeState.canPlaceAt(world, offset)) {
+                    world.setBlockState(offset, slopeState, Block.NOTIFY_LISTENERS);
                 }
             }
+            return true;
         }
         return false;
     }
 
-    public static class LeafPileConfig implements FeatureConfig {
-        public static final Codec<LeafPileConfig> CODEC = RecordCodecBuilder.create(strewnLeavesConfigInstance -> strewnLeavesConfigInstance
-                .group(
-                        Registries.BLOCK.getCodec().fieldOf("test_block").forGetter(strewnLeavesConfig -> strewnLeavesConfig.testBlock),
-                        Registries.BLOCK.getCodec().fieldOf("block").forGetter(strewnLeavesConfig -> strewnLeavesConfig.block)
-                )
-                .apply(strewnLeavesConfigInstance, LeafPileConfig::new));
-        public final Block testBlock;
-        public final StrewnLeavesBlock block;
-
-        public LeafPileConfig(Block testBlock, Block block) {
-            if (block instanceof StrewnLeavesBlock strewnLeavesBlock) {
-                this.block = strewnLeavesBlock;
-            } else {
-                throw new IllegalArgumentException("%s is not a valid StrewnLeavesBlock.".formatted(block));
-            }
-            this.testBlock = testBlock;
-        }
+    public record LeafPileConfig(BlockStateProvider peakProvider, BlockStateProvider slopeProvider) implements FeatureConfig {
+        public static final Codec<LeafPileConfig> CODEC = RecordCodecBuilder.create(instance ->
+                instance.group(
+                        BlockStateProvider.TYPE_CODEC.fieldOf("peak_provider").forGetter(LeafPileConfig::peakProvider),
+                        BlockStateProvider.TYPE_CODEC.fieldOf("slope_provider").forGetter(LeafPileConfig::slopeProvider)
+                ).apply(instance, LeafPileConfig::new)
+        );
     }
 }

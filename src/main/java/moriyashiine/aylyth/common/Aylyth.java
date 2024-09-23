@@ -25,6 +25,7 @@ import moriyashiine.aylyth.common.screenhandler.AylythScreenHandlerTypes;
 import moriyashiine.aylyth.common.world.AylythWorldAttachmentTypes;
 import moriyashiine.aylyth.common.world.AylythParticleTypes;
 import moriyashiine.aylyth.common.world.AylythSoundEvents;
+import moriyashiine.aylyth.common.world.gen.AylythPlacementModifiers;
 import moriyashiine.aylyth.common.world.gen.biome.AylythBiomeModifications;
 import moriyashiine.aylyth.common.world.AylythPointOfInterestTypes;
 import moriyashiine.aylyth.common.network.AylythPacketTypes;
@@ -133,6 +134,7 @@ public class Aylyth implements ModInitializer {
 		AylythTrunkPlacerTypes.register();
 		AylythFoliagePlacerTypes.register();
 		AylythTreeDecoratorTypes.register();
+		AylythPlacementModifiers.register();
 		AylythBiomeModifications.register();
 
 		AylythWorldAttachmentTypes.register();
