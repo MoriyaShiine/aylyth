@@ -1,10 +1,7 @@
 {
   "type": "minecraft:random_selector",
   "config": {
-    "default": {
-      "feature": "aylyth:writhewood_tree",
-      "placement": []
-    },
+    "default": "aylyth:writhewood_tree",
     "features": [
       {
         "chance": 0.25,

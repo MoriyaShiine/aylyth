@@ -5,10 +5,7 @@
     "features": [
       {
         "chance": 0.15,
-        "feature": {
-          "feature": "aylyth:aylythian_mega_dark_oak",
-          "placement": []
-        }
+        "feature": "aylyth:aylythian_mega_dark_oak"
       }
     ]
   }

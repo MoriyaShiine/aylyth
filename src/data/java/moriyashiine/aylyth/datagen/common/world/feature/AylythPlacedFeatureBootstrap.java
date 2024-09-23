@@ -1,5 +1,6 @@
 package moriyashiine.aylyth.datagen.common.world.feature;
 
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.data.world.feature.AylythConfiguredFeatures;
 import moriyashiine.aylyth.common.world.gen.placementmodifiers.EnvironmentCheckPlacementModifier;
@@ -72,11 +73,11 @@ public final class AylythPlacedFeatureBootstrap {
         var woodyGrowthsWaterSelector = features.getOrThrow(AylythConfiguredFeatures.WOODY_GROWTHS_WATER_SELECTOR);
         var woodyGrowthsWaterPatch = features.getOrThrow(AylythConfiguredFeatures.WOODY_GROWTH_WATER_PATCH);
 
-        PlacedFeatures.register(context, AYLYTHIAN_DARK_OAK, aylythianDarkOak, List.of(PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, PlacedFeatures.wouldSurvive(AylythBlocks.YMPE_SAPLING), BiomePlacementModifier.of()));
-        PlacedFeatures.register(context, AYLYTHIAN_MEGA_DARK_OAK, aylythianMegaDarkOak, List.of(CountPlacementModifier.of(1), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, PlacedFeatures.wouldSurvive(AylythBlocks.YMPE_SAPLING)));
-        PlacedFeatures.register(context, YMPE_TREE, ympe, List.of(CountPlacementModifier.of(1), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, PlacedFeatures.wouldSurvive(AylythBlocks.YMPE_SAPLING)));
-        PlacedFeatures.register(context, BIG_YMPE_TREE, bigYmpe, List.of(CountPlacementModifier.of(1), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, PlacedFeatures.wouldSurvive(AylythBlocks.YMPE_SAPLING)));
-        PlacedFeatures.register(context, POMEGRANATE_TREE, pomegranate, List.of(CountPlacementModifier.of(1), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, PlacedFeatures.wouldSurvive(AylythBlocks.POMEGRANATE_SAPLING)));
+        PlacedFeatures.register(context, AYLYTHIAN_DARK_OAK, aylythianDarkOak, List.of(PlacedFeatures.wouldSurvive(Blocks.DARK_OAK_SAPLING)));
+        PlacedFeatures.register(context, AYLYTHIAN_MEGA_DARK_OAK, aylythianMegaDarkOak, List.of(PlacedFeatures.wouldSurvive(Blocks.DARK_OAK_SAPLING)));
+        PlacedFeatures.register(context, YMPE_TREE, ympe, List.of(PlacedFeatures.wouldSurvive(AylythBlocks.YMPE_SAPLING)));
+        PlacedFeatures.register(context, BIG_YMPE_TREE, bigYmpe, List.of(PlacedFeatures.wouldSurvive(AylythBlocks.YMPE_SAPLING)));
+        PlacedFeatures.register(context, POMEGRANATE_TREE, pomegranate, List.of(PlacedFeatures.wouldSurvive(AylythBlocks.POMEGRANATE_SAPLING)));
         PlacedFeatures.register(context, WRITHEWOOD_TREE, writhewood, List.of(PlacedFeatures.wouldSurvive(AylythBlocks.WRITHEWOOD_SAPLING)));
 
         PlacedFeatures.register(context, GIANT_JACK__O_LANTERN_MUSHROOM, features.getOrThrow(AylythConfiguredFeatures.GIANT_JACK__O_LANTERN_MUSHROOM), List.of(SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, PlacedFeatures.wouldSurvive(AylythBlocks.WRITHEWOOD_SAPLING), BiomePlacementModifier.of()));
@@ -100,15 +101,15 @@ public final class AylythPlacedFeatureBootstrap {
         PlacedFeatures.register(context, DARK_OAK_SEEP, darkOakSeep, List.of(RarityFilterPlacementModifier.of(10), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of())); //.spreadHorizontally().applyChance(10).repeatRandomly(4);
         PlacedFeatures.register(context, YMPE_SEEP, ympeSeep, List.of(CountPlacementModifier.of(4), RarityFilterPlacementModifier.of(10), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of())); //.spreadHorizontally().applyChance(10).repeatRandomly(4);
 
-        PlacedFeatures.register(context, DEEP_ROOF_TREES, deepRoofTrees, treesSurvive(8, 0.5F, 3));
-        PlacedFeatures.register(context, CONIFEROUS_DEEP_ROOF_TREES, coniferousDeepRoofTrees, treesSurvive(7, 0.5F, 2));
-        PlacedFeatures.register(context, COPSE_TREES, copseTrees, treesSurvive(3, 0.1F, 1));
-        PlacedFeatures.register(context, DEEPWOOD_TREES, deepWoodTrees, treesSurvive(4, 0.25F, 2));
-        PlacedFeatures.register(context, CONIFEROUS_COPSE_TREES, coniferousCopseTrees, treesSurvive(5, 0.25F, 2));
-        PlacedFeatures.register(context, CONIFEROUS_DEEPWOOD_TREES, coniferousDeepWoodTrees, treesSurvive(4, 0.25F, 2));
-        PlacedFeatures.register(context, OVERGROWTH_CLEARING_TREES, overgrowthClearingTrees, treesSurvive(1, 0.5F, 2));
-        PlacedFeatures.register(context, MIRE_WATER_TREES, mireWaterTrees, floodedTreesSurvive(2, 0.5F, 2));
-        PlacedFeatures.register(context, MIRE_LAND_TREES, mireLandTrees, treesSurvive(2, 0.5F, 2));
+        PlacedFeatures.register(context, DEEP_ROOF_TREES, deepRoofTrees, trees(6, 0.5F, 3));
+        PlacedFeatures.register(context, CONIFEROUS_DEEP_ROOF_TREES, coniferousDeepRoofTrees, trees(6, 0.5F, 2));
+        PlacedFeatures.register(context, COPSE_TREES, copseTrees, trees(3, 0.1F, 1));
+        PlacedFeatures.register(context, DEEPWOOD_TREES, deepWoodTrees, trees(4, 0.25F, 2));
+        PlacedFeatures.register(context, CONIFEROUS_COPSE_TREES, coniferousCopseTrees, trees(5, 0.25F, 2));
+        PlacedFeatures.register(context, CONIFEROUS_DEEPWOOD_TREES, coniferousDeepWoodTrees, trees(4, 0.25F, 2));
+        PlacedFeatures.register(context, OVERGROWTH_CLEARING_TREES, overgrowthClearingTrees, trees(1, 0.5F, 2));
+        PlacedFeatures.register(context, MIRE_WATER_TREES, mireWaterTrees, floodedTrees(2, 0.5F, 2));
+        PlacedFeatures.register(context, MIRE_LAND_TREES, mireLandTrees, trees(2, 0.5F, 2));
 
         PlacedFeatures.register(context, RED_MUSHROOM_PATCHES, redMushroomPatches, List.of(RarityFilterPlacementModifier.of(256), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of()));
         PlacedFeatures.register(context, BROWN_MUSHROOM_PATCHES, brownMushroomPatches, List.of(RarityFilterPlacementModifier.of(256), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of()));
@@ -129,29 +130,19 @@ public final class AylythPlacedFeatureBootstrap {
         PlacedFeatures.register(context, WOODY_GROWTH_WATER_PATCH, woodyGrowthsWaterPatch, List.of(SquarePlacementModifier.of(), SurfaceWaterDepthFilterPlacementModifier.of(2), PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP, BiomePlacementModifier.of()));
     }
 
-    private static List<PlacementModifier> treesSurvive(int count, float extraChance, int extraCount) {
-        return List.of(PlacedFeatures.createCountExtraModifier(count, extraChance, extraCount),
+    private static List<PlacementModifier> trees(int count, float extraChance, int extraCount) {
+        return ObjectArrayList.of(PlacedFeatures.createCountExtraModifier(count, extraChance, extraCount),
                 SquarePlacementModifier.of(),
                 NOT_IN_SURFACE_WATER_MODIFIER,
                 PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP,
-                BiomePlacementModifier.of(),
-                PlacedFeatures.wouldSurvive(AylythBlocks.YMPE_SAPLING));
+                BiomePlacementModifier.of());
     }
 
-    private static List<PlacementModifier> floodedTreesSurvive(int count, float extraChance, int extraCount) {
-        return List.of(PlacedFeatures.createCountExtraModifier(count, extraChance, extraCount),
+    private static List<PlacementModifier> floodedTrees(int count, float extraChance, int extraCount) {
+        return ObjectArrayList.of(PlacedFeatures.createCountExtraModifier(count, extraChance, extraCount),
                 SquarePlacementModifier.of(),
                 SurfaceWaterDepthFilterPlacementModifier.of(3),
                 PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP,
-                BiomePlacementModifier.of(),
-                PlacedFeatures.wouldSurvive(AylythBlocks.YMPE_SAPLING));
-    }
-
-    private static List<PlacementModifier> treesSurvive() {
-        return List.of(SquarePlacementModifier.of(),
-                NOT_IN_SURFACE_WATER_MODIFIER,
-                PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP,
-                BiomePlacementModifier.of(),
-                PlacedFeatures.wouldSurvive(AylythBlocks.YMPE_SAPLING));
+                BiomePlacementModifier.of());
     }
 }
