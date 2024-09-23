@@ -17,6 +17,7 @@ public interface AylythFeatures {
     HorizontalFacingFeature HORIZONTAL_FACING_FEATURE = register("horizontal_facing", new HorizontalFacingFeature());
     DoubleBlockFeature DOUBLE_BLOCK_FEATURE = register("double_block", new DoubleBlockFeature());
     GiantMushroomFeature GIANT_MUSHROOM = register("giant_mushroom", new GiantMushroomFeature(GiantMushroomFeature.GiantMushroomConfig.CODEC));
+    AllFeature ALL = register("all", new AllFeature(AllFeature.AllFeatureConfig.CODEC));
 
     private static <C extends FeatureConfig, F extends Feature<C>> F register(String name, F feature) {
         return Registry.register(Registries.FEATURE, Aylyth.id(name), feature);

@@ -10,6 +10,7 @@ import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
+import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.world.gen.blockpredicate.BlockPredicate;
 import net.minecraft.world.gen.feature.PlacedFeature;
 import net.minecraft.world.gen.feature.PlacedFeatures;
@@ -72,6 +73,8 @@ public final class AylythPlacedFeatureBootstrap {
         var antlerShootsPatch = features.getOrThrow(AylythConfiguredFeatures.ANTLER_SHOOTS_PATCH);
         var woodyGrowthsWaterSelector = features.getOrThrow(AylythConfiguredFeatures.WOODY_GROWTHS_WATER_SELECTOR);
         var woodyGrowthsWaterPatch = features.getOrThrow(AylythConfiguredFeatures.WOODY_GROWTH_WATER_PATCH);
+        var jackOLanternMushroom = features.getOrThrow(AylythConfiguredFeatures.JACK_O_LANTERN_MUSHROOM);
+        var giantJackOLanternMushrooms = features.getOrThrow(AylythConfiguredFeatures.GIANT_JACK_O_LANTERN_MUSHROOMS);
 
         PlacedFeatures.register(context, AYLYTHIAN_DARK_OAK, aylythianDarkOak, List.of(PlacedFeatures.wouldSurvive(Blocks.DARK_OAK_SAPLING)));
         PlacedFeatures.register(context, AYLYTHIAN_MEGA_DARK_OAK, aylythianMegaDarkOak, List.of(PlacedFeatures.wouldSurvive(Blocks.DARK_OAK_SAPLING)));
@@ -80,7 +83,9 @@ public final class AylythPlacedFeatureBootstrap {
         PlacedFeatures.register(context, POMEGRANATE_TREE, pomegranate, List.of(PlacedFeatures.wouldSurvive(AylythBlocks.POMEGRANATE_SAPLING)));
         PlacedFeatures.register(context, WRITHEWOOD_TREE, writhewood, List.of(PlacedFeatures.wouldSurvive(AylythBlocks.WRITHEWOOD_SAPLING)));
 
-        PlacedFeatures.register(context, GIANT_JACK__O_LANTERN_MUSHROOM, features.getOrThrow(AylythConfiguredFeatures.GIANT_JACK__O_LANTERN_MUSHROOM), List.of(SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, PlacedFeatures.wouldSurvive(AylythBlocks.WRITHEWOOD_SAPLING), BiomePlacementModifier.of()));
+        // TODO: Replace both survive checks with tall shroom when implemented
+        PlacedFeatures.register(context, SMALL_GIANT_JACK__O_LANTERN_MUSHROOM, features.getOrThrow(AylythConfiguredFeatures.SMALL_GIANT_JACK_O_LANTERN_MUSHROOM), List.of(PlacedFeatures.wouldSurvive(AylythBlocks.JACK_O_LANTERN_MUSHROOM)));
+        PlacedFeatures.register(context, LARGE_GIANT_JACK__O_LANTERN_MUSHROOM, features.getOrThrow(AylythConfiguredFeatures.LARGE_GIANT_JACK_O_LANTERN_MUSHROOM), List.of(PlacedFeatures.wouldSurvive(AylythBlocks.JACK_O_LANTERN_MUSHROOM)));
 
         PlacedFeatures.register(context, SPRING, spring, List.of(CountPlacementModifier.of(1), RarityFilterPlacementModifier.of(8), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of()));//.configure(new SingleStateFeatureConfig(Blocks.WATER.getDefaultState())).range(Decorators.TOP_TO_BOTTOM).spreadHorizontally().applyChance(8);
         PlacedFeatures.register(context, BUSHES, bushes, List.of(RarityFilterPlacementModifier.of(2), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of()));
@@ -90,6 +95,7 @@ public final class AylythPlacedFeatureBootstrap {
         PlacedFeatures.register(context, YMPE_STREWN_LEAVES, ympeStrewnLeaves, List.of(CountPlacementModifier.of(16), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, PlacedFeatures.wouldSurvive(AylythBlocks.YMPE_STREWN_LEAVES), new EnvironmentCheckPlacementModifier(Direction.UP, BlockPredicate.matchingBlocks(AylythBlocks.YMPE_LEAVES), ConstantIntProvider.create(30)), BiomePlacementModifier.of()));
         PlacedFeatures.register(context, AYLYTH_WEEDS, aylythWeeds, List.of(RarityFilterPlacementModifier.of(16), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of()));//configure(new RandomPatchFeatureConfig.Builder(new WeightedBlockStateProvider(DataPool.<BlockState>builder().add(ModBlocks.ANTLER_SHOOTS.getDefaultState(), 5).add(ModBlocks.GRIPWEED.getDefaultState(), 2).build()), SimpleBlockPlacer.INSTANCE).tries(64).cannotProject().build()).decorate(Decorator.SPREAD_32_ABOVE.configure(NopeDecoratorConfig.INSTANCE).decorate(Decorators.FOLIAGE_PLACEMENT).repeat(7));
         PlacedFeatures.register(context, MARIGOLDS, marigolds, List.of(PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, PlacedFeatures.wouldSurvive(AylythBlocks.MARIGOLD), BiomePlacementModifier.of()));
+        PlacedFeatures.register(context, JACK_O_LANTERN_MUSHROOM_PATCH, jackOLanternMushroom, List.of(CountPlacementModifier.of(UniformIntProvider.create(4, 8)), RandomOffsetPlacementModifier.horizontally(UniformIntProvider.create(1, 5)), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, PlacedFeatures.wouldSurvive(AylythBlocks.JACK_O_LANTERN_MUSHROOM)));
         PlacedFeatures.register(context, SHELF_JACK_O_LANTERN_MUSHROOMS, shelfJackOlanternMushrooms, List.of(SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP));
         PlacedFeatures.register(context, ANTLER_SHOOTS_WATER, antlerShootsWater, List.of(BlockFilterPlacementModifier.of(BlockPredicate.matchingFluids(Fluids.WATER))));
         PlacedFeatures.register(context, ANTLER_SHOOTS, antlerShoots, List.of(PlacedFeatures.isAir()));
@@ -110,6 +116,7 @@ public final class AylythPlacedFeatureBootstrap {
         PlacedFeatures.register(context, OVERGROWTH_CLEARING_TREES, overgrowthClearingTrees, trees(1, 0.5F, 2));
         PlacedFeatures.register(context, MIRE_WATER_TREES, mireWaterTrees, floodedTrees(2, 0.5F, 2));
         PlacedFeatures.register(context, MIRE_LAND_TREES, mireLandTrees, trees(2, 0.5F, 2));
+        PlacedFeatures.register(context, GIANT_JACK_O_LANTERN_MUSHROOMS, giantJackOLanternMushrooms, List.of(RarityFilterPlacementModifier.of(15), SquarePlacementModifier.of(), CountPlacementModifier.of(5), RandomOffsetPlacementModifier.horizontally(UniformIntProvider.create(0, 4)), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of()));
 
         PlacedFeatures.register(context, RED_MUSHROOM_PATCHES, redMushroomPatches, List.of(RarityFilterPlacementModifier.of(256), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of()));
         PlacedFeatures.register(context, BROWN_MUSHROOM_PATCHES, brownMushroomPatches, List.of(RarityFilterPlacementModifier.of(256), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of()));

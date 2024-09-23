@@ -14,7 +14,8 @@ public interface AylythPlacedFeatures {
     RegistryKey<PlacedFeature> POMEGRANATE_TREE = bind("pomegranate_tree");
     RegistryKey<PlacedFeature> WRITHEWOOD_TREE = bind("writhewood_tree");
 
-    RegistryKey<PlacedFeature> GIANT_JACK__O_LANTERN_MUSHROOM = bind("giant_jack_o_lantern_mushroom");
+    RegistryKey<PlacedFeature> SMALL_GIANT_JACK__O_LANTERN_MUSHROOM = bind("small_giant_jack_o_lantern_mushroom");
+    RegistryKey<PlacedFeature> LARGE_GIANT_JACK__O_LANTERN_MUSHROOM = bind("large_giant_jack_o_lantern_mushroom");
 
     RegistryKey<PlacedFeature> SPRING = bind("spring");
     RegistryKey<PlacedFeature> BUSHES = bind("bushes");
@@ -24,6 +25,7 @@ public interface AylythPlacedFeatures {
     RegistryKey<PlacedFeature> YMPE_STREWN_LEAVES = bind("ympe_strewn_leaves");
     RegistryKey<PlacedFeature> AYLYTH_WEEDS = bind("aylyth_weeds");
     RegistryKey<PlacedFeature> MARIGOLDS = bind("marigolds");
+    RegistryKey<PlacedFeature> JACK_O_LANTERN_MUSHROOM_PATCH = bind("jack_o_lantern_mushroom_patch");
     RegistryKey<PlacedFeature> SHELF_JACK_O_LANTERN_MUSHROOMS = bind("shelf_jack_o_lantern_mushrooms");
     RegistryKey<PlacedFeature> ANTLER_SHOOTS_WATER = bind("antler_shoots_water");
     RegistryKey<PlacedFeature> ANTLER_SHOOTS = bind("antler_shoots");
@@ -44,6 +46,7 @@ public interface AylythPlacedFeatures {
     RegistryKey<PlacedFeature> OVERGROWTH_CLEARING_TREES = bind("overgrowth_clearing_trees");
     RegistryKey<PlacedFeature> MIRE_WATER_TREES = bind("mire_water_trees");
     RegistryKey<PlacedFeature> MIRE_LAND_TREES = bind("mire_land_trees");
+    RegistryKey<PlacedFeature> GIANT_JACK_O_LANTERN_MUSHROOMS = bind("giant_jack_o_lantern_mushrooms");
 
     RegistryKey<PlacedFeature> RED_MUSHROOM_PATCHES = bind("red_mushroom_patch");
     RegistryKey<PlacedFeature> BROWN_MUSHROOM_PATCHES = bind("brown_mushroom_patch");

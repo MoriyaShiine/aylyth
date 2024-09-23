@@ -2,6 +2,7 @@ package moriyashiine.aylyth.common.world.gen.features;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import moriyashiine.aylyth.common.block.AylythBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.registry.tag.BlockTags;
@@ -36,7 +37,7 @@ public class GiantMushroomFeature extends Feature<GiantMushroomFeature.GiantMush
         }
 
         for (BlockPos loc : BlockPos.iterate(origin, stemEndPos)) {
-            if (worldAccess.getBlockState(loc).isOpaqueFullCube(worldAccess, loc)) {
+            if (worldAccess.testBlockState(loc, state -> state.isOpaqueFullCube(worldAccess, loc) && !state.isOf(AylythBlocks.JACK_O_LANTERN_MUSHROOM_BLOCK))) {
                 continue;
             }
             BlockState stemState = context.getConfig().stemProvider().get(random, loc);

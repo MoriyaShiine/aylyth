@@ -210,7 +210,7 @@ public final class AylythBiomeBootstrap {
 					if (deep) {
 						builder.vegetalDecoFeature(AylythPlacedFeatures.CONIFEROUS_DEEP_ROOF_TREES)
 								.vegetalDecoFeature(AylythPlacedFeatures.SHELF_JACK_O_LANTERN_MUSHROOM_PATCHES_DEEPWOOD)
-								.vegetalDecoFeature(AylythPlacedFeatures.GIANT_JACK__O_LANTERN_MUSHROOM)
+								.vegetalDecoFeature(AylythPlacedFeatures.GIANT_JACK_O_LANTERN_MUSHROOMS)
 								.add(AylythBiomeBootstrap::addWoodyGrowths)
 								.add(AylythBiomeBootstrap::addLeafPiles)
 								.add(DefaultBiomeFeatures::addLargeFerns);

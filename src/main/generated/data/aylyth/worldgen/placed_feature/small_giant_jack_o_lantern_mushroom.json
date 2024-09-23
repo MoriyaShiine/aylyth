@@ -1,0 +1,18 @@
+{
+  "feature": "aylyth:small_giant_jack_o_lantern_mushroom",
+  "placement": [
+    {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:would_survive",
+        "state": {
+          "Name": "aylyth:jack_o_lantern_mushroom",
+          "Properties": {
+            "glowing": "false",
+            "stage": "1"
+          }
+        }
+      }
+    }
+  ]
+}

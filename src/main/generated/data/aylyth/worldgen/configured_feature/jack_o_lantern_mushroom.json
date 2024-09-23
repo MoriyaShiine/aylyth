@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:simple_block",
+  "config": {
+    "to_place": {
+      "type": "minecraft:randomized_int_state_provider",
+      "property": "stage",
+      "source": {
+        "type": "minecraft:simple_state_provider",
+        "state": {
+          "Name": "aylyth:jack_o_lantern_mushroom",
+          "Properties": {
+            "glowing": "false",
+            "stage": "1"
+          }
+        }
+      },
+      "values": {
+        "type": "minecraft:uniform",
+        "value": {
+          "max_inclusive": 3,
+          "min_inclusive": 1
+        }
+      }
+    }
+  }
+}

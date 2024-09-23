@@ -1,0 +1,9 @@
+{
+  "type": "aylyth:all",
+  "config": {
+    "placed_features": [
+      "aylyth:large_giant_jack_o_lantern_mushroom",
+      "aylyth:jack_o_lantern_mushroom_patch"
+    ]
+  }
+}

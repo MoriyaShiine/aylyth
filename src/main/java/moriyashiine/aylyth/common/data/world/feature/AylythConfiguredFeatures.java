@@ -14,7 +14,8 @@ public interface AylythConfiguredFeatures {
     RegistryKey<ConfiguredFeature<?, ?>> POMEGRANATE_TREE = bind("pomegranate_tree");
     RegistryKey<ConfiguredFeature<?, ?>> WRITHEWOOD_TREE = bind("writhewood_tree");
     RegistryKey<ConfiguredFeature<?, ?>> GIRASOL_TREE = bind("seeping_tree");
-    RegistryKey<ConfiguredFeature<?, ?>> GIANT_JACK__O_LANTERN_MUSHROOM = bind("giant_jack_o_lantern_mushroom");
+    RegistryKey<ConfiguredFeature<?, ?>> SMALL_GIANT_JACK_O_LANTERN_MUSHROOM = bind("small_giant_jack_o_lantern_mushroom");
+    RegistryKey<ConfiguredFeature<?, ?>> LARGE_GIANT_JACK_O_LANTERN_MUSHROOM = bind("large_giant_jack_o_lantern_mushroom");
 
     RegistryKey<ConfiguredFeature<?, ?>> SPRING = bind("spring");
     RegistryKey<ConfiguredFeature<?, ?>> BUSHES = bind("bushes");
@@ -24,6 +25,7 @@ public interface AylythConfiguredFeatures {
     RegistryKey<ConfiguredFeature<?, ?>> YMPE_STREWN_LEAVES = bind("ympe_strewn_leaves");
     RegistryKey<ConfiguredFeature<?, ?>> AYLYTH_WEEDS = bind("aylyth_weeds");
     RegistryKey<ConfiguredFeature<?, ?>> MARIGOLDS = bind("marigolds");
+    RegistryKey<ConfiguredFeature<?, ?>> JACK_O_LANTERN_MUSHROOM = bind("jack_o_lantern_mushroom");
     RegistryKey<ConfiguredFeature<?, ?>> SHELF_JACK_O_LANTERN_MUSHROOMS = bind("shelf_jack_o_lantern_mushrooms");
     RegistryKey<ConfiguredFeature<?, ?>> GHOSTCAP_MUSHROOM = bind("ghostcap_mushroom");
     RegistryKey<ConfiguredFeature<?, ?>> SMALL_WOODY_GROWTH = bind("small_woody_growth");
@@ -48,6 +50,8 @@ public interface AylythConfiguredFeatures {
     RegistryKey<ConfiguredFeature<?, ?>> OVERGROWTH_CLEARING_TREES = bind("overgrowth_clearing_trees");
     RegistryKey<ConfiguredFeature<?, ?>> MIRE_WATER_TREES = bind("mire_water_trees");
     RegistryKey<ConfiguredFeature<?, ?>> MIRE_LAND_TREES = bind("mire_land_trees");
+    RegistryKey<ConfiguredFeature<?, ?>> LARGE_GIANT_JACK_O_LANTERN_MUSHROOM_WITH_PATCH = bind("large_giant_jack_o_lantern_mushroom_with_patch");
+    RegistryKey<ConfiguredFeature<?, ?>> GIANT_JACK_O_LANTERN_MUSHROOMS = bind("giant_jack_o_lantern_mushrooms");
 
     RegistryKey<ConfiguredFeature<?, ?>> RED_MUSHROOM_PATCHES = bind("red_mushroom_patch");
     RegistryKey<ConfiguredFeature<?, ?>> BROWN_MUSHROOM_PATCHES = bind("brown_mushroom_patch");

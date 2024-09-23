@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "default": {
+      "feature": "aylyth:large_giant_jack_o_lantern_mushroom_with_patch",
+      "placement": []
+    },
+    "features": [
+      {
+        "chance": 0.5,
+        "feature": "aylyth:small_giant_jack_o_lantern_mushroom"
+      }
+    ]
+  }
+}
