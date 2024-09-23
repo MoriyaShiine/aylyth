@@ -15,6 +15,7 @@ import net.minecraft.world.gen.treedecorator.TreeDecoratorType;
 
 import java.util.List;
 
+// TODO: Rewrite this to just place a list of placed features, so the number of tries and range offset can be defined there instead
 public class PlaceAroundTreeDecorator extends TreeDecorator {
     public static final Codec<PlaceAroundTreeDecorator> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             BlockState.CODEC.listOf().fieldOf("block_states").forGetter(woodyGrowthsDecorator -> woodyGrowthsDecorator.blockStates),
