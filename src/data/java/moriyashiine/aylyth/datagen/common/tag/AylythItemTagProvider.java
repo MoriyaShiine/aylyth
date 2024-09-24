@@ -36,6 +36,7 @@ public final class AylythItemTagProvider extends FabricTagProvider.ItemTagProvid
         getOrCreateTagBuilder(AylythItemTags.VAMPIRIC_WEAPON).add(AylythItems.VAMPIRIC_AXE, AylythItems.VAMPIRIC_HOE, AylythItems.VAMPIRIC_PICKAXE, AylythItems.VAMPIRIC_SWORD);
         getOrCreateTagBuilder(AylythItemTags.BLIGHTED_WEAPON).add(AylythItems.BLIGHTED_AXE, AylythItems.BLIGHTED_HOE, AylythItems.BLIGHTED_PICKAXE, AylythItems.BLIGHTED_SWORD);
         getOrCreateTagBuilder(AylythItemTags.NEPHRITE_FLASKS).add(AylythItems.NEPHRITE_FLASK, AylythItems.DARK_NEPHRITE_FLASK);
+        getOrCreateTagBuilder(AylythItemTags.DAGGERS).add(AylythItems.LANCEOLATE_DAGGER, AylythItems.YMPE_DAGGER);
         getOrCreateTagBuilder(AylythItemTags.HEART_HARVESTERS).add(AylythItems.LANCEOLATE_DAGGER, AylythItems.YMPE_DAGGER);
         getOrCreateTagBuilder(AylythItemTags.YMPE_FRUIT_HARVESTERS).add(AylythItems.LANCEOLATE_DAGGER, AylythItems.YMPE_DAGGER);
         getOrCreateTagBuilder(AylythItemTags.STRIPS_OFF_BARK).add(AylythItems.LANCEOLATE_DAGGER, AylythItems.YMPE_DAGGER);
