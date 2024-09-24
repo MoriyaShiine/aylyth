@@ -26,6 +26,10 @@ public class AylythEnglishLanguageProvider extends FabricLanguageProvider {
 
         // BLOCKS
 
+        builder.add(AylythBlocks.SAPSTONE, "Sapstone");
+        builder.add(AylythBlocks.AMBER_SAPSTONE, "Amber Sapstone");
+        builder.add(AylythBlocks.LIGNITE_SAPSTONE, "Lignite Sapstone");
+        builder.add(AylythBlocks.OPALESCENT_SAPSTONE, "Opalescent Sapstone");
         builder.add(AylythBlocks.YMPE_STRIPPED_LOG, "Stripped Ympe Log");
         builder.add(AylythBlocks.YMPE_STRIPPED_WOOD, "Stripped Ympe Wood");
         builder.add(AylythBlocks.YMPE_LOG, "Ympe Log");

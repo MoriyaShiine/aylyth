@@ -1,0 +1,14 @@
+{
+  "loader": "fusion:model",
+  "type": "fusion:connecting",
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "side": "aylyth:block/lignite_sapstone",
+    "end": "aylyth:block/lignite_sapstone_end"
+  },
+  "connections": {
+    "end": {
+      "type": "fusion:is_same_block"
+    }
+  }
+}

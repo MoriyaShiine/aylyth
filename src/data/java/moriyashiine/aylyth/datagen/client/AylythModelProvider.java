@@ -3,6 +3,7 @@ package moriyashiine.aylyth.datagen.client;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.block.types.LargeWoodyGrowthBlock;
 import moriyashiine.aylyth.common.block.types.PomegranateLeavesBlock;
@@ -24,6 +25,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Direction;
 
 import java.util.List;
 import java.util.Optional;
@@ -119,6 +121,11 @@ public class AylythModelProvider extends FabricModelProvider {
         Identifier pottedSaplingId = BlockStateModelGenerator.TintType.NOT_TINTED.getFlowerPotCrossModel().upload(AylythBlocks.GIRASOL_SAPLING_POTTED, girasolMap, blockStateModelGenerator.modelCollector);
         blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(AylythBlocks.GIRASOL_SAPLING_POTTED, pottedSaplingId));
         variantState(blockStateModelGenerator, AylythBlocks.BLACK_WELL);
+
+        blockStateModelGenerator.blockStateCollector.accept(sapstoneBlockStates(AylythBlocks.SAPSTONE, blockId("sapstone")));
+        blockStateModelGenerator.blockStateCollector.accept(sapstoneBlockStates(AylythBlocks.AMBER_SAPSTONE, blockId("amber_sapstone")));
+        blockStateModelGenerator.blockStateCollector.accept(sapstoneBlockStates(AylythBlocks.LIGNITE_SAPSTONE, blockId("lignite_sapstone")));
+        blockStateModelGenerator.blockStateCollector.accept(sapstoneBlockStates(AylythBlocks.OPALESCENT_SAPSTONE, blockId("opalescent_sapstone")));
     }
 
     @Override
@@ -171,6 +178,16 @@ public class AylythModelProvider extends FabricModelProvider {
         Models.GENERATED_TWO_LAYERS.upload(Aylyth.id("item/coker_cola"), TextureMap.layered(Aylyth.id("item/blight_potion"), Aylyth.id("item/blight_potion")), itemModelGenerator.writer);
         Models.GENERATED_TWO_LAYERS.upload(Aylyth.id("item/coker_cola_splash"), TextureMap.layered(Aylyth.id("item/blight_potion_splash"), Aylyth.id("item/blight_potion_splash")), itemModelGenerator.writer);
         Models.GENERATED_TWO_LAYERS.upload(Aylyth.id("item/coker_cola_lingering"), TextureMap.layered(Aylyth.id("item/blight_potion_lingering"), Aylyth.id("item/blight_potion_lingering")), itemModelGenerator.writer);
+    }
+
+    private VariantsBlockStateSupplier sapstoneBlockStates(Block sapstoneBlock, Identifier verticalModel) {
+        return VariantsBlockStateSupplier.create(
+                sapstoneBlock,
+                BlockStateVariant.create().put(VariantSettings.MODEL, verticalModel),
+                BlockStateVariant.create().put(VariantSettings.MODEL, verticalModel).put(VariantSettings.Y, VariantSettings.Rotation.R90),
+                BlockStateVariant.create().put(VariantSettings.MODEL, verticalModel).put(VariantSettings.Y, VariantSettings.Rotation.R180),
+                BlockStateVariant.create().put(VariantSettings.MODEL, verticalModel).put(VariantSettings.Y, VariantSettings.Rotation.R270)
+        );
     }
 
     private void registerFlask(ItemModelGenerator generator, ItemConvertible flask) {

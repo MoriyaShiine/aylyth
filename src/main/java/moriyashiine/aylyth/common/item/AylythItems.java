@@ -27,6 +27,11 @@ public interface AylythItems {
 
     Item DEBUG_WAND = register("debug_wand", new DebugWandItem(settings()));
 
+    Item SAPSTONE =  registerBlockItem("sapstone", AylythBlocks.SAPSTONE);
+    Item AMBER_SAPSTONE =  registerBlockItem("amber_sapstone", AylythBlocks.AMBER_SAPSTONE);
+    Item LIGNITE_SAPSTONE =  registerBlockItem("lignite_sapstone", AylythBlocks.LIGNITE_SAPSTONE);
+    Item OPALESCENT_SAPSTONE =  registerBlockItem("opalescent_sapstone", AylythBlocks.OPALESCENT_SAPSTONE);
+
 	Item YMPE_STRIPPED_LOG = registerBlockItem("stripped_ympe_log", AylythBlocks.YMPE_STRIPPED_LOG);
     Item YMPE_STRIPPED_WOOD = registerBlockItem("stripped_ympe_wood", AylythBlocks.YMPE_STRIPPED_WOOD);
     Item YMPE_LOG = registerBlockItem("ympe_log", AylythBlocks.YMPE_LOG);

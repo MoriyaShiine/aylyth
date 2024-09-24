@@ -21,6 +21,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 
@@ -34,6 +35,11 @@ public interface AylythBlocks {
 	WoodType YMPE_WOOD_TYPE = new WoodTypeBuilder().register(Aylyth.id("ympe"), YMPE_BLOCK_SET_TYPE);
 	WoodType POMEGRANATE_WOOD_TYPE = new WoodTypeBuilder().register(Aylyth.id("pomegranate"), POMEGRANATE_BLOCK_SET_TYPE);
 	WoodType WRITHEWOOD_WOOD_TYPE = new WoodTypeBuilder().register(Aylyth.id("writhewood"), WRITHEWOOD_BLOCK_SET_TYPE);
+
+	Block SAPSTONE = register("sapstone", new Block(copyOf(Blocks.STONE).mapColor(MapColor.OAK_TAN)));
+	Block AMBER_SAPSTONE = register("amber_sapstone", new Block(copyOf(Blocks.STONE).mapColor(MapColor.ORANGE)));
+	Block LIGNITE_SAPSTONE = register("lignite_sapstone", new Block(copyOf(Blocks.STONE).mapColor(MapColor.TERRACOTTA_GRAY)));
+	Block OPALESCENT_SAPSTONE = register("opalescent_sapstone", new Block(copyOf(Blocks.STONE).mapColor(MapColor.DULL_PINK)));
 
 	Block YMPE_STRIPPED_LOG = register("stripped_ympe_log", new PillarBlock(copyOf(Blocks.STRIPPED_OAK_LOG)));
 	Block YMPE_STRIPPED_WOOD = register("stripped_ympe_wood", new PillarBlock(copyOf(Blocks.STRIPPED_OAK_WOOD)));

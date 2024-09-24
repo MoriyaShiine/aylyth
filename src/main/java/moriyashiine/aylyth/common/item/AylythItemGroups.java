@@ -21,6 +21,11 @@ public interface AylythItemGroups {
                         entries.add(AylythItems.DEBUG_WAND);
                     }
 
+                    entries.add(AylythItems.SAPSTONE);
+                    entries.add(AylythItems.AMBER_SAPSTONE);
+                    entries.add(AylythItems.LIGNITE_SAPSTONE);
+                    entries.add(AylythItems.OPALESCENT_SAPSTONE);
+
                     entries.add(AylythItems.YMPE_STRIPPED_LOG);
                     entries.add(AylythItems.YMPE_STRIPPED_WOOD);
                     entries.add(AylythItems.YMPE_LOG);
