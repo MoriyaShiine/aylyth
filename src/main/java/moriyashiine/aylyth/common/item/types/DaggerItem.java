@@ -74,7 +74,7 @@ public class DaggerItem extends SwordItem {
                     }
                 }
             }
-            context.getStack().damage(1, context.getPlayer(), player -> player.sendToolBreakStatus(context.getHand()));
+            itemStack.damage(1, context.getPlayer(), player -> player.sendToolBreakStatus(context.getHand()));
         }
         BlockState strippedState = strippedBlock.getStateWithProperties(state);
         world.setBlockState(pos, strippedState);
