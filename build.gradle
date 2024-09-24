@@ -151,6 +151,7 @@ dependencies {
     modImplementation "software.bernie.geckolib:geckolib-fabric-${geckolib_version}"
     modImplementation "net.tslat.smartbrainlib:SmartBrainLib-fabric-${minecraft_version}:${sbl_version}"
     modImplementation "dev.emi:trinkets:${trinkets_version}"
+    modImplementation "maven.modrinth:fusion-connected-textures:${fusion_version}-fabric-mc${minecraft_version}"
 
     // EMI
     modCompileOnly "dev.emi:emi-fabric:${emi_version}:api"

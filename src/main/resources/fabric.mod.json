@@ -57,7 +57,8 @@
         "java": ">=17",
         "geckolib": "*",
         "trinkets": "~3.7.1",
-        "smartbrainlib": ">=1.13"
+        "smartbrainlib": ">=1.13",
+        "fusion": ">=1.1.1"
     },
     "custom": {
         "cardinal-components": [
