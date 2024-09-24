@@ -25,9 +25,6 @@ import java.util.List;
 
 public interface AylythItems {
 
-    List<Item> TEMPT_MAIN_ITEM_GROUP_ITEMS = new ObjectArrayList<>(); // *private*
-    RegistryKey<ItemGroup> MAIN_ITEM_GROUP = RegistryKey.of(RegistryKeys.ITEM_GROUP, Aylyth.id(Aylyth.MOD_ID));
-
     Item DEBUG_WAND = register("debug_wand", new DebugWandItem(settings()));
 
 	Item YMPE_STRIPPED_LOG = registerBlockItem("stripped_ympe_log", AylythBlocks.YMPE_STRIPPED_LOG);
@@ -120,7 +117,6 @@ public interface AylythItems {
     Item YMPE_SEEP = registerBlockItem("ympe_seep", AylythBlocks.YMPE_SEEP);
     Item SEEPING_WOOD_SEEP = registerBlockItem("seeping_wood_seep", AylythBlocks.SEEPING_WOOD_SEEP);
     Item DARK_WOODS_TILES = registerBlockItem("dark_woods_tiles", AylythBlocks.DARK_WOODS_TILES);
-	//Item MYSTERIOUS_SKETCH = registerSimple("mysterious_sketch");
     Item BARK = registerSimple("bark");
 
     Item LANCEOLATE_DAGGER = register("lanceolate_dagger", new DaggerItem(AylythToolMaterials.NEPHRITE, 1, -2, -0.5f, settings()));
@@ -202,7 +198,6 @@ public interface AylythItems {
 	}
 
 	private static <I extends Item> I register(String name, I item) {
-		TEMPT_MAIN_ITEM_GROUP_ITEMS.add(item);
 		return Registry.register(Registries.ITEM, Aylyth.id(name), item);
 	}
 
@@ -222,17 +217,5 @@ public interface AylythItems {
 		return register(name, new SpawnEggItem(entityType, primaryColor, secondaryColor, settings()));
 	}
 
-	static void register() {
-        Registry.register(Registries.ITEM_GROUP, MAIN_ITEM_GROUP, FabricItemGroup.builder()
-                .icon(AylythItems.YMPE_DAGGER::getDefaultStack)
-                .displayName(Text.translatable("itemGroup.aylyth.main"))
-                .entries((displayContext, entries) -> {
-                    for (var item : TEMPT_MAIN_ITEM_GROUP_ITEMS) {
-                        entries.add(item);
-                    }
-                    TEMPT_MAIN_ITEM_GROUP_ITEMS.clear();
-                })
-                .build()
-        );
-    }
+	static void register() {}
 }
