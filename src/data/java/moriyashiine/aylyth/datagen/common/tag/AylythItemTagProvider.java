@@ -39,6 +39,7 @@ public final class AylythItemTagProvider extends FabricTagProvider.ItemTagProvid
         getOrCreateTagBuilder(AylythItemTags.HEART_HARVESTERS).add(AylythItems.LANCEOLATE_DAGGER, AylythItems.YMPE_DAGGER);
         getOrCreateTagBuilder(AylythItemTags.YMPE_FRUIT_HARVESTERS).add(AylythItems.LANCEOLATE_DAGGER, AylythItems.YMPE_DAGGER);
         getOrCreateTagBuilder(AylythItemTags.STRIPS_OFF_BARK).add(AylythItems.LANCEOLATE_DAGGER, AylythItems.YMPE_DAGGER);
+        getOrCreateTagBuilder(AylythItemTags.DECREASES_BRANCHES_1_IN_4).add(AylythItems.YMPE_MUSH);
 
         copy(BlockTags.LOGS_THAT_BURN, ItemTags.LOGS_THAT_BURN);
         copy(BlockTags.PLANKS, ItemTags.PLANKS);

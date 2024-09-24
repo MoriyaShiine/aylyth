@@ -84,7 +84,7 @@ public abstract class LivingEntityMixin extends Entity {
 	@Inject(method = "eatFood", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;applyFoodEffects(Lnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/entity/LivingEntity;)V"))
 	private void decreaseYmpeInfestationStage(World world, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
 		if ((LivingEntity) (Object) this instanceof PlayerEntity player && stack.isIn(AylythItemTags.DECREASES_BRANCHES)) {
-			if (stack.isOf(AylythItems.YMPE_MUSH)) {
+			if (stack.isIn(AylythItemTags.DECREASES_BRANCHES_1_IN_4)) {
 				if (world.random.nextFloat() >= .25f) {
 					return;
 				}

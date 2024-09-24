@@ -16,6 +16,7 @@ public interface AylythItemTags {
     TagKey<Item> WOODY_GROWTHS = bind("woody_growths");
     TagKey<Item> CHTHONIA_WOOD = bind("chthonia_wood");
     TagKey<Item> DECREASES_BRANCHES = bind("decreases_branches");
+    TagKey<Item> DECREASES_BRANCHES_1_IN_4 = bind("decreases_branches_1_in_4");
     TagKey<Item> PLEDGE_ITEMS = bind("pledge_items");
     TagKey<Item> NEPHRITE_TOOL_MATERIALS = bind("nephrite_tool_materials");
     TagKey<Item> HEART_HARVESTERS = bind("heart_harvesters");
