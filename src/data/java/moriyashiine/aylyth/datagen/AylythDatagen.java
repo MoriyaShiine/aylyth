@@ -7,6 +7,7 @@ import moriyashiine.aylyth.datagen.common.AylythDynamicDataProvider;
 import moriyashiine.aylyth.datagen.common.AylythRecipeProvider;
 import moriyashiine.aylyth.datagen.common.AylythDamageTypeBootstrap;
 import moriyashiine.aylyth.datagen.common.loot.AylythHarvestLootProvider;
+import moriyashiine.aylyth.datagen.common.loot.AylythStripLootProvider;
 import moriyashiine.aylyth.datagen.common.world.AylythBiomeBootstrap;
 import moriyashiine.aylyth.datagen.common.world.feature.AylythConfiguredCarverBootstrap;
 import moriyashiine.aylyth.datagen.common.world.feature.AylythConfiguredFeatureBootstrap;
@@ -47,6 +48,7 @@ public class AylythDatagen implements DataGeneratorEntrypoint {
         pack.addProvider(AylythBlockLootProvider::new);
         pack.addProvider(AylythEntityLootProvider::new);
         pack.addProvider(AylythHarvestLootProvider::new);
+        pack.addProvider(AylythStripLootProvider::new);
     }
 
     @Override

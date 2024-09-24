@@ -13,6 +13,11 @@ public interface AylythLootContextTypes {
                     .require(LootContextParameters.BLOCK_STATE)
                     .allow(LootContextParameters.TOOL)
     );
+    LootContextType STRIP = register("strip", builder ->
+            builder.require(LootContextParameters.ORIGIN)
+                    .require(LootContextParameters.BLOCK_STATE)
+                    .allow(LootContextParameters.TOOL)
+    );
 
     private static LootContextType register(String name, UnaryOperator<LootContextType.Builder> builder) {
         LootContextType type = builder.apply(LootContextType.create()).build();

@@ -1,0 +1,42 @@
+{
+  "type": "aylyth:strip",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:match_tool",
+              "predicate": {
+                "tag": "c:daggers"
+              }
+            },
+            {
+              "condition": "minecraft:location_check",
+              "predicate": {
+                "block": {
+                  "tag": "minecraft:logs"
+                }
+              }
+            }
+          ],
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 2.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "aylyth:bark"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}
