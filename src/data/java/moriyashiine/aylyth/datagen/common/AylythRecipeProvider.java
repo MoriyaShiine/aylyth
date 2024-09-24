@@ -226,6 +226,12 @@ public final class AylythRecipeProvider extends FabricRecipeProvider {
                 .criterion("has_nephrite_flask", conditionsFromTag(AylythItemTags.NEPHRITE_FLASKS))
                 .offerTo(exporter, "dark_nephrite_flask_from_nephrite_flask");
 
+        ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, Items.PAPER)
+                .input('C', AylythItems.BARK)
+                .pattern("CC")
+                .criterion("has_bark", conditionsFromItem(AylythItems.BARK))
+                .offerTo(exporter, "paper_from_bark");
+
         offerShapeless(exporter, RecipeCategory.COMBAT, AylythItems.BLIGHTED_THORN_FLECHETTE, 4, AylythItems.BLIGHTED_THORNS);
 
         offerReversibleCompactingRecipesWithReverseRecipeGroup(exporter, RecipeCategory.MISC, AylythItems.ESSTLINE, RecipeCategory.BUILDING_BLOCKS, AylythItems.ESSTLINE_BLOCK, "esstline_from_esstline_block", "esstline");
