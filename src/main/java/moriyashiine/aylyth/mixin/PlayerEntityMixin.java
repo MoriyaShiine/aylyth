@@ -128,15 +128,13 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHea
         if (!getWorld().isClient) {
             PlayerEntity player = (PlayerEntity) (Object) this;
             CuirassComponent component = AylythEntityComponents.CUIRASS_COMPONENT.get(player);
-            boolean bypassesCuirass = source.isIn(AylythDamageTypeTags.BYPASSES_CUIRASS);
             boolean isAxe = source.getAttacker() instanceof LivingEntity livingEntity1 && livingEntity1.getMainHandStack().getItem() instanceof AxeItem;
-            boolean isFireDamage = source.isIn(DamageTypeTags.IS_FIRE);
-            if (isAxe || isFireDamage) {
+            if (isAxe || source.isIn(DamageTypeTags.IS_FIRE)) {
                 component.setStage(0);
                 component.setStageTimer(0);
                 player.getWorld().playSoundFromEntity(null, player, AylythSoundEvents.ENTITY_PLAYER_INCREASE_YMPE_INFESTATION_STAGE.value(), SoundCategory.PLAYERS, 1, player.getSoundPitch());
                 return amount;
-            } else if (!bypassesCuirass) {
+            } else if (!source.isIn(AylythDamageTypeTags.BYPASSES_CUIRASS)) {
                 while (component.getStage() > 0) {
                     amount--;
                     component.setStage(component.getStage() - 1);
