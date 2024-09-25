@@ -24,7 +24,7 @@ import moriyashiine.aylyth.common.loot.AylythLootContextTypes;
 import moriyashiine.aylyth.common.recipe.AylythRecipeTypes;
 import moriyashiine.aylyth.common.screenhandler.AylythScreenHandlerTypes;
 import moriyashiine.aylyth.common.world.AylythWorldAttachmentTypes;
-import moriyashiine.aylyth.common.world.AylythParticleTypes;
+import moriyashiine.aylyth.common.particle.AylythParticleTypes;
 import moriyashiine.aylyth.common.world.AylythSoundEvents;
 import moriyashiine.aylyth.common.world.gen.AylythPlacementModifiers;
 import moriyashiine.aylyth.common.world.gen.biome.AylythBiomeModifications;

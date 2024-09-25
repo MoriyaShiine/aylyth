@@ -11,6 +11,7 @@ import moriyashiine.aylyth.client.model.entity.RootPropEntityModel;
 import moriyashiine.aylyth.client.model.entity.ScionEntityModel;
 import moriyashiine.aylyth.client.network.AylythClientNetworkHandler;
 import moriyashiine.aylyth.client.particle.ParticleFactories;
+import moriyashiine.aylyth.client.particle.SoulEmberParticle;
 import moriyashiine.aylyth.client.render.entity.projectile.ThornFlechetteRenderer;
 import moriyashiine.aylyth.common.block.AylythBlockEntityTypes;
 import moriyashiine.aylyth.common.block.AylythBlocks;
@@ -43,7 +44,7 @@ import moriyashiine.aylyth.common.block.types.StrewnLeavesBlock;
 import moriyashiine.aylyth.common.data.world.AylythDimensionData;
 import moriyashiine.aylyth.common.data.tag.AylythPotionTags;
 import moriyashiine.aylyth.common.screenhandler.AylythScreenHandlerTypes;
-import moriyashiine.aylyth.common.world.AylythParticleTypes;
+import moriyashiine.aylyth.common.particle.AylythParticleTypes;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -114,6 +115,7 @@ public class AylythClient implements ClientModInitializer {
 		ParticleFactoryRegistry.getInstance().register(AylythParticleTypes.VAMPIRIC_LAND, ParticleFactories::createVampiricLand);
 		ParticleFactoryRegistry.getInstance().register(AylythParticleTypes.BLIGHT_DRIP, ParticleFactories::createBlightDrip);
 		ParticleFactoryRegistry.getInstance().register(AylythParticleTypes.BLIGHT_LAND, ParticleFactories::createBlightLand);
+		ParticleFactoryRegistry.getInstance().register(AylythParticleTypes.SOUL_EMBER, SoulEmberParticle.Factory::new);
 
 		SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, AylythBlocks.YMPE_SIGN.getTexture()));
 		SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, AylythBlocks.POMEGRANATE_SIGN.getTexture()));

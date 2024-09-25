@@ -2,6 +2,8 @@ package moriyashiine.aylyth.common.block.types;
 
 import moriyashiine.aylyth.common.block.entities.VitalThuribleBlockEntity;
 import moriyashiine.aylyth.common.item.AylythItems;
+import moriyashiine.aylyth.common.particle.AylythParticleTypes;
+import moriyashiine.aylyth.common.particle.effects.ColorableParticleEffect;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -10,7 +12,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleEffect;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
@@ -80,7 +81,7 @@ public class VitalThuribleBlock extends HorizontalFacingBlock implements BlockEn
                 world.playSound((double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5, SoundEvents.BLOCK_CAMPFIRE_CRACKLE, SoundCategory.BLOCKS, 0.5F + random.nextFloat(), random.nextFloat() * 0.7F + 0.6F, false);
             }
             if (random.nextInt(5) == 0) {
-                genParticle(ParticleTypes.SOUL_FIRE_FLAME, world, pos, random);
+                genParticle(ColorableParticleEffect.SOUL_EMBER, world, pos, random);
             }
         }
     }

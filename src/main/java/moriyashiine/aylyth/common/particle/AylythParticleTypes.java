@@ -1,6 +1,7 @@
-package moriyashiine.aylyth.common.world;
+package moriyashiine.aylyth.common.particle;
 
 import moriyashiine.aylyth.common.Aylyth;
+import moriyashiine.aylyth.common.particle.effects.ColorableParticleEffect;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.particle.ParticleEffect;
@@ -17,6 +18,7 @@ public interface AylythParticleTypes {
 	DefaultParticleType VAMPIRIC_LAND = register("vampiric_land", FabricParticleTypes.simple(true));
 	DefaultParticleType BLIGHT_DRIP = register("blight_drip", FabricParticleTypes.simple(true));
 	DefaultParticleType BLIGHT_LAND = register("blight_land", FabricParticleTypes.simple(true));
+	ParticleType<ColorableParticleEffect> SOUL_EMBER = register("soul_ember", FabricParticleTypes.complex(true, new ColorableParticleEffect.Factory()));
 
 	private static <E extends ParticleEffect, P extends ParticleType<E>> P register(String id, P particleType) {
 		return Registry.register(Registries.PARTICLE_TYPE, Aylyth.id(id), particleType);

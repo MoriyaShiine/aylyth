@@ -5,7 +5,9 @@ import moriyashiine.aylyth.common.block.AylythBlockEntityTypes;
 import moriyashiine.aylyth.common.block.types.VitalThuribleBlock;
 import moriyashiine.aylyth.common.entity.AylythAttributes;
 import moriyashiine.aylyth.common.item.AylythItems;
+import moriyashiine.aylyth.common.particle.effects.ColorableParticleEffect;
 import moriyashiine.aylyth.common.util.AylythUtil;
+import moriyashiine.aylyth.common.particle.AylythParticleTypes;
 import net.minecraft.SharedConstants;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -20,7 +22,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.ServerConfigHandler;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -104,7 +105,7 @@ public class VitalThuribleBlockEntity extends BlockEntity implements SingleStack
                 if (world.isClient) {
                     if (blockEntity.timer > 0) {
                         for (int i = 0; i < 3; i++) {
-                            world.addParticle(ParticleTypes.SOUL, true,
+                            world.addParticle(ColorableParticleEffect.SOUL_EMBER, true,
                                     pos.getX() + 0.5 + MathHelper.nextFloat(world.random, -0.2f, 0.2f),
                                     pos.getY() + 0.5 + MathHelper.nextFloat(world.random, -0.2f, 0.2f),
                                     pos.getZ() + 0.5 + MathHelper.nextFloat(world.random, -0.2f, 0.2f),

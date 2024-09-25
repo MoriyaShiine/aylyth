@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.client.particle;
 
-import moriyashiine.aylyth.common.world.AylythParticleTypes;
+import moriyashiine.aylyth.common.particle.AylythParticleTypes;
 import net.fabricmc.fabric.api.client.particle.v1.FabricSpriteProvider;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.world.ClientWorld;
