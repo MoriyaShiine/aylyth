@@ -7,8 +7,23 @@
     "end": "aylyth:block/sapstone_end"
   },
   "connections": {
-    "end": {
-      "type": "fusion:is_same_block"
-    }
+    "end": [
+      {
+        "type": "fusion:match_block",
+        "block": "aylyth:sapstone"
+      },
+      {
+        "type": "fusion:match_block",
+        "block": "aylyth:amber_sapstone"
+      },
+      {
+        "type": "fusion:match_block",
+        "block": "aylyth:lignite_sapstone"
+      },
+      {
+        "type": "fusion:match_block",
+        "block": "aylyth:opalescent_sapstone"
+      }
+    ]
   }
 }
