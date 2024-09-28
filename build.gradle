@@ -159,10 +159,11 @@ dependencies {
 
     // REI
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${rei_version}"
+    // modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"
+
     if (findProperty("has_local_suggestionproviderfix")) {
         modRuntimeOnly("xyz.deftu:SuggestionProviderFix:1.0.0")
     }
-    // modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"
 
     // Nice dev things
 	modRuntimeOnly "curse.maven:disablecustomworldsadvice-401978:4619700"
