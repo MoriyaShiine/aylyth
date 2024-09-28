@@ -16,15 +16,13 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.BiomeTags;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.biome.Biome;
 
 public class AylythDimensionRenderer {
 	public static final DimensionEffects DIMENSION_EFFECTS = new AylythDimensionEffects();
-	public static final Identifier SUN = Aylyth.id("textures/environment/sun.png");
-	public static final Identifier MOON = Aylyth.id("textures/environment/moon.png");
+	public static final Identifier SPARKS = Aylyth.id("textures/environment/sun.png");
 	public static int goalFogStrength = 0;
 	private static float currentFogStrength;
 
@@ -104,7 +102,7 @@ public class AylythDimensionRenderer {
 		var positionMatrix = matrices.peek().getPositionMatrix();
 		float celestialSize = 20.0F;
 		RenderSystem.setShader(GameRenderer::getPositionTexProgram);
-		RenderSystem.setShaderTexture(0, SUN);
+		RenderSystem.setShaderTexture(0, SPARKS);
 		bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
 		bufferBuilder.vertex(positionMatrix, -celestialSize, 100.0F, -celestialSize).texture(0.0F, 0.0F).next();
 		bufferBuilder.vertex(positionMatrix, celestialSize, 100.0F, -celestialSize).texture(0.0F, 1.0F).next();
