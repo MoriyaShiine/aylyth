@@ -16,14 +16,15 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.BiomeTags;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.biome.Biome;
 
 public class AylythDimensionRenderer {
 	public static final DimensionEffects DIMENSION_EFFECTS = new AylythDimensionEffects();
-	public static final Identifier SUN = new Identifier(Aylyth.MOD_ID, "textures/environment/sun.png");
-	public static final Identifier MOON = new Identifier(Aylyth.MOD_ID, "textures/environment/moon.png");
+	public static final Identifier SUN = Aylyth.id("textures/environment/sun.png");
+	public static final Identifier MOON = Aylyth.id("textures/environment/moon.png");
 	public static int goalFogStrength = 0;
 	private static float currentFogStrength;
 
@@ -98,10 +99,8 @@ public class AylythDimensionRenderer {
 		RenderSystem.enableBlend();
 		RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
 		matrices.push();
-		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 0);
+		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 		matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-90.0F));
-		matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(world.getSkyAngle(tickDelta) * 360.0F));
-		matrices.translate(0, -80, 0);
 		var positionMatrix = matrices.peek().getPositionMatrix();
 		float celestialSize = 13.0F;
 		RenderSystem.setShader(GameRenderer::getPositionTexProgram);
@@ -111,14 +110,6 @@ public class AylythDimensionRenderer {
 		bufferBuilder.vertex(positionMatrix, celestialSize, 100.0F, -celestialSize).texture(0.0F, 1.0F).next();
 		bufferBuilder.vertex(positionMatrix, celestialSize, 100.0F, celestialSize).texture(1.0F, 1.0F).next();
 		bufferBuilder.vertex(positionMatrix, -celestialSize, 100.0F, celestialSize).texture(1.0F, 0.0F).next();
-		BufferRenderer.drawWithGlobalProgram(bufferBuilder.end());
-		matrices.translate(0, 160, 0);
-		RenderSystem.setShaderTexture(0, MOON);
-		bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
-		bufferBuilder.vertex(positionMatrix, -celestialSize, -100.0F, celestialSize).texture(0.0F, 0.0F).next();
-		bufferBuilder.vertex(positionMatrix, celestialSize, -100.0F, celestialSize).texture(0.0F, 1.0F).next();
-		bufferBuilder.vertex(positionMatrix, celestialSize, -100.0F, -celestialSize).texture(1.0F, 1.0F).next();
-		bufferBuilder.vertex(positionMatrix, -celestialSize, -100.0F, -celestialSize).texture(1.0F, 0.0F).next();
 		BufferRenderer.drawWithGlobalProgram(bufferBuilder.end());
 		float starPower = world.method_23787(tickDelta);
 		if (starPower > 0.0F) {
