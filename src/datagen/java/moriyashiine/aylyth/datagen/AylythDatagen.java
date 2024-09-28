@@ -62,4 +62,9 @@ public class AylythDatagen implements DataGeneratorEntrypoint {
         registryBuilder.addRegistry(RegistryKeys.BIOME, AylythBiomeBootstrap::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.DAMAGE_TYPE, AylythDamageTypeBootstrap::bootstrap);
     }
+
+    @Override
+    public @Nullable String getEffectiveModId() {
+        return Aylyth.MOD_ID;
+    }
 }
