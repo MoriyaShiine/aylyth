@@ -91,6 +91,9 @@ public final class AylythBlockTagProvider extends FabricTagProvider.BlockTagProv
         getOrCreateTagBuilder(BlockTags.CLIMBABLE).add(AylythBlocks.NYSIAN_GRAPE_VINE);
         getOrCreateTagBuilder(BlockTags.LEAVES).add(AylythBlocks.YMPE_LEAVES, AylythBlocks.POMEGRANATE_LEAVES, AylythBlocks.WRITHEWOOD_LEAVES);
         getOrCreateTagBuilder(BlockTags.LOGS_THAT_BURN).add(AylythBlocks.SEEPING_WOOD);
+        getOrCreateTagBuilder(BlockTags.SAPLINGS).add(AylythBlocks.GIRASOL_SAPLING);
         getOrCreateTagBuilder(BlockTags.BEACON_BASE_BLOCKS).add(AylythBlocks.ESSTLINE_BLOCK, AylythBlocks.NEPHRITE_BLOCK);
+        getOrCreateTagBuilder(BlockTags.SMALL_FLOWERS).add(AylythBlocks.MARIGOLD);
+        getOrCreateTagBuilder(BlockTags.FLOWER_POTS).add(AylythBlocks.MARIGOLD_POTTED, AylythBlocks.GIRASOL_SAPLING_POTTED);
     }
 }

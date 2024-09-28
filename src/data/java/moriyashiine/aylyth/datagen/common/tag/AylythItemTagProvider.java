@@ -56,6 +56,7 @@ public final class AylythItemTagProvider extends FabricTagProvider.ItemTagProvid
         copy(BlockTags.STANDING_SIGNS, ItemTags.SIGNS);
         copy(BlockTags.LEAVES, ItemTags.LEAVES);
         copy(BlockTags.SAPLINGS, ItemTags.SAPLINGS);
+        copy(BlockTags.SMALL_FLOWERS, ItemTags.SMALL_FLOWERS);
         getOrCreateTagBuilder(ItemTags.SWORDS).add(AylythItems.YMPE_DAGGER, AylythItems.NEPHRITE_SWORD, AylythItems.VAMPIRIC_SWORD, AylythItems.BLIGHTED_SWORD);
         getOrCreateTagBuilder(ItemTags.SHOVELS).add(AylythItems.NEPHRITE_SHOVEL);
         getOrCreateTagBuilder(ItemTags.PICKAXES).add(AylythItems.NEPHRITE_PICKAXE, AylythItems.VAMPIRIC_PICKAXE, AylythItems.BLIGHTED_PICKAXE);
