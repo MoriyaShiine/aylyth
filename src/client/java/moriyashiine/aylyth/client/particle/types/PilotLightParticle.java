@@ -1,5 +1,6 @@
-package moriyashiine.aylyth.client.particle;
+package moriyashiine.aylyth.client.particle.types;
 
+import moriyashiine.aylyth.client.particle.AylythParticleTextureSheets;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.DefaultParticleType;

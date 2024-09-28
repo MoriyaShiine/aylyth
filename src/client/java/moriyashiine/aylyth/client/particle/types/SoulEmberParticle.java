@@ -1,12 +1,10 @@
-package moriyashiine.aylyth.client.particle;
+package moriyashiine.aylyth.client.particle.types;
 
 import moriyashiine.aylyth.common.particle.effects.ColorableParticleEffect;
 import net.minecraft.client.particle.AbstractSlowingParticle;
-import net.minecraft.client.particle.FlameParticle;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleFactory;
 import net.minecraft.client.particle.ParticleTextureSheet;
-import net.minecraft.client.particle.SpriteBillboardParticle;
 import net.minecraft.client.particle.SpriteProvider;
 import net.minecraft.client.world.ClientWorld;
 import org.joml.Vector3f;
