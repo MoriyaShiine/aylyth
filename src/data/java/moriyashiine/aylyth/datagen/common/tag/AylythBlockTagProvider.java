@@ -18,17 +18,13 @@ public final class AylythBlockTagProvider extends FabricTagProvider.BlockTagProv
     @Override
     protected void configure(RegistryWrapper.WrapperLookup registries) {
         getOrCreateTagBuilder(AylythBlockTags.CARVED_NEPHRITE).add(AylythBlocks.CARVED_SMOOTH_NEPHRITE, AylythBlocks.CARVED_ANTLERED_NEPHRITE, AylythBlocks.CARVED_NEPHRITE_PILLAR, AylythBlocks.CARVED_NEPHRITE_TILES, AylythBlocks.CARVED_WOODY_NEPHRITE);
-        getOrCreateTagBuilder(BlockTags.AXE_MINEABLE).addTag(AylythBlockTags.WOODY_GROWTHS).addTag(AylythBlockTags.CHTHONIA_WOOD).add(AylythBlocks.AYLYTH_BUSH, AylythBlocks.ANTLER_SHOOTS, AylythBlocks.GRIPWEED, AylythBlocks.NYSIAN_GRAPE_VINE, AylythBlocks.OAK_SEEP, AylythBlocks.SPRUCE_SEEP, AylythBlocks.DARK_OAK_SEEP, AylythBlocks.YMPE_SEEP, AylythBlocks.SEEPING_WOOD, AylythBlocks.SEEPING_WOOD_SEEP, AylythBlocks.DARK_WOODS_TILES, AylythBlocks.JACK_O_LANTERN_MUSHROOM_STEM, AylythBlocks.JACK_O_LANTERN_MUSHROOM_BLOCK);
-        getOrCreateTagBuilder(BlockTags.HOE_MINEABLE).add(AylythBlocks.YMPE_LEAVES, AylythBlocks.POMEGRANATE_LEAVES, AylythBlocks.WRITHEWOOD_LEAVES);
-        getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE).addTag(AylythBlockTags.CARVED_NEPHRITE).add(AylythBlocks.SOUL_HEARTH, AylythBlocks.VITAL_THURIBLE, AylythBlocks.ESSTLINE_BLOCK, AylythBlocks.NEPHRITE_BLOCK, AylythBlocks.SAPSTONE, AylythBlocks.AMBER_SAPSTONE, AylythBlocks.LIGNITE_SAPSTONE, AylythBlocks.OPALESCENT_SAPSTONE);
-        getOrCreateTagBuilder(BlockTags.NEEDS_IRON_TOOL).addTag(AylythBlockTags.CARVED_NEPHRITE).add(AylythBlocks.NEPHRITE_BLOCK, AylythBlocks.ESSTLINE_BLOCK);
-        getOrCreateTagBuilder(BlockTags.INSIDE_STEP_SOUND_BLOCKS).add(AylythBlocks.OAK_STREWN_LEAVES, AylythBlocks.YMPE_STREWN_LEAVES);
-        getOrCreateTagBuilder(BlockTags.CLIMBABLE).add(AylythBlocks.NYSIAN_GRAPE_VINE);
         getOrCreateTagBuilder(AylythBlockTags.SEEPS).add(AylythBlocks.OAK_SEEP, AylythBlocks.SPRUCE_SEEP, AylythBlocks.DARK_OAK_SEEP, AylythBlocks.YMPE_SEEP, AylythBlocks.SEEPING_WOOD_SEEP);
         getOrCreateTagBuilder(AylythBlockTags.WOODY_GROWTHS).add(AylythBlocks.SMALL_WOODY_GROWTH, AylythBlocks.LARGE_WOODY_GROWTH, AylythBlocks.WOODY_GROWTH_CACHE);
         getOrCreateTagBuilder(AylythBlockTags.JACK_O_LANTERN_GENERATE_ON).add(Blocks.DARK_OAK_LOG, Blocks.OAK_LOG);
         getOrCreateTagBuilder(AylythBlockTags.GHOSTCAP_REPLACEABLE).add(Blocks.GRASS_BLOCK);
         getOrCreateTagBuilder(AylythBlockTags.CHTHONIA_WOOD).add(AylythBlocks.CHTHONIA_WOOD, AylythBlocks.NEPHRITIC_CHTHONIA_WOOD);
+        getOrCreateTagBuilder(AylythBlockTags.WOODY_GROWTHS_GENERATE_ON).add(Blocks.MUD);
+        getOrCreateTagBuilder(AylythBlockTags.SAPSTONES).add(AylythBlocks.SAPSTONE, AylythBlocks.AMBER_SAPSTONE, AylythBlocks.LIGNITE_SAPSTONE, AylythBlocks.OPALESCENT_SAPSTONE);
 
         getOrCreateTagBuilder(AylythBlockTags.YMPE_LOGS).add(AylythBlocks.YMPE_LOG, AylythBlocks.YMPE_WOOD, AylythBlocks.YMPE_STRIPPED_LOG, AylythBlocks.YMPE_STRIPPED_WOOD, AylythBlocks.FRUIT_BEARING_YMPE_LOG);
         getOrCreateTagBuilder(BlockTags.LOGS_THAT_BURN).addTag(AylythBlockTags.YMPE_LOGS);
@@ -84,10 +80,14 @@ public final class AylythBlockTagProvider extends FabricTagProvider.BlockTagProv
         getOrCreateTagBuilder(BlockTags.CEILING_HANGING_SIGNS).add(AylythBlocks.WRITHEWOOD_HANGING_SIGN);
         getOrCreateTagBuilder(BlockTags.WALL_HANGING_SIGNS).add(AylythBlocks.WRITHEWOOD_WALL_HANGING_SIGN);
 
+        getOrCreateTagBuilder(BlockTags.AXE_MINEABLE).addTag(AylythBlockTags.WOODY_GROWTHS).addTag(AylythBlockTags.CHTHONIA_WOOD).add(AylythBlocks.AYLYTH_BUSH, AylythBlocks.ANTLER_SHOOTS, AylythBlocks.GRIPWEED, AylythBlocks.NYSIAN_GRAPE_VINE, AylythBlocks.OAK_SEEP, AylythBlocks.SPRUCE_SEEP, AylythBlocks.DARK_OAK_SEEP, AylythBlocks.YMPE_SEEP, AylythBlocks.SEEPING_WOOD, AylythBlocks.SEEPING_WOOD_SEEP, AylythBlocks.DARK_WOODS_TILES, AylythBlocks.JACK_O_LANTERN_MUSHROOM_STEM, AylythBlocks.JACK_O_LANTERN_MUSHROOM_BLOCK);
+        getOrCreateTagBuilder(BlockTags.HOE_MINEABLE).add(AylythBlocks.YMPE_LEAVES, AylythBlocks.POMEGRANATE_LEAVES, AylythBlocks.WRITHEWOOD_LEAVES);
+        getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE).addTag(AylythBlockTags.CARVED_NEPHRITE).add(AylythBlocks.SOUL_HEARTH, AylythBlocks.VITAL_THURIBLE, AylythBlocks.ESSTLINE_BLOCK, AylythBlocks.NEPHRITE_BLOCK, AylythBlocks.SAPSTONE, AylythBlocks.AMBER_SAPSTONE, AylythBlocks.LIGNITE_SAPSTONE, AylythBlocks.OPALESCENT_SAPSTONE);
+        getOrCreateTagBuilder(BlockTags.NEEDS_IRON_TOOL).addTag(AylythBlockTags.CARVED_NEPHRITE).add(AylythBlocks.NEPHRITE_BLOCK, AylythBlocks.ESSTLINE_BLOCK);
+        getOrCreateTagBuilder(BlockTags.INSIDE_STEP_SOUND_BLOCKS).add(AylythBlocks.OAK_STREWN_LEAVES, AylythBlocks.YMPE_STREWN_LEAVES);
+        getOrCreateTagBuilder(BlockTags.CLIMBABLE).add(AylythBlocks.NYSIAN_GRAPE_VINE);
         getOrCreateTagBuilder(BlockTags.LEAVES).add(AylythBlocks.YMPE_LEAVES, AylythBlocks.POMEGRANATE_LEAVES, AylythBlocks.WRITHEWOOD_LEAVES);
-        getOrCreateTagBuilder(AylythBlockTags.WOODY_GROWTHS_GENERATE_ON).add(Blocks.MUD);
         getOrCreateTagBuilder(BlockTags.LOGS_THAT_BURN).add(AylythBlocks.SEEPING_WOOD);
         getOrCreateTagBuilder(BlockTags.BEACON_BASE_BLOCKS).add(AylythBlocks.ESSTLINE_BLOCK, AylythBlocks.NEPHRITE_BLOCK);
-        getOrCreateTagBuilder(AylythBlockTags.SAPSTONES).add(AylythBlocks.SAPSTONE, AylythBlocks.AMBER_SAPSTONE, AylythBlocks.LIGNITE_SAPSTONE, AylythBlocks.OPALESCENT_SAPSTONE);
     }
 }
