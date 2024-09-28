@@ -94,7 +94,7 @@ public interface AylythItems {
     Item WRITHEWOOD_LEAVES = registerBlockItem("writhewood_leaves", AylythBlocks.WRITHEWOOD_LEAVES);
 
     Item SEEPING_WOOD = registerBlockItem("seeping_wood", AylythBlocks.SEEPING_WOOD);
-    Item GIRASOL_SEED = register("girasol_seed", new AliasedBlockItem(AylythBlocks.GIRASOL_SAPLING, settings()));
+    Item GIRASOL_SEED = register("girasol_sapling", new AliasedBlockItem(AylythBlocks.GIRASOL_SAPLING, settings()));
 
     Item CHTHONIA_WOOD = registerBlockItem("chthonia_wood", AylythBlocks.CHTHONIA_WOOD);
     Item NEPHRITIC_CHTHONIA_WOOD = registerBlockItem("nephritic_chthonia_wood", AylythBlocks.NEPHRITIC_CHTHONIA_WOOD);
