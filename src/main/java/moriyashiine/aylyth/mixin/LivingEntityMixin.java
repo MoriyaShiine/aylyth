@@ -49,12 +49,14 @@ public abstract class LivingEntityMixin extends Entity {
 		if (source.getAttacker() instanceof LivingEntity entity && !source.getAttacker().getWorld().isClient) {
 			double attkDMG = entity.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
 			ItemStack stack = entity.getMainHandStack();
-			boolean usingVampiric = stack.isIn(AylythItemTags.VAMPIRIC_WEAPONS);
-			boolean usingBlight =  stack.isIn(AylythItemTags.BLIGHTED_WEAPONS);
 
             if (value >= attkDMG) { // Prevents using non-critical attacks to spam the weapons
-				if (usingVampiric) return AylythUtil.getVampiricWeaponEffect(entity, (LivingEntity) (Object) this, stack, value);
-				if (usingBlight) return AylythUtil.getBlightedWeaponEffect(entity, (LivingEntity) (Object) this, stack, value);
+				if (stack.isIn(AylythItemTags.VAMPIRIC_WEAPONS)) {
+					return AylythUtil.getVampiricWeaponEffect(entity, (LivingEntity) (Object) this, stack, value);
+				}
+				if (stack.isIn(AylythItemTags.BLIGHTED_WEAPONS)) {
+					return AylythUtil.getBlightedWeaponEffect(entity, (LivingEntity) (Object) this, stack, value);
+				}
             }
 
 		}

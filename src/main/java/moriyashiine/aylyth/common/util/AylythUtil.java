@@ -20,6 +20,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -100,9 +101,6 @@ public class AylythUtil {
 	}
 
 	public static float getVampiricWeaponEffect(LivingEntity attacker, LivingEntity target, ItemStack stack, float originalValue) {
-		boolean isSword = stack.isOf(AylythItems.VAMPIRIC_SWORD);
-		boolean isPickaxe = stack.isOf(AylythItems.VAMPIRIC_PICKAXE);
-		boolean isHoe = stack.isOf(AylythItems.VAMPIRIC_HOE);
 
         if (attacker.getRandom().nextFloat() >= 0.8) {
             attacker.heal(originalValue * 0.5f);
@@ -115,24 +113,21 @@ public class AylythUtil {
 				ServerPlayNetworking.send(player, new SpawnParticlesAroundPacketS2C(player.getId(), 32, List.of(AylythParticleTypes.VAMPIRIC_DRIP)));
 			}
 
-            if (isSword && target.getAbsorptionAmount() > 0) {
+            if (stack.isIn(ItemTags.SWORDS) && target.getAbsorptionAmount() > 0) {
 				target.setAbsorptionAmount(target.getAbsorptionAmount() <= 1 ? target.getAbsorptionAmount() / 2f : 0);
             }
 
-            if (isHoe) {
+            if (stack.isIn(ItemTags.HOES)) {
 				target.addStatusEffect(new StatusEffectInstance(AylythStatusEffects.CRIMSON_CURSE, 20 * 10, 0));
             }
 
-            return originalValue * (isPickaxe && target.getArmor() > 10f ? 1.2f : 1f);
+            return originalValue * (stack.isIn(ItemTags.PICKAXES) && target.getArmor() > 10f ? 1.2f : 1f);
         }
 
 		return originalValue;
     }
 
 	public static float getBlightedWeaponEffect(LivingEntity attacker, LivingEntity target, ItemStack stack, float originalValue) {
-		boolean isSword = stack.isOf(AylythItems.BLIGHTED_SWORD);
-		boolean isPickaxe = stack.isOf(AylythItems.BLIGHTED_PICKAXE);
-		boolean isHoe = stack.isOf(AylythItems.BLIGHTED_HOE);
 
 		if (attacker.getRandom().nextFloat() >= 0.75) {
 			int amplifier = attacker.getRandom().nextFloat() <= 0.85 && target.hasStatusEffect(AylythStatusEffects.BLIGHT) ? 1 : 0;
@@ -142,15 +137,15 @@ public class AylythUtil {
 				ServerPlayNetworking.send(trackingPlayer, new SpawnParticlesAroundPacketS2C(target.getId(), 32, List.of(AylythParticleTypes.BLIGHT_DRIP)));
 			});
 
-			if (isSword && target.getAbsorptionAmount() > 0) {
+			if (stack.isIn(ItemTags.SWORDS) && target.getAbsorptionAmount() > 0) {
 				target.setAbsorptionAmount(target.getAbsorptionAmount() <= 1 ? target.getAbsorptionAmount() / 2f : 0);
 			}
 
-			if (isHoe) {
+			if (stack.isIn(ItemTags.HOES)) {
 				target.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 20 * 2, 0));
 			}
 
-			return originalValue * (isPickaxe && target.getArmor() > 10f ? 1.2f : 1f);
+			return originalValue * (stack.isIn(ItemTags.PICKAXES) && target.getArmor() > 10f ? 1.2f : 1f);
 		}
 
 		return originalValue;
