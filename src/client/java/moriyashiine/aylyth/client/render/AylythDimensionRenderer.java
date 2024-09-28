@@ -102,7 +102,7 @@ public class AylythDimensionRenderer {
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 		matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-90.0F));
 		var positionMatrix = matrices.peek().getPositionMatrix();
-		float celestialSize = 13.0F;
+		float celestialSize = 20.0F;
 		RenderSystem.setShader(GameRenderer::getPositionTexProgram);
 		RenderSystem.setShaderTexture(0, SUN);
 		bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
