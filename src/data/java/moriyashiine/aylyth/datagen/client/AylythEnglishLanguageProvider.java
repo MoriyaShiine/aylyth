@@ -274,10 +274,10 @@ public class AylythEnglishLanguageProvider extends FabricLanguageProvider {
         builder.add("subtitles.aylyth.entity.elder_aylythian.ambient", "Elder Aylythian rumbles");
         builder.add("subtitles.aylyth.entity.elder_aylythian.hurt", "Elder Aylythian hurts");
         builder.add("subtitles.aylyth.entity.elder_aylythian.death", "Elder Aylythian dies");
-        builder.add("subtitles.aylyth.entity.soulmould.ambient", "Soulmould groans");
-        builder.add("subtitles.aylyth.entity.soulmould.attack", "Soulmould attack");
-        builder.add("subtitles.aylyth.entity.soulmould.damage", "Soulmould hurt");
-        builder.add("subtitles.aylyth.entity.soulmould.death", "Soulmould dies");
+        builder.add("subtitles.aylyth.entity.soulmould.ambient", "Ympemould groans");
+        builder.add("subtitles.aylyth.entity.soulmould.attack", "Ympemould attacks");
+        builder.add("subtitles.aylyth.entity.soulmould.damage", "Ympemould hurts");
+        builder.add("subtitles.aylyth.entity.soulmould.death", "Ympemould dies");
         builder.add("subtitles.aylyth.block.stick_break", "Stick cracks");
         builder.add("subtitles.aylyth.block.strewn_leaves.step", "Leaves crunch");
         builder.add("subtitles.aylyth.block.strewn_leaves.pile_destroy", "Leaves scatter");
