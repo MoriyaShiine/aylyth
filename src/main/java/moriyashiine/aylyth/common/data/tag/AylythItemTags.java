@@ -23,8 +23,8 @@ public interface AylythItemTags {
     TagKey<Item> YMPE_FRUIT_HARVESTERS = bind("ympe_fruit_harvesters");
     TagKey<Item> STRIPS_OFF_BARK = bind("strips_off_bark");
     TagKey<Item> YMPE_WEAPONS = bind("ympe_weapons");
-    TagKey<Item> VAMPIRIC_WEAPON = bind("vampiric_weapons");
-    TagKey<Item> BLIGHTED_WEAPON = bind("blighted_weapons");
+    TagKey<Item> VAMPIRIC_WEAPONS = bind("vampiric_weapons");
+    TagKey<Item> BLIGHTED_WEAPONS = bind("blighted_weapons");
     TagKey<Item> NEPHRITE_FLASKS = bind("nephrite_flasks");
     TagKey<Item> BOSS_HEARTS = bind("boss_hearts");
 

@@ -35,8 +35,8 @@ public final class AylythItemTagProvider extends FabricTagProvider.ItemTagProvid
         getOrCreateTagBuilder(AylythItemTags.BOSS_HEARTS).add(AylythItems.YHONDYTH_HEART, Items.NETHER_STAR);
         getOrCreateTagBuilder(AylythItemTags.NEPHRITE_TOOL_MATERIALS).add(AylythItems.NEPHRITE);
         getOrCreateTagBuilder(AylythItemTags.YMPE_WEAPONS).add(AylythItems.YMPE_DAGGER, AylythItems.YMPE_LANCE, AylythItems.YMPE_GLAIVE, AylythItems.YMPE_FLAMBERGE, AylythItems.YMPE_SCYTHE);
-        getOrCreateTagBuilder(AylythItemTags.VAMPIRIC_WEAPON).add(AylythItems.VAMPIRIC_AXE, AylythItems.VAMPIRIC_HOE, AylythItems.VAMPIRIC_PICKAXE, AylythItems.VAMPIRIC_SWORD);
-        getOrCreateTagBuilder(AylythItemTags.BLIGHTED_WEAPON).add(AylythItems.BLIGHTED_AXE, AylythItems.BLIGHTED_HOE, AylythItems.BLIGHTED_PICKAXE, AylythItems.BLIGHTED_SWORD);
+        getOrCreateTagBuilder(AylythItemTags.VAMPIRIC_WEAPONS).add(AylythItems.VAMPIRIC_AXE, AylythItems.VAMPIRIC_HOE, AylythItems.VAMPIRIC_PICKAXE, AylythItems.VAMPIRIC_SWORD);
+        getOrCreateTagBuilder(AylythItemTags.BLIGHTED_WEAPONS).add(AylythItems.BLIGHTED_AXE, AylythItems.BLIGHTED_HOE, AylythItems.BLIGHTED_PICKAXE, AylythItems.BLIGHTED_SWORD);
         getOrCreateTagBuilder(AylythItemTags.NEPHRITE_FLASKS).add(AylythItems.NEPHRITE_FLASK, AylythItems.DARK_NEPHRITE_FLASK);
         getOrCreateTagBuilder(AylythItemTags.DAGGERS).add(AylythItems.LANCEOLATE_DAGGER, AylythItems.YMPE_DAGGER);
         getOrCreateTagBuilder(AylythItemTags.HEART_HARVESTERS).add(AylythItems.LANCEOLATE_DAGGER, AylythItems.YMPE_DAGGER);
