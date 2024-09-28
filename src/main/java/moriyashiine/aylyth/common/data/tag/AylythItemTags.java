@@ -28,6 +28,9 @@ public interface AylythItemTags {
     TagKey<Item> NEPHRITE_FLASKS = bind("nephrite_flasks");
     TagKey<Item> BOSS_HEARTS = bind("boss_hearts");
 
+    TagKey<Item> STORAGE_BLOCKS_ESSTLINE = bind("storage_blocks/esstline");
+    TagKey<Item> STORAGE_BLOCKS_NEPHRITE = bind("storage_blocks/nephrite");
+
     TagKey<Item> DAGGERS = common("daggers");
 
     private static TagKey<Item> bind(String name) {

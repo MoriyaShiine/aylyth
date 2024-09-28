@@ -28,6 +28,8 @@ public final class AylythItemTagProvider extends FabricTagProvider.ItemTagProvid
         copy(AylythBlockTags.SEEPS, AylythItemTags.SEEPS);
         copy(AylythBlockTags.CARVED_NEPHRITE, AylythItemTags.CARVED_NEPHRITE);
         copy(AylythBlockTags.CHTHONIA_WOOD, AylythItemTags.CHTHONIA_WOOD);
+        copy(AylythBlockTags.STORAGE_BLOCKS_ESSTLINE, AylythItemTags.STORAGE_BLOCKS_ESSTLINE);
+        copy(AylythBlockTags.STORAGE_BLOCKS_NEPHRITE, AylythItemTags.STORAGE_BLOCKS_NEPHRITE);
         getOrCreateTagBuilder(AylythItemTags.DECREASES_BRANCHES).add(AylythItems.YMPE_FRUIT, AylythItems.YMPE_MUSH);
         getOrCreateTagBuilder(AylythItemTags.PLEDGE_ITEMS).add(AylythItems.NYSIAN_GRAPES);
         getOrCreateTagBuilder(AylythItemTags.BOSS_HEARTS).add(AylythItems.YHONDYTH_HEART, Items.NETHER_STAR);

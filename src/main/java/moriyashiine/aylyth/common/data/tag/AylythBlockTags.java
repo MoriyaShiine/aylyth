@@ -20,6 +20,9 @@ public interface AylythBlockTags {
     TagKey<Block> SCION_REPELLENT = bind("scion_repellent");
     TagKey<Block> SAPSTONES = bind("sapstones");
 
+    TagKey<Block> STORAGE_BLOCKS_ESSTLINE = bind("storage_blocks/esstline");
+    TagKey<Block> STORAGE_BLOCKS_NEPHRITE = bind("storage_blocks/nephrite");
+
     private static TagKey<Block> bind(String name) {
         return TagKey.of(RegistryKeys.BLOCK, Aylyth.id(name));
     }

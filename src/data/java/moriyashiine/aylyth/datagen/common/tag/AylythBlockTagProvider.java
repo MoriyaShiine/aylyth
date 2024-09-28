@@ -25,6 +25,9 @@ public final class AylythBlockTagProvider extends FabricTagProvider.BlockTagProv
         getOrCreateTagBuilder(AylythBlockTags.CHTHONIA_WOOD).add(AylythBlocks.CHTHONIA_WOOD, AylythBlocks.NEPHRITIC_CHTHONIA_WOOD);
         getOrCreateTagBuilder(AylythBlockTags.WOODY_GROWTHS_GENERATE_ON).add(Blocks.MUD);
         getOrCreateTagBuilder(AylythBlockTags.SAPSTONES).add(AylythBlocks.SAPSTONE, AylythBlocks.AMBER_SAPSTONE, AylythBlocks.LIGNITE_SAPSTONE, AylythBlocks.OPALESCENT_SAPSTONE);
+        // TODO: Add these storage block tags to "c:storage_blocks"
+        getOrCreateTagBuilder(AylythBlockTags.STORAGE_BLOCKS_ESSTLINE).add(AylythBlocks.ESSTLINE_BLOCK);
+        getOrCreateTagBuilder(AylythBlockTags.STORAGE_BLOCKS_NEPHRITE).add(AylythBlocks.NEPHRITE_BLOCK);
 
         getOrCreateTagBuilder(AylythBlockTags.YMPE_LOGS).add(AylythBlocks.YMPE_LOG, AylythBlocks.YMPE_WOOD, AylythBlocks.YMPE_STRIPPED_LOG, AylythBlocks.YMPE_STRIPPED_WOOD, AylythBlocks.FRUIT_BEARING_YMPE_LOG);
         getOrCreateTagBuilder(BlockTags.LOGS_THAT_BURN).addTag(AylythBlockTags.YMPE_LOGS);
