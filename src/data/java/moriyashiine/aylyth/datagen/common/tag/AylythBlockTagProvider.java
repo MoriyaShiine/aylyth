@@ -95,5 +95,6 @@ public final class AylythBlockTagProvider extends FabricTagProvider.BlockTagProv
         getOrCreateTagBuilder(BlockTags.BEACON_BASE_BLOCKS).add(AylythBlocks.ESSTLINE_BLOCK, AylythBlocks.NEPHRITE_BLOCK);
         getOrCreateTagBuilder(BlockTags.SMALL_FLOWERS).add(AylythBlocks.MARIGOLD);
         getOrCreateTagBuilder(BlockTags.FLOWER_POTS).add(AylythBlocks.MARIGOLD_POTTED, AylythBlocks.GIRASOL_SAPLING_POTTED);
+        getOrCreateTagBuilder(BlockTags.PORTALS).addTag(AylythBlockTags.SEEPS);
     }
 }
