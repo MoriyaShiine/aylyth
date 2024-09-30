@@ -16,6 +16,8 @@ public interface AylythBiomeTags {
     TagKey<Biome> IS_CONIFEROUS = bind("is_coniferous");
     TagKey<Biome> IS_FOREST_LIKE = bind("is_forest_like");
     TagKey<Biome> IS_TAIGA_LIKE = bind("is_taiga_like");
+    TagKey<Biome> IS_AYLYTH = bind("is_aylyth");
+    TagKey<Biome> BLACK_WELL_HAS_STRUCTURE = bind("has_structure/black_well");
 
     TagKey<Biome> HAS_WEAK_FOG = bind("has_weak_fog");
     TagKey<Biome> HAS_AVERAGE_FOG = bind("has_average_fog");

@@ -1,5 +1,6 @@
 package moriyashiine.aylyth.datagen;
 
+import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.datagen.client.AylythEnglishLanguageProvider;
 import moriyashiine.aylyth.datagen.client.AylythModelProvider;
 import moriyashiine.aylyth.datagen.common.AylythAdvancementProvider;
@@ -12,6 +13,9 @@ import moriyashiine.aylyth.datagen.common.world.AylythBiomeBootstrap;
 import moriyashiine.aylyth.datagen.common.world.feature.AylythConfiguredCarverBootstrap;
 import moriyashiine.aylyth.datagen.common.world.feature.AylythConfiguredFeatureBootstrap;
 import moriyashiine.aylyth.datagen.common.world.feature.AylythPlacedFeatureBootstrap;
+import moriyashiine.aylyth.datagen.common.world.structure.AylythStructureBootstrap;
+import moriyashiine.aylyth.datagen.common.world.structure.AylythStructurePoolBootstrap;
+import moriyashiine.aylyth.datagen.common.world.structure.AylythStructureSetBootstrap;
 import moriyashiine.aylyth.datagen.common.world.terrain.AylythDensityFunctionBootstrap;
 import moriyashiine.aylyth.datagen.common.world.terrain.AylythNoiseSettingBootstrap;
 import moriyashiine.aylyth.datagen.common.world.terrain.AylythNoiseTypeBootstrap;
@@ -22,6 +26,7 @@ import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.registry.RegistryBuilder;
 import net.minecraft.registry.RegistryKeys;
+import org.jetbrains.annotations.Nullable;
 
 public class AylythDatagen implements DataGeneratorEntrypoint {
 
@@ -59,6 +64,9 @@ public class AylythDatagen implements DataGeneratorEntrypoint {
         registryBuilder.addRegistry(RegistryKeys.CONFIGURED_CARVER, AylythConfiguredCarverBootstrap::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, AylythConfiguredFeatureBootstrap::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, AylythPlacedFeatureBootstrap::bootstrap);
+        registryBuilder.addRegistry(RegistryKeys.TEMPLATE_POOL, AylythStructurePoolBootstrap::bootstrap);
+        registryBuilder.addRegistry(RegistryKeys.STRUCTURE, AylythStructureBootstrap::bootstrap);
+        registryBuilder.addRegistry(RegistryKeys.STRUCTURE_SET, AylythStructureSetBootstrap::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.BIOME, AylythBiomeBootstrap::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.DAMAGE_TYPE, AylythDamageTypeBootstrap::bootstrap);
     }
