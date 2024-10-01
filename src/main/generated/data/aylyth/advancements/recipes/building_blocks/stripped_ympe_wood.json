@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_aylythian_heart": {
+    "has_log": {
       "conditions": {
         "items": [
           {
             "items": [
-              "aylyth:aylythian_heart"
+              "aylyth:stripped_ympe_log"
             ]
           }
         ]
@@ -15,20 +15,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:vampiric_sickle_smithing"
+        "recipe": "aylyth:stripped_ympe_wood"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_aylythian_heart",
+      "has_log",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:vampiric_sickle_smithing"
+      "aylyth:stripped_ympe_wood"
     ]
   },
   "sends_telemetry_event": false

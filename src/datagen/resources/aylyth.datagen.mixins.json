@@ -4,6 +4,7 @@
   "package": "moriyashiine.aylyth.datagen.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "ShapelessRecipeJsonBuilderAccessor",
     "SinglePoolElementInvoker"
   ],
   "injectors": {

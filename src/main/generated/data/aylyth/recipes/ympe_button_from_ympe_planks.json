@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "group": "wooden_button",
+  "ingredients": [
+    {
+      "item": "aylyth:ympe_planks"
+    }
+  ],
+  "result": {
+    "item": "aylyth:ympe_button"
+  }
+}

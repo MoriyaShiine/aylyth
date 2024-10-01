@@ -3,32 +3,26 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "aylyth:ympe_glaive"
+        "recipe": "aylyth:ympe_boat"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
-    "has_ympe_dagger": {
+    "in_water": {
       "conditions": {
-        "items": [
-          {
-            "items": [
-              "aylyth:ympe_dagger"
-            ]
-          }
-        ]
+        "block": "minecraft:water"
       },
-      "trigger": "minecraft:inventory_changed"
+      "trigger": "minecraft:enter_block"
     }
   },
   "requirements": [
     [
-      "has_ympe_dagger",
+      "in_water",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "aylyth:ympe_glaive"
+      "aylyth:ympe_boat"
     ]
   },
   "sends_telemetry_event": false

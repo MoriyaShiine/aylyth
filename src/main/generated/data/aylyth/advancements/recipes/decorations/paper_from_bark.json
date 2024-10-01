@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_aylythian_heart": {
+    "has_bark": {
       "conditions": {
         "items": [
           {
             "items": [
-              "aylyth:aylythian_heart"
+              "aylyth:bark"
             ]
           }
         ]
@@ -15,20 +15,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:vampiric_sickle_smithing"
+        "recipe": "minecraft:paper_from_bark"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_aylythian_heart",
+      "has_bark",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:vampiric_sickle_smithing"
+      "minecraft:paper_from_bark"
     ]
   },
   "sends_telemetry_event": false

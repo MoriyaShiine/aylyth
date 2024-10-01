@@ -1,13 +1,7 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_the_recipe": {
-      "conditions": {
-        "recipe": "minecraft:vampiric_axe_smithing"
-      },
-      "trigger": "minecraft:recipe_unlocked"
-    },
-    "has_vampiric_axe": {
+    "has_aylythian_heart": {
       "conditions": {
         "items": [
           {
@@ -18,11 +12,17 @@
         ]
       },
       "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:vampiric_axe_smithing"
+      },
+      "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_vampiric_axe",
+      "has_aylythian_heart",
       "has_the_recipe"
     ]
   ],

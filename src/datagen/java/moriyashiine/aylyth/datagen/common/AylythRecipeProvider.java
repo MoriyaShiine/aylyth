@@ -4,6 +4,7 @@ import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.entity.AylythEntityTypes;
 import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.aylyth.common.data.tag.AylythItemTags;
+import moriyashiine.aylyth.datagen.common.util.recipe.ShuckingRecipeBuilder;
 import moriyashiine.aylyth.datagen.common.util.recipe.SoulCampfireRecipeBuilder;
 import moriyashiine.aylyth.datagen.common.util.recipe.YmpeDaggerRecipeJsonBuilder;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -17,6 +18,7 @@ import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.book.RecipeCategory;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
@@ -33,6 +35,20 @@ public final class AylythRecipeProvider extends FabricRecipeProvider {
         offerSingleOutputShapelessRecipe(exporter, Items.ORANGE_DYE, AylythItems.MARIGOLD, "");
         createTwoByTwo(exporter, RecipeCategory.DECORATIONS, Items.SHROOMLIGHT, 1, AylythItems.JACK_O_LANTERN_MUSHROOM, "shroomlight_from_jack_o_lantern_mushroom");
 
+        offerBarkBlockRecipe(exporter, AylythItems.YMPE_STRIPPED_WOOD, AylythItems.YMPE_STRIPPED_LOG);
+        offerBarkBlockRecipe(exporter, AylythItems.YMPE_WOOD, AylythItems.YMPE_LOG);
+        offerPlanksRecipe(exporter, AylythItems.YMPE_PLANKS, AylythItemTags.YMPE_LOGS, 4);
+        createStairsRecipe(AylythItems.YMPE_STAIRS, Ingredient.ofItems(AylythItems.YMPE_PLANKS)).group("wooden_stairs").criterion(RecipeProvider.hasItem(AylythItems.YMPE_PLANKS), conditionsFromItem(AylythItems.YMPE_PLANKS)).offerTo(exporter);
+        createSlabRecipe(RecipeCategory.BUILDING_BLOCKS, AylythItems.YMPE_SLAB, Ingredient.ofItems(AylythItems.YMPE_PLANKS)).group("wooden_slab").criterion(RecipeProvider.hasItem(AylythItems.YMPE_PLANKS), conditionsFromItem(AylythItems.YMPE_PLANKS)).offerTo(exporter);
+        createFenceRecipe(AylythItems.YMPE_FENCE, Ingredient.ofItems(AylythItems.YMPE_PLANKS)).group("wooden_fence").criterion(RecipeProvider.hasItem(AylythItems.YMPE_PLANKS), conditionsFromItem(AylythItems.YMPE_PLANKS)).offerTo(exporter);
+        createFenceGateRecipe(AylythItems.YMPE_FENCE_GATE, Ingredient.ofItems(AylythItems.YMPE_PLANKS)).group("wooden_fence_gate").criterion(RecipeProvider.hasItem(AylythItems.YMPE_PLANKS), conditionsFromItem(AylythItems.YMPE_PLANKS)).offerTo(exporter);
+        createPressurePlateRecipe(RecipeCategory.REDSTONE, AylythItems.YMPE_PRESSURE_PLATE, Ingredient.ofItems(AylythItems.YMPE_PLANKS)).group("wooden_pressure_plate").criterion(RecipeProvider.hasItem(AylythItems.YMPE_PLANKS), conditionsFromItem(AylythItems.YMPE_PLANKS)).offerTo(exporter);
+        offerShapeless(exporter, RecipeCategory.REDSTONE, AylythItems.YMPE_BUTTON, 1, AylythItems.YMPE_PLANKS, "wooden_button");
+        createTrapdoorRecipe(AylythItems.YMPE_TRAPDOOR, Ingredient.ofItems(AylythItems.YMPE_PLANKS)).group("wooden_trapdoor").criterion(RecipeProvider.hasItem(AylythItems.YMPE_PLANKS), conditionsFromItem(AylythItems.YMPE_PLANKS)).offerTo(exporter);
+        createDoorRecipe(AylythItems.YMPE_DOOR, Ingredient.ofItems(AylythItems.YMPE_PLANKS)).group("wooden_door").criterion(RecipeProvider.hasItem(AylythItems.YMPE_PLANKS), conditionsFromItem(AylythItems.YMPE_PLANKS)).offerTo(exporter);
+        createSignRecipe(AylythItems.YMPE_SIGN, Ingredient.ofItems(AylythItems.YMPE_PLANKS)).group("wooden_sign").criterion(RecipeProvider.hasItem(AylythItems.YMPE_PLANKS), conditionsFromItem(AylythItems.YMPE_PLANKS)).offerTo(exporter);
+        offerHangingSignRecipe(exporter, AylythItems.YMPE_HANGING_SIGN, AylythItems.YMPE_STRIPPED_LOG);
+        offerBoatRecipe(exporter, AylythItems.YMPE_BOAT, AylythItems.YMPE_PLANKS);
         offerChestBoatRecipe(exporter, AylythItems.YMPE_CHEST_BOAT, AylythItems.YMPE_BOAT);
 
         offerBarkBlockRecipe(exporter, AylythItems.POMEGRANATE_STRIPPED_WOOD, AylythItems.POMEGRANATE_STRIPPED_LOG);
@@ -47,6 +63,7 @@ public final class AylythRecipeProvider extends FabricRecipeProvider {
         createTrapdoorRecipe(AylythItems.POMEGRANATE_TRAPDOOR, Ingredient.ofItems(AylythItems.POMEGRANATE_PLANKS)).group("wooden_trapdoor").criterion(RecipeProvider.hasItem(AylythItems.POMEGRANATE_PLANKS), conditionsFromItem(AylythItems.POMEGRANATE_PLANKS)).offerTo(exporter);
         createDoorRecipe(AylythItems.POMEGRANATE_DOOR, Ingredient.ofItems(AylythItems.POMEGRANATE_PLANKS)).group("wooden_door").criterion(RecipeProvider.hasItem(AylythItems.POMEGRANATE_PLANKS), conditionsFromItem(AylythItems.POMEGRANATE_PLANKS)).offerTo(exporter);
         createSignRecipe(AylythItems.POMEGRANATE_SIGN, Ingredient.ofItems(AylythItems.POMEGRANATE_PLANKS)).group("wooden_sign").criterion(RecipeProvider.hasItem(AylythItems.POMEGRANATE_PLANKS), conditionsFromItem(AylythItems.POMEGRANATE_PLANKS)).offerTo(exporter);
+        offerHangingSignRecipe(exporter, AylythItems.POMEGRANATE_HANGING_SIGN, AylythItems.POMEGRANATE_STRIPPED_LOG);
         offerBoatRecipe(exporter, AylythItems.POMEGRANATE_BOAT, AylythItems.POMEGRANATE_PLANKS);
         offerChestBoatRecipe(exporter, AylythItems.POMEGRANATE_CHEST_BOAT, AylythItems.POMEGRANATE_BOAT);
 
@@ -62,6 +79,7 @@ public final class AylythRecipeProvider extends FabricRecipeProvider {
         createTrapdoorRecipe(AylythItems.WRITHEWOOD_TRAPDOOR, Ingredient.ofItems(AylythItems.WRITHEWOOD_PLANKS)).group("wooden_trapdoor").criterion(RecipeProvider.hasItem(AylythItems.WRITHEWOOD_PLANKS), conditionsFromItem(AylythItems.WRITHEWOOD_PLANKS)).offerTo(exporter);
         createDoorRecipe(AylythItems.WRITHEWOOD_DOOR, Ingredient.ofItems(AylythItems.WRITHEWOOD_PLANKS)).group("wooden_door").criterion(RecipeProvider.hasItem(AylythItems.WRITHEWOOD_PLANKS), conditionsFromItem(AylythItems.WRITHEWOOD_PLANKS)).offerTo(exporter);
         createSignRecipe(AylythItems.WRITHEWOOD_SIGN, Ingredient.ofItems(AylythItems.WRITHEWOOD_PLANKS)).group("wooden_sign").criterion(RecipeProvider.hasItem(AylythItems.WRITHEWOOD_PLANKS), conditionsFromItem(AylythItems.WRITHEWOOD_PLANKS)).offerTo(exporter);
+        offerHangingSignRecipe(exporter, AylythItems.WRITHEWOOD_HANGING_SIGN, AylythItems.WRITHEWOOD_STRIPPED_LOG);
         offerBoatRecipe(exporter, AylythItems.WRITHEWOOD_BOAT, AylythItems.WRITHEWOOD_PLANKS);
         offerChestBoatRecipe(exporter, AylythItems.WRITHEWOOD_CHEST_BOAT, AylythItems.WRITHEWOOD_BOAT);
         
@@ -72,7 +90,7 @@ public final class AylythRecipeProvider extends FabricRecipeProvider {
                 .input('W', AylythBlocks.WRITHEWOOD_PLANKS)
                 .pattern("YW")
                 .pattern("WY")
-                .criterion("has_writhe", conditionsFromItem(AylythBlocks.WRITHEWOOD_PLANKS))
+                .criterion("has_writhewood", conditionsFromItem(AylythBlocks.WRITHEWOOD_PLANKS))
                 .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, AylythBlocks.DARK_WOODS_TILES, 8)
@@ -90,7 +108,7 @@ public final class AylythRecipeProvider extends FabricRecipeProvider {
                 .pattern(" CD")
                 .pattern(" SS")
                 .pattern("S  ")
-                .criterion("has_dagger", conditionsFromItem(AylythItems.YMPE_DAGGER))
+                .criterion("has_ympe_dagger", conditionsFromItem(AylythItems.YMPE_DAGGER))
                 .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, AylythItems.YMPE_EFFIGY)
@@ -101,7 +119,7 @@ public final class AylythRecipeProvider extends FabricRecipeProvider {
                 .pattern("DED")
                 .pattern("EHE")
                 .pattern("SDS")
-                .criterion("has_coric_seed", conditionsFromTag(AylythItemTags.BOSS_HEARTS))
+                .criterion("has_boss_heart", conditionsFromTag(AylythItemTags.BOSS_HEARTS))
                 .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, AylythItems.VITAL_THURIBLE)
@@ -113,7 +131,7 @@ public final class AylythRecipeProvider extends FabricRecipeProvider {
                 .pattern("SHS")
                 .pattern("PEP")
                 .pattern("PCP")
-                .criterion("has_heart", conditionsFromTag(AylythItemTags.BOSS_HEARTS))
+                .criterion("has_boss_heart", conditionsFromTag(AylythItemTags.BOSS_HEARTS))
                 .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, AylythItems.SOUL_HEARTH)
@@ -124,7 +142,7 @@ public final class AylythRecipeProvider extends FabricRecipeProvider {
                 .pattern(" S ")
                 .pattern("WCW")
                 .pattern("WHW")
-                .criterion("has_heart", conditionsFromItem(AylythItems.AYLYTHIAN_HEART))
+                .criterion("has_aylythian_heart", conditionsFromItem(AylythItems.AYLYTHIAN_HEART))
                 .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, AylythItems.GIRASOL_SEED)
@@ -135,7 +153,7 @@ public final class AylythRecipeProvider extends FabricRecipeProvider {
                 .pattern("YHY")
                 .pattern("SES")
                 .pattern("YSY")
-                .criterion("has_heart", conditionsFromItem(AylythItems.AYLYTHIAN_HEART))
+                .criterion("has_aylythian_heart", conditionsFromItem(AylythItems.AYLYTHIAN_HEART))
                 .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, AylythItems.YMPE_CUIRASS)
@@ -146,7 +164,7 @@ public final class AylythRecipeProvider extends FabricRecipeProvider {
                 .pattern("GHG")
                 .pattern("WCW")
                 .pattern("G G")
-                .criterion("has_heart", conditionsFromItem(AylythItems.AYLYTHIAN_HEART))
+                .criterion("has_aylythian_heart", conditionsFromItem(AylythItems.AYLYTHIAN_HEART))
                 .offerTo(exporter);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, AylythItems.NEPHRITE_SWORD)
@@ -210,6 +228,12 @@ public final class AylythRecipeProvider extends FabricRecipeProvider {
                 .criterion("has_bark", conditionsFromItem(AylythItems.BARK))
                 .offerTo(exporter, "torch_from_bark");
 
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, AylythItems.YMPE_LANCE)
+                .input('E', AylythItems.ESSTLINE)
+                .input('S', AylythItems.YMPE_SAPLING)
+                .input('C', AylythItems.CORIC_SEED)
+                .criterion("has_coric_seed", conditionsFromItem(AylythItems.CORIC_SEED));
+
         ShapelessRecipeJsonBuilder.create(RecipeCategory.BREWING, AylythItems.NEPHRITE_FLASK)
                 .input(DefaultCustomIngredients.nbt(new ItemStack(AylythItems.DARK_NEPHRITE_FLASK), true))
                 .input(AylythItems.AYLYTHIAN_HEART)
@@ -226,13 +250,27 @@ public final class AylythRecipeProvider extends FabricRecipeProvider {
                 .criterion("has_nephrite_flask", conditionsFromTag(AylythItemTags.NEPHRITE_FLASKS))
                 .offerTo(exporter, "dark_nephrite_flask_from_nephrite_flask");
 
-        // Already implemented manually
-//        ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, Items.PAPER)
-//                .input('C', AylythItems.BARK)
-//                .pattern("CC")
-//                .criterion("has_bark", conditionsFromItem(AylythItems.BARK))
-//                .offerTo(exporter, "paper_from_bark");
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, Items.PAPER, 2)
+                .input(AylythItems.BARK, 2)
+                .criterion("has_bark", conditionsFromItem(AylythItems.BARK))
+                .offerTo(exporter, "paper_from_bark");
 
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, AylythItems.AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE)
+                .input(AylythItems.YMPE_FRUIT)
+                .input(AylythItems.ESSTLINE)
+                .input(Items.COBBLED_DEEPSLATE)
+                .input(ItemTags.SOUL_FIRE_BASE_BLOCKS)
+                .criterion("has_esstline", conditionsFromItem(AylythItems.ESSTLINE))
+                .offerTo(exporter);
+
+        createSmithingUpgrade(AylythItems.AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE, AylythItems.YMPE_SAPLING, AylythItems.ESSTLINE, AylythItems.YMPE_DAGGER, RecipeCategory.COMBAT)
+                .criterion("has_ympe_sapling", conditionsFromItem(AylythItems.YMPE_SAPLING))
+                .offerTo(exporter, RecipeProvider.getItemPath(AylythItems.YMPE_DAGGER) + "_smithing");
+        ShuckingRecipeBuilder.create(RecipeCategory.TOOLS, AylythItems.SHUCKED_YMPE_FRUIT)
+                .input(AylythItems.YMPE_FRUIT)
+                .input(AylythItems.YMPE_DAGGER)
+                .criterion("has_ympe_fruit", conditionsFromItem(AylythItems.YMPE_FRUIT))
+                .offerTo(exporter);
         offerShapeless(exporter, RecipeCategory.COMBAT, AylythItems.BLIGHTED_THORN_FLECHETTE, 4, AylythItems.BLIGHTED_THORNS);
 
         offerReversibleCompactingRecipesWithReverseRecipeGroup(exporter, RecipeCategory.MISC, AylythItems.ESSTLINE, RecipeCategory.BUILDING_BLOCKS, AylythItems.ESSTLINE_BLOCK, "esstline_from_esstline_block", "esstline");
@@ -243,10 +281,6 @@ public final class AylythRecipeProvider extends FabricRecipeProvider {
         createStonecutting(exporter, AylythItemTags.CARVED_NEPHRITE, AylythBlocks.CARVED_SMOOTH_NEPHRITE, RecipeCategory.BUILDING_BLOCKS, AylythBlocks.CARVED_NEPHRITE_PILLAR);
         createStonecutting(exporter, AylythItemTags.CARVED_NEPHRITE, AylythBlocks.CARVED_SMOOTH_NEPHRITE, RecipeCategory.BUILDING_BLOCKS, AylythBlocks.CARVED_NEPHRITE_TILES);
         createStonecutting(exporter, AylythItemTags.CARVED_NEPHRITE, AylythBlocks.CARVED_SMOOTH_NEPHRITE, RecipeCategory.BUILDING_BLOCKS, AylythBlocks.CARVED_WOODY_NEPHRITE);
-
-        offerHangingSignRecipe(exporter, AylythItems.YMPE_HANGING_SIGN, AylythItems.YMPE_STRIPPED_LOG);
-        offerHangingSignRecipe(exporter, AylythItems.POMEGRANATE_HANGING_SIGN, AylythItems.POMEGRANATE_STRIPPED_LOG);
-        offerHangingSignRecipe(exporter, AylythItems.WRITHEWOOD_HANGING_SIGN, AylythItems.WRITHEWOOD_STRIPPED_LOG);
 
         createSmithingUpgrade(exporter, AylythItems.AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE, AylythItems.NEPHRITE_SWORD, AylythItems.BLIGHTED_THORNS, AylythItems.BLIGHTED_SWORD, RecipeCategory.COMBAT);
         createSmithingUpgrade(exporter, AylythItems.AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE, AylythItems.NEPHRITE_PICKAXE, AylythItems.BLIGHTED_THORNS, AylythItems.BLIGHTED_PICKAXE, RecipeCategory.COMBAT);
@@ -273,7 +307,11 @@ public final class AylythRecipeProvider extends FabricRecipeProvider {
 
     private void createSmithingUpgrade(Consumer<RecipeJsonProvider> exporter, ItemConvertible template, ItemConvertible base, ItemConvertible addition, ItemConvertible result, RecipeCategory category) {
         SmithingTransformRecipeJsonBuilder.create(Ingredient.ofItems(template), Ingredient.ofItems(base), Ingredient.ofItems(addition), category, result.asItem())
-                .criterion("has_" + RecipeProvider.getItemPath(result), RecipeProvider.conditionsFromItem(addition)).offerTo(exporter, RecipeProvider.getItemPath(result) + "_smithing");
+                .criterion("has_" + RecipeProvider.getItemPath(addition), RecipeProvider.conditionsFromItem(addition)).offerTo(exporter, RecipeProvider.getItemPath(result) + "_smithing");
+    }
+
+    private SmithingTransformRecipeJsonBuilder createSmithingUpgrade(ItemConvertible template, ItemConvertible base, ItemConvertible addition, ItemConvertible result, RecipeCategory category) {
+        return SmithingTransformRecipeJsonBuilder.create(Ingredient.ofItems(template), Ingredient.ofItems(base), Ingredient.ofItems(addition), category, result.asItem());
     }
 
     private void createStonecutting(Consumer<RecipeJsonProvider> exporter, TagKey<Item> inputTag, ItemConvertible baseItem, RecipeCategory recipeCategory, ItemConvertible output) {

@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_aylythian_heart": {
+    "has_esstline": {
       "conditions": {
         "items": [
           {
             "items": [
-              "aylyth:aylythian_heart"
+              "aylyth:esstline"
             ]
           }
         ]
@@ -15,20 +15,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:vampiric_sickle_smithing"
+        "recipe": "aylyth:aylythian_upgrade_smithing_template"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_aylythian_heart",
+      "has_esstline",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:vampiric_sickle_smithing"
+      "aylyth:aylythian_upgrade_smithing_template"
     ]
   },
   "sends_telemetry_event": false

@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_coric_seed": {
+    "has_boss_heart": {
       "conditions": {
         "items": [
           {
@@ -20,7 +20,7 @@
   },
   "requirements": [
     [
-      "has_coric_seed",
+      "has_boss_heart",
       "has_the_recipe"
     ]
   ],

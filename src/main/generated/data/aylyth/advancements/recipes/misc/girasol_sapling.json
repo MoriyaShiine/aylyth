@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_heart": {
+    "has_aylythian_heart": {
       "conditions": {
         "items": [
           {
@@ -22,7 +22,7 @@
   },
   "requirements": [
     [
-      "has_heart",
+      "has_aylythian_heart",
       "has_the_recipe"
     ]
   ],

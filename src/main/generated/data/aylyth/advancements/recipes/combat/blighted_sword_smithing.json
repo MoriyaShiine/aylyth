@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_blighted_sword": {
+    "has_blighted_thorns": {
       "conditions": {
         "items": [
           {
@@ -22,7 +22,7 @@
   },
   "requirements": [
     [
-      "has_blighted_sword",
+      "has_blighted_thorns",
       "has_the_recipe"
     ]
   ],
