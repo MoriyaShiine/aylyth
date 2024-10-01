@@ -1,41 +1,41 @@
 {
   "parent": "item/handheld",
   "textures": {
-    "layer0": "aylyth:item/ympe_glaive_handheld"
+    "layer0": "aylyth:item/vampiric_sword_handheld"
   },
   "display": {
     "thirdperson_righthand": {
       "rotation": [
         0,
         -90,
-        55
+        40
       ],
       "translation": [
         0,
-        5,
-        0.5
+        14,
+        2.5
       ],
       "scale": [
-        1.6,
-        1.6,
-        0.8
+        1.8,
+        1.8,
+        1
       ]
     },
     "thirdperson_lefthand": {
       "rotation": [
         0,
         90,
-        -55
+        -40
       ],
       "translation": [
         0,
-        5,
-        0.5
+        14,
+        2.5
       ],
       "scale": [
-        1.6,
-        1.6,
-        0.8
+        1.8,
+        1.8,
+        1
       ]
     },
     "firstperson_righthand": {
@@ -45,14 +45,14 @@
         25
       ],
       "translation": [
-        1.13,
-        4.2,
+        2,
+        10,
         1.13
       ],
       "scale": [
-        1.1,
-        1.1,
-        0.55
+        1.5,
+        1.5,
+        0.7
       ]
     },
     "firstperson_lefthand": {
@@ -62,14 +62,14 @@
         -25
       ],
       "translation": [
-        1.13,
-        4.2,
+        2,
+        10,
         1.13
       ],
       "scale": [
-        1.1,
-        1.1,
-        0.55
+        1.5,
+        1.5,
+        0.7
       ]
     }
   }

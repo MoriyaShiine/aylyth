@@ -1,15 +1,18 @@
 package moriyashiine.aylyth.client.util;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.client.render.DiffuseLighting;
 import net.minecraft.client.render.LightmapTextureManager;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.RotationAxis;
+import org.joml.Vector3f;
 
 public class RenderUtils {
 
@@ -63,5 +66,17 @@ public class RenderUtils {
         entity.setHeadYaw(l);
         stack.pop();
         DiffuseLighting.enableGuiDepthLighting();
+    }
+
+    public static void copyOver(RenderContext context, MatrixStack matrixStack) {
+        context.pushTransform(quad -> {
+            Vector3f vec = new Vector3f();
+            for (int i = 0; i < 4; i++) {
+                quad.copyPos(i, vec);
+                vec.mulProject(matrixStack.peek().getPositionMatrix());
+                quad.pos(i, vec);
+            }
+            return true;
+        });
     }
 }

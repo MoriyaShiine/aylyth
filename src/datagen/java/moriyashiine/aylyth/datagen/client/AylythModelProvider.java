@@ -3,13 +3,14 @@ package moriyashiine.aylyth.datagen.client;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.block.types.LargeWoodyGrowthBlock;
 import moriyashiine.aylyth.common.block.types.PomegranateLeavesBlock;
 import moriyashiine.aylyth.common.block.types.StrewnLeavesBlock;
 import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.item.AylythItems;
+import moriyashiine.aylyth.datagen.client.model.ModelKeys;
+import moriyashiine.aylyth.datagen.client.model.PerspectiveModels;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.block.Block;
@@ -25,7 +26,6 @@ import net.minecraft.registry.Registries;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Direction;
 
 import java.util.List;
 import java.util.Optional;
@@ -66,7 +66,7 @@ public class AylythModelProvider extends FabricModelProvider {
     }
 
     private Identifier id(String id) {
-        return new Identifier(Aylyth.MOD_ID, id);
+        return Aylyth.id(id);
     }
 
     @Override
@@ -157,27 +157,43 @@ public class AylythModelProvider extends FabricModelProvider {
 //        Models.GENERATED.upload(AylythUtil.id("item/" + Registries.ITEM.getId(ModItems.MYSTERIOUS_SKETCH).getPath() + "_generated"), TextureMap.layer0(AylythUtil.id("item/" + Registries.ITEM.getId(ModItems.MYSTERIOUS_SKETCH).getPath())), itemModelGenerator.writer);
         itemModelGenerator.register(AylythItems.POMEGRANATE_CASSETTE, Models.GENERATED);
         itemModelGenerator.register(AylythItems.BLIGHTED_THORNS, Models.GENERATED);
-        itemModelGenerator.register(AylythItems.YMPE_FLAMBERGE, BUILTIN);
-        itemModelGenerator.register(AylythItems.YMPE_SCYTHE, BUILTIN);
         itemModelGenerator.register(AylythItems.THORN_FLECHETTE, Models.GENERATED);
         itemModelGenerator.register(AylythItems.BLIGHTED_THORN_FLECHETTE, Models.GENERATED);
         itemModelGenerator.register(AylythItems.LANCEOLATE_DAGGER, Models.HANDHELD);
+        itemModelGenerator.register(AylythItems.YMPE_LANCE, BUILTIN);
 
-        itemModelGenerator.register(AylythItems.VAMPIRIC_SWORD, Models.HANDHELD);
+        itemModelGenerator.register(AylythItems.VAMPIRIC_SWORD, "_gui", Models.GENERATED);
         itemModelGenerator.register(AylythItems.VAMPIRIC_PICKAXE, Models.HANDHELD);
         itemModelGenerator.register(AylythItems.VAMPIRIC_AXE, Models.HANDHELD);
         itemModelGenerator.register(AylythItems.VAMPIRIC_HOE, Models.HANDHELD);
 
-        itemModelGenerator.register(AylythItems.BLIGHTED_SWORD, Models.HANDHELD);
+        itemModelGenerator.register(AylythItems.BLIGHTED_SWORD, "_gui", Models.GENERATED);
         itemModelGenerator.register(AylythItems.BLIGHTED_PICKAXE, Models.HANDHELD);
         itemModelGenerator.register(AylythItems.BLIGHTED_AXE, Models.HANDHELD);
         itemModelGenerator.register(AylythItems.BLIGHTED_HOE, Models.HANDHELD);
+
+        registerBig(itemModelGenerator, AylythItems.YMPE_GLAIVE);
+        registerBig(itemModelGenerator, AylythItems.YMPE_FLAMBERGE);
+        registerBig(itemModelGenerator, AylythItems.YMPE_SCYTHE);
+        registerBig(itemModelGenerator, AylythItems.VAMPIRIC_SWORD);
+        registerBig(itemModelGenerator, AylythItems.BLIGHTED_SWORD);
+        PerspectiveModels.BIG_HANDHELD.resolver()
+                .with(ModelKeys.GUI, ModelIds.getItemModelId(AylythItems.YMPE_LANCE).withSuffixedPath("_gui"))
+                .with(ModelKeys.HANDHELD, ModelIds.getItemModelId(AylythItems.YMPE_LANCE).withSuffixedPath("_handheld"))
+                .upload(ModelIds.getItemModelId(AylythItems.YMPE_LANCE).withSuffixedPath("_spear"), itemModelGenerator.writer);
 
         registerFlask(itemModelGenerator, AylythItems.NEPHRITE_FLASK);
         registerFlask(itemModelGenerator, AylythItems.DARK_NEPHRITE_FLASK);
         Models.GENERATED_TWO_LAYERS.upload(Aylyth.id("item/coker_cola"), TextureMap.layered(Aylyth.id("item/blight_potion"), Aylyth.id("item/blight_potion")), itemModelGenerator.writer);
         Models.GENERATED_TWO_LAYERS.upload(Aylyth.id("item/coker_cola_splash"), TextureMap.layered(Aylyth.id("item/blight_potion_splash"), Aylyth.id("item/blight_potion_splash")), itemModelGenerator.writer);
         Models.GENERATED_TWO_LAYERS.upload(Aylyth.id("item/coker_cola_lingering"), TextureMap.layered(Aylyth.id("item/blight_potion_lingering"), Aylyth.id("item/blight_potion_lingering")), itemModelGenerator.writer);
+    }
+
+    private void registerBig(ItemModelGenerator generator, Item item) {
+        PerspectiveModels.BIG_HANDHELD.resolver()
+                .with(ModelKeys.GUI, ModelIds.getItemModelId(item).withSuffixedPath("_gui"))
+                .with(ModelKeys.HANDHELD, ModelIds.getItemModelId(item).withSuffixedPath("_handheld"))
+                .upload(ModelIds.getItemModelId(item), generator.writer);
     }
 
     private VariantsBlockStateSupplier sapstoneBlockStates(Block sapstoneBlock, Identifier verticalModel) {

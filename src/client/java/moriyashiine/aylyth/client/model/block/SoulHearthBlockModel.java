@@ -1,5 +1,6 @@
 package moriyashiine.aylyth.client.model.block;
 
+import moriyashiine.aylyth.client.util.RenderUtils;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.block.types.SoulHearthBlock;
 import moriyashiine.aylyth.common.block.AylythBlocks;
@@ -47,15 +48,7 @@ public class SoulHearthBlockModel extends ForwardingBakedModel {
                 stack.push();
                 stack.multiply(RotationAxis.POSITIVE_X.rotationDegrees(90));
                 stack.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(90 * i), 0.5f, 0.5f, 0.5f);
-                context.pushTransform(quad -> {
-                    Vector3f posVec = new Vector3f();
-                    for (int j = 0; j < 4; j++) {
-                        quad.copyPos(j, posVec);
-                        posVec.mulProject(stack.peek().getPositionMatrix());
-                        quad.pos(j, posVec);
-                    }
-                    return true;
-                });
+                RenderUtils.copyOver(context, stack);
                 model.emitItemQuads(new ItemStack(AylythItems.POMEGRANATE), randomSupplier, context);
                 context.popTransform();
                 stack.pop();
