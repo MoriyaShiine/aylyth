@@ -111,12 +111,12 @@ import java.util.List;
 
 public class AylythClient implements ClientModInitializer {
 	public static final KeyBinding DESCEND = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.aylyth.descend", InputUtil.Type.KEYSYM, InputUtil.GLFW_KEY_G, "category.aylyth.keybind"));
-	public static final EntityModelLayer YMPE_INFESTATION_STAGE_1_MODEL_LAYER = new EntityModelLayer(new Identifier(Aylyth.MOD_ID, "ympe_infestation_1"), "main");
-	public static final EntityModelLayer YMPE_INFESTATION_STAGE_2_MODEL_LAYER = new EntityModelLayer(new Identifier(Aylyth.MOD_ID, "ympe_infestation_2"), "main");
-	public static final EntityModelLayer YMPE_INFESTATION_STAGE_3_MODEL_LAYER = new EntityModelLayer(new Identifier(Aylyth.MOD_ID, "ympe_infestation_3"), "main");
-	public static final EntityModelLayer YMPE_INFESTATION_STAGE_4_MODEL_LAYER = new EntityModelLayer(new Identifier(Aylyth.MOD_ID, "ympe_infestation_4"), "main");
-	public static final EntityModelLayer YMPE_INFESTATION_STAGE_5_MODEL_LAYER = new EntityModelLayer(new Identifier(Aylyth.MOD_ID, "ympe_infestation_5"), "main");
-	public static final EntityModelLayer YMPE_THORN_RING_MODEL_LAYER = new EntityModelLayer(new Identifier(Aylyth.MOD_ID, "ympe_thorn_ring"), "main");
+	public static final EntityModelLayer YMPE_INFESTATION_STAGE_1_MODEL_LAYER = new EntityModelLayer(Aylyth.id("ympe_infestation_1"), "main");
+	public static final EntityModelLayer YMPE_INFESTATION_STAGE_2_MODEL_LAYER = new EntityModelLayer(Aylyth.id("ympe_infestation_2"), "main");
+	public static final EntityModelLayer YMPE_INFESTATION_STAGE_3_MODEL_LAYER = new EntityModelLayer(Aylyth.id("ympe_infestation_3"), "main");
+	public static final EntityModelLayer YMPE_INFESTATION_STAGE_4_MODEL_LAYER = new EntityModelLayer(Aylyth.id("ympe_infestation_4"), "main");
+	public static final EntityModelLayer YMPE_INFESTATION_STAGE_5_MODEL_LAYER = new EntityModelLayer(Aylyth.id("ympe_infestation_5"), "main");
+	public static final EntityModelLayer YMPE_THORN_RING_MODEL_LAYER = new EntityModelLayer(Aylyth.id("ympe_thorn_ring"), "main");
 
 	@Override
 	public void onInitializeClient() {
@@ -204,9 +204,9 @@ public class AylythClient implements ClientModInitializer {
 			registrationHelper.register(new YmpeThornRingFeature((FeatureRendererContext<LivingEntity, EntityModel<LivingEntity>>) entityRenderer, context.getModelLoader()));
 		});
 
-		TerraformBoatClientHelper.registerModelLayers(new Identifier(Aylyth.MOD_ID, "ympe"), false);
-		TerraformBoatClientHelper.registerModelLayers(new Identifier(Aylyth.MOD_ID, "pomegranate"), false);
-		TerraformBoatClientHelper.registerModelLayers(new Identifier(Aylyth.MOD_ID, "writhewood"), false);
+		TerraformBoatClientHelper.registerModelLayers(Aylyth.id("ympe"), false);
+		TerraformBoatClientHelper.registerModelLayers(Aylyth.id("pomegranate"), false);
+		TerraformBoatClientHelper.registerModelLayers(Aylyth.id("writhewood"), false);
 
 		ClientTickEvents.START_CLIENT_TICK.register(client -> {
 			if (client.world != null && client.player != null && client.world.getTime() % 20 == 0) {

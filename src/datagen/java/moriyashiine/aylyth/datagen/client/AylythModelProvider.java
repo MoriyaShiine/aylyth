@@ -49,14 +49,14 @@ public class AylythModelProvider extends FabricModelProvider {
     private static final BlockFamily POMEGRANATE = BlockFamilies.register(AylythBlocks.POMEGRANATE_PLANKS).button(AylythBlocks.POMEGRANATE_BUTTON).fence(AylythBlocks.POMEGRANATE_FENCE).fenceGate(AylythBlocks.POMEGRANATE_FENCE_GATE).pressurePlate(AylythBlocks.POMEGRANATE_PRESSURE_PLATE).sign(AylythBlocks.POMEGRANATE_SIGN, AylythBlocks.POMEGRANATE_WALL_SIGN).slab(AylythBlocks.POMEGRANATE_SLAB).stairs(AylythBlocks.POMEGRANATE_STAIRS).door(AylythBlocks.POMEGRANATE_DOOR).trapdoor(AylythBlocks.POMEGRANATE_TRAPDOOR).group("wooden").unlockCriterionName("has_planks").build();
     private static final BlockFamily WRITHEWOOD = BlockFamilies.register(AylythBlocks.WRITHEWOOD_PLANKS).button(AylythBlocks.WRITHEWOOD_BUTTON).fence(AylythBlocks.WRITHEWOOD_FENCE).fenceGate(AylythBlocks.WRITHEWOOD_FENCE_GATE).pressurePlate(AylythBlocks.WRITHEWOOD_PRESSURE_PLATE).sign(AylythBlocks.WRITHEWOOD_SIGN, AylythBlocks.WRITHEWOOD_WALL_SIGN).slab(AylythBlocks.WRITHEWOOD_SLAB).stairs(AylythBlocks.WRITHEWOOD_STAIRS).door(AylythBlocks.WRITHEWOOD_DOOR).trapdoor(AylythBlocks.WRITHEWOOD_TRAPDOOR).group("wooden").unlockCriterionName("has_planks").build();
 
-    private static final Identifier STREWN_LEAVES_TEMPLATE = new Identifier(Aylyth.MOD_ID, "block/strewn_leaves_template");
-    private static final Identifier LEAF_PILE_1_TEMPLATE = new Identifier(Aylyth.MOD_ID, "block/leaf_pile_1");
-    private static final Identifier LEAF_PILE_2_TEMPLATE = new Identifier(Aylyth.MOD_ID, "block/leaf_pile_2");
-    private static final Identifier LEAF_PILE_3_TEMPLATE = new Identifier(Aylyth.MOD_ID, "block/leaf_pile_3");
-    private static final Identifier LEAF_PILE_4_TEMPLATE = new Identifier(Aylyth.MOD_ID, "block/leaf_pile_4");
-    private static final Identifier LEAF_PILE_5_TEMPLATE = new Identifier(Aylyth.MOD_ID, "block/leaf_pile_5");
-    private static final Identifier LEAF_PILE_6_TEMPLATE = new Identifier(Aylyth.MOD_ID, "block/leaf_pile_6");
-    private static final Identifier LEAF_PILE_7_TEMPLATE = new Identifier(Aylyth.MOD_ID, "block/leaf_pile_7");
+    private static final Identifier STREWN_LEAVES_TEMPLATE = Aylyth.id("block/strewn_leaves_template");
+    private static final Identifier LEAF_PILE_1_TEMPLATE = Aylyth.id("block/leaf_pile_1");
+    private static final Identifier LEAF_PILE_2_TEMPLATE = Aylyth.id("block/leaf_pile_2");
+    private static final Identifier LEAF_PILE_3_TEMPLATE = Aylyth.id("block/leaf_pile_3");
+    private static final Identifier LEAF_PILE_4_TEMPLATE = Aylyth.id("block/leaf_pile_4");
+    private static final Identifier LEAF_PILE_5_TEMPLATE = Aylyth.id("block/leaf_pile_5");
+    private static final Identifier LEAF_PILE_6_TEMPLATE = Aylyth.id("block/leaf_pile_6");
+    private static final Identifier LEAF_PILE_7_TEMPLATE = Aylyth.id("block/leaf_pile_7");
 
     private static final Model STREWN_LEAVES_MODEL = new Model(Optional.of(STREWN_LEAVES_TEMPLATE), Optional.empty(), TextureKey.TOP, TextureKey.PARTICLE);
     private static final Model LEAF_PILE_1_MODEL = new Model(Optional.of(LEAF_PILE_1_TEMPLATE), Optional.empty(), TextureKey.ALL, TextureKey.PARTICLE);

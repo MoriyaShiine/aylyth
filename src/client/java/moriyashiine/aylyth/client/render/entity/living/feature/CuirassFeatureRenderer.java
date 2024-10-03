@@ -15,7 +15,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
 public class CuirassFeatureRenderer extends FeatureRenderer<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>> {
-    private static final Identifier TEXTURE = new Identifier(Aylyth.MOD_ID, "textures/entity/living/ympe_cuirass.png");
+    private static final Identifier TEXTURE = Aylyth.id("textures/entity/living/ympe_cuirass.png");
     private static final CuirassModel[] MODELS = new CuirassModel[5];
 
     public CuirassFeatureRenderer(FeatureRendererContext<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>> context, EntityModelLoader loader) {

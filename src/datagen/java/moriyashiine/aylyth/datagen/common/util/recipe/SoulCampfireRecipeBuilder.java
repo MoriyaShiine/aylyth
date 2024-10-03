@@ -52,7 +52,7 @@ public class SoulCampfireRecipeBuilder {
     }
 
     public void offerTo(Consumer<RecipeJsonProvider> exporter) {
-        this.offerTo(exporter, new Identifier(Aylyth.MOD_ID, "soul_campfire/%s".formatted(Registries.ITEM.getId(result.getItem()).getPath())));
+        this.offerTo(exporter, Aylyth.id("soul_campfire/%s".formatted(Registries.ITEM.getId(result.getItem()).getPath())));
     }
 
     private void checkSize() {

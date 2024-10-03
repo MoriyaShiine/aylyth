@@ -8,8 +8,8 @@ import net.minecraft.client.render.entity.ProjectileEntityRenderer;
 import net.minecraft.util.Identifier;
 
 public class ThornFlechetteRenderer extends ProjectileEntityRenderer<ThornFlechetteEntity> {
-    private static final Identifier THORN_FLECHETTE = new Identifier(Aylyth.MOD_ID, "textures/entity/thorn_flechette.png");
-    private static final Identifier BLIGHTED_THORN_FLECHETTE = new Identifier(Aylyth.MOD_ID, "textures/entity/blighted_thorn_flechette.png");
+    private static final Identifier THORN_FLECHETTE = Aylyth.id("textures/entity/thorn_flechette.png");
+    private static final Identifier BLIGHTED_THORN_FLECHETTE = Aylyth.id("textures/entity/blighted_thorn_flechette.png");
 
     public ThornFlechetteRenderer(EntityRendererFactory.Context context) {
         super(context);

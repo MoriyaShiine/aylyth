@@ -17,7 +17,7 @@ import net.minecraft.client.render.entity.model.ModelWithArms;
 import net.minecraft.util.Identifier;
 
 public class ScionEntityModel<T extends ScionEntity> extends BipedEntityModel<T> implements ModelWithArms {
-	public static final EntityModelLayer LAYER_LOCATION = new EntityModelLayer(new Identifier(Aylyth.MOD_ID, "scion"), "main");
+	public static final EntityModelLayer LAYER_LOCATION = new EntityModelLayer(Aylyth.id("scion"), "main");
 	private final ModelPart head;
 	private final ModelPart body;
 	private final ModelPart leftArm;

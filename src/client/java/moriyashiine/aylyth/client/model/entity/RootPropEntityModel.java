@@ -14,7 +14,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.Identifier;
 
 public class RootPropEntityModel <T extends Entity> extends SinglePartEntityModel<T> {
-    public static final EntityModelLayer LAYER_LOCATION = new EntityModelLayer(new Identifier(Aylyth.MOD_ID, "elder_aylythian_root_attack"), "main");
+    public static final EntityModelLayer LAYER_LOCATION = new EntityModelLayer(Aylyth.id("elder_aylythian_root_attack"), "main");
     private final ModelPart mainRoot;
 
     public RootPropEntityModel(ModelPart root) {

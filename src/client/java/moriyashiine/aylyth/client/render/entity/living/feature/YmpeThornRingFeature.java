@@ -17,7 +17,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.RotationAxis;
 
 public class YmpeThornRingFeature extends FeatureRenderer<LivingEntity, EntityModel<LivingEntity>> {
-	private static final Identifier TEXTURE = new Identifier(Aylyth.MOD_ID, "textures/entity/living/ympe_thorn_ring.png");
+	private static final Identifier TEXTURE = Aylyth.id("textures/entity/living/ympe_thorn_ring.png");
 	public final YmpeThornRingModel model;
 
 	public YmpeThornRingFeature(FeatureRendererContext<LivingEntity, EntityModel<LivingEntity>> context, EntityModelLoader loader) {

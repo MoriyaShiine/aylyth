@@ -38,7 +38,7 @@ public class YmpeDaggerRecipeJsonBuilder {
     }
 
     public void offerTo(Consumer<RecipeJsonProvider> exporter) {
-        this.offerTo(exporter, new Identifier(Aylyth.MOD_ID, "ympe_dagger_drops/%s_from_%s".formatted(Registries.ITEM.getId(output.getItem()).getPath(), Registries.ENTITY_TYPE.getId(entityType).getPath())));
+        this.offerTo(exporter, Aylyth.id("ympe_dagger_drops/%s_from_%s".formatted(Registries.ITEM.getId(output.getItem()).getPath(), Registries.ENTITY_TYPE.getId(entityType).getPath())));
     }
 
     public void offerTo(Consumer<RecipeJsonProvider> exporter, Identifier recipeId) {

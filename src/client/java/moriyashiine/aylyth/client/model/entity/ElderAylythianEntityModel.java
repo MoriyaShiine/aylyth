@@ -9,9 +9,9 @@ import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 
 public class ElderAylythianEntityModel extends GeoModel<ElderAylythianEntity> {
-	private static final Identifier MODEL_LOCATION = new Identifier(Aylyth.MOD_ID, "geo/entity/living/elder_aylythian.geo.json");
+	private static final Identifier MODEL_LOCATION = Aylyth.id("geo/entity/living/elder_aylythian.geo.json");
 	private static Identifier[] TEXTURE_LOCATIONS;
-	private static final Identifier ANIMATION_FILE_LOCATION = new Identifier(Aylyth.MOD_ID, "animations/entity/living/elder_aylythian.animation.json");
+	private static final Identifier ANIMATION_FILE_LOCATION = Aylyth.id("animations/entity/living/elder_aylythian.animation.json");
 	
 	@Override
 	public Identifier getModelResource(ElderAylythianEntity object) {
@@ -23,7 +23,7 @@ public class ElderAylythianEntityModel extends GeoModel<ElderAylythianEntity> {
 		if (TEXTURE_LOCATIONS == null) {
 			TEXTURE_LOCATIONS = new Identifier[ElderAylythianEntity.VARIANTS];
 			for (int i = 0; i < ElderAylythianEntity.VARIANTS; i++) {
-				TEXTURE_LOCATIONS[i] = new Identifier(Aylyth.MOD_ID, "textures/entity/living/elder_aylythian/" + i + ".png");
+				TEXTURE_LOCATIONS[i] = Aylyth.id("textures/entity/living/elder_aylythian/" + i + ".png");
 			}
 		}
 		return TEXTURE_LOCATIONS[object.getDataTracker().get(ElderAylythianEntity.VARIANT)];
