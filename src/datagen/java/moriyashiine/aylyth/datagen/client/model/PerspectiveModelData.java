@@ -13,6 +13,7 @@ import moriyashiine.aylyth.common.Aylyth;
 import net.minecraft.data.client.ModelIds;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
+
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.function.BiConsumer;

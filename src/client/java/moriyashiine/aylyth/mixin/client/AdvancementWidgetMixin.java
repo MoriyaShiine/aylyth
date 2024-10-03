@@ -3,7 +3,6 @@ package moriyashiine.aylyth.mixin.client;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import moriyashiine.aylyth.client.advancement.AdvancementIconRenderer;
-import moriyashiine.aylyth.client.advancement.AdvancementIconRendererRegistry;
 import moriyashiine.aylyth.common.advancement.CustomAdvancementDisplay;
 import net.fabricmc.fabric.api.util.TriState;
 import net.minecraft.advancement.AdvancementDisplay;

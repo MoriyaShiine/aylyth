@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.datagen.common.tag;
 
-import moriyashiine.aylyth.common.entity.AylythEntityTypes;
 import moriyashiine.aylyth.common.data.tag.AylythEntityTypeTags;
+import moriyashiine.aylyth.common.entity.AylythEntityTypes;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalEntityTypeTags;

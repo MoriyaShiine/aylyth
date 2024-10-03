@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.world;
 
-import moriyashiine.aylyth.common.entity.types.mob.WreathedHindEntity;
 import moriyashiine.aylyth.common.data.AylythDamageTypes;
+import moriyashiine.aylyth.common.entity.types.mob.WreathedHindEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageType;

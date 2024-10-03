@@ -2,9 +2,12 @@ package moriyashiine.aylyth.common.block.types;
 
 import moriyashiine.aylyth.common.block.entities.VitalThuribleBlockEntity;
 import moriyashiine.aylyth.common.item.AylythItems;
-import moriyashiine.aylyth.common.particle.AylythParticleTypes;
 import moriyashiine.aylyth.common.particle.effects.ColorableParticleEffect;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockEntityProvider;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.HorizontalFacingBlock;
+import net.minecraft.block.ShapeContext;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;

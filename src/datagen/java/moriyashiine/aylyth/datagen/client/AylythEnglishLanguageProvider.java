@@ -1,11 +1,11 @@
 package moriyashiine.aylyth.datagen.client;
 
 import moriyashiine.aylyth.common.block.AylythBlocks;
+import moriyashiine.aylyth.common.data.world.AylythBiomes;
 import moriyashiine.aylyth.common.entity.AylythEntityTypes;
 import moriyashiine.aylyth.common.entity.AylythStatusEffects;
 import moriyashiine.aylyth.common.item.AylythItemGroups;
 import moriyashiine.aylyth.common.item.AylythItems;
-import moriyashiine.aylyth.common.data.world.AylythBiomes;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.fabricmc.loader.impl.util.StringUtil;

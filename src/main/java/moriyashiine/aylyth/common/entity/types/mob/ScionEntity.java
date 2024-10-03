@@ -1,10 +1,15 @@
 package moriyashiine.aylyth.common.entity.types.mob;
 
 import com.mojang.serialization.Dynamic;
-import moriyashiine.aylyth.common.entity.ai.brains.ScionBrain;
 import moriyashiine.aylyth.common.entity.AylythEntityTypes;
+import moriyashiine.aylyth.common.entity.ai.brains.ScionBrain;
 import moriyashiine.aylyth.common.world.AylythSoundEvents;
-import net.minecraft.entity.*;
+import net.minecraft.entity.EntityData;
+import net.minecraft.entity.EntityGroup;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;

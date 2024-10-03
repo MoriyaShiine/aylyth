@@ -1,7 +1,6 @@
 package moriyashiine.aylyth.client.render.entity.living;
 
 import moriyashiine.aylyth.common.entity.types.mob.RippedSoulEntity;
-import moriyashiine.aylyth.common.particle.AylythParticleTypes;
 import moriyashiine.aylyth.common.particle.effects.ColorableParticleEffect;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderer;

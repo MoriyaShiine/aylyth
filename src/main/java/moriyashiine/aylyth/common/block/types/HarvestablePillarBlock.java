@@ -26,8 +26,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.function.Supplier;
-
 @SuppressWarnings({"deprecation", "UnstableApiUsage"})
 public abstract class HarvestablePillarBlock extends PillarBlock {
     private final Identifier harvestLootTable;

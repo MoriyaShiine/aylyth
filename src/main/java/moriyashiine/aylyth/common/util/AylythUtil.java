@@ -1,13 +1,12 @@
 package moriyashiine.aylyth.common.util;
 
-import moriyashiine.aylyth.common.network.packets.SpawnParticlesAroundPacketS2C;
-import moriyashiine.aylyth.common.item.AylythItems;
-import moriyashiine.aylyth.common.entity.AylythStatusEffects;
-import moriyashiine.aylyth.common.particle.AylythParticleTypes;
-import moriyashiine.aylyth.common.world.AylythSoundEvents;
-import moriyashiine.aylyth.common.world.AylythPointOfInterestTypes;
 import moriyashiine.aylyth.common.data.tag.AylythDamageTypeTags;
 import moriyashiine.aylyth.common.data.tag.AylythItemTags;
+import moriyashiine.aylyth.common.entity.AylythStatusEffects;
+import moriyashiine.aylyth.common.network.packets.SpawnParticlesAroundPacketS2C;
+import moriyashiine.aylyth.common.particle.AylythParticleTypes;
+import moriyashiine.aylyth.common.world.AylythPointOfInterestTypes;
+import moriyashiine.aylyth.common.world.AylythSoundEvents;
 import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;

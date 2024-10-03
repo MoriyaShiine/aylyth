@@ -7,7 +7,6 @@ import moriyashiine.aylyth.common.entity.AylythAttributes;
 import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.aylyth.common.particle.effects.ColorableParticleEffect;
 import moriyashiine.aylyth.common.util.AylythUtil;
-import moriyashiine.aylyth.common.particle.AylythParticleTypes;
 import net.minecraft.SharedConstants;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

@@ -1,7 +1,15 @@
 package moriyashiine.aylyth.common.world.gen;
 
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.world.gen.features.*;
+import moriyashiine.aylyth.common.world.gen.features.AllFeature;
+import moriyashiine.aylyth.common.world.gen.features.BushFeature;
+import moriyashiine.aylyth.common.world.gen.features.DoubleBlockFeature;
+import moriyashiine.aylyth.common.world.gen.features.GiantMushroomFeature;
+import moriyashiine.aylyth.common.world.gen.features.HorizontalFacingFeature;
+import moriyashiine.aylyth.common.world.gen.features.LeafPileFeature;
+import moriyashiine.aylyth.common.world.gen.features.SeepFeature;
+import moriyashiine.aylyth.common.world.gen.features.SpringFeature;
+import moriyashiine.aylyth.common.world.gen.features.StrewnLeavesFeature;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.world.gen.feature.Feature;

@@ -1,8 +1,8 @@
 package moriyashiine.aylyth.datagen.common.tag;
 
-import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.aylyth.common.data.tag.AylythBlockTags;
 import moriyashiine.aylyth.common.data.tag.AylythItemTags;
+import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.bewitchment.common.registry.BWTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;

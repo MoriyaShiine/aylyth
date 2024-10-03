@@ -6,7 +6,6 @@ import it.unimi.dsi.fastutil.objects.ObjectList;
 import it.unimi.dsi.fastutil.objects.ObjectLists;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.data.tag.AylythItemTags;
-import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.aylyth.common.loot.AylythLootContextTypes;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.item.PlayerInventoryStorage;

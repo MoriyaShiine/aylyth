@@ -1,8 +1,8 @@
 package moriyashiine.aylyth.common.entity.types.projectile;
 
-import moriyashiine.aylyth.common.entity.components.YmpeThornsComponent;
 import moriyashiine.aylyth.common.entity.AylythEntityComponents;
 import moriyashiine.aylyth.common.entity.AylythEntityTypes;
+import moriyashiine.aylyth.common.entity.components.YmpeThornsComponent;
 import moriyashiine.aylyth.common.item.AylythItems;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;

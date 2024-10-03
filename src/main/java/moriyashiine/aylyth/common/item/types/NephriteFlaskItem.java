@@ -1,8 +1,8 @@
 package moriyashiine.aylyth.common.item.types;
 
 import moriyashiine.aylyth.api.interfaces.VitalHealthHolder;
-import moriyashiine.aylyth.common.block.types.SoulHearthBlock;
 import moriyashiine.aylyth.common.block.AylythBlocks;
+import moriyashiine.aylyth.common.block.types.SoulHearthBlock;
 import moriyashiine.aylyth.common.item.AylythItems;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.Block;

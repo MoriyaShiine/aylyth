@@ -1,6 +1,5 @@
 package moriyashiine.aylyth.datagen.client.model;
 
-import com.mojang.serialization.Codec;
 import net.minecraft.util.StringIdentifiable;
 
 /**

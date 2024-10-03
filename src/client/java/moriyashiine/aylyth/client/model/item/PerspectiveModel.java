@@ -9,7 +9,7 @@ import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.random.Random;
-import org.joml.Vector3f;
+
 import java.util.Map;
 import java.util.function.Supplier;
 

@@ -2,9 +2,9 @@ package moriyashiine.aylyth.mixin.client;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.sugar.Local;
-import moriyashiine.aylyth.common.network.packets.GlaivePacketC2S;
-import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.aylyth.common.data.world.AylythDimensionData;
+import moriyashiine.aylyth.common.item.AylythItems;
+import moriyashiine.aylyth.common.network.packets.GlaivePacketC2S;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;

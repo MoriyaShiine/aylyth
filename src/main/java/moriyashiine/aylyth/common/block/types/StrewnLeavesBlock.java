@@ -1,8 +1,8 @@
 package moriyashiine.aylyth.common.block.types;
 
 import moriyashiine.aylyth.common.block.IContextBlockSoundGroup;
-import moriyashiine.aylyth.common.world.AylythSoundEvents;
 import moriyashiine.aylyth.common.util.AylythUtil;
+import moriyashiine.aylyth.common.world.AylythSoundEvents;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalEntityTypeTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

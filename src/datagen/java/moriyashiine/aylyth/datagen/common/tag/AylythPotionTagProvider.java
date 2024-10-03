@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.datagen.common.tag;
 
-import moriyashiine.aylyth.common.item.potion.AylythPotions;
 import moriyashiine.aylyth.common.data.tag.AylythPotionTags;
+import moriyashiine.aylyth.common.item.potion.AylythPotions;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.potion.Potion;

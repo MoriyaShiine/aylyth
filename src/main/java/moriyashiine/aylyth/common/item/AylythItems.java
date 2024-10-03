@@ -1,27 +1,52 @@
 package moriyashiine.aylyth.common.item;
 
 import com.terraformersmc.terraform.boat.impl.item.TerraformBoatItem;
-import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.entity.AylythEntityTypes;
 import moriyashiine.aylyth.common.entity.AylythStatusEffects;
-import moriyashiine.aylyth.common.item.types.*;
 import moriyashiine.aylyth.common.item.components.ThornFlechetteEffect;
+import moriyashiine.aylyth.common.item.types.AylythianHeartItem;
+import moriyashiine.aylyth.common.item.types.AylythianSmithingTemplateUpgradeItem;
+import moriyashiine.aylyth.common.item.types.CoricSeedItem;
+import moriyashiine.aylyth.common.item.types.DaggerItem;
+import moriyashiine.aylyth.common.item.types.DebugWandItem;
+import moriyashiine.aylyth.common.item.types.NephriteFlaskItem;
+import moriyashiine.aylyth.common.item.types.PomegranateItem;
+import moriyashiine.aylyth.common.item.types.ShuckedYmpeFruitItem;
+import moriyashiine.aylyth.common.item.types.ThornFlechetteItem;
+import moriyashiine.aylyth.common.item.types.YmpeCuirassItem;
+import moriyashiine.aylyth.common.item.types.YmpeDaggerItem;
+import moriyashiine.aylyth.common.item.types.YmpeEffigyItem;
+import moriyashiine.aylyth.common.item.types.YmpeFlambergeItem;
+import moriyashiine.aylyth.common.item.types.YmpeGlaiveItem;
+import moriyashiine.aylyth.common.item.types.YmpeLanceItem;
+import moriyashiine.aylyth.common.item.types.YmpeScytheItem;
 import moriyashiine.aylyth.common.world.AylythSoundEvents;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.item.*;
-import net.minecraft.registry.*;
-import net.minecraft.text.Text;
+import net.minecraft.item.AliasedBlockItem;
+import net.minecraft.item.AxeItem;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.FoodComponent;
+import net.minecraft.item.HangingSignItem;
+import net.minecraft.item.HoeItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.MusicDiscItem;
+import net.minecraft.item.PickaxeItem;
+import net.minecraft.item.ShovelItem;
+import net.minecraft.item.SignItem;
+import net.minecraft.item.SpawnEggItem;
+import net.minecraft.item.SwordItem;
+import net.minecraft.item.TallBlockItem;
+import net.minecraft.item.VerticallyAttachableBlockItem;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.math.Direction;
-
-import java.util.List;
 
 public interface AylythItems {
 

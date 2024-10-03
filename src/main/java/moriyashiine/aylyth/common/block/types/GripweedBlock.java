@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.block.types;
 
-import moriyashiine.aylyth.common.entity.AylythEntityComponents;
 import moriyashiine.aylyth.common.data.tag.AylythEntityTypeTags;
+import moriyashiine.aylyth.common.entity.AylythEntityComponents;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.PlantBlock;
