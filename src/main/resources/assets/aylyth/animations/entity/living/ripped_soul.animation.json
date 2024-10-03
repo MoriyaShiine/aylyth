@@ -6,26 +6,52 @@
 			"animation_length": 1,
 			"bones": {
 				"ripped_soul": {
-					"position": {
-						"vector": [0, "Math.sin(query.anim_time*360)", 0]
-					}
+					"position": [0, "Math.sin(query.anim_time*360)", 0]
 				},
-				"tail": {
-					"scale": {
-						"vector": [0, 0, 0]
-					}
+				"ecto": {
+					"scale": 0
 				},
 				"core": {
-					"position": {
-						"vector": [0, "Math.cos(query.anim_time*360)*0.2", 0]
-					}
+					"position": [0, "Math.cos(query.anim_time*360)*0.2", 0]
+				}
+			},
+			"particle_effects": {
+				"0.0": {
+					"effect": "soul_ember"
+				},
+				"0.1": {
+					"effect": "soul_ember"
+				},
+				"0.2": {
+					"effect": "soul_ember"
+				},
+				"0.3": {
+					"effect": "soul_ember"
+				},
+				"0.4": {
+					"effect": "soul_ember"
+				},
+				"0.5": {
+					"effect": "soul_ember"
+				},
+				"0.6": {
+					"effect": "soul_ember"
+				},
+				"0.7": {
+					"effect": "soul_ember"
+				},
+				"0.8": {
+					"effect": "soul_ember"
+				},
+				"0.9": {
+					"effect": "soul_ember"
 				}
 			}
 		},
 		"start_movement": {
 			"animation_length": 0.5,
 			"bones": {
-				"tail": {
+				"ecto": {
 					"position": {
 						"0.0": {
 							"vector": [0, 0, 0]
@@ -45,30 +71,68 @@
 				}
 			}
 		},
+		"stop_movement": {
+			"animation_length": 0.5,
+			"bones": {
+				"ecto": {
+					"position": {
+						"0.0": [0, 0, -1],
+						"0.4583": [0, 0, 0]
+					},
+					"scale": {
+						"0.0": [1, 1, 1.5],
+						"0.4583": [0, 0, 0]
+					}
+				}
+			}
+		},
 		"movement": {
 			"loop": true,
 			"animation_length": 1,
 			"bones": {
 				"ripped_soul": {
-					"position": {
-						"vector": [0, "Math.sin(query.anim_time*360)", 0]
-					}
+					"rotation": ["query.head_x_rotation", 0, 0],
+					"position": [0, "Math.sin(query.anim_time*360)", 0]
 				},
-				"tail": {
-					"rotation": {
-						"vector": ["Math.sin(query.anim_time*360)*6", 0, 0]
-					},
-					"position": {
-						"vector": [0, "Math.sin(query.anim_time*360)*0.1", -1]
-					},
-					"scale": {
-						"vector": [1, 1, 1.5]
-					}
+				"ecto": {
+					"rotation": ["Math.sin(query.anim_time*360)*6", 0, 0],
+					"position": [0, "Math.sin(query.anim_time*360)*0.1", -1],
+					"scale": [1, 1, 1.5]
 				},
 				"core": {
-					"position": {
-						"vector": [0, "Math.cos(query.anim_time*360)*0.2", 0]
-					}
+					"position": [0, "Math.cos(query.anim_time*360)*0.2", 0]
+				}
+			},
+			"particle_effects": {
+				"0.0": {
+					"effect": "soul_ember"
+				},
+				"0.1": {
+					"effect": "soul_ember"
+				},
+				"0.2": {
+					"effect": "soul_ember"
+				},
+				"0.3": {
+					"effect": "soul_ember"
+				},
+				"0.4": {
+					"effect": "soul_ember"
+				},
+				"0.5": {
+					"effect": "soul_ember"
+				},
+				"0.6": {
+					"effect": "soul_ember"
+				},
+				"0.7": {
+					"effect": "soul_ember"
+				},
+				"0.8": {
+					"effect": "soul_ember"
+				},
+				"0.9": {
+					"effect": "soul_ember"
 				}
 			}
 		}

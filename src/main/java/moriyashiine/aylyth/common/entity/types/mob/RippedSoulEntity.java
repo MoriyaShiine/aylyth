@@ -1,5 +1,6 @@
 package moriyashiine.aylyth.common.entity.types.mob;
 
+import moriyashiine.aylyth.common.particle.effects.ColorableParticleEffect;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MovementType;
@@ -35,12 +36,21 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.Animation;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.EnumSet;
 import java.util.Optional;
 import java.util.UUID;
 
-public class RippedSoulEntity extends HostileEntity {
+public class RippedSoulEntity extends HostileEntity implements GeoEntity {
+    private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
+
     protected static final TrackedData<Byte> VEX_FLAGS = DataTracker.registerData(RippedSoulEntity.class, TrackedDataHandlerRegistry.BYTE);
     private static final TrackedData<Optional<UUID>> OWNER_UUID = DataTracker.registerData(RippedSoulEntity.class, TrackedDataHandlerRegistry.OPTIONAL_UUID);
     private static final int CHARGING_FLAG = 1;
@@ -236,6 +246,29 @@ public class RippedSoulEntity extends HostileEntity {
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
         return SoundEvents.ENTITY_VEX_HURT;
+    }
+
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(
+                new AnimationController<>(this, "main", state -> {
+                    if (state.isMoving()) {
+                        return state.setAndContinue(RawAnimation.begin().thenPlay("start_movement").thenLoop("movement"));
+                    } else {
+                        return state.setAndContinue(RawAnimation.begin().thenPlay("stop_movement").thenLoop("idle"));
+                    }
+                }).setParticleKeyframeHandler(event -> {
+                    RippedSoulEntity entity = event.getAnimatable();
+                    entity.getWorld().addParticle(ColorableParticleEffect.SOUL_EMBER,
+                            getX() + entity.random.nextFloat() / 10f, getY() + entity.random.nextFloat() / 10f, getZ() + entity.random.nextFloat() / 10f,
+                            entity.random.nextFloat() / 10f, entity.random.nextFloat() / 10f, entity.random.nextFloat() / 10f);
+                })
+        );
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return geoCache;
     }
 
 
