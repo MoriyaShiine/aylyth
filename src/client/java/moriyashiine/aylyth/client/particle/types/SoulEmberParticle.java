@@ -1,5 +1,6 @@
 package moriyashiine.aylyth.client.particle.types;
 
+import moriyashiine.aylyth.client.particle.AylythParticleTextureSheets;
 import moriyashiine.aylyth.common.particle.effects.ColorableParticleEffect;
 import net.minecraft.client.particle.AbstractSlowingParticle;
 import net.minecraft.client.particle.Particle;
@@ -34,7 +35,7 @@ public class SoulEmberParticle extends AbstractSlowingParticle {
 
     @Override
     public ParticleTextureSheet getType() {
-        return ParticleTextureSheet.PARTICLE_SHEET_TRANSLUCENT;
+        return AylythParticleTextureSheets.GLOWING;
     }
 
     public static class Factory implements ParticleFactory<ColorableParticleEffect> {
