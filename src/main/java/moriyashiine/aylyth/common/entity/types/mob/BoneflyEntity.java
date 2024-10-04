@@ -47,10 +47,8 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.Animation;
 import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.core.animation.RawAnimation;
@@ -62,6 +60,18 @@ import java.util.Optional;
 import java.util.UUID;
 
 public class BoneflyEntity extends HostileEntity implements GeoEntity, TameableHostileEntity, ProlongedDeath {
+    private static final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
+    private static final RawAnimation WALK = RawAnimation.begin().thenPlay("walk");
+    private static final RawAnimation FLIGHT = RawAnimation.begin().thenPlay("flight");
+    private static final RawAnimation FLIGHT_IDLE = RawAnimation.begin().thenPlay("flight_idle");
+    private static final RawAnimation FLIGHT_GRAB = RawAnimation.begin().thenPlay("flight_grab");
+    private static final RawAnimation FLIGHT_HOLD = RawAnimation.begin().thenPlay("flight_hold");
+    private static final RawAnimation REST = RawAnimation.begin().thenPlay("rest");
+    private static final RawAnimation STAND_TO_REST = RawAnimation.begin().thenPlay("stand_to_rest");
+    private static final RawAnimation REST_TO_STAND = RawAnimation.begin().thenPlay("rest_to_stand");
+    private static final RawAnimation HURT = RawAnimation.begin().thenPlay("hurt");
+    private static final RawAnimation DEATH = RawAnimation.begin().thenPlay("death");
+    private static final RawAnimation TWITCH = RawAnimation.begin().thenPlay("twitch");
     private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
     protected static final TrackedData<Boolean> DORMANT = DataTracker.registerData(BoneflyEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     public static final TrackedData<Integer> ACTION_STATE = DataTracker.registerData(BoneflyEntity.class, TrackedDataHandlerRegistry.INTEGER);
@@ -383,64 +393,59 @@ public class BoneflyEntity extends HostileEntity implements GeoEntity, TameableH
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar animationData) {
-        animationData.add(new AnimationController<>(this, "aeroPredicate", 5, this::aeroPredicate));
-        animationData.add(new AnimationController<>(this, "hurtPredicate", 1, this::hurtPredicate));
-        animationData.add(new AnimationController<>(this, "grabPredicate", 5, this::grabPredicate));
+        animationData.add(new AnimationController<>(this, "Move", 5, this::moveHandler));
+        animationData.add(new AnimationController<>(this, "Damage", 1, this::hurtHandler));
+        animationData.add(new AnimationController<>(this, "Grab", 5, this::grabHandler));
+        animationData.add(new AnimationController<>(this, "Effect", 5, this::effectHandler));
     }
-    private <E extends GeoAnimatable> PlayState aeroPredicate(AnimationState<E> event) {
-        var animationBuilder = RawAnimation.begin();
-        if(this.isDormant()){
-            animationBuilder.thenLoop("resting");
-        }else if (this.isInAir()) {
-            if(event.isMoving()){
-                animationBuilder.thenLoop("flight");
-            }else{
-                animationBuilder.thenLoop("flight_idle");
-            }
+
+    private <E extends BoneflyEntity> PlayState moveHandler(AnimationState<E> event) {
+        var entity = event.getAnimatable();
+        RawAnimation animation;
+        if (entity.isDormant()) {
+            animation = REST;
+        } else if (entity.isInAir()) {
+            animation = event.isMoving() ? FLIGHT : FLIGHT_IDLE;
         } else {
-            if(event.isMoving()) {
-                animationBuilder.thenLoop("walking");
-            } else {
-                animationBuilder.thenLoop("idle");
-            }
+            animation = event.isMoving() ? WALK : IDLE;
         }
 
-        if(!animationBuilder.getAnimationStages().isEmpty()) {
-            event.getController().setAnimation(animationBuilder);
-        }
-        return PlayState.CONTINUE;
+        return event.setAndContinue(animation);
     }
-    private <E extends GeoAnimatable> PlayState grabPredicate(AnimationState<E> event) {
-        var animationBuilder = RawAnimation.begin();
-        if(this.isInAir()){
-            if (this.getActionState() == 2) {//TODO: implement grab modes
-                animationBuilder.thenLoop("stabIdle");
-            } else if(this.getActionState() == 1) {
-                animationBuilder.then("stab", Animation.LoopType.PLAY_ONCE);
-            } else {
-                return PlayState.STOP;
-            }
-        }else {
+
+    private <E extends BoneflyEntity> PlayState grabHandler(AnimationState<E> event) {
+        var entity = event.getAnimatable();
+        RawAnimation animation;
+        if (!entity.isInAir()) {
             return PlayState.STOP;
         }
-        if(!animationBuilder.getAnimationStages().isEmpty()) {
-            event.getController().setAnimation(animationBuilder);
+
+        switch (entity.getActionState()) {
+            case 1 -> animation = FLIGHT_GRAB;
+            case 2 -> animation = FLIGHT_HOLD;
+            default -> {
+                return PlayState.STOP;
+            }
         }
-        return PlayState.CONTINUE;
+        return event.setAndContinue(animation);
     }
-    private <E extends GeoAnimatable> PlayState hurtPredicate(AnimationState<E> event) {
-        var animationBuilder = RawAnimation.begin();
-        if ((this.dead || this.getHealth() < 0.01 || this.isDead())) {
-            animationBuilder.then("death", Animation.LoopType.PLAY_ONCE);
-        } else if(this.hurtTime > 0 || this.deathTime > 0) {
-            animationBuilder.then("hurt", Animation.LoopType.PLAY_ONCE);
+
+    private <E extends BoneflyEntity> PlayState hurtHandler(AnimationState<E> event) {
+        var entity = event.getAnimatable();
+        RawAnimation animation;
+        if ((entity.dead || entity.getHealth() < 0.01 || entity.isDead())) {
+            animation = DEATH;
+        } else if (entity.hurtTime > 0 || entity.deathTime > 0) {
+            animation = HURT;
         } else {
             return PlayState.STOP;
         }
-        if(!animationBuilder.getAnimationStages().isEmpty()) {
-            event.getController().setAnimation(animationBuilder);
-        }
-        return PlayState.CONTINUE;
+
+        return event.setAndContinue(animation);
+    }
+
+    private <E extends BoneflyEntity> PlayState effectHandler(AnimationState<E> event) {
+        return event.setAndContinue(TWITCH);
     }
 
     @Override

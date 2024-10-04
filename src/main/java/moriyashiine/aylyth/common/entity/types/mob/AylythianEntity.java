@@ -46,6 +46,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AylythianEntity extends HostileEntity implements GeoEntity {
+	private static final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
+	private static final RawAnimation WALK = RawAnimation.begin().thenPlay("walk");
+	private static final RawAnimation RUN = RawAnimation.begin().thenPlay("run");
+	private static final RawAnimation STALK = RawAnimation.begin().thenPlay("stalk");
+	private static final RawAnimation SWIPE_RIGHT = RawAnimation.begin().thenPlay("clawswipe_right");
+	private static final RawAnimation SWIPE_LEFT = RawAnimation.begin().thenPlay("clawswipe_left");
 	private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
 	
 	public AylythianEntity(EntityType<? extends HostileEntity> entityType, World world) {
@@ -65,26 +71,17 @@ public class AylythianEntity extends HostileEntity implements GeoEntity {
 	public void registerControllers(AnimatableManager.ControllerRegistrar animationData) {
 		animationData.add(new AnimationController<>(this, "controller", 10, animationEvent -> {
 			float limbSwingAmount = Math.abs(animationEvent.getLimbSwingAmount());
-			var builder = RawAnimation.begin();
+			RawAnimation animation;
 			if (limbSwingAmount > 0.01F) {
-				MoveState state = limbSwingAmount > 0.6F ? MoveState.RUN : limbSwingAmount > 0.3F ? MoveState.WALK : MoveState.STALK;
-				builder = switch (state) {
-					case RUN -> builder.thenLoop("run");
-					case WALK -> builder.thenLoop("walk");
-					case STALK -> builder.thenLoop("stalk");
-				};
+				animation = limbSwingAmount > 0.6F ? RUN : limbSwingAmount > 0.3F ? WALK : STALK;
+			} else {
+				animation = IDLE;
 			}
-			else {
-				builder.thenLoop("idle");
-			}
-			animationEvent.getController().setAnimation(builder);
-			return PlayState.CONTINUE;
+			return animationEvent.setAndContinue(animation);
 		}));
 		animationData.add(new AnimationController<>(this, "arms", 0, animationEvent -> {
-			var builder = RawAnimation.begin();
 			if (handSwingTicks > 0 && !isDead()) {
-				animationEvent.getController().setAnimation(builder.thenLoop(getMainArm() == Arm.RIGHT ? "clawswipe_right" : "clawswipe_left"));
-				return PlayState.CONTINUE;
+				return animationEvent.setAndContinue(getMainArm() == Arm.RIGHT ? SWIPE_RIGHT : SWIPE_LEFT);
 			}
 			return PlayState.STOP;
 		}));

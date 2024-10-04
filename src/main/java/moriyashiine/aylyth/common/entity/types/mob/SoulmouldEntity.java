@@ -74,7 +74,17 @@ import java.util.UUID;
 
 // Thanks to Arathain for letting us have the Soulmould!
 public class SoulmouldEntity extends HostileEntity implements TameableHostileEntity, GeoEntity, ProlongedDeath {
+    private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("idle");
+    private static final RawAnimation WALK = RawAnimation.begin().thenLoop("walk");
+    private static final RawAnimation REST = RawAnimation.begin().thenLoop("rest");
+    private static final RawAnimation DASH = RawAnimation.begin().thenPlayXTimes("dash", 1);
+    private static final RawAnimation STRIKE = RawAnimation.begin().thenPlayXTimes("strike", 1);
+    private static final RawAnimation DEATH = RawAnimation.begin().thenPlayXTimes("death", 1);
+    private static final RawAnimation INACTIVE_IDLE = RawAnimation.begin().thenLoop("inactive_idle");
+    private static final RawAnimation ACTIVATE = RawAnimation.begin().thenPlayAndHold("activate");
+    private static final RawAnimation DEACTIVATE = RawAnimation.begin().thenPlayAndHold("deactivate");
     private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
+
     protected static final TrackedData<Boolean> DORMANT = DataTracker.registerData(SoulmouldEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     public static final TrackedData<Optional<BlockPos>> DORMANT_POS = DataTracker.registerData(SoulmouldEntity.class, TrackedDataHandlerRegistry.OPTIONAL_BLOCK_POS);
     public static final TrackedData<Integer> ATTACK_STATE = DataTracker.registerData(SoulmouldEntity.class, TrackedDataHandlerRegistry.INTEGER);
@@ -82,6 +92,10 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
     public static final TrackedData<Direction> DORMANT_DIR = DataTracker.registerData(SoulmouldEntity.class, TrackedDataHandlerRegistry.FACING);
     private static final TrackedData<Byte> TAMEABLE = DataTracker.registerData(SoulmouldEntity.class, TrackedDataHandlerRegistry.BYTE);
     private static final TrackedData<Optional<UUID>> OWNER_UUID = DataTracker.registerData(SoulmouldEntity.class, TrackedDataHandlerRegistry.OPTIONAL_UUID);
+    public static final int DEACTIVATED = 0;
+    public static final int ACTIVATED = 1;
+    public static final int KILLING_MODE = 2;
+
     public int activationTicks = 0;
     public int dashSlashTicks = 0;
 
@@ -293,14 +307,14 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
     }
 
     private void cycleActionState(PlayerEntity player) {
-        if(getActionState() == 0) {
-            setActionState(2);
+        if (getActionState() == DEACTIVATED) {
+            setActionState(KILLING_MODE);
             player.sendMessage(Text.literal("amogus").setStyle(Style.EMPTY.withColor(Formatting.DARK_RED).withObfuscated(true).withFont(new Identifier("minecraft", "default"))), true);
-        } else if(getActionState() == 2) {
-            setActionState(1);
+        } else if (getActionState() == KILLING_MODE) {
+            setActionState(ACTIVATED);
             player.sendMessage(Text.translatable("info.aylyth.ympemould_activate", getWorld().getRegistryKey().getValue().getPath()).setStyle(Style.EMPTY.withColor(Formatting.AQUA)), true);
-        } else if(getActionState() == 1) {
-            setActionState(0);
+        } else if (getActionState() == ACTIVATED) {
+            setActionState(DEACTIVATED);
             player.sendMessage(Text.translatable("info.aylyth.ympemould_deactivate", getWorld().getRegistryKey().getValue().getPath()).setStyle(Style.EMPTY.withColor(Formatting.DARK_GRAY)), true);
         }
     }
@@ -379,31 +393,34 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar animationData) {
-        animationData.add(new AnimationController<>(this, "controller", 5, this::predicate));
+        animationData.add(new AnimationController<>(this, "Main", 5, this::predicate));
     }
 
-    private <E extends GeoAnimatable> PlayState predicate(AnimationState<E> event) {
-        var animationBuilder = RawAnimation.begin();
+    private <E extends SoulmouldEntity> PlayState predicate(AnimationState<E> event) {
+        RawAnimation animation;
+        // TODO: Rework ympe mould
         if (this.isDormant()) {
-            if (getAttackState() == 1) {
-                animationBuilder.then("soulmould_inactive_to_active", Animation.LoopType.HOLD_ON_LAST_FRAME);
+            if (getAttackState() == ACTIVATED) {
+                animation = ACTIVATE;
             } else {
-                animationBuilder.thenLoop("soulmould_inactive");
+                animation = INACTIVE_IDLE;
             }
-        } else if(this.getAttackState() == 2) {
-            animationBuilder.then("soulmould_dashing", Animation.LoopType.PLAY_ONCE);
+        } else if (this.getAttackState() == KILLING_MODE) {
+            animation = DASH;
         } else {
             if (!this.hasVehicle() && event.isMoving()) {
-                animationBuilder.thenLoop("soulmould_walking");
+                animation = WALK;
             } else {
-                animationBuilder.thenLoop("soulmould_idle");
+                animation = IDLE;
             }
         }
 
-        if(!animationBuilder.getAnimationStages().isEmpty()) {
-            event.getController().setAnimation(animationBuilder);
-        }
-        return PlayState.CONTINUE;
+        return event.setAndContinue(animation);
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return factory;
     }
 
     public double getAngleBetweenEntities(Entity first, Entity second) {
@@ -428,11 +445,6 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
     @Override
     public EntityGroup getGroup() {
         return EntityGroup.UNDEAD;
-    }
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return factory;
     }
 
     public Optional<BlockPos> getDormantPos() {

@@ -1,7 +1,7 @@
 {
 	"format_version": "1.8.0",
 	"animations": {
-		"animation.faunaylythian.walk": {
+		"walk": {
 			"loop": true,
 			"animation_length": 2,
 			"bones": {
@@ -273,7 +273,7 @@
 				}
 			}
 		},
-		"animation.faunaylythian.idle": {
+		"idle": {
 			"loop": true,
 			"animation_length": 4,
 			"bones": {
@@ -367,7 +367,7 @@
 				}
 			}
 		},
-		"animation.faunaylythian.chasing": {
+		"chase": {
 			"loop": true,
 			"animation_length": 0.5,
 			"bones": {
@@ -652,7 +652,7 @@
 				}
 			}
 		},
-		"animation.faunaylythian.attack": {
+		"bite": {
 			"animation_length": 1,
 			"bones": {
 				"chest": {
@@ -947,7 +947,7 @@
 				}
 			}
 		},
-		"animation.faunaylythian.hit": {
+		"swipe": {
 			"animation_length": 1,
 			"bones": {
 				"chest": {
@@ -1171,7 +1171,7 @@
 				}
 			}
 		},
-		"animation.faunaylythian.prepare": {
+		"pounce.prepare": {
 			"animation_length": 0.33333,
 			"bones": {
 				"chest": {
@@ -1368,7 +1368,7 @@
 				}
 			}
 		},
-		"animation.faunaylythian.jump": {
+		"pounce.jump": {
 			"animation_length": 0.79167,
 			"bones": {
 				"chest": {

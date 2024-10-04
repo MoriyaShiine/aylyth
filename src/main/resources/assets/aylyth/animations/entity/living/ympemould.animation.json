@@ -1,7 +1,7 @@
 {
 	"format_version": "1.8.0",
 	"animations": {
-		"soulmould_idle": {
+		"idle": {
 			"loop": true,
 			"animation_length": 12,
 			"bones": {
@@ -318,7 +318,7 @@
 				}
 			}
 		},
-		"soulmould_walking": {
+		"walk": {
 			"loop": true,
 			"animation_length": 4,
 			"bones": {
@@ -638,7 +638,7 @@
 				}
 			}
 		},
-		"soulmould_resting": {
+		"rest": {
 			"loop": true,
 			"animation_length": 9.75,
 			"bones": {
@@ -1107,7 +1107,7 @@
 				}
 			}
 		},
-		"soulmould_dashing": {
+		"dash": {
 			"animation_length": 2.5,
 			"bones": {
 				"rArm01": {
@@ -1346,7 +1346,7 @@
 				}
 			}
 		},
-		"soulmould_striking": {
+		"strike": {
 			"animation_length": 3,
 			"bones": {
 				"rArm01": {
@@ -1641,7 +1641,7 @@
 				}
 			}
 		},
-		"soulmould_death": {
+		"death": {
 			"animation_length": 5,
 			"bones": {
 				"rArm01": {
@@ -1918,7 +1918,7 @@
 				}
 			}
 		},
-		"soulmould_inactive": {
+		"inactive_idle": {
 			"loop": true,
 			"bones": {
 				"rArm01": {
@@ -1951,7 +1951,7 @@
 				}
 			}
 		},
-		"soulmould_active_to_inactive": {
+		"activate": {
 			"loop": "hold_on_last_frame",
 			"animation_length": 0.5,
 			"bones": {
@@ -2018,7 +2018,7 @@
 				}
 			}
 		},
-		"soulmould_inactive_to_active": {
+		"deactivate": {
 			"loop": "hold_on_last_frame",
 			"animation_length": 0.5,
 			"bones": {

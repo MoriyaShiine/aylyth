@@ -2270,7 +2270,7 @@
 		}
 	  }
 	},
-	"clawswipe": {
+	"swipe": {
 	  "animation_length": 0.52,
 	  "bones": {
 		"head": {

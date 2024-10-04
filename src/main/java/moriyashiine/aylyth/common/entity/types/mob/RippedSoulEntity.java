@@ -2,6 +2,7 @@ package moriyashiine.aylyth.common.entity.types.mob;
 
 import moriyashiine.aylyth.common.particle.effects.ColorableParticleEffect;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.Flutterer;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MovementType;
 import net.minecraft.entity.ai.TargetPredicate;
@@ -48,7 +49,9 @@ import java.util.EnumSet;
 import java.util.Optional;
 import java.util.UUID;
 
-public class RippedSoulEntity extends HostileEntity implements GeoEntity {
+public class RippedSoulEntity extends HostileEntity implements GeoEntity, Flutterer {
+    private static final RawAnimation IDLE = RawAnimation.begin().thenPlay("stop_movement").thenPlay("idle");
+    private static final RawAnimation MOVE = RawAnimation.begin().thenPlay("start_movement").thenPlay("movement");
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
 
     protected static final TrackedData<Byte> VEX_FLAGS = DataTracker.registerData(RippedSoulEntity.class, TrackedDataHandlerRegistry.BYTE);
@@ -251,13 +254,8 @@ public class RippedSoulEntity extends HostileEntity implements GeoEntity {
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(
-                new AnimationController<>(this, "main", state -> {
-                    if (state.isMoving()) {
-                        return state.setAndContinue(RawAnimation.begin().thenPlay("start_movement").thenLoop("movement"));
-                    } else {
-                        return state.setAndContinue(RawAnimation.begin().thenPlay("stop_movement").thenLoop("idle"));
-                    }
-                }).setParticleKeyframeHandler(event -> {
+                new AnimationController<>(this, "Move", state -> state.setAndContinue(state.isMoving() ? MOVE : IDLE))
+                        .setParticleKeyframeHandler(event -> {
                     RippedSoulEntity entity = event.getAnimatable();
                     entity.getWorld().addParticle(ColorableParticleEffect.SOUL_EMBER,
                             getX() + entity.random.nextFloat() / 10f, getY() + entity.random.nextFloat() / 10f, getZ() + entity.random.nextFloat() / 10f,
@@ -271,6 +269,10 @@ public class RippedSoulEntity extends HostileEntity implements GeoEntity {
         return geoCache;
     }
 
+    @Override
+    public boolean isInAir() {
+        return true;
+    }
 
     class VexMoveControl
             extends MoveControl {
