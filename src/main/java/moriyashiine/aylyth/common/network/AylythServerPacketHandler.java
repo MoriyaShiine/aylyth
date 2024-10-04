@@ -29,7 +29,7 @@ public final class AylythServerPacketHandler {
             f += g;
             Entity crosshairTarget = player.getWorld().getEntityById(packet.entityId());
             if (crosshairTarget != null) {
-                crosshairTarget.damage(player.getWorld().modDamageSources().soulRip(player), f);
+                crosshairTarget.damage(player.getWorld().aylythDamageSources().soulRip(player), f);
             }
         }
     }

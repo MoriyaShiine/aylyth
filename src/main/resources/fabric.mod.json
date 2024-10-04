@@ -67,7 +67,7 @@
             "aylyth:vital_health"
         ],
         "loom:injected_interfaces": {
-            "net/minecraft/class_1937": ["moriyashiine/aylyth/api/interfaces/ModDamageSourcesProvider"]
+            "net/minecraft/class_1937": ["moriyashiine/aylyth/api/interfaces/AylythDamageSourcesProvider"]
         }
     }
 }

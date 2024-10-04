@@ -130,7 +130,7 @@ public class YmpeLanceEntity extends PersistentProjectileEntity {
 			}
 
 			if (timeStuck % 40 == 0 && timeStuck > 0) {
-				target.damage(getWorld().modDamageSources().ympe(), 4);
+				target.damage(getWorld().aylythDamageSources().ympe(), 4);
 
 				if (thornsComponent.getThornProgress() < 3) {
 					thornsComponent.incrementThornProgress(1);

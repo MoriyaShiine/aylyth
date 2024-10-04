@@ -11,11 +11,11 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKeys;
 import org.jetbrains.annotations.Nullable;
 
-public class ModDamageSources {
+public class AylythDamageSources {
 	private final Registry<DamageType> damageTypeRegistry;
 	private final DamageSource ympe;
 
-	public ModDamageSources(DynamicRegistryManager dynamicRegistryManager) {
+	public AylythDamageSources(DynamicRegistryManager dynamicRegistryManager) {
 		damageTypeRegistry = dynamicRegistryManager.get(RegistryKeys.DAMAGE_TYPE);
 		this.ympe = new DamageSource(damageTypeRegistry.entryOf(AylythDamageTypes.YMPE));
 	}

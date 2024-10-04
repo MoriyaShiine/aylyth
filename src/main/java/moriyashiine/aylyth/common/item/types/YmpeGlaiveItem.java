@@ -49,7 +49,7 @@ public class YmpeGlaiveItem extends SwordItem {
     public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         if(attacker instanceof PlayerEntity player) {
             player.spawnSweepAttackParticles();
-            target.damage(attacker.getWorld().modDamageSources().soulRip(player), this.getAttackDamage());
+            target.damage(attacker.getWorld().aylythDamageSources().soulRip(player), this.getAttackDamage());
         }
         return super.postHit(stack, target, attacker);
     }
@@ -68,7 +68,7 @@ public class YmpeGlaiveItem extends SwordItem {
                     if(!(target instanceof ArmorStandEntity)) {
                         target.takeKnockback(0.4D, MathHelper.sin(player.getYaw() * 0.0175F), -MathHelper.cos(player.getYaw() * 0.0175F));
                     }
-                    target.damage(world.modDamageSources().soulRip(player), this.getAttackDamage());
+                    target.damage(world.aylythDamageSources().soulRip(player), this.getAttackDamage());
                 }
             });
             player.getWorld().playSoundFromEntity(null, player, SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, player.getSoundCategory(), 1F, 1F);

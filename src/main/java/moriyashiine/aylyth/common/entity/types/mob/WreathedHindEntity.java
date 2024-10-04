@@ -51,7 +51,6 @@ import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.Animation;
 import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.core.animation.RawAnimation;
@@ -164,7 +163,7 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
 
     public boolean tryKillingAttack(PlayerEntity target) {
         float f = 6;
-        boolean bl = target.damage(getWorld().modDamageSources().killingBlow(this), f);
+        boolean bl = target.damage(getWorld().aylythDamageSources().killingBlow(this), f);
         if (bl) {
             this.disablePlayerShield(target, this.getMainHandStack(), target.isUsingItem() ? target.getActiveItem() : ItemStack.EMPTY);
             this.applyDamageEffects(this, target);
