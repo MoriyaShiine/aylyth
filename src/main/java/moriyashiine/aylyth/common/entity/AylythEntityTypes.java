@@ -12,7 +12,7 @@ import moriyashiine.aylyth.common.entity.types.mob.YmpemouldEntity;
 import moriyashiine.aylyth.common.entity.types.mob.TulpaEntity;
 import moriyashiine.aylyth.common.entity.types.mob.TulpaEntity.TulpaPlayerEntity;
 import moriyashiine.aylyth.common.entity.types.mob.WreathedHindEntity;
-import moriyashiine.aylyth.common.entity.types.mob.passive.PilotLightEntity;
+import moriyashiine.aylyth.common.entity.types.mob.PilotLightEntity;
 import moriyashiine.aylyth.common.entity.types.projectile.SphereEntity;
 import moriyashiine.aylyth.common.entity.types.projectile.ThornFlechetteEntity;
 import moriyashiine.aylyth.common.entity.types.projectile.YmpeLanceEntity;

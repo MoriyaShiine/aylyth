@@ -69,7 +69,7 @@ public class AylythianEntity extends HostileEntity implements GeoEntity {
 	
 	@Override
 	public void registerControllers(AnimatableManager.ControllerRegistrar animationData) {
-		animationData.add(new AnimationController<>(this, "controller", 10, animationEvent -> {
+		animationData.add(new AnimationController<>(this, "Move", 10, animationEvent -> {
 			float limbSwingAmount = Math.abs(animationEvent.getLimbSwingAmount());
 			RawAnimation animation;
 			if (limbSwingAmount > 0.01F) {
@@ -79,7 +79,7 @@ public class AylythianEntity extends HostileEntity implements GeoEntity {
 			}
 			return animationEvent.setAndContinue(animation);
 		}));
-		animationData.add(new AnimationController<>(this, "arms", 0, animationEvent -> {
+		animationData.add(new AnimationController<>(this, "Attack", 0, animationEvent -> {
 			if (handSwingTicks > 0 && !isDead()) {
 				return animationEvent.setAndContinue(getMainArm() == Arm.RIGHT ? SWIPE_RIGHT : SWIPE_LEFT);
 			}

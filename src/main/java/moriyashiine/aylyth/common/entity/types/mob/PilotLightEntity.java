@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.common.entity.types.mob.passive;
+package moriyashiine.aylyth.common.entity.types.mob;
 
 import moriyashiine.aylyth.common.data.world.AylythDimensionData;
 import moriyashiine.aylyth.common.particle.AylythParticleTypes;
