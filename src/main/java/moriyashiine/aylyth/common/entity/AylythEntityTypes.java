@@ -8,7 +8,7 @@ import moriyashiine.aylyth.common.entity.types.mob.ElderAylythianEntity;
 import moriyashiine.aylyth.common.entity.types.mob.FaunaylythianEntity;
 import moriyashiine.aylyth.common.entity.types.mob.RippedSoulEntity;
 import moriyashiine.aylyth.common.entity.types.mob.ScionEntity;
-import moriyashiine.aylyth.common.entity.types.mob.SoulmouldEntity;
+import moriyashiine.aylyth.common.entity.types.mob.YmpemouldEntity;
 import moriyashiine.aylyth.common.entity.types.mob.TulpaEntity;
 import moriyashiine.aylyth.common.entity.types.mob.TulpaEntity.TulpaPlayerEntity;
 import moriyashiine.aylyth.common.entity.types.mob.WreathedHindEntity;
@@ -86,12 +86,12 @@ public interface AylythEntityTypes {
 			.build()
 	);
 
-	EntityType<SoulmouldEntity> SOULMOULD = register("soulmould", FabricEntityTypeBuilder.createLiving()
+	EntityType<YmpemouldEntity> YMPEMOULD = register("ympemould", FabricEntityTypeBuilder.createLiving()
 			.spawnGroup(SpawnGroup.MONSTER)
-			.entityFactory(SoulmouldEntity::new)
+			.entityFactory(YmpemouldEntity::new)
 			.dimensions(EntityDimensions.fixed(0.85f, 2.7f))
 			.fireImmune()
-			.defaultAttributes(SoulmouldEntity::createSoulmouldAttributes)
+			.defaultAttributes(YmpemouldEntity::createSoulmouldAttributes)
 			.build()
 	);
 	EntityType<BoneflyEntity> BONEFLY = register("bonefly", FabricEntityTypeBuilder.createLiving()

@@ -184,7 +184,7 @@ public class AylythClient implements ClientModInitializer {
 		EntityRendererRegistry.register(AylythEntityTypes.AYLYTHIAN, AylythianEntityRenderer::new);
 		EntityRendererRegistry.register(AylythEntityTypes.ELDER_AYLYTHIAN, ElderAylythianEntityRenderer::new);
 		EntityRendererRegistry.register(AylythEntityTypes.YMPE_LANCE, YmpeLanceEntityRenderer::new);
-		EntityRendererRegistry.register(AylythEntityTypes.SOULMOULD, SoulmouldEntityRenderer::new);
+		EntityRendererRegistry.register(AylythEntityTypes.YMPEMOULD, SoulmouldEntityRenderer::new);
 		EntityRendererRegistry.register(AylythEntityTypes.BONEFLY, BoneflyEntityRenderer::new);
 		EntityRendererRegistry.register(AylythEntityTypes.ROOT_PROP, RootPropEntityRenderer::new);
 		EntityRendererRegistry.register(AylythEntityTypes.RIPPED_SOUL, RippedSoulEntityRenderer::new);

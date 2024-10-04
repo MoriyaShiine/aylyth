@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.client.render.entity.living;
 
 import moriyashiine.aylyth.client.model.entity.SoulmouldEntityModel;
-import moriyashiine.aylyth.common.entity.types.mob.SoulmouldEntity;
+import moriyashiine.aylyth.common.entity.types.mob.YmpemouldEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
@@ -15,19 +15,19 @@ import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
-public class SoulmouldEntityRenderer extends GeoEntityRenderer<SoulmouldEntity> {
+public class SoulmouldEntityRenderer extends GeoEntityRenderer<YmpemouldEntity> {
     public SoulmouldEntityRenderer(EntityRendererFactory.Context ctx) {
         super(ctx, new SoulmouldEntityModel());
     }
 
     @Override
-    public  RenderLayer getRenderType(SoulmouldEntity animatable, Identifier textureLocation, @Nullable VertexConsumerProvider bufferSource, float partialTick) {
+    public  RenderLayer getRenderType(YmpemouldEntity animatable, Identifier textureLocation, @Nullable VertexConsumerProvider bufferSource, float partialTick) {
         return RenderLayer.getEntityTranslucent(textureLocation, true);
     }
 
 
     @Override
-    public void renderRecursively(MatrixStack stack, SoulmouldEntity animatable, GeoBone bone, RenderLayer renderType, VertexConsumerProvider bufferSource, VertexConsumer bufferIn, boolean isReRender, float partialTick, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
+    public void renderRecursively(MatrixStack stack, YmpemouldEntity animatable, GeoBone bone, RenderLayer renderType, VertexConsumerProvider bufferSource, VertexConsumer bufferIn, boolean isReRender, float partialTick, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
         var mainHand = getAnimatable().getMainHandStack();
         if (bone.getName().equals("rightHeldItem") && !mainHand.isEmpty()) {
             stack.push();
@@ -42,7 +42,7 @@ public class SoulmouldEntityRenderer extends GeoEntityRenderer<SoulmouldEntity> 
     }
 
     @Override
-    protected float getDeathMaxRotation(SoulmouldEntity entityLivingBaseIn) {
+    protected float getDeathMaxRotation(YmpemouldEntity entityLivingBaseIn) {
         return 0.0F;
     }
 }

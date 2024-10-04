@@ -57,10 +57,8 @@ import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.Animation;
 import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.core.animation.RawAnimation;
@@ -73,7 +71,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 // Thanks to Arathain for letting us have the Soulmould!
-public class SoulmouldEntity extends HostileEntity implements TameableHostileEntity, GeoEntity, ProlongedDeath {
+public class YmpemouldEntity extends HostileEntity implements TameableHostileEntity, GeoEntity, ProlongedDeath {
     private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("idle");
     private static final RawAnimation WALK = RawAnimation.begin().thenLoop("walk");
     private static final RawAnimation REST = RawAnimation.begin().thenLoop("rest");
@@ -85,13 +83,13 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
     private static final RawAnimation DEACTIVATE = RawAnimation.begin().thenPlayAndHold("deactivate");
     private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
 
-    protected static final TrackedData<Boolean> DORMANT = DataTracker.registerData(SoulmouldEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-    public static final TrackedData<Optional<BlockPos>> DORMANT_POS = DataTracker.registerData(SoulmouldEntity.class, TrackedDataHandlerRegistry.OPTIONAL_BLOCK_POS);
-    public static final TrackedData<Integer> ATTACK_STATE = DataTracker.registerData(SoulmouldEntity.class, TrackedDataHandlerRegistry.INTEGER);
-    public static final TrackedData<Integer> ACTION_STATE = DataTracker.registerData(SoulmouldEntity.class, TrackedDataHandlerRegistry.INTEGER);
-    public static final TrackedData<Direction> DORMANT_DIR = DataTracker.registerData(SoulmouldEntity.class, TrackedDataHandlerRegistry.FACING);
-    private static final TrackedData<Byte> TAMEABLE = DataTracker.registerData(SoulmouldEntity.class, TrackedDataHandlerRegistry.BYTE);
-    private static final TrackedData<Optional<UUID>> OWNER_UUID = DataTracker.registerData(SoulmouldEntity.class, TrackedDataHandlerRegistry.OPTIONAL_UUID);
+    protected static final TrackedData<Boolean> DORMANT = DataTracker.registerData(YmpemouldEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    public static final TrackedData<Optional<BlockPos>> DORMANT_POS = DataTracker.registerData(YmpemouldEntity.class, TrackedDataHandlerRegistry.OPTIONAL_BLOCK_POS);
+    public static final TrackedData<Integer> ATTACK_STATE = DataTracker.registerData(YmpemouldEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    public static final TrackedData<Integer> ACTION_STATE = DataTracker.registerData(YmpemouldEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    public static final TrackedData<Direction> DORMANT_DIR = DataTracker.registerData(YmpemouldEntity.class, TrackedDataHandlerRegistry.FACING);
+    private static final TrackedData<Byte> TAMEABLE = DataTracker.registerData(YmpemouldEntity.class, TrackedDataHandlerRegistry.BYTE);
+    private static final TrackedData<Optional<UUID>> OWNER_UUID = DataTracker.registerData(YmpemouldEntity.class, TrackedDataHandlerRegistry.OPTIONAL_UUID);
     public static final int DEACTIVATED = 0;
     public static final int ACTIVATED = 1;
     public static final int KILLING_MODE = 2;
@@ -99,7 +97,7 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
     public int activationTicks = 0;
     public int dashSlashTicks = 0;
 
-    public SoulmouldEntity(EntityType<? extends HostileEntity> entityType, World world) {
+    public YmpemouldEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
         this.setStepHeight(1.6f);
         this.setPathfindingPenalty(PathNodeType.LAVA, 0);
@@ -128,7 +126,7 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
         this.goalSelector.add(0, new SoulmouldDashSlashGoal(this));
         this.targetSelector.add(1, new TamedTrackAttackerGoal(this));
         this.targetSelector.add(2, new TamedAttackWithOwnerGoal<>(this));
-        this.targetSelector.add(2, new ActiveTargetGoal<>(this, LivingEntity.class, 10, true, false, livingEntity -> !livingEntity.equals(this.getOwner()) && !(livingEntity instanceof TameableEntity tamed && tamed.getOwner() != null && tamed.getOwner().equals(this.getOwner())) && !(livingEntity instanceof ArmorStandEntity) && !(livingEntity instanceof SoulmouldEntity mould && mould.isOwner(this.getOwner())) && this.getActionState() == 2 && !(livingEntity instanceof BatEntity) && !(livingEntity instanceof PlayerEntity player && player.getUuid().equals(UUID.fromString("1ece513b-8d36-4f04-9be2-f341aa8c9ee2")))));
+        this.targetSelector.add(2, new ActiveTargetGoal<>(this, LivingEntity.class, 10, true, false, livingEntity -> !livingEntity.equals(this.getOwner()) && !(livingEntity instanceof TameableEntity tamed && tamed.getOwner() != null && tamed.getOwner().equals(this.getOwner())) && !(livingEntity instanceof ArmorStandEntity) && !(livingEntity instanceof YmpemouldEntity mould && mould.isOwner(this.getOwner())) && this.getActionState() == 2 && !(livingEntity instanceof BatEntity) && !(livingEntity instanceof PlayerEntity player && player.getUuid().equals(UUID.fromString("1ece513b-8d36-4f04-9be2-f341aa8c9ee2")))));
     }
 
     @Override
@@ -396,7 +394,7 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
         animationData.add(new AnimationController<>(this, "Main", 5, this::predicate));
     }
 
-    private <E extends SoulmouldEntity> PlayState predicate(AnimationState<E> event) {
+    private <E extends YmpemouldEntity> PlayState predicate(AnimationState<E> event) {
         RawAnimation animation;
         // TODO: Rework ympe mould
         if (this.isDormant()) {
@@ -491,13 +489,13 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
     }
 
     public static class SoulmouldAttackLogicGoal extends Goal {
-        private final SoulmouldEntity mould;
+        private final YmpemouldEntity mould;
         private int scrunkly;
         private double targetX;
         private double targetY;
         private double targetZ;
 
-        public SoulmouldAttackLogicGoal(SoulmouldEntity entity) {
+        public SoulmouldAttackLogicGoal(YmpemouldEntity entity) {
             this.mould = entity;
             this.setControls(EnumSet.of(Control.MOVE, Control.LOOK, Control.JUMP));
         }
@@ -549,8 +547,8 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
     }
 
     public static class SoulmouldDashSlashGoal extends Goal {
-        private final SoulmouldEntity mould;
-        public SoulmouldDashSlashGoal(SoulmouldEntity entity) {
+        private final YmpemouldEntity mould;
+        public SoulmouldDashSlashGoal(YmpemouldEntity entity) {
             this.mould = entity;
             this.setControls(EnumSet.of(Control.MOVE, Control.LOOK, Control.JUMP));
         }
@@ -576,7 +574,7 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
             }
             if(ticks == 10 || ticks == 13 || ticks == 15) {
                 mould.playSound(AylythSoundEvents.ENTITY_SOULMOULD_ATTACK.value(), 1f, 1f);
-                List<LivingEntity> entities = mould.getWorld().getEntitiesByClass(LivingEntity.class, mould.getBoundingBox().expand(4, 3, 4), livingEntity -> livingEntity != mould && livingEntity != mould.getOwner() && !(livingEntity instanceof SoulmouldEntity smould && smould.getOwner() == mould.getOwner()) && mould.distanceTo(livingEntity) <= 4 + livingEntity.getWidth() / 2 && livingEntity.getY() <= mould.getY() + 3);
+                List<LivingEntity> entities = mould.getWorld().getEntitiesByClass(LivingEntity.class, mould.getBoundingBox().expand(4, 3, 4), livingEntity -> livingEntity != mould && livingEntity != mould.getOwner() && !(livingEntity instanceof YmpemouldEntity smould && smould.getOwner() == mould.getOwner()) && mould.distanceTo(livingEntity) <= 4 + livingEntity.getWidth() / 2 && livingEntity.getY() <= mould.getY() + 3);
                 for(LivingEntity entity: entities) {
                     Vec3d vec = entity.getPos().subtract(mould.getPos()).normalize().negate();
                     entity.takeKnockback(1, vec.x, vec.z);

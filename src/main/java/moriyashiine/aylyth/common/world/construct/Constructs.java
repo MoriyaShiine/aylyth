@@ -4,7 +4,7 @@ import it.unimi.dsi.fastutil.objects.Reference2ObjectOpenHashMap;
 import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.entity.AylythEntityTypes;
 import moriyashiine.aylyth.common.entity.types.mob.BoneflyEntity;
-import moriyashiine.aylyth.common.entity.types.mob.SoulmouldEntity;
+import moriyashiine.aylyth.common.entity.types.mob.YmpemouldEntity;
 import moriyashiine.aylyth.common.entity.types.mob.TulpaEntity;
 import moriyashiine.aylyth.common.item.AylythItems;
 import net.minecraft.block.Block;
@@ -56,12 +56,12 @@ public class Constructs {
                                 .where('E', cachedBlockPosition -> cachedBlockPosition.getBlockState().isOf(AylythBlocks.ESSTLINE_BLOCK))
                                 .build(),
                         (serverWorld, usageContext, groundPos) -> {
-                            SoulmouldEntity soulmouldEntity = new SoulmouldEntity(AylythEntityTypes.SOULMOULD, serverWorld);
-                            soulmouldEntity.refreshPositionAndAngles(groundPos, usageContext.getSide().asRotation(), 0.0F);
-                            soulmouldEntity.setOwner(usageContext.getPlayer());
-                            soulmouldEntity.equipStack(EquipmentSlot.MAINHAND, new ItemStack(AylythItems.YMPE_GLAIVE));
-                            soulmouldEntity.handDropChances[EquipmentSlot.MAINHAND.getEntitySlotId()] = 0.0F;
-                            return soulmouldEntity;
+                            YmpemouldEntity ympemouldEntity = new YmpemouldEntity(AylythEntityTypes.YMPEMOULD, serverWorld);
+                            ympemouldEntity.refreshPositionAndAngles(groundPos, usageContext.getSide().asRotation(), 0.0F);
+                            ympemouldEntity.setOwner(usageContext.getPlayer());
+                            ympemouldEntity.equipStack(EquipmentSlot.MAINHAND, new ItemStack(AylythItems.YMPE_GLAIVE));
+                            ympemouldEntity.handDropChances[EquipmentSlot.MAINHAND.getEntitySlotId()] = 0.0F;
+                            return ympemouldEntity;
                         }
                 )
         );

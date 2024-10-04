@@ -37,7 +37,7 @@ public class AylythEntityLootProvider extends SimpleFabricLootTableProvider {
         addDrop(AylythEntityTypes.ELDER_AYLYTHIAN, this::elderAylythianLoot);
         addDrop(AylythEntityTypes.SCION, this::scionLoot);
         if (false) { // TODO: these drops are specified in the constructs doc. Normal loot that drops before post-death?
-            addDrop(AylythEntityTypes.SOULMOULD, this::mouldOfSoulsLoot);
+            addDrop(AylythEntityTypes.YMPEMOULD, this::mouldOfSoulsLoot);
             addDrop(AylythEntityTypes.BONEFLY, this::boneflyLoot);
             addDrop(AylythEntityTypes.TULPA, this::tulpaLoot);
         }

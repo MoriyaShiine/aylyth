@@ -217,7 +217,7 @@ public interface AylythItems {
     Item FAUNAYLYTHIAN_SPAWN_EGG = registerSpawnEgg("faunaylythian_spawn_egg", AylythEntityTypes.FAUNAYLYTHIAN, 0x6A4831, 0xE1AC20);
     Item WREATHED_HIND_SPAWN_EGG = registerSpawnEgg("wreathed_hind_spawn_egg", AylythEntityTypes.WREATHED_HIND_ENTITY, 0x5C4F42, 0xE1B886);
     Item SCION_SPAWN_EGG = registerSpawnEgg("scion_spawn_egg", AylythEntityTypes.SCION, 0x463428, 0xE58E03);
-    Item YMPEMOULD_SPAWN_EGG = registerSpawnEgg("ympemould_spawn_egg", AylythEntityTypes.SOULMOULD, 0x42423E, 0xE58E03);
+    Item YMPEMOULD_SPAWN_EGG = registerSpawnEgg("ympemould_spawn_egg", AylythEntityTypes.YMPEMOULD, 0x42423E, 0xE58E03);
     Item BONEFLY_SPAWN_EGG = registerSpawnEgg("bonefly_spawn_egg", AylythEntityTypes.BONEFLY, 0xE2E2D6, 0x3A2E2B);
     Item TULPA_SPAWN_EGG = registerSpawnEgg("tulpa_spawn_egg", AylythEntityTypes.TULPA, 0xE2E2D6, 0x73868F);
 

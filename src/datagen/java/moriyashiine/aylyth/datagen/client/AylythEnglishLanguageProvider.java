@@ -202,7 +202,7 @@ public class AylythEnglishLanguageProvider extends FabricLanguageProvider {
         builder.add(AylythEntityTypes.AYLYTHIAN, "Aylythian");
         builder.add(AylythEntityTypes.ELDER_AYLYTHIAN, "Elder Aylythian");
         builder.add(AylythEntityTypes.YMPE_LANCE, "Ympe Lance");
-        builder.add(AylythEntityTypes.SOULMOULD, "Mould of Souls");
+        builder.add(AylythEntityTypes.YMPEMOULD, "Ympemould");
         builder.add(AylythEntityTypes.BONEFLY, "Bonefly");
         builder.add(AylythEntityTypes.SCION, "Scion");
         builder.add(AylythEntityTypes.TULPA, "Tulpa");
