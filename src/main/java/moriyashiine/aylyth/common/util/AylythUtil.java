@@ -10,6 +10,7 @@ import moriyashiine.aylyth.common.world.AylythSoundEvents;
 import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
@@ -20,18 +21,24 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ChunkTicketType;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.Heightmap;
 import net.minecraft.world.TeleportTarget;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.poi.PointOfInterestStorage;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Optional;
 
 public class AylythUtil {
 	public static final int MAX_TRIES = 8;
@@ -71,6 +78,31 @@ public class AylythUtil {
 		ServerWorld toWorld = living.getWorld().getServer().getWorld(world);
 		FabricDimensions.teleport(living, toWorld, new TeleportTarget(Vec3d.of(AylythUtil.getSafePosition(toWorld, living.getBlockPos().mutableCopy(), tries)), Vec3d.ZERO, living.headYaw, living.getPitch()));
 		toWorld.playSoundFromEntity(null, living, AylythSoundEvents.ENTITY_GENERIC_SHUCKED.value(), SoundCategory.PLAYERS, 1, living.getSoundPitch());
+	}
+
+	/**
+	 * Attempts to find a random location near the given x and z position at the world surface
+	 * @param toWorld
+	 * @param startPos
+	 * @return
+	 */
+	public static Optional<Vec3d> findTeleportPosition(ServerWorld toWorld, BlockPos startPos) {
+		ChunkPos spawnChunkPos = new ChunkPos(startPos);
+		BlockPos spawnPoint = spawnChunkPos.getCenterAtY(startPos.getY());
+		toWorld.getChunkManager().addTicket(ChunkTicketType.PORTAL, spawnChunkPos, 2, spawnPoint);
+		Chunk chunk = toWorld.getChunk(spawnPoint);
+		for (BlockPos pos : BlockPos.iterateRandomly(toWorld.random, 5, spawnPoint, 7)) {
+			pos = new BlockPos(pos.getX(), chunk.getHeightmap(Heightmap.Type.WORLD_SURFACE).get(pos.getX(), pos.getZ()), pos.getZ());
+			if (canTeleportToPos(toWorld, pos)) {
+				return Optional.of(new Vec3d(pos.getX() + 0.5, pos.getY() + 0.1, pos.getZ() + 0.5));
+			}
+		}
+
+		return Optional.empty();
+	}
+
+	public static boolean canTeleportToPos(ServerWorld toWorld, BlockPos pos) {
+		return toWorld.testBlockState(pos, state -> state.getBlock().canMobSpawnInside(state)) && toWorld.testBlockState(pos.up(), state -> state.getBlock().canMobSpawnInside(state));
 	}
 
 	public static boolean shouldUndeadAttack(LivingEntity target, LivingEntity attacker) {

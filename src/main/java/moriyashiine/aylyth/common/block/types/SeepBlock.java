@@ -67,28 +67,27 @@ public class SeepBlock extends Block implements BlockEntityProvider {
 				MinecraftServer server = serverWorld.getServer();
 				ServerWorld toWorld = world.getRegistryKey() == AylythDimensionData.WORLD ? server.getOverworld() : server.getWorld(AylythDimensionData.WORLD);
 				toWorld.getChunkManager().addTicket(ChunkTicketType.PORTAL, new ChunkPos(pos), 3, pos);
-				Optional<BlockPos> connectedSeep;
+				Optional<Vec3d> connectedSeep;
 				if (state.isOf(AylythBlocks.SEEPING_WOOD_SEEP)) {
 					connectedSeep = findConnectedSeepSpawn(serverWorld, pos);
 				} else {
 					connectedSeep = Optional.empty();
 				}
-				BlockPos teleportBlockPos = connectedSeep.orElseGet(() -> AylythUtil.getSafePosition(toWorld, entity.getBlockPos().mutableCopy(), 0));
-				Vec3d teleportPos = Vec3d.of(teleportBlockPos).add(0.5, 0, 0.5);
-				FabricDimensions.teleport(entity, toWorld, new TeleportTarget(teleportPos, Vec3d.ZERO, entity.getHeadYaw(), entity.getPitch()));
+				connectedSeep.or(() -> AylythUtil.findTeleportPosition(toWorld, toWorld.getSpawnPos()))
+						.ifPresent(vec3d -> FabricDimensions.teleport(entity, toWorld, new TeleportTarget(vec3d, Vec3d.ZERO, entity.getHeadYaw(), entity.getPitch())));
 			}
 		}
 	}
 
-	public Optional<BlockPos> findConnectedSeepSpawn(ServerWorld world, BlockPos center) {
+	public Optional<Vec3d> findConnectedSeepSpawn(ServerWorld world, BlockPos center) {
 		return world.getPointOfInterestStorage()
 				.getInSquare(point -> point.matchesKey(AylythPointOfInterestTypes.SEEP), center, 32, PointOfInterestStorage.OccupationStatus.ANY)
 				.findFirst()
 				.flatMap(pointOfInterest -> {
 					for (Direction dir : Direction.Type.HORIZONTAL) {
 						BlockPos pos = pointOfInterest.getPos().offset(dir);
-						if (world.getBlockState(pos).canPathfindThrough(world, pos, NavigationType.LAND)) {
-							return Optional.of(pos);
+						if (AylythUtil.canTeleportToPos(world, pos)) {
+							return Optional.of(new Vec3d(pos.getX() + 0.5, pos.getY() + 0.1, pos.getZ() + 0.5));
 						}
 					}
 					return Optional.empty();

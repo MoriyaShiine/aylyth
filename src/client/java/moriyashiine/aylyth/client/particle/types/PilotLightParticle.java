@@ -23,11 +23,13 @@ public class PilotLightParticle extends AbstractSlowingParticle {
 		this.targetScale = 0.5F;
 		maxAge = 40 + clientWorld.random.nextInt(40);
 	}
-	
+
+	@Override
 	public ParticleTextureSheet getType() {
 		return AylythParticleTextureSheets.GLOWING;
 	}
-	
+
+	@Override
 	public void move(double dx, double dy, double dz) {
 		this.setBoundingBox(this.getBoundingBox().offset(dx, dy, dz));
 		this.repositionFromBoundingBox();
@@ -47,7 +49,8 @@ public class PilotLightParticle extends AbstractSlowingParticle {
 			markDead();
 		}
 	}
-	
+
+	@Override
 	public int getBrightness(float tint) {
 		float f = ((float) this.age + tint) / (float) this.maxAge;
 		f = MathHelper.clamp(f, 0.0F, 1.0F);
