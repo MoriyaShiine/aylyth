@@ -33,7 +33,7 @@ public class PomegranateLeavesBlock extends LeavesBlock {
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (state.get(FRUITING) == 3 && player.getStackInHand(hand).isOf(Items.DEBUG_STICK)) {
+        if (state.get(FRUITING) == 3 && !player.getStackInHand(hand).isOf(Items.DEBUG_STICK)) {
             world.setBlockState(pos, state.with(FRUITING, 0));
             PlayerInventoryStorage storage = PlayerInventoryStorage.of(player);
             try (Transaction transaction = Transaction.openOuter()) {
