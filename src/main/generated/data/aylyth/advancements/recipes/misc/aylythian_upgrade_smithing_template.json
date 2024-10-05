@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_esstline": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "aylyth:esstline"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "aylyth:aylythian_upgrade_smithing_template"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_esstline",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "aylyth:aylythian_upgrade_smithing_template"
+    ]
+  },
+  "sends_telemetry_event": false
+}

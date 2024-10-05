@@ -1,9 +1,13 @@
 package moriyashiine.aylyth.common.entity.types.mob.passive;
 
-import moriyashiine.aylyth.common.world.AylythParticleTypes;
 import moriyashiine.aylyth.common.data.world.AylythDimensionData;
+import moriyashiine.aylyth.common.particle.AylythParticleTypes;
 import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
-import net.minecraft.entity.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityData;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.Flutterer;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.control.FlightMoveControl;
 import net.minecraft.entity.ai.pathing.BirdNavigation;
 import net.minecraft.entity.ai.pathing.EntityNavigation;

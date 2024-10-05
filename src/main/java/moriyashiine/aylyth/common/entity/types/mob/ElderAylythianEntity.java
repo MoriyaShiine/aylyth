@@ -1,10 +1,21 @@
 package moriyashiine.aylyth.common.entity.types.mob;
 
-import moriyashiine.aylyth.common.entity.ai.goals.RootPropAttack;
 import moriyashiine.aylyth.common.block.AylythBlocks;
+import moriyashiine.aylyth.common.entity.ai.goals.RootPropAttack;
 import moriyashiine.aylyth.common.world.AylythSoundEvents;
-import net.minecraft.entity.*;
-import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityData;
+import net.minecraft.entity.EntityGroup;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.ai.goal.ActiveTargetGoal;
+import net.minecraft.entity.ai.goal.LookAroundGoal;
+import net.minecraft.entity.ai.goal.LookAtEntityGoal;
+import net.minecraft.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.entity.ai.goal.RevengeGoal;
+import net.minecraft.entity.ai.goal.SwimGoal;
+import net.minecraft.entity.ai.goal.WanderAroundFarGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -34,11 +45,16 @@ import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class ElderAylythianEntity extends HostileEntity implements GeoEntity {
+	private static final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
+	private static final RawAnimation WALK = RawAnimation.begin().thenPlay("walk");
+	private static final RawAnimation RUN = RawAnimation.begin().thenPlay("run");
+	private static final RawAnimation SWIPE = RawAnimation.begin().thenPlay("swipe");
+	private static final RawAnimation HEARTBEAT = RawAnimation.begin().thenPlay("heartbeat");
+	private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
+
 	public static final TrackedData<Integer> VARIANT = DataTracker.registerData(ElderAylythianEntity.class, TrackedDataHandlerRegistry.INTEGER);
 	public static final int VARIANTS = 3;
 
-	private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
-	
 	public ElderAylythianEntity(EntityType<? extends HostileEntity> entityType, World world) {
 		super(entityType, world);
 	}
@@ -54,30 +70,24 @@ public class ElderAylythianEntity extends HostileEntity implements GeoEntity {
 	
 	@Override
 	public void registerControllers(AnimatableManager.ControllerRegistrar animationData) {
-		animationData.add(new AnimationController<>(this, "controller", 10, animationEvent -> {
+		animationData.add(new AnimationController<>(this, "Move", 10, animationEvent -> {
 			float limbSwingAmount = Math.abs(animationEvent.getLimbSwingAmount());
-			var builder = RawAnimation.begin();
-			if (limbSwingAmount > 0.01F) {
-				if (limbSwingAmount > 0.6F) {
-					builder.thenLoop("run");
-				}
-				else {
-					builder.thenLoop("walk");
-				}
+			RawAnimation animation;
+			if (limbSwingAmount > 0.6F) {
+				animation = RUN;
+			} else if (limbSwingAmount > 0.01F) {
+				animation = WALK;
+			} else {
+				animation = IDLE;
 			}
-			else {
-				builder.thenLoop("idle");
-			}
-			animationEvent.getController().setAnimation(builder);
-			return PlayState.CONTINUE;
+			return animationEvent.setAndContinue(animation);
 		}));
-		animationData.add(new AnimationController<>(this, "arms", 0, animationEvent -> {
-			var builder = RawAnimation.begin();
-			if (handSwingTicks > 0 && !isDead()) {
-				animationEvent.getController().setAnimation(builder.thenLoop("clawswipe"));
-				return PlayState.CONTINUE;
-			}
-			return PlayState.STOP;
+		animationData.add(new AnimationController<>(this, "Attack", 0, animationEvent -> {
+			var entity = animationEvent.getAnimatable();
+			return entity.handSwinging && !entity.isDead() ? animationEvent.setAndContinue(SWIPE) : PlayState.STOP;
+		}));
+		animationData.add(new AnimationController<>(this, "Effect", 0, animationEvent -> {
+			return animationEvent.setAndContinue(HEARTBEAT);
 		}));
 	}
 

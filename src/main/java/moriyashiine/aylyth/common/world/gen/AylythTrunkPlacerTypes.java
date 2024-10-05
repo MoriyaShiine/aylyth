@@ -2,7 +2,12 @@ package moriyashiine.aylyth.common.world.gen;
 
 import com.mojang.serialization.Codec;
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.world.gen.trunkplacers.*;
+import moriyashiine.aylyth.common.world.gen.trunkplacers.AylthianTrunkPlacer;
+import moriyashiine.aylyth.common.world.gen.trunkplacers.BigYmpeTrunkPlacer;
+import moriyashiine.aylyth.common.world.gen.trunkplacers.GirasolTrunkPlacer;
+import moriyashiine.aylyth.common.world.gen.trunkplacers.PomegranateTrunkPlacer;
+import moriyashiine.aylyth.common.world.gen.trunkplacers.WrithewoodTrunkPlacer;
+import moriyashiine.aylyth.common.world.gen.trunkplacers.YmpeTrunkPlacer;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.world.gen.trunk.TrunkPlacer;

@@ -17,7 +17,7 @@ public class ElderAylythianGlowLayerRenderer extends AylythAutoGlowLayer<ElderAy
 		if (TEXTURE_LOCATIONS == null) {
 			TEXTURE_LOCATIONS = new Identifier[ElderAylythianEntity.VARIANTS];
 			for (int i = 0; i < ElderAylythianEntity.VARIANTS; i++) {
-				TEXTURE_LOCATIONS[i] = new Identifier(Aylyth.MOD_ID, "textures/entity/living/elder_aylythian/" + i + "_glowmask.png");
+				TEXTURE_LOCATIONS[i] = Aylyth.id("textures/entity/living/elder_aylythian/" + i + "_glowmask.png");
 			}
 		}
 		return TEXTURE_LOCATIONS[animatable.getDataTracker().get(ElderAylythianEntity.VARIANT)];

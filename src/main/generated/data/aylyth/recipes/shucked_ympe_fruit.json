@@ -1,0 +1,15 @@
+{
+  "type": "aylyth:shucking",
+  "category": "equipment",
+  "ingredients": [
+    {
+      "item": "aylyth:ympe_fruit"
+    },
+    {
+      "item": "aylyth:ympe_dagger"
+    }
+  ],
+  "result": {
+    "item": "aylyth:shucked_ympe_fruit"
+  }
+}

@@ -11,7 +11,7 @@ import moriyashiine.aylyth.common.recipe.types.YmpeDaggerDropRecipe;
 import net.minecraft.util.Identifier;
 
 public class ModREIPlugin implements REIClientPlugin {
-	public static final CategoryIdentifier<YmpeDaggerDropDisplay> YMPE_DAGGER_DROPS = CategoryIdentifier.of(new Identifier(Aylyth.MOD_ID, "ympe_dagger_drops"));
+	public static final CategoryIdentifier<YmpeDaggerDropDisplay> YMPE_DAGGER_DROPS = CategoryIdentifier.of(Aylyth.id("ympe_dagger_drops"));
 	
 	@Override
 	public void registerCategories(CategoryRegistry registry) {

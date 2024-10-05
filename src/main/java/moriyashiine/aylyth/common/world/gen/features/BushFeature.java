@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.world.gen.features;
 
-import moriyashiine.aylyth.common.block.types.BushBlock;
 import moriyashiine.aylyth.common.block.AylythBlocks;
+import moriyashiine.aylyth.common.block.types.BushBlock;
 import net.minecraft.block.Block;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;

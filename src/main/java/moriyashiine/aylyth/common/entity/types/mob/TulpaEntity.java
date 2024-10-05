@@ -4,9 +4,9 @@ import com.mojang.authlib.GameProfile;
 import com.mojang.serialization.Dynamic;
 import moriyashiine.aylyth.api.interfaces.ProlongedDeath;
 import moriyashiine.aylyth.common.Aylyth;
+import moriyashiine.aylyth.common.entity.AylythTrackedDataHandlers;
 import moriyashiine.aylyth.common.entity.ai.BasicAttackType;
 import moriyashiine.aylyth.common.entity.ai.brains.TulpaBrain;
-import moriyashiine.aylyth.common.entity.AylythTrackedDataHandlers;
 import moriyashiine.aylyth.common.screenhandler.TulpaScreenHandler;
 import moriyashiine.aylyth.mixin.MobEntityAccessor;
 import moriyashiine.bewitchment.api.BewitchmentAPI;
@@ -14,7 +14,12 @@ import moriyashiine.bewitchment.common.item.TaglockItem;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.entity.*;
+import net.minecraft.entity.CrossbowUser;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.InventoryOwner;
+import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -36,7 +41,11 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.RangedWeaponItem;
-import net.minecraft.nbt.*;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtHelper;
+import net.minecraft.nbt.NbtList;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.screen.ScreenHandler;
@@ -46,14 +55,23 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
-import net.minecraft.util.*;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Arm;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.Hand;
+import net.minecraft.util.ItemScatterer;
+import net.minecraft.util.StringIdentifiable;
+import net.minecraft.util.UserCache;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.Animation;
+import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.*;
+import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
@@ -63,9 +81,18 @@ import java.util.function.Consumer;
 
 public class TulpaEntity extends HostileEntity implements TameableHostileEntity, GeoEntity, CrossbowUser,
         InventoryOwner, InventoryChangedListener, ProlongedDeath {
+    private static final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
+    private static final RawAnimation WALK = RawAnimation.begin().thenPlay("walk");
+    private static final RawAnimation ATTACK_LEFT = RawAnimation.begin().thenPlay("attack_left");
+    private static final RawAnimation ATTACK_RIGHT = RawAnimation.begin().thenPlay("attack_right");
+    private static final RawAnimation ATTACK_RANGED = RawAnimation.begin().thenPlay("attack_ranged");
+    private static final RawAnimation HURT = RawAnimation.begin().thenPlay("hurt");
+    private static final RawAnimation DEATH = RawAnimation.begin().thenPlay("death");
+    private static final RawAnimation MIMIC_DEATH = RawAnimation.begin().thenPlay("mimic_death");
+    private static final RawAnimation TRANSFORM = RawAnimation.begin().thenPlay("transform");
+    private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
     @Nullable
     private GameProfile skinProfile;
-    private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
     private static final TrackedData<Byte> TAMEABLE = DataTracker.registerData(TulpaEntity.class, TrackedDataHandlerRegistry.BYTE);
     public static final TrackedData<ActionState> ACTION_STATE = DataTracker.registerData(TulpaEntity.class, AylythTrackedDataHandlers.TULPA_ACTION_STATE);
     private static final TrackedData<Optional<UUID>> OWNER_UUID = DataTracker.registerData(TulpaEntity.class, TrackedDataHandlerRegistry.OPTIONAL_UUID);
@@ -440,48 +467,54 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar animationData) {
-        animationData.add(new AnimationController<>(this, "moveController", 5, this::movementPredicate));
+        animationData.add(new AnimationController<>(this, "Move", 5, this::moveHandler));
+        animationData.add(new AnimationController<>(this, "Attack", 5, this::attackHandler));
     }
 
-    private <E extends GeoAnimatable> PlayState movementPredicate(AnimationState<E> event) {
-        var builder = RawAnimation.begin();
+    private <E extends TulpaEntity> PlayState moveHandler(AnimationState<E> event) {
+        RawAnimation animation;
         if ((this.dead || this.getHealth() < 0.01 || this.isDead())) {
             if (dataTracker.get(SKIN_UUID).isPresent()) {
-                builder.then("tulpa_mimic_death", Animation.LoopType.PLAY_ONCE);
+                animation = MIMIC_DEATH;
             } else {
-                builder.then("tulpa_death", Animation.LoopType.PLAY_ONCE);
+                animation = DEATH;
             }
-            event.getController().setAnimation(builder);
-            return PlayState.CONTINUE;
         } else if (this.getSkinProfile() != null) {
-            builder.then("tulpa_transform", Animation.LoopType.HOLD_ON_LAST_FRAME);
-        } else if (this.getDataTracker().get(ATTACK_TYPE) == BasicAttackType.MELEE) {
-            // TODO: Rewrite better
-            if (event.getController().getCurrentAnimation().animation().name().contains("attacking_right") || event.getController().getCurrentAnimation().animation().name().contains("attacking_left")) {
-                return PlayState.CONTINUE;
-            }
-
-            if (lastUsedArm == Arm.LEFT) {
-                builder.thenLoop("tulpa_attacking_right");
-            } else {
-                builder.thenLoop("tulpa_attacking_left");
-            }
-            lastUsedArm = lastUsedArm.getOpposite();
-            event.getController().setAnimation(builder);
-            return PlayState.CONTINUE;
-        } else if (this.getDataTracker().get(ATTACK_TYPE) == BasicAttackType.RANGED) {
-            builder.thenLoop("tulpa_attacking_ranged");
-            event.getController().setAnimation(builder);
-            return PlayState.CONTINUE;
+            animation = TRANSFORM;
         } else if (event.isMoving()) {
-            builder.thenLoop("tulpa_walking");
+            animation = WALK;
         } else {
-            builder.thenLoop("idle");
+            animation = IDLE;
         }
-        if (!builder.getAnimationStages().isEmpty()) {
-            event.getController().setAnimation(builder);
+        return event.setAndContinue(animation);
+    }
+
+    private <E extends TulpaEntity> PlayState attackHandler(AnimationState<E> event) {
+        var entity = event.getAnimatable();
+        RawAnimation animation;
+
+        switch (entity.getDataTracker().get(ATTACK_TYPE)) {
+            case MELEE -> {
+                String lastAnimation = event.getController().getCurrentAnimation().animation().name();
+                if (lastAnimation.equals("attack_right") || lastAnimation.equals("attack_left")) {
+                    return PlayState.CONTINUE;
+                }
+
+                if (lastUsedArm == Arm.LEFT) {
+                    animation = ATTACK_RIGHT;
+                } else {
+                    animation = ATTACK_LEFT;
+                }
+                lastUsedArm = lastUsedArm.getOpposite();
+            }
+            case RANGED -> {
+                animation = ATTACK_RANGED;
+            }
+            default -> {
+                return PlayState.STOP;
+            }
         }
-        return PlayState.CONTINUE;
+        return event.setAndContinue(animation);
     }
 
     @Override

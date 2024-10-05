@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "aylyth:block/amber_sapstone"
+      },
+      {
+        "model": "aylyth:block/amber_sapstone",
+        "y": 90
+      },
+      {
+        "model": "aylyth:block/amber_sapstone",
+        "y": 180
+      },
+      {
+        "model": "aylyth:block/amber_sapstone",
+        "y": 270
+      }
+    ]
+  }
+}

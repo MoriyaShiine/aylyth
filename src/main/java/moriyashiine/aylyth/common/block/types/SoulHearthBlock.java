@@ -5,6 +5,7 @@ import com.google.common.collect.MapMaker;
 import com.google.common.collect.UnmodifiableIterator;
 import moriyashiine.aylyth.common.block.entities.SoulHearthBlockEntity;
 import moriyashiine.aylyth.common.item.AylythItems;
+import moriyashiine.aylyth.common.particle.effects.ColorableParticleEffect;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
@@ -14,7 +15,12 @@ import net.fabricmc.fabric.api.transfer.v1.storage.base.InsertionOnlyStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.fabricmc.fabric.api.transfer.v1.transaction.base.SnapshotParticipant;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockEntityProvider;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.ShapeContext;
+import net.minecraft.block.TallPlantBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.entity.Dismounting;
@@ -25,7 +31,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleEffect;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -54,6 +59,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.UnaryOperator;
 
+@SuppressWarnings("UnstableApiUsage")
 public class SoulHearthBlock extends Block implements BlockEntityProvider {
 
     public static final EnumProperty<DoubleBlockHalf> HALF = Properties.DOUBLE_BLOCK_HALF;
@@ -118,7 +124,7 @@ public class SoulHearthBlock extends Block implements BlockEntityProvider {
                 world.playSound((double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5, SoundEvents.BLOCK_CAMPFIRE_CRACKLE, SoundCategory.BLOCKS, 0.5F + random.nextFloat(), random.nextFloat() * 0.7F + 0.6F, false);
             }
             if (random.nextInt(5) == 0) {
-                genParticle(ParticleTypes.SOUL_FIRE_FLAME, world, pos, random);
+                genParticle(ColorableParticleEffect.SOUL_EMBER, world, pos, random);
             }
         }
     }

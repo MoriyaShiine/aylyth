@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "aylyth:ympe_door"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_ympe_planks": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "aylyth:ympe_planks"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_ympe_planks",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "aylyth:ympe_door"
+    ]
+  },
+  "sends_telemetry_event": false
+}

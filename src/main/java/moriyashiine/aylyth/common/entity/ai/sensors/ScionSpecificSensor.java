@@ -1,9 +1,9 @@
 package moriyashiine.aylyth.common.entity.ai.sensors;
 
 import com.google.common.collect.ImmutableSet;
-import moriyashiine.aylyth.common.entity.types.mob.ScionEntity;
-import moriyashiine.aylyth.common.entity.ai.AylythMemoryTypes;
 import moriyashiine.aylyth.common.data.tag.AylythBlockTags;
+import moriyashiine.aylyth.common.entity.ai.AylythMemoryTypes;
+import moriyashiine.aylyth.common.entity.types.mob.ScionEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.brain.Brain;

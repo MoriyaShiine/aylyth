@@ -35,6 +35,11 @@ public interface AylythBlocks {
 	WoodType POMEGRANATE_WOOD_TYPE = new WoodTypeBuilder().register(Aylyth.id("pomegranate"), POMEGRANATE_BLOCK_SET_TYPE);
 	WoodType WRITHEWOOD_WOOD_TYPE = new WoodTypeBuilder().register(Aylyth.id("writhewood"), WRITHEWOOD_BLOCK_SET_TYPE);
 
+	Block SAPSTONE = register("sapstone", new Block(copyOf(Blocks.STONE).mapColor(MapColor.OAK_TAN)));
+	Block AMBER_SAPSTONE = register("amber_sapstone", new Block(copyOf(Blocks.STONE).mapColor(MapColor.ORANGE)));
+	Block LIGNITE_SAPSTONE = register("lignite_sapstone", new Block(copyOf(Blocks.STONE).mapColor(MapColor.TERRACOTTA_GRAY)));
+	Block OPALESCENT_SAPSTONE = register("opalescent_sapstone", new Block(copyOf(Blocks.STONE).mapColor(MapColor.DULL_PINK)));
+
 	Block YMPE_STRIPPED_LOG = register("stripped_ympe_log", new PillarBlock(copyOf(Blocks.STRIPPED_OAK_LOG)));
 	Block YMPE_STRIPPED_WOOD = register("stripped_ympe_wood", new PillarBlock(copyOf(Blocks.STRIPPED_OAK_WOOD)));
 	Block YMPE_LOG = register("ympe_log", new PillarBlock(copyOf(Blocks.OAK_LOG)));
@@ -128,11 +133,11 @@ public interface AylythBlocks {
 	Block LARGE_WOODY_GROWTH = register("large_woody_growth", new LargeWoodyGrowthBlock(FabricBlockSettings.create().burnable().strength(2.0f).sounds(BlockSoundGroup.WOOD)));
 	Block WOODY_GROWTH_CACHE = register("woody_growth_cache", new WoodyGrowthCacheBlock(FabricBlockSettings.create().burnable().strength(2.0f).sounds(BlockSoundGroup.WOOD)));
 
-	Block OAK_SEEP = register("oak_seep", new SeepBlock());
-	Block SPRUCE_SEEP = register("spruce_seep", new SeepBlock());
-	Block DARK_OAK_SEEP = register("dark_oak_seep", new SeepBlock());
-	Block YMPE_SEEP = register("ympe_seep", new SeepBlock());
-	Block SEEPING_WOOD_SEEP = register("seeping_wood_seep", new SeepBlock());
+	Block OAK_SEEP = register("oak_seep", new SeepBlock(FabricBlockSettings.create().mapColor(MapColor.OAK_TAN).burnable().strength(2).sounds(BlockSoundGroup.WOOD)));
+	Block SPRUCE_SEEP = register("spruce_seep", new SeepBlock(FabricBlockSettings.create().mapColor(MapColor.SPRUCE_BROWN).burnable().strength(2).sounds(BlockSoundGroup.WOOD)));
+	Block DARK_OAK_SEEP = register("dark_oak_seep", new SeepBlock(FabricBlockSettings.create().mapColor(MapColor.BROWN).burnable().strength(2).sounds(BlockSoundGroup.WOOD)));
+	Block YMPE_SEEP = register("ympe_seep", new SeepBlock(FabricBlockSettings.create().mapColor(MapColor.OAK_TAN).burnable().strength(2).sounds(BlockSoundGroup.WOOD))); // TODO: Change to the map color of ympe, same with seeping wood
+	Block SEEPING_WOOD_SEEP = register("seeping_wood_seep", new SeepBlock(FabricBlockSettings.create().mapColor(MapColor.OAK_TAN).burnable().strength(2).sounds(BlockSoundGroup.WOOD)));
 
 	Block DARK_WOODS_TILES = register("dark_woods_tiles", new Block(copyOf(Blocks.DARK_OAK_PLANKS)));
 	Block ESSTLINE_BLOCK = register("esstline_block", new Block(copyOf(Blocks.DIAMOND_BLOCK).mapColor(MapColor.BLACK)));

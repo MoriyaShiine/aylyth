@@ -1,7 +1,13 @@
 package moriyashiine.aylyth.client.model.entity.layer;
 
 import moriyashiine.aylyth.common.Aylyth;
-import net.minecraft.client.model.*;
+import net.minecraft.client.model.Dilation;
+import net.minecraft.client.model.ModelData;
+import net.minecraft.client.model.ModelPart;
+import net.minecraft.client.model.ModelPartBuilder;
+import net.minecraft.client.model.ModelPartData;
+import net.minecraft.client.model.ModelTransform;
+import net.minecraft.client.model.TexturedModelData;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
@@ -12,11 +18,11 @@ import net.minecraft.util.Identifier;
 import java.util.NoSuchElementException;
 
 public class CuirassModel extends BipedEntityModel<AbstractClientPlayerEntity> {
-    public static final EntityModelLayer LAYER_LOCATION_1 = new EntityModelLayer(new Identifier(Aylyth.MOD_ID, "ympe_cuirass_1"), "main");
-    public static final EntityModelLayer LAYER_LOCATION_2 = new EntityModelLayer(new Identifier(Aylyth.MOD_ID, "ympe_cuirass_2"), "main");
-    public static final EntityModelLayer LAYER_LOCATION_3 = new EntityModelLayer(new Identifier(Aylyth.MOD_ID, "ympe_cuirass_3"), "main");
-    public static final EntityModelLayer LAYER_LOCATION_4 = new EntityModelLayer(new Identifier(Aylyth.MOD_ID, "ympe_cuirass_4"), "main");
-    public static final EntityModelLayer LAYER_LOCATION_5 = new EntityModelLayer(new Identifier(Aylyth.MOD_ID, "ympe_cuirass_5"), "main");
+    public static final EntityModelLayer LAYER_LOCATION_1 = new EntityModelLayer(Aylyth.id("ympe_cuirass_1"), "main");
+    public static final EntityModelLayer LAYER_LOCATION_2 = new EntityModelLayer(Aylyth.id("ympe_cuirass_2"), "main");
+    public static final EntityModelLayer LAYER_LOCATION_3 = new EntityModelLayer(Aylyth.id("ympe_cuirass_3"), "main");
+    public static final EntityModelLayer LAYER_LOCATION_4 = new EntityModelLayer(Aylyth.id("ympe_cuirass_4"), "main");
+    public static final EntityModelLayer LAYER_LOCATION_5 = new EntityModelLayer(Aylyth.id("ympe_cuirass_5"), "main");
 
     private ModelPart armorLeftArm;
     private ModelPart armorRightArm;

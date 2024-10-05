@@ -1,13 +1,16 @@
 package moriyashiine.aylyth.common.block.types;
 
-import moriyashiine.aylyth.common.block.entities.SeepBlockEntity;
 import moriyashiine.aylyth.common.block.AylythBlocks;
+import moriyashiine.aylyth.common.block.entities.SeepBlockEntity;
 import moriyashiine.aylyth.common.data.world.AylythDimensionData;
-import moriyashiine.aylyth.common.world.AylythPointOfInterestTypes;
 import moriyashiine.aylyth.common.util.AylythUtil;
+import moriyashiine.aylyth.common.world.AylythPointOfInterestTypes;
 import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.minecraft.block.*;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockEntityProvider;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.ShapeContext;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.pathing.NavigationType;
@@ -15,7 +18,6 @@ import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ChunkTicketType;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Property;
@@ -43,8 +45,8 @@ public class SeepBlock extends Block implements BlockEntityProvider {
 	
 	public static final Property<Connection> CONNECTION = EnumProperty.of("connection", Connection.class, Connection.values());
 	
-	public SeepBlock() {
-		super(FabricBlockSettings.create().mapColor(MapColor.OAK_TAN).burnable().strength(2).sounds(BlockSoundGroup.WOOD));
+	public SeepBlock(AbstractBlock.Settings settings) {
+		super(settings);
 		setDefaultState(getDefaultState().with(CONNECTION, Connection.NONE));
 	}
 	

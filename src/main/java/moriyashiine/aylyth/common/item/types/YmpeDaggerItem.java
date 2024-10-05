@@ -1,9 +1,9 @@
 package moriyashiine.aylyth.common.item.types;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import moriyashiine.aylyth.common.recipe.types.SoulCampfireRecipe;
 import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.recipe.AylythRecipeTypes;
+import moriyashiine.aylyth.common.recipe.types.SoulCampfireRecipe;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.CampfireBlock;

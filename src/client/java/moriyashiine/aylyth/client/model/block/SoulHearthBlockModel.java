@@ -1,8 +1,9 @@
 package moriyashiine.aylyth.client.model.block;
 
+import moriyashiine.aylyth.client.util.RenderUtils;
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.block.types.SoulHearthBlock;
 import moriyashiine.aylyth.common.block.AylythBlocks;
+import moriyashiine.aylyth.common.block.types.SoulHearthBlock;
 import moriyashiine.aylyth.common.item.AylythItems;
 import net.fabricmc.fabric.api.renderer.v1.model.ForwardingBakedModel;
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
@@ -17,7 +18,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.BlockRenderView;
-import org.joml.Vector3f;
 
 import java.util.function.Supplier;
 
@@ -47,15 +47,7 @@ public class SoulHearthBlockModel extends ForwardingBakedModel {
                 stack.push();
                 stack.multiply(RotationAxis.POSITIVE_X.rotationDegrees(90));
                 stack.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(90 * i), 0.5f, 0.5f, 0.5f);
-                context.pushTransform(quad -> {
-                    Vector3f posVec = new Vector3f();
-                    for (int j = 0; j < 4; j++) {
-                        quad.copyPos(j, posVec);
-                        posVec.mulProject(stack.peek().getPositionMatrix());
-                        quad.pos(j, posVec);
-                    }
-                    return true;
-                });
+                RenderUtils.copyOver(context, stack);
                 model.emitItemQuads(new ItemStack(AylythItems.POMEGRANATE), randomSupplier, context);
                 context.popTransform();
                 stack.pop();

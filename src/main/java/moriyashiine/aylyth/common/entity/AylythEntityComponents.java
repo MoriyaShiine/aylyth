@@ -6,7 +6,12 @@ import dev.onyxstudios.cca.api.v3.entity.EntityComponentFactoryRegistry;
 import dev.onyxstudios.cca.api.v3.entity.EntityComponentInitializer;
 import dev.onyxstudios.cca.api.v3.entity.RespawnCopyStrategy;
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.entity.components.*;
+import moriyashiine.aylyth.common.entity.components.CuirassComponent;
+import moriyashiine.aylyth.common.entity.components.PreventDropsComponent;
+import moriyashiine.aylyth.common.entity.components.RiderComponent;
+import moriyashiine.aylyth.common.entity.components.VitalHealthComponent;
+import moriyashiine.aylyth.common.entity.components.YmpeInfestationComponent;
+import moriyashiine.aylyth.common.entity.components.YmpeThornsComponent;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.mob.MobEntity;
 

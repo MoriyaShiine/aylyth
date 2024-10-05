@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "aylyth:shucked_ympe_fruit"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_ympe_fruit": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "aylyth:ympe_fruit"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_ympe_fruit",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "aylyth:shucked_ympe_fruit"
+    ]
+  },
+  "sends_telemetry_event": false
+}

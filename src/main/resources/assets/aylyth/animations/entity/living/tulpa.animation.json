@@ -579,7 +579,7 @@
 				}
 			}
 		},
-		"tulpa_death": {
+		"death": {
 			"loop": "hold_on_last_frame",
 			"animation_length": 6.52,
 			"bones": {
@@ -2000,7 +2000,7 @@
 				}
 			}
 		},
-		"tulpa_mimic_death": {
+		"mimic_death": {
 			"loop": "hold_on_last_frame",
 			"animation_length": 6.56,
 			"bones": {
@@ -2507,7 +2507,7 @@
 				}
 			}
 		},
-		"tulpa_walking": {
+		"walk": {
 			"loop": true,
 			"animation_length": 1.5,
 			"bones": {
@@ -3010,7 +3010,7 @@
 				}
 			}
 		},
-		"tulpa_attacking_left": {
+		"attack_left": {
 			"animation_length": 1.5,
 			"bones": {
 				"player_left_arm_part": {
@@ -3502,7 +3502,7 @@
 				}
 			}
 		},
-		"tulpa_attacking_right": {
+		"attack_right": {
 			"animation_length": 1.5,
 			"bones": {
 				"core": {
@@ -4000,7 +4000,7 @@
 				}
 			}
 		},
-		"tulpa_attacking_ranged": {
+		"attack_ranged": {
 			"animation_length": 3.29167,
 			"bones": {
 				"core": {
@@ -4663,7 +4663,7 @@
 				}
 			}
 		},
-		"tulpa_transform": {
+		"transform": {
 			"loop": "hold_on_last_frame",
 			"animation_length": 5.16667,
 			"bones": {
@@ -7598,7 +7598,7 @@
 				}
 			}
 		},
-		"tulpa_hurt": {
+		"hurt": {
 			"animation_length": 1.20833,
 			"bones": {
 				"root": {

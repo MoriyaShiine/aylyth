@@ -1,0 +1,9 @@
+{
+  "fallback": "aylyth:item/ympe_lance_gui",
+  "perspectives": {
+    "firstperson_lefthand": "aylyth:item/ympe_lance_handheld",
+    "firstperson_righthand": "aylyth:item/ympe_lance_handheld",
+    "thirdperson_lefthand": "aylyth:item/ympe_lance_handheld",
+    "thirdperson_righthand": "aylyth:item/ympe_lance_handheld"
+  }
+}

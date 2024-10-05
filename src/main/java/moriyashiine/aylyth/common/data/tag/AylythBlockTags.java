@@ -18,6 +18,10 @@ public interface AylythBlockTags {
     TagKey<Block> WOODY_GROWTHS_GENERATE_ON = bind("woody_growths_generate_on");
     TagKey<Block> GHOSTCAP_REPLACEABLE = bind("ghostcap_replaceable");
     TagKey<Block> SCION_REPELLENT = bind("scion_repellent");
+    TagKey<Block> SAPSTONES = bind("sapstones");
+
+    TagKey<Block> STORAGE_BLOCKS_ESSTLINE = bind("storage_blocks/esstline");
+    TagKey<Block> STORAGE_BLOCKS_NEPHRITE = bind("storage_blocks/nephrite");
 
     private static TagKey<Block> bind(String name) {
         return TagKey.of(RegistryKeys.BLOCK, Aylyth.id(name));

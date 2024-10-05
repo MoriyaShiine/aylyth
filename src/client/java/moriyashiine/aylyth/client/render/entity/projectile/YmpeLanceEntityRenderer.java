@@ -41,6 +41,6 @@ public class YmpeLanceEntityRenderer extends ProjectileEntityRenderer<YmpeLanceE
 
 	@Override
 	public Identifier getTexture(YmpeLanceEntity entity) {
-		return new Identifier(Aylyth.MOD_ID, "textures/item/ympe_lance_handheld.png");
+		return Aylyth.id("textures/item/ympe_lance_handheld.png");
 	}
 }

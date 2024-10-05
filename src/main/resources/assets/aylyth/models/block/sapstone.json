@@ -1,0 +1,29 @@
+{
+  "loader": "fusion:model",
+  "type": "fusion:connecting",
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "side": "aylyth:block/sapstone",
+    "end": "aylyth:block/sapstone_end"
+  },
+  "connections": {
+    "end": [
+      {
+        "type": "fusion:match_block",
+        "block": "aylyth:sapstone"
+      },
+      {
+        "type": "fusion:match_block",
+        "block": "aylyth:amber_sapstone"
+      },
+      {
+        "type": "fusion:match_block",
+        "block": "aylyth:lignite_sapstone"
+      },
+      {
+        "type": "fusion:match_block",
+        "block": "aylyth:opalescent_sapstone"
+      }
+    ]
+  }
+}

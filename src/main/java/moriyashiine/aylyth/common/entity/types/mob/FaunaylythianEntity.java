@@ -1,14 +1,20 @@
 package moriyashiine.aylyth.common.entity.types.mob;
 
-import moriyashiine.aylyth.common.entity.ai.goals.PounceAttackGoal;
 import moriyashiine.aylyth.common.block.AylythBlocks;
+import moriyashiine.aylyth.common.entity.ai.goals.PounceAttackGoal;
 import moriyashiine.aylyth.common.world.AylythSoundEvents;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.ai.goal.ActiveTargetGoal;
+import net.minecraft.entity.ai.goal.LookAroundGoal;
+import net.minecraft.entity.ai.goal.LookAtEntityGoal;
+import net.minecraft.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.entity.ai.goal.RevengeGoal;
+import net.minecraft.entity.ai.goal.SwimGoal;
+import net.minecraft.entity.ai.goal.WanderAroundFarGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -25,7 +31,11 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.world.*;
+import net.minecraft.world.Difficulty;
+import net.minecraft.world.LocalDifficulty;
+import net.minecraft.world.ServerWorldAccess;
+import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -40,12 +50,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FaunaylythianEntity extends HostileEntity implements GeoEntity {
+    private static final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
+    private static final RawAnimation WALK = RawAnimation.begin().thenPlay("walk");
+    private static final RawAnimation CHASE = RawAnimation.begin().thenPlay("chase");
+    private static final RawAnimation BITE = RawAnimation.begin().thenPlay("bite");
+    private static final RawAnimation SWIPE = RawAnimation.begin().thenPlay("swipe");
+    private static final RawAnimation POUNCE = RawAnimation.begin().thenPlay("pounce.prepare").thenPlay("pounce.jump");
+    private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
+
     public static final TrackedData<Integer> VARIANT = DataTracker.registerData(FaunaylythianEntity.class, TrackedDataHandlerRegistry.INTEGER);
     public static final TrackedData<Boolean> POUNCING = DataTracker.registerData(FaunaylythianEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
     public static final int VARIANTS = 2;
-
-    private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
 
     public FaunaylythianEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
@@ -164,29 +180,25 @@ public class FaunaylythianEntity extends HostileEntity implements GeoEntity {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar animationData) {
-        animationData.add(new AnimationController<>(this, "controller", 10, animationEvent -> {
-            float limbSwingAmount = Math.abs(animationEvent.getLimbSwingAmount());
-            var builder = RawAnimation.begin();
-            if(dataTracker.get(POUNCING)){
-                builder.then("animation.faunaylythian.prepare", Animation.LoopType.PLAY_ONCE);
-                builder.then("animation.faunaylythian.jump", Animation.LoopType.PLAY_ONCE);
+        animationData.add(new AnimationController<>(this, "Move", 10, event -> {
+            float limbSwingAmount = Math.abs(event.getLimbSwingAmount());
+            RawAnimation animation;
+            if (dataTracker.get(POUNCING)) {
+                animation = POUNCE;
             } else if (limbSwingAmount > 0.01F) {
                 if (limbSwingAmount > 0.6F) {
-                    builder.thenLoop("animation.faunaylythian.chasing");
+                    animation = CHASE;
                 } else {
-                    builder.thenLoop("animation.faunaylythian.walk");
+                    animation = WALK;
                 }
             } else {
-                builder.thenLoop("animation.faunaylythian.idle");
+                animation = IDLE;
             }
-            animationEvent.getController().setAnimation(builder);
-            return PlayState.CONTINUE;
+            return event.setAndContinue(animation);
         }));
-        animationData.add(new AnimationController<>(this, "animation.faunaylythian.attack", 0, animationEvent -> {
-            var builder = RawAnimation.begin();
-            if (handSwingTicks > 0 && !isDead()) {
-                animationEvent.getController().setAnimation(builder.thenLoop("animation.faunaylythian.hit"));
-                return PlayState.CONTINUE;
+        animationData.add(new AnimationController<>(this, "Attack", 0, event -> {
+            if (handSwingTicks > 0 && !isDead()) { // TODO: Incorporate bite somehow
+                return event.setAndContinue(SWIPE);
             }
             return PlayState.STOP;
         }));

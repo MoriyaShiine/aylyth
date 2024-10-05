@@ -1,0 +1,9 @@
+{
+  "fallback": "aylyth:item/ympe_flamberge_gui",
+  "perspectives": {
+    "firstperson_lefthand": "aylyth:item/ympe_flamberge_handheld",
+    "firstperson_righthand": "aylyth:item/ympe_flamberge_handheld",
+    "thirdperson_lefthand": "aylyth:item/ympe_flamberge_handheld",
+    "thirdperson_righthand": "aylyth:item/ympe_flamberge_handheld"
+  }
+}

@@ -3,25 +3,18 @@ package moriyashiine.aylyth.client;
 import com.terraformersmc.terraform.boat.api.client.TerraformBoatClientHelper;
 import com.terraformersmc.terraform.sign.SpriteIdentifierRegistry;
 import moriyashiine.aylyth.client.advancement.AdvancementIconRendererRegistry;
+import moriyashiine.aylyth.client.model.PerspectiveModelLoader;
 import moriyashiine.aylyth.client.model.block.SoulHearthBlockModel;
+import moriyashiine.aylyth.client.model.entity.RootPropEntityModel;
+import moriyashiine.aylyth.client.model.entity.ScionEntityModel;
 import moriyashiine.aylyth.client.model.entity.layer.CuirassModel;
 import moriyashiine.aylyth.client.model.entity.layer.YmpeInfestationModel;
 import moriyashiine.aylyth.client.model.entity.layer.YmpeThornRingModel;
-import moriyashiine.aylyth.client.model.entity.RootPropEntityModel;
-import moriyashiine.aylyth.client.model.entity.ScionEntityModel;
 import moriyashiine.aylyth.client.network.AylythClientNetworkHandler;
 import moriyashiine.aylyth.client.particle.ParticleFactories;
-import moriyashiine.aylyth.client.render.entity.projectile.ThornFlechetteRenderer;
-import moriyashiine.aylyth.common.block.AylythBlockEntityTypes;
-import moriyashiine.aylyth.common.block.AylythBlocks;
-import moriyashiine.aylyth.common.entity.AylythEntityTypes;
-import moriyashiine.aylyth.common.item.AylythItems;
-import moriyashiine.aylyth.common.item.types.NephriteFlaskItem;
-import moriyashiine.aylyth.common.item.types.ShuckedYmpeFruitItem;
-import moriyashiine.aylyth.common.network.AylythPacketTypes;
-import moriyashiine.aylyth.common.network.packets.UpdatePressingUpDownPacketC2S;
-import moriyashiine.aylyth.client.particle.HindSmokeParticle;
-import moriyashiine.aylyth.client.particle.PilotLightParticle;
+import moriyashiine.aylyth.client.particle.types.HindSmokeParticle;
+import moriyashiine.aylyth.client.particle.types.PilotLightParticle;
+import moriyashiine.aylyth.client.particle.types.SoulEmberParticle;
 import moriyashiine.aylyth.client.render.AylythDimensionRenderer;
 import moriyashiine.aylyth.client.render.AylythRenderLayers;
 import moriyashiine.aylyth.client.render.block.entity.SeepBlockEntityRenderer;
@@ -29,29 +22,55 @@ import moriyashiine.aylyth.client.render.block.entity.SoulHearthBlockEntityRende
 import moriyashiine.aylyth.client.render.block.entity.VitalThuribleBlockEntityRenderer;
 import moriyashiine.aylyth.client.render.block.entity.WoodyGrowthBlockEntityRenderer;
 import moriyashiine.aylyth.client.render.entity.RootPropEntityRenderer;
-import moriyashiine.aylyth.client.render.entity.living.*;
+import moriyashiine.aylyth.client.render.entity.living.AylythianEntityRenderer;
+import moriyashiine.aylyth.client.render.entity.living.BoneflyEntityRenderer;
+import moriyashiine.aylyth.client.render.entity.living.ElderAylythianEntityRenderer;
+import moriyashiine.aylyth.client.render.entity.living.FaunaylythianEntityRenderer;
+import moriyashiine.aylyth.client.render.entity.living.PilotLightEntityRenderer;
+import moriyashiine.aylyth.client.render.entity.living.RippedSoulEntityRenderer;
+import moriyashiine.aylyth.client.render.entity.living.ScionEntityRenderer;
+import moriyashiine.aylyth.client.render.entity.living.SoulmouldEntityRenderer;
+import moriyashiine.aylyth.client.render.entity.living.TulpaEntityRenderer;
+import moriyashiine.aylyth.client.render.entity.living.TulpaPlayerEntityRenderer;
+import moriyashiine.aylyth.client.render.entity.living.WreathedHindEntityRenderer;
 import moriyashiine.aylyth.client.render.entity.living.feature.CuirassFeatureRenderer;
 import moriyashiine.aylyth.client.render.entity.living.feature.YmpeInfestationFeature;
 import moriyashiine.aylyth.client.render.entity.living.feature.YmpeThornRingFeature;
 import moriyashiine.aylyth.client.render.entity.projectile.SphereEntityRenderer;
+import moriyashiine.aylyth.client.render.entity.projectile.ThornFlechetteRenderer;
 import moriyashiine.aylyth.client.render.entity.projectile.YmpeLanceEntityRenderer;
-import moriyashiine.aylyth.client.render.item.BigItemRenderer;
+import moriyashiine.aylyth.client.render.item.SpearItemRenderer;
 import moriyashiine.aylyth.client.render.item.WoodyGrowthCacheItemRenderer;
 import moriyashiine.aylyth.client.screen.TulpaScreen;
 import moriyashiine.aylyth.common.Aylyth;
+import moriyashiine.aylyth.common.block.AylythBlockEntityTypes;
+import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.block.types.StrewnLeavesBlock;
-import moriyashiine.aylyth.common.data.world.AylythDimensionData;
 import moriyashiine.aylyth.common.data.tag.AylythPotionTags;
+import moriyashiine.aylyth.common.data.world.AylythDimensionData;
+import moriyashiine.aylyth.common.entity.AylythEntityTypes;
+import moriyashiine.aylyth.common.item.AylythItems;
+import moriyashiine.aylyth.common.item.types.NephriteFlaskItem;
+import moriyashiine.aylyth.common.item.types.ShuckedYmpeFruitItem;
+import moriyashiine.aylyth.common.network.AylythPacketTypes;
+import moriyashiine.aylyth.common.network.packets.UpdatePressingUpDownPacketC2S;
+import moriyashiine.aylyth.common.particle.AylythParticleTypes;
 import moriyashiine.aylyth.common.screenhandler.AylythScreenHandlerTypes;
-import moriyashiine.aylyth.common.world.AylythParticleTypes;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
+import net.fabricmc.fabric.api.client.model.loading.v1.PreparableModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.*;
+import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.CoreShaderRegistrationCallback;
+import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRegistrationCallback;
 import net.fabricmc.fabric.api.renderer.v1.model.ForwardingBakedModel;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.block.Block;
@@ -92,12 +111,12 @@ import java.util.List;
 
 public class AylythClient implements ClientModInitializer {
 	public static final KeyBinding DESCEND = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.aylyth.descend", InputUtil.Type.KEYSYM, InputUtil.GLFW_KEY_G, "category.aylyth.keybind"));
-	public static final EntityModelLayer YMPE_INFESTATION_STAGE_1_MODEL_LAYER = new EntityModelLayer(new Identifier(Aylyth.MOD_ID, "ympe_infestation_1"), "main");
-	public static final EntityModelLayer YMPE_INFESTATION_STAGE_2_MODEL_LAYER = new EntityModelLayer(new Identifier(Aylyth.MOD_ID, "ympe_infestation_2"), "main");
-	public static final EntityModelLayer YMPE_INFESTATION_STAGE_3_MODEL_LAYER = new EntityModelLayer(new Identifier(Aylyth.MOD_ID, "ympe_infestation_3"), "main");
-	public static final EntityModelLayer YMPE_INFESTATION_STAGE_4_MODEL_LAYER = new EntityModelLayer(new Identifier(Aylyth.MOD_ID, "ympe_infestation_4"), "main");
-	public static final EntityModelLayer YMPE_INFESTATION_STAGE_5_MODEL_LAYER = new EntityModelLayer(new Identifier(Aylyth.MOD_ID, "ympe_infestation_5"), "main");
-	public static final EntityModelLayer YMPE_THORN_RING_MODEL_LAYER = new EntityModelLayer(new Identifier(Aylyth.MOD_ID, "ympe_thorn_ring"), "main");
+	public static final EntityModelLayer YMPE_INFESTATION_STAGE_1_MODEL_LAYER = new EntityModelLayer(Aylyth.id("ympe_infestation_1"), "main");
+	public static final EntityModelLayer YMPE_INFESTATION_STAGE_2_MODEL_LAYER = new EntityModelLayer(Aylyth.id("ympe_infestation_2"), "main");
+	public static final EntityModelLayer YMPE_INFESTATION_STAGE_3_MODEL_LAYER = new EntityModelLayer(Aylyth.id("ympe_infestation_3"), "main");
+	public static final EntityModelLayer YMPE_INFESTATION_STAGE_4_MODEL_LAYER = new EntityModelLayer(Aylyth.id("ympe_infestation_4"), "main");
+	public static final EntityModelLayer YMPE_INFESTATION_STAGE_5_MODEL_LAYER = new EntityModelLayer(Aylyth.id("ympe_infestation_5"), "main");
+	public static final EntityModelLayer YMPE_THORN_RING_MODEL_LAYER = new EntityModelLayer(Aylyth.id("ympe_thorn_ring"), "main");
 
 	@Override
 	public void onInitializeClient() {
@@ -114,6 +133,7 @@ public class AylythClient implements ClientModInitializer {
 		ParticleFactoryRegistry.getInstance().register(AylythParticleTypes.VAMPIRIC_LAND, ParticleFactories::createVampiricLand);
 		ParticleFactoryRegistry.getInstance().register(AylythParticleTypes.BLIGHT_DRIP, ParticleFactories::createBlightDrip);
 		ParticleFactoryRegistry.getInstance().register(AylythParticleTypes.BLIGHT_LAND, ParticleFactories::createBlightLand);
+		ParticleFactoryRegistry.getInstance().register(AylythParticleTypes.SOUL_EMBER, SoulEmberParticle.Factory::new);
 
 		SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, AylythBlocks.YMPE_SIGN.getTexture()));
 		SpriteIdentifierRegistry.INSTANCE.addIdentifier(new SpriteIdentifier(TexturedRenderLayers.SIGNS_ATLAS_TEXTURE, AylythBlocks.POMEGRANATE_SIGN.getTexture()));
@@ -164,7 +184,7 @@ public class AylythClient implements ClientModInitializer {
 		EntityRendererRegistry.register(AylythEntityTypes.AYLYTHIAN, AylythianEntityRenderer::new);
 		EntityRendererRegistry.register(AylythEntityTypes.ELDER_AYLYTHIAN, ElderAylythianEntityRenderer::new);
 		EntityRendererRegistry.register(AylythEntityTypes.YMPE_LANCE, YmpeLanceEntityRenderer::new);
-		EntityRendererRegistry.register(AylythEntityTypes.SOULMOULD, SoulmouldEntityRenderer::new);
+		EntityRendererRegistry.register(AylythEntityTypes.YMPEMOULD, SoulmouldEntityRenderer::new);
 		EntityRendererRegistry.register(AylythEntityTypes.BONEFLY, BoneflyEntityRenderer::new);
 		EntityRendererRegistry.register(AylythEntityTypes.ROOT_PROP, RootPropEntityRenderer::new);
 		EntityRendererRegistry.register(AylythEntityTypes.RIPPED_SOUL, RippedSoulEntityRenderer::new);
@@ -184,9 +204,9 @@ public class AylythClient implements ClientModInitializer {
 			registrationHelper.register(new YmpeThornRingFeature((FeatureRendererContext<LivingEntity, EntityModel<LivingEntity>>) entityRenderer, context.getModelLoader()));
 		});
 
-		TerraformBoatClientHelper.registerModelLayers(new Identifier(Aylyth.MOD_ID, "ympe"), false);
-		TerraformBoatClientHelper.registerModelLayers(new Identifier(Aylyth.MOD_ID, "pomegranate"), false);
-		TerraformBoatClientHelper.registerModelLayers(new Identifier(Aylyth.MOD_ID, "writhewood"), false);
+		TerraformBoatClientHelper.registerModelLayers(Aylyth.id("ympe"), false);
+		TerraformBoatClientHelper.registerModelLayers(Aylyth.id("pomegranate"), false);
+		TerraformBoatClientHelper.registerModelLayers(Aylyth.id("writhewood"), false);
 
 		ClientTickEvents.START_CLIENT_TICK.register(client -> {
 			if (client.world != null && client.player != null && client.world.getTime() % 20 == 0) {
@@ -202,10 +222,7 @@ public class AylythClient implements ClientModInitializer {
 			}
 		});
 
-		registerBigItemRenderer(AylythItems.YMPE_LANCE);
-		registerBigItemRenderer(AylythItems.YMPE_GLAIVE);
-		registerBigItemRenderer(AylythItems.YMPE_FLAMBERGE);
-		registerBigItemRenderer(AylythItems.YMPE_SCYTHE);
+		registerSpearItemRenderer(AylythItems.YMPE_LANCE);
 
 		ModelLoadingPlugin.register(pluginContext -> {
 			pluginContext.addModels(
@@ -242,8 +259,9 @@ public class AylythClient implements ClientModInitializer {
 
 		if (false) {
 			ModelLoadingPlugin.register(pluginContext -> {
+				Identifier soulHearthId = Aylyth.id("soul_hearth_charged");
 				pluginContext.modifyModelAfterBake().register((model, context) -> {
-					if (context.id().getPath().contains("soul_hearth_charged")) {
+					if (context.id().equals(soulHearthId)) {
 						return new SoulHearthBlockModel(model);
 					}
 					return model;
@@ -251,7 +269,9 @@ public class AylythClient implements ClientModInitializer {
 			});
 		}
 
-//		ModelLoadingRegistry.INSTANCE.registerModelProvider((manager, out) -> out.accept(new ModelIdentifier(AylythUtil.id("%s_generated".formatted(Registries.ITEM.getId(ModItems.MYSTERIOUS_SKETCH).getPath())), "inventory")));
+		PreparableModelLoadingPlugin.register(PerspectiveModelLoader::load, PerspectiveModelLoader::apply);
+
+//		ModelLoadingRegistry.INSTANCE.registerModelProvider((manager, out) -> out.accept(new ModelIdentifier(AylythUtil.itemId("%s_generated".formatted(Registries.ITEM.getId(ModItems.MYSTERIOUS_SKETCH).getPath())), "inventory")));
 		BuiltinItemRendererRegistry.INSTANCE.register(AylythItems.WOODY_GROWTH_CACHE, new WoodyGrowthCacheItemRenderer());
 //		BuiltinItemRendererRegistry.INSTANCE.register(ModItems.MYSTERIOUS_SKETCH, new MysteriousSketchItemRenderer());
 
@@ -265,20 +285,19 @@ public class AylythClient implements ClientModInitializer {
 		AdvancementIconRendererRegistry.init();
 	}
 
-	private void registerBigItemRenderer(ItemConvertible item) {
-		Identifier bigId = Registries.ITEM.getId(item.asItem());
-		Identifier guiId = new ModelIdentifier(bigId.withSuffixedPath("_gui"), "inventory");
-		Identifier handheldId = new ModelIdentifier(bigId.withSuffixedPath("_handheld"), "inventory");
-		BigItemRenderer bigItemRenderer = new BigItemRenderer(bigId);
-		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(bigItemRenderer);
-		BuiltinItemRendererRegistry.INSTANCE.register(item, bigItemRenderer);
+	private void registerSpearItemRenderer(ItemConvertible item) {
+		Identifier itemId = Registries.ITEM.getId(item.asItem());
+		ModelIdentifier spearId = new ModelIdentifier(itemId.withSuffixedPath("_spear"), "inventory");
+		SpearItemRenderer spearItemRenderer = new SpearItemRenderer(spearId);
+		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(spearItemRenderer);
+		BuiltinItemRendererRegistry.INSTANCE.register(item, spearItemRenderer);
 		ModelLoadingPlugin.register(pluginContext -> {
-			pluginContext.addModels(guiId, handheldId);
+			pluginContext.addModels(spearId);
 
-			final Identifier basicModel = new ModelIdentifier(bigId, "inventory");
+			final ModelIdentifier itemModel = new ModelIdentifier(itemId, "inventory");
 			pluginContext.modifyModelAfterBake().register((model, context) -> {
-				if (context.id().equals(basicModel)) {
-					return new WrappedBigItemModel(model);
+				if (context.id().equals(itemModel)) {
+					return new WrappedSpearItemModel(model);
 				}
 				return model;
 			});
@@ -349,8 +368,8 @@ public class AylythClient implements ClientModInitializer {
 		}
 	}
 
-	public static class WrappedBigItemModel extends ForwardingBakedModel {
-		public WrappedBigItemModel(BakedModel model) {
+	public static class WrappedSpearItemModel extends ForwardingBakedModel {
+		public WrappedSpearItemModel(BakedModel model) {
 			this.wrapped = model;
 		}
 

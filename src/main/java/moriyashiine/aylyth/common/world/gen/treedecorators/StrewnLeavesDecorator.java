@@ -7,6 +7,7 @@ import net.minecraft.world.Heightmap;
 import net.minecraft.world.gen.treedecorator.TreeDecorator;
 import net.minecraft.world.gen.treedecorator.TreeDecoratorType;
 
+// TODO: Implement
 public class StrewnLeavesDecorator extends TreeDecorator {
     private static final StrewnLeavesDecorator INSTANCE = new StrewnLeavesDecorator();
     public static final Codec<StrewnLeavesDecorator> CODEC = Codec.unit(() -> INSTANCE);

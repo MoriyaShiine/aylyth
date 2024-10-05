@@ -1,7 +1,11 @@
 package moriyashiine.aylyth.common.entity;
 
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.entity.statuseffects.*;
+import moriyashiine.aylyth.common.entity.statuseffects.BlightEffect;
+import moriyashiine.aylyth.common.entity.statuseffects.CimmerianStatusEffect;
+import moriyashiine.aylyth.common.entity.statuseffects.CrimsonCurseEffect;
+import moriyashiine.aylyth.common.entity.statuseffects.MortechisStatusEffect;
+import moriyashiine.aylyth.common.entity.statuseffects.WyrdedStatusEffect;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;

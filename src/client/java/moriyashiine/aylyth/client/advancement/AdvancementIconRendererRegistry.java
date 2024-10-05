@@ -4,11 +4,16 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import it.unimi.dsi.fastutil.objects.Reference2ObjectOpenHashMap;
 import moriyashiine.aylyth.common.advancement.renderdata.AdvancementRendererData;
 import moriyashiine.aylyth.common.advancement.renderdata.AdvancementRendererDataType;
-import moriyashiine.aylyth.common.advancement.renderdata.TextureRendererData;
 import moriyashiine.aylyth.common.advancement.renderdata.AdvancementRendererDataTypes;
+import moriyashiine.aylyth.common.advancement.renderdata.TextureRendererData;
 import moriyashiine.aylyth.common.registry.AylythRegistries;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.*;
+import net.minecraft.client.render.BufferBuilder;
+import net.minecraft.client.render.BufferRenderer;
+import net.minecraft.client.render.GameRenderer;
+import net.minecraft.client.render.Tessellator;
+import net.minecraft.client.render.VertexFormat;
+import net.minecraft.client.render.VertexFormats;
 import org.joml.Matrix4f;
 
 import java.util.Map;

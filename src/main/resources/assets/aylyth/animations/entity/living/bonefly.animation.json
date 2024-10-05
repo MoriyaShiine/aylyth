@@ -579,7 +579,7 @@
 				}
 			}
 		},
-		"twitching": {
+		"twitch": {
 			"loop": true,
 			"animation_length": 4,
 			"bones": {
@@ -2930,7 +2930,7 @@
 				}
 			}
 		},
-		"resting": {
+		"rest": {
 			"loop": true,
 			"bones": {
 				"body": {
@@ -3043,7 +3043,7 @@
 				}
 			}
 		},
-		"standing_to_rest": {
+		"stand_to_rest": {
 			"animation_length": 0.5,
 			"bones": {
 				"body": {
@@ -3266,7 +3266,7 @@
 				}
 			}
 		},
-		"rest_to_standing": {
+		"rest_to_stand": {
 			"animation_length": 0.5,
 			"bones": {
 				"body": {
@@ -3489,7 +3489,7 @@
 				}
 			}
 		},
-		"walking": {
+		"walk": {
 			"loop": true,
 			"animation_length": 1,
 			"bones": {

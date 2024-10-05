@@ -4,13 +4,13 @@ import com.mojang.serialization.Dynamic;
 import moriyashiine.aylyth.api.interfaces.Pledgeable;
 import moriyashiine.aylyth.common.advancement.AylythCriteria;
 import moriyashiine.aylyth.common.block.AylythBlocks;
+import moriyashiine.aylyth.common.data.tag.AylythItemTags;
 import moriyashiine.aylyth.common.entity.AylythTrackedDataHandlers;
-import moriyashiine.aylyth.common.world.AylythWorldAttachmentTypes;
 import moriyashiine.aylyth.common.entity.ai.AylythMemoryTypes;
 import moriyashiine.aylyth.common.entity.ai.brains.WreathedHindBrain;
-import moriyashiine.aylyth.common.data.tag.AylythItemTags;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.common.world.AylythSoundEvents;
+import moriyashiine.aylyth.common.world.AylythWorldAttachmentTypes;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentTarget;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityData;
@@ -50,7 +50,11 @@ import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.*;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.Animation;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
@@ -59,10 +63,15 @@ import java.util.List;
 import java.util.UUID;
 
 public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pledgeable {
+    private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("idle");
+    private static final RawAnimation WALK = RawAnimation.begin().thenLoop("walk");
+    private static final RawAnimation MELEE = RawAnimation.begin().thenPlayXTimes("melee", 1);
+    private static final RawAnimation ATTACK_RANGED = RawAnimation.begin().thenPlayXTimes("attack_ranged", 1);
+    private static final RawAnimation KILLING_BLOW = RawAnimation.begin().thenPlayXTimes("killing_blow", 1);
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+
     private static final EntityAttributeModifier SNEAKY_SPEED_PENALTY = new EntityAttributeModifier(UUID.fromString("5CD17E11-A74A-43D3-A529-90FDE04B191E"), "sneaky", -0.15D, EntityAttributeModifier.Operation.ADDITION);
     private EntityAttributeInstance modifiableattributeinstance = this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
-
-    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     public static final TrackedData<AttackType> ATTACK_TYPE = DataTracker.registerData(WreathedHindEntity.class, AylythTrackedDataHandlers.WREATHED_ATTACK_TYPE);
     public static final TrackedData<Boolean> IS_PLEDGED = DataTracker.registerData(WreathedHindEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
@@ -229,38 +238,26 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar animationData) {
-        animationData.add(new AnimationController<>(this, "controller", 10, this::predicate));
-        animationData.add(new AnimationController<>(this, "controller2", 1, this::attackPredicate));
-    }
-
-    private <T extends GeoAnimatable> PlayState attackPredicate(AnimationState<T> event) {
-        var builder = RawAnimation.begin();
-        if (this.getAttackType() == AttackType.MELEE) {
-            builder.then("attack.melee", Animation.LoopType.PLAY_ONCE);
-            event.getController().setAnimation(builder);
-            return PlayState.CONTINUE;
-        } else if (this.getAttackType() == AttackType.RANGED) {
-            builder.then("attack.ranged", Animation.LoopType.PLAY_ONCE);
-            event.getController().setAnimation(builder);
-            return PlayState.CONTINUE;
-        } else if (this.getAttackType() == AttackType.KILLING) {
-            builder.then("killing.blow", Animation.LoopType.PLAY_ONCE);
-            event.getController().setAnimation(builder);
-            return PlayState.CONTINUE;
-        }
-        return PlayState.STOP;
+        animationData.add(new AnimationController<>(this, "Move", 10, this::predicate));
+        animationData.add(new AnimationController<>(this, "Attack", 1, this::attackPredicate));
     }
 
     private <T extends GeoAnimatable> PlayState predicate(AnimationState<T> event) {
-        var builder = RawAnimation.begin();
-        float limbSwingAmount = Math.abs(event.getLimbSwingAmount());
-        if(limbSwingAmount > 0.01F) {
-            builder.thenLoop("walk");
-        }else{
-            builder.thenLoop("idle");
-        }
-        event.getController().setAnimation(builder);
-        return PlayState.CONTINUE;
+        return event.setAndContinue(event.isMoving() ? WALK : IDLE);
+    }
+
+    private <T extends WreathedHindEntity> PlayState attackPredicate(AnimationState<T> event) {
+        var entity = event.getAnimatable();
+        RawAnimation animation;
+        switch (entity.getAttackType()) {
+            case MELEE -> animation = MELEE;
+            case RANGED -> animation = ATTACK_RANGED;
+            case KILLING -> animation = KILLING_BLOW;
+            default -> {
+                return PlayState.STOP;
+            }
+        };
+        return event.setAndContinue(animation);
     }
 
     @Override

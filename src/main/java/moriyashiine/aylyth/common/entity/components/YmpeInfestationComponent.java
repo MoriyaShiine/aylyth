@@ -2,10 +2,10 @@ package moriyashiine.aylyth.common.entity.components;
 
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import dev.onyxstudios.cca.api.v3.component.tick.ServerTickingComponent;
-import moriyashiine.aylyth.common.entity.AylythEntityComponents;
 import moriyashiine.aylyth.common.advancement.AylythCriteria;
-import moriyashiine.aylyth.common.world.AylythSoundEvents;
 import moriyashiine.aylyth.common.data.world.AylythDimensionData;
+import moriyashiine.aylyth.common.entity.AylythEntityComponents;
+import moriyashiine.aylyth.common.world.AylythSoundEvents;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;

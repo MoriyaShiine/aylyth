@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_aylythian_heart": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "aylyth:aylythian_heart"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "aylyth:girasol_sapling"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_aylythian_heart",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "aylyth:girasol_sapling"
+    ]
+  },
+  "sends_telemetry_event": false
+}

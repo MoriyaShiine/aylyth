@@ -10,7 +10,16 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.ShaderProgram;
 import net.minecraft.client.gl.VertexBuffer;
 import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.render.*;
+import net.minecraft.client.render.BackgroundRenderer;
+import net.minecraft.client.render.BufferBuilder;
+import net.minecraft.client.render.BufferRenderer;
+import net.minecraft.client.render.Camera;
+import net.minecraft.client.render.CameraSubmersionType;
+import net.minecraft.client.render.DimensionEffects;
+import net.minecraft.client.render.GameRenderer;
+import net.minecraft.client.render.Tessellator;
+import net.minecraft.client.render.VertexFormat;
+import net.minecraft.client.render.VertexFormats;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.registry.entry.RegistryEntry;
@@ -22,8 +31,7 @@ import net.minecraft.world.biome.Biome;
 
 public class AylythDimensionRenderer {
 	public static final DimensionEffects DIMENSION_EFFECTS = new AylythDimensionEffects();
-	public static final Identifier SUN = new Identifier(Aylyth.MOD_ID, "textures/environment/sun.png");
-	public static final Identifier MOON = new Identifier(Aylyth.MOD_ID, "textures/environment/moon.png");
+	public static final Identifier SPARKS = Aylyth.id("textures/environment/sun.png");
 	public static int goalFogStrength = 0;
 	private static float currentFogStrength;
 
@@ -98,27 +106,17 @@ public class AylythDimensionRenderer {
 		RenderSystem.enableBlend();
 		RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
 		matrices.push();
-		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 0);
+		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 		matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-90.0F));
-		matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(world.getSkyAngle(tickDelta) * 360.0F));
-		matrices.translate(0, -80, 0);
 		var positionMatrix = matrices.peek().getPositionMatrix();
-		float celestialSize = 13.0F;
+		float celestialSize = 20.0F;
 		RenderSystem.setShader(GameRenderer::getPositionTexProgram);
-		RenderSystem.setShaderTexture(0, SUN);
+		RenderSystem.setShaderTexture(0, SPARKS);
 		bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
 		bufferBuilder.vertex(positionMatrix, -celestialSize, 100.0F, -celestialSize).texture(0.0F, 0.0F).next();
 		bufferBuilder.vertex(positionMatrix, celestialSize, 100.0F, -celestialSize).texture(0.0F, 1.0F).next();
 		bufferBuilder.vertex(positionMatrix, celestialSize, 100.0F, celestialSize).texture(1.0F, 1.0F).next();
 		bufferBuilder.vertex(positionMatrix, -celestialSize, 100.0F, celestialSize).texture(1.0F, 0.0F).next();
-		BufferRenderer.drawWithGlobalProgram(bufferBuilder.end());
-		matrices.translate(0, 160, 0);
-		RenderSystem.setShaderTexture(0, MOON);
-		bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
-		bufferBuilder.vertex(positionMatrix, -celestialSize, -100.0F, celestialSize).texture(0.0F, 0.0F).next();
-		bufferBuilder.vertex(positionMatrix, celestialSize, -100.0F, celestialSize).texture(0.0F, 1.0F).next();
-		bufferBuilder.vertex(positionMatrix, celestialSize, -100.0F, -celestialSize).texture(1.0F, 1.0F).next();
-		bufferBuilder.vertex(positionMatrix, -celestialSize, -100.0F, -celestialSize).texture(1.0F, 0.0F).next();
 		BufferRenderer.drawWithGlobalProgram(bufferBuilder.end());
 		float starPower = world.method_23787(tickDelta);
 		if (starPower > 0.0F) {

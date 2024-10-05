@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:ympe_dagger_smithing"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_ympe_sapling": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "aylyth:ympe_sapling"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_ympe_sapling",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:ympe_dagger_smithing"
+    ]
+  },
+  "sends_telemetry_event": false
+}

@@ -1,7 +1,13 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_dagger": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "aylyth:ympe_glaive"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_ympe_dagger": {
       "conditions": {
         "items": [
           {
@@ -12,17 +18,11 @@
         ]
       },
       "trigger": "minecraft:inventory_changed"
-    },
-    "has_the_recipe": {
-      "conditions": {
-        "recipe": "aylyth:ympe_glaive"
-      },
-      "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_dagger",
+      "has_ympe_dagger",
       "has_the_recipe"
     ]
   ],

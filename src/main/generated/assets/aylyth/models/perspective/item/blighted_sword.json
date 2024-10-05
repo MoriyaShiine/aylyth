@@ -1,0 +1,9 @@
+{
+  "fallback": "aylyth:item/blighted_sword_gui",
+  "perspectives": {
+    "firstperson_lefthand": "aylyth:item/blighted_sword_handheld",
+    "firstperson_righthand": "aylyth:item/blighted_sword_handheld",
+    "thirdperson_lefthand": "aylyth:item/blighted_sword_handheld",
+    "thirdperson_righthand": "aylyth:item/blighted_sword_handheld"
+  }
+}

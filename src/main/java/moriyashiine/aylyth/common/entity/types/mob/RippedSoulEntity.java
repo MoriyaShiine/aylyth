@@ -1,11 +1,18 @@
 package moriyashiine.aylyth.common.entity.types.mob;
 
+import moriyashiine.aylyth.common.particle.effects.ColorableParticleEffect;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.Flutterer;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MovementType;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.control.MoveControl;
-import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.ai.goal.ActiveTargetGoal;
+import net.minecraft.entity.ai.goal.Goal;
+import net.minecraft.entity.ai.goal.LookAtEntityGoal;
+import net.minecraft.entity.ai.goal.RevengeGoal;
+import net.minecraft.entity.ai.goal.SwimGoal;
+import net.minecraft.entity.ai.goal.TrackTargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -30,12 +37,23 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.Animation;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.EnumSet;
 import java.util.Optional;
 import java.util.UUID;
 
-public class RippedSoulEntity extends HostileEntity {
+public class RippedSoulEntity extends HostileEntity implements GeoEntity, Flutterer {
+    private static final RawAnimation IDLE = RawAnimation.begin().thenPlay("stop_movement").thenPlay("idle");
+    private static final RawAnimation MOVE = RawAnimation.begin().thenPlay("start_movement").thenPlay("movement");
+    private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
+
     protected static final TrackedData<Byte> VEX_FLAGS = DataTracker.registerData(RippedSoulEntity.class, TrackedDataHandlerRegistry.BYTE);
     private static final TrackedData<Optional<UUID>> OWNER_UUID = DataTracker.registerData(RippedSoulEntity.class, TrackedDataHandlerRegistry.OPTIONAL_UUID);
     private static final int CHARGING_FLAG = 1;
@@ -233,6 +251,28 @@ public class RippedSoulEntity extends HostileEntity {
         return SoundEvents.ENTITY_VEX_HURT;
     }
 
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(
+                new AnimationController<>(this, "Move", state -> state.setAndContinue(state.isMoving() ? MOVE : IDLE))
+                        .setParticleKeyframeHandler(event -> {
+                    RippedSoulEntity entity = event.getAnimatable();
+                    entity.getWorld().addParticle(ColorableParticleEffect.SOUL_EMBER,
+                            getX() + entity.random.nextFloat() / 10f, getY() + entity.random.nextFloat() / 10f, getZ() + entity.random.nextFloat() / 10f,
+                            entity.random.nextFloat() / 10f, entity.random.nextFloat() / 10f, entity.random.nextFloat() / 10f);
+                })
+        );
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return geoCache;
+    }
+
+    @Override
+    public boolean isInAir() {
+        return true;
+    }
 
     class VexMoveControl
             extends MoveControl {

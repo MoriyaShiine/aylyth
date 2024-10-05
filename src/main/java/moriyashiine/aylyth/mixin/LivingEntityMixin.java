@@ -4,14 +4,14 @@ import com.llamalad7.mixinextras.injector.WrapWithCondition;
 import com.llamalad7.mixinextras.sugar.Local;
 import moriyashiine.aylyth.api.interfaces.HindPledgeHolder;
 import moriyashiine.aylyth.api.interfaces.ProlongedDeath;
-import moriyashiine.aylyth.common.entity.types.mob.BoneflyEntity;
-import moriyashiine.aylyth.common.item.types.YmpeEffigyItem;
-import moriyashiine.aylyth.common.entity.AylythEntityComponents;
-import moriyashiine.aylyth.common.item.AylythItems;
-import moriyashiine.aylyth.common.entity.AylythStatusEffects;
 import moriyashiine.aylyth.common.data.AylythDamageTypes;
-import moriyashiine.aylyth.common.data.tag.AylythStatusEffectTags;
 import moriyashiine.aylyth.common.data.tag.AylythItemTags;
+import moriyashiine.aylyth.common.data.tag.AylythStatusEffectTags;
+import moriyashiine.aylyth.common.entity.AylythEntityComponents;
+import moriyashiine.aylyth.common.entity.AylythStatusEffects;
+import moriyashiine.aylyth.common.entity.types.mob.BoneflyEntity;
+import moriyashiine.aylyth.common.item.AylythItems;
+import moriyashiine.aylyth.common.item.types.YmpeEffigyItem;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.fabric.api.tag.convention.v1.TagUtil;
 import net.minecraft.entity.Entity;
@@ -31,7 +31,11 @@ import net.minecraft.util.ItemScatterer;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.*;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Constant;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyConstant;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -49,12 +53,14 @@ public abstract class LivingEntityMixin extends Entity {
 		if (source.getAttacker() instanceof LivingEntity entity && !source.getAttacker().getWorld().isClient) {
 			double attkDMG = entity.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
 			ItemStack stack = entity.getMainHandStack();
-			boolean usingVampiric = stack.isIn(AylythItemTags.VAMPIRIC_WEAPON);
-			boolean usingBlight =  stack.isIn(AylythItemTags.BLIGHTED_WEAPON);
 
             if (value >= attkDMG) { // Prevents using non-critical attacks to spam the weapons
-				if (usingVampiric) return AylythUtil.getVampiricWeaponEffect(entity, (LivingEntity) (Object) this, stack, value);
-				if (usingBlight) return AylythUtil.getBlightedWeaponEffect(entity, (LivingEntity) (Object) this, stack, value);
+				if (stack.isIn(AylythItemTags.VAMPIRIC_WEAPONS)) {
+					return AylythUtil.getVampiricWeaponEffect(entity, (LivingEntity) (Object) this, stack, value);
+				}
+				if (stack.isIn(AylythItemTags.BLIGHTED_WEAPONS)) {
+					return AylythUtil.getBlightedWeaponEffect(entity, (LivingEntity) (Object) this, stack, value);
+				}
             }
 
 		}
@@ -84,7 +90,7 @@ public abstract class LivingEntityMixin extends Entity {
 	@Inject(method = "eatFood", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;applyFoodEffects(Lnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/entity/LivingEntity;)V"))
 	private void decreaseYmpeInfestationStage(World world, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
 		if ((LivingEntity) (Object) this instanceof PlayerEntity player && stack.isIn(AylythItemTags.DECREASES_BRANCHES)) {
-			if (stack.isOf(AylythItems.YMPE_MUSH)) {
+			if (stack.isIn(AylythItemTags.DECREASES_BRANCHES_1_IN_4)) {
 				if (world.random.nextFloat() >= .25f) {
 					return;
 				}

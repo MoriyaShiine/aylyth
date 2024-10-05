@@ -1,8 +1,8 @@
 package moriyashiine.aylyth.common.entity.ai.sensors;
 
 import com.google.common.collect.ImmutableSet;
-import moriyashiine.aylyth.common.entity.types.mob.WreathedHindEntity;
 import moriyashiine.aylyth.common.entity.ai.AylythMemoryTypes;
+import moriyashiine.aylyth.common.entity.types.mob.WreathedHindEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.LivingTargetCache;

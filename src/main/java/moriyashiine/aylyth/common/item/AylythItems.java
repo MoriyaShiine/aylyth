@@ -1,34 +1,61 @@
 package moriyashiine.aylyth.common.item;
 
 import com.terraformersmc.terraform.boat.impl.item.TerraformBoatItem;
-import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.entity.AylythEntityTypes;
 import moriyashiine.aylyth.common.entity.AylythStatusEffects;
-import moriyashiine.aylyth.common.item.types.*;
 import moriyashiine.aylyth.common.item.components.ThornFlechetteEffect;
+import moriyashiine.aylyth.common.item.types.AylythianHeartItem;
+import moriyashiine.aylyth.common.item.types.AylythianSmithingTemplateUpgradeItem;
+import moriyashiine.aylyth.common.item.types.CoricSeedItem;
+import moriyashiine.aylyth.common.item.types.DaggerItem;
+import moriyashiine.aylyth.common.item.types.DebugWandItem;
+import moriyashiine.aylyth.common.item.types.NephriteFlaskItem;
+import moriyashiine.aylyth.common.item.types.PomegranateItem;
+import moriyashiine.aylyth.common.item.types.ShuckedYmpeFruitItem;
+import moriyashiine.aylyth.common.item.types.ThornFlechetteItem;
+import moriyashiine.aylyth.common.item.types.YmpeCuirassItem;
+import moriyashiine.aylyth.common.item.types.YmpeDaggerItem;
+import moriyashiine.aylyth.common.item.types.YmpeEffigyItem;
+import moriyashiine.aylyth.common.item.types.YmpeFlambergeItem;
+import moriyashiine.aylyth.common.item.types.YmpeGlaiveItem;
+import moriyashiine.aylyth.common.item.types.YmpeLanceItem;
+import moriyashiine.aylyth.common.item.types.YmpeScytheItem;
 import moriyashiine.aylyth.common.world.AylythSoundEvents;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.item.*;
-import net.minecraft.registry.*;
-import net.minecraft.text.Text;
+import net.minecraft.item.AliasedBlockItem;
+import net.minecraft.item.AxeItem;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.FoodComponent;
+import net.minecraft.item.HangingSignItem;
+import net.minecraft.item.HoeItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.MusicDiscItem;
+import net.minecraft.item.PickaxeItem;
+import net.minecraft.item.ShovelItem;
+import net.minecraft.item.SignItem;
+import net.minecraft.item.SpawnEggItem;
+import net.minecraft.item.SwordItem;
+import net.minecraft.item.TallBlockItem;
+import net.minecraft.item.VerticallyAttachableBlockItem;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.math.Direction;
 
-import java.util.List;
-
 public interface AylythItems {
 
-    List<Item> TEMPT_MAIN_ITEM_GROUP_ITEMS = new ObjectArrayList<>(); // *private*
-    RegistryKey<ItemGroup> MAIN_ITEM_GROUP = RegistryKey.of(RegistryKeys.ITEM_GROUP, Aylyth.id(Aylyth.MOD_ID));
-
     Item DEBUG_WAND = register("debug_wand", new DebugWandItem(settings()));
+
+    Item SAPSTONE =  registerBlockItem("sapstone", AylythBlocks.SAPSTONE);
+    Item AMBER_SAPSTONE =  registerBlockItem("amber_sapstone", AylythBlocks.AMBER_SAPSTONE);
+    Item LIGNITE_SAPSTONE =  registerBlockItem("lignite_sapstone", AylythBlocks.LIGNITE_SAPSTONE);
+    Item OPALESCENT_SAPSTONE =  registerBlockItem("opalescent_sapstone", AylythBlocks.OPALESCENT_SAPSTONE);
 
 	Item YMPE_STRIPPED_LOG = registerBlockItem("stripped_ympe_log", AylythBlocks.YMPE_STRIPPED_LOG);
     Item YMPE_STRIPPED_WOOD = registerBlockItem("stripped_ympe_wood", AylythBlocks.YMPE_STRIPPED_WOOD);
@@ -92,7 +119,7 @@ public interface AylythItems {
     Item WRITHEWOOD_LEAVES = registerBlockItem("writhewood_leaves", AylythBlocks.WRITHEWOOD_LEAVES);
 
     Item SEEPING_WOOD = registerBlockItem("seeping_wood", AylythBlocks.SEEPING_WOOD);
-    Item GIRASOL_SEED = register("girasol_seed", new AliasedBlockItem(AylythBlocks.GIRASOL_SAPLING, settings()));
+    Item GIRASOL_SEED = register("girasol_sapling", new AliasedBlockItem(AylythBlocks.GIRASOL_SAPLING, settings()));
 
     Item CHTHONIA_WOOD = registerBlockItem("chthonia_wood", AylythBlocks.CHTHONIA_WOOD);
     Item NEPHRITIC_CHTHONIA_WOOD = registerBlockItem("nephritic_chthonia_wood", AylythBlocks.NEPHRITIC_CHTHONIA_WOOD);
@@ -120,7 +147,6 @@ public interface AylythItems {
     Item YMPE_SEEP = registerBlockItem("ympe_seep", AylythBlocks.YMPE_SEEP);
     Item SEEPING_WOOD_SEEP = registerBlockItem("seeping_wood_seep", AylythBlocks.SEEPING_WOOD_SEEP);
     Item DARK_WOODS_TILES = registerBlockItem("dark_woods_tiles", AylythBlocks.DARK_WOODS_TILES);
-	//Item MYSTERIOUS_SKETCH = registerSimple("mysterious_sketch");
     Item BARK = registerSimple("bark");
 
     Item LANCEOLATE_DAGGER = register("lanceolate_dagger", new DaggerItem(AylythToolMaterials.NEPHRITE, 1, -2, -0.5f, settings()));
@@ -191,7 +217,7 @@ public interface AylythItems {
     Item FAUNAYLYTHIAN_SPAWN_EGG = registerSpawnEgg("faunaylythian_spawn_egg", AylythEntityTypes.FAUNAYLYTHIAN, 0x6A4831, 0xE1AC20);
     Item WREATHED_HIND_SPAWN_EGG = registerSpawnEgg("wreathed_hind_spawn_egg", AylythEntityTypes.WREATHED_HIND_ENTITY, 0x5C4F42, 0xE1B886);
     Item SCION_SPAWN_EGG = registerSpawnEgg("scion_spawn_egg", AylythEntityTypes.SCION, 0x463428, 0xE58E03);
-    Item YMPEMOULD_SPAWN_EGG = registerSpawnEgg("ympemould_spawn_egg", AylythEntityTypes.SOULMOULD, 0x42423E, 0xE58E03);
+    Item YMPEMOULD_SPAWN_EGG = registerSpawnEgg("ympemould_spawn_egg", AylythEntityTypes.YMPEMOULD, 0x42423E, 0xE58E03);
     Item BONEFLY_SPAWN_EGG = registerSpawnEgg("bonefly_spawn_egg", AylythEntityTypes.BONEFLY, 0xE2E2D6, 0x3A2E2B);
     Item TULPA_SPAWN_EGG = registerSpawnEgg("tulpa_spawn_egg", AylythEntityTypes.TULPA, 0xE2E2D6, 0x73868F);
 
@@ -202,7 +228,6 @@ public interface AylythItems {
 	}
 
 	private static <I extends Item> I register(String name, I item) {
-		TEMPT_MAIN_ITEM_GROUP_ITEMS.add(item);
 		return Registry.register(Registries.ITEM, Aylyth.id(name), item);
 	}
 
@@ -222,17 +247,5 @@ public interface AylythItems {
 		return register(name, new SpawnEggItem(entityType, primaryColor, secondaryColor, settings()));
 	}
 
-	static void register() {
-        Registry.register(Registries.ITEM_GROUP, MAIN_ITEM_GROUP, FabricItemGroup.builder()
-                .icon(AylythItems.YMPE_DAGGER::getDefaultStack)
-                .displayName(Text.translatable("itemGroup.aylyth.main"))
-                .entries((displayContext, entries) -> {
-                    for (var item : TEMPT_MAIN_ITEM_GROUP_ITEMS) {
-                        entries.add(item);
-                    }
-                    TEMPT_MAIN_ITEM_GROUP_ITEMS.clear();
-                })
-                .build()
-        );
-    }
+	static void register() {}
 }

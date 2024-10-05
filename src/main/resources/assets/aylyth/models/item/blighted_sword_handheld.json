@@ -1,0 +1,76 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "aylyth:item/blighted_sword_handheld"
+  },
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [
+        0,
+        -90,
+        40
+      ],
+      "translation": [
+        0,
+        14,
+        2.5
+      ],
+      "scale": [
+        1.8,
+        1.8,
+        1
+      ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [
+        0,
+        90,
+        -40
+      ],
+      "translation": [
+        0,
+        14,
+        2.5
+      ],
+      "scale": [
+        1.8,
+        1.8,
+        1
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        -90,
+        25
+      ],
+      "translation": [
+        2,
+        10,
+        1.13
+      ],
+      "scale": [
+        1.5,
+        1.5,
+        0.7
+      ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [
+        0,
+        90,
+        -25
+      ],
+      "translation": [
+        2,
+        10,
+        1.13
+      ],
+      "scale": [
+        1.5,
+        1.5,
+        0.7
+      ]
+    }
+  }
+}

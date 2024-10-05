@@ -1,0 +1,9 @@
+{
+  "fallback": "aylyth:item/vampiric_sword_gui",
+  "perspectives": {
+    "firstperson_lefthand": "aylyth:item/vampiric_sword_handheld",
+    "firstperson_righthand": "aylyth:item/vampiric_sword_handheld",
+    "thirdperson_lefthand": "aylyth:item/vampiric_sword_handheld",
+    "thirdperson_righthand": "aylyth:item/vampiric_sword_handheld"
+  }
+}

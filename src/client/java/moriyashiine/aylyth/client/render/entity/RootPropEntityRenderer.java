@@ -13,7 +13,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.RotationAxis;
 
 public class RootPropEntityRenderer extends EntityRenderer<RootPropEntity> {
-    private static final Identifier TEXTURE = new Identifier(Aylyth.MOD_ID, "textures/entity/root_prop.png");
+    private static final Identifier TEXTURE = Aylyth.id("textures/entity/root_prop.png");
     private final RootPropEntityModel<RootPropEntity> model;
 
     public RootPropEntityRenderer(EntityRendererFactory.Context context) {

@@ -2,7 +2,8 @@ package moriyashiine.aylyth.common.network.packets;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import moriyashiine.aylyth.common.network.AylythPacketTypes;
-import net.fabricmc.fabric.api.networking.v1.*;
+import net.fabricmc.fabric.api.networking.v1.FabricPacket;
+import net.fabricmc.fabric.api.networking.v1.PacketType;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleType;
