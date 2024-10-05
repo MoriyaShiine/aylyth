@@ -5,13 +5,17 @@ import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.block.types.VitalThuribleBlock;
 import moriyashiine.aylyth.common.block.types.WoodyGrowthCacheBlock;
 import moriyashiine.aylyth.common.data.AylythDamageTypes;
+import moriyashiine.aylyth.common.data.tag.AylythBiomeTags;
+import moriyashiine.aylyth.common.data.tag.AylythDamageTypeTags;
 import moriyashiine.aylyth.common.data.world.AylythDimensionData;
 import moriyashiine.aylyth.common.entity.AylythAttributes;
 import moriyashiine.aylyth.common.entity.AylythEntityTypes;
+import moriyashiine.aylyth.common.entity.types.mob.PilotLightEntity;
 import moriyashiine.aylyth.common.entity.types.mob.RippedSoulEntity;
 import moriyashiine.aylyth.common.entity.types.mob.ScionEntity;
 import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.aylyth.common.util.AylythUtil;
+import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.minecraft.advancement.Advancement;
@@ -29,12 +33,16 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.BiomeTags;
 import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameRules;
+import net.minecraft.world.TeleportTarget;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+
+import java.util.Optional;
 
 // TODO split into several classes, each of which implements a specific feature &
 //  move them to the corresponding packages (block/entity/item)
@@ -99,7 +107,7 @@ public class LivingEntityDeathEvents {
     }
 
     private static boolean allowDeath(LivingEntity livingEntity, DamageSource damageSource, float damageAmount) {
-        if(livingEntity instanceof ServerPlayerEntity player){
+        if (livingEntity instanceof ServerPlayerEntity player) {
             if (damageSource.isOf(DamageTypes.OUT_OF_WORLD)) {
                 return true;
             }
@@ -108,9 +116,9 @@ public class LivingEntityDeathEvents {
                 WoodyGrowthCacheBlock.spawnInventory(player.getWorld(), player.getBlockPos(), player);
                 return true;
             }
-            RegistryKey<World> toWorld = null;
+
+            boolean teleport = false;
             if (player.getWorld().getRegistryKey() != AylythDimensionData.WORLD) {
-                boolean teleport = false;
                 float chance = switch (player.getWorld().getDifficulty()) {
                     case PEACEFUL -> 0;
                     case EASY -> 0.1f;
@@ -124,13 +132,15 @@ public class LivingEntityDeathEvents {
                     }
                     if (!teleport) {
                         RegistryEntry<Biome> biome = player.getWorld().getBiome(player.getBlockPos());
-                        if (biome.isIn(BiomeTags.IS_TAIGA) || biome.isIn(BiomeTags.IS_FOREST)) {
-                            if (damageSource.isIn(DamageTypeTags.IS_FALL) || damageSource.isIn(DamageTypeTags.IS_DROWNING)) {
+                        if (biome.isIn(AylythBiomeTags.DEATH_SENDS_TO_AYLYTH)) {
+                            if (damageSource.isIn(AylythDamageTypeTags.DEATH_SENDS_TO_AYLYTH)) {
                                 teleport = true;
                             }
                         }
                     }
-                    teleport |= AylythUtil.isNearSeep(player.getServerWorld(), player, 8);
+                    if (!teleport) {
+                        teleport = AylythUtil.isNearSeep(player.getServerWorld(), player, 8);
+                    }
                 }
                 if (!teleport) {
                     for (Hand hand : Hand.values()) {
@@ -142,23 +152,30 @@ public class LivingEntityDeathEvents {
                         }
                     }
                 }
-                if (teleport) {
-                    toWorld = AylythDimensionData.WORLD;
+            }
+            if (teleport) {
+                ServerWorld world = player.getServerWorld().getServer().getWorld(AylythDimensionData.WORLD);
+                if (world != null) {
+                    Optional<Vec3d> teleportPos = AylythUtil.findTeleportPosition(world, player.getBlockPos());
+                    if (teleportPos.isPresent()) {
+                        FabricDimensions.teleport(player, world, new TeleportTarget(teleportPos.get(), Vec3d.ZERO, player.headYaw, player.getPitch()));
+                        player.setHealth(player.getMaxHealth() / 2);
+                        player.clearStatusEffects();
+                        player.extinguish();
+                        player.setFrozenTicks(0);
+                        player.setVelocity(Vec3d.ZERO);
+                        player.fallDistance = 0;
+                        player.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 200));
+                        player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 200));
+                        PilotLightEntity escapeVector = PilotLightEntity.createGreenPilotLight(world);
+                        if (escapeVector != null) {
+                            escapeVector.setPosition(player.getX() + world.random.nextInt(4), player.getY() + 4, player.getZ() + world.random.nextInt(4));
+                            world.spawnEntity(escapeVector);
+                        }
+                        return false;
+                    }
                 }
             }
-            if (toWorld != null) {
-                AylythUtil.teleportTo(toWorld, player, 0);
-                player.setHealth(player.getMaxHealth() / 2);
-                player.clearStatusEffects();
-                player.extinguish();
-                player.setFrozenTicks(0);
-                player.setVelocity(Vec3d.ZERO);
-                player.fallDistance = 0;
-                player.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 200));
-                player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 200));
-                return false;
-            }
-            return true;
         }
         return true;
     }

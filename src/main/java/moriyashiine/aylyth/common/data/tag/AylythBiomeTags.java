@@ -7,8 +7,9 @@ import net.minecraft.world.biome.Biome;
 
 public interface AylythBiomeTags {
 
-    // Used for specifying vanilla biomes to generate seep in
+    /** Used for specifying vanilla biomes to generate seep in */
     TagKey<Biome> GENERATES_SEEP = bind("generates_seep");
+    TagKey<Biome> DEATH_SENDS_TO_AYLYTH = bind("death_sends_to_aylyth");
 
     TagKey<Biome> IS_CLEARING = bind("is_clearing");
     TagKey<Biome> IS_COPSE = bind("is_copse");

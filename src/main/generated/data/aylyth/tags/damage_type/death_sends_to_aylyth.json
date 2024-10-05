@@ -5,7 +5,9 @@
       "id": "#minecraft:is_fall",
       "required": false
     },
-    "minecraft:magic",
-    "minecraft:out_of_world"
+    {
+      "id": "#minecraft:is_drowning",
+      "required": false
+    }
   ]
 }
