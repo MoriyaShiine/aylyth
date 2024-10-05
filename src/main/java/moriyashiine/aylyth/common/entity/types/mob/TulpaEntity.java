@@ -7,10 +7,9 @@ import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.entity.AylythTrackedDataHandlers;
 import moriyashiine.aylyth.common.entity.ai.BasicAttackType;
 import moriyashiine.aylyth.common.entity.ai.brains.TulpaBrain;
+import moriyashiine.aylyth.common.integration.bewitchment.BewitchmentCompat;
 import moriyashiine.aylyth.common.screenhandler.TulpaScreenHandler;
 import moriyashiine.aylyth.mixin.MobEntityAccessor;
-import moriyashiine.bewitchment.api.BewitchmentAPI;
-import moriyashiine.bewitchment.common.item.TaglockItem;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
 import net.fabricmc.loader.api.FabricLoader;
@@ -65,10 +64,8 @@ import net.minecraft.util.UserCache;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.Animation;
 import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.core.animation.RawAnimation;
@@ -205,49 +202,43 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
 
     @Override
     protected ActionResult interactMob(PlayerEntity player, Hand hand) {
-        if(true) {
-            if(getOwnerUuid() == player.getUuid() || Aylyth.isDebugMode()) {
-                if(getSkinUuid() == null) {
-                    ItemStack itemStack = player.getMainHandStack();
-                    if(FabricLoader.getInstance().isModLoaded("bewitchment")) {
-                        if(itemStack.getItem() instanceof TaglockItem) {
-                            LivingEntity living = BewitchmentAPI.getTaglockOwner(getWorld(), itemStack);
-                            if(living instanceof PlayerEntity playerEntity) {
-                                setSkinUuid(playerEntity.getUuid());
-                                this.setCustomName(playerEntity.getName());
-                                this.dataTracker.set(TRANSFORMING, true);
-                                setSkinProfile(player.getGameProfile());
-                                return ActionResult.CONSUME;
-                            }
+        if (getOwnerUuid() == player.getUuid() || Aylyth.isDebugMode()) {
+            if (getSkinUuid() == null && player.getServer() != null) {
+                ItemStack itemStack = player.getMainHandStack();
+                UserCache userCache = player.getServer().getUserCache();
+                if (userCache != null) { // Only null with a TestServer
+                    Optional<GameProfile> cacheByName = Optional.empty();
+                    if (FabricLoader.getInstance().isModLoaded("bewitchment")) {
+                        UUID owner = BewitchmentCompat.getTaglockOwner(itemStack);
+                        if (owner != null) {
+                            cacheByName = userCache.getByUuid(owner);
                         }
                     } else {
-                        if(itemStack.isOf(Items.PAPER) && itemStack.hasCustomName()){
-                            if(player.getServer() != null){
-                                UserCache userCache = player.getServer().getUserCache();
-                                Optional<GameProfile> cacheByName = userCache.findByName(itemStack.getName().getString());
-                                if(cacheByName.isPresent()){
-                                    UUID uuid = cacheByName.get().getId();
-                                    setSkinUuid(uuid);
-                                    this.setCustomName(itemStack.getName());
-                                    this.dataTracker.set(TRANSFORMING, true);
-                                    return ActionResult.CONSUME;
-                                }
-                            }
+                        if (itemStack.isOf(Items.PAPER) && itemStack.hasCustomName()) {
+                            cacheByName = userCache.findByName(itemStack.getName().getString());
                         }
                     }
-                }
-                if (!player.isSneaking() && player.getMainHandStack().isEmpty()) {
-                    if (player.getWorld() != null && !this.getWorld().isClient()) {
-                        getBrain().remember(MemoryModuleType.INTERACTION_TARGET, player);
-                        player.openHandledScreen(new TulpaScreenHandlerFactory());
+                    if (cacheByName.isPresent()) {
+                        UUID uuid = cacheByName.get().getId();
+                        setSkinUuid(uuid);
+                        this.setCustomName(itemStack.getName());
+                        this.dataTracker.set(TRANSFORMING, true);
+                        setSkinProfile(cacheByName.get());
+                        return ActionResult.CONSUME;
                     }
-                    return ActionResult.success(getWorld().isClient);
-                } else if (player.getMainHandStack().isEmpty() && isOwner(player)) {
-                    if (!this.getWorld().isClient()) {
-                        this.cycleActionState(player);
-                    }
-                    return ActionResult.success(getWorld().isClient);
                 }
+            }
+            if (!player.isSneaking() && player.getMainHandStack().isEmpty()) {
+                if (player.getWorld() != null && !this.getWorld().isClient()) {
+                    getBrain().remember(MemoryModuleType.INTERACTION_TARGET, player);
+                    player.openHandledScreen(new TulpaScreenHandlerFactory());
+                }
+                return ActionResult.success(getWorld().isClient);
+            } else if (player.getMainHandStack().isEmpty() && isOwner(player)) {
+                if (!this.getWorld().isClient()) {
+                    this.cycleActionState(player);
+                }
+                return ActionResult.success(getWorld().isClient);
             }
         }
 
