@@ -17,32 +17,25 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ChunkTicketType;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.TeleportTarget;
-import net.minecraft.world.World;
-import net.minecraft.world.chunk.Chunk;
+import net.minecraft.world.chunk.ChunkStatus;
 import net.minecraft.world.poi.PointOfInterestStorage;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.function.BiFunction;
 
 public class AylythUtil {
-	public static final int MAX_TRIES = 8;
-
 	public static void decreaseStack(ItemStack stack, @Nullable LivingEntity living) {
 		if (living instanceof PlayerEntity player && player.getAbilities().creativeMode) {
 			return;
@@ -50,55 +43,50 @@ public class AylythUtil {
 		stack.decrement(1);
 	}
 
-	public static BlockPos getSafePosition(World world, BlockPos.Mutable pos, int tries) {
-		if (tries >= MAX_TRIES) {
-			return world.getSpawnPos();
-		}
-		pos.setY(world.getTopY() - 1);
-		while (world.isInBuildLimit(pos) && !world.getBlockState(pos).shouldSuffocate(world, pos)) {
-			pos.setY(pos.getY() - 1);
-		}
-		while (world.isInBuildLimit(pos) && world.getBlockState(pos).shouldSuffocate(world, pos)) {
-			pos.setY(pos.getY() + 2);
-		}
-		if (world.getBlockState(pos).isReplaceable() && world.getFluidState(pos).getFluid() == Fluids.EMPTY) {
-			return pos.toImmutable();
-		}
-		return getSafePosition(world, pos.set(MathHelper.nextInt(world.random, pos.getX() - 32, pos.getX() + 32) + 0.5, world.getTopY() - 1, MathHelper.nextInt(world.random, pos.getZ() - 32, pos.getZ() + 32) + 0.5), ++tries);
+	public static void teleportToShucked(LivingEntity living, ServerWorld newWorld) {
+		living.getWorld().playSoundFromEntity(living instanceof PlayerEntity player ? player : null, living, AylythSoundEvents.ENTITY_GENERIC_SHUCKED.value(), SoundCategory.PLAYERS, 1, living.getSoundPitch());
+		teleportTo(newWorld, living, living.getBlockPos(), AylythUtil::findTeleportPosition, (serverWorld, blockPos, entity) -> {
+			serverWorld.playSoundFromEntity(null, entity, AylythSoundEvents.ENTITY_GENERIC_SHUCKED.value(), SoundCategory.PLAYERS, 1, entity.getSoundPitch());
+		});
 	}
 
-	public static void teleportTo(LivingEntity living, ServerWorld newWorld, int tries) {
-		living.getWorld().playSoundFromEntity(living instanceof PlayerEntity player ? player : null, living, AylythSoundEvents.ENTITY_GENERIC_SHUCKED.value(), SoundCategory.PLAYERS, 1, living.getSoundPitch());
-		FabricDimensions.teleport(living, newWorld, new TeleportTarget(Vec3d.of(AylythUtil.getSafePosition(newWorld, living.getBlockPos().mutableCopy(), tries)), Vec3d.ZERO, living.headYaw, living.getPitch()));
-		newWorld.playSoundFromEntity(null, living, AylythSoundEvents.ENTITY_GENERIC_SHUCKED.value(), SoundCategory.PLAYERS, 1, living.getSoundPitch());
+	public static void teleportTo(ServerWorld toWorld, Entity entity, BlockPos startPos, BiFunction<ServerWorld, BlockPos, BlockPos> positionFinder) {
+		teleportTo(toWorld, entity, startPos, positionFinder, (serverWorld, blockPos, entity1) -> {});
 	}
 
-	public static void teleportTo(RegistryKey<World> world, LivingEntity living, int tries) {
-		living.getWorld().playSoundFromEntity(living instanceof PlayerEntity player ? player : null, living, AylythSoundEvents.ENTITY_GENERIC_SHUCKED.value(), SoundCategory.PLAYERS, 1, living.getSoundPitch());
-		ServerWorld toWorld = living.getWorld().getServer().getWorld(world);
-		FabricDimensions.teleport(living, toWorld, new TeleportTarget(Vec3d.of(AylythUtil.getSafePosition(toWorld, living.getBlockPos().mutableCopy(), tries)), Vec3d.ZERO, living.headYaw, living.getPitch()));
-		toWorld.playSoundFromEntity(null, living, AylythSoundEvents.ENTITY_GENERIC_SHUCKED.value(), SoundCategory.PLAYERS, 1, living.getSoundPitch());
+	public static <E extends Entity> void teleportTo(ServerWorld toWorld, E entity, BlockPos startPos, BiFunction<ServerWorld, BlockPos, BlockPos> positionFinder, TeleportCallback<E> onTeleport) {
+		ChunkPos chunkPos = new ChunkPos(startPos);
+		toWorld.getChunkManager().addTicket(ChunkTicketType.PORTAL, chunkPos, 3, startPos);
+		E teleportedEntity = FabricDimensions.teleport(entity, toWorld, new TeleportTarget(entity.getPos(), Vec3d.ZERO, entity.getYaw(), entity.getPitch()));
+		if (teleportedEntity != null) {
+			toWorld.getChunkManager().getChunkFutureSyncOnMainThread(chunkPos.x, chunkPos.z, ChunkStatus.EMPTY, true)
+					.thenRun(() -> {
+						BlockPos newPos = positionFinder.apply(toWorld, startPos);
+						teleportedEntity.teleport(newPos.getX() + 0.5, newPos.getY() + 0.1, newPos.getZ() + 0.5);
+						onTeleport.onTeleport(toWorld, newPos, teleportedEntity);
+					});
+		}
+	}
+
+	public interface TeleportCallback<T extends Entity> {
+		void onTeleport(ServerWorld world, BlockPos pos, T entity);
 	}
 
 	/**
 	 * Attempts to find a random location near the given x and z position at the world surface
-	 * @param toWorld
-	 * @param startPos
-	 * @return
 	 */
-	public static Optional<Vec3d> findTeleportPosition(ServerWorld toWorld, BlockPos startPos) {
+	public static BlockPos findTeleportPosition(ServerWorld toWorld, BlockPos startPos) {
 		ChunkPos spawnChunkPos = new ChunkPos(startPos);
 		BlockPos spawnPoint = spawnChunkPos.getCenterAtY(startPos.getY());
-		toWorld.getChunkManager().addTicket(ChunkTicketType.PORTAL, spawnChunkPos, 2, spawnPoint);
-		Chunk chunk = toWorld.getChunk(spawnPoint);
+		toWorld.getChunkManager().addTicket(ChunkTicketType.PORTAL, spawnChunkPos, 3, spawnPoint);
 		for (BlockPos pos : BlockPos.iterateRandomly(toWorld.random, 5, spawnPoint, 7)) {
-			pos = new BlockPos(pos.getX(), chunk.getHeightmap(Heightmap.Type.WORLD_SURFACE).get(pos.getX(), pos.getZ()), pos.getZ());
+			pos = toWorld.getTopPosition(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, pos);
 			if (canTeleportToPos(toWorld, pos)) {
-				return Optional.of(new Vec3d(pos.getX() + 0.5, pos.getY() + 0.1, pos.getZ() + 0.5));
+				return pos;
 			}
 		}
 
-		return Optional.empty();
+		return startPos;
 	}
 
 	public static boolean canTeleportToPos(ServerWorld toWorld, BlockPos pos) {

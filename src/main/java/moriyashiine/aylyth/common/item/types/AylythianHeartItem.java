@@ -32,7 +32,7 @@ public class AylythianHeartItem extends Item {
 		}
 		return super.use(world, user, hand);
 	}
-	
+
 	@Override
 	public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
 		if (world instanceof ServerWorld serverWorld && user instanceof PlayerEntity player && serverWorld.getRegistryKey() != AylythDimensionData.WORLD) {
@@ -43,7 +43,7 @@ public class AylythianHeartItem extends Item {
 						world.setBlockState(pos, AylythBlocks.MARIGOLD.getDefaultState());
 					}
 				}
-				AylythUtil.teleportTo(player, serverWorld.getServer().getWorld(AylythDimensionData.WORLD), 0);
+				AylythUtil.teleportToShucked(player, serverWorld.getServer().getWorld(AylythDimensionData.WORLD));
 				if (!player.isCreative()) {
 					player.addExperience(-55);
 					stack.decrement(1);

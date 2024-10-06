@@ -66,20 +66,23 @@ public class SeepBlock extends Block implements BlockEntityProvider {
 			if (entity.getPos().distanceTo(new Vec3d(pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F)) < 0.6F) {
 				MinecraftServer server = serverWorld.getServer();
 				ServerWorld toWorld = world.getRegistryKey() == AylythDimensionData.WORLD ? server.getOverworld() : server.getWorld(AylythDimensionData.WORLD);
-				toWorld.getChunkManager().addTicket(ChunkTicketType.PORTAL, new ChunkPos(pos), 3, pos);
-				Optional<Vec3d> connectedSeep;
+				if (toWorld == null) {
+					return;
+				}
+				Optional<BlockPos> connectedSeep;
 				if (state.isOf(AylythBlocks.SEEPING_WOOD_SEEP)) {
-					connectedSeep = findConnectedSeepSpawn(serverWorld, pos);
+					connectedSeep = findConnectedSeepSpawn(toWorld, pos);
 				} else {
 					connectedSeep = Optional.empty();
 				}
-				connectedSeep.or(() -> AylythUtil.findTeleportPosition(toWorld, toWorld.getSpawnPos()))
-						.ifPresent(vec3d -> FabricDimensions.teleport(entity, toWorld, new TeleportTarget(vec3d, Vec3d.ZERO, entity.getHeadYaw(), entity.getPitch())));
+				AylythUtil.teleportTo(toWorld, entity, pos,
+						(serverWorld1, blockPos) -> connectedSeep.orElseGet(() -> AylythUtil.findTeleportPosition(serverWorld1, blockPos)),
+						(serverWorld1, blockPos, entity1) -> {});
 			}
 		}
 	}
 
-	public Optional<Vec3d> findConnectedSeepSpawn(ServerWorld world, BlockPos center) {
+	public Optional<BlockPos> findConnectedSeepSpawn(ServerWorld world, BlockPos center) {
 		return world.getPointOfInterestStorage()
 				.getInSquare(point -> point.matchesKey(AylythPointOfInterestTypes.SEEP), center, 32, PointOfInterestStorage.OccupationStatus.ANY)
 				.findFirst()
@@ -87,7 +90,7 @@ public class SeepBlock extends Block implements BlockEntityProvider {
 					for (Direction dir : Direction.Type.HORIZONTAL) {
 						BlockPos pos = pointOfInterest.getPos().offset(dir);
 						if (AylythUtil.canTeleportToPos(world, pos)) {
-							return Optional.of(new Vec3d(pos.getX() + 0.5, pos.getY() + 0.1, pos.getZ() + 0.5));
+							return Optional.of(pos);
 						}
 					}
 					return Optional.empty();

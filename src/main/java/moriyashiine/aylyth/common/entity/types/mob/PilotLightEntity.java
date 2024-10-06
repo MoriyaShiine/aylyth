@@ -119,22 +119,23 @@ public class PilotLightEntity extends AmbientEntity implements Flutterer {
 		World world = player.getWorld();
 		if (player instanceof ServerPlayerEntity serverPlayer && world.getRegistryKey() == AylythDimensionData.WORLD) {
 			if (getColor() == Color.GREEN) {
-				Optional<Vec3d> position = AylythUtil.findTeleportPosition(serverPlayer.getServerWorld(), player.getWorld().getSpawnPos());
+				AylythUtil.teleportTo(serverPlayer.getServerWorld(), serverPlayer, serverPlayer.getServerWorld().getSpawnPos(), AylythUtil::findTeleportPosition);
 
-				if (position.isPresent()) {
-					FabricDimensions.teleport(player, serverPlayer.getServerWorld(), new TeleportTarget(position.get(), Vec3d.ZERO, player.headYaw, player.getPitch()));
-
-					remove(RemovalReason.DISCARDED);
-					return ActionResult.SUCCESS;
-				}
+				remove(RemovalReason.DISCARDED);
+				return ActionResult.SUCCESS;
 			} else if (player.isCreative() || player.experienceLevel >= 5) {
-				if (player.getWorld().getServer() != null) {
-					ServerWorld toWorld = serverPlayer.server.getWorld(serverPlayer.getSpawnPointDimension());
+				ServerWorld toWorld = serverPlayer.server.getWorld(serverPlayer.getSpawnPointDimension());
+				if (toWorld != null && serverPlayer.getSpawnPointPosition() != null) {
+					Optional<Vec3d> spawnPos = PlayerEntity.findRespawnPosition(toWorld, serverPlayer.getSpawnPointPosition(), serverPlayer.getSpawnAngle(), serverPlayer.isSpawnForced(), true);
+					if (spawnPos.isPresent()) {
+						FabricDimensions.teleport(player, toWorld, new TeleportTarget(spawnPos.get(), Vec3d.ZERO, player.getYaw(), player.getPitch()));
+					}
+				} else {
 					if (toWorld == null) {
 						toWorld = serverPlayer.server.getOverworld();
 					}
-					BlockPos toPos = serverPlayer.getSpawnPointPosition() == null ? toWorld.getSpawnPos() : serverPlayer.getSpawnPointPosition();
-					FabricDimensions.teleport(player, toWorld, new TeleportTarget(Vec3d.of(toPos), Vec3d.ZERO, player.headYaw, player.getPitch()));
+					BlockPos spawnPos = toWorld.getSpawnPos();
+					AylythUtil.teleportTo(toWorld, player, spawnPos, AylythUtil::findTeleportPosition);
 				}
 
 				if (!player.isCreative()) {

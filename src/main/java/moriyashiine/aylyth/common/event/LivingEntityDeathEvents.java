@@ -15,6 +15,7 @@ import moriyashiine.aylyth.common.entity.types.mob.RippedSoulEntity;
 import moriyashiine.aylyth.common.entity.types.mob.ScionEntity;
 import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.aylyth.common.util.AylythUtil;
+import moriyashiine.aylyth.common.world.AylythSoundEvents;
 import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
@@ -32,15 +33,21 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.BiomeTags;
 import net.minecraft.registry.tag.DamageTypeTags;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ChunkTicketType;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.TeleportTarget;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.chunk.ChunkStatus;
 
 import java.util.Optional;
 
@@ -156,24 +163,23 @@ public class LivingEntityDeathEvents {
             if (teleport) {
                 ServerWorld world = player.getServerWorld().getServer().getWorld(AylythDimensionData.WORLD);
                 if (world != null) {
-                    Optional<Vec3d> teleportPos = AylythUtil.findTeleportPosition(world, player.getBlockPos());
-                    if (teleportPos.isPresent()) {
-                        FabricDimensions.teleport(player, world, new TeleportTarget(teleportPos.get(), Vec3d.ZERO, player.headYaw, player.getPitch()));
-                        player.setHealth(player.getMaxHealth() / 2);
-                        player.clearStatusEffects();
-                        player.extinguish();
-                        player.setFrozenTicks(0);
-                        player.setVelocity(Vec3d.ZERO);
-                        player.fallDistance = 0;
-                        player.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 200));
-                        player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 200));
-                        PilotLightEntity escapeVector = PilotLightEntity.createGreenPilotLight(world);
+                    AylythUtil.teleportTo(world, player, player.getBlockPos(), AylythUtil::findTeleportPosition, (serverWorld, blockPos, newPlayer) -> {
+                        newPlayer.setHealth(newPlayer.getMaxHealth() / 2);
+                        newPlayer.clearStatusEffects();
+                        newPlayer.extinguish();
+                        newPlayer.setFrozenTicks(0);
+                        newPlayer.setVelocity(Vec3d.ZERO);
+                        newPlayer.fallDistance = 0;
+                        newPlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 200));
+                        newPlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 200));
+                        serverWorld.playSound(null, blockPos, AylythSoundEvents.ENTITY_GENERIC_SHUCKED.value(), SoundCategory.NEUTRAL, 1, 1);
+                        PilotLightEntity escapeVector = PilotLightEntity.createGreenPilotLight(serverWorld);
                         if (escapeVector != null) {
-                            escapeVector.setPosition(player.getX() + world.random.nextInt(4), player.getY() + 4, player.getZ() + world.random.nextInt(4));
-                            world.spawnEntity(escapeVector);
+                            escapeVector.setPosition(newPlayer.getX() + serverWorld.random.nextInt(4), newPlayer.getY() + 4, newPlayer.getZ() + serverWorld.random.nextInt(4));
+                            serverWorld.spawnEntity(escapeVector);
                         }
-                        return false;
-                    }
+                    });
+                    return false;
                 }
             }
         }
