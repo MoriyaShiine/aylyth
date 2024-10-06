@@ -35,6 +35,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.constant.DefaultAnimations;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
@@ -80,9 +81,12 @@ public class AylythianEntity extends HostileEntity implements GeoEntity {
 			return animationEvent.setAndContinue(animation);
 		}));
 		animationData.add(new AnimationController<>(this, "Attack", 0, animationEvent -> {
-			if (handSwingTicks > 0 && !isDead()) {
+			if (animationEvent.getAnimatable().handSwinging && !isDead()) {
 				return animationEvent.setAndContinue(getMainArm() == Arm.RIGHT ? SWIPE_RIGHT : SWIPE_LEFT);
 			}
+
+			animationEvent.getController().forceAnimationReset();
+
 			return PlayState.STOP;
 		}));
 	}
