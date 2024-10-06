@@ -7,6 +7,7 @@ import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.block.types.LargeWoodyGrowthBlock;
 import moriyashiine.aylyth.common.block.types.PomegranateLeavesBlock;
+import moriyashiine.aylyth.common.block.types.SoulHearthBlock;
 import moriyashiine.aylyth.common.block.types.StrewnLeavesBlock;
 import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.aylyth.datagen.client.model.ModelKeys;
@@ -139,6 +140,7 @@ public class AylythModelProvider extends FabricModelProvider {
         blockStateModelGenerator.blockStateCollector.accept(sapstoneBlockStates(AylythBlocks.AMBER_SAPSTONE, blockId("amber_sapstone")));
         blockStateModelGenerator.blockStateCollector.accept(sapstoneBlockStates(AylythBlocks.LIGNITE_SAPSTONE, blockId("lignite_sapstone")));
         blockStateModelGenerator.blockStateCollector.accept(sapstoneBlockStates(AylythBlocks.OPALESCENT_SAPSTONE, blockId("opalescent_sapstone")));
+        blockStateModelGenerator.blockStateCollector.accept(soulHearthStates(AylythBlocks.SOUL_HEARTH, blockId("soul_hearth_upper"), blockId("soul_hearth_lower"), blockId("soul_hearth_charged_lower")));
     }
 
     @Override
@@ -217,6 +219,25 @@ public class AylythModelProvider extends FabricModelProvider {
                 BlockStateVariant.create().put(VariantSettings.MODEL, verticalModel).put(VariantSettings.Y, VariantSettings.Rotation.R180),
                 BlockStateVariant.create().put(VariantSettings.MODEL, verticalModel).put(VariantSettings.Y, VariantSettings.Rotation.R270)
         );
+    }
+
+    private VariantsBlockStateSupplier soulHearthStates(Block block, Identifier topModelId, Identifier lowerModelId, Identifier lowerChargedModelId) {
+        BlockStateVariant topModel = BlockStateVariant.create().put(VariantSettings.MODEL, topModelId);
+        BlockStateVariant lowerModel = BlockStateVariant.create().put(VariantSettings.MODEL, lowerModelId);
+        BlockStateVariant lowerChargedModel = BlockStateVariant.create().put(VariantSettings.MODEL, lowerChargedModelId);
+        return VariantsBlockStateSupplier.create(block)
+                .coordinate(
+                        BlockStateVariantMap.create(SoulHearthBlock.HALF, SoulHearthBlock.CHARGES)
+                                .register((doubleBlockHalf, integer) -> {
+                                    if (doubleBlockHalf == DoubleBlockHalf.UPPER) {
+                                        return topModel;
+                                    }
+                                    if (integer > 0) {
+                                        return lowerChargedModel;
+                                    }
+                                    return lowerModel;
+                                })
+                );
     }
 
     private void registerFlask(ItemModelGenerator generator, ItemConvertible flask) {

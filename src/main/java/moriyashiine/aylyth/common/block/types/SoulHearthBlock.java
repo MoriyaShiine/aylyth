@@ -3,7 +3,6 @@ package moriyashiine.aylyth.common.block.types;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.MapMaker;
 import com.google.common.collect.UnmodifiableIterator;
-import moriyashiine.aylyth.common.block.entities.SoulHearthBlockEntity;
 import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.aylyth.common.particle.effects.ColorableParticleEffect;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
@@ -16,12 +15,10 @@ import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.fabricmc.fabric.api.transfer.v1.transaction.base.SnapshotParticipant;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.block.TallPlantBlock;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.entity.Dismounting;
 import net.minecraft.entity.EntityType;
@@ -60,7 +57,7 @@ import java.util.Optional;
 import java.util.function.UnaryOperator;
 
 @SuppressWarnings("UnstableApiUsage")
-public class SoulHearthBlock extends Block implements BlockEntityProvider {
+public class SoulHearthBlock extends Block {
 
     public static final EnumProperty<DoubleBlockHalf> HALF = Properties.DOUBLE_BLOCK_HALF;
     public static final IntProperty CHARGES = IntProperty.of("charged", 0, 5);
@@ -85,7 +82,7 @@ public class SoulHearthBlock extends Block implements BlockEntityProvider {
         ContainerItemContext storage = ContainerItemContext.forPlayerInteraction(player, hand);
         ItemVariant variant = storage.getItemVariant();
         if (!storage.getItemVariant().isBlank()) {
-            Storage<ItemVariant> soulHearthStorage = ItemStorage.SIDED.find(world, finalPos, null);
+            Storage<ItemVariant> soulHearthStorage = ItemStorage.SIDED.find(world, finalPos, hit.getSide());
             try (Transaction transaction = Transaction.openOuter()) {
                 if (StorageUtil.move(storage.getMainSlot(), soulHearthStorage, itemVariant -> true, 1, transaction) == 1) {
                     transaction.commit();
@@ -108,12 +105,12 @@ public class SoulHearthBlock extends Block implements BlockEntityProvider {
         return super.onUse(state, world, pos, player, hand, hit);
     }
 
-    public void genParticle(ParticleEffect particleEffect, World world, BlockPos pos, Random random){
-        for(int i = 0; i < random.nextInt(1) + 1; ++i) {
-            double d = (double)pos.getX() + 0.25 + random.nextDouble() / 2;
-            double e = (double)pos.getY() + random.nextDouble() / 2;
-            double f = (double)pos.getZ() + 0.25 + random.nextDouble() / 2;
-            world.addParticle(particleEffect, d, e, f, 0.0, 0.0, 0.0);
+    public void genParticle(ParticleEffect particleEffect, World world, BlockPos pos, Random random) {
+        for (int i = 0; i < random.nextInt(1) + 1; ++i) {
+            double x = (double)pos.getX() + 0.25 + random.nextDouble() / 2;
+            double y = (double)pos.getY() + random.nextDouble() / 6;
+            double z = (double)pos.getZ() + 0.25 + random.nextDouble() / 2;
+            world.addParticle(particleEffect, x, y, z, 0.0, 0.0, 0.0);
         }
     }
 
@@ -195,12 +192,6 @@ public class SoulHearthBlock extends Block implements BlockEntityProvider {
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         return state.get(HALF) == DoubleBlockHalf.LOWER ? LOWER_SHAPES : UPPER_SHAPES;
-    }
-
-    @Nullable
-    @Override
-    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new SoulHearthBlockEntity(pos, state);
     }
 
     static {

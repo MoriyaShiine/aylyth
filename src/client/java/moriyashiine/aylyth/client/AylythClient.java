@@ -18,7 +18,6 @@ import moriyashiine.aylyth.client.particle.types.SoulEmberParticle;
 import moriyashiine.aylyth.client.render.AylythDimensionRenderer;
 import moriyashiine.aylyth.client.render.AylythRenderLayers;
 import moriyashiine.aylyth.client.render.block.entity.SeepBlockEntityRenderer;
-import moriyashiine.aylyth.client.render.block.entity.SoulHearthBlockEntityRenderer;
 import moriyashiine.aylyth.client.render.block.entity.VitalThuribleBlockEntityRenderer;
 import moriyashiine.aylyth.client.render.block.entity.WoodyGrowthBlockEntityRenderer;
 import moriyashiine.aylyth.client.render.entity.RootPropEntityRenderer;
@@ -163,7 +162,6 @@ public class AylythClient implements ClientModInitializer {
 
 		BlockEntityRendererFactories.register(AylythBlockEntityTypes.SEEP, SeepBlockEntityRenderer::new);
 		BlockEntityRendererFactories.register(AylythBlockEntityTypes.VITAL_THURIBLE, VitalThuribleBlockEntityRenderer::new);
-		BlockEntityRendererFactories.register(AylythBlockEntityTypes.SOUL_HEARTH, SoulHearthBlockEntityRenderer::new);
 		BlockEntityRendererFactories.register(AylythBlockEntityTypes.WOODY_GROWTH_CACHE, WoodyGrowthBlockEntityRenderer::new);
 
 		EntityModelLayerRegistry.registerModelLayer(YMPE_INFESTATION_STAGE_1_MODEL_LAYER, YmpeInfestationModel::getTexturedModelData1);
@@ -257,23 +255,19 @@ public class AylythClient implements ClientModInitializer {
 			});
 		});
 
-		if (false) {
-			ModelLoadingPlugin.register(pluginContext -> {
-				Identifier soulHearthId = Aylyth.id("soul_hearth_charged");
-				pluginContext.modifyModelAfterBake().register((model, context) -> {
-					if (context.id().equals(soulHearthId)) {
-						return new SoulHearthBlockModel(model);
-					}
-					return model;
-				});
+		ModelLoadingPlugin.register(pluginContext -> {
+			Identifier soulHearthId = Aylyth.id("block/soul_hearth_charged_lower");
+			pluginContext.modifyModelAfterBake().register((model, context) -> {
+				if (context.id().equals(soulHearthId)) {
+					return new SoulHearthBlockModel(model);
+				}
+				return model;
 			});
-		}
+		});
 
 		PreparableModelLoadingPlugin.register(PerspectiveModelLoader::load, PerspectiveModelLoader::apply);
 
-//		ModelLoadingRegistry.INSTANCE.registerModelProvider((manager, out) -> out.accept(new ModelIdentifier(AylythUtil.itemId("%s_generated".formatted(Registries.ITEM.getId(ModItems.MYSTERIOUS_SKETCH).getPath())), "inventory")));
 		BuiltinItemRendererRegistry.INSTANCE.register(AylythItems.WOODY_GROWTH_CACHE, new WoodyGrowthCacheItemRenderer());
-//		BuiltinItemRendererRegistry.INSTANCE.register(ModItems.MYSTERIOUS_SKETCH, new MysteriousSketchItemRenderer());
 
 		HandledScreens.register(AylythScreenHandlerTypes.TULPA, TulpaScreen::new);
 

@@ -5,6 +5,7 @@ import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.block.types.SoulHearthBlock;
 import moriyashiine.aylyth.common.item.AylythItems;
+import net.fabricmc.fabric.api.renderer.v1.RendererAccess;
 import net.fabricmc.fabric.api.renderer.v1.model.ForwardingBakedModel;
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
 import net.minecraft.block.BlockState;
@@ -35,6 +36,10 @@ public class SoulHearthBlockModel extends ForwardingBakedModel {
     @Override
     public void emitBlockQuads(BlockRenderView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, RenderContext context) {
         super.emitBlockQuads(blockView, state, pos, randomSupplier, context);
+        if (!RendererAccess.INSTANCE.hasRenderer()) {
+            // TODO: remove this in 1.21, since sodium finally implements FRAPI
+            Aylyth.LOGGER.error("FRAPI implementation not found! If you're using sodium, make sure to install indium as well!");
+        }
         if (state.isOf(AylythBlocks.SOUL_HEARTH) && state.get(SoulHearthBlock.HALF) == DoubleBlockHalf.LOWER) {
             BakedModel model = MinecraftClient.getInstance().getBakedModelManager().getModel(new ModelIdentifier(Aylyth.id("pomegranate"), "inventory"));
             MatrixStack stack = new MatrixStack();
