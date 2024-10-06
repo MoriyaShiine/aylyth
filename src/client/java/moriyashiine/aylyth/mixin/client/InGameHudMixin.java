@@ -3,6 +3,8 @@ package moriyashiine.aylyth.mixin.client;
 import com.llamalad7.mixinextras.sugar.Local;
 import moriyashiine.aylyth.api.interfaces.AylythGameHud;
 import moriyashiine.aylyth.api.interfaces.VitalHealthHolder;
+import moriyashiine.aylyth.client.integration.iris.IrisCompat;
+import moriyashiine.aylyth.client.render.AylythRenderLayers;
 import moriyashiine.aylyth.common.data.tag.AylythBlockTags;
 import moriyashiine.aylyth.common.entity.AylythAttributes;
 import moriyashiine.aylyth.common.entity.AylythEntityComponents;
@@ -32,6 +34,10 @@ public abstract class InGameHudMixin implements AylythGameHud {
 
 	@Shadow protected abstract void drawHeart(DrawContext context, InGameHud.HeartType type, int x, int y, int v, boolean blinking, boolean halfHeart);
 
+	@Shadow private int scaledWidth;
+
+	@Shadow private int scaledHeight;
+
 	@Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/MathHelper;lerp(FFF)F", ordinal = 1))
 	private void renderYmpeInfestationOverlay(DrawContext context, float tickDelta, CallbackInfo ci) {
 		AylythEntityComponents.YMPE_INFESTATION.maybeGet(client.player).ifPresent(ympeInfestationComponent -> {
@@ -49,7 +55,11 @@ public abstract class InGameHudMixin implements AylythGameHud {
 
 		// TODO: Make more efficient
 		if (client.world.getBlockState(client.player.getBlockPos()).isIn(AylythBlockTags.SEEPS)) {
-			renderOverlay(context, SEEP_OVERLAY, 1);
+			if (!IrisCompat.isShaderPackInUse()) {
+				context.fill(AylythRenderLayers.SEEP, scaledWidth, scaledHeight, scaledWidth, scaledHeight, 0xFFFFFFFF);
+			} else {
+				renderOverlay(context, SEEP_OVERLAY, 1);
+			}
 		}
 	}
 
