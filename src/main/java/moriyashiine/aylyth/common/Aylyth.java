@@ -38,6 +38,7 @@ import moriyashiine.aylyth.common.recipe.types.SoulCampfireRecipe;
 import moriyashiine.aylyth.common.recipe.types.YmpeDaggerDropRecipe;
 import moriyashiine.aylyth.common.registry.AylythRegistries;
 import moriyashiine.aylyth.common.screenhandler.AylythScreenHandlerTypes;
+import moriyashiine.aylyth.common.world.AylythGameRules;
 import moriyashiine.aylyth.common.world.AylythPointOfInterestTypes;
 import moriyashiine.aylyth.common.world.AylythSoundEvents;
 import moriyashiine.aylyth.common.world.AylythWorldAttachmentTypes;
@@ -141,6 +142,7 @@ public class Aylyth implements ModInitializer {
 		AylythTreeDecoratorTypes.register();
 		AylythPlacementModifiers.register();
 		AylythBiomeModifications.register();
+		AylythGameRules.register();
 
 		AylythWorldAttachmentTypes.register();
 		AylythPointOfInterestTypes.register();

@@ -300,6 +300,14 @@ public class AylythEnglishLanguageProvider extends FabricLanguageProvider {
         builder.add("info.aylyth.tulpa_follow", "Follow");
         builder.add("info.aylyth.tulpa_stay", "Stay");
 
+        // GAME RULES
+
+        builder.add("gamerule.category.aylyth.main", "Aylyth");
+        builder.add("gamerule.aylyth.spawn_green_pilot_lights", "Spawn Green Pilot Lights");
+        builder.add("gamerule.aylyth.spawn_green_pilot_lights.description", "When arriving in Aylyth by dying in a forest, spawn a green pilot light which can teleport you to the Axis Mundi when interacted with.");
+
+        // BIOME
+
         biome(builder, AylythBiomes.COPSE, "Copse");
         biome(builder, AylythBiomes.CONIFEROUS_COPSE, "Coniferous Copse");
         biome(builder, AylythBiomes.DEEPWOOD, "Deepwood");

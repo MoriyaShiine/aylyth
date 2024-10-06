@@ -15,6 +15,7 @@ import moriyashiine.aylyth.common.entity.types.mob.RippedSoulEntity;
 import moriyashiine.aylyth.common.entity.types.mob.ScionEntity;
 import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.aylyth.common.util.AylythUtil;
+import moriyashiine.aylyth.common.world.AylythGameRules;
 import moriyashiine.aylyth.common.world.AylythSoundEvents;
 import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
@@ -173,10 +174,12 @@ public class LivingEntityDeathEvents {
                         newPlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 200));
                         newPlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 200));
                         serverWorld.playSound(null, blockPos, AylythSoundEvents.ENTITY_GENERIC_SHUCKED.value(), SoundCategory.NEUTRAL, 1, 1);
-                        PilotLightEntity escapeVector = PilotLightEntity.createGreenPilotLight(serverWorld);
-                        if (escapeVector != null) {
-                            escapeVector.setPosition(newPlayer.getX() + serverWorld.random.nextInt(4), newPlayer.getY() + 4, newPlayer.getZ() + serverWorld.random.nextInt(4));
-                            serverWorld.spawnEntity(escapeVector);
+                        if (serverWorld.getGameRules().getBoolean(AylythGameRules.ESCAPE_LIGHTS)) {
+                            PilotLightEntity escapeVector = PilotLightEntity.createGreenPilotLight(serverWorld);
+                            if (escapeVector != null) {
+                                escapeVector.setPosition(newPlayer.getX() + serverWorld.random.nextInt(4), newPlayer.getY() + 4, newPlayer.getZ() + serverWorld.random.nextInt(4));
+                                serverWorld.spawnEntity(escapeVector);
+                            }
                         }
                     });
                     return false;
