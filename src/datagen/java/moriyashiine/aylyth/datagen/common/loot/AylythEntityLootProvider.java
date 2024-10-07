@@ -37,7 +37,7 @@ public class AylythEntityLootProvider extends SimpleFabricLootTableProvider {
         addDrop(AylythEntityTypes.ELDER_AYLYTHIAN, this::elderAylythianLoot);
         addDrop(AylythEntityTypes.SCION, this::scionLoot);
         if (false) { // TODO: these drops are specified in the constructs doc. Normal loot that drops before post-death?
-            addDrop(AylythEntityTypes.YMPEMOULD, this::mouldOfSoulsLoot);
+            addDrop(AylythEntityTypes.YMPEMOULD, this::ympeMouldLoot);
             addDrop(AylythEntityTypes.BONEFLY, this::boneflyLoot);
             addDrop(AylythEntityTypes.TULPA, this::tulpaLoot);
         }
@@ -47,6 +47,7 @@ public class AylythEntityLootProvider extends SimpleFabricLootTableProvider {
         return LootTable.builder()
                 .pool(LootPool.builder().with(ItemEntry.builder(Items.BONE)).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0, 2))).apply(LootingEnchantLootFunction.builder(UniformLootNumberProvider.create(0, 1))))
                 .pool(LootPool.builder().with(ItemEntry.builder(Items.STICK)).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0, 2))).apply(LootingEnchantLootFunction.builder(UniformLootNumberProvider.create(0, 1))))
+                .pool(LootPool.builder().with(ItemEntry.builder(AylythItems.YMPE_SAPLING)).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0, 1))).apply(LootingEnchantLootFunction.builder(UniformLootNumberProvider.create(0, 1))))
                 .pool(LootPool.builder().with(ItemEntry.builder(AylythItems.YMPE_FRUIT)).conditionally(KilledByPlayerLootCondition.builder().build()).conditionally(RandomChanceWithLootingLootCondition.builder(0.25f, 0.01f)));
     }
 
@@ -54,6 +55,7 @@ public class AylythEntityLootProvider extends SimpleFabricLootTableProvider {
         return LootTable.builder()
                 .pool(LootPool.builder().with(ItemEntry.builder(Items.BONE)).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0, 2))).apply(LootingEnchantLootFunction.builder(UniformLootNumberProvider.create(0, 1))))
                 .pool(LootPool.builder().with(ItemEntry.builder(Items.STICK)).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0, 2))).apply(LootingEnchantLootFunction.builder(UniformLootNumberProvider.create(0, 1))))
+                .pool(LootPool.builder().with(ItemEntry.builder(AylythItems.YMPE_SAPLING)).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0, 1))).apply(LootingEnchantLootFunction.builder(UniformLootNumberProvider.create(0, 1))))
                 .pool(LootPool.builder().with(ItemEntry.builder(AylythItems.YMPE_FRUIT)).conditionally(KilledByPlayerLootCondition.builder().build()).conditionally(RandomChanceWithLootingLootCondition.builder(0.25f, 0.01f)));
     }
 
@@ -64,7 +66,7 @@ public class AylythEntityLootProvider extends SimpleFabricLootTableProvider {
                 .pool(LootPool.builder().with(ItemEntry.builder(AylythItems.YMPE_SAPLING)));
     }
 
-    private LootTable.Builder mouldOfSoulsLoot(EntityType<?> type) {
+    private LootTable.Builder ympeMouldLoot(EntityType<?> type) {
         return LootTable.builder()
                 .pool(LootPool.builder().with(ItemEntry.builder(Items.SOUL_SOIL)).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 3))));
     }

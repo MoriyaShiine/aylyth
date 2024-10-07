@@ -1,6 +1,7 @@
 package moriyashiine.aylyth.common.world.gen.features;
 
 import com.mojang.serialization.Codec;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.entry.RegistryEntryList;
 import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
@@ -18,7 +19,11 @@ public class AllFeature extends Feature<AllFeature.AllFeatureConfig> {
 
     @Override
     public boolean generate(FeatureContext<AllFeatureConfig> context) {
-        return context.getConfig().features().stream().anyMatch(placedFeatureRegistryEntry -> placedFeatureRegistryEntry.value().generate(context.getWorld(), context.getGenerator(), context.getRandom(), context.getOrigin()));
+        boolean hadSuccess = false;
+        for (RegistryEntry<PlacedFeature> feature : context.getConfig().features()) {
+            hadSuccess |= feature.value().generateUnregistered(context.getWorld(), context.getGenerator(), context.getRandom(), context.getOrigin());
+        }
+        return hadSuccess;
     }
 
     public record AllFeatureConfig(RegistryEntryList<PlacedFeature> features) implements FeatureConfig {

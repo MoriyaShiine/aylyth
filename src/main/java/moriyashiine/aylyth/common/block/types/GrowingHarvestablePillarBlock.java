@@ -55,7 +55,7 @@ public class GrowingHarvestablePillarBlock extends HarvestablePillarBlock {
 	@Override
 	public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
 		int age = state.get(AGE);
-		if (age < getMaxAge() && random.nextInt(5) == 0) {
+		if (age < getMaxAge() && random.nextInt(15) == 0) {
 			world.setBlockState(pos, state.with(AGE, age + 1), Block.NOTIFY_LISTENERS);
 		}
 	}

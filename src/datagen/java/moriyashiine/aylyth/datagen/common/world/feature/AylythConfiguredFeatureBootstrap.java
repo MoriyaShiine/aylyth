@@ -2,6 +2,7 @@ package moriyashiine.aylyth.datagen.common.world.feature;
 
 import com.google.common.collect.ImmutableList;
 import moriyashiine.aylyth.common.block.types.JackolanternMushroomBlock;
+import moriyashiine.aylyth.common.block.types.LargeWoodyGrowthBlock;
 import moriyashiine.aylyth.common.block.types.SmallWoodyGrowthBlock;
 import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.block.types.StrewnLeavesBlock;
@@ -25,6 +26,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.MushroomBlock;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.entry.RegistryEntryList;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.collection.DataPool;
@@ -134,6 +136,11 @@ public final class AylythConfiguredFeatureBootstrap {
         ConfiguredFeatures.register(context, WOODY_GROWTHS_WATER_SELECTOR, Feature.RANDOM_SELECTOR, new RandomFeatureConfig(List.of(new RandomFeatureEntry(largeWoodyGrowthWater, 0.25f)), smallWoodyGrowthWater));
 
         ConfiguredFeatures.register(context, WOODY_GROWTH_WATER_PATCH, Feature.RANDOM_PATCH, ConfiguredFeatures.createRandomPatchFeatureConfig(4, woodyGrowthsWaterSelector));
+        ConfiguredFeatures.register(context, TWISTED_YMPE_GROWTH, AylythFeatures.ALL, new AllFeature.AllFeatureConfig(
+                RegistryEntryList.of(
+                        PlacedFeatures.createEntry(AylythFeatures.DOUBLE_BLOCK_FEATURE, new SimpleBlockFeatureConfig(BlockStateProvider.of(AylythBlocks.LARGE_WOODY_GROWTH.getDefaultState().with(LargeWoodyGrowthBlock.NATURAL, true)))),
+                        PlacedFeatures.createEntry(RegistryEntry.of(new ConfiguredFeature<>(Feature.RANDOM_PATCH, new RandomPatchFeatureConfig(4, 1, 1, PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(BlockStateProvider.of(AylythBlocks.SMALL_WOODY_GROWTH.getDefaultState().with(SmallWoodyGrowthBlock.NATURAL, true))), PlacedFeatures.isAir(), PlacedFeatures.wouldSurvive(AylythBlocks.SMALL_WOODY_GROWTH))))))
+                )));
     }
 
     static RandomPatchFeatureConfig createRandomPatchFeatureConfig(BlockStateProvider block, int tries) {

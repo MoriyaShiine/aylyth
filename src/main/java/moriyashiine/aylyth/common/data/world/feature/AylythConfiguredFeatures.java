@@ -66,6 +66,7 @@ public interface AylythConfiguredFeatures {
     RegistryKey<ConfiguredFeature<?, ?>> WOODY_GROWTHS_WATER_SELECTOR = bind("woody_growth_water_selector");
 
     RegistryKey<ConfiguredFeature<?, ?>> WOODY_GROWTH_WATER_PATCH = bind("woody_growth_water_patch");
+    RegistryKey<ConfiguredFeature<?, ?>> TWISTED_YMPE_GROWTH = bind("twisted_ympe_growth");
 
     private static RegistryKey<ConfiguredFeature<?, ?>> bind(String name) {
         return RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, Aylyth.id(name));

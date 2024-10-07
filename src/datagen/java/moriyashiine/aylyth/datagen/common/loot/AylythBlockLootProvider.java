@@ -10,6 +10,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.data.server.loottable.vanilla.VanillaBlockLootTableGenerator;
 import net.minecraft.enchantment.Enchantments;
+import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
@@ -18,6 +19,7 @@ import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.loot.entry.AlternativeEntry;
 import net.minecraft.loot.entry.DynamicEntry;
 import net.minecraft.loot.entry.ItemEntry;
+import net.minecraft.loot.entry.LeafEntry;
 import net.minecraft.loot.function.SetCountLootFunction;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
@@ -73,7 +75,7 @@ public class AylythBlockLootProvider extends FabricBlockLootTableProvider {
         addDrop(AylythBlocks.WRITHEWOOD_DOOR, this::doorDrops);
         addDrop(AylythBlocks.WRITHEWOOD_TRAPDOOR);
         addDrop(AylythBlocks.WRITHEWOOD_SIGN);
-        addDrop(AylythBlocks.WRITHEWOOD_LEAVES, block -> leavesDrops(block, AylythBlocks.WRITHEWOOD_SAPLING, 0.05f, 0.0625f, 0.083333336f, 0.1f));
+        addDrop(AylythBlocks.WRITHEWOOD_LEAVES, block -> ympeLeaves(block, Items.STICK, 0.05f, 0.0625f, 0.083333336f, 0.1f));
         addDrop(AylythBlocks.VITAL_THURIBLE);
         addDrop(AylythBlocks.SOUL_HEARTH, this::doorDrops);
         addDrop(AylythBlocks.WOODY_GROWTH_CACHE, this::woodyGrowthCaches);
@@ -101,6 +103,23 @@ public class AylythBlockLootProvider extends FabricBlockLootTableProvider {
         addDrop(AylythBlocks.AMBER_SAPSTONE);
         addDrop(AylythBlocks.LIGNITE_SAPSTONE);
         addDrop(AylythBlocks.OPALESCENT_SAPSTONE);
+    }
+
+    private LootTable.Builder ympeLeaves(Block leaves, ItemConvertible sticks, float... chances) {
+        return LootTable.builder().type(LootContextTypes.BLOCK)
+                .pool(
+                        addSurvivesExplosionCondition(leaves, LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0F)).with(ItemEntry.builder(leaves)))
+                                .conditionally(WITH_SILK_TOUCH_OR_SHEARS)
+                                .conditionally(TableBonusLootCondition.builder(Enchantments.FORTUNE, chances))
+                ).pool(
+                        LootPool.builder()
+                                .rolls(ConstantLootNumberProvider.create(1.0F))
+                                .conditionally(WITHOUT_SILK_TOUCH_NOR_SHEARS)
+                                .with(
+                                        this.applyExplosionDecay(leaves, ItemEntry.builder(sticks).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0F, 2.0F))))
+                                                .conditionally(TableBonusLootCondition.builder(Enchantments.FORTUNE, LEAVES_STICK_DROP_CHANCE))
+                                )
+                );
     }
 
     private LootTable.Builder nephriticChthoniaWood(Block block, Block emptyLog) {
