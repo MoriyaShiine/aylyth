@@ -1,20 +1,18 @@
 package moriyashiine.aylyth.datagen.client.model;
 
-import com.google.gson.JsonObject;
+import com.google.gson.JsonElement;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.Object2FloatMap;
 import it.unimi.dsi.fastutil.objects.Object2FloatOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import net.minecraft.data.client.Model;
-import net.minecraft.data.client.TextureKey;
 import net.minecraft.util.Identifier;
 
 import java.util.List;
-import java.util.Map;
+import java.util.function.Supplier;
 
-public final class ItemModelOverrides implements Model.JsonFactory {
+public final class ItemModelOverrides implements Supplier<JsonElement> {
     public static final Codec<ItemModelOverrides> LIST_CODEC = ModelOverride.CODEC.listOf()
             .xmap(ItemModelOverrides::new, itemModelOverrides -> itemModelOverrides.overrides);
     public static final Codec<ItemModelOverrides> MAP_CODEC_CODEC = LIST_CODEC.fieldOf("overrides").codec();
@@ -26,8 +24,8 @@ public final class ItemModelOverrides implements Model.JsonFactory {
     }
 
     @Override
-    public JsonObject create(Identifier id, Map<TextureKey, Identifier> textures) {
-        return MAP_CODEC_CODEC.encodeStart(JsonOps.INSTANCE, this).getOrThrow(false, s -> {}).getAsJsonObject();
+    public JsonElement get() {
+        return MAP_CODEC_CODEC.encodeStart(JsonOps.INSTANCE, this).getOrThrow(false, s -> {});
     }
 
     public record ModelOverride(Identifier model, Predicate predicate) {
@@ -60,7 +58,7 @@ public final class ItemModelOverrides implements Model.JsonFactory {
             return new ModelPredicateBuilder(model);
         }
 
-        public ItemModelOverrides build() {
+        public ItemModelOverrides finish() {
             return new ItemModelOverrides(overrides);
         }
 

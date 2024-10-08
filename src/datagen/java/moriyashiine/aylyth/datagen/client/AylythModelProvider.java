@@ -12,6 +12,8 @@ import moriyashiine.aylyth.common.block.types.SoulHearthBlock;
 import moriyashiine.aylyth.common.block.types.StrewnLeavesBlock;
 import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.aylyth.datagen.client.model.ItemModelOverrides;
+import moriyashiine.aylyth.datagen.client.model.ModelDisplayTransforms;
+import moriyashiine.aylyth.datagen.client.model.ModelDisplayType;
 import moriyashiine.aylyth.datagen.client.model.PerspectiveModelKeys;
 import moriyashiine.aylyth.datagen.client.model.PerspectiveModels;
 import moriyashiine.aylyth.datagen.common.AylythBlockFamilies;
@@ -30,18 +32,15 @@ import net.minecraft.data.client.Model;
 import net.minecraft.data.client.ModelIds;
 import net.minecraft.data.client.Models;
 import net.minecraft.data.client.MultipartBlockStateSupplier;
+import net.minecraft.data.client.SimpleModelSupplier;
 import net.minecraft.data.client.TextureKey;
 import net.minecraft.data.client.TextureMap;
 import net.minecraft.data.client.TexturedModel;
 import net.minecraft.data.client.VariantSettings;
 import net.minecraft.data.client.VariantsBlockStateSupplier;
 import net.minecraft.data.client.When;
-import net.minecraft.data.family.BlockFamilies;
-import net.minecraft.data.family.BlockFamily;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
-import net.minecraft.registry.Registries;
-import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 
@@ -49,7 +48,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import static net.minecraft.data.client.BlockStateModelGenerator.createModelVariantWithRandomHorizontalRotations;
@@ -75,9 +76,7 @@ public class AylythModelProvider extends FabricModelProvider {
 
     private static final Model BUILTIN = new Model(Optional.of(new Identifier("builtin/entity")), Optional.empty());
     private static final Model SPAWN_EGG = new Model(Optional.of(new Identifier("item/template_spawn_egg")), Optional.empty());
-    private static Model parented(Identifier parent) {
-        return new Model(Optional.of(parent), Optional.empty());
-    }
+    private static final Model HANDHELD_ROTATED = new Model(Optional.of(id("item/handheld_rotated")), Optional.empty(), TextureKey.LAYER0);
 
     public AylythModelProvider(FabricDataOutput output) {
         super(output);
@@ -93,9 +92,17 @@ public class AylythModelProvider extends FabricModelProvider {
 
     @Override
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
+        blockStateModelGenerator.registerParentedItemModel(AylythBlocks.SOUL_HEARTH, blockId("soul_hearth_item"));
+        blockStateModelGenerator.registerParentedItemModel(AylythBlocks.DARK_OAK_SEEP, blockId("dark_oak_seep_log_single"));
+        blockStateModelGenerator.registerParentedItemModel(AylythBlocks.FRUIT_BEARING_YMPE_LOG, blockId("fruit_bearing_ympe_log/4"));
+        registerSimpleParented(blockStateModelGenerator, AylythBlocks.GRIPWEED);
+        blockStateModelGenerator.registerParentedItemModel(AylythBlocks.OAK_SEEP, blockId("seep_log_single"));
+        blockStateModelGenerator.registerParentedItemModel(AylythBlocks.SEEPING_WOOD_SEEP, blockId("seeping_wood_seep_log_single"));
+        blockStateModelGenerator.registerParentedItemModel(AylythBlocks.SPRUCE_SEEP, blockId("spruce_seep_log_single"));
+        blockStateModelGenerator.registerParentedItemModel(AylythBlocks.YMPE_SEEP, blockId("ympe_seep_log_single"));
         blockStateModelGenerator.registerFlowerPotPlant(AylythBlocks.MARIGOLD, AylythBlocks.MARIGOLD_POTTED, BlockStateModelGenerator.TintType.NOT_TINTED);
-        generateStrewnLeaves(blockStateModelGenerator, AylythBlocks.OAK_STREWN_LEAVES, Blocks.OAK_LEAVES, id("block/fallen_oak_leaves_01"), id("block/fallen_oak_leaves_02"), id("block/fallen_oak_leaves_03"), id("block/fallen_oak_leaves_04"), id("block/fallen_oak_leaves_05"), id("block/fallen_oak_leaves_06"), id("block/fallen_oak_leaves_07"), id("block/fallen_oak_leaves_08"), id("block/fallen_oak_leaves_09"), id("block/fallen_oak_leaves_10"));
-        generateStrewnLeaves(blockStateModelGenerator, AylythBlocks.YMPE_STREWN_LEAVES, AylythBlocks.YMPE_LEAVES, id("block/fallen_ympe_leaves_01"), id("block/fallen_ympe_leaves_02"));
+        generateStrewnLeaves(blockStateModelGenerator, AylythBlocks.OAK_STREWN_LEAVES, Blocks.OAK_LEAVES, blockId("fallen_oak_leaves_01"), blockId("fallen_oak_leaves_02"), blockId("fallen_oak_leaves_03"), blockId("fallen_oak_leaves_04"), blockId("fallen_oak_leaves_05"), blockId("fallen_oak_leaves_06"), blockId("fallen_oak_leaves_07"), blockId("fallen_oak_leaves_08"), blockId("fallen_oak_leaves_09"), blockId("fallen_oak_leaves_10"));
+        generateStrewnLeaves(blockStateModelGenerator, AylythBlocks.YMPE_STREWN_LEAVES, AylythBlocks.YMPE_LEAVES, blockId("fallen_ympe_leaves_01"), blockId("fallen_ympe_leaves_02"));
 
         blockStateModelGenerator.registerLog(AylythBlocks.YMPE_STRIPPED_LOG).log(AylythBlocks.YMPE_STRIPPED_LOG).wood(AylythBlocks.YMPE_STRIPPED_WOOD);
         blockStateModelGenerator.registerLog(AylythBlocks.YMPE_LOG).log(AylythBlocks.YMPE_LOG).wood(AylythBlocks.YMPE_WOOD);
@@ -120,7 +127,7 @@ public class AylythModelProvider extends FabricModelProvider {
                 .family(AylythBlockFamilies.WRITHEWOOD);
         blockStateModelGenerator.registerHangingSign(AylythBlocks.WRITHEWOOD_STRIPPED_LOG, AylythBlocks.WRITHEWOOD_HANGING_SIGN, AylythBlocks.WRITHEWOOD_WALL_HANGING_SIGN);
         variantState(blockStateModelGenerator, AylythBlocks.WRITHEWOOD_LEAVES);
-        
+
         Models.TEMPLATE_SINGLE_FACE.upload(blockId("jack_o_lantern_mushroom_block_inner"), TextureMap.texture(blockId("jack_o_lantern_mushroom_block_inner")), blockStateModelGenerator.modelCollector);
         registerMushroomBlock(blockStateModelGenerator, AylythBlocks.JACK_O_LANTERN_MUSHROOM_STEM, blockId("jack_o_lantern_mushroom_block_inner"));
         registerMushroomBlock(blockStateModelGenerator, AylythBlocks.JACK_O_LANTERN_MUSHROOM_BLOCK, blockId("jack_o_lantern_mushroom_block_inner"));
@@ -143,7 +150,9 @@ public class AylythModelProvider extends FabricModelProvider {
         smallWoodyGrowth(blockStateModelGenerator.blockStateCollector, AylythBlocks.SMALL_WOODY_GROWTH);
         largeWoodyGrowth(blockStateModelGenerator.blockStateCollector, AylythBlocks.LARGE_WOODY_GROWTH);
         largeWoodyGrowth(blockStateModelGenerator.blockStateCollector, AylythBlocks.WOODY_GROWTH_CACHE);
-        generateWoodBlock(blockStateModelGenerator, AylythBlocks.SEEPING_WOOD, "block/aylyth_bush_trunk");
+        Identifier seepingWoodTexture = blockId("aylyth_bush_trunk");
+        Identifier seepingWoodModel = Models.CUBE_COLUMN.upload(AylythBlocks.SEEPING_WOOD, TextureMap.sideEnd(seepingWoodTexture, seepingWoodTexture), blockStateModelGenerator.modelCollector);
+        blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createAxisRotatedBlockState(AylythBlocks.SEEPING_WOOD, seepingWoodModel));
 
         blockStateModelGenerator.registerTintableCrossBlockState(AylythBlocks.GIRASOL_SAPLING, BlockStateModelGenerator.TintType.NOT_TINTED);
         TextureMap girasolMap = TextureMap.plant(AylythBlocks.GIRASOL_SAPLING);
@@ -160,11 +169,50 @@ public class AylythModelProvider extends FabricModelProvider {
 
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
-        generateStrewnLeavesItemModel(AylythItems.OAK_STREWN_LEAVES, id("block/fallen_oak_leaves_01"), itemModelGenerator);
-        generateStrewnLeavesItemModel(AylythItems.YMPE_STREWN_LEAVES, id("block/fallen_ympe_leaves_01"), itemModelGenerator);
+        generateStrewnLeavesItemModel(AylythItems.OAK_STREWN_LEAVES, blockId("fallen_oak_leaves_01"), itemModelGenerator);
+        generateStrewnLeavesItemModel(AylythItems.YMPE_STREWN_LEAVES, blockId("fallen_ympe_leaves_01"), itemModelGenerator);
+        itemModelGenerator.register(AylythItems.AYLYTHIAN_HEART, Models.GENERATED);
+        itemModelGenerator.register(AylythItems.AYLYTHIAN_SPAWN_EGG, SPAWN_EGG);
+        itemModelGenerator.register(AylythItems.AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE, Models.GENERATED);
+        itemModelGenerator.register(AylythItems.BARK, Models.GENERATED);
+        itemModelGenerator.register(AylythItems.CORIC_SEED, Models.GENERATED);
+        itemModelGenerator.register(AylythItems.ELDER_AYLYTHIAN_SPAWN_EGG, SPAWN_EGG);
+        itemModelGenerator.register(AylythItems.ESSTLINE, Models.GENERATED);
+        itemModelGenerator.register(AylythItems.GHOSTCAP_MUSHROOM, Models.GENERATED);
+        itemModelGenerator.register(AylythItems.JACK_O_LANTERN_MUSHROOM, Models.GENERATED);
+        itemModelGenerator.register(AylythItems.NEPHRITE, Models.GENERATED);
+        Models.GENERATED_THREE_LAYERS.upload(
+                ModelIds.getItemModelId(AylythItems.NYSIAN_GRAPE_VINE),
+                TextureMap.layered(blockId("nysian_grape_vine/vine"), blockId("nysian_grape_vine/leaves"), blockId("nysian_grape_vine/details")),
+                itemModelGenerator.writer
+        );
+        itemModelGenerator.register(AylythItems.NYSIAN_GRAPES, Models.GENERATED);
+        itemModelGenerator.register(AylythItems.PILOT_LIGHT_SPAWN_EGG, SPAWN_EGG);
+        itemModelGenerator.register(AylythItems.SCION_SPAWN_EGG, SPAWN_EGG);
+        Models.GENERATED.upload(
+                ModelIds.getItemModelId(AylythItems.SHUCKED_YMPE_FRUIT),
+                TextureMap.layer0(AylythItems.SHUCKED_YMPE_FRUIT),
+                wrapAndChain(
+                        itemModelGenerator.writer,
+                        ItemModelOverrides.builder()
+                                .overrideBuilder(id("item/shucked_ympe_fruit_variant"))
+                                .addPredicate(id("variant"), 1)
+                                .build().finish()
+                )
+        );
+        Models.GENERATED.upload(id("item/shucked_ympe_fruit_variant"), TextureMap.layer0(id("item/shucked_ympe_fruit_variant")), itemModelGenerator.writer);
+        itemModelGenerator.register(AylythItems.YMPE_DAGGER, Models.HANDHELD);
+        itemModelGenerator.register(AylythItems.YMPE_EFFIGY, HANDHELD_ROTATED);
+        itemModelGenerator.register(AylythItems.YMPE_FLAMBERGE, "_gui", Models.HANDHELD);
+        itemModelGenerator.register(AylythItems.YMPE_FRUIT, Models.GENERATED);
+        itemModelGenerator.register(AylythItems.YMPE_GLAIVE, "_gui", Models.HANDHELD);
+        itemModelGenerator.register(AylythItems.YMPE_LANCE, "_gui", Models.HANDHELD);
         itemModelGenerator.register(AylythItems.YMPE_MUSH, Models.GENERATED);
+        itemModelGenerator.register(AylythItems.YMPE_SCYTHE, "_gui", Models.HANDHELD);
         itemModelGenerator.register(AylythItems.POMEGRANATE, Models.GENERATED);
         itemModelGenerator.register(AylythItems.GHOSTCAP_MUSHROOM_SPORES, Models.GENERATED);
+        itemModelGenerator.register(AylythItems.YMPE_BOAT, Models.GENERATED);
+        itemModelGenerator.register(AylythItems.YMPE_CHEST_BOAT, Models.GENERATED);
         itemModelGenerator.register(AylythItems.POMEGRANATE_BOAT, Models.GENERATED);
         itemModelGenerator.register(AylythItems.POMEGRANATE_CHEST_BOAT, Models.GENERATED);
         itemModelGenerator.register(AylythItems.WRITHEWOOD_BOAT, Models.GENERATED);
@@ -178,19 +226,26 @@ public class AylythModelProvider extends FabricModelProvider {
         itemModelGenerator.register(AylythItems.WOODY_GROWTH_CACHE, BUILTIN);
         itemModelGenerator.register(AylythItems.SMALL_WOODY_GROWTH, Models.GENERATED);
         itemModelGenerator.register(AylythItems.YMPE_CUIRASS, Models.GENERATED);
+
         itemModelGenerator.register(AylythItems.WREATHED_HIND_SPAWN_EGG, SPAWN_EGG);
         itemModelGenerator.register(AylythItems.FAUNAYLYTHIAN_SPAWN_EGG, SPAWN_EGG);
         itemModelGenerator.register(AylythItems.YMPEMOULD_SPAWN_EGG, SPAWN_EGG);
         itemModelGenerator.register(AylythItems.BONEFLY_SPAWN_EGG, SPAWN_EGG);
         itemModelGenerator.register(AylythItems.TULPA_SPAWN_EGG, SPAWN_EGG);
+
         itemModelGenerator.register(AylythItems.POMEGRANATE_CASSETTE, Models.GENERATED);
         itemModelGenerator.register(AylythItems.BLIGHTED_THORNS, Models.GENERATED);
-        itemModelGenerator.register(AylythItems.SOUL_HEARTH, parented(blockId("soul_hearth_item")));
 
         itemModelGenerator.register(AylythItems.THORN_FLECHETTE, Models.GENERATED);
         itemModelGenerator.register(AylythItems.BLIGHTED_THORN_FLECHETTE, Models.GENERATED);
         itemModelGenerator.register(AylythItems.LANCEOLATE_DAGGER, Models.HANDHELD);
         itemModelGenerator.register(AylythItems.YMPE_LANCE, BUILTIN);
+
+        itemModelGenerator.register(AylythItems.NEPHRITE_AXE, Models.HANDHELD);
+        itemModelGenerator.register(AylythItems.NEPHRITE_HOE, Models.HANDHELD);
+        itemModelGenerator.register(AylythItems.NEPHRITE_PICKAXE, Models.HANDHELD);
+        itemModelGenerator.register(AylythItems.NEPHRITE_SHOVEL, Models.HANDHELD);
+        itemModelGenerator.register(AylythItems.NEPHRITE_SWORD, Models.HANDHELD);
 
         itemModelGenerator.register(AylythItems.VAMPIRIC_SWORD, "_gui", Models.GENERATED);
         itemModelGenerator.register(AylythItems.VAMPIRIC_PICKAXE, Models.HANDHELD);
@@ -217,6 +272,90 @@ public class AylythModelProvider extends FabricModelProvider {
         Models.GENERATED_TWO_LAYERS.upload(Aylyth.id("item/coker_cola"), TextureMap.layered(Aylyth.id("item/blight_potion"), Aylyth.id("item/blight_potion")), itemModelGenerator.writer);
         Models.GENERATED_TWO_LAYERS.upload(Aylyth.id("item/coker_cola_splash"), TextureMap.layered(Aylyth.id("item/blight_potion_splash"), Aylyth.id("item/blight_potion_splash")), itemModelGenerator.writer);
         Models.GENERATED_TWO_LAYERS.upload(Aylyth.id("item/coker_cola_lingering"), TextureMap.layered(Aylyth.id("item/blight_potion_lingering"), Aylyth.id("item/blight_potion_lingering")), itemModelGenerator.writer);
+
+        registerSimpleParented(
+                ModelIds.getItemModelId(AylythItems.WRITHEWOOD_LEAVES),
+                ModelIds.getBlockModelId(AylythBlocks.WRITHEWOOD_LEAVES),
+                wrapAndChain(itemModelGenerator.writer,
+                        ModelDisplayTransforms.block()
+                                .transformBuilder(ModelDisplayType.GUI)
+                                .rotation(30, 225, 0)
+                                .translation(0, 1, 0)
+                                .scale(0.475f)
+                                .build()
+                                .finish()
+                )
+        );
+        registerSimpleParented(
+                ModelIds.getItemModelId(AylythItems.AYLYTH_BUSH),
+                ModelIds.getBlockModelId(AylythBlocks.AYLYTH_BUSH),
+                wrapAndChain(itemModelGenerator.writer,
+                        ModelDisplayTransforms.block()
+                                .transformBuilder(ModelDisplayType.GUI)
+                                .rotation(30, 225, 0)
+                                .scale(0.5f)
+                                .build()
+                                .finish()
+                )
+        );
+        registerSimpleParented(
+                ModelIds.getItemModelId(AylythItems.ANTLER_SHOOTS),
+                ModelIds.getBlockModelId(AylythBlocks.ANTLER_SHOOTS),
+                wrapAndChain(itemModelGenerator.writer,
+                        ModelDisplayTransforms.block()
+                                .transformBuilder(ModelDisplayType.GUI)
+                                .rotation(30, 225, 0)
+                                .translation(0, -2, 0)
+                                .scale(0.55f)
+                                .build()
+                                .finish()
+                ));
+        registerSimpleParented(
+                ModelIds.getItemModelId(AylythItems.BLACK_WELL),
+                blockId("black_well_inventory"),
+                wrapAndChain(itemModelGenerator.writer,
+                        ModelDisplayTransforms.block()
+                                .transformBuilder(ModelDisplayType.GUI)
+                                .rotation(30, 225, 0)
+                                .scale(0.55f)
+                                .build()
+                                .finish()
+                ));
+        registerSimpleParented(
+                ModelIds.getItemModelId(AylythItems.VITAL_THURIBLE),
+                ModelIds.getBlockModelId(AylythBlocks.VITAL_THURIBLE),
+                wrapAndChain(itemModelGenerator.writer,
+                        ModelDisplayTransforms.builder()
+                                .transformBuilder(ModelDisplayType.GUI)
+                                .rotation(25, -35, 0)
+                                .translation(0, -1, 0)
+                                .scale(0.5f)
+                                .build()
+                                .transformBuilder(ModelDisplayType.GROUND)
+                                .scale(0.5f)
+                                .build()
+                                .transformBuilder(ModelDisplayType.FIRST_PERSON_LEFT_HAND)
+                                .translation(0, -2.75f, 0)
+                                .scale(0.5f)
+                                .build()
+                                .transformBuilder(ModelDisplayType.FIRST_PERSON_RIGHT_HAND)
+                                .translation(0, -2.75f, 0)
+                                .scale(0.5f)
+                                .build()
+                                .transformBuilder(ModelDisplayType.THIRD_PERSON_LEFT_HAND)
+                                .translation(0, -2.75f, 0)
+                                .scale(0.35f)
+                                .build()
+                                .transformBuilder(ModelDisplayType.THIRD_PERSON_RIGHT_HAND)
+                                .translation(0, -2.75f, 0)
+                                .scale(0.35f)
+                                .build()
+                                .finish()
+                ));
+    }
+
+    private void registerSimpleParented(BlockStateModelGenerator generator, Block block) {
+        generator.registerParentedItemModel(block, ModelIds.getBlockModelId(block));
     }
 
     private void registerBig(ItemModelGenerator generator, Item item) {
@@ -264,16 +403,9 @@ public class AylythModelProvider extends FabricModelProvider {
                     .addPredicate(Aylyth.id("uses"), i / 6f)
                     .build();
         }
-        Models.GENERATED.upload(id, TextureMap.layer0(flask.asItem()), generator.writer, chain(Models.GENERATED::createJson, builder.build()));
+        Models.GENERATED.upload(id, TextureMap.layer0(flask.asItem()), wrapAndChain(generator.writer, builder.finish()));
     }
 
-    private void generateWoodBlock(BlockStateModelGenerator generator, Block woodBlock, String texturePath) {
-        TextureMap textureMap = new TextureMap();
-        textureMap.put(TextureKey.SIDE, id(texturePath));
-        textureMap.put(TextureKey.END, textureMap.getTexture(TextureKey.SIDE));
-        Identifier identifier = Models.CUBE_COLUMN.upload(woodBlock, textureMap, generator.modelCollector);
-        generator.blockStateCollector.accept(BlockStateModelGenerator.createAxisRotatedBlockState(woodBlock, identifier));
-    }
 
     private void largeWoodyGrowth(Consumer<BlockStateSupplier> collector, Block block) {
         collector.accept(VariantsBlockStateSupplier.create(block)
@@ -330,14 +462,16 @@ public class AylythModelProvider extends FabricModelProvider {
             STREWN_LEAVES_MODEL.upload(identifier, TextureMap.of(TextureKey.TOP, identifier), blockStateModelGenerator.modelCollector);
         });
         STREWN_LEAVES_MODEL.upload(strewnLeavesBlock, TextureMap.of(TextureKey.TOP, models[0]), blockStateModelGenerator.modelCollector);
+
         Identifier leavesModelId = ModelIds.getBlockModelId(leavesBlock);
-        LEAF_PILE_1_MODEL.upload(id(leavesModelId.getPath() + "_pile_1"), TextureMap.of(TextureKey.ALL, leavesModelId), blockStateModelGenerator.modelCollector);
-        LEAF_PILE_2_MODEL.upload(id(leavesModelId.getPath() + "_pile_2"), TextureMap.of(TextureKey.ALL, leavesModelId), blockStateModelGenerator.modelCollector);
-        LEAF_PILE_3_MODEL.upload(id(leavesModelId.getPath() + "_pile_3"), TextureMap.of(TextureKey.ALL, leavesModelId), blockStateModelGenerator.modelCollector);
-        LEAF_PILE_4_MODEL.upload(id(leavesModelId.getPath() + "_pile_4"), TextureMap.of(TextureKey.ALL, leavesModelId), blockStateModelGenerator.modelCollector);
-        LEAF_PILE_5_MODEL.upload(id(leavesModelId.getPath() + "_pile_5"), TextureMap.of(TextureKey.ALL, leavesModelId), blockStateModelGenerator.modelCollector);
-        LEAF_PILE_6_MODEL.upload(id(leavesModelId.getPath() + "_pile_6"), TextureMap.of(TextureKey.ALL, leavesModelId), blockStateModelGenerator.modelCollector);
-        LEAF_PILE_7_MODEL.upload(id(leavesModelId.getPath() + "_pile_7"), TextureMap.of(TextureKey.ALL, leavesModelId), blockStateModelGenerator.modelCollector);
+        TextureMap pileMap = TextureMap.of(TextureKey.ALL, leavesModelId);
+        LEAF_PILE_1_MODEL.upload(id(leavesModelId.getPath() + "_pile_1"), pileMap, blockStateModelGenerator.modelCollector);
+        LEAF_PILE_2_MODEL.upload(id(leavesModelId.getPath() + "_pile_2"), pileMap, blockStateModelGenerator.modelCollector);
+        LEAF_PILE_3_MODEL.upload(id(leavesModelId.getPath() + "_pile_3"), pileMap, blockStateModelGenerator.modelCollector);
+        LEAF_PILE_4_MODEL.upload(id(leavesModelId.getPath() + "_pile_4"), pileMap, blockStateModelGenerator.modelCollector);
+        LEAF_PILE_5_MODEL.upload(id(leavesModelId.getPath() + "_pile_5"), pileMap, blockStateModelGenerator.modelCollector);
+        LEAF_PILE_6_MODEL.upload(id(leavesModelId.getPath() + "_pile_6"), pileMap, blockStateModelGenerator.modelCollector);
+        LEAF_PILE_7_MODEL.upload(id(leavesModelId.getPath() + "_pile_7"), pileMap, blockStateModelGenerator.modelCollector);
     }
 
     private List<BlockStateVariant> allFlatModels(Identifier... models) {
@@ -369,23 +503,30 @@ public class AylythModelProvider extends FabricModelProvider {
         generator.registerParentedItemModel(mushroomBlock, TexturedModel.CUBE_ALL.upload(mushroomBlock, "_inventory", generator.modelCollector));
     }
 
+    private static void registerSimpleParented(Identifier id, Identifier parent, BiConsumer<Identifier, Supplier<JsonElement>> writer) {
+        writer.accept(id, new SimpleModelSupplier(parent));
+    }
+
     /**
-     * Allows chaining multiple factories together, particularly helpful for the item display and model predicate systems.
-     * @param factories The factories to combine
-     * @return The combined factory which runs all factories and merges the result
+     * Allows chaining multiple suppliers together, particularly helpful for the item display and model predicate systems.
+     * @param suppliers The suppliers to combine
+     * @return The combined supplier which runs all suppliers and merges the result
      */
-    private Model.JsonFactory chain(Model.JsonFactory... factories) {
-        if (factories.length == 1) {
-            return factories[0];
-        }
-        return (id, textures) -> {
-            JsonObject finalObj = new JsonObject();
-            for (Model.JsonFactory factory : factories) {
-                for (Map.Entry<String, JsonElement> entry : factory.create(id, textures).entrySet()) {
+    private BiConsumer<Identifier, Supplier<JsonElement>> wrapAndChain(BiConsumer<Identifier, Supplier<JsonElement>> writer, Supplier<JsonElement>... suppliers) {
+        return (identifier, original) -> {
+            Supplier<JsonElement> finalSupplier = () -> {
+                JsonObject finalObj = new JsonObject();
+                for (Map.Entry<String, JsonElement> entry : original.get().getAsJsonObject().entrySet()) {
                     finalObj.add(entry.getKey(), entry.getValue());
                 }
-            }
-            return finalObj;
+                for (Supplier<JsonElement> supplier : suppliers) {
+                    for (Map.Entry<String, JsonElement> entry : supplier.get().getAsJsonObject().entrySet()) {
+                        finalObj.add(entry.getKey(), entry.getValue());
+                    }
+                }
+                return finalObj;
+            };
+            writer.accept(identifier, finalSupplier);
         };
     }
 }

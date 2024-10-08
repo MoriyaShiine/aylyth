@@ -1,5 +1,5 @@
 {
-  "parent": "aylyth:block/black_well_inventory",
+  "parent": "aylyth:block/antler_shoots",
   "display": {
     "firstperson_righthand": {
       "rotation": [
@@ -42,6 +42,11 @@
         0.55,
         0.55,
         0.55
+      ],
+      "translation": [
+        0.0,
+        -2.0,
+        0.0
       ]
     },
     "thirdperson_righthand": {

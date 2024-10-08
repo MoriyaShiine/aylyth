@@ -1,5 +1,5 @@
 {
-  "parent": "aylyth:block/black_well_inventory",
+  "parent": "aylyth:block/aylyth_bush",
   "display": {
     "firstperson_righthand": {
       "rotation": [
@@ -39,9 +39,9 @@
         0.0
       ],
       "scale": [
-        0.55,
-        0.55,
-        0.55
+        0.5,
+        0.5,
+        0.5
       ]
     },
     "thirdperson_righthand": {

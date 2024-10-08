@@ -1,0 +1,77 @@
+{
+  "parent": "aylyth:block/vital_thurible",
+  "display": {
+    "firstperson_lefthand": {
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "translation": [
+        0.0,
+        -2.75,
+        0.0
+      ]
+    },
+    "firstperson_righthand": {
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "translation": [
+        0.0,
+        -2.75,
+        0.0
+      ]
+    },
+    "ground": {
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "gui": {
+      "rotation": [
+        25.0,
+        -35.0,
+        0.0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "translation": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    "thirdperson_lefthand": {
+      "scale": [
+        0.35,
+        0.35,
+        0.35
+      ],
+      "translation": [
+        0.0,
+        -2.75,
+        0.0
+      ]
+    },
+    "thirdperson_righthand": {
+      "scale": [
+        0.35,
+        0.35,
+        0.35
+      ],
+      "translation": [
+        0.0,
+        -2.75,
+        0.0
+      ]
+    }
+  }
+}

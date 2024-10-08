@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-	"layer0": "aylyth:block/nysian_grape_vine/vine",
-	"layer1": "aylyth:block/nysian_grape_vine/leaves",
-	"layer2": "aylyth:block/nysian_grape_vine/details"
-  }
-}
