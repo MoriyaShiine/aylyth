@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.common.block.entities;
 
-import com.google.common.collect.Lists;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import moriyashiine.aylyth.common.block.AylythBlockEntityTypes;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -25,7 +25,7 @@ import java.util.UUID;
 public class WoodyGrowthCacheBlockEntity extends BlockEntity {
 
     static final int MAX_SIZE = 9;
-    protected final List<ItemStack> inventory = Lists.newLinkedList();
+    protected final List<ItemStack> inventory = new ObjectArrayList<>();
     protected UUID playerUuid;
 
     public WoodyGrowthCacheBlockEntity(BlockPos pos, BlockState state) {
