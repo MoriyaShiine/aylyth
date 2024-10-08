@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "aylyth:block/ympe_planks",
+    "side": "aylyth:block/ympe_planks",
+    "top": "aylyth:block/ympe_planks"
+  }
+}

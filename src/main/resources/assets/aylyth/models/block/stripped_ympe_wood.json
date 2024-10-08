@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_column",
-  "textures": {
-	"end": "aylyth:block/stripped_ympe_log",
-	"side": "aylyth:block/stripped_ympe_log"
-  }
-}
