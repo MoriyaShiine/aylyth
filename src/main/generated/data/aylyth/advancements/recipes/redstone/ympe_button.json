@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_pomegranate_planks": {
+    "has_planks": {
       "conditions": {
         "items": [
           {
             "items": [
-              "aylyth:pomegranate_planks"
+              "aylyth:ympe_planks"
             ]
           }
         ]
@@ -15,20 +15,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "aylyth:pomegranate_button_from_pomegranate_planks"
+        "recipe": "aylyth:ympe_button"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_pomegranate_planks",
+      "has_planks",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "aylyth:pomegranate_button_from_pomegranate_planks"
+      "aylyth:ympe_button"
     ]
   },
   "sends_telemetry_event": false
