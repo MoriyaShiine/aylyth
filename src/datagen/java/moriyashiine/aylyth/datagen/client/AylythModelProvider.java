@@ -1,8 +1,9 @@
 package moriyashiine.aylyth.datagen.client;
 
 import com.google.common.collect.ImmutableList;
-import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.block.types.LargeWoodyGrowthBlock;
@@ -10,7 +11,8 @@ import moriyashiine.aylyth.common.block.types.PomegranateLeavesBlock;
 import moriyashiine.aylyth.common.block.types.SoulHearthBlock;
 import moriyashiine.aylyth.common.block.types.StrewnLeavesBlock;
 import moriyashiine.aylyth.common.item.AylythItems;
-import moriyashiine.aylyth.datagen.client.model.ModelKeys;
+import moriyashiine.aylyth.datagen.client.model.ItemModelOverrides;
+import moriyashiine.aylyth.datagen.client.model.PerspectiveModelKeys;
 import moriyashiine.aylyth.datagen.client.model.PerspectiveModels;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
@@ -19,6 +21,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.LeavesBlock;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.data.client.BlockStateModelGenerator;
+import net.minecraft.data.client.BlockStateSupplier;
 import net.minecraft.data.client.BlockStateVariant;
 import net.minecraft.data.client.BlockStateVariantMap;
 import net.minecraft.data.client.ItemModelGenerator;
@@ -41,23 +44,28 @@ import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
+
+import static net.minecraft.data.client.BlockStateModelGenerator.createModelVariantWithRandomHorizontalRotations;
 
 public class AylythModelProvider extends FabricModelProvider {
 
     private static final BlockFamily POMEGRANATE = BlockFamilies.register(AylythBlocks.POMEGRANATE_PLANKS).button(AylythBlocks.POMEGRANATE_BUTTON).fence(AylythBlocks.POMEGRANATE_FENCE).fenceGate(AylythBlocks.POMEGRANATE_FENCE_GATE).pressurePlate(AylythBlocks.POMEGRANATE_PRESSURE_PLATE).sign(AylythBlocks.POMEGRANATE_SIGN, AylythBlocks.POMEGRANATE_WALL_SIGN).slab(AylythBlocks.POMEGRANATE_SLAB).stairs(AylythBlocks.POMEGRANATE_STAIRS).door(AylythBlocks.POMEGRANATE_DOOR).trapdoor(AylythBlocks.POMEGRANATE_TRAPDOOR).group("wooden").unlockCriterionName("has_planks").build();
     private static final BlockFamily WRITHEWOOD = BlockFamilies.register(AylythBlocks.WRITHEWOOD_PLANKS).button(AylythBlocks.WRITHEWOOD_BUTTON).fence(AylythBlocks.WRITHEWOOD_FENCE).fenceGate(AylythBlocks.WRITHEWOOD_FENCE_GATE).pressurePlate(AylythBlocks.WRITHEWOOD_PRESSURE_PLATE).sign(AylythBlocks.WRITHEWOOD_SIGN, AylythBlocks.WRITHEWOOD_WALL_SIGN).slab(AylythBlocks.WRITHEWOOD_SLAB).stairs(AylythBlocks.WRITHEWOOD_STAIRS).door(AylythBlocks.WRITHEWOOD_DOOR).trapdoor(AylythBlocks.WRITHEWOOD_TRAPDOOR).group("wooden").unlockCriterionName("has_planks").build();
 
-    private static final Identifier STREWN_LEAVES_TEMPLATE = Aylyth.id("block/strewn_leaves_template");
-    private static final Identifier LEAF_PILE_1_TEMPLATE = Aylyth.id("block/leaf_pile_1");
-    private static final Identifier LEAF_PILE_2_TEMPLATE = Aylyth.id("block/leaf_pile_2");
-    private static final Identifier LEAF_PILE_3_TEMPLATE = Aylyth.id("block/leaf_pile_3");
-    private static final Identifier LEAF_PILE_4_TEMPLATE = Aylyth.id("block/leaf_pile_4");
-    private static final Identifier LEAF_PILE_5_TEMPLATE = Aylyth.id("block/leaf_pile_5");
-    private static final Identifier LEAF_PILE_6_TEMPLATE = Aylyth.id("block/leaf_pile_6");
-    private static final Identifier LEAF_PILE_7_TEMPLATE = Aylyth.id("block/leaf_pile_7");
+    private static final Identifier STREWN_LEAVES_TEMPLATE = blockId("strewn_leaves_template");
+    private static final Identifier LEAF_PILE_1_TEMPLATE = blockId("leaf_pile_1");
+    private static final Identifier LEAF_PILE_2_TEMPLATE = blockId("leaf_pile_2");
+    private static final Identifier LEAF_PILE_3_TEMPLATE = blockId("leaf_pile_3");
+    private static final Identifier LEAF_PILE_4_TEMPLATE = blockId("leaf_pile_4");
+    private static final Identifier LEAF_PILE_5_TEMPLATE = blockId("leaf_pile_5");
+    private static final Identifier LEAF_PILE_6_TEMPLATE = blockId("leaf_pile_6");
+    private static final Identifier LEAF_PILE_7_TEMPLATE = blockId("leaf_pile_7");
 
     private static final Model STREWN_LEAVES_MODEL = new Model(Optional.of(STREWN_LEAVES_TEMPLATE), Optional.empty(), TextureKey.TOP, TextureKey.PARTICLE);
     private static final Model LEAF_PILE_1_MODEL = new Model(Optional.of(LEAF_PILE_1_TEMPLATE), Optional.empty(), TextureKey.ALL, TextureKey.PARTICLE);
@@ -70,16 +78,19 @@ public class AylythModelProvider extends FabricModelProvider {
 
     private static final Model BUILTIN = new Model(Optional.of(new Identifier("builtin/entity")), Optional.empty());
     private static final Model SPAWN_EGG = new Model(Optional.of(new Identifier("item/template_spawn_egg")), Optional.empty());
+    private static Model parented(Identifier parent) {
+        return new Model(Optional.of(parent), Optional.empty());
+    }
 
     public AylythModelProvider(FabricDataOutput output) {
         super(output);
     }
 
-    private Identifier blockId(String id) {
+    private static Identifier blockId(String id) {
         return id("block/" + id);
     }
 
-    private Identifier id(String id) {
+    private static Identifier id(String id) {
         return Aylyth.id(id);
     }
 
@@ -127,7 +138,9 @@ public class AylythModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerSingleton(AylythBlocks.CARVED_WOODY_NEPHRITE, TexturedModel.CUBE_ALL);
 
         Models.PARTICLE.upload(blockId("woody_growth_particles"), TextureMap.particle(blockId("aylyth_bush_trunk")), blockStateModelGenerator.modelCollector);
-        woodyGrowth(blockStateModelGenerator);
+        smallWoodyGrowth(blockStateModelGenerator.blockStateCollector, AylythBlocks.SMALL_WOODY_GROWTH);
+        largeWoodyGrowth(blockStateModelGenerator.blockStateCollector, AylythBlocks.LARGE_WOODY_GROWTH);
+        largeWoodyGrowth(blockStateModelGenerator.blockStateCollector, AylythBlocks.WOODY_GROWTH_CACHE);
         generateWoodBlock(blockStateModelGenerator, AylythBlocks.SEEPING_WOOD, "block/aylyth_bush_trunk");
 
         blockStateModelGenerator.registerTintableCrossBlockState(AylythBlocks.GIRASOL_SAPLING, BlockStateModelGenerator.TintType.NOT_TINTED);
@@ -163,15 +176,15 @@ public class AylythModelProvider extends FabricModelProvider {
         itemModelGenerator.register(AylythItems.WOODY_GROWTH_CACHE, BUILTIN);
         itemModelGenerator.register(AylythItems.SMALL_WOODY_GROWTH, Models.GENERATED);
         itemModelGenerator.register(AylythItems.YMPE_CUIRASS, Models.GENERATED);
-//        itemModelGenerator.register(ModItems.MYSTERIOUS_SKETCH, BUILTIN);
         itemModelGenerator.register(AylythItems.WREATHED_HIND_SPAWN_EGG, SPAWN_EGG);
         itemModelGenerator.register(AylythItems.FAUNAYLYTHIAN_SPAWN_EGG, SPAWN_EGG);
         itemModelGenerator.register(AylythItems.YMPEMOULD_SPAWN_EGG, SPAWN_EGG);
         itemModelGenerator.register(AylythItems.BONEFLY_SPAWN_EGG, SPAWN_EGG);
         itemModelGenerator.register(AylythItems.TULPA_SPAWN_EGG, SPAWN_EGG);
-//        Models.GENERATED.upload(AylythUtil.id("item/" + Registries.ITEM.getId(ModItems.MYSTERIOUS_SKETCH).getPath() + "_generated"), TextureMap.layer0(AylythUtil.id("item/" + Registries.ITEM.getId(ModItems.MYSTERIOUS_SKETCH).getPath())), itemModelGenerator.writer);
         itemModelGenerator.register(AylythItems.POMEGRANATE_CASSETTE, Models.GENERATED);
         itemModelGenerator.register(AylythItems.BLIGHTED_THORNS, Models.GENERATED);
+        itemModelGenerator.register(AylythItems.SOUL_HEARTH, parented(blockId("soul_hearth_item")));
+
         itemModelGenerator.register(AylythItems.THORN_FLECHETTE, Models.GENERATED);
         itemModelGenerator.register(AylythItems.BLIGHTED_THORN_FLECHETTE, Models.GENERATED);
         itemModelGenerator.register(AylythItems.LANCEOLATE_DAGGER, Models.HANDHELD);
@@ -193,8 +206,8 @@ public class AylythModelProvider extends FabricModelProvider {
         registerBig(itemModelGenerator, AylythItems.VAMPIRIC_SWORD);
         registerBig(itemModelGenerator, AylythItems.BLIGHTED_SWORD);
         PerspectiveModels.BIG_HANDHELD.resolver()
-                .with(ModelKeys.GUI, ModelIds.getItemModelId(AylythItems.YMPE_LANCE).withSuffixedPath("_gui"))
-                .with(ModelKeys.HANDHELD, ModelIds.getItemModelId(AylythItems.YMPE_LANCE).withSuffixedPath("_handheld"))
+                .with(PerspectiveModelKeys.GUI, ModelIds.getItemModelId(AylythItems.YMPE_LANCE).withSuffixedPath("_gui"))
+                .with(PerspectiveModelKeys.HANDHELD, ModelIds.getItemModelId(AylythItems.YMPE_LANCE).withSuffixedPath("_handheld"))
                 .upload(ModelIds.getItemModelId(AylythItems.YMPE_LANCE).withSuffixedPath("_spear"), itemModelGenerator.writer);
 
         registerFlask(itemModelGenerator, AylythItems.NEPHRITE_FLASK);
@@ -206,8 +219,8 @@ public class AylythModelProvider extends FabricModelProvider {
 
     private void registerBig(ItemModelGenerator generator, Item item) {
         PerspectiveModels.BIG_HANDHELD.resolver()
-                .with(ModelKeys.GUI, ModelIds.getItemModelId(item).withSuffixedPath("_gui"))
-                .with(ModelKeys.HANDHELD, ModelIds.getItemModelId(item).withSuffixedPath("_handheld"))
+                .with(PerspectiveModelKeys.GUI, ModelIds.getItemModelId(item).withSuffixedPath("_gui"))
+                .with(PerspectiveModelKeys.HANDHELD, ModelIds.getItemModelId(item).withSuffixedPath("_handheld"))
                 .upload(ModelIds.getItemModelId(item), generator.writer);
     }
 
@@ -241,26 +254,15 @@ public class AylythModelProvider extends FabricModelProvider {
     }
 
     private void registerFlask(ItemModelGenerator generator, ItemConvertible flask) {
-        Identifier id = Registries.ITEM.getId(flask.asItem()).withPrefixedPath("item/");
-        Models.GENERATED.upload(id, TextureMap.layer0(flask.asItem()), generator.writer, (id1, textures) -> {
-            JsonObject main = Models.GENERATED.createJson(id1, textures);
-            JsonArray overrides = new JsonArray();
-            for (int i = 1; i < 7; i++) {
-                JsonObject predicate = new JsonObject();
-                JsonObject overrideEntry = new JsonObject();
-                predicate.addProperty("aylyth:uses", i / 6f);
-                overrideEntry.add("predicate", predicate);
-                overrideEntry.addProperty("model", id.withSuffixedPath("_" + i + "_charges").toString());
-                overrides.add(overrideEntry);
-            }
-
-            main.add("overrides", overrides);
-            return main;
-        });
-
-        for (int i = 1; i < 7; i++) {
+        Identifier id = ModelIds.getItemModelId(flask.asItem());
+        ItemModelOverrides.Builder builder = ItemModelOverrides.builder();
+        for (int i = 1; i <= 6; i++) {
             generator.register(flask.asItem(), "_" + i + "_charges", Models.GENERATED);
+            builder.overrideBuilder(id.withSuffixedPath("_%s_charges".formatted(i)))
+                    .addPredicate(Aylyth.id("uses"), i / 6f)
+                    .build();
         }
+        Models.GENERATED.upload(id, TextureMap.layer0(flask.asItem()), generator.writer, chain(Models.GENERATED::createJson, builder.build()));
     }
 
     private void generateWoodBlock(BlockStateModelGenerator generator, Block woodBlock, String texturePath) {
@@ -271,76 +273,34 @@ public class AylythModelProvider extends FabricModelProvider {
         generator.blockStateCollector.accept(BlockStateModelGenerator.createAxisRotatedBlockState(woodBlock, identifier));
     }
 
-    private void woodyGrowth(BlockStateModelGenerator generator) {
-        generator.blockStateCollector.accept(
-                VariantsBlockStateSupplier.create(AylythBlocks.LARGE_WOODY_GROWTH).
-                        coordinate(BlockStateVariantMap.create(LargeWoodyGrowthBlock.HALF)
-                                .register(DoubleBlockHalf.LOWER,
-                                        List.of(
-                                        modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_1"), VariantSettings.Rotation.R0),
-                                        modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_1"), VariantSettings.Rotation.R90),
-                                        modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_1"), VariantSettings.Rotation.R180),
-                                        modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_1"), VariantSettings.Rotation.R270),
-                                        modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_2"), VariantSettings.Rotation.R0),
-                                        modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_2"), VariantSettings.Rotation.R90),
-                                        modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_2"), VariantSettings.Rotation.R180),
-                                        modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_2"), VariantSettings.Rotation.R270),
-                                        modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_3"), VariantSettings.Rotation.R0),
-                                        modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_3"), VariantSettings.Rotation.R90),
-                                        modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_3"), VariantSettings.Rotation.R180),
-                                        modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_3"), VariantSettings.Rotation.R270),
-                                        modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_4"), VariantSettings.Rotation.R0),
-                                        modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_4"), VariantSettings.Rotation.R90),
-                                        modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_4"), VariantSettings.Rotation.R180),
-                                        modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_4"), VariantSettings.Rotation.R270)
-                                        )
-                                )
-                                .register(DoubleBlockHalf.UPPER, List.of(
-                                        BlockStateVariant.create().put(VariantSettings.MODEL, blockId("woody_growth_particles"))
-                                )))
-        );
-        generator.blockStateCollector.accept(
-                VariantsBlockStateSupplier.create(AylythBlocks.WOODY_GROWTH_CACHE).
-                        coordinate(BlockStateVariantMap.create(LargeWoodyGrowthBlock.HALF)
-                                .register(DoubleBlockHalf.LOWER,
-                                        List.of(
-                                                modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_1"), VariantSettings.Rotation.R0),
-                                                modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_1"), VariantSettings.Rotation.R90),
-                                                modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_1"), VariantSettings.Rotation.R180),
-                                                modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_1"), VariantSettings.Rotation.R270),
-                                                modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_2"), VariantSettings.Rotation.R0),
-                                                modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_2"), VariantSettings.Rotation.R90),
-                                                modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_2"), VariantSettings.Rotation.R180),
-                                                modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_2"), VariantSettings.Rotation.R270),
-                                                modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_3"), VariantSettings.Rotation.R0),
-                                                modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_3"), VariantSettings.Rotation.R90),
-                                                modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_3"), VariantSettings.Rotation.R180),
-                                                modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_3"), VariantSettings.Rotation.R270),
-                                                modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_4"), VariantSettings.Rotation.R0),
-                                                modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_4"), VariantSettings.Rotation.R90),
-                                                modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_4"), VariantSettings.Rotation.R180),
-                                                modelVariantWithYRotation(Aylyth.id("block/large_woody_growth_4"), VariantSettings.Rotation.R270)
-                                        )
-                                )
-                                .register(DoubleBlockHalf.UPPER, List.of(
-                                        BlockStateVariant.create().put(VariantSettings.MODEL, blockId("woody_growth_particles"))
-                                )))
-        );
-        generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(AylythBlocks.SMALL_WOODY_GROWTH,
-                modelVariantWithYRotation(Aylyth.id("block/small_woody_growth_1"), VariantSettings.Rotation.R90),
-                modelVariantWithYRotation(Aylyth.id("block/small_woody_growth_1"), VariantSettings.Rotation.R180),
-                modelVariantWithYRotation(Aylyth.id("block/small_woody_growth_1"), VariantSettings.Rotation.R0),
-                modelVariantWithYRotation(Aylyth.id("block/small_woody_growth_1"), VariantSettings.Rotation.R270),
-                modelVariantWithYRotation(Aylyth.id("block/small_woody_growth_2"), VariantSettings.Rotation.R0),
-                modelVariantWithYRotation(Aylyth.id("block/small_woody_growth_2"), VariantSettings.Rotation.R90),
-                modelVariantWithYRotation(Aylyth.id("block/small_woody_growth_2"), VariantSettings.Rotation.R180),
-                modelVariantWithYRotation(Aylyth.id("block/small_woody_growth_2"), VariantSettings.Rotation.R270),
-                modelVariantWithYRotation(Aylyth.id("block/small_woody_growth_3"), VariantSettings.Rotation.R0),
-                modelVariantWithYRotation(Aylyth.id("block/small_woody_growth_3"), VariantSettings.Rotation.R90),
-                modelVariantWithYRotation(Aylyth.id("block/small_woody_growth_3"), VariantSettings.Rotation.R180),
-                modelVariantWithYRotation(Aylyth.id("block/small_woody_growth_3"), VariantSettings.Rotation.R270)
+    private void largeWoodyGrowth(Consumer<BlockStateSupplier> collector, Block block) {
+        collector.accept(VariantsBlockStateSupplier.create(block)
+                .coordinate(BlockStateVariantMap.create(LargeWoodyGrowthBlock.HALF)
+                                .registerVariants(doubleBlockHalf -> {
+                                    if (doubleBlockHalf == DoubleBlockHalf.LOWER) {
+                                        List<BlockStateVariant> variants = new ObjectArrayList<>();
+                                        Identifier id = ModelIds.getBlockModelId(AylythBlocks.LARGE_WOODY_GROWTH);
+                                        // Generate for each of the four models with every rotation value
+                                        for (int i = 1; i <= 4; i++) {
+                                            Collections.addAll(variants, createModelVariantWithRandomHorizontalRotations(id.withSuffixedPath("_" + i)));
+                                        }
+                                        return variants;
+                                    } else {
+                                        return ObjectArrayList.of(BlockStateVariant.create().put(VariantSettings.MODEL, blockId("woody_growth_particles")));
+                                    }
+                                })
                 )
         );
+    }
+
+    private void smallWoodyGrowth(Consumer<BlockStateSupplier> collector, Block block) {
+        List<BlockStateVariant> variants = new ObjectArrayList<>();
+        Identifier id = ModelIds.getBlockModelId(block);
+        for (int i = 1; i <= 3; i++) {
+            Collections.addAll(variants, createModelVariantWithRandomHorizontalRotations(id.withSuffixedPath("_" + i)));
+        }
+
+        collector.accept(VariantsBlockStateSupplier.create(block, variants.toArray(BlockStateVariant[]::new)));
     }
 
     private void fruitingLeaves(BlockStateModelGenerator generator, Block block, Identifier stage0, Identifier stage1, Identifier stage2, Identifier stage3) {
@@ -361,10 +321,6 @@ public class AylythModelProvider extends FabricModelProvider {
         generator.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(block, blockId(Registries.BLOCK.getId(block).getPath())));
     }
 
-    private void generated(ItemModelGenerator generator, Item item) {
-        generator.register(item, Models.GENERATED);
-    }
-
     private void slab(BlockStateModelGenerator generator, Block block, Block slabBlock) {
         TextureMap textureMap = TextureMap.all(block);
         TextureMap textureMap2 = TextureMap.sideEnd(TextureMap.getSubId(slabBlock, "_side"), textureMap.getTexture(TextureKey.TOP));
@@ -380,23 +336,19 @@ public class AylythModelProvider extends FabricModelProvider {
 
     private void generateStrewnLeaves(BlockStateModelGenerator blockStateModelGenerator, Block strewnLeavesBlock, Block leavesBlock, Identifier... models) {
         List<BlockStateVariant> flatVariants = allFlatModels(models);
-        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(strewnLeavesBlock).coordinate(leavesPropertyVariants(flatVariants, strewnLeavesBlock, leavesBlock)));
+        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(strewnLeavesBlock).coordinate(leavesPropertyVariants(flatVariants, leavesBlock)));
         Stream.of(models).forEach(identifier -> {
             STREWN_LEAVES_MODEL.upload(identifier, TextureMap.of(TextureKey.TOP, identifier).put(TextureKey.PARTICLE, models[0]), blockStateModelGenerator.modelCollector);
         });
         STREWN_LEAVES_MODEL.upload(strewnLeavesBlock, TextureMap.of(TextureKey.TOP, models[0]).put(TextureKey.PARTICLE, models[0]), blockStateModelGenerator.modelCollector);
         Identifier leavesModelId = ModelIds.getBlockModelId(leavesBlock);
-        LEAF_PILE_1_MODEL.upload(id(strippedBlockId(leavesBlock) + "_pile_1"), TextureMap.of(TextureKey.ALL, leavesModelId).put(TextureKey.PARTICLE, leavesModelId), blockStateModelGenerator.modelCollector);
-        LEAF_PILE_2_MODEL.upload(id(strippedBlockId(leavesBlock) + "_pile_2"), TextureMap.of(TextureKey.ALL, leavesModelId).put(TextureKey.PARTICLE, leavesModelId), blockStateModelGenerator.modelCollector);
-        LEAF_PILE_3_MODEL.upload(id(strippedBlockId(leavesBlock) + "_pile_3"), TextureMap.of(TextureKey.ALL, leavesModelId).put(TextureKey.PARTICLE, leavesModelId), blockStateModelGenerator.modelCollector);
-        LEAF_PILE_4_MODEL.upload(id(strippedBlockId(leavesBlock) + "_pile_4"), TextureMap.of(TextureKey.ALL, leavesModelId).put(TextureKey.PARTICLE, leavesModelId), blockStateModelGenerator.modelCollector);
-        LEAF_PILE_5_MODEL.upload(id(strippedBlockId(leavesBlock) + "_pile_5"), TextureMap.of(TextureKey.ALL, leavesModelId).put(TextureKey.PARTICLE, leavesModelId), blockStateModelGenerator.modelCollector);
-        LEAF_PILE_6_MODEL.upload(id(strippedBlockId(leavesBlock) + "_pile_6"), TextureMap.of(TextureKey.ALL, leavesModelId).put(TextureKey.PARTICLE, leavesModelId), blockStateModelGenerator.modelCollector);
-        LEAF_PILE_7_MODEL.upload(id(strippedBlockId(leavesBlock) + "_pile_7"), TextureMap.of(TextureKey.ALL, leavesModelId).put(TextureKey.PARTICLE, leavesModelId), blockStateModelGenerator.modelCollector);
-    }
-
-    private BlockStateVariant modelVariantWithYRotation(Identifier model, VariantSettings.Rotation rotation) {
-        return BlockStateVariant.create().put(VariantSettings.Y, rotation).put(VariantSettings.MODEL, model);
+        LEAF_PILE_1_MODEL.upload(id(leavesModelId.getPath() + "_pile_1"), TextureMap.of(TextureKey.ALL, leavesModelId).put(TextureKey.PARTICLE, leavesModelId), blockStateModelGenerator.modelCollector);
+        LEAF_PILE_2_MODEL.upload(id(leavesModelId.getPath() + "_pile_2"), TextureMap.of(TextureKey.ALL, leavesModelId).put(TextureKey.PARTICLE, leavesModelId), blockStateModelGenerator.modelCollector);
+        LEAF_PILE_3_MODEL.upload(id(leavesModelId.getPath() + "_pile_3"), TextureMap.of(TextureKey.ALL, leavesModelId).put(TextureKey.PARTICLE, leavesModelId), blockStateModelGenerator.modelCollector);
+        LEAF_PILE_4_MODEL.upload(id(leavesModelId.getPath() + "_pile_4"), TextureMap.of(TextureKey.ALL, leavesModelId).put(TextureKey.PARTICLE, leavesModelId), blockStateModelGenerator.modelCollector);
+        LEAF_PILE_5_MODEL.upload(id(leavesModelId.getPath() + "_pile_5"), TextureMap.of(TextureKey.ALL, leavesModelId).put(TextureKey.PARTICLE, leavesModelId), blockStateModelGenerator.modelCollector);
+        LEAF_PILE_6_MODEL.upload(id(leavesModelId.getPath() + "_pile_6"), TextureMap.of(TextureKey.ALL, leavesModelId).put(TextureKey.PARTICLE, leavesModelId), blockStateModelGenerator.modelCollector);
+        LEAF_PILE_7_MODEL.upload(id(leavesModelId.getPath() + "_pile_7"), TextureMap.of(TextureKey.ALL, leavesModelId).put(TextureKey.PARTICLE, leavesModelId), blockStateModelGenerator.modelCollector);
     }
 
     private List<BlockStateVariant> allFlatModels(Identifier... models) {
@@ -407,16 +359,18 @@ public class AylythModelProvider extends FabricModelProvider {
         return builder.build();
     }
 
-    private BlockStateVariantMap leavesPropertyVariants(List<BlockStateVariant> flatVariants, Block strewnLeavesBlock, Block leavesBlock) {
+    private BlockStateVariantMap leavesPropertyVariants(List<BlockStateVariant> flatVariants, Block leavesBlock) {
         return BlockStateVariantMap.create(StrewnLeavesBlock.LEAVES)
-                .register(0, flatVariants)
-                .register(1, BlockStateVariant.create().put(VariantSettings.MODEL, id(strippedBlockId(leavesBlock) + "_pile_1")))
-                .register(2, BlockStateVariant.create().put(VariantSettings.MODEL, id(strippedBlockId(leavesBlock) + "_pile_2")))
-                .register(3, BlockStateVariant.create().put(VariantSettings.MODEL, id(strippedBlockId(leavesBlock) + "_pile_3")))
-                .register(4, BlockStateVariant.create().put(VariantSettings.MODEL, id(strippedBlockId(leavesBlock) + "_pile_4")))
-                .register(5, BlockStateVariant.create().put(VariantSettings.MODEL, id(strippedBlockId(leavesBlock) + "_pile_5")))
-                .register(6, BlockStateVariant.create().put(VariantSettings.MODEL, id(strippedBlockId(leavesBlock) + "_pile_6")))
-                .register(7, BlockStateVariant.create().put(VariantSettings.MODEL, id(strippedBlockId(leavesBlock) + "_pile_7")));
+                .registerVariants(integer -> {
+                    if (integer == 0) {
+                        return flatVariants;
+                    }
+
+                    return ObjectArrayList.of(
+                            BlockStateVariant.create()
+                                    .put(VariantSettings.MODEL, id(ModelIds.getBlockModelId(leavesBlock).getPath()).withSuffixedPath("_pile_" + integer))
+                    );
+                });
     }
 
     /** From vanilla {@link BlockStateModelGenerator#registerMushroomBlock}, modified for Aylyth usage */
@@ -426,7 +380,23 @@ public class AylythModelProvider extends FabricModelProvider {
         generator.registerParentedItemModel(mushroomBlock, TexturedModel.CUBE_ALL.upload(mushroomBlock, "_inventory", generator.modelCollector));
     }
 
-    private String strippedBlockId(Block block) {
-        return ModelIds.getBlockModelId(block).getPath();
+    /**
+     * Allows chaining multiple factories together, particularly helpful for the item display and model predicate systems.
+     * @param factories The factories to combine
+     * @return The combined factory which runs all factories and merges the result
+     */
+    private Model.JsonFactory chain(Model.JsonFactory... factories) {
+        if (factories.length == 1) {
+            return factories[0];
+        }
+        return (id, textures) -> {
+            JsonObject finalObj = new JsonObject();
+            for (Model.JsonFactory factory : factories) {
+                for (Map.Entry<String, JsonElement> entry : factory.create(id, textures).entrySet()) {
+                    finalObj.add(entry.getKey(), entry.getValue());
+                }
+            }
+            return finalObj;
+        };
     }
 }

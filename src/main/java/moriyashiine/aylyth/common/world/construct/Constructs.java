@@ -83,12 +83,6 @@ public class Constructs {
         return CONSTRUCTS.get(summonBlock);
     }
 
-    /**
-     *
-     * @param pattern
-     * @param factory
-     * @param <T>
-     */
     public record Construct<T extends Entity>(ConstructPattern pattern, ConstructFactory<T> factory) {
         public static <T extends Entity> Construct<T> of(ConstructPattern pattern, ConstructFactory<T> factory) {
             return new Construct<>(pattern, factory);

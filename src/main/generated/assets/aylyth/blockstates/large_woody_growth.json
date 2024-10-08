@@ -2,8 +2,7 @@
   "variants": {
     "half=lower": [
       {
-        "model": "aylyth:block/large_woody_growth_1",
-        "y": 0
+        "model": "aylyth:block/large_woody_growth_1"
       },
       {
         "model": "aylyth:block/large_woody_growth_1",
@@ -18,8 +17,7 @@
         "y": 270
       },
       {
-        "model": "aylyth:block/large_woody_growth_2",
-        "y": 0
+        "model": "aylyth:block/large_woody_growth_2"
       },
       {
         "model": "aylyth:block/large_woody_growth_2",
@@ -34,8 +32,7 @@
         "y": 270
       },
       {
-        "model": "aylyth:block/large_woody_growth_3",
-        "y": 0
+        "model": "aylyth:block/large_woody_growth_3"
       },
       {
         "model": "aylyth:block/large_woody_growth_3",
@@ -50,8 +47,7 @@
         "y": 270
       },
       {
-        "model": "aylyth:block/large_woody_growth_4",
-        "y": 0
+        "model": "aylyth:block/large_woody_growth_4"
       },
       {
         "model": "aylyth:block/large_woody_growth_4",

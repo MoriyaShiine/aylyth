@@ -5,7 +5,7 @@ import net.minecraft.util.StringIdentifiable;
 /**
  * Data-safe version of {@link net.minecraft.client.render.model.json.ModelTransformationMode}
  */
-public enum ModelTransform implements StringIdentifiable {
+public enum ModelDisplayType implements StringIdentifiable {
     NONE("none"),
     THIRD_PERSON_LEFT_HAND("thirdperson_lefthand"),
     THIRD_PERSON_RIGHT_HAND("thirdperson_righthand"),
@@ -16,11 +16,11 @@ public enum ModelTransform implements StringIdentifiable {
     GROUND("ground"),
     FIXED("fixed");
 
-    public static final com.mojang.serialization.Codec<ModelTransform> CODEC = StringIdentifiable.createCodec(ModelTransform::values);
+    public static final com.mojang.serialization.Codec<ModelDisplayType> CODEC = StringIdentifiable.createCodec(ModelDisplayType::values);
 
     private final String name;
 
-    ModelTransform(String name) {
+    ModelDisplayType(String name) {
         this.name = name;
     }
 

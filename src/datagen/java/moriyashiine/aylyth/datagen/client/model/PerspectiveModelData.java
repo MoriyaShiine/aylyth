@@ -24,14 +24,14 @@ public class PerspectiveModelData {
     public static final Codec<PerspectiveModelFile> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
                     Identifier.CODEC.fieldOf("fallback").forGetter(unbakedPerspectiveModel -> unbakedPerspectiveModel.fallback),
-                    Codec.unboundedMap(ModelTransform.CODEC, Identifier.CODEC).fieldOf("perspectives").forGetter(unbakedPerspectiveModel -> unbakedPerspectiveModel.perspectiveModels)
+                    Codec.unboundedMap(ModelDisplayType.CODEC, Identifier.CODEC).fieldOf("perspectives").forGetter(unbakedPerspectiveModel -> unbakedPerspectiveModel.perspectiveModels)
             ).apply(instance, PerspectiveModelFile::new)
     );
 
     private final ModelKey fallback;
-    private final Map<ModelTransform, ModelKey> perspectiveModels;
+    private final Map<ModelDisplayType, ModelKey> perspectiveModels;
 
-    public PerspectiveModelData(ModelKey fallback, Map<ModelTransform, ModelKey> perspectiveModels) {
+    public PerspectiveModelData(ModelKey fallback, Map<ModelDisplayType, ModelKey> perspectiveModels) {
         this.fallback = fallback;
         this.perspectiveModels = perspectiveModels;
     }
@@ -59,7 +59,7 @@ public class PerspectiveModelData {
         return new Builder(fallback);
     }
 
-    public record PerspectiveModelFile(Identifier fallback, Map<ModelTransform, Identifier> perspectiveModels) {}
+    public record PerspectiveModelFile(Identifier fallback, Map<ModelDisplayType, Identifier> perspectiveModels) {}
 
     public class Resolver {
         private final Object2ObjectMap<ModelKey, Identifier> keyToId;
@@ -80,14 +80,14 @@ public class PerspectiveModelData {
 
     public static class Builder {
         private final ModelKey fallback;
-        private final Map<ModelTransform, ModelKey> perspectiveModels;
+        private final Map<ModelDisplayType, ModelKey> perspectiveModels;
 
         Builder(ModelKey fallback) {
             this.fallback = fallback;
-            this.perspectiveModels = new EnumMap<>(ModelTransform.class);
+            this.perspectiveModels = new EnumMap<>(ModelDisplayType.class);
         }
 
-        public Builder withModel(ModelTransform transformationMode, ModelKey identifier) {
+        public Builder withModel(ModelDisplayType transformationMode, ModelKey identifier) {
             this.perspectiveModels.put(transformationMode, identifier);
             return this;
         }
