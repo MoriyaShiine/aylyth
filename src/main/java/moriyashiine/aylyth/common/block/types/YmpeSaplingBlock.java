@@ -28,13 +28,13 @@ public class YmpeSaplingBlock extends SaplingBlock {
         if (state.get(STAGE) == 0) {
             world.setBlockState(pos, state.cycle(STAGE), Block.NO_REDRAW);
         } else {
-            world.setBlockState(pos, Blocks.AIR.getDefaultState());
             if (world.getRegistryKey() == AylythDimensionData.WORLD) {
                 if (canGenerateLargeTree(world, pos, state) || random.nextFloat() <= 0.5) {
                     ((SaplingBlockAccessor) this).getGenerator().generate(world, world.getChunkManager().getChunkGenerator(), pos, state, random);
                     return;
                 }
             }
+            world.setBlockState(pos, Blocks.AIR.getDefaultState());
             ConfiguredFeature<?, ?> feature = world.getRegistryManager().get(RegistryKeys.CONFIGURED_FEATURE).get(failFeature);
             if (feature != null) {
                 feature.generate(world, world.getChunkManager().getChunkGenerator(), random, pos);
