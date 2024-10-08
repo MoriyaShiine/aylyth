@@ -14,6 +14,7 @@ import java.util.EnumMap;
 import java.util.Map;
 
 public final class ModelDisplayTransforms implements Model.JsonFactory {
+    private static final Vector3f ZERO = new Vector3f();
     public static final Codec<ModelDisplayTransforms> CODEC = Codec.unboundedMap(ModelDisplayType.CODEC, ModelTransform.CODEC)
             .xmap(ModelDisplayTransforms::new, modelDisplayTransforms -> modelDisplayTransforms.transforms);
     public static final Codec<ModelDisplayTransforms> MAP_CODEC_CODEC = CODEC.fieldOf("display").codec();
@@ -32,9 +33,9 @@ public final class ModelDisplayTransforms implements Model.JsonFactory {
     public record ModelTransform(Vector3f rotation, Vector3f translation, Vector3f scale) {
         public static final Codec<ModelTransform> CODEC = RecordCodecBuilder.create(instance ->
                 instance.group(
-                        Codecs.VECTOR_3F.fieldOf("rotation").forGetter(ModelTransform::rotation),
-                        Codecs.VECTOR_3F.fieldOf("translation").forGetter(ModelTransform::translation),
-                        Codecs.VECTOR_3F.fieldOf("scale").forGetter(ModelTransform::scale)
+                        Codecs.VECTOR_3F.optionalFieldOf("rotation", ZERO).forGetter(ModelTransform::rotation),
+                        Codecs.VECTOR_3F.optionalFieldOf("translation", ZERO).forGetter(ModelTransform::translation),
+                        Codecs.VECTOR_3F.optionalFieldOf("scale", ZERO).forGetter(ModelTransform::scale)
                 ).apply(instance, ModelTransform::new)
         );
     }
@@ -66,6 +67,9 @@ public final class ModelDisplayTransforms implements Model.JsonFactory {
 
             public TransformBuilder(ModelDisplayType displayType) {
                 this.displayType = displayType;
+                this.rotation = ZERO;
+                this.translation = ZERO;
+                this.scale = ZERO;
             }
 
             public TransformBuilder rotation(float x, float y, float z) {
@@ -83,8 +87,13 @@ public final class ModelDisplayTransforms implements Model.JsonFactory {
                 return this;
             }
 
+            public TransformBuilder scale(float scalar) {
+                this.scale = new Vector3f(scalar);
+                return this;
+            }
+
             public Builder build() {
-                if (rotation == null && translation == null && scale == null) {
+                if (rotation == ZERO && translation == ZERO && scale == ZERO) {
                     throw new IllegalStateException("No transformation supplied");
                 }
                 if (Builder.this.transforms.putIfAbsent(displayType, new ModelTransform(rotation, translation, scale)) != null) {
