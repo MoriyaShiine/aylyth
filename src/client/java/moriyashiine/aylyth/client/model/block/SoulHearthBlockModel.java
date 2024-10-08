@@ -23,6 +23,7 @@ import net.minecraft.world.BlockRenderView;
 import java.util.function.Supplier;
 
 public class SoulHearthBlockModel extends ForwardingBakedModel {
+    private static final ItemStack RENDERED_ITEM = new ItemStack(AylythItems.POMEGRANATE);
 
     public SoulHearthBlockModel(BakedModel model) {
         this.wrapped = model;
@@ -53,7 +54,7 @@ public class SoulHearthBlockModel extends ForwardingBakedModel {
                 stack.multiply(RotationAxis.POSITIVE_X.rotationDegrees(90));
                 stack.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(90 * i), 0.5f, 0.5f, 0.5f);
                 RenderUtils.copyOver(context, stack);
-                model.emitItemQuads(new ItemStack(AylythItems.POMEGRANATE), randomSupplier, context);
+                model.emitItemQuads(RENDERED_ITEM, randomSupplier, context);
                 context.popTransform();
                 stack.pop();
             }
