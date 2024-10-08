@@ -2,8 +2,7 @@
 	"credit": "Made with Blockbench",
 	"parent": "minecraft:block/block",
 	"textures": {
-		"particle": "texture",
-		"all": "texture"
+		"particle": "#all"
 	},
 	"elements": [
 		{
