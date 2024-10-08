@@ -111,9 +111,9 @@ public interface AylythBlocks {
 	Block CHTHONIA_WOOD = register("chthonia_wood", new PillarBlock(copyOf(Blocks.OAK_WOOD).mapColor(MapColor.PALE_GREEN)));
 	Block NEPHRITIC_CHTHONIA_WOOD = register("nephritic_chthonia_wood", new OneTimeHarvestablePillarBlock(Aylyth.id("harvest/nephritic_chthonia_wood"), state -> AylythBlocks.CHTHONIA_WOOD.getDefaultState().with(PillarBlock.AXIS, state.get(PillarBlock.AXIS)), copyOf(Blocks.OAK_WOOD).mapColor(MapColor.PALE_GREEN)));
 
-	Block AYLYTH_BUSH = register("aylyth_bush", new BushBlock());
-	Block ANTLER_SHOOTS = register("antler_shoots", new AntlerShootsBlock());
-	Block GRIPWEED = register("gripweed", new GripweedBlock());
+	Block AYLYTH_BUSH = register("aylyth_bush", new BushBlock(copyOf(Blocks.GRASS)));
+	Block ANTLER_SHOOTS = register("antler_shoots", new AntlerShootsBlock(copyOf(Blocks.GRASS).offset(AbstractBlock.OffsetType.XZ)));
+	Block GRIPWEED = register("gripweed", new GripweedBlock(copyOf(Blocks.GRASS).offset(AbstractBlock.OffsetType.XZ)));
 	
 	Block NYSIAN_GRAPE_VINE = register("nysian_grape_vine", new NysianGrapeVineBlock(copyOf(Blocks.VINE)));
 
@@ -149,8 +149,7 @@ public interface AylythBlocks {
 	Block CARVED_NEPHRITE_TILES = register("carved_nephrite_tiles", new Block(copyOf(Blocks.DIAMOND_BLOCK).mapColor(MapColor.PALE_GREEN)));
 	Block CARVED_WOODY_NEPHRITE = register("carved_woody_nephrite", new Block(copyOf(Blocks.DIAMOND_BLOCK).mapColor(MapColor.PALE_GREEN)));
 
-	Block SOUL_HEARTH = register("soul_hearth", new SoulHearthBlock(copyOf(Blocks.DEEPSLATE)));
-	Block VITAL_THURIBLE = register("vital_thurible", new VitalThuribleBlock(copyOf(Blocks.DEEPSLATE)));
+	Block SOUL_HEARTH = register("soul_hearth", new SoulHearthBlock(copyOf(Blocks.DEEPSLATE).nonOpaque().requiresTool().strength(3.5F).luminance((state) -> state.get(SoulHearthBlock.CHARGES) > 0 ? 13 : 0)));
 	Block VITAL_THURIBLE = register("vital_thurible", new VitalThuribleBlock(copyOf(Blocks.DEEPSLATE).nonOpaque().requiresTool().strength(3.5F).luminance((state) -> state.get(VitalThuribleBlock.ACTIVE) ? 13 : 0)));
 	Block BLACK_WELL = register("black_well", new BlackWellBlock(copyOf(Blocks.DEEPSLATE)));
 

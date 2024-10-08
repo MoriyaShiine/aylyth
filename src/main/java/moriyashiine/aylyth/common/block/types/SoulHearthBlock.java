@@ -67,7 +67,7 @@ public class SoulHearthBlock extends Block {
     private static final VoxelShape UPPER_SHAPES;
 
     public SoulHearthBlock(Settings settings) {
-        super(settings.nonOpaque().requiresTool().strength(3.5F).luminance((state) -> state.get(CHARGES) > 0 ? 13 : 0));
+        super(settings);
         this.setDefaultState(this.stateManager.getDefaultState().with(CHARGES, 0).with(HALF, DoubleBlockHalf.LOWER));
     }
 

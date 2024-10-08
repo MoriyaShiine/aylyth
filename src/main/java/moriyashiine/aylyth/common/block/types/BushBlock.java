@@ -17,8 +17,8 @@ import org.jetbrains.annotations.Nullable;
 public class BushBlock extends PlantBlock {
 	public static final BooleanProperty BUSHY = BooleanProperty.of("bushy");
 	
-	public BushBlock() {
-		super(Settings.copy(Blocks.GRASS));
+	public BushBlock(Settings settings) {
+		super(settings);
 		setDefaultState(getDefaultState().with(BUSHY, false));
 	}
 	

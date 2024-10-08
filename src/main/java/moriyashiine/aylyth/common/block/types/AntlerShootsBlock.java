@@ -17,8 +17,8 @@ public class AntlerShootsBlock extends PlantBlock implements Waterloggable {
 
 	public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
 
-	public AntlerShootsBlock() {
-		super(Settings.copy(Blocks.GRASS).offset(OffsetType.XZ));
+	public AntlerShootsBlock(Settings settings) {
+		super(settings);
 		setDefaultState(getDefaultState().with(WATERLOGGED, false));
 	}
 
