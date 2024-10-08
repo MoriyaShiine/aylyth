@@ -39,16 +39,14 @@ public class VitalThuribleBlock extends HorizontalFacingBlock implements BlockEn
     private static final VoxelShape SHAPES;
 
     public VitalThuribleBlock(Settings settings) {
-        super(settings.nonOpaque().requiresTool().strength(3.5F).luminance((state) -> state.get(ACTIVE) ? 13 : 0));
+        super(settings);
         this.setDefaultState(this.stateManager.getDefaultState().with(ACTIVE, false).with(FACING, Direction.NORTH));
     }
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         ItemStack itemStack = player.getStackInHand(hand);
-        if (hand == Hand.MAIN_HAND && !isActivateItem(itemStack) && isActivateItem(player.getStackInHand(Hand.OFF_HAND))) {
-            return ActionResult.PASS;
-        } else if (isActivateItem(itemStack) && !state.get(ACTIVE)) {
+        if (isActivateItem(itemStack) && !state.get(ACTIVE)) {
             if (!world.isClient() && world.getBlockEntity(pos) instanceof VitalThuribleBlockEntity vitalThuribleBlockEntity) {
                 vitalThuribleBlockEntity.onUse(player, hand);
             }
@@ -93,12 +91,10 @@ public class VitalThuribleBlock extends HorizontalFacingBlock implements BlockEn
         return this.getDefaultState().with(FACING, ctx.getHorizontalPlayerFacing().getOpposite());
     }
 
-
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(ACTIVE, FACING);
     }
-
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {

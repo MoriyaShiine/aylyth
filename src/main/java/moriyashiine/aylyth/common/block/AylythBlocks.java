@@ -151,6 +151,7 @@ public interface AylythBlocks {
 
 	Block SOUL_HEARTH = register("soul_hearth", new SoulHearthBlock(copyOf(Blocks.DEEPSLATE)));
 	Block VITAL_THURIBLE = register("vital_thurible", new VitalThuribleBlock(copyOf(Blocks.DEEPSLATE)));
+	Block VITAL_THURIBLE = register("vital_thurible", new VitalThuribleBlock(copyOf(Blocks.DEEPSLATE).nonOpaque().requiresTool().strength(3.5F).luminance((state) -> state.get(VitalThuribleBlock.ACTIVE) ? 13 : 0)));
 	Block BLACK_WELL = register("black_well", new BlackWellBlock(copyOf(Blocks.DEEPSLATE)));
 
 	private static <B extends Block> B register(String name, B block) {

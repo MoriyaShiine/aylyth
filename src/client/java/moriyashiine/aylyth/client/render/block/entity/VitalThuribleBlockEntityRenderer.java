@@ -28,9 +28,9 @@ public class VitalThuribleBlockEntityRenderer implements BlockEntityRenderer<Vit
     @Override
     public void render(VitalThuribleBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         matrices.translate(0.5, 0.25, 0.5);
-        for (int i = 0; i < entity.getStack(0).getCount(); i++) {
+        for (int i = 0; i < entity.getStack().getCount(); i++) {
             Vector4fc transform = POS[i];
-            ItemStack stack = entity.getStack(0);
+            ItemStack stack = entity.getStack();
             matrices.push();
             matrices.translate(transform.x(), transform.y(), transform.z());
             matrices.scale(1 / 2.5f, 1 / 2.5f, 1 / 2.5f);
