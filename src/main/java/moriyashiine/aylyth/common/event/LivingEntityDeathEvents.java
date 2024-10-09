@@ -17,7 +17,6 @@ import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.common.world.AylythGameRules;
 import moriyashiine.aylyth.common.world.AylythSoundEvents;
-import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.minecraft.advancement.Advancement;
@@ -30,27 +29,16 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.WitchEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.registry.tag.BiomeTags;
-import net.minecraft.registry.tag.DamageTypeTags;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ChunkTicketType;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameRules;
-import net.minecraft.world.TeleportTarget;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.chunk.ChunkStatus;
-
-import java.util.Optional;
 
 // TODO split into several classes, each of which implements a specific feature &
 //  move them to the corresponding packages (block/entity/item)

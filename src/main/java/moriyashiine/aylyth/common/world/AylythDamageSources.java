@@ -14,14 +14,20 @@ import org.jetbrains.annotations.Nullable;
 public class AylythDamageSources {
 	private final Registry<DamageType> damageTypeRegistry;
 	private final DamageSource ympe;
+	private final DamageSource shucking;
 
 	public AylythDamageSources(DynamicRegistryManager dynamicRegistryManager) {
 		damageTypeRegistry = dynamicRegistryManager.get(RegistryKeys.DAMAGE_TYPE);
 		this.ympe = new DamageSource(damageTypeRegistry.entryOf(AylythDamageTypes.YMPE));
+		this.shucking = new DamageSource(damageTypeRegistry.entryOf(AylythDamageTypes.SHUCKING));
 	}
 
 	public DamageSource ympe() {
 		return ympe;
+	}
+
+	public DamageSource shucking() {
+		return shucking;
 	}
 
 	public DamageSource ympeEntity(Entity entity) {

@@ -12,22 +12,22 @@ import net.minecraft.registry.tag.DamageTypeTags;
 
 import java.util.concurrent.CompletableFuture;
 
-public final class AylythDamageTypeTagProvider extends FabricTagProvider<DamageType> {
+public final class AylythDamageTypeTagProvider extends FabricTagProvider<DamageType> implements AylythDamageTypes {
     public AylythDamageTypeTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registries) {
         super(output, RegistryKeys.DAMAGE_TYPE, registries);
     }
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup registries) {
-        getOrCreateTagBuilder(DamageTypeTags.BYPASSES_ARMOR).add(AylythDamageTypes.YMPE, AylythDamageTypes.KILLING_BLOW, AylythDamageTypes.SOUL_RIP, AylythDamageTypes.BLIGHT);
-        getOrCreateTagBuilder(DamageTypeTags.BYPASSES_ENCHANTMENTS).add(AylythDamageTypes.YMPE, AylythDamageTypes.KILLING_BLOW, AylythDamageTypes.BLIGHT);
-        getOrCreateTagBuilder(DamageTypeTags.BYPASSES_RESISTANCE).add(AylythDamageTypes.YMPE, AylythDamageTypes.KILLING_BLOW, AylythDamageTypes.BLIGHT);
+        getOrCreateTagBuilder(DamageTypeTags.BYPASSES_ARMOR).add(YMPE, KILLING_BLOW, SOUL_RIP, BLIGHT, SHUCKING);
+        getOrCreateTagBuilder(DamageTypeTags.BYPASSES_ENCHANTMENTS).add(YMPE, KILLING_BLOW, BLIGHT, SHUCKING);
+        getOrCreateTagBuilder(DamageTypeTags.BYPASSES_RESISTANCE).add(YMPE, KILLING_BLOW, BLIGHT, SHUCKING);
 //            getOrCreateTagBuilder(DamageTypeTags.BYPASSES_INVULNERABILITY).add(ModDamageTypeKeys.YMPE, ModDamageTypeKeys.UNBLOCKABLE);
-        getOrCreateTagBuilder(DamageTypeTags.BYPASSES_EFFECTS).add(AylythDamageTypes.KILLING_BLOW);
-        getOrCreateTagBuilder(DamageTypeTags.WITCH_RESISTANT_TO).add(AylythDamageTypes.SOUL_RIP);
-        getOrCreateTagBuilder(DamageTypeTags.AVOIDS_GUARDIAN_THORNS).add(AylythDamageTypes.SOUL_RIP);
-        getOrCreateTagBuilder(DamageTypeTags.ALWAYS_TRIGGERS_SILVERFISH).add(AylythDamageTypes.SOUL_RIP);
-        getOrCreateTagBuilder(AylythDamageTypeTags.IS_YMPE).add(AylythDamageTypes.YMPE, AylythDamageTypes.YMPE_ENTITY);
+        getOrCreateTagBuilder(DamageTypeTags.BYPASSES_EFFECTS).add(KILLING_BLOW, SHUCKING);
+        getOrCreateTagBuilder(DamageTypeTags.WITCH_RESISTANT_TO).add(SOUL_RIP);
+        getOrCreateTagBuilder(DamageTypeTags.AVOIDS_GUARDIAN_THORNS).add(SOUL_RIP);
+        getOrCreateTagBuilder(DamageTypeTags.ALWAYS_TRIGGERS_SILVERFISH).add(SOUL_RIP);
+        getOrCreateTagBuilder(AylythDamageTypeTags.IS_YMPE).add(YMPE, YMPE_ENTITY);
         getOrCreateTagBuilder(AylythDamageTypeTags.BYPASSES_CUIRASS).addOptionalTag(DamageTypeTags.IS_FALL).add(DamageTypes.MAGIC, DamageTypes.OUT_OF_WORLD);
         getOrCreateTagBuilder(AylythDamageTypeTags.DEATH_SENDS_TO_AYLYTH).addOptionalTag(DamageTypeTags.IS_FALL).addOptionalTag(DamageTypeTags.IS_DROWNING);
     }

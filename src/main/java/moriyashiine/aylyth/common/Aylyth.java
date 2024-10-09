@@ -12,6 +12,7 @@ import moriyashiine.aylyth.common.block.types.SoulHearthBlock;
 import moriyashiine.aylyth.common.data.tag.AylythEntityTypeTags;
 import moriyashiine.aylyth.common.data.tag.AylythItemTags;
 import moriyashiine.aylyth.common.entity.AylythAttributes;
+import moriyashiine.aylyth.common.entity.AylythEntityAttachmentTypes;
 import moriyashiine.aylyth.common.entity.AylythEntityComponents;
 import moriyashiine.aylyth.common.entity.AylythEntityTypes;
 import moriyashiine.aylyth.common.entity.AylythStatusEffects;
@@ -74,6 +75,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.ItemScatterer;
+import net.minecraft.util.Unit;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.math.Vec3d;
@@ -144,6 +146,7 @@ public class Aylyth implements ModInitializer {
 		AylythBiomeModifications.register();
 		AylythGameRules.register();
 
+		AylythEntityAttachmentTypes.register();
 		AylythWorldAttachmentTypes.register();
 		AylythPointOfInterestTypes.register();
 
@@ -191,13 +194,15 @@ public class Aylyth implements ModInitializer {
 						mob.setFrozenTicks(0);
 						mob.setVelocity(Vec3d.ZERO);
 						mob.fallDistance = 0;
-						AylythEntityComponents.PREVENT_DROPS.get(mob).setPreventsDrops(true);
+						mob.setAttached(AylythEntityAttachmentTypes.PREVENT_DROPS, Unit.INSTANCE);
 						PlayerLookup.tracking(mob).forEach(trackingPlayer -> {
 							ServerPlayNetworking.send(trackingPlayer, new SpawnParticlesAroundPacketS2C(mob.getId(), 32, List.of(ParticleTypes.SMOKE, ParticleTypes.FALLING_HONEY)));
 						});
 						world.playSound(null, mob.getBlockPos(), AylythSoundEvents.ENTITY_GENERIC_SHUCKED.value(), mob.getSoundCategory(), 1, mob.getSoundPitch());
 						ShuckedYmpeFruitItem.setStoredEntity(offhand, mob);
 						mob.remove(Entity.RemovalReason.DISCARDED);
+						// deal a bit of damage to the player
+						attacker.damage(world.aylythDamageSources().shucking(), 1);
 					}
 					return ActionResult.SUCCESS;
 				}

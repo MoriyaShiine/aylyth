@@ -18,8 +18,9 @@ public final class AylythStatusEffectTagProvider extends FabricTagProvider<Statu
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup registries) {
-        getOrCreateTagBuilder(AylythStatusEffectTags.BYPASSES_EFFIGY).add(AylythStatusEffects.CRIMSON_CURSE,
+        getOrCreateTagBuilder(AylythStatusEffectTags.EFFIGY_CANNOT_CURE).add(AylythStatusEffects.CRIMSON_CURSE,
                 StatusEffects.WITHER, StatusEffects.INSTANT_DAMAGE, StatusEffects.INSTANT_HEALTH);
-        getOrCreateTagBuilder(AylythStatusEffectTags.BYPASSES_MILK).add(AylythStatusEffects.CRIMSON_CURSE);
+        getOrCreateTagBuilder(AylythStatusEffectTags.MILK_CANNOT_CURE).add(AylythStatusEffects.CRIMSON_CURSE);
+        getOrCreateTagBuilder(AylythStatusEffectTags.PREVENTS_HEALING).add(AylythStatusEffects.CRIMSON_CURSE);
     }
 }

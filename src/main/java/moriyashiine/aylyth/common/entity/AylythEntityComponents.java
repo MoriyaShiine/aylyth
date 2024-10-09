@@ -7,18 +7,15 @@ import dev.onyxstudios.cca.api.v3.entity.EntityComponentInitializer;
 import dev.onyxstudios.cca.api.v3.entity.RespawnCopyStrategy;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.entity.components.CuirassComponent;
-import moriyashiine.aylyth.common.entity.components.PreventDropsComponent;
 import moriyashiine.aylyth.common.entity.components.RiderComponent;
 import moriyashiine.aylyth.common.entity.components.VitalHealthComponent;
 import moriyashiine.aylyth.common.entity.components.YmpeInfestationComponent;
 import moriyashiine.aylyth.common.entity.components.YmpeThornsComponent;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.mob.MobEntity;
 
 public class AylythEntityComponents implements EntityComponentInitializer {
 
 	public static final ComponentKey<YmpeThornsComponent> YMPE_THORNS = ComponentRegistry.getOrCreate(Aylyth.id("ympe_thorns"), YmpeThornsComponent.class);
-	public static final ComponentKey<PreventDropsComponent> PREVENT_DROPS = ComponentRegistry.getOrCreate(Aylyth.id("prevent_drops"), PreventDropsComponent.class);
 
 	public static final ComponentKey<YmpeInfestationComponent> YMPE_INFESTATION = ComponentRegistry.getOrCreate(Aylyth.id("ympe_infestation"), YmpeInfestationComponent.class);
 	public static final ComponentKey<RiderComponent> RIDER_COMPONENT = ComponentRegistry.getOrCreate(Aylyth.id("rider"), RiderComponent.class);
@@ -28,7 +25,6 @@ public class AylythEntityComponents implements EntityComponentInitializer {
 	@Override
 	public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {
 		registry.beginRegistration(LivingEntity.class, YMPE_THORNS).respawnStrategy(RespawnCopyStrategy.NEVER_COPY).end(YmpeThornsComponent::new);
-		registry.registerFor(MobEntity.class, PREVENT_DROPS, entity -> new PreventDropsComponent());
 		registry.registerForPlayers(YMPE_INFESTATION, YmpeInfestationComponent::new, RespawnCopyStrategy.LOSSLESS_ONLY);
 		registry.registerForPlayers(VITAL_HEALTH, VitalHealthComponent::new, RespawnCopyStrategy.ALWAYS_COPY);
 		registry.registerForPlayers(RIDER_COMPONENT, RiderComponent::new, RespawnCopyStrategy.NEVER_COPY);

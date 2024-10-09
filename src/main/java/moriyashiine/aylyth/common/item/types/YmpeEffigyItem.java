@@ -40,13 +40,13 @@ public class YmpeEffigyItem extends TrinketItem {
     private void cleanBadEffects(PlayerEntity player) {
         for (StatusEffectInstance effectInstance : player.getStatusEffects()) {
             StatusEffect effectType = effectInstance.getEffectType();
-            if (!TagUtil.isIn(AylythStatusEffectTags.BYPASSES_EFFIGY, effectType)) {
+            if (!TagUtil.isIn(AylythStatusEffectTags.EFFIGY_CANNOT_CURE, effectType)) {
                 player.removeStatusEffect(effectType);
             }
         }
     }
 
-    public static boolean isEquipped(LivingEntity entity) {
-        return TrinketsApi.getTrinketComponent(entity).isPresent() && TrinketsApi.getTrinketComponent(entity).get().isEquipped(AylythItems.YMPE_EFFIGY);
+    public boolean isEquipped(LivingEntity entity) {
+        return TrinketsApi.getTrinketComponent(entity).filter(trinketComponent -> trinketComponent.isEquipped(this)).isPresent();
     }
 }

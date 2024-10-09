@@ -20,7 +20,7 @@ public class MilkBucketItemMixin {
 
         List<StatusEffectInstance> arr = new ObjectArrayList<>();
         for (StatusEffectInstance persistentStatusEffect : player.getStatusEffects()) {
-            if (TagUtil.isIn(AylythStatusEffectTags.BYPASSES_MILK, persistentStatusEffect.getEffectType())) {
+            if (TagUtil.isIn(AylythStatusEffectTags.MILK_CANNOT_CURE, persistentStatusEffect.getEffectType())) {
                 arr.add(persistentStatusEffect);
             }
         }

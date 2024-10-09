@@ -7,11 +7,10 @@ import moriyashiine.aylyth.api.interfaces.ProlongedDeath;
 import moriyashiine.aylyth.common.data.AylythDamageTypes;
 import moriyashiine.aylyth.common.data.tag.AylythItemTags;
 import moriyashiine.aylyth.common.data.tag.AylythStatusEffectTags;
+import moriyashiine.aylyth.common.entity.AylythEntityAttachmentTypes;
 import moriyashiine.aylyth.common.entity.AylythEntityComponents;
-import moriyashiine.aylyth.common.entity.AylythStatusEffects;
 import moriyashiine.aylyth.common.entity.types.mob.BoneflyEntity;
 import moriyashiine.aylyth.common.item.AylythItems;
-import moriyashiine.aylyth.common.item.types.YmpeEffigyItem;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.fabric.api.tag.convention.v1.TagUtil;
 import net.minecraft.entity.Entity;
@@ -20,9 +19,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.tag.BiomeTags;
@@ -39,10 +36,12 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.Collection;
+
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity {
 
-	@Shadow public abstract boolean hasStatusEffect(StatusEffect effect);
+	@Shadow public abstract Collection<StatusEffectInstance> getStatusEffects();
 
 	public LivingEntityMixin(EntityType<?> type, World world) {
 		super(type, world);
@@ -70,14 +69,16 @@ public abstract class LivingEntityMixin extends Entity {
 
 	@Inject(method = "heal", at = @At("HEAD"), cancellable = true)
 	private void preventHeal(float amount, CallbackInfo callbackInfo) {
-		if (this.hasStatusEffect(AylythStatusEffects.CRIMSON_CURSE)) {
-			callbackInfo.cancel();
+		for (StatusEffectInstance effect : this.getStatusEffects()) {
+			if (TagUtil.isIn(AylythStatusEffectTags.PREVENTS_HEALING, effect.getEffectType())) {
+				callbackInfo.cancel();
+			}
 		}
 	}
 
 	@Inject(method = "drop", at = @At("HEAD"), cancellable = true)
 	private void shuckLogic(DamageSource source, CallbackInfo ci) {
-		if ((LivingEntity) (Object) this instanceof MobEntity mob && AylythEntityComponents.PREVENT_DROPS.get(mob).getPreventsDrops()) {
+		if (this.hasAttached(AylythEntityAttachmentTypes.PREVENT_DROPS)) {
 			ci.cancel();
 		}
 	}
@@ -115,14 +116,14 @@ public abstract class LivingEntityMixin extends Entity {
 
 	@Inject(method = "getGroup", at = @At("HEAD"), cancellable = true)
 	private void makeUndeadWithEffigy(CallbackInfoReturnable<EntityGroup> cir) {
-		if (YmpeEffigyItem.isEquipped((LivingEntity)(Object)this)) {
+		if (AylythItems.YMPE_EFFIGY.isEquipped((LivingEntity)(Object)this)) {
 			cir.setReturnValue(EntityGroup.UNDEAD);
 		}
 	}
 
 	@Inject(method = "hurtByWater", at = @At("HEAD"), cancellable = true)
 	private void waterHurtsWithEffigy(CallbackInfoReturnable<Boolean> cir) {
-		if (YmpeEffigyItem.isEquipped((LivingEntity)(Object)this) && (this.getWorld().getBiome(this.getBlockPos()).isIn(BiomeTags.IS_RIVER) || fluidHeight.getDouble(FluidTags.WATER) > 0)) {
+		if (AylythItems.YMPE_EFFIGY.isEquipped((LivingEntity)(Object)this) && (this.getWorld().getBiome(this.getBlockPos()).isIn(BiomeTags.IS_RIVER) || fluidHeight.getDouble(FluidTags.WATER) > 0)) {
 			cir.setReturnValue(true);
 		}
 	}
@@ -146,8 +147,8 @@ public abstract class LivingEntityMixin extends Entity {
         if (this.isPlayer()) {
             LivingEntity entity = ((LivingEntity) (Object) this);
 
-			boolean bypassesEffigy = TagUtil.isIn(AylythStatusEffectTags.BYPASSES_EFFIGY, effect.getEffectType());
-            if (!bypassesEffigy && YmpeEffigyItem.isEquipped(entity)) {
+			boolean canCure = !TagUtil.isIn(AylythStatusEffectTags.EFFIGY_CANNOT_CURE, effect.getEffectType());
+            if (canCure && AylythItems.YMPE_EFFIGY.isEquipped(entity)) {
                 cir.setReturnValue(false);
             }
         }

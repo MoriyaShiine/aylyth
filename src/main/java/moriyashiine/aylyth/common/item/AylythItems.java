@@ -190,7 +190,7 @@ public interface AylythItems {
     Item BLIGHTED_THORN_FLECHETTE = register("blighted_thorn_flechette", new ThornFlechetteItem(settings(), new ThornFlechetteEffect(new StatusEffectInstance(AylythStatusEffects.BLIGHT, 100), 0.5f)));
 
     Item YMPE_CUIRASS = register("ympe_cuirass", new YmpeCuirassItem(settings().maxCount(1)));
-    Item YMPE_EFFIGY = register("ympe_effigy", new YmpeEffigyItem((settings()).fireproof().rarity(Rarity.RARE).maxCount(1)));
+    YmpeEffigyItem YMPE_EFFIGY = register("ympe_effigy", new YmpeEffigyItem((settings()).fireproof().rarity(Rarity.RARE).maxCount(1)));
     Item NEPHRITE_FLASK = register("nephrite_flask", new NephriteFlaskItem(settings().maxCount(1)));
     Item DARK_NEPHRITE_FLASK = register("dark_nephrite_flask", new NephriteFlaskItem(settings().maxCount(1)));
 
