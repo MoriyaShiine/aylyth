@@ -1,6 +1,7 @@
 package moriyashiine.aylyth.datagen.client;
 
 import moriyashiine.aylyth.common.block.AylythBlocks;
+import moriyashiine.aylyth.common.data.AylythDamageTypes;
 import moriyashiine.aylyth.common.data.world.AylythBiomes;
 import moriyashiine.aylyth.common.entity.AylythEntityTypes;
 import moriyashiine.aylyth.common.entity.AylythStatusEffects;
@@ -9,6 +10,7 @@ import moriyashiine.aylyth.common.item.AylythItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.fabricmc.loader.impl.util.StringUtil;
+import net.minecraft.entity.damage.DamageType;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
 
@@ -256,9 +258,12 @@ public class AylythEnglishLanguageProvider extends FabricLanguageProvider {
 
         // DEATH MESSAGES
 
-        builder.add("death.attack.ympe", "%1$s has gone to the trees");
-        builder.add("death.attack.ympe.player", "%1$s has gone to the trees whilst trying to escape %2$s");
-        builder.add("death.attack.wreathed_hind_killing_blow", "%1$s's mutual agreement was betrayed");
+        deathMessage(builder, AylythDamageTypes.YMPE, "%1$s has gone to the trees");
+        deathMessage(builder, AylythDamageTypes.YMPE_ENTITY, "%1$s has gone to the trees whilst trying to escape %2$s");
+        deathMessage(builder, AylythDamageTypes.KILLING_BLOW, "%1$s's mutual agreement was betrayed");
+        deathMessage(builder, AylythDamageTypes.SOUL_RIP, "%1$s was exorcised");
+        deathMessage(builder, AylythDamageTypes.BLIGHT, "%1$s succumbed to blight");
+        deathMessage(builder, AylythDamageTypes.SHUCKING, "%1$s was shucked");
 
         // SUBTITLES
 
@@ -348,6 +353,10 @@ public class AylythEnglishLanguageProvider extends FabricLanguageProvider {
     
     private void biome(TranslationBuilder builder, RegistryKey<Biome> biomeKey, String translation) {
         builder.add(biomeKey.getValue().toTranslationKey("biome"), translation);
+    }
+
+    private void deathMessage(TranslationBuilder builder, RegistryKey<DamageType> damageType, String translation) {
+        builder.add(damageType.getValue().toTranslationKey("death.attack"), translation);
     }
 
     private void potionSet(TranslationBuilder builder, String effectName) {
