@@ -28,6 +28,7 @@ import moriyashiine.aylyth.common.item.types.ShuckedYmpeFruitItem;
 import moriyashiine.aylyth.common.loot.AylythLootConditionTypes;
 import moriyashiine.aylyth.common.loot.AylythLootContextTypes;
 import moriyashiine.aylyth.common.loot.AylythModifyLootTableHandler;
+import moriyashiine.aylyth.common.loot.AylythTypeSpecificPredicates;
 import moriyashiine.aylyth.common.loot.LootDisplayTypes;
 import moriyashiine.aylyth.common.loot.display.LootDisplay;
 import moriyashiine.aylyth.common.network.AylythPacketTypes;
@@ -108,6 +109,7 @@ public class Aylyth implements ModInitializer {
 		AylythLootContextTypes.register();
 		AylythCriteria.register();
 		AylythLootConditionTypes.register();
+		AylythTypeSpecificPredicates.register();
 		AylythRecipeTypes.register();
 
 		AylythSoundEvents.register();

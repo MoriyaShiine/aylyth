@@ -67,15 +67,19 @@
           }
         },
         {
+          "condition": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "type_specific": {
+              "type": "aylyth:scion",
+              "is_player": false
+            }
+          }
+        },
+        {
           "chance": 0.15,
           "condition": "minecraft:random_chance_with_looting",
           "looting_multiplier": 0.0625
-        },
-        {
-          "condition": "minecraft:inverted",
-          "term": {
-            "condition": "aylyth:scion_is_player"
-          }
         }
       ],
       "entries": [

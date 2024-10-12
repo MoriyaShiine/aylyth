@@ -18,6 +18,7 @@
     "PlayerEntityMixin",
     "PlayerManagerMixin",
     "SaplingBlockAccessor",
+    "TypeSpecificPredicateDeserializersAccessor",
     "VineBlockMixin",
     "WorldMixin",
     "cimmerian.MobEntityMixin",
