@@ -26,7 +26,7 @@ public record DaggerLootDisplay(EntityType<?> entity, float chance, RegistryEntr
             instance.group(
                     Registries.ENTITY_TYPE.getCodec().fieldOf("entity").forGetter(DaggerLootDisplay::entity),
                     Codec.FLOAT.fieldOf("chance").forGetter(DaggerLootDisplay::chance),
-                    RegistryEntryListCodec.create(RegistryKeys.ITEM, Registries.ITEM.createEntryCodec(), false).fieldOf("weapons").forGetter(DaggerLootDisplay::weapons),
+                    Registries.ITEM.createEntryCodec().listOf().xmap(registryEntries -> (RegistryEntryList<Item>) RegistryEntryList.of(registryEntries), registryEntries -> registryEntries.stream().toList()).fieldOf("weapons").forGetter(DaggerLootDisplay::weapons),
                     ItemStack.CODEC.fieldOf("output").forGetter(DaggerLootDisplay::outputs)
             ).apply(instance, DaggerLootDisplay::new)
     );
