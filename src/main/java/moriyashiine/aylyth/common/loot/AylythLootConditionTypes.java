@@ -1,6 +1,7 @@
 package moriyashiine.aylyth.common.loot;
 
 import moriyashiine.aylyth.common.Aylyth;
+import moriyashiine.aylyth.common.loot.conditions.ScionIsPlayerLootCondition;
 import net.minecraft.loot.condition.LootCondition;
 import net.minecraft.loot.condition.LootConditionType;
 import net.minecraft.registry.Registries;

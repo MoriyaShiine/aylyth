@@ -19,7 +19,7 @@ public interface AylythItemTags {
     TagKey<Item> DECREASES_BRANCHES_1_IN_4 = bind("decreases_branches_1_in_4");
     TagKey<Item> PLEDGE_ITEMS = bind("pledge_items");
     TagKey<Item> NEPHRITE_TOOL_MATERIALS = bind("nephrite_tool_materials");
-    TagKey<Item> HEART_HARVESTERS = bind("heart_harvesters");
+    TagKey<Item> FLESH_HARVESTERS = bind("flesh_harvesters");
     TagKey<Item> YMPE_FRUIT_HARVESTERS = bind("ympe_fruit_harvesters");
     TagKey<Item> STRIPS_OFF_BARK = bind("strips_off_bark");
     TagKey<Item> YMPE_WEAPONS = bind("ympe_weapons");

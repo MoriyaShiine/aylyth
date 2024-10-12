@@ -10,16 +10,13 @@ import moriyashiine.aylyth.common.block.AylythFlammables;
 import moriyashiine.aylyth.common.block.AylythStrippables;
 import moriyashiine.aylyth.common.block.types.SoulHearthBlock;
 import moriyashiine.aylyth.common.data.tag.AylythEntityTypeTags;
-import moriyashiine.aylyth.common.data.tag.AylythItemTags;
 import moriyashiine.aylyth.common.entity.AylythAttributes;
 import moriyashiine.aylyth.common.entity.AylythEntityAttachmentTypes;
-import moriyashiine.aylyth.common.entity.AylythEntityComponents;
 import moriyashiine.aylyth.common.entity.AylythEntityTypes;
 import moriyashiine.aylyth.common.entity.AylythStatusEffects;
 import moriyashiine.aylyth.common.entity.AylythTrackedDataHandlers;
 import moriyashiine.aylyth.common.entity.ai.AylythMemoryTypes;
 import moriyashiine.aylyth.common.entity.ai.AylythSensorTypes;
-import moriyashiine.aylyth.common.entity.types.mob.ScionEntity;
 import moriyashiine.aylyth.common.event.LivingEntityDeathEvents;
 import moriyashiine.aylyth.common.item.AylythBoatTypes;
 import moriyashiine.aylyth.common.item.AylythCompostingChances;
@@ -30,14 +27,17 @@ import moriyashiine.aylyth.common.item.potion.AylythPotions;
 import moriyashiine.aylyth.common.item.types.ShuckedYmpeFruitItem;
 import moriyashiine.aylyth.common.loot.AylythLootConditionTypes;
 import moriyashiine.aylyth.common.loot.AylythLootContextTypes;
+import moriyashiine.aylyth.common.loot.AylythModifyLootTableHandler;
+import moriyashiine.aylyth.common.loot.LootDisplayTypes;
+import moriyashiine.aylyth.common.loot.display.LootDisplay;
 import moriyashiine.aylyth.common.network.AylythPacketTypes;
 import moriyashiine.aylyth.common.network.AylythServerPacketHandler;
 import moriyashiine.aylyth.common.network.packets.SpawnParticlesAroundPacketS2C;
 import moriyashiine.aylyth.common.particle.AylythParticleTypes;
 import moriyashiine.aylyth.common.recipe.AylythRecipeTypes;
 import moriyashiine.aylyth.common.recipe.types.SoulCampfireRecipe;
-import moriyashiine.aylyth.common.recipe.types.YmpeDaggerDropRecipe;
 import moriyashiine.aylyth.common.registry.AylythRegistries;
+import moriyashiine.aylyth.common.registry.AylythRegistryKeys;
 import moriyashiine.aylyth.common.screenhandler.AylythScreenHandlerTypes;
 import moriyashiine.aylyth.common.world.AylythGameRules;
 import moriyashiine.aylyth.common.world.AylythPointOfInterestTypes;
@@ -50,31 +50,27 @@ import moriyashiine.aylyth.common.world.gen.AylythTreeDecoratorTypes;
 import moriyashiine.aylyth.common.world.gen.AylythTrunkPlacerTypes;
 import moriyashiine.aylyth.common.world.gen.biome.AylythBiomeModifications;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.entity.event.v1.ServerEntityCombatEvents;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
+import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.CampfireBlockEntity;
 import net.minecraft.block.enums.DoubleBlockHalf;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.Unit;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
@@ -108,6 +104,7 @@ public class Aylyth implements ModInitializer {
 		AylythRegistries.register();
 
 		AdvancementRendererDataTypes.register();
+		LootDisplayTypes.register();
 		AylythLootContextTypes.register();
 		AylythCriteria.register();
 		AylythLootConditionTypes.register();
@@ -150,15 +147,17 @@ public class Aylyth implements ModInitializer {
 		AylythWorldAttachmentTypes.register();
 		AylythPointOfInterestTypes.register();
 
+		DynamicRegistries.registerSynced(AylythRegistryKeys.LOOT_TABLE_DISPLAY, LootDisplay.CODEC, LootDisplay.NETWORK_CODEC);
+
 		registerApis();
 
 		LivingEntityDeathEvents.init();
+		AylythModifyLootTableHandler.register();
 
 		ServerPlayNetworking.registerGlobalReceiver(AylythPacketTypes.GLAIVE_SPECIAL_PACKET, AylythServerPacketHandler::handleGlaiveSpecial);
 		ServerPlayNetworking.registerGlobalReceiver(AylythPacketTypes.UPDATE_RIDER_PACKET, AylythServerPacketHandler::handleUpdatePressingUpDown);
 
 		// TODO move to the LivingEntityDeathEvents
-		ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register(this::daggerDrops);
 		UseBlockCallback.EVENT.register(this::interactSoulCampfire);
 		AttackEntityCallback.EVENT.register(this::attackWithYmpeDagger);
 	}
@@ -209,30 +208,6 @@ public class Aylyth implements ModInitializer {
 			}
 		}
 		return ActionResult.PASS;
-	}
-
-	// TODO: Change this system to loot tables
-	private void daggerDrops(ServerWorld serverWorld, Entity entity, LivingEntity killedEntity) {
-		if (entity instanceof LivingEntity living && living.getMainHandStack().isIn(AylythItemTags.HEART_HARVESTERS)) {
-			for (YmpeDaggerDropRecipe recipe : serverWorld.getRecipeManager().listAllOfType(AylythRecipeTypes.YMPE_DAGGER_DROP_TYPE)) {
-				if (recipe.entity_type == killedEntity.getType() && serverWorld.random.nextFloat() < recipe.chance * (EnchantmentHelper.getLooting(living) + 1)) {
-					ItemStack drop = recipe.getOutput(serverWorld.getRegistryManager()).copy();
-					if (recipe.entity_type == EntityType.PLAYER) {
-						drop.getOrCreateNbt().putString("SkullOwner", killedEntity.getName().getString());
-					}
-					if (recipe.entity_type == AylythEntityTypes.SCION && entity instanceof ScionEntity scionEntity && scionEntity.getStoredPlayerUUID() != null) {
-						return;
-					}
-					int random = 1;
-					if (recipe.min <= recipe.max && recipe.min + recipe.max > 0) {
-						random = serverWorld.getRandom().nextBetween(recipe.min, recipe.max);
-					}
-					for (int i = 0; i < random; i++) {
-						ItemScatterer.spawn(serverWorld, killedEntity.getX() + 0.5, killedEntity.getY() + 0.5, killedEntity.getZ() + 0.5, drop);
-					}
-				}
-			}
-		}
 	}
 
 	private void registerApis() {

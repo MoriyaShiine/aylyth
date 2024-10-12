@@ -13,6 +13,7 @@
     "GameRendererMixin",
     "HeldItemRendererAccessor",
     "InGameHudMixin",
+    "ItemRendererAccessor",
     "MinecraftClientMixin",
     "ParticleManagerMixin",
     "PlayerSkinTextureAccessor",

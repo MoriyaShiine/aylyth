@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.common.loot;
+package moriyashiine.aylyth.common.loot.conditions;
 
 import com.google.common.base.Suppliers;
 import com.google.gson.JsonDeserializationContext;
@@ -7,6 +7,7 @@ import com.google.gson.JsonSerializationContext;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
 import moriyashiine.aylyth.common.entity.types.mob.ScionEntity;
+import moriyashiine.aylyth.common.loot.AylythLootConditionTypes;
 import net.minecraft.entity.Entity;
 import net.minecraft.loot.condition.LootCondition;
 import net.minecraft.loot.condition.LootConditionType;
@@ -16,6 +17,7 @@ import net.minecraft.util.JsonSerializer;
 
 import java.util.function.Supplier;
 
+// TODO: Move this to a TypeSpecificPredicate
 public class ScionIsPlayerLootCondition implements LootCondition {
     public static final Supplier<ScionIsPlayerLootCondition> INSTANCE = Suppliers.memoize(ScionIsPlayerLootCondition::new);
     public static final Codec<ScionIsPlayerLootCondition> CODEC = Codec.unit(INSTANCE);

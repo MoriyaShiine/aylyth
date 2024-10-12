@@ -107,6 +107,50 @@
         }
       ],
       "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:damage_source_properties",
+          "predicate": {
+            "source_entity": {
+              "equipment": {
+                "mainhand": {
+                  "tag": "aylyth:flesh_harvesters"
+                }
+              }
+            }
+          }
+        },
+        {
+          "chance": 0.2,
+          "condition": "minecraft:random_chance_with_looting",
+          "looting_multiplier": 0.0625
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "aylyth:wrongmeat"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "aylyth:aylythian_heart"
+        }
+      ],
+      "functions": [
+        {
+          "add": false,
+          "count": {
+            "type": "minecraft:uniform",
+            "max": 5.0,
+            "min": 3.0
+          },
+          "function": "minecraft:set_count"
+        }
+      ],
+      "rolls": 1.0
     }
   ]
 }

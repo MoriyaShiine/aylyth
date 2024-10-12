@@ -325,11 +325,11 @@ public class AylythEnglishLanguageProvider extends FabricLanguageProvider {
 
         // COMPAT - REI
 
-        builder.add("rei.aylyth.ympe_dagger_drops", "Ympe Dagger Drops");
+        builder.add("rei.aylyth.dagger_drops", "Dagger Drops");
 
         // COMPAT - EMI
 
-        builder.add("emi.category.aylyth.ympe_dagger_drops", "Ympe Dagger Drops");
+        builder.add("emi.category.aylyth.dagger_drops", "Dagger Drops");
         builder.add("tag.aylyth.ympe_logs", "Ympe Logs");
         builder.add("tag.aylyth.pomegranate_logs", "Pomegranate Logs");
         builder.add("tag.aylyth.writhewood_logs", "Writhewood Logs");
@@ -345,7 +345,7 @@ public class AylythEnglishLanguageProvider extends FabricLanguageProvider {
         builder.add("tag.aylyth.nephrite_flasks", "Nephrite Flasks");
         builder.add("tag.aylyth.boss_hearts", "Hearts of Bosses");
         builder.add("tag.aylyth.chthonia_wood", "Chthonia Wood");
-        builder.add("tag.aylyth.heart_harvesters", "Heart Harvesters");
+        builder.add("tag.aylyth.flesh_harvesters", "Flesh Harvesters");
         builder.add("tag.aylyth.ympe_fruit_harvesters", "Ympe Fruit Harvesters");
         builder.add("tag.aylyth.storage_blocks.esstline", "Esstline Storage Blocks");
         builder.add("tag.aylyth.storage_blocks.nephrite", "Nephrite Storage Blocks");

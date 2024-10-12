@@ -8,36 +8,38 @@ import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
 import moriyashiine.aylyth.common.entity.types.mob.ElderAylythianEntity;
 import moriyashiine.aylyth.common.entity.types.mob.WreathedHindEntity;
-import moriyashiine.aylyth.common.item.AylythItems;
-import moriyashiine.aylyth.common.recipe.types.YmpeDaggerDropRecipe;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.DynamicRegistryManager;
+import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class YmpeDaggerEMIRecipe implements EmiRecipe {
+public class DaggerLootEmiRecipe implements EmiRecipe {
+    private Entity renderedEntity;
     private final Identifier id;
-    public final EntityType<?> entityType;
-    private final List<EmiIngredient>  input;
+    private final EntityType<?> entityType;
+    private final List<EmiIngredient> input;
     private final List<EmiStack> output;
 
-    public YmpeDaggerEMIRecipe(YmpeDaggerDropRecipe recipe) {
-        this.id = recipe.getId();
-        entityType = recipe.entity_type;
-        this.output = List.of(EmiStack.of(recipe.getOutput(DynamicRegistryManager.EMPTY)));
-        this.input = List.of(EmiStack.of(new ItemStack(AylythItems.YMPE_DAGGER)));
+    public DaggerLootEmiRecipe(Identifier id, EntityType<?> entity, float chance, EmiIngredient weapons, ItemStack output) {
+        this.id = id;
+        entityType = entity;
+        this.input = List.of(weapons);
+        if (output.getItem() == Items.PLAYER_HEAD && MinecraftClient.getInstance().player != null) {
+            output.getOrCreateNbt().putString("SkullOwner", MinecraftClient.getInstance().player.getName().getString());
+        }
+        this.output = List.of(EmiStack.of(output));
     }
 
     @Override
     public EmiRecipeCategory getCategory() {
-        return ModEMIPlugin.YMPE_DAGGER_CATEGORY;
+        return ModEMIPlugin.daggerCategory;
     }
 
     @Override
@@ -47,12 +49,17 @@ public class YmpeDaggerEMIRecipe implements EmiRecipe {
 
     @Override
     public List<EmiIngredient> getInputs() {
-        return input;
+        return List.of();
     }
 
     @Override
     public List<EmiStack> getOutputs() {
         return output;
+    }
+
+    @Override
+    public List<EmiIngredient> getCatalysts() {
+        return input;
     }
 
     @Override
@@ -67,15 +74,16 @@ public class YmpeDaggerEMIRecipe implements EmiRecipe {
 
     @Override
     public void addWidgets(WidgetHolder widgets) {
-        Entity target = entityType == EntityType.PLAYER ? MinecraftClient.getInstance().player : entityType.create(MinecraftClient.getInstance().world);
+        if (renderedEntity == null) {
+            renderedEntity = entityType == EntityType.PLAYER ? MinecraftClient.getInstance().player : entityType.create(MinecraftClient.getInstance().world);
+        }
 
         widgets.addDrawable(18,18,20,20, (context, mouseX, mouseY, delta) -> {
-            if (target instanceof LivingEntity livingEntity) {
+            if (renderedEntity instanceof LivingEntity livingEntity) {
                 boolean needsResize = livingEntity instanceof WreathedHindEntity || livingEntity instanceof ElderAylythianEntity;
                 int y = needsResize ? 16 : 18;
                 int size = needsResize ? 10 : 18;
                 InventoryScreen.drawEntity(context, 9, y, size, 27 - mouseX, y - 9 - mouseY, livingEntity);
-//                RenderUtils.drawEntity(context, 9, y, size, mouseX, mouseY, livingEntity);
             }
         });
 

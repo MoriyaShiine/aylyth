@@ -1,0 +1,10 @@
+{
+  "type": "aylyth:ympe_dagger",
+  "chance": 0.2,
+  "entity": "minecraft:stray",
+  "output": {
+    "Count": 1,
+    "id": "minecraft:skeleton_skull"
+  },
+  "weapons": "#aylyth:flesh_harvesters"
+}

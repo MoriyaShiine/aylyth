@@ -1,12 +1,10 @@
 package moriyashiine.aylyth.datagen.common;
 
 import moriyashiine.aylyth.common.block.AylythBlocks;
-import moriyashiine.aylyth.common.entity.AylythEntityTypes;
 import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.aylyth.common.data.tag.AylythItemTags;
 import moriyashiine.aylyth.datagen.common.util.recipe.ShuckingRecipeBuilder;
 import moriyashiine.aylyth.datagen.common.util.recipe.SoulCampfireRecipeBuilder;
-import moriyashiine.aylyth.datagen.common.util.recipe.YmpeDaggerRecipeJsonBuilder;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.fabricmc.fabric.api.recipe.v1.ingredient.DefaultCustomIngredients;
@@ -267,9 +265,6 @@ public final class AylythRecipeProvider extends FabricRecipeProvider {
         createSmithingUpgrade(exporter, AylythItems.AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE, AylythItems.NEPHRITE_PICKAXE, AylythItems.AYLYTHIAN_HEART, AylythItems.VAMPIRIC_PICKAXE, RecipeCategory.COMBAT);
         createSmithingUpgrade(exporter, AylythItems.AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE, AylythItems.NEPHRITE_AXE, AylythItems.AYLYTHIAN_HEART, AylythItems.VAMPIRIC_AXE, RecipeCategory.COMBAT);
         createSmithingUpgrade(exporter, AylythItems.AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE, AylythItems.NEPHRITE_HOE, AylythItems.AYLYTHIAN_HEART, AylythItems.VAMPIRIC_HOE, RecipeCategory.COMBAT);
-        
-        YmpeDaggerRecipeJsonBuilder.create(AylythEntityTypes.WREATHED_HIND_ENTITY, AylythItems.WRONGMEAT, 0.2f, 3, 5)
-                .offerTo(exporter);
 
         NbtCompound shucked = new NbtCompound();
         shucked.put("StoredEntity", new NbtCompound());

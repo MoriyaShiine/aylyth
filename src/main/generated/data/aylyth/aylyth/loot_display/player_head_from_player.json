@@ -1,0 +1,10 @@
+{
+  "type": "aylyth:ympe_dagger",
+  "chance": 0.2,
+  "entity": "minecraft:player",
+  "output": {
+    "Count": 1,
+    "id": "minecraft:player_head"
+  },
+  "weapons": "#aylyth:flesh_harvesters"
+}

@@ -39,7 +39,7 @@ public final class AylythItemTagProvider extends FabricTagProvider.ItemTagProvid
         getOrCreateTagBuilder(AylythItemTags.BLIGHTED_WEAPONS).add(AylythItems.BLIGHTED_AXE, AylythItems.BLIGHTED_HOE, AylythItems.BLIGHTED_PICKAXE, AylythItems.BLIGHTED_SWORD);
         getOrCreateTagBuilder(AylythItemTags.NEPHRITE_FLASKS).add(AylythItems.NEPHRITE_FLASK, AylythItems.DARK_NEPHRITE_FLASK);
         getOrCreateTagBuilder(AylythItemTags.DAGGERS).add(AylythItems.LANCEOLATE_DAGGER, AylythItems.YMPE_DAGGER);
-        getOrCreateTagBuilder(AylythItemTags.HEART_HARVESTERS).add(AylythItems.LANCEOLATE_DAGGER, AylythItems.YMPE_DAGGER);
+        getOrCreateTagBuilder(AylythItemTags.FLESH_HARVESTERS).add(AylythItems.LANCEOLATE_DAGGER, AylythItems.YMPE_DAGGER);
         getOrCreateTagBuilder(AylythItemTags.YMPE_FRUIT_HARVESTERS).add(AylythItems.LANCEOLATE_DAGGER, AylythItems.YMPE_DAGGER);
         getOrCreateTagBuilder(AylythItemTags.STRIPS_OFF_BARK).add(AylythItems.LANCEOLATE_DAGGER, AylythItems.YMPE_DAGGER);
         getOrCreateTagBuilder(AylythItemTags.DECREASES_BRANCHES_1_IN_4).add(AylythItems.YMPE_MUSH);

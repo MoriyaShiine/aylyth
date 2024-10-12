@@ -1,0 +1,10 @@
+{
+  "type": "aylyth:ympe_dagger",
+  "chance": 0.2,
+  "entity": "minecraft:zombie",
+  "output": {
+    "Count": 1,
+    "id": "minecraft:zombie_head"
+  },
+  "weapons": "#aylyth:flesh_harvesters"
+}

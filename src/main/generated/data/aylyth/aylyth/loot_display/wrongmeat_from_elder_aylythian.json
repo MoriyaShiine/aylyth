@@ -1,0 +1,10 @@
+{
+  "type": "aylyth:ympe_dagger",
+  "chance": 0.2,
+  "entity": "aylyth:elder_aylythian",
+  "output": {
+    "Count": 1,
+    "id": "aylyth:wrongmeat"
+  },
+  "weapons": "#aylyth:flesh_harvesters"
+}

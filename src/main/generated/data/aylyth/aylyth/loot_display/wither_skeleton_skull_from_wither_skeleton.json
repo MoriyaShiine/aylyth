@@ -1,0 +1,10 @@
+{
+  "type": "aylyth:ympe_dagger",
+  "chance": 0.025,
+  "entity": "minecraft:wither_skeleton",
+  "output": {
+    "Count": 1,
+    "id": "minecraft:wither_skeleton_skull"
+  },
+  "weapons": "#aylyth:flesh_harvesters"
+}

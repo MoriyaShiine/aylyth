@@ -10,7 +10,7 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.entry.EntryStack;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import moriyashiine.aylyth.client.integration.rei.ModREIPlugin;
-import moriyashiine.aylyth.client.integration.rei.display.YmpeDaggerDropDisplay;
+import moriyashiine.aylyth.client.integration.rei.display.DaggerDropDisplay;
 import moriyashiine.aylyth.common.item.AylythItems;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
@@ -18,8 +18,8 @@ import net.minecraft.text.Text;
 import java.util.ArrayList;
 import java.util.List;
 
-public class YmpeDaggerDropCategory implements DisplayCategory<YmpeDaggerDropDisplay> {
-	public static final Text TITLE = Text.translatable("rei.aylyth.ympe_dagger_drops");
+public class DaggerDropCategory implements DisplayCategory<DaggerDropDisplay> {
+	public static final Text TITLE = Text.translatable("rei.aylyth.dagger_drops");
 	public static final EntryStack<ItemStack> ICON = EntryStacks.of(AylythItems.YMPE_DAGGER);
 	
 	@Override
@@ -38,12 +38,12 @@ public class YmpeDaggerDropCategory implements DisplayCategory<YmpeDaggerDropDis
 	}
 	
 	@Override
-	public CategoryIdentifier<? extends YmpeDaggerDropDisplay> getCategoryIdentifier() {
-		return ModREIPlugin.YMPE_DAGGER_DROPS;
+	public CategoryIdentifier<? extends DaggerDropDisplay> getCategoryIdentifier() {
+		return ModREIPlugin.DAGGER_DROPS;
 	}
 	
 	@Override
-	public List<Widget> setupDisplay(YmpeDaggerDropDisplay display, Rectangle bounds) {
+	public List<Widget> setupDisplay(DaggerDropDisplay display, Rectangle bounds) {
 		Point startPoint = new Point(bounds.getCenterX() - 64, bounds.getCenterY() - 16);
 		Point outputPoint = new Point(startPoint.x + 84, startPoint.y + 8);
 		List<Widget> widgets = new ArrayList<>();

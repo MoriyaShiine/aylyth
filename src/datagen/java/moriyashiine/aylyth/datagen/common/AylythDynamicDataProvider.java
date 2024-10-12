@@ -1,5 +1,6 @@
 package moriyashiine.aylyth.datagen.common;
 
+import moriyashiine.aylyth.common.registry.AylythRegistryKeys;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.minecraft.registry.RegistryKeys;
@@ -25,6 +26,7 @@ public final class AylythDynamicDataProvider extends FabricDynamicRegistryProvid
         entries.addAll(registries.getWrapperOrThrow(RegistryKeys.TEMPLATE_POOL));
         entries.addAll(registries.getWrapperOrThrow(RegistryKeys.BIOME));
         entries.addAll(registries.getWrapperOrThrow(RegistryKeys.DAMAGE_TYPE));
+        entries.addAll(registries.getWrapperOrThrow(AylythRegistryKeys.LOOT_TABLE_DISPLAY));
     }
 
     @Override

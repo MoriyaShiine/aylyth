@@ -1,14 +1,17 @@
 package moriyashiine.aylyth.datagen;
 
 import moriyashiine.aylyth.common.Aylyth;
+import moriyashiine.aylyth.common.registry.AylythRegistryKeys;
 import moriyashiine.aylyth.datagen.client.AylythEnglishLanguageProvider;
 import moriyashiine.aylyth.datagen.client.AylythModelProvider;
 import moriyashiine.aylyth.datagen.common.AylythAdvancementProvider;
 import moriyashiine.aylyth.datagen.common.AylythDynamicDataProvider;
 import moriyashiine.aylyth.datagen.common.AylythRecipeProvider;
 import moriyashiine.aylyth.datagen.common.AylythDamageTypeBootstrap;
+import moriyashiine.aylyth.datagen.common.loot.AylythEntityLootAdditionsProvider;
 import moriyashiine.aylyth.datagen.common.loot.AylythHarvestLootProvider;
 import moriyashiine.aylyth.datagen.common.loot.AylythStripLootProvider;
+import moriyashiine.aylyth.datagen.common.loot.LootDisplayBootstrap;
 import moriyashiine.aylyth.datagen.common.world.AylythBiomeBootstrap;
 import moriyashiine.aylyth.datagen.common.world.feature.AylythConfiguredCarverBootstrap;
 import moriyashiine.aylyth.datagen.common.world.feature.AylythConfiguredFeatureBootstrap;
@@ -54,6 +57,7 @@ public class AylythDatagen implements DataGeneratorEntrypoint {
         pack.addProvider(AylythEntityLootProvider::new);
         pack.addProvider(AylythHarvestLootProvider::new);
         pack.addProvider(AylythStripLootProvider::new);
+        pack.addProvider(AylythEntityLootAdditionsProvider::new);
     }
 
     @Override
@@ -69,6 +73,7 @@ public class AylythDatagen implements DataGeneratorEntrypoint {
         registryBuilder.addRegistry(RegistryKeys.STRUCTURE_SET, AylythStructureSetBootstrap::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.BIOME, AylythBiomeBootstrap::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.DAMAGE_TYPE, AylythDamageTypeBootstrap::bootstrap);
+        registryBuilder.addRegistry(AylythRegistryKeys.LOOT_TABLE_DISPLAY, LootDisplayBootstrap::bootstrap);
     }
 
     @Override

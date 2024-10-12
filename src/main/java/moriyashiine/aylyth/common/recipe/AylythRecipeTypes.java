@@ -3,7 +3,6 @@ package moriyashiine.aylyth.common.recipe;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.recipe.types.ShuckingRecipe;
 import moriyashiine.aylyth.common.recipe.types.SoulCampfireRecipe;
-import moriyashiine.aylyth.common.recipe.types.YmpeDaggerDropRecipe;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
@@ -13,9 +12,6 @@ import net.minecraft.registry.Registry;
 public interface AylythRecipeTypes {
 
 	RecipeSerializer<ShuckingRecipe> SHUCKING_SERIALIZER = registerSerializer("shucking", new ShuckingRecipe.Serializer());
-
-	RecipeSerializer<YmpeDaggerDropRecipe> YMPE_DAGGER_DROP_SERIALIZER = registerSerializer("ympe_dagger_drop", new YmpeDaggerDropRecipe.Serializer());
-	RecipeType<YmpeDaggerDropRecipe> YMPE_DAGGER_DROP_TYPE = registerType("ympe_dagger_drop");
 
 	RecipeSerializer<SoulCampfireRecipe> SOULFIRE_SERIALIZER = registerSerializer("soul_ritual", new SoulCampfireRecipe.Serializer());
 	RecipeType<SoulCampfireRecipe> SOULFIRE_TYPE = registerType("soul_ritual");
