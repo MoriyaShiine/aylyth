@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.common.loot;
 
 import com.google.common.collect.ImmutableBiMap;
-import moriyashiine.aylyth.common.loot.conditions.ScionPredicate;
+import moriyashiine.aylyth.common.loot.predicates.ScionPredicate;
 import moriyashiine.aylyth.mixin.TypeSpecificPredicateDeserializersAccessor;
 import net.minecraft.predicate.entity.TypeSpecificPredicate;
 

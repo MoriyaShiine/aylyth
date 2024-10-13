@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.common.loot.conditions;
+package moriyashiine.aylyth.common.loot.predicates;
 
 import com.google.gson.JsonObject;
 import com.mojang.serialization.Codec;
