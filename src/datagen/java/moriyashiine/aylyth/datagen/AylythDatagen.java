@@ -20,8 +20,8 @@ import moriyashiine.aylyth.datagen.common.world.structure.AylythStructureBootstr
 import moriyashiine.aylyth.datagen.common.world.structure.AylythStructurePoolBootstrap;
 import moriyashiine.aylyth.datagen.common.world.structure.AylythStructureSetBootstrap;
 import moriyashiine.aylyth.datagen.common.world.terrain.AylythDensityFunctionBootstrap;
-import moriyashiine.aylyth.datagen.common.world.terrain.AylythNoiseSettingBootstrap;
-import moriyashiine.aylyth.datagen.common.world.terrain.AylythNoiseTypeBootstrap;
+import moriyashiine.aylyth.datagen.common.world.terrain.AylythChunkGenSettingsBootstrap;
+import moriyashiine.aylyth.datagen.common.world.terrain.AylythNoiseParametersBootstrap;
 import moriyashiine.aylyth.datagen.common.loot.AylythBlockLootProvider;
 import moriyashiine.aylyth.datagen.common.loot.AylythEntityLootProvider;
 import moriyashiine.aylyth.datagen.common.tag.*;
@@ -62,9 +62,9 @@ public class AylythDatagen implements DataGeneratorEntrypoint {
 
     @Override
     public void buildRegistry(RegistryBuilder registryBuilder) {
-        registryBuilder.addRegistry(RegistryKeys.NOISE_PARAMETERS, AylythNoiseTypeBootstrap::bootstrap);
+        registryBuilder.addRegistry(RegistryKeys.NOISE_PARAMETERS, AylythNoiseParametersBootstrap::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.DENSITY_FUNCTION, AylythDensityFunctionBootstrap::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.CHUNK_GENERATOR_SETTINGS, AylythNoiseSettingBootstrap::bootstrap);
+        registryBuilder.addRegistry(RegistryKeys.CHUNK_GENERATOR_SETTINGS, AylythChunkGenSettingsBootstrap::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.CONFIGURED_CARVER, AylythConfiguredCarverBootstrap::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, AylythConfiguredFeatureBootstrap::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, AylythPlacedFeatureBootstrap::bootstrap);
