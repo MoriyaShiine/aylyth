@@ -1,4 +1,5 @@
 accessWidener v1 named
+
 accessible class net/minecraft/client/render/RenderLayer$MultiPhase
 accessible class net/minecraft/client/render/RenderLayer$MultiPhaseParameters
 accessible class net/minecraft/client/render/RenderPhase$ShaderProgram
@@ -8,6 +9,18 @@ extendable class net/minecraft/client/particle/BlockLeakParticle$FallingHoney
 accessible method net/minecraft/client/particle/BlockLeakParticle$FallingHoney <init> (Lnet/minecraft/client/world/ClientWorld;DDDLnet/minecraft/fluid/Fluid;Lnet/minecraft/particle/ParticleEffect;)V
 accessible method net/minecraft/client/particle/FlameParticle <init> (Lnet/minecraft/client/world/ClientWorld;DDDDDD)V
 accessible class net/minecraft/client/gui/hud/InGameHud$HeartType
+
+accessible field net/minecraft/world/gen/densityfunction/DensityFunctions field_38250 D
+accessible field net/minecraft/world/gen/densityfunction/DensityFunctions field_36617 D
+accessible field net/minecraft/world/gen/densityfunction/DensityFunctions CAVES_ENTRANCES_OVERWORLD Lnet/minecraft/registry/RegistryKey;
+accessible field net/minecraft/world/gen/densityfunction/DensityFunctions CAVES_NOODLE_OVERWORLD Lnet/minecraft/registry/RegistryKey;
+accessible method net/minecraft/world/gen/densityfunction/DensityFunctions applySurfaceSlides (ZLnet/minecraft/world/gen/densityfunction/DensityFunction;)Lnet/minecraft/world/gen/densityfunction/DensityFunction;
+accessible method net/minecraft/world/gen/densityfunction/DensityFunctions applyBlendDensity (Lnet/minecraft/world/gen/densityfunction/DensityFunction;)Lnet/minecraft/world/gen/densityfunction/DensityFunction;
+accessible method net/minecraft/world/gen/densityfunction/DensityFunctions createInitialDensityFunction (Lnet/minecraft/world/gen/densityfunction/DensityFunction;Lnet/minecraft/world/gen/densityfunction/DensityFunction;)Lnet/minecraft/world/gen/densityfunction/DensityFunction;
+accessible method net/minecraft/world/gen/densityfunction/DensityFunctions createCavesFunction (Lnet/minecraft/registry/RegistryEntryLookup;Lnet/minecraft/registry/RegistryEntryLookup;Lnet/minecraft/world/gen/densityfunction/DensityFunction;)Lnet/minecraft/world/gen/densityfunction/DensityFunction;
+accessible method net/minecraft/world/gen/densityfunction/DensityFunctions registerSlopedCheeseFunction (Lnet/minecraft/registry/Registerable;Lnet/minecraft/registry/RegistryEntryLookup;Lnet/minecraft/world/gen/densityfunction/DensityFunction;Lnet/minecraft/registry/entry/RegistryEntry;Lnet/minecraft/registry/entry/RegistryEntry;Lnet/minecraft/registry/RegistryKey;Lnet/minecraft/registry/RegistryKey;Lnet/minecraft/registry/RegistryKey;Lnet/minecraft/registry/RegistryKey;Lnet/minecraft/registry/RegistryKey;Z)V
+accessible method net/minecraft/world/gen/densityfunction/DensityFunctions createSurfaceNoiseRouter (Lnet/minecraft/registry/RegistryEntryLookup;Lnet/minecraft/registry/RegistryEntryLookup;ZZ)Lnet/minecraft/world/gen/noise/NoiseRouter;
+accessible method net/minecraft/world/gen/chunk/ChunkGeneratorSettings createSurfaceSettings (Lnet/minecraft/registry/Registerable;ZZ)Lnet/minecraft/world/gen/chunk/ChunkGeneratorSettings;
 
 accessible class net/minecraft/world/gen/densityfunction/DensityFunctionTypes$WeirdScaledSampler
 extendable class net/minecraft/world/gen/foliage/FoliagePlacer$TreeNode

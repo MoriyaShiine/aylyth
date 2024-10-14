@@ -9,17 +9,50 @@ import net.minecraft.util.math.noise.InterpolatedNoiseSampler;
 import net.minecraft.world.biome.source.util.VanillaTerrainParametersCreator;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.densityfunction.DensityFunction;
+import net.minecraft.world.gen.densityfunction.DensityFunctionTypes.Spline.DensityFunctionWrapper;
+import net.minecraft.world.gen.densityfunction.DensityFunctions;
+import net.minecraft.world.gen.noise.NoiseParametersKeys;
 
 import static net.minecraft.world.gen.densityfunction.DensityFunctionTypes.*;
 
 import static moriyashiine.aylyth.common.data.world.terrain.AylythDensityFunctions.*;
 import static moriyashiine.aylyth.common.data.world.terrain.AylythNoises.*;
+import static net.minecraft.world.gen.densityfunction.DensityFunctions.*;
+import static net.minecraft.world.gen.densityfunction.DensityFunctions.applySurfaceSlides;
 
 public final class AylythDensityFunctionBootstrap {
     private AylythDensityFunctionBootstrap() {}
 
     public static void bootstrap(Registerable<DensityFunction> context) {
+        var densityFunctions = context.getRegistryLookup(RegistryKeys.DENSITY_FUNCTION);
         var noiseParameters = context.getRegistryLookup(RegistryKeys.NOISE_PARAMETERS);
+
+        // VANILLACOPY
+
+        // The correct way would be to change the DensityFunctions.OFFSET_OVERWORLD
+
+        var vanillaContinentsSplinePos = new DensityFunctionWrapper(densityFunctions.getOrThrow(DensityFunctions.CONTINENTS_OVERWORLD));
+        var modifiedContinents = context.register(MODIFIED_CONTINENTS, flatCache(spline(net.minecraft.util.math.Spline.builder(vanillaContinentsSplinePos).add(-0.2f, 0, 0.8f).build())));
+
+        var vanillaErosionSplinePos = new DensityFunctionWrapper(densityFunctions.getOrThrow(DensityFunctions.EROSION_OVERWORLD));
+        var modifiedErosion = context.register(MODIFIED_EROSION, flatCache(spline(net.minecraft.util.math.Spline.builder(vanillaErosionSplinePos).add(-0.3f, 0, 0.7f).build())));
+
+        var modifiedCavesEntrances = context.register(MODIFIED_CAVES_ENTRANCES, constant(1));
+
+        // Use our continents and erosion functions
+
+        var vanillaJaggedNoise = noise(noiseParameters.getOrThrow(NoiseParametersKeys.JAGGED), 1500, 0);
+        registerSlopedCheeseFunction(context, densityFunctions, vanillaJaggedNoise, modifiedContinents, modifiedErosion, OVERRIDDEN_OFFSET, OVERRIDDEN_FACTOR, OVERRIDDEN_JAGGEDNESS, OVERRIDDEN_DEPTH, OVERRIDDEN_SLOPED_CHEESE, false);
+
+        var overriddenInitialDensity = createInitialDensityFunction(cache2d(holderFunction(densityFunctions.getOrThrow(OVERRIDDEN_FACTOR))), holderFunction(densityFunctions.getOrThrow(OVERRIDDEN_DEPTH)));
+        context.register(OVERRIDDEN_INITIAL_DENSITY_WITHOUT_JAGGEDNESS, applySurfaceSlides(false, add(overriddenInitialDensity, constant(DensityFunctions.field_38250)).clamp(-DensityFunctions.field_37691, DensityFunctions.field_37691)));
+
+        var overriddenSlopedCheese = holderFunction(densityFunctions.getOrThrow(OVERRIDDEN_SLOPED_CHEESE));
+        var overriddenCavesEntrance = min(overriddenSlopedCheese, mul(constant(5), holderFunction(modifiedCavesEntrances)));
+        var overriddenFinalCaves = rangeChoice(overriddenSlopedCheese, -1000000, DensityFunctions.field_36617, overriddenCavesEntrance, createCavesFunction(densityFunctions, noiseParameters, overriddenSlopedCheese));
+        context.register(OVERRIDDEN_FINALE_DENSITY, min(applyBlendDensity(applySurfaceSlides(false, overriddenFinalCaves)), holderFunction(densityFunctions.getOrThrow(DensityFunctions.CAVES_NOODLE_OVERWORLD))));
+
+        // Old
 
         var shiftX = context.register(SHIFT_X_KEY, flatCache(cache2d(shiftA(noiseParameters.getOrThrow(OFFSET)))));
         var shiftZ = context.register(SHIFT_Z_KEY, flatCache(cache2d(shiftB(noiseParameters.getOrThrow(OFFSET)))));
@@ -28,10 +61,10 @@ public final class AylythDensityFunctionBootstrap {
         var continents = context.register(CONTINENTS_FUNCTION_KEY, flatCache(shiftedNoise(holderFunction(shiftX), holderFunction(shiftZ), 0.25, noiseParameters.getOrThrow(CONTINENTS))));
         var erosion = context.register(EROSION_FUNCTION_KEY, flatCache(shiftedNoise(holderFunction(shiftX), holderFunction(shiftZ), 0.25, noiseParameters.getOrThrow(EROSION))));
 
-        Spline.DensityFunctionWrapper continentsCoordinate = new Spline.DensityFunctionWrapper(continents);
-        Spline.DensityFunctionWrapper erosionCoordinate = new Spline.DensityFunctionWrapper(erosion);
-        Spline.DensityFunctionWrapper ridgesCoordinate = new Spline.DensityFunctionWrapper(ridges);
-        Spline.DensityFunctionWrapper ridgesFoldedCoordinate = new Spline.DensityFunctionWrapper(ridgesFolded);
+        DensityFunctionWrapper continentsCoordinate = new DensityFunctionWrapper(continents);
+        DensityFunctionWrapper erosionCoordinate = new DensityFunctionWrapper(erosion);
+        DensityFunctionWrapper ridgesCoordinate = new DensityFunctionWrapper(ridges);
+        DensityFunctionWrapper ridgesFoldedCoordinate = new DensityFunctionWrapper(ridgesFolded);
 
         var offset = context.register(OFFSET_FUNCTION_KEY, offset(continentsCoordinate, erosionCoordinate, ridgesFoldedCoordinate));
         var factor = context.register(FACTOR_FUNCTION_KEY, factor(continentsCoordinate, erosionCoordinate, ridgesCoordinate, ridgesFoldedCoordinate));
@@ -47,7 +80,7 @@ public final class AylythDensityFunctionBootstrap {
         context.register(SLOPED_CHEESE_FUNCTION_KEY, slopedCheese(depth, jaggedness, factor, noiseParameters));
     }
 
-    private static DensityFunction offset(Spline.DensityFunctionWrapper continentsCoordinate, Spline.DensityFunctionWrapper erosionCoordinate, Spline.DensityFunctionWrapper ridgesFoldedCoordinate) {
+    private static DensityFunction offset(DensityFunctionWrapper continentsCoordinate, DensityFunctionWrapper erosionCoordinate, DensityFunctionWrapper ridgesFoldedCoordinate) {
         return withBlending(
                 add(
                         constant(-0.50375f),
@@ -76,14 +109,14 @@ public final class AylythDensityFunctionBootstrap {
         );
     }
 
-    private static DensityFunction factor(Spline.DensityFunctionWrapper continentsCoordinate, Spline.DensityFunctionWrapper erosionCoordinate, Spline.DensityFunctionWrapper ridgesCoordinate, Spline.DensityFunctionWrapper ridgesFoldedCoordinate) {
+    private static DensityFunction factor(DensityFunctionWrapper continentsCoordinate, DensityFunctionWrapper erosionCoordinate, DensityFunctionWrapper ridgesCoordinate, DensityFunctionWrapper ridgesFoldedCoordinate) {
         return withBlending(
                 spline(VanillaTerrainParametersCreator.createFactorSpline(continentsCoordinate, erosionCoordinate, ridgesCoordinate, ridgesFoldedCoordinate, false)),
                 constant(10)
         );
     }
 
-    private static DensityFunction jaggedness(Spline.DensityFunctionWrapper continentsCoordinate, Spline.DensityFunctionWrapper erosionCoordinate, Spline.DensityFunctionWrapper ridgesCoordinate, Spline.DensityFunctionWrapper ridgesFoldedCoordinate) {
+    private static DensityFunction jaggedness(DensityFunctionWrapper continentsCoordinate, DensityFunctionWrapper erosionCoordinate, DensityFunctionWrapper ridgesCoordinate, DensityFunctionWrapper ridgesFoldedCoordinate) {
         return withBlending(
                 spline(VanillaTerrainParametersCreator.createJaggednessSpline(continentsCoordinate, erosionCoordinate, ridgesCoordinate, ridgesFoldedCoordinate, false)),
                 constant(0)

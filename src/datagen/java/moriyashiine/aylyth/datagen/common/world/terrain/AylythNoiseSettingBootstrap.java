@@ -1,6 +1,7 @@
 package moriyashiine.aylyth.datagen.common.world.terrain;
 
 import moriyashiine.aylyth.common.data.world.AylythDimensionData;
+import moriyashiine.aylyth.common.data.world.terrain.AylythDensityFunctions;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -9,9 +10,11 @@ import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.math.noise.DoublePerlinNoiseSampler;
 import net.minecraft.world.biome.source.util.MultiNoiseUtil;
+import net.minecraft.world.biome.source.util.MultiNoiseUtil.NoiseHypercube;
 import net.minecraft.world.gen.chunk.ChunkGeneratorSettings;
 import net.minecraft.world.gen.chunk.GenerationShapeConfig;
 import net.minecraft.world.gen.densityfunction.DensityFunction;
+import net.minecraft.world.gen.densityfunction.DensityFunctions;
 import net.minecraft.world.gen.noise.NoiseRouter;
 
 import java.util.List;
@@ -24,7 +27,44 @@ public final class AylythNoiseSettingBootstrap {
     private AylythNoiseSettingBootstrap() {}
 
     public static void bootstrap(Registerable<ChunkGeneratorSettings> context) {
-        context.register(AylythDimensionData.CHUNK_GEN_SETTINGS, createSettings(context.getRegistryLookup(RegistryKeys.DENSITY_FUNCTION), context.getRegistryLookup(RegistryKeys.NOISE_PARAMETERS)));
+        var densityFunctions = context.getRegistryLookup(RegistryKeys.DENSITY_FUNCTION);
+        var noiseParameters = context.getRegistryLookup(RegistryKeys.NOISE_PARAMETERS);
+
+        // VANILLACOPY ChunkGeneratorSettings.OVERWORLD
+        // Fewer oceans, flatter terrain, disable ore veins, no caves entrances, height 384 -> 304, vertical size 2 -> 1
+
+        var vanillaChunkGenSettings = ChunkGeneratorSettings.createSurfaceSettings(context, false, false);
+
+        var vanillaShape = vanillaChunkGenSettings.generationShapeConfig();
+        var shape = new GenerationShapeConfig(vanillaShape.minimumY(), 304, vanillaShape.horizontalSize(), 1);
+
+        var vanillaNoiseRouter = DensityFunctions.createSurfaceNoiseRouter(densityFunctions, noiseParameters, false, false);
+        var noiseRouter = new NoiseRouter(
+                vanillaNoiseRouter.barrierNoise(),
+                vanillaNoiseRouter.fluidLevelFloodednessNoise(),
+                vanillaNoiseRouter.fluidLevelSpreadNoise(),
+                vanillaNoiseRouter.lavaNoise(),
+                vanillaNoiseRouter.temperature(),
+                vanillaNoiseRouter.vegetation(),
+                AylythDensityFunctionBootstrap.holderFunction(densityFunctions.getOrThrow(MODIFIED_CONTINENTS)),
+                AylythDensityFunctionBootstrap.holderFunction(densityFunctions.getOrThrow(AylythDensityFunctions.MODIFIED_EROSION)),
+                AylythDensityFunctionBootstrap.holderFunction(densityFunctions.getOrThrow(OVERRIDDEN_DEPTH)),
+                vanillaNoiseRouter.ridges(),
+                AylythDensityFunctionBootstrap.holderFunction(densityFunctions.getOrThrow(OVERRIDDEN_INITIAL_DENSITY_WITHOUT_JAGGEDNESS)),
+                AylythDensityFunctionBootstrap.holderFunction(densityFunctions.getOrThrow(OVERRIDDEN_FINALE_DENSITY)),
+                zero(),
+                zero(),
+                zero()
+        );
+
+        var materialRules = AylythMaterialRuleBootstrap.materialRules();
+        var spawnTarget = List.<NoiseHypercube>of();
+        var seaLevel = vanillaChunkGenSettings.seaLevel();
+
+        context.register(AylythDimensionData.CHUNK_GEN_SETTINGS, new ChunkGeneratorSettings(shape, Blocks.DEEPSLATE.getDefaultState(), Blocks.WATER.getDefaultState(), noiseRouter, materialRules, spawnTarget, seaLevel, false, true, false, false));
+
+        // Old
+        // context.register(AylythDimensionData.CHUNK_GEN_SETTINGS, createSettings(context.getRegistryLookup(RegistryKeys.DENSITY_FUNCTION), context.getRegistryLookup(RegistryKeys.NOISE_PARAMETERS)));
     }
 
     static ChunkGeneratorSettings createSettings(RegistryEntryLookup<DensityFunction> functions, RegistryEntryLookup<DoublePerlinNoiseSampler.NoiseParameters> noiseParameters) {
@@ -164,7 +204,7 @@ public final class AylythNoiseSettingBootstrap {
         );
     }
 
-    static List<MultiNoiseUtil.NoiseHypercube> spawnTargets() {
+    static List<NoiseHypercube> spawnTargets() {
         return List.of();
     }
 }
