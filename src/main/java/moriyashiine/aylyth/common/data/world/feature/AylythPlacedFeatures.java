@@ -19,10 +19,6 @@ public interface AylythPlacedFeatures {
 
     RegistryKey<PlacedFeature> SPRING = bind("spring");
     RegistryKey<PlacedFeature> BUSHES = bind("bushes");
-    RegistryKey<PlacedFeature> OAK_LEAF_PILE = bind("oak_leaf_pile");
-    RegistryKey<PlacedFeature> YMPE_LEAF_PILE = bind("ympe_leaf_pile");
-    RegistryKey<PlacedFeature> OAK_STREWN_LEAVES = bind("oak_strewn_leaves");
-    RegistryKey<PlacedFeature> YMPE_STREWN_LEAVES = bind("ympe_strewn_leaves");
     RegistryKey<PlacedFeature> AYLYTH_WEEDS = bind("aylyth_weeds");
     RegistryKey<PlacedFeature> MARIGOLDS = bind("marigolds");
     RegistryKey<PlacedFeature> JACK_O_LANTERN_MUSHROOM_PATCH = bind("jack_o_lantern_mushroom_patch");

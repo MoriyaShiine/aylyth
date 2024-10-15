@@ -9,7 +9,6 @@ import moriyashiine.aylyth.common.world.gen.features.HorizontalFacingFeature;
 import moriyashiine.aylyth.common.world.gen.features.LeafPileFeature;
 import moriyashiine.aylyth.common.world.gen.features.SeepFeature;
 import moriyashiine.aylyth.common.world.gen.features.SpringFeature;
-import moriyashiine.aylyth.common.world.gen.features.StrewnLeavesFeature;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.world.gen.feature.Feature;
@@ -21,7 +20,6 @@ public interface AylythFeatures {
     SeepFeature SEEP_FEATURE = register("seep", new SeepFeature());
     BushFeature BUSH_FEATURE = register("bushes", new BushFeature());
     LeafPileFeature LEAF_PILE_FEATURE = register("leaf_pile", new LeafPileFeature());
-    StrewnLeavesFeature STREWN_LEAVES_FEATURE = register("strewn_leaves", new StrewnLeavesFeature());
     HorizontalFacingFeature HORIZONTAL_FACING_FEATURE = register("horizontal_facing", new HorizontalFacingFeature());
     DoubleBlockFeature DOUBLE_BLOCK_FEATURE = register("double_block", new DoubleBlockFeature());
     GiantMushroomFeature GIANT_MUSHROOM = register("giant_mushroom", new GiantMushroomFeature(GiantMushroomFeature.GiantMushroomConfig.CODEC));

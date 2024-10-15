@@ -66,9 +66,7 @@
       "minecraft:patch_tall_grass"
     ],
     [
-      "minecraft:freeze_top_layer",
-      "aylyth:oak_strewn_leaves",
-      "aylyth:ympe_strewn_leaves"
+      "minecraft:freeze_top_layer"
     ]
   ],
   "has_precipitation": true,
