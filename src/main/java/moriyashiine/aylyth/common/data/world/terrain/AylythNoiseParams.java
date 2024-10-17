@@ -21,11 +21,12 @@ public interface AylythNoiseParams {
 
     RegistryKey<NoiseParameters> SPAGHETTI_2D = bind("spaghetti_2d");
     RegistryKey<NoiseParameters> SPAGHETTI_2D_MODULATOR = bind("spaghetti_2d_modulator");
-    RegistryKey<NoiseParameters> SPAGHETTI_2D_ROUGHNESS = bind("spaghetti_2d_roughness");
     RegistryKey<NoiseParameters> SPAGHETTI_2D_THICKNESS = bind("spaghetti_2d_thickness");
     RegistryKey<NoiseParameters> SPAGHETTI_2D_ELEVATION = bind("spaghetti_2d_elevation");
+    RegistryKey<NoiseParameters> SPAGHETTI_ROUGHNESS = bind("spaghetti_roughness");
+    RegistryKey<NoiseParameters> SPAGHETTI_ROUGHNESS_MODULATOR = bind("spaghetti_roughness_modulator");
     RegistryKey<NoiseParameters> PILLAR = bind("pillar");
-    RegistryKey<NoiseParameters> PILLAR_RARENESS = bind("pillar_rareness");
+    RegistryKey<NoiseParameters> PILLAR_RARITY = bind("pillar_rarity");
     RegistryKey<NoiseParameters> PILLAR_THICKNESS = bind("pillar_thickness");
     RegistryKey<NoiseParameters> NOODLE = bind("noodle");
     RegistryKey<NoiseParameters> NOODLE_THICKNESS = bind("noodle_thickness");
