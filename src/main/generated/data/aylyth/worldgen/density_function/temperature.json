@@ -2,7 +2,7 @@
   "type": "minecraft:flat_cache",
   "argument": {
     "type": "minecraft:shifted_noise",
-    "noise": "aylyth:ridges",
+    "noise": "aylyth:temperature",
     "shift_x": "aylyth:shift_x",
     "shift_y": 0.0,
     "shift_z": "aylyth:shift_z",
