@@ -28,6 +28,7 @@ public interface AylythItemTags {
     TagKey<Item> BLIGHTED_WEAPONS = bind("blighted_weapons");
     TagKey<Item> NEPHRITE_FLASKS = bind("nephrite_flasks");
     TagKey<Item> BOSS_HEARTS = bind("boss_hearts");
+    TagKey<Item> SAPSTONES = bind("sapstones");
     TagKey<Item> BRANCHES = bind("branches");
     TagKey<Item> LEAFY_BRANCHES = bind("branches/leafy");
     TagKey<Item> BARE_BRANCHES = bind("branches/bare");

@@ -31,10 +31,10 @@ public interface AylythBlocks {
 	WoodType POMEGRANATE_WOOD_TYPE = new WoodTypeBuilder().register(Aylyth.id("pomegranate"), POMEGRANATE_BLOCK_SET_TYPE);
 	WoodType WRITHEWOOD_WOOD_TYPE = new WoodTypeBuilder().register(Aylyth.id("writhewood"), WRITHEWOOD_BLOCK_SET_TYPE);
 
-	Block SAPSTONE = register("sapstone", new Block(copyOf(Blocks.STONE).mapColor(MapColor.OAK_TAN)));
+	Block SAPSTONE = register("sapstone", new Block(copyOf(Blocks.STONE).mapColor(MapColor.DIRT_BROWN)));
 	Block AMBER_SAPSTONE = register("amber_sapstone", new Block(copyOf(Blocks.STONE).mapColor(MapColor.ORANGE)));
 	Block LIGNITE_SAPSTONE = register("lignite_sapstone", new Block(copyOf(Blocks.STONE).mapColor(MapColor.TERRACOTTA_GRAY)));
-	Block OPALESCENT_SAPSTONE = register("opalescent_sapstone", new Block(copyOf(Blocks.STONE).mapColor(MapColor.DULL_PINK)));
+	Block OPALESCENT_SAPSTONE = register("opalescent_sapstone", new Block(copyOf(Blocks.STONE).mapColor(MapColor.PINK)));
 
 	Block YMPE_STRIPPED_LOG = register("stripped_ympe_log", new PillarBlock(copyOf(Blocks.STRIPPED_OAK_LOG)));
 	Block YMPE_STRIPPED_WOOD = register("stripped_ympe_wood", new PillarBlock(copyOf(Blocks.STRIPPED_OAK_WOOD)));
