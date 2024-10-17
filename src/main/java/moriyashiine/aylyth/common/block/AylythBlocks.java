@@ -120,7 +120,7 @@ public interface AylythBlocks {
 	Block GHOSTCAP_MUSHROOM = register("ghostcap_mushroom", new SpreadingPlantBlock(FabricBlockSettings.create().notSolid().pistonBehavior(PistonBehavior.DESTROY).sounds(BlockSoundGroup.GLOW_LICHEN).noCollision().nonOpaque().ticksRandomly()));
 
 	Block JACK_O_LANTERN_MUSHROOM_STEM = register("jack_o_lantern_mushroom_stem", new MushroomBlock(copyOf(Blocks.MUSHROOM_STEM).mapColor(MapColor.TERRACOTTA_ORANGE)));
-	Block JACK_O_LANTERN_MUSHROOM_BLOCK = register("jack_o_lantern_mushroom_block", new MushroomBlock(copyOf(Blocks.BROWN_MUSHROOM_BLOCK).mapColor(state -> state.get(MushroomBlock.UP) ? MapColor.EMERALD_GREEN : MapColor.TERRACOTTA_ORANGE).luminance(15)));
+	Block JACK_O_LANTERN_MUSHROOM_BLOCK = register("jack_o_lantern_mushroom_block", new MushroomBlock(copyOf(Blocks.BROWN_MUSHROOM_BLOCK).mapColor(state -> !state.get(MushroomBlock.UP) ? MapColor.EMERALD_GREEN : MapColor.ORANGE).luminance(15)));
 
 	Block OAK_STREWN_LEAVES = register("oak_strewn_leaves", new StrewnLeavesBlock(AbstractBlock.Settings.create().mapColor(MapColor.DARK_GREEN).notSolid().pistonBehavior(PistonBehavior.DESTROY).replaceable().sounds(AylythSoundEvents.STREWN_LEAVES)));
 	Block YMPE_STREWN_LEAVES = register("ympe_strewn_leaves", new StrewnLeavesBlock(AbstractBlock.Settings.create().mapColor(MapColor.ORANGE).notSolid().pistonBehavior(PistonBehavior.DESTROY).replaceable().sounds(AylythSoundEvents.STREWN_LEAVES)));
