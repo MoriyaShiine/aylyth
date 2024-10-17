@@ -41,7 +41,7 @@ public class BranchDecorator extends TreeDecorator {
             if (pos.getY() <= lowestPos.getY() + minBranchHeight.get(generator.getRandom())) {
                 continue;
             }
-            if (generator.getRandom().nextFloat() < chance && generator.getWorld().testBlockState(pos, state -> state.get(Properties.AXIS).isVertical())) {
+            if (generator.getRandom().nextFloat() < chance && generator.getWorld().testBlockState(pos, state -> !state.contains(Properties.AXIS) || state.get(Properties.AXIS).isVertical())) {
                 for (Direction dir : Direction.Type.HORIZONTAL.getShuffled(generator.getRandom())) {
                     BlockPos branchPos = pos.offset(dir);
                     if (generator.isAir(branchPos)) {
