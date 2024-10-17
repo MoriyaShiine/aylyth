@@ -5,7 +5,7 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.math.noise.DoublePerlinNoiseSampler.NoiseParameters;
 
-public interface AylythNoises {
+public interface AylythNoiseParams {
 
     RegistryKey<NoiseParameters> FLOODEDNESS = bind("aquifer_fluid_level_floodedness");
     RegistryKey<NoiseParameters> FLUID_SPREAD = bind("aquifer_fluid_level_spread");
@@ -14,7 +14,7 @@ public interface AylythNoises {
     RegistryKey<NoiseParameters> VEGETATION = bind("vegetation");
     RegistryKey<NoiseParameters> CONTINENTS = bind("continents");
     RegistryKey<NoiseParameters> EROSION = bind("erosion");
-    RegistryKey<NoiseParameters> RIDGE = bind("ridge");
+    RegistryKey<NoiseParameters> RIDGES = bind("ridges");
 
     RegistryKey<NoiseParameters> OFFSET = bind("offset");
     RegistryKey<NoiseParameters> JAGGED = bind("jagged");

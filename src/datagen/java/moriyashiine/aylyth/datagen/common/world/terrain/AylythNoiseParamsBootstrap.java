@@ -3,10 +3,10 @@ package moriyashiine.aylyth.datagen.common.world.terrain;
 import net.minecraft.registry.Registerable;
 import net.minecraft.util.math.noise.DoublePerlinNoiseSampler.NoiseParameters;
 
-import static moriyashiine.aylyth.common.data.world.terrain.AylythNoises.*;
+import static moriyashiine.aylyth.common.data.world.terrain.AylythNoiseParams.*;
 
-public final class AylythNoiseTypeBootstrap {
-    private AylythNoiseTypeBootstrap() {}
+public final class AylythNoiseParamsBootstrap {
+    private AylythNoiseParamsBootstrap() {}
 
     public static void bootstrap(Registerable<NoiseParameters> context) {
         context.register(FLOODEDNESS, new NoiseParameters(-7, 1));
@@ -16,7 +16,7 @@ public final class AylythNoiseTypeBootstrap {
         context.register(VEGETATION, new NoiseParameters(-8, 1, 1, 0, 0, 0, 0));
         context.register(CONTINENTS, new NoiseParameters(-9, 1, 1, 2, 2, 2, 1, 1, 1, 1));
         context.register(EROSION, new NoiseParameters(-9, 1, 1, 0, 0, 1, 1));
-        context.register(RIDGE, new NoiseParameters(-7, 1, 2, 1, 0, 0, 0));
+        context.register(RIDGES, new NoiseParameters(-7, 1, 2, 1, 0, 0, 0));
 
         context.register(OFFSET, new NoiseParameters(-3, 1, 1, 1, 0));
         context.register(JAGGED, new NoiseParameters(-16, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1));
@@ -28,10 +28,6 @@ public final class AylythNoiseTypeBootstrap {
         context.register(SPAGHETTI_2D_ROUGHNESS, new NoiseParameters(-5, 1));
         context.register(SPAGHETTI_2D_THICKNESS, new NoiseParameters(-11, 1));
         context.register(SPAGHETTI_2D_ELEVATION, new NoiseParameters(-8, 1));
-        context.register(SPAGHETTI_3D_1, new NoiseParameters(-7, 1));
-        context.register(SPAGHETTI_3D_2, new NoiseParameters(-7, 1));
-        context.register(SPAGHETTI_3D_RARITY, new NoiseParameters(-11, 1));
-        context.register(SPAGHETTI_3D_THICKNESS, new NoiseParameters(-11, 1));
         context.register(PILLAR, new NoiseParameters(-7, 1, 1));
         context.register(PILLAR_RARENESS, new NoiseParameters(-8, 1));
         context.register(PILLAR_THICKNESS, new NoiseParameters(-8, 1));
@@ -39,7 +35,6 @@ public final class AylythNoiseTypeBootstrap {
         context.register(NOODLE_THICKNESS, new NoiseParameters(-8, 1));
         context.register(NOODLE_RIDGE_A, new NoiseParameters(-7, 1));
         context.register(NOODLE_RIDGE_B, new NoiseParameters(-7, 1));
-        context.register(CAVE_ENTRANCES, new NoiseParameters(-7, 0.4, 0.5, 1));
 
         context.register(SURFACE, new NoiseParameters(-6, 1, 1, 1));
         context.register(PODZOL_COMMON, new NoiseParameters(-4, 1, 1));

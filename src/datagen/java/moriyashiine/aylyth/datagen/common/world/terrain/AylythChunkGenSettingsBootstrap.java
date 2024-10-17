@@ -16,8 +16,8 @@ import static moriyashiine.aylyth.common.data.world.terrain.AylythDensityFunctio
 import static moriyashiine.aylyth.datagen.common.world.terrain.AylythDensityFunctionBootstrap.wrap;
 import static net.minecraft.world.gen.densityfunction.DensityFunctionTypes.*;
 
-public final class AylythNoiseSettingBootstrap {
-    private AylythNoiseSettingBootstrap() {}
+public final class AylythChunkGenSettingsBootstrap {
+    private AylythChunkGenSettingsBootstrap() {}
 
     public static void bootstrap(Registerable<ChunkGeneratorSettings> context) {
         var densityFuns = context.getRegistryLookup(RegistryKeys.DENSITY_FUNCTION);
@@ -25,17 +25,17 @@ public final class AylythNoiseSettingBootstrap {
         var shapeConfig = new GenerationShapeConfig(MIN_HEIGHT, SHAPE_MAX_HEIGHT, 1, 1);
         var noiseRouter = new NoiseRouter(
                 zero(),
-                wrap(densityFuns.getOrThrow(FLOODEDNESS_FUNCTION_KEY)),
-                wrap(densityFuns.getOrThrow(FLUID_SPREAD_FUNCTION_KEY)),
+                wrap(densityFuns.getOrThrow(AQUIFER_FLUID_FLOODEDNESS)),
+                wrap(densityFuns.getOrThrow(AQUIFER_FLUID_SPREAD)),
                 zero(),
-                wrap(densityFuns.getOrThrow(TEMPERATURE_FUNCTION_KEY)),
-                wrap(densityFuns.getOrThrow(VEGETATION_FUNCTION_KEY)),
-                wrap(densityFuns.getOrThrow(CONTINENTS_FUNCTION_KEY)),
-                wrap(densityFuns.getOrThrow(EROSION_FUNCTION_KEY)),
-                wrap(densityFuns.getOrThrow(DEPTH_FUNCTION_KEY)),
-                wrap(densityFuns.getOrThrow(RIDGES_FUNCTION_KEY)),
-                wrap(densityFuns.getOrThrow(INITIAL_DENSITY_WITHOUT_JAGGEDNESS_FUNCTION_KEY)),
-                wrap(densityFuns.getOrThrow(FINAL_DENSITY_FUNCTION_KEY)),
+                wrap(densityFuns.getOrThrow(TEMPERATURE)),
+                wrap(densityFuns.getOrThrow(VEGETATION)),
+                wrap(densityFuns.getOrThrow(CONTINENTS)),
+                wrap(densityFuns.getOrThrow(EROSION)),
+                wrap(densityFuns.getOrThrow(DEPTH)),
+                wrap(densityFuns.getOrThrow(RIDGES)),
+                wrap(densityFuns.getOrThrow(DENSITY_INITIAL_WITHOUT_JAGGEDNESS)),
+                wrap(densityFuns.getOrThrow(DENSITY_FINAL)),
                 zero(),
                 zero(),
                 zero()

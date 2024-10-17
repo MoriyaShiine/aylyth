@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.datagen.common.world.terrain;
 
 import moriyashiine.aylyth.common.data.world.AylythBiomes;
-import moriyashiine.aylyth.common.data.world.terrain.AylythNoises;
+import moriyashiine.aylyth.common.data.world.terrain.AylythNoiseParams;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.RegistryKey;
@@ -21,8 +21,8 @@ final class AylythMaterialRules {
         var grass = block(Blocks.GRASS_BLOCK);
 
         var onReplaceWithGrass = condition(water(0, 0), grass);
-        var commonPodzol = podzol(AylythNoises.PODZOL_COMMON, 0.3, Double.MAX_VALUE);
-        var rarePodzol = podzol(AylythNoises.PODZOL_RARE, 0.95, Double.MAX_VALUE);
+        var commonPodzol = podzol(AylythNoiseParams.PODZOL_COMMON, 0.3, Double.MAX_VALUE);
+        var rarePodzol = podzol(AylythNoiseParams.PODZOL_RARE, 0.95, Double.MAX_VALUE);
         var podzolDecoCommon = sequence(condition(biome(AylythBiomes.DEEPWOOD, AylythBiomes.CONIFEROUS_DEEPWOOD), commonPodzol));
         var podzolDecoRare = condition(biome(AylythBiomes.COPSE, AylythBiomes.OVERGROWN_CLEARING), rarePodzol);
         var onSurface = condition(
@@ -56,7 +56,7 @@ final class AylythMaterialRules {
     }
 
     private static MaterialRule bowels() {
-        return condition(biome(AylythBiomes.BOWELS), sequence(condition(stoneDepth(0, false, 0, VerticalSurfaceType.FLOOR), condition(water(0, 0), noiseBlock(AylythNoises.BOWELS_SOUL_SAND, Blocks.SOUL_SAND, 0.6, Double.MAX_VALUE))), condition(waterWithStoneDepth(-6, -1), condition(stoneDepth(0, true, 0, VerticalSurfaceType.FLOOR), block(Blocks.SOUL_SOIL)))));
+        return condition(biome(AylythBiomes.BOWELS), sequence(condition(stoneDepth(0, false, 0, VerticalSurfaceType.FLOOR), condition(water(0, 0), noiseBlock(AylythNoiseParams.BOWELS_SOUL_SAND, Blocks.SOUL_SAND, 0.6, Double.MAX_VALUE))), condition(waterWithStoneDepth(-6, -1), condition(stoneDepth(0, true, 0, VerticalSurfaceType.FLOOR), block(Blocks.SOUL_SOIL)))));
     }
 
     private static MaterialRule podzol(RegistryKey<DoublePerlinNoiseSampler.NoiseParameters> noise, double min, double max) {
@@ -68,7 +68,7 @@ final class AylythMaterialRules {
     }
 
     private static MaterialRule surfaceNoiseBlock(Block block, double min, double max) {
-        return condition(noiseThreshold(AylythNoises.SURFACE, min, max), block(block));
+        return condition(noiseThreshold(AylythNoiseParams.SURFACE, min, max), block(block));
     }
 
     private static MaterialRule block(Block block) {
