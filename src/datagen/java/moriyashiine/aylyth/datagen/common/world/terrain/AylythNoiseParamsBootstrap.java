@@ -9,7 +9,7 @@ public final class AylythNoiseParamsBootstrap {
     private AylythNoiseParamsBootstrap() {}
 
     public static void bootstrap(Registerable<NoiseParameters> context) {
-        // VANILLACOPY BuiltinNoiseParameters
+        // VANILLACOPY BuiltinNoiseParameters::bootstrap
 
         context.register(FLOODEDNESS, new NoiseParameters(-7, 1));
         context.register(FLUID_SPREAD, new NoiseParameters(-5, 1));
@@ -17,7 +17,7 @@ public final class AylythNoiseParamsBootstrap {
         context.register(TEMPERATURE, new NoiseParameters(-10, 1.5, 0, 1, 0, 0, 0));
         context.register(VEGETATION, new NoiseParameters(-8, 1, 1, 0, 0, 0, 0));
         context.register(CONTINENTS, new NoiseParameters(-9, 1, 1, 2, 2, 2, 1, 1, 1, 1));
-        context.register(EROSION, new NoiseParameters(-9, 1, 1, 0, 0, 1, 1));
+        context.register(EROSION, new NoiseParameters(-9, 1, 1, 0, 0, 1, 1)); // [1, 0, 1, 1] -> [1, 0, 0, 1, 1]
         context.register(RIDGES, new NoiseParameters(-7, 1, 2, 1, 0, 0, 0));
 
         context.register(OFFSET, new NoiseParameters(-3, 1, 1, 1, 0));
@@ -38,6 +38,8 @@ public final class AylythNoiseParamsBootstrap {
         context.register(NOODLE_THICKNESS, new NoiseParameters(-8, 1));
         context.register(NOODLE_RIDGE_A, new NoiseParameters(-7, 1));
         context.register(NOODLE_RIDGE_B, new NoiseParameters(-7, 1));
+
+        // Own
 
         context.register(SURFACE, new NoiseParameters(-6, 1, 1, 1));
         context.register(PODZOL_COMMON, new NoiseParameters(-4, 1, 1));

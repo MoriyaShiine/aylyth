@@ -13,10 +13,10 @@ import net.minecraft.world.gen.surfacebuilder.MaterialRules.MaterialRule;
 
 import static net.minecraft.world.gen.surfacebuilder.MaterialRules.*;
 
-final class AylythMaterialRules {
-    private AylythMaterialRules() {}
+final class AylythSurfaceMaterialRules {
+    private AylythSurfaceMaterialRules() {}
 
-    public static MaterialRule create() {
+    public static MaterialRule build() {
         var dirt = block(Blocks.DIRT);
         var grass = block(Blocks.GRASS_BLOCK);
 

@@ -23,7 +23,7 @@ public final class AylythChunkGenSettingsBootstrap {
         var densityFuns = context.getRegistryLookup(RegistryKeys.DENSITY_FUNCTION);
 
         // VANILLACOPY ChunkGeneratorSettings.OVERWORLD
-        // Changed world height, gen vertical size 2 -> 1, no aquifer barriers, no lava, no big ore veins, sea level 63 -> 47
+        // Changed world height, vertical size 2 -> 1, no aquifer barriers, no lava, no ore veins, sea level 63 -> 47
 
         var shapeConfig = new GenerationShapeConfig(MIN_HEIGHT, SHAPE_MAX_HEIGHT, 1, 1);
         var noiseRouter = new NoiseRouter(
@@ -43,7 +43,7 @@ public final class AylythChunkGenSettingsBootstrap {
                 zero(),
                 zero()
         );
-        var surfaceMaterialRules = AylythMaterialRules.create();
+        var surfaceMaterialRules = AylythSurfaceMaterialRules.build();
         var spawnTarget = List.<NoiseHypercube>of();
         var seaLevel = 47;
 

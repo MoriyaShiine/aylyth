@@ -23,7 +23,7 @@ import static net.minecraft.world.gen.densityfunction.DensityFunctions.*;
 public final class AylythDensityFunctionBootstrap {
     private AylythDensityFunctionBootstrap() {}
 
-    // VANILLACOPY DensityFunctions
+    // VANILLACOPY DensityFunctions::bootstrap & DensityFunctions::createSurfaceNoiseRouter
 
     private static final double NOISE_XZ_SCALE = 0.25;
 
