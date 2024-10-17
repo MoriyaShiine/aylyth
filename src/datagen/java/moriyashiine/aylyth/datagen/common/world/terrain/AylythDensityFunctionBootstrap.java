@@ -4,6 +4,7 @@ import moriyashiine.aylyth.common.data.world.terrain.AylythNoiseParams;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.util.math.Spline;
 import net.minecraft.util.math.noise.DoublePerlinNoiseSampler.NoiseParameters;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.densityfunction.DensityFunction;
@@ -37,7 +38,7 @@ public final class AylythDensityFunctionBootstrap {
 
         var temperature = context.register(TEMPERATURE, flatCache(shiftedNoise(wrap(shiftX), wrap(shiftZ), NOISE_XZ_SCALE, noiseParams.getOrThrow(AylythNoiseParams.TEMPERATURE))));
         var vegetation = context.register(VEGETATION, flatCache(shiftedNoise(wrap(shiftX), wrap(shiftZ), NOISE_XZ_SCALE, noiseParams.getOrThrow(AylythNoiseParams.VEGETATION))));
-        var continents = context.register(CONTINENTS, flatCache(shiftedNoise(wrap(shiftX), wrap(shiftZ), NOISE_XZ_SCALE, noiseParams.getOrThrow(AylythNoiseParams.CONTINENTS))));
+        var continents = context.register(CONTINENTS, continents(wrap(shiftX), wrap(shiftZ), noiseParams.getOrThrow(AylythNoiseParams.CONTINENTS)));
         var erosion = context.register(EROSION, flatCache(shiftedNoise(wrap(shiftX), wrap(shiftZ), NOISE_XZ_SCALE, noiseParams.getOrThrow(AylythNoiseParams.EROSION))));
         var ridges = context.register(RIDGES, flatCache(shiftedNoise(wrap(shiftX), wrap(shiftZ), NOISE_XZ_SCALE, noiseParams.getOrThrow(AylythNoiseParams.RIDGES))));
         var ridgesFolded = context.register(RIDGES_FOLDED, createRidgesFoldedOverworldFunction(wrap(ridges)));
@@ -78,6 +79,15 @@ public final class AylythDensityFunctionBootstrap {
 
     private static DensityFunctionWrapper wrapSlidePos(RegistryEntry<DensityFunction> fun) {
         return new DensityFunctionWrapper(fun);
+    }
+
+    private static DensityFunction continents(DensityFunction shiftX, DensityFunction shiftZ, RegistryEntry<NoiseParameters> continentsNoise) {
+        // Reduce the size and number of oceans
+
+        var vanillaContinents = new DensityFunctionWrapper(RegistryEntry.of(flatCache(shiftedNoise(shiftX, shiftZ, NOISE_XZ_SCALE, continentsNoise))));
+
+        // Perhaps a more correct way would be to change the OFFSET function, see VanillaTerrainParametersCreator::createOffsetSpline
+        return flatCache(spline(Spline.builder(vanillaContinents).add(-0.2f, 0, 0.8f).build())); // added
     }
 
     private static DensityFunction offset(DensityFunctionWrapper continentsSplinePos, DensityFunctionWrapper erosionSplinePos, DensityFunctionWrapper ridgesFoldedSplinePos) {

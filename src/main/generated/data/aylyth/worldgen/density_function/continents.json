@@ -1,12 +1,27 @@
 {
   "type": "minecraft:flat_cache",
   "argument": {
-    "type": "minecraft:shifted_noise",
-    "noise": "aylyth:continents",
-    "shift_x": "aylyth:shift_x",
-    "shift_y": 0.0,
-    "shift_z": "aylyth:shift_z",
-    "xz_scale": 0.25,
-    "y_scale": 0.0
+    "type": "minecraft:spline",
+    "spline": {
+      "coordinate": {
+        "type": "minecraft:flat_cache",
+        "argument": {
+          "type": "minecraft:shifted_noise",
+          "noise": "aylyth:continents",
+          "shift_x": "aylyth:shift_x",
+          "shift_y": 0.0,
+          "shift_z": "aylyth:shift_z",
+          "xz_scale": 0.25,
+          "y_scale": 0.0
+        }
+      },
+      "points": [
+        {
+          "derivative": 0.8,
+          "location": -0.2,
+          "value": 0.0
+        }
+      ]
+    }
   }
 }
