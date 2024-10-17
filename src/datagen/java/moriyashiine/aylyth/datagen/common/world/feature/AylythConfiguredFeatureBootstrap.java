@@ -17,6 +17,7 @@ import moriyashiine.aylyth.common.world.gen.features.SeepFeature;
 import moriyashiine.aylyth.common.world.gen.foliageplacers.GirasolFoliagePlacer;
 import moriyashiine.aylyth.common.world.gen.foliageplacers.PomegranateFoliagePlacer;
 import moriyashiine.aylyth.common.world.gen.foliageplacers.WrithewoodFoliagePlacer;
+import moriyashiine.aylyth.common.world.gen.treedecorators.BranchDecorator;
 import moriyashiine.aylyth.common.world.gen.treedecorators.GrapeVineDecorator;
 import moriyashiine.aylyth.common.world.gen.treedecorators.PlaceAroundTreeDecorator;
 import moriyashiine.aylyth.common.world.gen.trunkplacers.*;
@@ -30,6 +31,7 @@ import net.minecraft.registry.entry.RegistryEntryList;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.collection.DataPool;
 import net.minecraft.util.math.VerticalSurfaceType;
+import net.minecraft.util.math.floatprovider.ConstantFloatProvider;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.world.gen.feature.*;
@@ -130,7 +132,15 @@ public final class AylythConfiguredFeatureBootstrap {
                                                 PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP,
                                                 PlacedFeatures.wouldSurvive(AylythBlocks.OAK_STREWN_LEAVES)
                                 )))
-                        ))
+                        )),
+                        new BranchDecorator(
+                                new WeightedBlockStateProvider(DataPool.<BlockState>builder()
+                                        .add(AylythBlocks.DARK_OAK_BRANCH.getDefaultState(), 2)
+                                        .add(AylythBlocks.BARE_DARK_OAK_BRANCH.getDefaultState(), 4)
+                                        .build()),
+                                ConstantIntProvider.create(2),
+                                0.0625f
+                        )
                 )).build());
         ConfiguredFeatures.register(context, AYLYTHIAN_MEGA_DARK_OAK, Feature.TREE, new TreeFeatureConfig.Builder(
                 SimpleBlockStateProvider.of(Blocks.DARK_OAK_LOG.getDefaultState()),
@@ -154,7 +164,15 @@ public final class AylythConfiguredFeatureBootstrap {
                                         PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP,
                                         PlacedFeatures.wouldSurvive(AylythBlocks.OAK_STREWN_LEAVES)
                                 )))
-                        ))
+                        )),
+                        new BranchDecorator(
+                                new WeightedBlockStateProvider(DataPool.<BlockState>builder()
+                                        .add(AylythBlocks.DARK_OAK_BRANCH.getDefaultState(), 2)
+                                        .add(AylythBlocks.BARE_DARK_OAK_BRANCH.getDefaultState(), 4)
+                                        .build()),
+                                ConstantIntProvider.create(4),
+                                0.125f
+                        )
                 )).build());
         ConfiguredFeatures.register(context, YMPE_TREE, Feature.TREE, new TreeFeatureConfig.Builder(
                 YMPE_LOG_PROVIDER,
@@ -177,7 +195,15 @@ public final class AylythConfiguredFeatureBootstrap {
                                         PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP,
                                         PlacedFeatures.wouldSurvive(AylythBlocks.YMPE_STREWN_LEAVES)
                                 )))
-                        ))
+                        )),
+                        new BranchDecorator(
+                                new WeightedBlockStateProvider(DataPool.<BlockState>builder()
+                                        .add(AylythBlocks.YMPE_BRANCH.getDefaultState(), 2)
+                                        .add(AylythBlocks.BARE_YMPE_BRANCH.getDefaultState(), 4)
+                                        .build()),
+                                ConstantIntProvider.create(2),
+                                0.125f
+                        )
                 ))
                 .build());
         ConfiguredFeatures.register(context, BIG_YMPE_TREE, Feature.TREE, new TreeFeatureConfig.Builder(
@@ -201,11 +227,36 @@ public final class AylythConfiguredFeatureBootstrap {
                                         PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP,
                                         PlacedFeatures.wouldSurvive(AylythBlocks.YMPE_STREWN_LEAVES)
                                 )))
-                        ))
+                        )),
+                        new BranchDecorator(
+                                new WeightedBlockStateProvider(DataPool.<BlockState>builder()
+                                        .add(AylythBlocks.YMPE_BRANCH.getDefaultState(), 2)
+                                        .add(AylythBlocks.BARE_YMPE_BRANCH.getDefaultState(), 4)
+                                        .build()),
+                                ConstantIntProvider.create(2),
+                                0.125f
+                        )
                 ))
                 .build());
         ConfiguredFeatures.register(context, POMEGRANATE_TREE, Feature.TREE, new TreeFeatureConfig.Builder(SimpleBlockStateProvider.of(AylythBlocks.POMEGRANATE_LOG), new PomegranateTrunkPlacer(5, 0, 0), SimpleBlockStateProvider.of(AylythBlocks.POMEGRANATE_LEAVES.getDefaultState().with(Properties.PERSISTENT, false)), new PomegranateFoliagePlacer(ConstantIntProvider.create(1), ConstantIntProvider.create(0), 2), new TwoLayersFeatureSize(1, 1, 1)).ignoreVines().build());
-        ConfiguredFeatures.register(context, WRITHEWOOD_TREE, Feature.TREE, new TreeFeatureConfig.Builder(SimpleBlockStateProvider.of(AylythBlocks.WRITHEWOOD_LOG), new WrithewoodTrunkPlacer(6, 4, 14), SimpleBlockStateProvider.of(AylythBlocks.WRITHEWOOD_LEAVES), new WrithewoodFoliagePlacer(ConstantIntProvider.create(1), ConstantIntProvider.create(1)), new TwoLayersFeatureSize(2, 1, 1)).ignoreVines().build());
+        ConfiguredFeatures.register(context, WRITHEWOOD_TREE, Feature.TREE, new TreeFeatureConfig.Builder(
+                SimpleBlockStateProvider.of(AylythBlocks.WRITHEWOOD_LOG),
+                new WrithewoodTrunkPlacer(6, 4, 14),
+                SimpleBlockStateProvider.of(AylythBlocks.WRITHEWOOD_LEAVES),
+                new WrithewoodFoliagePlacer(ConstantIntProvider.create(1), ConstantIntProvider.create(1)),
+                new TwoLayersFeatureSize(2, 1, 1))
+                .ignoreVines()
+                .decorators(List.of(
+                        new BranchDecorator(
+                                new WeightedBlockStateProvider(DataPool.<BlockState>builder()
+                                        .add(AylythBlocks.WRITHEWOOD_BRANCH.getDefaultState(), 2)
+                                        .add(AylythBlocks.BARE_WRITHEWOOD_BRANCH.getDefaultState(), 4)
+                                        .build()),
+                                ConstantIntProvider.create(6),
+                                0.125f
+                        )
+                ))
+                .build());
         ConfiguredFeatures.register(context, GIRASOL_TREE, Feature.TREE, new TreeFeatureConfig.Builder(
                 SimpleBlockStateProvider.of(AylythBlocks.SEEPING_WOOD),
                 new GirasolTrunkPlacer(6, 1, 3, AylythBlocks.SEEPING_WOOD_SEEP.getDefaultState(), 6),

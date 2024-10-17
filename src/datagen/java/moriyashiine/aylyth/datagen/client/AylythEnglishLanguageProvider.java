@@ -122,6 +122,12 @@ public class AylythEnglishLanguageProvider extends FabricLanguageProvider {
         builder.add(AylythBlocks.NEPHRITIC_CHTHONIA_WOOD, "Nephritic Chthonia Wood");
         builder.add(AylythBlocks.JACK_O_LANTERN_MUSHROOM_STEM, "Jack O'Lantern Mushroom Stem");
         builder.add(AylythBlocks.JACK_O_LANTERN_MUSHROOM_BLOCK, "Jack O'Lantern Mushroom Block");
+        builder.add(AylythBlocks.DARK_OAK_BRANCH, "Dark Oak Branch");
+        builder.add(AylythBlocks.BARE_DARK_OAK_BRANCH, "Bare Dark Oak Branch");
+        builder.add(AylythBlocks.WRITHEWOOD_BRANCH, "Writhewood Branch");
+        builder.add(AylythBlocks.BARE_WRITHEWOOD_BRANCH, "Bare Writhewood Branch");
+        builder.add(AylythBlocks.YMPE_BRANCH, "Ympe Branch");
+        builder.add(AylythBlocks.BARE_YMPE_BRANCH, "Bare Ympe Branch");
 
         // ITEMS
 

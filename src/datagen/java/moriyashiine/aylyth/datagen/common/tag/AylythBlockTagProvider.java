@@ -25,6 +25,9 @@ public final class AylythBlockTagProvider extends FabricTagProvider.BlockTagProv
         getOrCreateTagBuilder(AylythBlockTags.CHTHONIA_WOOD).add(AylythBlocks.CHTHONIA_WOOD, AylythBlocks.NEPHRITIC_CHTHONIA_WOOD);
         getOrCreateTagBuilder(AylythBlockTags.WOODY_GROWTHS_GENERATE_ON).add(Blocks.MUD);
         getOrCreateTagBuilder(AylythBlockTags.SAPSTONES).add(AylythBlocks.SAPSTONE, AylythBlocks.AMBER_SAPSTONE, AylythBlocks.LIGNITE_SAPSTONE, AylythBlocks.OPALESCENT_SAPSTONE);
+        getOrCreateTagBuilder(AylythBlockTags.LEAFY_BRANCHES).add(AylythBlocks.DARK_OAK_BRANCH, AylythBlocks.WRITHEWOOD_BRANCH, AylythBlocks.YMPE_BRANCH);
+        getOrCreateTagBuilder(AylythBlockTags.BARE_BRANCHES).add(AylythBlocks.BARE_DARK_OAK_BRANCH, AylythBlocks.BARE_WRITHEWOOD_BRANCH, AylythBlocks.BARE_YMPE_BRANCH);
+        getOrCreateTagBuilder(AylythBlockTags.BRANCHES).addTag(AylythBlockTags.BARE_BRANCHES).addTag(AylythBlockTags.LEAFY_BRANCHES);
         // TODO: Add these storage block tags to "c:storage_blocks"
         getOrCreateTagBuilder(AylythBlockTags.STORAGE_BLOCKS_ESSTLINE).add(AylythBlocks.ESSTLINE_BLOCK);
         getOrCreateTagBuilder(AylythBlockTags.STORAGE_BLOCKS_NEPHRITE).add(AylythBlocks.NEPHRITE_BLOCK);

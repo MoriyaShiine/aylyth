@@ -101,6 +101,34 @@
             ]
           }
         ]
+      },
+      {
+        "type": "aylyth:branches",
+        "block_state": {
+          "type": "minecraft:weighted_state_provider",
+          "entries": [
+            {
+              "data": {
+                "Name": "aylyth:dark_oak_branch",
+                "Properties": {
+                  "facing": "north"
+                }
+              },
+              "weight": 2
+            },
+            {
+              "data": {
+                "Name": "aylyth:bare_dark_oak_branch",
+                "Properties": {
+                  "facing": "north"
+                }
+              },
+              "weight": 4
+            }
+          ]
+        },
+        "chance": 0.125,
+        "min_branch_height": 4
       }
     ],
     "dirt_provider": {

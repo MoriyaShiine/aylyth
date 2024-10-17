@@ -90,6 +90,34 @@
             ]
           }
         ]
+      },
+      {
+        "type": "aylyth:branches",
+        "block_state": {
+          "type": "minecraft:weighted_state_provider",
+          "entries": [
+            {
+              "data": {
+                "Name": "aylyth:ympe_branch",
+                "Properties": {
+                  "facing": "north"
+                }
+              },
+              "weight": 2
+            },
+            {
+              "data": {
+                "Name": "aylyth:bare_ympe_branch",
+                "Properties": {
+                  "facing": "north"
+                }
+              },
+              "weight": 4
+            }
+          ]
+        },
+        "chance": 0.125,
+        "min_branch_height": 2
       }
     ],
     "dirt_provider": {

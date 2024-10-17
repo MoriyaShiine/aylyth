@@ -145,6 +145,13 @@ public interface AylythBlocks {
 	Block CARVED_NEPHRITE_TILES = register("carved_nephrite_tiles", new Block(copyOf(Blocks.DIAMOND_BLOCK).mapColor(MapColor.PALE_GREEN)));
 	Block CARVED_WOODY_NEPHRITE = register("carved_woody_nephrite", new Block(copyOf(Blocks.DIAMOND_BLOCK).mapColor(MapColor.PALE_GREEN)));
 
+	Block DARK_OAK_BRANCH = register("dark_oak_branch", new BranchBlock(AbstractBlock.Settings.create().mapColor(MapColor.DARK_GREEN).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).pistonBehavior(PistonBehavior.DESTROY)));
+	Block BARE_DARK_OAK_BRANCH = register("bare_dark_oak_branch", new BranchBlock(AbstractBlock.Settings.create().mapColor(MapColor.BROWN).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).pistonBehavior(PistonBehavior.DESTROY)));
+	Block WRITHEWOOD_BRANCH = register("writhewood_branch", new BranchBlock(AbstractBlock.Settings.create().mapColor(MapColor.ORANGE).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).pistonBehavior(PistonBehavior.DESTROY)));
+	Block BARE_WRITHEWOOD_BRANCH = register("bare_writhewood_branch", new BranchBlock(AbstractBlock.Settings.create().mapColor(MapColor.OAK_TAN).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).pistonBehavior(PistonBehavior.DESTROY)));
+	Block YMPE_BRANCH = register("ympe_branch", new BranchBlock(AbstractBlock.Settings.create().mapColor(MapColor.ORANGE).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).pistonBehavior(PistonBehavior.DESTROY)));
+	Block BARE_YMPE_BRANCH = register("bare_ympe_branch", new BranchBlock(AbstractBlock.Settings.create().mapColor(MapColor.BROWN).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS).pistonBehavior(PistonBehavior.DESTROY)));
+
 	Block SOUL_HEARTH = register("soul_hearth", new SoulHearthBlock(copyOf(Blocks.DEEPSLATE).nonOpaque().requiresTool().strength(3.5F).luminance((state) -> state.get(SoulHearthBlock.CHARGES) > 0 ? 13 : 0)));
 	Block VITAL_THURIBLE = register("vital_thurible", new VitalThuribleBlock(copyOf(Blocks.DEEPSLATE).nonOpaque().requiresTool().strength(3.5F).luminance((state) -> state.get(VitalThuribleBlock.ACTIVE) ? 13 : 0)));
 	Block BLACK_WELL = register("black_well", new BlackWellBlock(copyOf(Blocks.DEEPSLATE)));

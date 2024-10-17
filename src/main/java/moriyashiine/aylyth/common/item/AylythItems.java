@@ -170,6 +170,13 @@ public interface AylythItems {
     Item CARVED_NEPHRITE_TILES = registerBlockItem("carved_nephrite_tiles", AylythBlocks.CARVED_NEPHRITE_TILES);
     Item CARVED_WOODY_NEPHRITE = registerBlockItem("carved_woody_nephrite", AylythBlocks.CARVED_WOODY_NEPHRITE);
 
+    Item DARK_OAK_BRANCH = registerBlockItem("dark_oak_branch", AylythBlocks.DARK_OAK_BRANCH);
+    Item BARE_DARK_OAK_BRANCH = registerBlockItem("bare_dark_oak_branch", AylythBlocks.BARE_DARK_OAK_BRANCH);
+    Item WRITHEWOOD_BRANCH = registerBlockItem("writhewood_branch", AylythBlocks.WRITHEWOOD_BRANCH);
+    Item BARE_WRITHEWOOD_BRANCH = registerBlockItem("bare_writhewood_branch", AylythBlocks.BARE_WRITHEWOOD_BRANCH);
+    Item YMPE_BRANCH = registerBlockItem("ympe_branch", AylythBlocks.YMPE_BRANCH);
+    Item BARE_YMPE_BRANCH = registerBlockItem("bare_ympe_branch", AylythBlocks.BARE_YMPE_BRANCH);
+
     Item NEPHRITE_SWORD = register("nephrite_sword", new SwordItem(AylythToolMaterials.NEPHRITE, 4, -2.4f, settings()));
     Item NEPHRITE_SHOVEL = register("nephrite_shovel", new ShovelItem(AylythToolMaterials.NEPHRITE, 1.5f, -3.0f, settings()));
     Item NEPHRITE_PICKAXE = register("nephrite_pickaxe", new PickaxeItem(AylythToolMaterials.NEPHRITE, 1, -2.8f, settings()));

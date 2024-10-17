@@ -19,6 +19,9 @@ public interface AylythBlockTags {
     TagKey<Block> GHOSTCAP_REPLACEABLE = bind("ghostcap_replaceable");
     TagKey<Block> SCION_REPELLENT = bind("scion_repellent");
     TagKey<Block> SAPSTONES = bind("sapstones");
+    TagKey<Block> BRANCHES = bind("branches");
+    TagKey<Block> LEAFY_BRANCHES = bind("branches/leafy");
+    TagKey<Block> BARE_BRANCHES = bind("branches/bare");
 
     TagKey<Block> STORAGE_BLOCKS_ESSTLINE = bind("storage_blocks/esstline");
     TagKey<Block> STORAGE_BLOCKS_NEPHRITE = bind("storage_blocks/nephrite");
