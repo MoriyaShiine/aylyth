@@ -10,7 +10,7 @@
         "argument1": -0.05,
         "argument2": {
           "type": "minecraft:noise",
-          "noise": "aylyth:spaghetti_2d_modulator",
+          "noise": "aylyth:spaghetti_roughness_modulator",
           "xz_scale": 1.0,
           "y_scale": 1.0
         }
@@ -23,7 +23,7 @@
         "type": "minecraft:abs",
         "argument": {
           "type": "minecraft:noise",
-          "noise": "aylyth:spaghetti_2d_roughness",
+          "noise": "aylyth:spaghetti_roughness",
           "xz_scale": 1.0,
           "y_scale": 1.0
         }
