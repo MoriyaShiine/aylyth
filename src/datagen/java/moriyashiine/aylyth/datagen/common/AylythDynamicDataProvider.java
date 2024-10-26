@@ -21,9 +21,10 @@ public final class AylythDynamicDataProvider extends FabricDynamicRegistryProvid
         entries.addAll(registries.getWrapperOrThrow(RegistryKeys.CONFIGURED_CARVER));
         entries.addAll(registries.getWrapperOrThrow(RegistryKeys.CONFIGURED_FEATURE));
         entries.addAll(registries.getWrapperOrThrow(RegistryKeys.PLACED_FEATURE));
+        entries.addAll(registries.getWrapperOrThrow(RegistryKeys.PROCESSOR_LIST));
+        entries.addAll(registries.getWrapperOrThrow(RegistryKeys.TEMPLATE_POOL));
         entries.addAll(registries.getWrapperOrThrow(RegistryKeys.STRUCTURE_SET));
         entries.addAll(registries.getWrapperOrThrow(RegistryKeys.STRUCTURE));
-        entries.addAll(registries.getWrapperOrThrow(RegistryKeys.TEMPLATE_POOL));
         entries.addAll(registries.getWrapperOrThrow(RegistryKeys.BIOME));
         entries.addAll(registries.getWrapperOrThrow(RegistryKeys.DAMAGE_TYPE));
         entries.addAll(registries.getWrapperOrThrow(AylythRegistryKeys.LOOT_TABLE_DISPLAY));

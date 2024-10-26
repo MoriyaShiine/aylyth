@@ -1,11 +1,15 @@
 package moriyashiine.aylyth.common.item.types;
 
 import moriyashiine.aylyth.api.interfaces.VitalHealthHolder;
+import moriyashiine.aylyth.common.block.AylythBlocks;
+import moriyashiine.aylyth.common.block.types.LargeWoodyGrowthBlock;
 import moriyashiine.aylyth.common.block.types.WoodyGrowthCacheBlock;
 import moriyashiine.aylyth.common.entity.AylythEntityComponents;
 import moriyashiine.aylyth.common.entity.components.YmpeInfestationComponent;
 import moriyashiine.aylyth.common.entity.types.mob.ScionEntity;
 import moriyashiine.aylyth.common.item.AylythItems;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -32,20 +36,29 @@ public class DebugWandItem extends Item {
         World world = context.getWorld();
         BlockPos pos = context.getBlockPos();
         PlayerEntity player = context.getPlayer();
-        if (player != null && player.getStackInHand(Hand.OFF_HAND).isOf(AylythItems.WOODY_GROWTH_CACHE)) {
-            if (!world.isClient()) {
-                WoodyGrowthCacheBlock.spawnInventory(world, pos, player);
+        if (player != null) {
+            if (player.getOffHandStack().isOf(AylythItems.WOODY_GROWTH_CACHE)) {
+                if (!world.isClient()) {
+                    WoodyGrowthCacheBlock.spawnInventory(world, pos, player);
+                }
+                return ActionResult.SUCCESS;
+            } else if (player.getOffHandStack().isOf(AylythItems.LARGE_WOODY_GROWTH)) {
+                world.setBlockState(pos, Blocks.STRUCTURE_VOID.getDefaultState());
+                world.setBlockState(pos.up(), AylythBlocks.LARGE_WOODY_GROWTH.getDefaultState().with(LargeWoodyGrowthBlock.HALF, DoubleBlockHalf.LOWER).with(LargeWoodyGrowthBlock.NATURAL, true));
+                world.setBlockState(pos.up().up(), AylythBlocks.LARGE_WOODY_GROWTH.getDefaultState().with(LargeWoodyGrowthBlock.HALF, DoubleBlockHalf.UPPER).with(LargeWoodyGrowthBlock.NATURAL, true));
+                return ActionResult.SUCCESS;
+            } else if (player.isSneaking()) {
+                player.damage(world.aylythDamageSources().ympe(), Integer.MAX_VALUE);
+                return ActionResult.SUCCESS;
             }
-        } else if (player.isSneaking()) {
-            player.damage(world.aylythDamageSources().ympe(), Integer.MAX_VALUE);
         }
         return super.useOnBlock(context);
     }
 
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-        if(!world.isClient()){
-            if(user.isSneaking()){
+        if (!world.isClient()) {
+            if (user.isSneaking()) {
                 VitalHealthHolder.of(user).ifPresent(vital -> {
                     if(vital.getCurrentVitalHealth() == 0){
                         vital.setCurrentVitalHealth(10);

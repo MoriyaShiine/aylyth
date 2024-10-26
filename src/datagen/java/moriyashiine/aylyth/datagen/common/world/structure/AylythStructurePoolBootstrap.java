@@ -10,6 +10,7 @@ import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.structure.pool.SinglePoolElement;
 import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.structure.processor.StructureProcessorList;
 import net.minecraft.util.Identifier;
@@ -23,7 +24,15 @@ public final class AylythStructurePoolBootstrap {
         RegistryEntryLookup<StructurePool> poolRegistry = context.getRegistryLookup(RegistryKeys.TEMPLATE_POOL);
         RegistryEntry<StructurePool> emptyPool = poolRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TEMPLATE_POOL, new Identifier("empty")));
         RegistryEntryLookup<StructureProcessorList> processorListRegistry = context.getRegistryLookup(RegistryKeys.PROCESSOR_LIST);
-        RegistryEntry<StructureProcessorList> emptyList = processorListRegistry.getOrThrow(RegistryKey.of(RegistryKeys.PROCESSOR_LIST, new Identifier("empty")));
-        context.register(AylythStructurePools.BLACK_WELL, new StructurePool(emptyPool, List.of(Pair.of(SinglePoolElementInvoker.invokeInit(Either.left(Aylyth.id("black_well")), emptyList, StructurePool.Projection.TERRAIN_MATCHING), 1))));
+        RegistryEntry<StructureProcessorList> blackWell = processorListRegistry.getOrThrow(RegistryKey.of(RegistryKeys.PROCESSOR_LIST, Aylyth.id("black_well")));
+        context.register(AylythStructurePools.BLACK_WELL, single(emptyPool, Aylyth.id("black_well"), blackWell, StructurePool.Projection.TERRAIN_MATCHING));
+    }
+
+    private static StructurePool single(RegistryEntry<StructurePool> fallback, Identifier id, RegistryEntry<StructureProcessorList> processorList, StructurePool.Projection projection) {
+        return new StructurePool(fallback, List.of(Pair.of(fromId(id, processorList, projection), 1)));
+    }
+
+    private static SinglePoolElement fromId(Identifier id, RegistryEntry<StructureProcessorList> processorList, StructurePool.Projection projection) {
+        return SinglePoolElementInvoker.invokeInit(Either.left(id), processorList, projection);
     }
 }

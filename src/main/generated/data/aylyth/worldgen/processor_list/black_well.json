@@ -1,0 +1,10 @@
+{
+  "processors": [
+    {
+      "air_weight": 1,
+      "large_woody_growth_weight": 6,
+      "processor_type": "aylyth:black_well",
+      "small_woody_growth_weight": 3
+    }
+  ]
+}

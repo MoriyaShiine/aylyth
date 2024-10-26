@@ -18,6 +18,7 @@ import moriyashiine.aylyth.datagen.common.world.feature.AylythConfiguredFeatureB
 import moriyashiine.aylyth.datagen.common.world.feature.AylythPlacedFeatureBootstrap;
 import moriyashiine.aylyth.datagen.common.world.structure.AylythStructureBootstrap;
 import moriyashiine.aylyth.datagen.common.world.structure.AylythStructurePoolBootstrap;
+import moriyashiine.aylyth.datagen.common.world.structure.AylythStructureProcessorListBootstrap;
 import moriyashiine.aylyth.datagen.common.world.structure.AylythStructureSetBootstrap;
 import moriyashiine.aylyth.datagen.common.world.terrain.AylythDensityFunctionBootstrap;
 import moriyashiine.aylyth.datagen.common.world.terrain.AylythNoiseSettingBootstrap;
@@ -37,13 +38,13 @@ public class AylythDatagen implements DataGeneratorEntrypoint {
     public void onInitializeDataGenerator(FabricDataGenerator dataGenerator) {
         var pack = dataGenerator.createPack();
 
-        var blockTags = pack.addProvider(AylythBlockTagProvider::new);
-        pack.addProvider((output, registries) -> new AylythItemTagProvider(output, registries, blockTags));
+        pack.addProvider(AylythDynamicDataProvider::new);
+
         pack.addProvider(AylythModelProvider::new);
         pack.addProvider(AylythEnglishLanguageProvider::new);
 
-        pack.addProvider(AylythDynamicDataProvider::new);
-
+        var blockTags = pack.addProvider(AylythBlockTagProvider::new);
+        pack.addProvider((output, registries) -> new AylythItemTagProvider(output, registries, blockTags));
         pack.addProvider(AylythEntityTypeTagProvider::new);
         pack.addProvider(AylythStatusEffectTagProvider::new);
         pack.addProvider(AylythPotionTagProvider::new);
@@ -68,6 +69,7 @@ public class AylythDatagen implements DataGeneratorEntrypoint {
         registryBuilder.addRegistry(RegistryKeys.CONFIGURED_CARVER, AylythConfiguredCarverBootstrap::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, AylythConfiguredFeatureBootstrap::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, AylythPlacedFeatureBootstrap::bootstrap);
+        registryBuilder.addRegistry(RegistryKeys.PROCESSOR_LIST, AylythStructureProcessorListBootstrap::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.TEMPLATE_POOL, AylythStructurePoolBootstrap::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.STRUCTURE, AylythStructureBootstrap::bootstrap);
         registryBuilder.addRegistry(RegistryKeys.STRUCTURE_SET, AylythStructureSetBootstrap::bootstrap);
