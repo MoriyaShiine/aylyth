@@ -127,7 +127,7 @@
             }
           ]
         },
-        "chance": 0.125,
+        "chance": 0.375,
         "min_branch_height": 4
       }
     ],

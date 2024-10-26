@@ -139,7 +139,7 @@ public final class AylythConfiguredFeatureBootstrap {
                                         .add(AylythBlocks.BARE_DARK_OAK_BRANCH.getDefaultState(), 4)
                                         .build()),
                                 ConstantIntProvider.create(2),
-                                0.0625f
+                                0.1875f
                         )
                 )).build());
         ConfiguredFeatures.register(context, AYLYTHIAN_MEGA_DARK_OAK, Feature.TREE, new TreeFeatureConfig.Builder(
@@ -171,7 +171,7 @@ public final class AylythConfiguredFeatureBootstrap {
                                         .add(AylythBlocks.BARE_DARK_OAK_BRANCH.getDefaultState(), 4)
                                         .build()),
                                 ConstantIntProvider.create(4),
-                                0.125f
+                                0.375f
                         )
                 )).build());
         ConfiguredFeatures.register(context, YMPE_TREE, Feature.TREE, new TreeFeatureConfig.Builder(
@@ -202,7 +202,7 @@ public final class AylythConfiguredFeatureBootstrap {
                                         .add(AylythBlocks.BARE_YMPE_BRANCH.getDefaultState(), 4)
                                         .build()),
                                 ConstantIntProvider.create(2),
-                                0.125f
+                                0.375f
                         )
                 ))
                 .build());
@@ -234,7 +234,7 @@ public final class AylythConfiguredFeatureBootstrap {
                                         .add(AylythBlocks.BARE_YMPE_BRANCH.getDefaultState(), 4)
                                         .build()),
                                 ConstantIntProvider.create(2),
-                                0.125f
+                                0.375f
                         )
                 ))
                 .build());
