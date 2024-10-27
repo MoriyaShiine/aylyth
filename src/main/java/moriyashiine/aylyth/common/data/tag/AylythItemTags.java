@@ -1,6 +1,7 @@
 package moriyashiine.aylyth.common.data.tag;
 
 import moriyashiine.aylyth.common.Aylyth;
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
@@ -27,6 +28,10 @@ public interface AylythItemTags {
     TagKey<Item> BLIGHTED_WEAPONS = bind("blighted_weapons");
     TagKey<Item> NEPHRITE_FLASKS = bind("nephrite_flasks");
     TagKey<Item> BOSS_HEARTS = bind("boss_hearts");
+    TagKey<Item> SAPSTONES = bind("sapstones");
+    TagKey<Item> BRANCHES = bind("branches");
+    TagKey<Item> LEAFY_BRANCHES = bind("branches/leafy");
+    TagKey<Item> BARE_BRANCHES = bind("branches/bare");
 
     TagKey<Item> STORAGE_BLOCKS_ESSTLINE = bind("storage_blocks/esstline");
     TagKey<Item> STORAGE_BLOCKS_NEPHRITE = bind("storage_blocks/nephrite");

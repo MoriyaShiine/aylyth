@@ -74,11 +74,7 @@
       "aylyth:giant_jack_o_lantern_mushrooms"
     ],
     [
-      "minecraft:freeze_top_layer",
-      "aylyth:oak_strewn_leaves",
-      "aylyth:ympe_strewn_leaves",
-      "aylyth:oak_leaf_pile",
-      "aylyth:ympe_leaf_pile"
+      "minecraft:freeze_top_layer"
     ]
   ],
   "has_precipitation": true,

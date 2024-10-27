@@ -330,7 +330,13 @@ public class AylythClient implements ClientModInitializer {
 				AylythBlocks.LARGE_WOODY_GROWTH,
 				AylythBlocks.GIRASOL_SAPLING,
 				AylythBlocks.GIRASOL_SAPLING_POTTED,
-				AylythBlocks.BLACK_WELL
+				AylythBlocks.BLACK_WELL,
+				AylythBlocks.DARK_OAK_BRANCH,
+				AylythBlocks.BARE_DARK_OAK_BRANCH,
+				AylythBlocks.WRITHEWOOD_BRANCH,
+				AylythBlocks.BARE_WRITHEWOOD_BRANCH,
+				AylythBlocks.YMPE_BRANCH,
+				AylythBlocks.BARE_YMPE_BRANCH
 		};
 	}
 

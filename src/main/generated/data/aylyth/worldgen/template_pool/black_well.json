@@ -4,7 +4,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "aylyth:black_well",
-        "processors": "minecraft:empty",
+        "processors": "aylyth:black_well",
         "projection": "terrain_matching"
       },
       "weight": 1

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "aylyth:block/ympe_branch",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "aylyth:block/ympe_branch"
+    },
+    "facing=south": {
+      "model": "aylyth:block/ympe_branch",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "aylyth:block/ympe_branch",
+      "y": 270
+    }
+  }
+}

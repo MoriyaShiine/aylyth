@@ -15,44 +15,179 @@
       },
       {
         "type": "aylyth:place_around",
-        "block_states": [
+        "placed_features": [
           {
-            "Name": "aylyth:small_woody_growth",
-            "Properties": {
-              "natural": "false",
-              "waterlogged": "false"
-            }
+            "feature": "aylyth:large_woody_growth",
+            "placement": [
+              {
+                "type": "minecraft:count",
+                "count": {
+                  "type": "minecraft:uniform",
+                  "value": {
+                    "max_inclusive": 6,
+                    "min_inclusive": 0
+                  }
+                }
+              },
+              {
+                "type": "minecraft:random_offset",
+                "xz_spread": {
+                  "type": "minecraft:uniform",
+                  "value": {
+                    "max_inclusive": 8,
+                    "min_inclusive": 2
+                  }
+                },
+                "y_spread": 0
+              },
+              {
+                "type": "minecraft:heightmap",
+                "heightmap": "WORLD_SURFACE_WG"
+              },
+              {
+                "type": "minecraft:block_predicate_filter",
+                "predicate": {
+                  "type": "minecraft:would_survive",
+                  "state": {
+                    "Name": "aylyth:large_woody_growth",
+                    "Properties": {
+                      "half": "lower",
+                      "natural": "false",
+                      "waterlogged": "false"
+                    }
+                  }
+                }
+              }
+            ]
           },
           {
-            "Name": "aylyth:large_woody_growth",
-            "Properties": {
-              "half": "lower",
-              "natural": "false",
-              "waterlogged": "false"
-            }
-          }
-        ],
-        "range": 4,
-        "tries": 12
-      },
-      {
-        "type": "aylyth:place_around",
-        "block_states": [
-          {
-            "Name": "aylyth:oak_strewn_leaves",
-            "Properties": {
-              "leaves": "0"
-            }
+            "feature": "aylyth:small_woody_growth",
+            "placement": [
+              {
+                "type": "minecraft:count",
+                "count": {
+                  "type": "minecraft:uniform",
+                  "value": {
+                    "max_inclusive": 6,
+                    "min_inclusive": 0
+                  }
+                }
+              },
+              {
+                "type": "minecraft:random_offset",
+                "xz_spread": {
+                  "type": "minecraft:uniform",
+                  "value": {
+                    "max_inclusive": 8,
+                    "min_inclusive": 2
+                  }
+                },
+                "y_spread": 0
+              },
+              {
+                "type": "minecraft:heightmap",
+                "heightmap": "WORLD_SURFACE_WG"
+              },
+              {
+                "type": "minecraft:block_predicate_filter",
+                "predicate": {
+                  "type": "minecraft:would_survive",
+                  "state": {
+                    "Name": "aylyth:small_woody_growth",
+                    "Properties": {
+                      "natural": "false",
+                      "waterlogged": "false"
+                    }
+                  }
+                }
+              }
+            ]
           },
           {
-            "Name": "aylyth:ympe_strewn_leaves",
-            "Properties": {
-              "leaves": "0"
-            }
+            "feature": "aylyth:oak_strewn_leaves",
+            "placement": [
+              {
+                "type": "minecraft:count",
+                "count": {
+                  "type": "minecraft:uniform",
+                  "value": {
+                    "max_inclusive": 20,
+                    "min_inclusive": 4
+                  }
+                }
+              },
+              {
+                "type": "minecraft:random_offset",
+                "xz_spread": {
+                  "type": "minecraft:uniform",
+                  "value": {
+                    "max_inclusive": 8,
+                    "min_inclusive": 2
+                  }
+                },
+                "y_spread": 0
+              },
+              {
+                "type": "minecraft:heightmap",
+                "heightmap": "WORLD_SURFACE_WG"
+              },
+              {
+                "type": "minecraft:block_predicate_filter",
+                "predicate": {
+                  "type": "minecraft:would_survive",
+                  "state": {
+                    "Name": "aylyth:oak_strewn_leaves",
+                    "Properties": {
+                      "leaves": "0"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "feature": "aylyth:ympe_strewn_leaves",
+            "placement": [
+              {
+                "type": "minecraft:count",
+                "count": {
+                  "type": "minecraft:uniform",
+                  "value": {
+                    "max_inclusive": 20,
+                    "min_inclusive": 4
+                  }
+                }
+              },
+              {
+                "type": "minecraft:random_offset",
+                "xz_spread": {
+                  "type": "minecraft:uniform",
+                  "value": {
+                    "max_inclusive": 8,
+                    "min_inclusive": 2
+                  }
+                },
+                "y_spread": 0
+              },
+              {
+                "type": "minecraft:heightmap",
+                "heightmap": "WORLD_SURFACE_WG"
+              },
+              {
+                "type": "minecraft:block_predicate_filter",
+                "predicate": {
+                  "type": "minecraft:would_survive",
+                  "state": {
+                    "Name": "aylyth:ympe_strewn_leaves",
+                    "Properties": {
+                      "leaves": "0"
+                    }
+                  }
+                }
+              }
+            ]
           }
-        ],
-        "range": 6,
-        "tries": 32
+        ]
       }
     ],
     "dirt_provider": {

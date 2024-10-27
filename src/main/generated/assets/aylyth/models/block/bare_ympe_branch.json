@@ -1,0 +1,6 @@
+{
+  "parent": "aylyth:block/branch_template",
+  "textures": {
+    "side": "aylyth:block/bare_ympe_branch"
+  }
+}

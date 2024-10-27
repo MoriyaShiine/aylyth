@@ -71,9 +71,7 @@
       "aylyth:dark_oak_seep"
     ],
     [
-      "minecraft:freeze_top_layer",
-      "aylyth:oak_strewn_leaves",
-      "aylyth:ympe_strewn_leaves"
+      "minecraft:freeze_top_layer"
     ]
   ],
   "has_precipitation": true,

@@ -1,0 +1,21 @@
+{
+  "variants": {
+	"": [
+    {
+      "model": "aylyth:block/marigolds"
+    },
+    {
+      "model": "aylyth:block/marigolds_2"
+    },
+    {
+      "model": "aylyth:block/marigolds_3"
+    },
+    {
+      "model": "aylyth:block/marigolds_4"
+    },
+    {
+      "model": "aylyth:block/marigolds_5"
+    }
+  ]
+  }
+}

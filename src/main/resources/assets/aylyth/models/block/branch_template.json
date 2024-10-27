@@ -1,0 +1,43 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "minecraft:block/cube_all",
+	"textures": {
+		"particle": "#side"
+	},
+	"elements": [
+		{
+			"from": [8.75, 0, -1],
+			"to": [8.75, 16, 15],
+			"rotation": {"angle": -22.5, "axis": "y", "origin": [6.75, 0, 16]},
+			"faces": {
+				"north": {"uv": [0, 0, 0, 16], "texture": "#side"},
+				"east": {"uv": [16, 0, 0, 16], "texture": "#side"},
+				"south": {"uv": [0, 0, 0, 16], "texture": "#side"},
+				"west": {"uv": [0, 0, 16, 16], "texture": "#side"},
+				"up": {"uv": [0, 0, 0, 16], "texture": "#side"},
+				"down": {"uv": [0, 0, 0, 16], "texture": "#side"}
+			}
+		},
+		{
+			"from": [7.25, 0, 1],
+			"to": [7.25, 16, 17],
+			"rotation": {"angle": 22.5, "axis": "y", "origin": [5.25, 0, 18]},
+			"faces": {
+				"north": {"uv": [0, 0, 0, 16], "texture": "#side"},
+				"east": {"uv": [16, 0, 0, 16], "texture": "#side"},
+				"south": {"uv": [0, 0, 0, 16], "texture": "#side"},
+				"west": {"uv": [0, 0, 16, 16], "texture": "#side"},
+				"up": {"uv": [0, 0, 0, 16], "texture": "#side"},
+				"down": {"uv": [0, 0, 0, 16], "texture": "#side"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "branches",
+			"origin": [0, 0, 16],
+			"color": 0,
+			"children": [0, 1]
+		}
+	]
+}

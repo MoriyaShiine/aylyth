@@ -28,6 +28,7 @@ import moriyashiine.aylyth.common.item.types.ShuckedYmpeFruitItem;
 import moriyashiine.aylyth.common.loot.AylythLootConditionTypes;
 import moriyashiine.aylyth.common.loot.AylythLootContextTypes;
 import moriyashiine.aylyth.common.loot.AylythModifyLootTableHandler;
+import moriyashiine.aylyth.common.loot.AylythTypeSpecificPredicates;
 import moriyashiine.aylyth.common.loot.LootDisplayTypes;
 import moriyashiine.aylyth.common.loot.display.LootDisplay;
 import moriyashiine.aylyth.common.network.AylythPacketTypes;
@@ -46,6 +47,7 @@ import moriyashiine.aylyth.common.world.AylythWorldAttachmentTypes;
 import moriyashiine.aylyth.common.world.gen.AylythFeatures;
 import moriyashiine.aylyth.common.world.gen.AylythFoliagePlacerTypes;
 import moriyashiine.aylyth.common.world.gen.AylythPlacementModifiers;
+import moriyashiine.aylyth.common.world.gen.AylythStructureProcessors;
 import moriyashiine.aylyth.common.world.gen.AylythTreeDecoratorTypes;
 import moriyashiine.aylyth.common.world.gen.AylythTrunkPlacerTypes;
 import moriyashiine.aylyth.common.world.gen.biome.AylythBiomeModifications;
@@ -108,6 +110,7 @@ public class Aylyth implements ModInitializer {
 		AylythLootContextTypes.register();
 		AylythCriteria.register();
 		AylythLootConditionTypes.register();
+		AylythTypeSpecificPredicates.register();
 		AylythRecipeTypes.register();
 
 		AylythSoundEvents.register();
@@ -140,6 +143,7 @@ public class Aylyth implements ModInitializer {
 		AylythFoliagePlacerTypes.register();
 		AylythTreeDecoratorTypes.register();
 		AylythPlacementModifiers.register();
+		AylythStructureProcessors.register();
 		AylythBiomeModifications.register();
 		AylythGameRules.register();
 

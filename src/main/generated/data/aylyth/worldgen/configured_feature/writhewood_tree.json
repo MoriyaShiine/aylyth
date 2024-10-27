@@ -1,7 +1,36 @@
 {
   "type": "minecraft:tree",
   "config": {
-    "decorators": [],
+    "decorators": [
+      {
+        "type": "aylyth:branches",
+        "block_state": {
+          "type": "minecraft:weighted_state_provider",
+          "entries": [
+            {
+              "data": {
+                "Name": "aylyth:writhewood_branch",
+                "Properties": {
+                  "facing": "north"
+                }
+              },
+              "weight": 2
+            },
+            {
+              "data": {
+                "Name": "aylyth:bare_writhewood_branch",
+                "Properties": {
+                  "facing": "north"
+                }
+              },
+              "weight": 4
+            }
+          ]
+        },
+        "chance": 0.125,
+        "min_branch_height": 6
+      }
+    ],
     "dirt_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {

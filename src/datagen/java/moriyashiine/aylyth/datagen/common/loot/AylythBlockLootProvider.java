@@ -102,6 +102,19 @@ public class AylythBlockLootProvider extends FabricBlockLootTableProvider {
         addDrop(AylythBlocks.AMBER_SAPSTONE);
         addDrop(AylythBlocks.LIGNITE_SAPSTONE);
         addDrop(AylythBlocks.OPALESCENT_SAPSTONE);
+        addDrop(AylythBlocks.DARK_OAK_BRANCH, block -> leafyBranch(block, AylythItems.OAK_STREWN_LEAVES));
+        addDrop(AylythBlocks.BARE_DARK_OAK_BRANCH, block -> dropsWithSilkTouchOrShears(block, ItemEntry.builder(Items.STICK).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0, 2)))));
+        addDrop(AylythBlocks.WRITHEWOOD_BRANCH, block -> dropsWithSilkTouchOrShears(block, ItemEntry.builder(Items.STICK).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0, 2)))));
+        addDrop(AylythBlocks.BARE_WRITHEWOOD_BRANCH, block -> dropsWithSilkTouchOrShears(block, ItemEntry.builder(Items.STICK).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0, 2)))));
+        addDrop(AylythBlocks.YMPE_BRANCH, block -> leafyBranch(block, AylythItems.YMPE_STREWN_LEAVES));
+        addDrop(AylythBlocks.BARE_YMPE_BRANCH, block -> dropsWithSilkTouchOrShears(block, ItemEntry.builder(Items.STICK).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0, 2)))));
+    }
+
+    private LootTable.Builder leafyBranch(Block branch, ItemConvertible strewnLeaves) {
+        return dropsWithSilkTouchOrShears(branch,
+                ItemEntry.builder(Items.STICK).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0, 2)))
+                        .groupEntry(ItemEntry.builder(strewnLeaves).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0, 1))))
+        );
     }
 
     private LootTable.Builder ympeLeaves(Block leaves, ItemConvertible sticks, float... chances) {

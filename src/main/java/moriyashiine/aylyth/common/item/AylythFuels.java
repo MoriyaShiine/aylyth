@@ -17,5 +17,11 @@ public final class AylythFuels {
         registry.add(WRITHEWOOD_FENCE, 300);
         registry.add(WRITHEWOOD_FENCE_GATE, 300);
         registry.add(BARK, 100);
+        registry.add(DARK_OAK_BRANCH, 100);
+        registry.add(BARE_DARK_OAK_BRANCH, 100);
+        registry.add(WRITHEWOOD_BRANCH, 100);
+        registry.add(BARE_WRITHEWOOD_BRANCH, 100);
+        registry.add(YMPE_BRANCH, 100);
+        registry.add(BARE_YMPE_BRANCH, 100);
     }
 }

@@ -45,6 +45,8 @@ public interface AylythItemGroups {
                     entries.add(AylythItems.YMPE_CHEST_BOAT);
                     entries.add(AylythItems.YMPE_HANGING_SIGN);
                     entries.add(AylythItems.YMPE_LEAVES);
+                    entries.add(AylythItems.YMPE_BRANCH);
+                    entries.add(AylythItems.BARE_YMPE_BRANCH);
                     entries.add(AylythItems.FRUIT_BEARING_YMPE_LOG);
 
                     entries.add(AylythItems.POMEGRANATE_STRIPPED_LOG);
@@ -86,9 +88,13 @@ public interface AylythItemGroups {
                     entries.add(AylythItems.WRITHEWOOD_CHEST_BOAT);
                     entries.add(AylythItems.WRITHEWOOD_HANGING_SIGN);
                     entries.add(AylythItems.WRITHEWOOD_LEAVES);
+                    entries.add(AylythItems.WRITHEWOOD_BRANCH);
+                    entries.add(AylythItems.BARE_WRITHEWOOD_BRANCH);
 
                     entries.add(AylythItems.SEEPING_WOOD);
                     entries.add(AylythItems.GIRASOL_SEED);
+                    entries.add(AylythItems.DARK_OAK_BRANCH);
+                    entries.add(AylythItems.BARE_DARK_OAK_BRANCH);
 
                     entries.add(AylythItems.CHTHONIA_WOOD);
                     entries.add(AylythItems.NEPHRITIC_CHTHONIA_WOOD);

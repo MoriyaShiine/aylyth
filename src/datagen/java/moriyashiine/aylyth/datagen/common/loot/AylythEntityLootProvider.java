@@ -4,7 +4,7 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import moriyashiine.aylyth.common.data.tag.AylythItemTags;
 import moriyashiine.aylyth.common.entity.AylythEntityTypes;
 import moriyashiine.aylyth.common.item.AylythItems;
-import moriyashiine.aylyth.common.loot.conditions.ScionIsPlayerLootCondition;
+import moriyashiine.aylyth.common.loot.predicates.ScionPredicate;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
 import net.minecraft.entity.Entity;
@@ -13,9 +13,10 @@ import net.minecraft.item.Items;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.condition.DamageSourcePropertiesLootCondition;
-import net.minecraft.loot.condition.InvertedLootCondition;
+import net.minecraft.loot.condition.EntityPropertiesLootCondition;
 import net.minecraft.loot.condition.KilledByPlayerLootCondition;
 import net.minecraft.loot.condition.RandomChanceWithLootingLootCondition;
+import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.loot.entry.GroupEntry;
 import net.minecraft.loot.entry.ItemEntry;
@@ -105,8 +106,8 @@ public class AylythEntityLootProvider extends SimpleFabricLootTableProvider {
                                 )
                         )
                 ))
+                        .conditionally(EntityPropertiesLootCondition.builder(LootContext.EntityTarget.THIS, EntityPredicate.Builder.create().typeSpecific(new ScionPredicate(false))))
                         .conditionally(RandomChanceWithLootingLootCondition.builder(0.15f, 0.0625f))
-                        .conditionally(InvertedLootCondition.builder(ScionIsPlayerLootCondition::new))
                         .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 2))));
     }
 
