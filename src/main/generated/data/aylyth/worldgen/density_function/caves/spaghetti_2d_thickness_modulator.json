@@ -5,7 +5,7 @@
     "argument1": -0.95,
     "argument2": {
       "type": "minecraft:mul",
-      "argument1": -0.35,
+      "argument1": -0.35000000000000003,
       "argument2": {
         "type": "minecraft:noise",
         "noise": "aylyth:spaghetti_2d_thickness",

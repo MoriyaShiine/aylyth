@@ -22,7 +22,7 @@
           "argument1": -1.0,
           "argument2": {
             "type": "minecraft:noise",
-            "noise": "aylyth:pillar_rareness",
+            "noise": "aylyth:pillar_rarity",
             "xz_scale": 1.0,
             "y_scale": 1.0
           }

@@ -21,8 +21,8 @@ import moriyashiine.aylyth.datagen.common.world.structure.AylythStructurePoolBoo
 import moriyashiine.aylyth.datagen.common.world.structure.AylythStructureProcessorListBootstrap;
 import moriyashiine.aylyth.datagen.common.world.structure.AylythStructureSetBootstrap;
 import moriyashiine.aylyth.datagen.common.world.terrain.AylythDensityFunctionBootstrap;
-import moriyashiine.aylyth.datagen.common.world.terrain.AylythNoiseSettingBootstrap;
-import moriyashiine.aylyth.datagen.common.world.terrain.AylythNoiseTypeBootstrap;
+import moriyashiine.aylyth.datagen.common.world.terrain.AylythChunkGenSettingsBootstrap;
+import moriyashiine.aylyth.datagen.common.world.terrain.AylythNoiseParamsBootstrap;
 import moriyashiine.aylyth.datagen.common.loot.AylythBlockLootProvider;
 import moriyashiine.aylyth.datagen.common.loot.AylythEntityLootProvider;
 import moriyashiine.aylyth.datagen.common.tag.*;
@@ -62,24 +62,25 @@ public class AylythDatagen implements DataGeneratorEntrypoint {
     }
 
     @Override
-    public void buildRegistry(RegistryBuilder registryBuilder) {
-        registryBuilder.addRegistry(RegistryKeys.NOISE_PARAMETERS, AylythNoiseTypeBootstrap::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.DENSITY_FUNCTION, AylythDensityFunctionBootstrap::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.CHUNK_GENERATOR_SETTINGS, AylythNoiseSettingBootstrap::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.CONFIGURED_CARVER, AylythConfiguredCarverBootstrap::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, AylythConfiguredFeatureBootstrap::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, AylythPlacedFeatureBootstrap::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.PROCESSOR_LIST, AylythStructureProcessorListBootstrap::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.TEMPLATE_POOL, AylythStructurePoolBootstrap::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.STRUCTURE, AylythStructureBootstrap::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.STRUCTURE_SET, AylythStructureSetBootstrap::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.BIOME, AylythBiomeBootstrap::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.DAMAGE_TYPE, AylythDamageTypeBootstrap::bootstrap);
-        registryBuilder.addRegistry(AylythRegistryKeys.LOOT_TABLE_DISPLAY, LootDisplayBootstrap::bootstrap);
+
+    public void buildRegistry(RegistryBuilder builder) {
+        builder.addRegistry(RegistryKeys.NOISE_PARAMETERS, AylythNoiseParamsBootstrap::bootstrap);
+        builder.addRegistry(RegistryKeys.DENSITY_FUNCTION, AylythDensityFunctionBootstrap::bootstrap);
+        builder.addRegistry(RegistryKeys.CHUNK_GENERATOR_SETTINGS, AylythChunkGenSettingsBootstrap::bootstrap);
+        builder.addRegistry(RegistryKeys.CONFIGURED_CARVER, AylythConfiguredCarverBootstrap::bootstrap);
+        builder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, AylythConfiguredFeatureBootstrap::bootstrap);
+        builder.addRegistry(RegistryKeys.PLACED_FEATURE, AylythPlacedFeatureBootstrap::bootstrap);
+        builder.addRegistry(RegistryKeys.PROCESSOR_LIST, AylythStructureProcessorListBootstrap::bootstrap);
+        builder.addRegistry(RegistryKeys.TEMPLATE_POOL, AylythStructurePoolBootstrap::bootstrap);
+        builder.addRegistry(RegistryKeys.STRUCTURE, AylythStructureBootstrap::bootstrap);
+        builder.addRegistry(RegistryKeys.STRUCTURE_SET, AylythStructureSetBootstrap::bootstrap);
+        builder.addRegistry(RegistryKeys.BIOME, AylythBiomeBootstrap::bootstrap);
+        builder.addRegistry(RegistryKeys.DAMAGE_TYPE, AylythDamageTypeBootstrap::bootstrap);
+        builder.addRegistry(AylythRegistryKeys.LOOT_TABLE_DISPLAY, LootDisplayBootstrap::bootstrap);
     }
 
     @Override
-    public @Nullable String getEffectiveModId() {
+    public String getEffectiveModId() {
         return Aylyth.MOD_ID;
     }
 }
