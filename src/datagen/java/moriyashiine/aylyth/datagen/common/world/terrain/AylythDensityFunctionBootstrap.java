@@ -15,6 +15,7 @@ import net.minecraft.world.gen.densityfunction.DensityFunctionTypes.WeirdScaledS
 import static java.lang.Math.floorDiv;
 import static moriyashiine.aylyth.common.data.world.AylythDimensionData.*;
 import static moriyashiine.aylyth.common.data.world.terrain.AylythDensityFunctions.*;
+import static moriyashiine.aylyth.datagen.mixin.DensityFunctionsAccessor.*;
 import static net.minecraft.util.math.noise.InterpolatedNoiseSampler.createBase3dNoiseFunction;
 import static net.minecraft.world.biome.source.util.VanillaTerrainParametersCreator.*;
 import static net.minecraft.world.gen.densityfunction.DensityFunctionTypes.*;
@@ -169,13 +170,13 @@ public final class AylythDensityFunctionBootstrap {
 
     private static DensityFunction densityInitialWithoutJaggedness(DensityFunction factor, DensityFunction depth, int minHeight, int maxHeight) {
         return applySurfaceSlides(
-                add(createInitialDensityFunction(cache2d(factor), depth), constant(field_38250)).clamp(-field_37691, field_37691), minHeight, maxHeight
+                add(createInitialDensityFunction(cache2d(factor), depth), constant(getCheeseNoiseTarget())).clamp(-field_37691, field_37691), minHeight, maxHeight
         );
     }
 
     private static DensityFunction densityFinal(DensityFunction slopedCheese, DensityFunction cavesEntrances, DensityFunction cavesNoodle, DensityFunction caves, int minHeight, int maxHeight) {
         return min(
-                applyBlendDensity(applySurfaceSlides(rangeChoice(slopedCheese, -1000000, field_36617, min(slopedCheese, mul(constant(5), cavesEntrances)), caves), minHeight, maxHeight)),
+                applyBlendDensity(applySurfaceSlides(rangeChoice(slopedCheese, -1000000, getSurfaceDensityThreshold(), min(slopedCheese, mul(constant(5), cavesEntrances)), caves), minHeight, maxHeight)),
                 cavesNoodle
         );
     }

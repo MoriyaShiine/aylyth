@@ -10,23 +10,11 @@ accessible method net/minecraft/client/particle/BlockLeakParticle$FallingHoney <
 accessible method net/minecraft/client/particle/FlameParticle <init> (Lnet/minecraft/client/world/ClientWorld;DDDDDD)V
 accessible class net/minecraft/client/gui/hud/InGameHud$HeartType
 
-accessible class net/minecraft/world/gen/densityfunction/DensityFunctionTypes$WeirdScaledSampler
-accessible field net/minecraft/world/gen/densityfunction/DensityFunctions field_38250 D
-accessible field net/minecraft/world/gen/densityfunction/DensityFunctions field_36617 D
-accessible method net/minecraft/world/gen/densityfunction/DensityFunctions createRidgesFoldedOverworldFunction (Lnet/minecraft/world/gen/densityfunction/DensityFunction;)Lnet/minecraft/world/gen/densityfunction/DensityFunction;
-accessible method net/minecraft/world/gen/densityfunction/DensityFunctions createInitialDensityFunction (Lnet/minecraft/world/gen/densityfunction/DensityFunction;Lnet/minecraft/world/gen/densityfunction/DensityFunction;)Lnet/minecraft/world/gen/densityfunction/DensityFunction;
-accessible method net/minecraft/world/gen/densityfunction/DensityFunctions applyBlending (Lnet/minecraft/world/gen/densityfunction/DensityFunction;Lnet/minecraft/world/gen/densityfunction/DensityFunction;)Lnet/minecraft/world/gen/densityfunction/DensityFunction;
-accessible method net/minecraft/world/gen/densityfunction/DensityFunctions applyBlendDensity (Lnet/minecraft/world/gen/densityfunction/DensityFunction;)Lnet/minecraft/world/gen/densityfunction/DensityFunction;
-accessible method net/minecraft/world/gen/densityfunction/DensityFunctions applySlides (Lnet/minecraft/world/gen/densityfunction/DensityFunction;IIIIDIID)Lnet/minecraft/world/gen/densityfunction/DensityFunction;
-accessible method net/minecraft/world/gen/densityfunction/DensityFunctions applySurfaceSlides (ZLnet/minecraft/world/gen/densityfunction/DensityFunction;)Lnet/minecraft/world/gen/densityfunction/DensityFunction;
-accessible method net/minecraft/world/gen/densityfunction/DensityFunctions verticalRangeChoice (Lnet/minecraft/world/gen/densityfunction/DensityFunction;Lnet/minecraft/world/gen/densityfunction/DensityFunction;III)Lnet/minecraft/world/gen/densityfunction/DensityFunction;
-extendable class net/minecraft/world/gen/foliage/FoliagePlacer$TreeNode
-extendable class net/minecraft/world/biome/BiomeEffects$GrassColorModifier
-accessible field net/minecraft/world/biome/GenerationSettings$LookupBackedBuilder placedFeatureLookup Lnet/minecraft/registry/RegistryEntryLookup;
-accessible field net/minecraft/world/biome/GenerationSettings$LookupBackedBuilder configuredCarverLookup Lnet/minecraft/registry/RegistryEntryLookup;
-
 accessible field net/minecraft/item/SwordItem attributeModifiers Lcom/google/common/collect/Multimap;
 mutable field net/minecraft/item/SwordItem attributeModifiers Lcom/google/common/collect/Multimap;
+
+extendable class net/minecraft/world/gen/foliage/FoliagePlacer$TreeNode
+extendable class net/minecraft/world/biome/BiomeEffects$GrassColorModifier
 
 accessible field net/minecraft/data/client/ItemModelGenerator writer Ljava/util/function/BiConsumer;
 accessible field net/minecraft/entity/Entity vehicle Lnet/minecraft/entity/Entity;
@@ -36,3 +24,9 @@ accessible field net/minecraft/entity/mob/MobEntity handDropChances [F
 accessible method net/minecraft/block/TallPlantBlock onBreakInCreative (Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;Lnet/minecraft/entity/player/PlayerEntity;)V
 accessible method net/minecraft/entity/LivingEntity consumeItem ()V
 accessible method net/minecraft/entity/mob/MobEntity disablePlayerShield (Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/item/ItemStack;Lnet/minecraft/item/ItemStack;)V
+
+# datagen
+
+accessible class net/minecraft/world/gen/densityfunction/DensityFunctionTypes$WeirdScaledSampler
+accessible field net/minecraft/world/biome/GenerationSettings$LookupBackedBuilder placedFeatureLookup Lnet/minecraft/registry/RegistryEntryLookup;
+accessible field net/minecraft/world/biome/GenerationSettings$LookupBackedBuilder configuredCarverLookup Lnet/minecraft/registry/RegistryEntryLookup;
