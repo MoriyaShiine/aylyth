@@ -284,14 +284,14 @@
           ]
         },
         "then_run": {
-          "type": "minecraft:sequence",
-          "sequence": [
-            {
-              "type": "minecraft:condition",
-              "if_true": {
-                "type": "minecraft:above_preliminary_surface"
-              },
-              "then_run": {
+          "type": "minecraft:condition",
+          "if_true": {
+            "type": "minecraft:above_preliminary_surface"
+          },
+          "then_run": {
+            "type": "minecraft:sequence",
+            "sequence": [
+              {
                 "type": "minecraft:condition",
                 "if_true": {
                   "type": "minecraft:not",
@@ -330,14 +330,8 @@
                     }
                   ]
                 }
-              }
-            },
-            {
-              "type": "minecraft:condition",
-              "if_true": {
-                "type": "minecraft:above_preliminary_surface"
               },
-              "then_run": {
+              {
                 "type": "minecraft:condition",
                 "if_true": {
                   "type": "minecraft:stone_depth",
@@ -365,8 +359,8 @@
                   }
                 }
               }
-            }
-          ]
+            ]
+          }
         }
       },
       {
@@ -398,37 +392,32 @@
                   "type": "minecraft:sequence",
                   "sequence": [
                     {
-                      "type": "minecraft:sequence",
-                      "sequence": [
-                        {
-                          "type": "minecraft:condition",
-                          "if_true": {
-                            "type": "minecraft:biome",
-                            "biome_is": [
-                              "aylyth:deepwood",
-                              "aylyth:coniferous_deepwood"
-                            ]
-                          },
-                          "then_run": {
-                            "type": "minecraft:condition",
-                            "if_true": {
-                              "type": "minecraft:noise_threshold",
-                              "max_threshold": 1.7976931348623157E308,
-                              "min_threshold": 0.3,
-                              "noise": "aylyth:podzol_common"
-                            },
-                            "then_run": {
-                              "type": "minecraft:block",
-                              "result_state": {
-                                "Name": "minecraft:podzol",
-                                "Properties": {
-                                  "snowy": "false"
-                                }
-                              }
+                      "type": "minecraft:condition",
+                      "if_true": {
+                        "type": "minecraft:biome",
+                        "biome_is": [
+                          "aylyth:deepwood",
+                          "aylyth:coniferous_deepwood"
+                        ]
+                      },
+                      "then_run": {
+                        "type": "minecraft:condition",
+                        "if_true": {
+                          "type": "minecraft:noise_threshold",
+                          "max_threshold": 1.7976931348623157E308,
+                          "min_threshold": 0.3,
+                          "noise": "aylyth:podzol_common"
+                        },
+                        "then_run": {
+                          "type": "minecraft:block",
+                          "result_state": {
+                            "Name": "minecraft:podzol",
+                            "Properties": {
+                              "snowy": "false"
                             }
                           }
                         }
-                      ]
+                      }
                     },
                     {
                       "type": "minecraft:condition",
