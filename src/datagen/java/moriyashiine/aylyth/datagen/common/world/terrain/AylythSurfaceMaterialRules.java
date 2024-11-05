@@ -29,13 +29,10 @@ final class AylythSurfaceMaterialRules {
                 )
         );
         var dirtUnderFloor = condition(
-                not(biome(AylythBiomes.UPLANDS)),
+                waterWithStoneDepth(-6, -1),
                 condition(
-                        waterWithStoneDepth(-6, -1),
-                        condition(
-                                STONE_DEPTH_FLOOR_WITH_SURFACE_DEPTH,
-                                block(Blocks.DIRT)
-                        )
+                        STONE_DEPTH_FLOOR_WITH_SURFACE_DEPTH,
+                        block(Blocks.DIRT)
                 )
         );
 
