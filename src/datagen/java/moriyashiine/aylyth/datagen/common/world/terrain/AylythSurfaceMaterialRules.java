@@ -5,8 +5,6 @@ import moriyashiine.aylyth.common.data.world.terrain.AylythNoiseParams;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.RegistryKey;
-import net.minecraft.util.math.VerticalSurfaceType;
-import net.minecraft.util.math.noise.DoublePerlinNoiseSampler;
 import net.minecraft.util.math.noise.DoublePerlinNoiseSampler.NoiseParameters;
 import net.minecraft.world.gen.YOffset;
 import net.minecraft.world.gen.surfacebuilder.MaterialRules;
@@ -17,48 +15,41 @@ import static net.minecraft.world.gen.surfacebuilder.MaterialRules.*;
 final class AylythSurfaceMaterialRules {
     private AylythSurfaceMaterialRules() {}
 
+    private static final MaterialCondition ON_FLOOR = STONE_DEPTH_FLOOR;
+    private static final MaterialCondition UNDER_FLOOR = STONE_DEPTH_FLOOR_WITH_SURFACE_DEPTH;
+    private static final MaterialCondition ABOVE_WATER_LEVEL = water(0, 0);
+    private static final MaterialCondition AT_OR_ABOVE_WATER_LEVEL = water(-1, 0);
+    private static final MaterialCondition BELOW_WATER_LEVEL = waterWithStoneDepth(-6, -1);
+
     public static MaterialRule build() {
         var bedrock = condition(verticalGradient("aylyth:bedrock_layer", YOffset.BOTTOM, YOffset.aboveBottom(5)), block(Blocks.BEDROCK));
 
-        var grassIfNotWater = condition(water(0, 0), block(Blocks.GRASS_BLOCK));
+        var grassIfNotWater = condition(ABOVE_WATER_LEVEL, block(Blocks.GRASS_BLOCK));
         var onSurface = condition(
-                STONE_DEPTH_FLOOR,
+                ON_FLOOR,
                 condition(
-                        water(-1, 0),
+                        AT_OR_ABOVE_WATER_LEVEL,
                         sequence(deepwood(), copseAndOverwrownClearing(), grassIfNotWater, block(Blocks.DIRT))
                 )
         );
         var dirtUnderFloor = condition(
-                waterWithStoneDepth(-6, -1),
+                BELOW_WATER_LEVEL,
                 condition(
-                        STONE_DEPTH_FLOOR_WITH_SURFACE_DEPTH,
+                        UNDER_FLOOR,
                         block(Blocks.DIRT)
                 )
         );
+        var abovePreliminarySurface = condition(surface(), sequence(uplands(), mire(), onSurface, dirtUnderFloor));
 
-        var abovePreliminarySurface = condition(surface(), sequence(onSurface, dirtUnderFloor));
-
-        return sequence(bedrock, bowels(), uplands(), mire(), abovePreliminarySurface);
+        return sequence(bedrock, bowels(), abovePreliminarySurface);
     }
 
     private static MaterialRule bowels() {
         return condition(
                 biome(AylythBiomes.BOWELS),
                 sequence(
-                        condition(
-                                STONE_DEPTH_FLOOR,
-                                condition(
-                                        water(0, 0),
-                                        noiseBlock(AylythNoiseParams.BOWELS_SOUL_SAND, Blocks.SOUL_SAND, 0.6, Double.MAX_VALUE)
-                                )
-                        ),
-                        condition(
-                                waterWithStoneDepth(-6, -1),
-                                condition(
-                                        STONE_DEPTH_FLOOR_WITH_SURFACE_DEPTH,
-                                        block(Blocks.SOUL_SOIL)
-                                )
-                        )
+                        condition(ON_FLOOR, condition(ABOVE_WATER_LEVEL, noiseBlock(AylythNoiseParams.BOWELS_SOUL_SAND, Blocks.SOUL_SAND, 0.6, Double.MAX_VALUE))),
+                        condition(BELOW_WATER_LEVEL, condition(UNDER_FLOOR, block(Blocks.SOUL_SOIL)))
                 )
         );
     }
@@ -67,18 +58,15 @@ final class AylythSurfaceMaterialRules {
         return condition(
                 biome(AylythBiomes.UPLANDS),
                 condition(
-                        surface(),
-                        condition(
-                                waterWithStoneDepth(-6, -1),
-                                sequence(
-                                        surfaceNoiseBlock(Blocks.DEEPSLATE, -2, -0.6),
-                                        surfaceNoiseBlock(Blocks.BROWN_TERRACOTTA, -0.6, -0.15),
-                                        surfaceNoiseBlock(Blocks.YELLOW_TERRACOTTA, -0.15, 0),
-                                        surfaceNoiseBlock(Blocks.ORANGE_TERRACOTTA, 0, 0.3),
-                                        surfaceNoiseBlock(Blocks.RED_TERRACOTTA, 0.3, 0.6),
-                                        surfaceNoiseBlock(Blocks.TERRACOTTA, 0.6, 0.8),
-                                        surfaceNoiseBlock(Blocks.DEEPSLATE, 0.8, 2.0)
-                                )
+                        BELOW_WATER_LEVEL,
+                        sequence(
+                                surfaceNoiseBlock(Blocks.DEEPSLATE, -2, -0.6),
+                                surfaceNoiseBlock(Blocks.BROWN_TERRACOTTA, -0.6, -0.15),
+                                surfaceNoiseBlock(Blocks.YELLOW_TERRACOTTA, -0.15, 0),
+                                surfaceNoiseBlock(Blocks.ORANGE_TERRACOTTA, 0, 0.3),
+                                surfaceNoiseBlock(Blocks.RED_TERRACOTTA, 0.3, 0.6),
+                                surfaceNoiseBlock(Blocks.TERRACOTTA, 0.6, 0.8),
+                                surfaceNoiseBlock(Blocks.DEEPSLATE, 0.8, 2.0)
                         )
                 )
         );
@@ -87,18 +75,12 @@ final class AylythSurfaceMaterialRules {
     private static MaterialRule mire() {
         return condition(
                 biome(AylythBiomes.MIRE),
-                condition(
-                        surface(),
-                        sequence(
-                                condition(
-                                        not(aboveYWithStoneDepth(YOffset.fixed(48), 0)),
-                                        sequence(surfaceNoiseBlock(Blocks.SOUL_SOIL, 0.70, Double.MAX_VALUE), block(Blocks.MUD))
-                                ),
-                                condition(
-                                        STONE_DEPTH_FLOOR,
-                                        condition(not(water(0, 0)),block(Blocks.MUD))
-                                )
-                        )
+                sequence(
+                        condition(
+                                not(aboveYWithStoneDepth(YOffset.fixed(48), 0)),
+                                sequence(surfaceNoiseBlock(Blocks.SOUL_SOIL, 0.70, Double.MAX_VALUE), block(Blocks.MUD))
+                        ),
+                        condition(ON_FLOOR, condition(not(ABOVE_WATER_LEVEL), block(Blocks.MUD)))
                 )
         );
     }
