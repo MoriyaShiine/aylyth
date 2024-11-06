@@ -53,6 +53,8 @@ public interface AylythConfiguredFeatures {
     RegistryKey<ConfiguredFeature<?, ?>> LARGE_GIANT_JACK_O_LANTERN_MUSHROOM_WITH_PATCH = bind("large_giant_jack_o_lantern_mushroom_with_patch");
     RegistryKey<ConfiguredFeature<?, ?>> GIANT_JACK_O_LANTERN_MUSHROOMS = bind("giant_jack_o_lantern_mushrooms");
 
+    RegistryKey<ConfiguredFeature<?, ?>> ROOTED_DIRT_BLOB = bind("rooted_dirt_blob");
+
     RegistryKey<ConfiguredFeature<?, ?>> RED_MUSHROOM_PATCHES = bind("red_mushroom_patch");
     RegistryKey<ConfiguredFeature<?, ?>> BROWN_MUSHROOM_PATCHES = bind("brown_mushroom_patch");
     RegistryKey<ConfiguredFeature<?, ?>> GLOW_LICHEN = bind("glow_lichen");

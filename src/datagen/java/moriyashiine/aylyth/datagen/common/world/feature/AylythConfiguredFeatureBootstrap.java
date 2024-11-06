@@ -28,10 +28,12 @@ import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.entry.RegistryEntryList;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.state.property.Properties;
+import net.minecraft.structure.rule.BlockMatchRuleTest;
+import net.minecraft.structure.rule.TagMatchRuleTest;
 import net.minecraft.util.collection.DataPool;
 import net.minecraft.util.math.VerticalSurfaceType;
-import net.minecraft.util.math.floatprovider.ConstantFloatProvider;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.world.gen.feature.*;
@@ -302,6 +304,8 @@ public final class AylythConfiguredFeatureBootstrap {
         ConfiguredFeatures.register(context, MIRE_LAND_TREES, Feature.RANDOM_SELECTOR, new RandomFeatureConfig(List.of(new RandomFeatureEntry(spruceChecked, 0.25f), new RandomFeatureEntry(megaSpruceChecked, 0.25f)), writhewood));
         ConfiguredFeatures.register(context, LARGE_GIANT_JACK_O_LANTERN_MUSHROOM_WITH_PATCH, AylythFeatures.ALL, new AllFeature.AllFeatureConfig(RegistryEntryList.of(largeGiantJackOLanternMushroom, jackOLanternMushroomPatch)));
         ConfiguredFeatures.register(context, GIANT_JACK_O_LANTERN_MUSHROOMS, Feature.RANDOM_SELECTOR, new RandomFeatureConfig(List.of(new RandomFeatureEntry(smallGiantJackOLanternMushroom, 0.5f)), PlacedFeatures.createEntry(largeGiantJackOLanternMushroomWithPatch)));
+
+        ConfiguredFeatures.register(context, ROOTED_DIRT_BLOB, Feature.ORE, new OreFeatureConfig(new TagMatchRuleTest(BlockTags.DIRT), Blocks.ROOTED_DIRT.getDefaultState(), 32));
 
         ConfiguredFeatures.register(context, RED_MUSHROOM_PATCHES, Feature.RANDOM_PATCH, AylythConfiguredFeatureBootstrap.createRandomPatchFeatureConfig(BlockStateProvider.of(Blocks.RED_MUSHROOM), 96));
         ConfiguredFeatures.register(context, BROWN_MUSHROOM_PATCHES, Feature.RANDOM_PATCH, AylythConfiguredFeatureBootstrap.createRandomPatchFeatureConfig(BlockStateProvider.of(Blocks.BROWN_MUSHROOM), 96));

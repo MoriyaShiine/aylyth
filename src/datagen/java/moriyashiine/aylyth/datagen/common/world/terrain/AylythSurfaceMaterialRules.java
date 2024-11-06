@@ -5,6 +5,7 @@ import moriyashiine.aylyth.common.data.world.terrain.AylythNoiseParams;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.RegistryKey;
+import net.minecraft.util.math.VerticalSurfaceType;
 import net.minecraft.util.math.noise.DoublePerlinNoiseSampler.NoiseParameters;
 import net.minecraft.world.gen.YOffset;
 import net.minecraft.world.gen.surfacebuilder.MaterialRules;
@@ -35,8 +36,13 @@ final class AylythSurfaceMaterialRules {
         var dirtUnderFloor = condition(
                 BELOW_WATER_LEVEL,
                 condition(
-                        UNDER_FLOOR,
-                        block(Blocks.DIRT)
+                        STONE_DEPTH_FLOOR_WITH_SURFACE_DEPTH,
+                        sequence(
+                                //
+                                condition(stoneDepth(-1, true, VerticalSurfaceType.FLOOR), condition(ABOVE_WATER_LEVEL, block(Blocks.ROOTED_DIRT))),
+                                condition(stoneDepth(-2, true, VerticalSurfaceType.FLOOR), condition(ABOVE_WATER_LEVEL, block(Blocks.ROOTED_DIRT))),
+                                block(Blocks.DIRT)
+                        )
                 )
         );
         var abovePreliminarySurface = condition(surface(), sequence(uplands(), mire(), onSurface, dirtUnderFloor));

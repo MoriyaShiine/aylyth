@@ -17,6 +17,8 @@ public interface AylythPlacedFeatures {
     RegistryKey<PlacedFeature> SMALL_GIANT_JACK__O_LANTERN_MUSHROOM = bind("small_giant_jack_o_lantern_mushroom");
     RegistryKey<PlacedFeature> LARGE_GIANT_JACK__O_LANTERN_MUSHROOM = bind("large_giant_jack_o_lantern_mushroom");
 
+    RegistryKey<PlacedFeature> ROOTED_DIRT_BLOB = bind("rooted_dirt_blob");
+
     RegistryKey<PlacedFeature> SPRING = bind("spring");
     RegistryKey<PlacedFeature> BUSHES = bind("bushes");
     RegistryKey<PlacedFeature> AYLYTH_WEEDS = bind("aylyth_weeds");

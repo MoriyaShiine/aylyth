@@ -165,7 +165,8 @@ public final class AylythBiomeBootstrap {
 							.add(AylythBiomeBootstrap::addWaterSprings)
 							.add(DefaultBiomeFeatures::addFrozenTopLayer)
 							.vegetalDecoFeature(AylythPlacedFeatures.YMPE_SEEP)
-							.vegetalDecoFeature(AylythPlacedFeatures.DARK_OAK_SEEP);
+							.vegetalDecoFeature(AylythPlacedFeatures.DARK_OAK_SEEP)
+							.undergroundOresFeature(AylythPlacedFeatures.ROOTED_DIRT_BLOB);
 					if (deep) {
 						generationSettingsBuilder.vegetalDecoFeature(VegetationPlacedFeatures.PATCH_TALL_GRASS_2)
 								.vegetalDecoFeature(AylythPlacedFeatures.DEEP_ROOF_TREES)
@@ -202,7 +203,8 @@ public final class AylythBiomeBootstrap {
 							.add(AylythBiomeBootstrap::addWaterSprings)
 							.add(DefaultBiomeFeatures::addFrozenTopLayer)
 							.vegetalDecoFeature(AylythPlacedFeatures.YMPE_SEEP)
-							.vegetalDecoFeature(AylythPlacedFeatures.SPRUCE_SEEP);
+							.vegetalDecoFeature(AylythPlacedFeatures.SPRUCE_SEEP)
+							.undergroundOresFeature(AylythPlacedFeatures.ROOTED_DIRT_BLOB);
 					if (deep) {
 						builder.vegetalDecoFeature(AylythPlacedFeatures.CONIFEROUS_DEEP_ROOF_TREES)
 								.vegetalDecoFeature(AylythPlacedFeatures.SHELF_JACK_O_LANTERN_MUSHROOM_PATCHES_DEEPWOOD)
@@ -296,6 +298,10 @@ public final class AylythBiomeBootstrap {
 	private static void addMushroomsDeepwood(GenerationSettings.LookupBackedBuilder builder) {
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, AylythPlacedFeatures.RED_MUSHROOM_PATCHES_DEEPWOOD);
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, AylythPlacedFeatures.BROWN_MUSHROOM_PATCHES_DEEPWOOD);
+	}
+
+	private static void addRootedDirtBlob(GenerationSettings.LookupBackedBuilder builder) {
+		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, AylythPlacedFeatures.ROOTED_DIRT_BLOB);
 	}
 
 	private static void addWoodyGrowths(GenerationSettings.LookupBackedBuilder builder) {
