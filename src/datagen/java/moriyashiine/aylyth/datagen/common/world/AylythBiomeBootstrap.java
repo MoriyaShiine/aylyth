@@ -300,10 +300,6 @@ public final class AylythBiomeBootstrap {
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, AylythPlacedFeatures.BROWN_MUSHROOM_PATCHES_DEEPWOOD);
 	}
 
-	private static void addRootedDirtBlob(GenerationSettings.LookupBackedBuilder builder) {
-		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, AylythPlacedFeatures.ROOTED_DIRT_BLOB);
-	}
-
 	private static void addWoodyGrowths(GenerationSettings.LookupBackedBuilder builder) {
 		builder.feature(GenerationStep.Feature.VEGETAL_DECORATION, AylythPlacedFeatures.WOODY_GROWTH_PATCH);
 	}
