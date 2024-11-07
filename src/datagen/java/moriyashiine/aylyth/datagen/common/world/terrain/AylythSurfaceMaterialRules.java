@@ -30,7 +30,7 @@ final class AylythSurfaceMaterialRules {
                 ON_FLOOR,
                 condition(
                         AT_OR_ABOVE_WATER_LEVEL,
-                        sequence(deepwood(), copseAndOverwrownClearing(), grassIfNotWater, block(Blocks.DIRT))
+                        sequence(deepwood(), copseAndOverwrownClearing(), copse(), grassIfNotWater, block(Blocks.DIRT))
                 )
         );
         var dirtUnderFloor = condition(
@@ -54,7 +54,7 @@ final class AylythSurfaceMaterialRules {
         return condition(
                 biome(AylythBiomes.BOWELS),
                 sequence(
-                        condition(ON_FLOOR, condition(ABOVE_WATER_LEVEL, noiseBlock(AylythNoiseParams.BOWELS_SOUL_SAND, Blocks.SOUL_SAND, 0.6, Double.MAX_VALUE))),
+                        condition(ON_FLOOR, condition(ABOVE_WATER_LEVEL, noiseBlock(AylythNoiseParams.BOWELS_SOUL_SAND_PATCHES, Blocks.SOUL_SAND, 0.6, Double.MAX_VALUE))),
                         condition(BELOW_WATER_LEVEL, condition(UNDER_FLOOR, block(Blocks.SOUL_SOIL)))
                 )
         );
@@ -94,14 +94,28 @@ final class AylythSurfaceMaterialRules {
     private static MaterialRule deepwood() {
         return condition(
                 biome(AylythBiomes.DEEPWOOD, AylythBiomes.CONIFEROUS_DEEPWOOD),
-                condition(noiseThreshold(AylythNoiseParams.PODZOL_COMMON, 0.3, Double.MAX_VALUE), block(Blocks.PODZOL))
+                sequence(
+                        // Common dark podzol patches
+                        condition(noiseThreshold(AylythNoiseParams.DEEPWOOD_DARK_PODZOL_PATCHES, 0.3, Double.MAX_VALUE), block(Blocks.MUD)), // TODO replace with AylythBlocks.DARK_PODZOL
+                        // Thick podzol veins
+                        condition(noiseThreshold(AylythNoiseParams.DEEPWOOD_PODZOL_VEINS, -0.05, 0.05), block(Blocks.PODZOL))
+                )
         );
     }
 
     private static MaterialRule copseAndOverwrownClearing() {
         return condition(
                 biome(AylythBiomes.COPSE, AylythBiomes.OVERGROWN_CLEARING),
-                condition(noiseThreshold(AylythNoiseParams.PODZOL_RARE, 0.95, Double.MAX_VALUE), block(Blocks.PODZOL))
+                // Rare podzol patches
+                condition(noiseThreshold(AylythNoiseParams.PODZOL_PATCHES, 0.95, Double.MAX_VALUE), block(Blocks.PODZOL))
+        );
+    }
+
+    private static MaterialRule copse() {
+        return condition(
+                biome(AylythBiomes.COPSE, AylythBiomes.CONIFEROUS_COPSE),
+                // Thin dark podzol veins
+                condition(noiseThreshold(AylythNoiseParams.COPSE_DARK_PODZOL_VEINS, -0.03, 0.03), block(Blocks.MUD)) // TODO replace with AylythBlocks.DARK_PODZOL
         );
     }
 
