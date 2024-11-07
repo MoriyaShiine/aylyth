@@ -38,7 +38,7 @@ final class AylythSurfaceMaterialRules {
                 condition(
                         STONE_DEPTH_FLOOR_WITH_SURFACE_DEPTH,
                         sequence(
-                                //
+                                // TODO StoneDepthMaterialCondition::secondaryDepthRange doesn't work but is more preferable
                                 condition(stoneDepth(-1, true, VerticalSurfaceType.FLOOR), condition(ABOVE_WATER_LEVEL, block(Blocks.ROOTED_DIRT))),
                                 condition(stoneDepth(-2, true, VerticalSurfaceType.FLOOR), condition(ABOVE_WATER_LEVEL, block(Blocks.ROOTED_DIRT))),
                                 block(Blocks.DIRT)
