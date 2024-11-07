@@ -20,7 +20,7 @@ final class AylythSurfaceMaterialRules {
     private static final MaterialCondition UNDER_FLOOR = STONE_DEPTH_FLOOR_WITH_SURFACE_DEPTH;
     private static final MaterialCondition ABOVE_WATER_LEVEL = water(0, 0);
     private static final MaterialCondition AT_OR_ABOVE_WATER_LEVEL = water(-1, 0);
-    private static final MaterialCondition BELOW_WATER_LEVEL = waterWithStoneDepth(-6, -1);
+    private static final MaterialCondition BELOW_SHALLOW_WATER = waterWithStoneDepth(-6, -1);
 
     public static MaterialRule build() {
         var bedrock = condition(verticalGradient("aylyth:bedrock_layer", YOffset.BOTTOM, YOffset.aboveBottom(5)), block(Blocks.BEDROCK));
@@ -34,9 +34,9 @@ final class AylythSurfaceMaterialRules {
                 )
         );
         var dirtUnderFloor = condition(
-                BELOW_WATER_LEVEL,
+                BELOW_SHALLOW_WATER,
                 condition(
-                        STONE_DEPTH_FLOOR_WITH_SURFACE_DEPTH,
+                        UNDER_FLOOR,
                         sequence(
                                 // TODO StoneDepthMaterialCondition::secondaryDepthRange doesn't work but is more preferable
                                 condition(stoneDepth(-1, true, VerticalSurfaceType.FLOOR), condition(ABOVE_WATER_LEVEL, block(Blocks.ROOTED_DIRT))),
@@ -55,7 +55,7 @@ final class AylythSurfaceMaterialRules {
                 biome(AylythBiomes.BOWELS),
                 sequence(
                         condition(ON_FLOOR, condition(ABOVE_WATER_LEVEL, noiseBlock(AylythNoiseParams.BOWELS_SOUL_SAND_PATCHES, Blocks.SOUL_SAND, 0.6, Double.MAX_VALUE))),
-                        condition(BELOW_WATER_LEVEL, condition(UNDER_FLOOR, block(Blocks.SOUL_SOIL)))
+                        condition(BELOW_SHALLOW_WATER, condition(UNDER_FLOOR, block(Blocks.SOUL_SOIL)))
                 )
         );
     }
@@ -64,7 +64,7 @@ final class AylythSurfaceMaterialRules {
         return condition(
                 biome(AylythBiomes.UPLANDS),
                 condition(
-                        BELOW_WATER_LEVEL,
+                        BELOW_SHALLOW_WATER,
                         sequence(
                                 surfaceNoiseBlock(Blocks.DEEPSLATE, -2, -0.6),
                                 surfaceNoiseBlock(Blocks.BROWN_TERRACOTTA, -0.6, -0.15),
