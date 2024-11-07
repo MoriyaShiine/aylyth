@@ -25,15 +25,20 @@ final class AylythSurfaceMaterialRules {
     public static MaterialRule build() {
         var bedrock = condition(verticalGradient("aylyth:bedrock_layer", YOffset.BOTTOM, YOffset.aboveBottom(5)), block(Blocks.BEDROCK));
 
-        var grassIfNotWater = condition(ABOVE_WATER_LEVEL, block(Blocks.GRASS_BLOCK));
-        var onSurface = condition(
+        var mudUnderwater = condition(not(ABOVE_WATER_LEVEL), block(Blocks.MUD));
+        var grassAboveWater = condition(ABOVE_WATER_LEVEL, block(Blocks.GRASS_BLOCK));
+
+        var floor = condition(
                 ON_FLOOR,
-                condition(
-                        AT_OR_ABOVE_WATER_LEVEL,
-                        sequence(deepwood(), copseAndOverwrownClearing(), copse(), grassIfNotWater, block(Blocks.DIRT))
+                sequence(
+                        mudUnderwater,
+                        condition(
+                                AT_OR_ABOVE_WATER_LEVEL,
+                                sequence(deepwood(), copseAndOverwrownClearing(), copse(), grassAboveWater, block(Blocks.DIRT))
+                        )
                 )
         );
-        var dirtUnderFloor = condition(
+        var underFloor = condition(
                 BELOW_SHALLOW_WATER,
                 condition(
                         UNDER_FLOOR,
@@ -45,7 +50,7 @@ final class AylythSurfaceMaterialRules {
                         )
                 )
         );
-        var abovePreliminarySurface = condition(surface(), sequence(uplands(), mire(), onSurface, dirtUnderFloor));
+        var abovePreliminarySurface = condition(surface(), sequence(uplands(), mire(), floor, underFloor));
 
         return sequence(bedrock, bowels(), abovePreliminarySurface);
     }
