@@ -1,5 +1,6 @@
 package moriyashiine.aylyth.datagen.common.world.terrain;
 
+import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.data.world.AylythBiomes;
 import moriyashiine.aylyth.common.data.world.terrain.AylythNoiseParams;
 import net.minecraft.block.Block;
@@ -59,6 +60,7 @@ final class AylythSurfaceMaterialRules {
         return condition(
                 biome(AylythBiomes.BOWELS),
                 sequence(
+                        // Uncommon patches
                         condition(ON_FLOOR, condition(ABOVE_WATER_LEVEL, noiseBlock(AylythNoiseParams.BOWELS_SOUL_SAND_PATCHES, Blocks.SOUL_SAND, 0.6, Double.MAX_VALUE))),
                         condition(BELOW_SHALLOW_WATER, condition(UNDER_FLOOR, block(Blocks.SOUL_SOIL)))
                 )
@@ -71,13 +73,14 @@ final class AylythSurfaceMaterialRules {
                 condition(
                         BELOW_SHALLOW_WATER,
                         sequence(
-                                surfaceNoiseBlock(Blocks.DEEPSLATE, -2, -0.6),
-                                surfaceNoiseBlock(Blocks.BROWN_TERRACOTTA, -0.6, -0.15),
-                                surfaceNoiseBlock(Blocks.YELLOW_TERRACOTTA, -0.15, 0),
-                                surfaceNoiseBlock(Blocks.ORANGE_TERRACOTTA, 0, 0.3),
-                                surfaceNoiseBlock(Blocks.RED_TERRACOTTA, 0.3, 0.6),
-                                surfaceNoiseBlock(Blocks.TERRACOTTA, 0.6, 0.8),
-                                surfaceNoiseBlock(Blocks.DEEPSLATE, 0.8, 2.0)
+                                // Common patches
+                                noiseBlock(AylythNoiseParams.UPLANDS_LIGNITE_SAPSTONE_PATCHES, AylythBlocks.LIGNITE_SAPSTONE, 0.4, Double.MAX_VALUE),
+                                // Opalescent inside amber, amber inside regular
+                                noiseBlock(AylythNoiseParams.UPLANDS_SAPSTONE_RINGS, AylythBlocks.OPALESCENT_SAPSTONE, 0.4, 2),
+                                noiseBlock(AylythNoiseParams.UPLANDS_SAPSTONE_RINGS, AylythBlocks.AMBER_SAPSTONE, 0.15, 0.4),
+                                noiseBlock(AylythNoiseParams.UPLANDS_SAPSTONE_RINGS, AylythBlocks.SAPSTONE, -0.15, 0.15),
+                                noiseBlock(AylythNoiseParams.UPLANDS_SAPSTONE_RINGS, AylythBlocks.AMBER_SAPSTONE, -0.4, -0.15),
+                                noiseBlock(AylythNoiseParams.UPLANDS_SAPSTONE_RINGS, AylythBlocks.OPALESCENT_SAPSTONE, -2, -0.4)
                         )
                 )
         );

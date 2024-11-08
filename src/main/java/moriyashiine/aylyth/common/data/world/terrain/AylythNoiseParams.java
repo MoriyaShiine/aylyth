@@ -38,6 +38,8 @@ public interface AylythNoiseParams {
     RegistryKey<NoiseParameters> SURFACE = bind("surface");
 
     RegistryKey<NoiseParameters> PODZOL_PATCHES = bind("podzol_patches");
+    RegistryKey<NoiseParameters> UPLANDS_SAPSTONE_RINGS = bind("uplands_sapstone_rings");
+    RegistryKey<NoiseParameters> UPLANDS_LIGNITE_SAPSTONE_PATCHES = bind("uplands_lignite_sapstone_patches");
     RegistryKey<NoiseParameters> DEEPWOOD_DARK_PODZOL_PATCHES = bind("deepwood_dark_podzol_patches");
     RegistryKey<NoiseParameters> DEEPWOOD_PODZOL_VEINS = bind("deepwood_podzol_veins");
     RegistryKey<NoiseParameters> COPSE_DARK_PODZOL_VEINS = bind("copse_dark_podzol_veins");
