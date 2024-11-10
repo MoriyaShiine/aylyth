@@ -7,7 +7,9 @@ import net.minecraft.world.gen.feature.ConfiguredFeature;
 
 public interface AylythConfiguredFeatures {
 
+    RegistryKey<ConfiguredFeature<?, ?>> SPRUCE_PODZOL_CHECKED = bind("spruce_podzol_checked");
     RegistryKey<ConfiguredFeature<?, ?>> AYLYTHIAN_DARK_OAK = bind("aylythian_dark_oak");
+    RegistryKey<ConfiguredFeature<?, ?>> AYLYTHIAN_DARK_OAK_PODZOL = bind("aylythian_dark_oak_podzol");
     RegistryKey<ConfiguredFeature<?, ?>> AYLYTHIAN_MEGA_DARK_OAK = bind("aylythian_mega_dark_oak");
     RegistryKey<ConfiguredFeature<?, ?>> YMPE_TREE = bind("ympe_tree");
     RegistryKey<ConfiguredFeature<?, ?>> BIG_YMPE_TREE = bind("big_ympe_tree");

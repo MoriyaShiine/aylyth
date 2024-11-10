@@ -1,7 +1,7 @@
 {
   "type": "minecraft:random_selector",
   "config": {
-    "default": "minecraft:spruce_checked",
+    "default": "aylyth:spruce_podzol_checked",
     "features": [
       {
         "chance": 0.25,

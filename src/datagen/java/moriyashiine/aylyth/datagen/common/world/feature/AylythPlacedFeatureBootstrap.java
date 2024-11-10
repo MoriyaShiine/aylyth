@@ -27,7 +27,9 @@ public final class AylythPlacedFeatureBootstrap {
     public static void bootstrap(Registerable<PlacedFeature> context) {
         var features = context.getRegistryLookup(RegistryKeys.CONFIGURED_FEATURE);
 
+        var sprucePodzolChecked = features.getOrThrow(AylythConfiguredFeatures.SPRUCE_PODZOL_CHECKED);
         var aylythianDarkOak = features.getOrThrow(AylythConfiguredFeatures.AYLYTHIAN_DARK_OAK);
+        var aylythianDarkOakPodzol = features.getOrThrow(AylythConfiguredFeatures.AYLYTHIAN_DARK_OAK_PODZOL);
         var aylythianMegaDarkOak = features.getOrThrow(AylythConfiguredFeatures.AYLYTHIAN_MEGA_DARK_OAK);
         var ympe = features.getOrThrow(AylythConfiguredFeatures.YMPE_TREE);
         var bigYmpe = features.getOrThrow(AylythConfiguredFeatures.BIG_YMPE_TREE);
@@ -76,7 +78,9 @@ public final class AylythPlacedFeatureBootstrap {
         var jackOLanternMushroom = features.getOrThrow(AylythConfiguredFeatures.JACK_O_LANTERN_MUSHROOM);
         var giantJackOLanternMushrooms = features.getOrThrow(AylythConfiguredFeatures.GIANT_JACK_O_LANTERN_MUSHROOMS);
 
+        PlacedFeatures.register(context, SPRUCE_PODZOL_CHECKED, sprucePodzolChecked, List.of(PlacedFeatures.wouldSurvive(Blocks.SPRUCE_SAPLING)));
         PlacedFeatures.register(context, AYLYTHIAN_DARK_OAK, aylythianDarkOak, List.of(PlacedFeatures.wouldSurvive(Blocks.DARK_OAK_SAPLING)));
+        PlacedFeatures.register(context, AYLYTHIAN_DARK_OAK_PODZOL, aylythianDarkOakPodzol, List.of(PlacedFeatures.wouldSurvive(Blocks.DARK_OAK_SAPLING)));
         PlacedFeatures.register(context, AYLYTHIAN_MEGA_DARK_OAK, aylythianMegaDarkOak, List.of(PlacedFeatures.wouldSurvive(Blocks.DARK_OAK_SAPLING)));
         PlacedFeatures.register(context, YMPE_TREE, ympe, List.of(PlacedFeatures.wouldSurvive(AylythBlocks.YMPE_SAPLING)));
         PlacedFeatures.register(context, BIG_YMPE_TREE, bigYmpe, List.of(PlacedFeatures.wouldSurvive(AylythBlocks.YMPE_SAPLING)));

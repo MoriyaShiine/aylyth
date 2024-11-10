@@ -40,12 +40,15 @@ import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
 import net.minecraft.world.gen.foliage.BushFoliagePlacer;
 import net.minecraft.world.gen.foliage.DarkOakFoliagePlacer;
+import net.minecraft.world.gen.foliage.SpruceFoliagePlacer;
 import net.minecraft.world.gen.placementmodifier.CountPlacementModifier;
 import net.minecraft.world.gen.placementmodifier.RandomOffsetPlacementModifier;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.stateprovider.RandomizedIntBlockStateProvider;
 import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
+import net.minecraft.world.gen.treedecorator.AlterGroundTreeDecorator;
+import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
 
 import static moriyashiine.aylyth.common.data.world.feature.AylythConfiguredFeatures.*;
 
@@ -71,8 +74,10 @@ public final class AylythConfiguredFeatureBootstrap {
         var largeGiantJackOLanternMushroomWithPatch = configuredFeatures.getOrThrow(LARGE_GIANT_JACK_O_LANTERN_MUSHROOM_WITH_PATCH);
 
         var spruceChecked = placedFeatures.getOrThrow(TreePlacedFeatures.SPRUCE_CHECKED);
+        var sprucePodzolChecked = placedFeatures.getOrThrow(AylythPlacedFeatures.SPRUCE_PODZOL_CHECKED);
         var megaSpruceChecked = placedFeatures.getOrThrow(TreePlacedFeatures.MEGA_SPRUCE_CHECKED);
         var aylythianDarkOak = placedFeatures.getOrThrow(AylythPlacedFeatures.AYLYTHIAN_DARK_OAK);
+        var aylythianDarkOakPodzol = placedFeatures.getOrThrow(AylythPlacedFeatures.AYLYTHIAN_DARK_OAK_PODZOL);
         var aylythianMegaDarkOak = placedFeatures.getOrThrow(AylythPlacedFeatures.AYLYTHIAN_MEGA_DARK_OAK);
         var ympe = placedFeatures.getOrThrow(AylythPlacedFeatures.YMPE_TREE);
         var bigYmpe = placedFeatures.getOrThrow(AylythPlacedFeatures.BIG_YMPE_TREE);
@@ -112,6 +117,16 @@ public final class AylythConfiguredFeatureBootstrap {
         ConfiguredFeatures.register(context, DARK_OAK_SEEP, AylythFeatures.SEEP_FEATURE, new SeepFeature.SeepFeatureConfig(Blocks.DARK_OAK_LOG.getDefaultState(), AylythBlocks.DARK_OAK_SEEP.getDefaultState(), AylythBlocks.MARIGOLD.getDefaultState(), 5, 0.5F));
         ConfiguredFeatures.register(context, YMPE_SEEP, AylythFeatures.SEEP_FEATURE, new SeepFeature.SeepFeatureConfig(AylythBlocks.YMPE_LOG.getDefaultState(), AylythBlocks.YMPE_SEEP.getDefaultState(), AylythBlocks.MARIGOLD.getDefaultState(), 5, 0.5F));
 
+        ConfiguredFeatures.register(context, SPRUCE_PODZOL_CHECKED, Feature.TREE, new TreeFeatureConfig.Builder(
+                BlockStateProvider.of(Blocks.SPRUCE_LOG),
+                new StraightTrunkPlacer(5, 2, 1),
+                BlockStateProvider.of(Blocks.SPRUCE_LEAVES),
+                new SpruceFoliagePlacer(UniformIntProvider.create(2, 3), UniformIntProvider.create(0, 2), UniformIntProvider.create(1, 2)),
+                new TwoLayersFeatureSize(2, 0, 2))
+                .ignoreVines()
+                .decorators(ImmutableList.of(new AlterGroundTreeDecorator(BlockStateProvider.of(Blocks.MUD)))) // TODO replace with AylythBlocks.DARK_PODZOL
+                .build()
+        );
         ConfiguredFeatures.register(context, AYLYTHIAN_DARK_OAK, Feature.TREE, new TreeFeatureConfig.Builder(
                 SimpleBlockStateProvider.of(Blocks.DARK_OAK_LOG.getDefaultState()),
                 new AylthianTrunkPlacer(12, 2, 5),
@@ -133,6 +148,39 @@ public final class AylythConfiguredFeatureBootstrap {
                                                 RandomOffsetPlacementModifier.horizontally(UniformIntProvider.create(2, 6)),
                                                 PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP,
                                                 PlacedFeatures.wouldSurvive(AylythBlocks.OAK_STREWN_LEAVES)
+                                )))
+                        )),
+                        new BranchDecorator(
+                                new WeightedBlockStateProvider(DataPool.<BlockState>builder()
+                                        .add(AylythBlocks.DARK_OAK_BRANCH.getDefaultState(), 2)
+                                        .add(AylythBlocks.BARE_DARK_OAK_BRANCH.getDefaultState(), 4)
+                                        .build()),
+                                ConstantIntProvider.create(2),
+                                0.1875f
+                        )
+                )).build());
+        ConfiguredFeatures.register(context, AYLYTHIAN_DARK_OAK_PODZOL, Feature.TREE, new TreeFeatureConfig.Builder(
+                SimpleBlockStateProvider.of(Blocks.DARK_OAK_LOG.getDefaultState()),
+                new AylthianTrunkPlacer(12, 2, 5),
+                SimpleBlockStateProvider.of(Blocks.DARK_OAK_LEAVES.getDefaultState()),
+                new DarkOakFoliagePlacer(ConstantIntProvider.create(1), ConstantIntProvider.create(0)),
+                new TwoLayersFeatureSize(1, 1, 2))
+                .ignoreVines()
+                .decorators(ImmutableList.of(
+                        new AlterGroundTreeDecorator(BlockStateProvider.of(Blocks.MUD)), // TODO replace with AylythBlocks.DARK_PODZOL
+                        new GrapeVineDecorator(UniformIntProvider.create(0, 9), 1),
+                        new PlaceAroundTreeDecorator(RegistryEntryList.of(
+                                RegistryEntry.of(new PlacedFeature(oakStrewnLeavesConfigured, List.of(
+                                        CountPlacementModifier.of(UniformIntProvider.create(4, 8)),
+                                        RandomOffsetPlacementModifier.horizontally(UniformIntProvider.create(2, 6)),
+                                        PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP,
+                                        PlacedFeatures.wouldSurvive(AylythBlocks.OAK_STREWN_LEAVES)
+                                ))),
+                                RegistryEntry.of(new PlacedFeature(oakLeafPileConfigured, List.of(
+                                        CountPlacementModifier.of(UniformIntProvider.create(0, 2)),
+                                        RandomOffsetPlacementModifier.horizontally(UniformIntProvider.create(2, 6)),
+                                        PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP,
+                                        PlacedFeatures.wouldSurvive(AylythBlocks.OAK_STREWN_LEAVES)
                                 )))
                         )),
                         new BranchDecorator(
@@ -295,9 +343,9 @@ public final class AylythConfiguredFeatureBootstrap {
 
         ConfiguredFeatures.register(context, DEEP_ROOF_TREES, Feature.RANDOM_SELECTOR, new RandomFeatureConfig(List.of(new RandomFeatureEntry(aylythianDarkOak, 0.25F)), aylythianMegaDarkOak));
         ConfiguredFeatures.register(context, CONIFEROUS_DEEP_ROOF_TREES, Feature.RANDOM_SELECTOR, new RandomFeatureConfig(List.of(new RandomFeatureEntry(aylythianMegaDarkOak, 0.65F)), megaSpruceChecked));
-        ConfiguredFeatures.register(context, COPSE_TREES, Feature.RANDOM_SELECTOR, new RandomFeatureConfig(List.of(new RandomFeatureEntry(ympe, 0.25F)), aylythianDarkOak));
+        ConfiguredFeatures.register(context, COPSE_TREES, Feature.RANDOM_SELECTOR, new RandomFeatureConfig(List.of(new RandomFeatureEntry(ympe, 0.25F)), aylythianDarkOakPodzol));
         ConfiguredFeatures.register(context, DEEPWOOD_TREES, Feature.RANDOM_SELECTOR, new RandomFeatureConfig(List.of(new RandomFeatureEntry(ympe, 0.25F), new RandomFeatureEntry(bigYmpe, 0.25F)), aylythianDarkOak));
-        ConfiguredFeatures.register(context, CONIFEROUS_COPSE_TREES, Feature.RANDOM_SELECTOR, new RandomFeatureConfig(List.of(new RandomFeatureEntry(ympe, 0.25F)), spruceChecked));
+        ConfiguredFeatures.register(context, CONIFEROUS_COPSE_TREES, Feature.RANDOM_SELECTOR, new RandomFeatureConfig(List.of(new RandomFeatureEntry(ympe, 0.25F)), sprucePodzolChecked));
         ConfiguredFeatures.register(context, CONIFEROUS_DEEPWOOD_TREES, Feature.RANDOM_SELECTOR, new RandomFeatureConfig(List.of(new RandomFeatureEntry(ympe, 0.15F), new RandomFeatureEntry(bigYmpe, 0.15F)), spruceChecked));
         ConfiguredFeatures.register(context, OVERGROWTH_CLEARING_TREES,Feature.RANDOM_SELECTOR, new RandomFeatureConfig(List.of(new RandomFeatureEntry(ympe, 0.5F)), spruceChecked));
         ConfiguredFeatures.register(context, MIRE_WATER_TREES, Feature.RANDOM_SELECTOR, new RandomFeatureConfig(List.of(), writhewood));
