@@ -7,7 +7,9 @@ import net.minecraft.world.gen.feature.ConfiguredFeature;
 
 public interface AylythConfiguredFeatures {
 
+    RegistryKey<ConfiguredFeature<?, ?>> SPRUCE_PODZOL_CHECKED = bind("spruce_podzol_checked");
     RegistryKey<ConfiguredFeature<?, ?>> AYLYTHIAN_DARK_OAK = bind("aylythian_dark_oak");
+    RegistryKey<ConfiguredFeature<?, ?>> AYLYTHIAN_DARK_OAK_PODZOL = bind("aylythian_dark_oak_podzol");
     RegistryKey<ConfiguredFeature<?, ?>> AYLYTHIAN_MEGA_DARK_OAK = bind("aylythian_mega_dark_oak");
     RegistryKey<ConfiguredFeature<?, ?>> YMPE_TREE = bind("ympe_tree");
     RegistryKey<ConfiguredFeature<?, ?>> BIG_YMPE_TREE = bind("big_ympe_tree");
@@ -52,6 +54,8 @@ public interface AylythConfiguredFeatures {
     RegistryKey<ConfiguredFeature<?, ?>> MIRE_LAND_TREES = bind("mire_land_trees");
     RegistryKey<ConfiguredFeature<?, ?>> LARGE_GIANT_JACK_O_LANTERN_MUSHROOM_WITH_PATCH = bind("large_giant_jack_o_lantern_mushroom_with_patch");
     RegistryKey<ConfiguredFeature<?, ?>> GIANT_JACK_O_LANTERN_MUSHROOMS = bind("giant_jack_o_lantern_mushrooms");
+
+    RegistryKey<ConfiguredFeature<?, ?>> ROOTED_DIRT_BLOB = bind("rooted_dirt_blob");
 
     RegistryKey<ConfiguredFeature<?, ?>> RED_MUSHROOM_PATCHES = bind("red_mushroom_patch");
     RegistryKey<ConfiguredFeature<?, ?>> BROWN_MUSHROOM_PATCHES = bind("brown_mushroom_patch");

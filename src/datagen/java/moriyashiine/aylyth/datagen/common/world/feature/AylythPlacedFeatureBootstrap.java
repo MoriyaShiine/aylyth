@@ -3,14 +3,13 @@ package moriyashiine.aylyth.datagen.common.world.feature;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.data.world.feature.AylythConfiguredFeatures;
-import moriyashiine.aylyth.common.world.gen.placementmodifiers.EnvironmentCheckPlacementModifier;
 import net.minecraft.block.Blocks;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
+import net.minecraft.world.Heightmap;
+import net.minecraft.world.Heightmap.Type;
 import net.minecraft.world.gen.blockpredicate.BlockPredicate;
 import net.minecraft.world.gen.feature.PlacedFeature;
 import net.minecraft.world.gen.feature.PlacedFeatures;
@@ -28,12 +27,15 @@ public final class AylythPlacedFeatureBootstrap {
     public static void bootstrap(Registerable<PlacedFeature> context) {
         var features = context.getRegistryLookup(RegistryKeys.CONFIGURED_FEATURE);
 
+        var sprucePodzolChecked = features.getOrThrow(AylythConfiguredFeatures.SPRUCE_PODZOL_CHECKED);
         var aylythianDarkOak = features.getOrThrow(AylythConfiguredFeatures.AYLYTHIAN_DARK_OAK);
+        var aylythianDarkOakPodzol = features.getOrThrow(AylythConfiguredFeatures.AYLYTHIAN_DARK_OAK_PODZOL);
         var aylythianMegaDarkOak = features.getOrThrow(AylythConfiguredFeatures.AYLYTHIAN_MEGA_DARK_OAK);
         var ympe = features.getOrThrow(AylythConfiguredFeatures.YMPE_TREE);
         var bigYmpe = features.getOrThrow(AylythConfiguredFeatures.BIG_YMPE_TREE);
         var pomegranate = features.getOrThrow(AylythConfiguredFeatures.POMEGRANATE_TREE);
         var writhewood = features.getOrThrow(AylythConfiguredFeatures.WRITHEWOOD_TREE);
+        var rootedDirtBlob = features.getOrThrow(AylythConfiguredFeatures.ROOTED_DIRT_BLOB);
         var spring = features.getOrThrow(AylythConfiguredFeatures.SPRING);
         var bushes = features.getOrThrow(AylythConfiguredFeatures.BUSHES);
         var oakLeafPile = features.getOrThrow(AylythConfiguredFeatures.OAK_LEAF_PILE);
@@ -76,7 +78,9 @@ public final class AylythPlacedFeatureBootstrap {
         var jackOLanternMushroom = features.getOrThrow(AylythConfiguredFeatures.JACK_O_LANTERN_MUSHROOM);
         var giantJackOLanternMushrooms = features.getOrThrow(AylythConfiguredFeatures.GIANT_JACK_O_LANTERN_MUSHROOMS);
 
+        PlacedFeatures.register(context, SPRUCE_PODZOL_CHECKED, sprucePodzolChecked, List.of(PlacedFeatures.wouldSurvive(Blocks.SPRUCE_SAPLING)));
         PlacedFeatures.register(context, AYLYTHIAN_DARK_OAK, aylythianDarkOak, List.of(PlacedFeatures.wouldSurvive(Blocks.DARK_OAK_SAPLING)));
+        PlacedFeatures.register(context, AYLYTHIAN_DARK_OAK_PODZOL, aylythianDarkOakPodzol, List.of(PlacedFeatures.wouldSurvive(Blocks.DARK_OAK_SAPLING)));
         PlacedFeatures.register(context, AYLYTHIAN_MEGA_DARK_OAK, aylythianMegaDarkOak, List.of(PlacedFeatures.wouldSurvive(Blocks.DARK_OAK_SAPLING)));
         PlacedFeatures.register(context, YMPE_TREE, ympe, List.of(PlacedFeatures.wouldSurvive(AylythBlocks.YMPE_SAPLING)));
         PlacedFeatures.register(context, BIG_YMPE_TREE, bigYmpe, List.of(PlacedFeatures.wouldSurvive(AylythBlocks.YMPE_SAPLING)));
@@ -86,6 +90,8 @@ public final class AylythPlacedFeatureBootstrap {
         // TODO: Replace both survive checks with tall shroom when implemented
         PlacedFeatures.register(context, SMALL_GIANT_JACK__O_LANTERN_MUSHROOM, features.getOrThrow(AylythConfiguredFeatures.SMALL_GIANT_JACK_O_LANTERN_MUSHROOM), List.of(PlacedFeatures.wouldSurvive(AylythBlocks.JACK_O_LANTERN_MUSHROOM)));
         PlacedFeatures.register(context, LARGE_GIANT_JACK__O_LANTERN_MUSHROOM, features.getOrThrow(AylythConfiguredFeatures.LARGE_GIANT_JACK_O_LANTERN_MUSHROOM), List.of(PlacedFeatures.wouldSurvive(AylythBlocks.JACK_O_LANTERN_MUSHROOM)));
+
+        PlacedFeatures.register(context, ROOTED_DIRT_BLOB, rootedDirtBlob, List.of(RarityFilterPlacementModifier.of(2), SquarePlacementModifier.of(), HeightmapPlacementModifier.of(Type.MOTION_BLOCKING_NO_LEAVES), BiomePlacementModifier.of()));
 
         PlacedFeatures.register(context, SPRING, spring, List.of(CountPlacementModifier.of(1), RarityFilterPlacementModifier.of(8), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of()));//.configure(new SingleStateFeatureConfig(Blocks.WATER.getDefaultState())).range(Decorators.TOP_TO_BOTTOM).spreadHorizontally().applyChance(8);
         PlacedFeatures.register(context, BUSHES, bushes, List.of(RarityFilterPlacementModifier.of(2), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of()));

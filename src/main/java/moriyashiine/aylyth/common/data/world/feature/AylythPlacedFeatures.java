@@ -7,7 +7,9 @@ import net.minecraft.world.gen.feature.PlacedFeature;
 
 public interface AylythPlacedFeatures {
 
+    RegistryKey<PlacedFeature> SPRUCE_PODZOL_CHECKED = bind("spruce_podzol_checked");
     RegistryKey<PlacedFeature> AYLYTHIAN_DARK_OAK = bind("aylythian_dark_oak");
+    RegistryKey<PlacedFeature> AYLYTHIAN_DARK_OAK_PODZOL = bind("aylythian_dark_oak_podzol");
     RegistryKey<PlacedFeature> AYLYTHIAN_MEGA_DARK_OAK = bind("aylythian_mega_dark_oak");
     RegistryKey<PlacedFeature> YMPE_TREE = bind("ympe_tree");
     RegistryKey<PlacedFeature> BIG_YMPE_TREE = bind("big_ympe_tree");
@@ -16,6 +18,8 @@ public interface AylythPlacedFeatures {
 
     RegistryKey<PlacedFeature> SMALL_GIANT_JACK__O_LANTERN_MUSHROOM = bind("small_giant_jack_o_lantern_mushroom");
     RegistryKey<PlacedFeature> LARGE_GIANT_JACK__O_LANTERN_MUSHROOM = bind("large_giant_jack_o_lantern_mushroom");
+
+    RegistryKey<PlacedFeature> ROOTED_DIRT_BLOB = bind("rooted_dirt_blob");
 
     RegistryKey<PlacedFeature> SPRING = bind("spring");
     RegistryKey<PlacedFeature> BUSHES = bind("bushes");

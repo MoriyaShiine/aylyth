@@ -10,8 +10,8 @@ public interface AylythBiomes {
     RegistryKey<Biome> CLEARING = bind("clearing");
     RegistryKey<Biome> OVERGROWN_CLEARING = bind("overgrown_clearing");
     RegistryKey<Biome> COPSE = bind("copse");
-    RegistryKey<Biome> DEEPWOOD = bind("deepwood");
     RegistryKey<Biome> CONIFEROUS_COPSE = bind("coniferous_copse");
+    RegistryKey<Biome> DEEPWOOD = bind("deepwood");
     RegistryKey<Biome> CONIFEROUS_DEEPWOOD = bind("coniferous_deepwood");
     RegistryKey<Biome> UPLANDS = bind("uplands");
     RegistryKey<Biome> MIRE = bind("mire");
