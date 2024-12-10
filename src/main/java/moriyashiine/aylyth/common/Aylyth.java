@@ -7,6 +7,7 @@ import moriyashiine.aylyth.common.advancement.renderdata.AdvancementRendererData
 import moriyashiine.aylyth.common.block.AylythBlockEntityTypes;
 import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.block.AylythFlammables;
+import moriyashiine.aylyth.common.block.AylythFlattenables;
 import moriyashiine.aylyth.common.block.AylythStrippables;
 import moriyashiine.aylyth.common.block.types.SoulHearthBlock;
 import moriyashiine.aylyth.common.data.tag.AylythEntityTypeTags;
@@ -120,6 +121,7 @@ public class Aylyth implements ModInitializer {
 
 		AylythBlocks.register();
 		AylythFlammables.register();
+		AylythFlattenables.register();
 		AylythStrippables.register();
 		AylythBlockEntityTypes.register();
 

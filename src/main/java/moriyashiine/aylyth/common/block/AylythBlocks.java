@@ -107,6 +107,8 @@ public interface AylythBlocks {
 	Block CHTHONIA_WOOD = register("chthonia_wood", new PillarBlock(copyOf(Blocks.OAK_WOOD).mapColor(MapColor.PALE_GREEN)));
 	Block NEPHRITIC_CHTHONIA_WOOD = register("nephritic_chthonia_wood", new OneTimeHarvestablePillarBlock(Aylyth.id("harvest/nephritic_chthonia_wood"), state -> AylythBlocks.CHTHONIA_WOOD.getDefaultState().with(PillarBlock.AXIS, state.get(PillarBlock.AXIS)), copyOf(Blocks.OAK_WOOD).mapColor(MapColor.PALE_GREEN)));
 
+	Block DARK_PODZOL = register("dark_podzol", new SnowyBlock(copyOf(Blocks.PODZOL).mapColor(MapColor.TERRACOTTA_BLACK)));
+
 	Block AYLYTH_BUSH = register("aylyth_bush", new BushBlock(copyOf(Blocks.GRASS)));
 	Block ANTLER_SHOOTS = register("antler_shoots", new AntlerShootsBlock(copyOf(Blocks.GRASS).offset(AbstractBlock.OffsetType.XZ)));
 	Block GRIPWEED = register("gripweed", new GripweedBlock(copyOf(Blocks.GRASS).offset(AbstractBlock.OffsetType.XZ)));

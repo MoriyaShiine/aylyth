@@ -89,6 +89,7 @@ public final class AylythBlockTagProvider extends FabricTagProvider.BlockTagProv
         getOrCreateTagBuilder(BlockTags.AXE_MINEABLE).addTag(AylythBlockTags.WOODY_GROWTHS).addTag(AylythBlockTags.CHTHONIA_WOOD).add(AylythBlocks.AYLYTH_BUSH, AylythBlocks.ANTLER_SHOOTS, AylythBlocks.GRIPWEED, AylythBlocks.NYSIAN_GRAPE_VINE, AylythBlocks.OAK_SEEP, AylythBlocks.SPRUCE_SEEP, AylythBlocks.DARK_OAK_SEEP, AylythBlocks.YMPE_SEEP, AylythBlocks.SEEPING_WOOD, AylythBlocks.SEEPING_WOOD_SEEP, AylythBlocks.DARK_WOODS_TILES, AylythBlocks.JACK_O_LANTERN_MUSHROOM_STEM, AylythBlocks.JACK_O_LANTERN_MUSHROOM_BLOCK);
         getOrCreateTagBuilder(BlockTags.HOE_MINEABLE).add(AylythBlocks.YMPE_LEAVES, AylythBlocks.POMEGRANATE_LEAVES, AylythBlocks.WRITHEWOOD_LEAVES);
         getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE).addTag(AylythBlockTags.CARVED_NEPHRITE).add(AylythBlocks.SOUL_HEARTH, AylythBlocks.VITAL_THURIBLE, AylythBlocks.ESSTLINE_BLOCK, AylythBlocks.NEPHRITE_BLOCK, AylythBlocks.SAPSTONE, AylythBlocks.AMBER_SAPSTONE, AylythBlocks.LIGNITE_SAPSTONE, AylythBlocks.OPALESCENT_SAPSTONE);
+        getOrCreateTagBuilder(BlockTags.SHOVEL_MINEABLE).add(AylythBlocks.DARK_PODZOL);
         getOrCreateTagBuilder(BlockTags.NEEDS_IRON_TOOL).addTag(AylythBlockTags.CARVED_NEPHRITE).add(AylythBlocks.NEPHRITE_BLOCK, AylythBlocks.ESSTLINE_BLOCK);
         getOrCreateTagBuilder(BlockTags.INSIDE_STEP_SOUND_BLOCKS).add(AylythBlocks.OAK_STREWN_LEAVES, AylythBlocks.YMPE_STREWN_LEAVES);
         getOrCreateTagBuilder(BlockTags.CLIMBABLE).add(AylythBlocks.NYSIAN_GRAPE_VINE);
@@ -99,5 +100,10 @@ public final class AylythBlockTagProvider extends FabricTagProvider.BlockTagProv
         getOrCreateTagBuilder(BlockTags.SMALL_FLOWERS).add(AylythBlocks.MARIGOLD);
         getOrCreateTagBuilder(BlockTags.FLOWER_POTS).add(AylythBlocks.MARIGOLD_POTTED, AylythBlocks.GIRASOL_SAPLING_POTTED);
         getOrCreateTagBuilder(BlockTags.PORTALS).addTag(AylythBlockTags.SEEPS);
+        getOrCreateTagBuilder(BlockTags.DIRT).add(AylythBlocks.DARK_PODZOL);
+        getOrCreateTagBuilder(BlockTags.VALID_SPAWN).add(AylythBlocks.DARK_PODZOL);
+        getOrCreateTagBuilder(BlockTags.MUSHROOM_GROW_BLOCK).add(AylythBlocks.DARK_PODZOL);
+        getOrCreateTagBuilder(BlockTags.FOXES_SPAWNABLE_ON).add(AylythBlocks.DARK_PODZOL);
+        getOrCreateTagBuilder(BlockTags.SNIFFER_DIGGABLE_BLOCK).add(AylythBlocks.DARK_PODZOL);
     }
 }

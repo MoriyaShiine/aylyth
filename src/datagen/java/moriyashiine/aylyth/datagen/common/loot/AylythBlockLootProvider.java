@@ -7,6 +7,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.data.server.loottable.vanilla.VanillaBlockLootTableGenerator;
 import net.minecraft.enchantment.Enchantments;
@@ -108,6 +109,7 @@ public class AylythBlockLootProvider extends FabricBlockLootTableProvider {
         addDrop(AylythBlocks.BARE_WRITHEWOOD_BRANCH, block -> dropsWithSilkTouchOrShears(block, ItemEntry.builder(Items.STICK).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0, 2)))));
         addDrop(AylythBlocks.YMPE_BRANCH, block -> leafyBranch(block, AylythItems.YMPE_STREWN_LEAVES));
         addDrop(AylythBlocks.BARE_YMPE_BRANCH, block -> dropsWithSilkTouchOrShears(block, ItemEntry.builder(Items.STICK).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0, 2)))));
+        addDrop(AylythBlocks.DARK_PODZOL, block -> drops(block, Blocks.DIRT));
     }
 
     private LootTable.Builder leafyBranch(Block branch, ItemConvertible strewnLeaves) {

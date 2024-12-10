@@ -124,6 +124,8 @@ public interface AylythItems {
     Item CHTHONIA_WOOD = registerBlockItem("chthonia_wood", AylythBlocks.CHTHONIA_WOOD);
     Item NEPHRITIC_CHTHONIA_WOOD = registerBlockItem("nephritic_chthonia_wood", AylythBlocks.NEPHRITIC_CHTHONIA_WOOD);
 
+    Item DARK_PODZOL = registerBlockItem("dark_podzol", AylythBlocks.DARK_PODZOL);
+
     Item AYLYTH_BUSH = registerBlockItem("aylyth_bush", AylythBlocks.AYLYTH_BUSH);
     Item ANTLER_SHOOTS = registerBlockItem("antler_shoots", AylythBlocks.ANTLER_SHOOTS);
     Item GRIPWEED = registerBlockItem("gripweed", AylythBlocks.GRIPWEED);

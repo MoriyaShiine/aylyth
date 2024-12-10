@@ -1,0 +1,84 @@
+{
+  "variants": {
+    "snowy=false": {
+      "model": "minecraft:block/grass_block_snow"
+    },
+    "snowy=true": [
+      {
+        "model": "aylyth:block/dark_podzol"
+      },
+      {
+        "model": "aylyth:block/dark_podzol",
+        "y": 90
+      },
+      {
+        "model": "aylyth:block/dark_podzol",
+        "y": 180
+      },
+      {
+        "model": "aylyth:block/dark_podzol",
+        "y": 270
+      },
+      {
+        "model": "aylyth:block/dark_podzol_1"
+      },
+      {
+        "model": "aylyth:block/dark_podzol_1",
+        "y": 90
+      },
+      {
+        "model": "aylyth:block/dark_podzol_1",
+        "y": 180
+      },
+      {
+        "model": "aylyth:block/dark_podzol_1",
+        "y": 270
+      },
+      {
+        "model": "aylyth:block/dark_podzol_2"
+      },
+      {
+        "model": "aylyth:block/dark_podzol_2",
+        "y": 90
+      },
+      {
+        "model": "aylyth:block/dark_podzol_2",
+        "y": 180
+      },
+      {
+        "model": "aylyth:block/dark_podzol_2",
+        "y": 270
+      },
+      {
+        "model": "aylyth:block/dark_podzol_3"
+      },
+      {
+        "model": "aylyth:block/dark_podzol_3",
+        "y": 90
+      },
+      {
+        "model": "aylyth:block/dark_podzol_3",
+        "y": 180
+      },
+      {
+        "model": "aylyth:block/dark_podzol_3",
+        "y": 270
+      },
+      {
+        "model": "aylyth:block/dark_podzol_4"
+      },
+      {
+        "model": "aylyth:block/dark_podzol_4",
+        "y": 90
+      },
+      {
+        "model": "aylyth:block/dark_podzol_4",
+        "y": 180
+      },
+      {
+        "model": "aylyth:block/dark_podzol_4",
+        "y": 270
+      }
+    ]
+  }
+}

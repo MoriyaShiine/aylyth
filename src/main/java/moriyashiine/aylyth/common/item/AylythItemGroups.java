@@ -99,6 +99,8 @@ public interface AylythItemGroups {
                     entries.add(AylythItems.CHTHONIA_WOOD);
                     entries.add(AylythItems.NEPHRITIC_CHTHONIA_WOOD);
 
+                    entries.add(AylythItems.DARK_PODZOL);
+
                     entries.add(AylythItems.AYLYTH_BUSH);
                     entries.add(AylythItems.ANTLER_SHOOTS);
                     entries.add(AylythItems.GRIPWEED);
