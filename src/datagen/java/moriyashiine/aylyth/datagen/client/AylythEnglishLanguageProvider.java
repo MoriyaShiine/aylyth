@@ -128,6 +128,7 @@ public class AylythEnglishLanguageProvider extends FabricLanguageProvider {
         builder.add(AylythBlocks.BARE_WRITHEWOOD_BRANCH, "Bare Writhewood Branch");
         builder.add(AylythBlocks.YMPE_BRANCH, "Ympe Branch");
         builder.add(AylythBlocks.BARE_YMPE_BRANCH, "Bare Ympe Branch");
+        builder.add(AylythBlocks.DARK_PODZOL, "Dark Podzol");
 
         // ITEMS
 
