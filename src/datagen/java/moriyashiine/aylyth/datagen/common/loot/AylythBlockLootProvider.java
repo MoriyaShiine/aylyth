@@ -35,7 +35,7 @@ public class AylythBlockLootProvider extends FabricBlockLootTableProvider {
     @Override
     public void generate() {
         addDrop(AylythBlocks.MARIGOLD);
-        addPottedPlantDrops(AylythBlocks.MARIGOLD_POTTED);
+        addPottedPlantDrops(AylythBlocks.POTTED_MARIGOLD);
         addDrop(AylythBlocks.OAK_STREWN_LEAVES, this::strewnLeaves);
         addDrop(AylythBlocks.YMPE_STREWN_LEAVES, this::strewnLeaves);
         addDrop(AylythBlocks.JACK_O_LANTERN_MUSHROOM, this::standingJackolantern);
@@ -47,7 +47,7 @@ public class AylythBlockLootProvider extends FabricBlockLootTableProvider {
         addDrop(AylythBlocks.POMEGRANATE_LOG);
         addDrop(AylythBlocks.POMEGRANATE_WOOD);
         addDrop(AylythBlocks.POMEGRANATE_SAPLING);
-        addPottedPlantDrops(AylythBlocks.POMEGRANATE_POTTED_SAPLING);
+        addPottedPlantDrops(AylythBlocks.POTTED_POMEGRANATE_SAPLING);
         addDrop(AylythBlocks.POMEGRANATE_PLANKS);
         addDrop(AylythBlocks.POMEGRANATE_STAIRS);
         addDrop(AylythBlocks.POMEGRANATE_SLAB, this::slabDrops);
@@ -64,7 +64,7 @@ public class AylythBlockLootProvider extends FabricBlockLootTableProvider {
         addDrop(AylythBlocks.WRITHEWOOD_LOG);
         addDrop(AylythBlocks.WRITHEWOOD_WOOD);
         addDrop(AylythBlocks.WRITHEWOOD_SAPLING);
-        addPottedPlantDrops(AylythBlocks.WRITHEWOOD_POTTED_SAPLING);
+        addPottedPlantDrops(AylythBlocks.POTTED_WRITHEWOOD_SAPLING);
         addDrop(AylythBlocks.WRITHEWOOD_PLANKS);
         addDrop(AylythBlocks.WRITHEWOOD_STAIRS);
         addDrop(AylythBlocks.WRITHEWOOD_SLAB, this::slabDrops);
@@ -110,6 +110,21 @@ public class AylythBlockLootProvider extends FabricBlockLootTableProvider {
         addDrop(AylythBlocks.YMPE_BRANCH, block -> leafyBranch(block, AylythItems.YMPE_STREWN_LEAVES));
         addDrop(AylythBlocks.BARE_YMPE_BRANCH, block -> dropsWithSilkTouchOrShears(block, ItemEntry.builder(Items.STICK).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0, 2)))));
         addDrop(AylythBlocks.DARK_PODZOL, block -> drops(block, Blocks.DIRT));
+        addDrop(AylythBlocks.BROWN_AYLYTHIAN_OAK_SAPLING);
+        addPottedPlantDrops(AylythBlocks.POTTED_BROWN_AYLYTHIAN_OAK_SAPLING);
+        addDrop(AylythBlocks.GREEN_AYLYTHIAN_OAK_SAPLING);
+        addPottedPlantDrops(AylythBlocks.POTTED_GREEN_AYLYTHIAN_OAK_SAPLING);
+        addDrop(AylythBlocks.ORANGE_AYLYTHIAN_OAK_SAPLING);
+        addPottedPlantDrops(AylythBlocks.POTTED_ORANGE_AYLYTHIAN_OAK_SAPLING);
+        addDrop(AylythBlocks.RED_AYLYTHIAN_OAK_SAPLING);
+        addPottedPlantDrops(AylythBlocks.POTTED_RED_AYLYTHIAN_OAK_SAPLING);
+        addDrop(AylythBlocks.ORANGE_AYLYTHIAN_OAK_BRANCH, block -> leafyBranch(block, AylythItems.OAK_STREWN_LEAVES));
+        addDrop(AylythBlocks.RED_AYLYTHIAN_OAK_BRANCH, block -> leafyBranch(block, AylythItems.OAK_STREWN_LEAVES));
+        addDrop(AylythBlocks.BROWN_AYLYTHIAN_OAK_BRANCH, block -> leafyBranch(block, AylythItems.OAK_STREWN_LEAVES));
+        addDrop(AylythBlocks.GREEN_AYLYTHIAN_OAK_LEAVES, block -> leavesDrops(block, AylythBlocks.GREEN_AYLYTHIAN_OAK_SAPLING, 0.05f, 0.0625f, 0.083333336f, 0.1f));
+        addDrop(AylythBlocks.ORANGE_AYLYTHIAN_OAK_LEAVES, block -> leavesDrops(block, AylythBlocks.ORANGE_AYLYTHIAN_OAK_SAPLING, 0.05f, 0.0625f, 0.083333336f, 0.1f));
+        addDrop(AylythBlocks.RED_AYLYTHIAN_OAK_LEAVES, block -> leavesDrops(block, AylythBlocks.RED_AYLYTHIAN_OAK_SAPLING, 0.05f, 0.0625f, 0.083333336f, 0.1f));
+        addDrop(AylythBlocks.BROWN_AYLYTHIAN_OAK_LEAVES, block -> leavesDrops(block, AylythBlocks.BROWN_AYLYTHIAN_OAK_SAPLING, 0.05f, 0.0625f, 0.083333336f, 0.1f));
     }
 
     private LootTable.Builder leafyBranch(Block branch, ItemConvertible strewnLeaves) {

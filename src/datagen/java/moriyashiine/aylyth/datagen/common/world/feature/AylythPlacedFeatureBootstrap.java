@@ -3,13 +3,10 @@ package moriyashiine.aylyth.datagen.common.world.feature;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.data.world.feature.AylythConfiguredFeatures;
-import moriyashiine.aylyth.common.world.gen.placementmodifiers.EnvironmentCheckPlacementModifier;
 import net.minecraft.block.Blocks;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.world.gen.blockpredicate.BlockPredicate;
 import net.minecraft.world.gen.feature.PlacedFeature;
@@ -28,8 +25,14 @@ public final class AylythPlacedFeatureBootstrap {
     public static void bootstrap(Registerable<PlacedFeature> context) {
         var features = context.getRegistryLookup(RegistryKeys.CONFIGURED_FEATURE);
 
-        var aylythianDarkOak = features.getOrThrow(AylythConfiguredFeatures.AYLYTHIAN_DARK_OAK);
-        var aylythianMegaDarkOak = features.getOrThrow(AylythConfiguredFeatures.AYLYTHIAN_MEGA_DARK_OAK);
+        var aylythianDarkOak = features.getOrThrow(AylythConfiguredFeatures.GREEN_AYLYTHIAN_DARK_OAK);
+        var aylythianMegaDarkOak = features.getOrThrow(AylythConfiguredFeatures.GREEN_AYLYTHIAN_MEGA_DARK_OAK);
+        var orangeAylythianDarkOak = features.getOrThrow(AylythConfiguredFeatures.ORANGE_AYLYTHIAN_DARK_OAK);
+        var orangeAylythianMegaDarkOak = features.getOrThrow(AylythConfiguredFeatures.ORANGE_AYLYTHIAN_MEGA_DARK_OAK);
+        var redAylythianDarkOak = features.getOrThrow(AylythConfiguredFeatures.RED_AYLYTHIAN_DARK_OAK);
+        var redAylythianMegaDarkOak = features.getOrThrow(AylythConfiguredFeatures.RED_AYLYTHIAN_MEGA_DARK_OAK);
+        var brownAylythianDarkOak = features.getOrThrow(AylythConfiguredFeatures.BROWN_AYLYTHIAN_DARK_OAK);
+        var brownAylythianMegaDarkOak = features.getOrThrow(AylythConfiguredFeatures.BROWN_AYLYTHIAN_MEGA_DARK_OAK);
         var ympe = features.getOrThrow(AylythConfiguredFeatures.YMPE_TREE);
         var bigYmpe = features.getOrThrow(AylythConfiguredFeatures.BIG_YMPE_TREE);
         var pomegranate = features.getOrThrow(AylythConfiguredFeatures.POMEGRANATE_TREE);
@@ -76,8 +79,14 @@ public final class AylythPlacedFeatureBootstrap {
         var jackOLanternMushroom = features.getOrThrow(AylythConfiguredFeatures.JACK_O_LANTERN_MUSHROOM);
         var giantJackOLanternMushrooms = features.getOrThrow(AylythConfiguredFeatures.GIANT_JACK_O_LANTERN_MUSHROOMS);
 
-        PlacedFeatures.register(context, AYLYTHIAN_DARK_OAK, aylythianDarkOak, List.of(PlacedFeatures.wouldSurvive(Blocks.DARK_OAK_SAPLING)));
-        PlacedFeatures.register(context, AYLYTHIAN_MEGA_DARK_OAK, aylythianMegaDarkOak, List.of(PlacedFeatures.wouldSurvive(Blocks.DARK_OAK_SAPLING)));
+        PlacedFeatures.register(context, GREEN_AYLYTHIAN_DARK_OAK, aylythianDarkOak, List.of(PlacedFeatures.wouldSurvive(Blocks.DARK_OAK_SAPLING)));
+        PlacedFeatures.register(context, GREEN_AYLYTHIAN_MEGA_DARK_OAK, aylythianMegaDarkOak, List.of(PlacedFeatures.wouldSurvive(Blocks.DARK_OAK_SAPLING)));
+        PlacedFeatures.register(context, ORANGE_AYLYTHIAN_DARK_OAK, orangeAylythianDarkOak, List.of(PlacedFeatures.wouldSurvive(Blocks.DARK_OAK_SAPLING)));
+        PlacedFeatures.register(context, ORANGE_AYLYTHIAN_MEGA_DARK_OAK, orangeAylythianMegaDarkOak, List.of(PlacedFeatures.wouldSurvive(Blocks.DARK_OAK_SAPLING)));
+        PlacedFeatures.register(context, RED_AYLYTHIAN_DARK_OAK, redAylythianDarkOak, List.of(PlacedFeatures.wouldSurvive(Blocks.DARK_OAK_SAPLING)));
+        PlacedFeatures.register(context, RED_AYLYTHIAN_MEGA_DARK_OAK, redAylythianMegaDarkOak, List.of(PlacedFeatures.wouldSurvive(Blocks.DARK_OAK_SAPLING)));
+        PlacedFeatures.register(context, BROWN_AYLYTHIAN_DARK_OAK, brownAylythianDarkOak, List.of(PlacedFeatures.wouldSurvive(Blocks.DARK_OAK_SAPLING)));
+        PlacedFeatures.register(context, BROWN_AYLYTHIAN_MEGA_DARK_OAK, brownAylythianMegaDarkOak, List.of(PlacedFeatures.wouldSurvive(Blocks.DARK_OAK_SAPLING)));
         PlacedFeatures.register(context, YMPE_TREE, ympe, List.of(PlacedFeatures.wouldSurvive(AylythBlocks.YMPE_SAPLING)));
         PlacedFeatures.register(context, BIG_YMPE_TREE, bigYmpe, List.of(PlacedFeatures.wouldSurvive(AylythBlocks.YMPE_SAPLING)));
         PlacedFeatures.register(context, POMEGRANATE_TREE, pomegranate, List.of(PlacedFeatures.wouldSurvive(AylythBlocks.POMEGRANATE_SAPLING)));

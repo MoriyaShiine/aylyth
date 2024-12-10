@@ -7,8 +7,14 @@ import net.minecraft.world.gen.feature.ConfiguredFeature;
 
 public interface AylythConfiguredFeatures {
 
-    RegistryKey<ConfiguredFeature<?, ?>> AYLYTHIAN_DARK_OAK = bind("aylythian_dark_oak");
-    RegistryKey<ConfiguredFeature<?, ?>> AYLYTHIAN_MEGA_DARK_OAK = bind("aylythian_mega_dark_oak");
+    RegistryKey<ConfiguredFeature<?, ?>> GREEN_AYLYTHIAN_DARK_OAK = bind("green_aylythian_dark_oak");
+    RegistryKey<ConfiguredFeature<?, ?>> GREEN_AYLYTHIAN_MEGA_DARK_OAK = bind("green_aylythian_mega_dark_oak");
+    RegistryKey<ConfiguredFeature<?, ?>> ORANGE_AYLYTHIAN_DARK_OAK = bind("orange_aylythian_dark_oak");
+    RegistryKey<ConfiguredFeature<?, ?>> ORANGE_AYLYTHIAN_MEGA_DARK_OAK = bind("orange_aylythian_mega_dark_oak");
+    RegistryKey<ConfiguredFeature<?, ?>> RED_AYLYTHIAN_DARK_OAK = bind("red_aylythian_dark_oak");
+    RegistryKey<ConfiguredFeature<?, ?>> RED_AYLYTHIAN_MEGA_DARK_OAK = bind("red_aylythian_mega_dark_oak");
+    RegistryKey<ConfiguredFeature<?, ?>> BROWN_AYLYTHIAN_DARK_OAK = bind("brown_aylythian_dark_oak");
+    RegistryKey<ConfiguredFeature<?, ?>> BROWN_AYLYTHIAN_MEGA_DARK_OAK = bind("brown_aylythian_mega_dark_oak");
     RegistryKey<ConfiguredFeature<?, ?>> YMPE_TREE = bind("ympe_tree");
     RegistryKey<ConfiguredFeature<?, ?>> BIG_YMPE_TREE = bind("big_ympe_tree");
     RegistryKey<ConfiguredFeature<?, ?>> POMEGRANATE_TREE = bind("pomegranate_tree");

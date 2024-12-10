@@ -127,8 +127,8 @@
             }
           ]
         },
-        "chance": 0.1875,
-        "min_branch_height": 2
+        "chance": 0.375,
+        "min_branch_height": 4
       }
     ],
     "dirt_provider": {
@@ -145,7 +145,7 @@
     "foliage_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "minecraft:dark_oak_leaves",
+        "Name": "aylyth:green_aylythian_oak_leaves",
         "Properties": {
           "distance": "7",
           "persistent": "false",
@@ -163,9 +163,9 @@
     },
     "trunk_placer": {
       "type": "aylyth:aylythian",
-      "base_height": 12,
-      "height_rand_a": 2,
-      "height_rand_b": 5
+      "base_height": 18,
+      "height_rand_a": 6,
+      "height_rand_b": 7
     },
     "trunk_provider": {
       "type": "minecraft:simple_state_provider",

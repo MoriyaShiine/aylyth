@@ -93,21 +93,21 @@ public class AylythModelProvider extends FabricModelProvider {
         generator.registerParentedItemModel(AylythBlocks.SEEPING_WOOD_SEEP, blockId("seeping_wood_seep_log_single"));
         generator.registerParentedItemModel(AylythBlocks.SPRUCE_SEEP, blockId("spruce_seep_log_single"));
         generator.registerParentedItemModel(AylythBlocks.YMPE_SEEP, blockId("ympe_seep_log_single"));
-        registerFlowerPotPlant(generator, AylythBlocks.MARIGOLD, AylythBlocks.MARIGOLD_POTTED, BlockStateModelGenerator.TintType.NOT_TINTED);
+        registerFlowerPotPlant(generator, AylythBlocks.MARIGOLD, AylythBlocks.POTTED_MARIGOLD, BlockStateModelGenerator.TintType.NOT_TINTED);
         generateStrewnLeaves(generator, AylythBlocks.OAK_STREWN_LEAVES, Blocks.OAK_LEAVES, blockId("fallen_oak_leaves_01"), blockId("fallen_oak_leaves_02"), blockId("fallen_oak_leaves_03"), blockId("fallen_oak_leaves_04"), blockId("fallen_oak_leaves_05"), blockId("fallen_oak_leaves_06"), blockId("fallen_oak_leaves_07"), blockId("fallen_oak_leaves_08"), blockId("fallen_oak_leaves_09"), blockId("fallen_oak_leaves_10"));
         generateStrewnLeaves(generator, AylythBlocks.YMPE_STREWN_LEAVES, AylythBlocks.YMPE_LEAVES, blockId("fallen_ympe_leaves_01"), blockId("fallen_ympe_leaves_02"));
 
         generator.registerLog(AylythBlocks.YMPE_STRIPPED_LOG).log(AylythBlocks.YMPE_STRIPPED_LOG).wood(AylythBlocks.YMPE_STRIPPED_WOOD);
         generator.registerLog(AylythBlocks.YMPE_LOG).log(AylythBlocks.YMPE_LOG).wood(AylythBlocks.YMPE_WOOD);
-        generator.registerFlowerPotPlant(AylythBlocks.YMPE_SAPLING, AylythBlocks.YMPE_POTTED_SAPLING, BlockStateModelGenerator.TintType.NOT_TINTED);
+        generator.registerFlowerPotPlant(AylythBlocks.YMPE_SAPLING, AylythBlocks.POTTED_YMPE_SAPLING, BlockStateModelGenerator.TintType.NOT_TINTED);
         generator.registerCubeAllModelTexturePool(AylythBlocks.YMPE_PLANKS)
                 .family(AylythBlockFamilies.YMPE);
         generator.registerHangingSign(AylythBlocks.YMPE_STRIPPED_LOG, AylythBlocks.YMPE_HANGING_SIGN, AylythBlocks.YMPE_WALL_HANGING_SIGN);
-        variantState(generator, AylythBlocks.YMPE_LEAVES);
+        singleton(generator, AylythBlocks.YMPE_LEAVES);
 
         generator.registerLog(AylythBlocks.POMEGRANATE_STRIPPED_LOG).log(AylythBlocks.POMEGRANATE_STRIPPED_LOG).wood(AylythBlocks.POMEGRANATE_STRIPPED_WOOD);
         generator.registerLog(AylythBlocks.POMEGRANATE_LOG).log(AylythBlocks.POMEGRANATE_LOG).wood(AylythBlocks.POMEGRANATE_WOOD);
-        generator.registerFlowerPotPlant(AylythBlocks.POMEGRANATE_SAPLING, AylythBlocks.POMEGRANATE_POTTED_SAPLING, BlockStateModelGenerator.TintType.NOT_TINTED);
+        generator.registerFlowerPotPlant(AylythBlocks.POMEGRANATE_SAPLING, AylythBlocks.POTTED_POMEGRANATE_SAPLING, BlockStateModelGenerator.TintType.NOT_TINTED);
         generator.registerCubeAllModelTexturePool(AylythBlocks.POMEGRANATE_PLANKS).family(AylythBlockFamilies.POMEGRANATE);
         generator.registerHangingSign(AylythBlocks.POMEGRANATE_STRIPPED_LOG, AylythBlocks.POMEGRANATE_HANGING_SIGN, AylythBlocks.POMEGRANATE_WALL_HANGING_SIGN);
         fruitingLeaves(generator, AylythBlocks.POMEGRANATE_LEAVES, blockId("pomegranate_leaves"), blockId("pomegranate_leaves_fruiting_0"), blockId("pomegranate_leaves_fruiting_1"), blockId("pomegranate_leaves_fruiting_2"));
@@ -115,11 +115,11 @@ public class AylythModelProvider extends FabricModelProvider {
 
         generator.registerLog(AylythBlocks.WRITHEWOOD_STRIPPED_LOG).log(AylythBlocks.WRITHEWOOD_STRIPPED_LOG).wood(AylythBlocks.WRITHEWOOD_STRIPPED_WOOD);
         generator.registerLog(AylythBlocks.WRITHEWOOD_LOG).log(AylythBlocks.WRITHEWOOD_LOG).wood(AylythBlocks.WRITHEWOOD_WOOD);
-        generator.registerFlowerPotPlant(AylythBlocks.WRITHEWOOD_SAPLING, AylythBlocks.WRITHEWOOD_POTTED_SAPLING, BlockStateModelGenerator.TintType.NOT_TINTED);
+        generator.registerFlowerPotPlant(AylythBlocks.WRITHEWOOD_SAPLING, AylythBlocks.POTTED_WRITHEWOOD_SAPLING, BlockStateModelGenerator.TintType.NOT_TINTED);
         generator.registerCubeAllModelTexturePool(AylythBlocks.WRITHEWOOD_PLANKS)
                 .family(AylythBlockFamilies.WRITHEWOOD);
         generator.registerHangingSign(AylythBlocks.WRITHEWOOD_STRIPPED_LOG, AylythBlocks.WRITHEWOOD_HANGING_SIGN, AylythBlocks.WRITHEWOOD_WALL_HANGING_SIGN);
-        variantState(generator, AylythBlocks.WRITHEWOOD_LEAVES);
+        singleton(generator, AylythBlocks.WRITHEWOOD_LEAVES);
 
         Models.TEMPLATE_SINGLE_FACE.upload(blockId("jack_o_lantern_mushroom_block_inner"), TextureMap.texture(blockId("jack_o_lantern_mushroom_block_inner")), generator.modelCollector);
         registerMushroomBlock(generator, AylythBlocks.JACK_O_LANTERN_MUSHROOM_STEM, blockId("jack_o_lantern_mushroom_block_inner"));
@@ -149,9 +149,9 @@ public class AylythModelProvider extends FabricModelProvider {
 
         generator.registerTintableCrossBlockState(AylythBlocks.GIRASOL_SAPLING, BlockStateModelGenerator.TintType.NOT_TINTED);
         TextureMap girasolMap = TextureMap.plant(AylythBlocks.GIRASOL_SAPLING);
-        Identifier pottedSaplingId = BlockStateModelGenerator.TintType.NOT_TINTED.getFlowerPotCrossModel().upload(AylythBlocks.GIRASOL_SAPLING_POTTED, girasolMap, generator.modelCollector);
-        generator.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(AylythBlocks.GIRASOL_SAPLING_POTTED, pottedSaplingId));
-        variantState(generator, AylythBlocks.BLACK_WELL);
+        Identifier pottedSaplingId = BlockStateModelGenerator.TintType.NOT_TINTED.getFlowerPotCrossModel().upload(AylythBlocks.POTTED_GIRASOL_SAPLING, girasolMap, generator.modelCollector);
+        generator.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(AylythBlocks.POTTED_GIRASOL_SAPLING, pottedSaplingId));
+        singleton(generator, AylythBlocks.BLACK_WELL);
 
         generator.blockStateCollector.accept(sapstoneBlockStates(AylythBlocks.SAPSTONE, blockId("sapstone")));
         generator.blockStateCollector.accept(sapstoneBlockStates(AylythBlocks.AMBER_SAPSTONE, blockId("amber_sapstone")));
@@ -165,6 +165,9 @@ public class AylythModelProvider extends FabricModelProvider {
         registerBranch(generator, AylythBlocks.BARE_WRITHEWOOD_BRANCH);
         registerBranch(generator, AylythBlocks.YMPE_BRANCH);
         registerBranch(generator, AylythBlocks.BARE_YMPE_BRANCH);
+        registerBranch(generator, AylythBlocks.ORANGE_AYLYTHIAN_OAK_BRANCH);
+        registerBranch(generator, AylythBlocks.RED_AYLYTHIAN_OAK_BRANCH);
+        registerBranch(generator, AylythBlocks.BROWN_AYLYTHIAN_OAK_BRANCH);
 
         {
             var var1 = Models.CUBE_BOTTOM_TOP.upload(AylythBlocks.DARK_PODZOL, TextureMap.topBottom(blockId("dark_podzol_top"), ModelIds.getBlockModelId(Blocks.DIRT)).put(TextureKey.SIDE, blockId("dark_podzol_side")), generator.modelCollector);
@@ -186,6 +189,16 @@ public class AylythModelProvider extends FabricModelProvider {
                     )
             );
         }
+
+        generator.registerFlowerPotPlant(AylythBlocks.BROWN_AYLYTHIAN_OAK_SAPLING, AylythBlocks.POTTED_BROWN_AYLYTHIAN_OAK_SAPLING, BlockStateModelGenerator.TintType.NOT_TINTED);
+        generator.registerFlowerPotPlant(AylythBlocks.GREEN_AYLYTHIAN_OAK_SAPLING, AylythBlocks.POTTED_GREEN_AYLYTHIAN_OAK_SAPLING, BlockStateModelGenerator.TintType.NOT_TINTED);
+        generator.registerFlowerPotPlant(AylythBlocks.ORANGE_AYLYTHIAN_OAK_SAPLING, AylythBlocks.POTTED_ORANGE_AYLYTHIAN_OAK_SAPLING, BlockStateModelGenerator.TintType.NOT_TINTED);
+        generator.registerFlowerPotPlant(AylythBlocks.RED_AYLYTHIAN_OAK_SAPLING, AylythBlocks.POTTED_RED_AYLYTHIAN_OAK_SAPLING, BlockStateModelGenerator.TintType.NOT_TINTED);
+
+        singleton(generator, AylythBlocks.GREEN_AYLYTHIAN_OAK_LEAVES);
+        singleton(generator, AylythBlocks.ORANGE_AYLYTHIAN_OAK_LEAVES);
+        singleton(generator, AylythBlocks.RED_AYLYTHIAN_OAK_LEAVES);
+        singleton(generator, AylythBlocks.BROWN_AYLYTHIAN_OAK_LEAVES);
     }
 
     @Override
@@ -381,6 +394,9 @@ public class AylythModelProvider extends FabricModelProvider {
         Models.GENERATED.upload(ModelIds.getItemModelId(AylythItems.BARE_WRITHEWOOD_BRANCH), TextureMap.layer0(AylythBlocks.BARE_WRITHEWOOD_BRANCH), generator.writer);
         Models.GENERATED.upload(ModelIds.getItemModelId(AylythItems.YMPE_BRANCH), TextureMap.layer0(AylythBlocks.YMPE_BRANCH), generator.writer);
         Models.GENERATED.upload(ModelIds.getItemModelId(AylythItems.BARE_YMPE_BRANCH), TextureMap.layer0(AylythBlocks.BARE_YMPE_BRANCH), generator.writer);
+        Models.GENERATED.upload(ModelIds.getItemModelId(AylythItems.ORANGE_AYLYTHIAN_OAK_BRANCH), TextureMap.layer0(AylythBlocks.ORANGE_AYLYTHIAN_OAK_BRANCH), generator.writer);
+        Models.GENERATED.upload(ModelIds.getItemModelId(AylythItems.RED_AYLYTHIAN_OAK_BRANCH), TextureMap.layer0(AylythBlocks.RED_AYLYTHIAN_OAK_BRANCH), generator.writer);
+        Models.GENERATED.upload(ModelIds.getItemModelId(AylythItems.BROWN_AYLYTHIAN_OAK_BRANCH), TextureMap.layer0(AylythBlocks.BROWN_AYLYTHIAN_OAK_BRANCH), generator.writer);
     }
 
     // copy without the regular cross state and model registration
@@ -488,7 +504,7 @@ public class AylythModelProvider extends FabricModelProvider {
     }
 
     /** This just does a simple single model, not dependent on any states*/
-    private void variantState(BlockStateModelGenerator generator, Block block) {
+    private void singleton(BlockStateModelGenerator generator, Block block) {
         generator.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(block, ModelIds.getBlockModelId(block)));
     }
 

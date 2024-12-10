@@ -1,11 +1,15 @@
 {
   "type": "minecraft:random_selector",
   "config": {
-    "default": "aylyth:aylythian_dark_oak",
+    "default": "aylyth:orange_aylythian_dark_oak",
     "features": [
       {
         "chance": 0.25,
         "feature": "aylyth:ympe_tree"
+      },
+      {
+        "chance": 0.5,
+        "feature": "aylyth:red_aylythian_dark_oak"
       }
     ]
   }

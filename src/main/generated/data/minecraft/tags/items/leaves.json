@@ -3,6 +3,10 @@
   "values": [
     "aylyth:ympe_leaves",
     "aylyth:pomegranate_leaves",
-    "aylyth:writhewood_leaves"
+    "aylyth:writhewood_leaves",
+    "aylyth:green_aylythian_oak_leaves",
+    "aylyth:orange_aylythian_oak_leaves",
+    "aylyth:red_aylythian_oak_leaves",
+    "aylyth:brown_aylythian_oak_leaves"
   ]
 }

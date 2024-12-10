@@ -1,0 +1,180 @@
+{
+  "type": "minecraft:tree",
+  "config": {
+    "decorators": [
+      {
+        "type": "aylyth:grape_vine",
+        "chance_point": 1,
+        "chance_range": {
+          "type": "minecraft:uniform",
+          "value": {
+            "max_inclusive": 9,
+            "min_inclusive": 0
+          }
+        }
+      },
+      {
+        "type": "aylyth:place_around",
+        "placed_features": [
+          {
+            "feature": "aylyth:oak_strewn_leaves",
+            "placement": [
+              {
+                "type": "minecraft:count",
+                "count": {
+                  "type": "minecraft:uniform",
+                  "value": {
+                    "max_inclusive": 8,
+                    "min_inclusive": 4
+                  }
+                }
+              },
+              {
+                "type": "minecraft:random_offset",
+                "xz_spread": {
+                  "type": "minecraft:uniform",
+                  "value": {
+                    "max_inclusive": 6,
+                    "min_inclusive": 2
+                  }
+                },
+                "y_spread": 0
+              },
+              {
+                "type": "minecraft:heightmap",
+                "heightmap": "WORLD_SURFACE_WG"
+              },
+              {
+                "type": "minecraft:block_predicate_filter",
+                "predicate": {
+                  "type": "minecraft:would_survive",
+                  "state": {
+                    "Name": "aylyth:oak_strewn_leaves",
+                    "Properties": {
+                      "leaves": "0"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "feature": "aylyth:oak_leaf_pile",
+            "placement": [
+              {
+                "type": "minecraft:count",
+                "count": {
+                  "type": "minecraft:uniform",
+                  "value": {
+                    "max_inclusive": 2,
+                    "min_inclusive": 0
+                  }
+                }
+              },
+              {
+                "type": "minecraft:random_offset",
+                "xz_spread": {
+                  "type": "minecraft:uniform",
+                  "value": {
+                    "max_inclusive": 6,
+                    "min_inclusive": 2
+                  }
+                },
+                "y_spread": 0
+              },
+              {
+                "type": "minecraft:heightmap",
+                "heightmap": "WORLD_SURFACE_WG"
+              },
+              {
+                "type": "minecraft:block_predicate_filter",
+                "predicate": {
+                  "type": "minecraft:would_survive",
+                  "state": {
+                    "Name": "aylyth:oak_strewn_leaves",
+                    "Properties": {
+                      "leaves": "0"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "aylyth:branches",
+        "block_state": {
+          "type": "minecraft:weighted_state_provider",
+          "entries": [
+            {
+              "data": {
+                "Name": "aylyth:red_aylythian_oak_branch",
+                "Properties": {
+                  "facing": "north"
+                }
+              },
+              "weight": 2
+            },
+            {
+              "data": {
+                "Name": "aylyth:bare_dark_oak_branch",
+                "Properties": {
+                  "facing": "north"
+                }
+              },
+              "weight": 4
+            }
+          ]
+        },
+        "chance": 0.375,
+        "min_branch_height": 4
+      }
+    ],
+    "dirt_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:dirt"
+      }
+    },
+    "foliage_placer": {
+      "type": "minecraft:dark_oak_foliage_placer",
+      "offset": 0,
+      "radius": 1
+    },
+    "foliage_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "aylyth:red_aylythian_oak_leaves",
+        "Properties": {
+          "distance": "7",
+          "persistent": "false",
+          "waterlogged": "false"
+        }
+      }
+    },
+    "force_dirt": false,
+    "ignore_vines": true,
+    "minimum_size": {
+      "type": "minecraft:two_layers_feature_size",
+      "limit": 1,
+      "lower_size": 1,
+      "upper_size": 2
+    },
+    "trunk_placer": {
+      "type": "aylyth:aylythian",
+      "base_height": 18,
+      "height_rand_a": 6,
+      "height_rand_b": 7
+    },
+    "trunk_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:dark_oak_log",
+        "Properties": {
+          "axis": "y"
+        }
+      }
+    }
+  }
+}
