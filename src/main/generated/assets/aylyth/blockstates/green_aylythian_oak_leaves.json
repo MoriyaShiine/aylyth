@@ -1,7 +1,15 @@
 {
   "variants": {
-    "": {
-      "model": "aylyth:block/green_aylythian_oak_leaves"
-    }
+    "": [
+      {
+        "model": "aylyth:block/green_aylythian_oak_leaves_1"
+      },
+      {
+        "model": "aylyth:block/green_aylythian_oak_leaves_2"
+      },
+      {
+        "model": "aylyth:block/green_aylythian_oak_leaves_3"
+      }
+    ]
   }
 }

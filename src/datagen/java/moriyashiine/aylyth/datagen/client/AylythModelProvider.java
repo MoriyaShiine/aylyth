@@ -177,8 +177,8 @@ public class AylythModelProvider extends FabricModelProvider {
             var var5 = Models.CUBE_BOTTOM_TOP.upload(ModelIds.getBlockSubModelId(AylythBlocks.DARK_PODZOL, "_4"), TextureMap.topBottom(blockId("dark_podzol_top_4"), new Identifier("block/dirt")).put(TextureKey.SIDE, blockId("dark_podzol_side")), generator.modelCollector);
             generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(AylythBlocks.DARK_PODZOL)
                     .coordinate(BlockStateVariantMap.create(Properties.SNOWY)
-                            .register(false, List.of(BlockStateVariant.create().put(VariantSettings.MODEL, ModelIds.getBlockSubModelId(Blocks.GRASS_BLOCK, "_snow"))))
-                            .register(true, ImmutableList.<BlockStateVariant>builder()
+                            .register(true, List.of(BlockStateVariant.create().put(VariantSettings.MODEL, ModelIds.getBlockSubModelId(Blocks.GRASS_BLOCK, "_snow"))))
+                            .register(false, ImmutableList.<BlockStateVariant>builder()
                                     .addAll(Arrays.asList(createModelVariantWithRandomHorizontalRotations(var1)))
                                     .addAll(Arrays.asList(createModelVariantWithRandomHorizontalRotations(var2)))
                                     .addAll(Arrays.asList(createModelVariantWithRandomHorizontalRotations(var3)))
@@ -195,10 +195,10 @@ public class AylythModelProvider extends FabricModelProvider {
         generator.registerFlowerPotPlant(AylythBlocks.ORANGE_AYLYTHIAN_OAK_SAPLING, AylythBlocks.POTTED_ORANGE_AYLYTHIAN_OAK_SAPLING, BlockStateModelGenerator.TintType.NOT_TINTED);
         generator.registerFlowerPotPlant(AylythBlocks.RED_AYLYTHIAN_OAK_SAPLING, AylythBlocks.POTTED_RED_AYLYTHIAN_OAK_SAPLING, BlockStateModelGenerator.TintType.NOT_TINTED);
 
-        singleton(generator, AylythBlocks.GREEN_AYLYTHIAN_OAK_LEAVES);
-        singleton(generator, AylythBlocks.ORANGE_AYLYTHIAN_OAK_LEAVES);
-        singleton(generator, AylythBlocks.RED_AYLYTHIAN_OAK_LEAVES);
-        singleton(generator, AylythBlocks.BROWN_AYLYTHIAN_OAK_LEAVES);
+        registerCubeAllWithNumberedVariants(generator, AylythBlocks.GREEN_AYLYTHIAN_OAK_LEAVES, 3);
+        registerCubeAllWithNumberedVariants(generator, AylythBlocks.ORANGE_AYLYTHIAN_OAK_LEAVES, 3);
+        registerCubeAllWithNumberedVariants(generator, AylythBlocks.RED_AYLYTHIAN_OAK_LEAVES, 3);
+        registerCubeAllWithNumberedVariants(generator, AylythBlocks.BROWN_AYLYTHIAN_OAK_LEAVES, 3);
     }
 
     @Override
@@ -397,6 +397,21 @@ public class AylythModelProvider extends FabricModelProvider {
         Models.GENERATED.upload(ModelIds.getItemModelId(AylythItems.ORANGE_AYLYTHIAN_OAK_BRANCH), TextureMap.layer0(AylythBlocks.ORANGE_AYLYTHIAN_OAK_BRANCH), generator.writer);
         Models.GENERATED.upload(ModelIds.getItemModelId(AylythItems.RED_AYLYTHIAN_OAK_BRANCH), TextureMap.layer0(AylythBlocks.RED_AYLYTHIAN_OAK_BRANCH), generator.writer);
         Models.GENERATED.upload(ModelIds.getItemModelId(AylythItems.BROWN_AYLYTHIAN_OAK_BRANCH), TextureMap.layer0(AylythBlocks.BROWN_AYLYTHIAN_OAK_BRANCH), generator.writer);
+        registerSimpleParented(ModelIds.getItemModelId(AylythItems.GREEN_AYLYTHIAN_OAK_LEAVES), ModelIds.getBlockSubModelId(AylythBlocks.GREEN_AYLYTHIAN_OAK_LEAVES, "_1"), generator.writer);
+        registerSimpleParented(ModelIds.getItemModelId(AylythItems.ORANGE_AYLYTHIAN_OAK_LEAVES), ModelIds.getBlockSubModelId(AylythBlocks.ORANGE_AYLYTHIAN_OAK_LEAVES, "_1"), generator.writer);
+        registerSimpleParented(ModelIds.getItemModelId(AylythItems.RED_AYLYTHIAN_OAK_LEAVES), ModelIds.getBlockSubModelId(AylythBlocks.RED_AYLYTHIAN_OAK_LEAVES, "_1"), generator.writer);
+        registerSimpleParented(ModelIds.getItemModelId(AylythItems.BROWN_AYLYTHIAN_OAK_LEAVES), ModelIds.getBlockSubModelId(AylythBlocks.BROWN_AYLYTHIAN_OAK_LEAVES, "_1"), generator.writer);
+    }
+
+    private void registerCubeAllWithNumberedVariants(BlockStateModelGenerator generator, Block block, int variants) {
+        generator.excludeFromSimpleItemModelGeneration(block);
+        BlockStateVariant[] stateVariants = new BlockStateVariant[variants];
+        for (int i = 1; i <= variants; i++) {
+            Identifier modelId = ModelIds.getBlockSubModelId(block, "_" + i);
+            Identifier identifier = Models.CUBE_ALL.upload(modelId, TextureMap.all(modelId), generator.modelCollector);
+            stateVariants[i-1] = BlockStateVariant.create().put(VariantSettings.MODEL, identifier);
+        }
+        generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block, stateVariants));
     }
 
     // copy without the regular cross state and model registration
