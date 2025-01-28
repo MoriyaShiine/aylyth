@@ -1,11 +1,19 @@
 {
   "type": "minecraft:random_selector",
   "config": {
-    "default": "aylyth:spruce_podzol_checked",
+    "default": "aylyth:spruce_podzol",
     "features": [
       {
         "chance": 0.25,
         "feature": "aylyth:ympe_tree"
+      },
+      {
+        "chance": 0.45,
+        "feature": "aylyth:red_aylythian_dark_oak_podzol"
+      },
+      {
+        "chance": 0.45,
+        "feature": "aylyth:orange_aylythian_dark_oak_podzol"
       }
     ]
   }

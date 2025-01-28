@@ -8,7 +8,6 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
-import net.minecraft.world.Heightmap;
 import net.minecraft.world.Heightmap.Type;
 import net.minecraft.world.gen.blockpredicate.BlockPredicate;
 import net.minecraft.world.gen.feature.PlacedFeature;
@@ -27,15 +26,21 @@ public final class AylythPlacedFeatureBootstrap {
     public static void bootstrap(Registerable<PlacedFeature> context) {
         var features = context.getRegistryLookup(RegistryKeys.CONFIGURED_FEATURE);
 
-        var sprucePodzolChecked = features.getOrThrow(AylythConfiguredFeatures.SPRUCE_PODZOL_CHECKED);
-        var aylythianDarkOak = features.getOrThrow(AylythConfiguredFeatures.AYLYTHIAN_DARK_OAK);
-        var aylythianDarkOakPodzol = features.getOrThrow(AylythConfiguredFeatures.AYLYTHIAN_DARK_OAK_PODZOL);
-        var aylythianMegaDarkOak = features.getOrThrow(AylythConfiguredFeatures.AYLYTHIAN_MEGA_DARK_OAK);
+        var sprucePodzol = features.getOrThrow(AylythConfiguredFeatures.SPRUCE_PODZOL);
+        var aylythianDarkOak = features.getOrThrow(AylythConfiguredFeatures.GREEN_AYLYTHIAN_DARK_OAK);
+        var aylythianMegaDarkOak = features.getOrThrow(AylythConfiguredFeatures.GREEN_AYLYTHIAN_MEGA_DARK_OAK);
+        var orangeAylythianDarkOak = features.getOrThrow(AylythConfiguredFeatures.ORANGE_AYLYTHIAN_DARK_OAK);
+        var orangeAylythianDarkOakPodzol = features.getOrThrow(AylythConfiguredFeatures.ORANGE_AYLYTHIAN_DARK_OAK_PODZOL);
+        var orangeAylythianMegaDarkOak = features.getOrThrow(AylythConfiguredFeatures.ORANGE_AYLYTHIAN_MEGA_DARK_OAK);
+        var redAylythianDarkOak = features.getOrThrow(AylythConfiguredFeatures.RED_AYLYTHIAN_DARK_OAK);
+        var redAylythianDarkOakPodzol = features.getOrThrow(AylythConfiguredFeatures.RED_AYLYTHIAN_DARK_OAK_PODZOL);
+        var redAylythianMegaDarkOak = features.getOrThrow(AylythConfiguredFeatures.RED_AYLYTHIAN_MEGA_DARK_OAK);
+        var brownAylythianDarkOak = features.getOrThrow(AylythConfiguredFeatures.BROWN_AYLYTHIAN_DARK_OAK);
+        var brownAylythianMegaDarkOak = features.getOrThrow(AylythConfiguredFeatures.BROWN_AYLYTHIAN_MEGA_DARK_OAK);
         var ympe = features.getOrThrow(AylythConfiguredFeatures.YMPE_TREE);
         var bigYmpe = features.getOrThrow(AylythConfiguredFeatures.BIG_YMPE_TREE);
         var pomegranate = features.getOrThrow(AylythConfiguredFeatures.POMEGRANATE_TREE);
         var writhewood = features.getOrThrow(AylythConfiguredFeatures.WRITHEWOOD_TREE);
-        var rootedDirtBlob = features.getOrThrow(AylythConfiguredFeatures.ROOTED_DIRT_BLOB);
         var spring = features.getOrThrow(AylythConfiguredFeatures.SPRING);
         var bushes = features.getOrThrow(AylythConfiguredFeatures.BUSHES);
         var oakLeafPile = features.getOrThrow(AylythConfiguredFeatures.OAK_LEAF_PILE);
@@ -62,7 +67,8 @@ public final class AylythPlacedFeatureBootstrap {
         var overgrowthClearingTrees = features.getOrThrow(AylythConfiguredFeatures.OVERGROWTH_CLEARING_TREES);
         var mireWaterTrees = features.getOrThrow(AylythConfiguredFeatures.MIRE_WATER_TREES);
         var mireLandTrees = features.getOrThrow(AylythConfiguredFeatures.MIRE_LAND_TREES);
-        var redMushroomPatches = features.getOrThrow(AylythConfiguredFeatures.RED_MUSHROOM_PATCHES);
+        var redMushroomPatches = features.getOrThrow(AylythConfiguredFeatures.ROOTED_DIRT_BLOB);
+        var rootedDirtBlob = features.getOrThrow(AylythConfiguredFeatures.RED_MUSHROOM_PATCHES);
         var brownMushroomPatches = features.getOrThrow(AylythConfiguredFeatures.BROWN_MUSHROOM_PATCHES);
         var glowLichen = features.getOrThrow(AylythConfiguredFeatures.GLOW_LICHEN);
         var shelfJackOLanternMushroomPatches = features.getOrThrow(AylythConfiguredFeatures.SHELF_JACK_O_LANTERN_MUSHROOM_PATCHES);
@@ -78,10 +84,17 @@ public final class AylythPlacedFeatureBootstrap {
         var jackOLanternMushroom = features.getOrThrow(AylythConfiguredFeatures.JACK_O_LANTERN_MUSHROOM);
         var giantJackOLanternMushrooms = features.getOrThrow(AylythConfiguredFeatures.GIANT_JACK_O_LANTERN_MUSHROOMS);
 
-        PlacedFeatures.register(context, SPRUCE_PODZOL_CHECKED, sprucePodzolChecked, List.of(PlacedFeatures.wouldSurvive(Blocks.SPRUCE_SAPLING)));
-        PlacedFeatures.register(context, AYLYTHIAN_DARK_OAK, aylythianDarkOak, List.of(PlacedFeatures.wouldSurvive(Blocks.DARK_OAK_SAPLING)));
-        PlacedFeatures.register(context, AYLYTHIAN_DARK_OAK_PODZOL, aylythianDarkOakPodzol, List.of(PlacedFeatures.wouldSurvive(Blocks.DARK_OAK_SAPLING)));
-        PlacedFeatures.register(context, AYLYTHIAN_MEGA_DARK_OAK, aylythianMegaDarkOak, List.of(PlacedFeatures.wouldSurvive(Blocks.DARK_OAK_SAPLING)));
+        PlacedFeatures.register(context, SPRUCE_PODZOL, sprucePodzol, List.of(PlacedFeatures.wouldSurvive(Blocks.SPRUCE_SAPLING)));
+        PlacedFeatures.register(context, GREEN_AYLYTHIAN_DARK_OAK, aylythianDarkOak, List.of(PlacedFeatures.wouldSurvive(Blocks.DARK_OAK_SAPLING)));
+        PlacedFeatures.register(context, GREEN_AYLYTHIAN_MEGA_DARK_OAK, aylythianMegaDarkOak, List.of(PlacedFeatures.wouldSurvive(Blocks.DARK_OAK_SAPLING)));
+        PlacedFeatures.register(context, ORANGE_AYLYTHIAN_DARK_OAK, orangeAylythianDarkOak, List.of(PlacedFeatures.wouldSurvive(Blocks.DARK_OAK_SAPLING)));
+        PlacedFeatures.register(context, ORANGE_AYLYTHIAN_DARK_OAK_PODZOL, orangeAylythianDarkOakPodzol, List.of(PlacedFeatures.wouldSurvive(Blocks.DARK_OAK_SAPLING)));
+        PlacedFeatures.register(context, ORANGE_AYLYTHIAN_MEGA_DARK_OAK, orangeAylythianMegaDarkOak, List.of(PlacedFeatures.wouldSurvive(Blocks.DARK_OAK_SAPLING)));
+        PlacedFeatures.register(context, RED_AYLYTHIAN_DARK_OAK, redAylythianDarkOak, List.of(PlacedFeatures.wouldSurvive(Blocks.DARK_OAK_SAPLING)));
+        PlacedFeatures.register(context, RED_AYLYTHIAN_DARK_OAK_PODZOL, redAylythianDarkOakPodzol, List.of(PlacedFeatures.wouldSurvive(Blocks.DARK_OAK_SAPLING)));
+        PlacedFeatures.register(context, RED_AYLYTHIAN_MEGA_DARK_OAK, redAylythianMegaDarkOak, List.of(PlacedFeatures.wouldSurvive(Blocks.DARK_OAK_SAPLING)));
+        PlacedFeatures.register(context, BROWN_AYLYTHIAN_DARK_OAK, brownAylythianDarkOak, List.of(PlacedFeatures.wouldSurvive(Blocks.DARK_OAK_SAPLING)));
+        PlacedFeatures.register(context, BROWN_AYLYTHIAN_MEGA_DARK_OAK, brownAylythianMegaDarkOak, List.of(PlacedFeatures.wouldSurvive(Blocks.DARK_OAK_SAPLING)));
         PlacedFeatures.register(context, YMPE_TREE, ympe, List.of(PlacedFeatures.wouldSurvive(AylythBlocks.YMPE_SAPLING)));
         PlacedFeatures.register(context, BIG_YMPE_TREE, bigYmpe, List.of(PlacedFeatures.wouldSurvive(AylythBlocks.YMPE_SAPLING)));
         PlacedFeatures.register(context, POMEGRANATE_TREE, pomegranate, List.of(PlacedFeatures.wouldSurvive(AylythBlocks.POMEGRANATE_SAPLING)));
@@ -90,8 +103,6 @@ public final class AylythPlacedFeatureBootstrap {
         // TODO: Replace both survive checks with tall shroom when implemented
         PlacedFeatures.register(context, SMALL_GIANT_JACK__O_LANTERN_MUSHROOM, features.getOrThrow(AylythConfiguredFeatures.SMALL_GIANT_JACK_O_LANTERN_MUSHROOM), List.of(PlacedFeatures.wouldSurvive(AylythBlocks.JACK_O_LANTERN_MUSHROOM)));
         PlacedFeatures.register(context, LARGE_GIANT_JACK__O_LANTERN_MUSHROOM, features.getOrThrow(AylythConfiguredFeatures.LARGE_GIANT_JACK_O_LANTERN_MUSHROOM), List.of(PlacedFeatures.wouldSurvive(AylythBlocks.JACK_O_LANTERN_MUSHROOM)));
-
-        PlacedFeatures.register(context, ROOTED_DIRT_BLOB, rootedDirtBlob, List.of(RarityFilterPlacementModifier.of(2), SquarePlacementModifier.of(), HeightmapPlacementModifier.of(Type.MOTION_BLOCKING_NO_LEAVES), BiomePlacementModifier.of()));
 
         PlacedFeatures.register(context, SPRING, spring, List.of(CountPlacementModifier.of(1), RarityFilterPlacementModifier.of(8), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of()));//.configure(new SingleStateFeatureConfig(Blocks.WATER.getDefaultState())).range(Decorators.TOP_TO_BOTTOM).spreadHorizontally().applyChance(8);
         PlacedFeatures.register(context, BUSHES, bushes, List.of(RarityFilterPlacementModifier.of(2), SquarePlacementModifier.of(), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of()));
@@ -119,6 +130,8 @@ public final class AylythPlacedFeatureBootstrap {
         PlacedFeatures.register(context, MIRE_WATER_TREES, mireWaterTrees, floodedTrees(2, 0.5F, 2));
         PlacedFeatures.register(context, MIRE_LAND_TREES, mireLandTrees, trees(2, 0.5F, 2));
         PlacedFeatures.register(context, GIANT_JACK_O_LANTERN_MUSHROOMS, giantJackOLanternMushrooms, List.of(RarityFilterPlacementModifier.of(15), SquarePlacementModifier.of(), CountPlacementModifier.of(5), RandomOffsetPlacementModifier.horizontally(UniformIntProvider.create(0, 4)), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of()));
+
+        PlacedFeatures.register(context, ROOTED_DIRT_BLOB, rootedDirtBlob, List.of(RarityFilterPlacementModifier.of(2), SquarePlacementModifier.of(), HeightmapPlacementModifier.of(Type.MOTION_BLOCKING_NO_LEAVES), BiomePlacementModifier.of()));
 
         PlacedFeatures.register(context, RED_MUSHROOM_PATCHES, redMushroomPatches, List.of(RarityFilterPlacementModifier.of(256), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of()));
         PlacedFeatures.register(context, BROWN_MUSHROOM_PATCHES, brownMushroomPatches, List.of(RarityFilterPlacementModifier.of(256), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of()));

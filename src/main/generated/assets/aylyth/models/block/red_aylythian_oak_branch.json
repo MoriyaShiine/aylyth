@@ -1,0 +1,6 @@
+{
+  "parent": "aylyth:block/branch_template",
+  "textures": {
+    "side": "aylyth:block/red_aylythian_oak_branch"
+  }
+}

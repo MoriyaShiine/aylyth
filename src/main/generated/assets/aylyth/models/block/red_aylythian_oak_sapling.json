@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "aylyth:block/red_aylythian_oak_sapling"
+  }
+}

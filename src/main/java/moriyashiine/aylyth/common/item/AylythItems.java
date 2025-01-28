@@ -57,6 +57,23 @@ public interface AylythItems {
     Item LIGNITE_SAPSTONE =  registerBlockItem("lignite_sapstone", AylythBlocks.LIGNITE_SAPSTONE);
     Item OPALESCENT_SAPSTONE =  registerBlockItem("opalescent_sapstone", AylythBlocks.OPALESCENT_SAPSTONE);
 
+    Item GREEN_AYLYTHIAN_OAK_SAPLING = registerBlockItem("green_aylythian_oak_sapling", AylythBlocks.GREEN_AYLYTHIAN_OAK_SAPLING);
+    Item GREEN_AYLYTHIAN_OAK_LEAVES = registerBlockItem("green_aylythian_oak_leaves", AylythBlocks.GREEN_AYLYTHIAN_OAK_LEAVES);
+    Item DARK_OAK_BRANCH = registerBlockItem("dark_oak_branch", AylythBlocks.DARK_OAK_BRANCH);
+    Item BARE_DARK_OAK_BRANCH = registerBlockItem("bare_dark_oak_branch", AylythBlocks.BARE_DARK_OAK_BRANCH);
+    
+    Item ORANGE_AYLYTHIAN_OAK_SAPLING = registerBlockItem("orange_aylythian_oak_sapling", AylythBlocks.ORANGE_AYLYTHIAN_OAK_SAPLING);
+    Item ORANGE_AYLYTHIAN_OAK_LEAVES = registerBlockItem("orange_aylythian_oak_leaves", AylythBlocks.ORANGE_AYLYTHIAN_OAK_LEAVES);
+    Item ORANGE_AYLYTHIAN_OAK_BRANCH = registerBlockItem("orange_aylythian_oak_branch", AylythBlocks.ORANGE_AYLYTHIAN_OAK_BRANCH);
+    
+    Item RED_AYLYTHIAN_OAK_SAPLING = registerBlockItem("red_aylythian_oak_sapling", AylythBlocks.RED_AYLYTHIAN_OAK_SAPLING);
+    Item RED_AYLYTHIAN_OAK_LEAVES = registerBlockItem("red_aylythian_oak_leaves", AylythBlocks.RED_AYLYTHIAN_OAK_LEAVES);
+    Item RED_AYLYTHIAN_OAK_BRANCH = registerBlockItem("red_aylythian_oak_branch", AylythBlocks.RED_AYLYTHIAN_OAK_BRANCH);
+
+    Item BROWN_AYLYTHIAN_OAK_SAPLING = registerBlockItem("brown_aylythian_oak_sapling", AylythBlocks.BROWN_AYLYTHIAN_OAK_SAPLING);
+    Item BROWN_AYLYTHIAN_OAK_LEAVES = registerBlockItem("brown_aylythian_oak_leaves", AylythBlocks.BROWN_AYLYTHIAN_OAK_LEAVES);
+    Item BROWN_AYLYTHIAN_OAK_BRANCH = registerBlockItem("brown_aylythian_oak_branch", AylythBlocks.BROWN_AYLYTHIAN_OAK_BRANCH);
+    
 	Item YMPE_STRIPPED_LOG = registerBlockItem("stripped_ympe_log", AylythBlocks.YMPE_STRIPPED_LOG);
     Item YMPE_STRIPPED_WOOD = registerBlockItem("stripped_ympe_wood", AylythBlocks.YMPE_STRIPPED_WOOD);
     Item YMPE_LOG = registerBlockItem("ympe_log", AylythBlocks.YMPE_LOG);
@@ -77,6 +94,8 @@ public interface AylythItems {
     Item YMPE_HANGING_SIGN = register("ympe_hanging_sign", new HangingSignItem(AylythBlocks.YMPE_HANGING_SIGN, AylythBlocks.YMPE_WALL_HANGING_SIGN, settings()));
     Item YMPE_LEAVES = registerBlockItem("ympe_leaves", AylythBlocks.YMPE_LEAVES);
     Item FRUIT_BEARING_YMPE_LOG = registerBlockItem("fruit_bearing_ympe_log", AylythBlocks.FRUIT_BEARING_YMPE_LOG);
+    Item YMPE_BRANCH = registerBlockItem("ympe_branch", AylythBlocks.YMPE_BRANCH);
+    Item BARE_YMPE_BRANCH = registerBlockItem("bare_ympe_branch", AylythBlocks.BARE_YMPE_BRANCH);
 
     Item POMEGRANATE_STRIPPED_LOG = registerBlockItem("stripped_pomegranate_log", AylythBlocks.POMEGRANATE_STRIPPED_LOG);
     Item POMEGRANATE_STRIPPED_WOOD = registerBlockItem("stripped_pomegranate_wood", AylythBlocks.POMEGRANATE_STRIPPED_WOOD);
@@ -117,12 +136,16 @@ public interface AylythItems {
     Item WRITHEWOOD_CHEST_BOAT = register("writhewood_chest_boat", new TerraformBoatItem(AylythBoatTypes.YMPE, true, settings().maxCount(1)));
     Item WRITHEWOOD_HANGING_SIGN = register("writhewood_hanging_sign", new HangingSignItem(AylythBlocks.WRITHEWOOD_HANGING_SIGN, AylythBlocks.WRITHEWOOD_WALL_HANGING_SIGN, settings()));
     Item WRITHEWOOD_LEAVES = registerBlockItem("writhewood_leaves", AylythBlocks.WRITHEWOOD_LEAVES);
+    Item WRITHEWOOD_BRANCH = registerBlockItem("writhewood_branch", AylythBlocks.WRITHEWOOD_BRANCH);
+    Item BARE_WRITHEWOOD_BRANCH = registerBlockItem("bare_writhewood_branch", AylythBlocks.BARE_WRITHEWOOD_BRANCH);
 
     Item SEEPING_WOOD = registerBlockItem("seeping_wood", AylythBlocks.SEEPING_WOOD);
     Item GIRASOL_SEED = register("girasol_sapling", new AliasedBlockItem(AylythBlocks.GIRASOL_SAPLING, settings()));
 
     Item CHTHONIA_WOOD = registerBlockItem("chthonia_wood", AylythBlocks.CHTHONIA_WOOD);
     Item NEPHRITIC_CHTHONIA_WOOD = registerBlockItem("nephritic_chthonia_wood", AylythBlocks.NEPHRITIC_CHTHONIA_WOOD);
+
+    Item DARK_PODZOL = registerBlockItem("dark_podzol", AylythBlocks.DARK_PODZOL);
 
     Item AYLYTH_BUSH = registerBlockItem("aylyth_bush", AylythBlocks.AYLYTH_BUSH);
     Item ANTLER_SHOOTS = registerBlockItem("antler_shoots", AylythBlocks.ANTLER_SHOOTS);
@@ -169,13 +192,6 @@ public interface AylythItems {
     Item CARVED_NEPHRITE_PILLAR = registerBlockItem("carved_nephrite_pillar", AylythBlocks.CARVED_NEPHRITE_PILLAR);
     Item CARVED_NEPHRITE_TILES = registerBlockItem("carved_nephrite_tiles", AylythBlocks.CARVED_NEPHRITE_TILES);
     Item CARVED_WOODY_NEPHRITE = registerBlockItem("carved_woody_nephrite", AylythBlocks.CARVED_WOODY_NEPHRITE);
-
-    Item DARK_OAK_BRANCH = registerBlockItem("dark_oak_branch", AylythBlocks.DARK_OAK_BRANCH);
-    Item BARE_DARK_OAK_BRANCH = registerBlockItem("bare_dark_oak_branch", AylythBlocks.BARE_DARK_OAK_BRANCH);
-    Item WRITHEWOOD_BRANCH = registerBlockItem("writhewood_branch", AylythBlocks.WRITHEWOOD_BRANCH);
-    Item BARE_WRITHEWOOD_BRANCH = registerBlockItem("bare_writhewood_branch", AylythBlocks.BARE_WRITHEWOOD_BRANCH);
-    Item YMPE_BRANCH = registerBlockItem("ympe_branch", AylythBlocks.YMPE_BRANCH);
-    Item BARE_YMPE_BRANCH = registerBlockItem("bare_ympe_branch", AylythBlocks.BARE_YMPE_BRANCH);
 
     Item NEPHRITE_SWORD = register("nephrite_sword", new SwordItem(AylythToolMaterials.NEPHRITE, 4, -2.4f, settings()));
     Item NEPHRITE_SHOVEL = register("nephrite_shovel", new ShovelItem(AylythToolMaterials.NEPHRITE, 1.5f, -3.0f, settings()));

@@ -4,8 +4,12 @@
     "default": "minecraft:mega_spruce_checked",
     "features": [
       {
-        "chance": 0.65,
-        "feature": "aylyth:aylythian_mega_dark_oak"
+        "chance": 0.5,
+        "feature": "aylyth:red_aylythian_mega_dark_oak"
+      },
+      {
+        "chance": 0.5,
+        "feature": "aylyth:brown_aylythian_mega_dark_oak"
       }
     ]
   }

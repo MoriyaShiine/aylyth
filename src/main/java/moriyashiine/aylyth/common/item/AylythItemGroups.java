@@ -93,11 +93,28 @@ public interface AylythItemGroups {
 
                     entries.add(AylythItems.SEEPING_WOOD);
                     entries.add(AylythItems.GIRASOL_SEED);
-                    entries.add(AylythItems.DARK_OAK_BRANCH);
+
                     entries.add(AylythItems.BARE_DARK_OAK_BRANCH);
+                    entries.add(AylythItems.DARK_OAK_BRANCH);
+                    entries.add(AylythItems.GREEN_AYLYTHIAN_OAK_SAPLING);
+                    entries.add(AylythItems.GREEN_AYLYTHIAN_OAK_LEAVES);
+
+                    entries.add(AylythItems.ORANGE_AYLYTHIAN_OAK_BRANCH);
+                    entries.add(AylythItems.ORANGE_AYLYTHIAN_OAK_SAPLING);
+                    entries.add(AylythItems.ORANGE_AYLYTHIAN_OAK_LEAVES);
+
+                    entries.add(AylythItems.RED_AYLYTHIAN_OAK_BRANCH);
+                    entries.add(AylythItems.RED_AYLYTHIAN_OAK_SAPLING);
+                    entries.add(AylythItems.RED_AYLYTHIAN_OAK_LEAVES);
+
+                    entries.add(AylythItems.BROWN_AYLYTHIAN_OAK_BRANCH);
+                    entries.add(AylythItems.BROWN_AYLYTHIAN_OAK_SAPLING);
+                    entries.add(AylythItems.BROWN_AYLYTHIAN_OAK_LEAVES);
 
                     entries.add(AylythItems.CHTHONIA_WOOD);
                     entries.add(AylythItems.NEPHRITIC_CHTHONIA_WOOD);
+
+                    entries.add(AylythItems.DARK_PODZOL);
 
                     entries.add(AylythItems.AYLYTH_BUSH);
                     entries.add(AylythItems.ANTLER_SHOOTS);

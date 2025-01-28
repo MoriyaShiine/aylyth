@@ -37,7 +37,7 @@ public class AylythEnglishLanguageProvider extends FabricLanguageProvider {
         builder.add(AylythBlocks.YMPE_LOG, "Ympe Log");
         builder.add(AylythBlocks.YMPE_WOOD, "Ympe Wood");
         builder.add(AylythBlocks.YMPE_SAPLING, "Ympe Sapling");
-        builder.add(AylythBlocks.YMPE_POTTED_SAPLING, "Potted Ympe Sapling");
+        builder.add(AylythBlocks.POTTED_YMPE_SAPLING, "Potted Ympe Sapling");
         builder.add(AylythBlocks.YMPE_PLANKS, "Ympe Planks");
         builder.add(AylythBlocks.YMPE_STAIRS, "Ympe Stairs");
         builder.add(AylythBlocks.YMPE_SLAB, "Ympe Slab");
@@ -56,7 +56,7 @@ public class AylythEnglishLanguageProvider extends FabricLanguageProvider {
         builder.add(AylythBlocks.POMEGRANATE_LOG, "Pomegranate Log");
         builder.add(AylythBlocks.POMEGRANATE_WOOD, "Pomegranate Wood");
         builder.add(AylythBlocks.POMEGRANATE_SAPLING, "Pomegranate Sapling");
-        builder.add(AylythBlocks.POMEGRANATE_POTTED_SAPLING, "Potted Pomegranate Sapling");
+        builder.add(AylythBlocks.POTTED_POMEGRANATE_SAPLING, "Potted Pomegranate Sapling");
         builder.add(AylythBlocks.POMEGRANATE_PLANKS, "Pomegranate Planks");
         builder.add(AylythBlocks.POMEGRANATE_STAIRS, "Pomegranate Stairs");
         builder.add(AylythBlocks.POMEGRANATE_SLAB, "Pomegranate Slab");
@@ -74,7 +74,7 @@ public class AylythEnglishLanguageProvider extends FabricLanguageProvider {
         builder.add(AylythBlocks.WRITHEWOOD_LOG, "Writhewood Log");
         builder.add(AylythBlocks.WRITHEWOOD_WOOD, "Writhewood Wood");
         builder.add(AylythBlocks.WRITHEWOOD_SAPLING, "Writhewood Sapling");
-        builder.add(AylythBlocks.WRITHEWOOD_POTTED_SAPLING, "Potted Writhewood Sapling");
+        builder.add(AylythBlocks.POTTED_WRITHEWOOD_SAPLING, "Potted Writhewood Sapling");
         builder.add(AylythBlocks.WRITHEWOOD_PLANKS, "Writhewood Planks");
         builder.add(AylythBlocks.WRITHEWOOD_STAIRS, "Writhewood Stairs");
         builder.add(AylythBlocks.WRITHEWOOD_SLAB, "Writhewood Slab");
@@ -109,7 +109,7 @@ public class AylythEnglishLanguageProvider extends FabricLanguageProvider {
         builder.add(AylythBlocks.SEEPING_WOOD, "Seeping Wood");
         builder.add(AylythBlocks.SEEPING_WOOD_SEEP, "Seeping Wood Seep");
         builder.add(AylythBlocks.GIRASOL_SAPLING, "Girasol Sapling");
-        builder.add(AylythBlocks.GIRASOL_SAPLING_POTTED, "Potted Girasol Sapling");
+        builder.add(AylythBlocks.POTTED_GIRASOL_SAPLING, "Potted Girasol Sapling");
         builder.add(AylythBlocks.ESSTLINE_BLOCK, "Esstline Block");
         builder.add(AylythBlocks.NEPHRITE_BLOCK, "Nephrite Block");
         builder.add(AylythBlocks.CARVED_SMOOTH_NEPHRITE, "Carved Smooth Nephrite");
@@ -128,6 +128,18 @@ public class AylythEnglishLanguageProvider extends FabricLanguageProvider {
         builder.add(AylythBlocks.BARE_WRITHEWOOD_BRANCH, "Bare Writhewood Branch");
         builder.add(AylythBlocks.YMPE_BRANCH, "Ympe Branch");
         builder.add(AylythBlocks.BARE_YMPE_BRANCH, "Bare Ympe Branch");
+        builder.add(AylythBlocks.DARK_PODZOL, "Dark Podzol");
+        builder.add(AylythBlocks.GREEN_AYLYTHIAN_OAK_SAPLING, "Aylythian Oak Sapling");
+        builder.add(AylythBlocks.ORANGE_AYLYTHIAN_OAK_SAPLING, "Orange Aylythian Oak Sapling");
+        builder.add(AylythBlocks.RED_AYLYTHIAN_OAK_SAPLING, "Red Aylythian Oak Sapling");
+        builder.add(AylythBlocks.BROWN_AYLYTHIAN_OAK_SAPLING, "Brown Aylythian Oak Sapling");
+        builder.add(AylythBlocks.GREEN_AYLYTHIAN_OAK_LEAVES, "Aylythian Oak Leaves");
+        builder.add(AylythBlocks.ORANGE_AYLYTHIAN_OAK_LEAVES, "Orange Aylythian Oak Leaves");
+        builder.add(AylythBlocks.RED_AYLYTHIAN_OAK_LEAVES, "Red Aylythian Oak Leaves");
+        builder.add(AylythBlocks.BROWN_AYLYTHIAN_OAK_LEAVES, "Brown Aylythian Oak Leaves");
+        builder.add(AylythBlocks.ORANGE_AYLYTHIAN_OAK_BRANCH, "Orange Aylythian Oak Branch");
+        builder.add(AylythBlocks.RED_AYLYTHIAN_OAK_BRANCH, "Red Aylythian Oak Branch");
+        builder.add(AylythBlocks.BROWN_AYLYTHIAN_OAK_BRANCH, "Brown Aylythian Oak Branch");
 
         // ITEMS
 

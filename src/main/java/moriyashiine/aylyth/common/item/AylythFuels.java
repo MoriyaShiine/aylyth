@@ -19,6 +19,9 @@ public final class AylythFuels {
         registry.add(BARK, 100);
         registry.add(DARK_OAK_BRANCH, 100);
         registry.add(BARE_DARK_OAK_BRANCH, 100);
+        registry.add(ORANGE_AYLYTHIAN_OAK_BRANCH, 100);
+        registry.add(RED_AYLYTHIAN_OAK_BRANCH, 100);
+        registry.add(BROWN_AYLYTHIAN_OAK_BRANCH, 100);
         registry.add(WRITHEWOOD_BRANCH, 100);
         registry.add(BARE_WRITHEWOOD_BRANCH, 100);
         registry.add(YMPE_BRANCH, 100);

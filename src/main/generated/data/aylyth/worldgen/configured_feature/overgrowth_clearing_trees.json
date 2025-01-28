@@ -6,6 +6,10 @@
       {
         "chance": 0.5,
         "feature": "aylyth:ympe_tree"
+      },
+      {
+        "chance": 0.5,
+        "feature": "aylyth:green_aylythian_dark_oak"
       }
     ]
   }
