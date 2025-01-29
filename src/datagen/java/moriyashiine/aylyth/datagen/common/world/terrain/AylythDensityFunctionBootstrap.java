@@ -88,7 +88,7 @@ public final class AylythDensityFunctionBootstrap {
         var vanillaContinents = new DensityFunctionWrapper(RegistryEntry.of(flatCache(shiftedNoise(shiftX, shiftZ, NOISE_XZ_SCALE, continentsNoise))));
 
         // Perhaps a more correct way would be to change the OFFSET function, see VanillaTerrainParametersCreator::createOffsetSpline
-        return flatCache(spline(Spline.builder(vanillaContinents).add(-0.2f, 0, 0.8f).build())); // added
+        return flatCache(spline(Spline.builder(vanillaContinents).add(-0.5f, 0, 0.5f).build())); // added
     }
 
     private static DensityFunction offset(DensityFunctionWrapper continentsSplinePos, DensityFunctionWrapper erosionSplinePos, DensityFunctionWrapper ridgesFoldedSplinePos) {
