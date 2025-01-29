@@ -8,6 +8,7 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
+import net.minecraft.world.Heightmap.Type;
 import net.minecraft.world.gen.blockpredicate.BlockPredicate;
 import net.minecraft.world.gen.feature.PlacedFeature;
 import net.minecraft.world.gen.feature.PlacedFeatures;
@@ -25,11 +26,14 @@ public final class AylythPlacedFeatureBootstrap {
     public static void bootstrap(Registerable<PlacedFeature> context) {
         var features = context.getRegistryLookup(RegistryKeys.CONFIGURED_FEATURE);
 
+        var sprucePodzol = features.getOrThrow(AylythConfiguredFeatures.SPRUCE_PODZOL);
         var aylythianDarkOak = features.getOrThrow(AylythConfiguredFeatures.GREEN_AYLYTHIAN_DARK_OAK);
         var aylythianMegaDarkOak = features.getOrThrow(AylythConfiguredFeatures.GREEN_AYLYTHIAN_MEGA_DARK_OAK);
         var orangeAylythianDarkOak = features.getOrThrow(AylythConfiguredFeatures.ORANGE_AYLYTHIAN_DARK_OAK);
+        var orangeAylythianDarkOakPodzol = features.getOrThrow(AylythConfiguredFeatures.ORANGE_AYLYTHIAN_DARK_OAK_PODZOL);
         var orangeAylythianMegaDarkOak = features.getOrThrow(AylythConfiguredFeatures.ORANGE_AYLYTHIAN_MEGA_DARK_OAK);
         var redAylythianDarkOak = features.getOrThrow(AylythConfiguredFeatures.RED_AYLYTHIAN_DARK_OAK);
+        var redAylythianDarkOakPodzol = features.getOrThrow(AylythConfiguredFeatures.RED_AYLYTHIAN_DARK_OAK_PODZOL);
         var redAylythianMegaDarkOak = features.getOrThrow(AylythConfiguredFeatures.RED_AYLYTHIAN_MEGA_DARK_OAK);
         var brownAylythianDarkOak = features.getOrThrow(AylythConfiguredFeatures.BROWN_AYLYTHIAN_DARK_OAK);
         var brownAylythianMegaDarkOak = features.getOrThrow(AylythConfiguredFeatures.BROWN_AYLYTHIAN_MEGA_DARK_OAK);
@@ -63,7 +67,8 @@ public final class AylythPlacedFeatureBootstrap {
         var overgrowthClearingTrees = features.getOrThrow(AylythConfiguredFeatures.OVERGROWTH_CLEARING_TREES);
         var mireWaterTrees = features.getOrThrow(AylythConfiguredFeatures.MIRE_WATER_TREES);
         var mireLandTrees = features.getOrThrow(AylythConfiguredFeatures.MIRE_LAND_TREES);
-        var redMushroomPatches = features.getOrThrow(AylythConfiguredFeatures.RED_MUSHROOM_PATCHES);
+        var redMushroomPatches = features.getOrThrow(AylythConfiguredFeatures.ROOTED_DIRT_BLOB);
+        var rootedDirtBlob = features.getOrThrow(AylythConfiguredFeatures.RED_MUSHROOM_PATCHES);
         var brownMushroomPatches = features.getOrThrow(AylythConfiguredFeatures.BROWN_MUSHROOM_PATCHES);
         var glowLichen = features.getOrThrow(AylythConfiguredFeatures.GLOW_LICHEN);
         var shelfJackOLanternMushroomPatches = features.getOrThrow(AylythConfiguredFeatures.SHELF_JACK_O_LANTERN_MUSHROOM_PATCHES);
@@ -79,11 +84,14 @@ public final class AylythPlacedFeatureBootstrap {
         var jackOLanternMushroom = features.getOrThrow(AylythConfiguredFeatures.JACK_O_LANTERN_MUSHROOM);
         var giantJackOLanternMushrooms = features.getOrThrow(AylythConfiguredFeatures.GIANT_JACK_O_LANTERN_MUSHROOMS);
 
+        PlacedFeatures.register(context, SPRUCE_PODZOL, sprucePodzol, List.of(PlacedFeatures.wouldSurvive(Blocks.SPRUCE_SAPLING)));
         PlacedFeatures.register(context, GREEN_AYLYTHIAN_DARK_OAK, aylythianDarkOak, List.of(PlacedFeatures.wouldSurvive(Blocks.DARK_OAK_SAPLING)));
         PlacedFeatures.register(context, GREEN_AYLYTHIAN_MEGA_DARK_OAK, aylythianMegaDarkOak, List.of(PlacedFeatures.wouldSurvive(Blocks.DARK_OAK_SAPLING)));
         PlacedFeatures.register(context, ORANGE_AYLYTHIAN_DARK_OAK, orangeAylythianDarkOak, List.of(PlacedFeatures.wouldSurvive(Blocks.DARK_OAK_SAPLING)));
+        PlacedFeatures.register(context, ORANGE_AYLYTHIAN_DARK_OAK_PODZOL, orangeAylythianDarkOakPodzol, List.of(PlacedFeatures.wouldSurvive(Blocks.DARK_OAK_SAPLING)));
         PlacedFeatures.register(context, ORANGE_AYLYTHIAN_MEGA_DARK_OAK, orangeAylythianMegaDarkOak, List.of(PlacedFeatures.wouldSurvive(Blocks.DARK_OAK_SAPLING)));
         PlacedFeatures.register(context, RED_AYLYTHIAN_DARK_OAK, redAylythianDarkOak, List.of(PlacedFeatures.wouldSurvive(Blocks.DARK_OAK_SAPLING)));
+        PlacedFeatures.register(context, RED_AYLYTHIAN_DARK_OAK_PODZOL, redAylythianDarkOakPodzol, List.of(PlacedFeatures.wouldSurvive(Blocks.DARK_OAK_SAPLING)));
         PlacedFeatures.register(context, RED_AYLYTHIAN_MEGA_DARK_OAK, redAylythianMegaDarkOak, List.of(PlacedFeatures.wouldSurvive(Blocks.DARK_OAK_SAPLING)));
         PlacedFeatures.register(context, BROWN_AYLYTHIAN_DARK_OAK, brownAylythianDarkOak, List.of(PlacedFeatures.wouldSurvive(Blocks.DARK_OAK_SAPLING)));
         PlacedFeatures.register(context, BROWN_AYLYTHIAN_MEGA_DARK_OAK, brownAylythianMegaDarkOak, List.of(PlacedFeatures.wouldSurvive(Blocks.DARK_OAK_SAPLING)));
@@ -122,6 +130,8 @@ public final class AylythPlacedFeatureBootstrap {
         PlacedFeatures.register(context, MIRE_WATER_TREES, mireWaterTrees, floodedTrees(2, 0.5F, 2));
         PlacedFeatures.register(context, MIRE_LAND_TREES, mireLandTrees, trees(2, 0.5F, 2));
         PlacedFeatures.register(context, GIANT_JACK_O_LANTERN_MUSHROOMS, giantJackOLanternMushrooms, List.of(RarityFilterPlacementModifier.of(15), SquarePlacementModifier.of(), CountPlacementModifier.of(5), RandomOffsetPlacementModifier.horizontally(UniformIntProvider.create(0, 4)), PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of()));
+
+        PlacedFeatures.register(context, ROOTED_DIRT_BLOB, rootedDirtBlob, List.of(RarityFilterPlacementModifier.of(2), SquarePlacementModifier.of(), HeightmapPlacementModifier.of(Type.MOTION_BLOCKING_NO_LEAVES), BiomePlacementModifier.of()));
 
         PlacedFeatures.register(context, RED_MUSHROOM_PATCHES, redMushroomPatches, List.of(RarityFilterPlacementModifier.of(256), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of()));
         PlacedFeatures.register(context, BROWN_MUSHROOM_PATCHES, brownMushroomPatches, List.of(RarityFilterPlacementModifier.of(256), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of()));

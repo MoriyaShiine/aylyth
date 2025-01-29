@@ -1,7 +1,7 @@
 {
   "type": "minecraft:random_selector",
   "config": {
-    "default": "aylyth:orange_aylythian_dark_oak",
+    "default": "aylyth:orange_aylythian_dark_oak_podzol",
     "features": [
       {
         "chance": 0.25,
@@ -9,7 +9,7 @@
       },
       {
         "chance": 0.5,
-        "feature": "aylyth:red_aylythian_dark_oak"
+        "feature": "aylyth:red_aylythian_dark_oak_podzol"
       }
     ]
   }

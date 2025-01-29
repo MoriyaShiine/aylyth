@@ -36,9 +36,14 @@ public interface AylythNoiseParams {
     RegistryKey<NoiseParameters> CAVE_CHEESE = bind("cave_cheese");
 
     RegistryKey<NoiseParameters> SURFACE = bind("surface");
-    RegistryKey<NoiseParameters> PODZOL_COMMON = bind("podzol_common");
-    RegistryKey<NoiseParameters> PODZOL_RARE = bind("podzol_rare");
-    RegistryKey<NoiseParameters> BOWELS_SOUL_SAND = bind("bowels_soul_sand");
+
+    RegistryKey<NoiseParameters> PODZOL_PATCHES = bind("podzol_patches");
+    RegistryKey<NoiseParameters> UPLANDS_SAPSTONE_RINGS = bind("uplands_sapstone_rings");
+    RegistryKey<NoiseParameters> UPLANDS_LIGNITE_SAPSTONE_PATCHES = bind("uplands_lignite_sapstone_patches");
+    RegistryKey<NoiseParameters> DEEPWOOD_DARK_PODZOL_PATCHES = bind("deepwood_dark_podzol_patches");
+    RegistryKey<NoiseParameters> DEEPWOOD_PODZOL_VEINS = bind("deepwood_podzol_veins");
+    RegistryKey<NoiseParameters> COPSE_DARK_PODZOL_VEINS = bind("copse_dark_podzol_veins");
+    RegistryKey<NoiseParameters> BOWELS_SOUL_SAND_PATCHES = bind("bowels_soul_sand_patches");
 
     private static RegistryKey<NoiseParameters> bind(String name) {
         return RegistryKey.of(RegistryKeys.NOISE_PARAMETERS, Aylyth.id(name));

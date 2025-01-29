@@ -1,7 +1,7 @@
 {
   "type": "minecraft:random_selector",
   "config": {
-    "default": "minecraft:spruce_checked",
+    "default": "aylyth:spruce_podzol",
     "features": [
       {
         "chance": 0.25,
@@ -9,11 +9,11 @@
       },
       {
         "chance": 0.45,
-        "feature": "aylyth:red_aylythian_dark_oak"
+        "feature": "aylyth:red_aylythian_dark_oak_podzol"
       },
       {
         "chance": 0.45,
-        "feature": "aylyth:orange_aylythian_dark_oak"
+        "feature": "aylyth:orange_aylythian_dark_oak_podzol"
       }
     ]
   }

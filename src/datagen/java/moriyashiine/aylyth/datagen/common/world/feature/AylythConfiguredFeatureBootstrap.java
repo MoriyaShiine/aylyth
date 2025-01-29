@@ -29,7 +29,9 @@ import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.entry.RegistryEntryList;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.state.property.Properties;
+import net.minecraft.structure.rule.TagMatchRuleTest;
 import net.minecraft.util.collection.DataPool;
 import net.minecraft.util.math.VerticalSurfaceType;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
@@ -38,12 +40,15 @@ import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
 import net.minecraft.world.gen.foliage.BushFoliagePlacer;
 import net.minecraft.world.gen.foliage.DarkOakFoliagePlacer;
+import net.minecraft.world.gen.foliage.SpruceFoliagePlacer;
 import net.minecraft.world.gen.placementmodifier.CountPlacementModifier;
 import net.minecraft.world.gen.placementmodifier.RandomOffsetPlacementModifier;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.stateprovider.RandomizedIntBlockStateProvider;
 import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
+import net.minecraft.world.gen.treedecorator.AlterGroundTreeDecorator;
+import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
 
 import static moriyashiine.aylyth.common.data.world.feature.AylythConfiguredFeatures.*;
 
@@ -69,12 +74,15 @@ public final class AylythConfiguredFeatureBootstrap {
         var largeGiantJackOLanternMushroomWithPatch = configuredFeatures.getOrThrow(LARGE_GIANT_JACK_O_LANTERN_MUSHROOM_WITH_PATCH);
 
         var spruceChecked = placedFeatures.getOrThrow(TreePlacedFeatures.SPRUCE_CHECKED);
+        var sprucePodzol = placedFeatures.getOrThrow(AylythPlacedFeatures.SPRUCE_PODZOL);
         var megaSpruceChecked = placedFeatures.getOrThrow(TreePlacedFeatures.MEGA_SPRUCE_CHECKED);
         var greenAylythianDarkOak = placedFeatures.getOrThrow(AylythPlacedFeatures.GREEN_AYLYTHIAN_DARK_OAK);
         var greenAylythianMegaDarkOak = placedFeatures.getOrThrow(AylythPlacedFeatures.GREEN_AYLYTHIAN_MEGA_DARK_OAK);
         var orangeAylythianDarkOak = placedFeatures.getOrThrow(AylythPlacedFeatures.ORANGE_AYLYTHIAN_DARK_OAK);
+        var orangeAylythianDarkOakPodzol = placedFeatures.getOrThrow(AylythPlacedFeatures.ORANGE_AYLYTHIAN_DARK_OAK_PODZOL);
         var orangeAylythianMegaDarkOak = placedFeatures.getOrThrow(AylythPlacedFeatures.ORANGE_AYLYTHIAN_MEGA_DARK_OAK);
         var redAylythianDarkOak = placedFeatures.getOrThrow(AylythPlacedFeatures.RED_AYLYTHIAN_DARK_OAK);
+        var redAylythianDarkOakPodzol = placedFeatures.getOrThrow(AylythPlacedFeatures.RED_AYLYTHIAN_DARK_OAK_PODZOL);
         var redAylythianMegaDarkOak = placedFeatures.getOrThrow(AylythPlacedFeatures.RED_AYLYTHIAN_MEGA_DARK_OAK);
         var brownAylythianDarkOak = placedFeatures.getOrThrow(AylythPlacedFeatures.BROWN_AYLYTHIAN_DARK_OAK);
         var brownAylythianMegaDarkOak = placedFeatures.getOrThrow(AylythPlacedFeatures.BROWN_AYLYTHIAN_MEGA_DARK_OAK);
@@ -116,11 +124,23 @@ public final class AylythConfiguredFeatureBootstrap {
         ConfiguredFeatures.register(context, DARK_OAK_SEEP, AylythFeatures.SEEP_FEATURE, new SeepFeature.SeepFeatureConfig(Blocks.DARK_OAK_LOG.getDefaultState(), AylythBlocks.DARK_OAK_SEEP.getDefaultState(), AylythBlocks.MARIGOLD.getDefaultState(), 5, 0.5F));
         ConfiguredFeatures.register(context, YMPE_SEEP, AylythFeatures.SEEP_FEATURE, new SeepFeature.SeepFeatureConfig(AylythBlocks.YMPE_LOG.getDefaultState(), AylythBlocks.YMPE_SEEP.getDefaultState(), AylythBlocks.MARIGOLD.getDefaultState(), 5, 0.5F));
 
+        ConfiguredFeatures.register(context, SPRUCE_PODZOL, Feature.TREE, new TreeFeatureConfig.Builder(
+                BlockStateProvider.of(Blocks.SPRUCE_LOG),
+                new StraightTrunkPlacer(5, 2, 1),
+                BlockStateProvider.of(Blocks.SPRUCE_LEAVES),
+                new SpruceFoliagePlacer(UniformIntProvider.create(2, 3), UniformIntProvider.create(0, 2), UniformIntProvider.create(1, 2)),
+                new TwoLayersFeatureSize(2, 0, 2))
+                .ignoreVines()
+                .decorators(ImmutableList.of(new AlterGroundTreeDecorator(BlockStateProvider.of(AylythBlocks.DARK_PODZOL))))
+                .build()
+        );
         ConfiguredFeatures.register(context, GREEN_AYLYTHIAN_DARK_OAK, Feature.TREE, createAylythianOakTree(AylythBlocks.GREEN_AYLYTHIAN_OAK_LEAVES, oakStrewnLeavesConfigured, oakLeafPileConfigured, AylythBlocks.DARK_OAK_BRANCH));
         ConfiguredFeatures.register(context, GREEN_AYLYTHIAN_MEGA_DARK_OAK, Feature.TREE, createMegaAylythianOakTree(AylythBlocks.GREEN_AYLYTHIAN_OAK_LEAVES, oakStrewnLeavesConfigured, oakLeafPileConfigured, AylythBlocks.DARK_OAK_BRANCH));
         ConfiguredFeatures.register(context, ORANGE_AYLYTHIAN_DARK_OAK, Feature.TREE, createAylythianOakTree(AylythBlocks.ORANGE_AYLYTHIAN_OAK_LEAVES, oakStrewnLeavesConfigured, oakLeafPileConfigured, AylythBlocks.ORANGE_AYLYTHIAN_OAK_SAPLING));
+        ConfiguredFeatures.register(context, ORANGE_AYLYTHIAN_DARK_OAK_PODZOL, Feature.TREE, createAylythianOakTreeBuilder(AylythBlocks.ORANGE_AYLYTHIAN_OAK_LEAVES, oakStrewnLeavesConfigured, oakLeafPileConfigured, AylythBlocks.ORANGE_AYLYTHIAN_OAK_SAPLING).dirtProvider(BlockStateProvider.of(AylythBlocks.DARK_PODZOL)).build());
         ConfiguredFeatures.register(context, ORANGE_AYLYTHIAN_MEGA_DARK_OAK, Feature.TREE, createMegaAylythianOakTree(AylythBlocks.ORANGE_AYLYTHIAN_OAK_LEAVES, oakStrewnLeavesConfigured, oakLeafPileConfigured, AylythBlocks.ORANGE_AYLYTHIAN_OAK_BRANCH));
         ConfiguredFeatures.register(context, RED_AYLYTHIAN_DARK_OAK, Feature.TREE, createAylythianOakTree(AylythBlocks.RED_AYLYTHIAN_OAK_LEAVES, oakStrewnLeavesConfigured, oakLeafPileConfigured, AylythBlocks.RED_AYLYTHIAN_OAK_SAPLING));
+        ConfiguredFeatures.register(context, RED_AYLYTHIAN_DARK_OAK_PODZOL, Feature.TREE, createAylythianOakTreeBuilder(AylythBlocks.RED_AYLYTHIAN_OAK_LEAVES, oakStrewnLeavesConfigured, oakLeafPileConfigured, AylythBlocks.RED_AYLYTHIAN_OAK_SAPLING).dirtProvider(BlockStateProvider.of(AylythBlocks.DARK_PODZOL)).build());
         ConfiguredFeatures.register(context, RED_AYLYTHIAN_MEGA_DARK_OAK, Feature.TREE, createMegaAylythianOakTree(AylythBlocks.RED_AYLYTHIAN_OAK_LEAVES, oakStrewnLeavesConfigured, oakLeafPileConfigured, AylythBlocks.RED_AYLYTHIAN_OAK_BRANCH));
         ConfiguredFeatures.register(context, BROWN_AYLYTHIAN_DARK_OAK, Feature.TREE, createAylythianOakTree(AylythBlocks.BROWN_AYLYTHIAN_OAK_LEAVES, oakStrewnLeavesConfigured, oakLeafPileConfigured, AylythBlocks.BROWN_AYLYTHIAN_OAK_SAPLING));
         ConfiguredFeatures.register(context, BROWN_AYLYTHIAN_MEGA_DARK_OAK, Feature.TREE, createMegaAylythianOakTree(AylythBlocks.BROWN_AYLYTHIAN_OAK_LEAVES, oakStrewnLeavesConfigured, oakLeafPileConfigured, AylythBlocks.BROWN_AYLYTHIAN_OAK_BRANCH));
@@ -243,15 +263,17 @@ public final class AylythConfiguredFeatureBootstrap {
 
         ConfiguredFeatures.register(context, DEEP_ROOF_TREES, Feature.RANDOM_SELECTOR, new RandomFeatureConfig(List.of(new RandomFeatureEntry(redAylythianDarkOak, 0.25F), new RandomFeatureEntry(brownAylythianDarkOak, 0.25F), new RandomFeatureEntry(brownAylythianMegaDarkOak, 0.5F)), redAylythianMegaDarkOak));
         ConfiguredFeatures.register(context, CONIFEROUS_DEEP_ROOF_TREES, Feature.RANDOM_SELECTOR, new RandomFeatureConfig(List.of(new RandomFeatureEntry(redAylythianMegaDarkOak, 0.5F), new RandomFeatureEntry(brownAylythianMegaDarkOak, 0.5F)), megaSpruceChecked));
-        ConfiguredFeatures.register(context, COPSE_TREES, Feature.RANDOM_SELECTOR, new RandomFeatureConfig(List.of(new RandomFeatureEntry(ympe, 0.25F), new RandomFeatureEntry(redAylythianDarkOak, 0.5F)), orangeAylythianDarkOak));
+        ConfiguredFeatures.register(context, COPSE_TREES, Feature.RANDOM_SELECTOR, new RandomFeatureConfig(List.of(new RandomFeatureEntry(ympe, 0.25F), new RandomFeatureEntry(redAylythianDarkOakPodzol, 0.5F)), orangeAylythianDarkOakPodzol));
         ConfiguredFeatures.register(context, DEEPWOOD_TREES, Feature.RANDOM_SELECTOR, new RandomFeatureConfig(List.of(new RandomFeatureEntry(ympe, 0.25F), new RandomFeatureEntry(bigYmpe, 0.25F)), redAylythianDarkOak));
-        ConfiguredFeatures.register(context, CONIFEROUS_COPSE_TREES, Feature.RANDOM_SELECTOR, new RandomFeatureConfig(List.of(new RandomFeatureEntry(ympe, 0.25F), new RandomFeatureEntry(redAylythianDarkOak, 0.45F), new RandomFeatureEntry(orangeAylythianDarkOak, 0.45F)), spruceChecked));
+        ConfiguredFeatures.register(context, CONIFEROUS_COPSE_TREES, Feature.RANDOM_SELECTOR, new RandomFeatureConfig(List.of(new RandomFeatureEntry(ympe, 0.25F), new RandomFeatureEntry(redAylythianDarkOakPodzol, 0.45F), new RandomFeatureEntry(orangeAylythianDarkOakPodzol, 0.45F)), sprucePodzol));
         ConfiguredFeatures.register(context, CONIFEROUS_DEEPWOOD_TREES, Feature.RANDOM_SELECTOR, new RandomFeatureConfig(List.of(new RandomFeatureEntry(ympe, 0.15F), new RandomFeatureEntry(bigYmpe, 0.15F), new RandomFeatureEntry(redAylythianDarkOak, 0.15F), new RandomFeatureEntry(brownAylythianDarkOak, 0.15F)), spruceChecked));
         ConfiguredFeatures.register(context, OVERGROWTH_CLEARING_TREES,Feature.RANDOM_SELECTOR, new RandomFeatureConfig(List.of(new RandomFeatureEntry(ympe, 0.5F), new RandomFeatureEntry(greenAylythianDarkOak, 0.5F)), spruceChecked));
         ConfiguredFeatures.register(context, MIRE_WATER_TREES, Feature.RANDOM_SELECTOR, new RandomFeatureConfig(List.of(), writhewood));
         ConfiguredFeatures.register(context, MIRE_LAND_TREES, Feature.RANDOM_SELECTOR, new RandomFeatureConfig(List.of(new RandomFeatureEntry(spruceChecked, 0.25f), new RandomFeatureEntry(megaSpruceChecked, 0.25f)), writhewood));
         ConfiguredFeatures.register(context, LARGE_GIANT_JACK_O_LANTERN_MUSHROOM_WITH_PATCH, AylythFeatures.ALL, new AllFeature.AllFeatureConfig(RegistryEntryList.of(largeGiantJackOLanternMushroom, jackOLanternMushroomPatch)));
         ConfiguredFeatures.register(context, GIANT_JACK_O_LANTERN_MUSHROOMS, Feature.RANDOM_SELECTOR, new RandomFeatureConfig(List.of(new RandomFeatureEntry(smallGiantJackOLanternMushroom, 0.5f)), PlacedFeatures.createEntry(largeGiantJackOLanternMushroomWithPatch)));
+
+        ConfiguredFeatures.register(context, ROOTED_DIRT_BLOB, Feature.ORE, new OreFeatureConfig(new TagMatchRuleTest(BlockTags.DIRT), Blocks.ROOTED_DIRT.getDefaultState(), 32));
 
         ConfiguredFeatures.register(context, RED_MUSHROOM_PATCHES, Feature.RANDOM_PATCH, AylythConfiguredFeatureBootstrap.createRandomPatchFeatureConfig(BlockStateProvider.of(Blocks.RED_MUSHROOM), 96));
         ConfiguredFeatures.register(context, BROWN_MUSHROOM_PATCHES, Feature.RANDOM_PATCH, AylythConfiguredFeatureBootstrap.createRandomPatchFeatureConfig(BlockStateProvider.of(Blocks.BROWN_MUSHROOM), 96));
@@ -278,6 +300,10 @@ public final class AylythConfiguredFeatureBootstrap {
     }
 
     static TreeFeatureConfig createAylythianOakTree(Block leaves, RegistryEntry<ConfiguredFeature<?, ?>> strewnLeavesFeature, RegistryEntry<ConfiguredFeature<?, ?>> leafPileFeature, Block leafyBranch) {
+        return createAylythianOakTreeBuilder(leaves, strewnLeavesFeature, leafPileFeature, leafyBranch).build();
+    }
+
+    static TreeFeatureConfig.Builder createAylythianOakTreeBuilder(Block leaves, RegistryEntry<ConfiguredFeature<?, ?>> strewnLeavesFeature, RegistryEntry<ConfiguredFeature<?, ?>> leafPileFeature, Block leafyBranch) {
         return new TreeFeatureConfig.Builder(
                 SimpleBlockStateProvider.of(Blocks.DARK_OAK_LOG.getDefaultState()),
                 new AylthianTrunkPlacer(12, 2, 5),
@@ -309,7 +335,7 @@ public final class AylythConfiguredFeatureBootstrap {
                                 ConstantIntProvider.create(2),
                                 0.1875f
                         )
-                )).build();
+                ));
     }
 
     static TreeFeatureConfig createMegaAylythianOakTree(Block leaves, RegistryEntry<ConfiguredFeature<?, ?>> strewnLeavesFeature, RegistryEntry<ConfiguredFeature<?, ?>> leafPileFeature, Block leafyBranch) {

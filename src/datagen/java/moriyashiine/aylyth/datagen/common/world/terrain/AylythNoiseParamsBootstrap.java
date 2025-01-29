@@ -42,8 +42,13 @@ public final class AylythNoiseParamsBootstrap {
         // Own
 
         context.register(SURFACE, new NoiseParameters(-6, 1, 1, 1));
-        context.register(PODZOL_COMMON, new NoiseParameters(-4, 1, 1));
-        context.register(PODZOL_RARE, new NoiseParameters(-5, 1, 1, 1));
-        context.register(BOWELS_SOUL_SAND, new NoiseParameters(-5, 1, 1, 1));
+
+        context.register(PODZOL_PATCHES, new NoiseParameters(-5, 1, 1, 1));
+        context.register(UPLANDS_SAPSTONE_RINGS, new NoiseParameters(-5, 1));
+        context.register(UPLANDS_LIGNITE_SAPSTONE_PATCHES, new NoiseParameters(-5, 1, 1, 1));
+        context.register(DEEPWOOD_PODZOL_VEINS, new NoiseParameters(-6, 1, 1, 1));
+        context.register(DEEPWOOD_DARK_PODZOL_PATCHES, new NoiseParameters(-5, 1, 1));
+        context.register(COPSE_DARK_PODZOL_VEINS, new NoiseParameters(-6, 1, 1, 1));
+        context.register(BOWELS_SOUL_SAND_PATCHES, new NoiseParameters(-5, 1, 1, 1));
     }
 }

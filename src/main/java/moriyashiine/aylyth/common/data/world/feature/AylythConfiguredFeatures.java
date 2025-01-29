@@ -7,11 +7,14 @@ import net.minecraft.world.gen.feature.ConfiguredFeature;
 
 public interface AylythConfiguredFeatures {
 
+    RegistryKey<ConfiguredFeature<?, ?>> SPRUCE_PODZOL = bind("spruce_podzol");
     RegistryKey<ConfiguredFeature<?, ?>> GREEN_AYLYTHIAN_DARK_OAK = bind("green_aylythian_dark_oak");
     RegistryKey<ConfiguredFeature<?, ?>> GREEN_AYLYTHIAN_MEGA_DARK_OAK = bind("green_aylythian_mega_dark_oak");
     RegistryKey<ConfiguredFeature<?, ?>> ORANGE_AYLYTHIAN_DARK_OAK = bind("orange_aylythian_dark_oak");
+    RegistryKey<ConfiguredFeature<?, ?>> ORANGE_AYLYTHIAN_DARK_OAK_PODZOL = bind("orange_aylythian_dark_oak_podzol");
     RegistryKey<ConfiguredFeature<?, ?>> ORANGE_AYLYTHIAN_MEGA_DARK_OAK = bind("orange_aylythian_mega_dark_oak");
     RegistryKey<ConfiguredFeature<?, ?>> RED_AYLYTHIAN_DARK_OAK = bind("red_aylythian_dark_oak");
+    RegistryKey<ConfiguredFeature<?, ?>> RED_AYLYTHIAN_DARK_OAK_PODZOL = bind("red_aylythian_dark_oak_podzol");
     RegistryKey<ConfiguredFeature<?, ?>> RED_AYLYTHIAN_MEGA_DARK_OAK = bind("red_aylythian_mega_dark_oak");
     RegistryKey<ConfiguredFeature<?, ?>> BROWN_AYLYTHIAN_DARK_OAK = bind("brown_aylythian_dark_oak");
     RegistryKey<ConfiguredFeature<?, ?>> BROWN_AYLYTHIAN_MEGA_DARK_OAK = bind("brown_aylythian_mega_dark_oak");
@@ -58,6 +61,8 @@ public interface AylythConfiguredFeatures {
     RegistryKey<ConfiguredFeature<?, ?>> MIRE_LAND_TREES = bind("mire_land_trees");
     RegistryKey<ConfiguredFeature<?, ?>> LARGE_GIANT_JACK_O_LANTERN_MUSHROOM_WITH_PATCH = bind("large_giant_jack_o_lantern_mushroom_with_patch");
     RegistryKey<ConfiguredFeature<?, ?>> GIANT_JACK_O_LANTERN_MUSHROOMS = bind("giant_jack_o_lantern_mushrooms");
+
+    RegistryKey<ConfiguredFeature<?, ?>> ROOTED_DIRT_BLOB = bind("rooted_dirt_blob");
 
     RegistryKey<ConfiguredFeature<?, ?>> RED_MUSHROOM_PATCHES = bind("red_mushroom_patch");
     RegistryKey<ConfiguredFeature<?, ?>> BROWN_MUSHROOM_PATCHES = bind("brown_mushroom_patch");
