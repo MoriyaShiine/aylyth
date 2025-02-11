@@ -109,9 +109,9 @@
           "entries": [
             {
               "data": {
-                "Name": "aylyth:red_aylythian_oak_sapling",
+                "Name": "aylyth:red_aylythian_oak_branch",
                 "Properties": {
-                  "stage": "0"
+                  "facing": "north"
                 }
               },
               "weight": 2

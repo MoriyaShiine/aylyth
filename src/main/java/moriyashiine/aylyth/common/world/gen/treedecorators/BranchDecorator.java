@@ -45,6 +45,7 @@ public class BranchDecorator extends TreeDecorator {
                 for (Direction dir : Direction.Type.HORIZONTAL.getShuffled(generator.getRandom())) {
                     BlockPos branchPos = pos.offset(dir);
                     if (generator.isAir(branchPos)) {
+                        // For users, this could possibly benefit from a guard, only trying to set the state if it's present
                         BlockState state = provider.get(generator.getRandom(), pos).with(Properties.HORIZONTAL_FACING, dir);
                         generator.replace(branchPos, state);
                         break;
