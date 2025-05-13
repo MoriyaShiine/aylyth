@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.8-SNAPSHOT'
+    alias(libs.plugins.loom)
     id 'idea'
     id 'maven-publish'
 }
@@ -16,6 +16,10 @@ sourceSets {
     test
 }
 
+loom {
+    splitEnvironmentSourceSets()
+}
+
 fabricApi {
     configureDataGeneration {
         setCreateSourceSet(true)
@@ -25,10 +29,9 @@ fabricApi {
 }
 
 loom {
-    splitEnvironmentSourceSets()
-    accessWidenerPath.set(file("src/main/resources/aylyth.accesswidener"))
-	
-	runs {
+    accessWidenerPath = file("src/main/resources/aylyth.accesswidener")
+
+    runs {
         client {
             client()
 
@@ -55,8 +58,8 @@ loom {
 
     mods {
         "${archives_base_name}" {
-            sourceSet(sourceSets.main)
-            sourceSet(sourceSets.client)
+            sourceSet sourceSets.main
+            sourceSet sourceSets.client
         }
     }
 }
@@ -72,10 +75,6 @@ repositories {
         content {
             includeGroup 'xyz.deftu'
         }
-    }
-    maven {
-        name "reach entity attributes"
-        url "https://maven.jamieswhiteshirt.com/libs-release"
     }
     maven {
         name "terraform"
@@ -132,57 +131,56 @@ repositories {
 }
 
 dependencies {
-    minecraft "com.mojang:minecraft:${minecraft_version}"
-    mappings "net.fabricmc:yarn:${yarn_mappings}:v2"
-    modImplementation "net.fabricmc:fabric-loader:${loader_version}"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
+    minecraft libs.minecraft
+    mappings "${libs.yarn.get()}:v2"
+    modImplementation libs.fabric.loader
+    modImplementation libs.fabric.api
 
-    compileOnly("org.jetbrains:annotations:24.1.0")
+    compileOnly libs.jetbrains.annotations
 
-    modImplementation(include("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${cardinal_components_version}"))
-    modImplementation(include("dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${cardinal_components_version}"))
-    modImplementation(include("com.jamieswhiteshirt:reach-entity-attributes:${reach_entity_attributes_version}"))
-    modImplementation(include("com.terraformersmc.terraform-api:terraform-wood-api-v1:${terraform_wood_api_version}"))
-    modImplementation(include('com.github.Chocohead:Fabric-ASM:v2.3'))
+//    modImplementation(include("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${cardinal_components_version}"))
+//    modImplementation(include("dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${cardinal_components_version}"))
+//    modImplementation(include("com.terraformersmc.terraform-api:terraform-wood-api-v1:${terraform_wood_api_version}"))
+//    modImplementation(include('com.github.Chocohead:Fabric-ASM:v2.3'))
 
-    modImplementation "software.bernie.geckolib:geckolib-fabric-${geckolib_version}"
-    modImplementation "net.tslat.smartbrainlib:SmartBrainLib-fabric-${minecraft_version}:${sbl_version}"
-    modImplementation "dev.emi:trinkets:${trinkets_version}"
-    modImplementation "maven.modrinth:fusion-connected-textures:${fusion_version}-fabric-mc${minecraft_version}"
+//    modImplementation "software.bernie.geckolib:geckolib-fabric-${geckolib_version}"
+//    modImplementation "net.tslat.smartbrainlib:SmartBrainLib-fabric-${minecraft_version}:${sbl_version}"
+//    modImplementation "dev.emi:trinkets:${trinkets_version}"
+//    modImplementation "maven.modrinth:fusion-connected-textures:${fusion_version}-fabric-mc${minecraft_version}"
 
     // EMI
-    modCompileOnly "dev.emi:emi-fabric:${emi_version}:api"
-    modLocalRuntime "dev.emi:emi-fabric:${emi_version}"
+//    modCompileOnly "dev.emi:emi-fabric:${emi_version}:api"
+//    modLocalRuntime "dev.emi:emi-fabric:${emi_version}"
 
     // REI
-    modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${rei_version}"
+//    modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${rei_version}"
     // modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"
 
-    if (findProperty("has_local_suggestionproviderfix")) {
-        modRuntimeOnly("xyz.deftu:SuggestionProviderFix:1.0.0")
-    }
+//    if (findProperty("has_local_suggestionproviderfix")) {
+//        modRuntimeOnly("xyz.deftu:SuggestionProviderFix:1.0.0")
+//    }
 
     // Nice dev things
-	modRuntimeOnly "curse.maven:disablecustomworldsadvice-401978:4619700"
+//	modRuntimeOnly "curse.maven:disablecustomworldsadvice-401978:4619700"
     // https://www.curseforge.com/minecraft/mc-mods/debug-utils-fabric/files/4644075
-    modRuntimeOnly "curse.maven:debugutils-783010:4644075"
+//    modRuntimeOnly "curse.maven:debugutils-783010:4644075"
 
     // Testing compat
-    modRuntimeOnly "maven.modrinth:sodium:mc1.20.1-0.5.8"
-    modCompileOnly "maven.modrinth:iris:1.6.17+1.20.1"
-    modRuntimeOnly "maven.modrinth:indium:1.0.30+mc1.20.4"
+//    modRuntimeOnly "maven.modrinth:sodium:mc1.20.1-0.5.8"
+//    modCompileOnly "maven.modrinth:iris:1.6.17+1.20.1"
+//    modRuntimeOnly "maven.modrinth:indium:1.0.30+mc1.20.4"
 
     // Bewitchment
-    modImplementation("curse.maven:bewitchment-394915:${bewitchment_fileid}")
-    modImplementation("com.github.virtuoel:pehkui:${pehkui_version}")
-    modImplementation("vazkii.patchouli:Patchouli:${patchouli_version}")
-    modImplementation("maven.modrinth:midnightlib:${midnightlib_version}")
-    modImplementation("com.github.emilyploszaj:step-height-entity-attribute:${step_height_version}")
-    modImplementation("io.github.ladysnake:PlayerAbilityLib:${pal_version}")
-    modImplementation("me.lucko:fabric-permissions-api:${fabric_permissions_api_version}")
-    modImplementation("org.ladysnake:impersonate:${impersonate_version}") {
-        transitive = false
-    }
+//    modImplementation("curse.maven:bewitchment-394915:${bewitchment_fileid}")
+//    modImplementation("com.github.virtuoel:pehkui:${pehkui_version}")
+//    modImplementation("vazkii.patchouli:Patchouli:${patchouli_version}")
+//    modImplementation("maven.modrinth:midnightlib:${midnightlib_version}")
+//    modImplementation("com.github.emilyploszaj:step-height-entity-attribute:${step_height_version}")
+//    modImplementation("io.github.ladysnake:PlayerAbilityLib:${pal_version}")
+//    modImplementation("me.lucko:fabric-permissions-api:${fabric_permissions_api_version}")
+//    modImplementation("org.ladysnake:impersonate:${impersonate_version}") {
+//        transitive = false
+//    }
 }
 
 processResources {
@@ -190,12 +188,12 @@ processResources {
     inputs.property "version", project.version
 
     filesMatching("fabric.mod.json") {
-        expand "version": project.version
+        expand "version": inputs.properties.version
     }
 }
 
 tasks.withType(JavaCompile).configureEach {
-    it.options.release = 17
+    it.options.release = 21
 }
 
 assemble.dependsOn runDatagen
@@ -203,12 +201,14 @@ assemble.dependsOn runDatagen
 java {
     withSourcesJar()
 
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
 }
 
 jar {
+    inputs.property "archivesName", project.base.archivesName
+
     from("LICENSE") {
-        rename { "${it}_${project.archivesBaseName}" }
+        rename { "${it}_${inputs.properties.archivesName}"}
     }
 }

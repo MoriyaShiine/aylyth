@@ -1,0 +1,27 @@
+[versions]
+minecraft_release = "1.21.4"
+minecraft_range = "[1.21.4,1.21.5)"
+publish_range = "1.21.4"
+
+loader = "0.16.14"
+fabric_api_release = "0.119.2+1.21.4"
+fabric_api_range = "[0.119.2+1.21.4,)"
+yarn = "1.21.4+build.8"
+
+jetbrains_annotations = "26.0.1"
+
+loom = "1.10-SNAPSHOT"
+
+#curseforgegradle = "1.1.18"
+#minotaur = "2.+"
+
+[libraries]
+minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft_release" }
+fabric_api = { module = "net.fabricmc.fabric-api:fabric-api", version.ref = "fabric_api_release" }
+fabric_loader = { module = "net.fabricmc:fabric-loader", version.ref = "loader" }
+yarn = { module = "net.fabricmc:yarn", version.ref = "yarn" }
+
+jetbrains_annotations = { module = "org.jetbrains:annotations", version.ref = "jetbrains_annotations" }
+
+[plugins]
+loom = { id = "fabric-loom", version.ref = "loom" }
