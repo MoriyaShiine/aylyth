@@ -1,59 +1,39 @@
 package moriyashiine.aylyth.common.advancement.criteria;
 
-import com.google.gson.JsonObject;
-import moriyashiine.aylyth.common.Aylyth;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import moriyashiine.aylyth.common.entity.types.mob.TameableHostileEntity;
 import net.minecraft.advancement.criterion.AbstractCriterion;
-import net.minecraft.advancement.criterion.AbstractCriterionConditions;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.loot.context.LootContext;
-import net.minecraft.predicate.entity.AdvancementEntityPredicateDeserializer;
-import net.minecraft.predicate.entity.AdvancementEntityPredicateSerializer;
 import net.minecraft.predicate.entity.EntityPredicate;
 import net.minecraft.predicate.entity.LootContextPredicate;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.Identifier;
 
+import java.util.Optional;
 import java.util.function.Predicate;
 
 public class TameHostileCriterion extends AbstractCriterion<TameHostileCriterion.Conditions> {
-    static final Identifier ID = Aylyth.id("tame_hostile");
-
     @Override
-    protected Conditions conditionsFromJson(JsonObject obj, LootContextPredicate playerPredicate, AdvancementEntityPredicateDeserializer predicateDeserializer) {
-        LootContextPredicate targetPredicate = EntityPredicate.contextPredicateFromJson(obj, "target_predicate", predicateDeserializer);
-        return new Conditions(playerPredicate, targetPredicate);
+    public Codec<Conditions> getConditionsCodec() {
+        return Conditions.CODEC;
     }
 
-    @Override
-    public Identifier getId() {
-        return ID;
-    }
-    
     public <T extends HostileEntity & TameableHostileEntity> void trigger(ServerPlayerEntity player, T entity) {
-        Predicate<Conditions> predicate = conditions -> conditions.matches(player, entity);
-        this.trigger(player, predicate);
+        LootContext context = EntityPredicate.createAdvancementEntityLootContext(player, entity);
+        this.trigger(player, (Predicate<Conditions>)  conditions -> conditions.matches(context));
     }
 
-    public static class Conditions extends AbstractCriterionConditions {
+    public record Conditions(Optional<LootContextPredicate> player, Optional<LootContextPredicate> targetPredicate) implements AbstractCriterion.Conditions {
+        public static final Codec<TameHostileCriterion.Conditions> CODEC = RecordCodecBuilder.create(instance ->
+                instance.group(
+                        EntityPredicate.LOOT_CONTEXT_PREDICATE_CODEC.optionalFieldOf("player").forGetter(TameHostileCriterion.Conditions::player),
+                        EntityPredicate.LOOT_CONTEXT_PREDICATE_CODEC.optionalFieldOf("target_predicate").forGetter(TameHostileCriterion.Conditions::targetPredicate)
+                ).apply(instance, TameHostileCriterion.Conditions::new)
+        );
 
-        private final LootContextPredicate targetPredicate;
-
-        public Conditions(LootContextPredicate player, LootContextPredicate target) {
-            super(ID, player);
-            this.targetPredicate = target;
-        }
-
-        public <T extends HostileEntity & TameableHostileEntity> boolean matches(ServerPlayerEntity player, T target) {
-            LootContext context = EntityPredicate.createAdvancementEntityLootContext(player, target);
-            return getPlayerPredicate().test(context) && this.targetPredicate.test(context);
-        }
-
-        @Override
-        public JsonObject toJson(AdvancementEntityPredicateSerializer predicateSerializer) {
-            JsonObject json = super.toJson(predicateSerializer);
-            json.add("target_predicate", targetPredicate.toJson(predicateSerializer));
-            return json;
+        public boolean matches(LootContext context) {
+            return this.targetPredicate.isEmpty() || this.targetPredicate.get().test(context);
         }
     }
 }

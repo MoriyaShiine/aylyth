@@ -1,71 +1,56 @@
 package moriyashiine.aylyth.common.advancement.criteria;
 
-import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.entity.types.mob.WreathedHindEntity;
 import net.minecraft.advancement.criterion.AbstractCriterion;
-import net.minecraft.advancement.criterion.AbstractCriterionConditions;
 import net.minecraft.loot.context.LootContext;
-import net.minecraft.predicate.entity.AdvancementEntityPredicateDeserializer;
-import net.minecraft.predicate.entity.AdvancementEntityPredicateSerializer;
 import net.minecraft.predicate.entity.EntityPredicate;
 import net.minecraft.predicate.entity.LootContextPredicate;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
+import java.util.Optional;
+
 public class HindPledgeCriterion extends AbstractCriterion<HindPledgeCriterion.Conditions> {
-    static final Identifier ID = Aylyth.id("hind_pledge");
-
     @Override
-    protected Conditions conditionsFromJson(JsonObject obj, LootContextPredicate playerPredicate, AdvancementEntityPredicateDeserializer predicateDeserializer) {
-        var targetPredicate = EntityPredicate.contextPredicateFromJson(obj, "target_predicate", predicateDeserializer);
-        return new Conditions(playerPredicate, targetPredicate);
-    }
-
-    @Override
-    public Identifier getId() {
-        return ID;
+    public Codec<Conditions> getConditionsCodec() {
+        return HindPledgeCriterion.Conditions.CODEC;
     }
 
     public void trigger(ServerPlayerEntity player, WreathedHindEntity wreathedHind) {
-        this.trigger(player, conditions -> conditions.matches(player, wreathedHind));
+        LootContext context = EntityPredicate.createAdvancementEntityLootContext(player, wreathedHind);
+        this.trigger(player, conditions -> conditions.matches(context));
     }
 
-    public static class Conditions extends AbstractCriterionConditions {
-
-        private final LootContextPredicate targetPredicate;
-
-        public Conditions(LootContextPredicate player, LootContextPredicate target) {
-            super(ID, player);
-            this.targetPredicate = target;
-        }
+    public record Conditions(Optional<LootContextPredicate> player, Optional<LootContextPredicate> targetPredicate) implements AbstractCriterion.Conditions {
+        public static final Codec<HindPledgeCriterion.Conditions> CODEC = RecordCodecBuilder.create(
+                instance -> instance.group(
+                                EntityPredicate.LOOT_CONTEXT_PREDICATE_CODEC.optionalFieldOf("player").forGetter(HindPledgeCriterion.Conditions::player),
+                                EntityPredicate.LOOT_CONTEXT_PREDICATE_CODEC.optionalFieldOf("target_predicate").forGetter(HindPledgeCriterion.Conditions::targetPredicate)
+                        )
+                        .apply(instance, HindPledgeCriterion.Conditions::new)
+        );
 
         public static Conditions create() {
-            return new Conditions(LootContextPredicate.EMPTY, LootContextPredicate.EMPTY);
+            return new Conditions(Optional.empty(), Optional.empty());
         }
 
         public static Conditions withPlayer(LootContextPredicate player) {
-            return new Conditions(player, LootContextPredicate.EMPTY);
+            return new Conditions(Optional.of(player), Optional.empty());
         }
 
         public static Conditions withTargetHind(LootContextPredicate wreathedHind) {
-            return new Conditions(LootContextPredicate.EMPTY, wreathedHind);
+            return new Conditions(Optional.empty(), Optional.of(wreathedHind));
         }
 
         public static Conditions create(LootContextPredicate player, LootContextPredicate target) {
-            return new Conditions(player, target);
+            return new Conditions(Optional.of(player), Optional.of(target));
         }
 
-        public boolean matches(ServerPlayerEntity player, WreathedHindEntity target) {
-            LootContext context = EntityPredicate.createAdvancementEntityLootContext(player, target);
-            return getPlayerPredicate().test(context) && this.targetPredicate.test(context);
-        }
-
-        @Override
-        public JsonObject toJson(AdvancementEntityPredicateSerializer predicateSerializer) {
-            JsonObject json = super.toJson(predicateSerializer);
-            json.add("target_predicate", targetPredicate.toJson(predicateSerializer));
-            return json;
+        public boolean matches(LootContext context) {
+            return this.targetPredicate.isEmpty() || this.targetPredicate.get().test(context);
         }
     }
 }
