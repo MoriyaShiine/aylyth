@@ -4,10 +4,6 @@
   "package": "moriyashiine.aylyth.mixin.client",
   "compatibilityLevel": "JAVA_17",
   "client": [
-    "AdvancementTabMixin",
-    "AdvancementToastMixin",
-    "AdvancementWidgetAccessor",
-    "AdvancementWidgetMixin",
     "BackgroundRendererMixin",
     "BufferBuilderStorageMixin",
     "GameRendererMixin",

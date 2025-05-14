@@ -275,8 +275,6 @@ public class AylythClient implements ClientModInitializer {
 			context.register(Aylyth.id("rendertype_seep"), VertexFormats.POSITION_COLOR_TEXTURE_LIGHT_NORMAL, shader -> AylythRenderLayers.renderLayerSeep = shader);
 			context.register(Aylyth.id("rendertype_tint"), VertexFormats.POSITION_TEXTURE, shader -> AylythRenderLayers.renderLayerTint = shader);
 		});
-
-		AdvancementIconRendererRegistry.init();
 	}
 
 	private void registerSpearItemRenderer(ItemConvertible item) {

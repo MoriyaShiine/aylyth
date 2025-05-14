@@ -4,9 +4,6 @@
   "package": "moriyashiine.aylyth.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "AdvancementBuilderMixin",
-    "AdvancementDisplayAccessor",
-    "AdvancementDisplayMixin",
     "EnchantmentTargetMixin",
     "EntityAccessor",
     "EntityMixin",

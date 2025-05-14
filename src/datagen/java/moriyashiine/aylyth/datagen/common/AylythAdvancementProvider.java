@@ -1,7 +1,6 @@
 package moriyashiine.aylyth.datagen.common;
 
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.advancement.CustomAdvancementDisplay;
 import moriyashiine.aylyth.common.advancement.renderdata.TextureRendererData;
 import moriyashiine.aylyth.common.advancement.criteria.HindPledgeCriterion;
 import moriyashiine.aylyth.common.advancement.criteria.ShuckingCriterion;
@@ -29,7 +28,6 @@ import net.minecraft.predicate.entity.EntityPredicate;
 import net.minecraft.predicate.entity.LocationPredicate;
 import net.minecraft.predicate.item.ItemPredicate;
 import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 
 import java.util.function.Consumer;
@@ -45,6 +43,8 @@ public final class AylythAdvancementProvider extends FabricAdvancementProvider {
                 .display(AylythItems.YMPE_SAPLING.getDefaultStack(), Text.translatable("advancements.aylyth.aylyth.root.title"), Text.translatable("advancements.aylyth.aylyth.root.desc"), Aylyth.id("textures/block/ympe_planks.png"), AdvancementFrame.TASK, true, true, false)
                 .criterion("entered_aylyth", ChangedDimensionCriterion.Conditions.to(AylythDimensionData.WORLD))
                 .build(consumer, "aylyth:aylyth/root");
+        // TODO: Add items for the icons needed below, make sure they don't exist in creative tabs and don't show up in
+        //  any of the *EIs.
         Advancement.Builder.create()
                 .parent(root)
                 .display(new CustomAdvancementDisplay(TextureRendererData.standard(Aylyth.id("textures/mob_effect/cimmerian.png")), Text.translatable("advancements.aylyth.aylyth.cimmerianed.title"), Text.translatable("advancements.aylyth.aylyth.cimmerianed.desc"), null, AdvancementFrame.TASK, true, true, false))
