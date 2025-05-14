@@ -138,8 +138,6 @@ dependencies {
 
     compileOnly libs.jetbrains.annotations
 
-//    modImplementation(include("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${cardinal_components_version}"))
-//    modImplementation(include("dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${cardinal_components_version}"))
 //    modImplementation(include("com.terraformersmc.terraform-api:terraform-wood-api-v1:${terraform_wood_api_version}"))
 //    modImplementation(include('com.github.Chocohead:Fabric-ASM:v2.3'))
 
