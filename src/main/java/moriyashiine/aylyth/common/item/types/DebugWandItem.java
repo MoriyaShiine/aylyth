@@ -4,8 +4,8 @@ import moriyashiine.aylyth.api.interfaces.VitalHealthHolder;
 import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.block.types.LargeWoodyGrowthBlock;
 import moriyashiine.aylyth.common.block.types.WoodyGrowthCacheBlock;
-import moriyashiine.aylyth.common.entity.AylythEntityComponents;
-import moriyashiine.aylyth.common.entity.components.YmpeInfestationComponent;
+import moriyashiine.aylyth.common.entity.AylythEntityAttachmentTypes;
+import moriyashiine.aylyth.common.entity.attachments.YmpeInfestation;
 import moriyashiine.aylyth.common.entity.types.mob.ScionEntity;
 import moriyashiine.aylyth.common.item.AylythItems;
 import net.minecraft.block.Blocks;
@@ -24,7 +24,6 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Optional;
 
 public class DebugWandItem extends Item {
     public DebugWandItem(Settings settings) {
@@ -68,11 +67,12 @@ public class DebugWandItem extends Item {
                 });
             }else{
                 if (user.getOffHandStack().isOf(AylythItems.YMPE_FRUIT)) {
-                    Optional<YmpeInfestationComponent> optional = AylythEntityComponents.YMPE_INFESTATION.maybeGet(user);
-                    optional.ifPresent(ympeInfestationComponent -> {
-                        ympeInfestationComponent.setStage((byte)(ympeInfestationComponent.getStage() + 1));
-                        ympeInfestationComponent.setInfestationTimer((short)2400);
-                    });
+                    YmpeInfestation infestation = user.getAttached(AylythEntityAttachmentTypes.YMPE_INFESTATION);
+                    if (infestation != null) {
+                        infestation.setStage((byte)(infestation.getStage() + 1));
+                        infestation.setInfestationTimer((short)2400);
+                        user.setAttached(AylythEntityAttachmentTypes.YMPE_INFESTATION, infestation);
+                    }
                 } /*else if (user.getOffHandStack().isOf(ModItems.MYSTERIOUS_SKETCH)) {
                     ItemStack page = user.getOffHandStack();
                     if (page.hasNbt() && page.getNbt().contains("PageId")) {

@@ -3,7 +3,8 @@ package moriyashiine.aylyth.client.render.entity.living.feature;
 import moriyashiine.aylyth.client.AylythClient;
 import moriyashiine.aylyth.client.model.entity.layer.YmpeThornRingModel;
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.entity.AylythEntityComponents;
+import moriyashiine.aylyth.common.entity.AylythEntityAttachmentTypes;
+import moriyashiine.aylyth.common.entity.attachments.YmpeThorns;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -27,7 +28,12 @@ public class YmpeThornRingFeature extends FeatureRenderer<LivingEntity, EntityMo
 
 	@Override
 	public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, LivingEntity entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
-		int thornProgress = AylythEntityComponents.YMPE_THORNS.get(entity).getThornProgress();
+		YmpeThorns ympeThorns = entity.getAttached(AylythEntityAttachmentTypes.YMPE_THORNS);
+		if (ympeThorns == null) {
+			return;
+		}
+
+		int thornProgress = ympeThorns.getStage();
 
 		matrices.push();
 		matrices.translate(0, entity.getHeight() * 0.5, -entity.getWidth() * 3);

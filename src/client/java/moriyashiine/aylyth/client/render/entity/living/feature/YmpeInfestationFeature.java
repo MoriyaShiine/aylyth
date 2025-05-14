@@ -3,7 +3,8 @@ package moriyashiine.aylyth.client.render.entity.living.feature;
 import moriyashiine.aylyth.client.AylythClient;
 import moriyashiine.aylyth.client.model.entity.layer.YmpeInfestationModel;
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.entity.AylythEntityComponents;
+import moriyashiine.aylyth.common.entity.AylythEntityAttachmentTypes;
+import moriyashiine.aylyth.common.entity.attachments.YmpeInfestation;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
@@ -32,9 +33,9 @@ public class YmpeInfestationFeature extends FeatureRenderer<AbstractClientPlayer
 	
 	@Override
 	public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, AbstractClientPlayerEntity entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
-		int stage = AylythEntityComponents.YMPE_INFESTATION.get(entity).getStage();
-		if (stage > 0) {
-			YmpeInfestationModel model = MODELS[Math.min(4, stage - 1)];
+		YmpeInfestation infestation = entity.getAttached(AylythEntityAttachmentTypes.YMPE_INFESTATION);
+		if (infestation != null && infestation.getStage() > 0) {
+			YmpeInfestationModel model = MODELS[Math.min(4, infestation.getStage() - 1)];
 			getContextModel().copyBipedStateTo(model);
 			model.adjustArmPivots(entity.getModel().equals("slim"));
 			model.render(matrices, vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(TEXTURE)), light, OverlayTexture.DEFAULT_UV, 1, 1, 1, 1);

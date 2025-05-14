@@ -47,8 +47,6 @@ public class YmpeInfestationCriterion extends AbstractCriterion<YmpeInfestationC
         }
 
         public boolean matches(ServerPlayerEntity player) {
-            return AylythEntityComponents.YMPE_INFESTATION.maybeGet(player).map(component -> stage.getMin() <= component.getStage() && stage.getMax() >= component.getStage()).orElse(false);
-        }
 
         @Override
         public JsonObject toJson(AdvancementEntityPredicateSerializer predicateSerializer) {
@@ -56,6 +54,11 @@ public class YmpeInfestationCriterion extends AbstractCriterion<YmpeInfestationC
             DataResult<JsonElement> result = IntProvider.VALUE_CODEC.encodeStart(JsonOps.INSTANCE, stage);
             json.add("stage", result.result().get());
             return json;
+            YmpeInfestation infestation = player.getAttached(AylythEntityAttachmentTypes.YMPE_INFESTATION);
+            if (infestation == null) {
+                return false;
+            }
+            return stage.isEmpty() || (stage.get().getMin() <= infestation.getStage() && stage.get().getMax() >= infestation.getStage());
         }
     }
 }

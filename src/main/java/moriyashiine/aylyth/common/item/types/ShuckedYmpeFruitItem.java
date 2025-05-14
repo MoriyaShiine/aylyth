@@ -1,7 +1,6 @@
 package moriyashiine.aylyth.common.item.types;
 
 import moriyashiine.aylyth.common.entity.AylythEntityAttachmentTypes;
-import moriyashiine.aylyth.common.entity.AylythEntityComponents;
 import moriyashiine.aylyth.common.entity.AylythStatusEffects;
 import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.aylyth.common.item.potion.AylythPotions;

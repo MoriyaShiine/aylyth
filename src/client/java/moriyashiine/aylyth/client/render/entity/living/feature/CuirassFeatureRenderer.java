@@ -2,7 +2,6 @@ package moriyashiine.aylyth.client.render.entity.living.feature;
 
 import moriyashiine.aylyth.client.model.entity.layer.CuirassModel;
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.entity.AylythEntityComponents;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;

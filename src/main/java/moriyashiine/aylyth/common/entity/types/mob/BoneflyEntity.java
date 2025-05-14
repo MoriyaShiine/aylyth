@@ -3,7 +3,6 @@ package moriyashiine.aylyth.common.entity.types.mob;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import moriyashiine.aylyth.api.interfaces.ProlongedDeath;
-import moriyashiine.aylyth.common.entity.AylythEntityComponents;
 import moriyashiine.aylyth.common.entity.AylythEntityTypes;
 import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.aylyth.common.util.AylythUtil;

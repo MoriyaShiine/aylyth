@@ -1,6 +1,7 @@
 package moriyashiine.aylyth.common.network;
 
-import moriyashiine.aylyth.common.entity.AylythEntityComponents;
+import moriyashiine.aylyth.common.entity.AylythEntityAttachmentTypes;
+import moriyashiine.aylyth.common.entity.attachments.RiderControls;
 import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.aylyth.common.network.packets.GlaivePacketC2S;
 import moriyashiine.aylyth.common.network.packets.UpdatePressingUpDownPacketC2S;
@@ -15,8 +16,12 @@ public final class AylythServerPacketHandler {
     private AylythServerPacketHandler() {}
 
     public static void handleUpdatePressingUpDown(UpdatePressingUpDownPacketC2S packet, ServerPlayerEntity player, PacketSender responseSender) {
-        AylythEntityComponents.RIDER_COMPONENT.get(player).setPressingUp(packet.pressingUp());
-        AylythEntityComponents.RIDER_COMPONENT.get(player).setPressingDown(packet.pressingDown());
+        RiderControls rider = player.getAttached(AylythEntityAttachmentTypes.RIDER);
+        if (rider != null) {
+            rider.setPressingUp(packet.pressingUp());
+            rider.setPressingDown(packet.pressingDown());
+            player.setAttached(AylythEntityAttachmentTypes.RIDER, rider);
+        }
     }
 
     public static void handleGlaiveSpecial(GlaivePacketC2S packet, ServerPlayerEntity player, PacketSender sender) {

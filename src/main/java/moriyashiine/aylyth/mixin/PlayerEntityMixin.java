@@ -7,8 +7,9 @@ import moriyashiine.aylyth.common.data.AylythDamageTypes;
 import moriyashiine.aylyth.common.data.tag.AylythDamageTypeTags;
 import moriyashiine.aylyth.common.data.world.AylythDimensionData;
 import moriyashiine.aylyth.common.entity.AylythAttributes;
-import moriyashiine.aylyth.common.entity.AylythEntityComponents;
-import moriyashiine.aylyth.common.entity.components.CuirassComponent;
+import moriyashiine.aylyth.common.entity.AylythEntityAttachmentTypes;
+import moriyashiine.aylyth.common.entity.attachments.CuirassStages;
+import moriyashiine.aylyth.common.entity.attachments.VitalHealth;
 import moriyashiine.aylyth.common.entity.types.mob.BoneflyEntity;
 import moriyashiine.aylyth.common.world.AylythSoundEvents;
 import moriyashiine.aylyth.common.world.AylythWorldAttachmentTypes;
@@ -29,6 +30,7 @@ import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -69,12 +71,18 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHea
 
     @Override
     public float getCurrentVitalHealth() {
-        return AylythEntityComponents.VITAL_HEALTH.get(this).getCurrentVitalHealth();
+        VitalHealth vitalHealth = this.getAttached(AylythEntityAttachmentTypes.VITAL_HEALTH);
+        if (vitalHealth == null) {
+            return 0;
+        }
+        return vitalHealth.getValue();
     }
 
     @Override
     public void setCurrentVitalHealth(float vital) {
-        AylythEntityComponents.VITAL_HEALTH.get(this).setCurrentVitalHealth(vital);
+        VitalHealth vitalHealth = this.getAttachedOrCreate(AylythEntityAttachmentTypes.VITAL_HEALTH);
+        vitalHealth.setValue((float) MathHelper.clamp(vital, 0f, this.getAttributeValue(AylythAttributes.MAX_VITAL_HEALTH)));
+        this.setAttached(AylythEntityAttachmentTypes.VITAL_HEALTH, vitalHealth);
     }
 
     @Override
@@ -127,20 +135,22 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHea
     private float modifyDamageForCuirass(float amount, DamageSource source) {
         if (!getWorld().isClient) {
             PlayerEntity player = (PlayerEntity) (Object) this;
-            CuirassComponent component = AylythEntityComponents.CUIRASS_COMPONENT.get(player);
-            boolean isAxe = source.getAttacker() instanceof LivingEntity livingEntity1 && livingEntity1.getMainHandStack().getItem() instanceof AxeItem;
-            if (isAxe || source.isIn(DamageTypeTags.IS_FIRE)) {
-                component.setStage(0);
-                component.setStageTimer(0);
-                player.getWorld().playSoundFromEntity(null, player, AylythSoundEvents.ENTITY_PLAYER_INCREASE_YMPE_INFESTATION_STAGE.value(), SoundCategory.PLAYERS, 1, player.getSoundPitch());
-                return amount;
-            } else if (!source.isIn(AylythDamageTypeTags.BYPASSES_CUIRASS)) {
-                while (component.getStage() > 0) {
-                    amount--;
-                    component.setStage(component.getStage() - 1);
+            CuirassStages component = player.getAttached(AylythEntityAttachmentTypes.CUIRASS);
+            if (component != null) {
+                boolean isAxe = source.getAttacker() instanceof LivingEntity livingEntity1 && livingEntity1.getMainHandStack().getItem() instanceof AxeItem;
+                if (isAxe || source.isIn(DamageTypeTags.IS_FIRE)) {
+                    component.setStage(0);
+                    component.setStageTimer(0);
                     player.getWorld().playSoundFromEntity(null, player, AylythSoundEvents.ENTITY_PLAYER_INCREASE_YMPE_INFESTATION_STAGE.value(), SoundCategory.PLAYERS, 1, player.getSoundPitch());
+                    return amount;
+                } else if (!source.isIn(AylythDamageTypeTags.BYPASSES_CUIRASS)) {
+                    while (component.getStage() > 0) {
+                        amount--;
+                        component.setStage(component.getStage() - 1);
+                        player.getWorld().playSoundFromEntity(null, player, AylythSoundEvents.ENTITY_PLAYER_INCREASE_YMPE_INFESTATION_STAGE.value(), SoundCategory.PLAYERS, 1, player.getSoundPitch());
+                    }
+                    return amount;
                 }
-                return amount;
             }
         }
         return amount;

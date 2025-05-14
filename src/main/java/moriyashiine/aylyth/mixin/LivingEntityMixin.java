@@ -8,7 +8,8 @@ import moriyashiine.aylyth.common.data.AylythDamageTypes;
 import moriyashiine.aylyth.common.data.tag.AylythItemTags;
 import moriyashiine.aylyth.common.data.tag.AylythStatusEffectTags;
 import moriyashiine.aylyth.common.entity.AylythEntityAttachmentTypes;
-import moriyashiine.aylyth.common.entity.AylythEntityComponents;
+import moriyashiine.aylyth.common.entity.attachments.YmpeInfestation;
+import moriyashiine.aylyth.common.entity.attachments.YmpeThorns;
 import moriyashiine.aylyth.common.entity.types.mob.BoneflyEntity;
 import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.aylyth.common.util.AylythUtil;
@@ -17,15 +18,20 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.EntityAttribute;
+import net.minecraft.entity.attribute.EntityAttributeInstance;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.BiomeTags;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -43,8 +49,46 @@ public abstract class LivingEntityMixin extends Entity {
 
 	@Shadow public abstract Collection<StatusEffectInstance> getStatusEffects();
 
+	@Shadow public abstract @Nullable EntityAttributeInstance getAttributeInstance(RegistryEntry<EntityAttribute> attribute);
+
 	public LivingEntityMixin(EntityType<?> type, World world) {
 		super(type, world);
+	}
+
+	@Inject(method = "tick", at = @At("TAIL"))
+	private void tick(CallbackInfo ci) {
+		if (!getEntityWorld().isClient) {
+			YmpeThorns ympeThorns = this.getAttached(AylythEntityAttachmentTypes.YMPE_THORNS);
+			if (ympeThorns != null) {
+				EntityAttributeInstance speedInst = this.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED);
+
+				if (speedInst != null && speedInst.hasModifier(YmpeThorns.SPEED_MODIFIER))
+					speedInst.removeModifier(YmpeThorns.SPEED_MODIFIER);
+
+				if (ympeThorns.getStage() > 0) {
+					if (speedInst != null && !speedInst.hasModifier(YmpeThorns.SPEED_MODIFIER)) {
+						speedInst.addTemporaryModifier(
+								new EntityAttributeModifier(
+										YmpeThorns.SPEED_MODIFIER,
+										-0.1 * ympeThorns.getStage(),
+										EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL
+								)
+						);
+					}
+
+					if (ympeThorns.getStageTimer() > 0 && ympeThorns.getStageTimer() % 60 == 0) {
+						ympeThorns.addStage(-1);
+					}
+				}
+
+				if (ympeThorns.getStage() > 0) {
+					ympeThorns.addStageTimer(1);
+				} else {
+					ympeThorns.setStageTimer(0);
+				}
+				this.setAttached(AylythEntityAttachmentTypes.YMPE_THORNS, ympeThorns);
+			}
+		}
 	}
 
 	@ModifyVariable(method = "damage", at = @At("HEAD"), argsOnly = true)
@@ -96,14 +140,16 @@ public abstract class LivingEntityMixin extends Entity {
 					return;
 				}
 			}
-			AylythEntityComponents.YMPE_INFESTATION.maybeGet(player).ifPresent(ympeInfestationComponent -> {
-				if (ympeInfestationComponent.getStage() > 0) {
-					ympeInfestationComponent.setStage((byte) (ympeInfestationComponent.getStage() - 1));
+			if (player.hasAttached(AylythEntityAttachmentTypes.YMPE_INFESTATION)) {
+				YmpeInfestation infestation = player.getAttachedOrThrow(AylythEntityAttachmentTypes.YMPE_INFESTATION);
+				if (infestation.getStage() > 0) {
+					infestation.setStage((byte) (infestation.getStage() - 1));
 				}
-				else if (ympeInfestationComponent.getInfestationTimer() > 0) {
-					ympeInfestationComponent.setInfestationTimer((short) 0);
+				else if (infestation.getInfestationTimer() > 0) {
+					infestation.setInfestationTimer((short) 0);
 				}
-			});
+				player.setAttached(AylythEntityAttachmentTypes.YMPE_INFESTATION, infestation);
+			}
 		}
 	}
 

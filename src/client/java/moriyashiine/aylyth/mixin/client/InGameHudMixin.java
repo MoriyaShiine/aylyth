@@ -7,8 +7,8 @@ import moriyashiine.aylyth.client.integration.iris.IrisCompat;
 import moriyashiine.aylyth.client.render.AylythRenderLayers;
 import moriyashiine.aylyth.common.data.tag.AylythBlockTags;
 import moriyashiine.aylyth.common.entity.AylythAttributes;
-import moriyashiine.aylyth.common.entity.AylythEntityComponents;
-import moriyashiine.aylyth.common.entity.components.YmpeInfestationComponent;
+import moriyashiine.aylyth.common.entity.AylythEntityAttachmentTypes;
+import moriyashiine.aylyth.common.entity.attachments.YmpeInfestation;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
@@ -40,18 +40,19 @@ public abstract class InGameHudMixin implements AylythGameHud {
 
 	@Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/MathHelper;lerp(FFF)F", ordinal = 1))
 	private void renderYmpeInfestationOverlay(DrawContext context, float tickDelta, CallbackInfo ci) {
-		AylythEntityComponents.YMPE_INFESTATION.maybeGet(client.player).ifPresent(ympeInfestationComponent -> {
-			int stage = ympeInfestationComponent.getStage();
+		YmpeInfestation infestation = client.player.getAttached(AylythEntityAttachmentTypes.YMPE_INFESTATION);
+		if (infestation != null) {
+			int stage = infestation.getStage();
 			if (stage >= 3) {
-				renderOverlay(context, YMPE_OUTLINE_1_TEXTURE, stage == 3 ? (float) ympeInfestationComponent.getInfestationTimer() / YmpeInfestationComponent.TIME_UNTIL_STAGE_INCREASES : 1);
+				renderOverlay(context, YMPE_OUTLINE_1_TEXTURE, stage == 3 ? (float) infestation.getInfestationTimer() / YmpeInfestation.TIME_UNTIL_STAGE_INCREASES : 1);
 			}
 			if (stage >= 2) {
-				renderOverlay(context, YMPE_OUTLINE_0_TEXTURE, stage == 2 ? (float) ympeInfestationComponent.getInfestationTimer() / YmpeInfestationComponent.TIME_UNTIL_STAGE_INCREASES : 1);
+				renderOverlay(context, YMPE_OUTLINE_0_TEXTURE, stage == 2 ? (float) infestation.getInfestationTimer() / YmpeInfestation.TIME_UNTIL_STAGE_INCREASES : 1);
 			}
 			if (stage >= 5) {
-				renderOverlay(context, YMPE_OUTLINE_2_TEXTURE, stage == 5 ? (float) ympeInfestationComponent.getInfestationTimer() / YmpeInfestationComponent.TIME_UNTIL_STAGE_INCREASES : 1);
+				renderOverlay(context, YMPE_OUTLINE_2_TEXTURE, stage == 5 ? (float) infestation.getInfestationTimer() / YmpeInfestation.TIME_UNTIL_STAGE_INCREASES : 1);
 			}
-		});
+		}
 
 		// TODO: Make more efficient
 		if (client.world.getBlockState(client.player.getBlockPos()).isIn(AylythBlockTags.SEEPS)) {
@@ -65,7 +66,8 @@ public abstract class InGameHudMixin implements AylythGameHud {
 
 	@ModifyArg(method = "drawHeart", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawTexture(Lnet/minecraft/util/Identifier;IIIIII)V"))
 	private Identifier drawBranchingHearts(Identifier id) {
-		if (AylythEntityComponents.YMPE_INFESTATION.get(client.player).getStage() > 0) {
+		YmpeInfestation infestation = client.player.getAttached(AylythEntityAttachmentTypes.YMPE_INFESTATION);
+		if (infestation != null && infestation.getStage() > 0) {
 			return AylythGameHud.YMPE_HEALTH_TEXTURES;
 		}
 		return id;
@@ -92,7 +94,8 @@ public abstract class InGameHudMixin implements AylythGameHud {
 			int representedHealth = i*2;
 			if (representedHealth < maxHealth+absorption+vitalHealth) {
 				int u = 0;
-				if (AylythEntityComponents.YMPE_INFESTATION.get(player).getStage() > 0) {
+				YmpeInfestation infestation = player.getAttached(AylythEntityAttachmentTypes.YMPE_INFESTATION);
+				if (infestation != null && infestation.getStage() > 0) {
 					u += 16;
 				}
 				if (representedHealth+1 == maxHealth+absorption+vitalHealth) {

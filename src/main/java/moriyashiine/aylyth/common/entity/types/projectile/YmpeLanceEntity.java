@@ -1,8 +1,8 @@
 package moriyashiine.aylyth.common.entity.types.projectile;
 
-import moriyashiine.aylyth.common.entity.AylythEntityComponents;
+import moriyashiine.aylyth.common.entity.AylythEntityAttachmentTypes;
 import moriyashiine.aylyth.common.entity.AylythEntityTypes;
-import moriyashiine.aylyth.common.entity.components.YmpeThornsComponent;
+import moriyashiine.aylyth.common.entity.attachments.YmpeThorns;
 import moriyashiine.aylyth.common.item.AylythItems;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -121,8 +121,6 @@ public class YmpeLanceEntity extends PersistentProjectileEntity {
 		super.tickRiding();
 
 		if (target != null && target == getVehicle() && !getWorld().isClient()) {
-			YmpeThornsComponent thornsComponent = AylythEntityComponents.YMPE_THORNS.get(target);
-
 			if (timeStuck >= 140 || target.isDead()) {
 				target = null;
 				stopRiding();
@@ -132,8 +130,10 @@ public class YmpeLanceEntity extends PersistentProjectileEntity {
 			if (timeStuck % 40 == 0 && timeStuck > 0) {
 				target.damage(getWorld().aylythDamageSources().ympe(), 4);
 
-				if (thornsComponent.getThornProgress() < 3) {
-					thornsComponent.incrementThornProgress(1);
+				YmpeThorns ympeThorns = target.getAttached(AylythEntityAttachmentTypes.YMPE_THORNS);
+				if (ympeThorns != null && ympeThorns.getStage() < 3) {
+					ympeThorns.addStage(1);
+					target.setAttached(AylythEntityAttachmentTypes.YMPE_THORNS, ympeThorns);
 				}
 			}
 
