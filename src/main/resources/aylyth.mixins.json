@@ -16,6 +16,7 @@
     "PlayerManagerMixin",
     "SaplingBlockAccessor",
     "ServerPlayerEntityMixin",
+    "TallPlantBlockAccessor",
     "TypeSpecificPredicateDeserializersAccessor",
     "VineBlockMixin",
     "WorldMixin",
