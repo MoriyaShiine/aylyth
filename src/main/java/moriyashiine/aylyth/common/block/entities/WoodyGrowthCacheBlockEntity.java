@@ -13,6 +13,7 @@ import net.minecraft.nbt.NbtList;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -33,40 +34,40 @@ public class WoodyGrowthCacheBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt) {
-        super.writeNbt(nbt);
+    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        super.writeNbt(nbt, registries);
         if (!inventory.isEmpty()) {
             NbtList list = new NbtList();
             for (int i = 0; i < inventory.size(); i++) {
                 NbtCompound itemNbt = new NbtCompound();
-                itemNbt.putInt("Slot", i);
-                itemNbt.put("Item", inventory.get(i).writeNbt(new NbtCompound()));
+                itemNbt.putInt("slot", i);
+                itemNbt.put("item", inventory.get(i).toNbt(registries));
                 list.add(itemNbt);
             }
-            nbt.put("Items", list);
+            nbt.put("items", list);
         }
         if (playerUuid != null) {
-            nbt.putUuid("Player", playerUuid);
+            nbt.putUuid("player", playerUuid);
         }
     }
 
     @Override
-    public void readNbt(NbtCompound nbt) {
-        super.readNbt(nbt);
-        if (nbt.contains("Items")) {
-            NbtList list = nbt.getList("Items", NbtList.COMPOUND_TYPE);
+    public void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        super.readNbt(nbt, registries);
+        if (nbt.contains("items")) {
+            NbtList list = nbt.getList("items", NbtList.COMPOUND_TYPE);
             for (NbtElement ele : list) {
                 NbtCompound compound = (NbtCompound) ele;
-                int slot = compound.getInt("Slot");
-                NbtCompound item = (NbtCompound)compound.get("Item");
-                inventory.add(slot, ItemStack.fromNbt(item));
+                int slot = compound.getInt("slot");
+                NbtCompound item = compound.getCompound("item");
+                inventory.add(slot, ItemStack.fromNbt(registries, item).orElseThrow());
             }
         }
-        if (nbt.contains("Player")) {
-            if (nbt.getType("Player") == NbtElement.STRING_TYPE) {
-                playerUuid = UUID.fromString(nbt.getString("Player"));
+        if (nbt.contains("player")) {
+            if (nbt.getType("player") == NbtElement.STRING_TYPE) {
+                playerUuid = UUID.fromString(nbt.getString("player"));
             } else {
-                playerUuid = nbt.getUuid("Player");
+                playerUuid = nbt.getUuid("player");
             }
         }
     }
@@ -78,9 +79,9 @@ public class WoodyGrowthCacheBlockEntity extends BlockEntity {
     }
 
     @Override
-    public NbtCompound toInitialChunkDataNbt() {
+    public NbtCompound toInitialChunkDataNbt(RegistryWrapper.WrapperLookup registries) {
         NbtCompound nbt = new NbtCompound();
-        writeNbt(nbt);
+        writeNbt(nbt, registries);
         return nbt;
     }
 

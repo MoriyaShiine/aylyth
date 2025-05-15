@@ -21,6 +21,8 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.registry.DynamicRegistryManager;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.ServerConfigHandler;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -46,16 +48,16 @@ public class VitalThuribleBlockEntity extends BlockEntity implements SingleStack
     }
 
     @Override
-    public NbtCompound toInitialChunkDataNbt() {
-        NbtCompound nbt = super.toInitialChunkDataNbt();
-        writeNbt(nbt);
+    public NbtCompound toInitialChunkDataNbt(RegistryWrapper.WrapperLookup registries) {
+        NbtCompound nbt = super.toInitialChunkDataNbt(registries);
+        writeNbt(nbt, registries);
         return nbt;
     }
 
     @Nullable
     @Override
     public Packet<ClientPlayPacketListener> toUpdatePacket() {
-        return BlockEntityUpdateS2CPacket.create(this, (BlockEntity b) -> this.toNbt());
+        return BlockEntityUpdateS2CPacket.create(this, (BlockEntity b, DynamicRegistryManager manager) -> this.toNbt(manager));
     }
 
     public void sync() {
@@ -65,11 +67,12 @@ public class VitalThuribleBlockEntity extends BlockEntity implements SingleStack
         }
     }
 
-    public void readNbt(NbtCompound nbt) {
-        super.readNbt(nbt);
+    @Override
+    public void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        super.readNbt(nbt, registries);
         this.inventory = DefaultedList.ofSize(this.size(), ItemStack.EMPTY);
-        Inventories.readNbt(nbt, this.inventory);
-        this.timer = nbt.getShort("Timer");
+        Inventories.readNbt(nbt, this.inventory, registries);
+        this.timer = nbt.getShort("timer");
 
         UUID uUID = null;
         if (nbt.containsUuid("uuid")) {
@@ -88,10 +91,11 @@ public class VitalThuribleBlockEntity extends BlockEntity implements SingleStack
 
     }
 
-    protected void writeNbt(NbtCompound nbt) {
-        super.writeNbt(nbt);
-        nbt.putShort("Timer", (short)this.timer);
-        Inventories.writeNbt(nbt, this.inventory);
+    @Override
+    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        super.writeNbt(nbt, registries);
+        nbt.putShort("timer", (short)this.timer);
+        Inventories.writeNbt(nbt, this.inventory, registries);
         if (this.targetUUID != null) {
             nbt.putUuid("uuid", this.targetUUID);
         }
@@ -103,7 +107,7 @@ public class VitalThuribleBlockEntity extends BlockEntity implements SingleStack
             if (world.isClient) {
                 if (blockEntity.timer > 0) {
                     for (int i = 0; i < 3; i++) {
-                        world.addParticle(ColorableParticleEffect.SOUL_EMBER, true,
+                        world.addParticle(ColorableParticleEffect.SOUL_EMBER, true, true,
                                 pos.getX() + 0.5 + MathHelper.nextFloat(world.random, -0.2f, 0.2f),
                                 pos.getY() + 0.5 + MathHelper.nextFloat(world.random, -0.2f, 0.2f),
                                 pos.getZ() + 0.5 + MathHelper.nextFloat(world.random, -0.2f, 0.2f),
@@ -120,11 +124,11 @@ public class VitalThuribleBlockEntity extends BlockEntity implements SingleStack
                         EntityAttributeInstance instance = player.getAttributeInstance(AylythAttributes.MAX_VITAL_HEALTH);
                         if (instance != null) {
                             EntityAttributeModifier modifier = instance.getModifier(VitalThuribleBlock.MAX_VITAL_MODIFIER);
-                            double currentMax = modifier != null ? modifier.getValue() : 0;
+                            double currentMax = modifier != null ? modifier.value() : 0;
                             if (currentMax < MAX_VITAL_MODIFIER) {
                                 double newMax = Math.min(currentMax + VITAL_INCREMENT, MAX_VITAL_MODIFIER);
                                 instance.removeModifier(VitalThuribleBlock.MAX_VITAL_MODIFIER);
-                                instance.addPersistentModifier(new EntityAttributeModifier(VitalThuribleBlock.MAX_VITAL_MODIFIER, "Vital Thurible Buff", newMax, EntityAttributeModifier.Operation.ADDITION));
+                                instance.addPersistentModifier(new EntityAttributeModifier(VitalThuribleBlock.MAX_VITAL_MODIFIER, newMax, EntityAttributeModifier.Operation.ADD_VALUE));
                                 VitalHealthHolder healthHolder = VitalHealthHolder.find(player);
                                 healthHolder.setCurrentVitalHealth(healthHolder.getCurrentVitalHealth() + VITAL_INCREMENT);
                             }
@@ -159,10 +163,10 @@ public class VitalThuribleBlockEntity extends BlockEntity implements SingleStack
         }
     }
 
-    public NbtCompound toNbt(){
+    public NbtCompound toNbt(DynamicRegistryManager manager) {
         NbtCompound rtn = new NbtCompound();
-        rtn.putInt("Timer",  (short)this.timer);
-        Inventories.writeNbt(rtn, inventory);
+        rtn.putInt("timer",  (short)this.timer);
+        Inventories.writeNbt(rtn, inventory, manager);
         return rtn;
     }
 
@@ -175,23 +179,23 @@ public class VitalThuribleBlockEntity extends BlockEntity implements SingleStack
     }
 
     @Override
-    public ItemStack getStack(int slot) {
-        return inventory.get(0);
-    }
-
-    @Override
     public ItemStack removeStack(int slot, int amount) {
         return Inventories.splitStack(inventory, 0, amount);
     }
 
     @Override
-    public ItemStack removeStack(int slot) {
-        return Inventories.removeStack(inventory, 0);
+    public ItemStack getStack() {
+        return inventory.get(0);
     }
 
     @Override
-    public void setStack(int slot, ItemStack stack) {
+    public void setStack(ItemStack stack) {
         inventory.set(0, stack);
+    }
+
+    @Override
+    public ItemStack removeStack(int slot) {
+        return Inventories.removeStack(inventory, 0);
     }
 
     @Override
