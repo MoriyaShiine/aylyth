@@ -9,17 +9,18 @@ import moriyashiine.aylyth.common.entity.statuseffects.WyrdedStatusEffect;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.entry.RegistryEntry;
 
 public interface AylythStatusEffects {
 
-    StatusEffect MORTECHIS = register("mortechis", new MortechisStatusEffect());
-    StatusEffect CIMMERIAN = register("cimmerian", new CimmerianStatusEffect());
-    StatusEffect WYRDED = register("wyrded", new WyrdedStatusEffect());
-    StatusEffect CRIMSON_CURSE = register("crimson_curse", new CrimsonCurseEffect());
-    StatusEffect BLIGHT = register("blight", new BlightEffect());
+    RegistryEntry<StatusEffect> MORTECHIS = register("mortechis", new MortechisStatusEffect());
+    RegistryEntry<StatusEffect> CIMMERIAN = register("cimmerian", new CimmerianStatusEffect());
+    RegistryEntry<StatusEffect> WYRDED = register("wyrded", new WyrdedStatusEffect());
+    RegistryEntry<StatusEffect> CRIMSON_CURSE = register("crimson_curse", new CrimsonCurseEffect());
+    RegistryEntry<StatusEffect> BLIGHT = register("blight", new BlightEffect());
 
-    private static <E extends StatusEffect> E register(String name, E effect) {
-        return Registry.register(Registries.STATUS_EFFECT, Aylyth.id(name), effect);
+    private static <E extends StatusEffect> RegistryEntry<StatusEffect> register(String name, E effect) {
+        return Registry.registerReference(Registries.STATUS_EFFECT, Aylyth.id(name), effect);
     }
 
     // Load static initializer
