@@ -1,5 +1,7 @@
 package moriyashiine.aylyth.common.block.types;
 
+import com.mojang.serialization.MapCodec;
+import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.block.entities.VitalThuribleBlockEntity;
 import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.aylyth.common.particle.effects.ColorableParticleEffect;
@@ -21,6 +23,7 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -34,7 +37,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.UUID;
 
 public class VitalThuribleBlock extends HorizontalFacingBlock implements BlockEntityProvider {
-    public static final UUID MAX_VITAL_MODIFIER = UUID.fromString("1ee98b0b-7181-46ac-97ce-d8f7307bffb1");
+    public static final Identifier MAX_VITAL_MODIFIER = Aylyth.id("vital_thurible_buff");
     public static final BooleanProperty ACTIVE = BooleanProperty.of("active");
     private static final VoxelShape SHAPES;
 
@@ -44,15 +47,15 @@ public class VitalThuribleBlock extends HorizontalFacingBlock implements BlockEn
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+    protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         ItemStack itemStack = player.getStackInHand(hand);
         if (isActivateItem(itemStack) && !state.get(ACTIVE)) {
             if (!world.isClient() && world.getBlockEntity(pos) instanceof VitalThuribleBlockEntity vitalThuribleBlockEntity) {
                 vitalThuribleBlockEntity.onUse(player, hand);
             }
-            return ActionResult.success(true);
+            return ActionResult.SUCCESS;
         }
-        return super.onUse(state, world, pos, player, hand, hit);
+        return super.onUseWithItem(stack, state, world, pos, player, hand, hit);
     }
 
     public static boolean isActivateItem(ItemStack stack) {
@@ -99,6 +102,11 @@ public class VitalThuribleBlock extends HorizontalFacingBlock implements BlockEn
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         return SHAPES;
+    }
+
+    @Override
+    protected MapCodec<? extends HorizontalFacingBlock> getCodec() {
+        throw new AssertionError("Codec must be implemented");
     }
 
     static {

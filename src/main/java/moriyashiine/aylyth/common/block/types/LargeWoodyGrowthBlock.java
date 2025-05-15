@@ -1,6 +1,7 @@
 package moriyashiine.aylyth.common.block.types;
 
 import moriyashiine.aylyth.common.block.AylythBlocks;
+import moriyashiine.aylyth.mixin.TallPlantBlockAccessor;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -59,13 +60,13 @@ public class LargeWoodyGrowthBlock extends SmallWoodyGrowthBlock {
     }
 
     @Override
-    public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+    public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         if (!world.isClient()) {
             if (player.isCreative()) {
-                TallPlantBlock.onBreakInCreative(world, pos, state, player);
+                TallPlantBlockAccessor.invokeOnBreakInCreative(world, pos, state, player);
             }
         }
-        super.onBreak(world, pos, state, player);
+        return super.onBreak(world, pos, state, player);
     }
 
     @Override
@@ -82,7 +83,7 @@ public class LargeWoodyGrowthBlock extends SmallWoodyGrowthBlock {
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         BlockPos pos = ctx.getBlockPos();
         World world = ctx.getWorld();
-        if (pos.getY() < world.getTopY() - 1 && world.getBlockState(pos.up()).canReplace(ctx)) {
+        if (pos.getY() < world.getTopYInclusive() - 1 && world.getBlockState(pos.up()).canReplace(ctx)) {
             return super.getPlacementState(ctx);
         }
         return null;

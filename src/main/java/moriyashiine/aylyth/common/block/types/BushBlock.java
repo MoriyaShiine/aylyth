@@ -1,5 +1,6 @@
 package moriyashiine.aylyth.common.block.types;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -21,7 +22,12 @@ public class BushBlock extends PlantBlock {
 		super(settings);
 		setDefaultState(getDefaultState().with(BUSHY, false));
 	}
-	
+
+	@Override
+	protected MapCodec<? extends PlantBlock> getCodec() {
+		throw new AssertionError("Codec must be implemented");
+	}
+
 	@Nullable
 	@Override
 	public BlockState getPlacementState(ItemPlacementContext ctx) {

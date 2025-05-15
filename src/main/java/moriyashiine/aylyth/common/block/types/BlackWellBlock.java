@@ -7,10 +7,10 @@ import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.component.type.PotionContentsComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.potion.PotionUtil;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
@@ -23,14 +23,14 @@ import java.util.function.Supplier;
 
 @SuppressWarnings("UnstableApiUsage")
 public class BlackWellBlock extends Block {
-    private static final Supplier<ItemVariant> BLIGHT_POTION = Suppliers.memoize(() -> ItemVariant.of(PotionUtil.setPotion(new ItemStack(Items.POTION), AylythPotions.BLIGHT)));
+    private static final Supplier<ItemVariant> BLIGHT_POTION = Suppliers.memoize(() -> ItemVariant.of(PotionContentsComponent.createStack(Items.POTION, AylythPotions.BLIGHT)));
 
     public BlackWellBlock(Settings settings) {
         super(settings);
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+    protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         ContainerItemContext storage = ContainerItemContext.forPlayerInteraction(player, hand);
         try (Transaction transaction = Transaction.openOuter()) {
             if (storage.getItemVariant().isOf(Items.GLASS_BOTTLE)) {
@@ -38,9 +38,9 @@ public class BlackWellBlock extends Block {
                     transaction.commit();
                 }
                 world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.BLOCKS, 1.0f, 1.0f);
-                return ActionResult.success(world.isClient);
+                return ActionResult.SUCCESS;
             }
         }
-        return super.onUse(state, world, pos, player, hand, hit);
+        return super.onUseWithItem(stack, state, world, pos, player, hand, hit);
     }
 }

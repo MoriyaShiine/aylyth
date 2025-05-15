@@ -1,13 +1,12 @@
 package moriyashiine.aylyth.common.block.types;
 
 import moriyashiine.aylyth.common.data.world.AylythDimensionData;
-import moriyashiine.aylyth.mixin.SaplingBlockAccessor;
+import moriyashiine.aylyth.mixin.SaplingGeneratorAccessor;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.SaplingBlock;
-import net.minecraft.block.sapling.LargeTreeSaplingGenerator;
-import net.minecraft.block.sapling.SaplingGenerator;
+import net.minecraft.block.SaplingGenerator;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.world.ServerWorld;
@@ -30,12 +29,12 @@ public class YmpeSaplingBlock extends SaplingBlock {
         } else {
             if (world.getRegistryKey() == AylythDimensionData.WORLD) {
                 if (canGenerateLargeTree(world, pos, state) || random.nextFloat() <= 0.5) {
-                    ((SaplingBlockAccessor) this).getGenerator().generate(world, world.getChunkManager().getChunkGenerator(), pos, state, random);
+                    generator.generate(world, world.getChunkManager().getChunkGenerator(), pos, state, random);
                     return;
                 }
             }
             world.setBlockState(pos, Blocks.AIR.getDefaultState());
-            ConfiguredFeature<?, ?> feature = world.getRegistryManager().get(RegistryKeys.CONFIGURED_FEATURE).get(failFeature);
+            ConfiguredFeature<?, ?> feature = world.getRegistryManager().getOrThrow(RegistryKeys.CONFIGURED_FEATURE).get(failFeature);
             if (feature != null) {
                 feature.generate(world, world.getChunkManager().getChunkGenerator(), random, pos);
             }
@@ -45,7 +44,7 @@ public class YmpeSaplingBlock extends SaplingBlock {
     public static boolean canGenerateLargeTree(ServerWorld world, BlockPos pos, BlockState state) {
         for (int i = 0; i >= -1; i--) {
             for (int j = 0; j >= -1; j--) {
-                if (LargeTreeSaplingGenerator.canGenerateLargeTree(state, world, pos, i, j)) {
+                if (SaplingGeneratorAccessor.invokeCanGenerateLargeTree(state, world, pos, i, j)) {
                     return true;
                 }
             }

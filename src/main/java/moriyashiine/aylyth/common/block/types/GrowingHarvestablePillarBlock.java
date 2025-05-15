@@ -3,13 +3,14 @@ package moriyashiine.aylyth.common.block.types;
 import moriyashiine.aylyth.common.world.AylythSoundEvents;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.loot.LootTable;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Property;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
@@ -19,7 +20,7 @@ import net.minecraft.world.World;
 public class GrowingHarvestablePillarBlock extends HarvestablePillarBlock {
 	public static final Property<Integer> AGE = IntProperty.of("age", 0, 4);
 
-	public GrowingHarvestablePillarBlock(Identifier harvestLootTable, Settings settings) {
+	public GrowingHarvestablePillarBlock(RegistryKey<LootTable> harvestLootTable, Settings settings) {
 		super(harvestLootTable, settings);
 		setDefaultState(getDefaultState().with(AXIS, Direction.Axis.Y).with(AGE, 4));
 	}

@@ -13,8 +13,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
-import net.minecraft.loot.context.LootContextParameterSet;
 import net.minecraft.loot.context.LootContextParameters;
+import net.minecraft.loot.context.LootWorldContext;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Heightmap;
@@ -38,7 +38,7 @@ public class WoodyGrowthCacheBlock extends LargeWoodyGrowthBlock implements Bloc
     }
 
     @Override
-    public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+    public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         if (!world.isClient() && player.isCreative()) {
             BlockEntity be = null;
             if (state.hasBlockEntity()) {
@@ -46,7 +46,7 @@ public class WoodyGrowthCacheBlock extends LargeWoodyGrowthBlock implements Bloc
             }
             dropStacks(state.with(HALF, DoubleBlockHalf.LOWER), world, pos, be, player, player.getMainHandStack());
         }
-        super.onBreak(world, pos, state, player);
+        return super.onBreak(world, pos, state, player);
     }
 
     public static void spawnInventory(World world, BlockPos pos, PlayerEntity player) {
@@ -86,7 +86,7 @@ public class WoodyGrowthCacheBlock extends LargeWoodyGrowthBlock implements Bloc
     }
 
     @Override
-    public List<ItemStack> getDroppedStacks(BlockState state, LootContextParameterSet.Builder builder) {
+    protected List<ItemStack> getDroppedStacks(BlockState state, LootWorldContext.Builder builder) {
         BlockEntity be = builder.getOptional(LootContextParameters.BLOCK_ENTITY);
         if (be instanceof WoodyGrowthCacheBlockEntity cache) {
             builder.addDynamicDrop(CONTENTS, consumer -> {

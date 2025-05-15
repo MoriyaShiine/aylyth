@@ -42,15 +42,14 @@ public class StagedMushroomPlantBlock extends SpreadingPlantBlock implements Fer
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        ItemStack heldItem = player.getStackInHand(hand);
-        if (heldItem.isOf(asItem()) && !isMaxStage(state)) {
+    protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+        if (stack.isOf(asItem()) && !isMaxStage(state)) {
             world.setBlockState(pos, state.with(STAGE, state.get(STAGE)+1));
-            AylythUtil.decreaseStack(heldItem, player);
+            AylythUtil.decreaseStack(stack, player);
             world.playSound(null, pos, getSoundGroup(state).getPlaceSound(), SoundCategory.BLOCKS, 1.0f, 1.0f);
-            return ActionResult.success(world.isClient);
+            return ActionResult.SUCCESS;
         }
-        return super.onUse(state, world, pos, player, hand, hit);
+        return super.onUseWithItem(stack, state, world, pos, player, hand, hit);
     }
 
     @Override
@@ -78,12 +77,7 @@ public class StagedMushroomPlantBlock extends SpreadingPlantBlock implements Fer
     }
 
     @Override
-    public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        return world.getBlockState(pos.down()).isSideSolidFullSquare(world, pos.down(), Direction.UP);
-    }
-
-    @Override
-    public boolean isFertilizable(WorldView world, BlockPos pos, BlockState state, boolean isClient) {
+    public boolean isFertilizable(WorldView world, BlockPos pos, BlockState state) {
         return !isMaxStage(state);
     }
 

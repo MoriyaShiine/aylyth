@@ -1,10 +1,9 @@
 package moriyashiine.aylyth.common.block.types;
 
-import moriyashiine.aylyth.mixin.SaplingBlockAccessor;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SaplingBlock;
-import net.minecraft.block.sapling.SaplingGenerator;
+import net.minecraft.block.SaplingGenerator;
 import net.minecraft.particle.DustColorTransitionParticleEffect;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
@@ -12,12 +11,11 @@ import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
-import org.joml.Vector3f;
 
 public class GirasolSaplingBlock extends SaplingBlock {
     public static final BooleanProperty FAILED = BooleanProperty.of("failed_to_grow");
 
-    private static final DustColorTransitionParticleEffect FAILED_PARTICLE = new DustColorTransitionParticleEffect(new Vector3f(0.1333f, 0.1333f, 0.1333f), new Vector3f(0.6824f, 0.4275f, 0.0941f), 1);
+    private static final DustColorTransitionParticleEffect FAILED_PARTICLE = new DustColorTransitionParticleEffect(0x222222, 0xAE6D18, 1);
 
     public GirasolSaplingBlock(SaplingGenerator generator, Settings settings) {
         super(generator, settings);
@@ -36,7 +34,7 @@ public class GirasolSaplingBlock extends SaplingBlock {
     }
 
     public void tryToGenerate(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        if (!(world.getRegistryKey().equals(World.OVERWORLD) && ((SaplingBlockAccessor)this).getGenerator().generate(world, world.getChunkManager().getChunkGenerator(), pos, state, random))) {
+        if (!(world.getRegistryKey().equals(World.OVERWORLD) && generator.generate(world, world.getChunkManager().getChunkGenerator(), pos, state, random))) {
             world.spawnParticles(FAILED_PARTICLE, pos.getX()+0.5, pos.getY(), pos.getZ()+0.5, 16, 0.3, 0.3, 0.3, 0.0);
             world.setBlockState(pos, state.with(FAILED, true), Block.NO_REDRAW);
         }

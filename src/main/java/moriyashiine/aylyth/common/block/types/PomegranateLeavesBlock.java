@@ -8,6 +8,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LeavesBlock;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -32,8 +33,18 @@ public class PomegranateLeavesBlock extends LeavesBlock {
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (state.get(FRUITING) == 3 && !player.getStackInHand(hand).isOf(Items.DEBUG_STICK)) {
+    protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+        // TODO: See if this is needed, check if it still works without it
+        //  (should switch state even if it's fully grown, not drop fruit)
+        if (stack.isOf(Items.DEBUG_STICK)) {
+            return ActionResult.SUCCESS;
+        }
+        return super.onUseWithItem(stack, state, world, pos, player, hand, hit);
+    }
+
+    @Override
+    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
+        if (state.get(FRUITING) == 3) {
             world.setBlockState(pos, state.with(FRUITING, 0));
             PlayerInventoryStorage storage = PlayerInventoryStorage.of(player);
             try (Transaction transaction = Transaction.openOuter()) {
@@ -41,9 +52,9 @@ public class PomegranateLeavesBlock extends LeavesBlock {
                 transaction.commit();
             }
             world.playSound(null, hit.getBlockPos(), SoundEvents.BLOCK_GRASS_BREAK, SoundCategory.BLOCKS, 1.0f, 1.0f);
-            return ActionResult.success(world.isClient());
+            return ActionResult.SUCCESS;
         }
-        return super.onUse(state, world, pos, player, hand, hit);
+        return super.onUse(state, world, pos, player, hit);
     }
 
     @Override

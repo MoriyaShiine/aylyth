@@ -7,7 +7,7 @@ import net.minecraft.block.ShapeContext;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
-import net.minecraft.state.property.DirectionProperty;
+import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
@@ -26,7 +26,7 @@ import java.util.Optional;
 
 public class ShelfMushroomBlock extends SpreadingPlantBlock implements Fertilizable {
 
-    public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
+    public static final EnumProperty<Direction> FACING = Properties.HORIZONTAL_FACING;
     public static final VoxelShape NORTH = VoxelShapes.cuboid(0, 0, 0.75, 1, 1, 1);
     public static final VoxelShape SOUTH = VoxelShapes.cuboid(0, 0, 0, 1, 1, 0.25);
     public static final VoxelShape EAST = VoxelShapes.cuboid(0, 0, 0, 0.25, 1, 1);
@@ -84,7 +84,7 @@ public class ShelfMushroomBlock extends SpreadingPlantBlock implements Fertiliza
     }
 
     @Override
-    public boolean isFertilizable(WorldView world, BlockPos pos, BlockState state, boolean isClient) {
+    public boolean isFertilizable(WorldView world, BlockPos pos, BlockState state) {
         return true;
     }
 

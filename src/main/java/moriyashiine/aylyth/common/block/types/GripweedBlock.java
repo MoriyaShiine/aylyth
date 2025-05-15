@@ -1,5 +1,6 @@
 package moriyashiine.aylyth.common.block.types;
 
+import com.mojang.serialization.MapCodec;
 import moriyashiine.aylyth.common.data.tag.AylythEntityTypeTags;
 import moriyashiine.aylyth.common.entity.AylythEntityAttachmentTypes;
 import moriyashiine.aylyth.common.entity.attachments.YmpeInfestation;
@@ -22,7 +23,12 @@ public class GripweedBlock extends PlantBlock {
 	public GripweedBlock(Settings settings) {
 		super(settings);
 	}
-	
+
+	@Override
+	protected MapCodec<? extends PlantBlock> getCodec() {
+		throw new AssertionError("Codec must be implemented");
+	}
+
 	@Override
 	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
 		return SHAPE;
@@ -33,7 +39,8 @@ public class GripweedBlock extends PlantBlock {
 		if (entity.getType().isIn(AylythEntityTypeTags.GRIPWEED_IMMUNE)) {
 			return;
 		}
-		if (entity instanceof LivingEntity living && EnchantmentHelper.hasSoulSpeed(living)) {
+		// TODO: Add a new enchantment tag "gripweed_ignores" with "soul_speed" and check boots.
+		if (entity instanceof LivingEntity living/* && EnchantmentHelper.hasSoulSpeed(living)*/) {
 			return;
 		}
 		if (entity instanceof PlayerEntity player) {
