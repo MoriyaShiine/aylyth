@@ -138,7 +138,7 @@ dependencies {
 
     compileOnly libs.jetbrains.annotations
 
-//    modImplementation(include("com.terraformersmc.terraform-api:terraform-wood-api-v1:${terraform_wood_api_version}"))
+    modImplementation(include("com.terraformersmc.terraform-api:terraform-wood-api-v1:${terraform_wood_api_version}"))
     modImplementation(include('com.github.Chocohead:Fabric-ASM:v2.3'))
 
 //    modImplementation "software.bernie.geckolib:geckolib-fabric-${geckolib_version}"
