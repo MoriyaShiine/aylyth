@@ -3,7 +3,6 @@ package moriyashiine.aylyth.common;
 import moriyashiine.aylyth.api.AylythEntityApi;
 import moriyashiine.aylyth.api.interfaces.VitalHealthHolder;
 import moriyashiine.aylyth.common.advancement.AylythCriteria;
-import moriyashiine.aylyth.common.advancement.renderdata.AdvancementRendererDataTypes;
 import moriyashiine.aylyth.common.block.AylythBlockEntityTypes;
 import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.block.AylythFlammables;
@@ -71,6 +70,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -89,8 +89,8 @@ import java.util.List;
 
 public class Aylyth implements ModInitializer {
 	public static final String MOD_ID = "aylyth";
-	public static Identifier id(String string){
-		return new Identifier(MOD_ID, string);
+	public static Identifier id(String string) {
+		return Identifier.of(MOD_ID, string);
 	}
 
 	public static final Logger LOGGER = LoggerFactory.getLogger("Aylyth");
@@ -107,7 +107,6 @@ public class Aylyth implements ModInitializer {
 
 		AylythRegistries.register();
 
-		AdvancementRendererDataTypes.register();
 		LootDisplayTypes.register();
 		AylythLootContextTypes.register();
 		AylythCriteria.register();
@@ -208,7 +207,7 @@ public class Aylyth implements ModInitializer {
 						ShuckedYmpeFruitItem.setStoredEntity(offhand, mob);
 						mob.remove(Entity.RemovalReason.DISCARDED);
 						// deal a bit of damage to the player
-						attacker.damage(world.aylythDamageSources().shucking(), 1);
+						attacker.damage(serverPlayer.getServerWorld(), world.aylythDamageSources().shucking(), 1);
 					}
 					return ActionResult.SUCCESS;
 				}
