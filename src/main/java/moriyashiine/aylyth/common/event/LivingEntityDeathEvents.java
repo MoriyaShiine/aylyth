@@ -19,7 +19,7 @@ import moriyashiine.aylyth.common.world.AylythGameRules;
 import moriyashiine.aylyth.common.world.AylythSoundEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
-import net.minecraft.advancement.Advancement;
+import net.minecraft.advancement.AdvancementEntry;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.damage.DamageSource;
@@ -71,7 +71,7 @@ public class LivingEntityDeathEvents {
             return;
         }
 
-        if (oldPlayer.getWorld().getGameRules().getBoolean(GameRules.KEEP_INVENTORY)) {
+        if (oldPlayer.server.getGameRules().getBoolean(GameRules.KEEP_INVENTORY)) {
             return;
         }
 
@@ -178,7 +178,7 @@ public class LivingEntityDeathEvents {
     }
 
     private static boolean canPlayerDieIntoAylyth(ServerPlayerEntity player) {
-        Advancement advancement = player.server.getAdvancementLoader().get(new Identifier("nether/root"));
+        AdvancementEntry advancement = player.server.getAdvancementLoader().get(Identifier.of("nether/root"));
         if (player.getAdvancementTracker().getProgress(advancement).isDone()) {
             return true;
         }
