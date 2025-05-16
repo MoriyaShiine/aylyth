@@ -7,12 +7,14 @@ import moriyashiine.aylyth.common.entity.types.mob.BoneflyEntity;
 import moriyashiine.aylyth.common.entity.types.mob.YmpemouldEntity;
 import moriyashiine.aylyth.common.entity.types.mob.TulpaEntity;
 import moriyashiine.aylyth.common.item.AylythItems;
+import moriyashiine.aylyth.mixin.TallPlantBlockAccessor;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.TallPlantBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.server.world.ServerWorld;
@@ -40,7 +42,7 @@ public class Constructs {
                                 .build(),
                         (serverWorld, usageContext, groundPos) -> {
                             TulpaEntity tulpaEntity = new TulpaEntity(AylythEntityTypes.TULPA, serverWorld);
-                            tulpaEntity.refreshPositionAndAngles(groundPos, usageContext.getSide().asRotation(), 0.0F);
+                            tulpaEntity.refreshPositionAndAngles(groundPos, usageContext.getSide().getPositiveHorizontalDegrees(), 0.0F);
                             tulpaEntity.setOwner(usageContext.getPlayer());
                             return tulpaEntity;
                         }
@@ -57,7 +59,7 @@ public class Constructs {
                                 .build(),
                         (serverWorld, usageContext, groundPos) -> {
                             YmpemouldEntity ympemouldEntity = new YmpemouldEntity(AylythEntityTypes.YMPEMOULD, serverWorld);
-                            ympemouldEntity.refreshPositionAndAngles(groundPos, usageContext.getSide().asRotation(), 0.0F);
+                            ympemouldEntity.refreshPositionAndAngles(groundPos, usageContext.getSide().getPositiveHorizontalDegrees(), 0.0F);
                             ympemouldEntity.setOwner(usageContext.getPlayer());
                             ympemouldEntity.equipStack(EquipmentSlot.MAINHAND, new ItemStack(AylythItems.YMPE_GLAIVE));
                             ympemouldEntity.handDropChances[EquipmentSlot.MAINHAND.getEntitySlotId()] = 0.0F;
@@ -74,7 +76,7 @@ public class Constructs {
                                 .where('S', cachedBlockPosition -> cachedBlockPosition.getBlockState().isOf(Blocks.SOUL_SOIL))
                                 .build(),
                         (serverWorld, usageContext, groundPos) ->
-                                BoneflyEntity.create(serverWorld, groundPos, usageContext.getSide().asRotation(), 0.0f, usageContext.getPlayer())
+                                BoneflyEntity.create(serverWorld, groundPos, usageContext.getSide().getPositiveHorizontalDegrees(), 0.0f, SpawnReason.TRIGGERED, usageContext.getPlayer())
                 )
         );
     });
@@ -105,7 +107,7 @@ public class Constructs {
                     matches.forEach(blockPos -> {
                         BlockState blockState = world.getBlockState(blockPos);
                         if (blockState.contains(Properties.DOUBLE_BLOCK_HALF)) {
-                            TallPlantBlock.onBreakInCreative(world, blockPos, blockState, null);
+                            TallPlantBlockAccessor.invokeOnBreakInCreative(world, blockPos, blockState, null);
                         } else {
                             world.removeBlock(blockPos, false);
                         }
