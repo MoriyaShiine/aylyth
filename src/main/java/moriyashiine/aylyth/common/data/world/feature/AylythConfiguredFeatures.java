@@ -43,7 +43,6 @@ public interface AylythConfiguredFeatures {
     RegistryKey<ConfiguredFeature<?, ?>> LARGE_WOODY_GROWTH_WATER = bind("large_woody_growth_water");
     RegistryKey<ConfiguredFeature<?, ?>> ANTLER_SHOOTS = bind("antler_shoots");
     RegistryKey<ConfiguredFeature<?, ?>> ANTLER_SHOOTS_WATER = bind("antler_shoots_water");
-    //ConfiguredFeature<?, ?> CLEARING_FLOWERS = todo flower generators
 
     RegistryKey<ConfiguredFeature<?, ?>> OAK_SEEP = bind("oak_seep");
     RegistryKey<ConfiguredFeature<?, ?>> SPRUCE_SEEP = bind("spruce_seep");
