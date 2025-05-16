@@ -1,6 +1,7 @@
 package moriyashiine.aylyth.common.entity.types.mob;
 
 import com.mojang.serialization.Dynamic;
+import io.netty.buffer.ByteBuf;
 import moriyashiine.aylyth.api.interfaces.Pledgeable;
 import moriyashiine.aylyth.common.advancement.AylythCriteria;
 import moriyashiine.aylyth.common.block.AylythBlocks;
@@ -31,6 +32,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -40,6 +43,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.StringIdentifiable;
 import net.minecraft.util.Util;
+import net.minecraft.util.function.ValueLists;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.Difficulty;
@@ -60,6 +64,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.function.IntFunction;
 
 public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pledgeable {
     private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("idle");
@@ -341,15 +346,25 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
     }
 
     public enum AttackType implements StringIdentifiable {
-        NONE("none"),
-        MELEE("melee"),
-        RANGED("ranged"),
-        KILLING("killing");
+        NONE(0, "none"),
+        MELEE(1, "melee"),
+        RANGED(2, "ranged"),
+        KILLING(3, "killing");
 
+        public static final IntFunction<AttackType> ID_TO_VALUE_FUNCTION = ValueLists.createIdToValueFunction(
+                AttackType::getIndex, values(), ValueLists.OutOfBoundsHandling.WRAP
+        );
+        public static final PacketCodec<ByteBuf, AttackType> PACKET_CODEC = PacketCodecs.indexed(ID_TO_VALUE_FUNCTION, AttackType::getIndex);
+        private final int index;
         private final String name;
 
-        AttackType(String name) {
+        AttackType(int index, String name) {
+            this.index = index;
             this.name = name;
+        }
+
+        public int getIndex() {
+            return this.index;
         }
 
         @Override

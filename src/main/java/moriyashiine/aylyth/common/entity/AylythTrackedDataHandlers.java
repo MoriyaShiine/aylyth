@@ -9,10 +9,10 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 
 public interface AylythTrackedDataHandlers {
 
-    TrackedDataHandler<TulpaEntity.ActionState> TULPA_ACTION_STATE = register(TrackedDataHandler.ofEnum(TulpaEntity.ActionState.class));
-    TrackedDataHandler<WreathedHindEntity.AttackType> WREATHED_ATTACK_TYPE = register(TrackedDataHandler.ofEnum(WreathedHindEntity.AttackType.class));
-    TrackedDataHandler<BasicAttackType> BASIC_ATTACK_TYPE = register(TrackedDataHandler.ofEnum(BasicAttackType.class));
-    TrackedDataHandler<PilotLightEntity.Color> PILOT_LIGHT_COLOR = register(TrackedDataHandler.ofEnum(PilotLightEntity.Color.class));
+    TrackedDataHandler<TulpaEntity.ActionState> TULPA_ACTION_STATE = register(TrackedDataHandler.create(TulpaEntity.ActionState.PACKET_CODEC));
+    TrackedDataHandler<WreathedHindEntity.AttackType> WREATHED_ATTACK_TYPE = register(TrackedDataHandler.create(WreathedHindEntity.AttackType.PACKET_CODEC));
+    TrackedDataHandler<BasicAttackType> BASIC_ATTACK_TYPE = register(TrackedDataHandler.create(BasicAttackType.PACKET_CODEC));
+    TrackedDataHandler<PilotLightEntity.Color> PILOT_LIGHT_COLOR = register(TrackedDataHandler.create(PilotLightEntity.Color.PACKET_CODEC));
 
     private static <T> TrackedDataHandler<T> register(TrackedDataHandler<T> dataHandler) {
         TrackedDataHandlerRegistry.register(dataHandler);

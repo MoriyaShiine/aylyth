@@ -1,5 +1,6 @@
 package moriyashiine.aylyth.common.entity.types.mob;
 
+import io.netty.buffer.ByteBuf;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.data.world.AylythDimensionData;
 import moriyashiine.aylyth.common.entity.AylythEntityTypes;
@@ -25,12 +26,15 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ChunkTicketType;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.StringIdentifiable;
+import net.minecraft.util.function.ValueLists;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
@@ -47,6 +51,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 import java.util.function.BooleanSupplier;
+import java.util.function.IntFunction;
 
 public class PilotLightEntity extends AmbientEntity implements Flutterer {
 	private static final TrackedData<Color> COLOR = DataTracker.registerData(PilotLightEntity.class, AylythTrackedDataHandlers.PILOT_LIGHT_COLOR);
@@ -204,16 +209,26 @@ public class PilotLightEntity extends AmbientEntity implements Flutterer {
 	}
 
 	public enum Color implements StringIdentifiable {
-		YELLOW("yellow"),
-		BLUE("blue"),
-		GREEN("green");
+		YELLOW(0, "yellow"),
+		BLUE(1, "blue"),
+		GREEN(2, "green");
 
 		public static final com.mojang.serialization.Codec<Color> CODEC = StringIdentifiable.createCodec(Color::values);
+		public static final IntFunction<Color> ID_TO_VALUE_FUNCTION = ValueLists.createIdToValueFunction(
+				Color::getIndex, values(), ValueLists.OutOfBoundsHandling.WRAP
+		);
+		public static final PacketCodec<ByteBuf, Color> PACKET_CODEC = PacketCodecs.indexed(ID_TO_VALUE_FUNCTION, Color::getIndex);
 
+		private final int index;
 		private final String name;
 
-		Color(String name) {
+		Color(int index, String name) {
+			this.index = index;
 			this.name = name;
+		}
+
+		public int getIndex() {
+			return index;
 		}
 
 		public Color getColor(String name) {

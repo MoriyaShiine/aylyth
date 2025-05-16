@@ -2,6 +2,7 @@ package moriyashiine.aylyth.common.entity.types.mob;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.serialization.Dynamic;
+import io.netty.buffer.ByteBuf;
 import moriyashiine.aylyth.api.interfaces.ProlongedDeath;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.entity.AylythTrackedDataHandlers;
@@ -46,6 +47,9 @@ import net.minecraft.nbt.NbtHelper;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.ServerConfigHandler;
@@ -61,6 +65,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.StringIdentifiable;
 import net.minecraft.util.UserCache;
+import net.minecraft.util.function.ValueLists;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -75,6 +80,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Consumer;
+import java.util.function.IntFunction;
 
 public class TulpaEntity extends HostileEntity implements TameableHostileEntity, GeoEntity, CrossbowUser,
         InventoryOwner, InventoryChangedListener, ProlongedDeath {
@@ -615,34 +621,40 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
     }
 
     public enum ActionState implements StringIdentifiable {
-        IDLE("idle",
+        IDLE(0, "idle",
                 Text.translatable("info.aylyth.tulpa_wander").setStyle(Style.EMPTY.withColor(Formatting.AQUA)),
                 tulpa -> {},
                 tulpa -> {}
         ),
-        FOLLOW("follow",
+        FOLLOW(1, "follow",
                 Text.translatable("info.aylyth.tulpa_follow").setStyle(Style.EMPTY.withColor(Formatting.AQUA)),
                 tulpa -> TulpaBrain.setShouldFollowOwner(tulpa, true),
                 tulpa -> TulpaBrain.setShouldFollowOwner(tulpa, false)
         ),
-        STAY("stay",
+        STAY(2, "stay",
                 Text.translatable("info.aylyth.tulpa_stay").setStyle(Style.EMPTY.withColor(Formatting.AQUA)),
                 tulpaEntity -> {},
                 tulpaEntity -> {}
         ),
-        SICKO("sicko",
+        SICKO(3, "sicko",
                 Text.literal("amogus").setStyle(Style.EMPTY.withColor(Formatting.DARK_RED).withObfuscated(true)),
                 tulpa -> {},
                 tulpa -> {}
         );
 
         public static final com.mojang.serialization.Codec<ActionState> CODEC = StringIdentifiable.createCodec(ActionState::values);
+        public static final IntFunction<ActionState> ID_TO_VALUE_FUNCTION = ValueLists.createIdToValueFunction(
+                ActionState::getIndex, values(), ValueLists.OutOfBoundsHandling.WRAP
+        );
+        public static final PacketCodec<ByteBuf, ActionState> PACKET_CODEC = PacketCodecs.indexed(ID_TO_VALUE_FUNCTION, ActionState::getIndex);
+        private final int index;
         private final String name;
         private final Text cycleText;
         private final Consumer<TulpaEntity> onUnset;
         private final Consumer<TulpaEntity> onSet;
 
-        ActionState(String name, Text cycleText, Consumer<TulpaEntity> onSet, Consumer<TulpaEntity> onUnset) {
+        ActionState(int index, String name, Text cycleText, Consumer<TulpaEntity> onSet, Consumer<TulpaEntity> onUnset) {
+            this.index = index;
             this.name = name;
             this.cycleText = cycleText;
             this.onUnset = onUnset;
@@ -654,6 +666,10 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
                 return ActionState.IDLE;
             }
             return values()[this.ordinal()+1];
+        }
+
+        public int getIndex() {
+            return this.index;
         }
 
         @Override
