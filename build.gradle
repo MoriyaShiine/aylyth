@@ -81,8 +81,11 @@ repositories {
         url "https://maven.terraformersmc.com"
     }
     maven {
-        name "geckolib"
-        url "https://dl.cloudsmith.io/public/geckolib3/geckolib/maven"
+        name = 'GeckoLib'
+        url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
+        content {
+            includeGroup("software.bernie.geckolib")
+        }
     }
     maven {
         name = "SmartBrainLib (SBL) Maven Repo"
@@ -141,7 +144,7 @@ dependencies {
     modImplementation(include("com.terraformersmc.terraform-api:terraform-wood-api-v1:${terraform_wood_api_version}"))
     modImplementation(include('com.github.Chocohead:Fabric-ASM:v2.3'))
 
-//    modImplementation "software.bernie.geckolib:geckolib-fabric-${geckolib_version}"
+    modImplementation "software.bernie.geckolib:geckolib-fabric-${geckolib_version}"
 //    modImplementation "net.tslat.smartbrainlib:SmartBrainLib-fabric-${minecraft_version}:${sbl_version}"
 //    modImplementation "dev.emi:trinkets:${trinkets_version}"
 //    modImplementation "maven.modrinth:fusion-connected-textures:${fusion_version}-fabric-mc${minecraft_version}"
