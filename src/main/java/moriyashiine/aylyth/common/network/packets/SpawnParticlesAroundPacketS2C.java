@@ -1,46 +1,26 @@
 package moriyashiine.aylyth.common.network.packets;
 
-import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import moriyashiine.aylyth.common.network.AylythPacketTypes;
-import net.fabricmc.fabric.api.networking.v1.FabricPacket;
-import net.fabricmc.fabric.api.networking.v1.PacketType;
-import net.minecraft.network.PacketByteBuf;
+import moriyashiine.aylyth.common.Aylyth;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.codec.PacketCodecs;
+import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.particle.ParticleEffect;
-import net.minecraft.particle.ParticleType;
-import net.minecraft.registry.Registries;
+import net.minecraft.particle.ParticleTypes;
 
 import java.util.List;
 
-public record SpawnParticlesAroundPacketS2C(int entityId, int numEach, List<ParticleEffect> particles) implements FabricPacket {
-	public static SpawnParticlesAroundPacketS2C create(PacketByteBuf buf) {
-		int entityId = buf.readVarInt();
-		int numEach = buf.readVarInt();
-		int size = buf.readVarInt();
-		List<ParticleEffect> particleEffects = new ObjectArrayList<>();
-		for (int i = 0; i < size; i++) {
-			ParticleType<?> particleType = buf.readRegistryValue(Registries.PARTICLE_TYPE);
-			particleEffects.add(readParticleEffect(particleType, buf));
-		}
-		return new SpawnParticlesAroundPacketS2C(entityId, numEach, particleEffects);
-	}
-
-	private static <T extends ParticleEffect> ParticleEffect readParticleEffect(ParticleType<T> particleType, PacketByteBuf buf) {
-		return particleType.getParametersFactory().read(particleType, buf);
-	}
+public record SpawnParticlesAroundPacketS2C(int entityId, int numEach, List<ParticleEffect> particles) implements CustomPayload {
+	public static final CustomPayload.Id<SpawnParticlesAroundPacketS2C> ID = new Id<>(Aylyth.id("spawn_multiple_particles"));
+	public static final PacketCodec<? extends RegistryByteBuf, SpawnParticlesAroundPacketS2C> PACKET_CODEC = PacketCodec.tuple(
+			PacketCodecs.INTEGER.cast(), SpawnParticlesAroundPacketS2C::entityId,
+			PacketCodecs.INTEGER.cast(), SpawnParticlesAroundPacketS2C::numEach,
+			ParticleTypes.PACKET_CODEC.collect(PacketCodecs.toList()), SpawnParticlesAroundPacketS2C::particles,
+			SpawnParticlesAroundPacketS2C::new
+	);
 
 	@Override
-	public void write(PacketByteBuf buf) {
-		buf.writeVarInt(entityId);
-		buf.writeVarInt(numEach);
-		buf.writeVarInt(particles.size());
-		for (ParticleEffect effect : particles) {
-			buf.writeRegistryValue(Registries.PARTICLE_TYPE, effect.getType());
-			effect.write(buf);
-		}
-	}
-
-	@Override
-	public PacketType<?> getType() {
-		return AylythPacketTypes.SPAWN_PARTICLES_AROUND_PACKET;
+	public Id<? extends CustomPayload> getId() {
+		return ID;
 	}
 }

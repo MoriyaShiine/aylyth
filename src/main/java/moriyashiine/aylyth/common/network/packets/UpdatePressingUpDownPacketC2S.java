@@ -1,23 +1,21 @@
 package moriyashiine.aylyth.common.network.packets;
 
-import moriyashiine.aylyth.common.network.AylythPacketTypes;
-import net.fabricmc.fabric.api.networking.v1.FabricPacket;
-import net.fabricmc.fabric.api.networking.v1.PacketType;
-import net.minecraft.network.PacketByteBuf;
+import io.netty.buffer.ByteBuf;
+import moriyashiine.aylyth.common.Aylyth;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.codec.PacketCodecs;
+import net.minecraft.network.packet.CustomPayload;
 
-public record UpdatePressingUpDownPacketC2S(boolean pressingUp, boolean pressingDown) implements FabricPacket {
-    public static UpdatePressingUpDownPacketC2S create(PacketByteBuf buf) {
-        return new UpdatePressingUpDownPacketC2S(buf.readBoolean(), buf.readBoolean());
-    }
-
-    @Override
-    public void write(PacketByteBuf buf) {
-        buf.writeBoolean(pressingUp);
-        buf.writeBoolean(pressingDown);
-    }
+public record UpdatePressingUpDownPacketC2S(boolean pressingUp, boolean pressingDown) implements CustomPayload {
+    public static final CustomPayload.Id<UpdatePressingUpDownPacketC2S> ID = new Id<>(Aylyth.id("toggle_pressing_up_down"));
+    public static final PacketCodec<? extends ByteBuf, UpdatePressingUpDownPacketC2S> PACKET_CODEC = PacketCodec.tuple(
+            PacketCodecs.BOOLEAN, UpdatePressingUpDownPacketC2S::pressingUp,
+            PacketCodecs.BOOLEAN, UpdatePressingUpDownPacketC2S::pressingDown,
+            UpdatePressingUpDownPacketC2S::new
+    );
 
     @Override
-    public PacketType<?> getType() {
-        return AylythPacketTypes.UPDATE_RIDER_PACKET;
+    public Id<? extends CustomPayload> getId() {
+        return ID;
     }
 }

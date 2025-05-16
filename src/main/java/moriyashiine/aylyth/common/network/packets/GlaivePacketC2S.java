@@ -1,22 +1,19 @@
 package moriyashiine.aylyth.common.network.packets;
 
-import moriyashiine.aylyth.common.network.AylythPacketTypes;
-import net.fabricmc.fabric.api.networking.v1.FabricPacket;
-import net.fabricmc.fabric.api.networking.v1.PacketType;
-import net.minecraft.network.PacketByteBuf;
+import io.netty.buffer.ByteBuf;
+import moriyashiine.aylyth.common.Aylyth;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.codec.PacketCodecs;
+import net.minecraft.network.packet.CustomPayload;
 
-public record GlaivePacketC2S(int entityId) implements FabricPacket {
-    public static GlaivePacketC2S create(PacketByteBuf buf) {
-        return new GlaivePacketC2S(buf.readInt());
-    }
-
-    @Override
-    public void write(PacketByteBuf buf) {
-        buf.writeInt(entityId);
-    }
+public record GlaivePacketC2S(int entityId) implements CustomPayload {
+    public static final CustomPayload.Id<GlaivePacketC2S> ID = new Id<>(Aylyth.id("glaive"));
+    public static final PacketCodec<? extends ByteBuf, GlaivePacketC2S> PACKET_CODEC = PacketCodecs.INTEGER.xmap(
+            GlaivePacketC2S::new, GlaivePacketC2S::entityId
+    );
 
     @Override
-    public PacketType<?> getType() {
-        return AylythPacketTypes.GLAIVE_SPECIAL_PACKET;
+    public Id<? extends CustomPayload> getId() {
+        return ID;
     }
 }

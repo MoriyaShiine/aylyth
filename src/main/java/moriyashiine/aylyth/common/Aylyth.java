@@ -32,9 +32,10 @@ import moriyashiine.aylyth.common.loot.AylythModifyLootTableHandler;
 import moriyashiine.aylyth.common.loot.AylythEntitySubPredicates;
 import moriyashiine.aylyth.common.loot.LootDisplayTypes;
 import moriyashiine.aylyth.common.loot.display.LootDisplay;
-import moriyashiine.aylyth.common.network.AylythPacketTypes;
 import moriyashiine.aylyth.common.network.AylythServerPacketHandler;
+import moriyashiine.aylyth.common.network.packets.GlaivePacketC2S;
 import moriyashiine.aylyth.common.network.packets.SpawnParticlesAroundPacketS2C;
+import moriyashiine.aylyth.common.network.packets.UpdatePressingUpDownPacketC2S;
 import moriyashiine.aylyth.common.particle.AylythParticleTypes;
 import moriyashiine.aylyth.common.recipe.AylythRecipeTypes;
 import moriyashiine.aylyth.common.recipe.types.SoulCampfireRecipe;
@@ -160,8 +161,8 @@ public class Aylyth implements ModInitializer {
 		LivingEntityDeathEvents.init();
 		AylythModifyLootTableHandler.register();
 
-		ServerPlayNetworking.registerGlobalReceiver(AylythPacketTypes.GLAIVE_SPECIAL_PACKET, AylythServerPacketHandler::handleGlaiveSpecial);
-		ServerPlayNetworking.registerGlobalReceiver(AylythPacketTypes.UPDATE_RIDER_PACKET, AylythServerPacketHandler::handleUpdatePressingUpDown);
+		ServerPlayNetworking.registerGlobalReceiver(GlaivePacketC2S.ID, AylythServerPacketHandler::handleGlaiveSpecial);
+		ServerPlayNetworking.registerGlobalReceiver(UpdatePressingUpDownPacketC2S.ID, AylythServerPacketHandler::handleUpdatePressingUpDown);
 
 		// TODO move to the LivingEntityDeathEvents
 		UseBlockCallback.EVENT.register(this::interactSoulCampfire);

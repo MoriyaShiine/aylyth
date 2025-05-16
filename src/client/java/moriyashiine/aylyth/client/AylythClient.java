@@ -51,7 +51,7 @@ import moriyashiine.aylyth.common.entity.AylythEntityTypes;
 import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.aylyth.common.item.types.NephriteFlaskItem;
 import moriyashiine.aylyth.common.item.types.ShuckedYmpeFruitItem;
-import moriyashiine.aylyth.common.network.AylythPacketTypes;
+import moriyashiine.aylyth.common.network.packets.SpawnParticlesAroundPacketS2C;
 import moriyashiine.aylyth.common.network.packets.UpdatePressingUpDownPacketC2S;
 import moriyashiine.aylyth.common.particle.AylythParticleTypes;
 import moriyashiine.aylyth.common.screenhandler.AylythScreenHandlerTypes;
@@ -123,7 +123,7 @@ public class AylythClient implements ClientModInitializer {
 		DimensionRenderingRegistry.registerSkyRenderer(AylythDimensionData.WORLD, AylythDimensionRenderer::renderSky);
 		DimensionRenderingRegistry.registerCloudRenderer(AylythDimensionData.WORLD, context -> {});
 
-		ClientPlayNetworking.registerGlobalReceiver(AylythPacketTypes.SPAWN_PARTICLES_AROUND_PACKET, AylythClientNetworkHandler::handleSpawnParticlesAround);
+		ClientPlayNetworking.registerGlobalReceiver(SpawnParticlesAroundPacketS2C.ID, AylythClientNetworkHandler::handleSpawnParticlesAround);
 
 		ParticleFactoryRegistry.getInstance().register(AylythParticleTypes.PILOT_LIGHT, PilotLightParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(AylythParticleTypes.AMBIENT_PILOT_LIGHT, PilotLightParticle.AmbientFactory::new);
