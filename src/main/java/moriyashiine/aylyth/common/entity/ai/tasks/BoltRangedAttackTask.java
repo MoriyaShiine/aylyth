@@ -7,7 +7,7 @@ import moriyashiine.aylyth.common.entity.types.projectile.SphereEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.brain.MemoryModuleState;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
-import net.minecraft.entity.ai.brain.task.LookTargetUtil;
+import net.minecraft.entity.ai.brain.task.TargetUtil;
 import net.minecraft.entity.ai.brain.task.MultiTickTask;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -31,8 +31,8 @@ public class BoltRangedAttackTask extends MultiTickTask<WreathedHindEntity> {
     protected boolean shouldRun(ServerWorld serverWorld, WreathedHindEntity mobEntity) {
         LivingEntity livingEntity = BrainUtils.getAttackTarget(mobEntity);
         return mobEntity.getAttackType() == WreathedHindEntity.AttackType.RANGED
-                && LookTargetUtil.isVisibleInMemory(mobEntity, livingEntity)
-                && LookTargetUtil.isTargetWithinAttackRange(mobEntity, livingEntity, 0)
+                && TargetUtil.isVisibleInMemory(mobEntity, livingEntity)
+                && TargetUtil.isTargetWithinAttackRange(mobEntity, livingEntity, 0)
                 && !isInMeleeAttackRange(mobEntity);
     }
 

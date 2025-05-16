@@ -6,7 +6,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.brain.MemoryModuleState;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
-import net.minecraft.entity.ai.brain.task.LookTargetUtil;
+import net.minecraft.entity.ai.brain.task.TargetUtil;
 import net.minecraft.entity.ai.brain.task.MultiTickTask;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -23,7 +23,7 @@ public class GeckoMeleeAttackTask<T extends MobEntity> extends MultiTickTask<T> 
     /**
      * @param interval the attacks cooldown
      * @param animationTime total time of the attack animation
-     * @param animationTimeOfAttack when during the attack animation the entity should execute {@link MobEntity#tryAttack(Entity)}
+     * @param animationTimeOfAttack when during the attack animation the entity should execute {@link MobEntity#tryAttack(ServerWorld, Entity)}
      */
     public GeckoMeleeAttackTask(RunTask<T> runTask, FinishRunningTask<T> finishRunningTask, int interval, double animationTime, double animationTimeOfAttack) {
         super(ImmutableMap.of(
@@ -41,7 +41,7 @@ public class GeckoMeleeAttackTask<T extends MobEntity> extends MultiTickTask<T> 
     @Override
     protected boolean shouldRun(ServerWorld serverWorld, T entity) {
         LivingEntity livingEntity = BrainUtils.getAttackTarget(entity);
-        return (LookTargetUtil.isVisibleInMemory(entity, livingEntity) && entity.isInAttackRange(livingEntity));
+        return (TargetUtil.isVisibleInMemory(entity, livingEntity) && entity.isInAttackRange(livingEntity));
     }
 
     @Override
@@ -50,7 +50,7 @@ public class GeckoMeleeAttackTask<T extends MobEntity> extends MultiTickTask<T> 
         LivingEntity livingEntity = BrainUtils.getAttackTarget(mobEntity);
         mobEntity.setTarget(livingEntity);
 
-        LookTargetUtil.lookAt(mobEntity, livingEntity);
+        TargetUtil.lookAt(mobEntity, livingEntity);
         runTask.run(serverWorld, mobEntity, time);
 
         animationTime = time + animationDuration;
@@ -67,7 +67,7 @@ public class GeckoMeleeAttackTask<T extends MobEntity> extends MultiTickTask<T> 
             if (animationTime == time + animationTimeOfAttack) {
                 LivingEntity livingEntity = BrainUtils.getAttackTarget(entity);
                 entity.swingHand(Hand.MAIN_HAND);
-                entity.tryAttack(livingEntity);
+                entity.tryAttack(world, livingEntity);
             }
         }
     }

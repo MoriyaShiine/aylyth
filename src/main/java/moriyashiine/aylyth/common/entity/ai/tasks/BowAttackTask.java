@@ -7,7 +7,7 @@ import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.brain.EntityLookTarget;
 import net.minecraft.entity.ai.brain.MemoryModuleState;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
-import net.minecraft.entity.ai.brain.task.LookTargetUtil;
+import net.minecraft.entity.ai.brain.task.TargetUtil;
 import net.minecraft.entity.ai.brain.task.MultiTickTask;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.item.BowItem;
@@ -28,7 +28,7 @@ public class BowAttackTask<E extends MobEntity & RangedAttackMob> extends MultiT
     @Override
     protected boolean shouldRun(ServerWorld world, E entity) {
         LivingEntity target = BrainUtils.getAttackTarget(entity);
-        return isHoldingUsableBow(entity) && LookTargetUtil.isVisibleInMemory(entity, target) && LookTargetUtil.isTargetWithinAttackRange(entity, target, 0);
+        return isHoldingUsableBow(entity) && TargetUtil.isVisibleInMemory(entity, target) && TargetUtil.isTargetWithinAttackRange(entity, target, 0);
     }
 
     @Override

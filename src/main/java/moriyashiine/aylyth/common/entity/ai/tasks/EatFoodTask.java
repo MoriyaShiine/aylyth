@@ -2,6 +2,7 @@ package moriyashiine.aylyth.common.entity.ai.tasks;
 
 import com.google.common.collect.ImmutableMap;
 import moriyashiine.aylyth.common.entity.types.mob.TulpaEntity;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.ai.brain.MemoryModuleState;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
@@ -26,7 +27,7 @@ public class EatFoodTask extends MultiTickTask<TulpaEntity> {
     private boolean hasFoodInInventory(TulpaEntity tulpaEntity) {
         for(int i = 0; i < tulpaEntity.getInventory().size(); ++i) {
             ItemStack itemStack = tulpaEntity.getInventory().getStack(i);
-            if (itemStack.isFood()) {
+            if (itemStack.get(DataComponentTypes.FOOD) != null) {
                 foodSlot = i;
                 return true;
             }
@@ -35,7 +36,8 @@ public class EatFoodTask extends MultiTickTask<TulpaEntity> {
     }
 
     private boolean hasFoodInHands(TulpaEntity tulpaEntity) {
-        return tulpaEntity.getMainHandStack().isFood() || tulpaEntity.getOffHandStack().isFood();
+        return tulpaEntity.getMainHandStack().get(DataComponentTypes.FOOD) != null ||
+                tulpaEntity.getOffHandStack().get(DataComponentTypes.FOOD) != null;
     }
 
     @Override
@@ -45,9 +47,9 @@ public class EatFoodTask extends MultiTickTask<TulpaEntity> {
 
     @Override
     protected void run(ServerWorld serverWorld, TulpaEntity tulpaEntity, long l) {
-        if (tulpaEntity.getMainHandStack().isFood()) {
+        if (tulpaEntity.getMainHandStack().get(DataComponentTypes.FOOD) != null) {
             tulpaEntity.setCurrentHand(Hand.MAIN_HAND);
-        } else if (tulpaEntity.getOffHandStack().isFood()) {
+        } else if (tulpaEntity.getOffHandStack().get(DataComponentTypes.FOOD) != null) {
             tulpaEntity.setCurrentHand(Hand.OFF_HAND);
         } else if (foodSlot > -1) {
              {

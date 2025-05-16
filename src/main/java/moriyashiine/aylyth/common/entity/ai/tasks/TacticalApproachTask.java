@@ -7,7 +7,7 @@ import net.minecraft.entity.ai.brain.EntityLookTarget;
 import net.minecraft.entity.ai.brain.MemoryModuleState;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.WalkTarget;
-import net.minecraft.entity.ai.brain.task.LookTargetUtil;
+import net.minecraft.entity.ai.brain.task.TargetUtil;
 import net.minecraft.entity.ai.brain.task.MultiTickTask;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
@@ -38,8 +38,8 @@ public class TacticalApproachTask<T extends MobEntity> extends MultiTickTask<T> 
     @Override
     protected void run(ServerWorld serverWorld, T mob, long l) {
         LivingEntity livingEntity = mob.getBrain().getOptionalRegisteredMemory(MemoryModuleType.ATTACK_TARGET).get();
-        if (isAttackCooldown(mob) && LookTargetUtil.isVisibleInMemory(mob, livingEntity)
-                && LookTargetUtil.isTargetWithinAttackRange(mob, livingEntity, 1)) {
+        if (isAttackCooldown(mob) && TargetUtil.isVisibleInMemory(mob, livingEntity)
+                && TargetUtil.isTargetWithinAttackRange(mob, livingEntity, 1)) {
             this.forgetWalkTarget(mob);
         } else {
             this.rememberWalkTarget(mob, livingEntity);

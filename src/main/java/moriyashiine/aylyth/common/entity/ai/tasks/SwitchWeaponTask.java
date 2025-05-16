@@ -3,18 +3,19 @@ package moriyashiine.aylyth.common.entity.ai.tasks;
 import com.google.common.collect.ImmutableMap;
 import moriyashiine.aylyth.common.entity.ai.brains.BrainUtils;
 import moriyashiine.aylyth.common.entity.types.mob.TulpaEntity;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.brain.MemoryModuleState;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.task.MultiTickTask;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.StackReference;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.RangedWeaponItem;
 import net.minecraft.item.SwordItem;
-import net.minecraft.item.ToolItem;
 import net.minecraft.server.world.ServerWorld;
 
 import java.util.ArrayList;
@@ -40,16 +41,11 @@ public class SwitchWeaponTask extends MultiTickTask<TulpaEntity> {
         return true;
     }
 
-    private double getWeaponDamage(ItemStack itemStack, LivingEntity targetEntity) {
-        double damage = EnchantmentHelper.getAttackDamage(itemStack, targetEntity.getGroup());
-        if (itemStack.getItem() instanceof ToolItem toolItem) {
-            if (toolItem instanceof SwordItem swordItem) {
-                damage = damage + (double)swordItem.getAttackDamage();
-            } else {
-                damage = damage + (double)toolItem.getMaterial().getAttackDamage();
-            }
-        }
-        return damage;
+    private double getWeaponDamage(ServerWorld serverWorld, ItemStack itemStack, TulpaEntity attacker, LivingEntity target) {
+        return EnchantmentHelper.getDamage(serverWorld, itemStack, target,
+                serverWorld.getDamageSources().mobAttack(attacker),
+                (float)attacker.getAttributeValue(EntityAttributes.ATTACK_DAMAGE)
+        );
     }
 
     @Override
@@ -79,7 +75,7 @@ public class SwitchWeaponTask extends MultiTickTask<TulpaEntity> {
             if (stack.isEmpty()) {
                 continue;
             }
-            double damage = getWeaponDamage(stack, target);
+            double damage = getWeaponDamage(serverWorld, stack, tulpaEntity, target);
             if (possibleWeapon == null) {
                 possibleWeapon = new PossibleWeapon(reference, damage);
                 continue;
