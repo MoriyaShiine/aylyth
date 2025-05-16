@@ -18,7 +18,7 @@ import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.ai.brain.task.ForgetAttackTargetTask;
-import net.minecraft.entity.ai.brain.task.GoTowardsLookTargetTask;
+import net.minecraft.entity.ai.brain.task.GoToLookTargetTask;
 import net.minecraft.entity.ai.brain.task.LookAroundTask;
 import net.minecraft.entity.ai.brain.task.LookAtMobTask;
 import net.minecraft.entity.ai.brain.task.RandomTask;
@@ -27,9 +27,10 @@ import net.minecraft.entity.ai.brain.task.StrollTask;
 import net.minecraft.entity.ai.brain.task.UpdateAttackTargetTask;
 import net.minecraft.entity.ai.brain.task.WaitTask;
 import net.minecraft.entity.ai.brain.task.WalkTowardsLookTargetTask;
-import net.minecraft.entity.ai.brain.task.WanderAroundTask;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.math.intprovider.UniformIntProvider;
 
 import java.util.List;
 import java.util.Optional;
@@ -84,9 +85,9 @@ public class WreathedHindBrain {
                 Activity.CORE,
                 0,
                 ImmutableList.of(
-                        new StayAboveWaterTask(0.6f),
-                        new LookAroundTask(45, 90),
-                        new WanderAroundTask()
+                        new StayAboveWaterTask<>(0.6f),
+                        new LookAroundTask(UniformIntProvider.create(45, 90), 180, 0, 0),
+                        StrollTask.create(0.6F)
 //                        new ConditionalTask<>(
 //                                Map.of(MemoryModuleType.HURT_BY_ENTITY, MemoryModuleState.VALUE_PRESENT),
 //                                WreathedHindBrain::shouldAttackHurtBy, new RevengeTask(), false
@@ -106,7 +107,7 @@ public class WreathedHindBrain {
                         Pair.of(1, new RandomTask<>(
                                 ImmutableList.of(
                                         Pair.of(StrollTask.create(0.6F), 2),
-                                        Pair.of(GoTowardsLookTargetTask.create(0.6F, 3), 2),
+                                        Pair.of(GoToLookTargetTask.create(0.6F, 3), 2),
                                         Pair.of(new WaitTask(30, 60), 1)
                                 ))),
                         Pair.of(1, UpdateAttackTargetTask.create(WreathedHindBrain::getAttackTarget))
@@ -117,9 +118,9 @@ public class WreathedHindBrain {
     private static void addFightActivities(WreathedHindEntity wreathedHindEntity, Brain<WreathedHindEntity> brain) {
         brain.setTaskList(Activity.FIGHT, 10,
                 ImmutableList.of(
-                        ForgetAttackTargetTask.create(entity -> !isPreferredAttackTarget(wreathedHindEntity, entity), BrainUtils::setTargetInvalid, false),
-                        LookAtMobTask.create(mob -> BrainUtils.isTarget(wreathedHindEntity, mob), (float)wreathedHindEntity.getAttributeValue(EntityAttributes.GENERIC_FOLLOW_RANGE)),
-                        GoTowardsLookTargetTask.create(1, 3),
+                        ForgetAttackTargetTask.create((world, entity) -> !isPreferredAttackTarget(world, wreathedHindEntity, entity), BrainUtils::setTargetInvalid, false),
+                        LookAtMobTask.create(mob -> BrainUtils.isTarget(wreathedHindEntity, mob), (float)wreathedHindEntity.getAttributeValue(EntityAttributes.FOLLOW_RANGE)),
+                        GoToLookTargetTask.create(1, 3),
                         new GeckoMeleeAttackTask<>(
                                 (serverWorld, hind, time) -> {
                                     LivingEntity livingEntity = BrainUtils.getAttackTarget(hind);
@@ -142,8 +143,8 @@ public class WreathedHindBrain {
         wreathedHindEntity.setAttacking(wreathedHindEntity.getBrain().hasMemoryModule(MemoryModuleType.ATTACK_TARGET));
     }
 
-    private static boolean isPreferredAttackTarget(WreathedHindEntity wreathedHindEntity, LivingEntity target) {
-        return getAttackTarget(wreathedHindEntity).filter((preferredTarget) -> preferredTarget == target).isPresent();
+    private static boolean isPreferredAttackTarget(ServerWorld world, WreathedHindEntity wreathedHindEntity, LivingEntity target) {
+        return getAttackTarget(world, wreathedHindEntity).filter((preferredTarget) -> preferredTarget == target).isPresent();
     }
 
     public static boolean isPledgedPlayerLow(Entity entity, WreathedHindEntity wreathedHindEntity) {
@@ -158,7 +159,7 @@ public class WreathedHindBrain {
         return true;
     }
 
-    private static Optional<? extends LivingEntity> getAttackTarget(WreathedHindEntity wreathedHindEntity) {
+    private static Optional<? extends LivingEntity> getAttackTarget(ServerWorld world, WreathedHindEntity wreathedHindEntity) {
         return wreathedHindEntity.getBrain().getOptionalMemory(MemoryModuleType.NEAREST_ATTACKABLE);
     }
 

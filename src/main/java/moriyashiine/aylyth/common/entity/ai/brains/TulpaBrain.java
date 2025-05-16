@@ -22,10 +22,12 @@ import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.ai.brain.task.CrossbowAttackTask;
 import net.minecraft.entity.ai.brain.task.ForgetAttackTargetTask;
 import net.minecraft.entity.ai.brain.task.LookAroundTask;
-import net.minecraft.entity.ai.brain.task.LookTargetUtil;
 import net.minecraft.entity.ai.brain.task.StayAboveWaterTask;
+import net.minecraft.entity.ai.brain.task.TargetUtil;
 import net.minecraft.entity.ai.brain.task.UpdateAttackTargetTask;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Unit;
+import net.minecraft.util.math.intprovider.UniformIntProvider;
 
 import java.util.List;
 import java.util.Optional;
@@ -84,8 +86,8 @@ public class TulpaBrain {
                 0,
                 ImmutableList.of(
                         new InteractPlayerTask(),
-                        new StayAboveWaterTask(0.6f),
-                        new LookAroundTask(45, 90)
+                        new StayAboveWaterTask<>(0.6f),
+                        new LookAroundTask(UniformIntProvider.create(45, 90), 180, 0,0)
 //                        new ConditionalTask<>(
 //                                entity -> !entity.shouldStay(), new WanderAroundTask(), true
 //                        ),
@@ -132,7 +134,7 @@ public class TulpaBrain {
     private static void addFightActivities(TulpaEntity tulpaEntity, Brain<TulpaEntity> brain) {
         brain.setTaskList(Activity.FIGHT, 10,
                 ImmutableList.of(
-                        ForgetAttackTargetTask.create(entity -> !isPreferredAttackTarget(tulpaEntity, entity), BrainUtils::setTargetInvalid, false),
+                        ForgetAttackTargetTask.create((world, entity) -> !isPreferredAttackTarget(world, tulpaEntity, entity), BrainUtils::setTargetInvalid, false),
                         new SwitchWeaponTask(),
 //                        new ConditionalTask<>(TulpaBrain::canUseRangedAttack, new AttackTask<>(5, 0.55f)),
 //                        new ConditionalTask<>(entity -> !canUseRangedAttack(entity), new RangedApproachTask(1.0f)),
@@ -155,15 +157,15 @@ public class TulpaBrain {
         tulpaEntity.setAttacking(tulpaEntity.getBrain().hasMemoryModule(MemoryModuleType.ATTACK_TARGET));
     }
 
-    private static boolean isPreferredAttackTarget(TulpaEntity tulpaEntity, LivingEntity target) {
-        return getAttackTarget(tulpaEntity)
+    private static boolean isPreferredAttackTarget(ServerWorld world, TulpaEntity tulpaEntity, LivingEntity target) {
+        return getAttackTarget(world, tulpaEntity)
                 .filter((preferredTarget) -> preferredTarget == target)
                 .isPresent();
     }
 
-    private static Optional<? extends LivingEntity> getAttackTarget(TulpaEntity tulpaEntity) {
+    private static Optional<? extends LivingEntity> getAttackTarget(ServerWorld world, TulpaEntity tulpaEntity) {
         Brain<TulpaEntity> brain = tulpaEntity.getBrain();
-        Optional<LivingEntity> optional = LookTargetUtil.getEntity(tulpaEntity, MemoryModuleType.ANGRY_AT);
+        Optional<LivingEntity> optional = TargetUtil.getEntity(tulpaEntity, MemoryModuleType.ANGRY_AT);
         if (optional.isPresent()) {
             return optional;
         }

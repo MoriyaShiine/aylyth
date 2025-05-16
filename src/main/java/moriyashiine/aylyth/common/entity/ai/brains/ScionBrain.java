@@ -17,23 +17,22 @@ import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.ai.brain.task.ForgetAttackTargetTask;
-import net.minecraft.entity.ai.brain.task.GoToIfNearbyTask;
-import net.minecraft.entity.ai.brain.task.GoToNearbyPositionTask;
-import net.minecraft.entity.ai.brain.task.GoTowardsLookTargetTask;
+import net.minecraft.entity.ai.brain.task.GoToHomeTask;
+import net.minecraft.entity.ai.brain.task.GoToLookTargetTask;
 import net.minecraft.entity.ai.brain.task.LookAroundTask;
 import net.minecraft.entity.ai.brain.task.LookAtMobTask;
-import net.minecraft.entity.ai.brain.task.LookTargetUtil;
 import net.minecraft.entity.ai.brain.task.MeleeAttackTask;
 import net.minecraft.entity.ai.brain.task.MemoryTransferTask;
 import net.minecraft.entity.ai.brain.task.RandomTask;
 import net.minecraft.entity.ai.brain.task.RangedApproachTask;
 import net.minecraft.entity.ai.brain.task.StayAboveWaterTask;
 import net.minecraft.entity.ai.brain.task.StrollTask;
+import net.minecraft.entity.ai.brain.task.TargetUtil;
 import net.minecraft.entity.ai.brain.task.UpdateAttackTargetTask;
 import net.minecraft.entity.ai.brain.task.WaitTask;
-import net.minecraft.entity.ai.brain.task.WanderAroundTask;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.TimeHelper;
 import net.minecraft.util.math.GlobalPos;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
@@ -93,9 +92,9 @@ public class ScionBrain {
                 0,
                 ImmutableList.of(
                         MemoryTransferTask.create(VALID_ENTITY, AylythMemoryTypes.NEAREST_VISIBLE_PLAYER_NEMESIS, MemoryModuleType.AVOID_TARGET, GO_TO_NEMESIS_MEMORY_DURATION),
-                        new StayAboveWaterTask(0.6f),
-                        new LookAroundTask(45, 90),
-                        new WanderAroundTask(),
+                        new StayAboveWaterTask<>(0.6f),
+                        new LookAroundTask(UniformIntProvider.create(45, 90), 180, 0, 0),
+                        StrollTask.create(0.6F),
                         UpdateAttackTargetTask.create(ScionBrain::getAttackTarget)
                 )
         );
@@ -108,9 +107,8 @@ public class ScionBrain {
                         Pair.of(0, new RandomTask<>(
                                 ImmutableList.of(
                                         Pair.of(StrollTask.create(0.6F), 2),
-                                        Pair.of(GoTowardsLookTargetTask.create(0.6F, 3), 2),
-                                        Pair.of(GoToNearbyPositionTask.create(MemoryModuleType.HOME, 0.6F, 2, 100), 2),
-                                        Pair.of(GoToIfNearbyTask.create(MemoryModuleType.HOME, 0.6F, 5), 2),
+                                        Pair.of(GoToLookTargetTask.create(0.6F, 3), 2),
+                                        Pair.of(GoToHomeTask.create(0.6F), 2),
                                         Pair.of(new WaitTask(30, 60), 1)
                                 )))
                 )
@@ -122,8 +120,8 @@ public class ScionBrain {
                 Activity.FIGHT,
                 10,
                 ImmutableList.of(
-                        ForgetAttackTargetTask.create(entity -> !scionEntity.isEnemy(entity), BrainUtils::setTargetInvalid, false),
-                        LookAtMobTask.create(mob -> BrainUtils.isTarget(scionEntity, mob), (float)scionEntity.getAttributeValue(EntityAttributes.GENERIC_FOLLOW_RANGE)),
+                        ForgetAttackTargetTask.create((world, entity) -> !scionEntity.isEnemy(entity), BrainUtils::setTargetInvalid, false),
+                        LookAtMobTask.create(mob -> BrainUtils.isTarget(scionEntity, mob), (float)scionEntity.getAttributeValue(EntityAttributes.FOLLOW_RANGE)),
                         RangedApproachTask.create(1.2F),
                         MeleeAttackTask.create(18)
                 ),
@@ -141,10 +139,10 @@ public class ScionBrain {
         scionEntity.getBrain().remember(MemoryModuleType.HOME, globalPos);
     }
 
-    private static Optional<? extends LivingEntity> getAttackTarget(ScionEntity scionEntity) {
+    private static Optional<? extends LivingEntity> getAttackTarget(ServerWorld world, ScionEntity scionEntity) {
         Brain<ScionEntity> brain = scionEntity.getBrain();
-        Optional<LivingEntity> optional = LookTargetUtil.getEntity(scionEntity, MemoryModuleType.ANGRY_AT);
-        if(optional.isPresent() && Sensor.testAttackableTargetPredicateIgnoreVisibility(scionEntity, optional.get())){
+        Optional<LivingEntity> optional = TargetUtil.getEntity(scionEntity, MemoryModuleType.ANGRY_AT);
+        if (optional.isPresent() && Sensor.testAttackableTargetPredicateIgnoreVisibility(world, scionEntity, optional.get())) {
             return optional;
         }
         Optional<PlayerEntity> optional2 = brain.getOptionalRegisteredMemory(AylythMemoryTypes.NEAREST_VISIBLE_PLAYER_NEMESIS);

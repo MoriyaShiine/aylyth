@@ -5,6 +5,7 @@ import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.RangedWeaponItem;
+import net.minecraft.server.world.ServerWorld;
 
 public class BrainUtils {
 
@@ -16,7 +17,7 @@ public class BrainUtils {
         return mobEntity.getBrain().getOptionalRegisteredMemory(MemoryModuleType.ATTACK_TARGET).filter(targetedEntity -> targetedEntity == entity).isPresent();
     }
 
-    public static void setTargetInvalid(MobEntity mobEntity, LivingEntity target) {
+    public static void setTargetInvalid(ServerWorld world, MobEntity mobEntity, LivingEntity target) {
         mobEntity.getBrain().forget(MemoryModuleType.ATTACK_TARGET);
         mobEntity.getBrain().forget(MemoryModuleType.ANGRY_AT);
     }
