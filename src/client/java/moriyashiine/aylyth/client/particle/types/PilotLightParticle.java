@@ -7,7 +7,7 @@ import net.minecraft.client.particle.ParticleFactory;
 import net.minecraft.client.particle.ParticleTextureSheet;
 import net.minecraft.client.particle.SpriteProvider;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.particle.DefaultParticleType;
+import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.util.math.MathHelper;
 
 public class PilotLightParticle extends AbstractSlowingParticle {
@@ -64,14 +64,14 @@ public class PilotLightParticle extends AbstractSlowingParticle {
 		return j | k << 16;
 	}
 
-	public static class AmbientFactory implements ParticleFactory<DefaultParticleType> {
+	public static class AmbientFactory implements ParticleFactory<SimpleParticleType> {
 		private final SpriteProvider spriteProvider;
 		
 		public AmbientFactory(SpriteProvider spriteProvider) {
 			this.spriteProvider = spriteProvider;
 		}
 		
-		public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double x, double y, double z, double velX, double velY, double velZ) {
+		public Particle createParticle(SimpleParticleType SimpleParticleType, ClientWorld clientWorld, double x, double y, double z, double velX, double velY, double velZ) {
 			PilotLightParticle particle = new PilotLightParticle(clientWorld, x, y, z, MathHelper.nextFloat(clientWorld.random, 0.8F, 1F), MathHelper.nextFloat(clientWorld.random, 0.5F, 0.6F), MathHelper.nextFloat(clientWorld.random, 0.05F, 0.1F));
 			particle.targetScale = MathHelper.nextFloat(clientWorld.random, 0.5F, 0.75F);
 			particle.scale(particle.targetScale);
@@ -83,14 +83,14 @@ public class PilotLightParticle extends AbstractSlowingParticle {
 		}
 	}
 
-	public static class Factory implements ParticleFactory<DefaultParticleType> {
+	public static class Factory implements ParticleFactory<SimpleParticleType> {
 		private final SpriteProvider spriteProvider;
 		
 		public Factory(SpriteProvider spriteProvider) {
 			this.spriteProvider = spriteProvider;
 		}
 		
-		public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double x, double y, double z, double velX, double velY, double velZ) {
+		public Particle createParticle(SimpleParticleType SimpleParticleType, ClientWorld clientWorld, double x, double y, double z, double velX, double velY, double velZ) {
 			PilotLightParticle particle = new PilotLightParticle(clientWorld, x, y, z, MathHelper.nextFloat(clientWorld.random, 0.8F, 1F), MathHelper.nextFloat(clientWorld.random, 0.5F, 0.6F), MathHelper.nextFloat(clientWorld.random, 0.05F, 0.1F));
 			particle.targetScale = MathHelper.nextFloat(clientWorld.random, 1F, 1.5F);
 			particle.scale(particle.targetScale);

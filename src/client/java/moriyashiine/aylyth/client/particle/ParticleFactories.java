@@ -8,44 +8,44 @@ import net.minecraft.client.particle.SpriteBillboardParticle;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.particle.ParticleEffect;
+import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.util.math.ColorHelper;
 
 public class ParticleFactories {
-    public static ParticleFactory<DefaultParticleType> createVampiricDrip(FabricSpriteProvider spriteProvider) {
+    public static ParticleFactory<SimpleParticleType> createVampiricDrip(FabricSpriteProvider spriteProvider) {
         return (parameters, world, x, y, z, velocityX, velocityY, velocityZ) -> {
             HoneyLike particle = new HoneyLike(world, x, y, z, Fluids.EMPTY, AylythParticleTypes.VAMPIRIC_LAND);
             particle.setGravityStrength(0.01f);
-            particle.setColor(ColorHelper.Argb.getRed(0x79181D) / 255f, ColorHelper.Argb.getGreen(0x79181D) / 255f, ColorHelper.Argb.getBlue(0x79181D) / 255f);
+            particle.setColor(ColorHelper.getRed(0x79181D) / 255f, ColorHelper.getGreen(0x79181D) / 255f, ColorHelper.getBlue(0x79181D) / 255f);
             particle.setSprite(spriteProvider);
             return particle;
         };
     }
 
-    public static ParticleFactory<DefaultParticleType> createVampiricLand(FabricSpriteProvider spriteProvider) {
+    public static ParticleFactory<SimpleParticleType> createVampiricLand(FabricSpriteProvider spriteProvider) {
         return (parameters, world, x, y, z, velocityX, velocityY, velocityZ) -> {
             SpriteBillboardParticle particle = BlockLeakParticle.createLandingHoney(parameters, world, x, y, z, velocityX, velocityY, velocityZ);
-            particle.setColor(ColorHelper.Argb.getRed(0x79181D) / 255f, ColorHelper.Argb.getGreen(0x79181D) / 255f, ColorHelper.Argb.getBlue(0x79181D) / 255f);
+            particle.setColor(ColorHelper.getRed(0x79181D) / 255f, ColorHelper.getGreen(0x79181D) / 255f, ColorHelper.getBlue(0x79181D) / 255f);
             particle.setSprite(spriteProvider);
             return particle;
         };
     }
 
-    public static ParticleFactory<DefaultParticleType> createBlightDrip(FabricSpriteProvider spriteProvider) {
+    public static ParticleFactory<SimpleParticleType> createBlightDrip(FabricSpriteProvider spriteProvider) {
         return (parameters, world, x, y, z, velocityX, velocityY, velocityZ) -> {
             HoneyLike particle = new HoneyLike(world, x, y, z, Fluids.EMPTY, AylythParticleTypes.BLIGHT_LAND);
             particle.setGravityStrength(0.01f);
-            particle.setColor(ColorHelper.Argb.getRed(0x38352A) / 255f, ColorHelper.Argb.getGreen(0x38352A) / 255f, ColorHelper.Argb.getBlue(0x38352A) / 255f);
+            particle.setColor(ColorHelper.getRed(0x38352A) / 255f, ColorHelper.getGreen(0x38352A) / 255f, ColorHelper.getBlue(0x38352A) / 255f);
             particle.setSprite(spriteProvider);
             return particle;
         };
     }
 
-    public static ParticleFactory<DefaultParticleType> createBlightLand(FabricSpriteProvider spriteProvider) {
+    public static ParticleFactory<SimpleParticleType> createBlightLand(FabricSpriteProvider spriteProvider) {
         return (parameters, world, x, y, z, velocityX, velocityY, velocityZ) -> {
             SpriteBillboardParticle particle = BlockLeakParticle.createLandingHoney(parameters, world, x, y, z, velocityX, velocityY, velocityZ);
-            particle.setColor(ColorHelper.Argb.getRed(0x38352A) / 255f, ColorHelper.Argb.getGreen(0x38352A) / 255f, ColorHelper.Argb.getBlue(0x38352A) / 255f);
+            particle.setColor(ColorHelper.getRed(0x38352A) / 255f, ColorHelper.getGreen(0x38352A) / 255f, ColorHelper.getBlue(0x38352A) / 255f);
             particle.setSprite(spriteProvider);
             return particle;
         };

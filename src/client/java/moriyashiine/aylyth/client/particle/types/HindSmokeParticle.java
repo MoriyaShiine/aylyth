@@ -6,7 +6,7 @@ import net.minecraft.client.particle.ParticleTextureSheet;
 import net.minecraft.client.particle.SpriteBillboardParticle;
 import net.minecraft.client.particle.SpriteProvider;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.particle.DefaultParticleType;
+import net.minecraft.particle.SimpleParticleType;
 
 public class HindSmokeParticle extends SpriteBillboardParticle {
     HindSmokeParticle(ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
@@ -44,14 +44,14 @@ public class HindSmokeParticle extends SpriteBillboardParticle {
         return ParticleTextureSheet.PARTICLE_SHEET_TRANSLUCENT;
     }
 
-    public static class ShortSmokeFactory implements ParticleFactory<DefaultParticleType> {
+    public static class ShortSmokeFactory implements ParticleFactory<SimpleParticleType> {
         private final SpriteProvider spriteProvider;
 
         public ShortSmokeFactory(SpriteProvider spriteProvider) {
             this.spriteProvider = spriteProvider;
         }
 
-        public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
+        public Particle createParticle(SimpleParticleType SimpleParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
             HindSmokeParticle hindSmokeParticle = new HindSmokeParticle(clientWorld, d, e, f, g, h, i);
             hindSmokeParticle.setAlpha(0.9F);
             hindSmokeParticle.setSprite(this.spriteProvider);
