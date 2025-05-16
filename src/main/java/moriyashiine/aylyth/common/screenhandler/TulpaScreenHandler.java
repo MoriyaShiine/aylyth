@@ -1,18 +1,15 @@
 package moriyashiine.aylyth.common.screenhandler;
 
-import com.mojang.datafixers.util.Pair;
 import moriyashiine.aylyth.common.entity.types.mob.TulpaEntity;
 import moriyashiine.aylyth.mixin.MobEntityAccessor;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
-import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
@@ -20,7 +17,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 
 public class TulpaScreenHandler extends ScreenHandler {
-    private final PlayerEntity player;
     public final TulpaEntity tulpaEntity;
     public final Inventory inventory;
     public final Inventory armorInventory;
@@ -31,9 +27,9 @@ public class TulpaScreenHandler extends ScreenHandler {
     };
 
 
-    public TulpaScreenHandler(int syncId, PlayerInventory playerInventory, PacketByteBuf buf) {
+    public TulpaScreenHandler(int syncId, PlayerInventory playerInventory, int entityId) {
         this(syncId, playerInventory,
-                playerInventory.player.getWorld().getEntityById(buf.readVarInt()) instanceof TulpaEntity tulpaEntity2 ? tulpaEntity2 : null);
+                playerInventory.player.getWorld().getEntityById(entityId) instanceof TulpaEntity tulpaEntity2 ? tulpaEntity2 : null);
     }
 
     public TulpaScreenHandler(int syncId, PlayerInventory playerInventory, TulpaEntity tulpaEntity) {
@@ -46,7 +42,7 @@ public class TulpaScreenHandler extends ScreenHandler {
         this.armorInventory = new SimpleInventory(armorItems.toArray(ItemStack[]::new));
         this.handInventory = new SimpleInventory(handItems.toArray(ItemStack[]::new));
         this.inventorySize = inventory.size() + armorInventory.size() + handInventory.size();
-        this.player = playerInventory.player;
+        PlayerEntity player = playerInventory.player;
         this.tulpaEntity = tulpaEntity;
         this.inventory.onOpen(player);
         this.armorInventory.onOpen(player);
@@ -55,7 +51,7 @@ public class TulpaScreenHandler extends ScreenHandler {
         this.addSlot(new Slot(armorInventory, 0, 8, 62) {
             @Override
             public boolean canInsert(ItemStack stack) {
-                return EQUIPMENT_SLOT_ORDER[0] == MobEntity.getPreferredEquipmentSlot(stack);
+                return EQUIPMENT_SLOT_ORDER[0] == tulpaEntity.getPreferredEquipmentSlot(stack);
             }
 
             @Override
@@ -70,14 +66,14 @@ public class TulpaScreenHandler extends ScreenHandler {
             }
 
             @Override
-            public Pair<Identifier, Identifier> getBackgroundSprite() {
-                return Pair.of(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, PlayerScreenHandler.EMPTY_BOOTS_SLOT_TEXTURE);
+            public Identifier getBackgroundSprite() {
+                return PlayerScreenHandler.EMPTY_BOOTS_SLOT_TEXTURE;
             }
         });
         this.addSlot(new Slot(armorInventory, 1, 8, 44) {
             @Override
             public boolean canInsert(ItemStack stack) {
-                return EQUIPMENT_SLOT_ORDER[1] == MobEntity.getPreferredEquipmentSlot(stack);
+                return EQUIPMENT_SLOT_ORDER[1] == tulpaEntity.getPreferredEquipmentSlot(stack);
             }
 
             @Override
@@ -92,14 +88,14 @@ public class TulpaScreenHandler extends ScreenHandler {
             }
 
             @Override
-            public Pair<Identifier, Identifier> getBackgroundSprite() {
-                return Pair.of(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, PlayerScreenHandler.EMPTY_LEGGINGS_SLOT_TEXTURE);
+            public Identifier getBackgroundSprite() {
+                return PlayerScreenHandler.EMPTY_LEGGINGS_SLOT_TEXTURE;
             }
         });
         this.addSlot(new Slot(armorInventory, 2, 8, 26) {
             @Override
             public boolean canInsert(ItemStack stack) {
-                return EQUIPMENT_SLOT_ORDER[2] == MobEntity.getPreferredEquipmentSlot(stack);
+                return EQUIPMENT_SLOT_ORDER[2] == tulpaEntity.getPreferredEquipmentSlot(stack);
             }
 
             @Override
@@ -114,14 +110,14 @@ public class TulpaScreenHandler extends ScreenHandler {
             }
 
             @Override
-            public Pair<Identifier, Identifier> getBackgroundSprite() {
-                return Pair.of(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, PlayerScreenHandler.EMPTY_CHESTPLATE_SLOT_TEXTURE);
+            public Identifier getBackgroundSprite() {
+                return PlayerScreenHandler.EMPTY_CHESTPLATE_SLOT_TEXTURE;
             }
         });
         this.addSlot(new Slot(armorInventory, 3, 8, 9) {
             @Override
             public boolean canInsert(ItemStack stack) {
-                return EQUIPMENT_SLOT_ORDER[3] == MobEntity.getPreferredEquipmentSlot(stack);
+                return EQUIPMENT_SLOT_ORDER[3] == tulpaEntity.getPreferredEquipmentSlot(stack);
             }
 
             @Override
@@ -136,8 +132,8 @@ public class TulpaScreenHandler extends ScreenHandler {
             }
 
             @Override
-            public Pair<Identifier, Identifier> getBackgroundSprite() {
-                return Pair.of(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, PlayerScreenHandler.EMPTY_HELMET_SLOT_TEXTURE);
+            public Identifier getBackgroundSprite() {
+                return PlayerScreenHandler.EMPTY_HELMET_SLOT_TEXTURE;
             }
         });
 
@@ -158,8 +154,8 @@ public class TulpaScreenHandler extends ScreenHandler {
             }
 
             @Override
-            public Pair<Identifier, Identifier> getBackgroundSprite() {
-                return Pair.of(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, PlayerScreenHandler.EMPTY_OFFHAND_ARMOR_SLOT);
+            public Identifier getBackgroundSprite() {
+                return PlayerScreenHandler.EMPTY_OFF_HAND_SLOT_TEXTURE;
             }
         });
 
@@ -225,10 +221,10 @@ public class TulpaScreenHandler extends ScreenHandler {
     }
 
     protected boolean canInsertIntoArmor(ItemStack stack) {
-        return  getSlot(0).canInsert(stack) && !getSlot(0).hasStack() ||
-                getSlot(1).canInsert(stack) && !getSlot(1).hasStack() ||
-                getSlot(2).canInsert(stack) && !getSlot(2).hasStack() ||
-                getSlot(3).canInsert(stack) && !getSlot(3).hasStack();
+        return getSlot(0).canInsert(stack) && !getSlot(0).hasStack() ||
+               getSlot(1).canInsert(stack) && !getSlot(1).hasStack() ||
+               getSlot(2).canInsert(stack) && !getSlot(2).hasStack() ||
+               getSlot(3).canInsert(stack) && !getSlot(3).hasStack();
     }
 
     @Override
