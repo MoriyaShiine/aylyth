@@ -1,6 +1,7 @@
 package moriyashiine.aylyth.common.loot.display;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import moriyashiine.aylyth.common.loot.LootDisplayTypes;
 import net.minecraft.entity.EntityType;
@@ -14,25 +15,25 @@ import net.minecraft.registry.entry.RegistryEntryListCodec;
 import net.minecraft.registry.tag.TagKey;
 
 public record DaggerLootDisplay(EntityType<?> entity, float chance, RegistryEntryList<Item> weapons, ItemStack outputs) implements EntityLootDisplay {
-    public static final Codec<DaggerLootDisplay> CODEC = RecordCodecBuilder.create(instance ->
+    public static final MapCodec<DaggerLootDisplay> CODEC = RecordCodecBuilder.mapCodec(instance ->
             instance.group(
                     Registries.ENTITY_TYPE.getCodec().fieldOf("entity").forGetter(DaggerLootDisplay::entity),
                     Codec.FLOAT.fieldOf("chance").forGetter(DaggerLootDisplay::chance),
-                    RegistryEntryListCodec.create(RegistryKeys.ITEM, Registries.ITEM.createEntryCodec(), false).fieldOf("weapons").forGetter(DaggerLootDisplay::weapons),
+                    RegistryEntryListCodec.create(RegistryKeys.ITEM, Registries.ITEM.getEntryCodec(), false).fieldOf("weapons").forGetter(DaggerLootDisplay::weapons),
                     ItemStack.CODEC.fieldOf("output").forGetter(DaggerLootDisplay::outputs)
             ).apply(instance, DaggerLootDisplay::new)
     );
-    public static final Codec<DaggerLootDisplay> NETWORK_CODEC = RecordCodecBuilder.create(instance ->
+    public static final MapCodec<DaggerLootDisplay> NETWORK_CODEC = RecordCodecBuilder.mapCodec(instance ->
             instance.group(
                     Registries.ENTITY_TYPE.getCodec().fieldOf("entity").forGetter(DaggerLootDisplay::entity),
                     Codec.FLOAT.fieldOf("chance").forGetter(DaggerLootDisplay::chance),
-                    Registries.ITEM.createEntryCodec().listOf().xmap(registryEntries -> (RegistryEntryList<Item>) RegistryEntryList.of(registryEntries), registryEntries -> registryEntries.stream().toList()).fieldOf("weapons").forGetter(DaggerLootDisplay::weapons),
+                    Registries.ITEM.getEntryCodec().listOf().xmap(registryEntries -> (RegistryEntryList<Item>) RegistryEntryList.of(registryEntries), registryEntries -> registryEntries.stream().toList()).fieldOf("weapons").forGetter(DaggerLootDisplay::weapons),
                     ItemStack.CODEC.fieldOf("output").forGetter(DaggerLootDisplay::outputs)
             ).apply(instance, DaggerLootDisplay::new)
     );
 
     public static DaggerLootDisplay create(EntityType<?> entity, float chance, TagKey<Item> weaponsTag, ItemConvertible output) {
-        return new DaggerLootDisplay(entity, chance, RegistryEntryList.of(Registries.ITEM.getEntryOwner(), weaponsTag), new ItemStack(output));
+        return new DaggerLootDisplay(entity, chance, RegistryEntryList.of(Registries.ITEM, weaponsTag), new ItemStack(output));
     }
 
     @Override

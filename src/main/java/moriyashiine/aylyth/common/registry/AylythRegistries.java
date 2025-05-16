@@ -7,7 +7,9 @@ import net.minecraft.registry.Registry;
 
 public interface AylythRegistries {
 
-    Registry<LootDisplay.Type<?>> LOOT_TABLE_DISPLAY_TYPE = FabricRegistryBuilder.createSimple(AylythRegistryKeys.LOOT_TABLE_DISPLAY_TYPE).attribute(RegistryAttribute.SYNCED).buildAndRegister();
+    Registry<LootDisplay.Type<?>> LOOT_TABLE_DISPLAY_TYPE = FabricRegistryBuilder.createSimple(AylythRegistryKeys.LOOT_TABLE_DISPLAY_TYPE)
+            .attribute(RegistryAttribute.SYNCED)
+            .buildAndRegister();
 
     // Load static initializer
     static void register() {}
