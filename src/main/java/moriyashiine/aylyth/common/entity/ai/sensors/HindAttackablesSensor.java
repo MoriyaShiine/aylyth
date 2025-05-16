@@ -8,7 +8,7 @@ import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.LivingTargetCache;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
-import net.minecraft.entity.ai.brain.task.LookTargetUtil;
+import net.minecraft.entity.ai.brain.task.TargetUtil;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -33,7 +33,7 @@ public class HindAttackablesSensor extends Sensor<WreathedHindEntity> {
 
         Optional<LivingEntity> enemyOptional = Optional.empty();
         if (brain.hasMemoryModule(MemoryModuleType.ANGRY_AT)) {
-            enemyOptional = LookTargetUtil.getEntity(entity, MemoryModuleType.ANGRY_AT);
+            enemyOptional = TargetUtil.getEntity(entity, MemoryModuleType.ANGRY_AT);
         } else if (brain.hasMemoryModule(AylythMemoryTypes.PLEDGED_PLAYER)) {
             PlayerEntity pledgedPlayer = brain.getOptionalMemory(AylythMemoryTypes.PLEDGED_PLAYER).get();
             if (pledgedPlayer.getHealth() <= 6) {
