@@ -12,16 +12,19 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.fabricmc.loader.impl.util.StringUtil;
 import net.minecraft.entity.damage.DamageType;
 import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.world.biome.Biome;
+
+import java.util.concurrent.CompletableFuture;
 
 public class AylythEnglishLanguageProvider extends FabricLanguageProvider {
 
-    public AylythEnglishLanguageProvider(FabricDataOutput output) {
-        super(output);
+    public AylythEnglishLanguageProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+        super(dataOutput, registryLookup);
     }
 
     @Override
-    public void generateTranslations(TranslationBuilder builder) {
+    public void generateTranslations(RegistryWrapper.WrapperLookup registryLookup, TranslationBuilder builder) {
         // MOD ITEMGROUP
 
         builder.add(AylythItemGroups.MAIN, "Aylyth");
@@ -231,11 +234,11 @@ public class AylythEnglishLanguageProvider extends FabricLanguageProvider {
 
         // STATUS EFFECTS
 
-        builder.add(AylythStatusEffects.MORTECHIS, "Mortechis");
-        builder.add(AylythStatusEffects.CIMMERIAN, "Cimmerian");
-        builder.add(AylythStatusEffects.WYRDED, "Wyrded");
-        builder.add(AylythStatusEffects.BLIGHT, "Blight");
-        builder.add(AylythStatusEffects.CRIMSON_CURSE, "Crimson Curse");
+        builder.add(AylythStatusEffects.MORTECHIS.value(), "Mortechis");
+        builder.add(AylythStatusEffects.CIMMERIAN.value(), "Cimmerian");
+        builder.add(AylythStatusEffects.WYRDED.value(), "Wyrded");
+        builder.add(AylythStatusEffects.BLIGHT.value(), "Blight");
+        builder.add(AylythStatusEffects.CRIMSON_CURSE.value(), "Crimson Curse");
 
         // ADVANCEMENTS
 
