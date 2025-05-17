@@ -9,7 +9,6 @@ import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.enums.DoubleBlockHalf;
-import net.minecraft.data.server.loottable.vanilla.VanillaBlockLootTableGenerator;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
@@ -25,11 +24,15 @@ import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import net.minecraft.predicate.StatePredicate;
 import net.minecraft.predicate.item.ItemPredicate;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.ItemTags;
 
+import java.util.concurrent.CompletableFuture;
+
 public class AylythBlockLootProvider extends FabricBlockLootTableProvider {
-    public AylythBlockLootProvider(FabricDataOutput dataGenerator) {
-        super(dataGenerator);
+    public AylythBlockLootProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+        super(dataOutput, registryLookup);
     }
 
     @Override
@@ -121,10 +124,10 @@ public class AylythBlockLootProvider extends FabricBlockLootTableProvider {
         addDrop(AylythBlocks.ORANGE_AYLYTHIAN_OAK_BRANCH, block -> leafyBranch(block, AylythItems.OAK_STREWN_LEAVES));
         addDrop(AylythBlocks.RED_AYLYTHIAN_OAK_BRANCH, block -> leafyBranch(block, AylythItems.OAK_STREWN_LEAVES));
         addDrop(AylythBlocks.BROWN_AYLYTHIAN_OAK_BRANCH, block -> leafyBranch(block, AylythItems.OAK_STREWN_LEAVES));
-        addDrop(AylythBlocks.GREEN_AYLYTHIAN_OAK_LEAVES, block -> leavesDrops(block, AylythBlocks.GREEN_AYLYTHIAN_OAK_SAPLING, 0.05f, 0.0625f, 0.083333336f, 0.1f));
-        addDrop(AylythBlocks.ORANGE_AYLYTHIAN_OAK_LEAVES, block -> leavesDrops(block, AylythBlocks.ORANGE_AYLYTHIAN_OAK_SAPLING, 0.05f, 0.0625f, 0.083333336f, 0.1f));
-        addDrop(AylythBlocks.RED_AYLYTHIAN_OAK_LEAVES, block -> leavesDrops(block, AylythBlocks.RED_AYLYTHIAN_OAK_SAPLING, 0.05f, 0.0625f, 0.083333336f, 0.1f));
-        addDrop(AylythBlocks.BROWN_AYLYTHIAN_OAK_LEAVES, block -> leavesDrops(block, AylythBlocks.BROWN_AYLYTHIAN_OAK_SAPLING, 0.05f, 0.0625f, 0.083333336f, 0.1f));
+        addDrop(AylythBlocks.GREEN_AYLYTHIAN_OAK_LEAVES, block -> leavesDrops(block, AylythBlocks.GREEN_AYLYTHIAN_OAK_SAPLING, SAPLING_DROP_CHANCE));
+        addDrop(AylythBlocks.ORANGE_AYLYTHIAN_OAK_LEAVES, block -> leavesDrops(block, AylythBlocks.ORANGE_AYLYTHIAN_OAK_SAPLING, SAPLING_DROP_CHANCE));
+        addDrop(AylythBlocks.RED_AYLYTHIAN_OAK_LEAVES, block -> leavesDrops(block, AylythBlocks.RED_AYLYTHIAN_OAK_SAPLING, SAPLING_DROP_CHANCE));
+        addDrop(AylythBlocks.BROWN_AYLYTHIAN_OAK_LEAVES, block -> leavesDrops(block, AylythBlocks.BROWN_AYLYTHIAN_OAK_SAPLING, SAPLING_DROP_CHANCE));
     }
 
     private LootTable.Builder leafyBranch(Block branch, ItemConvertible strewnLeaves) {
@@ -138,15 +141,15 @@ public class AylythBlockLootProvider extends FabricBlockLootTableProvider {
         return LootTable.builder().type(LootContextTypes.BLOCK)
                 .pool(
                         addSurvivesExplosionCondition(leaves, LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0F)).with(ItemEntry.builder(leaves)))
-                                .conditionally(WITH_SILK_TOUCH_OR_SHEARS)
-                                .conditionally(TableBonusLootCondition.builder(Enchantments.FORTUNE, chances))
+                                .conditionally(createWithSilkTouchOrShearsCondition())
+                                .conditionally(TableBonusLootCondition.builder(registries.getOrThrow(RegistryKeys.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE), chances))
                 ).pool(
                         LootPool.builder()
                                 .rolls(ConstantLootNumberProvider.create(1.0F))
-                                .conditionally(WITHOUT_SILK_TOUCH_NOR_SHEARS)
+                                .conditionally(createWithoutShearsOrSilkTouchCondition())
                                 .with(
                                         this.applyExplosionDecay(leaves, ItemEntry.builder(sticks).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0F, 2.0F))))
-                                                .conditionally(TableBonusLootCondition.builder(Enchantments.FORTUNE, LEAVES_STICK_DROP_CHANCE))
+                                                .conditionally(TableBonusLootCondition.builder(registries.getOrThrow(RegistryKeys.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE), LEAVES_STICK_DROP_CHANCE))
                                 )
                 );
     }
@@ -223,14 +226,13 @@ public class AylythBlockLootProvider extends FabricBlockLootTableProvider {
     }
 
     private LootTable.Builder pomegranateLeavesDrop(Block leaves, Block drop, float ... chance) {
-        return VanillaBlockLootTableGenerator
-                .dropsWithSilkTouchOrShears(leaves, addSurvivesExplosionCondition(leaves, ItemEntry.builder(drop))
-                        .conditionally(TableBonusLootCondition.builder(Enchantments.FORTUNE, chance)))
+        return dropsWithSilkTouchOrShears(leaves, addSurvivesExplosionCondition(leaves, ItemEntry.builder(drop))
+                        .conditionally(TableBonusLootCondition.builder(registries.getOrThrow(RegistryKeys.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE), chance)))
                 .pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0f))
-                        .conditionally(WITHOUT_SILK_TOUCH_NOR_SHEARS)
+                        .conditionally(createWithoutShearsOrSilkTouchCondition())
                         .with(applyExplosionDecay(leaves, ItemEntry.builder(Items.STICK)
                                 .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 2.0f))))
-                                .conditionally(TableBonusLootCondition.builder(Enchantments.FORTUNE, 0.02f, 0.022222223f, 0.025f, 0.033333335f, 0.1f)))
+                                .conditionally(TableBonusLootCondition.builder(registries.getOrThrow(RegistryKeys.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE), LEAVES_STICK_DROP_CHANCE)))
                         .with(applyExplosionDecay(leaves, ItemEntry.builder(AylythItems.POMEGRANATE)
                                 .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 2.0f))))
                                 .conditionally(BlockStatePropertyLootCondition.builder(leaves).properties(StatePredicate.Builder.create().exactMatch(PomegranateLeavesBlock.FRUITING, 3)))));
@@ -258,9 +260,9 @@ public class AylythBlockLootProvider extends FabricBlockLootTableProvider {
                                                 )
                                         )
                                         .conditionally(AnyOfLootCondition.builder(
-                                                        WITH_SILK_TOUCH,
-                                                        MatchToolLootCondition.builder(ItemPredicate.Builder.create().tag(ConventionalItemTags.SHEARS)),
-                                                        MatchToolLootCondition.builder(ItemPredicate.Builder.create().tag(ItemTags.HOES))
+                                                        createSilkTouchCondition(),
+                                                        MatchToolLootCondition.builder(ItemPredicate.Builder.create().tag(registries.getOrThrow(RegistryKeys.ITEM), ConventionalItemTags.SHEARS)),
+                                                        MatchToolLootCondition.builder(ItemPredicate.Builder.create().tag(registries.getOrThrow(RegistryKeys.ITEM), ItemTags.HOES))
                                                 )
                                         )
                         )
