@@ -22,7 +22,7 @@ public final class AylythStructurePoolBootstrap {
 
     public static void bootstrap(Registerable<StructurePool> context) {
         RegistryEntryLookup<StructurePool> poolRegistry = context.getRegistryLookup(RegistryKeys.TEMPLATE_POOL);
-        RegistryEntry<StructurePool> emptyPool = poolRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TEMPLATE_POOL, new Identifier("empty")));
+        RegistryEntry<StructurePool> emptyPool = poolRegistry.getOrThrow(RegistryKey.of(RegistryKeys.TEMPLATE_POOL, Identifier.of("empty")));
         RegistryEntryLookup<StructureProcessorList> processorListRegistry = context.getRegistryLookup(RegistryKeys.PROCESSOR_LIST);
         RegistryEntry<StructureProcessorList> blackWell = processorListRegistry.getOrThrow(RegistryKey.of(RegistryKeys.PROCESSOR_LIST, Aylyth.id("black_well")));
         context.register(AylythStructurePools.BLACK_WELL, single(emptyPool, Aylyth.id("black_well"), blackWell, StructurePool.Projection.TERRAIN_MATCHING));

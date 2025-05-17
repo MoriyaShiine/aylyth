@@ -15,19 +15,19 @@ public final class AylythDynamicDataProvider extends FabricDynamicRegistryProvid
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup registries, Entries entries) {
-        entries.addAll(registries.getWrapperOrThrow(RegistryKeys.NOISE_PARAMETERS));
-        entries.addAll(registries.getWrapperOrThrow(RegistryKeys.DENSITY_FUNCTION));
-        entries.addAll(registries.getWrapperOrThrow(RegistryKeys.CHUNK_GENERATOR_SETTINGS));
-        entries.addAll(registries.getWrapperOrThrow(RegistryKeys.CONFIGURED_CARVER));
-        entries.addAll(registries.getWrapperOrThrow(RegistryKeys.CONFIGURED_FEATURE));
-        entries.addAll(registries.getWrapperOrThrow(RegistryKeys.PLACED_FEATURE));
-        entries.addAll(registries.getWrapperOrThrow(RegistryKeys.PROCESSOR_LIST));
-        entries.addAll(registries.getWrapperOrThrow(RegistryKeys.TEMPLATE_POOL));
-        entries.addAll(registries.getWrapperOrThrow(RegistryKeys.STRUCTURE_SET));
-        entries.addAll(registries.getWrapperOrThrow(RegistryKeys.STRUCTURE));
-        entries.addAll(registries.getWrapperOrThrow(RegistryKeys.BIOME));
-        entries.addAll(registries.getWrapperOrThrow(RegistryKeys.DAMAGE_TYPE));
-        entries.addAll(registries.getWrapperOrThrow(AylythRegistryKeys.LOOT_TABLE_DISPLAY));
+        entries.addAll(registries.getOrThrow(RegistryKeys.NOISE_PARAMETERS));
+        entries.addAll(registries.getOrThrow(RegistryKeys.DENSITY_FUNCTION));
+        entries.addAll(registries.getOrThrow(RegistryKeys.CHUNK_GENERATOR_SETTINGS));
+        entries.addAll(registries.getOrThrow(RegistryKeys.CONFIGURED_CARVER));
+        entries.addAll(registries.getOrThrow(RegistryKeys.CONFIGURED_FEATURE));
+        entries.addAll(registries.getOrThrow(RegistryKeys.PLACED_FEATURE));
+        entries.addAll(registries.getOrThrow(RegistryKeys.PROCESSOR_LIST));
+        entries.addAll(registries.getOrThrow(RegistryKeys.TEMPLATE_POOL));
+        entries.addAll(registries.getOrThrow(RegistryKeys.STRUCTURE_SET));
+        entries.addAll(registries.getOrThrow(RegistryKeys.STRUCTURE));
+        entries.addAll(registries.getOrThrow(RegistryKeys.BIOME));
+        entries.addAll(registries.getOrThrow(RegistryKeys.DAMAGE_TYPE));
+        entries.addAll(registries.getOrThrow(AylythRegistryKeys.LOOT_TABLE_DISPLAY));
     }
 
     @Override

@@ -271,8 +271,8 @@ public final class AylythBiomeBootstrap {
 	}
 
 	private static void addLandCarversNotLavaLakes(GenerationSettings.LookupBackedBuilder builder) {
-		builder.carver(GenerationStep.Carver.AIR, AylythConfiguredCarvers.CAVES);
-		builder.carver(GenerationStep.Carver.AIR, AylythConfiguredCarvers.CANYONS);
+		builder.carver(AylythConfiguredCarvers.CAVES);
+		builder.carver(AylythConfiguredCarvers.CANYONS);
 	}
 
 	private static void addWaterSprings(GenerationSettings.LookupBackedBuilder builder) {

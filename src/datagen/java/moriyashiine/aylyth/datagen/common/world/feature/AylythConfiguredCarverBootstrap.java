@@ -24,7 +24,7 @@ public final class AylythConfiguredCarverBootstrap {
                         UniformFloatProvider.create(0.1F, 1.9F),
                         YOffset.getBottom(),
                         CarverDebugConfig.create(false, Blocks.CRIMSON_BUTTON.getDefaultState()),
-                        Registries.BLOCK.getOrCreateEntryList(BlockTags.OVERWORLD_CARVER_REPLACEABLES),
+                        Registries.BLOCK.getOrThrow(BlockTags.OVERWORLD_CARVER_REPLACEABLES),
                         UniformFloatProvider.create(0.7F, 1.4F),
                         UniformFloatProvider.create(0.8F, 1.3F),
                         UniformFloatProvider.create(-1.0F, -0.4F)
@@ -37,7 +37,7 @@ public final class AylythConfiguredCarverBootstrap {
                         ConstantFloatProvider.create(3.0F),
                         YOffset.getBottom(),
                         CarverDebugConfig.create(false, Blocks.WARPED_BUTTON.getDefaultState()),
-                        Registries.BLOCK.getOrCreateEntryList(BlockTags.OVERWORLD_CARVER_REPLACEABLES),
+                        Registries.BLOCK.getOrThrow(BlockTags.OVERWORLD_CARVER_REPLACEABLES),
                         UniformFloatProvider.create(-0.125F, 0.125F),
                         new RavineCarverConfig.Shape(
                                 UniformFloatProvider.create(0.75F, 1.0F), TrapezoidFloatProvider.create(0.0F, 6.0F, 2.0F), 3, UniformFloatProvider.create(0.75F, 1.0F), 1.0F, 0.0F
