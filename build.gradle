@@ -22,8 +22,8 @@ loom {
 
 fabricApi {
     configureDataGeneration {
+        setClient(true)
         setCreateSourceSet(true)
-        setCreateRunConfiguration(false)
         setModId("aylyth-datagen")
     }
 }
@@ -42,17 +42,6 @@ loom {
             programArgs "--height", "800"
 
             vmArg "-Daylyth.debug"
-        }
-        datagen {
-            server()
-            name "Data Generation"
-
-            source(sourceSets.datagen)
-
-            vmArg "-Dfabric-api.datagen"
-            vmArg "-Dfabric-api.datagen.modid=aylyth-datagen"
-            vmArg "-Dfabric-api.datagen.output-dir=${file("src/main/generated")}"
-            runDir("run")
         }
 	}
 
