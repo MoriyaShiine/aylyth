@@ -1,7 +1,6 @@
 package moriyashiine.aylyth.common.data.tag;
 
 import moriyashiine.aylyth.common.Aylyth;
-import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
@@ -43,6 +42,6 @@ public interface AylythItemTags {
     }
 
     private static TagKey<Item> common(String name) {
-        return TagKey.of(RegistryKeys.ITEM, new Identifier("c", name));
+        return TagKey.of(RegistryKeys.ITEM, Identifier.of("c", name));
     }
 }
