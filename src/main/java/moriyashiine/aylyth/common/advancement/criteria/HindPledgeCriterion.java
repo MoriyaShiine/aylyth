@@ -2,7 +2,9 @@ package moriyashiine.aylyth.common.advancement.criteria;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import moriyashiine.aylyth.common.advancement.AylythCriteria;
 import moriyashiine.aylyth.common.entity.types.mob.WreathedHindEntity;
+import net.minecraft.advancement.AdvancementCriterion;
 import net.minecraft.advancement.criterion.AbstractCriterion;
 import net.minecraft.loot.context.LootContext;
 import net.minecraft.predicate.entity.EntityPredicate;
@@ -31,20 +33,20 @@ public class HindPledgeCriterion extends AbstractCriterion<HindPledgeCriterion.C
                         .apply(instance, HindPledgeCriterion.Conditions::new)
         );
 
-        public static Conditions create() {
-            return new Conditions(Optional.empty(), Optional.empty());
+        public static AdvancementCriterion<Conditions> create() {
+            return AylythCriteria.HIND_PLEDGE.create(new Conditions(Optional.empty(), Optional.empty()));
         }
 
-        public static Conditions withPlayer(LootContextPredicate player) {
-            return new Conditions(Optional.of(player), Optional.empty());
+        public static AdvancementCriterion<Conditions> withPlayer(LootContextPredicate player) {
+            return AylythCriteria.HIND_PLEDGE.create(new Conditions(Optional.of(player), Optional.empty()));
         }
 
-        public static Conditions withTargetHind(LootContextPredicate wreathedHind) {
-            return new Conditions(Optional.empty(), Optional.of(wreathedHind));
+        public static AdvancementCriterion<Conditions> withTargetHind(LootContextPredicate wreathedHind) {
+            return AylythCriteria.HIND_PLEDGE.create(new Conditions(Optional.empty(), Optional.of(wreathedHind)));
         }
 
-        public static Conditions create(LootContextPredicate player, LootContextPredicate target) {
-            return new Conditions(Optional.of(player), Optional.of(target));
+        public static AdvancementCriterion<Conditions> create(LootContextPredicate player, LootContextPredicate target) {
+            return AylythCriteria.HIND_PLEDGE.create(new Conditions(Optional.of(player), Optional.of(target)));
         }
 
         public boolean matches(LootContext context) {

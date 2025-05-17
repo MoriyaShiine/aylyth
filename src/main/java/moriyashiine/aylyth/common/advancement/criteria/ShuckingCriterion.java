@@ -2,6 +2,8 @@ package moriyashiine.aylyth.common.advancement.criteria;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import moriyashiine.aylyth.common.advancement.AylythCriteria;
+import net.minecraft.advancement.AdvancementCriterion;
 import net.minecraft.advancement.criterion.AbstractCriterion;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.loot.context.LootContext;
@@ -40,16 +42,16 @@ public class ShuckingCriterion extends AbstractCriterion<ShuckingCriterion.Condi
                 ).apply(instance, ShuckingCriterion.Conditions::new)
         );
 
-        public static Conditions create() {
-            return new Conditions(Optional.empty(), Optional.empty());
+        public static AdvancementCriterion<Conditions> create() {
+            return AylythCriteria.SHUCKING.create(new Conditions(Optional.empty(), Optional.empty()));
         }
 
-        public static Conditions create(LootContextPredicate player) {
-            return new Conditions(Optional.of(player), Optional.empty());
+        public static AdvancementCriterion<Conditions> create(LootContextPredicate player) {
+            return AylythCriteria.SHUCKING.create(new Conditions(Optional.of(player), Optional.empty()));
         }
 
-        public static Conditions create(LootContextPredicate player, LootContextPredicate target) {
-            return new Conditions(Optional.of(player), Optional.of(target));
+        public static AdvancementCriterion<Conditions> create(LootContextPredicate player, LootContextPredicate target) {
+            return AylythCriteria.SHUCKING.create(new Conditions(Optional.of(player), Optional.of(target)));
         }
 
         public boolean matches(LootContext entity) {

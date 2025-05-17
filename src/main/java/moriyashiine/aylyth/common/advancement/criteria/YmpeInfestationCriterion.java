@@ -2,8 +2,10 @@ package moriyashiine.aylyth.common.advancement.criteria;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import moriyashiine.aylyth.common.advancement.AylythCriteria;
 import moriyashiine.aylyth.common.entity.AylythEntityAttachmentTypes;
 import moriyashiine.aylyth.common.entity.attachments.YmpeInfestation;
+import net.minecraft.advancement.AdvancementCriterion;
 import net.minecraft.advancement.criterion.AbstractCriterion;
 import net.minecraft.predicate.entity.EntityPredicate;
 import net.minecraft.predicate.entity.LootContextPredicate;
@@ -30,8 +32,16 @@ public class YmpeInfestationCriterion extends AbstractCriterion<YmpeInfestationC
                 ).apply(instance, YmpeInfestationCriterion.Conditions::new)
         );
 
-        public static Conditions create(IntProvider stage) {
-            return new Conditions(Optional.empty(), Optional.of(stage));
+        public static AdvancementCriterion<Conditions> create(LootContextPredicate player, IntProvider stage) {
+            return AylythCriteria.YMPE_INFESTATION.create(new Conditions(Optional.of(player), Optional.of(stage)));
+        }
+
+        public static AdvancementCriterion<Conditions> create(LootContextPredicate player) {
+            return AylythCriteria.YMPE_INFESTATION.create(new Conditions(Optional.of(player), Optional.empty()));
+        }
+
+        public static AdvancementCriterion<Conditions> create(IntProvider stage) {
+            return AylythCriteria.YMPE_INFESTATION.create(new Conditions(Optional.empty(), Optional.of(stage)));
         }
 
         public boolean matches(ServerPlayerEntity player) {
