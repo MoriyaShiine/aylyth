@@ -3,7 +3,6 @@ package moriyashiine.aylyth.datagen.common.tag;
 import moriyashiine.aylyth.common.data.tag.AylythBlockTags;
 import moriyashiine.aylyth.common.data.tag.AylythItemTags;
 import moriyashiine.aylyth.common.item.AylythItems;
-import moriyashiine.bewitchment.common.registry.BWTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.item.Items;
@@ -67,11 +66,12 @@ public final class AylythItemTagProvider extends FabricTagProvider.ItemTagProvid
         getOrCreateTagBuilder(ItemTags.PICKAXES).add(AylythItems.NEPHRITE_PICKAXE, AylythItems.VAMPIRIC_PICKAXE, AylythItems.BLIGHTED_PICKAXE);
         getOrCreateTagBuilder(ItemTags.AXES).add(AylythItems.NEPHRITE_AXE, AylythItems.VAMPIRIC_AXE, AylythItems.BLIGHTED_AXE);
         getOrCreateTagBuilder(ItemTags.HOES).add(AylythItems.NEPHRITE_HOE, AylythItems.VAMPIRIC_HOE, AylythItems.BLIGHTED_HOE);
-        getOrCreateTagBuilder(ItemTags.MUSIC_DISCS).add(AylythItems.POMEGRANATE_CASSETTE);
+        getOrCreateTagBuilder(ItemTags.CREEPER_DROP_MUSIC_DISCS).add(AylythItems.POMEGRANATE_CASSETTE);
         getOrCreateTagBuilder(ItemTags.COALS).add(AylythItems.BARK);
         getOrCreateTagBuilder(ItemTags.BOATS).add(AylythItems.YMPE_BOAT, AylythItems.POMEGRANATE_BOAT, AylythItems.WRITHEWOOD_BOAT);
         getOrCreateTagBuilder(ItemTags.CHEST_BOATS).add(AylythItems.YMPE_CHEST_BOAT, AylythItems.POMEGRANATE_CHEST_BOAT, AylythItems.WRITHEWOOD_CHEST_BOAT);
 
-        getOrCreateTagBuilder(BWTags.BARKS).add(AylythItems.BARK);
+        // TODO: bewitchment compat
+//        getOrCreateTagBuilder(BWTags.BARKS).add(AylythItems.BARK);
     }
 }

@@ -17,6 +17,6 @@ public final class AylythPotionTagProvider extends FabricTagProvider<Potion> {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup registries) {
-        getOrCreateTagBuilder(AylythPotionTags.BLIGHT).add(AylythPotions.BLIGHT, AylythPotions.LONG_BLIGHT, AylythPotions.STRONG_BLIGHT);
+        getOrCreateTagBuilder(AylythPotionTags.BLIGHT).add(AylythPotions.BLIGHT.value(), AylythPotions.LONG_BLIGHT.value(), AylythPotions.STRONG_BLIGHT.value());
     }
 }
