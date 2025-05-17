@@ -17,9 +17,9 @@ public class AylythDamageSources {
 	private final DamageSource shucking;
 
 	public AylythDamageSources(DynamicRegistryManager dynamicRegistryManager) {
-		damageTypeRegistry = dynamicRegistryManager.get(RegistryKeys.DAMAGE_TYPE);
-		this.ympe = new DamageSource(damageTypeRegistry.entryOf(AylythDamageTypes.YMPE));
-		this.shucking = new DamageSource(damageTypeRegistry.entryOf(AylythDamageTypes.SHUCKING));
+		damageTypeRegistry = dynamicRegistryManager.getOrThrow(RegistryKeys.DAMAGE_TYPE);
+		this.ympe = new DamageSource(damageTypeRegistry.getOrThrow(AylythDamageTypes.YMPE));
+		this.shucking = new DamageSource(damageTypeRegistry.getOrThrow(AylythDamageTypes.SHUCKING));
 	}
 
 	public DamageSource ympe() {
@@ -31,18 +31,18 @@ public class AylythDamageSources {
 	}
 
 	public DamageSource ympeEntity(Entity entity) {
-		return new DamageSource(damageTypeRegistry.entryOf(AylythDamageTypes.YMPE_ENTITY), entity);
+		return new DamageSource(damageTypeRegistry.getOrThrow(AylythDamageTypes.YMPE_ENTITY), entity);
 	}
 
 	public DamageSource killingBlow(WreathedHindEntity wreathedHindEntity) {
-		return new DamageSource(damageTypeRegistry.entryOf(AylythDamageTypes.KILLING_BLOW), wreathedHindEntity);
+		return new DamageSource(damageTypeRegistry.getOrThrow(AylythDamageTypes.KILLING_BLOW), wreathedHindEntity);
 	}
 
 	public DamageSource soulRip(PlayerEntity player) {
-		return new DamageSource(damageTypeRegistry.entryOf(AylythDamageTypes.SOUL_RIP), player);
+		return new DamageSource(damageTypeRegistry.getOrThrow(AylythDamageTypes.SOUL_RIP), player);
 	}
 
 	public DamageSource blight(@Nullable PlayerEntity player) {
-		return new DamageSource(damageTypeRegistry.entryOf(AylythDamageTypes.BLIGHT), player);
+		return new DamageSource(damageTypeRegistry.getOrThrow(AylythDamageTypes.BLIGHT), player);
 	}
 }
