@@ -7,12 +7,13 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.Object2FloatMap;
 import it.unimi.dsi.fastutil.objects.Object2FloatOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import net.minecraft.client.data.ModelSupplier;
 import net.minecraft.util.Identifier;
 
 import java.util.List;
 import java.util.function.Supplier;
 
-public final class ItemModelOverrides implements Supplier<JsonElement> {
+public final class ItemModelOverrides implements ModelSupplier {
     public static final Codec<ItemModelOverrides> LIST_CODEC = ModelOverride.CODEC.listOf()
             .xmap(ItemModelOverrides::new, itemModelOverrides -> itemModelOverrides.overrides);
     public static final Codec<ItemModelOverrides> MAP_CODEC_CODEC = LIST_CODEC.fieldOf("overrides").codec();
@@ -25,7 +26,7 @@ public final class ItemModelOverrides implements Supplier<JsonElement> {
 
     @Override
     public JsonElement get() {
-        return MAP_CODEC_CODEC.encodeStart(JsonOps.INSTANCE, this).getOrThrow(false, s -> {});
+        return MAP_CODEC_CODEC.encodeStart(JsonOps.INSTANCE, this).getOrThrow();
     }
 
     public record ModelOverride(Identifier model, Predicate predicate) {

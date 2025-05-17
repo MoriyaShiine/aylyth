@@ -1,6 +1,5 @@
 package moriyashiine.aylyth.datagen.client.model;
 
-import com.google.gson.JsonElement;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.DynamicOps;
@@ -9,15 +8,14 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.Object2ObjectFunction;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import moriyashiine.aylyth.common.Aylyth;
-import net.minecraft.data.client.ModelIds;
+import net.minecraft.client.data.ModelIds;
+import net.minecraft.client.data.ModelSupplier;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class PerspectiveModelData {
@@ -40,12 +38,12 @@ public class PerspectiveModelData {
         return new Resolver();
     }
 
-    public void upload(Item item, Object2ObjectFunction<ModelKey, Identifier> keyToId, BiConsumer<Identifier, Supplier<JsonElement>> modelCollector) {
+    public void upload(Item item, Object2ObjectFunction<ModelKey, Identifier> keyToId, BiConsumer<Identifier, ModelSupplier> modelCollector) {
         upload(ModelIds.getItemModelId(item.asItem()), keyToId, modelCollector);
     }
 
-    public void upload(Identifier id, Object2ObjectFunction<ModelKey, Identifier> keyToId, BiConsumer<Identifier, Supplier<JsonElement>> modelCollector) {
-        modelCollector.accept(id.withPrefixedPath("perspective/"), () -> this.toData(keyToId, JsonOps.INSTANCE).getOrThrow(false, Aylyth.LOGGER::error));
+    public void upload(Identifier id, Object2ObjectFunction<ModelKey, Identifier> keyToId, BiConsumer<Identifier, ModelSupplier> modelCollector) {
+        modelCollector.accept(id.withPrefixedPath("perspective/"), () -> this.toData(keyToId, JsonOps.INSTANCE).getOrThrow());
     }
 
     public <T> DataResult<T> toData(Object2ObjectFunction<ModelKey, Identifier> keyToId, DynamicOps<T> dynamicOps) {
@@ -73,7 +71,7 @@ public class PerspectiveModelData {
             return this;
         }
 
-        public void upload(Identifier id, BiConsumer<Identifier, Supplier<JsonElement>> modelCollector) {
+        public void upload(Identifier id, BiConsumer<Identifier, ModelSupplier> modelCollector) {
             PerspectiveModelData.this.upload(id, keyToId, modelCollector);
         }
     }

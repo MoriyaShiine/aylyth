@@ -4,6 +4,7 @@ import com.google.gson.JsonElement;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.client.data.ModelSupplier;
 import net.minecraft.util.dynamic.Codecs;
 import org.joml.Vector3f;
 
@@ -11,7 +12,7 @@ import java.util.EnumMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
-public final class ModelDisplayTransforms implements Supplier<JsonElement> {
+public final class ModelDisplayTransforms implements ModelSupplier {
     private static final Vector3f ZERO = new Vector3f();
     public static final Codec<ModelDisplayTransforms> CODEC = Codec.unboundedMap(ModelDisplayType.CODEC, ModelTransform.CODEC)
             .xmap(ModelDisplayTransforms::new, modelDisplayTransforms -> modelDisplayTransforms.transforms);
@@ -25,7 +26,7 @@ public final class ModelDisplayTransforms implements Supplier<JsonElement> {
 
     @Override
     public JsonElement get() {
-        return MAP_CODEC_CODEC.encodeStart(JsonOps.INSTANCE, this).getOrThrow(false, s -> {});
+        return MAP_CODEC_CODEC.encodeStart(JsonOps.INSTANCE, this).getOrThrow();
     }
 
     public record ModelTransform(Vector3f rotation, Vector3f translation, Vector3f scale) {
