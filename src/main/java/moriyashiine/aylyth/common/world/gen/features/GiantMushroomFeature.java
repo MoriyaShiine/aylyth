@@ -37,7 +37,7 @@ public class GiantMushroomFeature extends Feature<GiantMushroomFeature.GiantMush
         }
 
         for (BlockPos loc : BlockPos.iterate(origin, stemEndPos)) {
-            if (worldAccess.testBlockState(loc, state -> state.isOpaqueFullCube(worldAccess, loc) && !state.isOf(AylythBlocks.JACK_O_LANTERN_MUSHROOM_BLOCK))) {
+            if (worldAccess.testBlockState(loc, state -> state.isOpaqueFullCube() && !state.isOf(AylythBlocks.JACK_O_LANTERN_MUSHROOM_BLOCK))) {
                 continue;
             }
             BlockState stemState = context.getConfig().stemProvider().get(random, loc);
@@ -49,12 +49,12 @@ public class GiantMushroomFeature extends Feature<GiantMushroomFeature.GiantMush
             boolean isZEdge = Math.abs(loc.getZ() - origin.getZ()) == capSize;
             if (!isXEdge || !isZEdge) {
                 BlockState capState = context.getConfig().capProvider().get(random, loc);
-                if (!worldAccess.getBlockState(loc).isOpaqueFullCube(worldAccess, loc)) {
+                if (!worldAccess.getBlockState(loc).isOpaqueFullCube()) {
                     worldAccess.setBlockState(loc, capState, Block.NOTIFY_LISTENERS);
                 }
                 if (!isXEdge && !isZEdge) {
                     BlockPos up = loc.up();
-                    if (!worldAccess.getBlockState(up).isOpaqueFullCube(worldAccess, up)) {
+                    if (!worldAccess.getBlockState(up).isOpaqueFullCube()) {
                         worldAccess.setBlockState(up, capState, Block.NOTIFY_LISTENERS);
                     }
                 }

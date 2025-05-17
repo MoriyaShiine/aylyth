@@ -80,7 +80,7 @@ public class GirasolTrunkPlacer extends TrunkPlacer {
                     } else {
                         replacer.accept(pos, config.trunkProvider.get(random, pos));
                         if (random.nextInt(5) == 0) {
-                            if (x == -1) {
+                            if (x == -1) { // TODO: huh?
 
                             } else if (z == -1) {
 
