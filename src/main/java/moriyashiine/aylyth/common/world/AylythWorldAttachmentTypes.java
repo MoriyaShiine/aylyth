@@ -8,10 +8,9 @@ import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
 @SuppressWarnings("UnstableApiUsage")
 public interface AylythWorldAttachmentTypes {
 
-    AttachmentType<PledgeState> PLEDGE_STATE = AttachmentRegistry.<PledgeState>builder()
-            .persistent(PledgeState.CODEC)
-            .initializer(PledgeState::new)
-            .buildAndRegister(Aylyth.id("pledge_state"));
+    AttachmentType<PledgeState> PLEDGE_STATE = AttachmentRegistry.create(Aylyth.id("pledge_state"),
+            builder -> builder.persistent(PledgeState.CODEC).initializer(PledgeState::new)
+    );
 
     // Load static initializer
     static void register() {}
