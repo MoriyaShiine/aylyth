@@ -5,7 +5,6 @@ import moriyashiine.aylyth.common.entity.ai.goals.PounceAttackGoal;
 import moriyashiine.aylyth.common.world.AylythSoundEvents;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityData;
-import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.ActiveTargetGoal;
@@ -27,6 +26,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
@@ -38,12 +38,11 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.Animation;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.animation.AnimationController;
+import software.bernie.geckolib.animation.RawAnimation;
+import software.bernie.geckolib.animation.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.ArrayList;
@@ -69,18 +68,26 @@ public class FaunaylythianEntity extends HostileEntity implements GeoEntity {
 
     public static DefaultAttributeContainer.Builder createAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 25)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 8)
-                .add(EntityAttributes.GENERIC_ARMOR, 2)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3)
-                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32);
+                .add(EntityAttributes.MAX_HEALTH, 25)
+                .add(EntityAttributes.ATTACK_DAMAGE, 8)
+                .add(EntityAttributes.ARMOR, 2)
+                .add(EntityAttributes.MOVEMENT_SPEED, 0.3)
+                .add(EntityAttributes.FOLLOW_RANGE, 32);
+    }
+
+    @Override
+    protected void initDataTracker(DataTracker.Builder builder) {
+        super.initDataTracker(builder
+                        .add(VARIANT, 0)
+                        .add(POUNCING, false)
+        );
     }
 
     @Nullable
     @Override
-    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
+    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
         dataTracker.set(VARIANT, random.nextInt(VARIANTS));
-        return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+        return super.initialize(world, difficulty, spawnReason, entityData);
     }
 
     @Override
@@ -94,13 +101,6 @@ public class FaunaylythianEntity extends HostileEntity implements GeoEntity {
         goalSelector.add(3, new PounceAttackGoal(this, 0.7f));
         targetSelector.add(0, new RevengeGoal(this));
         targetSelector.add(1, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
-    }
-
-    @Override
-    protected void initDataTracker() {
-        super.initDataTracker();
-        dataTracker.startTracking(VARIANT, 0);
-        dataTracker.startTracking(POUNCING, false);
     }
 
     @Override
@@ -118,13 +118,13 @@ public class FaunaylythianEntity extends HostileEntity implements GeoEntity {
     }
 
     @Override
-    protected void dropEquipment(DamageSource source, int lootingMultiplier, boolean allowDrops) {
-        super.dropEquipment(source, lootingMultiplier, allowDrops);
+    protected void dropEquipment(ServerWorld world, DamageSource source, boolean causedByPlayer) {
+        super.dropEquipment(world, source, causedByPlayer);
         double random = this.random.nextDouble();
-        if (random <= 0.20 && !getWorld().isClient && getWorld().getBlockState(getBlockPos()).isReplaceable() && AylythBlocks.YMPE_SAPLING.getDefaultState().canPlaceAt(getWorld(), getBlockPos())) {
+        if (random <= 0.20 && getWorld().getBlockState(getBlockPos()).isReplaceable() && AylythBlocks.YMPE_SAPLING.getDefaultState().canPlaceAt(getWorld(), getBlockPos())) {
             getWorld().setBlockState(getBlockPos(), AylythBlocks.YMPE_SAPLING.getDefaultState());
             playSound(SoundEvents.BLOCK_GRASS_PLACE, getSoundVolume(), getSoundPitch());
-        } else if (random <= 0.30 && !getWorld().isClient && getWorld().getBlockState(getBlockPos()).isReplaceable() && AylythBlocks.LARGE_WOODY_GROWTH.getDefaultState().canPlaceAt(getWorld(), getBlockPos())) {
+        } else if (random <= 0.30 && getWorld().getBlockState(getBlockPos()).isReplaceable() && AylythBlocks.LARGE_WOODY_GROWTH.getDefaultState().canPlaceAt(getWorld(), getBlockPos())) {
             placeWoodyGrowths(getWorld(), getBlockPos());
         }
     }
@@ -173,10 +173,11 @@ public class FaunaylythianEntity extends HostileEntity implements GeoEntity {
         return canMobSpawn(type, world, spawnReason, pos, random) && world.getDifficulty() != Difficulty.PEACEFUL && random.nextBoolean();
     }
 
-    @Override
-    public EntityGroup getGroup() {
-        return EntityGroup.UNDEAD;
-    }
+    // TODO: Add Faunaylythian to undead tag
+//    @Override
+//    public EntityGroup getGroup() {
+//        return EntityGroup.UNDEAD;
+//    }
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar animationData) {

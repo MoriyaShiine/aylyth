@@ -4,7 +4,6 @@ import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.block.types.LargeWoodyGrowthBlock;
 import moriyashiine.aylyth.common.world.AylythSoundEvents;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
@@ -24,6 +23,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.DamageTypeTags;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Arm;
 import net.minecraft.util.Util;
@@ -35,12 +35,11 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.constant.DefaultAnimations;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.animation.AnimationController;
+import software.bernie.geckolib.animation.PlayState;
+import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.ArrayList;
@@ -62,10 +61,10 @@ public class AylythianEntity extends HostileEntity implements GeoEntity {
 	
 	public static DefaultAttributeContainer.Builder createAttributes() {
 		return MobEntity.createMobAttributes()
-				.add(EntityAttributes.GENERIC_MAX_HEALTH, 35)
-				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 5)
-				.add(EntityAttributes.GENERIC_ARMOR, 2)
-				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25);
+				.add(EntityAttributes.MAX_HEALTH, 35)
+				.add(EntityAttributes.ATTACK_DAMAGE, 5)
+				.add(EntityAttributes.ARMOR, 2)
+				.add(EntityAttributes.MOVEMENT_SPEED, 0.25);
 	}
 	
 	@Override
@@ -139,12 +138,12 @@ public class AylythianEntity extends HostileEntity implements GeoEntity {
 	public int getLimitPerChunk() {
 		return 3;
 	}
-	
+
 	@Override
-	public boolean damage(DamageSource source, float amount) {
-		return super.damage(source, source.isIn(DamageTypeTags.IS_FIRE) ? amount * 2 : amount);
+	public boolean damage(ServerWorld world, DamageSource source, float amount) {
+		return super.damage(world, source, source.isIn(DamageTypeTags.IS_FIRE) ? amount * 2 : amount);
 	}
-	
+
 	@Override
 	public void setTarget(@Nullable LivingEntity target) {
 		if (isTargetInBush(target)) {
@@ -154,8 +153,8 @@ public class AylythianEntity extends HostileEntity implements GeoEntity {
 	}
 
 	@Override
-	protected void dropEquipment(DamageSource source, int lootingMultiplier, boolean allowDrops) {
-		super.dropEquipment(source, lootingMultiplier, allowDrops);
+	protected void dropEquipment(ServerWorld world, DamageSource source, boolean causedByPlayer) {
+		super.dropEquipment(world, source, causedByPlayer);
 		double random = this.random.nextDouble();
 		if (random <= 0.20 && !getWorld().isClient && getWorld().getBlockState(getBlockPos()).isReplaceable() && AylythBlocks.LARGE_WOODY_GROWTH.getDefaultState().canPlaceAt(getWorld(), getBlockPos())) {
 			placeWoodyGrowths(getWorld(), getBlockPos());
@@ -210,10 +209,11 @@ public class AylythianEntity extends HostileEntity implements GeoEntity {
 		return canMobSpawn(aylythianEntityEntityType, serverWorldAccess, spawnReason, blockPos, random) && serverWorldAccess.getDifficulty() != Difficulty.PEACEFUL && random.nextBoolean();
 	}
 
-	@Override
-	public EntityGroup getGroup() {
-		return EntityGroup.UNDEAD;
-	}
+	// TODO: Put Aylythian in undead tag
+//	@Override
+//	public EntityGroup getGroup() {
+//		return EntityGroup.UNDEAD;
+//	}
 
 	public static boolean isTargetInBush(LivingEntity target) {
 		if (target != null && target.isSneaking()) {

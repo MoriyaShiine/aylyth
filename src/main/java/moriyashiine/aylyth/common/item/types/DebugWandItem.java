@@ -10,6 +10,7 @@ import moriyashiine.aylyth.common.entity.types.mob.ScionEntity;
 import moriyashiine.aylyth.common.item.AylythItems;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.enums.DoubleBlockHalf;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -87,7 +88,7 @@ public class DebugWandItem extends Item {
                         page.setSubNbt("PageId", NbtString.of("aylyth:coric_seed"));
                     }
                 }*/ else {
-                    ScionEntity.summonPlayerScion(user);
+                    ScionEntity.summonPlayerScion(user, SpawnReason.MOB_SUMMONED);
                 }
             }
         }

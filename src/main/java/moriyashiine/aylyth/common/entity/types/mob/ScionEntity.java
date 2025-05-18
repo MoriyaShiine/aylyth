@@ -5,7 +5,6 @@ import moriyashiine.aylyth.common.entity.AylythEntityTypes;
 import moriyashiine.aylyth.common.entity.ai.brains.ScionBrain;
 import moriyashiine.aylyth.common.world.AylythSoundEvents;
 import net.minecraft.entity.EntityData;
-import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -28,6 +27,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
+import net.minecraft.util.profiler.Profilers;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
@@ -44,24 +44,26 @@ public class ScionEntity extends HostileEntity {
     }
 
     @Nullable
-    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @org.jetbrains.annotations.Nullable EntityData entityData, @org.jetbrains.annotations.Nullable NbtCompound entityNbt) {
+    @Override
+    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
         ScionBrain.setCurrentPosAsHome(this);
-        return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+        return super.initialize(world, difficulty, spawnReason, entityData);
     }
 
     @Override
-    protected void initDataTracker() {
-        super.initDataTracker();
-        this.dataTracker.startTracking(PLAYER_SKIN_UUID, Optional.empty());
+    protected void initDataTracker(DataTracker.Builder builder) {
+        super.initDataTracker(builder
+                .add(PLAYER_SKIN_UUID, Optional.empty())
+        );
     }
 
     @Override
-    protected void mobTick() {
-        this.getWorld().getProfiler().push("scionBrain");
-        this.getBrain().tick((ServerWorld)this.getWorld(), this);
-        this.getWorld().getProfiler().pop();
+    protected void mobTick(ServerWorld world) {
+        Profilers.get().push("scionBrain");
+        this.getBrain().tick(world, this);
+        Profilers.get().pop();
         ScionBrain.updateActivities(this);
-        super.mobTick();
+        super.mobTick(world);
     }
 
 
@@ -112,10 +114,10 @@ public class ScionEntity extends HostileEntity {
 
     public static DefaultAttributeContainer.Builder createAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 20)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 3)
-                .add(EntityAttributes.GENERIC_ARMOR, 2)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25);
+                .add(EntityAttributes.MAX_HEALTH, 20)
+                .add(EntityAttributes.ATTACK_DAMAGE, 3)
+                .add(EntityAttributes.ARMOR, 2)
+                .add(EntityAttributes.MOVEMENT_SPEED, 0.25);
     }
 
     @Nullable
@@ -128,8 +130,8 @@ public class ScionEntity extends HostileEntity {
         this.dataTracker.set(PLAYER_SKIN_UUID, Optional.ofNullable(uuid));
     }
 
-    public static void summonPlayerScion(PlayerEntity playerEntity) {
-        ScionEntity scionEntity = AylythEntityTypes.SCION.create(playerEntity.getWorld());
+    public static void summonPlayerScion(PlayerEntity playerEntity, SpawnReason reason) {
+        ScionEntity scionEntity = AylythEntityTypes.SCION.create(playerEntity.getWorld(), reason);
         if (scionEntity != null) {
             scionEntity.setStoredPlayerUUID(playerEntity.getUuid());
             Iterable<ItemStack> armorItems = playerEntity.getArmorItems();
@@ -140,7 +142,7 @@ public class ScionEntity extends HostileEntity {
             playerEntity.equipStack(EquipmentSlot.OFFHAND, ItemStack.EMPTY);
 
             armorItems.forEach(stack -> {
-                EquipmentSlot equipmentSlot = getPreferredEquipmentSlot(stack);
+                EquipmentSlot equipmentSlot = scionEntity.getPreferredEquipmentSlot(stack);
                 scionEntity.equipStack(equipmentSlot, stack);
                 playerEntity.equipStack(equipmentSlot, ItemStack.EMPTY);
             });
@@ -162,15 +164,11 @@ public class ScionEntity extends HostileEntity {
         }
     }
 
-    @Override
-    public EntityGroup getGroup() {
-        return EntityGroup.UNDEAD;
-    }
-
-    @Override
-    public boolean isUndead() {
-        return true;
-    }
+    // TODO: Add scion to undead tag
+//    @Override
+//    public EntityGroup getGroup() {
+//        return EntityGroup.UNDEAD;
+//    }
 
     @Nullable
     @Override

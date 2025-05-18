@@ -7,9 +7,11 @@ import net.minecraft.block.AbstractBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -22,7 +24,6 @@ public class SphereEntity extends ProjectileEntity {
         super(entityType, world);
     }
 
-
     public SphereEntity(World world, WreathedHindEntity owner) {
         this(AylythEntityTypes.SPHERE_ENTITY, world);
         this.setOwner(owner);
@@ -33,7 +34,10 @@ public class SphereEntity extends ProjectileEntity {
         );
     }
 
+    @Override
+    protected void initDataTracker(DataTracker.Builder builder) {
 
+    }
 
     @Override
     public void tick() {
@@ -68,8 +72,8 @@ public class SphereEntity extends ProjectileEntity {
     protected void onEntityHit(EntityHitResult entityHitResult) {
         super.onEntityHit(entityHitResult);
         Entity entity = this.getOwner();
-        if (entity instanceof LivingEntity) {
-            entityHitResult.getEntity().damage(getDamageSources().magic(), 7.0F);
+        if (entity instanceof LivingEntity && entity.getEntityWorld() instanceof ServerWorld serverWorld) {
+            entityHitResult.getEntity().damage(serverWorld, getDamageSources().magic(), 7.0F);
         }
     }
 
@@ -94,10 +98,5 @@ public class SphereEntity extends ProjectileEntity {
         }
 
         this.setVelocity(d, e, f);
-    }
-    
-    @Override
-    protected void initDataTracker() {
-        
     }
 }

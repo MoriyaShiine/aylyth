@@ -6,7 +6,6 @@ import moriyashiine.aylyth.common.world.AylythSoundEvents;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityData;
-import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -57,12 +56,12 @@ import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.animation.AnimationController;
+import software.bernie.geckolib.animation.AnimationState;
+import software.bernie.geckolib.animation.RawAnimation;
+import software.bernie.geckolib.animation.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.EnumSet;
@@ -99,19 +98,19 @@ public class YmpemouldEntity extends HostileEntity implements TameableHostileEnt
 
     public YmpemouldEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
-        this.setStepHeight(1.6f);
         this.setPathfindingPenalty(PathNodeType.LAVA, 0);
         this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 0);
     }
 
     public static DefaultAttributeContainer.Builder createSoulmouldAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 160)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 9)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25)
-                .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0f)
-                .add(EntityAttributes.GENERIC_ARMOR, 24f)
-                .add(EntityAttributes.GENERIC_ARMOR_TOUGHNESS, 6f);
+                .add(EntityAttributes.MAX_HEALTH, 160)
+                .add(EntityAttributes.ATTACK_DAMAGE, 9)
+                .add(EntityAttributes.MOVEMENT_SPEED, 0.25)
+                .add(EntityAttributes.KNOCKBACK_RESISTANCE, 1.0f)
+                .add(EntityAttributes.ARMOR, 24f)
+                .add(EntityAttributes.ARMOR_TOUGHNESS, 6f)
+                .add(EntityAttributes.STEP_HEIGHT, 1.5f);
     }
 
     @Override
@@ -126,19 +125,20 @@ public class YmpemouldEntity extends HostileEntity implements TameableHostileEnt
         this.goalSelector.add(0, new SoulmouldDashSlashGoal(this));
         this.targetSelector.add(1, new TamedTrackAttackerGoal(this));
         this.targetSelector.add(2, new TamedAttackWithOwnerGoal<>(this));
-        this.targetSelector.add(2, new ActiveTargetGoal<>(this, LivingEntity.class, 10, true, false, livingEntity -> !livingEntity.equals(this.getOwner()) && !(livingEntity instanceof TameableEntity tamed && tamed.getOwner() != null && tamed.getOwner().equals(this.getOwner())) && !(livingEntity instanceof ArmorStandEntity) && !(livingEntity instanceof YmpemouldEntity mould && mould.isOwner(this.getOwner())) && this.getActionState() == 2 && !(livingEntity instanceof BatEntity) && !(livingEntity instanceof PlayerEntity player && player.getUuid().equals(UUID.fromString("1ece513b-8d36-4f04-9be2-f341aa8c9ee2")))));
+        this.targetSelector.add(2, new ActiveTargetGoal<>(this, LivingEntity.class, 10, true, false, (livingEntity, world) -> !livingEntity.equals(this.getOwner()) && !(livingEntity instanceof TameableEntity tamed && tamed.getOwner() != null && tamed.getOwner().equals(this.getOwner())) && !(livingEntity instanceof ArmorStandEntity) && !(livingEntity instanceof YmpemouldEntity mould && mould.isOwner(this.getOwner())) && this.getActionState() == 2 && !(livingEntity instanceof BatEntity) && !(livingEntity instanceof PlayerEntity player && player.getUuid().equals(UUID.fromString("1ece513b-8d36-4f04-9be2-f341aa8c9ee2")))));
     }
 
     @Override
-    protected void initDataTracker() {
-        super.initDataTracker();
-        this.dataTracker.startTracking(ATTACK_STATE, 0);
-        this.dataTracker.startTracking(ACTION_STATE, 0);
-        this.dataTracker.startTracking(DORMANT_POS, Optional.empty());
-        this.dataTracker.startTracking(DORMANT_DIR, this.getHorizontalFacing());
-        this.dataTracker.startTracking(DORMANT, true);
-        this.dataTracker.startTracking(TAMEABLE, (byte) 0);
-        this.dataTracker.startTracking(OWNER_UUID, Optional.of(UUID.fromString("1ece513b-8d36-4f04-9be2-f341aa8c9ee2")));
+    protected void initDataTracker(DataTracker.Builder builder) {
+        super.initDataTracker(builder
+                .add(ATTACK_STATE, 0)
+                .add(ACTION_STATE, 0)
+                .add(DORMANT_POS, Optional.empty())
+                .add(DORMANT_DIR, this.getHorizontalFacing())
+                .add(DORMANT, true)
+                .add(TAMEABLE, (byte) 0)
+                .add(OWNER_UUID, Optional.of(UUID.fromString("1ece513b-8d36-4f04-9be2-f341aa8c9ee2")))
+        );
     }
 
     @Override
@@ -162,13 +162,11 @@ public class YmpemouldEntity extends HostileEntity implements TameableHostileEnt
     }
 
     @Override
-    public boolean damage(DamageSource source, float amount) {
-        if(!getWorld().isClient()) {
-            if (source.isIn(DamageTypeTags.IS_EXPLOSION)) {
-                amount *= 0.5f;
-            }
+    public boolean damage(ServerWorld world, DamageSource source, float amount) {
+        if (source.isIn(DamageTypeTags.IS_EXPLOSION)) {
+            amount *= 0.5f;
         }
-        return super.damage(source, amount);
+        return super.damage(world, source, amount);
     }
 
     @Override
@@ -214,8 +212,8 @@ public class YmpemouldEntity extends HostileEntity implements TameableHostileEnt
                 this.setTamed(false);
             }
         }
-        if(nbt.contains("DormantPos")) {
-            setDormantPos(NbtHelper.toBlockPos(nbt.getCompound("DormantPos")));
+        if (nbt.contains("DormantPos")) {
+            setDormantPos(NbtHelper.toBlockPos(nbt, "DormantPos").orElseThrow());
         }
         this.setActionState(nbt.getInt("ActionState"));
         this.setAttackState(nbt.getInt("AttackState"));
@@ -307,7 +305,7 @@ public class YmpemouldEntity extends HostileEntity implements TameableHostileEnt
     private void cycleActionState(PlayerEntity player) {
         if (getActionState() == DEACTIVATED) {
             setActionState(KILLING_MODE);
-            player.sendMessage(Text.literal("amogus").setStyle(Style.EMPTY.withColor(Formatting.DARK_RED).withObfuscated(true).withFont(new Identifier("minecraft", "default"))), true);
+            player.sendMessage(Text.literal("amogus").setStyle(Style.EMPTY.withColor(Formatting.DARK_RED).withObfuscated(true).withFont(Identifier.of("default"))), true);
         } else if (getActionState() == KILLING_MODE) {
             setActionState(ACTIVATED);
             player.sendMessage(Text.translatable("info.aylyth.ympemould_activate", getWorld().getRegistryKey().getValue().getPath()).setStyle(Style.EMPTY.withColor(Formatting.AQUA)), true);
@@ -317,11 +315,12 @@ public class YmpemouldEntity extends HostileEntity implements TameableHostileEnt
         }
     }
 
+    @Nullable
     @Override
-    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityTag) {
+    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
         setDormantPos(getBlockPos());
         this.initEquipment(random, difficulty);
-        return super.initialize(world, difficulty, spawnReason, entityData, entityTag);
+        return super.initialize(world, difficulty, spawnReason, entityData);
     }
 
     protected void initEquipment(Random random, LocalDifficulty localDifficulty) {
@@ -375,9 +374,9 @@ public class YmpemouldEntity extends HostileEntity implements TameableHostileEnt
         }
         if(isDormant()) {
             setVelocity(0, getVelocity().y, 0);
-            setYaw(getDormantDir().asRotation());
-            setBodyYaw(getDormantDir().asRotation());
-            setHeadYaw(getDormantDir().asRotation());
+            setYaw(getDormantDir().getPositiveHorizontalDegrees());
+            setBodyYaw(getDormantDir().getPositiveHorizontalDegrees());
+            setHeadYaw(getDormantDir().getPositiveHorizontalDegrees());
             setPitch(0);
         }
         if ((this.getTarget() == null || (this.getTarget() != null && this.getDormantPos().isPresent() && !this.getTarget().isAlive())) && getNavigation().isIdle() && !isAtDormantPos() && !isDormant()) updateDormantPos();
@@ -440,10 +439,11 @@ public class YmpemouldEntity extends HostileEntity implements TameableHostileEnt
         return !this.isRemoved();
     }
 
-    @Override
-    public EntityGroup getGroup() {
-        return EntityGroup.UNDEAD;
-    }
+    // TODO: Add Ympemould to undead tag
+//    @Override
+//    public EntityGroup getGroup() {
+//        return EntityGroup.UNDEAD;
+//    }
 
     public Optional<BlockPos> getDormantPos() {
         return getDataTracker().get(DORMANT_POS);
@@ -563,7 +563,7 @@ public class YmpemouldEntity extends HostileEntity implements TameableHostileEnt
             int ticks = mould.dashSlashTicks;
             LivingEntity target = mould.getTarget();
             this.mould.lookAtEntity(this.mould.getTarget(), 80, 80);
-            if(ticks == 9 || ticks == 12 || ticks == 15) {
+            if (ticks == 9 || ticks == 12 || ticks == 15) {
                 Vec3d vec3d = this.mould.getVelocity();
                 Vec3d vec3d2 = null;
                 if (target != null) {
@@ -572,13 +572,13 @@ public class YmpemouldEntity extends HostileEntity implements TameableHostileEnt
                     this.mould.setVelocity(vec3d2.x, 0, vec3d2.z);
                 }
             }
-            if(ticks == 10 || ticks == 13 || ticks == 15) {
+            if (ticks == 10 || ticks == 13 || ticks == 15) {
                 mould.playSound(AylythSoundEvents.ENTITY_SOULMOULD_ATTACK.value(), 1f, 1f);
                 List<LivingEntity> entities = mould.getWorld().getEntitiesByClass(LivingEntity.class, mould.getBoundingBox().expand(4, 3, 4), livingEntity -> livingEntity != mould && livingEntity != mould.getOwner() && !(livingEntity instanceof YmpemouldEntity smould && smould.getOwner() == mould.getOwner()) && mould.distanceTo(livingEntity) <= 4 + livingEntity.getWidth() / 2 && livingEntity.getY() <= mould.getY() + 3);
                 for(LivingEntity entity: entities) {
                     Vec3d vec = entity.getPos().subtract(mould.getPos()).normalize().negate();
                     entity.takeKnockback(1, vec.x, vec.z);
-                    mould.tryAttack(entity);
+                    mould.tryAttack(getServerWorld(this.mould), entity);
                 }
             }
         }

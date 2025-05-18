@@ -3,6 +3,7 @@ package moriyashiine.aylyth.common.entity.types.mob;
 import com.mojang.serialization.Dynamic;
 import io.netty.buffer.ByteBuf;
 import moriyashiine.aylyth.api.interfaces.Pledgeable;
+import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.advancement.AylythCriteria;
 import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.data.tag.AylythItemTags;
@@ -41,24 +42,26 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.StringIdentifiable;
 import net.minecraft.util.Util;
 import net.minecraft.util.function.ValueLists;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
+import net.minecraft.util.profiler.Profilers;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.animatable.GeoAnimatable;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.animation.AnimationController;
+import software.bernie.geckolib.animation.AnimationState;
+import software.bernie.geckolib.animation.RawAnimation;
+import software.bernie.geckolib.animation.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.ArrayList;
@@ -74,8 +77,9 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
     private static final RawAnimation KILLING_BLOW = RawAnimation.begin().thenPlayXTimes("killing_blow", 1);
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
-    private static final EntityAttributeModifier SNEAKY_SPEED_PENALTY = new EntityAttributeModifier(UUID.fromString("5CD17E11-A74A-43D3-A529-90FDE04B191E"), "sneaky", -0.15D, EntityAttributeModifier.Operation.ADDITION);
-    private EntityAttributeInstance modifiableattributeinstance = this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
+    private static final Identifier SNEAKY_MODIFIER = Aylyth.id("sneaky_modifier");
+    private static final EntityAttributeModifier SNEAKY_SPEED_PENALTY = new EntityAttributeModifier(SNEAKY_MODIFIER, -0.15D, EntityAttributeModifier.Operation.ADD_VALUE);
+    private EntityAttributeInstance modifiableattributeinstance = this.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED);
     public static final TrackedData<AttackType> ATTACK_TYPE = DataTracker.registerData(WreathedHindEntity.class, AylythTrackedDataHandlers.WREATHED_ATTACK_TYPE);
     public static final TrackedData<Boolean> IS_PLEDGED = DataTracker.registerData(WreathedHindEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
@@ -86,32 +90,33 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
 
     public static DefaultAttributeContainer.Builder createAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 100)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 13)
-                .add(EntityAttributes.GENERIC_ARMOR, 3)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.225)
-                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32);
+                .add(EntityAttributes.MAX_HEALTH, 100)
+                .add(EntityAttributes.ATTACK_DAMAGE, 13)
+                .add(EntityAttributes.ARMOR, 3)
+                .add(EntityAttributes.MOVEMENT_SPEED, 0.225)
+                .add(EntityAttributes.FOLLOW_RANGE, 32);
     }
 
     @Override
-    protected void initDataTracker() {
-        super.initDataTracker();
-        this.dataTracker.startTracking(ATTACK_TYPE, AttackType.NONE);
-        this.dataTracker.startTracking(IS_PLEDGED, false);
+    protected void initDataTracker(DataTracker.Builder builder) {
+        super.initDataTracker(builder
+                .add(ATTACK_TYPE, AttackType.NONE)
+                .add(IS_PLEDGED, false)
+        );
     }
 
     @Override
-    protected void mobTick() {
-        this.getWorld().getProfiler().push("wreathedHindBrain");
+    protected void mobTick(ServerWorld world) {
+        Profilers.get().push("wreathedHindBrain");
         this.getBrain().tick((ServerWorld)this.getWorld(), this);
-        this.getWorld().getProfiler().pop();
+        Profilers.get().pop();
         WreathedHindBrain.updateActivities(this);
-        super.mobTick();
+        super.mobTick(world);
         if (WreathedHindBrain.isPledgedPlayerLow(this.getTarget(), this)) {
-            modifiableattributeinstance.removeModifier(SNEAKY_SPEED_PENALTY);
+            modifiableattributeinstance.removeModifier(SNEAKY_MODIFIER);
             modifiableattributeinstance.addTemporaryModifier(SNEAKY_SPEED_PENALTY);
-        } else if (modifiableattributeinstance.hasModifier(SNEAKY_SPEED_PENALTY)) {
-            modifiableattributeinstance.removeModifier(SNEAKY_SPEED_PENALTY);
+        } else if (modifiableattributeinstance.hasModifier(SNEAKY_MODIFIER)) {
+            modifiableattributeinstance.removeModifier(SNEAKY_MODIFIER);
         }
         if (age % 20 == 0) {
             if (getPledgedPlayerUUID() == null) {
@@ -143,7 +148,7 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
                 AylythCriteria.HIND_PLEDGE.trigger(serverPlayer, this);
             }
             setPledgedPlayer(player);
-            AylythUtil.decreaseStack(stack, player);
+            stack.decrementUnlessCreative(1, player);
         }
         return super.interactMob(player, hand);
     }
@@ -151,27 +156,30 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
     @Override
     public void remove(RemovalReason reason) {
         super.remove(reason);
-        ((AttachmentTarget)getWorld()).getAttachedOrCreate(AylythWorldAttachmentTypes.PLEDGE_STATE).removePledge(this);
+        getWorld().getAttachedOrCreate(AylythWorldAttachmentTypes.PLEDGE_STATE).removePledge(this);
     }
 
     @Override
-    public boolean tryAttack(Entity target) {
-       if (getAttackType() == AttackType.MELEE) {
-           return super.tryAttack(target);
+    public boolean tryAttack(ServerWorld world, Entity target) {
+        if (getAttackType() == AttackType.MELEE) {
+            return super.tryAttack(world, target);
         } else if (getAttackType() == AttackType.KILLING) {
             if (target instanceof PlayerEntity player) {
-                return tryKillingAttack(player);
+                return tryKillingAttack(world, player);
             }
         }
-       return false;
+        return false;
     }
 
-    public boolean tryKillingAttack(PlayerEntity target) {
+    @Override
+    public boolean disablesShield() {
+        return getAttackType() == AttackType.KILLING;
+    }
+
+    public boolean tryKillingAttack(ServerWorld world, PlayerEntity target) {
         float f = 6;
-        boolean bl = target.damage(getWorld().aylythDamageSources().killingBlow(this), f);
+        boolean bl = target.damage(world, world.aylythDamageSources().killingBlow(this), f);
         if (bl) {
-            this.disablePlayerShield(target, this.getMainHandStack(), target.isUsingItem() ? target.getActiveItem() : ItemStack.EMPTY);
-            this.applyDamageEffects(this, target);
             this.onAttacking(target);
         }
         if (target.isDead()) {
@@ -186,8 +194,8 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
     }
 
     @Override
-    public boolean damage(DamageSource source, float amount) {
-        boolean result = super.damage(source, amount);
+    public boolean damage(ServerWorld world, DamageSource source, float amount) {
+        boolean result =  super.damage(world, source, amount);
         if (result) {
             Entity attacker = source.getAttacker();
             if (attacker != null && attacker.getUuid().equals(getPledgedPlayerUUID())) {
@@ -202,18 +210,18 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
     }
 
     @Override
-    protected void dropEquipment(DamageSource source, int lootingMultiplier, boolean allowDrops) {
-        super.dropEquipment(source, lootingMultiplier, allowDrops);
+    protected void dropEquipment(ServerWorld world, DamageSource source, boolean causedByPlayer) {
+        super.dropEquipment(world, source, causedByPlayer);
         placeStrewnLeaves(getWorld(), getBlockPos()); // TODO: should we try to spawn strewn leaves when it is killed by the kill command? What about mob griefing?
     }
 
     public void placeStrewnLeaves(World world, BlockPos blockPos){
         List<BlockPos> possiblePositions = new ArrayList<>();
-        for(int x = -2; x <= 2; x++){
-            for(int z = -2; z <= 2; z++){
-                for(int y = -2; y <= 2; y++){
+        for (int x = -2; x <= 2; x++) {
+            for (int z = -2; z <= 2; z++) {
+                for (int y = -2; y <= 2; y++) {
                     BlockPos offsetPos = blockPos.add(x,y,z);
-                    if(!world.isClient && world.getBlockState(offsetPos).isReplaceable() && world.getBlockState(offsetPos.down()).isIn(BlockTags.DIRT) ){
+                    if (!world.isClient && world.getBlockState(offsetPos).isReplaceable() && world.getBlockState(offsetPos.down()).isIn(BlockTags.DIRT) ) {
                         possiblePositions.add(offsetPos);
                     }
                 }
@@ -221,8 +229,8 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
         }
         if (!possiblePositions.isEmpty()) {
             int random = this.random.nextBetween(2, 4);
-            for(int i = 0; i < random; i++){
-                if(possiblePositions.size() >= i){
+            for (int i = 0; i < random; i++) {
+                if (possiblePositions.size() >= i) {
                     BlockPos placePos = Util.getRandom(possiblePositions, this.random);
                     world.setBlockState(placePos, AylythBlocks.OAK_STREWN_LEAVES.getDefaultState());
                     playSound(AylythSoundEvents.BLOCK_STREWN_LEAVES_STEP.value(), getSoundVolume(), getSoundPitch());
@@ -233,11 +241,12 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
 
     @Nullable
     @Override
-    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
+    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
+        // TODO: Huh?
         if (getPledgedPlayerUUID() != null) {
 
         }
-        return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+        return super.initialize(world, difficulty, spawnReason, entityData);
     }
 
     @Override
@@ -317,14 +326,14 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
     @Override
     public UUID getPledgedPlayerUUID() {
         if (!getWorld().isClient) {
-            return ((AttachmentTarget)getWorld()).getAttachedOrCreate(AylythWorldAttachmentTypes.PLEDGE_STATE).getPledged(this);
+            return getWorld().getAttachedOrCreate(AylythWorldAttachmentTypes.PLEDGE_STATE).getPledged(this);
         }
         return null;
     }
 
     public void setPledgedPlayer(PlayerEntity player) {
         if (!getWorld().isClient) {
-            ((AttachmentTarget)getWorld()).getAttachedOrCreate(AylythWorldAttachmentTypes.PLEDGE_STATE).addPledge(player.getUuid(), this.getUuid());
+            getWorld().getAttachedOrCreate(AylythWorldAttachmentTypes.PLEDGE_STATE).addPledge(player.getUuid(), this.getUuid());
         }
         setIsPledged(true);
     }
@@ -332,7 +341,7 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
     @Override
     public void removePledge() {
         if (!getWorld().isClient) {
-            ((AttachmentTarget)getWorld()).getAttachedOrCreate(AylythWorldAttachmentTypes.PLEDGE_STATE).removePledge(this);
+            getWorld().getAttachedOrCreate(AylythWorldAttachmentTypes.PLEDGE_STATE).removePledge(this);
         }
         setIsPledged(false);
     }

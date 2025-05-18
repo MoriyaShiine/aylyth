@@ -29,6 +29,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.server.ServerConfigHandler;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
@@ -38,11 +39,10 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.Animation;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.animation.AnimationController;
+import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.EnumSet;
@@ -73,13 +73,11 @@ public class RippedSoulEntity extends HostileEntity implements GeoEntity, Flutte
     }
 
     @Override
-    public boolean damage(DamageSource source, float amount) {
-        if(!getWorld().isClient()) {
-            if (source.isIn(DamageTypeTags.IS_EXPLOSION)) {
-                return false;
-            }
+    public boolean damage(ServerWorld world, DamageSource source, float amount) {
+        if (source.isIn(DamageTypeTags.IS_EXPLOSION)) {
+            return false;
         }
-        return super.damage(source, amount);
+        return super.damage(world, source, amount);
     }
 
     @Override
@@ -90,11 +88,13 @@ public class RippedSoulEntity extends HostileEntity implements GeoEntity, Flutte
     @Override
     public void move(MovementType movementType, Vec3d movement) {
         super.move(movementType, movement);
-        this.checkBlockCollision();
+        this.tickBlockCollision();
     }
+
     public static DefaultAttributeContainer.Builder createVexAttributes() {
-        return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 2.0).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 4.0);
+        return HostileEntity.createHostileAttributes().add(EntityAttributes.MAX_HEALTH, 2.0).add(EntityAttributes.ATTACK_DAMAGE, 4.0);
     }
+
     @Override
     protected void initGoals() {
         super.initGoals();
@@ -105,7 +105,7 @@ public class RippedSoulEntity extends HostileEntity implements GeoEntity, Flutte
         this.goalSelector.add(10, new LookAtEntityGoal(this, MobEntity.class, 8.0f));
         this.targetSelector.add(1, new RevengeGoal(this).setGroupRevenge());
         this.targetSelector.add(2, new TrackOwnerTargetGoal(this));
-        this.targetSelector.add(3, new ActiveTargetGoal<>(this, PlayerEntity.class, true, player -> !isOwner(player)));
+        this.targetSelector.add(3, new ActiveTargetGoal<>(this, PlayerEntity.class, true, (target, world) -> !isOwner(target)));
     }
 
     @Override
@@ -114,19 +114,26 @@ public class RippedSoulEntity extends HostileEntity implements GeoEntity, Flutte
         super.tick();
         this.noClip = false;
         this.setNoGravity(true);
-        if(this.age > 1200 && random.nextInt(20) == 1 && !this.alive) {
+    }
+
+    @Override
+    protected void mobTick(ServerWorld world) {
+        super.mobTick(world);
+        if (this.age > 1200 && random.nextInt(20) == 1 && !this.alive) {
             this.alive = true;
         }
         if (this.alive && --this.lifeTicks <= 0) {
             this.lifeTicks = 20;
-            this.damage(getDamageSources().starve(), 1.0f);
+            this.damage(world, getDamageSources().starve(), 1.0f);
         }
     }
+
     @Override
-    protected void initDataTracker() {
-        super.initDataTracker();
-        this.dataTracker.startTracking(VEX_FLAGS, (byte)0);
-        this.dataTracker.startTracking(OWNER_UUID, Optional.of(UUID.fromString("1ece513b-8d36-4f04-9be2-f341aa8c9ee2")));
+    protected void initDataTracker(DataTracker.Builder builder) {
+        super.initDataTracker(builder
+                .add(VEX_FLAGS, (byte)0)
+                .add(OWNER_UUID, Optional.of(UUID.fromString("1ece513b-8d36-4f04-9be2-f341aa8c9ee2")))
+        );
     }
 
     @Override
@@ -352,7 +359,7 @@ public class RippedSoulEntity extends HostileEntity implements GeoEntity, Flutte
                 return;
             }
             if (RippedSoulEntity.this.getBoundingBox().intersects(livingEntity.getBoundingBox())) {
-                RippedSoulEntity.this.tryAttack(livingEntity);
+                RippedSoulEntity.this.tryAttack(getServerWorld(livingEntity), livingEntity);
                 RippedSoulEntity.this.setCharging(false);
             } else {
                 double d = RippedSoulEntity.this.squaredDistanceTo(livingEntity);

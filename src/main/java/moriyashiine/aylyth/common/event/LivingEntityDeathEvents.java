@@ -21,6 +21,7 @@ import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.minecraft.advancement.AdvancementEntry;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageTypes;
@@ -108,7 +109,7 @@ public class LivingEntityDeathEvents {
                 return true;
             }
             if (damageSource.isOf(AylythDamageTypes.YMPE) && ((HindPledgeHolder)player).getHindUuid() == null) {
-                ScionEntity.summonPlayerScion(player);
+                ScionEntity.summonPlayerScion(player, SpawnReason.MOB_SUMMONED);
                 WoodyGrowthCacheBlock.spawnInventory(player.getWorld(), player.getBlockPos(), player);
                 return true;
             }
@@ -143,7 +144,7 @@ public class LivingEntityDeathEvents {
                         ItemStack stack = player.getStackInHand(hand);
                         if (stack.isOf(AylythItems.AYLYTHIAN_HEART)) {
                             teleport = true;
-                            AylythUtil.decreaseStack(stack, player);
+                            stack.decrementUnlessCreative(1, player);
                             break;
                         }
                     }

@@ -19,16 +19,17 @@ import moriyashiine.aylyth.common.entity.types.projectile.YmpeLanceEntity;
 import moriyashiine.aylyth.common.item.AylythItems;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityType;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityAttachmentType;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.SpawnLocationTypes;
 import net.minecraft.entity.vehicle.BoatEntity;
 import net.minecraft.entity.vehicle.ChestBoatEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Heightmap;
 
 public interface AylythEntityTypes {
@@ -95,6 +96,8 @@ public interface AylythEntityTypes {
 			FabricEntityType.Builder.createLiving(BoneflyEntity::new, SpawnGroup.MONSTER, builder ->
 							builder.defaultAttributes(BoneflyEntity::createBoneflyAttributes)
 					)
+//					.passengerAttachments(new Vec3d(0.5, 2.3, 0))
+					.passengerAttachments(2.3f)
 					.dimensions(1.4f, 2.1f)
 					.makeFireImmune()
 	);

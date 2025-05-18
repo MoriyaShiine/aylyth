@@ -5,7 +5,6 @@ import moriyashiine.aylyth.common.entity.ai.goals.RootPropAttack;
 import moriyashiine.aylyth.common.world.AylythSoundEvents;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityData;
-import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
@@ -28,6 +27,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.tag.DamageTypeTags;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -37,11 +37,11 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.animation.AnimationController;
+import software.bernie.geckolib.animation.RawAnimation;
+import software.bernie.geckolib.animation.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class ElderAylythianEntity extends HostileEntity implements GeoEntity {
@@ -61,11 +61,11 @@ public class ElderAylythianEntity extends HostileEntity implements GeoEntity {
 	
 	public static DefaultAttributeContainer.Builder createAttributes() {
 		return MobEntity.createMobAttributes()
-				.add(EntityAttributes.GENERIC_MAX_HEALTH, 100)
-				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 13)
-				.add(EntityAttributes.GENERIC_ARMOR, 6)
-				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25)
-				.add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32);
+				.add(EntityAttributes.MAX_HEALTH, 100)
+				.add(EntityAttributes.ATTACK_DAMAGE, 13)
+				.add(EntityAttributes.ARMOR, 6)
+				.add(EntityAttributes.MOVEMENT_SPEED, 0.25)
+				.add(EntityAttributes.FOLLOW_RANGE, 32);
 	}
 	
 	@Override
@@ -131,19 +131,19 @@ public class ElderAylythianEntity extends HostileEntity implements GeoEntity {
 	public int getLimitPerChunk() {
 		return 1;
 	}
-	
+
 	@Override
-	public boolean damage(DamageSource source, float amount) {
+	public boolean damage(ServerWorld world, DamageSource source, float amount) {
 		setPersistent();
-		return super.damage(source, source.isIn(DamageTypeTags.IS_FIRE) ? amount * 2 : amount);
+		return super.damage(world, source, source.isIn(DamageTypeTags.IS_FIRE) ? amount * 2 : amount);
 	}
 
 	@Override
-	public boolean tryAttack(Entity target) {
+	public boolean tryAttack(ServerWorld world, Entity target) {
 		setPersistent();
-		return super.tryAttack(target);
+		return super.tryAttack(world, target);
 	}
-	
+
 	@Override
 	public void setTarget(@Nullable LivingEntity target) {
 		if (AylythianEntity.isTargetInBush(target)) {
@@ -151,10 +151,10 @@ public class ElderAylythianEntity extends HostileEntity implements GeoEntity {
 		}
 		super.setTarget(target);
 	}
-	
+
 	@Override
-	protected void dropEquipment(DamageSource source, int lootingMultiplier, boolean allowDrops) {
-		super.dropEquipment(source, lootingMultiplier, allowDrops);
+	protected void dropEquipment(ServerWorld world, DamageSource source, boolean causedByPlayer) {
+		super.dropEquipment(world, source, causedByPlayer);
 		if (!getWorld().isClient) {
 			int xOffset = Math.sin(bodyYaw * MathHelper.RADIANS_PER_DEGREE) > 0 ? 1 : -1;
 			int zOffset = Math.cos(bodyYaw * MathHelper.RADIANS_PER_DEGREE) > 0 ? 1 : -1;
@@ -176,14 +176,14 @@ public class ElderAylythianEntity extends HostileEntity implements GeoEntity {
 //			item.setCovetedItem();
 //		}
 	}
-	
+
 	@Nullable
 	@Override
-	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
+	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
 		dataTracker.set(VARIANT, random.nextInt(VARIANTS));
-		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+		return super.initialize(world, difficulty, spawnReason, entityData);
 	}
-	
+
 	@Override
 	protected void initGoals() {
 		super.initGoals();
@@ -196,13 +196,12 @@ public class ElderAylythianEntity extends HostileEntity implements GeoEntity {
 		targetSelector.add(0, new RevengeGoal(this));
 		targetSelector.add(1, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
 	}
-	
+
 	@Override
-	protected void initDataTracker() {
-		super.initDataTracker();
-		dataTracker.startTracking(VARIANT, 0);
+	protected void initDataTracker(DataTracker.Builder builder) {
+		super.initDataTracker(builder.add(VARIANT, 0));
 	}
-	
+
 	@Override
 	public void readCustomDataFromNbt(NbtCompound nbt) {
 		super.readCustomDataFromNbt(nbt);
@@ -215,8 +214,9 @@ public class ElderAylythianEntity extends HostileEntity implements GeoEntity {
 		nbt.putInt("Variant", dataTracker.get(VARIANT));
 	}
 
-	@Override
-	public EntityGroup getGroup() {
-		return EntityGroup.UNDEAD;
-	}
+	// TODO: Add ElderAylythian to undead tag
+//	@Override
+//	public EntityGroup getGroup() {
+//		return EntityGroup.UNDEAD;
+//	}
 }

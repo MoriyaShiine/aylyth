@@ -1,13 +1,14 @@
 package moriyashiine.aylyth.common.entity.types.projectile;
 
 import moriyashiine.aylyth.common.entity.AylythEntityTypes;
-import moriyashiine.aylyth.common.item.types.ThornFlechetteItem;
+import moriyashiine.aylyth.common.item.AylythDataComponentTypes;
+import moriyashiine.aylyth.common.item.AylythItems;
+import moriyashiine.aylyth.common.item.components.ThornFlechetteEffect;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -19,8 +20,8 @@ public class ThornFlechetteEntity extends PersistentProjectileEntity {
         super(entityType, world);
     }
 
-    public ThornFlechetteEntity(LivingEntity owner, World world) {
-        super(AylythEntityTypes.THORN_FLECHETTE, owner, world);
+    public ThornFlechetteEntity(LivingEntity owner, World world, ItemStack stack) {
+        super(AylythEntityTypes.THORN_FLECHETTE, owner, world, stack, null);
         this.setOwner(owner);
     }
 
@@ -33,9 +34,8 @@ public class ThornFlechetteEntity extends PersistentProjectileEntity {
     }
 
     @Override
-    protected void initDataTracker() {
-        super.initDataTracker();
-        dataTracker.startTracking(STACK, ItemStack.EMPTY);
+    protected void initDataTracker(DataTracker.Builder builder) {
+        super.initDataTracker(builder.add(STACK, ItemStack.EMPTY));
     }
 
     @Override
@@ -46,17 +46,19 @@ public class ThornFlechetteEntity extends PersistentProjectileEntity {
 
     @Override
     protected void onHit(LivingEntity target) {
-        if (getStack().getItem() instanceof ThornFlechetteItem item) {
-            if (item.getEffect() != null) {
-                if (random.nextFloat() < item.getEffect().chance()) {
-                    target.addStatusEffect(new StatusEffectInstance(item.getEffect().statusEffectInstance()));
-                }
-            }
+        ThornFlechetteEffect effect = getStack().get(AylythDataComponentTypes.THORN_FLECHETTE_EFFECT);
+        if (effect != null) {
+            effect.apply(target);
         }
     }
 
     @Override
     public ItemStack asItemStack() {
         return getStack();
+    }
+
+    @Override
+    protected ItemStack getDefaultItemStack() {
+        return AylythItems.THORN_FLECHETTE.getDefaultStack();
     }
 }

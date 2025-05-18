@@ -6,6 +6,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.mob.EvokerFangsEntity;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.world.World;
 
@@ -33,7 +34,7 @@ public class RootPropEntity extends EvokerFangsEntity {
     @Override
     public void tick() {
         super.tick();
-        if (this.getWorld().isClient) {
+        if (!(getWorld() instanceof ServerWorld serverWorld)) {
             if (this.playingAnimation) {
                 --this.ticksLeft;
                 if (this.ticksLeft == 14) {
@@ -53,7 +54,7 @@ public class RootPropEntity extends EvokerFangsEntity {
                 List<LivingEntity> list = this.getWorld().getNonSpectatingEntities(LivingEntity.class, this.getBoundingBox().expand(0.2, 0.0, 0.2));
 
                 for (LivingEntity livingEntity : list) {
-                    this.damage(livingEntity);
+                    this.damage(serverWorld, livingEntity);
                 }
             }
 
@@ -69,16 +70,16 @@ public class RootPropEntity extends EvokerFangsEntity {
 
     }
 
-    private void damage(LivingEntity target) {
+    private void damage(ServerWorld serverWorld, LivingEntity target) {
         LivingEntity livingEntity = this.getOwner();
         if (target.isAlive() && !target.isInvulnerable() && target != livingEntity) {
             if (livingEntity == null) {
-                target.damage(getDamageSources().magic(), 6.0F);
+                target.damage(serverWorld, getDamageSources().magic(), 6.0F);
             } else {
                 if (livingEntity.isTeammate(target)) {
                     return;
                 }
-                target.damage(getDamageSources().indirectMagic(this, livingEntity), 6.0F);
+                target.damage(serverWorld, getDamageSources().indirectMagic(this, livingEntity), 6.0F);
             }
 
         }

@@ -1,20 +1,23 @@
 package moriyashiine.aylyth.common.entity.types.mob;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import moriyashiine.aylyth.api.interfaces.ProlongedDeath;
+import moriyashiine.aylyth.common.entity.AylythEntityAttachmentTypes;
 import moriyashiine.aylyth.common.entity.AylythEntityTypes;
+import moriyashiine.aylyth.common.entity.attachments.RiderControls;
 import moriyashiine.aylyth.common.item.AylythItems;
-import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.mixin.EntityAccessor;
+import moriyashiine.aylyth.mixin.LivingEntityAccessor;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityGroup;
+import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MovementType;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.FuzzyTargeting;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.SwimGoal;
@@ -36,6 +39,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.server.ServerConfigHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -46,12 +50,12 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.animation.AnimationController;
+import software.bernie.geckolib.animation.AnimationState;
+import software.bernie.geckolib.animation.PlayState;
+import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.List;
@@ -78,7 +82,6 @@ public class BoneflyEntity extends HostileEntity implements GeoEntity, TameableH
     public int stabTicks = 0;
     public BoneflyEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
-        this.setStepHeight(1.5f);
         this.setPersistent();
     }
 
@@ -88,14 +91,24 @@ public class BoneflyEntity extends HostileEntity implements GeoEntity, TameableH
     }
 
     public static DefaultAttributeContainer.Builder createBoneflyAttributes() {
-        return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 60).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 8).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.32).add(EntityAttributes.GENERIC_FLYING_SPEED, 0.4).add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0f).add(EntityAttributes.GENERIC_ARMOR, 24f);
+        return MobEntity.createMobAttributes()
+                .add(EntityAttributes.MAX_HEALTH, 60)
+                .add(EntityAttributes.ATTACK_DAMAGE, 8)
+                .add(EntityAttributes.MOVEMENT_SPEED, 0.32)
+                .add(EntityAttributes.FLYING_SPEED, 0.4)
+                .add(EntityAttributes.KNOCKBACK_RESISTANCE, 1.0f)
+                .add(EntityAttributes.ARMOR, 24f)
+                .add(EntityAttributes.STEP_HEIGHT, 1.5f);
     }
-    protected void initDataTracker() {
-        super.initDataTracker();
-        this.dataTracker.startTracking(DORMANT, false);
-        this.dataTracker.startTracking(ACTION_STATE, 0);
-        this.dataTracker.startTracking(OWNER_UUID, Optional.of(UUID.fromString("1ece513b-8d36-4f04-9be2-f341aa8c9ee2")));
+
+    @Override
+    protected void initDataTracker(DataTracker.Builder builder) {
+        super.initDataTracker(builder);
+        builder.add(DORMANT, false);
+        builder.add(ACTION_STATE, 0);
+        builder.add(OWNER_UUID, Optional.of(UUID.fromString("1ece513b-8d36-4f04-9be2-f341aa8c9ee2")));
     }
+
     @Override
     public boolean handleFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource) {
         return false;
@@ -165,7 +178,8 @@ public class BoneflyEntity extends HostileEntity implements GeoEntity, TameableH
 
     @Override
     protected boolean isFlappingWings() {
-        return this.isInAir();
+        // TODO: Check whether this works to reduce the flapping noise
+        return this.isInAir() && age % 40 == 0;
     }
 
     public int getActionState() {
@@ -183,7 +197,7 @@ public class BoneflyEntity extends HostileEntity implements GeoEntity, TameableH
     @Override
     public void travel(Vec3d travelVector) {
         boolean flying = this.isInAir();
-        float speed = (float) this.getAttributeValue(flying ? EntityAttributes.GENERIC_FLYING_SPEED : EntityAttributes.GENERIC_MOVEMENT_SPEED);
+        float speed = (float) this.getAttributeValue(flying ? EntityAttributes.FLYING_SPEED : EntityAttributes.MOVEMENT_SPEED);
         if (!this.hasPassengers() && !this.canBeControlledByRider()) {
             super.travel(travelVector);
             return;
@@ -194,8 +208,9 @@ public class BoneflyEntity extends HostileEntity implements GeoEntity, TameableH
             this.serverHeadYaw = this.headYaw;
             this.serverYaw = this.serverYaw - livingEntityPassenger.sidewaysSpeed * 2f;
             this.serverPitch = livingEntityPassenger.getPitch() * 0.5F;
-            boolean isPlayerUpwardsMoving = AylythEntityComponents.RIDER_COMPONENT.get(livingEntityPassenger).isPressingUp();
-            boolean isPlayerDownwardsMoving = AylythEntityComponents.RIDER_COMPONENT.get(livingEntityPassenger).isPressingDown();
+            RiderControls controls = livingEntityPassenger.getAttachedOrCreate(AylythEntityAttachmentTypes.RIDER);
+            boolean isPlayerUpwardsMoving = controls.isPressingUp();
+            boolean isPlayerDownwardsMoving = controls.isPressingDown();
             double getFlightDelta = isPlayerUpwardsMoving && isPlayerDownwardsMoving ? 0 : isPlayerUpwardsMoving ? 0.8 : isPlayerDownwardsMoving ? -0.6 : 0;
             this.setPitch((float) this.serverPitch);
             this.setYaw((float) this.serverYaw);
@@ -227,16 +242,15 @@ public class BoneflyEntity extends HostileEntity implements GeoEntity, TameableH
                 return;
             }
         }
+
         if (flying) {
-            this.applyMovementInput(travelVector, speed);
+            ((LivingEntityAccessor)this).invokeApplyMovementInput(travelVector, speed);
             this.move(MovementType.SELF, getVelocity());
             this.setVelocity(getVelocity().multiply(0.91f));
             this.updateLimbs(false);
             this.updatePositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
-        }
-        else {
+        } else {
             super.travel(travelVector);
-            this.updateLeash();
         }
     }
     @Override
@@ -245,22 +259,22 @@ public class BoneflyEntity extends HostileEntity implements GeoEntity, TameableH
         if (age % 20 == 0 && getHealth() < getMaxHealth() && isDormant()) {
             heal(2);
         }
-        if(isDormant()) {
+        if (isDormant()) {
             setVelocity(0, getVelocity().y, 0);
             setPitch(0);
         }
-        if(this.getActionState() == 1) {
+        if (this.getActionState() == 1) {
             stabTicks++;
-            if(stabTicks >= 10) {
+            if (stabTicks >= 10) {
                 this.setActionState(2);
-                if(!this.getWorld().isClient() && !this.getWorld().getEntitiesByClass(LivingEntity.class, this.getBoundingBox().offset(0, -2, 0).expand(1), entity -> entity != this).isEmpty() && this.getPassengerList().size() <= 1) {
-                    LivingEntity livingEntity = this.getWorld().getClosestEntity(this.getWorld().getEntitiesByClass(LivingEntity.class, this.getBoundingBox().offset(0, -2, 0).expand(1), entity -> entity != this), TargetPredicate.createAttackable(), this, this.getX(), this.getY(), this.getZ());
-                    if(livingEntity != null) {
-                        if(!(livingEntity instanceof PlayerEntity player)) {
-                            this.tryAttack(livingEntity);
+                if (this.getWorld() instanceof ServerWorld serverWorld && !serverWorld.getEntitiesByClass(LivingEntity.class, this.getBoundingBox().offset(0, -2, 0).expand(1), entity -> entity != this).isEmpty() && this.getPassengerList().size() <= 1) {
+                    LivingEntity livingEntity = serverWorld.getClosestEntity(serverWorld.getEntitiesByClass(LivingEntity.class, this.getBoundingBox().offset(0, -2, 0).expand(1), entity -> entity != this), TargetPredicate.createAttackable(), this, this.getX(), this.getY(), this.getZ());
+                    if (livingEntity != null) {
+                        if (!(livingEntity instanceof PlayerEntity player)) {
+                            this.tryAttack(serverWorld, livingEntity);
                             livingEntity.startRiding(this, true);
                         } else {
-                            this.tryAttack(livingEntity);
+                            this.tryAttack(serverWorld, livingEntity);
                             playerStartRiding(this, player);
                         }
                     }
@@ -269,6 +283,7 @@ public class BoneflyEntity extends HostileEntity implements GeoEntity, TameableH
             }
         }
     }
+
     private void playerStartRiding(Entity entity, PlayerEntity player) {
         if (entity == player.getVehicle()) {
             return;
@@ -288,14 +303,15 @@ public class BoneflyEntity extends HostileEntity implements GeoEntity, TameableH
         boneflyAddPassenger(player, player.getVehicle());
         ((EntityAccessor) entity).invokeStreamIntoPassengers().filter(passenger -> passenger instanceof ServerPlayerEntity).forEach(playr -> Criteria.STARTED_RIDING.trigger((ServerPlayerEntity)playr));
     }
+
     protected void boneflyAddPassenger(Entity passenger, Entity adder) {
         if (passenger.getVehicle() != this) {
             throw new IllegalStateException("Use x.startRiding(y), not y.addPassenger(x)");
         } else {
-            if (adder.passengerList.isEmpty()) {
+            if (adder.hasPassengers()) {
                 adder.passengerList = ImmutableList.of(passenger);
             } else {
-                List<Entity> list = Lists.newArrayList(adder.passengerList);
+                List<Entity> list = new ObjectArrayList<>(adder.passengerList);
                 list.add(passenger);
 
                 adder.passengerList = ImmutableList.copyOf(list);
@@ -303,15 +319,15 @@ public class BoneflyEntity extends HostileEntity implements GeoEntity, TameableH
 
         }
     }
+
     @Override
-    public boolean damage(DamageSource source, float amount) {
-        if(!getWorld().isClient()) {
-            if (source.getAttacker() != null && source.getAttacker() instanceof PlayerEntity player && player.isHolding(AylythItems.YMPE_EFFIGY)) {
-                this.setOwner(player);
-            }
+    public boolean damage(ServerWorld world, DamageSource source, float amount) {
+        if (source.getAttacker() != null && source.getAttacker() instanceof PlayerEntity player && player.isHolding(AylythItems.YMPE_EFFIGY)) {
+            this.setOwner(player);
         }
-        return super.damage(source, amount);
+        return super.damage(world, source, amount);
     }
+
     public boolean isInAir() {
         return this.isHighEnough((int) getStepHeight() + 1);
     }
@@ -328,10 +344,11 @@ public class BoneflyEntity extends HostileEntity implements GeoEntity, TameableH
         return this.getY() - mutable.getY() - 0.11;
     }
 
+    @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack stack = player.getStackInHand(hand);
         if((stack.getItem().equals(Items.BONE_BLOCK) || stack.isIn(ItemTags.SOUL_FIRE_BASE_BLOCKS)) && this.getHealth() < this.getMaxHealth()) {
-            AylythUtil.decreaseStack(stack, player);
+            stack.decrementUnlessCreative(1, player);
             this.heal(1);
         }
         if (this.isOwner(player) && stack.isEmpty() && this.isTamed() && !this.hasPassengers()) {
@@ -352,14 +369,11 @@ public class BoneflyEntity extends HostileEntity implements GeoEntity, TameableH
 
     @Override
     public void updatePassengerPosition(Entity passenger, PositionUpdater positionUpdater) {
-        if (!this.hasPassenger(passenger)) {
-            return;
-        }
-        if(getFirstPassenger() == passenger) {
-            float f = 0.5f;
-            float g = (float) ((this.isRemoved() ? (double) 0.01f : this.getMountedHeightOffset()) + passenger.getHeightOffset());
-            Vec3d vec3d = new Vec3d(f, 0.0, 0.0).rotateY(-this.getYaw() * MathHelper.RADIANS_PER_DEGREE - MathHelper.HALF_PI);
-            passenger.setPosition(this.getX() + vec3d.x, this.getY() + (double) g, this.getZ() + vec3d.z);
+        if (getFirstPassenger() == passenger) {
+            Vec3d position = this.getPassengerRidingPos(passenger)
+                    .add(passenger.getVehicleAttachmentPos(this))
+                    .rotateY(-this.getYaw() * MathHelper.RADIANS_PER_DEGREE - MathHelper.HALF_PI);
+            passenger.setPosition(position.x, position.y, position.z);
             passenger.setYaw(passenger.getYaw());
             passenger.setHeadYaw(passenger.getHeadYaw());
         } else {
@@ -370,25 +384,19 @@ public class BoneflyEntity extends HostileEntity implements GeoEntity, TameableH
     }
 
     @Override
-    public double getMountedHeightOffset() {
-        return 2.3;
+    protected Vec3d getPassengerAttachmentPos(Entity passenger, EntityDimensions dimensions, float scaleFactor) {
+        return super.getPassengerAttachmentPos(passenger, dimensions, scaleFactor);
     }
-
-
 
     public boolean canBeControlledByRider() {
         return this.getFirstPassenger() instanceof LivingEntity;
     }
 
-    @Override
-    public EntityGroup getGroup() {
-        return EntityGroup.UNDEAD;
-    }
-
-    @Override
-    public boolean isUndead() {
-        return true;
-    }
+    // TODO: Add Bonefly to undead tag
+//    @Override
+//    public EntityGroup getGroup() {
+//        return EntityGroup.UNDEAD;
+//    }
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar animationData) {
@@ -493,8 +501,8 @@ public class BoneflyEntity extends HostileEntity implements GeoEntity, TameableH
 
     }
 
-    public static BoneflyEntity create(World world, BlockPos pos, float yaw, float pitch, @Nullable PlayerEntity owner) {
-        BoneflyEntity bonefly = AylythEntityTypes.BONEFLY.create(world);
+    public static BoneflyEntity create(World world, BlockPos pos, float yaw, float pitch, SpawnReason reason, @Nullable PlayerEntity owner) {
+        BoneflyEntity bonefly = AylythEntityTypes.BONEFLY.create(world, reason);
         bonefly.refreshPositionAndAngles(pos, yaw, pitch);
         if (owner != null) {
             bonefly.setOwner(owner);

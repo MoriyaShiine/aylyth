@@ -1,13 +1,11 @@
 package moriyashiine.aylyth.common.entity.types.mob;
 
 import io.netty.buffer.ByteBuf;
-import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.data.world.AylythDimensionData;
 import moriyashiine.aylyth.common.entity.AylythEntityTypes;
 import moriyashiine.aylyth.common.entity.AylythTrackedDataHandlers;
 import moriyashiine.aylyth.common.particle.AylythParticleTypes;
 import moriyashiine.aylyth.common.util.AylythUtil;
-import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
@@ -16,7 +14,6 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.control.FlightMoveControl;
 import net.minecraft.entity.ai.pathing.BirdNavigation;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
-import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.data.DataTracker;
@@ -29,28 +26,21 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ChunkTicketType;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.StringIdentifiable;
 import net.minecraft.util.function.ValueLists;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.world.Heightmap;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.TeleportTarget;
 import net.minecraft.world.World;
-import net.minecraft.world.chunk.Chunk;
-import net.minecraft.world.chunk.ChunkStatus;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Optional;
-import java.util.function.BooleanSupplier;
 import java.util.function.IntFunction;
 
 public class PilotLightEntity extends AmbientEntity implements Flutterer {
@@ -66,8 +56,8 @@ public class PilotLightEntity extends AmbientEntity implements Flutterer {
 	 * @return New pilot light entity
 	 */
 	@Nullable
-	public static PilotLightEntity createGreenPilotLight(World world) {
-		PilotLightEntity entity = AylythEntityTypes.PILOT_LIGHT.create(world);
+	public static PilotLightEntity createGreenPilotLight(World world, SpawnReason reason) {
+		PilotLightEntity entity = AylythEntityTypes.PILOT_LIGHT.create(world, reason);
 		if (entity == null) {
 			return null;
 		}
@@ -75,8 +65,25 @@ public class PilotLightEntity extends AmbientEntity implements Flutterer {
 		return entity;
 	}
 
+	@Nullable
+	@Override
+	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
+		setColor(random.nextBoolean() ? Color.YELLOW : Color.BLUE);
+		return super.initialize(world, difficulty, spawnReason, entityData);
+	}
+
+	@Override
+	protected void initDataTracker(DataTracker.Builder builder) {
+		super.initDataTracker(builder
+				.add(COLOR, Color.YELLOW)
+		);
+	}
+
 	public static DefaultAttributeContainer.Builder createAttributes() {
-		return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 5).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25).add(EntityAttributes.GENERIC_FLYING_SPEED, 0.25);
+		return MobEntity.createMobAttributes()
+				.add(EntityAttributes.MAX_HEALTH, 5)
+				.add(EntityAttributes.MOVEMENT_SPEED, 0.25)
+				.add(EntityAttributes.FLYING_SPEED, 0.25);
 	}
 	
 	@Override
@@ -88,16 +95,21 @@ public class PilotLightEntity extends AmbientEntity implements Flutterer {
 	protected EntityNavigation createNavigation(World world) {
 		return new BirdNavigation(this, world);
 	}
-	
-	@Override
-	public void tick() {
-		super.tick();
 
+	@Override
+	protected void mobTick(ServerWorld world) {
+		super.mobTick(world);
+		// TODO: Check that this still works as expected
 		boolean wet = isWet();
 		setInvulnerable(!wet);
 		if (wet) {
-			damage(getDamageSources().drown(), 1);
+			damage(world, getDamageSources().drown(), 1);
 		}
+	}
+
+	@Override
+	public void tick() {
+		super.tick();
 
 		if (getWorld().isClient) {
 			switch (getColor()) {
@@ -129,19 +141,8 @@ public class PilotLightEntity extends AmbientEntity implements Flutterer {
 				remove(RemovalReason.DISCARDED);
 				return ActionResult.SUCCESS;
 			} else if (player.isCreative() || player.experienceLevel >= 5) {
-				ServerWorld toWorld = serverPlayer.server.getWorld(serverPlayer.getSpawnPointDimension());
-				if (toWorld != null && serverPlayer.getSpawnPointPosition() != null) {
-					Optional<Vec3d> spawnPos = PlayerEntity.findRespawnPosition(toWorld, serverPlayer.getSpawnPointPosition(), serverPlayer.getSpawnAngle(), serverPlayer.isSpawnForced(), true);
-					if (spawnPos.isPresent()) {
-						FabricDimensions.teleport(player, toWorld, new TeleportTarget(spawnPos.get(), Vec3d.ZERO, player.getYaw(), player.getPitch()));
-					}
-				} else {
-					if (toWorld == null) {
-						toWorld = serverPlayer.server.getOverworld();
-					}
-					BlockPos spawnPos = toWorld.getSpawnPos();
-					AylythUtil.teleportTo(toWorld, player, spawnPos, AylythUtil::findTeleportPosition);
-				}
+				// TODO: Check that this still works well
+				player.teleportTo(serverPlayer.getRespawnTarget(true, TeleportTarget.NO_OP));
 
 				if (!player.isCreative()) {
 					player.addExperienceLevels(-5);
@@ -169,19 +170,6 @@ public class PilotLightEntity extends AmbientEntity implements Flutterer {
 
 
 
-	@Nullable
-	@Override
-	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
-		setColor(random.nextBoolean() ? Color.YELLOW : Color.BLUE);
-		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
-	}
-	
-	@Override
-	protected void initDataTracker() {
-		super.initDataTracker();
-		this.dataTracker.startTracking(COLOR, Color.YELLOW);
-	}
-	
 	@Override
 	public void writeCustomDataToNbt(NbtCompound nbt) {
 		super.writeCustomDataToNbt(nbt);
@@ -192,7 +180,7 @@ public class PilotLightEntity extends AmbientEntity implements Flutterer {
 	public void readCustomDataFromNbt(NbtCompound nbt) {
 		super.readCustomDataFromNbt(nbt);
 		if (nbt.contains("color")) {
-			setColor(Color.CODEC.parse(NbtOps.INSTANCE, nbt.get("color")).getOrThrow(false, s -> {}));
+			setColor(Color.CODEC.parse(NbtOps.INSTANCE, nbt.get("color")).getOrThrow());
 		}
 	}
 	
