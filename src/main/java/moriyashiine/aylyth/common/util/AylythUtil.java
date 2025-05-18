@@ -7,17 +7,16 @@ import moriyashiine.aylyth.common.network.packets.SpawnParticlesAroundPacketS2C;
 import moriyashiine.aylyth.common.particle.AylythParticleTypes;
 import moriyashiine.aylyth.common.world.AylythPointOfInterestTypes;
 import moriyashiine.aylyth.common.world.AylythSoundEvents;
-import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.tag.EntityTypeTags;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ChunkTicketType;
@@ -30,23 +29,15 @@ import net.minecraft.world.Heightmap;
 import net.minecraft.world.TeleportTarget;
 import net.minecraft.world.chunk.ChunkStatus;
 import net.minecraft.world.poi.PointOfInterestStorage;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.function.BiFunction;
 
 public class AylythUtil {
-	public static void decreaseStack(ItemStack stack, @Nullable LivingEntity living) {
-		if (living instanceof PlayerEntity player && player.getAbilities().creativeMode) {
-			return;
-		}
-		stack.decrement(1);
-	}
-
 	public static void teleportToShucked(LivingEntity living, ServerWorld newWorld) {
 		living.getWorld().playSoundFromEntity(living instanceof PlayerEntity player ? player : null, living, AylythSoundEvents.ENTITY_GENERIC_SHUCKED.value(), SoundCategory.PLAYERS, 1, living.getSoundPitch());
 		teleportTo(newWorld, living, living.getBlockPos(), AylythUtil::findTeleportPosition, (serverWorld, blockPos, entity) -> {
-			serverWorld.playSoundFromEntity(null, entity, AylythSoundEvents.ENTITY_GENERIC_SHUCKED.value(), SoundCategory.PLAYERS, 1, entity.getSoundPitch());
+			serverWorld.playSoundFromEntity(null, entity, AylythSoundEvents.ENTITY_GENERIC_SHUCKED.value(), SoundCategory.PLAYERS, 1, 1);
 		});
 	}
 
@@ -54,22 +45,22 @@ public class AylythUtil {
 		teleportTo(toWorld, entity, startPos, positionFinder, (serverWorld, blockPos, entity1) -> {});
 	}
 
-	public static <E extends Entity> void teleportTo(ServerWorld toWorld, E entity, BlockPos startPos, BiFunction<ServerWorld, BlockPos, BlockPos> positionFinder, TeleportCallback<E> onTeleport) {
+	public static void teleportTo(ServerWorld toWorld, Entity entity, BlockPos startPos, BiFunction<ServerWorld, BlockPos, BlockPos> positionFinder, TeleportCallback onTeleport) {
 		ChunkPos chunkPos = new ChunkPos(startPos);
 		toWorld.getChunkManager().addTicket(ChunkTicketType.PORTAL, chunkPos, 3, startPos);
-		E teleportedEntity = FabricDimensions.teleport(entity, toWorld, new TeleportTarget(entity.getPos(), Vec3d.ZERO, entity.getYaw(), entity.getPitch()));
+		Entity teleportedEntity = entity.teleportTo(new TeleportTarget(toWorld, entity.getPos(), Vec3d.ZERO, entity.getYaw(), entity.getPitch(), TeleportTarget.NO_OP));
 		if (teleportedEntity != null) {
 			toWorld.getChunkManager().getChunkFutureSyncOnMainThread(chunkPos.x, chunkPos.z, ChunkStatus.EMPTY, true)
 					.thenRun(() -> {
 						BlockPos newPos = positionFinder.apply(toWorld, startPos);
-						teleportedEntity.teleport(newPos.getX() + 0.5, newPos.getY() + 0.1, newPos.getZ() + 0.5);
+						teleportedEntity.refreshPositionAfterTeleport(newPos.getX() + 0.5, newPos.getY() + 0.1, newPos.getZ() + 0.5);
 						onTeleport.onTeleport(toWorld, newPos, teleportedEntity);
 					});
 		}
 	}
 
-	public interface TeleportCallback<T extends Entity> {
-		void onTeleport(ServerWorld world, BlockPos pos, T entity);
+	public interface TeleportCallback {
+		void onTeleport(ServerWorld world, BlockPos pos, Entity entity);
 	}
 
 	/**
@@ -94,7 +85,7 @@ public class AylythUtil {
 	}
 
 	public static boolean shouldUndeadAttack(LivingEntity target, LivingEntity attacker) {
-		return attacker.getAttacker() != target && target.hasStatusEffect(AylythStatusEffects.CIMMERIAN) && attacker.getGroup() == EntityGroup.UNDEAD;
+		return attacker.getAttacker() != target && target.hasStatusEffect(AylythStatusEffects.CIMMERIAN) && attacker.getType().isIn(EntityTypeTags.UNDEAD);
 	}
 
 	public static boolean isNearSeep(ServerWorld serverWorld, LivingEntity livingEntity, int radius) {

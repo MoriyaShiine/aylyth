@@ -8,10 +8,12 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.CampfireBlock;
 import net.minecraft.block.entity.CampfireBlockEntity;
-import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.item.ToolMaterial;
+import net.minecraft.recipe.RecipeEntry;
+import net.minecraft.recipe.input.RecipeInput;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
@@ -31,23 +33,32 @@ public class YmpeDaggerItem extends DaggerItem {
 	@Override
 	public ActionResult useOnBlock(ItemUsageContext context) {
 		World world = context.getWorld();
-		if (!world.isClient()) {
+		if (world instanceof ServerWorld serverWorld) {
 			BlockPos blockPos = context.getBlockPos();
 			if (world.getBlockState(blockPos).isOf(Blocks.SOUL_CAMPFIRE) && world.getBlockEntity(blockPos) instanceof CampfireBlockEntity campfireBlockEntity) {
 				DefaultedList<ItemStack> items = campfireBlockEntity.getItemsBeingCooked();
-				SimpleInventory inv = new SimpleInventory(4);
-				items.forEach(inv::addStack);
-				SoulCampfireRecipe recipe = world.getRecipeManager().getFirstMatch(AylythRecipeTypes.SOULFIRE_TYPE, inv, world).orElse(null);
+				RecipeInput input = new RecipeInput() {
+					@Override
+					public ItemStack getStackInSlot(int slot) {
+						return items.get(slot);
+					}
+
+					@Override
+					public int size() {
+						return items.size();
+					}
+				};
+				SoulCampfireRecipe recipe = serverWorld.getRecipeManager().getFirstMatch(AylythRecipeTypes.SOULFIRE_TYPE, input, world).map(RecipeEntry::value).orElse(null);
 				List<BlockPos> saplingsAround = getSaplingsAround(world, blockPos);
 				if (recipe != null && !saplingsAround.isEmpty()) {
 					world.playSound(null, blockPos, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.BLOCKS, 1, 1);
-					ItemStack recipeOutput = recipe.craft(inv, world.getRegistryManager());
+					ItemStack recipeOutput = recipe.craft(input, world.getRegistryManager());
 					ItemScatterer.spawn(world, blockPos.getX(), blockPos.getY(), blockPos.getZ(), recipeOutput);
 					CampfireBlock.extinguish(null, world, blockPos, world.getBlockState(blockPos));
 					world.setBlockState(blockPos, world.getBlockState(blockPos).with(CampfireBlock.LIT, false), Block.NOTIFY_ALL);
 					saplingsAround.forEach(sapling -> world.breakBlock(sapling, false));
 					campfireBlockEntity.getItemsBeingCooked().clear();
-					return ActionResult.success(world.isClient);
+					return ActionResult.SUCCESS;
 				}
 			}
 		}

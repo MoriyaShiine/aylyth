@@ -4,10 +4,9 @@ import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 
 import static moriyashiine.aylyth.common.item.AylythItems.*;
 
-public final class AylythCompostingChances {
-    private AylythCompostingChances() {}
+public interface AylythCompostingChances {
 
-    public static void register() {
+    static void register() {
         var registry = CompostingChanceRegistry.INSTANCE;
 
         registry.add(YMPE_LEAVES, 0.3f);

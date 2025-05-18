@@ -2,6 +2,8 @@ package moriyashiine.aylyth.common.item;
 
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.block.AylythBlocks;
+import moriyashiine.aylyth.common.data.AylythJukeboxSongs;
+import moriyashiine.aylyth.common.data.tag.AylythItemTags;
 import moriyashiine.aylyth.common.entity.AylythEntityTypes;
 import moriyashiine.aylyth.common.entity.AylythStatusEffects;
 import moriyashiine.aylyth.common.item.components.ThornFlechetteEffect;
@@ -21,8 +23,8 @@ import moriyashiine.aylyth.common.item.types.YmpeFlambergeItem;
 import moriyashiine.aylyth.common.item.types.YmpeGlaiveItem;
 import moriyashiine.aylyth.common.item.types.YmpeLanceItem;
 import moriyashiine.aylyth.common.item.types.YmpeScytheItem;
-import moriyashiine.aylyth.common.world.AylythSoundEvents;
 import net.minecraft.block.Block;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ConsumableComponent;
 import net.minecraft.component.type.FoodComponent;
 import net.minecraft.entity.EntityType;
@@ -30,6 +32,7 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.BoatItem;
 import net.minecraft.item.HangingSignItem;
 import net.minecraft.item.HoeItem;
 import net.minecraft.item.Item;
@@ -46,7 +49,6 @@ import net.minecraft.util.Rarity;
 import net.minecraft.util.math.Direction;
 
 public interface AylythItems {
-
     Item DEBUG_WAND = register("debug_wand", new DebugWandItem(settings()));
 
     Item SAPSTONE =  registerBlockItem("sapstone", AylythBlocks.SAPSTONE);
@@ -86,8 +88,8 @@ public interface AylythItems {
     Item YMPE_TRAPDOOR = registerBlockItem("ympe_trapdoor", AylythBlocks.YMPE_TRAPDOOR);
     Item YMPE_DOOR = register("ympe_door", new TallBlockItem(AylythBlocks.YMPE_DOOR, settings()));
     Item YMPE_SIGN = register("ympe_sign", new SignItem(AylythBlocks.YMPE_SIGN, AylythBlocks.YMPE_WALL_SIGN, settings().maxCount(16)));
-    Item YMPE_BOAT = register("ympe_boat", new TerraformBoatItem(AylythBoatTypes.YMPE, false, settings().maxCount(1)));
-    Item YMPE_CHEST_BOAT = register("ympe_chest_boat", new TerraformBoatItem(AylythBoatTypes.YMPE, true, settings().maxCount(1)));
+    Item YMPE_BOAT = register("ympe_boat", new BoatItem(AylythEntityTypes.YMPE_BOAT, settings().maxCount(1)));
+    Item YMPE_CHEST_BOAT = register("ympe_chest_boat", new BoatItem(AylythEntityTypes.YMPE_CHEST_BOAT, settings().maxCount(1)));
     Item YMPE_HANGING_SIGN = register("ympe_hanging_sign", new HangingSignItem(AylythBlocks.YMPE_HANGING_SIGN, AylythBlocks.YMPE_WALL_HANGING_SIGN, settings()));
     Item YMPE_LEAVES = registerBlockItem("ympe_leaves", AylythBlocks.YMPE_LEAVES);
     Item FRUIT_BEARING_YMPE_LOG = registerBlockItem("fruit_bearing_ympe_log", AylythBlocks.FRUIT_BEARING_YMPE_LOG);
@@ -109,8 +111,8 @@ public interface AylythItems {
     Item POMEGRANATE_TRAPDOOR = registerBlockItem("pomegranate_trapdoor", AylythBlocks.POMEGRANATE_TRAPDOOR);
     Item POMEGRANATE_DOOR = register("pomegranate_door", new TallBlockItem(AylythBlocks.POMEGRANATE_DOOR, settings()));
     Item POMEGRANATE_SIGN = register("pomegranate_sign", new SignItem(AylythBlocks.POMEGRANATE_SIGN, AylythBlocks.POMEGRANATE_WALL_SIGN, settings().maxCount(16)));
-    Item POMEGRANATE_BOAT = register("pomegranate_boat", new TerraformBoatItem(AylythBoatTypes.POMEGRANATE, false, settings().maxCount(1)));
-    Item POMEGRANATE_CHEST_BOAT = register("pomegranate_chest_boat", new TerraformBoatItem(AylythBoatTypes.YMPE, true, settings().maxCount(1)));
+    Item POMEGRANATE_BOAT = register("pomegranate_boat", new BoatItem(AylythEntityTypes.POMEGRANATE_BOAT, settings().maxCount(1)));
+    Item POMEGRANATE_CHEST_BOAT = register("pomegranate_chest_boat", new BoatItem(AylythEntityTypes.POMEGRANATE_CHEST_BOAT, settings().maxCount(1)));
     Item POMEGRANATE_HANGING_SIGN = register("pomegranate_hanging_sign", new HangingSignItem(AylythBlocks.POMEGRANATE_HANGING_SIGN, AylythBlocks.POMEGRANATE_WALL_HANGING_SIGN, settings()));
     Item POMEGRANATE_LEAVES = registerBlockItem("pomegranate_leaves", AylythBlocks.POMEGRANATE_LEAVES);
 
@@ -129,15 +131,15 @@ public interface AylythItems {
     Item WRITHEWOOD_TRAPDOOR = registerBlockItem("writhewood_trapdoor", AylythBlocks.WRITHEWOOD_TRAPDOOR);
     Item WRITHEWOOD_DOOR = register("writhewood_door", new TallBlockItem(AylythBlocks.WRITHEWOOD_DOOR, settings()));
     Item WRITHEWOOD_SIGN = register("writhewood_sign", new SignItem(AylythBlocks.WRITHEWOOD_SIGN, AylythBlocks.WRITHEWOOD_WALL_SIGN, settings().maxCount(16)));
-    Item WRITHEWOOD_BOAT = register("writhewood_boat", new TerraformBoatItem(AylythBoatTypes.WRITHEWOOD, false, settings().maxCount(1)));
-    Item WRITHEWOOD_CHEST_BOAT = register("writhewood_chest_boat", new TerraformBoatItem(AylythBoatTypes.YMPE, true, settings().maxCount(1)));
+    Item WRITHEWOOD_BOAT = register("writhewood_boat", new BoatItem(AylythEntityTypes.WRITHEWOOD_BOAT, settings().maxCount(1)));
+    Item WRITHEWOOD_CHEST_BOAT = register("writhewood_chest_boat", new BoatItem(AylythEntityTypes.WRITHEWOOD_CHEST_BOAT, settings().maxCount(1)));
     Item WRITHEWOOD_HANGING_SIGN = register("writhewood_hanging_sign", new HangingSignItem(AylythBlocks.WRITHEWOOD_HANGING_SIGN, AylythBlocks.WRITHEWOOD_WALL_HANGING_SIGN, settings()));
     Item WRITHEWOOD_LEAVES = registerBlockItem("writhewood_leaves", AylythBlocks.WRITHEWOOD_LEAVES);
     Item WRITHEWOOD_BRANCH = registerBlockItem("writhewood_branch", AylythBlocks.WRITHEWOOD_BRANCH);
     Item BARE_WRITHEWOOD_BRANCH = registerBlockItem("bare_writhewood_branch", AylythBlocks.BARE_WRITHEWOOD_BRANCH);
 
     Item SEEPING_WOOD = registerBlockItem("seeping_wood", AylythBlocks.SEEPING_WOOD);
-    Item GIRASOL_SEED = register("girasol_sapling", new AliasedBlockItem(AylythBlocks.GIRASOL_SAPLING, settings()));
+    Item GIRASOL_SEED = registerBlockItem("girasol_sapling", AylythBlocks.GIRASOL_SAPLING, settings().useItemPrefixedTranslationKey());
 
     Item CHTHONIA_WOOD = registerBlockItem("chthonia_wood", AylythBlocks.CHTHONIA_WOOD);
     Item NEPHRITIC_CHTHONIA_WOOD = registerBlockItem("nephritic_chthonia_wood", AylythBlocks.NEPHRITIC_CHTHONIA_WOOD);
@@ -169,14 +171,14 @@ public interface AylythItems {
     Item DARK_WOODS_TILES = registerBlockItem("dark_woods_tiles", AylythBlocks.DARK_WOODS_TILES);
     Item BARK = registerSimple("bark");
 
-    Item LANCEOLATE_DAGGER = register("lanceolate_dagger", new DaggerItem(AylythToolMaterials.NEPHRITE, 1, -2, -0.5f, settings()));
-    Item YMPE_DAGGER = register("ympe_dagger", new YmpeDaggerItem(AylythToolMaterials.NEPHRITE, 2, -2, -0.5f, settings()));
-    Item YMPE_GLAIVE = register("ympe_glaive", new YmpeGlaiveItem(AylythToolMaterials.NEPHRITE, 5, -2.8F, (settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(1)));
-    Item YMPE_LANCE = register("ympe_lance", new YmpeLanceItem(settings().maxCount(1).maxDamage(312)));
+    Item LANCEOLATE_DAGGER = register("lanceolate_dagger", new DaggerItem(AylythToolMaterials.NEPHRITE, 1, -2, -0.5f, settings().maxCount(1)));
+    Item YMPE_DAGGER = register("ympe_dagger", new YmpeDaggerItem(AylythToolMaterials.NEPHRITE, 2, -2, -0.5f, settings().maxCount(1)));
+    Item YMPE_GLAIVE = register("ympe_glaive", new YmpeGlaiveItem(AylythToolMaterials.NEPHRITE, 5, -2.8F, settings().useCooldown(1.75f).fireproof().rarity(Rarity.UNCOMMON).maxCount(1)));
+    Item YMPE_LANCE = register("ympe_lance", new YmpeLanceItem(settings().attributeModifiers(YmpeLanceItem.createAttributeModifiers()).repairable(AylythItemTags.NEPHRITE_TOOL_MATERIALS).maxCount(1).maxDamage(312)));
     Item YMPE_FLAMBERGE = register("ympe_flamberge", new YmpeFlambergeItem(AylythToolMaterials.NEPHRITE, 5, -3.1F, (settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(1)));
-    Item YMPE_SCYTHE = register("ympe_scythe", new YmpeScytheItem(AylythToolMaterials.NEPHRITE, 4, -2.7F, (settings()).fireproof().rarity(Rarity.UNCOMMON).maxCount(1)));
+    Item YMPE_SCYTHE = register("ympe_scythe", new YmpeScytheItem(AylythToolMaterials.NEPHRITE, 4, -2.7F, settings().fireproof().rarity(Rarity.UNCOMMON).maxCount(1)));
 
-    Item AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE = register("aylythian_upgrade_smithing_template", new AylythianSmithingTemplateUpgradeItem());
+    Item AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE = register("aylythian_upgrade_smithing_template", new AylythianSmithingTemplateUpgradeItem(settings()));
     Item CORIC_SEED = register("coric_seed", new CoricSeedItem(settings()));
     Item ESSTLINE = registerSimple("esstline");
     Item NEPHRITE = registerSimple("nephrite");
@@ -207,12 +209,12 @@ public interface AylythItems {
     Item BLIGHTED_HOE = register("blighted_sickle", new HoeItem(AylythToolMaterials.NEPHRITE_SPECIAL, -3, 0f, settings()));
 
     Item THORN_FLECHETTE = register("thorn_flechette", new ThornFlechetteItem(settings()));
-    Item BLIGHTED_THORN_FLECHETTE = register("blighted_thorn_flechette", new ThornFlechetteItem(settings(), new ThornFlechetteEffect(new StatusEffectInstance(AylythStatusEffects.BLIGHT, 100), 0.5f)));
+    Item BLIGHTED_THORN_FLECHETTE = register("blighted_thorn_flechette", new ThornFlechetteItem(settings().component(AylythDataComponentTypes.THORN_FLECHETTE_EFFECT, new ThornFlechetteEffect(new StatusEffectInstance(AylythStatusEffects.BLIGHT, 100), 0.5f))));
 
     Item YMPE_CUIRASS = register("ympe_cuirass", new YmpeCuirassItem(settings().maxCount(1)));
     YmpeEffigyItem YMPE_EFFIGY = register("ympe_effigy", new YmpeEffigyItem((settings()).fireproof().rarity(Rarity.RARE).maxCount(1)));
-    Item NEPHRITE_FLASK = register("nephrite_flask", new NephriteFlaskItem(settings().maxCount(1)));
-    Item DARK_NEPHRITE_FLASK = register("dark_nephrite_flask", new NephriteFlaskItem(settings().maxCount(1)));
+    Item NEPHRITE_FLASK = register("nephrite_flask", new NephriteFlaskItem(settings().maxCount(1).component(DataComponentTypes.CONSUMABLE, AylythConsumableComponents.NEPHRITE_FLASK).component(AylythDataComponentTypes.MAX_FLASK_CHARGES, 6)));
+    Item DARK_NEPHRITE_FLASK = register("dark_nephrite_flask", new NephriteFlaskItem(settings().maxCount(1).component(DataComponentTypes.CONSUMABLE, AylythConsumableComponents.DARK_NEPHRITE_FLASK).component(AylythDataComponentTypes.MAX_FLASK_CHARGES, 6)));
 
     Item YMPE_MUSH = registerFood("ympe_mush", AylythFoodComponents.YMPE_MUSH, AylythConsumableComponents.YMPE_MUSH);
     Item YMPE_FRUIT = registerFood("ympe_fruit", AylythFoodComponents.YMPE_FRUIT);
@@ -231,17 +233,19 @@ public interface AylythItems {
     Item VITAL_THURIBLE = registerBlockItem("vital_thurible", AylythBlocks.VITAL_THURIBLE);
     Item BLACK_WELL = registerBlockItem("black_well", AylythBlocks.BLACK_WELL);
 
-    Item PILOT_LIGHT_SPAWN_EGG = registerSpawnEgg("pilot_light_spawn_egg", AylythEntityTypes.PILOT_LIGHT, 0xFFD972, 0x9FD9F6);
-    Item AYLYTHIAN_SPAWN_EGG = registerSpawnEgg("aylythian_spawn_egg", AylythEntityTypes.AYLYTHIAN, 0x6A4831, 0xE58E03);
-    Item ELDER_AYLYTHIAN_SPAWN_EGG = registerSpawnEgg("elder_aylythian_spawn_egg", AylythEntityTypes.ELDER_AYLYTHIAN, 0x513425, 0xFFDC9B);
-    Item FAUNAYLYTHIAN_SPAWN_EGG = registerSpawnEgg("faunaylythian_spawn_egg", AylythEntityTypes.FAUNAYLYTHIAN, 0x6A4831, 0xE1AC20);
-    Item WREATHED_HIND_SPAWN_EGG = registerSpawnEgg("wreathed_hind_spawn_egg", AylythEntityTypes.WREATHED_HIND_ENTITY, 0x5C4F42, 0xE1B886);
-    Item SCION_SPAWN_EGG = registerSpawnEgg("scion_spawn_egg", AylythEntityTypes.SCION, 0x463428, 0xE58E03);
-    Item YMPEMOULD_SPAWN_EGG = registerSpawnEgg("ympemould_spawn_egg", AylythEntityTypes.YMPEMOULD, 0x42423E, 0xE58E03);
-    Item BONEFLY_SPAWN_EGG = registerSpawnEgg("bonefly_spawn_egg", AylythEntityTypes.BONEFLY, 0xE2E2D6, 0x3A2E2B);
-    Item TULPA_SPAWN_EGG = registerSpawnEgg("tulpa_spawn_egg", AylythEntityTypes.TULPA, 0xE2E2D6, 0x73868F);
+    Item PILOT_LIGHT_SPAWN_EGG = registerSpawnEgg("pilot_light_spawn_egg", AylythEntityTypes.PILOT_LIGHT);
+    Item AYLYTHIAN_SPAWN_EGG = registerSpawnEgg("aylythian_spawn_egg", AylythEntityTypes.AYLYTHIAN);
+    Item ELDER_AYLYTHIAN_SPAWN_EGG = registerSpawnEgg("elder_aylythian_spawn_egg", AylythEntityTypes.ELDER_AYLYTHIAN);
+    Item FAUNAYLYTHIAN_SPAWN_EGG = registerSpawnEgg("faunaylythian_spawn_egg", AylythEntityTypes.FAUNAYLYTHIAN);
+    Item WREATHED_HIND_SPAWN_EGG = registerSpawnEgg("wreathed_hind_spawn_egg", AylythEntityTypes.WREATHED_HIND_ENTITY);
+    Item SCION_SPAWN_EGG = registerSpawnEgg("scion_spawn_egg", AylythEntityTypes.SCION);
+    Item YMPEMOULD_SPAWN_EGG = registerSpawnEgg("ympemould_spawn_egg", AylythEntityTypes.YMPEMOULD);
+    Item BONEFLY_SPAWN_EGG = registerSpawnEgg("bonefly_spawn_egg", AylythEntityTypes.BONEFLY);
+    Item TULPA_SPAWN_EGG = registerSpawnEgg("tulpa_spawn_egg", AylythEntityTypes.TULPA);
 
-    Item POMEGRANATE_CASSETTE = register("pomegranate_cassette", new MusicDiscItem(14, AylythSoundEvents.POMEGRANATE_MUSIC_DISC.value(), settings().maxCount(1).rarity(Rarity.RARE), 118));
+    // TODO: Setup jukebox song
+//    Item POMEGRANATE_CASSETTE = register("pomegranate_cassette", new MusicDiscItem(14, AylythSoundEvents.POMEGRANATE_MUSIC_DISC.value(), settings().maxCount(1).rarity(Rarity.RARE), 118));
+    Item POMEGRANATE_CASSETTE = registerSimple("pomegranate_cassette", settings().maxCount(1).rarity(Rarity.RARE).jukeboxPlayable(AylythJukeboxSongs.POMEGRANATE_MUSIC_DISC));
 
     private static Item.Settings settings() {
 		return new Item.Settings();
@@ -255,6 +259,10 @@ public interface AylythItems {
 		return register(name, new Item(settings()));
 	}
 
+    private static Item registerSimple(String name, Item.Settings settings) {
+        return register(name, new Item(settings));
+    }
+
 	private static Item registerFood(String name, FoodComponent food) {
 		return register(name, new Item(settings().food(food)));
 	}
@@ -266,6 +274,10 @@ public interface AylythItems {
 	private static BlockItem registerBlockItem(String name, Block block) {
 		return register(name, new BlockItem(block, settings()));
 	}
+
+    private static BlockItem registerBlockItem(String name, Block block, Item.Settings settings) {
+        return register(name, new BlockItem(block, settings));
+    }
 
 	private static SpawnEggItem registerSpawnEgg(String name, EntityType<? extends MobEntity> entityType) {
 		return register(name, new SpawnEggItem(entityType, settings()));

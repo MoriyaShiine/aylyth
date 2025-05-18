@@ -1,6 +1,5 @@
 package moriyashiine.aylyth.common.item.types;
 
-import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.common.world.construct.Constructs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -36,7 +35,7 @@ public class CoricSeedItem extends Item {
                 Entity entity = construct.constructIfMatching(serverWorld, ctx, pos);
                 if (entity != null) {
                     world.spawnEntity(entity);
-                    AylythUtil.decreaseStack(stack, player);
+                    stack.decrementUnlessCreative(1, player);
                     return ActionResult.SUCCESS;
                 }
             }

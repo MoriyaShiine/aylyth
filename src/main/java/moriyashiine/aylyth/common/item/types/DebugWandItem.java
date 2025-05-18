@@ -10,18 +10,17 @@ import moriyashiine.aylyth.common.entity.types.mob.ScionEntity;
 import moriyashiine.aylyth.common.item.AylythItems;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.enums.DoubleBlockHalf;
-import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
+import net.minecraft.item.tooltip.TooltipType;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -46,8 +45,8 @@ public class DebugWandItem extends Item {
                 world.setBlockState(pos.up(), AylythBlocks.LARGE_WOODY_GROWTH.getDefaultState().with(LargeWoodyGrowthBlock.HALF, DoubleBlockHalf.LOWER).with(LargeWoodyGrowthBlock.NATURAL, true));
                 world.setBlockState(pos.up().up(), AylythBlocks.LARGE_WOODY_GROWTH.getDefaultState().with(LargeWoodyGrowthBlock.HALF, DoubleBlockHalf.UPPER).with(LargeWoodyGrowthBlock.NATURAL, true));
                 return ActionResult.SUCCESS;
-            } else if (player.isSneaking()) {
-                player.damage(world.aylythDamageSources().ympe(), Integer.MAX_VALUE);
+            } else if (player.isSneaking() && world instanceof ServerWorld serverWorld) {
+                player.damage(serverWorld, world.aylythDamageSources().ympe(), Integer.MAX_VALUE);
                 return ActionResult.SUCCESS;
             }
         }
@@ -55,7 +54,7 @@ public class DebugWandItem extends Item {
     }
 
     @Override
-    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+    public ActionResult use(World world, PlayerEntity user, Hand hand) {
         if (!world.isClient()) {
             if (user.isSneaking()) {
                 VitalHealthHolder.of(user).ifPresent(vital -> {
@@ -96,13 +95,13 @@ public class DebugWandItem extends Item {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         tooltip.add(Text.literal("Use to Summon a Scion-copy of you."));
         tooltip.add(Text.literal("Use on Block Woody growth in off-hand"));
         tooltip.add(Text.literal("to spawn cache"));
         tooltip.add(Text.literal("While pressing shift:"));
         tooltip.add(Text.literal("Use to give you VitalThurible Buff."));
         tooltip.add(Text.literal("Use on block to deal deal max Ympe damage to yourself"));
-        super.appendTooltip(stack, world, tooltip, context);
+        super.appendTooltip(stack, context, tooltip, type);
     }
 }
