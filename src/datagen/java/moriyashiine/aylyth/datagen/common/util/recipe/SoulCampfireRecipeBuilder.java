@@ -6,19 +6,22 @@ import com.google.gson.JsonObject;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.recipe.AylythRecipeTypes;
-import net.minecraft.data.server.recipe.RecipeJsonProvider;
+import moriyashiine.aylyth.common.recipe.types.SoulCampfireRecipe;
+import net.minecraft.data.recipe.RecipeExporter;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.function.Consumer;
 
 public class SoulCampfireRecipeBuilder {
     private final List<Ingredient> ingredients;
@@ -41,59 +44,26 @@ public class SoulCampfireRecipeBuilder {
         return with(Ingredient.ofItems(itemConvertible));
     }
 
-    public SoulCampfireRecipeBuilder with(TagKey<Item> tag) {
-        return with(Ingredient.fromTag(tag));
-    }
-
     public SoulCampfireRecipeBuilder with(Ingredient ingredient) {
         checkSize();
         ingredients.add(ingredient);
         return this;
     }
 
-    public void offerTo(Consumer<RecipeJsonProvider> exporter) {
-        this.offerTo(exporter, Aylyth.id("soul_campfire/%s".formatted(Registries.ITEM.getId(result.getItem()).getPath())));
-    }
-
     private void checkSize() {
         Preconditions.checkState(ingredients.size() < 5, "Campfire recipes may only have 4 ingredients");
     }
 
-    public void offerTo(Consumer<RecipeJsonProvider> exporter, Identifier recipeId) {
+    public void offerTo(RecipeExporter exporter) {
+        this.offerTo(exporter, Aylyth.id("soul_campfire/%s".formatted(Registries.ITEM.getId(result.getItem()).getPath())));
+    }
+
+    public void offerTo(RecipeExporter exporter, Identifier recipeId) {
+        this.offerTo(exporter, RegistryKey.of(RegistryKeys.RECIPE, recipeId));
+    }
+
+    public void offerTo(RecipeExporter exporter, RegistryKey<Recipe<?>> key) {
         Preconditions.checkState(!ingredients.isEmpty(), "Must have positive number of ingredients");
-        exporter.accept(new RecipeJsonProvider() {
-            @Override
-            public void serialize(JsonObject json) {
-                json.add("ingredients", ingredients.stream().map(Ingredient::toJson).collect(JsonArray::new, JsonArray::add, JsonArray::addAll));
-                JsonObject obj = new JsonObject();
-                obj.addProperty("item", Registries.ITEM.getId(result.getItem()).toString());
-                if (result.getCount() > 1) {
-                    obj.addProperty("count", result.getCount());
-                }
-                json.add("result", obj);
-            }
-
-            @Override
-            public Identifier getRecipeId() {
-                return recipeId;
-            }
-
-            @Override
-            public RecipeSerializer<?> getSerializer() {
-                return AylythRecipeTypes.SOULFIRE_SERIALIZER;
-            }
-
-            @Nullable
-            @Override
-            public JsonObject toAdvancementJson() {
-                return null;
-            }
-
-            @Nullable
-            @Override
-            public Identifier getAdvancementId() {
-                return null;
-            }
-        });
+        exporter.accept(key, new SoulCampfireRecipe(ingredients, result), null);
     }
 }

@@ -7,7 +7,7 @@ import moriyashiine.aylyth.datagen.client.AylythEnglishLanguageProvider;
 import moriyashiine.aylyth.datagen.client.AylythModelProvider;
 import moriyashiine.aylyth.datagen.common.AylythAdvancementProvider;
 import moriyashiine.aylyth.datagen.common.AylythDynamicDataProvider;
-import moriyashiine.aylyth.datagen.common.AylythRecipeProvider;
+import moriyashiine.aylyth.datagen.common.AylythRecipeGenerator;
 import moriyashiine.aylyth.datagen.common.AylythDamageTypeBootstrap;
 import moriyashiine.aylyth.datagen.common.loot.AylythEntityLootAdditionsGenerator;
 import moriyashiine.aylyth.datagen.common.loot.AylythHarvestLootGenerator;
@@ -56,7 +56,7 @@ public class AylythDatagen implements DataGeneratorEntrypoint {
         pack.addProvider(AylythBiomeTagProvider::new);
         pack.addProvider(AylythDamageTypeTagProvider::new);
 
-        pack.addProvider(AylythRecipeProvider::new);
+        pack.addProvider(AylythRecipeGenerator.Provider::new);
         pack.addProvider(AylythAdvancementProvider::new);
 
         pack.addProvider(AylythBlockLootProvider::new);
