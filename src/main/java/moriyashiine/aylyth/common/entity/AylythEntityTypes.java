@@ -16,127 +16,165 @@ import moriyashiine.aylyth.common.entity.types.mob.PilotLightEntity;
 import moriyashiine.aylyth.common.entity.types.projectile.SphereEntity;
 import moriyashiine.aylyth.common.entity.types.projectile.ThornFlechetteEntity;
 import moriyashiine.aylyth.common.entity.types.projectile.YmpeLanceEntity;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import moriyashiine.aylyth.common.item.AylythItems;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityType;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
-import net.minecraft.entity.SpawnRestriction;
+import net.minecraft.entity.SpawnLocationTypes;
+import net.minecraft.entity.vehicle.BoatEntity;
+import net.minecraft.entity.vehicle.ChestBoatEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.world.Heightmap;
 
 public interface AylythEntityTypes {
 
-	EntityType<PilotLightEntity> PILOT_LIGHT = register("pilot_light", FabricEntityTypeBuilder.createMob()
-			.spawnGroup(SpawnGroup.AMBIENT)
-			.entityFactory(PilotLightEntity::new)
-			.dimensions(EntityDimensions.fixed(0.5f, 0.5f))
-			.defaultAttributes(PilotLightEntity::createAttributes)
-			.spawnRestriction(SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING, PilotLightEntity::canSpawn)
-			.build()
+	EntityType<PilotLightEntity> PILOT_LIGHT = register("pilot_light",
+			FabricEntityType.Builder.createMob(PilotLightEntity::new, SpawnGroup.AMBIENT, builder ->
+							builder.defaultAttributes(PilotLightEntity::createAttributes)
+									.spawnRestriction(SpawnLocationTypes.UNRESTRICTED, Heightmap.Type.MOTION_BLOCKING, PilotLightEntity::canSpawn)
+					)
+					.dimensions(0.5f, 0.5f)
 	);
-	EntityType<AylythianEntity> AYLYTHIAN = register("aylythian", FabricEntityTypeBuilder.createMob()
-			.spawnGroup(SpawnGroup.MONSTER)
-			.entityFactory(AylythianEntity::new)
-			.dimensions(EntityDimensions.fixed(0.6f, 2.3f))
-			.defaultAttributes(AylythianEntity::createAttributes)
-			.spawnRestriction(SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AylythianEntity::canSpawn)
-			.build()
+	EntityType<AylythianEntity> AYLYTHIAN = register("aylythian",
+			FabricEntityType.Builder.createMob(AylythianEntity::new,  SpawnGroup.MONSTER, builder ->
+							builder.defaultAttributes(AylythianEntity::createAttributes)
+									.spawnRestriction(SpawnLocationTypes.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AylythianEntity::canSpawn)
+					)
+					.dimensions(0.6f, 2.3f)
 	);
-	EntityType<ElderAylythianEntity> ELDER_AYLYTHIAN = register("elder_aylythian", FabricEntityTypeBuilder.createMob()
-			.spawnGroup(SpawnGroup.MONSTER)
-			.entityFactory(ElderAylythianEntity::new)
-			.dimensions(EntityDimensions.fixed(1.4f, 2.3f))
-			.defaultAttributes(ElderAylythianEntity::createAttributes)
-			.spawnRestriction(SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AylythianEntity::canSpawn)
-			.build()
+	EntityType<ElderAylythianEntity> ELDER_AYLYTHIAN = register("elder_aylythian",
+			FabricEntityType.Builder.createMob(ElderAylythianEntity::new, SpawnGroup.MONSTER, builder ->
+							builder.defaultAttributes(ElderAylythianEntity::createAttributes)
+									.spawnRestriction(SpawnLocationTypes.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AylythianEntity::canSpawn)
+					)
+					.dimensions(1.4f, 2.3f)
 	);
-	EntityType<ScionEntity> SCION = register("scion", FabricEntityTypeBuilder.createMob()
-			.spawnGroup(SpawnGroup.MONSTER)
-			.entityFactory(ScionEntity::new)
-			.dimensions(EntityDimensions.fixed(0.6f, 1.95f))
-			.defaultAttributes(ScionEntity::createAttributes)
-			.spawnRestriction(SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ScionEntity::canSpawn)
-			.fireImmune()
-			.build()
+	EntityType<ScionEntity> SCION = register("scion",
+			FabricEntityType.Builder.createMob(ScionEntity::new, SpawnGroup.MONSTER, builder ->
+							builder.defaultAttributes(ScionEntity::createAttributes)
+									.spawnRestriction(SpawnLocationTypes.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ScionEntity::canSpawn)
+					)
+					.dimensions(0.6f, 1.95f)
+					.makeFireImmune()
 	);
-	EntityType<FaunaylythianEntity> FAUNAYLYTHIAN = register("faunaylythian", FabricEntityTypeBuilder.createMob()
-			.spawnGroup(SpawnGroup.MONSTER)
-			.entityFactory(FaunaylythianEntity::new)
-			.dimensions(EntityDimensions.fixed(1.2f, 1.5f))
-			.defaultAttributes(FaunaylythianEntity::createAttributes)
-			.spawnRestriction(SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, FaunaylythianEntity::canSpawn)
-			.build()
+	EntityType<FaunaylythianEntity> FAUNAYLYTHIAN = register("faunaylythian",
+			FabricEntityType.Builder.createMob(FaunaylythianEntity::new, SpawnGroup.MONSTER, builder ->
+							builder.defaultAttributes(FaunaylythianEntity::createAttributes)
+									.spawnRestriction(SpawnLocationTypes.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, FaunaylythianEntity::canSpawn)
+					)
+					.dimensions(1.2f, 1.5f)
 	);
-	EntityType<WreathedHindEntity> WREATHED_HIND_ENTITY = register("wreathed_hind", FabricEntityTypeBuilder.createMob()
-			.spawnGroup(SpawnGroup.MONSTER)
-			.entityFactory(WreathedHindEntity::new)
-			.dimensions(EntityDimensions.fixed(1.6f, 2.5f))
-			.defaultAttributes(WreathedHindEntity::createAttributes)
-			.spawnRestriction(SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, WreathedHindEntity::canSpawn)
-			.build()
+	EntityType<WreathedHindEntity> WREATHED_HIND_ENTITY = register("wreathed_hind",
+			FabricEntityType.Builder.createMob(WreathedHindEntity::new, SpawnGroup.MONSTER, builder ->
+							builder.defaultAttributes(WreathedHindEntity::createAttributes)
+									.spawnRestriction(SpawnLocationTypes.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, WreathedHindEntity::canSpawn)
+					)
+					.dimensions(1.6f, 2.5f)
 	);
 
-	EntityType<RippedSoulEntity> RIPPED_SOUL = register("ripped_soul", FabricEntityTypeBuilder.createLiving()
-			.spawnGroup(SpawnGroup.MONSTER)
-			.entityFactory(RippedSoulEntity::new)
-			.dimensions(EntityDimensions.changing(0.9f, 0.9f))
-			.defaultAttributes(RippedSoulEntity::createVexAttributes)
-			.build()
+	EntityType<RippedSoulEntity> RIPPED_SOUL = register("ripped_soul",
+			FabricEntityType.Builder.createLiving(RippedSoulEntity::new, SpawnGroup.MONSTER, builder ->
+							builder.defaultAttributes(RippedSoulEntity::createVexAttributes)
+					)
+					.dimensions(0.9f, 0.9f)
 	);
 
-	EntityType<YmpemouldEntity> YMPEMOULD = register("ympemould", FabricEntityTypeBuilder.createLiving()
-			.spawnGroup(SpawnGroup.MONSTER)
-			.entityFactory(YmpemouldEntity::new)
-			.dimensions(EntityDimensions.fixed(0.85f, 2.7f))
-			.fireImmune()
-			.defaultAttributes(YmpemouldEntity::createSoulmouldAttributes)
-			.build()
+	EntityType<YmpemouldEntity> YMPEMOULD = register("ympemould",
+			FabricEntityType.Builder.createLiving(YmpemouldEntity::new, SpawnGroup.MONSTER, builder ->
+							builder.defaultAttributes(YmpemouldEntity::createSoulmouldAttributes)
+					)
+					.dimensions(0.85f, 2.7f)
+					.makeFireImmune()
 	);
-	EntityType<BoneflyEntity> BONEFLY = register("bonefly", FabricEntityTypeBuilder.createLiving()
-			.spawnGroup(SpawnGroup.MONSTER)
-			.entityFactory(BoneflyEntity::new)
-			.dimensions(EntityDimensions.fixed(1.4f, 2.1f))
-			.fireImmune()
-			.defaultAttributes(BoneflyEntity::createBoneflyAttributes)
-			.build()
+	EntityType<BoneflyEntity> BONEFLY = register("bonefly",
+			FabricEntityType.Builder.createLiving(BoneflyEntity::new, SpawnGroup.MONSTER, builder ->
+							builder.defaultAttributes(BoneflyEntity::createBoneflyAttributes)
+					)
+					.dimensions(1.4f, 2.1f)
+					.makeFireImmune()
 	);
-	EntityType<TulpaEntity> TULPA = register("tulpa", FabricEntityTypeBuilder.createLiving()
-			.spawnGroup(SpawnGroup.MONSTER)
-			.entityFactory(TulpaEntity::new)
-			.dimensions(EntityDimensions.fixed(0.6f, 1.95f))
-			.fireImmune()
-			.defaultAttributes(BoneflyEntity::createBoneflyAttributes)
-			.build()
-	);
-	EntityType<TulpaPlayerEntity> TULPA_PLAYER = register("tulpa_player", FabricEntityTypeBuilder.createLiving()
-			.entityFactory(TulpaPlayerEntity::new)
-			.spawnGroup(SpawnGroup.MONSTER)
-			.dimensions(EntityDimensions.fixed(0.6f, 1.95f))
-			.defaultAttributes(TulpaEntity::createTulpaAttributes)
-			.build()
+	EntityType<TulpaEntity> TULPA = register("tulpa",
+			FabricEntityType.Builder.createLiving(TulpaEntity::new, SpawnGroup.MONSTER, builder ->
+							builder.defaultAttributes(BoneflyEntity::createBoneflyAttributes)
+					)
+					.dimensions(0.6f, 1.95f)
+					.makeFireImmune()
 	);
 
-	EntityType<RootPropEntity> ROOT_PROP = register("root_prop", FabricEntityTypeBuilder.<RootPropEntity>create(SpawnGroup.MISC, RootPropEntity::new)
-			.dimensions(EntityDimensions.fixed(0.5f, 0.5f))
-			.build()
-	);
-	EntityType<SphereEntity> SPHERE_ENTITY = register("sphere", FabricEntityTypeBuilder.<SphereEntity>create(SpawnGroup.MISC, SphereEntity::new)
-			.dimensions(EntityDimensions.fixed(0.25f,0.25f))
-			.build()
-	);
-	EntityType<YmpeLanceEntity> YMPE_LANCE = register("ympe_lance", FabricEntityTypeBuilder.<YmpeLanceEntity>create(SpawnGroup.MISC, YmpeLanceEntity::new)
-			.dimensions(EntityDimensions.fixed(0.5f, 0.5f))
-			.build()
-	);
-	EntityType<ThornFlechetteEntity> THORN_FLECHETTE = register("thorn_flechette", FabricEntityTypeBuilder.<ThornFlechetteEntity>create(SpawnGroup.MISC, ThornFlechetteEntity::new)
-			.dimensions(EntityDimensions.fixed(0.5f, 0.5f))
-			.build()
+	EntityType<TulpaPlayerEntity> TULPA_PLAYER = register("tulpa_player",
+			FabricEntityType.Builder.createLiving(TulpaPlayerEntity::new, SpawnGroup.MONSTER, builder ->
+							builder.defaultAttributes(TulpaEntity::createTulpaAttributes)
+					)
+					.dimensions(0.6f, 1.95f)
 	);
 
-	private static <E extends Entity> EntityType<E> register(String name, EntityType<E> type) {
-		return Registry.register(Registries.ENTITY_TYPE, Aylyth.id(name), type);
+	EntityType<RootPropEntity> ROOT_PROP = register("root_prop",
+			EntityType.Builder.<RootPropEntity>create(RootPropEntity::new, SpawnGroup.MISC)
+					.dimensions(0.5f, 0.5f)
+	);
+	EntityType<SphereEntity> SPHERE_ENTITY = register("sphere",
+			EntityType.Builder.<SphereEntity>create(SphereEntity::new, SpawnGroup.MISC)
+					.dimensions(0.25f,0.25f)
+	);
+	EntityType<YmpeLanceEntity> YMPE_LANCE = register("ympe_lance",
+			EntityType.Builder.<YmpeLanceEntity>create(YmpeLanceEntity::new, SpawnGroup.MISC)
+					.dimensions(0.5f, 0.5f)
+	);
+	EntityType<ThornFlechetteEntity> THORN_FLECHETTE = register("thorn_flechette",
+			EntityType.Builder.<ThornFlechetteEntity>create(ThornFlechetteEntity::new, SpawnGroup.MISC)
+					.dimensions(0.5f, 0.5f)
+	);
+
+	EntityType<BoatEntity> YMPE_BOAT = register("ympe_boat",
+			EntityType.Builder.<BoatEntity>create((type, world) -> new BoatEntity(type, world, () -> AylythItems.YMPE_BOAT), SpawnGroup.MISC)
+					.dropsNothing()
+					.dimensions(1.375F, 0.5625F)
+					.eyeHeight(0.5625F)
+					.maxTrackingRange(10)
+	);
+	EntityType<ChestBoatEntity> YMPE_CHEST_BOAT = register("ympe_chest_boat",
+			EntityType.Builder.<ChestBoatEntity>create((type, world) -> new ChestBoatEntity(type, world, () -> AylythItems.YMPE_CHEST_BOAT), SpawnGroup.MISC)
+					.dropsNothing()
+					.dimensions(1.375F, 0.5625F)
+					.eyeHeight(0.5625F)
+					.maxTrackingRange(10)
+	);
+	EntityType<BoatEntity> POMEGRANATE_BOAT = register("pomegranate_boat",
+			EntityType.Builder.<BoatEntity>create((type, world) -> new BoatEntity(type, world, () -> AylythItems.POMEGRANATE_BOAT), SpawnGroup.MISC)
+					.dropsNothing()
+					.dimensions(1.375F, 0.5625F)
+					.eyeHeight(0.5625F)
+					.maxTrackingRange(10)
+	);
+	EntityType<ChestBoatEntity> POMEGRANATE_CHEST_BOAT = register("pomegranate_chest_boat",
+			EntityType.Builder.<ChestBoatEntity>create((type, world) -> new ChestBoatEntity(type, world, () -> AylythItems.POMEGRANATE_CHEST_BOAT), SpawnGroup.MISC)
+					.dropsNothing()
+					.dimensions(1.375F, 0.5625F)
+					.eyeHeight(0.5625F)
+					.maxTrackingRange(10)
+	);
+	EntityType<BoatEntity> WRITHEWOOD_BOAT = register("writhewood_boat",
+			EntityType.Builder.<BoatEntity>create((type, world) -> new BoatEntity(type, world, () -> AylythItems.WRITHEWOOD_BOAT), SpawnGroup.MISC)
+					.dropsNothing()
+					.dimensions(1.375F, 0.5625F)
+					.eyeHeight(0.5625F)
+					.maxTrackingRange(10)
+	);
+	EntityType<ChestBoatEntity> WRITHEWOOD_CHEST_BOAT = register("writhewood_chest_boat",
+			EntityType.Builder.<ChestBoatEntity>create((type, world) -> new ChestBoatEntity(type, world, () -> AylythItems.WRITHEWOOD_CHEST_BOAT), SpawnGroup.MISC)
+					.dropsNothing()
+					.dimensions(1.375F, 0.5625F)
+					.eyeHeight(0.5625F)
+					.maxTrackingRange(10)
+	);
+
+	private static <E extends Entity> EntityType<E> register(String name, EntityType.Builder<E> builder) {
+		return Registry.register(Registries.ENTITY_TYPE, Aylyth.id(name), builder.build(RegistryKey.of(RegistryKeys.ENTITY_TYPE, Aylyth.id(name))));
 	}
 
 	// Load static initializer
