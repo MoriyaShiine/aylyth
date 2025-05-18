@@ -63,6 +63,8 @@ import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.CampfireBlockEntity;
 import net.minecraft.block.enums.DoubleBlockHalf;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.NbtComponent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.MobEntity;
@@ -198,7 +200,8 @@ public class Aylyth implements ModInitializer {
 		if (attacker.getStackInHand(hand).isOf(AylythItems.YMPE_DAGGER) && target instanceof MobEntity mob) {
 			ItemStack offhand = attacker.getOffHandStack();
 			if (offhand.isOf(AylythItems.SHUCKED_YMPE_FRUIT)) {
-				if (!ShuckedYmpeFruitItem.hasStoredEntity(offhand) && !mob.getType().isIn(AylythEntityTypeTags.NON_SHUCKABLE)) {
+				NbtComponent storedEntity = offhand.getOrDefault(DataComponentTypes.ENTITY_DATA, NbtComponent.DEFAULT);
+				if (storedEntity.isEmpty() && !mob.getType().isIn(AylythEntityTypeTags.NON_SHUCKABLE)) {
 					if (attacker instanceof ServerPlayerEntity serverPlayer) {
 						AylythCriteria.SHUCKING.trigger(serverPlayer, mob);
 						mob.setHealth(mob.getMaxHealth()); // TODO: check whether this is intended behavior
@@ -212,7 +215,7 @@ public class Aylyth implements ModInitializer {
 							ServerPlayNetworking.send(trackingPlayer, new SpawnParticlesAroundPacketS2C(mob.getId(), 32, List.of(ParticleTypes.SMOKE, ParticleTypes.FALLING_HONEY)));
 						});
 						world.playSound(null, mob.getBlockPos(), AylythSoundEvents.ENTITY_GENERIC_SHUCKED.value(), mob.getSoundCategory(), 1, mob.getSoundPitch());
-						ShuckedYmpeFruitItem.setStoredEntity(offhand, mob);
+						NbtComponent.set(DataComponentTypes.ENTITY_DATA, offhand, mob::writeNbt);
 						mob.remove(Entity.RemovalReason.DISCARDED);
 						// deal a bit of damage to the player
 						attacker.damage(serverPlayer.getServerWorld(), world.aylythDamageSources().shucking(), 1);
