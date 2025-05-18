@@ -39,7 +39,6 @@ import moriyashiine.aylyth.common.network.packets.SpawnParticlesAroundPacketS2C;
 import moriyashiine.aylyth.common.network.packets.UpdatePressingUpDownPacketC2S;
 import moriyashiine.aylyth.common.particle.AylythParticleTypes;
 import moriyashiine.aylyth.common.recipe.AylythRecipeTypes;
-import moriyashiine.aylyth.common.recipe.types.SoulCampfireRecipe;
 import moriyashiine.aylyth.common.registry.AylythRegistries;
 import moriyashiine.aylyth.common.registry.AylythRegistryKeys;
 import moriyashiine.aylyth.common.screenhandler.AylythScreenHandlerTypes;
@@ -138,7 +137,6 @@ public class Aylyth implements ModInitializer {
 		AylythEntityTypes.register();
 		AylythStatusEffects.register();
 
-		AylythBoatTypes.register();
 		AylythItems.register();
 		AylythFuels.register();
 		AylythCompostingChances.register();
@@ -176,17 +174,20 @@ public class Aylyth implements ModInitializer {
 	}
 
 	private ActionResult interactSoulCampfire(PlayerEntity playerEntity, World world, Hand hand, BlockHitResult blockHitResult) {
-		if(hand == Hand.MAIN_HAND && world.getBlockState(blockHitResult.getBlockPos()).isOf(Blocks.SOUL_CAMPFIRE) && world.getBlockEntity(blockHitResult.getBlockPos()) instanceof CampfireBlockEntity campfireBlockEntity){
-			ItemStack itemStack = playerEntity.getMainHandStack();
-			// TODO: Cache this?
-			List<Ingredient> allowedIngredients = world.getRecipeManager().listAllOfType(AylythRecipeTypes.SOULFIRE_TYPE).stream()
-					.map(SoulCampfireRecipe::getIngredients)
-					.flatMap(Collection::stream)
-					.toList();
-			if(allowedIngredients.stream().anyMatch(ingredient -> ingredient.test(itemStack))){
-				if (!world.isClient && campfireBlockEntity.addItem(playerEntity, itemStack, Integer.MAX_VALUE)) {
-					playerEntity.incrementStat(Stats.INTERACT_WITH_CAMPFIRE);
-					return ActionResult.SUCCESS;
+		if (world instanceof ServerWorld serverWorld) {
+			if (hand == Hand.MAIN_HAND && world.getBlockState(blockHitResult.getBlockPos()).isOf(Blocks.SOUL_CAMPFIRE) && world.getBlockEntity(blockHitResult.getBlockPos()) instanceof CampfireBlockEntity campfireBlockEntity){
+				ItemStack itemStack = playerEntity.getMainHandStack();
+				// TODO: Check this works
+				// TODO: Cache this?
+				List<Ingredient> allowedIngredients = serverWorld.getRecipeManager().getAllOfType(AylythRecipeTypes.SOULFIRE_TYPE).stream()
+						.map(entry -> entry.value().input)
+						.flatMap(Collection::stream)
+						.toList();
+				if (allowedIngredients.stream().anyMatch(ingredient -> ingredient.test(itemStack))){
+					if (!world.isClient && campfireBlockEntity.addItem(serverWorld, playerEntity, itemStack)) {
+						playerEntity.incrementStat(Stats.INTERACT_WITH_CAMPFIRE);
+						return ActionResult.SUCCESS;
+					}
 				}
 			}
 		}

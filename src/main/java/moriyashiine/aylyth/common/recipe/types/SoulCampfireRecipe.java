@@ -1,74 +1,57 @@
 package moriyashiine.aylyth.common.recipe.types;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import moriyashiine.aylyth.common.recipe.AylythRecipeTypes;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.IngredientPlacement;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeMatcher;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
-import net.minecraft.recipe.ShapedRecipe;
-import net.minecraft.registry.DynamicRegistryManager;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
-import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.recipe.book.RecipeBookCategory;
+import net.minecraft.recipe.input.RecipeInput;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.world.World;
 
-public class SoulCampfireRecipe implements Recipe<Inventory> {
-    private final Identifier identifier;
-    public final DefaultedList<Ingredient> input;
+import java.util.List;
+
+public class SoulCampfireRecipe implements Recipe<RecipeInput> {
+    public final List<Ingredient> input;
     public final ItemStack output;
 
-    public SoulCampfireRecipe(Identifier id, DefaultedList<Ingredient> input, ItemStack output) {
-        this.identifier = id;
+    public SoulCampfireRecipe(List<Ingredient> input, ItemStack output) {
         this.input = input;
         this.output = output;
     }
 
     @Override
-    public boolean matches(Inventory inventory, World world) {
-        RecipeMatcher matcher = new RecipeMatcher();
+    public boolean matches(RecipeInput inventory, World world) {
+        RecipeMatcher<ItemStack> matcher = new RecipeMatcher<>();
         int numItems = 0;
         for (int i = 0; i < inventory.size(); i++) {
-            ItemStack stack = inventory.getStack(i).copy();
+            ItemStack stack = inventory.getStackInSlot(i).copy();
             if (!stack.isEmpty()) {
                 while (!stack.isEmpty()) {
                     numItems++;
-                    matcher.addInput(stack.split(1));
+                    matcher.add(stack.split(1), 1);
                 }
             }
         }
-        return numItems == input.size() && matcher.match(this, null);
+        return numItems == input.size() && matcher.match(
+                this.input.stream()
+                        .map(ingredient -> (RecipeMatcher.RawIngredient<ItemStack>) ingredient::test)
+                        .toList(),
+                1, null);
     }
 
     @Override
-    public ItemStack craft(Inventory inventory, DynamicRegistryManager registryManager) {
+    public ItemStack craft(RecipeInput input, RegistryWrapper.WrapperLookup registries) {
         return output.copy();
-    }
-
-    @Override
-    public boolean fits(int width, int height) {
-        return true;
-    }
-
-    @Override
-    public ItemStack getOutput(DynamicRegistryManager registryManager) {
-        return output;
-    }
-
-    @Override
-    public DefaultedList<Ingredient> getIngredients() {
-        return input;
-    }
-
-    @Override
-    public Identifier getId() {
-        return identifier;
     }
 
     @Override
@@ -77,53 +60,46 @@ public class SoulCampfireRecipe implements Recipe<Inventory> {
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<SoulCampfireRecipe> getSerializer() {
         return AylythRecipeTypes.SOULFIRE_SERIALIZER;
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public RecipeType<SoulCampfireRecipe> getType() {
         return AylythRecipeTypes.SOULFIRE_TYPE;
     }
 
+    @Override
+    public IngredientPlacement getIngredientPlacement() {
+        return null;
+    }
+
+    @Override
+    public RecipeBookCategory getRecipeBookCategory() {
+        return null;
+    }
+
     public static class Serializer implements RecipeSerializer<SoulCampfireRecipe> {
+        public static final MapCodec<SoulCampfireRecipe> CODEC = RecordCodecBuilder.mapCodec(instance ->
+                instance.group(
+                        Ingredient.CODEC.listOf(1, 4).fieldOf("ingredients").forGetter(soulCampfireRecipe -> soulCampfireRecipe.input),
+                        ItemStack.VALIDATED_CODEC.fieldOf("result").forGetter(soulCampfireRecipe -> soulCampfireRecipe.output)
+                ).apply(instance, SoulCampfireRecipe::new)
+        );
+        public static final PacketCodec<RegistryByteBuf, SoulCampfireRecipe> PACKET_CODEC = PacketCodec.tuple(
+                Ingredient.PACKET_CODEC.collect(PacketCodecs.toList()), soulCampfireRecipe -> soulCampfireRecipe.input,
+                ItemStack.PACKET_CODEC, soulCampfireRecipe -> soulCampfireRecipe.output,
+                SoulCampfireRecipe::new
+        );
+
         @Override
-        public SoulCampfireRecipe read(Identifier id, JsonObject json) {
-            DefaultedList<Ingredient> ingredients = getIngredients(JsonHelper.getArray(json, "ingredients"));
-            if (ingredients.isEmpty()) {
-                throw new JsonParseException("No ingredients for recipe");
-            } else if (ingredients.size() > 4) {
-                throw new JsonParseException("Too many ingredients for recipe");
-            }
-            return new SoulCampfireRecipe(id, ingredients, ShapedRecipe.outputFromJson(JsonHelper.getObject(json, "result")));
+        public MapCodec<SoulCampfireRecipe> codec() {
+            return CODEC;
         }
 
         @Override
-        public SoulCampfireRecipe read(Identifier id, PacketByteBuf buf) {
-            DefaultedList<Ingredient> defaultedList = DefaultedList.ofSize(buf.readVarInt(), Ingredient.EMPTY);
-            defaultedList.replaceAll(ignored -> Ingredient.fromPacket(buf));
-            return new SoulCampfireRecipe(id, defaultedList, buf.readItemStack());
-
-        }
-
-        @Override
-        public void write(PacketByteBuf buf, SoulCampfireRecipe recipe) {
-            buf.writeVarInt(recipe.input.size());
-            for (Ingredient ingredient : recipe.input) {
-                ingredient.write(buf);
-            }
-            buf.writeItemStack(recipe.getOutput(DynamicRegistryManager.EMPTY));
-        }
-
-        public static DefaultedList<Ingredient> getIngredients(JsonArray json) {
-            DefaultedList<Ingredient> ingredients = DefaultedList.of();
-            for (int i = 0; i < json.size(); i++) {
-                Ingredient ingredient = Ingredient.fromJson(json.get(i));
-                if (!ingredient.isEmpty()) {
-                    ingredients.add(ingredient);
-                }
-            }
-            return ingredients;
+        public PacketCodec<RegistryByteBuf, SoulCampfireRecipe> packetCodec() {
+            return PACKET_CODEC;
         }
     }
 }
