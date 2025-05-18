@@ -217,7 +217,8 @@ public class AylythEnglishLanguageProvider extends FabricLanguageProvider {
         builder.add("item.aylyth.smithing_template.aylythian_upgrade.ingredients", "Esstline");
         builder.add("item.aylyth.smithing_template.aylythian_upgrade.base_slot_description", "Ympe Sapling");
         builder.add("item.aylyth.smithing_template.aylythian_upgrade.additions_slot_description", "Esstline");
-        builder.add("upgrade.aylyth.aylythian_upgrade", "Aylythian Upgrade");
+        // TODO: Figure out what this was for
+//        builder.add("upgrade.aylyth.aylythian_upgrade", "Aylythian Upgrade");
 
         // ENTITIES
 
