@@ -104,6 +104,9 @@ public class AylythClient implements ClientModInitializer {
 	public static final EntityModelLayer YMPE_INFESTATION_STAGE_4_MODEL_LAYER = new EntityModelLayer(Aylyth.id("ympe_infestation_4"), "main");
 	public static final EntityModelLayer YMPE_INFESTATION_STAGE_5_MODEL_LAYER = new EntityModelLayer(Aylyth.id("ympe_infestation_5"), "main");
 	public static final EntityModelLayer YMPE_THORN_RING_MODEL_LAYER = new EntityModelLayer(Aylyth.id("ympe_thorn_ring"), "main");
+	public static ModelIdentifier modelId(String id, String variant) {
+		return new ModelIdentifier(Aylyth.id(id), variant);
+	}
 
 	@Override
 	public void onInitializeClient() {
