@@ -1,44 +1,26 @@
 package moriyashiine.aylyth.client.render;
 
-import com.mojang.blaze3d.platform.GlStateManager;
-import com.mojang.blaze3d.systems.RenderSystem;
-import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.data.tag.AylythBiomeTags;
-import moriyashiine.aylyth.mixin.client.WorldRendererAccessor;
-import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
 import net.minecraft.block.enums.CameraSubmersionType;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gl.ShaderProgram;
-import net.minecraft.client.gl.VertexBuffer;
 import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.render.BackgroundRenderer;
-import net.minecraft.client.render.BufferBuilder;
-import net.minecraft.client.render.BufferRenderer;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.DimensionEffects;
 import net.minecraft.client.render.Fog;
 import net.minecraft.client.render.FogShape;
-import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.render.Tessellator;
-import net.minecraft.client.render.VertexFormat;
-import net.minecraft.client.render.VertexFormats;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.BiomeTags;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.biome.Biome;
 import org.joml.Vector4f;
 
 public class AylythDimensionRenderer {
 	public static final DimensionEffects DIMENSION_EFFECTS = new AylythDimensionEffects();
-	public static final Identifier SPARKS = Aylyth.id("textures/environment/sun.png");
 	public static int goalFogStrength = 0;
 	private static float currentFogStrength;
 
-	public static Fog applyFog(Camera camera, BackgroundRenderer.FogType fogType, FogShape shape, Vector4f color, float viewDistance, boolean thickFog, float tickDelta) {
+	public static Fog applyFog(Camera camera, FogShape shape, Vector4f color) {
 		float fogStrength = currentFogStrength;
 		if (camera.getSubmersionType() == CameraSubmersionType.WATER) {
 			ClientPlayerEntity player = MinecraftClient.getInstance().player;
@@ -66,90 +48,20 @@ public class AylythDimensionRenderer {
 			goalFogStrength = 0;
 		}
 	}
-	
+
 	private static class AylythDimensionEffects extends DimensionEffects {
 		public AylythDimensionEffects() {
 			super(-70, false, SkyType.NONE, false, true);
 		}
-		
+
 		@Override
 		public Vec3d adjustFogColor(Vec3d color, float sunHeight) {
 			return color;
 		}
-		
+
 		@Override
 		public boolean useThickFog(int camX, int camY) {
 			return false;
 		}
-	}
-
-	// [VanillaCopy] WorldRenderer::renderSky
-	public static void renderSky(WorldRenderContext context) {
-		ClientWorld world = context.world();
-		Camera camera = context.camera();
-		float tickDelta = context.tickDelta();
-		var renderer = (WorldRendererAccessor) context.worldRenderer();
-		VertexBuffer lightSkyBuffer = renderer.getLightSkyBuffer();
-		VertexBuffer starsBuffer = renderer.getStarsBuffer();
-		MatrixStack matrices = context.matrixStack();
-		var matrix4f = context.projectionMatrix();
-		Vec3d vec3d = world.getSkyColor(camera.getPos(), tickDelta);
-		float skyRed = (float) vec3d.x;
-		float skyGreen = (float) vec3d.y;
-		float skyBlue = (float) vec3d.z;
-		BackgroundRenderer.setFogBlack();
-		BufferBuilder bufferBuilder = Tessellator.getInstance().getBuffer();
-		RenderSystem.depthMask(false);
-		RenderSystem.setShaderColor(skyRed, skyGreen, skyBlue, 1.0F);
-		ShaderProgram shader = RenderSystem.getShader();
-		lightSkyBuffer.bind();
-		lightSkyBuffer.draw(matrices.peek().getPositionMatrix(), matrix4f, shader);
-		VertexBuffer.unbind();
-		RenderSystem.enableBlend();
-		RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
-		matrices.push();
-		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-		matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-90.0F));
-		var positionMatrix = matrices.peek().getPositionMatrix();
-		float celestialSize = 20.0F;
-		RenderSystem.setShader(GameRenderer::getPositionTexProgram);
-		RenderSystem.setShaderTexture(0, SPARKS);
-		bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
-		bufferBuilder.vertex(positionMatrix, -celestialSize, 100.0F, -celestialSize).texture(0.0F, 0.0F).next();
-		bufferBuilder.vertex(positionMatrix, celestialSize, 100.0F, -celestialSize).texture(0.0F, 1.0F).next();
-		bufferBuilder.vertex(positionMatrix, celestialSize, 100.0F, celestialSize).texture(1.0F, 1.0F).next();
-		bufferBuilder.vertex(positionMatrix, -celestialSize, 100.0F, celestialSize).texture(1.0F, 0.0F).next();
-		BufferRenderer.drawWithGlobalProgram(bufferBuilder.end());
-		float starPower = world.method_23787(tickDelta);
-		if (starPower > 0.0F) {
-			matrices.push();
-			matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-90.0F));
-			matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(world.getSkyAngle(tickDelta) * 360.0F));
-			matrices.scale(0.1f, 0.1f, 0.1f);
-			RenderSystem.setShaderColor(starPower, starPower, starPower, starPower);
-			BackgroundRenderer.clearFog();
-			starsBuffer.bind();
-			starsBuffer.draw(matrices.peek().getPositionMatrix(), matrix4f, GameRenderer.getPositionProgram());
-			VertexBuffer.unbind();
-			matrices.pop();
-		}
-
-		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-		RenderSystem.disableBlend();
-		RenderSystem.defaultBlendFunc();
-		matrices.pop();
-		RenderSystem.setShaderColor(0.0F, 0.0F, 0.0F, 1.0F);
-		double d = MinecraftClient.getInstance().player.getCameraPosVec(tickDelta).y - world.getLevelProperties().getSkyDarknessHeight(world);
-		if (d < 0.0) {
-			matrices.push();
-			matrices.translate(0.0F, 12.0F, 0.0F);
-			renderer.getDarkSkyBuffer().bind();
-			renderer.getDarkSkyBuffer().draw(matrices.peek().getPositionMatrix(), matrix4f, shader);
-			VertexBuffer.unbind();
-			matrices.pop();
-		}
-
-		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-		RenderSystem.depthMask(true);
 	}
 }

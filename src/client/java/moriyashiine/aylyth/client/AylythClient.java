@@ -36,6 +36,7 @@ import moriyashiine.aylyth.client.render.entity.living.feature.YmpeThornRingFeat
 import moriyashiine.aylyth.client.render.entity.projectile.SphereEntityRenderer;
 import moriyashiine.aylyth.client.render.entity.projectile.ThornFlechetteRenderer;
 import moriyashiine.aylyth.client.render.entity.projectile.YmpeLanceEntityRenderer;
+import moriyashiine.aylyth.client.render.item.AylythSkyRenderer;
 import moriyashiine.aylyth.client.render.item.SpearItemRenderer;
 import moriyashiine.aylyth.client.render.item.WoodyGrowthCacheItemRenderer;
 import moriyashiine.aylyth.client.screen.TulpaScreen;
@@ -107,7 +108,7 @@ public class AylythClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		DimensionRenderingRegistry.registerDimensionEffects(AylythDimensionData.WORLD.getValue(), AylythDimensionRenderer.DIMENSION_EFFECTS);
-		DimensionRenderingRegistry.registerSkyRenderer(AylythDimensionData.WORLD, AylythDimensionRenderer::renderSky);
+		DimensionRenderingRegistry.registerSkyRenderer(AylythDimensionData.WORLD, AylythSkyRenderer.INSTANCE);
 		DimensionRenderingRegistry.registerCloudRenderer(AylythDimensionData.WORLD, context -> {});
 
 		ClientPlayNetworking.registerGlobalReceiver(SpawnParticlesAroundPacketS2C.ID, AylythClientNetworkHandler::handleSpawnParticlesAround);
