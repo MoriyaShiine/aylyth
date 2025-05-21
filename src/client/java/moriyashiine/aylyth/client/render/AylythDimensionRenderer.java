@@ -6,6 +6,7 @@ import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.data.tag.AylythBiomeTags;
 import moriyashiine.aylyth.mixin.client.WorldRendererAccessor;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
+import net.minecraft.block.enums.CameraSubmersionType;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.ShaderProgram;
 import net.minecraft.client.gl.VertexBuffer;
@@ -14,8 +15,9 @@ import net.minecraft.client.render.BackgroundRenderer;
 import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.BufferRenderer;
 import net.minecraft.client.render.Camera;
-import net.minecraft.client.render.CameraSubmersionType;
 import net.minecraft.client.render.DimensionEffects;
+import net.minecraft.client.render.Fog;
+import net.minecraft.client.render.FogShape;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.VertexFormat;
@@ -28,6 +30,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.biome.Biome;
+import org.joml.Vector4f;
 
 public class AylythDimensionRenderer {
 	public static final DimensionEffects DIMENSION_EFFECTS = new AylythDimensionEffects();
@@ -35,22 +38,21 @@ public class AylythDimensionRenderer {
 	public static int goalFogStrength = 0;
 	private static float currentFogStrength;
 
-	public static void renderFog(Camera camera, BackgroundRenderer.FogType fogType, float viewDistance, boolean thickFog, float tickDelta) {
+	public static Fog applyFog(Camera camera, BackgroundRenderer.FogType fogType, FogShape shape, Vector4f color, float viewDistance, boolean thickFog, float tickDelta) {
 		float fogStrength = currentFogStrength;
-		if (camera.getSubmersionType().equals(CameraSubmersionType.WATER)) {
+		if (camera.getSubmersionType() == CameraSubmersionType.WATER) {
 			ClientPlayerEntity player = MinecraftClient.getInstance().player;
 			ClientWorld world = MinecraftClient.getInstance().world;
 			if (world.getBiome(player.getBlockPos()).isIn(BiomeTags.HAS_CLOSER_WATER_FOG)) {
 				fogStrength *= 0.75f;
 			}
 		}
-		RenderSystem.setShaderFogStart(0F);
-		RenderSystem.setShaderFogEnd(fogStrength);
 		if (goalFogStrength < currentFogStrength) {
 			currentFogStrength -= 0.1F;
 		} else if (goalFogStrength > currentFogStrength) {
 			currentFogStrength += 0.1F;
 		}
+		return new Fog(0F, fogStrength, shape, color.x, color.y, color.z, color.w);
 	}
 
 	public static void determineConditions(RegistryEntry<Biome> biome) {
