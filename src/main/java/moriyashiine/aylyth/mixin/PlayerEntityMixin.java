@@ -129,30 +129,31 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHea
         }
     }
 
-    @ModifyVariable(method = "applyDamage", at = @At(value = "INVOKE", ordinal = 0, target = "Lnet/minecraft/entity/player/PlayerEntity;getHealth()F"), ordinal = 0, argsOnly = true)
-    private float modifyDamageForCuirass(float amount, DamageSource source) {
-        if (!getWorld().isClient) {
-            PlayerEntity player = (PlayerEntity) (Object) this;
-            CuirassStages component = player.getAttached(AylythEntityAttachmentTypes.CUIRASS);
-            if (component != null) {
-                boolean isAxe = source.getAttacker() instanceof LivingEntity livingEntity1 && livingEntity1.getMainHandStack().getItem() instanceof AxeItem;
-                if (isAxe || source.isIn(DamageTypeTags.IS_FIRE)) {
-                    component.setStage(0);
-                    component.setStageTimer(0);
-                    player.getWorld().playSoundFromEntity(null, player, AylythSoundEvents.ENTITY_PLAYER_INCREASE_YMPE_INFESTATION_STAGE.value(), SoundCategory.PLAYERS, 1, player.getSoundPitch());
-                    return amount;
-                } else if (!source.isIn(AylythDamageTypeTags.BYPASSES_CUIRASS)) {
-                    while (component.getStage() > 0) {
-                        amount--;
-                        component.setStage(component.getStage() - 1);
-                        player.getWorld().playSoundFromEntity(null, player, AylythSoundEvents.ENTITY_PLAYER_INCREASE_YMPE_INFESTATION_STAGE.value(), SoundCategory.PLAYERS, 1, player.getSoundPitch());
-                    }
-                    return amount;
-                }
-            }
-        }
-        return amount;
-    }
+    // TODO: Reimplement
+//    @ModifyVariable(method = "applyDamage", at = @At(value = "INVOKE", ordinal = 0, target = "Lnet/minecraft/entity/player/PlayerEntity;getHealth()F"), ordinal = 0, argsOnly = true)
+//    private float modifyDamageForCuirass(float amount, DamageSource source) {
+//        if (!getWorld().isClient) {
+//            PlayerEntity player = (PlayerEntity) (Object) this;
+//            CuirassStages component = player.getAttached(AylythEntityAttachmentTypes.CUIRASS);
+//            if (component != null) {
+//                boolean isAxe = source.getAttacker() instanceof LivingEntity livingEntity1 && livingEntity1.getMainHandStack().getItem() instanceof AxeItem;
+//                if (isAxe || source.isIn(DamageTypeTags.IS_FIRE)) {
+//                    component.setStage(0);
+//                    component.setStageTimer(0);
+//                    player.getWorld().playSoundFromEntity(null, player, AylythSoundEvents.ENTITY_PLAYER_INCREASE_YMPE_INFESTATION_STAGE.value(), SoundCategory.PLAYERS, 1, player.getSoundPitch());
+//                    return amount;
+//                } else if (!source.isIn(AylythDamageTypeTags.BYPASSES_CUIRASS)) {
+//                    while (component.getStage() > 0) {
+//                        amount--;
+//                        component.setStage(component.getStage() - 1);
+//                        player.getWorld().playSoundFromEntity(null, player, AylythSoundEvents.ENTITY_PLAYER_INCREASE_YMPE_INFESTATION_STAGE.value(), SoundCategory.PLAYERS, 1, player.getSoundPitch());
+//                    }
+//                    return amount;
+//                }
+//            }
+//        }
+//        return amount;
+//    }
 
     @ModifyVariable(method = "applyDamage", at = @At(value = "LOAD", opcode = Opcodes.FLOAD, ordinal = 2), argsOnly = true)
     private float vitalAbsorption(float damage) {
