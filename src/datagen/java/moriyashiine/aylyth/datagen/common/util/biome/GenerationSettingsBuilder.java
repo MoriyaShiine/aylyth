@@ -108,22 +108,14 @@ public class GenerationSettingsBuilder {
                 feature(i, feature.getKey().get());
             }
         }
-        for (RegistryEntry<ConfiguredCarver<?>> carver : tempBuilt.getCarversForStep(GenerationStep.Carver.AIR)) {
-            airCarver(carver);
-        }
-        for (RegistryEntry<ConfiguredCarver<?>> carver : tempBuilt.getCarversForStep(GenerationStep.Carver.LIQUID)) {
-            liquidCarver(carver);
+        for (RegistryEntry<ConfiguredCarver<?>> carver : tempBuilt.getCarversForStep()) {
+            carver(carver);
         }
         return this;
     }
 
-    public GenerationSettingsBuilder airCarver(@NotNull RegistryEntry<ConfiguredCarver<?>> configuredCarverEntry) {
-        delegate.carver(GenerationStep.Carver.AIR, configuredCarverEntry);
-        return this;
-    }
-
-    public GenerationSettingsBuilder liquidCarver(@NotNull RegistryEntry<ConfiguredCarver<?>> configuredCarverEntry) {
-        delegate.carver(GenerationStep.Carver.LIQUID, configuredCarverEntry);
+    public GenerationSettingsBuilder carver(@NotNull RegistryEntry<ConfiguredCarver<?>> configuredCarverEntry) {
+        delegate.carver(configuredCarverEntry);
         return this;
     }
 

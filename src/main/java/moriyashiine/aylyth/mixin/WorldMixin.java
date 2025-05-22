@@ -13,8 +13,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.function.Supplier;
-
 @Mixin(World.class)
 public class WorldMixin implements AylythDamageSourcesProvider {
 
@@ -22,7 +20,7 @@ public class WorldMixin implements AylythDamageSourcesProvider {
     private AylythDamageSources aylythDamageSources;
 
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void aylyth$initModDamageSources(MutableWorldProperties properties, RegistryKey registryRef, DynamicRegistryManager registryManager, RegistryEntry dimensionEntry, Supplier profiler, boolean isClient, boolean debugWorld, long biomeAccess, int maxChainedNeighborUpdates, CallbackInfo ci) {
+    private void aylyth$initModDamageSources(MutableWorldProperties properties, RegistryKey registryRef, DynamicRegistryManager registryManager, RegistryEntry dimensionEntry, boolean isClient, boolean debugWorld, long seed, int maxChainedNeighborUpdates, CallbackInfo ci) {
         aylythDamageSources = new AylythDamageSources(registryManager);
     }
 

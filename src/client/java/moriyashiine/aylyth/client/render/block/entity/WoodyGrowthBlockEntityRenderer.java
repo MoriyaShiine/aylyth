@@ -17,6 +17,7 @@ import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.BakedQuad;
 import net.minecraft.client.texture.PlayerSkinProvider;
 import net.minecraft.client.util.DefaultSkinHelper;
+import net.minecraft.client.util.SkinTextures;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.UserCache;
@@ -25,17 +26,15 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class WoodyGrowthBlockEntityRenderer implements BlockEntityRenderer<WoodyGrowthCacheBlockEntity> {
-
     public WoodyGrowthBlockEntityRenderer(BlockEntityRendererFactory.Context ctx) {}
 
     @Override
@@ -51,7 +50,7 @@ public class WoodyGrowthBlockEntityRenderer implements BlockEntityRenderer<Woody
         long renderingSeed = state.getRenderingSeed(entity.getPos());
         rand.setSeed(renderingSeed);
         for (BakedQuad quad : model.getQuads(state, null, rand)) {
-            consumer.quad(matrices.peek(), quad, 1.0f, 1.0f, 1.0f, light, overlay);
+            consumer.quad(matrices.peek(), quad, 1.0f, 1.0f, 1.0f, 1.0f, light, overlay);
         }
 
         if (true || isPlayerWithinDistance(entity.getPos(), 24)) {
@@ -80,16 +79,11 @@ public class WoodyGrowthBlockEntityRenderer implements BlockEntityRenderer<Woody
         return null;
     }
 
-    public static Identifier getPlayerTexture(@NotNull UUID playerUuid) {
+    public static Identifier getPlayerTexture(UUID playerUuid) {
         PlayerSkinProvider skinProvider = MinecraftClient.getInstance().getSkinProvider();
-        AtomicReference<GameProfile> profile = new AtomicReference<>(new GameProfile(playerUuid, null));
-        UserCache cache = SkullBlockEntityAccessor.getUserCache();
-        profile.set(cache.getByUuid(playerUuid).orElse(profile.get()));
-        SkullBlockEntity.loadProperties(profile.get(), profile::set);
-        Map<MinecraftProfileTexture.Type, MinecraftProfileTexture> textures = skinProvider.getTextures(profile.get());
-        return textures.containsKey(MinecraftProfileTexture.Type.SKIN)
-                ? skinProvider.loadSkin(textures.get(MinecraftProfileTexture.Type.SKIN), MinecraftProfileTexture.Type.SKIN)
-                : DefaultSkinHelper.getTexture(playerUuid);
+        Optional<GameProfile> profile = SkullBlockEntity.fetchProfileByUuid(playerUuid).join();
+        SkinTextures textures = skinProvider.getSkinTextures(profile.get());
+        return textures.texture();
     }
 
     private boolean isPlayerWithinDistance(BlockPos pos, double distance) {
@@ -98,43 +92,43 @@ public class WoodyGrowthBlockEntityRenderer implements BlockEntityRenderer<Woody
     }
 
     private void renderBox(MatrixStack matrices, VertexConsumer consumer, int light, int overlay) {
+        MatrixStack.Entry entry = matrices.peek();
         Matrix4f posMat = matrices.peek().getPositionMatrix();
-        Matrix3f norMat = matrices.peek().getNormalMatrix();
 
         //FRONT SIDE OF HEAD
-        consumer.vertex(posMat, 1, 1, 0).color(255, 255, 255, 255).texture(0.125f, 0.125f).overlay(overlay).light(light).normal(norMat, 0, 0, -1).next();
-        consumer.vertex(posMat, 1, 0, 0).color(255, 255, 255, 255).texture(0.125f, 0.25f).overlay(overlay).light(light).normal(norMat, 0, 0, -1).next();
-        consumer.vertex(posMat, 0, 0, 0).color(255, 255, 255, 255).texture(0.25f, 0.25f).overlay(overlay).light(light).normal(norMat, 0, 0, -1).next();
-        consumer.vertex(posMat, 0, 1, 0).color(255, 255, 255, 255).texture(0.25f, 0.125f).overlay(overlay).light(light).normal(norMat, 0, 0, -1).next();
+        consumer.vertex(posMat, 1, 1, 0).color(255, 255, 255, 255).texture(0.125f, 0.125f).overlay(overlay).light(light).normal(entry, 0, 0, -1);
+        consumer.vertex(posMat, 1, 0, 0).color(255, 255, 255, 255).texture(0.125f, 0.25f).overlay(overlay).light(light).normal(entry, 0, 0, -1);
+        consumer.vertex(posMat, 0, 0, 0).color(255, 255, 255, 255).texture(0.25f, 0.25f).overlay(overlay).light(light).normal(entry, 0, 0, -1);
+        consumer.vertex(posMat, 0, 1, 0).color(255, 255, 255, 255).texture(0.25f, 0.125f).overlay(overlay).light(light).normal(entry, 0, 0, -1);
 
         // RIGHT SIDE OF HEAD
-        consumer.vertex(posMat, 0, 1, 0).color(255, 255, 255, 255).texture(0.25f, 0.125f).overlay(overlay).light(light).normal(norMat, 1, 0, 0).next();
-        consumer.vertex(posMat, 0, 0, 0).color(255, 255, 255, 255).texture(0.25f, 0.25f).overlay(overlay).light(light).normal(norMat, 1, 0, 0).next();
-        consumer.vertex(posMat, 0, 0, 1).color(255, 255, 255, 255).texture(0.375f, 0.25f).overlay(overlay).light(light).normal(norMat, 1, 0, 0).next();
-        consumer.vertex(posMat, 0, 1, 1).color(255, 255, 255, 255).texture(0.375f, 0.125f).overlay(overlay).light(light).normal(norMat, 1, 0, 0).next();
+        consumer.vertex(posMat, 0, 1, 0).color(255, 255, 255, 255).texture(0.25f, 0.125f).overlay(overlay).light(light).normal(entry, 1, 0, 0);
+        consumer.vertex(posMat, 0, 0, 0).color(255, 255, 255, 255).texture(0.25f, 0.25f).overlay(overlay).light(light).normal(entry, 1, 0, 0);
+        consumer.vertex(posMat, 0, 0, 1).color(255, 255, 255, 255).texture(0.375f, 0.25f).overlay(overlay).light(light).normal(entry, 1, 0, 0);
+        consumer.vertex(posMat, 0, 1, 1).color(255, 255, 255, 255).texture(0.375f, 0.125f).overlay(overlay).light(light).normal(entry, 1, 0, 0);
 
         // BACK SIDE OF HEAD
-        consumer.vertex(posMat, 0, 1, 1).color(255, 255, 255, 255).texture(0.375f, 0.125f).overlay(overlay).light(light).normal(norMat, 0, 0, -1).next();
-        consumer.vertex(posMat, 0, 0, 1).color(255, 255, 255, 255).texture(0.375f, 0.25f).overlay(overlay).light(light).normal(norMat, 0, 0, -1).next();
-        consumer.vertex(posMat, 1, 0, 1).color(255, 255, 255, 255).texture(0.5f, 0.25f).overlay(overlay).light(light).normal(norMat, 0, 0, -1).next();
-        consumer.vertex(posMat, 1, 1, 1).color(255, 255, 255, 255).texture(0.5f, 0.125f).overlay(overlay).light(light).normal(norMat, 0, 0, -1).next();
+        consumer.vertex(posMat, 0, 1, 1).color(255, 255, 255, 255).texture(0.375f, 0.125f).overlay(overlay).light(light).normal(entry, 0, 0, -1);
+        consumer.vertex(posMat, 0, 0, 1).color(255, 255, 255, 255).texture(0.375f, 0.25f).overlay(overlay).light(light).normal(entry, 0, 0, -1);
+        consumer.vertex(posMat, 1, 0, 1).color(255, 255, 255, 255).texture(0.5f, 0.25f).overlay(overlay).light(light).normal(entry, 0, 0, -1);
+        consumer.vertex(posMat, 1, 1, 1).color(255, 255, 255, 255).texture(0.5f, 0.125f).overlay(overlay).light(light).normal(entry, 0, 0, -1);
 
         // LEFT SIDE OF HEAD
-        consumer.vertex(posMat, 1, 1, 1).color(255, 255, 255, 255).texture(0, 0.125f).overlay(overlay).light(light).normal(norMat, -1, 0, 0).next();
-        consumer.vertex(posMat, 1, 0, 1).color(255, 255, 255, 255).texture(0, 0.25f).overlay(overlay).light(light).normal(norMat, -1, 0, 0).next();
-        consumer.vertex(posMat, 1, 0, 0).color(255, 255, 255, 255).texture(0.125f, 0.25f).overlay(overlay).light(light).normal(norMat, -1, 0, 0).next();
-        consumer.vertex(posMat, 1, 1, 0).color(255, 255, 255, 255).texture(0.125f, 0.125f).overlay(overlay).light(light).normal(norMat, -1, 0, 0).next();
+        consumer.vertex(posMat, 1, 1, 1).color(255, 255, 255, 255).texture(0, 0.125f).overlay(overlay).light(light).normal(entry, -1, 0, 0);
+        consumer.vertex(posMat, 1, 0, 1).color(255, 255, 255, 255).texture(0, 0.25f).overlay(overlay).light(light).normal(entry, -1, 0, 0);
+        consumer.vertex(posMat, 1, 0, 0).color(255, 255, 255, 255).texture(0.125f, 0.25f).overlay(overlay).light(light).normal(entry, -1, 0, 0);
+        consumer.vertex(posMat, 1, 1, 0).color(255, 255, 255, 255).texture(0.125f, 0.125f).overlay(overlay).light(light).normal(entry, -1, 0, 0);
 
         // TOP SIDE OF HEAD
-        consumer.vertex(posMat, 1, 1, 1).color(255, 255, 255, 255).texture(0.125f, 0).overlay(overlay).light(light).normal(norMat, 0, 1, 0).next();
-        consumer.vertex(posMat, 1, 1, 0).color(255, 255, 255, 255).texture(0.125f, 0.125f).overlay(overlay).light(light).normal(norMat, 0, 1, 0).next();
-        consumer.vertex(posMat, 0, 1, 0).color(255, 255, 255, 255).texture(0.25f, 0.125f).overlay(overlay).light(light).normal(norMat, 0, 1, 0).next();
-        consumer.vertex(posMat, 0, 1, 1).color(255, 255, 255, 255).texture(0.25f, 0).overlay(overlay).light(light).normal(norMat, 0, 1, 0).next();
+        consumer.vertex(posMat, 1, 1, 1).color(255, 255, 255, 255).texture(0.125f, 0).overlay(overlay).light(light).normal(entry, 0, 1, 0);
+        consumer.vertex(posMat, 1, 1, 0).color(255, 255, 255, 255).texture(0.125f, 0.125f).overlay(overlay).light(light).normal(entry, 0, 1, 0);
+        consumer.vertex(posMat, 0, 1, 0).color(255, 255, 255, 255).texture(0.25f, 0.125f).overlay(overlay).light(light).normal(entry, 0, 1, 0);
+        consumer.vertex(posMat, 0, 1, 1).color(255, 255, 255, 255).texture(0.25f, 0).overlay(overlay).light(light).normal(entry, 0, 1, 0);
 
         // BOTTOM SIDE OF HEAD - NOTE: UV was rotated 180 due to weirdness
-        consumer.vertex(posMat, 1, 0, 0).color(255, 255, 255, 255).texture(0.375f, 0.125f).overlay(overlay).light(light).normal(norMat, 0, -1, 0).next();
-        consumer.vertex(posMat, 1, 0, 1).color(255, 255, 255, 255).texture(0.375f, 0).overlay(overlay).light(light).normal(norMat, 0, -1, 0).next();
-        consumer.vertex(posMat, 0, 0, 1).color(255, 255, 255, 255).texture(0.25f, 0).overlay(overlay).light(light).normal(norMat, 0, -1, 0).next();
-        consumer.vertex(posMat, 0, 0, 0).color(255, 255, 255, 255).texture(0.25f, 0.125f).overlay(overlay).light(light).normal(norMat, 0, -1, 0).next();
+        consumer.vertex(posMat, 1, 0, 0).color(255, 255, 255, 255).texture(0.375f, 0.125f).overlay(overlay).light(light).normal(entry, 0, -1, 0);
+        consumer.vertex(posMat, 1, 0, 1).color(255, 255, 255, 255).texture(0.375f, 0).overlay(overlay).light(light).normal(entry, 0, -1, 0);
+        consumer.vertex(posMat, 0, 0, 1).color(255, 255, 255, 255).texture(0.25f, 0).overlay(overlay).light(light).normal(entry, 0, -1, 0);
+        consumer.vertex(posMat, 0, 0, 0).color(255, 255, 255, 255).texture(0.25f, 0.125f).overlay(overlay).light(light).normal(entry, 0, -1, 0);
     }
 }

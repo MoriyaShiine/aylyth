@@ -39,16 +39,16 @@ public class SeepBlockEntityRenderer implements BlockEntityRenderer<SeepBlockEnt
 	}
 
 	private void renderCompatSide(MatrixStack.Entry entry, VertexConsumer vertices, float x1, float x2, float y1, float y2, float z1, float z2) {
-		vertices.vertex(entry.getPositionMatrix(), x1, y1, z1).color(1, 1, 1, 1f).texture(0, 0).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(entry.getNormalMatrix(), 0, 0, 0).next();
-		vertices.vertex(entry.getPositionMatrix(), x2, y1, z2).color(1, 1, 1, 1f).texture(0, 1).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(entry.getNormalMatrix(), 0, 0, 0).next();
-		vertices.vertex(entry.getPositionMatrix(), x2, y2, z2).color(1, 1, 1, 1f).texture(1, 1).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(entry.getNormalMatrix(), 0, 0, 0).next();
-		vertices.vertex(entry.getPositionMatrix(), x1, y2, z1).color(1, 1, 1, 1f).texture(1, 0).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(entry.getNormalMatrix(), 0, 0, 0).next();
+		vertices.vertex(entry.getPositionMatrix(), x1, y1, z1).color(1, 1, 1, 1f).texture(0, 0).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(entry, 0, 0, 0);
+		vertices.vertex(entry.getPositionMatrix(), x2, y1, z2).color(1, 1, 1, 1f).texture(0, 1).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(entry, 0, 0, 0);
+		vertices.vertex(entry.getPositionMatrix(), x2, y2, z2).color(1, 1, 1, 1f).texture(1, 1).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(entry, 0, 0, 0);
+		vertices.vertex(entry.getPositionMatrix(), x1, y2, z1).color(1, 1, 1, 1f).texture(1, 0).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_LIGHT_COORDINATE).normal(entry, 0, 0, 0);
 	}
 
 	private void renderSide(Matrix4f model, VertexConsumer vertices, float x1, float x2, float y1, float y2, float z1, float z2) {
-		vertices.vertex(model, x1, y1, z1).next();
-		vertices.vertex(model, x2, y1, z2).next();
-		vertices.vertex(model, x2, y2, z2).next();
-		vertices.vertex(model, x1, y2, z1).next();
+		vertices.vertex(model, x1, y1, z1);
+		vertices.vertex(model, x2, y1, z2);
+		vertices.vertex(model, x2, y2, z2);
+		vertices.vertex(model, x1, y2, z1);
 	}
 }

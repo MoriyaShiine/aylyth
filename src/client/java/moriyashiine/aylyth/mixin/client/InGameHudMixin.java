@@ -12,6 +12,7 @@ import moriyashiine.aylyth.common.entity.attachments.YmpeInfestation;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
@@ -32,39 +33,38 @@ public abstract class InGameHudMixin implements AylythGameHud {
 	@Shadow
 	protected abstract void renderOverlay(DrawContext context, Identifier texture, float opacity);
 
-	@Shadow protected abstract void drawHeart(DrawContext context, InGameHud.HeartType type, int x, int y, int v, boolean blinking, boolean halfHeart);
+	@Shadow protected abstract void drawHeart(DrawContext context, InGameHud.HeartType type, int x, int y, boolean hardcore, boolean blinking, boolean half);
 
-	@Shadow private int scaledWidth;
+	// TODO: Rewrite for layer drawer
+//	@Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/MathHelper;lerp(FFF)F", ordinal = 1))
+//	private void renderYmpeInfestationOverlay(DrawContext context, float tickDelta, CallbackInfo ci) {
+//		YmpeInfestation infestation = client.player.getAttached(AylythEntityAttachmentTypes.YMPE_INFESTATION);
+//		if (infestation != null) {
+//			int stage = infestation.getStage();
+//			if (stage >= 3) {
+//				renderOverlay(context, YMPE_OUTLINE_1_TEXTURE, stage == 3 ? (float) infestation.getInfestationTimer() / YmpeInfestation.TIME_UNTIL_STAGE_INCREASES : 1);
+//			}
+//			if (stage >= 2) {
+//				renderOverlay(context, YMPE_OUTLINE_0_TEXTURE, stage == 2 ? (float) infestation.getInfestationTimer() / YmpeInfestation.TIME_UNTIL_STAGE_INCREASES : 1);
+//			}
+//			if (stage >= 5) {
+//				renderOverlay(context, YMPE_OUTLINE_2_TEXTURE, stage == 5 ? (float) infestation.getInfestationTimer() / YmpeInfestation.TIME_UNTIL_STAGE_INCREASES : 1);
+//			}
+//		}
+//
+//		// TODO: Make more efficient
+//		if (client.world.getBlockState(client.player.getBlockPos()).isIn(AylythBlockTags.SEEPS)) {
+//			if (!IrisCompat.isShaderPackInUse()) {
+//				int scaledWidth = context.getScaledWindowWidth();
+//				int scaledHeight = context.getScaledWindowHeight();
+//				context.fill(AylythRenderLayers.SEEP, scaledWidth, scaledHeight, scaledWidth, scaledHeight, 0xFFFFFFFF);
+//			} else {
+//				renderOverlay(context, SEEP_OVERLAY, 1);
+//			}
+//		}
+//	}
 
-	@Shadow private int scaledHeight;
-
-	@Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/MathHelper;lerp(FFF)F", ordinal = 1))
-	private void renderYmpeInfestationOverlay(DrawContext context, float tickDelta, CallbackInfo ci) {
-		YmpeInfestation infestation = client.player.getAttached(AylythEntityAttachmentTypes.YMPE_INFESTATION);
-		if (infestation != null) {
-			int stage = infestation.getStage();
-			if (stage >= 3) {
-				renderOverlay(context, YMPE_OUTLINE_1_TEXTURE, stage == 3 ? (float) infestation.getInfestationTimer() / YmpeInfestation.TIME_UNTIL_STAGE_INCREASES : 1);
-			}
-			if (stage >= 2) {
-				renderOverlay(context, YMPE_OUTLINE_0_TEXTURE, stage == 2 ? (float) infestation.getInfestationTimer() / YmpeInfestation.TIME_UNTIL_STAGE_INCREASES : 1);
-			}
-			if (stage >= 5) {
-				renderOverlay(context, YMPE_OUTLINE_2_TEXTURE, stage == 5 ? (float) infestation.getInfestationTimer() / YmpeInfestation.TIME_UNTIL_STAGE_INCREASES : 1);
-			}
-		}
-
-		// TODO: Make more efficient
-		if (client.world.getBlockState(client.player.getBlockPos()).isIn(AylythBlockTags.SEEPS)) {
-			if (!IrisCompat.isShaderPackInUse()) {
-				context.fill(AylythRenderLayers.SEEP, scaledWidth, scaledHeight, scaledWidth, scaledHeight, 0xFFFFFFFF);
-			} else {
-				renderOverlay(context, SEEP_OVERLAY, 1);
-			}
-		}
-	}
-
-	@ModifyArg(method = "drawHeart", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawTexture(Lnet/minecraft/util/Identifier;IIIIII)V"))
+	@ModifyArg(method = "drawHeart", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawGuiTexture(Ljava/util/function/Function;Lnet/minecraft/util/Identifier;IIII)V"))
 	private Identifier drawBranchingHearts(Identifier id) {
 		YmpeInfestation infestation = client.player.getAttached(AylythEntityAttachmentTypes.YMPE_INFESTATION);
 		if (infestation != null && infestation.getStage() > 0) {
@@ -89,7 +89,7 @@ public abstract class InGameHudMixin implements AylythGameHud {
 			int actualX = x + (i % 10) * 8;
 			int actualY = y - (i / 10) * lines;
 
-			drawHeart(context, InGameHud.HeartType.CONTAINER, actualX, actualY, 0, blinking, false);
+			drawHeart(context, InGameHud.HeartType.CONTAINER, actualX, actualY, false, blinking, false);
 
 			int representedHealth = i*2;
 			if (representedHealth < maxHealth+absorption+vitalHealth) {
@@ -101,9 +101,9 @@ public abstract class InGameHudMixin implements AylythGameHud {
 				if (representedHealth+1 == maxHealth+absorption+vitalHealth) {
 					u += 9;
 				}
-				context.drawTexture(AylythGameHud.HEARTS, actualX+1, actualY+1, 0, u, 0, 7, 7, 64, 64);
+				context.drawTexture(RenderLayer::getGuiTextured, AylythGameHud.HEARTS, actualX+1, actualY+1, 0, u, 0, 7, 7, 64, 64);
 			} else {
-				context.drawTexture(AylythGameHud.HEARTS, actualX+1, actualY+1, 0, 32, 0, 7, 7, 64, 64);
+				context.drawTexture(RenderLayer::getGuiTextured, AylythGameHud.HEARTS, actualX+1, actualY+1, 0, 32, 0, 7, 7, 64, 64);
 			}
 		}
 	}
