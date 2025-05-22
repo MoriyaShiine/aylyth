@@ -216,6 +216,9 @@ public final class AylythRecipeGenerator extends RecipeGenerator {
                 .input('E', AylythItems.ESSTLINE)
                 .input('S', AylythItems.YMPE_SAPLING)
                 .input('C', AylythItems.CORIC_SEED)
+                .pattern(" EC")
+                .pattern(" SE")
+                .pattern("S  ")
                 .criterion("has_coric_seed", conditionsFromItem(AylythItems.CORIC_SEED))
                 .offerTo(exporter);
 
