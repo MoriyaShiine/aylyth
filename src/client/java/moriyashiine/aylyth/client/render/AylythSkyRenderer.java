@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.client.render.item;
+package moriyashiine.aylyth.client.render;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import moriyashiine.aylyth.common.Aylyth;
