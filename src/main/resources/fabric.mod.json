@@ -67,7 +67,9 @@
             "aylyth:vital_health"
         ],
         "loom:injected_interfaces": {
-            "net/minecraft/class_1937": ["moriyashiine/aylyth/api/interfaces/AylythDamageSourcesProvider"]
+            "net/minecraft/class_1937": ["moriyashiine/aylyth/api/interfaces/AylythDamageSourcesProvider"],
+            "net/minecraft/class_10055": ["moriyashiine/aylyth/client/api/interfaces/ExtendedPlayerEntityRenderState"],
+            "net/minecraft/class_10042": ["moriyashiine/aylyth/client/api/interfaces/ExtendedLivingEntityRenderState"]
         }
     }
 }
