@@ -8,7 +8,7 @@ import net.minecraft.client.particle.ParticleFactory;
 import net.minecraft.client.particle.ParticleTextureSheet;
 import net.minecraft.client.particle.SpriteProvider;
 import net.minecraft.client.world.ClientWorld;
-import org.joml.Vector3f;
+import net.minecraft.util.math.ColorHelper;
 
 public class SoulEmberParticle extends AbstractSlowingParticle {
     protected final SpriteProvider spriteProvider;
@@ -48,8 +48,8 @@ public class SoulEmberParticle extends AbstractSlowingParticle {
         @Override
         public Particle createParticle(ColorableParticleEffect parameters, ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
             SoulEmberParticle particle = new SoulEmberParticle(world, x, y, z, velocityX, velocityY, velocityZ, spriteProvider);
-            Vector3f color = parameters.getColor();
-            particle.setColor(color.x(), color.y(), color.z());
+            int color = parameters.color();
+            particle.setColor(ColorHelper.getRed(color), ColorHelper.getGreen(color), ColorHelper.getBlue(color));
             particle.setAlpha(0.9f);
             particle.setSprite(spriteProvider);
             return particle;

@@ -1,6 +1,5 @@
 package moriyashiine.aylyth.client.particle.types;
 
-import moriyashiine.aylyth.client.particle.AylythParticleTextureSheets;
 import net.minecraft.client.particle.AbstractSlowingParticle;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleFactory;
@@ -26,7 +25,7 @@ public class PilotLightParticle extends AbstractSlowingParticle {
 
 	@Override
 	public ParticleTextureSheet getType() {
-		return AylythParticleTextureSheets.GLOWING;
+		return ParticleTextureSheet.PARTICLE_SHEET_TRANSLUCENT;
 	}
 
 	@Override
