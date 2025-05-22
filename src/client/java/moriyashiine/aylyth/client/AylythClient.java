@@ -253,12 +253,6 @@ public class AylythClient implements ClientModInitializer {
 		BuiltinItemRendererRegistry.INSTANCE.register(AylythItems.WOODY_GROWTH_CACHE, new WoodyGrowthCacheItemRenderer());
 
 		HandledScreens.register(AylythScreenHandlerTypes.TULPA, TulpaScreen::new);
-
-		CoreShaderRegistrationCallback.EVENT.register(context -> {
-			context.register(Aylyth.id("rendertype_seep"), VertexFormats.POSITION_COLOR_TEXTURE_LIGHT_NORMAL, shader -> AylythRenderLayers.renderLayerSeep = shader);
-			context.register(Aylyth.id("rendertype_tint"), VertexFormats.POSITION_TEXTURE, shader -> AylythRenderLayers.renderLayerTint = shader);
-		});
-	}
 	}
 
 	private static Block[] cutoutBlocks() {

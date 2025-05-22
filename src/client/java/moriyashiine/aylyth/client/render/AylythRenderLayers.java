@@ -1,11 +1,14 @@
 package moriyashiine.aylyth.client.render;
 
 import moriyashiine.aylyth.common.Aylyth;
+import net.minecraft.client.gl.Defines;
+import net.minecraft.client.gl.ShaderProgramKey;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.RenderPhase;
 import net.minecraft.client.render.VertexFormat;
 import net.minecraft.client.render.VertexFormats;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.TriState;
 import net.minecraft.util.Util;
 
 import java.util.function.Function;
@@ -15,14 +18,14 @@ public class AylythRenderLayers extends RenderLayer {
         super(name, vertexFormat, drawMode, expectedBufferSize, hasCrumbling, translucent, startAction, endAction);
     }
 
-    public static net.minecraft.client.gl.ShaderProgram renderLayerSeep;
+    public static final ShaderProgramKey SEEP_RENDER_LAYER = new ShaderProgramKey(Aylyth.id("rendertype_seep"), VertexFormats.POSITION_COLOR_TEXTURE_LIGHT_NORMAL, Defines.EMPTY);
     public static final MultiPhase SEEP = of(
             "seep",
             VertexFormats.POSITION,
             VertexFormat.DrawMode.QUADS,
             256, false, false,
             RenderLayer.MultiPhaseParameters.builder()
-                    .program(new RenderPhase.ShaderProgram(() -> renderLayerSeep))
+                    .program(new RenderPhase.ShaderProgram(SEEP_RENDER_LAYER))
                     .texture(RenderPhase.Textures.create()
                             .add(Aylyth.id("textures/environment/seep_0.png"), false, false)
                             .add(Aylyth.id("textures/environment/seep_1.png"), false, false)
@@ -31,15 +34,15 @@ public class AylythRenderLayers extends RenderLayer {
                     .build(false)
     );
 
-    public static net.minecraft.client.gl.ShaderProgram renderLayerTint;
+    public static final ShaderProgramKey TINT_RENDER_LAYER = new ShaderProgramKey(Aylyth.id("rendertype_tint"), VertexFormats.POSITION_TEXTURE, Defines.EMPTY);
     public static final MultiPhase TINT = of(
             "renderlayer_tint",
             VertexFormats.POSITION_TEXTURE,
             VertexFormat.DrawMode.QUADS,
             256, false, false,
             MultiPhaseParameters.builder()
-                    .program(new ShaderProgram(() -> renderLayerTint))
-                    .texture(new Texture(Aylyth.id("textures/misc/woody_growth_tint.png"), true, false))
+                    .program(new ShaderProgram(TINT_RENDER_LAYER))
+                    .texture(new Texture(Aylyth.id("textures/misc/woody_growth_tint.png"), TriState.TRUE, false))
                     .writeMaskState(COLOR_MASK)
                     .cull(DISABLE_CULLING)
                     .depthTest(EQUAL_DEPTH_TEST)
@@ -51,7 +54,7 @@ public class AylythRenderLayers extends RenderLayer {
     public static final Function<Identifier, RenderLayer> ENTITY_NO_OUTLINE_DEPTH_FIX = Util.memoize(texture -> {
         MultiPhaseParameters multiPhaseParameters = MultiPhaseParameters.builder()
                 .program(ENTITY_SOLID_PROGRAM)
-                .texture(new Texture(texture, false, false))
+                .texture(new Texture(texture, TriState.FALSE, false))
                 .cull(DISABLE_CULLING)
                 .lightmap(ENABLE_LIGHTMAP)
                 .overlay(ENABLE_OVERLAY_COLOR)
@@ -61,7 +64,7 @@ public class AylythRenderLayers extends RenderLayer {
 
     public static final Function<Identifier, RenderLayer> GLOWING_LAYER = Util.memoize(texture -> {
         MultiPhaseParameters multiPhaseParameters = MultiPhaseParameters.builder()
-                .texture(new Texture(texture, false, false))
+                .texture(new Texture(texture, TriState.FALSE, false))
                 .transparency(TRANSLUCENT_TRANSPARENCY)
                 .cull(DISABLE_CULLING).lightmap(ENABLE_LIGHTMAP)
                 .overlay(DISABLE_OVERLAY_COLOR)
