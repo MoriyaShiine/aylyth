@@ -26,9 +26,6 @@
         "client": [
             "moriyashiine.aylyth.client.AylythClient"
         ],
-        "cardinal-components-entity": [
-            "moriyashiine.aylyth.common.entity.AylythEntityComponents"
-        ],
         "rei_client": [
             "moriyashiine.aylyth.client.integration.rei.ModREIPlugin"
         ],
@@ -58,14 +55,6 @@
         "fusion": ">=1.1.1"
     },
     "custom": {
-        "cardinal-components": [
-            "aylyth:ympe_thorns",
-            "aylyth:ympe_infestation",
-            "aylyth:prevent_drops",
-            "aylyth:rider",
-            "aylyth:cuirass",
-            "aylyth:vital_health"
-        ],
         "loom:injected_interfaces": {
             "net/minecraft/class_1937": ["moriyashiine/aylyth/api/interfaces/AylythDamageSourcesProvider"],
             "net/minecraft/class_10055": ["moriyashiine/aylyth/client/api/interfaces/ExtendedPlayerEntityRenderState"],
