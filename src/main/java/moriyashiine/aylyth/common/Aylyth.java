@@ -57,6 +57,7 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
+import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
@@ -167,6 +168,8 @@ public class Aylyth implements ModInitializer {
 		LivingEntityDeathEvents.init();
 		AylythModifyLootTableHandler.register();
 
+		PayloadTypeRegistry.playC2S().register(GlaivePacketC2S.ID, GlaivePacketC2S.PACKET_CODEC);
+		PayloadTypeRegistry.playC2S().register(UpdatePressingUpDownPacketC2S.ID, UpdatePressingUpDownPacketC2S.PACKET_CODEC);
 		ServerPlayNetworking.registerGlobalReceiver(GlaivePacketC2S.ID, AylythServerPacketHandler::handleGlaiveSpecial);
 		ServerPlayNetworking.registerGlobalReceiver(UpdatePressingUpDownPacketC2S.ID, AylythServerPacketHandler::handleUpdatePressingUpDown);
 

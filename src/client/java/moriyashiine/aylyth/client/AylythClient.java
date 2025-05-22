@@ -59,6 +59,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRegistrationCallback;
+import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.color.world.BiomeColors;
@@ -104,6 +105,7 @@ public class AylythClient implements ClientModInitializer {
 		DimensionRenderingRegistry.registerSkyRenderer(AylythDimensionData.WORLD, AylythSkyRenderer.INSTANCE);
 		DimensionRenderingRegistry.registerCloudRenderer(AylythDimensionData.WORLD, context -> {});
 
+		PayloadTypeRegistry.playS2C().register(SpawnParticlesAroundPacketS2C.ID, SpawnParticlesAroundPacketS2C.PACKET_CODEC);
 		ClientPlayNetworking.registerGlobalReceiver(SpawnParticlesAroundPacketS2C.ID, AylythClientNetworkHandler::handleSpawnParticlesAround);
 
 		ParticleFactoryRegistry.getInstance().register(AylythParticleTypes.PILOT_LIGHT, PilotLightParticle.Factory::new);

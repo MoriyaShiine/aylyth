@@ -12,7 +12,7 @@ import java.util.List;
 
 public record SpawnParticlesAroundPacketS2C(int entityId, int numEach, List<ParticleEffect> particles) implements CustomPayload {
 	public static final CustomPayload.Id<SpawnParticlesAroundPacketS2C> ID = new Id<>(Aylyth.id("spawn_multiple_particles"));
-	public static final PacketCodec<? extends RegistryByteBuf, SpawnParticlesAroundPacketS2C> PACKET_CODEC = PacketCodec.tuple(
+	public static final PacketCodec<? super RegistryByteBuf, SpawnParticlesAroundPacketS2C> PACKET_CODEC = PacketCodec.tuple(
 			PacketCodecs.INTEGER.cast(), SpawnParticlesAroundPacketS2C::entityId,
 			PacketCodecs.INTEGER.cast(), SpawnParticlesAroundPacketS2C::numEach,
 			ParticleTypes.PACKET_CODEC.collect(PacketCodecs.toList()), SpawnParticlesAroundPacketS2C::particles,
