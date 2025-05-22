@@ -84,6 +84,7 @@ import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.render.entity.state.LivingEntityRenderState;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.json.JsonUnbakedModel;
+import net.minecraft.client.render.item.model.special.SpecialModelTypes;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.entity.EntityType;
@@ -249,7 +250,7 @@ public class AylythClient implements ClientModInitializer {
 		});
 
 
-		BuiltinItemRendererRegistry.INSTANCE.register(AylythItems.WOODY_GROWTH_CACHE, new WoodyGrowthCacheItemRenderer());
+		SpecialModelTypes.ID_MAPPER.put(Aylyth.id("woody_growth_cache"), WoodyGrowthCacheItemRenderer.Unbaked.CODEC);
 
 		HandledScreens.register(AylythScreenHandlerTypes.TULPA, TulpaScreen::new);
 	}
