@@ -91,25 +91,26 @@ public abstract class LivingEntityMixin extends Entity {
 		}
 	}
 
-	@ModifyVariable(method = "damage", at = @At("HEAD"), argsOnly = true)
-	private float applySpecialDamage(float value, DamageSource source) {
-		if (source.getAttacker() instanceof LivingEntity entity && !source.getAttacker().getWorld().isClient) {
-			double attkDMG = entity.getAttributeValue(EntityAttributes.ATTACK_DAMAGE);
-			ItemStack stack = entity.getMainHandStack();
-
-            if (value >= attkDMG) { // Prevents using non-critical attacks to spam the weapons
-				if (stack.isIn(AylythItemTags.VAMPIRIC_WEAPONS)) {
-					return AylythUtil.getVampiricWeaponEffect(entity, (LivingEntity) (Object) this, stack, value);
-				}
-				if (stack.isIn(AylythItemTags.BLIGHTED_WEAPONS)) {
-					return AylythUtil.getBlightedWeaponEffect(entity, (LivingEntity) (Object) this, stack, value);
-				}
-            }
-
-		}
-
-		return value;
-	}
+	// TODO: Reimplement
+//	@ModifyVariable(method = "damage", at = @At("HEAD"), argsOnly = true)
+//	private float applySpecialDamage(float value, DamageSource source) {
+//		if (source.getAttacker() instanceof LivingEntity entity && !source.getAttacker().getWorld().isClient) {
+//			double attkDMG = entity.getAttributeValue(EntityAttributes.ATTACK_DAMAGE);
+//			ItemStack stack = entity.getMainHandStack();
+//
+//            if (value >= attkDMG) { // Prevents using non-critical attacks to spam the weapons
+//				if (stack.isIn(AylythItemTags.VAMPIRIC_WEAPONS)) {
+//					return AylythUtil.getVampiricWeaponEffect(entity, (LivingEntity) (Object) this, stack, value);
+//				}
+//				if (stack.isIn(AylythItemTags.BLIGHTED_WEAPONS)) {
+//					return AylythUtil.getBlightedWeaponEffect(entity, (LivingEntity) (Object) this, stack, value);
+//				}
+//            }
+//
+//		}
+//
+//		return value;
+//	}
 
 	@Inject(method = "heal", at = @At("HEAD"), cancellable = true)
 	private void preventHeal(float amount, CallbackInfo callbackInfo) {
