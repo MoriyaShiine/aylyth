@@ -15,7 +15,6 @@ import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.fabricmc.fabric.api.tag.convention.v1.TagUtil;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
@@ -29,6 +28,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.BiomeTags;
 import net.minecraft.registry.tag.FluidTags;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -94,7 +94,7 @@ public abstract class LivingEntityMixin extends Entity {
 	@ModifyVariable(method = "damage", at = @At("HEAD"), argsOnly = true)
 	private float applySpecialDamage(float value, DamageSource source) {
 		if (source.getAttacker() instanceof LivingEntity entity && !source.getAttacker().getWorld().isClient) {
-			double attkDMG = entity.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
+			double attkDMG = entity.getAttributeValue(EntityAttributes.ATTACK_DAMAGE);
 			ItemStack stack = entity.getMainHandStack();
 
             if (value >= attkDMG) { // Prevents using non-critical attacks to spam the weapons
@@ -114,44 +114,45 @@ public abstract class LivingEntityMixin extends Entity {
 	@Inject(method = "heal", at = @At("HEAD"), cancellable = true)
 	private void preventHeal(float amount, CallbackInfo callbackInfo) {
 		for (StatusEffectInstance effect : this.getStatusEffects()) {
-			if (TagUtil.isIn(AylythStatusEffectTags.PREVENTS_HEALING, effect.getEffectType())) {
+			if (effect.getEffectType().isIn(AylythStatusEffectTags.PREVENTS_HEALING)) {
 				callbackInfo.cancel();
 			}
 		}
 	}
 
 	@Inject(method = "drop", at = @At("HEAD"), cancellable = true)
-	private void shuckLogic(DamageSource source, CallbackInfo ci) {
+	private void shuckLogic(ServerWorld world, DamageSource damageSource, CallbackInfo ci) {
 		if (this.hasAttached(AylythEntityAttachmentTypes.PREVENT_DROPS)) {
 			ci.cancel();
 		}
 	}
 
-	@WrapWithCondition(method = "drop", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;dropInventory()V"))
-	private boolean keepPledgedInv(LivingEntity instance, @Local(argsOnly = true) DamageSource damageSource) {
+	@WrapWithCondition(method = "drop", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;dropInventory(Lnet/minecraft/server/world/ServerWorld;)V"))
+	private boolean keepPledgedInv(LivingEntity instance, ServerWorld world, @Local(argsOnly = true) DamageSource damageSource) {
         return !(instance instanceof PlayerEntity player) || !damageSource.isOf(AylythDamageTypes.YMPE) || ((HindPledgeHolder) player).getHindUuid() == null;
     }
-	
-	@Inject(method = "eatFood", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;applyFoodEffects(Lnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/entity/LivingEntity;)V"))
-	private void decreaseYmpeInfestationStage(World world, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
-		if ((LivingEntity) (Object) this instanceof PlayerEntity player && stack.isIn(AylythItemTags.DECREASES_BRANCHES)) {
-			if (stack.isIn(AylythItemTags.DECREASES_BRANCHES_1_IN_4)) {
-				if (world.random.nextFloat() >= .25f) {
-					return;
-				}
-			}
-			if (player.hasAttached(AylythEntityAttachmentTypes.YMPE_INFESTATION)) {
-				YmpeInfestation infestation = player.getAttachedOrThrow(AylythEntityAttachmentTypes.YMPE_INFESTATION);
-				if (infestation.getStage() > 0) {
-					infestation.setStage((byte) (infestation.getStage() - 1));
-				}
-				else if (infestation.getInfestationTimer() > 0) {
-					infestation.setInfestationTimer((short) 0);
-				}
-				player.setAttached(AylythEntityAttachmentTypes.YMPE_INFESTATION, infestation);
-			}
-		}
-	}
+
+	// TODO: Reimplement as consume effect
+//	@Inject(method = "eatFood", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;applyFoodEffects(Lnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/entity/LivingEntity;)V"))
+//	private void decreaseYmpeInfestationStage(World world, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
+//		if ((LivingEntity) (Object) this instanceof PlayerEntity player && stack.isIn(AylythItemTags.DECREASES_BRANCHES)) {
+//			if (stack.isIn(AylythItemTags.DECREASES_BRANCHES_1_IN_4)) {
+//				if (world.random.nextFloat() >= .25f) {
+//					return;
+//				}
+//			}
+//			if (player.hasAttached(AylythEntityAttachmentTypes.YMPE_INFESTATION)) {
+//				YmpeInfestation infestation = player.getAttachedOrThrow(AylythEntityAttachmentTypes.YMPE_INFESTATION);
+//				if (infestation.getStage() > 0) {
+//					infestation.setStage((byte) (infestation.getStage() - 1));
+//				}
+//				else if (infestation.getInfestationTimer() > 0) {
+//					infestation.setInfestationTimer((short) 0);
+//				}
+//				player.setAttached(AylythEntityAttachmentTypes.YMPE_INFESTATION, infestation);
+//			}
+//		}
+//	}
 
 	@Inject(method = "stopRiding", at = @At("HEAD"))
 	private void dismountAllFromBonefly(CallbackInfo ci) {
@@ -160,19 +161,21 @@ public abstract class LivingEntityMixin extends Entity {
 		}
 	}
 
-	@Inject(method = "getGroup", at = @At("HEAD"), cancellable = true)
-	private void makeUndeadWithEffigy(CallbackInfoReturnable<EntityGroup> cir) {
-		if (AylythItems.YMPE_EFFIGY.isEquipped((LivingEntity)(Object)this)) {
-			cir.setReturnValue(EntityGroup.UNDEAD);
-		}
-	}
+	// TODO: Reimplement similar functionality by finding vanilla locations where the "undead" tag is used
+//	@Inject(method = "getGroup", at = @At("HEAD"), cancellable = true)
+//	private void makeUndeadWithEffigy(CallbackInfoReturnable<EntityGroup> cir) {
+//		if (AylythItems.YMPE_EFFIGY.isEquipped((LivingEntity)(Object)this)) {
+//			cir.setReturnValue(EntityGroup.UNDEAD);
+//		}
+//	}
 
-	@Inject(method = "hurtByWater", at = @At("HEAD"), cancellable = true)
-	private void waterHurtsWithEffigy(CallbackInfoReturnable<Boolean> cir) {
-		if (AylythItems.YMPE_EFFIGY.isEquipped((LivingEntity)(Object)this) && (this.getWorld().getBiome(this.getBlockPos()).isIn(BiomeTags.IS_RIVER) || fluidHeight.getDouble(FluidTags.WATER) > 0)) {
-			cir.setReturnValue(true);
-		}
-	}
+	// TODO: Reimplement when Trinkets is added back
+//	@Inject(method = "hurtByWater", at = @At("HEAD"), cancellable = true)
+//	private void waterHurtsWithEffigy(CallbackInfoReturnable<Boolean> cir) {
+//		if (AylythItems.YMPE_EFFIGY.isEquipped((LivingEntity)(Object)this) && (this.getWorld().getBiome(this.getBlockPos()).isIn(BiomeTags.IS_RIVER) || fluidHeight.getDouble(FluidTags.WATER) > 0)) {
+//			cir.setReturnValue(true);
+//		}
+//	}
 
 	@ModifyConstant(method = "updatePostDeath", constant = @Constant(intValue = 20))
 	private int updatePostDeath(int constant){
@@ -188,15 +191,15 @@ public abstract class LivingEntityMixin extends Entity {
 		}
 	}
 
-	@Inject(method = "canHaveStatusEffect", at = @At("HEAD"), cancellable = true)
-	public void canHaveStatusEffect(StatusEffectInstance effect, CallbackInfoReturnable<Boolean> cir) {
-        if (this.isPlayer()) {
-            LivingEntity entity = ((LivingEntity) (Object) this);
-
-			boolean canCure = !TagUtil.isIn(AylythStatusEffectTags.EFFIGY_CANNOT_CURE, effect.getEffectType());
-            if (canCure && AylythItems.YMPE_EFFIGY.isEquipped(entity)) {
-                cir.setReturnValue(false);
-            }
-        }
-	}
+	// TODO: Reimplement when Trinkets is added back
+//	@Inject(method = "canHaveStatusEffect", at = @At("HEAD"), cancellable = true)
+//	public void canHaveStatusEffect(StatusEffectInstance effect, CallbackInfoReturnable<Boolean> cir) {
+//        if (this.isPlayer()) {
+//            LivingEntity entity = ((LivingEntity) (Object) this);
+//
+//            if (!effect.getEffectType().isIn(AylythStatusEffectTags.EFFIGY_CANNOT_CURE) && AylythItems.YMPE_EFFIGY.isEquipped(entity)) {
+//                cir.setReturnValue(false);
+//            }
+//        }
+//	}
 }
