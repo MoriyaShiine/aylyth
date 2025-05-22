@@ -45,10 +45,10 @@ public class AylythUtil {
 		teleportTo(toWorld, entity, startPos, positionFinder, (serverWorld, blockPos, entity1) -> {});
 	}
 
-	public static void teleportTo(ServerWorld toWorld, Entity entity, BlockPos startPos, BiFunction<ServerWorld, BlockPos, BlockPos> positionFinder, TeleportCallback onTeleport) {
+	public static <E extends Entity> void teleportTo(ServerWorld toWorld, E entity, BlockPos startPos, BiFunction<ServerWorld, BlockPos, BlockPos> positionFinder, TeleportCallback<E> onTeleport) {
 		ChunkPos chunkPos = new ChunkPos(startPos);
 		toWorld.getChunkManager().addTicket(ChunkTicketType.PORTAL, chunkPos, 3, startPos);
-		Entity teleportedEntity = entity.teleportTo(new TeleportTarget(toWorld, entity.getPos(), Vec3d.ZERO, entity.getYaw(), entity.getPitch(), TeleportTarget.NO_OP));
+		E teleportedEntity = (E) entity.teleportTo(new TeleportTarget(toWorld, entity.getPos(), Vec3d.ZERO, entity.getYaw(), entity.getPitch(), TeleportTarget.NO_OP));
 		if (teleportedEntity != null) {
 			toWorld.getChunkManager().getChunkFutureSyncOnMainThread(chunkPos.x, chunkPos.z, ChunkStatus.EMPTY, true)
 					.thenRun(() -> {
@@ -59,8 +59,8 @@ public class AylythUtil {
 		}
 	}
 
-	public interface TeleportCallback {
-		void onTeleport(ServerWorld world, BlockPos pos, Entity entity);
+	public interface TeleportCallback<E extends Entity> {
+		void onTeleport(ServerWorld world, BlockPos pos, E entity);
 	}
 
 	/**
@@ -110,8 +110,8 @@ public class AylythUtil {
 		return source.isIn(AylythDamageTypeTags.IS_YMPE);
 	}
 
+	// TODO: Reimplement the two below as special components
 	public static float getVampiricWeaponEffect(LivingEntity attacker, LivingEntity target, ItemStack stack, float originalValue) {
-
         if (attacker.getRandom().nextFloat() >= 0.8) {
             attacker.heal(originalValue * 0.5f);
 
@@ -138,7 +138,6 @@ public class AylythUtil {
     }
 
 	public static float getBlightedWeaponEffect(LivingEntity attacker, LivingEntity target, ItemStack stack, float originalValue) {
-
 		if (attacker.getRandom().nextFloat() >= 0.75) {
 			int amplifier = attacker.getRandom().nextFloat() <= 0.85 && target.hasStatusEffect(AylythStatusEffects.BLIGHT) ? 1 : 0;
 			target.addStatusEffect(new StatusEffectInstance(AylythStatusEffects.BLIGHT, 20 * 4, amplifier));

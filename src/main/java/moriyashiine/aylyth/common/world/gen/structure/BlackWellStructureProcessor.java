@@ -1,6 +1,7 @@
 package moriyashiine.aylyth.common.world.gen.structure;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.block.types.LargeWoodyGrowthBlock;
@@ -18,7 +19,7 @@ import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 
 public class BlackWellStructureProcessor extends StructureProcessor {
-    public static final Codec<BlackWellStructureProcessor> CODEC = RecordCodecBuilder.create(instance ->
+    public static final MapCodec<BlackWellStructureProcessor> CODEC = RecordCodecBuilder.mapCodec(instance ->
             instance.group(
                     Codec.INT.fieldOf("air_weight").forGetter(blackWellStructureProcessor -> blackWellStructureProcessor.airWeight),
                     Codec.INT.fieldOf("small_woody_growth_weight").forGetter(blackWellStructureProcessor -> blackWellStructureProcessor.smallGrowthWeight),

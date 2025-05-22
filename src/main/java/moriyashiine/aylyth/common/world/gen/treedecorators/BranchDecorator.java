@@ -1,6 +1,7 @@
 package moriyashiine.aylyth.common.world.gen.treedecorators;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.world.gen.AylythTreeDecoratorTypes;
@@ -16,7 +17,7 @@ import net.minecraft.world.gen.treedecorator.TreeDecorator;
 import net.minecraft.world.gen.treedecorator.TreeDecoratorType;
 
 public class BranchDecorator extends TreeDecorator {
-    public static final Codec<BranchDecorator> CODEC = RecordCodecBuilder.create(instance ->
+    public static final MapCodec<BranchDecorator> CODEC = RecordCodecBuilder.mapCodec(instance ->
             instance.group(
                     BlockStateProvider.TYPE_CODEC.fieldOf("block_state").forGetter(branchDecorator -> branchDecorator.provider),
                     IntProvider.NON_NEGATIVE_CODEC.fieldOf("min_branch_height").forGetter(branchDecorator -> branchDecorator.minBranchHeight),

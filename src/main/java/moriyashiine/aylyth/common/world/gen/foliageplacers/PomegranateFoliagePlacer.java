@@ -2,6 +2,7 @@ package moriyashiine.aylyth.common.world.gen.foliageplacers;
 
 import com.google.common.collect.Sets;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import moriyashiine.aylyth.common.block.types.PomegranateLeavesBlock;
 import moriyashiine.aylyth.common.world.gen.AylythFoliagePlacerTypes;
@@ -22,7 +23,7 @@ import java.util.Set;
 
 public class PomegranateFoliagePlacer extends FoliagePlacer {
 
-    public static final Codec<PomegranateFoliagePlacer> CODEC = RecordCodecBuilder.create(instance -> fillFoliagePlacerFields(instance).and(Codec.intRange(0, 16).fieldOf("height").forGetter(placer -> placer.height)).apply(instance, PomegranateFoliagePlacer::new));
+    public static final MapCodec<PomegranateFoliagePlacer> CODEC = RecordCodecBuilder.mapCodec(instance -> fillFoliagePlacerFields(instance).and(Codec.intRange(0, 16).fieldOf("height").forGetter(placer -> placer.height)).apply(instance, PomegranateFoliagePlacer::new));
     private final int height;
 
     public PomegranateFoliagePlacer(IntProvider radius, IntProvider offset, int height) {

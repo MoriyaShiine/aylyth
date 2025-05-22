@@ -123,7 +123,7 @@ public class SwitchWeaponTask extends MultiTickTask<TulpaEntity> {
 
     private boolean isTooCloseForComfort(TulpaEntity tulpaEntity, LivingEntity target) {
         double sqDist = tulpaEntity.squaredDistanceTo(target);
-        double comfortableRange = tulpaEntity.squaredAttackRange(target) * 2;
+        double comfortableRange = tulpaEntity.getAttributeValue(EntityAttributes.ENTITY_INTERACTION_RANGE) * 2;
         return sqDist <= comfortableRange;
     }
 

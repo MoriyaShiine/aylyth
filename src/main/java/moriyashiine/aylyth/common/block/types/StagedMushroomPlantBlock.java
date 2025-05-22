@@ -45,7 +45,7 @@ public class StagedMushroomPlantBlock extends SpreadingPlantBlock implements Fer
     protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (stack.isOf(asItem()) && !isMaxStage(state)) {
             world.setBlockState(pos, state.with(STAGE, state.get(STAGE)+1));
-            AylythUtil.decreaseStack(stack, player);
+            stack.decrementUnlessCreative(1, player);
             world.playSound(null, pos, getSoundGroup(state).getPlaceSound(), SoundCategory.BLOCKS, 1.0f, 1.0f);
             return ActionResult.SUCCESS;
         }

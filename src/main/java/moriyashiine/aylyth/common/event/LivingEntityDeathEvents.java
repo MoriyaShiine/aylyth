@@ -164,7 +164,7 @@ public class LivingEntityDeathEvents {
                         newPlayer.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 200));
                         serverWorld.playSound(null, blockPos, AylythSoundEvents.ENTITY_GENERIC_SHUCKED.value(), SoundCategory.NEUTRAL, 1, 1);
                         if (serverWorld.getGameRules().getBoolean(AylythGameRules.ESCAPE_LIGHTS)) {
-                            PilotLightEntity escapeVector = PilotLightEntity.createGreenPilotLight(serverWorld);
+                            PilotLightEntity escapeVector = PilotLightEntity.createGreenPilotLight(serverWorld, SpawnReason.MOB_SUMMONED);
                             if (escapeVector != null) {
                                 escapeVector.setPosition(newPlayer.getX() + serverWorld.random.nextInt(4), newPlayer.getY() + 4, newPlayer.getZ() + serverWorld.random.nextInt(4));
                                 serverWorld.spawnEntity(escapeVector);

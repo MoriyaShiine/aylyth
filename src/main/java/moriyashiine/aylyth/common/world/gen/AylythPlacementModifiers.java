@@ -1,6 +1,7 @@
 package moriyashiine.aylyth.common.world.gen;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.world.gen.placementmodifiers.EnvironmentCheckPlacementModifier;
 import net.minecraft.registry.Registries;
@@ -12,7 +13,7 @@ public interface AylythPlacementModifiers {
 
     PlacementModifierType<EnvironmentCheckPlacementModifier> ENVIRONMENT_CHECK = register("environment_check", EnvironmentCheckPlacementModifier.CODEC);
 
-    private static <T extends PlacementModifier> PlacementModifierType<T> register(String id, Codec<T> codec) {
+    private static <T extends PlacementModifier> PlacementModifierType<T> register(String id, MapCodec<T> codec) {
         return Registry.register(Registries.PLACEMENT_MODIFIER_TYPE, Aylyth.id(id), () -> codec);
     }
 

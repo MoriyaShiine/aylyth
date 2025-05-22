@@ -1,6 +1,7 @@
 package moriyashiine.aylyth.common.world.gen.trunkplacers;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import moriyashiine.aylyth.common.world.gen.AylythTrunkPlacerTypes;
@@ -21,8 +22,7 @@ import java.util.function.BiConsumer;
 import java.util.function.Function;
 
 public class PomegranateTrunkPlacer extends StraightTrunkPlacer {
-
-    public static final Codec<PomegranateTrunkPlacer> CODEC = RecordCodecBuilder.create((instance) -> fillTrunkPlacerFields(instance).apply(instance, PomegranateTrunkPlacer::new));
+    public static final MapCodec<PomegranateTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec((instance) -> fillTrunkPlacerFields(instance).apply(instance, PomegranateTrunkPlacer::new));
 
     public PomegranateTrunkPlacer(int baseHeight, int firstRandomHeight, int secondRandomHeight) {
         super(baseHeight, firstRandomHeight, secondRandomHeight);

@@ -3,6 +3,7 @@ package moriyashiine.aylyth.common.world.gen.trunkplacers;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Sets;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.world.gen.AylythTrunkPlacerTypes;
@@ -25,7 +26,7 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 public class WrithewoodTrunkPlacer extends StraightTrunkPlacer {
-    public static final Codec<WrithewoodTrunkPlacer> CODEC = RecordCodecBuilder.create(instance -> fillTrunkPlacerFields(instance).apply(instance, WrithewoodTrunkPlacer::new));
+    public static final MapCodec<WrithewoodTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec(instance -> fillTrunkPlacerFields(instance).apply(instance, WrithewoodTrunkPlacer::new));
 
     public WrithewoodTrunkPlacer(int baseHeight, int firstRandomHeight, int secondRandomHeight) {
         super(baseHeight, firstRandomHeight, secondRandomHeight);

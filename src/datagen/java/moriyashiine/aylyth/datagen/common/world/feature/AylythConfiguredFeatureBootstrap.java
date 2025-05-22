@@ -306,7 +306,7 @@ public final class AylythConfiguredFeatureBootstrap {
     static TreeFeatureConfig.Builder createAylythianOakTreeBuilder(Block leaves, RegistryEntry<ConfiguredFeature<?, ?>> strewnLeavesFeature, RegistryEntry<ConfiguredFeature<?, ?>> leafPileFeature, Block leafyBranch) {
         return new TreeFeatureConfig.Builder(
                 SimpleBlockStateProvider.of(Blocks.DARK_OAK_LOG.getDefaultState()),
-                new AylthianTrunkPlacer(12, 2, 5),
+                new AylythianTrunkPlacer(12, 2, 5),
                 SimpleBlockStateProvider.of(leaves.getDefaultState()),
                 new DarkOakFoliagePlacer(ConstantIntProvider.create(1), ConstantIntProvider.create(0)),
                 new TwoLayersFeatureSize(1, 1, 2))
@@ -341,7 +341,7 @@ public final class AylythConfiguredFeatureBootstrap {
     static TreeFeatureConfig createMegaAylythianOakTree(Block leaves, RegistryEntry<ConfiguredFeature<?, ?>> strewnLeavesFeature, RegistryEntry<ConfiguredFeature<?, ?>> leafPileFeature, Block leafyBranch) {
         return new TreeFeatureConfig.Builder(
                 SimpleBlockStateProvider.of(Blocks.DARK_OAK_LOG.getDefaultState()),
-                new AylthianTrunkPlacer(18, 6, 7),
+                new AylythianTrunkPlacer(18, 6, 7),
                 SimpleBlockStateProvider.of(leaves.getDefaultState()),
                 new DarkOakFoliagePlacer(ConstantIntProvider.create(1), ConstantIntProvider.create(0)),
                 new TwoLayersFeatureSize(1, 1, 2))

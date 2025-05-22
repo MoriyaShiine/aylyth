@@ -1,6 +1,7 @@
 package moriyashiine.aylyth.common.world.gen.treedecorators;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import moriyashiine.aylyth.common.world.gen.AylythTreeDecoratorTypes;
 import net.minecraft.registry.entry.RegistryEntry;
@@ -12,7 +13,7 @@ import net.minecraft.world.gen.treedecorator.TreeDecorator;
 import net.minecraft.world.gen.treedecorator.TreeDecoratorType;
 
 public class PlaceAroundTreeDecorator extends TreeDecorator {
-    public static final Codec<PlaceAroundTreeDecorator> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+    public static final MapCodec<PlaceAroundTreeDecorator> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             PlacedFeature.LIST_CODEC.fieldOf("placed_features").forGetter(placeAroundTreeDecorator -> placeAroundTreeDecorator.features)
     ).apply(instance, PlaceAroundTreeDecorator::new));
 

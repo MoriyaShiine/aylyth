@@ -2,6 +2,7 @@ package moriyashiine.aylyth.common.world.gen.treedecorators;
 
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.world.gen.AylythTreeDecoratorTypes;
@@ -19,7 +20,7 @@ import java.util.List;
 import java.util.function.BiConsumer;
 
 public class GrapeVineDecorator extends TreeDecorator {
-	public static final Codec<GrapeVineDecorator> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+	public static final MapCodec<GrapeVineDecorator> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
 			IntProvider.VALUE_CODEC.fieldOf("chance_range").forGetter(grapeVineDecorator -> grapeVineDecorator.chances),
 			Codec.INT.fieldOf("chance_point").forGetter(grapeVineDecorator -> grapeVineDecorator.chancePoint)
 	).apply(instance, GrapeVineDecorator::new));

@@ -159,7 +159,7 @@ public class VitalThuribleBlockEntity extends BlockEntity implements SingleStack
                 getStack().increment(1);
             }
             sync();
-            AylythUtil.decreaseStack(stack, player);
+            stack.decrementUnlessCreative(1, player);
         }
     }
 

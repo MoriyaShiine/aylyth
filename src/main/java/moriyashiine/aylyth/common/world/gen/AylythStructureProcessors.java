@@ -1,6 +1,7 @@
 package moriyashiine.aylyth.common.world.gen;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.world.gen.structure.BlackWellStructureProcessor;
 import net.minecraft.registry.Registries;
@@ -12,7 +13,7 @@ public interface AylythStructureProcessors {
 
     StructureProcessorType<BlackWellStructureProcessor> BLACK_WELL = register("black_well", BlackWellStructureProcessor.CODEC);
 
-    private static <T extends StructureProcessor> StructureProcessorType<T> register(String id, Codec<T> codec) {
+    private static <T extends StructureProcessor> StructureProcessorType<T> register(String id, MapCodec<T> codec) {
         return Registry.register(Registries.STRUCTURE_PROCESSOR, Aylyth.id(id), () -> codec);
     }
 

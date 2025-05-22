@@ -80,7 +80,7 @@ public class YmpeLanceItem extends Item {
 				if (!world.isClient) {
 					stack.damage(1, player);
 
-					YmpeLanceEntity lanceEntity = new YmpeLanceEntity(world, player, stack);
+					YmpeLanceEntity lanceEntity = new YmpeLanceEntity(player, world, stack);
 					lanceEntity.setVelocity(player, player.getPitch(), player.getYaw(), 0F, 2.5F, 1F);
 
 					if (player.getAbilities().creativeMode) {

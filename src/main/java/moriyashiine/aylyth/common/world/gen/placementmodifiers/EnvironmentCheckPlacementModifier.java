@@ -1,6 +1,7 @@
 package moriyashiine.aylyth.common.world.gen.placementmodifiers;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import moriyashiine.aylyth.common.world.gen.AylythPlacementModifiers;
 import net.minecraft.util.math.BlockPos;
@@ -13,7 +14,7 @@ import net.minecraft.world.gen.placementmodifier.AbstractConditionalPlacementMod
 import net.minecraft.world.gen.placementmodifier.PlacementModifierType;
 
 public class EnvironmentCheckPlacementModifier extends AbstractConditionalPlacementModifier {
-    public static final Codec<EnvironmentCheckPlacementModifier> CODEC = RecordCodecBuilder.create(instance ->
+    public static final MapCodec<EnvironmentCheckPlacementModifier> CODEC = RecordCodecBuilder.mapCodec(instance ->
             instance.group(
                     Direction.CODEC.fieldOf("direction_to_scan").forGetter(modifier -> modifier.checkDirection),
                     BlockPredicate.BASE_CODEC.fieldOf("target_predicate").forGetter(modifier -> modifier.targetPredicate),

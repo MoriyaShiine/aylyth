@@ -47,7 +47,7 @@ public class BowAttackTask<E extends MobEntity & RangedAttackMob> extends MultiT
         } else if (entity.getItemUseTime() >= 20) {
             int useTime = entity.getItemUseTime();
             entity.stopUsingItem();
-            entity.attack(target, BowItem.getPullProgress(useTime));
+            entity.shootAt(target, BowItem.getPullProgress(useTime));
         }
     }
 

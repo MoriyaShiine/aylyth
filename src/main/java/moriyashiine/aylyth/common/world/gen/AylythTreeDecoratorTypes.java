@@ -1,6 +1,7 @@
 package moriyashiine.aylyth.common.world.gen;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.world.gen.treedecorators.BranchDecorator;
 import moriyashiine.aylyth.common.world.gen.treedecorators.GrapeVineDecorator;
@@ -16,7 +17,7 @@ public interface AylythTreeDecoratorTypes {
     TreeDecoratorType<PlaceAroundTreeDecorator> PLACE_AROUND = register("place_around", PlaceAroundTreeDecorator.CODEC);
     TreeDecoratorType<BranchDecorator> BRANCHES = register("branches", BranchDecorator.CODEC);
 
-    private static <D extends TreeDecorator> TreeDecoratorType<D> register(String name, Codec<D> codec) {
+    private static <D extends TreeDecorator> TreeDecoratorType<D> register(String name, MapCodec<D> codec) {
         return Registry.register(Registries.TREE_DECORATOR_TYPE, Aylyth.id(name), new TreeDecoratorType<>(codec));
     }
 

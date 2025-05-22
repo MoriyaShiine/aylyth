@@ -1,6 +1,7 @@
 package moriyashiine.aylyth.common.world.gen.trunkplacers;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import moriyashiine.aylyth.common.world.gen.AylythTrunkPlacerTypes;
@@ -19,7 +20,7 @@ import java.util.List;
 import java.util.function.BiConsumer;
 
 public class YmpeTrunkPlacer extends StraightTrunkPlacer {
-	public static final Codec<YmpeTrunkPlacer> CODEC = RecordCodecBuilder.create((instance) -> fillTrunkPlacerFields(instance).apply(instance, YmpeTrunkPlacer::new));
+	public static final MapCodec<YmpeTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec((instance) -> fillTrunkPlacerFields(instance).apply(instance, YmpeTrunkPlacer::new));
 	
 	public YmpeTrunkPlacer(int heightMin, int heightVar, int heightVar2) {
 		super(heightMin, heightVar, heightVar2);

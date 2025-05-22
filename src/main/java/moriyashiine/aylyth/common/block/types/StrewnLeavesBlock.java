@@ -55,7 +55,7 @@ public class StrewnLeavesBlock extends Block implements IContextBlockSoundGroup 
             if (blockItem.getBlock().equals(this) && state.get(LEAVES) < 7) {
                 world.setBlockState(pos, state.with(LEAVES, state.get(LEAVES)+1));
                 world.playSound(null, pos, AylythSoundEvents.BLOCK_STREWN_LEAVES_STEP.value(), SoundCategory.BLOCKS, 1.0F, 1.0F);
-                AylythUtil.decreaseStack(stack, player);
+                stack.decrementUnlessCreative(1, player);
                 return ActionResult.SUCCESS;
             }
         }

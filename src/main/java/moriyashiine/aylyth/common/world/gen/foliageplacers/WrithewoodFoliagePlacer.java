@@ -1,6 +1,7 @@
 package moriyashiine.aylyth.common.world.gen.foliageplacers;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import moriyashiine.aylyth.common.world.gen.AylythFoliagePlacerTypes;
 import net.minecraft.util.math.BlockPos;
@@ -13,7 +14,7 @@ import net.minecraft.world.gen.foliage.FoliagePlacer;
 import net.minecraft.world.gen.foliage.FoliagePlacerType;
 
 public class WrithewoodFoliagePlacer extends FoliagePlacer {
-    public static final Codec<WrithewoodFoliagePlacer> CODEC = RecordCodecBuilder.create(instance -> fillFoliagePlacerFields(instance).apply(instance, WrithewoodFoliagePlacer::new));
+    public static final MapCodec<WrithewoodFoliagePlacer> CODEC = RecordCodecBuilder.mapCodec(instance -> fillFoliagePlacerFields(instance).apply(instance, WrithewoodFoliagePlacer::new));
 
     public WrithewoodFoliagePlacer(IntProvider radius, IntProvider offset) {
         super(radius, offset);

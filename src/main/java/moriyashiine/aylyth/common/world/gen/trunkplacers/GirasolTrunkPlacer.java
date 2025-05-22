@@ -2,6 +2,7 @@ package moriyashiine.aylyth.common.world.gen.trunkplacers;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.ints.IntArraySet;
 import it.unimi.dsi.fastutil.ints.IntSet;
@@ -28,7 +29,7 @@ import java.util.function.BiConsumer;
 
 // TODO: Change this a bit to make the woody growth range and seep block as a decorator instead?
 public class GirasolTrunkPlacer extends TrunkPlacer {
-    public static final Codec<GirasolTrunkPlacer> CODEC = RecordCodecBuilder.create((instance) ->
+    public static final MapCodec<GirasolTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec((instance) ->
             fillTrunkPlacerFields(instance)
                     .and(instance.group(
                             BlockState.CODEC.fieldOf("seep_block").forGetter(girasolTrunkPlacer -> girasolTrunkPlacer.seepBlock),

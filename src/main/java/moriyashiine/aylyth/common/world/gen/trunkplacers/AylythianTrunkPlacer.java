@@ -2,6 +2,7 @@ package moriyashiine.aylyth.common.world.gen.trunkplacers;
 
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import moriyashiine.aylyth.common.world.gen.AylythTrunkPlacerTypes;
 import net.minecraft.block.BlockState;
@@ -17,15 +18,15 @@ import net.minecraft.world.gen.trunk.TrunkPlacerType;
 import java.util.List;
 import java.util.function.BiConsumer;
 
-public class AylthianTrunkPlacer extends GiantTrunkPlacer {
-	public static final Codec<AylthianTrunkPlacer> CODEC = RecordCodecBuilder.create((instance) -> fillTrunkPlacerFields(instance).apply(instance, AylthianTrunkPlacer::new));
+public class AylythianTrunkPlacer extends GiantTrunkPlacer {
+	public static final MapCodec<AylythianTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec((instance) -> fillTrunkPlacerFields(instance).apply(instance, AylythianTrunkPlacer::new));
 	
-	public AylthianTrunkPlacer(int baseHeight, int firstRandomHeight, int secondRandomHeight) {
+	public AylythianTrunkPlacer(int baseHeight, int firstRandomHeight, int secondRandomHeight) {
 		super(baseHeight, firstRandomHeight, secondRandomHeight);
 	}
 	
 	@Override
-	protected TrunkPlacerType<AylthianTrunkPlacer> getType() {
+	protected TrunkPlacerType<AylythianTrunkPlacer> getType() {
 		return AylythTrunkPlacerTypes.AYLYTHIAN;
 	}
 
