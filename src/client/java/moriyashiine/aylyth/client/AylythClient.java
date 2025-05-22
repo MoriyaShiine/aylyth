@@ -78,8 +78,10 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexFormats;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
+import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
+import net.minecraft.client.render.entity.state.LivingEntityRenderState;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.json.JsonUnbakedModel;
 import net.minecraft.client.util.InputUtil;
@@ -98,12 +100,9 @@ import java.util.List;
 
 public class AylythClient implements ClientModInitializer {
 	public static final KeyBinding DESCEND = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.aylyth.descend", InputUtil.Type.KEYSYM, InputUtil.GLFW_KEY_G, "category.aylyth.keybind"));
-	public static final EntityModelLayer YMPE_INFESTATION_STAGE_1_MODEL_LAYER = new EntityModelLayer(Aylyth.id("ympe_infestation_1"), "main");
-	public static final EntityModelLayer YMPE_INFESTATION_STAGE_2_MODEL_LAYER = new EntityModelLayer(Aylyth.id("ympe_infestation_2"), "main");
-	public static final EntityModelLayer YMPE_INFESTATION_STAGE_3_MODEL_LAYER = new EntityModelLayer(Aylyth.id("ympe_infestation_3"), "main");
-	public static final EntityModelLayer YMPE_INFESTATION_STAGE_4_MODEL_LAYER = new EntityModelLayer(Aylyth.id("ympe_infestation_4"), "main");
-	public static final EntityModelLayer YMPE_INFESTATION_STAGE_5_MODEL_LAYER = new EntityModelLayer(Aylyth.id("ympe_infestation_5"), "main");
-	public static final EntityModelLayer YMPE_THORN_RING_MODEL_LAYER = new EntityModelLayer(Aylyth.id("ympe_thorn_ring"), "main");
+	public static EntityModelLayer modelLayer(String id, String name) {
+		return new EntityModelLayer(Aylyth.id(id), name);
+	}
 	public static ModelIdentifier modelId(String id, String variant) {
 		return new ModelIdentifier(Aylyth.id(id), variant);
 	}
@@ -148,17 +147,17 @@ public class AylythClient implements ClientModInitializer {
 		BlockEntityRendererFactories.register(AylythBlockEntityTypes.VITAL_THURIBLE, VitalThuribleBlockEntityRenderer::new);
 		BlockEntityRendererFactories.register(AylythBlockEntityTypes.WOODY_GROWTH_CACHE, WoodyGrowthBlockEntityRenderer::new);
 
-		EntityModelLayerRegistry.registerModelLayer(YMPE_INFESTATION_STAGE_1_MODEL_LAYER, YmpeInfestationModel::getTexturedModelData1);
-		EntityModelLayerRegistry.registerModelLayer(YMPE_INFESTATION_STAGE_2_MODEL_LAYER, YmpeInfestationModel::getTexturedModelData2);
-		EntityModelLayerRegistry.registerModelLayer(YMPE_INFESTATION_STAGE_3_MODEL_LAYER, YmpeInfestationModel::getTexturedModelData3);
-		EntityModelLayerRegistry.registerModelLayer(YMPE_INFESTATION_STAGE_4_MODEL_LAYER, YmpeInfestationModel::getTexturedModelData4);
-		EntityModelLayerRegistry.registerModelLayer(YMPE_INFESTATION_STAGE_5_MODEL_LAYER, YmpeInfestationModel::getTexturedModelData5);
+		EntityModelLayerRegistry.registerModelLayer(YmpeInfestationModel.YMPE_INFESTATION_STAGE_1_MODEL_LAYER, YmpeInfestationModel::getTexturedModelData1);
+		EntityModelLayerRegistry.registerModelLayer(YmpeInfestationModel.YMPE_INFESTATION_STAGE_2_MODEL_LAYER, YmpeInfestationModel::getTexturedModelData2);
+		EntityModelLayerRegistry.registerModelLayer(YmpeInfestationModel.YMPE_INFESTATION_STAGE_3_MODEL_LAYER, YmpeInfestationModel::getTexturedModelData3);
+		EntityModelLayerRegistry.registerModelLayer(YmpeInfestationModel.YMPE_INFESTATION_STAGE_4_MODEL_LAYER, YmpeInfestationModel::getTexturedModelData4);
+		EntityModelLayerRegistry.registerModelLayer(YmpeInfestationModel.YMPE_INFESTATION_STAGE_5_MODEL_LAYER, YmpeInfestationModel::getTexturedModelData5);
 		EntityModelLayerRegistry.registerModelLayer(CuirassModel.LAYER_LOCATION_1, CuirassModel::createBodyLayer1);
 		EntityModelLayerRegistry.registerModelLayer(CuirassModel.LAYER_LOCATION_2, CuirassModel::createBodyLayer2);
 		EntityModelLayerRegistry.registerModelLayer(CuirassModel.LAYER_LOCATION_3, CuirassModel::createBodyLayer3);
 		EntityModelLayerRegistry.registerModelLayer(CuirassModel.LAYER_LOCATION_4, CuirassModel::createBodyLayer4);
 		EntityModelLayerRegistry.registerModelLayer(CuirassModel.LAYER_LOCATION_5, CuirassModel::createBodyLayer5);
-		EntityModelLayerRegistry.registerModelLayer(YMPE_THORN_RING_MODEL_LAYER, YmpeThornRingModel::getTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(YmpeThornRingModel.YMPE_THORN_RING_MODEL_LAYER, YmpeThornRingModel::getTexturedModelData);
 		EntityModelLayerRegistry.registerModelLayer(ScionEntityModel.LAYER_LOCATION, ScionEntityModel::createBodyLayer);
 		EntityModelLayerRegistry.registerModelLayer(RootPropEntityModel.LAYER_LOCATION, RootPropEntityModel::createBodyLayer);
 
@@ -179,9 +178,9 @@ public class AylythClient implements ClientModInitializer {
 		EntityRendererRegistry.register(AylythEntityTypes.THORN_FLECHETTE, ThornFlechetteRenderer::new);
 
 		LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, entityRenderer, registrationHelper, context) -> {
-			if (entityType == EntityType.PLAYER) {
-				registrationHelper.register(new YmpeInfestationFeature((PlayerEntityRenderer)entityRenderer, context.getModelLoader()));
-				registrationHelper.register(new CuirassFeatureRenderer((PlayerEntityRenderer)entityRenderer, context.getModelLoader()));
+			if (entityRenderer instanceof PlayerEntityRenderer playerEntityRenderer) {
+				registrationHelper.register(new YmpeInfestationFeature(playerEntityRenderer, context.getEntityModels()));
+				registrationHelper.register(new CuirassFeatureRenderer(playerEntityRenderer, context.getEntityModels()));
 			}
 			registrationHelper.register(new YmpeThornRingFeature((FeatureRendererContext<LivingEntityRenderState, EntityModel<LivingEntityRenderState>>) entityRenderer, context.getEntityModels()));
 		});

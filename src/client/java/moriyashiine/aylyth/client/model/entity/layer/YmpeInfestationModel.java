@@ -1,5 +1,6 @@
 package moriyashiine.aylyth.client.model.entity.layer;
 
+import moriyashiine.aylyth.client.AylythClient;
 import net.minecraft.client.model.Dilation;
 import net.minecraft.client.model.ModelData;
 import net.minecraft.client.model.ModelPart;
@@ -9,14 +10,20 @@ import net.minecraft.client.model.ModelTransform;
 import net.minecraft.client.model.TexturedModelData;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
+import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.render.entity.state.BipedEntityRenderState;
 
 import java.util.NoSuchElementException;
 
-public class YmpeInfestationModel extends BipedEntityModel<AbstractClientPlayerEntity> {
+public class YmpeInfestationModel<T extends BipedEntityRenderState> extends BipedEntityModel<T> {
+	public static final EntityModelLayer YMPE_INFESTATION_STAGE_1_MODEL_LAYER = AylythClient.modelLayer("ympe_infestation_1", "main");
+	public static final EntityModelLayer YMPE_INFESTATION_STAGE_2_MODEL_LAYER = AylythClient.modelLayer("ympe_infestation_2", "main");
+	public static final EntityModelLayer YMPE_INFESTATION_STAGE_3_MODEL_LAYER = AylythClient.modelLayer("ympe_infestation_3", "main");
+	public static final EntityModelLayer YMPE_INFESTATION_STAGE_4_MODEL_LAYER = AylythClient.modelLayer("ympe_infestation_4", "main");
+	public static final EntityModelLayer YMPE_INFESTATION_STAGE_5_MODEL_LAYER = AylythClient.modelLayer("ympe_infestation_5", "main");
+
 	private ModelPart leftArmBranches;
 	private ModelPart rightArmBranches;
 
@@ -546,11 +553,6 @@ public class YmpeInfestationModel extends BipedEntityModel<AbstractClientPlayerE
 		ModelPartData branch02k = branch02g.addChild("branch02k", ModelPartBuilder.create().uv(86, 2).cuboid(-0.5F, -2.75F, -0.5F, 1.0F, 3.0F, 1.0F, new Dilation(-0.1F, -0.1F, -0.1F)), ModelTransform.of(0.0F, -0.5F, 0.5F, -0.0873F, 0.0F, 0.8727F));
 		branch02k.addChild("branch02kLeaf_r1", ModelPartBuilder.create().uv(102, 23).cuboid(-2.5F, -2.25F, 0.25F, 3.0F, 3.0F, 0.0F), ModelTransform.of(0.0F, -3.0F, 0.0F, -0.3491F, 0.48F, 0.8727F));
 		return TexturedModelData.of(data, 128, 128);
-	}
-
-	@Override
-	public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha) {
-		super.render(matrices, vertices, light, overlay, red, green, blue, alpha);
 	}
 
 	public void adjustArmPivots(boolean slim) {

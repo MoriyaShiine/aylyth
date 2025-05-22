@@ -1,73 +1,64 @@
 package moriyashiine.aylyth.client.render.entity.living.feature;
 
-import moriyashiine.aylyth.common.entity.types.mob.TulpaEntity;
-import net.minecraft.client.network.AbstractClientPlayerEntity;
+import moriyashiine.aylyth.client.render.entity.state.TulpaPlayerEntityRenderState;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.equipment.EquipmentModel;
+import net.minecraft.client.render.entity.equipment.EquipmentModelLoader;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
-import net.minecraft.client.render.entity.model.EntityModelLoader;
-import net.minecraft.client.render.entity.model.PlayerEntityModel;
+import net.minecraft.client.render.entity.model.LoadedEntityModels;
+import net.minecraft.client.render.entity.model.PlayerCapeModel;
+import net.minecraft.client.util.SkinTextures;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.EquippableComponent;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RotationAxis;
 
-public class AylythCapeFeatureRenderer  extends FeatureRenderer<TulpaEntity.TulpaPlayerEntity, BipedEntityModel<TulpaEntity.TulpaPlayerEntity>> {
-    public PlayerEntityModel playerEntityModel;
-    public AylythCapeFeatureRenderer(FeatureRendererContext<TulpaEntity.TulpaPlayerEntity, BipedEntityModel<TulpaEntity.TulpaPlayerEntity>> featureRendererContext, EntityModelLoader loader) {
+public class AylythCapeFeatureRenderer extends FeatureRenderer<TulpaPlayerEntityRenderState, BipedEntityModel<TulpaPlayerEntityRenderState>> {
+    private final BipedEntityModel<TulpaPlayerEntityRenderState> model;
+    private final EquipmentModelLoader equipmentModelLoader;
+
+    public AylythCapeFeatureRenderer(
+            FeatureRendererContext<TulpaPlayerEntityRenderState, BipedEntityModel<TulpaPlayerEntityRenderState>> featureRendererContext,
+            LoadedEntityModels models,
+            EquipmentModelLoader equipmentModelLoader
+    ) {
         super(featureRendererContext);
-        playerEntityModel = new PlayerEntityModel(loader.getModelPart(EntityModelLayers.PLAYER), false);
+        this.model = new PlayerCapeModel<>(models.getModelPart(EntityModelLayers.PLAYER_CAPE));
+        this.equipmentModelLoader = equipmentModelLoader;
     }
 
-    public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, TulpaEntity.TulpaPlayerEntity tulpaPlayerEntity, float f, float g, float h, float j, float k, float l) {
-        if(tulpaPlayerEntity.getSkinUuid() != null){
-            PlayerEntity playerEntity = tulpaPlayerEntity.getWorld().getPlayerByUuid(tulpaPlayerEntity.getSkinUuid());
-            if(playerEntity instanceof AbstractClientPlayerEntity clientPlayer){
-                if (clientPlayer.canRenderCapeTexture() && !tulpaPlayerEntity.isInvisible() && clientPlayer.getCapeTexture() != null) {
-                    ItemStack itemStack = tulpaPlayerEntity.getEquippedStack(EquipmentSlot.CHEST);
-                    if (!itemStack.isOf(Items.ELYTRA)) {
-                        matrixStack.push();
-                        matrixStack.translate(0.0, 0.0, 0.125);
-                        double d = MathHelper.lerp((double)h, tulpaPlayerEntity.prevCapeX, tulpaPlayerEntity.capeX)
-                                - MathHelper.lerp((double)h, tulpaPlayerEntity.prevX, tulpaPlayerEntity.getX());
-                        double e = MathHelper.lerp((double)h, tulpaPlayerEntity.prevCapeY, tulpaPlayerEntity.capeY)
-                                - MathHelper.lerp((double)h, tulpaPlayerEntity.prevY, tulpaPlayerEntity.getY());
-                        double m = MathHelper.lerp((double)h, tulpaPlayerEntity.prevCapeZ, tulpaPlayerEntity.capeZ)
-                                - MathHelper.lerp((double)h, tulpaPlayerEntity.prevZ, tulpaPlayerEntity.getZ());
-                        float n = tulpaPlayerEntity.prevBodyYaw + (tulpaPlayerEntity.bodyYaw - tulpaPlayerEntity.prevBodyYaw);
-                        double o = (double)MathHelper.sin(n * (float) (Math.PI / 180.0));
-                        double p = (double)(-MathHelper.cos(n * (float) (Math.PI / 180.0)));
-                        float q = (float)e * 10.0F;
-                        q = MathHelper.clamp(q, -6.0F, 32.0F);
-                        float r = (float)(d * o + m * p) * 100.0F;
-                        r = MathHelper.clamp(r, 0.0F, 150.0F);
-                        float s = (float)(d * p - m * o) * 100.0F;
-                        s = MathHelper.clamp(s, -20.0F, 20.0F);
-                        if (r < 0.0F) {
-                            r = 0.0F;
-                        }
+    private boolean hasCustomModelForLayer(ItemStack stack, EquipmentModel.LayerType layerType) {
+        EquippableComponent equippableComponent = stack.get(DataComponentTypes.EQUIPPABLE);
+        if (equippableComponent != null && equippableComponent.assetId().isPresent()) {
+            EquipmentModel equipmentModel = this.equipmentModelLoader.get(equippableComponent.assetId().get());
+            return !equipmentModel.getLayers(layerType).isEmpty();
+        } else {
+            return false;
+        }
+    }
 
-                        float t = MathHelper.lerp(h, tulpaPlayerEntity.prevStrideDistance, tulpaPlayerEntity.strideDistance);
-                        q += MathHelper.sin(MathHelper.lerp(h, tulpaPlayerEntity.prevHorizontalSpeed, tulpaPlayerEntity.horizontalSpeed) * 6.0F) * 32.0F * t;
-                        if (tulpaPlayerEntity.isInSneakingPose()) {
-                            q += 25.0F;
-                        }
-
-                        matrixStack.multiply(RotationAxis.POSITIVE_X.rotationDegrees(6.0F + r / 2.0F + q));
-                        matrixStack.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(s / 2.0F));
-                        matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180.0F - s / 2.0F));
-                        VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(RenderLayer.getEntitySolid(clientPlayer.getCapeTexture()));
-                        playerEntityModel.renderCape(matrixStack, vertexConsumer, i, OverlayTexture.DEFAULT_UV);
-                        matrixStack.pop();
+    @Override
+    public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumers, int light, TulpaPlayerEntityRenderState state, float limbAngle, float limbDistance) {
+        if (!state.invisible && state.capeVisible) {
+            SkinTextures skinTextures = state.skinTextures;
+            if (skinTextures.capeTexture() != null) {
+                if (!this.hasCustomModelForLayer(state.equippedChestStack, EquipmentModel.LayerType.WINGS)) {
+                    matrixStack.push();
+                    if (this.hasCustomModelForLayer(state.equippedChestStack, EquipmentModel.LayerType.HUMANOID)) {
+                        matrixStack.translate(0.0F, -0.053125F, 0.06875F);
                     }
+
+                    VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntitySolid(skinTextures.capeTexture()));
+                    this.getContextModel().copyTransforms(this.model);
+                    this.model.setAngles(state);
+                    this.model.render(matrixStack, vertexConsumer, light, OverlayTexture.DEFAULT_UV);
+                    matrixStack.pop();
                 }
             }
         }

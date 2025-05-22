@@ -1,5 +1,6 @@
 package moriyashiine.aylyth.client.model.entity.layer;
 
+import moriyashiine.aylyth.client.AylythClient;
 import net.minecraft.client.model.Dilation;
 import net.minecraft.client.model.ModelData;
 import net.minecraft.client.model.ModelPart;
@@ -7,15 +8,17 @@ import net.minecraft.client.model.ModelPartBuilder;
 import net.minecraft.client.model.ModelPartData;
 import net.minecraft.client.model.ModelTransform;
 import net.minecraft.client.model.TexturedModelData;
-import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.EntityModel;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.Entity;
+import net.minecraft.client.render.entity.model.EntityModelLayer;
+import net.minecraft.client.render.entity.state.EntityRenderState;
 
-public class YmpeThornRingModel extends EntityModel<Entity> {
+public class YmpeThornRingModel<T extends EntityRenderState> extends EntityModel<T> {
+	public static final EntityModelLayer YMPE_THORN_RING_MODEL_LAYER = AylythClient.modelLayer("ympe_thorn_ring", "main");
+
 	private final ModelPart thornWheel;
 
 	public YmpeThornRingModel(ModelPart root) {
+		super(root);
 		this.thornWheel = root.getChild("thorn_wheel");
 	}
 
@@ -50,15 +53,5 @@ public class YmpeThornRingModel extends EntityModel<Entity> {
 		ModelPartData cube_r15 = thorns08.addChild("cube_r15", ModelPartBuilder.create().uv(0, 12).cuboid(-2.0F, -4.25F, -3.5F, 4.0F, 2.0F, 2.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 0.0F, 0.0F, -0.7854F, 0.0F, 0.0F));
 
 		return TexturedModelData.of(data, 16, 16);
-	}
-
-	@Override
-	public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha) {
-		thornWheel.render(matrices, vertices, light, overlay, red, green, blue, alpha);
-	}
-
-	@Override
-	public void setAngles(Entity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-
 	}
 }

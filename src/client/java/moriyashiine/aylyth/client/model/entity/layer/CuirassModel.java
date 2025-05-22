@@ -1,5 +1,6 @@
 package moriyashiine.aylyth.client.model.entity.layer;
 
+import moriyashiine.aylyth.client.AylythClient;
 import moriyashiine.aylyth.common.Aylyth;
 import net.minecraft.client.model.Dilation;
 import net.minecraft.client.model.ModelData;
@@ -13,16 +14,16 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.render.entity.state.BipedEntityRenderState;
 
 import java.util.NoSuchElementException;
 
-public class CuirassModel extends BipedEntityModel<AbstractClientPlayerEntity> {
-    public static final EntityModelLayer LAYER_LOCATION_1 = new EntityModelLayer(Aylyth.id("ympe_cuirass_1"), "main");
-    public static final EntityModelLayer LAYER_LOCATION_2 = new EntityModelLayer(Aylyth.id("ympe_cuirass_2"), "main");
-    public static final EntityModelLayer LAYER_LOCATION_3 = new EntityModelLayer(Aylyth.id("ympe_cuirass_3"), "main");
-    public static final EntityModelLayer LAYER_LOCATION_4 = new EntityModelLayer(Aylyth.id("ympe_cuirass_4"), "main");
-    public static final EntityModelLayer LAYER_LOCATION_5 = new EntityModelLayer(Aylyth.id("ympe_cuirass_5"), "main");
+public class CuirassModel<T extends BipedEntityRenderState> extends BipedEntityModel<T> {
+    public static final EntityModelLayer LAYER_LOCATION_1 = AylythClient.modelLayer("ympe_cuirass_1", "main");
+    public static final EntityModelLayer LAYER_LOCATION_2 = AylythClient.modelLayer("ympe_cuirass_2", "main");
+    public static final EntityModelLayer LAYER_LOCATION_3 = AylythClient.modelLayer("ympe_cuirass_3", "main");
+    public static final EntityModelLayer LAYER_LOCATION_4 = AylythClient.modelLayer("ympe_cuirass_4", "main");
+    public static final EntityModelLayer LAYER_LOCATION_5 = AylythClient.modelLayer("ympe_cuirass_5", "main");
 
     private ModelPart armorLeftArm;
     private ModelPart armorRightArm;
