@@ -19,9 +19,9 @@ public class JackolanternShelfMushroomBlock extends ShelfMushroomBlock {
 
     public static final BooleanProperty GLOWING = BooleanProperty.of("glowing");
 
-    private final Supplier<StagedMushroomPlantBlock> groundBlock;
+    private final Supplier<Block> groundBlock;
 
-    public JackolanternShelfMushroomBlock(Supplier<StagedMushroomPlantBlock> groundBlock, Settings settings) {
+    public JackolanternShelfMushroomBlock(Supplier<Block> groundBlock, Settings settings) {
         super(settings);
         this.groundBlock = groundBlock;
         setDefaultState(stateManager.getDefaultState().with(GLOWING, false));
@@ -64,9 +64,12 @@ public class JackolanternShelfMushroomBlock extends ShelfMushroomBlock {
     @Override
     public Optional<BlockState> findGrowState(WorldAccess world, BlockPos pos) {
         if (world.getRandom().nextFloat() < 0.5) {
-            Optional<BlockState> groundState = groundBlock.get().findGrowState(world, pos);
-            if (groundState.isPresent()) {
-                return groundState;
+            Block block = groundBlock.get();
+            if (block instanceof StagedMushroomPlantBlock stagedMushroomPlantBlock) {
+                Optional<BlockState> groundState = stagedMushroomPlantBlock.findGrowState(world, pos);
+                if (groundState.isPresent()) {
+                    return groundState;
+                }
             }
         }
         return super.findGrowState(world, pos);

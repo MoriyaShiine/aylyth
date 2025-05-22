@@ -1,6 +1,5 @@
 package moriyashiine.aylyth.common.block.types;
 
-import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Fertilizable;
@@ -27,7 +26,6 @@ import net.minecraft.world.WorldView;
 import java.util.Optional;
 
 public class StagedMushroomPlantBlock extends SpreadingPlantBlock implements Fertilizable {
-
     public static final IntProperty STAGE = IntProperty.of("stage", 1, 3);
     public static final VoxelShape SHAPE = VoxelShapes.cuboid(0.125, 0, 0.125, 0.875, 0.25, 0.875);
 
@@ -97,7 +95,6 @@ public class StagedMushroomPlantBlock extends SpreadingPlantBlock implements Fer
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        super.appendProperties(builder);
-        builder.add(STAGE);
+        super.appendProperties(builder.add(STAGE));
     }
 }

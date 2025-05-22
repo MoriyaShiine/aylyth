@@ -16,12 +16,11 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 public class JackolanternMushroomBlock extends StagedMushroomPlantBlock {
-
     public static final BooleanProperty GLOWING = BooleanProperty.of("glowing");
 
-    private final Supplier<SpreadingPlantBlock> wallBlock;
+    private final Supplier<Block> wallBlock;
 
-    public JackolanternMushroomBlock(Supplier<SpreadingPlantBlock> wallBlock, Settings settings) {
+    public JackolanternMushroomBlock(Supplier<Block> wallBlock, Settings settings) {
         super(settings);
         this.wallBlock = wallBlock;
         setDefaultState(stateManager.getDefaultState().with(GLOWING, false));
@@ -29,9 +28,12 @@ public class JackolanternMushroomBlock extends StagedMushroomPlantBlock {
 
     @Override
     protected Optional<BlockState> findGrowState(WorldAccess world, BlockPos pos) {
-        Optional<BlockState> wall = wallBlock.get().findGrowState(world, pos);
-        if (wall.isPresent()) {
-            return wall;
+        Block block = wallBlock.get();
+        if (block instanceof SpreadingPlantBlock spreadingPlantBlock) {
+            Optional<BlockState> wall = spreadingPlantBlock.findGrowState(world, pos);
+            if (wall.isPresent()) {
+                return wall;
+            }
         }
         return super.findGrowState(world, pos);
     }
@@ -90,7 +92,6 @@ public class JackolanternMushroomBlock extends StagedMushroomPlantBlock {
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        super.appendProperties(builder);
-        builder.add(GLOWING);
+        super.appendProperties(builder.add(GLOWING));
     }
 }

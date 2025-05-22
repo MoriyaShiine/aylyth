@@ -20,7 +20,6 @@ import net.minecraft.world.tick.ScheduledTickView;
 import java.util.Optional;
 
 public class SpreadingPlantBlock extends Block {
-
     private static final VoxelShape SHAPE = VoxelShapes.cuboid(0.25, 0, 0.25, 0.75, 0.25, 0.75);
 
     public SpreadingPlantBlock(Settings settings) {
