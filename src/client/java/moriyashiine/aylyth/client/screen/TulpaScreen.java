@@ -1,13 +1,11 @@
 package moriyashiine.aylyth.client.screen;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.entity.types.mob.TulpaEntity;
 import moriyashiine.aylyth.common.screenhandler.TulpaScreenHandler;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.client.gui.screen.ingame.InventoryScreen;
-import net.minecraft.client.render.GameRenderer;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
@@ -18,9 +16,6 @@ public class TulpaScreen extends HandledScreen<TulpaScreenHandler> {
 
     private final PlayerEntity player;
     private final TulpaEntity tulpaEntity;
-    private float mousePosX;
-    private float mousePosY;
-    private boolean buttonPressed;
 
     public TulpaScreen(TulpaScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
@@ -31,27 +26,23 @@ public class TulpaScreen extends HandledScreen<TulpaScreenHandler> {
     }
 
     @Override
-    protected void drawForeground(DrawContext matrixStack, int x, int y) {
-        super.drawForeground(matrixStack, x, y);
+    protected void drawForeground(DrawContext drawContext, int x, int y) {
+        super.drawForeground(drawContext, x, y);
     }
 
     @Override
-    protected void drawBackground(DrawContext matrices, float delta, int mouseX, int mouseY) {
-        RenderSystem.setShader(GameRenderer::getPositionTexProgram);
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+    protected void drawBackground(DrawContext drawContext, float delta, int mouseX, int mouseY) {
         int i = (this.width - this.backgroundWidth) / 2;
         int j = (this.height - this.backgroundHeight) / 2;
-        matrices.drawTexture(TULPA_GUI_TEXTURES, i, j, 0, 0, this.backgroundWidth, this.backgroundHeight);
-        InventoryScreen.drawEntity(matrices, i + 51, j + 75, 30, (float) (i + 51) - this.mousePosX, (float) (j + 75 - 50) - this.mousePosY, this.tulpaEntity);
-
+        drawContext.drawTexture(RenderLayer::getGuiTextured, TULPA_GUI_TEXTURES, i, j, 0, 0, this.backgroundWidth, this.backgroundHeight, 256, 256);
+        // TODO: Fix entity draw
+//        InventoryScreen.drawEntity(drawContext, i + 51, j + 75, 30, (float) (i + 51) - this.mousePosX, (float) (j + 75 - 50) - this.mousePosY, this.tulpaEntity);
     }
 
     @Override
-    public void render(DrawContext matrixStack, int mouseX, int mouseY, float partialTicks) {
-        this.renderBackground(matrixStack);
-        this.mousePosX = (float) mouseX;
-        this.mousePosY = (float) mouseY;
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
-        this.drawMouseoverTooltip(matrixStack, mouseX, mouseY);
+    public void render(DrawContext drawContext, int mouseX, int mouseY, float partialTicks) {
+        this.renderBackground(drawContext, mouseX, mouseY, partialTicks);
+        super.render(drawContext, mouseX, mouseY, partialTicks);
+        this.drawMouseoverTooltip(drawContext, mouseX, mouseY);
     }
 }
