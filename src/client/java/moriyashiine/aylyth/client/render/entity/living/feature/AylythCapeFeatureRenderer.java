@@ -1,6 +1,5 @@
 package moriyashiine.aylyth.client.render.entity.living.feature;
 
-import moriyashiine.aylyth.client.render.entity.state.TulpaPlayerEntityRenderState;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
@@ -13,18 +12,19 @@ import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.render.entity.model.LoadedEntityModels;
 import net.minecraft.client.render.entity.model.PlayerCapeModel;
+import net.minecraft.client.render.entity.state.PlayerEntityRenderState;
 import net.minecraft.client.util.SkinTextures;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.EquippableComponent;
 import net.minecraft.item.ItemStack;
 
-public class AylythCapeFeatureRenderer extends FeatureRenderer<TulpaPlayerEntityRenderState, BipedEntityModel<TulpaPlayerEntityRenderState>> {
-    private final BipedEntityModel<TulpaPlayerEntityRenderState> model;
+public class AylythCapeFeatureRenderer extends FeatureRenderer<PlayerEntityRenderState, BipedEntityModel<PlayerEntityRenderState>> {
+    private final BipedEntityModel<PlayerEntityRenderState> model;
     private final EquipmentModelLoader equipmentModelLoader;
 
     public AylythCapeFeatureRenderer(
-            FeatureRendererContext<TulpaPlayerEntityRenderState, BipedEntityModel<TulpaPlayerEntityRenderState>> featureRendererContext,
+            FeatureRendererContext<PlayerEntityRenderState, BipedEntityModel<PlayerEntityRenderState>> featureRendererContext,
             LoadedEntityModels models,
             EquipmentModelLoader equipmentModelLoader
     ) {
@@ -44,7 +44,7 @@ public class AylythCapeFeatureRenderer extends FeatureRenderer<TulpaPlayerEntity
     }
 
     @Override
-    public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumers, int light, TulpaPlayerEntityRenderState state, float limbAngle, float limbDistance) {
+    public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumers, int light, PlayerEntityRenderState state, float limbAngle, float limbDistance) {
         if (!state.invisible && state.capeVisible) {
             SkinTextures skinTextures = state.skinTextures;
             if (skinTextures.capeTexture() != null) {
