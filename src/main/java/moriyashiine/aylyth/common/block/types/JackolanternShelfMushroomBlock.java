@@ -1,5 +1,6 @@
 package moriyashiine.aylyth.common.block.types;
 
+import moriyashiine.aylyth.common.block.AylythProperties;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemPlacementContext;
@@ -16,8 +17,7 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 public class JackolanternShelfMushroomBlock extends ShelfMushroomBlock {
-
-    public static final BooleanProperty GLOWING = BooleanProperty.of("glowing");
+    public static final BooleanProperty GLOWING = AylythProperties.GLOWING;
 
     private final Supplier<Block> groundBlock;
 
