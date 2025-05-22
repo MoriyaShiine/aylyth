@@ -259,24 +259,6 @@ public class AylythClient implements ClientModInitializer {
 			context.register(Aylyth.id("rendertype_tint"), VertexFormats.POSITION_TEXTURE, shader -> AylythRenderLayers.renderLayerTint = shader);
 		});
 	}
-
-	private void registerSpearItemRenderer(ItemConvertible item) {
-		Identifier itemId = Registries.ITEM.getId(item.asItem());
-		ModelIdentifier spearId = new ModelIdentifier(itemId.withSuffixedPath("_spear"), "inventory");
-		SpearItemRenderer spearItemRenderer = new SpearItemRenderer(spearId);
-		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(spearItemRenderer);
-		BuiltinItemRendererRegistry.INSTANCE.register(item, spearItemRenderer);
-		ModelLoadingPlugin.register(pluginContext -> {
-			pluginContext.addModels(spearId);
-
-			final ModelIdentifier itemModel = new ModelIdentifier(itemId, "inventory");
-			pluginContext.modifyModelAfterBake().register((model, context) -> {
-				if (context.id().equals(itemModel)) {
-					return new WrappedSpearItemModel(model);
-				}
-				return model;
-			});
-		});
 	}
 
 	private static Block[] cutoutBlocks() {
@@ -361,17 +343,6 @@ public class AylythClient implements ClientModInitializer {
 				partialTicks = 0;
 			}
 			calcDelta();
-		}
-	}
-
-	public static class WrappedSpearItemModel extends ForwardingBakedModel {
-		public WrappedSpearItemModel(BakedModel model) {
-			this.wrapped = model;
-		}
-
-		@Override
-		public boolean isSideLit() {
-			return false;
 		}
 	}
 }
