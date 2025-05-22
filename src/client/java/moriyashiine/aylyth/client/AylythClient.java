@@ -140,9 +140,10 @@ public class AylythClient implements ClientModInitializer {
 		ClampedModelPredicateProvider flaskProvider = (stack, world, entity, seed) -> NephriteFlaskItem.getCharges(stack) / 6f;
 		ModelPredicateProviderRegistry.register(AylythItems.NEPHRITE_FLASK, Aylyth.id("uses"), flaskProvider);
 		ModelPredicateProviderRegistry.register(AylythItems.DARK_NEPHRITE_FLASK, Aylyth.id("uses"), flaskProvider);
-		ModelPredicateProviderRegistry.register(Items.POTION, Aylyth.id("blight_potion"), (stack, world, entity, seed) -> Registries.POTION.getEntry(PotionUtil.getPotion(stack)).isIn(AylythPotionTags.BLIGHT) ? 1 : 0);
-		ModelPredicateProviderRegistry.register(Items.SPLASH_POTION, Aylyth.id("blight_potion"), (stack, world, entity, seed) -> Registries.POTION.getEntry(PotionUtil.getPotion(stack)).isIn(AylythPotionTags.BLIGHT) ? 1 : 0);
-		ModelPredicateProviderRegistry.register(Items.LINGERING_POTION, Aylyth.id("blight_potion"), (stack, world, entity, seed) -> Registries.POTION.getEntry(PotionUtil.getPotion(stack)).isIn(AylythPotionTags.BLIGHT) ? 1 : 0);
+		// TODO: Figure out how to best give blight potions a custom model
+//		ModelPredicateProviderRegistry.register(Items.POTION, Aylyth.id("blight_potion"), (stack, world, entity, seed) -> Registries.POTION.getEntry(PotionUtil.getPotion(stack)).isIn(AylythPotionTags.BLIGHT) ? 1 : 0);
+//		ModelPredicateProviderRegistry.register(Items.SPLASH_POTION, Aylyth.id("blight_potion"), (stack, world, entity, seed) -> Registries.POTION.getEntry(PotionUtil.getPotion(stack)).isIn(AylythPotionTags.BLIGHT) ? 1 : 0);
+//		ModelPredicateProviderRegistry.register(Items.LINGERING_POTION, Aylyth.id("blight_potion"), (stack, world, entity, seed) -> Registries.POTION.getEntry(PotionUtil.getPotion(stack)).isIn(AylythPotionTags.BLIGHT) ? 1 : 0);
 
 		BlockEntityRendererFactories.register(AylythBlockEntityTypes.SEEP, SeepBlockEntityRenderer::new);
 		BlockEntityRendererFactories.register(AylythBlockEntityTypes.VITAL_THURIBLE, VitalThuribleBlockEntityRenderer::new);
@@ -204,40 +205,40 @@ public class AylythClient implements ClientModInitializer {
 			}
 		});
 
-		registerSpearItemRenderer(AylythItems.YMPE_LANCE);
-
-		ModelLoadingPlugin.register(pluginContext -> {
-			pluginContext.addModels(
-					Aylyth.id("item/coker_cola"),
-					Aylyth.id("item/coker_cola_splash"),
-					Aylyth.id("item/coker_cola_lingering")
-			);
-			pluginContext.modifyModelBeforeBake().register((model, context) -> {
-				if (context.id().equals(ModelIdentifier.ofVanilla("potion", "inventory"))) {
-					if (model instanceof JsonUnbakedModel jsonModel) {
-						List<ModelOverride.Condition> conditions = List.of(
-								new ModelOverride.Condition(Aylyth.id("blight_potion"), 1f)
-						);
-						jsonModel.getOverrides().add(new ModelOverride(Aylyth.id("item/coker_cola"), conditions));
-					}
-				} else if (context.id().equals(ModelIdentifier.ofVanilla("splash_potion", "inventory"))) {
-					if (model instanceof JsonUnbakedModel jsonModel) {
-						List<ModelOverride.Condition> conditions = List.of(
-								new ModelOverride.Condition(Aylyth.id("blight_potion"), 1f)
-						);
-						jsonModel.getOverrides().add(new ModelOverride(Aylyth.id("item/coker_cola_splash"), conditions));
-					}
-				} else if (context.id().equals(ModelIdentifier.ofVanilla("lingering_potion", "inventory"))) {
-					if (model instanceof JsonUnbakedModel jsonModel) {
-						List<ModelOverride.Condition> conditions = List.of(
-								new ModelOverride.Condition(Aylyth.id("blight_potion"), 1f)
-						);
-						jsonModel.getOverrides().add(new ModelOverride(Aylyth.id("item/coker_cola_lingering"), conditions));
-					}
-				}
-				return model;
-			});
-		});
+		// TODO: Figure out how to best give blight potions a custom model
+//		ModelLoadingPlugin.register(pluginContext -> {
+//			pluginContext.addModels(
+//					Aylyth.id("item/coker_cola"),
+//					Aylyth.id("item/coker_cola_splash"),
+//					Aylyth.id("item/coker_cola_lingering")
+//			);
+//
+//			pluginContext.modifyModelBeforeBake().register((model, context) -> {
+//				if (context.id().equals(ModelIdentifier.ofVanilla("potion", "inventory"))) {
+//					if (model instanceof JsonUnbakedModel jsonModel) {
+//						List<ModelOverride.Condition> conditions = List.of(
+//								new ModelOverride.Condition(Aylyth.id("blight_potion"), 1f)
+//						);
+//						jsonModel.getOverrides().add(new ModelOverride(Aylyth.id("item/coker_cola"), conditions));
+//					}
+//				} else if (context.id().equals(ModelIdentifier.ofVanilla("splash_potion", "inventory"))) {
+//					if (model instanceof JsonUnbakedModel jsonModel) {
+//						List<ModelOverride.Condition> conditions = List.of(
+//								new ModelOverride.Condition(Aylyth.id("blight_potion"), 1f)
+//						);
+//						jsonModel.getOverrides().add(new ModelOverride(Aylyth.id("item/coker_cola_splash"), conditions));
+//					}
+//				} else if (context.id().equals(ModelIdentifier.ofVanilla("lingering_potion", "inventory"))) {
+//					if (model instanceof JsonUnbakedModel jsonModel) {
+//						List<ModelOverride.Condition> conditions = List.of(
+//								new ModelOverride.Condition(Aylyth.id("blight_potion"), 1f)
+//						);
+//						jsonModel.getOverrides().add(new ModelOverride(Aylyth.id("item/coker_cola_lingering"), conditions));
+//					}
+//				}
+//				return model;
+//			});
+//		});
 
 		ModelLoadingPlugin.register(pluginContext -> {
 			Identifier soulHearthId = Aylyth.id("block/soul_hearth_charged_lower");
