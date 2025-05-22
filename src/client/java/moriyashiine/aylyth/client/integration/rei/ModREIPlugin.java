@@ -28,7 +28,7 @@ public class ModREIPlugin implements REIClientPlugin {
 	@Override
 	public void registerDisplays(DisplayRegistry registry) {
 		DynamicRegistryManager registryManager = MinecraftClient.getInstance().world.getRegistryManager();
-		for (RegistryEntry<LootDisplay> display : registryManager.get(AylythRegistryKeys.LOOT_TABLE_DISPLAY).getIndexedEntries()) {
+		for (RegistryEntry<LootDisplay> display : registryManager.getOrThrow(AylythRegistryKeys.LOOT_TABLE_DISPLAY).getIndexedEntries()) {
 			if (display.value() instanceof DaggerLootDisplay daggerLootDisplay) {
 				Identifier id = display.getKey().orElseThrow().getValue();
 				registry.add(new DaggerDropDisplay(id, daggerLootDisplay.entity(), daggerLootDisplay.chance(), daggerLootDisplay.outputs()));
