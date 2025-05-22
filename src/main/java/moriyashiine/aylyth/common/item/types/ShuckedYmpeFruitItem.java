@@ -63,6 +63,7 @@ public class ShuckedYmpeFruitItem extends Item {
 				return super.useOnBlock(context);
 			}
 			if (entityType.create(serverWorld, storedEntity::applyToEntity, pos, SpawnReason.SPAWN_ITEM_USE, true, false) instanceof MobEntity mob) {
+				stack.remove(DataComponentTypes.ENTITY_DATA);
 				mob.removeAttached(AylythEntityAttachmentTypes.PREVENT_DROPS);
 				world.spawnEntity(mob);
 				world.playSound(null, pos, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 1, 1);
