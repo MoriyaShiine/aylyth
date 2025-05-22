@@ -18,13 +18,14 @@ import java.util.List;
 
 @Mixin(ParticleManager.class)
 public class ParticleManagerMixin {
-	@Mutable
-	@Final
-	@Shadow
-	private static List<ParticleTextureSheet> PARTICLE_TEXTURE_SHEETS;
-	
-	@Inject(method = "<init>", at = @At("RETURN"))
-	private void addAylythParticles(ClientWorld world, TextureManager textureManager, CallbackInfo ci) {
-		PARTICLE_TEXTURE_SHEETS = ImmutableList.<ParticleTextureSheet>builder().addAll(PARTICLE_TEXTURE_SHEETS).add(AylythParticleTextureSheets.GLOWING).build();
-	}
+	// TODO: Might be able to get rid of this
+//	@Mutable
+//	@Final
+//	@Shadow
+//	private static List<ParticleTextureSheet> PARTICLE_TEXTURE_SHEETS;
+//
+//	@Inject(method = "<init>", at = @At("RETURN"))
+//	private void addAylythParticles(ClientWorld world, TextureManager textureManager, CallbackInfo ci) {
+//		PARTICLE_TEXTURE_SHEETS = ImmutableList.<ParticleTextureSheet>builder().addAll(PARTICLE_TEXTURE_SHEETS).add(AylythParticleTextureSheets.GLOWING).build();
+//	}
 }
