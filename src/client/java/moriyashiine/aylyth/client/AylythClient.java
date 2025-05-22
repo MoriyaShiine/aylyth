@@ -39,6 +39,7 @@ import moriyashiine.aylyth.client.render.entity.projectile.YmpeLanceEntityRender
 import moriyashiine.aylyth.client.render.item.AylythSkyRenderer;
 import moriyashiine.aylyth.client.render.item.SpearItemRenderer;
 import moriyashiine.aylyth.client.render.item.WoodyGrowthCacheItemRenderer;
+import moriyashiine.aylyth.client.render.item.property.FlaskChargesProperty;
 import moriyashiine.aylyth.client.screen.TulpaScreen;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.block.AylythBlockEntityTypes;
@@ -87,6 +88,7 @@ import net.minecraft.client.render.entity.state.LivingEntityRenderState;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.json.JsonUnbakedModel;
 import net.minecraft.client.render.item.model.special.SpecialModelTypes;
+import net.minecraft.client.render.item.property.numeric.NumericProperties;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.entity.EntityType;
@@ -100,6 +102,8 @@ import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
 
 import java.util.List;
+import net.minecraft.world.biome.FoliageColors;
+import net.minecraft.world.biome.GrassColors;
 
 public class AylythClient implements ClientModInitializer {
 	public static final KeyBinding DESCEND = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.aylyth.descend", InputUtil.Type.KEYSYM, InputUtil.GLFW_KEY_G, "category.aylyth.keybind"));
@@ -136,19 +140,12 @@ public class AylythClient implements ClientModInitializer {
 
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), cutoutBlocks());
 
-		ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.getDefaultColor(), AylythBlocks.AYLYTH_BUSH);
+		ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.DEFAULT, AylythBlocks.AYLYTH_BUSH);
 		ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> world != null && pos != null && state != null && state.getBlock() instanceof StrewnLeavesBlock && state.get(StrewnLeavesBlock.LEAVES) > 0 ? BiomeColors.getFoliageColor(world, pos) : 0xFFFFFFFF, AylythBlocks.OAK_STREWN_LEAVES);
-		ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> world != null && pos != null ? BiomeColors.getGrassColor(world, pos) : FoliageColors.getDefaultColor(), AylythBlocks.ANTLER_SHOOTS, AylythBlocks.GRIPWEED);
+		ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> world != null && pos != null ? BiomeColors.getGrassColor(world, pos) : GrassColors.getDefaultColor(), AylythBlocks.ANTLER_SHOOTS, AylythBlocks.GRIPWEED);
 
-		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> {
-			BlockState blockState = ((BlockItem) stack.getItem()).getBlock().getDefaultState();
-			return MinecraftClient.getInstance().getBlockColors().getColor(blockState, null, null, tintIndex);
-		}, AylythBlocks.AYLYTH_BUSH, AylythBlocks.ANTLER_SHOOTS, AylythBlocks.GRIPWEED);
+		NumericProperties.ID_MAPPER.put(Aylyth.id("flask_charges"), FlaskChargesProperty.CODEC);
 
-		ModelPredicateProviderRegistry.register(AylythItems.SHUCKED_YMPE_FRUIT, Aylyth.id("variant"), (stack, world, entity, seed) -> ShuckedYmpeFruitItem.hasStoredEntity(stack) ? 1 : 0);
-		ClampedModelPredicateProvider flaskProvider = (stack, world, entity, seed) -> NephriteFlaskItem.getCharges(stack) / 6f;
-		ModelPredicateProviderRegistry.register(AylythItems.NEPHRITE_FLASK, Aylyth.id("uses"), flaskProvider);
-		ModelPredicateProviderRegistry.register(AylythItems.DARK_NEPHRITE_FLASK, Aylyth.id("uses"), flaskProvider);
 		// TODO: Figure out how to best give blight potions a custom model
 //		ModelPredicateProviderRegistry.register(Items.POTION, Aylyth.id("blight_potion"), (stack, world, entity, seed) -> Registries.POTION.getEntry(PotionUtil.getPotion(stack)).isIn(AylythPotionTags.BLIGHT) ? 1 : 0);
 //		ModelPredicateProviderRegistry.register(Items.SPLASH_POTION, Aylyth.id("blight_potion"), (stack, world, entity, seed) -> Registries.POTION.getEntry(PotionUtil.getPotion(stack)).isIn(AylythPotionTags.BLIGHT) ? 1 : 0);
