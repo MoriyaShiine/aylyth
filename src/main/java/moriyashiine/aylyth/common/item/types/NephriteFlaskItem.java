@@ -56,7 +56,12 @@ public class NephriteFlaskItem extends Item {
 
     @Override
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
-        stack.apply(AylythDataComponentTypes.FLASK_CHARGES, 0, integer -> Math.max(integer-1, 0));
+        int uses = stack.getOrDefault(AylythDataComponentTypes.FLASK_CHARGES, 0);
+        if (uses - 1 <= 0) {
+            stack.remove(AylythDataComponentTypes.FLASK_CHARGES);
+        } else {
+            stack.set(AylythDataComponentTypes.FLASK_CHARGES, uses - 1);
+        }
         return super.finishUsing(stack, world, user);
     }
 }
