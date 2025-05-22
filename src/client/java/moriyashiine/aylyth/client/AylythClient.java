@@ -248,7 +248,6 @@ public class AylythClient implements ClientModInitializer {
 			});
 		});
 
-		PreparableModelLoadingPlugin.register(PerspectiveModelLoader::load, PerspectiveModelLoader::apply);
 
 		BuiltinItemRendererRegistry.INSTANCE.register(AylythItems.WOODY_GROWTH_CACHE, new WoodyGrowthCacheItemRenderer());
 
