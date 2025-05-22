@@ -77,8 +77,10 @@ import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexFormats;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
+import net.minecraft.client.render.entity.BoatEntityRenderer;
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
+import net.minecraft.client.render.entity.model.BoatEntityModel;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.render.entity.state.LivingEntityRenderState;
@@ -107,6 +109,13 @@ public class AylythClient implements ClientModInitializer {
 	public static ModelIdentifier modelId(String id, String variant) {
 		return new ModelIdentifier(Aylyth.id(id), variant);
 	}
+
+	public static final EntityModelLayer YMPE_BOAT_LAYER = modelLayer("boat/ympe", "main");
+	public static final EntityModelLayer YMPE_CHEST_BOAT_LAYER = modelLayer("chest_boat/ympe", "main");
+	public static final EntityModelLayer POMEGRANATE_BOAT_LAYER = modelLayer("boat/pomegranate", "main");
+	public static final EntityModelLayer POMEGRANATE_CHEST_BOAT_LAYER = modelLayer("chest_boat/pomegranate", "main");
+	public static final EntityModelLayer WRITHEWOOD_BOAT_LAYER = modelLayer("boat/writhewood", "main");
+	public static final EntityModelLayer WRITHEWOOD_CHEST_BOAT_LAYER = modelLayer("chest_boat/writhewood", "main");
 
 	@Override
 	public void onInitializeClient() {
@@ -162,6 +171,12 @@ public class AylythClient implements ClientModInitializer {
 		EntityModelLayerRegistry.registerModelLayer(YmpeThornRingModel.YMPE_THORN_RING_MODEL_LAYER, YmpeThornRingModel::getTexturedModelData);
 		EntityModelLayerRegistry.registerModelLayer(ScionEntityModel.LAYER_LOCATION, ScionEntityModel::createBodyLayer);
 		EntityModelLayerRegistry.registerModelLayer(RootPropEntityModel.LAYER_LOCATION, RootPropEntityModel::createBodyLayer);
+		EntityModelLayerRegistry.registerModelLayer(YMPE_BOAT_LAYER, BoatEntityModel::getTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(YMPE_CHEST_BOAT_LAYER, BoatEntityModel::getChestTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(POMEGRANATE_BOAT_LAYER, BoatEntityModel::getTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(POMEGRANATE_CHEST_BOAT_LAYER, BoatEntityModel::getChestTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(WRITHEWOOD_BOAT_LAYER, BoatEntityModel::getTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(WRITHEWOOD_CHEST_BOAT_LAYER, BoatEntityModel::getChestTexturedModelData);
 
 		EntityRendererRegistry.register(AylythEntityTypes.PILOT_LIGHT, PilotLightEntityRenderer::new);
 		EntityRendererRegistry.register(AylythEntityTypes.AYLYTHIAN, AylythianEntityRenderer::new);
@@ -178,6 +193,12 @@ public class AylythClient implements ClientModInitializer {
 		EntityRendererRegistry.register(AylythEntityTypes.FAUNAYLYTHIAN, FaunaylythianEntityRenderer::new);
 		EntityRendererRegistry.register(AylythEntityTypes.SCION, ScionEntityRenderer::new);
 		EntityRendererRegistry.register(AylythEntityTypes.THORN_FLECHETTE, ThornFlechetteRenderer::new);
+		EntityRendererRegistry.register(AylythEntityTypes.YMPE_BOAT, ctx -> new BoatEntityRenderer(ctx, YMPE_BOAT_LAYER));
+		EntityRendererRegistry.register(AylythEntityTypes.YMPE_CHEST_BOAT, ctx -> new BoatEntityRenderer(ctx, YMPE_CHEST_BOAT_LAYER));
+		EntityRendererRegistry.register(AylythEntityTypes.POMEGRANATE_BOAT, ctx -> new BoatEntityRenderer(ctx, POMEGRANATE_BOAT_LAYER));
+		EntityRendererRegistry.register(AylythEntityTypes.POMEGRANATE_CHEST_BOAT, ctx -> new BoatEntityRenderer(ctx, POMEGRANATE_CHEST_BOAT_LAYER));
+		EntityRendererRegistry.register(AylythEntityTypes.WRITHEWOOD_BOAT, ctx -> new BoatEntityRenderer(ctx, WRITHEWOOD_BOAT_LAYER));
+		EntityRendererRegistry.register(AylythEntityTypes.WRITHEWOOD_CHEST_BOAT, ctx -> new BoatEntityRenderer(ctx, WRITHEWOOD_CHEST_BOAT_LAYER));
 
 		LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, entityRenderer, registrationHelper, context) -> {
 			if (entityRenderer instanceof PlayerEntityRenderer playerEntityRenderer) {
@@ -186,10 +207,6 @@ public class AylythClient implements ClientModInitializer {
 			}
 			registrationHelper.register(new YmpeThornRingFeature((FeatureRendererContext<LivingEntityRenderState, EntityModel<LivingEntityRenderState>>) entityRenderer, context.getEntityModels()));
 		});
-
-		TerraformBoatClientHelper.registerModelLayers(Aylyth.id("ympe"));
-		TerraformBoatClientHelper.registerModelLayers(Aylyth.id("pomegranate"));
-		TerraformBoatClientHelper.registerModelLayers(Aylyth.id("writhewood"));
 
 		ClientTickEvents.START_CLIENT_TICK.register(client -> {
 			if (client.world != null && client.player != null && client.world.getTime() % 20 == 0) {
