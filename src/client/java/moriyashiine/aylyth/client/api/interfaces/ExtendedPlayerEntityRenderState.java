@@ -1,8 +1,16 @@
 package moriyashiine.aylyth.client.api.interfaces;
 
 public interface ExtendedPlayerEntityRenderState {
-    void aylyth$setCuirassStage(int stage);
-    int aylyth$cuirassStage();
-    void aylyth$setInfestationStage(int stage);
-    int aylyth$infestationStage();
+    default void aylyth$setCuirassStage(int stage) {
+        throw new UnsupportedOperationException("Implemented via mixin.");
+    }
+    default int aylyth$cuirassStage() {
+        throw new UnsupportedOperationException("Implemented via mixin.");
+    }
+    default void aylyth$setInfestationStage(int stage) {
+        throw new UnsupportedOperationException("Implemented via mixin.");
+    }
+    default int aylyth$infestationStage() {
+        throw new UnsupportedOperationException("Implemented via mixin.");
+    }
 }

@@ -1,6 +1,10 @@
 package moriyashiine.aylyth.client.api.interfaces;
 
 public interface ExtendedLivingEntityRenderState {
-    void aylyth$setThornsStage(int stage);
-    int aylyth$thornsStage();
+    default void aylyth$setThornsStage(int stage) {
+        throw new UnsupportedOperationException("Implemented via mixin.");
+    }
+    default int aylyth$thornsStage() {
+        throw new UnsupportedOperationException("Implemented via mixin.");
+    }
 }
