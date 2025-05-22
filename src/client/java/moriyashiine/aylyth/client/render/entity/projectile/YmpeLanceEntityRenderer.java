@@ -1,46 +1,59 @@
 package moriyashiine.aylyth.client.render.entity.projectile;
 
-import moriyashiine.aylyth.common.Aylyth;
+import moriyashiine.aylyth.client.render.entity.state.YmpeLanceEntityRenderState;
 import moriyashiine.aylyth.common.entity.types.projectile.YmpeLanceEntity;
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.item.ItemModelManager;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.entity.ProjectileEntityRenderer;
-import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.item.ModelTransformationMode;
 import net.minecraft.util.math.RotationAxis;
 
-public class YmpeLanceEntityRenderer extends ProjectileEntityRenderer<YmpeLanceEntity> {
-	private final MinecraftClient client = MinecraftClient.getInstance();
+public class YmpeLanceEntityRenderer extends EntityRenderer<YmpeLanceEntity, YmpeLanceEntityRenderState> {
+	private final ItemModelManager itemModelManager;
 
 	public YmpeLanceEntityRenderer(EntityRendererFactory.Context context) {
 		super(context);
+		this.itemModelManager = context.getItemModelManager();
 	}
 
 	@Override
-	public void render(YmpeLanceEntity lanceEntity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexProvider, int light) {
+	public void updateRenderState(YmpeLanceEntity entity, YmpeLanceEntityRenderState state, float tickDelta) {
+		super.updateRenderState(entity, state, tickDelta);
+		// TODO: Probably switch this from being a passenger of the attached entity to a data attachment and a feature renderer.
+		if (entity.getVehicle() != null) {
+			state.yOffset = -(entity.getY() - entity.getVehicle().getY()) + (entity.getVehicle().getHeight() * 0.5);
+			state.yaw = 270 - entity.getVehicle().getBodyYaw();
+			state.pitch = 150;
+		} else {
+			state.yOffset = 0;
+			state.yaw = entity.getLerpedYaw(tickDelta) - 90;
+			state.pitch = entity.getLerpedPitch(tickDelta) + 315;
+		}
+		if (!entity.asItemStack().isEmpty()) {
+			itemModelManager.updateForNonLivingEntity(state.item, entity.asItemStack(), ModelTransformationMode.NONE, entity);
+		}
+	}
+
+	@Override
+	public void render(YmpeLanceEntityRenderState renderState, MatrixStack matrices, VertexConsumerProvider vertexConsumerProvider, int i) {
 		matrices.push();
 
-		if(lanceEntity.getVehicle() != null) {
-			matrices.translate(0, -(lanceEntity.getY() - lanceEntity.getVehicle().getY()) + (lanceEntity.getVehicle().getHeight() * 0.5), 0);
-			matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(270 - lanceEntity.getVehicle().getBodyYaw()));
-			matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(150));
+		if (renderState.yOffset != 0) {
+			matrices.translate(0, renderState.yOffset, 0);
 		}
-		else {
-			matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(MathHelper.lerp(tickDelta, lanceEntity.prevYaw, lanceEntity.getYaw()) - 90));
-			matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(MathHelper.lerp(tickDelta, lanceEntity.prevPitch, lanceEntity.getPitch()) + 315));
-		}
+		matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(renderState.yaw));
+		matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(renderState.pitch));
 
 		matrices.scale(2F, 2F, 1F);
-		client.getItemRenderer().renderItem(lanceEntity.asItemStack(), ModelTransformationMode.NONE, light, OverlayTexture.DEFAULT_UV, matrices, vertexProvider, null, 0);
+		renderState.item.render(matrices, vertexConsumerProvider, i, OverlayTexture.DEFAULT_UV);
 		matrices.pop();
 	}
 
 	@Override
-	public Identifier getTexture(YmpeLanceEntity entity) {
-		return Aylyth.id("textures/item/ympe_lance_handheld.png");
+	public YmpeLanceEntityRenderState createRenderState() {
+		return new YmpeLanceEntityRenderState();
 	}
 }

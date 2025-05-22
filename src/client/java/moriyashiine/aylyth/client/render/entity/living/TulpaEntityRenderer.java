@@ -1,28 +1,27 @@
 package moriyashiine.aylyth.client.render.entity.living;
 
-
 import com.mojang.authlib.GameProfile;
 import moriyashiine.aylyth.client.model.entity.TulpaEntityModel;
 import moriyashiine.aylyth.client.render.block.entity.WoodyGrowthBlockEntityRenderer;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.entity.AylythEntityTypes;
 import moriyashiine.aylyth.common.entity.types.mob.TulpaEntity;
-import moriyashiine.aylyth.mixin.client.PlayerSkinTextureAccessor;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.model.json.ModelTransformationMode;
+import net.minecraft.client.render.entity.state.EntityRenderState;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.client.texture.NativeImageBackedTexture;
-import net.minecraft.client.texture.PlayerSkinTexture;
 import net.minecraft.client.texture.TextureManager;
 import net.minecraft.client.util.DefaultSkinHelper;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.item.ModelTransformationMode;
 import net.minecraft.item.ShieldItem;
 import net.minecraft.resource.Resource;
 import net.minecraft.resource.ResourceManager;
@@ -32,19 +31,14 @@ import net.minecraft.util.math.RotationAxis;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.cache.object.BakedGeoModel;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 import software.bernie.geckolib.renderer.layer.BlockAndItemGeoLayer;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-
 
 public class TulpaEntityRenderer extends GeoEntityRenderer<TulpaEntity> {
     private final TextureManager textureManager;
@@ -112,11 +106,16 @@ public class TulpaEntityRenderer extends GeoEntityRenderer<TulpaEntity> {
     }
 
     @Override
-    public void render(TulpaEntity entity, float entityYaw, float partialTicks, MatrixStack matrixStack, VertexConsumerProvider bufferIn, int packedLightIn) {
-        if (entity.getSkinUuid() == null || entity.getDataTracker().get(TulpaEntity.TRANSFORMING) || (entity.getHealth() < 0.01 || entity.isDead())) {
-            super.render(entity, entityYaw, partialTicks, matrixStack, bufferIn, packedLightIn);
+    public void render(EntityRenderState entityRenderState, MatrixStack poseStack, VertexConsumerProvider bufferSource, int packedLight) {
+        super.render(entityRenderState, poseStack, bufferSource, packedLight);
+    }
+
+    @Override
+    public void defaultRender(MatrixStack matrixStack, TulpaEntity animatable, VertexConsumerProvider bufferSource, @Nullable RenderLayer renderType, @Nullable VertexConsumer buffer, float partialTicks, int packedLight) {
+        if (animatable.getSkinUuid() == null || animatable.getDataTracker().get(TulpaEntity.TRANSFORMING) || (animatable.getHealth() < 0.01 || animatable.isDead())) {
+            super.defaultRender(matrixStack, animatable, bufferSource, renderType, buffer, partialTicks, packedLight);
         } else {
-            copyEntityStateAndRender(matrixStack, entity, entityYaw, partialTicks, bufferIn, packedLightIn);
+            copyEntityStateAndRender(matrixStack, animatable, partialTicks, bufferSource, packedLight);
         }
     }
 
@@ -129,7 +128,7 @@ public class TulpaEntityRenderer extends GeoEntityRenderer<TulpaEntity> {
             animatable.setSkinProfile(profile);
             return getFusedTexture(animatable.getSkinProfile()).renderLayer;
         } else {
-            return RenderLayer.getEntityTranslucent(getTexture(animatable));
+            return RenderLayer.getEntityTranslucent(getTextureLocation(animatable));
         }
     }
 
@@ -137,7 +136,7 @@ public class TulpaEntityRenderer extends GeoEntityRenderer<TulpaEntity> {
         return profile == null ? defaultTexture : TEXTURE_CACHE.compute(profile, (gameProfile, additiveTexture) -> {
             if (additiveTexture == null) {
                 Identifier playerTexture = WoodyGrowthBlockEntityRenderer.getPlayerTexture(profile.getId());
-                if (playerTexture != DefaultSkinHelper.getTexture(profile.getId())) {
+                if (playerTexture != DefaultSkinHelper.getSkinTextures(profile.getId()).texture()) {
                     return new AdditiveTexture(playerTexture, true);
                 } else {
                     return defaultTexture;
@@ -150,9 +149,6 @@ public class TulpaEntityRenderer extends GeoEntityRenderer<TulpaEntity> {
             }
         });
     }
-
-    public VertexConsumerProvider rtb;
-    public Identifier whTexture;
 
     public final class AdditiveTexture implements AutoCloseable {
         public static final Logger LOGGER = LogManager.getLogger(Aylyth.MOD_ID + ":texturegen");
@@ -167,7 +163,8 @@ public class TulpaEntityRenderer extends GeoEntityRenderer<TulpaEntity> {
             this.base = base;
             this.playerSkin = playerSkin;
             texture = new NativeImageBackedTexture(new NativeImage(128, 128, true));
-            Identifier id = textureManager.registerDynamicTexture("aylyth_tulpa/" + base.getPath(), texture);
+            Identifier id = Aylyth.id("aylyth_tulpa/" + base.getPath());
+            textureManager.registerTexture(id, texture);
             this.renderLayer = RenderLayer.getEntityCutout(id);
             this.needsUpdate = true;
         }
@@ -186,15 +183,15 @@ public class TulpaEntityRenderer extends GeoEntityRenderer<TulpaEntity> {
                         NativeImage tuplaImage = NativeImage.read(optionalResource.get().getInputStream());
                         for (int y = 0; y < 128; y++) {
                             for (int x = 0; x < 128; x++) {
-                                int color = tuplaImage.getColor(x, y);
-                                texture.getImage().setColor(x, y, color);
+                                int color = tuplaImage.getColorArgb(x, y);
+                                texture.getImage().setColorArgb(x, y, color);
                             }
                         }
                     }
                     for (int y = 0; y < 64; y++) {
                         for (int x = 0; x < 64; x++) {
-                            int color = inputImage.getColor(x, y);
-                            texture.getImage().setColor(x, y, color);
+                            int color = inputImage.getColorArgb(x, y);
+                            texture.getImage().setColorArgb(x, y, color);
                         }
                     }
                     needsUpdate = false;
@@ -210,11 +207,9 @@ public class TulpaEntityRenderer extends GeoEntityRenderer<TulpaEntity> {
             });
         }
 
-        private NativeImage getPlayerSkin(Identifier base) throws IOException {
-            PlayerSkinTexture skinTexture = (PlayerSkinTexture) textureManager.getTexture(base);
-            PlayerSkinTextureAccessor accessor = (PlayerSkinTextureAccessor) skinTexture;
-            File file = accessor.getCacheFile();
-            return accessor.invokeRemapTexture(NativeImage.read(new FileInputStream(file)));
+        private NativeImage getPlayerSkin(Identifier base) {
+            NativeImageBackedTexture skinTexture = (NativeImageBackedTexture) textureManager.getTexture(base);
+            return skinTexture.getImage();
         }
 
 
@@ -227,14 +222,7 @@ public class TulpaEntityRenderer extends GeoEntityRenderer<TulpaEntity> {
 
     // TODO remove
     @Override
-    public void preRender(MatrixStack stackIn, TulpaEntity animatable, BakedGeoModel model, VertexConsumerProvider renderTypeBuffer, VertexConsumer vertexBuilder, boolean isReRender, float ticks, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float partialTicks) {
-        this.rtb = renderTypeBuffer;
-        this.whTexture = this.getTexture(animatable);
-        super.preRender(stackIn, animatable, model, renderTypeBuffer, vertexBuilder, isReRender, ticks, packedLightIn, packedOverlayIn, red, green, blue, partialTicks);
-    }
-
-    @Override
-    public void renderRecursively(MatrixStack stack, TulpaEntity animatable, GeoBone bone, RenderLayer renderType, VertexConsumerProvider bufferSource, VertexConsumer bufferIn, boolean isReRender, float partialTick, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
+    public void renderRecursively(MatrixStack stack, TulpaEntity animatable, GeoBone bone, RenderLayer renderType, VertexConsumerProvider bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, int renderColor) {
         var mainHand = animatable.getMainHandStack();
         var offHand = animatable.getOffHandStack();
 
@@ -242,10 +230,10 @@ public class TulpaEntityRenderer extends GeoEntityRenderer<TulpaEntity> {
             stack.push();
             stack.translate(0.25,0.4,0.05);
             stack.multiply(RotationAxis.POSITIVE_X.rotationDegrees(-90.0F));
-            MinecraftClient.getInstance().getItemRenderer().renderItem(mainHand, ModelTransformationMode.THIRD_PERSON_RIGHT_HAND, packedLightIn, packedOverlayIn, stack, rtb, null, 0);
+            MinecraftClient.getInstance().getItemRenderer().renderItem(mainHand, ModelTransformationMode.THIRD_PERSON_RIGHT_HAND, packedLight, packedOverlay, stack, bufferSource, null, 0);
             stack.pop();
-            bufferIn = rtb.getBuffer(RenderLayer.getEntityTranslucent(whTexture));
-        }else if (bone.getName().equals("leftItem") && !offHand.isEmpty()) {
+            buffer = bufferSource.getBuffer(RenderLayer.getEntityTranslucent(this.getTextureLocation(animatable)));
+        } else if (bone.getName().equals("leftItem") && !offHand.isEmpty()) {
             stack.push();
             stack.translate(-0.25,0.4,0.05);
             stack.multiply(RotationAxis.POSITIVE_X.rotationDegrees(-90.0F));
@@ -254,23 +242,23 @@ public class TulpaEntityRenderer extends GeoEntityRenderer<TulpaEntity> {
                 stack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180.0F));
                 stack.translate(0,0.2,-1.4);
             }
-            MinecraftClient.getInstance().getItemRenderer().renderItem(offHand, ModelTransformationMode.THIRD_PERSON_LEFT_HAND, packedLightIn, packedOverlayIn, stack, this.rtb, null, 0);
+            MinecraftClient.getInstance().getItemRenderer().renderItem(offHand, ModelTransformationMode.THIRD_PERSON_LEFT_HAND, packedLight, packedOverlay, stack, bufferSource, null, 0);
             stack.pop();
-            bufferIn = rtb.getBuffer(RenderLayer.getEntityTranslucent(whTexture));
+            buffer = bufferSource.getBuffer(RenderLayer.getEntityTranslucent(this.getTextureLocation(animatable)));
         }
-        super.renderRecursively(stack, animatable, bone, renderType, bufferSource, bufferIn, isReRender, partialTick, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+        super.renderRecursively(stack, animatable, bone, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, renderColor);
     }
 
     @Override
-    protected float getDeathMaxRotation(TulpaEntity entityLivingBaseIn) {
+    protected float getDeathMaxRotation(TulpaEntity animatable, float partialTick) {
         return 0.0F;
     }
 
-    private void copyEntityStateAndRender(MatrixStack matrixStack, TulpaEntity entity, float entityYaw, float partialTicks, VertexConsumerProvider bufferIn, int packedLightIn){
+    private void copyEntityStateAndRender(MatrixStack matrixStack, TulpaEntity entity, float partialTicks, VertexConsumerProvider bufferIn, int packedLightIn){
         matrixStack.push();
-        if(tulpaPlayerEntity == null) {
-            tulpaPlayerEntity = AylythEntityTypes.TULPA_PLAYER.create(entity.getWorld());
-        }else{
+        if (tulpaPlayerEntity == null) {
+            tulpaPlayerEntity = AylythEntityTypes.TULPA_PLAYER.create(entity.getWorld(), SpawnReason.MOB_SUMMONED);
+        } else {
             tulpaPlayerEntity.age = entity.age;
             tulpaPlayerEntity.hurtTime = entity.hurtTime;
             tulpaPlayerEntity.maxHurtTime = Integer.MAX_VALUE;
@@ -314,7 +302,7 @@ public class TulpaEntityRenderer extends GeoEntityRenderer<TulpaEntity> {
             tulpaPlayerEntity.strideDistance = entity.strideDistance;
             tulpaPlayerEntity.prevStrideDistance = entity.prevStrideDistance;
 
-            MinecraftClient.getInstance().getEntityRenderDispatcher().getRenderer(tulpaPlayerEntity).render(tulpaPlayerEntity, entityYaw, partialTicks, matrixStack, bufferIn, packedLightIn);
+//            MinecraftClient.getInstance().getEntityRenderDispatcher().getRenderer(tulpaPlayerEntity).render(tulpaPlayerEntity, entityYaw, partialTicks, matrixStack, bufferIn, packedLightIn);
         }
         matrixStack.pop();
     }

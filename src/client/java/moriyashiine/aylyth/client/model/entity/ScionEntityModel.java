@@ -1,7 +1,7 @@
 package moriyashiine.aylyth.client.model.entity;
 
+import moriyashiine.aylyth.client.render.entity.state.ScionEntityRenderState;
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.entity.types.mob.ScionEntity;
 import net.minecraft.client.model.Dilation;
 import net.minecraft.client.model.ModelData;
 import net.minecraft.client.model.ModelPart;
@@ -14,9 +14,8 @@ import net.minecraft.client.render.entity.model.CrossbowPosing;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.client.render.entity.model.ModelWithArms;
-import net.minecraft.util.Identifier;
 
-public class ScionEntityModel<T extends ScionEntity> extends BipedEntityModel<T> implements ModelWithArms {
+public class ScionEntityModel extends BipedEntityModel<ScionEntityRenderState> implements ModelWithArms {
 	public static final EntityModelLayer LAYER_LOCATION = new EntityModelLayer(Aylyth.id("scion"), "main");
 	private final ModelPart head;
 	private final ModelPart body;
@@ -301,13 +300,8 @@ public class ScionEntityModel<T extends ScionEntity> extends BipedEntityModel<T>
 	}
 
 	@Override
-	public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-		super.setAngles(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
-		CrossbowPosing.meleeAttack(this.leftArm, this.rightArm, this.isAttacking(entity), this.handSwingProgress, animationProgress);
-	}
-
-
-	public boolean isAttacking(T entity) {
-		return true;
+	public void setAngles(ScionEntityRenderState renderState) {
+		super.setAngles(renderState);
+		CrossbowPosing.meleeAttack(this.leftArm, this.rightArm, renderState.preferredArm, renderState.handSwingProgress, renderState.age);
 	}
 }

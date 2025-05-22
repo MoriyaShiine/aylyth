@@ -4,7 +4,6 @@ import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture;
 import moriyashiine.aylyth.client.render.AylythRenderLayers;
 import moriyashiine.aylyth.common.block.entities.WoodyGrowthCacheBlockEntity;
-import moriyashiine.aylyth.mixin.client.SkullBlockEntityAccessor;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.SkullBlockEntity;
 import net.minecraft.client.MinecraftClient;

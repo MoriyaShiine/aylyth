@@ -1,6 +1,5 @@
 package moriyashiine.aylyth.client.render.entity.living;
 
-
 import moriyashiine.aylyth.client.model.entity.BoneflyEntityModel;
 import moriyashiine.aylyth.common.entity.types.mob.BoneflyEntity;
 import net.minecraft.client.render.entity.EntityRendererFactory;
@@ -12,7 +11,7 @@ public class BoneflyEntityRenderer extends GeoEntityRenderer<BoneflyEntity> {
     }
 
     @Override
-    protected float getDeathMaxRotation(BoneflyEntity entityLivingBaseIn) {
+    protected float getDeathMaxRotation(BoneflyEntity animatable, float partialTick) {
         return 0.0F;
     }
 }

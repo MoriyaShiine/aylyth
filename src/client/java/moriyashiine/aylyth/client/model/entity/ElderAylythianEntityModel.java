@@ -4,9 +4,11 @@ import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.entity.types.mob.ElderAylythianEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
+import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.constant.DataTickets;
-import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
+import software.bernie.geckolib.renderer.GeoRenderer;
 
 public class ElderAylythianEntityModel extends GeoModel<ElderAylythianEntity> {
 	private static final Identifier MODEL_LOCATION = Aylyth.id("geo/entity/living/elder_aylythian.geo.json");
@@ -14,21 +16,21 @@ public class ElderAylythianEntityModel extends GeoModel<ElderAylythianEntity> {
 	private static final Identifier ANIMATION_FILE_LOCATION = Aylyth.id("animations/entity/living/elder_aylythian.animation.json");
 	
 	@Override
-	public Identifier getModelResource(ElderAylythianEntity object) {
+	public Identifier getModelResource(ElderAylythianEntity animatable, @Nullable GeoRenderer<ElderAylythianEntity> renderer) {
 		return MODEL_LOCATION;
 	}
-	
+
 	@Override
-	public Identifier getTextureResource(ElderAylythianEntity object) {
+	public Identifier getTextureResource(ElderAylythianEntity animatable, @Nullable GeoRenderer<ElderAylythianEntity> renderer) {
 		if (TEXTURE_LOCATIONS == null) {
 			TEXTURE_LOCATIONS = new Identifier[ElderAylythianEntity.VARIANTS];
 			for (int i = 0; i < ElderAylythianEntity.VARIANTS; i++) {
 				TEXTURE_LOCATIONS[i] = Aylyth.id("textures/entity/living/elder_aylythian/" + i + ".png");
 			}
 		}
-		return TEXTURE_LOCATIONS[object.getDataTracker().get(ElderAylythianEntity.VARIANT)];
+		return TEXTURE_LOCATIONS[animatable.getDataTracker().get(ElderAylythianEntity.VARIANT)];
 	}
-	
+
 	@Override
 	public Identifier getAnimationResource(ElderAylythianEntity animatable) {
 		return ANIMATION_FILE_LOCATION;
