@@ -183,7 +183,7 @@ public class AylythClient implements ClientModInitializer {
 				registrationHelper.register(new YmpeInfestationFeature((PlayerEntityRenderer)entityRenderer, context.getModelLoader()));
 				registrationHelper.register(new CuirassFeatureRenderer((PlayerEntityRenderer)entityRenderer, context.getModelLoader()));
 			}
-			registrationHelper.register(new YmpeThornRingFeature((FeatureRendererContext<LivingEntity, EntityModel<LivingEntity>>) entityRenderer, context.getModelLoader()));
+			registrationHelper.register(new YmpeThornRingFeature((FeatureRendererContext<LivingEntityRenderState, EntityModel<LivingEntityRenderState>>) entityRenderer, context.getEntityModels()));
 		});
 
 		TerraformBoatClientHelper.registerModelLayers(Aylyth.id("ympe"));
