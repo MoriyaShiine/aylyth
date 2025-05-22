@@ -13,8 +13,6 @@
     "LivingEntityRenderStateMixin",
     "MinecraftClientMixin",
     "ParticleManagerMixin",
-    "PlayerSkinTextureAccessor",
-    "SkullBlockEntityAccessor",
     "PlayerEntityRendererMixin",
     "PlayerEntityRenderStateMixin",
     "SkyRenderingAccessor",
