@@ -3,7 +3,7 @@ package moriyashiine.aylyth.mixin.client;
 import moriyashiine.aylyth.client.render.AylythDimensionRenderer;
 import moriyashiine.aylyth.common.Aylyth;
 import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.render.RenderTickCounter;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -15,8 +15,8 @@ public class GameRendererMixin {
 	@Shadow
 	private float viewDistance;
 
-	@Inject(method = "renderWorld", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/GameRenderer;getFov(Lnet/minecraft/client/render/Camera;FZ)D"))
-	private void decreaseAylythRenderDistance(float tickDelta, long limitTime, MatrixStack matrix, CallbackInfo ci) {
+	@Inject(method = "renderWorld", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/GameRenderer;getFov(Lnet/minecraft/client/render/Camera;FZ)F"))
+	private void decreaseAylythRenderDistance(RenderTickCounter renderTickCounter, CallbackInfo ci) {
 		if (AylythDimensionRenderer.goalFogStrength > 0 && !Aylyth.isDebugMode()) {
 			viewDistance = 12;
 		}
