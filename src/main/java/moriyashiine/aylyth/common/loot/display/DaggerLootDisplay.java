@@ -23,27 +23,18 @@ public record DaggerLootDisplay(EntityType<?> entity, float chance, RegistryEntr
                     ItemStack.CODEC.fieldOf("output").forGetter(DaggerLootDisplay::outputs)
             ).apply(instance, DaggerLootDisplay::new)
     );
+    // TODO: Make sure this actually works on servers
     public static final MapCodec<DaggerLootDisplay> NETWORK_CODEC = RecordCodecBuilder.mapCodec(instance ->
             instance.group(
                     Registries.ENTITY_TYPE.getCodec().fieldOf("entity").forGetter(DaggerLootDisplay::entity),
                     Codec.FLOAT.fieldOf("chance").forGetter(DaggerLootDisplay::chance),
-                    Registries.ITEM.getEntryCodec().listOf().xmap(registryEntries -> (RegistryEntryList<Item>) RegistryEntryList.of(registryEntries), registryEntries -> registryEntries.stream().toList()).fieldOf("weapons").forGetter(DaggerLootDisplay::weapons),
+                    RegistryEntryListCodec.create(RegistryKeys.ITEM, Registries.ITEM.getEntryCodec(), false).fieldOf("weapons").forGetter(DaggerLootDisplay::weapons),
                     ItemStack.CODEC.fieldOf("output").forGetter(DaggerLootDisplay::outputs)
             ).apply(instance, DaggerLootDisplay::new)
     );
 
     public static DaggerLootDisplay create(EntityType<?> entity, float chance, TagKey<Item> weaponsTag, ItemConvertible output) {
-        return new DaggerLootDisplay(entity, chance, RegistryEntryList.of(Registries.ITEM, weaponsTag), new ItemStack(output));
-    }
-
-    @Override
-    public EntityType<?> entity() {
-        return entity;
-    }
-
-    @Override
-    public ItemStack outputs() {
-        return outputs;
+        return new DaggerLootDisplay(entity, chance, Registries.ITEM.getOrThrow(weaponsTag), new ItemStack(output));
     }
 
     @Override
