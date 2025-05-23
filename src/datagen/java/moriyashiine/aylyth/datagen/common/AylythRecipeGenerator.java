@@ -4,6 +4,7 @@ import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.aylyth.common.data.tag.AylythItemTags;
+import moriyashiine.aylyth.common.recipe.ingredient.HasComponentsIngredient;
 import moriyashiine.aylyth.datagen.common.util.recipe.ShuckingRecipeBuilder;
 import moriyashiine.aylyth.datagen.common.util.recipe.SoulCampfireRecipeBuilder;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -31,6 +32,7 @@ import net.minecraft.resource.featuretoggle.FeatureFlags;
 import net.minecraft.resource.featuretoggle.FeatureSet;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public final class AylythRecipeGenerator extends RecipeGenerator {
@@ -283,10 +285,7 @@ public final class AylythRecipeGenerator extends RecipeGenerator {
                 .with(AylythItems.AYLYTHIAN_HEART)
                 .with(AylythItems.WRONGMEAT)
                 .with(AylythItems.ESSTLINE)
-                .with(DefaultCustomIngredients.components(
-                        Ingredient.ofItems(AylythItems.SHUCKED_YMPE_FRUIT),
-                        builder -> builder.add(DataComponentTypes.ENTITY_DATA, NbtComponent.DEFAULT)
-                ))
+                .with(HasComponentsIngredient.of(Ingredient.ofItems(AylythItems.SHUCKED_YMPE_FRUIT), DataComponentTypes.ENTITY_DATA))
                 .offerTo(exporter);
     }
 

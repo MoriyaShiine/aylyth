@@ -38,6 +38,7 @@ import moriyashiine.aylyth.common.network.packets.GlaivePacketC2S;
 import moriyashiine.aylyth.common.network.packets.SpawnParticlesAroundPacketS2C;
 import moriyashiine.aylyth.common.network.packets.UpdatePressingUpDownPacketC2S;
 import moriyashiine.aylyth.common.particle.AylythParticleTypes;
+import moriyashiine.aylyth.common.recipe.AylythIngredients;
 import moriyashiine.aylyth.common.recipe.AylythRecipeTypes;
 import moriyashiine.aylyth.common.registry.AylythRegistries;
 import moriyashiine.aylyth.common.registry.AylythRegistryKeys;
@@ -119,7 +120,6 @@ public class Aylyth implements ModInitializer {
 		AylythCriteria.register();
 		AylythLootConditionTypes.register();
 		AylythEntitySubPredicates.register();
-		AylythRecipeTypes.register();
 
 		AylythSoundEvents.register();
 		AylythParticleTypes.register();
@@ -159,6 +159,8 @@ public class Aylyth implements ModInitializer {
 		AylythWorldAttachmentTypes.register();
 		AylythPointOfInterestTypes.register();
 
+		AylythIngredients.register();
+		AylythRecipeTypes.register();
 		AylythPotionRecipes.register();
 
 		DynamicRegistries.registerSynced(AylythRegistryKeys.LOOT_TABLE_DISPLAY, LootDisplay.CODEC, LootDisplay.NETWORK_CODEC);
