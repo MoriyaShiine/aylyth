@@ -279,7 +279,7 @@ public interface AylythItems {
     }
 
     private static Item registerBlockItem(String name, Block block) {
-        return registerBlockItem(name, block, settings());
+        return registerBlockItem(name, block, settings().useBlockPrefixedTranslationKey());
     }
 
 	private static Item registerSpawnEgg(String name, EntityType<? extends MobEntity> entityType) {
