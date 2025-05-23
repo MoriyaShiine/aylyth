@@ -246,8 +246,6 @@ public interface AylythItems {
     Item BONEFLY_SPAWN_EGG = registerSpawnEgg("bonefly_spawn_egg", AylythEntityTypes.BONEFLY);
     Item TULPA_SPAWN_EGG = registerSpawnEgg("tulpa_spawn_egg", AylythEntityTypes.TULPA);
 
-    // TODO: Setup jukebox song
-//    Item POMEGRANATE_CASSETTE = register("pomegranate_cassette", settings -> new MusicDiscItem(14, AylythSoundEvents.POMEGRANATE_MUSIC_DISC.value(), settings().maxCount(1).rarity(Rarity.RARE), 118));
     Item POMEGRANATE_CASSETTE = register("pomegranate_cassette", settings().maxCount(1).rarity(Rarity.RARE).jukeboxPlayable(AylythJukeboxSongs.POMEGRANATE_MUSIC_DISC));
 
     private static Item.Settings settings() {

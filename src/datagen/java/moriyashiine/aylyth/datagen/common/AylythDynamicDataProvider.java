@@ -27,6 +27,7 @@ public final class AylythDynamicDataProvider extends FabricDynamicRegistryProvid
         entries.addAll(registries.getOrThrow(RegistryKeys.STRUCTURE));
         entries.addAll(registries.getOrThrow(RegistryKeys.BIOME));
         entries.addAll(registries.getOrThrow(RegistryKeys.DAMAGE_TYPE));
+        entries.addAll(registries.getOrThrow(RegistryKeys.JUKEBOX_SONG));
         entries.addAll(registries.getOrThrow(AylythRegistryKeys.LOOT_TABLE_DISPLAY));
     }
 

@@ -7,6 +7,7 @@ import moriyashiine.aylyth.datagen.client.AylythEnglishLanguageProvider;
 import moriyashiine.aylyth.datagen.client.AylythModelProvider;
 import moriyashiine.aylyth.datagen.common.AylythAdvancementProvider;
 import moriyashiine.aylyth.datagen.common.AylythDynamicDataProvider;
+import moriyashiine.aylyth.datagen.common.AylythJukeboxSongsBootstrap;
 import moriyashiine.aylyth.datagen.common.AylythRecipeGenerator;
 import moriyashiine.aylyth.datagen.common.AylythDamageTypeBootstrap;
 import moriyashiine.aylyth.datagen.common.loot.AylythEntityLootAdditionsGenerator;
@@ -88,6 +89,7 @@ public class AylythDatagen implements DataGeneratorEntrypoint {
         builder.addRegistry(RegistryKeys.STRUCTURE_SET, AylythStructureSetBootstrap::bootstrap);
         builder.addRegistry(RegistryKeys.BIOME, AylythBiomeBootstrap::bootstrap);
         builder.addRegistry(RegistryKeys.DAMAGE_TYPE, AylythDamageTypeBootstrap::bootstrap);
+        builder.addRegistry(RegistryKeys.JUKEBOX_SONG, AylythJukeboxSongsBootstrap::bootstrap);
         builder.addRegistry(AylythRegistryKeys.LOOT_TABLE_DISPLAY, LootDisplayBootstrap::bootstrap);
     }
 
