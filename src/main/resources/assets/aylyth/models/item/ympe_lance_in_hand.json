@@ -1,7 +1,7 @@
 {
 	"parent": "minecraft:item/handheld",
 	"textures": {
-		"layer0": "aylyth:item/ympe_lance_handheld"
+		"layer0": "aylyth:item/ympe_lance_in_hand"
 	},
 	"display": {
 		"thirdperson_righthand": {
