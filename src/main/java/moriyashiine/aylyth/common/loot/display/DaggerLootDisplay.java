@@ -33,8 +33,8 @@ public record DaggerLootDisplay(EntityType<?> entity, float chance, RegistryEntr
             ).apply(instance, DaggerLootDisplay::new)
     );
 
-    public static DaggerLootDisplay create(EntityType<?> entity, float chance, TagKey<Item> weaponsTag, ItemConvertible output) {
-        return new DaggerLootDisplay(entity, chance, Registries.ITEM.getOrThrow(weaponsTag), new ItemStack(output));
+    public static DaggerLootDisplay create(EntityType<?> entity, float chance, RegistryEntryList<Item> weapons, ItemConvertible output) {
+        return new DaggerLootDisplay(entity, chance, weapons, new ItemStack(output));
     }
 
     @Override
