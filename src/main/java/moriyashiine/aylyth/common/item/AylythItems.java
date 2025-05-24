@@ -89,11 +89,11 @@ public interface AylythItems {
     Item YMPE_PRESSURE_PLATE = registerBlockItem("ympe_pressure_plate", AylythBlocks.YMPE_PRESSURE_PLATE);
     Item YMPE_BUTTON = registerBlockItem("ympe_button", AylythBlocks.YMPE_BUTTON);
     Item YMPE_TRAPDOOR = registerBlockItem("ympe_trapdoor", AylythBlocks.YMPE_TRAPDOOR);
-    Item YMPE_DOOR = register("ympe_door", settings -> new TallBlockItem(AylythBlocks.YMPE_DOOR, settings), settings());
-    Item YMPE_SIGN = register("ympe_sign", settings -> new SignItem(AylythBlocks.YMPE_SIGN, AylythBlocks.YMPE_WALL_SIGN, settings), settings().maxCount(16));
+    Item YMPE_DOOR = registerBlockItem("ympe_door", settings -> new TallBlockItem(AylythBlocks.YMPE_DOOR, settings), settings());
+    Item YMPE_SIGN = registerBlockItem("ympe_sign", settings -> new SignItem(AylythBlocks.YMPE_SIGN, AylythBlocks.YMPE_WALL_SIGN, settings), settings().maxCount(16));
     Item YMPE_BOAT = register("ympe_boat", settings -> new BoatItem(AylythEntityTypes.YMPE_BOAT, settings), settings().maxCount(1));
     Item YMPE_CHEST_BOAT = register("ympe_chest_boat", settings -> new BoatItem(AylythEntityTypes.YMPE_CHEST_BOAT, settings), settings().maxCount(1));
-    Item YMPE_HANGING_SIGN = register("ympe_hanging_sign", settings -> new HangingSignItem(AylythBlocks.YMPE_HANGING_SIGN, AylythBlocks.YMPE_WALL_HANGING_SIGN, settings), settings());
+    Item YMPE_HANGING_SIGN = registerBlockItem("ympe_hanging_sign", settings -> new HangingSignItem(AylythBlocks.YMPE_HANGING_SIGN, AylythBlocks.YMPE_WALL_HANGING_SIGN, settings), settings());
     Item YMPE_LEAVES = registerBlockItem("ympe_leaves", AylythBlocks.YMPE_LEAVES);
     Item FRUIT_BEARING_YMPE_LOG = registerBlockItem("fruit_bearing_ympe_log", AylythBlocks.FRUIT_BEARING_YMPE_LOG);
     Item YMPE_BRANCH = registerBlockItem("ympe_branch", AylythBlocks.YMPE_BRANCH);
@@ -112,11 +112,11 @@ public interface AylythItems {
     Item POMEGRANATE_PRESSURE_PLATE = registerBlockItem("pomegranate_pressure_plate", AylythBlocks.POMEGRANATE_PRESSURE_PLATE);
     Item POMEGRANATE_BUTTON = registerBlockItem("pomegranate_button", AylythBlocks.POMEGRANATE_BUTTON);
     Item POMEGRANATE_TRAPDOOR = registerBlockItem("pomegranate_trapdoor", AylythBlocks.POMEGRANATE_TRAPDOOR);
-    Item POMEGRANATE_DOOR = register("pomegranate_door", settings -> new TallBlockItem(AylythBlocks.POMEGRANATE_DOOR, settings), settings());
-    Item POMEGRANATE_SIGN = register("pomegranate_sign", settings -> new SignItem(AylythBlocks.POMEGRANATE_SIGN, AylythBlocks.POMEGRANATE_WALL_SIGN, settings), settings().maxCount(16));
+    Item POMEGRANATE_DOOR = registerBlockItem("pomegranate_door", settings -> new TallBlockItem(AylythBlocks.POMEGRANATE_DOOR, settings), settings());
+    Item POMEGRANATE_SIGN = registerBlockItem("pomegranate_sign", settings -> new SignItem(AylythBlocks.POMEGRANATE_SIGN, AylythBlocks.POMEGRANATE_WALL_SIGN, settings), settings().maxCount(16));
     Item POMEGRANATE_BOAT = register("pomegranate_boat", settings -> new BoatItem(AylythEntityTypes.POMEGRANATE_BOAT, settings), settings().maxCount(1));
     Item POMEGRANATE_CHEST_BOAT = register("pomegranate_chest_boat", settings -> new BoatItem(AylythEntityTypes.POMEGRANATE_CHEST_BOAT, settings), settings().maxCount(1));
-    Item POMEGRANATE_HANGING_SIGN = register("pomegranate_hanging_sign", settings -> new HangingSignItem(AylythBlocks.POMEGRANATE_HANGING_SIGN, AylythBlocks.POMEGRANATE_WALL_HANGING_SIGN, settings), settings());
+    Item POMEGRANATE_HANGING_SIGN = registerBlockItem("pomegranate_hanging_sign", settings -> new HangingSignItem(AylythBlocks.POMEGRANATE_HANGING_SIGN, AylythBlocks.POMEGRANATE_WALL_HANGING_SIGN, settings), settings());
     Item POMEGRANATE_LEAVES = registerBlockItem("pomegranate_leaves", AylythBlocks.POMEGRANATE_LEAVES);
 
     Item WRITHEWOOD_STRIPPED_LOG = registerBlockItem("stripped_writhewood_log", AylythBlocks.WRITHEWOOD_STRIPPED_LOG);
@@ -132,17 +132,17 @@ public interface AylythItems {
     Item WRITHEWOOD_PRESSURE_PLATE = registerBlockItem("writhewood_pressure_plate", AylythBlocks.WRITHEWOOD_PRESSURE_PLATE);
     Item WRITHEWOOD_BUTTON = registerBlockItem("writhewood_button", AylythBlocks.WRITHEWOOD_BUTTON);
     Item WRITHEWOOD_TRAPDOOR = registerBlockItem("writhewood_trapdoor", AylythBlocks.WRITHEWOOD_TRAPDOOR);
-    Item WRITHEWOOD_DOOR = register("writhewood_door", settings -> new TallBlockItem(AylythBlocks.WRITHEWOOD_DOOR, settings), settings());
-    Item WRITHEWOOD_SIGN = register("writhewood_sign", settings -> new SignItem(AylythBlocks.WRITHEWOOD_SIGN, AylythBlocks.WRITHEWOOD_WALL_SIGN, settings), settings().maxCount(16));
+    Item WRITHEWOOD_DOOR = registerBlockItem("writhewood_door", settings -> new TallBlockItem(AylythBlocks.WRITHEWOOD_DOOR, settings), settings());
+    Item WRITHEWOOD_SIGN = registerBlockItem("writhewood_sign", settings -> new SignItem(AylythBlocks.WRITHEWOOD_SIGN, AylythBlocks.WRITHEWOOD_WALL_SIGN, settings), settings().maxCount(16));
     Item WRITHEWOOD_BOAT = register("writhewood_boat", settings -> new BoatItem(AylythEntityTypes.WRITHEWOOD_BOAT, settings), settings().maxCount(1));
     Item WRITHEWOOD_CHEST_BOAT = register("writhewood_chest_boat", settings -> new BoatItem(AylythEntityTypes.WRITHEWOOD_CHEST_BOAT, settings), settings().maxCount(1));
-    Item WRITHEWOOD_HANGING_SIGN = register("writhewood_hanging_sign", settings -> new HangingSignItem(AylythBlocks.WRITHEWOOD_HANGING_SIGN, AylythBlocks.WRITHEWOOD_WALL_HANGING_SIGN, settings), settings());
+    Item WRITHEWOOD_HANGING_SIGN = registerBlockItem("writhewood_hanging_sign", settings -> new HangingSignItem(AylythBlocks.WRITHEWOOD_HANGING_SIGN, AylythBlocks.WRITHEWOOD_WALL_HANGING_SIGN, settings), settings());
     Item WRITHEWOOD_LEAVES = registerBlockItem("writhewood_leaves", AylythBlocks.WRITHEWOOD_LEAVES);
     Item WRITHEWOOD_BRANCH = registerBlockItem("writhewood_branch", AylythBlocks.WRITHEWOOD_BRANCH);
     Item BARE_WRITHEWOOD_BRANCH = registerBlockItem("bare_writhewood_branch", AylythBlocks.BARE_WRITHEWOOD_BRANCH);
 
     Item SEEPING_WOOD = registerBlockItem("seeping_wood", AylythBlocks.SEEPING_WOOD);
-    Item GIRASOL_SEED = registerBlockItem("girasol_sapling", AylythBlocks.GIRASOL_SAPLING, settings().useItemPrefixedTranslationKey());
+    Item GIRASOL_SEED = register("girasol_sapling", settings -> new BlockItem(AylythBlocks.GIRASOL_SAPLING, settings), settings());
 
     Item CHTHONIA_WOOD = registerBlockItem("chthonia_wood", AylythBlocks.CHTHONIA_WOOD);
     Item NEPHRITIC_CHTHONIA_WOOD = registerBlockItem("nephritic_chthonia_wood", AylythBlocks.NEPHRITIC_CHTHONIA_WOOD);
@@ -156,8 +156,8 @@ public interface AylythItems {
     Item MARIGOLD = registerBlockItem("marigolds", AylythBlocks.MARIGOLD);
     Item OAK_STREWN_LEAVES = registerBlockItem("oak_strewn_leaves", AylythBlocks.OAK_STREWN_LEAVES);
     Item YMPE_STREWN_LEAVES = registerBlockItem("ympe_strewn_leaves", AylythBlocks.YMPE_STREWN_LEAVES);
-    Item JACK_O_LANTERN_MUSHROOM = register("jack_o_lantern_mushroom", settings -> new VerticallyAttachableBlockItem(AylythBlocks.JACK_O_LANTERN_MUSHROOM, AylythBlocks.SHELF_JACK_O_LANTERN_MUSHROOM, Direction.DOWN, settings), settings());
-    Item GHOSTCAP_MUSHROOM_SPORES = registerBlockItem("ghostcap_mushroom_spores", AylythBlocks.GHOSTCAP_MUSHROOM);
+    Item JACK_O_LANTERN_MUSHROOM = registerBlockItem("jack_o_lantern_mushroom", settings -> new VerticallyAttachableBlockItem(AylythBlocks.JACK_O_LANTERN_MUSHROOM, AylythBlocks.SHELF_JACK_O_LANTERN_MUSHROOM, Direction.DOWN, settings), settings());
+    Item GHOSTCAP_MUSHROOM_SPORES = register("ghostcap_mushroom_spores", settings -> new BlockItem(AylythBlocks.GHOSTCAP_MUSHROOM, settings), settings());
 
     Item JACK_O_LANTERN_MUSHROOM_STEM = registerBlockItem("jack_o_lantern_mushroom_stem", AylythBlocks.JACK_O_LANTERN_MUSHROOM_STEM);
     Item JACK_O_LANTERN_MUSHROOM_BLOCK = registerBlockItem("jack_o_lantern_mushroom_block", AylythBlocks.JACK_O_LANTERN_MUSHROOM_BLOCK);
@@ -272,12 +272,16 @@ public interface AylythItems {
         return register(name, settings().food(food, consumable));
     }
 
+    private static Item registerBlockItem(String name, Function<Item.Settings, Item> function, Item.Settings settings) {
+        return register(name, function, settings.useBlockPrefixedTranslationKey());
+    }
+
     private static Item registerBlockItem(String name, Block block, Item.Settings defaultSettings) {
-        return register(name, settings -> new BlockItem(block, settings), defaultSettings);
+        return registerBlockItem(name, settings -> new BlockItem(block, settings), defaultSettings);
     }
 
     private static Item registerBlockItem(String name, Block block) {
-        return registerBlockItem(name, block, settings().useBlockPrefixedTranslationKey());
+        return registerBlockItem(name, block, settings());
     }
 
 	private static Item registerSpawnEgg(String name, EntityType<? extends MobEntity> entityType) {
