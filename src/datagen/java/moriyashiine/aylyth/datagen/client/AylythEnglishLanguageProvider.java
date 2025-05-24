@@ -2,6 +2,7 @@ package moriyashiine.aylyth.datagen.client;
 
 import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.data.AylythDamageTypes;
+import moriyashiine.aylyth.common.data.AylythJukeboxSongs;
 import moriyashiine.aylyth.common.data.world.AylythBiomes;
 import moriyashiine.aylyth.common.entity.AylythEntityTypes;
 import moriyashiine.aylyth.common.entity.AylythStatusEffects;
@@ -13,6 +14,7 @@ import net.fabricmc.loader.impl.util.StringUtil;
 import net.minecraft.entity.damage.DamageType;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.util.Util;
 import net.minecraft.world.biome.Biome;
 
 import java.util.concurrent.CompletableFuture;
@@ -98,7 +100,7 @@ public class AylythEnglishLanguageProvider extends FabricLanguageProvider {
         builder.add(AylythBlocks.OAK_STREWN_LEAVES, "Oak Strewn Leaves");
         builder.add(AylythBlocks.YMPE_STREWN_LEAVES, "Ympe Strewn Leaves");
         builder.add(AylythBlocks.JACK_O_LANTERN_MUSHROOM, "Jack O'Lantern Mushroom");
-        builder.add(AylythBlocks.GHOSTCAP_MUSHROOM, "Ghostcap Mushroom Spores");
+        builder.add(AylythBlocks.GHOSTCAP_MUSHROOM, "Ghostcap Mushroom");
         builder.add(AylythBlocks.OAK_SEEP, "Oak Seep");
         builder.add(AylythBlocks.SPRUCE_SEEP, "Spruce Seep");
         builder.add(AylythBlocks.DARK_OAK_SEEP, "Dark Oak Seep");
@@ -154,6 +156,7 @@ public class AylythEnglishLanguageProvider extends FabricLanguageProvider {
         builder.add(AylythItems.WRITHEWOOD_BOAT, "Writhewood Boat");
         builder.add(AylythItems.WRITHEWOOD_CHEST_BOAT, "Writhewood Chest Boat");
         builder.add(AylythItems.POMEGRANATE, "Pomegranate");
+        builder.add(AylythItems.GHOSTCAP_MUSHROOM_SPORES, "Ghostcap Mushroom Spores");
         builder.add(AylythItems.GHOSTCAP_MUSHROOM, "Ghostcap Mushroom");
         builder.add(AylythItems.YMPE_DAGGER, "Ympe Dagger");
         builder.add(AylythItems.YMPE_LANCE, "Ympe Lance");
@@ -212,13 +215,13 @@ public class AylythEnglishLanguageProvider extends FabricLanguageProvider {
 
         builder.add("item.aylyth.glaive.desc_1", "\u00a76\u00a7oIt is the lament of the fallen");
         builder.add("item.aylyth.glaive.desc_2", "\u00a76\u00a7owhich pushes the living onward.");
-        builder.add("item.aylyth.pomegranate_cassette.desc", "DEMON AND MAX - Pomegranate");
         builder.add("item.aylyth.smithing_template.aylythian_upgrade.applies_to", "Ympe Sapling");
         builder.add("item.aylyth.smithing_template.aylythian_upgrade.ingredients", "Esstline");
         builder.add("item.aylyth.smithing_template.aylythian_upgrade.base_slot_description", "Ympe Sapling");
         builder.add("item.aylyth.smithing_template.aylythian_upgrade.additions_slot_description", "Esstline");
         // TODO: Figure out what this was for
 //        builder.add("upgrade.aylyth.aylythian_upgrade", "Aylythian Upgrade");
+        builder.add(transKey("jukebox_song", AylythJukeboxSongs.POMEGRANATE_MUSIC_DISC), "DEMON AND MAX - Pomegranate");
 
         // ENTITIES
 
@@ -386,5 +389,9 @@ public class AylythEnglishLanguageProvider extends FabricLanguageProvider {
         builder.add("item.minecraft.splash_potion.effect.%s".formatted(effectName), "Splash Potion of %s".formatted(StringUtil.capitalize(effectName)));
         builder.add("item.minecraft.tipped_arrow.effect.%s".formatted(effectName), "Arrow of %s".formatted(StringUtil.capitalize(effectName)));
         builder.add("item.minecraft.lingering_potion.effect.%s".formatted(effectName), "Lingering Potion of %s".formatted(StringUtil.capitalize(effectName)));
+    }
+
+    private String transKey(String type, RegistryKey<?> key) {
+        return Util.createTranslationKey(type, key.getValue());
     }
 }
