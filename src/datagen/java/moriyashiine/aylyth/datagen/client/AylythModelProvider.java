@@ -46,7 +46,6 @@ import net.minecraft.item.Items;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.biome.FoliageColors;
-import net.minecraft.world.biome.GrassColors;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -208,26 +207,18 @@ public class AylythModelProvider extends FabricModelProvider {
     @Override
     public void generateItemModels(ItemModelGenerator generator) {
         generator.register(AylythItems.AYLYTHIAN_HEART, Models.GENERATED);
-        generator.registerSpawnEgg(AylythItems.AYLYTHIAN_SPAWN_EGG, 0x6A4831, 0xE58E03);
         generator.register(AylythItems.AYLYTHIAN_UPGRADE_SMITHING_TEMPLATE, Models.GENERATED);
         generator.register(AylythItems.BARK, Models.GENERATED);
         generator.register(AylythItems.CORIC_SEED, Models.GENERATED);
-        generator.registerSpawnEgg(AylythItems.ELDER_AYLYTHIAN_SPAWN_EGG, 0x513425, 0xFFDC9B);
         generator.register(AylythItems.ESSTLINE, Models.GENERATED);
         generator.register(AylythItems.GHOSTCAP_MUSHROOM, Models.GENERATED);
         generator.register(AylythItems.JACK_O_LANTERN_MUSHROOM, Models.GENERATED);
         generator.register(AylythItems.NEPHRITE, Models.GENERATED);
         generator.register(AylythItems.NYSIAN_GRAPES, Models.GENERATED);
-        generator.registerSpawnEgg(AylythItems.PILOT_LIGHT_SPAWN_EGG, 0xFFD972, 0x9FD9F6);
-        generator.registerSpawnEgg(AylythItems.SCION_SPAWN_EGG, 0x463428, 0xE58E03);
         generator.register(AylythItems.YMPE_DAGGER, Models.HANDHELD);
         generator.register(AylythItems.YMPE_EFFIGY, HANDHELD_ROTATED);
-        generator.registerWithInHandModel(AylythItems.YMPE_FLAMBERGE);
         generator.register(AylythItems.YMPE_FRUIT, Models.GENERATED);
-        generator.registerWithInHandModel(AylythItems.YMPE_GLAIVE);
-        generator.registerWithInHandModel(AylythItems.YMPE_LANCE);
         generator.register(AylythItems.YMPE_MUSH, Models.GENERATED);
-        generator.registerWithInHandModel(AylythItems.YMPE_SCYTHE);
         generator.register(AylythItems.POMEGRANATE, Models.GENERATED);
         generator.register(AylythItems.GHOSTCAP_MUSHROOM_SPORES, Models.GENERATED);
         generator.register(AylythItems.YMPE_BOAT, Models.GENERATED);
@@ -246,6 +237,10 @@ public class AylythModelProvider extends FabricModelProvider {
         generator.register(AylythItems.SMALL_WOODY_GROWTH, Models.GENERATED);
         generator.register(AylythItems.YMPE_CUIRASS, Models.GENERATED);
 
+        generator.registerSpawnEgg(AylythItems.AYLYTHIAN_SPAWN_EGG, 0x6A4831, 0xE58E03);
+        generator.registerSpawnEgg(AylythItems.ELDER_AYLYTHIAN_SPAWN_EGG, 0x513425, 0xFFDC9B);
+        generator.registerSpawnEgg(AylythItems.PILOT_LIGHT_SPAWN_EGG, 0xFFD972, 0x9FD9F6);
+        generator.registerSpawnEgg(AylythItems.SCION_SPAWN_EGG, 0x463428, 0xE58E03);
         generator.registerSpawnEgg(AylythItems.WREATHED_HIND_SPAWN_EGG, 0x5C4F42, 0xE1B886);
         generator.registerSpawnEgg(AylythItems.FAUNAYLYTHIAN_SPAWN_EGG, 0x6A4831, 0xE1AC20);
         generator.registerSpawnEgg(AylythItems.YMPEMOULD_SPAWN_EGG, 0x42423E, 0xE58E03);
@@ -258,7 +253,6 @@ public class AylythModelProvider extends FabricModelProvider {
         generator.register(AylythItems.THORN_FLECHETTE, Models.GENERATED);
         generator.register(AylythItems.BLIGHTED_THORN_FLECHETTE, Models.GENERATED);
         generator.register(AylythItems.LANCEOLATE_DAGGER, Models.HANDHELD);
-        generator.register(AylythItems.YMPE_LANCE, BUILTIN);
 
         generator.register(AylythItems.NEPHRITE_AXE, Models.HANDHELD);
         generator.register(AylythItems.NEPHRITE_HOE, Models.HANDHELD);
@@ -266,12 +260,10 @@ public class AylythModelProvider extends FabricModelProvider {
         generator.register(AylythItems.NEPHRITE_SHOVEL, Models.HANDHELD);
         generator.register(AylythItems.NEPHRITE_SWORD, Models.HANDHELD);
 
-        generator.registerWithInHandModel(AylythItems.VAMPIRIC_SWORD);
         generator.register(AylythItems.VAMPIRIC_PICKAXE, Models.HANDHELD);
         generator.register(AylythItems.VAMPIRIC_AXE, Models.HANDHELD);
         generator.register(AylythItems.VAMPIRIC_HOE, Models.HANDHELD);
 
-        generator.registerWithInHandModel(AylythItems.BLIGHTED_SWORD);
         generator.register(AylythItems.BLIGHTED_PICKAXE, Models.HANDHELD);
         generator.register(AylythItems.BLIGHTED_AXE, Models.HANDHELD);
         generator.register(AylythItems.BLIGHTED_HOE, Models.HANDHELD);
@@ -304,10 +296,10 @@ public class AylythModelProvider extends FabricModelProvider {
 
         registerFlask(generator, AylythItems.NEPHRITE_FLASK);
         registerFlask(generator, AylythItems.DARK_NEPHRITE_FLASK);
+        // TODO: Setup blight potion
         generator.registerSubModel(Items.POTION, "_blight", Models.GENERATED);
         generator.registerSubModel(Items.SPLASH_POTION, "_blight", Models.GENERATED);
         generator.registerSubModel(Items.LINGERING_POTION, "_blight", Models.GENERATED);
-        // TODO: Setup blight potion
 //        Models.GENERATED_TWO_LAYERS.upload(Aylyth.id("item/coker_cola"), TextureMap.layered(Aylyth.id("item/blight_potion"), Aylyth.id("item/blight_potion")), generator.writer);
 //        Models.GENERATED_TWO_LAYERS.upload(Aylyth.id("item/coker_cola_splash"), TextureMap.layered(Aylyth.id("item/blight_potion_splash"), Aylyth.id("item/blight_potion_splash")), generator.writer);
 //        Models.GENERATED_TWO_LAYERS.upload(Aylyth.id("item/coker_cola_lingering"), TextureMap.layered(Aylyth.id("item/blight_potion_lingering"), Aylyth.id("item/blight_potion_lingering")), generator.writer);
@@ -338,7 +330,6 @@ public class AylythModelProvider extends FabricModelProvider {
     }
 
     private void registerCubeAllWithNumberedVariants(BlockStateModelGenerator generator, Block block, int variants) {
-//        generator.excludeFromSimpleItemModelGeneration(block);
         BlockStateVariant[] stateVariants = new BlockStateVariant[variants];
         for (int i = 1; i <= variants; i++) {
             Identifier modelId = ModelIds.getBlockSubModelId(block, "_" + i);
