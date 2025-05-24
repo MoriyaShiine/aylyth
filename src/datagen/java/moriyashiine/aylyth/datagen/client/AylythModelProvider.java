@@ -35,6 +35,7 @@ import net.minecraft.client.data.TexturedModel;
 import net.minecraft.client.data.VariantSettings;
 import net.minecraft.client.data.VariantsBlockStateSupplier;
 import net.minecraft.client.data.When;
+import net.minecraft.client.render.item.model.ItemModel;
 import net.minecraft.client.render.item.model.RangeDispatchItemModel;
 import net.minecraft.client.render.item.tint.ConstantTintSource;
 import net.minecraft.client.render.item.tint.GrassTintSource;
@@ -299,8 +300,7 @@ public class AylythModelProvider extends FabricModelProvider {
         generator.registerWithInHandModel(AylythItems.YMPE_SCYTHE);
         generator.registerWithInHandModel(AylythItems.VAMPIRIC_SWORD);
         generator.registerWithInHandModel(AylythItems.BLIGHTED_SWORD);
-        // TODO: Setup with a "using" model too if necessary
-        generator.registerWithInHandModel(AylythItems.YMPE_LANCE);
+        registerThrowableWithInHandModel(generator, AylythItems.YMPE_LANCE);
 
         registerFlask(generator, AylythItems.NEPHRITE_FLASK);
         registerFlask(generator, AylythItems.DARK_NEPHRITE_FLASK);
@@ -325,6 +325,16 @@ public class AylythModelProvider extends FabricModelProvider {
         registerSimpleParented(ModelIds.getItemModelId(AylythItems.ORANGE_AYLYTHIAN_OAK_LEAVES), ModelIds.getBlockSubModelId(AylythBlocks.ORANGE_AYLYTHIAN_OAK_LEAVES, "_1"), generator.modelCollector);
         registerSimpleParented(ModelIds.getItemModelId(AylythItems.RED_AYLYTHIAN_OAK_LEAVES), ModelIds.getBlockSubModelId(AylythBlocks.RED_AYLYTHIAN_OAK_LEAVES, "_1"), generator.modelCollector);
         registerSimpleParented(ModelIds.getItemModelId(AylythItems.BROWN_AYLYTHIAN_OAK_LEAVES), ModelIds.getBlockSubModelId(AylythBlocks.BROWN_AYLYTHIAN_OAK_LEAVES, "_1"), generator.modelCollector);
+    }
+
+    private void registerThrowableWithInHandModel(ItemModelGenerator generator, Item item) {
+        ItemModel.Unbaked fallback = ItemModels.basic(generator.upload(item, Models.GENERATED));
+        ItemModel.Unbaked variants = ItemModels.condition(
+                ItemModels.usingItemProperty(),
+                ItemModels.basic(ModelIds.getItemSubModelId(item, "_throwing")),
+                ItemModels.basic(ModelIds.getItemSubModelId(item, "_in_hand"))
+        );
+        generator.output.accept(item, ItemModelGenerator.createModelWithInHandVariant(fallback, variants));
     }
 
     private void registerCubeAllWithNumberedVariants(BlockStateModelGenerator generator, Block block, int variants) {
