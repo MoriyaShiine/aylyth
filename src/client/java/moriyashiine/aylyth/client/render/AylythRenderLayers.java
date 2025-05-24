@@ -3,6 +3,7 @@ package moriyashiine.aylyth.client.render;
 import moriyashiine.aylyth.common.Aylyth;
 import net.minecraft.client.gl.Defines;
 import net.minecraft.client.gl.ShaderProgramKey;
+import net.minecraft.client.gl.ShaderProgramKeys;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.RenderPhase;
 import net.minecraft.client.render.VertexFormat;
@@ -34,14 +35,13 @@ public class AylythRenderLayers extends RenderLayer {
                     .build(false)
     );
 
-    public static final ShaderProgramKey TINT_RENDER_LAYER = new ShaderProgramKey(Aylyth.id("rendertype_tint"), VertexFormats.POSITION_TEXTURE, Defines.EMPTY);
     public static final MultiPhase TINT = of(
             "renderlayer_tint",
             VertexFormats.POSITION_TEXTURE,
             VertexFormat.DrawMode.QUADS,
             256, false, false,
             MultiPhaseParameters.builder()
-                    .program(new ShaderProgram(TINT_RENDER_LAYER))
+                    .program(new ShaderProgram(ShaderProgramKeys.RENDERTYPE_GLINT))
                     .texture(new Texture(Aylyth.id("textures/misc/woody_growth_tint.png"), TriState.TRUE, false))
                     .writeMaskState(COLOR_MASK)
                     .cull(DISABLE_CULLING)
