@@ -70,6 +70,7 @@ public final class AylythItemTagProvider extends FabricTagProvider.ItemTagProvid
         getOrCreateTagBuilder(ItemTags.COALS).add(AylythItems.BARK);
         getOrCreateTagBuilder(ItemTags.BOATS).add(AylythItems.YMPE_BOAT, AylythItems.POMEGRANATE_BOAT, AylythItems.WRITHEWOOD_BOAT);
         getOrCreateTagBuilder(ItemTags.CHEST_BOATS).add(AylythItems.YMPE_CHEST_BOAT, AylythItems.POMEGRANATE_CHEST_BOAT, AylythItems.WRITHEWOOD_CHEST_BOAT);
+        getOrCreateTagBuilder(ItemTags.TRIDENT_ENCHANTABLE).add(AylythItems.YMPE_LANCE);
 
         // TODO: bewitchment compat
 //        getOrCreateTagBuilder(BWTags.BARKS).add(AylythItems.BARK);
