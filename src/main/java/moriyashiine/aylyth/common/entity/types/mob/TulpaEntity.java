@@ -36,6 +36,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
+import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.InventoryChangedListener;
 import net.minecraft.inventory.SimpleInventory;
@@ -288,16 +289,7 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
             nbt.putUuid("Owner", this.getOwnerUuid());
         }
         nbt.putString("ActionState", getActionState().asString());
-        NbtList listnbt = new NbtList();
-        for (int i = 0; i < this.inventory.size(); ++i) {
-            ItemStack itemstack = this.inventory.getStack(i);
-            NbtCompound compoundnbt = new NbtCompound();
-            compoundnbt.putByte("slot", (byte) i);
-            itemstack.toNbt(getRegistryManager(), compoundnbt);
-            listnbt.add(compoundnbt);
-
-        }
-        nbt.put("Inventory", listnbt);
+        Inventories.writeNbt(nbt, this.inventory.getHeldStacks(), getRegistryManager());
         nbt.putInt("TransformTime", transformTime);
         nbt.putInt("ShieldCoolDown", this.shieldCoolDown);
         if (this.getSkinUuid() != null) {
@@ -330,17 +322,8 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
                 this.setTamed(false);
             }
         }
-        NbtList nbtList = nbt.getList("Inventory", NbtElement.COMPOUND_TYPE);
-        for (int i = 0; i < nbtList.size(); ++i) {
-            NbtCompound compoundnbt = nbtList.getCompound(i);
-            int j = compoundnbt.getByte("Slot") & 255;
-            if (j < 12) {
-                this.inventory.setStack(j, ItemStack.fromNbt(getRegistryManager(), compoundnbt).orElseThrow());
-            } else {
-                ItemScatterer.spawn(getWorld(), this.getBlockX(), this.getBlockY() + 1, this.getBlockZ(), ItemStack.fromNbt(getRegistryManager(), compoundnbt).orElseThrow());
-            }
-        }
-        if(nbt.contains("TransformTime")){
+        Inventories.readNbt(nbt, this.inventory.heldStacks, getRegistryManager());
+        if (nbt.contains("TransformTime")) {
             this.transformTime = nbt.getInt("TransformTime");
         }
         this.setCanPickUpLoot(true);
