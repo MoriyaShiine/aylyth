@@ -107,7 +107,7 @@ public class VitalThuribleBlockEntity extends BlockEntity implements SingleStack
             if (world.isClient) {
                 if (blockEntity.timer > 0) {
                     for (int i = 0; i < 3; i++) {
-                        world.addParticle(ColorableParticleEffect.SOUL_EMBER, true, true,
+                        world.addParticle(ColorableParticleEffect.SOUL_EMBER.get(), true, true,
                                 pos.getX() + 0.5 + MathHelper.nextFloat(world.random, -0.2f, 0.2f),
                                 pos.getY() + 0.5 + MathHelper.nextFloat(world.random, -0.2f, 0.2f),
                                 pos.getZ() + 0.5 + MathHelper.nextFloat(world.random, -0.2f, 0.2f),

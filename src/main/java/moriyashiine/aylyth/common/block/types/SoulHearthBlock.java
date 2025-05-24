@@ -122,7 +122,7 @@ public class SoulHearthBlock extends Block {
                 world.playSound((double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5, SoundEvents.BLOCK_CAMPFIRE_CRACKLE, SoundCategory.BLOCKS, 0.5F + random.nextFloat(), random.nextFloat() * 0.7F + 0.6F, false);
             }
             if (random.nextInt(5) == 0) {
-                genParticle(ColorableParticleEffect.SOUL_EMBER, world, pos, random);
+                genParticle(ColorableParticleEffect.SOUL_EMBER.get(), world, pos, random);
             }
         }
     }

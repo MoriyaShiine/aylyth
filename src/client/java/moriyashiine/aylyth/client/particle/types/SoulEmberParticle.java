@@ -54,8 +54,8 @@ public class SoulEmberParticle extends AbstractSlowingParticle {
         public Particle createParticle(ColorableParticleEffect parameters, ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
             SoulEmberParticle particle = new SoulEmberParticle(world, x, y, z, velocityX, velocityY, velocityZ, spriteProvider);
             int color = parameters.color();
-            particle.setColor(ColorHelper.getRed(color), ColorHelper.getGreen(color), ColorHelper.getBlue(color));
-            particle.setAlpha(0.9f);
+            particle.setColor(ColorHelper.getRedFloat(color), ColorHelper.getGreenFloat(color), ColorHelper.getBlueFloat(color));
+            particle.setAlpha(ColorHelper.getAlphaFloat(color));
             particle.setSprite(spriteProvider);
             return particle;
         }

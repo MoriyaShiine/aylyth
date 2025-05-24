@@ -264,7 +264,7 @@ public class RippedSoulEntity extends HostileEntity implements GeoEntity, Flutte
                 new AnimationController<>(this, "Move", state -> state.setAndContinue(state.isMoving() ? MOVE : IDLE))
                         .setParticleKeyframeHandler(event -> {
                     RippedSoulEntity entity = event.getAnimatable();
-                    entity.getWorld().addParticle(ColorableParticleEffect.SOUL_EMBER,
+                    entity.getWorld().addParticle(ColorableParticleEffect.SOUL_EMBER.get(),
                             getX() + entity.random.nextFloat() / 10f, getY() + entity.random.nextFloat() / 10f, getZ() + entity.random.nextFloat() / 10f,
                             entity.random.nextFloat() / 10f, entity.random.nextFloat() / 10f, entity.random.nextFloat() / 10f);
                 })
