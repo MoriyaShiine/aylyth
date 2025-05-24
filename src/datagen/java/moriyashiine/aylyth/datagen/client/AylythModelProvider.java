@@ -297,9 +297,9 @@ public class AylythModelProvider extends FabricModelProvider {
         registerFlask(generator, AylythItems.NEPHRITE_FLASK);
         registerFlask(generator, AylythItems.DARK_NEPHRITE_FLASK);
         // TODO: Setup blight potion
-        generator.registerSubModel(Items.POTION, "_blight", Models.GENERATED);
-        generator.registerSubModel(Items.SPLASH_POTION, "_blight", Models.GENERATED);
-        generator.registerSubModel(Items.LINGERING_POTION, "_blight", Models.GENERATED);
+//        generator.registerSubModel(Items.POTION, "_blight", Models.GENERATED);
+//        generator.registerSubModel(Items.SPLASH_POTION, "_blight", Models.GENERATED);
+//        generator.registerSubModel(Items.LINGERING_POTION, "_blight", Models.GENERATED);
 //        Models.GENERATED_TWO_LAYERS.upload(Aylyth.id("item/coker_cola"), TextureMap.layered(Aylyth.id("item/blight_potion"), Aylyth.id("item/blight_potion")), generator.writer);
 //        Models.GENERATED_TWO_LAYERS.upload(Aylyth.id("item/coker_cola_splash"), TextureMap.layered(Aylyth.id("item/blight_potion_splash"), Aylyth.id("item/blight_potion_splash")), generator.writer);
 //        Models.GENERATED_TWO_LAYERS.upload(Aylyth.id("item/coker_cola_lingering"), TextureMap.layered(Aylyth.id("item/blight_potion_lingering"), Aylyth.id("item/blight_potion_lingering")), generator.writer);
