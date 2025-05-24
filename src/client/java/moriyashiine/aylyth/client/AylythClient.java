@@ -237,7 +237,7 @@ public class AylythClient implements ClientModInitializer {
 			Identifier soulHearthId = Aylyth.id("block/soul_hearth_charged_lower");
 			pluginContext.modifyModelAfterBake().register((model, context) -> {
 				if (context.id().equals(soulHearthId)) {
-					return new SoulHearthBlockModel(model);
+					return new SoulHearthBlockModel(MinecraftClient.getInstance().getBakedModelManager(), model);
 				}
 				return model;
 			});
