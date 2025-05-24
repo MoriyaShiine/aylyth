@@ -13,7 +13,6 @@
     "LivingEntityRendererMixin",
     "LivingEntityRenderStateMixin",
     "MinecraftClientMixin",
-    "ParticleManagerMixin",
     "PlayerEntityRendererMixin",
     "PlayerEntityRenderStateMixin",
     "SkyRenderingAccessor",

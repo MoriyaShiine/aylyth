@@ -6,6 +6,7 @@ import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleFactory;
 import net.minecraft.client.particle.ParticleTextureSheet;
 import net.minecraft.client.particle.SpriteProvider;
+import net.minecraft.client.render.LightmapTextureManager;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.util.math.ColorHelper;
 
@@ -35,6 +36,11 @@ public class SoulEmberParticle extends AbstractSlowingParticle {
     @Override
     public ParticleTextureSheet getType() {
         return ParticleTextureSheet.PARTICLE_SHEET_TRANSLUCENT;
+    }
+
+    @Override
+    protected int getBrightness(float tint) {
+        return LightmapTextureManager.MAX_LIGHT_COORDINATE;
     }
 
     public static class Factory implements ParticleFactory<ColorableParticleEffect> {
