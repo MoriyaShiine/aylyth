@@ -89,6 +89,7 @@ public class AylythModelProvider extends FabricModelProvider {
         generator.registerParentedItemModel(AylythBlocks.SEEPING_WOOD_SEEP, blockId("seeping_wood_seep_log_single"));
         generator.registerParentedItemModel(AylythBlocks.SPRUCE_SEEP, blockId("spruce_seep_log_single"));
         generator.registerParentedItemModel(AylythBlocks.YMPE_SEEP, blockId("ympe_seep_log_single"));
+        generator.registerItemModel(AylythBlocks.MARIGOLD);
         registerFlowerPot(generator, AylythBlocks.MARIGOLD, AylythBlocks.POTTED_MARIGOLD, BlockStateModelGenerator.CrossType.NOT_TINTED);
         generateStrewnLeaves(generator, AylythBlocks.OAK_STREWN_LEAVES, Blocks.OAK_LEAVES, blockId("fallen_oak_leaves_01"), blockId("fallen_oak_leaves_02"), blockId("fallen_oak_leaves_03"), blockId("fallen_oak_leaves_04"), blockId("fallen_oak_leaves_05"), blockId("fallen_oak_leaves_06"), blockId("fallen_oak_leaves_07"), blockId("fallen_oak_leaves_08"), blockId("fallen_oak_leaves_09"), blockId("fallen_oak_leaves_10"));
         generateStrewnLeaves(generator, AylythBlocks.YMPE_STREWN_LEAVES, AylythBlocks.YMPE_LEAVES, blockId("fallen_ympe_leaves_01"), blockId("fallen_ympe_leaves_02"));
@@ -196,8 +197,6 @@ public class AylythModelProvider extends FabricModelProvider {
         registerCubeAllWithNumberedVariantsAndItem(generator, AylythBlocks.ORANGE_AYLYTHIAN_OAK_LEAVES, 3);
         registerCubeAllWithNumberedVariantsAndItem(generator, AylythBlocks.RED_AYLYTHIAN_OAK_LEAVES, 3);
         registerCubeAllWithNumberedVariantsAndItem(generator, AylythBlocks.BROWN_AYLYTHIAN_OAK_LEAVES, 3);
-
-//        generator.registerSpecialItemModel(AylythBlocks.WOODY_GROWTH_CACHE, new WoodyGrowthCacheItemRenderer.Unbaked());
     }
 
     @Override
@@ -232,6 +231,7 @@ public class AylythModelProvider extends FabricModelProvider {
         generator.register(AylythItems.BLIGHTED_THORNS, Models.GENERATED);
         generator.register(AylythItems.THORN_FLECHETTE, Models.GENERATED);
         generator.register(AylythItems.BLIGHTED_THORN_FLECHETTE, Models.GENERATED);
+
         generator.output.accept(AylythItems.WOODY_GROWTH_CACHE, ItemModels.basic(ModelIds.getItemModelId(AylythItems.LARGE_WOODY_GROWTH)));
 
         generator.register(AylythItems.YMPE_DAGGER, Models.HANDHELD);
@@ -261,8 +261,6 @@ public class AylythModelProvider extends FabricModelProvider {
         generator.registerSpawnEgg(AylythItems.BONEFLY_SPAWN_EGG, 0xE2E2D6, 0x3A2E2B);
         generator.registerSpawnEgg(AylythItems.TULPA_SPAWN_EGG, 0xE2E2D6, 0x73868F);
 
-        generateStrewnLeavesItemModel(AylythItems.OAK_STREWN_LEAVES, blockId("fallen_oak_leaves_01"), generator);
-        generateStrewnLeavesItemModel(AylythItems.YMPE_STREWN_LEAVES, blockId("fallen_ympe_leaves_01"), generator);
         generator.output.accept(AylythItems.NYSIAN_GRAPE_VINE,
                 ItemModels.basic(
                         Models.GENERATED_THREE_LAYERS.upload(
@@ -436,27 +434,25 @@ public class AylythModelProvider extends FabricModelProvider {
         generator.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(block, ModelIds.getBlockModelId(block)));
     }
 
-    private void generateStrewnLeavesItemModel(Item item, Identifier texture, ItemModelGenerator itemModelGenerator) {
-        Models.GENERATED.upload(ModelIds.getItemModelId(item), TextureMap.layer0(texture), itemModelGenerator.modelCollector);
-    }
-
-    private void generateStrewnLeaves(BlockStateModelGenerator blockStateModelGenerator, Block strewnLeavesBlock, Block leavesBlock, Identifier... models) {
+    private void generateStrewnLeaves(BlockStateModelGenerator generator, Block strewnLeavesBlock, Block leavesBlock, Identifier... models) {
         List<BlockStateVariant> flatVariants = allFlatModels(models);
-        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(strewnLeavesBlock).coordinate(leavesPropertyVariants(flatVariants, leavesBlock)));
+        generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(strewnLeavesBlock).coordinate(leavesPropertyVariants(flatVariants, leavesBlock)));
         Stream.of(models).forEach(identifier -> {
-            STREWN_LEAVES_TEMPLATE.upload(identifier, TextureMap.of(TextureKey.TOP, identifier), blockStateModelGenerator.modelCollector);
+            STREWN_LEAVES_TEMPLATE.upload(identifier, TextureMap.of(TextureKey.TOP, identifier), generator.modelCollector);
         });
-        STREWN_LEAVES_TEMPLATE.upload(strewnLeavesBlock, TextureMap.of(TextureKey.TOP, models[0]), blockStateModelGenerator.modelCollector);
+        STREWN_LEAVES_TEMPLATE.upload(strewnLeavesBlock, TextureMap.of(TextureKey.TOP, models[0]), generator.modelCollector);
 
         Identifier leavesModelId = ModelIds.getBlockModelId(leavesBlock);
         TextureMap pileMap = TextureMap.of(TextureKey.ALL, leavesModelId);
-        LEAF_PILE_1.upload(id(leavesModelId.getPath() + "_pile_1"), pileMap, blockStateModelGenerator.modelCollector);
-        LEAF_PILE_2.upload(id(leavesModelId.getPath() + "_pile_2"), pileMap, blockStateModelGenerator.modelCollector);
-        LEAF_PILE_3.upload(id(leavesModelId.getPath() + "_pile_3"), pileMap, blockStateModelGenerator.modelCollector);
-        LEAF_PILE_4.upload(id(leavesModelId.getPath() + "_pile_4"), pileMap, blockStateModelGenerator.modelCollector);
-        LEAF_PILE_5.upload(id(leavesModelId.getPath() + "_pile_5"), pileMap, blockStateModelGenerator.modelCollector);
-        LEAF_PILE_6.upload(id(leavesModelId.getPath() + "_pile_6"), pileMap, blockStateModelGenerator.modelCollector);
-        LEAF_PILE_7.upload(id(leavesModelId.getPath() + "_pile_7"), pileMap, blockStateModelGenerator.modelCollector);
+        LEAF_PILE_1.upload(id(leavesModelId.getPath() + "_pile_1"), pileMap, generator.modelCollector);
+        LEAF_PILE_2.upload(id(leavesModelId.getPath() + "_pile_2"), pileMap, generator.modelCollector);
+        LEAF_PILE_3.upload(id(leavesModelId.getPath() + "_pile_3"), pileMap, generator.modelCollector);
+        LEAF_PILE_4.upload(id(leavesModelId.getPath() + "_pile_4"), pileMap, generator.modelCollector);
+        LEAF_PILE_5.upload(id(leavesModelId.getPath() + "_pile_5"), pileMap, generator.modelCollector);
+        LEAF_PILE_6.upload(id(leavesModelId.getPath() + "_pile_6"), pileMap, generator.modelCollector);
+        LEAF_PILE_7.upload(id(leavesModelId.getPath() + "_pile_7"), pileMap, generator.modelCollector);
+
+        generator.registerItemModel(strewnLeavesBlock.asItem(), Models.GENERATED.upload(ModelIds.getItemModelId(strewnLeavesBlock.asItem()), TextureMap.layer0(models[0]), generator.modelCollector));
     }
 
     private List<BlockStateVariant> allFlatModels(Identifier... models) {
