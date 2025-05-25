@@ -1,0 +1,35 @@
+{
+  "parent": "aylyth:aylyth/root",
+  "criteria": {
+    "has_placed_girasol_sapling": {
+      "conditions": {
+        "location": [
+          {
+            "block": "aylyth:girasol_sapling",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
+      },
+      "trigger": "minecraft:placed_block"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.aylyth.aylyth.see_you_in_the_trees.desc"
+    },
+    "frame": "goal",
+    "icon": {
+      "count": 1,
+      "id": "aylyth:girasol_sapling"
+    },
+    "title": {
+      "translate": "advancements.aylyth.aylyth.see_you_in_the_trees.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_placed_girasol_sapling"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

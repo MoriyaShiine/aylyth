@@ -17,10 +17,8 @@
     },
     "cap_size": {
       "type": "minecraft:uniform",
-      "value": {
-        "max_inclusive": 4,
-        "min_inclusive": 3
-      }
+      "max_inclusive": 4,
+      "min_inclusive": 3
     },
     "stem_provider": {
       "type": "minecraft:simple_state_provider",
@@ -38,10 +36,8 @@
     },
     "stem_size": {
       "type": "minecraft:uniform",
-      "value": {
-        "max_inclusive": 8,
-        "min_inclusive": 5
-      }
+      "max_inclusive": 8,
+      "min_inclusive": 5
     }
   }
 }

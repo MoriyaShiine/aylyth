@@ -1,0 +1,26 @@
+{
+  "parent": "aylyth:aylyth/root",
+  "criteria": {
+    "has_interacted_with_pilot_light": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "aylyth:pilot_light"
+            }
+          }
+        ],
+        "item": {}
+      },
+      "trigger": "minecraft:player_interacted_with_entity"
+    }
+  },
+  "requirements": [
+    [
+      "has_interacted_with_pilot_light"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

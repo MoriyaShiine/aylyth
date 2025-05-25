@@ -1,0 +1,40 @@
+{
+  "parent": "aylyth:aylyth/laccus",
+  "criteria": {
+    "has_mortechis_potion": {
+      "conditions": {
+        "items": [
+          {
+            "predicates": {
+              "minecraft:potion_contents": "aylyth:mortechis"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.aylyth.aylyth.libations.desc"
+    },
+    "icon": {
+      "components": {
+        "minecraft:potion_contents": {
+          "potion": "aylyth:mortechis"
+        }
+      },
+      "count": 1,
+      "id": "minecraft:potion"
+    },
+    "title": {
+      "translate": "advancements.aylyth.aylyth.libations.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_mortechis_potion"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

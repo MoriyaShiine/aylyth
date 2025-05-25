@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "N": "#aylyth:nephrite_tool_materials",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    "NN",
+    " S",
+    " S"
+  ],
+  "result": {
+    "count": 1,
+    "id": "aylyth:nephrite_hoe"
+  }
+}

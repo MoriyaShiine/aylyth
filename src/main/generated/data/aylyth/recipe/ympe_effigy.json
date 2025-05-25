@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "D": "minecraft:soul_soil",
+    "E": "aylyth:esstline",
+    "H": "#aylyth:boss_hearts",
+    "S": "aylyth:ympe_sapling"
+  },
+  "pattern": [
+    "DED",
+    "EHE",
+    "SDS"
+  ],
+  "result": {
+    "count": 1,
+    "id": "aylyth:ympe_effigy"
+  }
+}

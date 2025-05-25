@@ -3,7 +3,7 @@
   "chance": 0.2,
   "entity": "minecraft:skeleton",
   "output": {
-    "Count": 1,
+    "count": 1,
     "id": "minecraft:skeleton_skull"
   },
   "weapons": "#aylyth:flesh_harvesters"

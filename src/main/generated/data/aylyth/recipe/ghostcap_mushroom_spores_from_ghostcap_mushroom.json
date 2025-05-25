@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "aylyth:ghostcap_mushroom"
+  ],
+  "result": {
+    "count": 1,
+    "id": "aylyth:ghostcap_mushroom_spores"
+  }
+}

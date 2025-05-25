@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "flask_conversion",
+  "ingredients": [
+    "aylyth:nephrite_flask",
+    "aylyth:blighted_thorns"
+  ],
+  "result": {
+    "count": 1,
+    "id": "aylyth:dark_nephrite_flask"
+  }
+}

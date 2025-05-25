@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": "minecraft:stick",
+    "N": "aylyth:nephrite"
+  },
+  "pattern": [
+    "NEN",
+    " N "
+  ],
+  "result": {
+    "count": 1,
+    "id": "aylyth:nephrite_flask"
+  }
+}

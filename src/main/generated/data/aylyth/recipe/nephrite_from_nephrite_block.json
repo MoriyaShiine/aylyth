@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "nephrite",
+  "ingredients": [
+    "aylyth:nephrite_block"
+  ],
+  "result": {
+    "count": 9,
+    "id": "aylyth:nephrite"
+  }
+}

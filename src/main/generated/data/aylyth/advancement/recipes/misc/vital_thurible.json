@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_boss_heart": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#aylyth:boss_hearts"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "aylyth:vital_thurible"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_boss_heart"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "aylyth:vital_thurible"
+    ]
+  }
+}

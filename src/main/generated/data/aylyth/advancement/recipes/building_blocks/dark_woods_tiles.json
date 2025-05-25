@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "aylyth:dark_woods_tiles"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_writhewood": {
+      "conditions": {
+        "items": [
+          {
+            "items": "aylyth:writhewood_planks"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_writhewood"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "aylyth:dark_woods_tiles"
+    ]
+  }
+}

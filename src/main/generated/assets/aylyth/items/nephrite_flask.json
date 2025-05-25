@@ -1,0 +1,54 @@
+{
+  "model": {
+    "type": "minecraft:range_dispatch",
+    "entries": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "aylyth:item/nephrite_flask_1_charges"
+        },
+        "threshold": 1.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "aylyth:item/nephrite_flask_2_charges"
+        },
+        "threshold": 2.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "aylyth:item/nephrite_flask_3_charges"
+        },
+        "threshold": 3.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "aylyth:item/nephrite_flask_4_charges"
+        },
+        "threshold": 4.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "aylyth:item/nephrite_flask_5_charges"
+        },
+        "threshold": 5.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "aylyth:item/nephrite_flask_6_charges"
+        },
+        "threshold": 6.0
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "aylyth:item/nephrite_flask"
+    },
+    "property": "aylyth:flask_charges"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "aylyth:ympe_fruit",
+    "aylyth:esstline",
+    "minecraft:cobbled_deepslate",
+    "#minecraft:soul_fire_base_blocks"
+  ],
+  "result": {
+    "count": 1,
+    "id": "aylyth:aylythian_upgrade_smithing_template"
+  }
+}

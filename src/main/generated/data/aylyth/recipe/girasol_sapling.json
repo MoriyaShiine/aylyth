@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": "minecraft:ender_pearl",
+    "H": "aylyth:aylythian_heart",
+    "S": [
+      "minecraft:soul_sand",
+      "minecraft:soul_soil"
+    ],
+    "Y": "aylyth:ympe_sapling"
+  },
+  "pattern": [
+    "YHY",
+    "SES",
+    "YSY"
+  ],
+  "result": {
+    "count": 1,
+    "id": "aylyth:girasol_sapling"
+  }
+}

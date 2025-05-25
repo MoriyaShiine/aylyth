@@ -1,10 +1,8 @@
 {
-  "carvers": {
-    "air": [
-      "aylyth:caves",
-      "aylyth:canyons"
-    ]
-  },
+  "carvers": [
+    "aylyth:caves",
+    "aylyth:canyons"
+  ],
   "downfall": 0.8,
   "effects": {
     "additions_sound": {
@@ -21,12 +19,18 @@
       "sound": "minecraft:ambient.cave",
       "tick_delay": 6000
     },
-    "music": {
-      "max_delay": 24000,
-      "min_delay": 12000,
-      "replace_current_music": false,
-      "sound": "aylyth:music.aylyth.ambient"
-    },
+    "music": [
+      {
+        "data": {
+          "max_delay": 24000,
+          "min_delay": 12000,
+          "replace_current_music": false,
+          "sound": "aylyth:music.aylyth.ambient"
+        },
+        "weight": 1
+      }
+    ],
+    "music_volume": 1.0,
     "particle": {
       "options": {
         "type": "aylyth:ambient_pilot_light"

@@ -1,0 +1,19 @@
+{
+  "type": "aylyth:soul_ritual",
+  "ingredients": [
+    "aylyth:aylythian_heart",
+    "aylyth:wrongmeat",
+    "aylyth:esstline",
+    {
+      "fabric:type": "aylyth:has_components",
+      "base": "aylyth:shucked_ympe_fruit",
+      "component_types": [
+        "minecraft:entity_data"
+      ]
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "aylyth:coric_seed"
+  }
+}

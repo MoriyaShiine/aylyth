@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "flask_conversion",
+  "ingredients": [
+    "aylyth:dark_nephrite_flask",
+    "aylyth:aylythian_heart"
+  ],
+  "result": {
+    "count": 1,
+    "id": "aylyth:nephrite_flask"
+  }
+}

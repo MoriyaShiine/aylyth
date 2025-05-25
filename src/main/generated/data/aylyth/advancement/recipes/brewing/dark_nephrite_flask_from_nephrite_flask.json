@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_nephrite_flask": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#aylyth:nephrite_flasks"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:dark_nephrite_flask_from_nephrite_flask"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_nephrite_flask"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:dark_nephrite_flask_from_nephrite_flask"
+    ]
+  }
+}

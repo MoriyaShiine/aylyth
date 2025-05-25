@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "aylyth:blighted_thorns",
+  "base": "aylyth:nephrite_axe",
+  "result": {
+    "count": 1,
+    "id": "aylyth:blighted_axe"
+  },
+  "template": "aylyth:aylythian_upgrade_smithing_template"
+}

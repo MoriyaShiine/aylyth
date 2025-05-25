@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "aylyth:esstline",
+  "base": "aylyth:ympe_sapling",
+  "result": {
+    "count": 1,
+    "id": "aylyth:ympe_dagger"
+  },
+  "template": "aylyth:aylythian_upgrade_smithing_template"
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "C": "aylyth:coric_seed",
+    "D": "aylyth:ympe_dagger",
+    "S": "aylyth:ympe_sapling"
+  },
+  "pattern": [
+    " CD",
+    " SS",
+    "S  "
+  ],
+  "result": {
+    "count": 1,
+    "id": "aylyth:ympe_glaive"
+  }
+}

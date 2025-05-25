@@ -1,0 +1,33 @@
+{
+  "parent": "aylyth:aylyth/root",
+  "criteria": {
+    "has_wrongmeat": {
+      "conditions": {
+        "items": [
+          {
+            "items": "aylyth:wrongmeat"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.aylyth.aylyth.meat_found.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "aylyth:wrongmeat"
+    },
+    "title": {
+      "translate": "advancements.aylyth.aylyth.meat_found.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_wrongmeat"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -3,7 +3,7 @@
   "chance": 0.15,
   "entity": "aylyth:scion",
   "output": {
-    "Count": 1,
+    "count": 1,
     "id": "aylyth:wrongmeat"
   },
   "weapons": "#aylyth:flesh_harvesters"

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": "aylyth:coric_seed",
+    "G": "aylyth:large_woody_growth",
+    "H": "aylyth:aylythian_heart",
+    "W": "aylyth:wrongmeat"
+  },
+  "pattern": [
+    "GHG",
+    "WCW",
+    "G G"
+  ],
+  "result": {
+    "count": 1,
+    "id": "aylyth:ympe_cuirass"
+  }
+}

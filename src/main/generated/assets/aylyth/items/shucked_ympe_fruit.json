@@ -1,0 +1,15 @@
+{
+  "model": {
+    "type": "minecraft:condition",
+    "component": "minecraft:entity_data",
+    "on_false": {
+      "type": "minecraft:model",
+      "model": "aylyth:item/shucked_ympe_fruit"
+    },
+    "on_true": {
+      "type": "minecraft:model",
+      "model": "aylyth:item/shucked_ympe_fruit_variant"
+    },
+    "property": "minecraft:has_component"
+  }
+}

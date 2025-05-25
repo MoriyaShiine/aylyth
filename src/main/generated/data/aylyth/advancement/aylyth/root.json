@@ -1,0 +1,29 @@
+{
+  "criteria": {
+    "entered_aylyth": {
+      "conditions": {
+        "to": "aylyth:aylyth"
+      },
+      "trigger": "minecraft:changed_dimension"
+    }
+  },
+  "display": {
+    "background": "aylyth:textures/block/ympe_planks.png",
+    "description": {
+      "translate": "advancements.aylyth.aylyth.root.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "aylyth:ympe_sapling"
+    },
+    "title": {
+      "translate": "advancements.aylyth.aylyth.root.title"
+    }
+  },
+  "requirements": [
+    [
+      "entered_aylyth"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

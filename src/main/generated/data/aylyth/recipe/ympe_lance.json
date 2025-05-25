@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "C": "aylyth:coric_seed",
+    "E": "aylyth:esstline",
+    "S": "aylyth:ympe_sapling"
+  },
+  "pattern": [
+    " EC",
+    " SE",
+    "S  "
+  ],
+  "result": {
+    "count": 1,
+    "id": "aylyth:ympe_lance"
+  }
+}
