@@ -23,6 +23,7 @@ public class ThornFlechetteEntity extends PersistentProjectileEntity {
     public ThornFlechetteEntity(LivingEntity owner, World world, ItemStack stack) {
         super(AylythEntityTypes.THORN_FLECHETTE, owner, world, stack, null);
         this.setOwner(owner);
+        setStack(stack);
     }
 
     public void setStack(ItemStack stack) {
