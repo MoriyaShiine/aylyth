@@ -2,7 +2,7 @@ package moriyashiine.aylyth.common.screenhandler;
 
 import moriyashiine.aylyth.common.entity.types.mob.TulpaEntity;
 import moriyashiine.aylyth.mixin.MobEntityAccessor;
-import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -199,8 +199,8 @@ public class TulpaScreenHandler extends ScreenHandler {
                 } // check main hand
                 else if (getSlot(4).canInsert(itemstack1) && insertItem(itemstack1, 4, 5, false)) {
                     return ItemStack.EMPTY;
-                } // check is shield and off hand
-                else if (itemstack1.isIn(ConventionalItemTags.SHIELDS) && getSlot(5).canInsert(itemstack1) && insertItem(itemstack1, 5, 6, false)) {
+                } // check is shield and offhand
+                else if (itemstack1.isIn(ConventionalItemTags.SHIELD_TOOLS) && getSlot(5).canInsert(itemstack1) && insertItem(itemstack1, 5, 6, false)) {
                     return ItemStack.EMPTY;
                 } else if (this.insertItem(itemstack1, 6, 18, false)) {
                     return ItemStack.EMPTY;

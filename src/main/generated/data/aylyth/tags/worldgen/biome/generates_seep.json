@@ -1,11 +1,11 @@
 {
   "values": [
     {
-      "id": "#c:forest",
+      "id": "#c:is_forest",
       "required": false
     },
     {
-      "id": "#c:taiga",
+      "id": "#c:is_taiga",
       "required": false
     }
   ]

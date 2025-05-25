@@ -2,7 +2,6 @@ package moriyashiine.aylyth.common.item.types;
 
 import moriyashiine.aylyth.common.data.tag.AylythStatusEffectTags;
 import moriyashiine.aylyth.common.item.AylythItems;
-import net.fabricmc.fabric.api.tag.convention.v1.TagUtil;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;

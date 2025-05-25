@@ -1,9 +1,8 @@
 package moriyashiine.aylyth.common.block.types;
 
 import moriyashiine.aylyth.common.block.IContextBlockSoundGroup;
-import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.common.world.AylythSoundEvents;
-import net.fabricmc.fabric.api.tag.convention.v1.ConventionalEntityTypeTags;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalEntityTypeTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -80,7 +79,7 @@ public class StrewnLeavesBlock extends Block implements IContextBlockSoundGroup 
     @Override
     public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
         super.onEntityCollision(state, world, pos, entity);
-        if (entity instanceof BoatEntity || entity.getType().isIn(ConventionalEntityTypeTags.BOATS)) {
+        if (entity.getType().isIn(ConventionalEntityTypeTags.BOATS)) { // TODO: Make a new behavior tag to determine if it breaks leaves
             world.breakBlock(pos, true, entity);
         }
     }

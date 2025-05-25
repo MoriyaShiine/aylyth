@@ -13,7 +13,7 @@ import moriyashiine.aylyth.common.integration.bewitchment.BewitchmentCompat;
 import moriyashiine.aylyth.common.screenhandler.TulpaScreenHandler;
 import moriyashiine.aylyth.mixin.MobEntityAccessor;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
-import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.CrossbowUser;
 import net.minecraft.entity.Entity;
@@ -516,8 +516,7 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
 
     @Override
     public boolean canUseRangedWeapon(RangedWeaponItem weapon) {
-        // TODO: Check both "c:bows" and "c:crossbows" when tag changes are implemented
-        return weapon.getRegistryEntry().isIn(ConventionalItemTags.BOWS);
+        return weapon.getRegistryEntry().isIn(ConventionalItemTags.BOW_TOOLS) || weapon.getRegistryEntry().isIn(ConventionalItemTags.CROSSBOW_TOOLS);
     }
 
     //**CROSSBOW USER START
@@ -530,9 +529,8 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
     @Override
     public void shootAt(LivingEntity target, float pullProgress) {
         this.shieldCoolDown = 8;
-        // TODO: Change this back to a tag check for "c:bows" when crossbows are removed from the tag
-        Hand hand = ProjectileUtil.getHandPossiblyHolding(this, Items.BOW);
-        if (getStackInHand(hand).isOf(Items.BOW)) {
+        if (this.isHolding(stack -> stack.isIn(ConventionalItemTags.BOW_TOOLS))) {
+            Hand hand = getMainHandStack().isIn(ConventionalItemTags.BOW_TOOLS) ? Hand.MAIN_HAND : Hand.OFF_HAND;
             ProjectileEntity arrow = ProjectileUtil.createArrowProjectile(this, new ItemStack(Items.ARROW), pullProgress, getStackInHand(hand));
             this.getWorld().spawnEntity(arrow);
             double xDiff = target.getX() - getX();
