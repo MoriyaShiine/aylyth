@@ -12,6 +12,7 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 public class ThornFlechetteEntity extends PersistentProjectileEntity {
     private static final TrackedData<ItemStack> STACK = DataTracker.registerData(ThornFlechetteEntity.class, TrackedDataHandlerRegistry.ITEM_STACK);
@@ -23,6 +24,11 @@ public class ThornFlechetteEntity extends PersistentProjectileEntity {
     public ThornFlechetteEntity(LivingEntity owner, World world, ItemStack stack) {
         super(AylythEntityTypes.THORN_FLECHETTE, owner, world, stack, null);
         this.setOwner(owner);
+        setStack(stack);
+    }
+
+    public ThornFlechetteEntity(double x, double y, double z, World world, ItemStack stack) {
+        super(AylythEntityTypes.THORN_FLECHETTE, x, y, z, world, stack, null);
         setStack(stack);
     }
 

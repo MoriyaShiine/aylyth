@@ -1,21 +1,25 @@
 package moriyashiine.aylyth.common.item.types;
 
 import moriyashiine.aylyth.common.entity.types.projectile.ThornFlechetteEntity;
-import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.PersistentProjectileEntity;
+import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsage;
+import net.minecraft.item.ProjectileItem;
 import net.minecraft.item.consume.UseAction;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Position;
 import net.minecraft.world.World;
 
-public class ThornFlechetteItem extends Item {
-    public ThornFlechetteItem(Settings settings) {
+public class ThornFlechetteItem extends Item implements ProjectileItem {
+    public ThornFlechetteItem(Item.Settings settings) {
         super(settings);
     }
 
@@ -29,6 +33,7 @@ public class ThornFlechetteItem extends Item {
         int useTime = user.getItemUseTime();
         if (useTime > 10) {
             ThornFlechetteEntity entity = new ThornFlechetteEntity(user, world, stack.copyWithCount(1));
+            entity.pickupType = user.isInCreativeMode() ? PersistentProjectileEntity.PickupPermission.CREATIVE_ONLY : PersistentProjectileEntity.PickupPermission.ALLOWED;
             entity.setVelocity(user, user.getPitch(), user.getYaw(), 0, 2, 1);
             world.spawnEntity(entity);
             world.playSoundFromEntity(null, entity, SoundEvents.ITEM_TRIDENT_THROW.value(), SoundCategory.PLAYERS, 1f, 1f);
@@ -46,5 +51,12 @@ public class ThornFlechetteItem extends Item {
     @Override
     public int getMaxUseTime(ItemStack stack, LivingEntity user) {
         return 72000;
+    }
+
+    @Override
+    public ProjectileEntity createEntity(World world, Position pos, ItemStack stack, Direction direction) {
+        ThornFlechetteEntity entity = new ThornFlechetteEntity(pos.getX(), pos.getY(), pos.getZ(), world, stack.copyWithCount(1));
+        entity.pickupType = PersistentProjectileEntity.PickupPermission.ALLOWED;
+        return entity;
     }
 }
