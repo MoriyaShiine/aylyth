@@ -34,7 +34,6 @@ import moriyashiine.aylyth.client.render.entity.projectile.SphereEntityRenderer;
 import moriyashiine.aylyth.client.render.entity.projectile.ThornFlechetteRenderer;
 import moriyashiine.aylyth.client.render.entity.projectile.YmpeLanceEntityRenderer;
 import moriyashiine.aylyth.client.render.AylythSkyRenderer;
-import moriyashiine.aylyth.client.render.item.WoodyGrowthCacheItemRenderer;
 import moriyashiine.aylyth.client.render.item.property.FlaskChargesProperty;
 import moriyashiine.aylyth.client.screen.TulpaScreen;
 import moriyashiine.aylyth.common.Aylyth;
@@ -74,7 +73,6 @@ import net.minecraft.client.render.entity.model.BoatEntityModel;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.render.entity.state.LivingEntityRenderState;
-import net.minecraft.client.render.item.model.special.SpecialModelTypes;
 import net.minecraft.client.render.item.property.numeric.NumericProperties;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.client.util.ModelIdentifier;
@@ -242,9 +240,6 @@ public class AylythClient implements ClientModInitializer {
 				return model;
 			});
 		});
-
-
-		SpecialModelTypes.ID_MAPPER.put(Aylyth.id("woody_growth_cache"), WoodyGrowthCacheItemRenderer.Unbaked.CODEC);
 
 		HandledScreens.register(AylythScreenHandlerTypes.TULPA, TulpaScreen::new);
 	}

@@ -39,10 +39,10 @@ public class AylythRenderLayers extends RenderLayer {
             "renderlayer_tint",
             VertexFormats.POSITION_TEXTURE,
             VertexFormat.DrawMode.QUADS,
-            256, false, false,
+            256,
             MultiPhaseParameters.builder()
-                    .program(new ShaderProgram(ShaderProgramKeys.RENDERTYPE_GLINT))
-                    .texture(new Texture(Aylyth.id("textures/misc/woody_growth_tint.png"), TriState.TRUE, false))
+                    .program(GLINT_PROGRAM)
+                    .texture(new Texture(Aylyth.id("textures/misc/woody_growth_tint.png"), TriState.DEFAULT, false))
                     .writeMaskState(COLOR_MASK)
                     .cull(DISABLE_CULLING)
                     .depthTest(EQUAL_DEPTH_TEST)

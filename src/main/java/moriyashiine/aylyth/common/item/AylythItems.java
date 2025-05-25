@@ -47,6 +47,7 @@ import net.minecraft.item.VerticallyAttachableBlockItem;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Rarity;
+import net.minecraft.util.Unit;
 import net.minecraft.util.math.Direction;
 
 import java.util.function.Function;
@@ -164,7 +165,7 @@ public interface AylythItems {
 
     Item SMALL_WOODY_GROWTH = registerBlockItem("small_woody_growth", AylythBlocks.SMALL_WOODY_GROWTH);
     Item LARGE_WOODY_GROWTH = registerBlockItem("large_woody_growth", AylythBlocks.LARGE_WOODY_GROWTH);
-    Item WOODY_GROWTH_CACHE = registerBlockItem("woody_growth_cache", AylythBlocks.WOODY_GROWTH_CACHE);
+    Item WOODY_GROWTH_CACHE = registerBlockItem("woody_growth_cache", AylythBlocks.WOODY_GROWTH_CACHE, settings().component(AylythDataComponentTypes.YELLOW_TINTED, Unit.INSTANCE));
 
     Item OAK_SEEP = registerBlockItem("oak_seep", AylythBlocks.OAK_SEEP);
     Item SPRUCE_SEEP = registerBlockItem("spruce_seep", AylythBlocks.SPRUCE_SEEP);

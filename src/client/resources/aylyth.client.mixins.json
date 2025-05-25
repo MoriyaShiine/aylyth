@@ -6,10 +6,12 @@
   "client": [
     "BackgroundRendererMixin",
     "BasicItemModelAccessor",
+    "BasicItemModelMixin",
     "BufferBuilderStorageMixin",
     "GameRendererMixin",
     "HeldItemRendererAccessor",
     "InGameHudMixin",
+    "ItemRendererMixin",
     "LivingEntityRendererMixin",
     "LivingEntityRenderStateMixin",
     "MinecraftClientMixin",
