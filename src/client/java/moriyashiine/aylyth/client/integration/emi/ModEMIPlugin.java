@@ -47,7 +47,7 @@
 //            if (display.value() instanceof DaggerLootDisplay daggerLootDisplay) {
 //                Identifier id = display.getKey().orElseThrow().getValue();
 //                EmiIngredient weapons = daggerLootDisplay.weapons().getStorage().map(EmiIngredient::of, registryEntries -> EmiIngredient.of(registryEntries.stream().map(itemRegistryEntry -> EmiStack.of(itemRegistryEntry.value())).toList()));
-//                emiRegistry.addRecipe(new DaggerLootEmiRecipe(id, daggerLootDisplay.entity(), daggerLootDisplay.chance(), weapons, daggerLootDisplay.outputs()));
+//                emiRegistry.addRecipe(new DaggerLootEmiRecipe(id, daggerLootDisplay.entity(), daggerLootDisplay.probability(), weapons, daggerLootDisplay.outputs()));
 //            }
 //        }
 //        daggerCategory = new EmiRecipeCategory(Aylyth.id("dagger_drops"), new SwappingTagRenderable(AylythItemTags.FLESH_HARVESTERS));

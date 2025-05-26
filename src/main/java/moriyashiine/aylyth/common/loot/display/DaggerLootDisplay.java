@@ -18,7 +18,7 @@ public record DaggerLootDisplay(EntityType<?> entity, float chance, RegistryEntr
     public static final MapCodec<DaggerLootDisplay> CODEC = RecordCodecBuilder.mapCodec(instance ->
             instance.group(
                     Registries.ENTITY_TYPE.getCodec().fieldOf("entity").forGetter(DaggerLootDisplay::entity),
-                    Codec.FLOAT.fieldOf("chance").forGetter(DaggerLootDisplay::chance),
+                    Codec.FLOAT.fieldOf("probability").forGetter(DaggerLootDisplay::chance),
                     RegistryEntryListCodec.create(RegistryKeys.ITEM, Registries.ITEM.getEntryCodec(), false).fieldOf("weapons").forGetter(DaggerLootDisplay::weapons),
                     ItemStack.CODEC.fieldOf("output").forGetter(DaggerLootDisplay::outputs)
             ).apply(instance, DaggerLootDisplay::new)
@@ -27,7 +27,7 @@ public record DaggerLootDisplay(EntityType<?> entity, float chance, RegistryEntr
     public static final MapCodec<DaggerLootDisplay> NETWORK_CODEC = RecordCodecBuilder.mapCodec(instance ->
             instance.group(
                     Registries.ENTITY_TYPE.getCodec().fieldOf("entity").forGetter(DaggerLootDisplay::entity),
-                    Codec.FLOAT.fieldOf("chance").forGetter(DaggerLootDisplay::chance),
+                    Codec.FLOAT.fieldOf("probability").forGetter(DaggerLootDisplay::chance),
                     RegistryEntryListCodec.create(RegistryKeys.ITEM, Registries.ITEM.getEntryCodec(), false).fieldOf("weapons").forGetter(DaggerLootDisplay::weapons),
                     ItemStack.CODEC.fieldOf("output").forGetter(DaggerLootDisplay::outputs)
             ).apply(instance, DaggerLootDisplay::new)

@@ -12,7 +12,7 @@ public record ThornFlechetteEffect(StatusEffectInstance statusEffectInstance, fl
     public static final Codec<ThornFlechetteEffect> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
                     StatusEffectInstance.CODEC.fieldOf("effect").forGetter(ThornFlechetteEffect::statusEffectInstance),
-                    Codec.FLOAT.fieldOf("chance").forGetter(ThornFlechetteEffect::chance)
+                    Codec.FLOAT.fieldOf("probability").forGetter(ThornFlechetteEffect::chance)
             ).apply(instance, ThornFlechetteEffect::new)
     );
     public static final PacketCodec<? super RegistryByteBuf, ThornFlechetteEffect> PACKET_CODEC = PacketCodec.tuple(

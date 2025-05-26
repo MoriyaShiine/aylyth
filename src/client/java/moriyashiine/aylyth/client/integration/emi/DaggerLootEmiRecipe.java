@@ -27,7 +27,7 @@
 //    private final List<EmiIngredient> input;
 //    private final List<EmiStack> output;
 //
-//    public DaggerLootEmiRecipe(Identifier id, EntityType<?> entity, float chance, EmiIngredient weapons, ItemStack output) {
+//    public DaggerLootEmiRecipe(Identifier id, EntityType<?> entity, float probability, EmiIngredient weapons, ItemStack output) {
 //        this.id = id;
 //        entityType = entity;
 //        this.input = List.of(weapons);

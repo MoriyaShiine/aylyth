@@ -21,7 +21,7 @@ public class BranchDecorator extends TreeDecorator {
             instance.group(
                     BlockStateProvider.TYPE_CODEC.fieldOf("block_state").forGetter(branchDecorator -> branchDecorator.provider),
                     IntProvider.NON_NEGATIVE_CODEC.fieldOf("min_branch_height").forGetter(branchDecorator -> branchDecorator.minBranchHeight),
-                    Codec.FLOAT.fieldOf("chance").forGetter(branchDecorator -> branchDecorator.chance)
+                    Codec.FLOAT.fieldOf("probability").forGetter(branchDecorator -> branchDecorator.chance)
             ).apply(instance, BranchDecorator::new)
     );
 
