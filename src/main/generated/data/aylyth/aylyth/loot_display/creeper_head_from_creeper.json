@@ -1,10 +1,10 @@
 {
   "type": "aylyth:ympe_dagger",
-  "chance": 0.2,
   "entity": "minecraft:creeper",
   "output": {
     "count": 1,
     "id": "minecraft:creeper_head"
   },
+  "probability": 0.2,
   "weapons": "#aylyth:flesh_harvesters"
 }

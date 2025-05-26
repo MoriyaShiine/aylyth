@@ -27,8 +27,8 @@
             }
           ]
         },
-        "chance": 0.125,
-        "min_branch_height": 6
+        "min_branch_height": 6,
+        "probability": 0.125
       }
     ],
     "dirt_provider": {
