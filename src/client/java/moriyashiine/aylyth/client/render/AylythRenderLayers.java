@@ -19,7 +19,7 @@ public class AylythRenderLayers extends RenderLayer {
         super(name, vertexFormat, drawMode, expectedBufferSize, hasCrumbling, translucent, startAction, endAction);
     }
 
-    public static final ShaderProgramKey SEEP_RENDER_LAYER = new ShaderProgramKey(Aylyth.id("rendertype_seep"), VertexFormats.POSITION_COLOR_TEXTURE_LIGHT_NORMAL, Defines.EMPTY);
+    public static final ShaderProgramKey SEEP_RENDER_LAYER = new ShaderProgramKey(Aylyth.id("core/rendertype_seep"), VertexFormats.POSITION_COLOR_TEXTURE_LIGHT_NORMAL, Defines.EMPTY);
     public static final MultiPhase SEEP = of(
             "seep",
             VertexFormats.POSITION,
