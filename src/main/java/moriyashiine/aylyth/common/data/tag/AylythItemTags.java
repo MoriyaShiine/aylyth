@@ -8,7 +8,6 @@ import net.minecraft.util.Identifier;
 
 public interface AylythItemTags {
     TagKey<Item> DECREASES_BRANCHES = bind("decreases_branches");
-    TagKey<Item> DECREASES_BRANCHES_1_IN_4 = bind("decreases_branches_1_in_4");
     TagKey<Item> YMPE_FRUIT_HARVESTERS = bind("ympe_fruit_harvesters");
     TagKey<Item> FLESH_HARVESTERS = bind("flesh_harvesters");
     TagKey<Item> STRIPS_OFF_BARK = bind("strips_off_bark");

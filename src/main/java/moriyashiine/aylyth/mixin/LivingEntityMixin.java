@@ -1,6 +1,6 @@
 package moriyashiine.aylyth.mixin;
 
-import com.llamalad7.mixinextras.injector.WrapWithCondition;
+import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.llamalad7.mixinextras.sugar.Local;
 import moriyashiine.aylyth.api.interfaces.HindPledgeHolder;
 import moriyashiine.aylyth.api.interfaces.ProlongedDeath;
@@ -131,28 +131,6 @@ public abstract class LivingEntityMixin extends Entity {
 	private boolean keepPledgedInv(LivingEntity instance, ServerWorld world, @Local(argsOnly = true) DamageSource damageSource) {
         return !(instance instanceof PlayerEntity player) || !damageSource.isOf(AylythDamageTypes.YMPE) || ((HindPledgeHolder) player).getHindUuid() == null;
     }
-
-	// TODO: Reimplement as consume effect
-//	@Inject(method = "eatFood", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;applyFoodEffects(Lnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/entity/LivingEntity;)V"))
-//	private void decreaseYmpeInfestationStage(World world, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
-//		if ((LivingEntity) (Object) this instanceof PlayerEntity player && stack.isIn(AylythItemTags.DECREASES_BRANCHES)) {
-//			if (stack.isIn(AylythItemTags.DECREASES_BRANCHES_1_IN_4)) {
-//				if (world.random.nextFloat() >= .25f) {
-//					return;
-//				}
-//			}
-//			if (player.hasAttached(AylythEntityAttachmentTypes.YMPE_INFESTATION)) {
-//				YmpeInfestation infestation = player.getAttachedOrThrow(AylythEntityAttachmentTypes.YMPE_INFESTATION);
-//				if (infestation.getStage() > 0) {
-//					infestation.setStage((byte) (infestation.getStage() - 1));
-//				}
-//				else if (infestation.getInfestationTimer() > 0) {
-//					infestation.setInfestationTimer((short) 0);
-//				}
-//				player.setAttached(AylythEntityAttachmentTypes.YMPE_INFESTATION, infestation);
-//			}
-//		}
-//	}
 
 	@Inject(method = "stopRiding", at = @At("HEAD"))
 	private void dismountAllFromBonefly(CallbackInfo ci) {

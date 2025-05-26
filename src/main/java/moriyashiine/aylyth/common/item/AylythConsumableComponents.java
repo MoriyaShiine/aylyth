@@ -1,6 +1,7 @@
 package moriyashiine.aylyth.common.item;
 
 import moriyashiine.aylyth.common.entity.AylythStatusEffects;
+import moriyashiine.aylyth.common.item.consume.AddBranches;
 import moriyashiine.aylyth.common.item.consume.CompositeHealthBased;
 import moriyashiine.aylyth.common.item.consume.RestoreVitalHealth;
 import net.minecraft.component.type.ConsumableComponent;
@@ -14,6 +15,10 @@ import java.util.List;
 public interface AylythConsumableComponents {
     ConsumableComponent YMPE_MUSH = ConsumableComponents.food()
             .consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(AylythStatusEffects.WYRDED, 6000, 0), 0.5f))
+            .consumeEffect(new AddBranches(-1, 0.25f))
+            .build();
+    ConsumableComponent YMPE_FRUIT = ConsumableComponents.food()
+            .consumeEffect(new AddBranches(-1, 1.0f))
             .build();
     ConsumableComponent GHOSTCAPS = ConsumableComponents.food()
             .consumeEffect(new ApplyEffectsConsumeEffect(new StatusEffectInstance(AylythStatusEffects.CIMMERIAN, 1800, 0), 0.125f))

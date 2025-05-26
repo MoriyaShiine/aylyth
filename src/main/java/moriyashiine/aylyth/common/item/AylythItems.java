@@ -221,7 +221,7 @@ public interface AylythItems {
     Item DARK_NEPHRITE_FLASK = register("dark_nephrite_flask", NephriteFlaskItem::new, settings().maxCount(1).component(DataComponentTypes.CONSUMABLE, AylythConsumableComponents.DARK_NEPHRITE_FLASK).component(AylythDataComponentTypes.MAX_FLASK_CHARGES, 6));
 
     Item YMPE_MUSH = registerFood("ympe_mush", AylythFoodComponents.YMPE_MUSH, AylythConsumableComponents.YMPE_MUSH);
-    Item YMPE_FRUIT = registerFood("ympe_fruit", AylythFoodComponents.YMPE_FRUIT);
+    Item YMPE_FRUIT = registerFood("ympe_fruit", AylythFoodComponents.YMPE_FRUIT, AylythConsumableComponents.YMPE_FRUIT);
     Item SHUCKED_YMPE_FRUIT = register("shucked_ympe_fruit", ShuckedYmpeFruitItem::new, settings().maxCount(1));
 
     Item NYSIAN_GRAPES = registerFood("nysian_grapes", AylythFoodComponents.NYSIAN_GRAPES);

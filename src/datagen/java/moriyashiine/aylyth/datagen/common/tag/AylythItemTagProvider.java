@@ -48,7 +48,6 @@ public final class AylythItemTagProvider extends FabricTagProvider.ItemTagProvid
         getOrCreateTagBuilder(AylythItemTags.FLESH_HARVESTERS).add(LANCEOLATE_DAGGER, YMPE_DAGGER);
         getOrCreateTagBuilder(AylythItemTags.YMPE_FRUIT_HARVESTERS).add(LANCEOLATE_DAGGER, YMPE_DAGGER);
         getOrCreateTagBuilder(AylythItemTags.STRIPS_OFF_BARK).add(LANCEOLATE_DAGGER, YMPE_DAGGER);
-        getOrCreateTagBuilder(AylythItemTags.DECREASES_BRANCHES_1_IN_4).add(YMPE_MUSH);
         getOrCreateTagBuilder(AylythItemTags.FLECHETTE_TOOLS).add(THORN_FLECHETTE, BLIGHTED_THORN_FLECHETTE);
 
         // TODO: Figure out if esstline/nephrite fit into gems/clumps tags
