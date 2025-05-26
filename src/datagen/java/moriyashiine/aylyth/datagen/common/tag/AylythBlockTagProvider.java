@@ -3,6 +3,7 @@ package moriyashiine.aylyth.datagen.common.tag;
 import moriyashiine.aylyth.common.data.tag.AylythBlockTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.BlockTags;
@@ -28,10 +29,12 @@ public final class AylythBlockTagProvider extends FabricTagProvider.BlockTagProv
         getOrCreateTagBuilder(AylythBlockTags.SAPSTONES).add(SAPSTONE, AMBER_SAPSTONE, LIGNITE_SAPSTONE, OPALESCENT_SAPSTONE);
         getOrCreateTagBuilder(AylythBlockTags.LEAFY_BRANCHES).add(DARK_OAK_BRANCH, WRITHEWOOD_BRANCH, YMPE_BRANCH, ORANGE_AYLYTHIAN_OAK_BRANCH, RED_AYLYTHIAN_OAK_BRANCH, BROWN_AYLYTHIAN_OAK_BRANCH);
         getOrCreateTagBuilder(AylythBlockTags.BARE_BRANCHES).add(BARE_DARK_OAK_BRANCH, BARE_WRITHEWOOD_BRANCH, BARE_YMPE_BRANCH);
-        getOrCreateTagBuilder(AylythBlockTags.BRANCHES).addTag(AylythBlockTags.BARE_BRANCHES).addTag(AylythBlockTags.LEAFY_BRANCHES);
-        // TODO: Add these storage block tags to "c:storage_blocks"
+        getOrCreateTagBuilder(AylythBlockTags.BRANCHES).addTags(AylythBlockTags.BARE_BRANCHES, AylythBlockTags.LEAFY_BRANCHES);
         getOrCreateTagBuilder(AylythBlockTags.STORAGE_BLOCKS_ESSTLINE).add(ESSTLINE_BLOCK);
         getOrCreateTagBuilder(AylythBlockTags.STORAGE_BLOCKS_NEPHRITE).add(NEPHRITE_BLOCK);
+
+        getOrCreateTagBuilder(ConventionalBlockTags.STORAGE_BLOCKS).addTags(AylythBlockTags.STORAGE_BLOCKS_ESSTLINE, AylythBlockTags.STORAGE_BLOCKS_NEPHRITE);
+        getOrCreateTagBuilder(ConventionalBlockTags.SMALL_FLOWERS).add(MARIGOLD);
 
         getOrCreateTagBuilder(AylythBlockTags.YMPE_LOGS).add(YMPE_LOG, YMPE_WOOD, YMPE_STRIPPED_LOG, YMPE_STRIPPED_WOOD, FRUIT_BEARING_YMPE_LOG);
         getOrCreateTagBuilder(BlockTags.LOGS_THAT_BURN).addTag(AylythBlockTags.YMPE_LOGS);
@@ -50,6 +53,8 @@ public final class AylythBlockTagProvider extends FabricTagProvider.BlockTagProv
         getOrCreateTagBuilder(BlockTags.FLOWER_POTS).add(POTTED_YMPE_SAPLING);
         getOrCreateTagBuilder(BlockTags.CEILING_HANGING_SIGNS).add(YMPE_HANGING_SIGN);
         getOrCreateTagBuilder(BlockTags.WALL_HANGING_SIGNS).add(YMPE_WALL_HANGING_SIGN);
+        getOrCreateTagBuilder(ConventionalBlockTags.STRIPPED_LOGS).add(YMPE_STRIPPED_LOG);
+        getOrCreateTagBuilder(ConventionalBlockTags.STRIPPED_WOODS).add(YMPE_STRIPPED_WOOD);
 
         getOrCreateTagBuilder(AylythBlockTags.POMEGRANATE_LOGS).add(POMEGRANATE_LOG, POMEGRANATE_WOOD, POMEGRANATE_STRIPPED_LOG, POMEGRANATE_STRIPPED_WOOD);
         getOrCreateTagBuilder(BlockTags.LOGS_THAT_BURN).addTag(AylythBlockTags.POMEGRANATE_LOGS);
@@ -68,6 +73,8 @@ public final class AylythBlockTagProvider extends FabricTagProvider.BlockTagProv
         getOrCreateTagBuilder(BlockTags.FLOWER_POTS).add(POTTED_POMEGRANATE_SAPLING);
         getOrCreateTagBuilder(BlockTags.CEILING_HANGING_SIGNS).add(POMEGRANATE_HANGING_SIGN);
         getOrCreateTagBuilder(BlockTags.WALL_HANGING_SIGNS).add(POMEGRANATE_WALL_HANGING_SIGN);
+        getOrCreateTagBuilder(ConventionalBlockTags.STRIPPED_LOGS).add(POMEGRANATE_STRIPPED_LOG);
+        getOrCreateTagBuilder(ConventionalBlockTags.STRIPPED_WOODS).add(POMEGRANATE_STRIPPED_WOOD);
 
         getOrCreateTagBuilder(AylythBlockTags.WRITHEWOOD_LOGS).add(WRITHEWOOD_LOG, WRITHEWOOD_WOOD, WRITHEWOOD_STRIPPED_LOG, WRITHEWOOD_STRIPPED_WOOD);
         getOrCreateTagBuilder(BlockTags.LOGS_THAT_BURN).addTag(AylythBlockTags.WRITHEWOOD_LOGS);
@@ -86,8 +93,10 @@ public final class AylythBlockTagProvider extends FabricTagProvider.BlockTagProv
         getOrCreateTagBuilder(BlockTags.FLOWER_POTS).add(POTTED_WRITHEWOOD_SAPLING);
         getOrCreateTagBuilder(BlockTags.CEILING_HANGING_SIGNS).add(WRITHEWOOD_HANGING_SIGN);
         getOrCreateTagBuilder(BlockTags.WALL_HANGING_SIGNS).add(WRITHEWOOD_WALL_HANGING_SIGN);
+        getOrCreateTagBuilder(ConventionalBlockTags.STRIPPED_LOGS).add(WRITHEWOOD_STRIPPED_LOG);
+        getOrCreateTagBuilder(ConventionalBlockTags.STRIPPED_WOODS).add(WRITHEWOOD_STRIPPED_WOOD);
 
-        getOrCreateTagBuilder(BlockTags.AXE_MINEABLE).addTag(AylythBlockTags.WOODY_GROWTHS).addTag(AylythBlockTags.CHTHONIA_WOOD).add(AYLYTH_BUSH, ANTLER_SHOOTS, GRIPWEED, NYSIAN_GRAPE_VINE, OAK_SEEP, SPRUCE_SEEP, DARK_OAK_SEEP, YMPE_SEEP, SEEPING_WOOD, SEEPING_WOOD_SEEP, DARK_WOODS_TILES, JACK_O_LANTERN_MUSHROOM_STEM, JACK_O_LANTERN_MUSHROOM_BLOCK);
+        getOrCreateTagBuilder(BlockTags.AXE_MINEABLE).addTags(AylythBlockTags.WOODY_GROWTHS, AylythBlockTags.CHTHONIA_WOOD).add(AYLYTH_BUSH, ANTLER_SHOOTS, GRIPWEED, NYSIAN_GRAPE_VINE, OAK_SEEP, SPRUCE_SEEP, DARK_OAK_SEEP, YMPE_SEEP, SEEPING_WOOD, SEEPING_WOOD_SEEP, DARK_WOODS_TILES, JACK_O_LANTERN_MUSHROOM_STEM, JACK_O_LANTERN_MUSHROOM_BLOCK);
         getOrCreateTagBuilder(BlockTags.HOE_MINEABLE).add(YMPE_LEAVES, POMEGRANATE_LEAVES, WRITHEWOOD_LEAVES);
         getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE).addTag(AylythBlockTags.CARVED_NEPHRITE).add(SOUL_HEARTH, VITAL_THURIBLE, ESSTLINE_BLOCK, NEPHRITE_BLOCK, SAPSTONE, AMBER_SAPSTONE, LIGNITE_SAPSTONE, OPALESCENT_SAPSTONE);
         getOrCreateTagBuilder(BlockTags.SHOVEL_MINEABLE).add(DARK_PODZOL);

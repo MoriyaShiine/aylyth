@@ -19,19 +19,26 @@ public final class AylythBiomeTagProvider extends FabricTagProvider<Biome> {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup registries) {
+        getOrCreateTagBuilder(AylythBiomeTags.GENERATES_SEEP).addOptionalTag(ConventionalBiomeTags.IS_FOREST).addOptionalTag(ConventionalBiomeTags.IS_TAIGA);
+        getOrCreateTagBuilder(AylythBiomeTags.DEATH_SENDS_TO_AYLYTH).addOptionalTag(ConventionalBiomeTags.IS_FOREST).addOptionalTag(ConventionalBiomeTags.IS_TAIGA);
         getOrCreateTagBuilder(AylythBiomeTags.IS_CLEARING).add(AylythBiomes.CLEARING, AylythBiomes.OVERGROWN_CLEARING);
         getOrCreateTagBuilder(AylythBiomeTags.IS_COPSE).add(AylythBiomes.COPSE, AylythBiomes.CONIFEROUS_COPSE);
         getOrCreateTagBuilder(AylythBiomeTags.IS_DEEPWOOD).add(AylythBiomes.DEEPWOOD, AylythBiomes.CONIFEROUS_DEEPWOOD);
         getOrCreateTagBuilder(AylythBiomeTags.IS_CONIFEROUS).add(AylythBiomes.CONIFEROUS_COPSE, AylythBiomes.CONIFEROUS_DEEPWOOD);
         getOrCreateTagBuilder(AylythBiomeTags.IS_FOREST_LIKE).add(AylythBiomes.OVERGROWN_CLEARING, AylythBiomes.COPSE, AylythBiomes.DEEPWOOD);
         getOrCreateTagBuilder(AylythBiomeTags.IS_TAIGA_LIKE).addTag(AylythBiomeTags.IS_CONIFEROUS).add(AylythBiomes.DEEPWOOD);
-        getOrCreateTagBuilder(AylythBiomeTags.GENERATES_SEEP).addOptionalTag(ConventionalBiomeTags.IS_FOREST).addOptionalTag(ConventionalBiomeTags.IS_TAIGA);
-        getOrCreateTagBuilder(AylythBiomeTags.DEATH_SENDS_TO_AYLYTH).addOptionalTag(ConventionalBiomeTags.IS_FOREST).addOptionalTag(ConventionalBiomeTags.IS_TAIGA);
         getOrCreateTagBuilder(AylythBiomeTags.IS_AYLYTH).add(AylythBiomes.DEEPWOOD, AylythBiomes.CONIFEROUS_DEEPWOOD, AylythBiomes.COPSE, AylythBiomes.CONIFEROUS_COPSE, AylythBiomes.CLEARING, AylythBiomes.OVERGROWN_CLEARING, AylythBiomes.UPLANDS, AylythBiomes.BOWELS, AylythBiomes.MIRE);
         getOrCreateTagBuilder(AylythBiomeTags.BLACK_WELL_HAS_STRUCTURE).add(AylythBiomes.COPSE, AylythBiomes.CLEARING, AylythBiomes.OVERGROWN_CLEARING);
         getOrCreateTagBuilder(AylythBiomeTags.HAS_WEAK_FOG).add(AylythBiomes.CLEARING, AylythBiomes.UPLANDS);
         getOrCreateTagBuilder(AylythBiomeTags.HAS_AVERAGE_FOG).add(AylythBiomes.OVERGROWN_CLEARING);
         getOrCreateTagBuilder(AylythBiomeTags.HAS_STRONG_FOG).add(AylythBiomes.COPSE, AylythBiomes.CONIFEROUS_COPSE, AylythBiomes.DEEPWOOD, AylythBiomes.CONIFEROUS_DEEPWOOD, AylythBiomes.MIRE, AylythBiomes.BOWELS);
+
+        // TODO: Check biome temp and humidity to add to more tags
+        getOrCreateTagBuilder(AylythBiomeTags.IS_VEGETATION_SPARSE_AYLYTH).add(AylythBiomes.CLEARING);
+        getOrCreateTagBuilder(ConventionalBiomeTags.IS_VEGETATION_SPARSE).addTag(AylythBiomeTags.IS_VEGETATION_SPARSE_AYLYTH);
+        getOrCreateTagBuilder(AylythBiomeTags.IS_VEGETATION_DENSE_AYLYTH).add(AylythBiomes.DEEPWOOD, AylythBiomes.CONIFEROUS_DEEPWOOD);
+        getOrCreateTagBuilder(ConventionalBiomeTags.IS_VEGETATION_DENSE).addTag(AylythBiomeTags.IS_VEGETATION_DENSE_AYLYTH);
+
         getOrCreateTagBuilder(BiomeTags.HAS_CLOSER_WATER_FOG).add(AylythBiomes.MIRE);
     }
 }

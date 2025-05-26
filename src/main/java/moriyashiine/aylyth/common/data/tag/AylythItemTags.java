@@ -7,6 +7,11 @@ import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
 public interface AylythItemTags {
+    TagKey<Item> DECREASES_BRANCHES = bind("decreases_branches");
+    TagKey<Item> DECREASES_BRANCHES_1_IN_4 = bind("decreases_branches_1_in_4");
+    TagKey<Item> YMPE_FRUIT_HARVESTERS = bind("ympe_fruit_harvesters");
+    TagKey<Item> FLESH_HARVESTERS = bind("flesh_harvesters");
+    TagKey<Item> STRIPS_OFF_BARK = bind("strips_off_bark");
 
     TagKey<Item> YMPE_LOGS = bind("ympe_logs");
     TagKey<Item> POMEGRANATE_LOGS = bind("pomegranate_logs");
@@ -15,13 +20,8 @@ public interface AylythItemTags {
     TagKey<Item> CARVED_NEPHRITE = bind("carved_nephrite");
     TagKey<Item> WOODY_GROWTHS = bind("woody_growths");
     TagKey<Item> CHTHONIA_WOOD = bind("chthonia_wood");
-    TagKey<Item> DECREASES_BRANCHES = bind("decreases_branches");
-    TagKey<Item> DECREASES_BRANCHES_1_IN_4 = bind("decreases_branches_1_in_4");
     TagKey<Item> PLEDGE_ITEMS = bind("pledge_items");
     TagKey<Item> NEPHRITE_TOOL_MATERIALS = bind("nephrite_tool_materials");
-    TagKey<Item> FLESH_HARVESTERS = bind("flesh_harvesters");
-    TagKey<Item> YMPE_FRUIT_HARVESTERS = bind("ympe_fruit_harvesters");
-    TagKey<Item> STRIPS_OFF_BARK = bind("strips_off_bark");
     TagKey<Item> YMPE_WEAPONS = bind("ympe_weapons");
     TagKey<Item> VAMPIRIC_WEAPONS = bind("vampiric_weapons");
     TagKey<Item> BLIGHTED_WEAPONS = bind("blighted_weapons");
@@ -31,17 +31,18 @@ public interface AylythItemTags {
     TagKey<Item> BRANCHES = bind("branches");
     TagKey<Item> LEAFY_BRANCHES = bind("branches/leafy");
     TagKey<Item> BARE_BRANCHES = bind("branches/bare");
+    TagKey<Item> FLECHETTE_TOOLS = bind("tools/flechette");
 
     TagKey<Item> STORAGE_BLOCKS_ESSTLINE = bind("storage_blocks/esstline");
     TagKey<Item> STORAGE_BLOCKS_NEPHRITE = bind("storage_blocks/nephrite");
 
-    TagKey<Item> DAGGERS = common("daggers");
+    TagKey<Item> DAGGERS = bindC("tools/dagger");
 
     private static TagKey<Item> bind(String name) {
         return TagKey.of(RegistryKeys.ITEM, Aylyth.id(name));
     }
 
-    private static TagKey<Item> common(String name) {
+    private static TagKey<Item> bindC(String name) {
         return TagKey.of(RegistryKeys.ITEM, Identifier.of("c", name));
     }
 }

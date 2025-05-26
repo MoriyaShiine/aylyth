@@ -3,6 +3,7 @@ package moriyashiine.aylyth.common.data.tag;
 import moriyashiine.aylyth.common.Aylyth;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.biome.Biome;
 
 public interface AylythBiomeTags {
@@ -24,7 +25,14 @@ public interface AylythBiomeTags {
     TagKey<Biome> HAS_AVERAGE_FOG = bind("has_average_fog");
     TagKey<Biome> HAS_STRONG_FOG = bind("has_strong_fog");
 
+    TagKey<Biome> IS_VEGETATION_SPARSE_AYLYTH = bindC("is_sparse_vegetation/aylyth");
+    TagKey<Biome> IS_VEGETATION_DENSE_AYLYTH = bindC("is_dense_vegetation/aylyth");
+
     private static TagKey<Biome> bind(String name) {
         return TagKey.of(RegistryKeys.BIOME, Aylyth.id(name));
+    }
+
+    private static TagKey<Biome> bindC(String name) {
+        return TagKey.of(RegistryKeys.BIOME, Identifier.of("c", name));
     }
 }

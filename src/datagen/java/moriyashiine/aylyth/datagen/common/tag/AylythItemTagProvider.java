@@ -2,9 +2,10 @@ package moriyashiine.aylyth.datagen.common.tag;
 
 import moriyashiine.aylyth.common.data.tag.AylythBlockTags;
 import moriyashiine.aylyth.common.data.tag.AylythItemTags;
-import moriyashiine.aylyth.common.item.AylythItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.BlockTags;
@@ -12,6 +13,8 @@ import net.minecraft.registry.tag.ItemTags;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
+
+import static moriyashiine.aylyth.common.item.AylythItems.*;
 
 public final class AylythItemTagProvider extends FabricTagProvider.ItemTagProvider {
     public AylythItemTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registries, @Nullable BlockTagProvider blockTagProvider) {
@@ -33,19 +36,32 @@ public final class AylythItemTagProvider extends FabricTagProvider.ItemTagProvid
         copy(AylythBlockTags.BARE_BRANCHES, AylythItemTags.BARE_BRANCHES);
         copy(AylythBlockTags.LEAFY_BRANCHES, AylythItemTags.LEAFY_BRANCHES);
         copy(AylythBlockTags.BRANCHES, AylythItemTags.BRANCHES);
-        getOrCreateTagBuilder(AylythItemTags.DECREASES_BRANCHES).add(AylythItems.YMPE_FRUIT, AylythItems.YMPE_MUSH);
-        getOrCreateTagBuilder(AylythItemTags.PLEDGE_ITEMS).add(AylythItems.NYSIAN_GRAPES);
-        getOrCreateTagBuilder(AylythItemTags.BOSS_HEARTS).add(AylythItems.YHONDYTH_HEART, Items.NETHER_STAR);
-        getOrCreateTagBuilder(AylythItemTags.NEPHRITE_TOOL_MATERIALS).add(AylythItems.NEPHRITE);
-        getOrCreateTagBuilder(AylythItemTags.YMPE_WEAPONS).add(AylythItems.YMPE_DAGGER, AylythItems.YMPE_LANCE, AylythItems.YMPE_GLAIVE, AylythItems.YMPE_FLAMBERGE, AylythItems.YMPE_SCYTHE);
-        getOrCreateTagBuilder(AylythItemTags.VAMPIRIC_WEAPONS).add(AylythItems.VAMPIRIC_AXE, AylythItems.VAMPIRIC_HOE, AylythItems.VAMPIRIC_PICKAXE, AylythItems.VAMPIRIC_SWORD);
-        getOrCreateTagBuilder(AylythItemTags.BLIGHTED_WEAPONS).add(AylythItems.BLIGHTED_AXE, AylythItems.BLIGHTED_HOE, AylythItems.BLIGHTED_PICKAXE, AylythItems.BLIGHTED_SWORD);
-        getOrCreateTagBuilder(AylythItemTags.NEPHRITE_FLASKS).add(AylythItems.NEPHRITE_FLASK, AylythItems.DARK_NEPHRITE_FLASK);
-        getOrCreateTagBuilder(AylythItemTags.DAGGERS).add(AylythItems.LANCEOLATE_DAGGER, AylythItems.YMPE_DAGGER);
-        getOrCreateTagBuilder(AylythItemTags.FLESH_HARVESTERS).add(AylythItems.LANCEOLATE_DAGGER, AylythItems.YMPE_DAGGER);
-        getOrCreateTagBuilder(AylythItemTags.YMPE_FRUIT_HARVESTERS).add(AylythItems.LANCEOLATE_DAGGER, AylythItems.YMPE_DAGGER);
-        getOrCreateTagBuilder(AylythItemTags.STRIPS_OFF_BARK).add(AylythItems.LANCEOLATE_DAGGER, AylythItems.YMPE_DAGGER);
-        getOrCreateTagBuilder(AylythItemTags.DECREASES_BRANCHES_1_IN_4).add(AylythItems.YMPE_MUSH);
+        getOrCreateTagBuilder(AylythItemTags.DECREASES_BRANCHES).add(YMPE_FRUIT, YMPE_MUSH);
+        getOrCreateTagBuilder(AylythItemTags.PLEDGE_ITEMS).add(NYSIAN_GRAPES);
+        getOrCreateTagBuilder(AylythItemTags.BOSS_HEARTS).addTag(ConventionalItemTags.NETHER_STARS).add(YHONDYTH_HEART);
+        getOrCreateTagBuilder(AylythItemTags.NEPHRITE_TOOL_MATERIALS).add(NEPHRITE);
+        getOrCreateTagBuilder(AylythItemTags.YMPE_WEAPONS).add(YMPE_DAGGER, YMPE_LANCE, YMPE_GLAIVE, YMPE_FLAMBERGE, YMPE_SCYTHE);
+        getOrCreateTagBuilder(AylythItemTags.VAMPIRIC_WEAPONS).add(VAMPIRIC_AXE, VAMPIRIC_HOE, VAMPIRIC_PICKAXE, VAMPIRIC_SWORD);
+        getOrCreateTagBuilder(AylythItemTags.BLIGHTED_WEAPONS).add(BLIGHTED_AXE, BLIGHTED_HOE, BLIGHTED_PICKAXE, BLIGHTED_SWORD);
+        getOrCreateTagBuilder(AylythItemTags.NEPHRITE_FLASKS).add(NEPHRITE_FLASK, DARK_NEPHRITE_FLASK);
+        getOrCreateTagBuilder(AylythItemTags.DAGGERS).add(LANCEOLATE_DAGGER, YMPE_DAGGER);
+        getOrCreateTagBuilder(AylythItemTags.FLESH_HARVESTERS).add(LANCEOLATE_DAGGER, YMPE_DAGGER);
+        getOrCreateTagBuilder(AylythItemTags.YMPE_FRUIT_HARVESTERS).add(LANCEOLATE_DAGGER, YMPE_DAGGER);
+        getOrCreateTagBuilder(AylythItemTags.STRIPS_OFF_BARK).add(LANCEOLATE_DAGGER, YMPE_DAGGER);
+        getOrCreateTagBuilder(AylythItemTags.DECREASES_BRANCHES_1_IN_4).add(YMPE_MUSH);
+        getOrCreateTagBuilder(AylythItemTags.FLECHETTE_TOOLS).add(THORN_FLECHETTE, BLIGHTED_THORN_FLECHETTE);
+
+        // TODO: Figure out if esstline/nephrite fit into gems/clumps tags
+        getOrCreateTagBuilder(ConventionalItemTags.SPEAR_TOOLS).add(YMPE_LANCE);
+        getOrCreateTagBuilder(ConventionalItemTags.MELEE_WEAPON_TOOLS)
+                .add(YMPE_LANCE, LANCEOLATE_DAGGER, YMPE_DAGGER, YMPE_GLAIVE, YMPE_FLAMBERGE, YMPE_SCYTHE, NEPHRITE_SWORD, VAMPIRIC_SWORD, BLIGHTED_SWORD, NEPHRITE_AXE, VAMPIRIC_AXE, BLIGHTED_AXE);
+        getOrCreateTagBuilder(ConventionalItemTags.RANGED_WEAPON_TOOLS).add(YMPE_LANCE, THORN_FLECHETTE, BLIGHTED_THORN_FLECHETTE);
+        getOrCreateTagBuilder(ConventionalItemTags.FRUIT_FOODS).add(YMPE_FRUIT, NYSIAN_GRAPES, POMEGRANATE);
+        getOrCreateTagBuilder(ConventionalItemTags.BERRY_FOODS).add(NYSIAN_GRAPES);
+        getOrCreateTagBuilder(ConventionalItemTags.FOOD_POISONING_FOODS).add(GHOSTCAP_MUSHROOM);
+        getOrCreateTagBuilder(ConventionalItemTags.RAW_MEAT_FOODS).add(WRONGMEAT);
+        getOrCreateTagBuilder(ConventionalItemTags.MUSHROOMS).add(GHOSTCAP_MUSHROOM);
+        getOrCreateTagBuilder(ConventionalItemTags.MUSIC_DISCS).add(POMEGRANATE_CASSETTE);
 
         copy(BlockTags.LOGS_THAT_BURN, ItemTags.LOGS_THAT_BURN);
         copy(BlockTags.PLANKS, ItemTags.PLANKS);
@@ -61,18 +77,22 @@ public final class AylythItemTagProvider extends FabricTagProvider.ItemTagProvid
         copy(BlockTags.SAPLINGS, ItemTags.SAPLINGS);
         copy(BlockTags.SMALL_FLOWERS, ItemTags.SMALL_FLOWERS);
         copy(BlockTags.DIRT, ItemTags.DIRT);
-        getOrCreateTagBuilder(ItemTags.SWORDS).add(AylythItems.YMPE_DAGGER, AylythItems.LANCEOLATE_DAGGER, AylythItems.NEPHRITE_SWORD, AylythItems.VAMPIRIC_SWORD, AylythItems.BLIGHTED_SWORD);
-        getOrCreateTagBuilder(ItemTags.SHOVELS).add(AylythItems.NEPHRITE_SHOVEL);
-        getOrCreateTagBuilder(ItemTags.PICKAXES).add(AylythItems.NEPHRITE_PICKAXE, AylythItems.VAMPIRIC_PICKAXE, AylythItems.BLIGHTED_PICKAXE);
-        getOrCreateTagBuilder(ItemTags.AXES).add(AylythItems.NEPHRITE_AXE, AylythItems.VAMPIRIC_AXE, AylythItems.BLIGHTED_AXE);
-        getOrCreateTagBuilder(ItemTags.HOES).add(AylythItems.NEPHRITE_HOE, AylythItems.VAMPIRIC_HOE, AylythItems.BLIGHTED_HOE);
-        getOrCreateTagBuilder(ItemTags.CREEPER_DROP_MUSIC_DISCS).add(AylythItems.POMEGRANATE_CASSETTE);
-        getOrCreateTagBuilder(ItemTags.COALS).add(AylythItems.BARK);
-        getOrCreateTagBuilder(ItemTags.BOATS).add(AylythItems.YMPE_BOAT, AylythItems.POMEGRANATE_BOAT, AylythItems.WRITHEWOOD_BOAT);
-        getOrCreateTagBuilder(ItemTags.CHEST_BOATS).add(AylythItems.YMPE_CHEST_BOAT, AylythItems.POMEGRANATE_CHEST_BOAT, AylythItems.WRITHEWOOD_CHEST_BOAT);
-        getOrCreateTagBuilder(ItemTags.TRIDENT_ENCHANTABLE).add(AylythItems.YMPE_LANCE);
+        copy(ConventionalBlockTags.SMALL_FLOWERS, ConventionalItemTags.SMALL_FLOWERS);
+        copy(ConventionalBlockTags.STORAGE_BLOCKS, ConventionalItemTags.STORAGE_BLOCKS);
+        copy(ConventionalBlockTags.STRIPPED_LOGS, ConventionalItemTags.STRIPPED_LOGS);
+        copy(ConventionalBlockTags.STRIPPED_WOODS, ConventionalItemTags.STRIPPED_WOODS);
+        getOrCreateTagBuilder(ItemTags.SWORDS).add(YMPE_DAGGER, LANCEOLATE_DAGGER, NEPHRITE_SWORD, VAMPIRIC_SWORD, BLIGHTED_SWORD);
+        getOrCreateTagBuilder(ItemTags.SHOVELS).add(NEPHRITE_SHOVEL);
+        getOrCreateTagBuilder(ItemTags.PICKAXES).add(NEPHRITE_PICKAXE, VAMPIRIC_PICKAXE, BLIGHTED_PICKAXE);
+        getOrCreateTagBuilder(ItemTags.AXES).add(NEPHRITE_AXE, VAMPIRIC_AXE, BLIGHTED_AXE);
+        getOrCreateTagBuilder(ItemTags.HOES).add(NEPHRITE_HOE, VAMPIRIC_HOE, BLIGHTED_HOE);
+        getOrCreateTagBuilder(ItemTags.CREEPER_DROP_MUSIC_DISCS).add(POMEGRANATE_CASSETTE);
+        getOrCreateTagBuilder(ItemTags.COALS).add(BARK);
+        getOrCreateTagBuilder(ItemTags.BOATS).add(YMPE_BOAT, POMEGRANATE_BOAT, WRITHEWOOD_BOAT);
+        getOrCreateTagBuilder(ItemTags.CHEST_BOATS).add(YMPE_CHEST_BOAT, POMEGRANATE_CHEST_BOAT, WRITHEWOOD_CHEST_BOAT);
+        getOrCreateTagBuilder(ItemTags.TRIDENT_ENCHANTABLE).add(YMPE_LANCE);
 
         // TODO: bewitchment compat
-//        getOrCreateTagBuilder(BWTags.BARKS).add(AylythItems.BARK);
+//        getOrCreateTagBuilder(BWTags.BARKS).add(BARK);
     }
 }
