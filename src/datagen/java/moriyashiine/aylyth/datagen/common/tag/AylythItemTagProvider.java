@@ -38,7 +38,7 @@ public final class AylythItemTagProvider extends FabricTagProvider.ItemTagProvid
         copy(AylythBlockTags.BRANCHES, AylythItemTags.BRANCHES);
         getOrCreateTagBuilder(AylythItemTags.DECREASES_BRANCHES).add(YMPE_FRUIT, YMPE_MUSH);
         getOrCreateTagBuilder(AylythItemTags.PLEDGE_ITEMS).add(NYSIAN_GRAPES);
-        getOrCreateTagBuilder(AylythItemTags.BOSS_HEARTS).addTag(ConventionalItemTags.NETHER_STARS).add(YHONDYTH_HEART);
+        getOrCreateTagBuilder(AylythItemTags.BOSS_HEARTS).forceAddTag(ConventionalItemTags.NETHER_STARS).add(YHONDYTH_HEART);
         getOrCreateTagBuilder(AylythItemTags.NEPHRITE_TOOL_MATERIALS).add(NEPHRITE);
         getOrCreateTagBuilder(AylythItemTags.YMPE_WEAPONS).add(YMPE_DAGGER, YMPE_LANCE, YMPE_GLAIVE, YMPE_FLAMBERGE, YMPE_SCYTHE);
         getOrCreateTagBuilder(AylythItemTags.VAMPIRIC_WEAPONS).add(VAMPIRIC_AXE, VAMPIRIC_HOE, VAMPIRIC_PICKAXE, VAMPIRIC_SWORD);
