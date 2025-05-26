@@ -22,13 +22,17 @@ public class ServerPlayerEntityMixin {
     @Inject(method = "tick", at = @At("TAIL"))
     private void tick(CallbackInfo ci) {
         var player = (ServerPlayerEntity) (Object) this;
+        boolean isInAylyth = player.getWorld().getRegistryKey() == AylythDimensionData.WORLD;
+        if (isInAylyth) {
+            player.getAttachedOrCreate(AylythEntityAttachmentTypes.YMPE_INFESTATION);
+        }
         if (player.hasAttached(AylythEntityAttachmentTypes.YMPE_INFESTATION)) {
             YmpeInfestation infestation = player.getAttachedOrThrow(AylythEntityAttachmentTypes.YMPE_INFESTATION);
             if (player.isDead() || !player.interactionManager.getGameMode().isSurvivalLike()) {
                 return;
             }
 
-            if (player.getWorld().getRegistryKey() == AylythDimensionData.WORLD) {
+            if (isInAylyth) {
                 infestation.setInfestationTimer((short) (infestation.getInfestationTimer() + 1));
             } else {
                 if (infestation.getStage() > 0 && infestation.getInfestationTimer() <= 0) {
