@@ -439,12 +439,6 @@ public class YmpemouldEntity extends HostileEntity implements TameableHostileEnt
         return !this.isRemoved();
     }
 
-    // TODO: Add Ympemould to undead tag
-//    @Override
-//    public EntityGroup getGroup() {
-//        return EntityGroup.UNDEAD;
-//    }
-
     public Optional<BlockPos> getDormantPos() {
         return getDataTracker().get(DORMANT_POS);
     }

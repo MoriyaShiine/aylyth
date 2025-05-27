@@ -173,12 +173,6 @@ public class FaunaylythianEntity extends HostileEntity implements GeoEntity {
         return canMobSpawn(type, world, spawnReason, pos, random) && world.getDifficulty() != Difficulty.PEACEFUL && random.nextBoolean();
     }
 
-    // TODO: Add Faunaylythian to undead tag
-//    @Override
-//    public EntityGroup getGroup() {
-//        return EntityGroup.UNDEAD;
-//    }
-
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar animationData) {
         animationData.add(new AnimationController<>(this, "Move", 10, event -> {

@@ -85,7 +85,12 @@ public class AylythUtil {
 	}
 
 	public static boolean shouldUndeadAttack(LivingEntity target, LivingEntity attacker) {
-		return attacker.getAttacker() != target && target.hasStatusEffect(AylythStatusEffects.CIMMERIAN) && attacker.getType().isIn(EntityTypeTags.UNDEAD);
+		return attacker.getAttacker() != target && target.hasStatusEffect(AylythStatusEffects.CIMMERIAN) && isUndead(attacker);
+	}
+
+	// TODO: add effigy check
+	public static boolean isUndead(LivingEntity entity) {
+		return entity.getType().isIn(EntityTypeTags.UNDEAD);
 	}
 
 	public static boolean isNearSeep(ServerWorld serverWorld, LivingEntity livingEntity, int radius) {

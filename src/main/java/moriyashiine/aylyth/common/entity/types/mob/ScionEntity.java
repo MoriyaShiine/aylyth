@@ -164,12 +164,6 @@ public class ScionEntity extends HostileEntity {
         }
     }
 
-    // TODO: Add scion to undead tag
-//    @Override
-//    public EntityGroup getGroup() {
-//        return EntityGroup.UNDEAD;
-//    }
-
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {

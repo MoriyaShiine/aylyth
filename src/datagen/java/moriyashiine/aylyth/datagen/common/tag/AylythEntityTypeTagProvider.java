@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalEntityTypeTags;
 import net.minecraft.entity.EntityType;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.registry.tag.EntityTypeTags;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -26,5 +27,10 @@ public final class AylythEntityTypeTagProvider extends FabricTagProvider.EntityT
 
         getOrCreateTagBuilder(ConventionalEntityTypeTags.BOATS)
                 .add(YMPE_BOAT, YMPE_CHEST_BOAT, POMEGRANATE_BOAT, POMEGRANATE_CHEST_BOAT, WRITHEWOOD_BOAT, WRITHEWOOD_CHEST_BOAT);
+
+        getOrCreateTagBuilder(EntityTypeTags.BOAT)
+                .add(YMPE_BOAT, YMPE_CHEST_BOAT, POMEGRANATE_BOAT, POMEGRANATE_CHEST_BOAT, WRITHEWOOD_BOAT, WRITHEWOOD_CHEST_BOAT);
+        getOrCreateTagBuilder(EntityTypeTags.UNDEAD)
+                .add(AYLYTHIAN, BONEFLY, ELDER_AYLYTHIAN, FAUNAYLYTHIAN, SCION, YMPEMOULD);
     }
 }

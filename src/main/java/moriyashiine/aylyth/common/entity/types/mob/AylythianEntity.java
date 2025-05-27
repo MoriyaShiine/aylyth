@@ -209,12 +209,6 @@ public class AylythianEntity extends HostileEntity implements GeoEntity {
 		return canMobSpawn(aylythianEntityEntityType, serverWorldAccess, spawnReason, blockPos, random) && serverWorldAccess.getDifficulty() != Difficulty.PEACEFUL && random.nextBoolean();
 	}
 
-	// TODO: Put Aylythian in undead tag
-//	@Override
-//	public EntityGroup getGroup() {
-//		return EntityGroup.UNDEAD;
-//	}
-
 	public static boolean isTargetInBush(LivingEntity target) {
 		if (target != null && target.isSneaking()) {
 			for (int i = 0; i <= target.getHeight(); i++) {

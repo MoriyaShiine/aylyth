@@ -392,12 +392,6 @@ public class BoneflyEntity extends HostileEntity implements GeoEntity, TameableH
         return this.getFirstPassenger() instanceof LivingEntity;
     }
 
-    // TODO: Add Bonefly to undead tag
-//    @Override
-//    public EntityGroup getGroup() {
-//        return EntityGroup.UNDEAD;
-//    }
-
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar animationData) {
         animationData.add(new AnimationController<>(this, "Move", 5, this::moveHandler));

@@ -213,10 +213,4 @@ public class ElderAylythianEntity extends HostileEntity implements GeoEntity {
 		super.writeCustomDataToNbt(nbt);
 		nbt.putInt("Variant", dataTracker.get(VARIANT));
 	}
-
-	// TODO: Add ElderAylythian to undead tag
-//	@Override
-//	public EntityGroup getGroup() {
-//		return EntityGroup.UNDEAD;
-//	}
 }
