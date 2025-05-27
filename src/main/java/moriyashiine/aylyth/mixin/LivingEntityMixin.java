@@ -26,6 +26,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.BiomeTags;
+import net.minecraft.registry.tag.EntityTypeTags;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ItemScatterer;
@@ -134,12 +135,14 @@ public abstract class LivingEntityMixin extends Entity {
 
 	@Inject(method = "stopRiding", at = @At("HEAD"))
 	private void dismountAllFromBonefly(CallbackInfo ci) {
+
 		if ((LivingEntity) (Object) this instanceof PlayerEntity && this.getVehicle() instanceof BoneflyEntity fly) {
 			fly.getPassengerList().forEach(Entity::dismountVehicle);
 		}
 	}
 
-	// TODO: Reimplement similar functionality by finding vanilla locations where the "undead" tag is used
+	// TODO: Reimplement similar functionality by finding vanilla locations where the "undead" tag is used.
+	//  Reimplement when Trinkets is added back.
 //	@Inject(method = "getGroup", at = @At("HEAD"), cancellable = true)
 //	private void makeUndeadWithEffigy(CallbackInfoReturnable<EntityGroup> cir) {
 //		if (AylythItems.YMPE_EFFIGY.isEquipped((LivingEntity)(Object)this)) {
