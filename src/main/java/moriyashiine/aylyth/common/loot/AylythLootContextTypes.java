@@ -18,6 +18,15 @@ public interface AylythLootContextTypes {
                     .require(LootContextParameters.BLOCK_STATE)
                     .allow(LootContextParameters.TOOL)
     );
+    ContextType ATTACK = register("attack", builder ->
+            builder.require(LootContextParameters.THIS_ENTITY)
+                    .require(LootContextParameters.ORIGIN)
+                    .require(LootContextParameters.DAMAGE_SOURCE)
+                    .allow(LootContextParameters.ATTACKING_ENTITY)
+                    .allow(LootContextParameters.DIRECT_ATTACKING_ENTITY)
+                    .allow(LootContextParameters.LAST_DAMAGE_PLAYER)
+                    .allow(AylythLootContextParameters.CRITICAL)
+    );
 
     private static ContextType register(String name, UnaryOperator<ContextType.Builder> builder) {
         ContextType type = builder.apply(new ContextType.Builder()).build();

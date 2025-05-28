@@ -1,10 +1,10 @@
 {
   "type": "minecraft:smithing_transform",
-  "addition": "aylyth:blighted_thorns",
-  "base": "aylyth:nephrite_pickaxe",
+  "addition": "aylyth:aylythian_heart",
+  "base": "aylyth:nephrite_hoe",
   "result": {
     "count": 1,
-    "id": "aylyth:blighted_pick"
+    "id": "aylyth:vampiric_hoe"
   },
   "template": "aylyth:aylythian_upgrade_smithing_template"
 }

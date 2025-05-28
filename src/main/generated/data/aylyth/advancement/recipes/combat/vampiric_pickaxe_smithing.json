@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "aylyth:vampiric_sickle_smithing"
+        "recipe": "aylyth:vampiric_pickaxe_smithing"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "aylyth:vampiric_sickle_smithing"
+      "aylyth:vampiric_pickaxe_smithing"
     ]
   }
 }

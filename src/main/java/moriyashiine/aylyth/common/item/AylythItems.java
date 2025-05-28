@@ -202,15 +202,15 @@ public interface AylythItems {
     Item NEPHRITE_AXE = register("nephrite_axe", settings -> new AxeItem(AylythToolMaterials.NEPHRITE, 5, -3.0f, settings), settings());
     Item NEPHRITE_HOE = register("nephrite_hoe", settings -> new HoeItem(AylythToolMaterials.NEPHRITE, -3, 0f, settings), settings());
 
-    Item VAMPIRIC_SWORD = register("vampiric_sword", settings -> new SwordItem(AylythToolMaterials.NEPHRITE_SPECIAL, 4, -2.4f, settings), settings());
-    Item VAMPIRIC_PICKAXE = register("vampiric_pick", settings -> new PickaxeItem(AylythToolMaterials.NEPHRITE_SPECIAL, 1, -2.8f, settings), settings());
-    Item VAMPIRIC_AXE = register("vampiric_axe", settings -> new AxeItem(AylythToolMaterials.NEPHRITE_SPECIAL, 5, -3.0f, settings), settings());
-    Item VAMPIRIC_HOE = register("vampiric_sickle", settings -> new HoeItem(AylythToolMaterials.NEPHRITE_SPECIAL, -3, 0f, settings), settings());
+    Item VAMPIRIC_SWORD = register("vampiric_sword", settings -> new SwordItem(AylythToolMaterials.NEPHRITE_SPECIAL, 4, -2.4f, settings), settings().component(AylythDataComponentTypes.ATTACK_EFFECTS, AylythAttackEffectComponents.VAMPIRIC_SWORD));
+    Item VAMPIRIC_PICKAXE = register("vampiric_pickaxe", settings -> new PickaxeItem(AylythToolMaterials.NEPHRITE_SPECIAL, 1, -2.8f, settings), settings().component(AylythDataComponentTypes.ATTACK_EFFECTS, AylythAttackEffectComponents.VAMPIRIC_PICKAXE));
+    Item VAMPIRIC_AXE = register("vampiric_axe", settings -> new AxeItem(AylythToolMaterials.NEPHRITE_SPECIAL, 5, -3.0f, settings), settings().component(AylythDataComponentTypes.ATTACK_EFFECTS, AylythAttackEffectComponents.VAMPIRIC_AXE));
+    Item VAMPIRIC_HOE = register("vampiric_hoe", settings -> new HoeItem(AylythToolMaterials.NEPHRITE_SPECIAL, -3, 0f, settings), settings().component(AylythDataComponentTypes.ATTACK_EFFECTS, AylythAttackEffectComponents.VAMPIRIC_HOE));
 
-    Item BLIGHTED_SWORD = register("blighted_sword", settings -> new SwordItem(AylythToolMaterials.NEPHRITE_SPECIAL, 4, -2.4f, settings), settings());
-    Item BLIGHTED_PICKAXE = register("blighted_pick", settings -> new PickaxeItem(AylythToolMaterials.NEPHRITE_SPECIAL, 1, -2.8f, settings), settings());
-    Item BLIGHTED_AXE = register("blighted_axe", settings -> new AxeItem(AylythToolMaterials.NEPHRITE_SPECIAL, 5, -3.0f, settings), settings());
-    Item BLIGHTED_HOE = register("blighted_sickle", settings -> new HoeItem(AylythToolMaterials.NEPHRITE_SPECIAL, -3, 0f, settings), settings());
+    Item BLIGHTED_SWORD = register("blighted_sword", settings -> new SwordItem(AylythToolMaterials.NEPHRITE_SPECIAL, 4, -2.4f, settings), settings().component(AylythDataComponentTypes.ATTACK_EFFECTS, AylythAttackEffectComponents.BLIGHTED_SWORD));
+    Item BLIGHTED_PICKAXE = register("blighted_pickaxe", settings -> new PickaxeItem(AylythToolMaterials.NEPHRITE_SPECIAL, 1, -2.8f, settings), settings().component(AylythDataComponentTypes.ATTACK_EFFECTS, AylythAttackEffectComponents.BLIGHTED_PICKAXE));
+    Item BLIGHTED_AXE = register("blighted_axe", settings -> new AxeItem(AylythToolMaterials.NEPHRITE_SPECIAL, 5, -3.0f, settings), settings().component(AylythDataComponentTypes.ATTACK_EFFECTS, AylythAttackEffectComponents.BLIGHTED_AXE));
+    Item BLIGHTED_HOE = register("blighted_hoe", settings -> new HoeItem(AylythToolMaterials.NEPHRITE_SPECIAL, -3, 0f, settings), settings().component(AylythDataComponentTypes.ATTACK_EFFECTS, AylythAttackEffectComponents.BLIGHTED_HOE));
 
     Item THORN_FLECHETTE = register("thorn_flechette", ThornFlechetteItem::new, settings());
     Item BLIGHTED_THORN_FLECHETTE = register("blighted_thorn_flechette", ThornFlechetteItem::new, settings().component(AylythDataComponentTypes.THORN_FLECHETTE_EFFECT, new ThornFlechetteEffect(new StatusEffectInstance(AylythStatusEffects.BLIGHT, 100), 0.5f)));

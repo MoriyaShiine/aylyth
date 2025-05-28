@@ -11,7 +11,9 @@ import moriyashiine.aylyth.common.entity.AylythEntityAttachmentTypes;
 import moriyashiine.aylyth.common.entity.attachments.YmpeInfestation;
 import moriyashiine.aylyth.common.entity.attachments.YmpeThorns;
 import moriyashiine.aylyth.common.entity.types.mob.BoneflyEntity;
+import moriyashiine.aylyth.common.item.AylythDataComponentTypes;
 import moriyashiine.aylyth.common.item.AylythItems;
+import moriyashiine.aylyth.common.item.components.AttackEffects;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -91,26 +93,17 @@ public abstract class LivingEntityMixin extends Entity {
 		}
 	}
 
-	// TODO: Reimplement
-//	@ModifyVariable(method = "damage", at = @At("HEAD"), argsOnly = true)
-//	private float applySpecialDamage(float value, DamageSource source) {
-//		if (source.getAttacker() instanceof LivingEntity entity && !source.getAttacker().getWorld().isClient) {
-//			double attkDMG = entity.getAttributeValue(EntityAttributes.ATTACK_DAMAGE);
-//			ItemStack stack = entity.getMainHandStack();
-//
-//            if (value >= attkDMG) { // Prevents using non-critical attacks to spam the weapons
-//				if (stack.isIn(AylythItemTags.VAMPIRIC_WEAPONS)) {
-//					return AylythUtil.getVampiricWeaponEffect(entity, (LivingEntity) (Object) this, stack, value);
-//				}
-//				if (stack.isIn(AylythItemTags.BLIGHTED_WEAPONS)) {
-//					return AylythUtil.getBlightedWeaponEffect(entity, (LivingEntity) (Object) this, stack, value);
-//				}
-//            }
-//
-//		}
-//
-//		return value;
-//	}
+	@ModifyVariable(method = "damage", at = @At("HEAD"), argsOnly = true)
+	private float applySpecialDamage(float amount, @Local(argsOnly = true) ServerWorld world, @Local(argsOnly = true) DamageSource source) {
+		ItemStack stack = source.getWeaponStack();
+		if (stack != null) {
+			AttackEffects attackEffects = stack.get(AylythDataComponentTypes.ATTACK_EFFECTS);
+			if (attackEffects != null) {
+				return attackEffects.apply(world, (LivingEntity) (Object) this, source, amount);
+			}
+		}
+		return amount;
+	}
 
 	@Inject(method = "heal", at = @At("HEAD"), cancellable = true)
 	private void preventHeal(float amount, CallbackInfo callbackInfo) {

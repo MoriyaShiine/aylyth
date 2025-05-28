@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_blighted_thorns": {
+    "has_aylythian_heart": {
       "conditions": {
         "items": [
           {
-            "items": "aylyth:blighted_thorns"
+            "items": "aylyth:aylythian_heart"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "aylyth:blighted_sickle_smithing"
+        "recipe": "aylyth:vampiric_hoe_smithing"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_blighted_thorns"
+      "has_aylythian_heart"
     ]
   ],
   "rewards": {
     "recipes": [
-      "aylyth:blighted_sickle_smithing"
+      "aylyth:vampiric_hoe_smithing"
     ]
   }
 }

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "aylyth:item/blighted_sickle"
+    "layer0": "aylyth:item/blighted_hoe"
   }
 }

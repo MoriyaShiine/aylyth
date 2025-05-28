@@ -18,6 +18,7 @@ import moriyashiine.aylyth.common.entity.AylythTrackedDataHandlers;
 import moriyashiine.aylyth.common.entity.ai.AylythMemoryTypes;
 import moriyashiine.aylyth.common.entity.ai.AylythSensorTypes;
 import moriyashiine.aylyth.common.event.LivingEntityDeathEvents;
+import moriyashiine.aylyth.common.item.AttackEffectTypes;
 import moriyashiine.aylyth.common.item.AylythCompostingChances;
 import moriyashiine.aylyth.common.item.AylythConsumeEffectTypes;
 import moriyashiine.aylyth.common.item.AylythDataComponentTypes;
@@ -26,7 +27,6 @@ import moriyashiine.aylyth.common.item.AylythItemGroups;
 import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.aylyth.common.item.potion.AylythPotionRecipes;
 import moriyashiine.aylyth.common.item.potion.AylythPotions;
-import moriyashiine.aylyth.common.item.types.ShuckedYmpeFruitItem;
 import moriyashiine.aylyth.common.loot.AylythLootConditionTypes;
 import moriyashiine.aylyth.common.loot.AylythLootContextTypes;
 import moriyashiine.aylyth.common.loot.AylythModifyLootTableHandler;
@@ -112,8 +112,9 @@ public class Aylyth implements ModInitializer {
 
 		AylythRegistries.register();
 
-		AylythDataComponentTypes.register();
+		AttackEffectTypes.register();
 		AylythConsumeEffectTypes.register();
+		AylythDataComponentTypes.register();
 
 		LootDisplayTypes.register();
 		AylythLootContextTypes.register();
