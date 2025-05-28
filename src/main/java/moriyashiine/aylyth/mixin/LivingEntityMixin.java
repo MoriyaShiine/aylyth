@@ -5,16 +5,13 @@ import com.llamalad7.mixinextras.sugar.Local;
 import moriyashiine.aylyth.api.interfaces.HindPledgeHolder;
 import moriyashiine.aylyth.api.interfaces.ProlongedDeath;
 import moriyashiine.aylyth.common.data.AylythDamageTypes;
-import moriyashiine.aylyth.common.data.tag.AylythItemTags;
 import moriyashiine.aylyth.common.data.tag.AylythStatusEffectTags;
 import moriyashiine.aylyth.common.entity.AylythEntityAttachmentTypes;
-import moriyashiine.aylyth.common.entity.attachments.YmpeInfestation;
 import moriyashiine.aylyth.common.entity.attachments.YmpeThorns;
 import moriyashiine.aylyth.common.entity.types.mob.BoneflyEntity;
 import moriyashiine.aylyth.common.item.AylythDataComponentTypes;
 import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.aylyth.common.item.components.AttackEffects;
-import moriyashiine.aylyth.common.util.AylythUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -27,9 +24,6 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.registry.tag.BiomeTags;
-import net.minecraft.registry.tag.EntityTypeTags;
-import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.world.World;
@@ -42,7 +36,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Collection;
 
@@ -94,7 +87,7 @@ public abstract class LivingEntityMixin extends Entity {
 	}
 
 	@ModifyVariable(method = "damage", at = @At("HEAD"), argsOnly = true)
-	private float applySpecialDamage(float amount, @Local(argsOnly = true) ServerWorld world, @Local(argsOnly = true) DamageSource source) {
+	private float applyAttackEffects(float amount, @Local(argsOnly = true) ServerWorld world, @Local(argsOnly = true) DamageSource source) {
 		ItemStack stack = source.getWeaponStack();
 		if (stack != null) {
 			AttackEffects attackEffects = stack.get(AylythDataComponentTypes.ATTACK_EFFECTS);
