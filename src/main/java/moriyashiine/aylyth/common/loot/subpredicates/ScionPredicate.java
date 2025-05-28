@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.common.loot.predicates;
+package moriyashiine.aylyth.common.loot.subpredicates;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;

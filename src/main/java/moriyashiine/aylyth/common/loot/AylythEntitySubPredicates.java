@@ -2,7 +2,7 @@ package moriyashiine.aylyth.common.loot;
 
 import com.mojang.serialization.MapCodec;
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.loot.predicates.ScionPredicate;
+import moriyashiine.aylyth.common.loot.subpredicates.ScionPredicate;
 import net.minecraft.predicate.entity.EntitySubPredicate;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;

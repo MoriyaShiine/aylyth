@@ -3,7 +3,7 @@ package moriyashiine.aylyth.datagen.common.loot;
 import moriyashiine.aylyth.common.data.tag.AylythItemTags;
 import moriyashiine.aylyth.common.entity.AylythEntityTypes;
 import moriyashiine.aylyth.common.item.AylythItems;
-import moriyashiine.aylyth.common.loot.predicates.ScionPredicate;
+import moriyashiine.aylyth.common.loot.subpredicates.ScionPredicate;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Items;
