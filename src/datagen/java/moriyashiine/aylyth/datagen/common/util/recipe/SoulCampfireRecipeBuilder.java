@@ -1,25 +1,18 @@
 package moriyashiine.aylyth.datagen.common.util.recipe;
 
 import com.google.common.base.Preconditions;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.recipe.AylythRecipeTypes;
-import moriyashiine.aylyth.common.recipe.types.SoulCampfireRecipe;
+import moriyashiine.aylyth.common.recipe.types.FireRitualRecipe;
 import net.minecraft.data.recipe.RecipeExporter;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -64,6 +57,6 @@ public class SoulCampfireRecipeBuilder {
 
     public void offerTo(RecipeExporter exporter, RegistryKey<Recipe<?>> key) {
         Preconditions.checkState(!ingredients.isEmpty(), "Must have positive number of ingredients");
-        exporter.accept(key, new SoulCampfireRecipe(ingredients, result), null);
+        exporter.accept(key, new FireRitualRecipe(ingredients, result), null);
     }
 }

@@ -2,7 +2,7 @@ package moriyashiine.aylyth.common.recipe;
 
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.recipe.types.ShuckingRecipe;
-import moriyashiine.aylyth.common.recipe.types.SoulCampfireRecipe;
+import moriyashiine.aylyth.common.recipe.types.FireRitualRecipe;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
@@ -13,8 +13,8 @@ public interface AylythRecipeTypes {
 
 	RecipeSerializer<ShuckingRecipe> SHUCKING_SERIALIZER = registerSerializer("shucking", new ShuckingRecipe.Serializer());
 
-	RecipeSerializer<SoulCampfireRecipe> SOULFIRE_SERIALIZER = registerSerializer("soul_ritual", new SoulCampfireRecipe.Serializer());
-	RecipeType<SoulCampfireRecipe> SOULFIRE_TYPE = registerType("soul_ritual");
+	RecipeSerializer<FireRitualRecipe> FIRE_RITUAL_SERIALIZER = registerSerializer("fire_ritual", new FireRitualRecipe.Serializer());
+	RecipeType<FireRitualRecipe> FIRE_RITUAL_TYPE = registerType("fire_ritual");
 
 	private static <R extends Recipe<?>> RecipeSerializer<R> registerSerializer(String name, RecipeSerializer<R> serializer) {
 		return Registry.register(Registries.RECIPE_SERIALIZER, Aylyth.id(name), serializer);
@@ -29,7 +29,6 @@ public interface AylythRecipeTypes {
 			}
 		});
 	}
-
 
 	// Load static initializer
 	static void register() {}

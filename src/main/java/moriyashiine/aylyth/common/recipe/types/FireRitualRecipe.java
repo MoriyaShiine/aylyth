@@ -13,6 +13,7 @@ import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeMatcher;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.book.RecipeBookCategories;
 import net.minecraft.recipe.book.RecipeBookCategory;
 import net.minecraft.recipe.input.RecipeInput;
 import net.minecraft.registry.RegistryWrapper;
@@ -20,11 +21,11 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public class SoulCampfireRecipe implements Recipe<RecipeInput> {
+public class FireRitualRecipe implements Recipe<RecipeInput> {
     public final List<Ingredient> input;
     public final ItemStack output;
 
-    public SoulCampfireRecipe(List<Ingredient> input, ItemStack output) {
+    public FireRitualRecipe(List<Ingredient> input, ItemStack output) {
         this.input = input;
         this.output = output;
     }
@@ -60,45 +61,45 @@ public class SoulCampfireRecipe implements Recipe<RecipeInput> {
     }
 
     @Override
-    public RecipeSerializer<SoulCampfireRecipe> getSerializer() {
-        return AylythRecipeTypes.SOULFIRE_SERIALIZER;
+    public RecipeSerializer<FireRitualRecipe> getSerializer() {
+        return AylythRecipeTypes.FIRE_RITUAL_SERIALIZER;
     }
 
     @Override
-    public RecipeType<SoulCampfireRecipe> getType() {
-        return AylythRecipeTypes.SOULFIRE_TYPE;
+    public RecipeType<FireRitualRecipe> getType() {
+        return AylythRecipeTypes.FIRE_RITUAL_TYPE;
     }
 
     @Override
     public IngredientPlacement getIngredientPlacement() {
-        return null;
+        return IngredientPlacement.NONE;
     }
 
     @Override
     public RecipeBookCategory getRecipeBookCategory() {
-        return null;
+        return RecipeBookCategories.CAMPFIRE;
     }
 
-    public static class Serializer implements RecipeSerializer<SoulCampfireRecipe> {
-        public static final MapCodec<SoulCampfireRecipe> CODEC = RecordCodecBuilder.mapCodec(instance ->
+    public static class Serializer implements RecipeSerializer<FireRitualRecipe> {
+        public static final MapCodec<FireRitualRecipe> CODEC = RecordCodecBuilder.mapCodec(instance ->
                 instance.group(
                         Ingredient.CODEC.listOf(1, 4).fieldOf("ingredients").forGetter(soulCampfireRecipe -> soulCampfireRecipe.input),
                         ItemStack.VALIDATED_CODEC.fieldOf("result").forGetter(soulCampfireRecipe -> soulCampfireRecipe.output)
-                ).apply(instance, SoulCampfireRecipe::new)
+                ).apply(instance, FireRitualRecipe::new)
         );
-        public static final PacketCodec<RegistryByteBuf, SoulCampfireRecipe> PACKET_CODEC = PacketCodec.tuple(
+        public static final PacketCodec<RegistryByteBuf, FireRitualRecipe> PACKET_CODEC = PacketCodec.tuple(
                 Ingredient.PACKET_CODEC.collect(PacketCodecs.toList()), soulCampfireRecipe -> soulCampfireRecipe.input,
                 ItemStack.PACKET_CODEC, soulCampfireRecipe -> soulCampfireRecipe.output,
-                SoulCampfireRecipe::new
+                FireRitualRecipe::new
         );
 
         @Override
-        public MapCodec<SoulCampfireRecipe> codec() {
+        public MapCodec<FireRitualRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public PacketCodec<RegistryByteBuf, SoulCampfireRecipe> packetCodec() {
+        public PacketCodec<RegistryByteBuf, FireRitualRecipe> packetCodec() {
             return PACKET_CODEC;
         }
     }

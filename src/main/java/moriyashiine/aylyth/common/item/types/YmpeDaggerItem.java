@@ -3,7 +3,7 @@ package moriyashiine.aylyth.common.item.types;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.recipe.AylythRecipeTypes;
-import moriyashiine.aylyth.common.recipe.types.SoulCampfireRecipe;
+import moriyashiine.aylyth.common.recipe.types.FireRitualRecipe;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.CampfireBlock;
@@ -48,7 +48,7 @@ public class YmpeDaggerItem extends DaggerItem {
 						return items.size();
 					}
 				};
-				SoulCampfireRecipe recipe = serverWorld.getRecipeManager().getFirstMatch(AylythRecipeTypes.SOULFIRE_TYPE, input, world).map(RecipeEntry::value).orElse(null);
+				FireRitualRecipe recipe = serverWorld.getRecipeManager().getFirstMatch(AylythRecipeTypes.FIRE_RITUAL_TYPE, input, world).map(RecipeEntry::value).orElse(null);
 				List<BlockPos> saplingsAround = getSaplingsAround(world, blockPos);
 				if (recipe != null && !saplingsAround.isEmpty()) {
 					world.playSound(null, blockPos, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.BLOCKS, 1, 1);

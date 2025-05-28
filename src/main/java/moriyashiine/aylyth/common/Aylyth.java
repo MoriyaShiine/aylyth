@@ -186,7 +186,7 @@ public class Aylyth implements ModInitializer {
 				ItemStack itemStack = playerEntity.getMainHandStack();
 				// TODO: Check this works
 				// TODO: Cache this?
-				List<Ingredient> allowedIngredients = serverWorld.getRecipeManager().getAllOfType(AylythRecipeTypes.SOULFIRE_TYPE).stream()
+				List<Ingredient> allowedIngredients = serverWorld.getRecipeManager().getAllOfType(AylythRecipeTypes.FIRE_RITUAL_TYPE).stream()
 						.map(entry -> entry.value().input)
 						.flatMap(Collection::stream)
 						.toList();
