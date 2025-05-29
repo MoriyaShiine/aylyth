@@ -1,19 +1,31 @@
 package moriyashiine.aylyth.mixin;
 
 import moriyashiine.aylyth.common.advancement.AylythCriteria;
+import moriyashiine.aylyth.common.block.types.SoulHearthBlock;
 import moriyashiine.aylyth.common.data.world.AylythDimensionData;
 import moriyashiine.aylyth.common.entity.AylythEntityAttachmentTypes;
 import moriyashiine.aylyth.common.entity.attachments.YmpeInfestation;
 import moriyashiine.aylyth.common.world.AylythSoundEvents;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.enums.DoubleBlockHalf;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.Optional;
 
 @SuppressWarnings("UnstableApiUsage")
 @Mixin(ServerPlayerEntity.class)
@@ -67,8 +79,23 @@ public class ServerPlayerEntityMixin {
         }
     }
 
+    @Unique
     private void applyYmpeEffects(PlayerEntity player, int slowAmplifier, int mineAmplifier){
         player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 20 * 4, slowAmplifier));
         player.addStatusEffect(new StatusEffectInstance(StatusEffects.MINING_FATIGUE, 20 * 4, mineAmplifier));
+    }
+
+    @Inject(method = "findRespawnPosition", at = @At(value = "HEAD", target = "Lnet/minecraft/block/BlockState;getBlock()Lnet/minecraft/block/Block;"), cancellable = true)
+    private static void soulHearthRespawn(ServerWorld world, BlockPos pos, float spawnAngle, boolean spawnForced, boolean alive, CallbackInfoReturnable<Optional<ServerPlayerEntity.RespawnPos>> cir){
+        BlockState blockState = world.getBlockState(pos);
+        Block block = blockState.getBlock();
+        if (block instanceof SoulHearthBlock && blockState.get(SoulHearthBlock.CHARGES) > 0 && blockState.get(SoulHearthBlock.HALF) == DoubleBlockHalf.LOWER && world.getRegistryKey() == AylythDimensionData.WORLD) {
+            Optional<Vec3d> optional = SoulHearthBlock.findRespawnPosition(EntityType.PLAYER, world, pos);
+            if (!alive && optional.isPresent()) {
+                world.setBlockState(pos, blockState.with(SoulHearthBlock.CHARGES, blockState.get(SoulHearthBlock.CHARGES) - 1).with(SoulHearthBlock.HALF, DoubleBlockHalf.LOWER));
+                world.setBlockState(pos.up(), blockState.with(SoulHearthBlock.CHARGES, blockState.get(SoulHearthBlock.CHARGES) - 1).with(SoulHearthBlock.HALF, DoubleBlockHalf.UPPER));
+            }
+            cir.setReturnValue(optional.map(resPos -> ServerPlayerEntity.RespawnPos.fromCurrentPos(resPos, pos)));
+        }
     }
 }

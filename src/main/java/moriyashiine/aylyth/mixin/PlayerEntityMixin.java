@@ -47,8 +47,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
-import static moriyashiine.aylyth.common.block.types.SoulHearthBlock.HALF;
-
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin extends LivingEntity implements VitalHealthHolder, HindPledgeHolder {
 
@@ -103,21 +101,6 @@ public abstract class PlayerEntityMixin extends LivingEntity implements VitalHea
 
         }
     }
-
-    // TODO: Reimplement
-//    @Inject(method = "findRespawnPosition", at = @At(value = "HEAD", target = "Lnet/minecraft/block/BlockState;getBlock()Lnet/minecraft/block/Block;"), cancellable = true)
-//    private static void soulHearthRespawn(ServerWorld world, BlockPos pos, float angle, boolean forced, boolean alive, CallbackInfoReturnable<Optional<Vec3d>> cir){
-//        BlockState blockState = world.getBlockState(pos);
-//        Block block = blockState.getBlock();
-//        if (block instanceof SoulHearthBlock && blockState.get(SoulHearthBlock.CHARGES) > 0 && blockState.get(HALF) == DoubleBlockHalf.LOWER && world.getRegistryKey() == AylythDimensionData.WORLD) {
-//            Optional<Vec3d> optional = SoulHearthBlock.findRespawnPosition(EntityType.PLAYER, world, pos);
-//            if (!alive && optional.isPresent()) {
-//                world.setBlockState(pos, blockState.with(SoulHearthBlock.CHARGES, blockState.get(SoulHearthBlock.CHARGES) - 1).with(HALF, DoubleBlockHalf.LOWER));
-//                world.setBlockState(pos.up(), blockState.with(SoulHearthBlock.CHARGES, blockState.get(SoulHearthBlock.CHARGES) - 1).with(HALF, DoubleBlockHalf.UPPER));
-//            }
-//            cir.setReturnValue(optional);
-//        }
-//    }
 
     @Inject(method = "shouldDismount", at = {@At("HEAD")}, cancellable = true)
     private void webbingScuffedry(CallbackInfoReturnable<Boolean> cir) {
