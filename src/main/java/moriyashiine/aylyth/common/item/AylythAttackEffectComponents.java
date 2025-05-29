@@ -51,7 +51,7 @@ public interface AylythAttackEffectComponents {
                     new StatusEffectInstance(AylythStatusEffects.BLIGHT, 20 * 4, 0),
                     1.0f,
                     Optional.of(
-                            new ApplyEffects.AmplifierIncrease(0.85f, 1)
+                            new ApplyEffects.AmplifierIncrease(0.15f, 1)
                     )
             )
     ), LootContext.EntityTarget.THIS);
