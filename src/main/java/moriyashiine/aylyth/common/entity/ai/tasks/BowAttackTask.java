@@ -2,6 +2,7 @@ package moriyashiine.aylyth.common.entity.ai.tasks;
 
 import com.google.common.collect.ImmutableMap;
 import moriyashiine.aylyth.common.entity.ai.brains.BrainUtils;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.brain.EntityLookTarget;
@@ -64,7 +65,6 @@ public class BowAttackTask<E extends MobEntity & RangedAttackMob> extends MultiT
 
     private boolean isUsableBow(E entity, ItemStack stack) {
         // item is in the bows tag. if the item is a ranged weapon item, then check that the entity can use the ranged weapon.
-        // TODO: Change this back to a tag check for "c:bows" when crossbows are removed from the tag
-        return stack.isOf(Items.BOW) && (!(stack.getItem() instanceof RangedWeaponItem rangedWeaponItem) || entity.canUseRangedWeapon(rangedWeaponItem));
+        return stack.isIn(ConventionalItemTags.BOW_TOOLS) && (!(stack.getItem() instanceof RangedWeaponItem rangedWeaponItem) || entity.canUseRangedWeapon(rangedWeaponItem));
     }
 }
