@@ -3,9 +3,6 @@ package moriyashiine.aylyth.mixin.client;
 import com.llamalad7.mixinextras.sugar.Local;
 import moriyashiine.aylyth.api.interfaces.AylythGameHud;
 import moriyashiine.aylyth.api.interfaces.VitalHealthHolder;
-import moriyashiine.aylyth.client.integration.iris.IrisCompat;
-import moriyashiine.aylyth.client.render.AylythRenderLayers;
-import moriyashiine.aylyth.common.data.tag.AylythBlockTags;
 import moriyashiine.aylyth.common.entity.AylythAttributes;
 import moriyashiine.aylyth.common.entity.AylythEntityAttachmentTypes;
 import moriyashiine.aylyth.common.entity.attachments.YmpeInfestation;
@@ -30,21 +27,6 @@ public abstract class InGameHudMixin implements AylythGameHud {
 	private MinecraftClient client;
 
 	@Shadow protected abstract void drawHeart(DrawContext context, InGameHud.HeartType type, int x, int y, boolean hardcore, boolean blinking, boolean half);
-
-	// TODO: Rewrite for layer drawer
-//	@Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/MathHelper;lerp(FFF)F", ordinal = 1))
-//	private void renderYmpeInfestationOverlay(DrawContext context, float tickDelta, CallbackInfo ci) {
-//		// TODO: Make more efficient
-//		if (client.world.getBlockState(client.player.getBlockPos()).isIn(AylythBlockTags.SEEPS)) {
-//			if (!IrisCompat.isShaderPackInUse()) {
-//				int scaledWidth = context.getScaledWindowWidth();
-//				int scaledHeight = context.getScaledWindowHeight();
-//				context.fill(AylythRenderLayers.SEEP, scaledWidth, scaledHeight, scaledWidth, scaledHeight, 0xFFFFFFFF);
-//			} else {
-//				renderOverlay(context, SEEP_OVERLAY, 1);
-//			}
-//		}
-//	}
 
 	@Inject(method = "drawHeart", at = @At("TAIL"))
 	private void drawBranches(DrawContext context, InGameHud.HeartType type, int x, int y, boolean hardcore, boolean blinking, boolean half, CallbackInfo ci) {

@@ -1,13 +1,22 @@
 package moriyashiine.aylyth.mixin.client;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
+import moriyashiine.aylyth.client.screen.AylythDownloadingTerrainScreen;
+import moriyashiine.aylyth.common.data.world.AylythDimensionData;
 import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.aylyth.common.network.packets.GlaivePacketC2S;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.DownloadingTerrainScreen;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import org.jetbrains.annotations.Nullable;
+import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -15,6 +24,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.function.BooleanSupplier;
+
+@Debug(export = true)
 @Mixin(MinecraftClient.class)
 public abstract class MinecraftClientMixin {
     @Shadow
@@ -45,6 +57,14 @@ public abstract class MinecraftClientMixin {
         if(!info.isCancelled() && attackQueued) {
             attackQueued = false;
         }
+    }
+
+    @WrapOperation(method = "joinWorld", at = @At(value = "NEW", target = "(Ljava/util/function/BooleanSupplier;Lnet/minecraft/client/gui/screen/DownloadingTerrainScreen$WorldEntryReason;)Lnet/minecraft/client/gui/screen/DownloadingTerrainScreen;"))
+    private DownloadingTerrainScreen customDownloadingScreen(BooleanSupplier shouldClose, DownloadingTerrainScreen.WorldEntryReason worldEntryReason, Operation<DownloadingTerrainScreen> original, @Local(argsOnly = true) ClientWorld world) {
+        if (world.getRegistryKey() == AylythDimensionData.WORLD) {
+            return new AylythDownloadingTerrainScreen(shouldClose, worldEntryReason);
+        }
+        return original.call(shouldClose, worldEntryReason);
     }
 
 //    @ModifyReturnValue(method = "getMusicInstance", at = @At(value = "RETURN", ordinal = 4))
