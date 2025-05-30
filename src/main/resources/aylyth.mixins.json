@@ -4,6 +4,7 @@
   "package": "moriyashiine.aylyth.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "ClearAllEffectsConsumeEffectMixin",
     "EntityAccessor",
     "EntityMixin",
     "LivingEntityAccessor",
