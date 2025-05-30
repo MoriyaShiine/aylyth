@@ -29,29 +29,12 @@ public abstract class InGameHudMixin implements AylythGameHud {
 	@Shadow
 	@Final
 	private MinecraftClient client;
-	
-	@Shadow
-	protected abstract void renderOverlay(DrawContext context, Identifier texture, float opacity);
 
 	@Shadow protected abstract void drawHeart(DrawContext context, InGameHud.HeartType type, int x, int y, boolean hardcore, boolean blinking, boolean half);
 
 	// TODO: Rewrite for layer drawer
 //	@Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/MathHelper;lerp(FFF)F", ordinal = 1))
 //	private void renderYmpeInfestationOverlay(DrawContext context, float tickDelta, CallbackInfo ci) {
-//		YmpeInfestation infestation = client.player.getAttached(AylythEntityAttachmentTypes.YMPE_INFESTATION);
-//		if (infestation != null) {
-//			int stage = infestation.getStage();
-//			if (stage >= 3) {
-//				renderOverlay(context, YMPE_OUTLINE_1_TEXTURE, stage == 3 ? (float) infestation.getInfestationTimer() / YmpeInfestation.TIME_UNTIL_STAGE_INCREASES : 1);
-//			}
-//			if (stage >= 2) {
-//				renderOverlay(context, YMPE_OUTLINE_0_TEXTURE, stage == 2 ? (float) infestation.getInfestationTimer() / YmpeInfestation.TIME_UNTIL_STAGE_INCREASES : 1);
-//			}
-//			if (stage >= 5) {
-//				renderOverlay(context, YMPE_OUTLINE_2_TEXTURE, stage == 5 ? (float) infestation.getInfestationTimer() / YmpeInfestation.TIME_UNTIL_STAGE_INCREASES : 1);
-//			}
-//		}
-//
 //		// TODO: Make more efficient
 //		if (client.world.getBlockState(client.player.getBlockPos()).isIn(AylythBlockTags.SEEPS)) {
 //			if (!IrisCompat.isShaderPackInUse()) {

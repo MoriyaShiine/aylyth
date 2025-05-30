@@ -12,6 +12,7 @@ import moriyashiine.aylyth.client.particle.types.HindSmokeParticle;
 import moriyashiine.aylyth.client.particle.types.PilotLightParticle;
 import moriyashiine.aylyth.client.particle.types.SoulEmberParticle;
 import moriyashiine.aylyth.client.render.AylythDimensionRenderer;
+import moriyashiine.aylyth.client.render.AylythHudRendering;
 import moriyashiine.aylyth.client.render.block.entity.SeepBlockEntityRenderer;
 import moriyashiine.aylyth.client.render.block.entity.VitalThuribleBlockEntityRenderer;
 import moriyashiine.aylyth.client.render.block.entity.WoodyGrowthBlockEntityRenderer;
@@ -57,6 +58,8 @@ import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.HudLayerRegistrationCallback;
+import net.fabricmc.fabric.api.client.rendering.v1.IdentifiedLayer;
 import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRegistrationCallback;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.minecraft.block.Block;
@@ -242,6 +245,10 @@ public class AylythClient implements ClientModInitializer {
 		});
 
 		HandledScreens.register(AylythScreenHandlerTypes.TULPA, TulpaScreen::new);
+
+		HudLayerRegistrationCallback.EVENT.register(layeredDrawer -> {
+			layeredDrawer.attachLayerBefore(IdentifiedLayer.MISC_OVERLAYS, Aylyth.id("ympe_infestation"), AylythHudRendering::ympeInfestation);
+		});
 	}
 
 	private static Block[] cutoutBlocks() {
