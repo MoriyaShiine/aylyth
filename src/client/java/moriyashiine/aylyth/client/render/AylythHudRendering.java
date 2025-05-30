@@ -17,13 +17,13 @@ public interface AylythHudRendering extends AylythGameHud {
         if (infestation != null) {
             int stage = infestation.getStage();
             if (stage >= 3) {
-                renderOverlay(drawContext, YMPE_OUTLINE_1_TEXTURE, stage == 3 ? (float) infestation.getInfestationTimer() / YmpeInfestation.TIME_UNTIL_STAGE_INCREASES : 1);
+                renderOverlay(drawContext, INFESTATION_OVERLAY_1, stage == 3 ? (float) infestation.getInfestationTimer() / YmpeInfestation.TIME_UNTIL_STAGE_INCREASES : 1);
             }
             if (stage >= 2) {
-                renderOverlay(drawContext, YMPE_OUTLINE_0_TEXTURE, stage == 2 ? (float) infestation.getInfestationTimer() / YmpeInfestation.TIME_UNTIL_STAGE_INCREASES : 1);
+                renderOverlay(drawContext, INFESTATION_OVERLAY_0, stage == 2 ? (float) infestation.getInfestationTimer() / YmpeInfestation.TIME_UNTIL_STAGE_INCREASES : 1);
             }
             if (stage >= 5) {
-                renderOverlay(drawContext, YMPE_OUTLINE_2_TEXTURE, stage == 5 ? (float) infestation.getInfestationTimer() / YmpeInfestation.TIME_UNTIL_STAGE_INCREASES : 1);
+                renderOverlay(drawContext, INFESTATION_OVERLAY_2, stage == 5 ? (float) infestation.getInfestationTimer() / YmpeInfestation.TIME_UNTIL_STAGE_INCREASES : 1);
             }
         }
     }
