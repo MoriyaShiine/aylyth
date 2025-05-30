@@ -62,6 +62,7 @@ public class NephriteFlaskItem extends Item {
         } else {
             stack.set(AylythDataComponentTypes.FLASK_CHARGES, uses - 1);
         }
-        return super.finishUsing(stack, world, user);
+        super.finishUsing(stack.copy(), world, user);
+        return stack;
     }
 }
