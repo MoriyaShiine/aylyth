@@ -34,10 +34,8 @@ public class PomegranateLeavesBlock extends LeavesBlock {
 
     @Override
     protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        // TODO: See if this is needed, check if it still works without it
-        //  (should switch state even if it's fully grown, not drop fruit)
         if (stack.isOf(Items.DEBUG_STICK)) {
-            return ActionResult.SUCCESS;
+            return ActionResult.PASS;
         }
         return super.onUseWithItem(stack, state, world, pos, player, hand, hit);
     }
