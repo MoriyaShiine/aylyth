@@ -21,7 +21,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(InGameHud.class)
@@ -47,46 +46,49 @@ public abstract class InGameHudMixin implements AylythGameHud {
 //		}
 //	}
 
-	@ModifyArg(method = "drawHeart", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawGuiTexture(Ljava/util/function/Function;Lnet/minecraft/util/Identifier;IIII)V"))
-	private Identifier drawBranchingHearts(Identifier id) {
+	@Inject(method = "drawHeart", at = @At("TAIL"))
+	private void drawBranches(DrawContext context, InGameHud.HeartType type, int x, int y, boolean hardcore, boolean blinking, boolean half, CallbackInfo ci) {
 		YmpeInfestation infestation = client.player.getAttached(AylythEntityAttachmentTypes.YMPE_INFESTATION);
 		if (infestation != null && infestation.getStage() > 0) {
-			return AylythGameHud.YMPE_HEALTH_TEXTURES;
+			Identifier texture = type == InGameHud.HeartType.CONTAINER || type == InGameHud.HeartType.WITHERED
+					? half ? BRANCHES_CONTAINER_HALF : BRANCHES_CONTAINER_FULL
+					: half ? BRANCHES_HALF : BRANCHES_FULL;
+			context.drawGuiTexture(RenderLayer::getGuiTextured, texture, x, y, 9, 9);
 		}
-		return id;
 	}
 
 	@Inject(method = "renderHealthBar", at = @At("TAIL"))
 	private void drawAylythHearts(DrawContext context, PlayerEntity player, int x, int y, int lines,
 								  int regeneratingHeartIndex, float maxHealth, int lastHealth, int health,
 								  int absorption, boolean blinking, CallbackInfo ci,
-								  @Local(ordinal = 8) int j, @Local(ordinal = 9) int k) {
+								  @Local(ordinal = 7) int i, @Local(ordinal = 8) int j) {
 		int maxVitalHealth = (int) player.getAttributeValue(AylythAttributes.MAX_VITAL_HEALTH);
 		if (maxVitalHealth == 0) {
 			return;
 		}
 		float vitalHealth = VitalHealthHolder.of(player).map(VitalHealthHolder::getCurrentVitalHealth).orElse(0f);
 		int heartsToDraw = MathHelper.ceil((double)maxVitalHealth / 2);
-		int firstHeartIndex = j + k;
-		for (int i = heartsToDraw + firstHeartIndex - 1; i >= firstHeartIndex; i--) {
-			int actualX = x + (i % 10) * 8;
-			int actualY = y - (i / 10) * lines;
+		int firstHeartIndex = i + j;
+		for (int l = heartsToDraw + firstHeartIndex - 1; l >= firstHeartIndex; l--) {
+			int actualX = x + (l % 10) * 8;
+			int actualY = y - (l / 10) * lines;
 
 			drawHeart(context, InGameHud.HeartType.CONTAINER, actualX, actualY, false, blinking, false);
 
-			int representedHealth = i*2;
+			YmpeInfestation infestation = player.getAttached(AylythEntityAttachmentTypes.YMPE_INFESTATION);
+			boolean hasBranches = infestation != null && infestation.getStage() > 0;
+			int representedHealth = l * 2;
 			if (representedHealth < maxHealth+absorption+vitalHealth) {
-				int u = 0;
-				YmpeInfestation infestation = player.getAttached(AylythEntityAttachmentTypes.YMPE_INFESTATION);
-				if (infestation != null && infestation.getStage() > 0) {
-					u += 16;
+				boolean half = representedHealth + 1 == maxHealth + absorption + vitalHealth;
+				context.drawGuiTexture(RenderLayer::getGuiTextured, half ? VITAL_HALF : VITAL_FULL, actualX, actualY, 9, 9);
+				if (hasBranches) {
+					context.drawGuiTexture(RenderLayer::getGuiTextured, half ? BRANCHES_HALF : BRANCHES_FULL, actualX, actualY, 9, 9);
 				}
-				if (representedHealth+1 == maxHealth+absorption+vitalHealth) {
-					u += 9;
-				}
-				context.drawTexture(RenderLayer::getGuiTextured, AylythGameHud.HEARTS, actualX+1, actualY+1, 0, u, 0, 7, 7, 64, 64);
 			} else {
-				context.drawTexture(RenderLayer::getGuiTextured, AylythGameHud.HEARTS, actualX+1, actualY+1, 0, 32, 0, 7, 7, 64, 64);
+				context.drawGuiTexture(RenderLayer::getGuiTextured, VITAL_CONTAINER_FULL, actualX, actualY, 9, 9);
+				if (hasBranches) {
+					context.drawGuiTexture(RenderLayer::getGuiTextured, BRANCHES_CONTAINER_FULL, actualX, actualY, 9, 9);
+				}
 			}
 		}
 	}
