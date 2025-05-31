@@ -1,14 +1,17 @@
 package moriyashiine.aylyth.common.block.types;
 
 import com.mojang.serialization.MapCodec;
+import moriyashiine.aylyth.common.data.tag.AylythEnchantmentTags;
 import moriyashiine.aylyth.common.data.tag.AylythEntityTypeTags;
 import moriyashiine.aylyth.common.entity.AylythEntityAttachmentTypes;
 import moriyashiine.aylyth.common.entity.attachments.YmpeInfestation;
+import net.fabricmc.fabric.api.item.v1.EnchantmentEvents;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.PlantBlock;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
@@ -39,8 +42,7 @@ public class GripweedBlock extends PlantBlock {
 		if (entity.getType().isIn(AylythEntityTypeTags.GRIPWEED_IMMUNE)) {
 			return;
 		}
-		// TODO: Add a new enchantment tag "gripweed_ignores" with "soul_speed" and check boots.
-		if (entity instanceof LivingEntity living/* && EnchantmentHelper.hasSoulSpeed(living)*/) {
+		if (entity instanceof LivingEntity living && EnchantmentHelper.hasAnyEnchantmentsIn(living.getEquippedStack(EquipmentSlot.FEET), AylythEnchantmentTags.FAST_IN_GRIPWEED)) {
 			return;
 		}
 		if (entity instanceof PlayerEntity player) {

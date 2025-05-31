@@ -56,6 +56,7 @@ public class AylythDatagen implements DataGeneratorEntrypoint {
         pack.addProvider(AylythPotionTagProvider::new);
         pack.addProvider(AylythBiomeTagProvider::new);
         pack.addProvider(AylythDamageTypeTagProvider::new);
+        pack.addProvider(AylythEnchantmentTagProvider::new);
 
         pack.addProvider(AylythRecipeGenerator.Provider::new);
         pack.addProvider(AylythAdvancementProvider::new);
