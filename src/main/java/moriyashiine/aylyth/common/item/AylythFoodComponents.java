@@ -4,7 +4,6 @@ import net.minecraft.component.type.FoodComponent;
 
 public interface AylythFoodComponents {
 
-	// TODO: Add mush, fruit, and wrongmeat to meat tag
 	FoodComponent YMPE_MUSH = new FoodComponent.Builder()
 			.alwaysEdible()
 			.nutrition(6)
