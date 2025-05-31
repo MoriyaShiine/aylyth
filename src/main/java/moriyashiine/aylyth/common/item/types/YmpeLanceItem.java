@@ -2,7 +2,6 @@ package moriyashiine.aylyth.common.item.types;
 
 import moriyashiine.aylyth.common.entity.AylythAttributes;
 import moriyashiine.aylyth.common.entity.types.projectile.YmpeLanceEntity;
-import moriyashiine.aylyth.common.item.AylythToolMaterials;
 import net.minecraft.block.BlockState;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.component.type.AttributeModifiersComponent;
@@ -25,7 +24,6 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-// TODO: Make vanishable with tag
 public class YmpeLanceItem extends Item {
 	private static final int MIN_CHARGE_TICKS = 10;
 
