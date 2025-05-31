@@ -24,6 +24,7 @@ public final class AylythEntityTypeTagProvider extends FabricTagProvider.EntityT
         getOrCreateTagBuilder(AylythEntityTypeTags.NON_SHUCKABLE)
                 .forceAddTags(ConventionalEntityTypeTags.BOSSES, ConventionalEntityTypeTags.CAPTURING_NOT_SUPPORTED)
                 .add(EntityType.ELDER_GUARDIAN);
+        getOrCreateTagBuilder(AylythEntityTypeTags.BREAKS_LEAVES).forceAddTag(EntityTypeTags.BOAT);
 
         getOrCreateTagBuilder(ConventionalEntityTypeTags.BOATS)
                 .add(YMPE_BOAT, YMPE_CHEST_BOAT, POMEGRANATE_BOAT, POMEGRANATE_CHEST_BOAT, WRITHEWOOD_BOAT, WRITHEWOOD_CHEST_BOAT);
