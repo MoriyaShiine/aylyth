@@ -2,33 +2,26 @@ package moriyashiine.aylyth.common.event;
 
 import moriyashiine.aylyth.api.interfaces.HindPledgeHolder;
 import moriyashiine.aylyth.common.Aylyth;
-import moriyashiine.aylyth.common.block.types.VitalThuribleBlock;
 import moriyashiine.aylyth.common.block.types.WoodyGrowthCacheBlock;
 import moriyashiine.aylyth.common.data.AylythDamageTypes;
 import moriyashiine.aylyth.common.data.tag.AylythBiomeTags;
 import moriyashiine.aylyth.common.data.tag.AylythDamageTypeTags;
 import moriyashiine.aylyth.common.data.world.AylythDimensionData;
-import moriyashiine.aylyth.common.entity.AylythAttributes;
-import moriyashiine.aylyth.common.entity.AylythEntityTypes;
 import moriyashiine.aylyth.common.entity.types.mob.PilotLightEntity;
-import moriyashiine.aylyth.common.entity.types.mob.RippedSoulEntity;
 import moriyashiine.aylyth.common.entity.types.mob.ScionEntity;
 import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.common.world.AylythGameRules;
 import moriyashiine.aylyth.common.world.AylythSoundEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
-import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.minecraft.advancement.AdvancementEntry;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.WitchEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -37,70 +30,11 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.GameRules;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 
-// TODO split into several classes, each of which implements a specific feature &
-//  move them to the corresponding packages (block/entity/item)
-public class LivingEntityDeathEvents {
-
+public class RespawnIntoAylythEvents {
     public static void init() {
-        ServerLivingEntityEvents.ALLOW_DEATH.register(LivingEntityDeathEvents::allowDeath);
-
-        ServerLivingEntityEvents.AFTER_DEATH.register(LivingEntityDeathEvents::spawnRippedSoul);
-
-        ServerPlayerEvents.COPY_FROM.register(LivingEntityDeathEvents::retainVitalHealthAttribute);
-        ServerPlayerEvents.COPY_FROM.register(LivingEntityDeathEvents::retainInventoryWhenPledged);
-    }
-
-    /**
-     * Copies the max vital health attribute from the vital thurible as long as the damage source was not from ympe
-     */
-    private static void retainVitalHealthAttribute(ServerPlayerEntity oldPlayer, ServerPlayerEntity newPlayer, boolean alive) {
-        if (!alive && (oldPlayer.getRecentDamageSource() == null || !AylythUtil.isSourceYmpe(oldPlayer.getRecentDamageSource()))) {
-            EntityAttributeInstance oldInstance = oldPlayer.getAttributeInstance(AylythAttributes.MAX_VITAL_HEALTH);
-            EntityAttributeInstance newInstance = newPlayer.getAttributeInstance(AylythAttributes.MAX_VITAL_HEALTH);
-            if (oldInstance != null && newInstance != null && oldInstance.getModifier(VitalThuribleBlock.MAX_VITAL_MODIFIER) != null) {
-                newInstance.addPersistentModifier(oldInstance.getModifier(VitalThuribleBlock.MAX_VITAL_MODIFIER));
-            }
-        }
-    }
-
-    private static void retainInventoryWhenPledged(ServerPlayerEntity oldPlayer, ServerPlayerEntity newPlayer, boolean alive) {
-        if (alive || oldPlayer.getRecentDamageSource() == null || !oldPlayer.getRecentDamageSource().isOf(AylythDamageTypes.YMPE)) {
-            return;
-        }
-
-        if (oldPlayer.server.getGameRules().getBoolean(GameRules.KEEP_INVENTORY)) {
-            return;
-        }
-
-        HindPledgeHolder.of(oldPlayer).ifPresent(hind -> {
-            if (hind.getHindUuid() != null) {
-                newPlayer.getInventory().clone(oldPlayer.getInventory());
-            }
-            hind.setHindUuid(null);
-        });
-    }
-
-    private static void spawnRippedSoul(LivingEntity livingEntity, DamageSource source) {
-        World world = livingEntity.getWorld();
-        if(!world.isClient) {
-            if(source.isOf(AylythDamageTypes.SOUL_RIP)) {
-                RippedSoulEntity soul = new RippedSoulEntity(AylythEntityTypes.RIPPED_SOUL, world);
-                if (source.getAttacker() != null) {
-                    soul.setOwner((PlayerEntity) source.getAttacker());
-                    soul.setPosition(livingEntity.getPos().add(0, 1, 0));
-                    world.spawnEntity(soul);
-                }
-            }else if((source.getAttacker() != null && source.getAttacker() instanceof PlayerEntity playerEntity && playerEntity.getMainHandStack().isOf(AylythItems.YMPE_GLAIVE))){
-                RippedSoulEntity soul = new RippedSoulEntity(AylythEntityTypes.RIPPED_SOUL, world);
-                soul.setOwner(playerEntity);
-                soul.setPosition(playerEntity.getPos().add(0, 1, 0));
-                world.spawnEntity(soul);
-            }
-        }
+        ServerLivingEntityEvents.ALLOW_DEATH.register(RespawnIntoAylythEvents::allowDeath);
     }
 
     private static boolean allowDeath(LivingEntity livingEntity, DamageSource damageSource, float damageAmount) {

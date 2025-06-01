@@ -17,8 +17,11 @@ import moriyashiine.aylyth.common.entity.AylythTrackedDataHandlers;
 import moriyashiine.aylyth.common.entity.ai.AylythMemoryTypes;
 import moriyashiine.aylyth.common.entity.ai.AylythSensorTypes;
 import moriyashiine.aylyth.common.event.FireRitualCraftingEvents;
-import moriyashiine.aylyth.common.event.LivingEntityDeathEvents;
+import moriyashiine.aylyth.common.event.GlaiveSoulRipEvents;
+import moriyashiine.aylyth.common.event.HindPledgeEvents;
+import moriyashiine.aylyth.common.event.RespawnIntoAylythEvents;
 import moriyashiine.aylyth.common.event.ShuckingEvents;
+import moriyashiine.aylyth.common.event.VitalHealthEvents;
 import moriyashiine.aylyth.common.item.AttackEffectTypes;
 import moriyashiine.aylyth.common.item.AylythCompostingChances;
 import moriyashiine.aylyth.common.item.AylythConsumeEffectTypes;
@@ -146,9 +149,12 @@ public class Aylyth implements ModInitializer {
 
 		registerApis();
 
-		LivingEntityDeathEvents.init();
+		RespawnIntoAylythEvents.init();
 		FireRitualCraftingEvents.init();
 		ShuckingEvents.init();
+		GlaiveSoulRipEvents.init();
+		HindPledgeEvents.init();
+		VitalHealthEvents.init();
 		AylythModifyLootTableHandler.register();
 
 		PayloadTypeRegistry.playC2S().register(GlaivePacketC2S.ID, GlaivePacketC2S.PACKET_CODEC);
