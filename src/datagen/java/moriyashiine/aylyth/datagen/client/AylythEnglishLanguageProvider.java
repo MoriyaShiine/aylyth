@@ -3,6 +3,7 @@ package moriyashiine.aylyth.datagen.client;
 import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.data.AylythDamageTypes;
 import moriyashiine.aylyth.common.data.AylythJukeboxSongs;
+import moriyashiine.aylyth.common.data.tag.AylythItemTags;
 import moriyashiine.aylyth.common.data.world.AylythBiomes;
 import moriyashiine.aylyth.common.entity.AylythEntityTypes;
 import moriyashiine.aylyth.common.entity.AylythStatusEffects;
@@ -346,6 +347,34 @@ public class AylythEnglishLanguageProvider extends FabricLanguageProvider {
         biome(builder, AylythBiomes.MIRE, "Mire");
         biome(builder, AylythBiomes.BOWELS, "Bowels");
 
+        // TAGS
+
+        builder.add(AylythItemTags.YMPE_LOGS, "Ympe Logs");
+        builder.add(AylythItemTags.POMEGRANATE_LOGS, "Pomegranate Logs");
+        builder.add(AylythItemTags.WRITHEWOOD_LOGS, "Writhewood Logs");
+        builder.add(AylythItemTags.SEEPS, "Logs with Seep");
+        builder.add(AylythItemTags.CARVED_NEPHRITE, "Carved Nephrite");
+        builder.add(AylythItemTags.WOODY_GROWTHS, "Woody Growths");
+        builder.add(AylythItemTags.DECREASES_BRANCHES, "Heals Ympe Infestation");
+        builder.add(AylythItemTags.PLEDGE_ITEMS, "Pledge Items");
+        builder.add(AylythItemTags.NEPHRITE_TOOL_MATERIALS, "Nephrite Tool Materials");
+        builder.add(AylythItemTags.YMPE_WEAPONS, "Ympe Weapons");
+        builder.add(AylythItemTags.BLIGHTED_WEAPONS, "Blighted Weapons");
+        builder.add(AylythItemTags.VAMPIRIC_WEAPONS, "Vampiric Weapons");
+        builder.add(AylythItemTags.NEPHRITE_FLASKS, "Nephrite Flasks");
+        builder.add(AylythItemTags.BOSS_HEARTS, "Hearts of Bosses");
+        builder.add(AylythItemTags.CHTHONIA_WOOD, "Chthonia Wood");
+        builder.add(AylythItemTags.FLESH_HARVESTERS, "Flesh Harvesters");
+        builder.add(AylythItemTags.YMPE_FRUIT_HARVESTERS, "Ympe Fruit Harvesters");
+        builder.add(AylythItemTags.STORAGE_BLOCKS_ESSTLINE, "Esstline Storage Blocks");
+        builder.add(AylythItemTags.STORAGE_BLOCKS_NEPHRITE, "Nephrite Storage Blocks");
+        builder.add(AylythItemTags.FLECHETTE_TOOLS, "Flechettes");
+        builder.add(AylythItemTags.BARE_BRANCHES, "Bare Branches");
+        builder.add(AylythItemTags.LEAFY_BRANCHES, "Leafy Branches");
+        builder.add(AylythItemTags.BRANCHES, "Branches");
+        builder.add(AylythItemTags.SAPSTONES, "Sapstone");
+        builder.add(AylythItemTags.STRIPS_OFF_BARK, "Can Strip Bark");
+
         // COMPAT - REI
 
         builder.add("rei.aylyth.dagger_drops", "Dagger Drops");
@@ -353,25 +382,6 @@ public class AylythEnglishLanguageProvider extends FabricLanguageProvider {
         // COMPAT - EMI
 
         builder.add("emi.category.aylyth.dagger_drops", "Dagger Drops");
-        builder.add("tag.aylyth.ympe_logs", "Ympe Logs");
-        builder.add("tag.aylyth.pomegranate_logs", "Pomegranate Logs");
-        builder.add("tag.aylyth.writhewood_logs", "Writhewood Logs");
-        builder.add("tag.aylyth.seeps", "Logs with Seep");
-        builder.add("tag.aylyth.carved_nephrite", "Carved Nephrite");
-        builder.add("tag.aylyth.woody_growths", "Woody Growths");
-        builder.add("tag.aylyth.decreases_branches", "Heals Branches");
-        builder.add("tag.aylyth.pledge_items", "Pledge Items");
-        builder.add("tag.aylyth.nephrite_tool_materials", "Nephrite Tool Materials");
-        builder.add("tag.aylyth.ympe_weapons", "Ympe Weapons");
-        builder.add("tag.aylyth.blighted_weapons", "Blighted Weapons");
-        builder.add("tag.aylyth.vampiric_weapons", "Vampiric Weapons");
-        builder.add("tag.aylyth.nephrite_flasks", "Nephrite Flasks");
-        builder.add("tag.aylyth.boss_hearts", "Hearts of Bosses");
-        builder.add("tag.aylyth.chthonia_wood", "Chthonia Wood");
-        builder.add("tag.aylyth.flesh_harvesters", "Flesh Harvesters");
-        builder.add("tag.aylyth.ympe_fruit_harvesters", "Ympe Fruit Harvesters");
-        builder.add("tag.aylyth.storage_blocks.esstline", "Esstline Storage Blocks");
-        builder.add("tag.aylyth.storage_blocks.nephrite", "Nephrite Storage Blocks");
     }
     
     private void biome(TranslationBuilder builder, RegistryKey<Biome> biomeKey, String translation) {
