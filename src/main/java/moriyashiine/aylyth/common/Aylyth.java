@@ -59,6 +59,7 @@ import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
+import net.minecraft.block.DispenserBlock;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.Identifier;
@@ -137,6 +138,9 @@ public class Aylyth implements ModInitializer {
 		AylythIngredients.register();
 		AylythRecipeTypes.register();
 		AylythPotionRecipes.register();
+
+		DispenserBlock.registerProjectileBehavior(AylythItems.THORN_FLECHETTE);
+		DispenserBlock.registerProjectileBehavior(AylythItems.BLIGHTED_THORN_FLECHETTE);
 
 		DynamicRegistries.registerSynced(AylythRegistryKeys.LOOT_TABLE_DISPLAY, LootDisplay.CODEC, LootDisplay.NETWORK_CODEC);
 
