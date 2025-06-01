@@ -375,6 +375,8 @@ public class AylythEnglishLanguageProvider extends FabricLanguageProvider {
         builder.add(AylythItemTags.SAPSTONES, "Sapstone");
         builder.add(AylythItemTags.STRIPS_OFF_BARK, "Can Strip Bark");
 
+        builder.add(AylythItemTags.DAGGERS, "Daggers");
+
         // COMPAT - REI
 
         builder.add("rei.aylyth.dagger_drops", "Dagger Drops");
