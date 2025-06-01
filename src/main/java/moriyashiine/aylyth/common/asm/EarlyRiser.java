@@ -15,6 +15,7 @@ public class EarlyRiser implements Runnable {
                 .addEnumSubclass("AYLYTH_NOISE", "moriyashiine.aylyth.common.asm.AylythNoiseGrassColorMod", "aylyth_noise")
                 .build();
         if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
+            // TODO: Revisit. FRAPI wraps it in net.fabricmc.fabric.api.renderer.v1.material.GlintMode
             ClassTinkerers.enumBuilder(mapper.mapClassName("intermediary", "net.minecraft.class_10444$class_10445"))
                     .addEnum("AYLYTH_TINT")
                     .build();
