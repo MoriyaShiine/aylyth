@@ -9,7 +9,6 @@ import moriyashiine.aylyth.common.block.AylythFlammables;
 import moriyashiine.aylyth.common.block.AylythFlattenables;
 import moriyashiine.aylyth.common.block.AylythStrippables;
 import moriyashiine.aylyth.common.block.types.SoulHearthBlock;
-import moriyashiine.aylyth.common.data.tag.AylythEntityTypeTags;
 import moriyashiine.aylyth.common.entity.AylythAttributes;
 import moriyashiine.aylyth.common.entity.AylythEntityAttachmentTypes;
 import moriyashiine.aylyth.common.entity.AylythEntityTypes;
@@ -17,7 +16,9 @@ import moriyashiine.aylyth.common.entity.AylythStatusEffects;
 import moriyashiine.aylyth.common.entity.AylythTrackedDataHandlers;
 import moriyashiine.aylyth.common.entity.ai.AylythMemoryTypes;
 import moriyashiine.aylyth.common.entity.ai.AylythSensorTypes;
+import moriyashiine.aylyth.common.event.FireRitualCraftingEvents;
 import moriyashiine.aylyth.common.event.LivingEntityDeathEvents;
+import moriyashiine.aylyth.common.event.ShuckingEvents;
 import moriyashiine.aylyth.common.item.AttackEffectTypes;
 import moriyashiine.aylyth.common.item.AylythCompostingChances;
 import moriyashiine.aylyth.common.item.AylythConsumeEffectTypes;
@@ -35,7 +36,6 @@ import moriyashiine.aylyth.common.loot.LootDisplayTypes;
 import moriyashiine.aylyth.common.loot.display.LootDisplay;
 import moriyashiine.aylyth.common.network.AylythServerPacketHandler;
 import moriyashiine.aylyth.common.network.packets.GlaivePacketC2S;
-import moriyashiine.aylyth.common.network.packets.SpawnParticlesAroundPacketS2C;
 import moriyashiine.aylyth.common.network.packets.UpdatePressingUpDownPacketC2S;
 import moriyashiine.aylyth.common.particle.AylythParticleTypes;
 import moriyashiine.aylyth.common.recipe.AylythIngredients;
@@ -55,42 +55,16 @@ import moriyashiine.aylyth.common.world.gen.AylythTreeDecoratorTypes;
 import moriyashiine.aylyth.common.world.gen.AylythTrunkPlacerTypes;
 import moriyashiine.aylyth.common.world.gen.biome.AylythBiomeModifications;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
-import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
-import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.entity.CampfireBlockEntity;
 import net.minecraft.block.enums.DoubleBlockHalf;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.NbtComponent;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.stat.Stats;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.Unit;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.EntityHitResult;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Collection;
-import java.util.List;
 
 public class Aylyth implements ModInitializer {
 	public static final String MOD_ID = "aylyth";
@@ -169,68 +143,14 @@ public class Aylyth implements ModInitializer {
 		registerApis();
 
 		LivingEntityDeathEvents.init();
+		FireRitualCraftingEvents.init();
+		ShuckingEvents.init();
 		AylythModifyLootTableHandler.register();
 
 		PayloadTypeRegistry.playC2S().register(GlaivePacketC2S.ID, GlaivePacketC2S.PACKET_CODEC);
 		PayloadTypeRegistry.playC2S().register(UpdatePressingUpDownPacketC2S.ID, UpdatePressingUpDownPacketC2S.PACKET_CODEC);
 		ServerPlayNetworking.registerGlobalReceiver(GlaivePacketC2S.ID, AylythServerPacketHandler::handleGlaiveSpecial);
 		ServerPlayNetworking.registerGlobalReceiver(UpdatePressingUpDownPacketC2S.ID, AylythServerPacketHandler::handleUpdatePressingUpDown);
-
-		// TODO move to the LivingEntityDeathEvents
-		UseBlockCallback.EVENT.register(this::interactSoulCampfire);
-		AttackEntityCallback.EVENT.register(this::attackWithYmpeDagger);
-	}
-
-	private ActionResult interactSoulCampfire(PlayerEntity playerEntity, World world, Hand hand, BlockHitResult blockHitResult) {
-		if (world instanceof ServerWorld serverWorld) {
-			if (hand == Hand.MAIN_HAND && world.getBlockState(blockHitResult.getBlockPos()).isOf(Blocks.SOUL_CAMPFIRE) && world.getBlockEntity(blockHitResult.getBlockPos()) instanceof CampfireBlockEntity campfireBlockEntity){
-				ItemStack itemStack = playerEntity.getMainHandStack();
-				// TODO: Check this works
-				// TODO: Cache this?
-				List<Ingredient> allowedIngredients = serverWorld.getRecipeManager().getAllOfType(AylythRecipeTypes.FIRE_RITUAL_TYPE).stream()
-						.map(entry -> entry.value().input)
-						.flatMap(Collection::stream)
-						.toList();
-				if (allowedIngredients.stream().anyMatch(ingredient -> ingredient.test(itemStack))){
-					if (!world.isClient && campfireBlockEntity.addItem(serverWorld, playerEntity, itemStack)) {
-						playerEntity.incrementStat(Stats.INTERACT_WITH_CAMPFIRE);
-						return ActionResult.SUCCESS;
-					}
-				}
-			}
-		}
-		return ActionResult.PASS;
-	}
-
-	private ActionResult attackWithYmpeDagger(PlayerEntity attacker, World world, Hand hand, Entity target, @Nullable EntityHitResult hitResult) {
-		if (attacker.getStackInHand(hand).isOf(AylythItems.YMPE_DAGGER) && target instanceof MobEntity mob) {
-			ItemStack offhand = attacker.getOffHandStack();
-			if (offhand.isOf(AylythItems.SHUCKED_YMPE_FRUIT)) {
-				NbtComponent storedEntity = offhand.getOrDefault(DataComponentTypes.ENTITY_DATA, NbtComponent.DEFAULT);
-				if (storedEntity.isEmpty() && !mob.getType().isIn(AylythEntityTypeTags.NON_SHUCKABLE)) {
-					if (attacker instanceof ServerPlayerEntity serverPlayer) {
-						AylythCriteria.SHUCKING.trigger(serverPlayer, mob);
-						mob.setHealth(mob.getMaxHealth()); // TODO: check whether this is intended behavior
-						mob.clearStatusEffects();
-						mob.extinguish();
-						mob.setFrozenTicks(0);
-						mob.setVelocity(Vec3d.ZERO);
-						mob.fallDistance = 0;
-						mob.setAttached(AylythEntityAttachmentTypes.PREVENT_DROPS, Unit.INSTANCE);
-						PlayerLookup.tracking(mob).forEach(trackingPlayer -> {
-							ServerPlayNetworking.send(trackingPlayer, new SpawnParticlesAroundPacketS2C(mob.getId(), 32, List.of(ParticleTypes.SMOKE, ParticleTypes.FALLING_HONEY)));
-						});
-						world.playSound(null, mob.getBlockPos(), AylythSoundEvents.ENTITY_GENERIC_SHUCKED.value(), mob.getSoundCategory(), 1, mob.getSoundPitch());
-						NbtComponent.set(DataComponentTypes.ENTITY_DATA, offhand, mob::writeNbt);
-						mob.remove(Entity.RemovalReason.DISCARDED);
-						// deal a bit of damage to the player
-						attacker.damage(serverPlayer.getServerWorld(), world.aylythDamageSources().shucking(), 1);
-					}
-					return ActionResult.SUCCESS;
-				}
-			}
-		}
-		return ActionResult.PASS;
 	}
 
 	private void registerApis() {
