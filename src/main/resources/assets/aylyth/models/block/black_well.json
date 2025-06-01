@@ -1,6 +1,6 @@
 {
 	"credit": "Made with Blockbench",
-	"parent": "minecraft:block/cube_all",
+	"parent": "minecraft:block/cube",
 	"textures": {
 		"0": "aylyth:block/black_well_stone",
 		"1": "aylyth:block/black_well_oil",
