@@ -10,10 +10,10 @@ import moriyashiine.aylyth.datagen.common.AylythDynamicDataProvider;
 import moriyashiine.aylyth.datagen.common.AylythJukeboxSongsBootstrap;
 import moriyashiine.aylyth.datagen.common.AylythRecipeGenerator;
 import moriyashiine.aylyth.datagen.common.AylythDamageTypeBootstrap;
-import moriyashiine.aylyth.datagen.common.loot.AylythEntityLootAdditionsGenerator;
+import moriyashiine.aylyth.datagen.common.LootModifierBootstrap;
 import moriyashiine.aylyth.datagen.common.loot.AylythHarvestLootGenerator;
 import moriyashiine.aylyth.datagen.common.loot.AylythStripLootGenerator;
-import moriyashiine.aylyth.datagen.common.loot.LootDisplayBootstrap;
+import moriyashiine.aylyth.datagen.common.LootDisplayBootstrap;
 import moriyashiine.aylyth.datagen.common.world.AylythBiomeBootstrap;
 import moriyashiine.aylyth.datagen.common.world.feature.AylythConfiguredCarverBootstrap;
 import moriyashiine.aylyth.datagen.common.world.feature.AylythConfiguredFeatureBootstrap;
@@ -67,7 +67,6 @@ public class AylythDatagen implements DataGeneratorEntrypoint {
                 Set.of(),
                 List.of(
                         new LootTableProvider.LootTypeGenerator(AylythEntityLootGenerator::new, LootContextTypes.ENTITY),
-                        new LootTableProvider.LootTypeGenerator(AylythEntityLootAdditionsGenerator::new, LootContextTypes.ENTITY),
                         new LootTableProvider.LootTypeGenerator(AylythHarvestLootGenerator::new, AylythLootContextTypes.HARVEST),
                         new LootTableProvider.LootTypeGenerator(AylythStripLootGenerator::new, AylythLootContextTypes.STRIP)
                 ),
@@ -92,6 +91,7 @@ public class AylythDatagen implements DataGeneratorEntrypoint {
         builder.addRegistry(RegistryKeys.DAMAGE_TYPE, AylythDamageTypeBootstrap::bootstrap);
         builder.addRegistry(RegistryKeys.JUKEBOX_SONG, AylythJukeboxSongsBootstrap::bootstrap);
         builder.addRegistry(AylythRegistryKeys.LOOT_TABLE_DISPLAY, LootDisplayBootstrap::bootstrap);
+        builder.addRegistry(AylythRegistryKeys.LOOT_TABLE_MODIFIER, LootModifierBootstrap::bootstrap);
     }
 
     @Override

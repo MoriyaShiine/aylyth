@@ -36,7 +36,9 @@ import moriyashiine.aylyth.common.loot.AylythLootContextTypes;
 import moriyashiine.aylyth.common.loot.AylythModifyLootTableHandler;
 import moriyashiine.aylyth.common.loot.AylythEntitySubPredicates;
 import moriyashiine.aylyth.common.loot.LootDisplayTypes;
+import moriyashiine.aylyth.common.loot.LootTableModifiers;
 import moriyashiine.aylyth.common.loot.display.LootDisplay;
+import moriyashiine.aylyth.common.loot.modifier.LootTableModifier;
 import moriyashiine.aylyth.common.network.AylythServerPacketHandler;
 import moriyashiine.aylyth.common.network.packets.GlaivePacketC2S;
 import moriyashiine.aylyth.common.network.packets.UpdatePressingUpDownPacketC2S;
@@ -95,6 +97,7 @@ public class Aylyth implements ModInitializer {
 		AylythDataComponentTypes.register();
 
 		LootDisplayTypes.register();
+		LootTableModifiers.register();
 		AylythLootContextTypes.register();
 		AylythCriteria.register();
 		AylythLootConditionTypes.register();
@@ -146,6 +149,7 @@ public class Aylyth implements ModInitializer {
 		DispenserBlock.registerProjectileBehavior(AylythItems.BLIGHTED_THORN_FLECHETTE);
 
 		DynamicRegistries.registerSynced(AylythRegistryKeys.LOOT_TABLE_DISPLAY, LootDisplay.CODEC, LootDisplay.NETWORK_CODEC);
+		DynamicRegistries.register(AylythRegistryKeys.LOOT_TABLE_MODIFIER, LootTableModifier.CODEC);
 
 		registerApis();
 

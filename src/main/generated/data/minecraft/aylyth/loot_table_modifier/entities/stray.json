@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:entity",
+  "type": "aylyth:add_pools",
   "pools": [
     {
       "bonus_rolls": 0.0,
@@ -30,11 +30,10 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:zombie_head"
+          "name": "minecraft:skeleton_skull"
         }
       ],
       "rolls": 1.0
     }
-  ],
-  "random_sequence": "minecraft:additions/entities/husk"
+  ]
 }

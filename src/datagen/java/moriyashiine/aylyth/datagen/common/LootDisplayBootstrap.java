@@ -1,4 +1,4 @@
-package moriyashiine.aylyth.datagen.common.loot;
+package moriyashiine.aylyth.datagen.common;
 
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.data.tag.AylythItemTags;
