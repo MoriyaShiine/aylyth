@@ -59,7 +59,7 @@
 			  "condition": "minecraft:block_state_property",
 			  "block": "aylyth:nysian_grape_vine",
 			  "properties": {
-				"age": 3
+				"age": "3"
 			  }
 			}
 		  ],

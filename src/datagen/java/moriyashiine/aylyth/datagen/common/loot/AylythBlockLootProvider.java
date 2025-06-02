@@ -1,7 +1,15 @@
 package moriyashiine.aylyth.datagen.common.loot;
 
 import moriyashiine.aylyth.common.block.AylythBlocks;
-import moriyashiine.aylyth.common.block.types.*;
+import moriyashiine.aylyth.common.block.types.GrowingHarvestablePillarBlock;
+import moriyashiine.aylyth.common.block.types.JackolanternMushroomBlock;
+import moriyashiine.aylyth.common.block.types.LargeWoodyGrowthBlock;
+import moriyashiine.aylyth.common.block.types.OneTimeHarvestablePillarBlock;
+import moriyashiine.aylyth.common.block.types.PomegranateLeavesBlock;
+import moriyashiine.aylyth.common.block.types.SmallWoodyGrowthBlock;
+import moriyashiine.aylyth.common.block.types.StagedMushroomPlantBlock;
+import moriyashiine.aylyth.common.block.types.StrewnLeavesBlock;
+import moriyashiine.aylyth.common.block.types.WoodyGrowthCacheBlock;
 import moriyashiine.aylyth.common.item.AylythItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
@@ -14,7 +22,11 @@ import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
-import net.minecraft.loot.condition.*;
+import net.minecraft.loot.condition.AnyOfLootCondition;
+import net.minecraft.loot.condition.BlockStatePropertyLootCondition;
+import net.minecraft.loot.condition.MatchToolLootCondition;
+import net.minecraft.loot.condition.RandomChanceLootCondition;
+import net.minecraft.loot.condition.TableBonusLootCondition;
 import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.loot.entry.AlternativeEntry;
 import net.minecraft.loot.entry.DynamicEntry;
@@ -128,6 +140,18 @@ public class AylythBlockLootProvider extends FabricBlockLootTableProvider {
         addDrop(AylythBlocks.ORANGE_AYLYTHIAN_OAK_LEAVES, block -> leavesDrops(block, AylythBlocks.ORANGE_AYLYTHIAN_OAK_SAPLING, SAPLING_DROP_CHANCE));
         addDrop(AylythBlocks.RED_AYLYTHIAN_OAK_LEAVES, block -> leavesDrops(block, AylythBlocks.RED_AYLYTHIAN_OAK_SAPLING, SAPLING_DROP_CHANCE));
         addDrop(AylythBlocks.BROWN_AYLYTHIAN_OAK_LEAVES, block -> leavesDrops(block, AylythBlocks.BROWN_AYLYTHIAN_OAK_SAPLING, SAPLING_DROP_CHANCE));
+        addDrop(AylythBlocks.FRUIT_BEARING_YMPE_LOG, this::fruitBearingYmpeLog);
+    }
+
+    private LootTable.Builder fruitBearingYmpeLog(Block block) {
+        return LootTable.builder().type(LootContextTypes.BLOCK)
+                .pool(
+                        addSurvivesExplosionCondition(block, LootPool.builder().with(ItemEntry.builder(AylythBlocks.YMPE_LOG)))
+                ).pool(
+                        addSurvivesExplosionCondition(block, LootPool.builder().with(ItemEntry.builder(AylythItems.YMPE_FRUIT)
+                                .conditionally(BlockStatePropertyLootCondition.builder(block).properties(StatePredicate.Builder.create().exactMatch(GrowingHarvestablePillarBlock.AGE, 4)))
+                        ))
+                );
     }
 
     private LootTable.Builder leafyBranch(Block branch, ItemConvertible strewnLeaves) {
@@ -140,12 +164,11 @@ public class AylythBlockLootProvider extends FabricBlockLootTableProvider {
     private LootTable.Builder ympeLeaves(Block leaves, ItemConvertible sticks, float... chances) {
         return LootTable.builder().type(LootContextTypes.BLOCK)
                 .pool(
-                        addSurvivesExplosionCondition(leaves, LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0F)).with(ItemEntry.builder(leaves)))
+                        addSurvivesExplosionCondition(leaves, LootPool.builder().with(ItemEntry.builder(leaves)))
                                 .conditionally(createWithSilkTouchOrShearsCondition())
                                 .conditionally(TableBonusLootCondition.builder(registries.getOrThrow(RegistryKeys.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE), chances))
                 ).pool(
                         LootPool.builder()
-                                .rolls(ConstantLootNumberProvider.create(1.0F))
                                 .conditionally(createWithoutShearsOrSilkTouchCondition())
                                 .with(
                                         this.applyExplosionDecay(leaves, ItemEntry.builder(sticks).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0F, 2.0F))))
@@ -225,9 +248,9 @@ public class AylythBlockLootProvider extends FabricBlockLootTableProvider {
         );
     }
 
-    private LootTable.Builder pomegranateLeavesDrop(Block leaves, Block drop, float ... chance) {
+    private LootTable.Builder pomegranateLeavesDrop(Block leaves, Block drop, float... chance) {
         return dropsWithSilkTouchOrShears(leaves, addSurvivesExplosionCondition(leaves, ItemEntry.builder(drop))
-                        .conditionally(TableBonusLootCondition.builder(registries.getOrThrow(RegistryKeys.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE), chance)))
+                .conditionally(TableBonusLootCondition.builder(registries.getOrThrow(RegistryKeys.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE), chance)))
                 .pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0f))
                         .conditionally(createWithoutShearsOrSilkTouchCondition())
                         .with(applyExplosionDecay(leaves, ItemEntry.builder(Items.STICK)
@@ -253,7 +276,7 @@ public class AylythBlockLootProvider extends FabricBlockLootTableProvider {
                 LootPool.builder().with(
                         AlternativeEntry.builder(StrewnLeavesBlock.LEAVES.getValues(),
                                 integer -> ItemEntry.builder(block)
-                                        .apply(SetCountLootFunction.builder(ConstantLootNumberProvider.create(integer+1)))
+                                        .apply(SetCountLootFunction.builder(ConstantLootNumberProvider.create(integer + 1)))
                                         .conditionally(BlockStatePropertyLootCondition.builder(block)
                                                 .properties(StatePredicate.Builder.create()
                                                         .exactMatch(StrewnLeavesBlock.LEAVES, integer)
