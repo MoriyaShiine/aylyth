@@ -55,6 +55,7 @@ public final class AylythItemTagProvider extends FabricTagProvider.ItemTagProvid
         getOrCreateTagBuilder(ConventionalItemTags.MELEE_WEAPON_TOOLS)
                 .add(YMPE_LANCE, LANCEOLATE_DAGGER, YMPE_DAGGER, YMPE_GLAIVE, YMPE_FLAMBERGE, YMPE_SCYTHE, NEPHRITE_SWORD, VAMPIRIC_SWORD, BLIGHTED_SWORD, NEPHRITE_AXE, VAMPIRIC_AXE, BLIGHTED_AXE);
         getOrCreateTagBuilder(ConventionalItemTags.RANGED_WEAPON_TOOLS).add(YMPE_LANCE, THORN_FLECHETTE, BLIGHTED_THORN_FLECHETTE);
+        getOrCreateTagBuilder(ConventionalItemTags.MINING_TOOL_TOOLS).add(NEPHRITE_PICKAXE, VAMPIRIC_PICKAXE, BLIGHTED_PICKAXE);
         getOrCreateTagBuilder(ConventionalItemTags.FRUIT_FOODS).add(YMPE_FRUIT, NYSIAN_GRAPES, POMEGRANATE);
         getOrCreateTagBuilder(ConventionalItemTags.BERRY_FOODS).add(NYSIAN_GRAPES);
         getOrCreateTagBuilder(ConventionalItemTags.FOOD_POISONING_FOODS).add(GHOSTCAP_MUSHROOM);
