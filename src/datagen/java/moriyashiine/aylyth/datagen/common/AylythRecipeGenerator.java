@@ -10,6 +10,7 @@ import moriyashiine.aylyth.datagen.common.util.recipe.SoulCampfireRecipeBuilder;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.fabricmc.fabric.api.recipe.v1.ingredient.DefaultCustomIngredients;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.NbtComponent;
 import net.minecraft.data.recipe.RecipeExporter;
@@ -155,7 +156,7 @@ public final class AylythRecipeGenerator extends RecipeGenerator {
 
         createShaped(RecipeCategory.COMBAT, AylythItems.NEPHRITE_SWORD)
                 .input('N', AylythItemTags.NEPHRITE_TOOL_MATERIALS)
-                .input('S', Items.STICK)
+                .input('S', ConventionalItemTags.WOODEN_RODS)
                 .pattern("N")
                 .pattern("N")
                 .pattern("S")
@@ -164,7 +165,7 @@ public final class AylythRecipeGenerator extends RecipeGenerator {
 
         createShaped(RecipeCategory.COMBAT, AylythItems.NEPHRITE_SHOVEL)
                 .input('N', AylythItemTags.NEPHRITE_TOOL_MATERIALS)
-                .input('S', Items.STICK)
+                .input('S', ConventionalItemTags.WOODEN_RODS)
                 .pattern("N")
                 .pattern("S")
                 .pattern("S")
@@ -173,7 +174,7 @@ public final class AylythRecipeGenerator extends RecipeGenerator {
 
         createShaped(RecipeCategory.COMBAT, AylythItems.NEPHRITE_PICKAXE)
                 .input('N', AylythItemTags.NEPHRITE_TOOL_MATERIALS)
-                .input('S', Items.STICK)
+                .input('S', ConventionalItemTags.WOODEN_RODS)
                 .pattern("NNN")
                 .pattern(" S ")
                 .pattern(" S ")
@@ -182,7 +183,7 @@ public final class AylythRecipeGenerator extends RecipeGenerator {
 
         createShaped(RecipeCategory.COMBAT, AylythItems.NEPHRITE_AXE)
                 .input('N', AylythItemTags.NEPHRITE_TOOL_MATERIALS)
-                .input('S', Items.STICK)
+                .input('S', ConventionalItemTags.WOODEN_RODS)
                 .pattern("NN")
                 .pattern("NS")
                 .pattern(" S")
@@ -191,7 +192,7 @@ public final class AylythRecipeGenerator extends RecipeGenerator {
 
         createShaped(RecipeCategory.COMBAT, AylythItems.NEPHRITE_HOE)
                 .input('N', AylythItemTags.NEPHRITE_TOOL_MATERIALS)
-                .input('S', Items.STICK)
+                .input('S', ConventionalItemTags.WOODEN_RODS)
                 .pattern("NN")
                 .pattern(" S")
                 .pattern(" S")
@@ -200,14 +201,14 @@ public final class AylythRecipeGenerator extends RecipeGenerator {
 
         createShaped(RecipeCategory.BREWING, AylythItems.NEPHRITE_FLASK)
                 .input('N', AylythItems.NEPHRITE)
-                .input('E', Items.STICK)
+                .input('E', ConventionalItemTags.WOODEN_RODS)
                 .pattern("NEN")
                 .pattern(" N ")
                 .criterion("has_nephrite", conditionsFromItem(AylythItems.NEPHRITE))
                 .offerTo(exporter);
 
         createShaped(RecipeCategory.DECORATIONS, Items.TORCH)
-                .input('S', Items.STICK)
+                .input('S', ConventionalItemTags.WOODEN_RODS)
                 .input('C', AylythItems.BARK)
                 .pattern("C")
                 .pattern("S")
