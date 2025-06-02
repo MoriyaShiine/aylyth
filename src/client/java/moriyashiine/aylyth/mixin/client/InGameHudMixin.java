@@ -18,6 +18,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(InGameHud.class)
@@ -27,6 +28,15 @@ public abstract class InGameHudMixin implements AylythGameHud {
 	private MinecraftClient client;
 
 	@Shadow protected abstract void drawHeart(DrawContext context, InGameHud.HeartType type, int x, int y, boolean hardcore, boolean blinking, boolean half);
+
+	@ModifyArg(method = "renderStatusBars", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/MathHelper;ceil(F)I", ordinal = 2))
+	private float modifyArmorRenderLocation(float original, @Local float health, @Local(ordinal = 5) int absorption) {
+		float vitalHealth = (float) client.player.getAttributeValue(AylythAttributes.MAX_VITAL_HEALTH);
+		if (vitalHealth > 0) {
+			return (health + absorption + vitalHealth) / 2.0f / 10.0f;
+		}
+		return original;
+	}
 
 	@Inject(method = "drawHeart", at = @At("TAIL"))
 	private void drawBranches(DrawContext context, InGameHud.HeartType type, int x, int y, boolean hardcore, boolean blinking, boolean half, CallbackInfo ci) {
