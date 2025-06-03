@@ -104,7 +104,7 @@ final class AylythSurfaceMaterialRules {
                 biome(AylythBiomes.DEEPWOOD, AylythBiomes.CONIFEROUS_DEEPWOOD),
                 sequence(
                         // Common dark podzol patches
-                        condition(noiseThreshold(AylythNoiseParams.DEEPWOOD_DARK_PODZOL_PATCHES, 0.3, Double.MAX_VALUE), block(Blocks.MUD)), // TODO replace with AylythBlocks.DARK_PODZOL
+                        condition(noiseThreshold(AylythNoiseParams.DEEPWOOD_DARK_PODZOL_PATCHES, 0.3, Double.MAX_VALUE), block(AylythBlocks.DARK_PODZOL)),
                         // Thick podzol veins
                         condition(noiseThreshold(AylythNoiseParams.DEEPWOOD_PODZOL_VEINS, -0.05, 0.05), block(Blocks.PODZOL))
                 )
@@ -123,7 +123,7 @@ final class AylythSurfaceMaterialRules {
         return condition(
                 biome(AylythBiomes.COPSE, AylythBiomes.CONIFEROUS_COPSE),
                 // Thin dark podzol veins
-                condition(noiseThreshold(AylythNoiseParams.COPSE_DARK_PODZOL_VEINS, -0.03, 0.03), block(Blocks.MUD)) // TODO replace with AylythBlocks.DARK_PODZOL
+                condition(noiseThreshold(AylythNoiseParams.COPSE_DARK_PODZOL_VEINS, -0.03, 0.03), block(AylythBlocks.DARK_PODZOL))
         );
     }
 
