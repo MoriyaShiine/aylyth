@@ -11,4 +11,9 @@ public class ElderAylythianEntityRenderer extends GeoEntityRenderer<ElderAylythi
 		super(ctx, new ElderAylythianEntityModel());
 		addRenderLayer(new ElderAylythianGlowLayerRenderer(this));
 	}
+
+	@Override
+	public float getMotionAnimThreshold(ElderAylythianEntity animatable) {
+		return 0.001f;
+	}
 }

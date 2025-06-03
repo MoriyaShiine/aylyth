@@ -40,14 +40,12 @@ import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.AnimatableManager;
 import software.bernie.geckolib.animation.AnimationController;
-import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.animation.PlayState;
+import software.bernie.geckolib.animation.RawAnimation;
+import software.bernie.geckolib.constant.DefaultAnimations;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class ElderAylythianEntity extends HostileEntity implements GeoEntity {
-	private static final RawAnimation IDLE = RawAnimation.begin().thenPlay("idle");
-	private static final RawAnimation WALK = RawAnimation.begin().thenPlay("walk");
-	private static final RawAnimation RUN = RawAnimation.begin().thenPlay("run");
 	private static final RawAnimation SWIPE = RawAnimation.begin().thenPlay("swipe");
 	private static final RawAnimation HEARTBEAT = RawAnimation.begin().thenPlay("heartbeat");
 	private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
@@ -70,24 +68,10 @@ public class ElderAylythianEntity extends HostileEntity implements GeoEntity {
 	
 	@Override
 	public void registerControllers(AnimatableManager.ControllerRegistrar animationData) {
-		animationData.add(new AnimationController<>(this, "Move", 10, animationEvent -> {
-			float limbSwingAmount = Math.abs(animationEvent.getLimbSwingAmount());
-			RawAnimation animation;
-			if (limbSwingAmount > 0.6F) {
-				animation = RUN;
-			} else if (limbSwingAmount > 0.01F) {
-				animation = WALK;
-			} else {
-				animation = IDLE;
-			}
-			return animationEvent.setAndContinue(animation);
-		}));
-		animationData.add(new AnimationController<>(this, "Attack", 0, animationEvent -> {
-			var entity = animationEvent.getAnimatable();
-			return entity.handSwinging && !entity.isDead() ? animationEvent.setAndContinue(SWIPE) : PlayState.STOP;
-		}));
+		animationData.add(DefaultAnimations.genericWalkRunIdleController(this));
+		animationData.add(DefaultAnimations.genericAttackAnimation(this, SWIPE));
 		animationData.add(new AnimationController<>(this, "Effect", 0, animationEvent ->
-			animationEvent.setAndContinue(HEARTBEAT)
+			animationEvent.getAnimatable().isDead() ? PlayState.STOP : animationEvent.setAndContinue(HEARTBEAT)
 		));
 	}
 
