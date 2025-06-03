@@ -52,6 +52,7 @@ import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.ServerConfigHandler;
+import net.minecraft.server.network.DebugInfoSender;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
@@ -601,6 +602,12 @@ public class TulpaEntity extends HostileEntity implements TameableHostileEntity,
     @Override
     public void onInventoryChanged(Inventory sender) {
 
+    }
+
+    @Override
+    protected void sendAiDebugData() {
+        super.sendAiDebugData();
+        DebugInfoSender.sendBrainDebugData(this);
     }
 
     public enum ActionState implements StringIdentifiable {

@@ -354,6 +354,12 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
         dataTracker.set(IS_PLEDGED, isPledged);
     }
 
+    @Override
+    protected void sendAiDebugData() {
+        super.sendAiDebugData();
+        DebugInfoSender.sendBrainDebugData(this);
+    }
+
     public enum AttackType implements StringIdentifiable {
         NONE(0, "none"),
         MELEE(1, "melee"),
