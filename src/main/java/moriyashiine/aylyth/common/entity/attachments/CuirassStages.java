@@ -6,6 +6,7 @@ import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 
+// TODO: Probably better suited for an item data component, rather than an entity attachment
 public class CuirassStages {
     public static final Codec<CuirassStages> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
