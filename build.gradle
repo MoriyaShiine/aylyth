@@ -152,7 +152,7 @@ dependencies {
 //    }
 
     // Nice dev things
-//	modRuntimeOnly "curse.maven:disablecustomworldsadvice-401978:4619700"
+	modRuntimeOnly "curse.maven:disablecustomworldsadvice-401978:5510699"
     // https://www.curseforge.com/minecraft/mc-mods/debug-utils-fabric/files/4644075
 //    modRuntimeOnly "curse.maven:debugutils-783010:4644075"
 
