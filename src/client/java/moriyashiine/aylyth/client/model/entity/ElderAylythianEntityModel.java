@@ -37,10 +37,10 @@ public class ElderAylythianEntityModel extends GeoModel<ElderAylythianEntity> {
 	}
 	
 	@Override
-	public void setCustomAnimations(ElderAylythianEntity entity, long uniqueID, AnimationState<ElderAylythianEntity> customPredicate) {
-		super.setCustomAnimations(entity, uniqueID, customPredicate);
+	public void setCustomAnimations(ElderAylythianEntity entity, long uniqueID, AnimationState<ElderAylythianEntity> animationState) {
+		super.setCustomAnimations(entity, uniqueID, animationState);
 		var head = this.getAnimationProcessor().getBone("head");
-		var extraData = customPredicate.getData(DataTickets.ENTITY_MODEL_DATA);
+		var extraData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
 		if (head != null) {
 			head.setRotX(extraData.headPitch() * MathHelper.RADIANS_PER_DEGREE);
 			head.setRotY(extraData.netHeadYaw() * MathHelper.RADIANS_PER_DEGREE);
