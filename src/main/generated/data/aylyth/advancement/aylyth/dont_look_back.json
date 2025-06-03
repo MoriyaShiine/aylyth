@@ -17,6 +17,18 @@
       "trigger": "minecraft:player_interacted_with_entity"
     }
   },
+  "display": {
+    "description": {
+      "translate": "advancements.aylyth.aylyth.dont_look_back.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "aylyth:pilot_light_spawn_egg"
+    },
+    "title": {
+      "translate": "advancements.aylyth.aylyth.dont_look_back.title"
+    }
+  },
   "requirements": [
     [
       "has_interacted_with_pilot_light"

@@ -2,9 +2,11 @@ package moriyashiine.aylyth.datagen.common;
 
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.advancement.criteria.HindPledgeCriterion;
+import moriyashiine.aylyth.common.advancement.criteria.ShuckingCriterion;
 import moriyashiine.aylyth.common.advancement.criteria.YmpeInfestationCriterion;
 import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.entity.AylythEntityTypes;
+import moriyashiine.aylyth.common.entity.AylythStatusEffects;
 import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.aylyth.common.item.potion.AylythPotions;
 import moriyashiine.aylyth.common.data.world.AylythBiomes;
@@ -16,9 +18,13 @@ import net.minecraft.advancement.AdvancementCriterion;
 import net.minecraft.advancement.AdvancementEntry;
 import net.minecraft.advancement.AdvancementFrame;
 import net.minecraft.advancement.criterion.*;
+import net.minecraft.component.ComponentChanges;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.NbtComponent;
 import net.minecraft.component.type.PotionContentsComponent;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.predicate.entity.EntityEffectPredicate;
 import net.minecraft.predicate.entity.EntityPredicate;
@@ -51,17 +57,16 @@ public final class AylythAdvancementProvider extends FabricAdvancementProvider {
                 .display(AylythItems.YMPE_SAPLING.getDefaultStack(), Text.translatable("advancements.aylyth.aylyth.root.title"), Text.translatable("advancements.aylyth.aylyth.root.desc"), Aylyth.id("textures/block/ympe_planks.png"), AdvancementFrame.TASK, true, true, false)
                 .criterion("entered_aylyth", ChangedDimensionCriterion.Conditions.to(AylythDimensionData.WORLD))
                 .build(consumer, "aylyth:aylyth/root");
-        // TODO: Setup models for rendering. Probably just use a stick item with the custom model.
-//        Advancement.Builder.create()
-//                .parent(root)
-//                .display(TextureRendererData.standard(Aylyth.id("textures/mob_effect/cimmerian.png")), Text.translatable("advancements.aylyth.aylyth.cimmerianed.title"), Text.translatable("advancements.aylyth.aylyth.cimmerianed.desc"), null, AdvancementFrame.TASK, true, true, false)
-//                .criterion("has_cimmerian_effect", effectsChangedCriteria(EntityEffectPredicate.Builder.create().addEffect(AylythStatusEffects.CIMMERIAN).build().get()))
-//                .build(consumer, "aylyth:aylyth/cimmerianed");
-//        Advancement.Builder.create()
-//                .parent(root)
-//                .display(TextureRendererData.standard(Aylyth.id("textures/mob_effect/wyrded.png")), Text.translatable("advancements.aylyth.aylyth.wyrded.title"), Text.translatable("advancements.aylyth.aylyth.wyrded.desc"), null, AdvancementFrame.TASK, true, true, false)
-//                .criterion("has_wyrded_effect", effectsChangedCriteria(EntityEffectPredicate.Builder.create().addEffect(AylythStatusEffects.WYRDED).build().get()))
-//                .build(consumer, "aylyth:aylyth/wyrded");
+        Advancement.Builder.create()
+                .parent(root)
+                .display(new ItemStack(Items.STICK.getRegistryEntry(), 1, ComponentChanges.builder().add(DataComponentTypes.ITEM_MODEL, Aylyth.id("advancements/cimmerianed")).build()), Text.translatable("advancements.aylyth.aylyth.cimmerianed.title"), Text.translatable("advancements.aylyth.aylyth.cimmerianed.desc"), null, AdvancementFrame.TASK, true, true, false)
+                .criterion("has_cimmerian_effect", effectsChangedCriteria(EntityEffectPredicate.Builder.create().addEffect(AylythStatusEffects.CIMMERIAN)))
+                .build(consumer, "aylyth:aylyth/cimmerianed");
+        Advancement.Builder.create()
+                .parent(root)
+                .display(new ItemStack(Items.STICK.getRegistryEntry(), 1, ComponentChanges.builder().add(DataComponentTypes.ITEM_MODEL, Aylyth.id("advancements/wyrded")).build()), Text.translatable("advancements.aylyth.aylyth.wyrded.title"), Text.translatable("advancements.aylyth.aylyth.wyrded.desc"), null, AdvancementFrame.TASK, true, true, false)
+                .criterion("has_wyrded_effect", effectsChangedCriteria(EntityEffectPredicate.Builder.create().addEffect(AylythStatusEffects.WYRDED)))
+                .build(consumer, "aylyth:aylyth/wyrded");
         var inTheBranches = Advancement.Builder.create()
                 .parent(root)
                 .display(AylythItems.YMPE_DAGGER, Text.translatable("advancements.aylyth.aylyth.in_the_branches.title"), Text.translatable("advancements.aylyth.aylyth.in_the_branches.desc"), null, AdvancementFrame.TASK, true, true, false)
@@ -72,12 +77,11 @@ public final class AylythAdvancementProvider extends FabricAdvancementProvider {
                 .display(AylythItems.YMPE_FRUIT, Text.translatable("advancements.aylyth.aylyth.life_at_a_cost.title"), Text.translatable("advancements.aylyth.aylyth.life_at_a_cost.desc"), null, AdvancementFrame.TASK, true, true, false)
                 .criterion("has_ympe_fruit", InventoryChangedCriterion.Conditions.items(AylythItems.YMPE_FRUIT))
                 .build(consumer, "aylyth:aylyth/life_at_a_cost");
-        // TODO: Fix after setting up items
-//        Advancement.Builder.create()
-//                .parent(lifeAtACost)
-//                .display(stackWithNbt(AylythItems.SHUCKED_YMPE_FRUIT, nbtCompound -> nbtCompound.putInt("StoredEntity", 1)), Text.translatable("advancements.aylyth.aylyth.daemon_ritus.title"), Text.translatable("advancements.aylyth.aylyth.daemon_ritus.desc"), null, AdvancementFrame.GOAL, true, true, false)
-//                .criterion("has_shucked", ShuckingCriterion.Conditions.create())
-//                .build(consumer, "aylyth:aylyth/daemon_ritus");
+        Advancement.Builder.create()
+                .parent(lifeAtACost)
+                .display(new ItemStack(AylythItems.SHUCKED_YMPE_FRUIT.getRegistryEntry(), 1, ComponentChanges.builder().add(DataComponentTypes.ENTITY_DATA, NbtComponent.DEFAULT.apply(nbtCompound -> nbtCompound.putString("id", "minecraft:pig"))).build()), Text.translatable("advancements.aylyth.aylyth.daemon_ritus.title"), Text.translatable("advancements.aylyth.aylyth.daemon_ritus.desc"), null, AdvancementFrame.GOAL, true, true, false)
+                .criterion("has_shucked", ShuckingCriterion.Conditions.create())
+                .build(consumer, "aylyth:aylyth/daemon_ritus");
         Advancement.Builder.create()
                 .parent(lifeAtACost)
                 .display(AylythItems.CORIC_SEED, Text.translatable("advancements.aylyth.aylyth.manufactured_for_a_purpose.title"), Text.translatable("advancements.aylyth.aylyth.manufactured_for_a_purpose.desc"), null, AdvancementFrame.GOAL, true, true, false)
@@ -98,10 +102,9 @@ public final class AylythAdvancementProvider extends FabricAdvancementProvider {
                 .display(AylythItems.NYSIAN_GRAPES, Text.translatable("advancements.aylyth.aylyth.come_wayward_souls.title"), Text.translatable("advancements.aylyth.aylyth.come_wayward_souls.desc"), null, AdvancementFrame.TASK, true, true, false)
                 .criterion("has_pledged", HindPledgeCriterion.Conditions.create())
                 .build(consumer, "aylyth:aylyth/come_wayward_souls");
-        // TODO: Fix display
         var dontLookBack = Advancement.Builder.create()
                 .parent(root)
-//                .display(new TextureRendererData(Aylyth.id("textures/particle/pilot_light.png"), 0xFFFF33FF), Text.translatable("advancements.aylyth.aylyth.dont_look_back.title"), Text.translatable("advancements.aylyth.aylyth.dont_look_back.desc"), null, AdvancementFrame.TASK, true, true, false)
+                .display(new ItemStack(AylythItems.PILOT_LIGHT_SPAWN_EGG), Text.translatable("advancements.aylyth.aylyth.dont_look_back.title"), Text.translatable("advancements.aylyth.aylyth.dont_look_back.desc"), null, AdvancementFrame.TASK, true, true, false)
                 .criterion("has_interacted_with_pilot_light", PlayerInteractedWithEntityCriterion.Conditions.create(ItemPredicate.Builder.create(), Optional.of(EntityPredicate.asLootContextPredicate(EntityPredicate.Builder.create().type(EntityTypePredicate.create(registryLookup.getOrThrow(RegistryKeys.ENTITY_TYPE), AylythEntityTypes.PILOT_LIGHT)).build()))))
                 .build(consumer, "aylyth:aylyth/dont_look_back");
         Advancement.Builder.create()

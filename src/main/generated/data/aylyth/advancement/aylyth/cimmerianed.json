@@ -1,0 +1,34 @@
+{
+  "parent": "aylyth:aylyth/root",
+  "criteria": {
+    "has_cimmerian_effect": {
+      "conditions": {
+        "effects": {
+          "aylyth:cimmerian": {}
+        }
+      },
+      "trigger": "minecraft:effects_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.aylyth.aylyth.cimmerianed.desc"
+    },
+    "icon": {
+      "components": {
+        "minecraft:item_model": "aylyth:advancements/cimmerianed"
+      },
+      "count": 1,
+      "id": "minecraft:stick"
+    },
+    "title": {
+      "translate": "advancements.aylyth.aylyth.cimmerianed.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_cimmerian_effect"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

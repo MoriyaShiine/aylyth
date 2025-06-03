@@ -1,0 +1,32 @@
+{
+  "parent": "aylyth:aylyth/life_at_a_cost",
+  "criteria": {
+    "has_shucked": {
+      "trigger": "aylyth:shucking"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.aylyth.aylyth.daemon_ritus.desc"
+    },
+    "frame": "goal",
+    "icon": {
+      "components": {
+        "minecraft:entity_data": {
+          "id": "minecraft:pig"
+        }
+      },
+      "count": 1,
+      "id": "aylyth:shucked_ympe_fruit"
+    },
+    "title": {
+      "translate": "advancements.aylyth.aylyth.daemon_ritus.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_shucked"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,34 @@
+{
+  "parent": "aylyth:aylyth/root",
+  "criteria": {
+    "has_wyrded_effect": {
+      "conditions": {
+        "effects": {
+          "aylyth:wyrded": {}
+        }
+      },
+      "trigger": "minecraft:effects_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.aylyth.aylyth.wyrded.desc"
+    },
+    "icon": {
+      "components": {
+        "minecraft:item_model": "aylyth:advancements/wyrded"
+      },
+      "count": 1,
+      "id": "minecraft:stick"
+    },
+    "title": {
+      "translate": "advancements.aylyth.aylyth.wyrded.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_wyrded_effect"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
