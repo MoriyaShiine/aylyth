@@ -75,7 +75,7 @@ public interface AylythEntityTypes {
 							builder.defaultAttributes(WreathedHindEntity::createAttributes)
 									.spawnRestriction(SpawnLocationTypes.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, WreathedHindEntity::canSpawn)
 					)
-					.dimensions(1.6f, 2.5f)
+					.dimensions(2f, 2.5f)
 	);
 
 	EntityType<RippedSoulEntity> RIPPED_SOUL = register("ripped_soul",
