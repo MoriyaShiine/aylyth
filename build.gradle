@@ -154,7 +154,8 @@ dependencies {
     // Nice dev things
 	modRuntimeOnly "curse.maven:disablecustomworldsadvice-401978:5510699"
     // https://www.curseforge.com/minecraft/mc-mods/debug-utils-fabric/files/4644075
-//    modRuntimeOnly "curse.maven:debugutils-783010:4644075"
+    modRuntimeOnly "curse.maven:debugutils-783010:6585499"
+    modRuntimeOnly "maven.modrinth:worldgen-devtools:1.3.2+1.21.4"
 
     // Testing compat
 //    modRuntimeOnly "maven.modrinth:sodium:mc1.20.1-0.5.8"
