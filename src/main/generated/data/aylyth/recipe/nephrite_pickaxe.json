@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "N": "#aylyth:nephrite_tool_materials",
-    "S": "minecraft:stick"
+    "S": "#c:rods/wooden"
   },
   "pattern": [
     "NNN",

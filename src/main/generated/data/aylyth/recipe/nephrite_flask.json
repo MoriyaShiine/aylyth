@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "E": "minecraft:stick",
+    "E": "#c:rods/wooden",
     "N": "aylyth:nephrite"
   },
   "pattern": [
