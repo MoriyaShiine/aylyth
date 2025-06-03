@@ -86,9 +86,14 @@ public class ElderAylythianEntity extends HostileEntity implements GeoEntity {
 			var entity = animationEvent.getAnimatable();
 			return entity.handSwinging && !entity.isDead() ? animationEvent.setAndContinue(SWIPE) : PlayState.STOP;
 		}));
-		animationData.add(new AnimationController<>(this, "Effect", 0, animationEvent -> {
-			return animationEvent.setAndContinue(HEARTBEAT);
-		}));
+		animationData.add(new AnimationController<>(this, "Effect", 0, animationEvent ->
+			animationEvent.setAndContinue(HEARTBEAT)
+		));
+	}
+
+	@Override
+	public AnimatableInstanceCache getAnimatableInstanceCache() {
+		return factory;
 	}
 
 	@Override
@@ -96,11 +101,6 @@ public class ElderAylythianEntity extends HostileEntity implements GeoEntity {
 		return false;
 	}
 
-	@Override
-	public AnimatableInstanceCache getAnimatableInstanceCache() {
-		return factory;
-	}
-	
 	@Nullable
 	@Override
 	protected SoundEvent getAmbientSound() {
