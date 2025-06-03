@@ -74,7 +74,7 @@ public final class AylythAdvancementProvider extends FabricAdvancementProvider {
                 .build(consumer, "aylyth:aylyth/in_the_branches");
         var lifeAtACost = Advancement.Builder.create()
                 .parent(inTheBranches)
-                .display(AylythItems.YMPE_FRUIT, Text.translatable("advancements.aylyth.aylyth.life_at_a_cost.title"), Text.translatable("advancements.aylyth.aylyth.life_at_a_cost.desc"), null, AdvancementFrame.TASK, true, true, false)
+                .display(AylythItems.FRUIT_BEARING_YMPE_LOG, Text.translatable("advancements.aylyth.aylyth.life_at_a_cost.title"), Text.translatable("advancements.aylyth.aylyth.life_at_a_cost.desc"), null, AdvancementFrame.TASK, true, true, false)
                 .criterion("has_ympe_fruit", InventoryChangedCriterion.Conditions.items(AylythItems.YMPE_FRUIT))
                 .build(consumer, "aylyth:aylyth/life_at_a_cost");
         Advancement.Builder.create()
