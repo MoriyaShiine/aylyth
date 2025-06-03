@@ -97,7 +97,7 @@ public class SoulHearthBlock extends Block {
                 ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity) player;
                 player.incrementStat(Stats.USED.getOrCreateStat(variant.getItem()));
                 if (!finalPos.equals(serverPlayerEntity.getSpawnPointPosition())) {
-                    serverPlayerEntity.setSpawnPoint(world.getRegistryKey(), finalPos, 0.0F, true, true);
+                    serverPlayerEntity.setSpawnPoint(world.getRegistryKey(), finalPos, 0.0F, false, true);
                     world.playSound(null, (double) finalPos.getX() + 0.5, (double) finalPos.getY() + 0.5, (double) finalPos.getZ() + 0.5, SoundEvents.BLOCK_RESPAWN_ANCHOR_SET_SPAWN, SoundCategory.BLOCKS, 1.0F, 1.0F);
                 }
             }
