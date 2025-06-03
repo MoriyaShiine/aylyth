@@ -99,7 +99,6 @@ public class PilotLightEntity extends AmbientEntity implements Flutterer {
 	@Override
 	protected void mobTick(ServerWorld world) {
 		super.mobTick(world);
-		// TODO: Check that this still works as expected
 		boolean wet = isWet();
 		setInvulnerable(!wet);
 		if (wet) {
@@ -135,14 +134,18 @@ public class PilotLightEntity extends AmbientEntity implements Flutterer {
 	public ActionResult interactAt(PlayerEntity player, Vec3d hitPos, Hand hand) {
 		World world = player.getWorld();
 		if (player instanceof ServerPlayerEntity serverPlayer && world.getRegistryKey() == AylythDimensionData.WORLD) {
+			ServerWorld overworld = serverPlayer.server.getOverworld();
 			if (getColor() == Color.GREEN) {
-				AylythUtil.teleportTo(serverPlayer.getServerWorld(), serverPlayer, serverPlayer.getServerWorld().getSpawnPos(), AylythUtil::findTeleportPosition);
+				AylythUtil.teleportTo(overworld, serverPlayer, overworld.getSpawnPos(), AylythUtil::findTeleportPosition);
 
 				remove(RemovalReason.DISCARDED);
 				return ActionResult.SUCCESS;
 			} else if (player.isCreative() || player.experienceLevel >= 5) {
-				// TODO: Check that this still works well
-				player.teleportTo(serverPlayer.getRespawnTarget(true, TeleportTarget.NO_OP));
+				player.teleportTo(
+						serverPlayer.getSpawnPointDimension() == World.OVERWORLD
+						? serverPlayer.getRespawnTarget(true, TeleportTarget.NO_OP)
+						: new TeleportTarget(overworld, serverPlayer, TeleportTarget.NO_OP)
+				);
 
 				if (!player.isCreative()) {
 					player.addExperienceLevels(-5);
