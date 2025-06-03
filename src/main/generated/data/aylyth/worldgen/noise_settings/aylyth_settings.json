@@ -402,7 +402,10 @@
                                 "then_run": {
                                   "type": "minecraft:block",
                                   "result_state": {
-                                    "Name": "minecraft:mud"
+                                    "Name": "aylyth:dark_podzol",
+                                    "Properties": {
+                                      "snowy": "false"
+                                    }
                                   }
                                 }
                               },
@@ -475,7 +478,10 @@
                             "then_run": {
                               "type": "minecraft:block",
                               "result_state": {
-                                "Name": "minecraft:mud"
+                                "Name": "aylyth:dark_podzol",
+                                "Properties": {
+                                  "snowy": "false"
+                                }
                               }
                             }
                           }
