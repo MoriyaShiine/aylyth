@@ -170,11 +170,6 @@ public class ElderAylythianEntity extends HostileEntity implements GeoEntity {
 				playSound(AylythBlocks.YMPE_SAPLING.getDefaultState().getSoundGroup().getPlaceSound(), getSoundVolume(), getSoundPitch());
 			}
 		}
-		// TODO: Commented out due to a ympe dagger recipe already existing for this drop
-//		ItemEntity item = dropItem(ModItems.AYLYTHIAN_HEART);
-//		if (item != null) {
-//			item.setCovetedItem();
-//		}
 	}
 
 	@Nullable
