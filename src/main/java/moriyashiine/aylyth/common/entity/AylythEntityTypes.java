@@ -96,8 +96,7 @@ public interface AylythEntityTypes {
 			FabricEntityType.Builder.createLiving(BoneflyEntity::new, SpawnGroup.MONSTER, builder ->
 							builder.defaultAttributes(BoneflyEntity::createBoneflyAttributes)
 					)
-//					.passengerAttachments(new Vec3d(0.5, 2.3, 0))
-					.passengerAttachments(2.3f)
+					.passengerAttachments(1.6f)
 					.dimensions(1.4f, 2.1f)
 					.makeFireImmune()
 	);

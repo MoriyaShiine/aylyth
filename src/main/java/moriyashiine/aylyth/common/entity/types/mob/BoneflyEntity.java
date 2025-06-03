@@ -178,7 +178,6 @@ public class BoneflyEntity extends HostileEntity implements GeoEntity, TameableH
 
     @Override
     protected boolean isFlappingWings() {
-        // TODO: Check whether this works to reduce the flapping noise
         return this.isInAir() && age % 40 == 0;
     }
 
@@ -370,9 +369,7 @@ public class BoneflyEntity extends HostileEntity implements GeoEntity, TameableH
     @Override
     public void updatePassengerPosition(Entity passenger, PositionUpdater positionUpdater) {
         if (getFirstPassenger() == passenger) {
-            Vec3d position = this.getPassengerRidingPos(passenger)
-                    .add(passenger.getVehicleAttachmentPos(this))
-                    .rotateY(-this.getYaw() * MathHelper.RADIANS_PER_DEGREE - MathHelper.HALF_PI);
+            Vec3d position = this.getPassengerRidingPos(passenger);
             passenger.setPosition(position.x, position.y, position.z);
             passenger.setYaw(passenger.getYaw());
             passenger.setHeadYaw(passenger.getHeadYaw());
