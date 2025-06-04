@@ -1,5 +1,6 @@
 package moriyashiine.aylyth.common.block.types;
 
+import moriyashiine.aylyth.common.block.AylythProperties;
 import moriyashiine.aylyth.common.item.AylythItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -20,7 +21,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 
 public class NysianGrapeVineBlock extends VineBlock implements Fertilizable {
-	public static final IntProperty AGE = IntProperty.of("age", 0, 3);
+	public static final IntProperty AGE = AylythProperties.AGE_4_STAGES;
 	
 	public NysianGrapeVineBlock(Settings settings) {
 		super(settings);

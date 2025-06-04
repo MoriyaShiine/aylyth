@@ -1,5 +1,6 @@
 package moriyashiine.aylyth.common.block.types;
 
+import moriyashiine.aylyth.common.block.AylythProperties;
 import moriyashiine.aylyth.common.item.AylythItems;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.item.PlayerInventoryStorage;
@@ -24,8 +25,7 @@ import net.minecraft.world.World;
 
 @SuppressWarnings("UnstableApiUsage")
 public class PomegranateLeavesBlock extends LeavesBlock {
-
-    public static final IntProperty FRUITING = IntProperty.of("fruiting_stage", 0, 3);
+    public static final IntProperty FRUITING = AylythProperties.FRUITING;
 
     public PomegranateLeavesBlock(Settings settings) {
         super(settings);

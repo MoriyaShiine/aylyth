@@ -1,5 +1,6 @@
 package moriyashiine.aylyth.common.block.types;
 
+import moriyashiine.aylyth.common.block.AylythProperties;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SaplingBlock;
@@ -13,7 +14,7 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
 public class GirasolSaplingBlock extends SaplingBlock {
-    public static final BooleanProperty FAILED = BooleanProperty.of("failed_to_grow");
+    public static final BooleanProperty FAILED = AylythProperties.FAILED;
 
     private static final DustColorTransitionParticleEffect FAILED_PARTICLE = new DustColorTransitionParticleEffect(0x222222, 0xAE6D18, 1);
 

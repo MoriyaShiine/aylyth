@@ -3,6 +3,7 @@ package moriyashiine.aylyth.common.block.types;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.MapMaker;
 import com.google.common.collect.UnmodifiableIterator;
+import moriyashiine.aylyth.common.block.AylythProperties;
 import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.aylyth.common.particle.effects.ColorableParticleEffect;
 import moriyashiine.aylyth.mixin.TallPlantBlockAccessor;
@@ -61,7 +62,7 @@ import java.util.function.UnaryOperator;
 public class SoulHearthBlock extends Block {
 
     public static final EnumProperty<DoubleBlockHalf> HALF = Properties.DOUBLE_BLOCK_HALF;
-    public static final IntProperty CHARGES = IntProperty.of("charged", 0, 5);
+    public static final IntProperty CHARGES = AylythProperties.CHARGES_6_STAGES;
     private static final ImmutableList<Vec3i> VALID_HORIZONTAL_SPAWN_OFFSETS;
     private static final ImmutableList<Vec3i> VALID_SPAWN_OFFSETS;
     private static final VoxelShape LOWER_SHAPES;

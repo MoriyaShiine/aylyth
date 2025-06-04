@@ -14,7 +14,6 @@ import net.minecraft.state.property.Properties;
 import org.jetbrains.annotations.Nullable;
 
 public class AntlerShootsBlock extends PlantBlock implements Waterloggable {
-
 	public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
 
 	public AntlerShootsBlock(Settings settings) {

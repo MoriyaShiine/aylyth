@@ -21,6 +21,7 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
@@ -38,7 +39,7 @@ import java.util.UUID;
 
 public class VitalThuribleBlock extends HorizontalFacingBlock implements BlockEntityProvider {
     public static final Identifier MAX_VITAL_MODIFIER = Aylyth.id("vital_thurible_buff");
-    public static final BooleanProperty ACTIVE = BooleanProperty.of("active");
+    public static final BooleanProperty ACTIVE = Properties.ACTIVE;
     private static final VoxelShape SHAPES;
 
     public VitalThuribleBlock(Settings settings) {

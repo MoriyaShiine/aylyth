@@ -1,5 +1,6 @@
 package moriyashiine.aylyth.common.block.types;
 
+import moriyashiine.aylyth.common.block.AylythProperties;
 import moriyashiine.aylyth.common.world.AylythSoundEvents;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -16,7 +17,7 @@ import java.util.function.UnaryOperator;
 
 @SuppressWarnings("UnstableApiUsage")
 public class OneTimeHarvestablePillarBlock extends HarvestablePillarBlock {
-    public static final BooleanProperty HARVESTABLE = BooleanProperty.of("harvestable");
+    public static final BooleanProperty HARVESTABLE = AylythProperties.HARVESTABLE;
     private final UnaryOperator<BlockState> harvestState;
 
     public OneTimeHarvestablePillarBlock(RegistryKey<LootTable> harvestLootTable, UnaryOperator<BlockState> harvestState, Settings settings) {

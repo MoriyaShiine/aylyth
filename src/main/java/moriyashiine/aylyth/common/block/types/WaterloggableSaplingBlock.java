@@ -14,7 +14,6 @@ import net.minecraft.state.property.Properties;
 import org.jetbrains.annotations.Nullable;
 
 public class WaterloggableSaplingBlock extends SaplingBlock implements Waterloggable {
-
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
 
     public WaterloggableSaplingBlock(SaplingGenerator generator, Settings settings) {

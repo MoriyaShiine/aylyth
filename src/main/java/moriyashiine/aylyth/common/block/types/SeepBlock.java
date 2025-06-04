@@ -1,6 +1,7 @@
 package moriyashiine.aylyth.common.block.types;
 
 import moriyashiine.aylyth.common.block.AylythBlocks;
+import moriyashiine.aylyth.common.block.AylythProperties;
 import moriyashiine.aylyth.common.block.entities.SeepBlockEntity;
 import moriyashiine.aylyth.common.data.world.AylythDimensionData;
 import moriyashiine.aylyth.common.util.AylythUtil;
@@ -41,7 +42,7 @@ public class SeepBlock extends Block implements BlockEntityProvider {
 	private static final VoxelShape UP_SHAPE = VoxelShapes.combineAndSimplify(VoxelShapes.fullCube(), VoxelShapes.union(createCuboidShape(0.0D, 1.0D, 1.0D, 16.0D, 16.0D, 15.0D), createCuboidShape(1.0D, 1.0D, 0.0D, 15.0D, 16.0D, 16.0D)), BooleanBiFunction.ONLY_FIRST);
 	private static final VoxelShape DOWN_SHAPE = VoxelShapes.combineAndSimplify(VoxelShapes.fullCube(), VoxelShapes.union(createCuboidShape(0.0D, 0.0D, 1.0D, 16.0D, 15.0D, 15.0D), createCuboidShape(1.0D, 0.0D, 0.0D, 15.0D, 15.0D, 16.0D)), BooleanBiFunction.ONLY_FIRST);
 	
-	public static final Property<Connection> CONNECTION = EnumProperty.of("connection", Connection.class, Connection.values());
+	public static final Property<Connection> CONNECTION = AylythProperties.SEEP_CONNECTION;
 	
 	public SeepBlock(AbstractBlock.Settings settings) {
 		super(settings);

@@ -1,6 +1,7 @@
 package moriyashiine.aylyth.common.block.types;
 
 import com.mojang.serialization.MapCodec;
+import moriyashiine.aylyth.common.block.AylythProperties;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -16,7 +17,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public class BushBlock extends PlantBlock {
-	public static final BooleanProperty BUSHY = BooleanProperty.of("bushy");
+	public static final BooleanProperty BUSHY = AylythProperties.BUSHY;
 	
 	public BushBlock(Settings settings) {
 		super(settings);

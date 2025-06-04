@@ -1,5 +1,6 @@
 package moriyashiine.aylyth.common.block.types;
 
+import moriyashiine.aylyth.common.block.AylythProperties;
 import moriyashiine.aylyth.common.world.AylythSoundEvents;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -9,7 +10,6 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.state.StateManager;
-import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Property;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 
 @SuppressWarnings({"deprecation", "UnstableApiUsage"})
 public class GrowingHarvestablePillarBlock extends HarvestablePillarBlock {
-	public static final Property<Integer> AGE = IntProperty.of("age", 0, 4);
+	public static final Property<Integer> AGE = AylythProperties.AGE_5_STAGES;
 
 	public GrowingHarvestablePillarBlock(RegistryKey<LootTable> harvestLootTable, Settings settings) {
 		super(harvestLootTable, settings);

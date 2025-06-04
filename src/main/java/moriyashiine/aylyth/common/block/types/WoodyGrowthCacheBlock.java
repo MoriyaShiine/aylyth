@@ -25,7 +25,6 @@ import java.util.Iterator;
 import java.util.List;
 
 public class WoodyGrowthCacheBlock extends LargeWoodyGrowthBlock implements BlockEntityProvider {
-
     public static final Identifier CONTENTS = ShulkerBoxBlock.CONTENTS_DYNAMIC_DROP_ID;
 
     public WoodyGrowthCacheBlock(Settings settings) {

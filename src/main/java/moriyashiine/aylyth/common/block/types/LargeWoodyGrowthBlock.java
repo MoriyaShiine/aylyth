@@ -29,7 +29,6 @@ import net.minecraft.world.tick.ScheduledTickView;
 import org.jetbrains.annotations.Nullable;
 
 public class LargeWoodyGrowthBlock extends SmallWoodyGrowthBlock {
-
     public static final EnumProperty<DoubleBlockHalf> HALF = Properties.DOUBLE_BLOCK_HALF;
 
     private static final VoxelShape LOWER_SHAPE = VoxelShapes.cuboid(0.25, 0, 0.25, 0.75, 1, 0.75);

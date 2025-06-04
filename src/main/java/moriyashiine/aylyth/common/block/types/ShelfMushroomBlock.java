@@ -25,12 +25,12 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 public class ShelfMushroomBlock extends SpreadingPlantBlock implements Fertilizable {
-
-    public static final EnumProperty<Direction> FACING = Properties.HORIZONTAL_FACING;
     public static final VoxelShape NORTH = VoxelShapes.cuboid(0, 0, 0.75, 1, 1, 1);
     public static final VoxelShape SOUTH = VoxelShapes.cuboid(0, 0, 0, 1, 1, 0.25);
     public static final VoxelShape EAST = VoxelShapes.cuboid(0, 0, 0, 0.25, 1, 1);
     public static final VoxelShape WEST = VoxelShapes.cuboid(0.75, 0, 0, 1, 1, 1);
+
+    public static final EnumProperty<Direction> FACING = Properties.HORIZONTAL_FACING;
 
     public ShelfMushroomBlock(Settings settings) {
         super(settings);

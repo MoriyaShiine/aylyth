@@ -24,8 +24,7 @@ import net.minecraft.world.tick.ScheduledTickView;
 import org.jetbrains.annotations.Nullable;
 
 public class SmallWoodyGrowthBlock extends Block implements Waterloggable {
-
-    public static final BooleanProperty NATURAL = BooleanProperty.of("natural");
+    public static final BooleanProperty NATURAL = Properties.NATURAL;
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
 
     private static final VoxelShape SMALL_SHAPE = VoxelShapes.cuboid(0.25, 0, 0.25, 0.75, 0.75, 0.75);

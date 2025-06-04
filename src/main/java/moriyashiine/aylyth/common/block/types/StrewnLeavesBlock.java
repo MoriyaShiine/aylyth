@@ -1,5 +1,6 @@
 package moriyashiine.aylyth.common.block.types;
 
+import moriyashiine.aylyth.common.block.AylythProperties;
 import moriyashiine.aylyth.common.block.IContextBlockSoundGroup;
 import moriyashiine.aylyth.common.data.tag.AylythEntityTypeTags;
 import moriyashiine.aylyth.common.world.AylythSoundEvents;
@@ -31,8 +32,7 @@ import net.minecraft.world.WorldView;
 import net.minecraft.world.tick.ScheduledTickView;
 
 public class StrewnLeavesBlock extends Block implements IContextBlockSoundGroup {
-
-    public static final IntProperty LEAVES = IntProperty.of("leaves", 0, 7);
+    public static final IntProperty LEAVES = AylythProperties.LEAVES;
     private static final VoxelShape[] SHAPE = new VoxelShape[] {
             VoxelShapes.cuboid(0,0, 0, 1, 0.0625, 1),
             VoxelShapes.cuboid(0,0, 0, 1, 0.125, 1),
