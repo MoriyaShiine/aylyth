@@ -18,6 +18,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.brain.Brain;
+import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
@@ -159,31 +160,37 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
 
     @Override
     public boolean tryAttack(ServerWorld world, Entity target) {
+        boolean attack = false;
         if (getAttackType() == AttackType.MELEE) {
-            return super.tryAttack(world, target);
+            attack = super.tryAttack(world, target);
         } else if (getAttackType() == AttackType.KILLING) {
-            if (target instanceof PlayerEntity player) {
-                return tryKillingAttack(world, player);
+            attack = tryKillingAttack(world, target);
+        }
+
+        if (attack) {
+            UUID pledged = getPledgedPlayerUUID();
+            if (pledged != null && target instanceof LivingEntity livingTarget && pledged.equals(target.getUuid())) {
+                if (livingTarget.isDead()) {
+                    this.getBrain().forget(MemoryModuleType.HURT_BY_ENTITY);
+                    removePledge();
+                }
             }
         }
+
         return false;
+    }
+
+    public boolean tryKillingAttack(ServerWorld world, Entity target) {
+        boolean bl = target.damage(world, world.aylythDamageSources().killingBlow(this), 6);
+        if (bl) {
+            this.onAttacking(target);
+        }
+        return bl;
     }
 
     @Override
     public boolean disablesShield() {
         return getAttackType() == AttackType.KILLING;
-    }
-
-    public boolean tryKillingAttack(ServerWorld world, PlayerEntity target) {
-        float f = 6;
-        boolean bl = target.damage(world, world.aylythDamageSources().killingBlow(this), f);
-        if (bl) {
-            this.onAttacking(target);
-        }
-        if (target.isDead()) {
-            removePledge();
-        }
-        return bl;
     }
 
     @Override
@@ -206,7 +213,7 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
                 if (!getBrain().hasMemoryModule(AylythMemoryTypes.SECOND_CHANCE)) {
                     getBrain().remember(AylythMemoryTypes.SECOND_CHANCE, WreathedHindBrain.SecondChance.WARNING, 600);
                 } else {
-                    getBrain().remember(AylythMemoryTypes.SECOND_CHANCE, WreathedHindBrain.SecondChance.BETRAY, 600);
+                    getBrain().remember(AylythMemoryTypes.SECOND_CHANCE, WreathedHindBrain.SecondChance.BETRAY, 120 * 20);
                 }
             }
         }
