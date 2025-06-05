@@ -24,6 +24,7 @@ import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.condition.AnyOfLootCondition;
 import net.minecraft.loot.condition.BlockStatePropertyLootCondition;
+import net.minecraft.loot.condition.LootCondition;
 import net.minecraft.loot.condition.MatchToolLootCondition;
 import net.minecraft.loot.condition.RandomChanceLootCondition;
 import net.minecraft.loot.condition.TableBonusLootCondition;
@@ -306,6 +307,13 @@ public class AylythBlockLootProvider extends FabricBlockLootTableProvider {
                                         )
                                 )
                 )
+        );
+    }
+
+    @Override
+    public LootCondition.Builder createWithShearsCondition() {
+        return MatchToolLootCondition.builder(
+                ItemPredicate.Builder.create().tag(this.registries.getOrThrow(RegistryKeys.ITEM), ConventionalItemTags.SHEAR_TOOLS)
         );
     }
 }
