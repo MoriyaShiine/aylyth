@@ -16,6 +16,6 @@ public interface AylythProperties {
     IntProperty FRUITING = IntProperty.of("fruiting", 0, 3);
     IntProperty CHARGES_6_STAGES = IntProperty.of("charges", 0, 5);
     IntProperty STAGES_3 = IntProperty.of("stage", 1, 3);
-    IntProperty LEAVES = IntProperty.of("leaves", 0, 7);
+    IntProperty LEAVES = IntProperty.of("leaves", 1, 7);
     Property<SeepBlock.Connection> SEEP_CONNECTION = EnumProperty.of("connection", SeepBlock.Connection.class, SeepBlock.Connection.values());
 }

@@ -5,7 +5,7 @@ import moriyashiine.aylyth.common.block.types.JackolanternMushroomBlock;
 import moriyashiine.aylyth.common.block.types.LargeWoodyGrowthBlock;
 import moriyashiine.aylyth.common.block.types.SmallWoodyGrowthBlock;
 import moriyashiine.aylyth.common.block.AylythBlocks;
-import moriyashiine.aylyth.common.block.types.StrewnLeavesBlock;
+import moriyashiine.aylyth.common.block.types.LeafPileBlock;
 import moriyashiine.aylyth.common.world.gen.AylythFeatures;
 import moriyashiine.aylyth.common.data.world.feature.AylythPlacedFeatures;
 import moriyashiine.aylyth.common.data.tag.AylythBlockTags;
@@ -103,8 +103,8 @@ public final class AylythConfiguredFeatureBootstrap {
 
         ConfiguredFeatures.register(context, SPRING, AylythFeatures.SPRING_FEATURE, new SingleStateFeatureConfig(Blocks.WATER.getDefaultState()));
         ConfiguredFeatures.register(context, BUSHES, AylythFeatures.BUSH_FEATURE, FeatureConfig.DEFAULT);
-        ConfiguredFeatures.register(context, OAK_LEAF_PILE, AylythFeatures.LEAF_PILE_FEATURE, new LeafPileFeature.LeafPileConfig(new RandomizedIntBlockStateProvider(BlockStateProvider.of(AylythBlocks.OAK_STREWN_LEAVES), StrewnLeavesBlock.LEAVES, UniformIntProvider.create(5, 7)), new RandomizedIntBlockStateProvider(BlockStateProvider.of(AylythBlocks.OAK_STREWN_LEAVES), StrewnLeavesBlock.LEAVES, UniformIntProvider.create(0, 5))));
-        ConfiguredFeatures.register(context, YMPE_LEAF_PILE, AylythFeatures.LEAF_PILE_FEATURE, new LeafPileFeature.LeafPileConfig(new RandomizedIntBlockStateProvider(BlockStateProvider.of(AylythBlocks.YMPE_STREWN_LEAVES), StrewnLeavesBlock.LEAVES, UniformIntProvider.create(5, 7)), new RandomizedIntBlockStateProvider(BlockStateProvider.of(AylythBlocks.YMPE_STREWN_LEAVES), StrewnLeavesBlock.LEAVES, UniformIntProvider.create(0, 5))));
+        ConfiguredFeatures.register(context, OAK_LEAF_PILE, AylythFeatures.LEAF_PILE_FEATURE, new LeafPileFeature.LeafPileConfig(new RandomizedIntBlockStateProvider(BlockStateProvider.of(AylythBlocks.OAK_LEAF_PILE), LeafPileBlock.LEAVES, UniformIntProvider.create(4, 7)), new RandomizedIntBlockStateProvider(BlockStateProvider.of(AylythBlocks.OAK_LEAF_PILE), LeafPileBlock.LEAVES, UniformIntProvider.create(1, 3))));
+        ConfiguredFeatures.register(context, YMPE_LEAF_PILE, AylythFeatures.LEAF_PILE_FEATURE, new LeafPileFeature.LeafPileConfig(new RandomizedIntBlockStateProvider(BlockStateProvider.of(AylythBlocks.YMPE_LEAF_PILE), LeafPileBlock.LEAVES, UniformIntProvider.create(4, 7)), new RandomizedIntBlockStateProvider(BlockStateProvider.of(AylythBlocks.YMPE_LEAF_PILE), LeafPileBlock.LEAVES, UniformIntProvider.create(1, 3))));
         ConfiguredFeatures.register(context, OAK_STREWN_LEAVES, Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(BlockStateProvider.of(AylythBlocks.OAK_STREWN_LEAVES)));
         ConfiguredFeatures.register(context, YMPE_STREWN_LEAVES, Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(BlockStateProvider.of(AylythBlocks.YMPE_STREWN_LEAVES)));
         ConfiguredFeatures.register(context, AYLYTH_WEEDS, Feature.FLOWER, createRandomPatchFeatureConfig(new WeightedBlockStateProvider(DataPool.<BlockState>builder().add(AylythBlocks.ANTLER_SHOOTS.getDefaultState(), 5).add(AylythBlocks.GRIPWEED.getDefaultState(), 2).build()), 64));

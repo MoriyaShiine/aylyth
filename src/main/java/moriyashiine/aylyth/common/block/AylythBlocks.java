@@ -151,6 +151,8 @@ public interface AylythBlocks {
 
 	Block OAK_STREWN_LEAVES = register("oak_strewn_leaves", StrewnLeavesBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.DARK_GREEN).notSolid().pistonBehavior(PistonBehavior.DESTROY).replaceable().sounds(AylythSoundEvents.STREWN_LEAVES));
 	Block YMPE_STREWN_LEAVES = register("ympe_strewn_leaves", StrewnLeavesBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.ORANGE).notSolid().pistonBehavior(PistonBehavior.DESTROY).replaceable().sounds(AylythSoundEvents.STREWN_LEAVES));
+	Block OAK_LEAF_PILE = register("oak_leaf_pile", LeafPileBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.DARK_GREEN).notSolid().pistonBehavior(PistonBehavior.DESTROY).replaceable().sounds(AylythSoundEvents.LEAF_PILE));
+	Block YMPE_LEAF_PILE = register("ympe_leaf_pile", LeafPileBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.ORANGE).notSolid().pistonBehavior(PistonBehavior.DESTROY).replaceable().sounds(AylythSoundEvents.LEAF_PILE));
 
 	Block SMALL_WOODY_GROWTH = register("small_woody_growth", SmallWoodyGrowthBlock::new, AbstractBlock.Settings.create().burnable().strength(2.0f).sounds(BlockSoundGroup.WOOD));
 	Block LARGE_WOODY_GROWTH = register("large_woody_growth", LargeWoodyGrowthBlock::new, AbstractBlock.Settings.create().burnable().strength(2.0f).sounds(BlockSoundGroup.WOOD));

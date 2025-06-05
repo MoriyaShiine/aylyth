@@ -157,6 +157,8 @@ public interface AylythItems {
     Item MARIGOLD = registerBlockItem("marigolds", AylythBlocks.MARIGOLD);
     Item OAK_STREWN_LEAVES = registerBlockItem("oak_strewn_leaves", AylythBlocks.OAK_STREWN_LEAVES);
     Item YMPE_STREWN_LEAVES = registerBlockItem("ympe_strewn_leaves", AylythBlocks.YMPE_STREWN_LEAVES);
+    Item OAK_LEAF_PILE = registerBlockItem("oak_leaf_pile", AylythBlocks.OAK_LEAF_PILE);
+    Item YMPE_LEAF_PILE = registerBlockItem("ympe_leaf_pile", AylythBlocks.YMPE_LEAF_PILE);
     Item JACK_O_LANTERN_MUSHROOM = registerBlockItem("jack_o_lantern_mushroom", settings -> new VerticallyAttachableBlockItem(AylythBlocks.JACK_O_LANTERN_MUSHROOM, AylythBlocks.SHELF_JACK_O_LANTERN_MUSHROOM, Direction.DOWN, settings), settings());
     Item GHOSTCAP_MUSHROOM_SPORES = register("ghostcap_mushroom_spores", settings -> new BlockItem(AylythBlocks.GHOSTCAP_MUSHROOM, settings), settings());
 

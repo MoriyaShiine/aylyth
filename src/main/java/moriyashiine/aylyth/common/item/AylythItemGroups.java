@@ -123,6 +123,8 @@ public interface AylythItemGroups {
                     entries.add(AylythItems.MARIGOLD);
                     entries.add(AylythItems.OAK_STREWN_LEAVES);
                     entries.add(AylythItems.YMPE_STREWN_LEAVES);
+                    entries.add(AylythItems.OAK_LEAF_PILE);
+                    entries.add(AylythItems.YMPE_LEAF_PILE);
                     entries.add(AylythItems.JACK_O_LANTERN_MUSHROOM);
                     entries.add(AylythItems.GHOSTCAP_MUSHROOM_SPORES);
 

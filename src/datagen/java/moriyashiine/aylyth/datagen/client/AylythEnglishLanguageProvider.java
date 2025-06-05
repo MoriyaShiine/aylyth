@@ -100,6 +100,8 @@ public class AylythEnglishLanguageProvider extends FabricLanguageProvider {
         builder.add(AylythBlocks.MARIGOLD, "Marigolds");
         builder.add(AylythBlocks.OAK_STREWN_LEAVES, "Oak Strewn Leaves");
         builder.add(AylythBlocks.YMPE_STREWN_LEAVES, "Ympe Strewn Leaves");
+        builder.add(AylythBlocks.OAK_LEAF_PILE, "Oak Leaf Pile");
+        builder.add(AylythBlocks.YMPE_LEAF_PILE, "Ympe Leaf Pile");
         builder.add(AylythBlocks.JACK_O_LANTERN_MUSHROOM, "Jack O'Lantern Mushroom");
         builder.add(AylythBlocks.GHOSTCAP_MUSHROOM, "Ghostcap Mushroom");
         builder.add(AylythBlocks.OAK_SEEP, "Oak Seep");

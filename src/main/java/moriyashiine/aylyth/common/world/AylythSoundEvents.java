@@ -11,9 +11,8 @@ public interface AylythSoundEvents {
 
 	RegistryEntry<SoundEvent> BLOCK_YMPE_LOG_PICK_FRUIT = register("block.ympe_log.pick_fruit");
 	RegistryEntry<SoundEvent> BLOCK_STREWN_LEAVES_STEP = register("block.strewn_leaves.step");
-	RegistryEntry<SoundEvent> BLOCK_STREWN_LEAVES_PILE_DESTROY = register("block.strewn_leaves.pile_destroy");
-	RegistryEntry<SoundEvent> BLOCK_STREWN_LEAVES_PILE_STEP = register( "block.strewn_leaves.pile_step");
-	RegistryEntry<SoundEvent> BLOCK_STICK_BREAK = register( "block.stick_break");
+	RegistryEntry<SoundEvent> BLOCK_LEAF_PILE_DESTROY = register("block.leaf_pile.destroy");
+	RegistryEntry<SoundEvent> BLOCK_LEAF_PILE_STEP = register( "block.leaf_pile.step");
 
 	RegistryEntry<SoundEvent> ENTITY_PLAYER_INCREASE_YMPE_INFESTATION_STAGE = register("entity.player.increase_ympe_infestation_stage");
 	RegistryEntry<SoundEvent> ENTITY_GENERIC_SHUCKED = register( "entity.generic.shucked");
@@ -51,9 +50,7 @@ public interface AylythSoundEvents {
 	RegistryEntry<SoundEvent> ENTITY_FAUNAYLYTHIAN_DEATH = register("entity.faunaylythian.death");
 
 	BlockSoundGroup STREWN_LEAVES = new BlockSoundGroup(1f, 1f, BLOCK_STREWN_LEAVES_STEP.value(), BLOCK_STREWN_LEAVES_STEP.value(), BLOCK_STREWN_LEAVES_STEP.value(), BLOCK_STREWN_LEAVES_STEP.value(), BLOCK_STREWN_LEAVES_STEP.value());
-	BlockSoundGroup LEAF_PILES = new BlockSoundGroup(1f, 1f, BLOCK_STREWN_LEAVES_PILE_DESTROY.value(), BLOCK_STREWN_LEAVES_PILE_STEP.value(), BLOCK_STREWN_LEAVES_PILE_DESTROY.value(), BLOCK_STREWN_LEAVES_STEP.value(), BLOCK_STREWN_LEAVES_PILE_DESTROY.value());
-	BlockSoundGroup STREWN_LEAVES_STICK = new BlockSoundGroup(1f, 1f, BLOCK_STREWN_LEAVES_STEP.value(), BLOCK_STICK_BREAK.value(), BLOCK_STREWN_LEAVES_STEP.value(), BLOCK_STREWN_LEAVES_STEP.value(), BLOCK_STREWN_LEAVES_STEP.value());
-	BlockSoundGroup LEAF_PILES_STICK = new BlockSoundGroup(1f, 1f, BLOCK_STREWN_LEAVES_PILE_DESTROY.value(), BLOCK_STICK_BREAK.value(), BLOCK_STREWN_LEAVES_PILE_DESTROY.value(), BLOCK_STREWN_LEAVES_STEP.value(), BLOCK_STREWN_LEAVES_PILE_DESTROY.value());
+	BlockSoundGroup LEAF_PILE = new BlockSoundGroup(1f, 1f, BLOCK_LEAF_PILE_DESTROY.value(), BLOCK_LEAF_PILE_STEP.value(), BLOCK_LEAF_PILE_DESTROY.value(), BLOCK_STREWN_LEAVES_STEP.value(), BLOCK_LEAF_PILE_DESTROY.value());
 
 	private static RegistryEntry<SoundEvent> register(String name) {
 		var id = Aylyth.id(name);

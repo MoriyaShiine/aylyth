@@ -40,7 +40,7 @@ import moriyashiine.aylyth.client.screen.TulpaScreen;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.block.AylythBlockEntityTypes;
 import moriyashiine.aylyth.common.block.AylythBlocks;
-import moriyashiine.aylyth.common.block.types.StrewnLeavesBlock;
+import moriyashiine.aylyth.common.block.types.LeafPileBlock;
 import moriyashiine.aylyth.common.data.world.AylythDimensionData;
 import moriyashiine.aylyth.common.entity.AylythEntityTypes;
 import moriyashiine.aylyth.common.network.packets.SpawnParticlesAroundPacketS2C;
@@ -121,7 +121,7 @@ public class AylythClient implements ClientModInitializer {
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), cutoutBlocks());
 
 		ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.DEFAULT, AylythBlocks.AYLYTH_BUSH);
-		ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> world != null && pos != null && state != null && state.getBlock() instanceof StrewnLeavesBlock && state.get(StrewnLeavesBlock.LEAVES) > 0 ? BiomeColors.getFoliageColor(world, pos) : 0xFFFFFFFF, AylythBlocks.OAK_STREWN_LEAVES);
+		ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.DEFAULT, AylythBlocks.OAK_LEAF_PILE);
 		ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> world != null && pos != null ? BiomeColors.getGrassColor(world, pos) : GrassColors.getDefaultColor(), AylythBlocks.ANTLER_SHOOTS, AylythBlocks.GRIPWEED);
 
 		NumericProperties.ID_MAPPER.put(Aylyth.id("flask_charges"), FlaskChargesProperty.CODEC);
@@ -277,6 +277,8 @@ public class AylythClient implements ClientModInitializer {
 				AylythBlocks.YMPE_SEEP,
 				AylythBlocks.OAK_STREWN_LEAVES,
 				AylythBlocks.YMPE_STREWN_LEAVES,
+				AylythBlocks.OAK_LEAF_PILE,
+				AylythBlocks.YMPE_LEAF_PILE,
 				AylythBlocks.GHOSTCAP_MUSHROOM,
 				AylythBlocks.SOUL_HEARTH,
 				AylythBlocks.VITAL_THURIBLE,

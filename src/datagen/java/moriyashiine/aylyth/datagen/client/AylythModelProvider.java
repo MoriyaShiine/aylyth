@@ -8,7 +8,7 @@ import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.block.types.LargeWoodyGrowthBlock;
 import moriyashiine.aylyth.common.block.types.PomegranateLeavesBlock;
 import moriyashiine.aylyth.common.block.types.SoulHearthBlock;
-import moriyashiine.aylyth.common.block.types.StrewnLeavesBlock;
+import moriyashiine.aylyth.common.block.types.LeafPileBlock;
 import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.aylyth.datagen.common.AylythBlockFamilies;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
@@ -59,13 +59,6 @@ import static net.minecraft.client.data.BlockStateModelGenerator.createModelVari
 public class AylythModelProvider extends FabricModelProvider {
     private static final Model STREWN_LEAVES_TEMPLATE = new Model(Optional.of(blockId("strewn_leaves_template")), Optional.empty(), TextureKey.TOP);
     private static final Model BRANCH_TEMPLATE = new Model(Optional.of(blockId("branch_template")), Optional.empty(), TextureKey.SIDE);
-    private static final Model LEAF_PILE_1 = new Model(Optional.of(blockId("leaf_pile_1")), Optional.empty(), TextureKey.ALL);
-    private static final Model LEAF_PILE_2 = new Model(Optional.of(blockId("leaf_pile_2")), Optional.empty(), TextureKey.ALL);
-    private static final Model LEAF_PILE_3 = new Model(Optional.of(blockId("leaf_pile_3")), Optional.empty(), TextureKey.ALL);
-    private static final Model LEAF_PILE_4 = new Model(Optional.of(blockId("leaf_pile_4")), Optional.empty(), TextureKey.ALL);
-    private static final Model LEAF_PILE_5 = new Model(Optional.of(blockId("leaf_pile_5")), Optional.empty(), TextureKey.ALL);
-    private static final Model LEAF_PILE_6 = new Model(Optional.of(blockId("leaf_pile_6")), Optional.empty(), TextureKey.ALL);
-    private static final Model LEAF_PILE_7 = new Model(Optional.of(blockId("leaf_pile_7")), Optional.empty(), TextureKey.ALL);
     private static final Model HANDHELD_ROTATED = new Model(Optional.of(id("item/handheld_rotated")), Optional.empty(), TextureKey.LAYER0);
 
     public AylythModelProvider(FabricDataOutput output) {
@@ -91,8 +84,10 @@ public class AylythModelProvider extends FabricModelProvider {
         generator.registerParentedItemModel(AylythBlocks.YMPE_SEEP, blockId("ympe_seep_log_single"));
         generator.registerItemModel(AylythBlocks.MARIGOLD);
         registerFlowerPot(generator, AylythBlocks.MARIGOLD, AylythBlocks.POTTED_MARIGOLD, BlockStateModelGenerator.CrossType.NOT_TINTED);
-        generateStrewnLeaves(generator, AylythBlocks.OAK_STREWN_LEAVES, Blocks.OAK_LEAVES, blockId("fallen_oak_leaves_01"), blockId("fallen_oak_leaves_02"), blockId("fallen_oak_leaves_03"), blockId("fallen_oak_leaves_04"), blockId("fallen_oak_leaves_05"), blockId("fallen_oak_leaves_06"), blockId("fallen_oak_leaves_07"), blockId("fallen_oak_leaves_08"), blockId("fallen_oak_leaves_09"), blockId("fallen_oak_leaves_10"));
-        generateStrewnLeaves(generator, AylythBlocks.YMPE_STREWN_LEAVES, AylythBlocks.YMPE_LEAVES, blockId("fallen_ympe_leaves_01"), blockId("fallen_ympe_leaves_02"));
+        generateStrewnLeaves(generator, AylythBlocks.OAK_STREWN_LEAVES, List.of(blockId("fallen_oak_leaves_01"), blockId("fallen_oak_leaves_02"), blockId("fallen_oak_leaves_03"), blockId("fallen_oak_leaves_04"), blockId("fallen_oak_leaves_05"), blockId("fallen_oak_leaves_06"), blockId("fallen_oak_leaves_07"), blockId("fallen_oak_leaves_08"), blockId("fallen_oak_leaves_09"), blockId("fallen_oak_leaves_10")));
+        generateStrewnLeaves(generator, AylythBlocks.YMPE_STREWN_LEAVES, List.of(blockId("fallen_ympe_leaves_01"), blockId("fallen_ympe_leaves_02")));
+        generateLeafPiles(generator, AylythBlocks.OAK_LEAF_PILE, Blocks.OAK_LEAVES, true);
+        generateLeafPiles(generator, AylythBlocks.YMPE_LEAF_PILE, AylythBlocks.YMPE_LEAVES, false);
 
         generator.registerTintedItemModel(AylythBlocks.AYLYTH_BUSH, ModelIds.getBlockModelId(AylythBlocks.AYLYTH_BUSH), new ConstantTintSource(FoliageColors.DEFAULT));
         generator.registerTintedItemModel(AylythBlocks.ANTLER_SHOOTS, ModelIds.getBlockModelId(AylythBlocks.ANTLER_SHOOTS), new GrassTintSource());
@@ -434,53 +429,47 @@ public class AylythModelProvider extends FabricModelProvider {
         generator.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(block, ModelIds.getBlockModelId(block)));
     }
 
-    private void generateStrewnLeaves(BlockStateModelGenerator generator, Block strewnLeavesBlock, Block leavesBlock, Identifier... models) {
-        List<BlockStateVariant> flatVariants = allFlatModels(models);
-        generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(strewnLeavesBlock).coordinate(leavesPropertyVariants(flatVariants, leavesBlock)));
-        Stream.of(models).forEach(identifier -> {
+    private void generateStrewnLeaves(BlockStateModelGenerator generator, Block strewnLeavesBlock, List<Identifier> models) {
+        generator.blockStateCollector.accept(
+                VariantsBlockStateSupplier.create(strewnLeavesBlock, models.stream()
+                        .flatMap(id -> Stream.of(BlockStateModelGenerator.createModelVariantWithRandomHorizontalRotations(id)))
+                        .toArray(BlockStateVariant[]::new)
+                ));
+        models.forEach(identifier -> {
             STREWN_LEAVES_TEMPLATE.upload(identifier, TextureMap.of(TextureKey.TOP, identifier), generator.modelCollector);
         });
-        STREWN_LEAVES_TEMPLATE.upload(strewnLeavesBlock, TextureMap.of(TextureKey.TOP, models[0]), generator.modelCollector);
+        STREWN_LEAVES_TEMPLATE.upload(strewnLeavesBlock, TextureMap.of(TextureKey.TOP, models.getFirst()), generator.modelCollector);
 
-        Identifier leavesModelId = ModelIds.getBlockModelId(leavesBlock);
-        TextureMap pileMap = TextureMap.of(TextureKey.ALL, leavesModelId);
-        LEAF_PILE_1.upload(id(leavesModelId.getPath() + "_pile_1"), pileMap, generator.modelCollector);
-        LEAF_PILE_2.upload(id(leavesModelId.getPath() + "_pile_2"), pileMap, generator.modelCollector);
-        LEAF_PILE_3.upload(id(leavesModelId.getPath() + "_pile_3"), pileMap, generator.modelCollector);
-        LEAF_PILE_4.upload(id(leavesModelId.getPath() + "_pile_4"), pileMap, generator.modelCollector);
-        LEAF_PILE_5.upload(id(leavesModelId.getPath() + "_pile_5"), pileMap, generator.modelCollector);
-        LEAF_PILE_6.upload(id(leavesModelId.getPath() + "_pile_6"), pileMap, generator.modelCollector);
-        LEAF_PILE_7.upload(id(leavesModelId.getPath() + "_pile_7"), pileMap, generator.modelCollector);
-
-        generator.registerItemModel(strewnLeavesBlock.asItem(), Models.GENERATED.upload(ModelIds.getItemModelId(strewnLeavesBlock.asItem()), TextureMap.layer0(models[0]), generator.modelCollector));
+        generator.registerItemModel(strewnLeavesBlock.asItem(), Models.GENERATED.upload(ModelIds.getItemModelId(strewnLeavesBlock.asItem()), TextureMap.layer0(models.getFirst()), generator.modelCollector));
     }
 
-    private List<BlockStateVariant> allFlatModels(Identifier... models) {
-        ImmutableList.Builder<BlockStateVariant> builder = ImmutableList.builder();
-        for (Identifier id : models) {
-            builder.addAll(List.of(BlockStateModelGenerator.createModelVariantWithRandomHorizontalRotations(id)));
+    private void generateLeafPiles(BlockStateModelGenerator generator, Block leafPile, Block leaves, boolean tinted) {
+        generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(leafPile)
+                .coordinate(
+                        BlockStateVariantMap.create(LeafPileBlock.LEAVES)
+                                .register(i ->
+                                        BlockStateVariant.create()
+                                                .put(VariantSettings.MODEL, ModelIds.getBlockModelId(leafPile).withSuffixedPath("_" + i))
+                                )
+                ));
+        Identifier leafPileId = ModelIds.getBlockModelId(leafPile);
+        TextureMap pileMap = TextureMap.all(leaves);
+        LeafPileBlock.LEAVES.getValues().forEach(i -> {
+            Identifier templateId = blockId("leaf_pile_" + i);
+            Model model = new Model(Optional.of(templateId), Optional.empty(), TextureKey.ALL);
+            model.upload(leafPileId.withSuffixedPath("_" + i), pileMap, generator.modelCollector);
+        });
+        if (tinted) {
+            generator.registerTintedItemModel(leafPile, leafPileId.withSuffixedPath("_1"), new ConstantTintSource(FoliageColors.DEFAULT));
+        } else {
+            generator.registerItemModel(leafPile.asItem(), leafPileId.withSuffixedPath("_1"));
         }
-        return builder.build();
-    }
-
-    private BlockStateVariantMap leavesPropertyVariants(List<BlockStateVariant> flatVariants, Block leavesBlock) {
-        return BlockStateVariantMap.create(StrewnLeavesBlock.LEAVES)
-                .registerVariants(integer -> {
-                    if (integer == 0) {
-                        return flatVariants;
-                    }
-
-                    return ObjectArrayList.of(
-                            BlockStateVariant.create()
-                                    .put(VariantSettings.MODEL, id(ModelIds.getBlockModelId(leavesBlock).getPath()).withSuffixedPath("_pile_" + integer))
-                    );
-                });
     }
 
     /** From vanilla {@link BlockStateModelGenerator#registerMushroomBlock}, modified for Aylyth usage */
     private void registerMushroomBlock(BlockStateModelGenerator generator, Block mushroomBlock, Identifier insideTexture) {
         Identifier modelId = Models.TEMPLATE_SINGLE_FACE.upload(mushroomBlock, TextureMap.texture(mushroomBlock), generator.modelCollector);
-        generator.blockStateCollector.accept(MultipartBlockStateSupplier.create(mushroomBlock).with((When)When.create().set(Properties.NORTH, true), BlockStateVariant.create().put(VariantSettings.MODEL, modelId)).with((When)When.create().set(Properties.EAST, true), BlockStateVariant.create().put(VariantSettings.MODEL, modelId).put(VariantSettings.Y, VariantSettings.Rotation.R90).put(VariantSettings.UVLOCK, true)).with((When)When.create().set(Properties.SOUTH, true), BlockStateVariant.create().put(VariantSettings.MODEL, modelId).put(VariantSettings.Y, VariantSettings.Rotation.R180).put(VariantSettings.UVLOCK, true)).with((When)When.create().set(Properties.WEST, true), BlockStateVariant.create().put(VariantSettings.MODEL, modelId).put(VariantSettings.Y, VariantSettings.Rotation.R270).put(VariantSettings.UVLOCK, true)).with((When)When.create().set(Properties.UP, true), BlockStateVariant.create().put(VariantSettings.MODEL, modelId).put(VariantSettings.X, VariantSettings.Rotation.R270).put(VariantSettings.UVLOCK, true)).with((When)When.create().set(Properties.DOWN, true), BlockStateVariant.create().put(VariantSettings.MODEL, modelId).put(VariantSettings.X, VariantSettings.Rotation.R90).put(VariantSettings.UVLOCK, true)).with((When)When.create().set(Properties.NORTH, false), BlockStateVariant.create().put(VariantSettings.MODEL, insideTexture)).with((When)When.create().set(Properties.EAST, false), BlockStateVariant.create().put(VariantSettings.MODEL, insideTexture).put(VariantSettings.Y, VariantSettings.Rotation.R90).put(VariantSettings.UVLOCK, false)).with((When)When.create().set(Properties.SOUTH, false), BlockStateVariant.create().put(VariantSettings.MODEL, insideTexture).put(VariantSettings.Y, VariantSettings.Rotation.R180).put(VariantSettings.UVLOCK, false)).with((When)When.create().set(Properties.WEST, false), BlockStateVariant.create().put(VariantSettings.MODEL, insideTexture).put(VariantSettings.Y, VariantSettings.Rotation.R270).put(VariantSettings.UVLOCK, false)).with((When)When.create().set(Properties.UP, false), BlockStateVariant.create().put(VariantSettings.MODEL, insideTexture).put(VariantSettings.X, VariantSettings.Rotation.R270).put(VariantSettings.UVLOCK, false)).with((When)When.create().set(Properties.DOWN, false), BlockStateVariant.create().put(VariantSettings.MODEL, insideTexture).put(VariantSettings.X, VariantSettings.Rotation.R90).put(VariantSettings.UVLOCK, false)));
+        generator.blockStateCollector.accept(MultipartBlockStateSupplier.create(mushroomBlock).with(When.create().set(Properties.NORTH, true), BlockStateVariant.create().put(VariantSettings.MODEL, modelId)).with(When.create().set(Properties.EAST, true), BlockStateVariant.create().put(VariantSettings.MODEL, modelId).put(VariantSettings.Y, VariantSettings.Rotation.R90).put(VariantSettings.UVLOCK, true)).with(When.create().set(Properties.SOUTH, true), BlockStateVariant.create().put(VariantSettings.MODEL, modelId).put(VariantSettings.Y, VariantSettings.Rotation.R180).put(VariantSettings.UVLOCK, true)).with(When.create().set(Properties.WEST, true), BlockStateVariant.create().put(VariantSettings.MODEL, modelId).put(VariantSettings.Y, VariantSettings.Rotation.R270).put(VariantSettings.UVLOCK, true)).with(When.create().set(Properties.UP, true), BlockStateVariant.create().put(VariantSettings.MODEL, modelId).put(VariantSettings.X, VariantSettings.Rotation.R270).put(VariantSettings.UVLOCK, true)).with(When.create().set(Properties.DOWN, true), BlockStateVariant.create().put(VariantSettings.MODEL, modelId).put(VariantSettings.X, VariantSettings.Rotation.R90).put(VariantSettings.UVLOCK, true)).with((When)When.create().set(Properties.NORTH, false), BlockStateVariant.create().put(VariantSettings.MODEL, insideTexture)).with((When)When.create().set(Properties.EAST, false), BlockStateVariant.create().put(VariantSettings.MODEL, insideTexture).put(VariantSettings.Y, VariantSettings.Rotation.R90).put(VariantSettings.UVLOCK, false)).with((When)When.create().set(Properties.SOUTH, false), BlockStateVariant.create().put(VariantSettings.MODEL, insideTexture).put(VariantSettings.Y, VariantSettings.Rotation.R180).put(VariantSettings.UVLOCK, false)).with((When)When.create().set(Properties.WEST, false), BlockStateVariant.create().put(VariantSettings.MODEL, insideTexture).put(VariantSettings.Y, VariantSettings.Rotation.R270).put(VariantSettings.UVLOCK, false)).with((When)When.create().set(Properties.UP, false), BlockStateVariant.create().put(VariantSettings.MODEL, insideTexture).put(VariantSettings.X, VariantSettings.Rotation.R270).put(VariantSettings.UVLOCK, false)).with((When)When.create().set(Properties.DOWN, false), BlockStateVariant.create().put(VariantSettings.MODEL, insideTexture).put(VariantSettings.X, VariantSettings.Rotation.R90).put(VariantSettings.UVLOCK, false)));
         generator.registerParentedItemModel(mushroomBlock, TexturedModel.CUBE_ALL.upload(mushroomBlock, "_inventory", generator.modelCollector));
     }
 

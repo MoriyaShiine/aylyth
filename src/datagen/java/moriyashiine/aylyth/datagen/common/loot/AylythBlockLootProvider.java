@@ -8,7 +8,7 @@ import moriyashiine.aylyth.common.block.types.OneTimeHarvestablePillarBlock;
 import moriyashiine.aylyth.common.block.types.PomegranateLeavesBlock;
 import moriyashiine.aylyth.common.block.types.SmallWoodyGrowthBlock;
 import moriyashiine.aylyth.common.block.types.StagedMushroomPlantBlock;
-import moriyashiine.aylyth.common.block.types.StrewnLeavesBlock;
+import moriyashiine.aylyth.common.block.types.LeafPileBlock;
 import moriyashiine.aylyth.common.block.types.WoodyGrowthCacheBlock;
 import moriyashiine.aylyth.common.item.AylythItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -53,6 +53,8 @@ public class AylythBlockLootProvider extends FabricBlockLootTableProvider {
         addPottedPlantDrops(AylythBlocks.POTTED_MARIGOLD);
         addDrop(AylythBlocks.OAK_STREWN_LEAVES, this::strewnLeaves);
         addDrop(AylythBlocks.YMPE_STREWN_LEAVES, this::strewnLeaves);
+        addDrop(AylythBlocks.OAK_LEAF_PILE, this::leafPile);
+        addDrop(AylythBlocks.YMPE_LEAF_PILE, this::leafPile);
         addDrop(AylythBlocks.JACK_O_LANTERN_MUSHROOM, this::standingJackolantern);
         addDrop(AylythBlocks.SHELF_JACK_O_LANTERN_MUSHROOM);
         addDrop(AylythBlocks.GHOSTCAP_MUSHROOM, () -> AylythItems.GHOSTCAP_MUSHROOM);
@@ -271,15 +273,15 @@ public class AylythBlockLootProvider extends FabricBlockLootTableProvider {
         );
     }
 
-    private LootTable.Builder strewnLeaves(Block block) {
+    private LootTable.Builder leafPile(Block block) {
         return LootTable.builder().pool(
                 LootPool.builder().with(
-                        AlternativeEntry.builder(StrewnLeavesBlock.LEAVES.getValues(),
+                        AlternativeEntry.builder(LeafPileBlock.LEAVES.getValues(),
                                 integer -> ItemEntry.builder(block)
                                         .apply(SetCountLootFunction.builder(ConstantLootNumberProvider.create(integer + 1)))
                                         .conditionally(BlockStatePropertyLootCondition.builder(block)
                                                 .properties(StatePredicate.Builder.create()
-                                                        .exactMatch(StrewnLeavesBlock.LEAVES, integer)
+                                                        .exactMatch(LeafPileBlock.LEAVES, integer)
                                                 )
                                         )
                                         .conditionally(AnyOfLootCondition.builder(
@@ -289,6 +291,20 @@ public class AylythBlockLootProvider extends FabricBlockLootTableProvider {
                                                 )
                                         )
                         )
+                )
+        );
+    }
+
+    private LootTable.Builder strewnLeaves(Block block) {
+        return LootTable.builder().pool(
+                LootPool.builder().with(
+                        ItemEntry.builder(block)
+                                .conditionally(AnyOfLootCondition.builder(
+                                                createSilkTouchCondition(),
+                                                MatchToolLootCondition.builder(ItemPredicate.Builder.create().tag(registries.getOrThrow(RegistryKeys.ITEM), ConventionalItemTags.SHEAR_TOOLS)),
+                                                MatchToolLootCondition.builder(ItemPredicate.Builder.create().tag(registries.getOrThrow(RegistryKeys.ITEM), ItemTags.HOES))
+                                        )
+                                )
                 )
         );
     }
