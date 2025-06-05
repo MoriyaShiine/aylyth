@@ -13,6 +13,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
@@ -101,17 +102,24 @@ public class SeepBlock extends Block implements BlockEntityProvider {
 	public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
 		return new SeepBlockEntity(pos, state);
 	}
-	
+
+	@Override
+	protected boolean canPathfindThrough(BlockState state, NavigationType type) {
+		return false;
+	}
+
 	@Override
 	public BlockState getPlacementState(ItemPlacementContext ctx) {
 		BlockState state = super.getPlacementState(ctx);
-		BlockState upper = ctx.getWorld().getBlockState(ctx.getBlockPos().up());
-		BlockState down = ctx.getWorld().getBlockState(ctx.getBlockPos().down());
-		if (down.contains(CONNECTION) && (down.get(CONNECTION) == Connection.NONE || down.get(CONNECTION) == Connection.UP)) {
-			return state.with(CONNECTION, Connection.DOWN);
-		}
-		else if (upper.contains(CONNECTION) && (upper.get(CONNECTION) == Connection.NONE || upper.get(CONNECTION) == Connection.DOWN)) {
-			return state.with(CONNECTION, Connection.UP);
+		if (state != null) {
+			BlockState upper = ctx.getWorld().getBlockState(ctx.getBlockPos().up());
+			BlockState down = ctx.getWorld().getBlockState(ctx.getBlockPos().down());
+			if (down.contains(CONNECTION) && (down.get(CONNECTION) == Connection.NONE || down.get(CONNECTION) == Connection.UP)) {
+				return state.with(CONNECTION, Connection.DOWN);
+			}
+			else if (upper.contains(CONNECTION) && (upper.get(CONNECTION) == Connection.NONE || upper.get(CONNECTION) == Connection.DOWN)) {
+				return state.with(CONNECTION, Connection.UP);
+			}
 		}
 		return state;
 	}
