@@ -32,10 +32,11 @@ public interface AylythItemTags {
     TagKey<Item> BARE_BRANCHES = bind("branches/bare");
     TagKey<Item> FLECHETTE_TOOLS = bind("tools/flechette");
 
-    TagKey<Item> STORAGE_BLOCKS_ESSTLINE = bind("storage_blocks/esstline");
-    TagKey<Item> STORAGE_BLOCKS_NEPHRITE = bind("storage_blocks/nephrite");
-
+    TagKey<Item> STORAGE_BLOCKS_ESSTLINE = bindC("storage_blocks/esstline");
+    TagKey<Item> STORAGE_BLOCKS_NEPHRITE = bindC("storage_blocks/nephrite");
     TagKey<Item> DAGGERS = bindC("tools/dagger");
+    TagKey<Item> NEPHRITE_GEMS = bindC("gems/nephrite");
+    TagKey<Item> ESSTLINE_CLUMPS = bindC("clumps/esstline");
 
     private static TagKey<Item> bind(String name) {
         return TagKey.of(RegistryKeys.ITEM, Aylyth.id(name));

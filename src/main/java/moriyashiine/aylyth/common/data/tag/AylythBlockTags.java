@@ -2,8 +2,10 @@ package moriyashiine.aylyth.common.data.tag;
 
 import moriyashiine.aylyth.common.Aylyth;
 import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.util.Identifier;
 
 public interface AylythBlockTags {
 
@@ -23,10 +25,14 @@ public interface AylythBlockTags {
     TagKey<Block> LEAFY_BRANCHES = bind("branches/leafy");
     TagKey<Block> BARE_BRANCHES = bind("branches/bare");
 
-    TagKey<Block> STORAGE_BLOCKS_ESSTLINE = bind("storage_blocks/esstline");
-    TagKey<Block> STORAGE_BLOCKS_NEPHRITE = bind("storage_blocks/nephrite");
+    TagKey<Block> STORAGE_BLOCKS_ESSTLINE = bindC("storage_blocks/esstline");
+    TagKey<Block> STORAGE_BLOCKS_NEPHRITE = bindC("storage_blocks/nephrite");
 
     private static TagKey<Block> bind(String name) {
         return TagKey.of(RegistryKeys.BLOCK, Aylyth.id(name));
+    }
+
+    private static TagKey<Block> bindC(String name) {
+        return TagKey.of(RegistryKeys.BLOCK, Identifier.of("c", name));
     }
 }

@@ -312,8 +312,6 @@
   "tag.item.aylyth.pomegranate_logs": "Pomegranate Logs",
   "tag.item.aylyth.sapstones": "Sapstone",
   "tag.item.aylyth.seeps": "Logs with Seep",
-  "tag.item.aylyth.storage_blocks.esstline": "Esstline Storage Blocks",
-  "tag.item.aylyth.storage_blocks.nephrite": "Nephrite Storage Blocks",
   "tag.item.aylyth.strips_off_bark": "Can Strip Bark",
   "tag.item.aylyth.tools.flechette": "Flechettes",
   "tag.item.aylyth.vampiric_weapons": "Vampiric Weapons",
@@ -322,5 +320,7 @@
   "tag.item.aylyth.ympe_fruit_harvesters": "Ympe Fruit Harvesters",
   "tag.item.aylyth.ympe_logs": "Ympe Logs",
   "tag.item.aylyth.ympe_weapons": "Ympe Weapons",
+  "tag.item.c.storage_blocks.esstline": "Esstline Storage Blocks",
+  "tag.item.c.storage_blocks.nephrite": "Nephrite Storage Blocks",
   "tag.item.c.tools.dagger": "Daggers"
 }

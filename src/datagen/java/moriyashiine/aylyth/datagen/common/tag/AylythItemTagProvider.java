@@ -44,18 +44,21 @@ public final class AylythItemTagProvider extends FabricTagProvider.ItemTagProvid
         getOrCreateTagBuilder(AylythItemTags.VAMPIRIC_WEAPONS).add(VAMPIRIC_AXE, VAMPIRIC_HOE, VAMPIRIC_PICKAXE, VAMPIRIC_SWORD);
         getOrCreateTagBuilder(AylythItemTags.BLIGHTED_WEAPONS).add(BLIGHTED_AXE, BLIGHTED_HOE, BLIGHTED_PICKAXE, BLIGHTED_SWORD);
         getOrCreateTagBuilder(AylythItemTags.NEPHRITE_FLASKS).add(NEPHRITE_FLASK, DARK_NEPHRITE_FLASK);
-        getOrCreateTagBuilder(AylythItemTags.DAGGERS).add(LANCEOLATE_DAGGER, YMPE_DAGGER);
         getOrCreateTagBuilder(AylythItemTags.FLESH_HARVESTERS).add(LANCEOLATE_DAGGER, YMPE_DAGGER);
         getOrCreateTagBuilder(AylythItemTags.YMPE_FRUIT_HARVESTERS).add(LANCEOLATE_DAGGER, YMPE_DAGGER);
         getOrCreateTagBuilder(AylythItemTags.STRIPS_OFF_BARK).add(LANCEOLATE_DAGGER, YMPE_DAGGER);
         getOrCreateTagBuilder(AylythItemTags.FLECHETTE_TOOLS).add(THORN_FLECHETTE, BLIGHTED_THORN_FLECHETTE);
+        getOrCreateTagBuilder(AylythItemTags.DAGGERS).add(LANCEOLATE_DAGGER, YMPE_DAGGER);
+        getOrCreateTagBuilder(AylythItemTags.NEPHRITE_GEMS).add(NEPHRITE);
+        getOrCreateTagBuilder(AylythItemTags.ESSTLINE_CLUMPS).add(ESSTLINE);
 
-        // TODO: Figure out if esstline/nephrite fit into gems/clumps tags
         getOrCreateTagBuilder(ConventionalItemTags.SPEAR_TOOLS).add(YMPE_LANCE);
         getOrCreateTagBuilder(ConventionalItemTags.MELEE_WEAPON_TOOLS)
                 .add(YMPE_LANCE, LANCEOLATE_DAGGER, YMPE_DAGGER, YMPE_GLAIVE, YMPE_FLAMBERGE, YMPE_SCYTHE, NEPHRITE_SWORD, VAMPIRIC_SWORD, BLIGHTED_SWORD, NEPHRITE_AXE, VAMPIRIC_AXE, BLIGHTED_AXE);
         getOrCreateTagBuilder(ConventionalItemTags.RANGED_WEAPON_TOOLS).add(YMPE_LANCE, THORN_FLECHETTE, BLIGHTED_THORN_FLECHETTE);
         getOrCreateTagBuilder(ConventionalItemTags.MINING_TOOL_TOOLS).add(NEPHRITE_PICKAXE, VAMPIRIC_PICKAXE, BLIGHTED_PICKAXE);
+        getOrCreateTagBuilder(ConventionalItemTags.GEMS).addTag(AylythItemTags.NEPHRITE_GEMS);
+        getOrCreateTagBuilder(ConventionalItemTags.CLUMPS).addTag(AylythItemTags.ESSTLINE_CLUMPS);
         getOrCreateTagBuilder(ConventionalItemTags.FRUIT_FOODS).add(YMPE_FRUIT, NYSIAN_GRAPES, POMEGRANATE);
         getOrCreateTagBuilder(ConventionalItemTags.BERRY_FOODS).add(NYSIAN_GRAPES);
         getOrCreateTagBuilder(ConventionalItemTags.FOOD_POISONING_FOODS).add(GHOSTCAP_MUSHROOM);
