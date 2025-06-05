@@ -2,21 +2,6 @@
   "variants": {
     "snowy=false": [
       {
-        "model": "aylyth:block/dark_podzol"
-      },
-      {
-        "model": "aylyth:block/dark_podzol",
-        "y": 90
-      },
-      {
-        "model": "aylyth:block/dark_podzol",
-        "y": 180
-      },
-      {
-        "model": "aylyth:block/dark_podzol",
-        "y": 270
-      },
-      {
         "model": "aylyth:block/dark_podzol_1"
       },
       {

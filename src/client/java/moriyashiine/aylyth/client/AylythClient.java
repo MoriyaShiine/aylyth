@@ -306,7 +306,8 @@ public class AylythClient implements ClientModInitializer {
 				AylythBlocks.RED_AYLYTHIAN_OAK_LEAVES,
 				AylythBlocks.BROWN_AYLYTHIAN_OAK_SAPLING,
 				AylythBlocks.POTTED_BROWN_AYLYTHIAN_OAK_SAPLING,
-				AylythBlocks.BROWN_AYLYTHIAN_OAK_LEAVES
+				AylythBlocks.BROWN_AYLYTHIAN_OAK_LEAVES,
+				AylythBlocks.DARK_PODZOL
 		};
 	}
 

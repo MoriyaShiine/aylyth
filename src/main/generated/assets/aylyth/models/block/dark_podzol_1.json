@@ -1,8 +1,10 @@
 {
-  "parent": "minecraft:block/cube_bottom_top",
+  "parent": "aylyth:block/cube_bottom_top_with_overlay",
   "textures": {
     "bottom": "minecraft:block/dirt",
-    "side": "aylyth:block/dark_podzol_side",
+    "overlay": "aylyth:block/dark_podzol_side_overlay",
+    "particle": "minecraft:block/dirt",
+    "side": "minecraft:block/dirt",
     "top": "aylyth:block/dark_podzol_top_1"
   }
 }

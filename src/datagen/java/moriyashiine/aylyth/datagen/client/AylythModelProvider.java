@@ -57,10 +57,6 @@ import java.util.stream.Stream;
 import static net.minecraft.client.data.BlockStateModelGenerator.createModelVariantWithRandomHorizontalRotations;
 
 public class AylythModelProvider extends FabricModelProvider {
-    private static final Model STREWN_LEAVES_TEMPLATE = new Model(Optional.of(blockId("strewn_leaves_template")), Optional.empty(), TextureKey.TOP);
-    private static final Model BRANCH_TEMPLATE = new Model(Optional.of(blockId("branch_template")), Optional.empty(), TextureKey.SIDE);
-    private static final Model HANDHELD_ROTATED = new Model(Optional.of(id("item/handheld_rotated")), Optional.empty(), TextureKey.LAYER0);
-
     public AylythModelProvider(FabricDataOutput output) {
         super(output);
     }
@@ -163,24 +159,23 @@ public class AylythModelProvider extends FabricModelProvider {
         registerBranchAndItem(generator, AylythBlocks.BROWN_AYLYTHIAN_OAK_BRANCH);
 
         {
-            var var1 = Models.CUBE_BOTTOM_TOP.upload(AylythBlocks.DARK_PODZOL, TextureMap.topBottom(blockId("dark_podzol_top"), ModelIds.getBlockModelId(Blocks.DIRT)).put(TextureKey.SIDE, blockId("dark_podzol_side")), generator.modelCollector);
-            var var2 = Models.CUBE_BOTTOM_TOP.upload(ModelIds.getBlockSubModelId(AylythBlocks.DARK_PODZOL, "_1"), TextureMap.topBottom(blockId("dark_podzol_top_1"), Identifier.of("block/dirt")).put(TextureKey.SIDE, blockId("dark_podzol_side")), generator.modelCollector);
-            var var3 = Models.CUBE_BOTTOM_TOP.upload(ModelIds.getBlockSubModelId(AylythBlocks.DARK_PODZOL, "_2"), TextureMap.topBottom(blockId("dark_podzol_top_2"), Identifier.of("block/dirt")).put(TextureKey.SIDE, blockId("dark_podzol_side")), generator.modelCollector);
-            var var4 = Models.CUBE_BOTTOM_TOP.upload(ModelIds.getBlockSubModelId(AylythBlocks.DARK_PODZOL, "_3"), TextureMap.topBottom(blockId("dark_podzol_top_3"), Identifier.of("block/dirt")).put(TextureKey.SIDE, blockId("dark_podzol_side")), generator.modelCollector);
-            var var5 = Models.CUBE_BOTTOM_TOP.upload(ModelIds.getBlockSubModelId(AylythBlocks.DARK_PODZOL, "_4"), TextureMap.topBottom(blockId("dark_podzol_top_4"), Identifier.of("block/dirt")).put(TextureKey.SIDE, blockId("dark_podzol_side")), generator.modelCollector);
+            List<BlockStateVariant> variants = new ObjectArrayList<>();
+            for (int i = 1; i <= 4; i++) {
+                TextureMap map = TextureMap.of(TextureKey.TOP, blockId("dark_podzol_top_" + i))
+                        .put(TextureKey.BOTTOM, Identifier.ofVanilla("block/dirt"))
+                        .put(TextureKey.SIDE, Identifier.ofVanilla("block/dirt"))
+                        .put(AylythModels.OVERLAY, blockId("dark_podzol_side_overlay"))
+                        .put(TextureKey.PARTICLE, Identifier.ofVanilla("block/dirt"));
+                Identifier id = AylythModels.CUBE_BOTTOM_TOP_WITH_OVERLAY.upload(ModelIds.getBlockSubModelId(AylythBlocks.DARK_PODZOL, "_" + i), map, generator.modelCollector);
+                variants.addAll(List.of(createModelVariantWithRandomHorizontalRotations(id)));
+            }
             generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(AylythBlocks.DARK_PODZOL)
                     .coordinate(BlockStateVariantMap.create(Properties.SNOWY)
-                            .register(true, List.of(BlockStateVariant.create().put(VariantSettings.MODEL, ModelIds.getBlockSubModelId(Blocks.GRASS_BLOCK, "_snow"))))
-                            .register(false, ImmutableList.<BlockStateVariant>builder()
-                                    .addAll(Arrays.asList(createModelVariantWithRandomHorizontalRotations(var1)))
-                                    .addAll(Arrays.asList(createModelVariantWithRandomHorizontalRotations(var2)))
-                                    .addAll(Arrays.asList(createModelVariantWithRandomHorizontalRotations(var3)))
-                                    .addAll(Arrays.asList(createModelVariantWithRandomHorizontalRotations(var4)))
-                                    .addAll(Arrays.asList(createModelVariantWithRandomHorizontalRotations(var5)))
-                                    .build()
-                            )
+                            .register(true, BlockStateVariant.create().put(VariantSettings.MODEL, ModelIds.getBlockSubModelId(Blocks.GRASS_BLOCK, "_snow")))
+                            .register(false, variants)
                     )
             );
+            generator.registerParentedItemModel(AylythBlocks.DARK_PODZOL, ModelIds.getBlockSubModelId(AylythBlocks.DARK_PODZOL, "_1"));
         }
 
         generator.registerFlowerPotPlantAndItem(AylythBlocks.BROWN_AYLYTHIAN_OAK_SAPLING, AylythBlocks.POTTED_BROWN_AYLYTHIAN_OAK_SAPLING, BlockStateModelGenerator.CrossType.NOT_TINTED);
@@ -244,7 +239,7 @@ public class AylythModelProvider extends FabricModelProvider {
         generator.register(AylythItems.BLIGHTED_AXE, Models.HANDHELD);
         generator.register(AylythItems.BLIGHTED_HOE, Models.HANDHELD);
 
-        generator.register(AylythItems.YMPE_EFFIGY, HANDHELD_ROTATED);
+        generator.register(AylythItems.YMPE_EFFIGY, AylythModels.HANDHELD_ROTATED);
 
         generator.registerSpawnEgg(AylythItems.AYLYTHIAN_SPAWN_EGG, 0x6A4831, 0xE58E03);
         generator.registerSpawnEgg(AylythItems.ELDER_AYLYTHIAN_SPAWN_EGG, 0x513425, 0xFFDC9B);
@@ -328,7 +323,7 @@ public class AylythModelProvider extends FabricModelProvider {
     }
 
     private void registerBranchAndItem(BlockStateModelGenerator generator, Block block) {
-        BRANCH_TEMPLATE.upload(block, TextureMap.of(TextureKey.SIDE, ModelIds.getBlockModelId(block)), generator.modelCollector);
+        AylythModels.BRANCH_TEMPLATE.upload(block, TextureMap.of(TextureKey.SIDE, ModelIds.getBlockModelId(block)), generator.modelCollector);
         generator.registerNorthDefaultHorizontalRotation(block);
         generator.registerItemModel(block.asItem(), generator.uploadBlockItemModel(block.asItem(), block));
     }
@@ -436,9 +431,9 @@ public class AylythModelProvider extends FabricModelProvider {
                         .toArray(BlockStateVariant[]::new)
                 ));
         models.forEach(identifier -> {
-            STREWN_LEAVES_TEMPLATE.upload(identifier, TextureMap.of(TextureKey.TOP, identifier), generator.modelCollector);
+            AylythModels.STREWN_LEAVES_TEMPLATE.upload(identifier, TextureMap.of(TextureKey.TOP, identifier), generator.modelCollector);
         });
-        STREWN_LEAVES_TEMPLATE.upload(strewnLeavesBlock, TextureMap.of(TextureKey.TOP, models.getFirst()), generator.modelCollector);
+        AylythModels.STREWN_LEAVES_TEMPLATE.upload(strewnLeavesBlock, TextureMap.of(TextureKey.TOP, models.getFirst()), generator.modelCollector);
 
         generator.registerItemModel(strewnLeavesBlock.asItem(), Models.GENERATED.upload(ModelIds.getItemModelId(strewnLeavesBlock.asItem()), TextureMap.layer0(models.getFirst()), generator.modelCollector));
     }
