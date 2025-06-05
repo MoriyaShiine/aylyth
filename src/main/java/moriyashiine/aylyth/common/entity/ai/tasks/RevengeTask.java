@@ -1,24 +1,28 @@
 package moriyashiine.aylyth.common.entity.ai.tasks;
 
-import com.google.common.collect.ImmutableMap;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.brain.MemoryModuleState;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
-import net.minecraft.entity.ai.brain.task.MultiTickTask;
+import net.minecraft.entity.ai.brain.task.Task;
+import net.minecraft.entity.ai.brain.task.TaskTriggerer;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.server.world.ServerWorld;
 
-public class RevengeTask extends MultiTickTask<MobEntity> {
-    public RevengeTask() {
-        super(ImmutableMap.of(
-                MemoryModuleType.HURT_BY_ENTITY, MemoryModuleState.VALUE_PRESENT,
-                MemoryModuleType.ANGRY_AT, MemoryModuleState.REGISTERED
-        ));
+public class RevengeTask {
+    public static <E extends MobEntity> Task<E> create(AttackPredicate<LivingEntity, E> predicate) {
+        return TaskTriggerer.task(
+                context -> context.group(
+                        context.queryMemoryValue(MemoryModuleType.HURT_BY_ENTITY), context.queryMemoryOptional(MemoryModuleType.ANGRY_AT)
+                ).apply(context, (hurtBy, angryAt) -> (world, entity, time) -> {
+                    LivingEntity attackedBy = context.getValue(hurtBy);
+                    if (predicate.shouldAttack(attackedBy, entity)) {
+                        angryAt.remember(attackedBy.getUuid(), 600);
+                        return true;
+                    }
+                    return false;
+                })
+        );
     }
 
-    @Override
-    protected void run(ServerWorld world, MobEntity entity, long time) {
-        LivingEntity attackedBy = entity.getBrain().getOptionalMemory(MemoryModuleType.HURT_BY_ENTITY).get();
-        entity.getBrain().remember(MemoryModuleType.ANGRY_AT, attackedBy.getUuid(), 600L);
+    public interface AttackPredicate<H, E> {
+        boolean shouldAttack(H hurtBy, E entity);
     }
 }

@@ -10,13 +10,12 @@ import moriyashiine.aylyth.common.data.tag.AylythItemTags;
 import moriyashiine.aylyth.common.entity.AylythTrackedDataHandlers;
 import moriyashiine.aylyth.common.entity.ai.AylythMemoryTypes;
 import moriyashiine.aylyth.common.entity.ai.brains.WreathedHindBrain;
-import moriyashiine.aylyth.common.util.AylythUtil;
 import moriyashiine.aylyth.common.world.AylythSoundEvents;
 import moriyashiine.aylyth.common.world.AylythWorldAttachmentTypes;
-import net.fabricmc.fabric.api.attachment.v1.AttachmentTarget;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -24,6 +23,7 @@ import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -32,11 +32,11 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.FluidTags;
+import net.minecraft.server.network.DebugInfoSender;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
@@ -50,18 +50,19 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.profiler.Profilers;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.GameRules;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.AnimatableManager;
 import software.bernie.geckolib.animation.AnimationController;
 import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.animation.PlayState;
+import software.bernie.geckolib.constant.DefaultAnimations;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.ArrayList;
@@ -90,7 +91,8 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
                 .add(EntityAttributes.ATTACK_DAMAGE, 13)
                 .add(EntityAttributes.ARMOR, 3)
                 .add(EntityAttributes.MOVEMENT_SPEED, 0.225)
-                .add(EntityAttributes.FOLLOW_RANGE, 32);
+                .add(EntityAttributes.FOLLOW_RANGE, 32)
+                .add(EntityAttributes.ENTITY_INTERACTION_RANGE, 4);
     }
 
     @Override
@@ -185,6 +187,12 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
     }
 
     @Override
+    public boolean isInAttackRange(LivingEntity entity) {
+        double r = this.getAttributeValue(EntityAttributes.ENTITY_INTERACTION_RANGE);
+        return entity.getBoundingBox().squaredMagnitude(this.getEyePos()) < r * r;
+    }
+
+    @Override
     public boolean canPickupItem(ItemStack stack) {
         return false;
     }
@@ -206,9 +214,11 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
     }
 
     @Override
-    protected void dropEquipment(ServerWorld world, DamageSource source, boolean causedByPlayer) {
-        super.dropEquipment(world, source, causedByPlayer);
-        placeStrewnLeaves(getWorld(), getBlockPos()); // TODO: should we try to spawn strewn leaves when it is killed by the kill command? What about mob griefing?
+    protected void drop(ServerWorld world, DamageSource damageSource) {
+        super.drop(world, damageSource);
+        if (world.getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING)) {
+            placeStrewnLeaves(getWorld(), getBlockPos());
+        }
     }
 
     public void placeStrewnLeaves(World world, BlockPos blockPos){
@@ -249,10 +259,6 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
     public void registerControllers(AnimatableManager.ControllerRegistrar animationData) {
         animationData.add(DefaultAnimations.genericWalkIdleController(this));
         animationData.add(new AnimationController<>(this, "Attack", 1, this::attackPredicate));
-    }
-
-    private <T extends GeoAnimatable> PlayState predicate(AnimationState<T> event) {
-        return event.setAndContinue(event.isMoving() ? WALK : IDLE);
     }
 
     private <T extends WreathedHindEntity> PlayState attackPredicate(AnimationState<T> event) {

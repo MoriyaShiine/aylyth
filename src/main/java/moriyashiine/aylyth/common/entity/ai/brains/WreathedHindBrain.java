@@ -8,6 +8,7 @@ import moriyashiine.aylyth.common.entity.ai.AylythMemoryTypes;
 import moriyashiine.aylyth.common.entity.ai.AylythSensorTypes;
 import moriyashiine.aylyth.common.entity.ai.tasks.BoltRangedAttackTask;
 import moriyashiine.aylyth.common.entity.ai.tasks.GeckoMeleeAttackTask;
+import moriyashiine.aylyth.common.entity.ai.tasks.RevengeTask;
 import moriyashiine.aylyth.common.entity.types.mob.WreathedHindEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -21,10 +22,12 @@ import net.minecraft.entity.ai.brain.task.ForgetAttackTargetTask;
 import net.minecraft.entity.ai.brain.task.GoToLookTargetTask;
 import net.minecraft.entity.ai.brain.task.LookAroundTask;
 import net.minecraft.entity.ai.brain.task.LookAtMobTask;
+import net.minecraft.entity.ai.brain.task.MoveToTargetTask;
 import net.minecraft.entity.ai.brain.task.RandomTask;
 import net.minecraft.entity.ai.brain.task.StayAboveWaterTask;
 import net.minecraft.entity.ai.brain.task.StrollTask;
 import net.minecraft.entity.ai.brain.task.UpdateAttackTargetTask;
+import net.minecraft.entity.ai.brain.task.UpdateLookControlTask;
 import net.minecraft.entity.ai.brain.task.WaitTask;
 import net.minecraft.entity.ai.brain.task.WalkTowardsLookTargetTask;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -36,7 +39,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class WreathedHindBrain {
-
     private static final List<SensorType<? extends Sensor<? super WreathedHindEntity>>> SENSORS = List.of(
             SensorType.NEAREST_PLAYERS,
             SensorType.NEAREST_LIVING_ENTITIES,
@@ -86,12 +88,9 @@ public class WreathedHindBrain {
                 0,
                 ImmutableList.of(
                         new StayAboveWaterTask<>(0.6f),
-                        new LookAroundTask(UniformIntProvider.create(45, 90), 180, 0, 0),
-                        StrollTask.create(0.6F)
-//                        new ConditionalTask<>(
-//                                Map.of(MemoryModuleType.HURT_BY_ENTITY, MemoryModuleState.VALUE_PRESENT),
-//                                WreathedHindBrain::shouldAttackHurtBy, new RevengeTask(), false
-//                        )
+                        new UpdateLookControlTask(45, 90),
+                        new MoveToTargetTask(),
+                        RevengeTask.create(WreathedHindBrain::shouldAttackHurtBy)
                 )
         );
     }
@@ -102,13 +101,13 @@ public class WreathedHindBrain {
                 ImmutableList.of(
                         Pair.of(0, WalkTowardsLookTargetTask.create(living -> {
                             Optional<PlayerEntity> pledgedPlayer = living.getBrain().getOptionalMemory(AylythMemoryTypes.PLEDGED_PLAYER);
-                            return pledgedPlayer.map(player -> new EntityLookTarget(player, true));
+                            return pledgedPlayer == null ? Optional.empty() : pledgedPlayer.map(player -> new EntityLookTarget(player, true));
                         }, living -> true, 3, 10, 0.8f)),
                         Pair.of(1, new RandomTask<>(
                                 ImmutableList.of(
-                                        Pair.of(StrollTask.create(0.6F), 2),
                                         Pair.of(GoToLookTargetTask.create(0.6F, 3), 2),
-                                        Pair.of(new WaitTask(30, 60), 1)
+                                        Pair.of(new WaitTask(30, 60), 1),
+                                        Pair.of(StrollTask.create(0.6F), 2)
                                 ))),
                         Pair.of(1, UpdateAttackTargetTask.create(WreathedHindBrain::getAttackTarget))
                 )
@@ -151,9 +150,8 @@ public class WreathedHindBrain {
        return (entity instanceof PlayerEntity player && player.getUuid().equals(wreathedHindEntity.getPledgedPlayerUUID()) && player.getHealth() <= 6);
     }
 
-    public static boolean shouldAttackHurtBy(WreathedHindEntity entity) {
-        Entity attackedBy = entity.getBrain().getOptionalMemory(MemoryModuleType.HURT_BY_ENTITY).get();
-        if (attackedBy.getUuid().equals(entity.getPledgedPlayerUUID())) {
+    public static boolean shouldAttackHurtBy(LivingEntity hurtBy, WreathedHindEntity entity) {
+        if (hurtBy.getUuid().equals(entity.getPledgedPlayerUUID())) {
             return entity.getBrain().getOptionalMemory(AylythMemoryTypes.SECOND_CHANCE).filter(SecondChance::shouldBetray).isPresent();
         }
         return true;
