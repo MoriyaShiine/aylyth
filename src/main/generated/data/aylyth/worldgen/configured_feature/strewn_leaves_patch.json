@@ -12,10 +12,7 @@
                 "to_place": {
                   "type": "minecraft:simple_state_provider",
                   "state": {
-                    "Name": "aylyth:oak_strewn_leaves",
-                    "Properties": {
-                      "leaves": "0"
-                    }
+                    "Name": "aylyth:oak_strewn_leaves"
                   }
                 }
               }
@@ -40,10 +37,7 @@
                     "to_place": {
                       "type": "minecraft:simple_state_provider",
                       "state": {
-                        "Name": "aylyth:ympe_strewn_leaves",
-                        "Properties": {
-                          "leaves": "0"
-                        }
+                        "Name": "aylyth:ympe_strewn_leaves"
                       }
                     }
                   }

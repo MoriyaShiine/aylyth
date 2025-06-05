@@ -20,7 +20,7 @@
         "Name": "aylyth:pomegranate_leaves",
         "Properties": {
           "distance": "7",
-          "fruiting_stage": "0",
+          "fruiting": "0",
           "persistent": "false",
           "waterlogged": "false"
         }

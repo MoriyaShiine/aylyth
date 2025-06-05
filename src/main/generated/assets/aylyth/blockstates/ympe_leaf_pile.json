@@ -1,0 +1,25 @@
+{
+  "variants": {
+    "leaves=1": {
+      "model": "aylyth:block/ympe_leaf_pile_1"
+    },
+    "leaves=2": {
+      "model": "aylyth:block/ympe_leaf_pile_2"
+    },
+    "leaves=3": {
+      "model": "aylyth:block/ympe_leaf_pile_3"
+    },
+    "leaves=4": {
+      "model": "aylyth:block/ympe_leaf_pile_4"
+    },
+    "leaves=5": {
+      "model": "aylyth:block/ympe_leaf_pile_5"
+    },
+    "leaves=6": {
+      "model": "aylyth:block/ympe_leaf_pile_6"
+    },
+    "leaves=7": {
+      "model": "aylyth:block/ympe_leaf_pile_7"
+    }
+  }
+}

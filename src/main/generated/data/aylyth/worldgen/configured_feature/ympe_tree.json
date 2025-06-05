@@ -34,10 +34,7 @@
                 "predicate": {
                   "type": "minecraft:would_survive",
                   "state": {
-                    "Name": "aylyth:ympe_strewn_leaves",
-                    "Properties": {
-                      "leaves": "0"
-                    }
+                    "Name": "aylyth:ympe_strewn_leaves"
                   }
                 }
               }
@@ -72,10 +69,7 @@
                 "predicate": {
                   "type": "minecraft:would_survive",
                   "state": {
-                    "Name": "aylyth:ympe_strewn_leaves",
-                    "Properties": {
-                      "leaves": "0"
-                    }
+                    "Name": "aylyth:ympe_strewn_leaves"
                   }
                 }
               }
