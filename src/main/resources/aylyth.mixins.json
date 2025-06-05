@@ -6,7 +6,6 @@
   "mixins": [
     "ClearAllEffectsConsumeEffectMixin",
     "EntityAccessor",
-    "EntityMixin",
     "LivingEntityAccessor",
     "LivingEntityMixin",
     "LootContextTypesAccessor",
