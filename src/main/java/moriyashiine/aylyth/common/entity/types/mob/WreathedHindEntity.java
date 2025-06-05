@@ -70,11 +70,7 @@ import java.util.UUID;
 import java.util.function.IntFunction;
 
 public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pledgeable {
-    private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("idle");
-    private static final RawAnimation WALK = RawAnimation.begin().thenLoop("walk");
-    private static final RawAnimation MELEE = RawAnimation.begin().thenPlayXTimes("melee", 1);
-    private static final RawAnimation ATTACK_RANGED = RawAnimation.begin().thenPlayXTimes("attack_ranged", 1);
-    private static final RawAnimation KILLING_BLOW = RawAnimation.begin().thenPlayXTimes("killing_blow", 1);
+    private static final RawAnimation KILLING_BLOW = RawAnimation.begin().thenPlay("attack.killing_blow");
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     private static final Identifier SNEAKY_MODIFIER = Aylyth.id("sneaky_modifier");
@@ -251,7 +247,7 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar animationData) {
-        animationData.add(new AnimationController<>(this, "Move", 10, this::predicate));
+        animationData.add(DefaultAnimations.genericWalkIdleController(this));
         animationData.add(new AnimationController<>(this, "Attack", 1, this::attackPredicate));
     }
 
@@ -263,8 +259,8 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
         var entity = event.getAnimatable();
         RawAnimation animation;
         switch (entity.getAttackType()) {
-            case MELEE -> animation = MELEE;
-            case RANGED -> animation = ATTACK_RANGED;
+            case MELEE -> animation = DefaultAnimations.ATTACK_SWING;
+            case RANGED -> animation = DefaultAnimations.ATTACK_CAST;
             case KILLING -> animation = KILLING_BLOW;
             default -> {
                 return PlayState.STOP;

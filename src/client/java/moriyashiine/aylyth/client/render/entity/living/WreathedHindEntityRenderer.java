@@ -38,4 +38,9 @@ public class WreathedHindEntityRenderer extends GeoEntityRenderer<WreathedHindEn
         }
         super.defaultRender(poseStack, animatable, bufferSource, renderType, buffer, partialTick, packedLight);
     }
+
+    @Override
+    public float getMotionAnimThreshold(WreathedHindEntity animatable) {
+        return 0.001f;
+    }
 }

@@ -1,7 +1,7 @@
 {
 	"format_version": "1.8.0",
 	"animations": {
-		"idle": {
+		"misc.idle": {
 			"loop": true,
 			"animation_length": 8,
 			"bones": {
@@ -613,7 +613,7 @@
 				}
 			}
 		},
-		"walk": {
+		"move.walk": {
 			"loop": true,
 			"animation_length": 4,
 			"bones": {
@@ -1353,7 +1353,7 @@
 				}
 			}
 		},
-		"melee": {
+		"attack.swing": {
 			"animation_length": 2,
 			"bones": {
 				"chest": {
@@ -1768,7 +1768,7 @@
 				}
 			}
 		},
-		"attack_ranged": {
+		"attack.cast": {
 			"animation_length": 2,
 			"bones": {
 				"chest": {
@@ -2382,7 +2382,7 @@
 				}
 			}
 		},
-		"killing_blow": {
+		"attack.killing_blow": {
 			"animation_length": 2,
 			"bones": {
 				"chest": {
