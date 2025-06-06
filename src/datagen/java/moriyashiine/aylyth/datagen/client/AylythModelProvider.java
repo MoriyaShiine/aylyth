@@ -15,6 +15,7 @@ import moriyashiine.aylyth.common.block.types.PomegranateLeavesBlock;
 import moriyashiine.aylyth.common.block.types.SeepBlock;
 import moriyashiine.aylyth.common.block.types.SoulHearthBlock;
 import moriyashiine.aylyth.common.block.types.LeafPileBlock;
+import moriyashiine.aylyth.common.block.types.VitalThuribleBlock;
 import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.aylyth.datagen.common.AylythBlockFamilies;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
@@ -109,7 +110,7 @@ public class AylythModelProvider extends FabricModelProvider {
         generator.registerFlowerPotPlantAndItem(AylythBlocks.WRITHEWOOD_SAPLING, AylythBlocks.POTTED_WRITHEWOOD_SAPLING, BlockStateModelGenerator.CrossType.NOT_TINTED);
         generator.registerCubeAllModelTexturePool(AylythBlocks.WRITHEWOOD_PLANKS).family(AylythBlockFamilies.WRITHEWOOD);
         generator.registerHangingSign(AylythBlocks.WRITHEWOOD_STRIPPED_LOG, AylythBlocks.WRITHEWOOD_HANGING_SIGN, AylythBlocks.WRITHEWOOD_WALL_HANGING_SIGN);
-        registerSingleton(generator, AylythBlocks.WRITHEWOOD_LEAVES);
+        registerSingletonState(generator, AylythBlocks.WRITHEWOOD_LEAVES);
 
         Models.TEMPLATE_SINGLE_FACE.upload(blockId("jack_o_lantern_mushroom_block_inner"), TextureMap.texture(blockId("jack_o_lantern_mushroom_block_inner")), generator.modelCollector);
         registerMushroomBlock(generator, AylythBlocks.JACK_O_LANTERN_MUSHROOM_STEM, blockId("jack_o_lantern_mushroom_block_inner"));
@@ -138,7 +139,7 @@ public class AylythModelProvider extends FabricModelProvider {
         generator.blockStateCollector.accept(BlockStateModelGenerator.createAxisRotatedBlockState(AylythBlocks.SEEPING_WOOD, seepingWoodModel));
 
         generator.registerFlowerPotPlant(AylythBlocks.GIRASOL_SAPLING, AylythBlocks.POTTED_GIRASOL_SAPLING, BlockStateModelGenerator.CrossType.NOT_TINTED);
-        registerSingleton(generator, AylythBlocks.BLACK_WELL);
+        registerSingletonState(generator, AylythBlocks.BLACK_WELL);
 
         registerSapstone(generator, AylythBlocks.SAPSTONE);
         registerSapstone(generator, AylythBlocks.AMBER_SAPSTONE);
@@ -174,14 +175,15 @@ public class AylythModelProvider extends FabricModelProvider {
         registerSeep(generator, AylythBlocks.SPRUCE_SEEP, Blocks.SPRUCE_LOG);
         registerSeep(generator, AylythBlocks.YMPE_SEEP, AylythBlocks.YMPE_LOG);
         registerSeep(generator, AylythBlocks.SEEPING_WOOD_SEEP, blockId("aylyth_bush_trunk"), blockId("aylyth_bush_trunk"));
-        registerSingleton(generator, AylythBlocks.ANTLER_SHOOTS);
-        registerSingleton(generator, AylythBlocks.GRIPWEED);
+        registerSingletonState(generator, AylythBlocks.ANTLER_SHOOTS);
+        registerSingletonState(generator, AylythBlocks.GRIPWEED);
         registerFruitBearingYmpeBlock(generator, AylythBlocks.FRUIT_BEARING_YMPE_LOG, AylythBlocks.YMPE_LOG);
         registerNysianGrapeVine(generator, AylythBlocks.NYSIAN_GRAPE_VINE);
         generator.blockStateCollector.accept(numberedVariants(AylythBlocks.GHOSTCAP_MUSHROOM, 4));
         registerMarigolds(generator, AylythBlocks.MARIGOLD);
         registerAylythBushStates(generator, AylythBlocks.AYLYTHIAN_BUSH);
-        registerJackOLanternStates(generator, AylythBlocks.JACK_O_LANTERN_MUSHROOM);
+        registerJackOLanternMushroomStates(generator, AylythBlocks.JACK_O_LANTERN_MUSHROOM);
+        registerVitalThuribleStates(generator, AylythBlocks.VITAL_THURIBLE);
     }
 
     @Override
@@ -305,7 +307,26 @@ public class AylythModelProvider extends FabricModelProvider {
         );
     }
 
-    private void registerJackOLanternStates(BlockStateModelGenerator generator, Block block) {
+    private void registerVitalThuribleStates(BlockStateModelGenerator generator, Block block) {
+        generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block)
+                .coordinate(BlockStateVariantMap.create(VitalThuribleBlock.FACING, VitalThuribleBlock.ACTIVE)
+                        .register((facing, active) -> {
+                            BlockStateVariant variant = BlockStateVariant.create().put(VariantSettings.MODEL, ModelIds.getBlockSubModelId(block, active ? "_active" : ""));
+                            if (facing != Direction.NORTH) {
+                                variant.put(VariantSettings.Y, switch (facing) {
+                                    case EAST -> VariantSettings.Rotation.R90;
+                                    case SOUTH -> VariantSettings.Rotation.R180;
+                                    case WEST -> VariantSettings.Rotation.R270;
+                                    default -> throw new IllegalStateException("Should be a horizontal direction");
+                                });
+                            }
+                            return variant;
+                        })
+                )
+        );
+    }
+
+    private void registerJackOLanternMushroomStates(BlockStateModelGenerator generator, Block block) {
         generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block)
                 .coordinate(BlockStateVariantMap.create(JackolanternMushroomBlock.STAGE, JackolanternMushroomBlock.GLOWING)
                         .register((stage, glowing) ->
@@ -574,7 +595,7 @@ public class AylythModelProvider extends FabricModelProvider {
     }
 
     /** This just registers a single variant block state */
-    private void registerSingleton(BlockStateModelGenerator generator, Block block) {
+    private void registerSingletonState(BlockStateModelGenerator generator, Block block) {
         generator.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(block, ModelIds.getBlockModelId(block)));
     }
 
