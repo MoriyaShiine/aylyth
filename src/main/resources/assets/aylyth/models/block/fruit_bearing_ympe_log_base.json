@@ -1,11 +1,8 @@
 {
   "credit": "Made with Blockbench",
-  "parent": "block/block",
+  "parent": "minecraft:block/block",
   "textures": {
-	"side": "aylyth:block/ympe_fruit_bearing_log_side",
-	"fruit": "aylyth:block/ympe_fruit_ripe",
-	"top": "aylyth:block/ympe_log_top",
-	"particle": "aylyth:block/ympe_fruit_bearing_log_side"
+	"particle": "#side"
   },
   "elements": [
 	{
@@ -64,7 +61,7 @@
 			16,
 			16
 		  ],
-		  "texture": "#top"
+		  "texture": "#end"
 		},
 		"down": {
 		  "uv": [
@@ -73,7 +70,7 @@
 			16,
 			16
 		  ],
-		  "texture": "#top"
+		  "texture": "#end"
 		}
 	  }
 	},

@@ -1,10 +1,10 @@
 package moriyashiine.aylyth.datagen.client;
 
-import com.google.common.collect.ImmutableList;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import moriyashiine.aylyth.client.render.item.property.FlaskChargesProperty;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.block.AylythBlocks;
+import moriyashiine.aylyth.common.block.types.GrowingHarvestablePillarBlock;
 import moriyashiine.aylyth.common.block.types.LargeWoodyGrowthBlock;
 import moriyashiine.aylyth.common.block.types.PomegranateLeavesBlock;
 import moriyashiine.aylyth.common.block.types.SeepBlock;
@@ -47,7 +47,6 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.biome.FoliageColors;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -73,7 +72,6 @@ public class AylythModelProvider extends FabricModelProvider {
     @Override
     public void generateBlockStateModels(BlockStateModelGenerator generator) {
         generator.registerParentedItemModel(AylythBlocks.SOUL_HEARTH, blockId("soul_hearth_item"));
-        generator.registerParentedItemModel(AylythBlocks.FRUIT_BEARING_YMPE_LOG, blockId("fruit_bearing_ympe_log/4"));
         generator.registerItemModel(AylythBlocks.MARIGOLD);
         registerFlowerPot(generator, AylythBlocks.MARIGOLD, AylythBlocks.POTTED_MARIGOLD, BlockStateModelGenerator.CrossType.NOT_TINTED);
         generateStrewnLeaves(generator, AylythBlocks.OAK_STREWN_LEAVES, List.of(blockId("fallen_oak_leaves_01"), blockId("fallen_oak_leaves_02"), blockId("fallen_oak_leaves_03"), blockId("fallen_oak_leaves_04"), blockId("fallen_oak_leaves_05"), blockId("fallen_oak_leaves_06"), blockId("fallen_oak_leaves_07"), blockId("fallen_oak_leaves_08"), blockId("fallen_oak_leaves_09"), blockId("fallen_oak_leaves_10")));
@@ -172,6 +170,8 @@ public class AylythModelProvider extends FabricModelProvider {
 
         singleton(generator, AylythBlocks.ANTLER_SHOOTS);
         singleton(generator, AylythBlocks.GRIPWEED);
+
+        registerFruitBearingYmpeBlock(generator, AylythBlocks.FRUIT_BEARING_YMPE_LOG, AylythBlocks.YMPE_LOG);
     }
 
     @Override
@@ -285,6 +285,63 @@ public class AylythModelProvider extends FabricModelProvider {
                 ItemModels.basic(ModelIds.getItemSubModelId(item, "_in_hand"))
         );
         generator.output.accept(item, ItemModelGenerator.createModelWithInHandVariant(fallback, variants));
+    }
+
+    private void registerFruitBearingYmpeBlock(BlockStateModelGenerator generator, Block block, Block logBlock) {
+        Identifier normalSideTexture = ModelIds.getBlockSubModelId(block, "_side");
+        Identifier topTexture = ModelIds.getBlockSubModelId(logBlock, "_top");
+        Identifier age0 = Models.CUBE_COLUMN.upload(
+                ModelIds.getBlockSubModelId(block, "_0"),
+                TextureMap.sideEnd(ModelIds.getBlockSubModelId(block, "_bleeding_side"), topTexture),
+                generator.modelCollector);
+        Identifier age1 = Models.CUBE_COLUMN.upload(
+                ModelIds.getBlockSubModelId(block, "_1"),
+                TextureMap.sideEnd(normalSideTexture, topTexture),
+                generator.modelCollector);
+        Identifier age2 = AylythModels.FRUIT_BEARING_YMPE_LOG_BASE.upload(
+                ModelIds.getBlockSubModelId(block, "_2"),
+                TextureMap.of(TextureKey.SIDE, normalSideTexture)
+                        .put(TextureKey.END, topTexture)
+                        .put(AylythModels.FRUIT, blockId("ympe_fruit_unripe")),
+                generator.modelCollector);
+        Identifier age3 = AylythModels.FRUIT_BEARING_YMPE_LOG_BASE.upload(
+                ModelIds.getBlockSubModelId(block, "_3"),
+                TextureMap.of(TextureKey.SIDE, normalSideTexture)
+                        .put(TextureKey.END, topTexture)
+                        .put(AylythModels.FRUIT, blockId("ympe_fruit_ripening")),
+                generator.modelCollector);
+        Identifier age4 = AylythModels.FRUIT_BEARING_YMPE_LOG_BASE.upload(
+                ModelIds.getBlockSubModelId(block, "_4"),
+                TextureMap.of(TextureKey.SIDE, normalSideTexture)
+                        .put(TextureKey.END, topTexture)
+                        .put(AylythModels.FRUIT, blockId("ympe_fruit_ripe")),
+                generator.modelCollector);
+        generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block)
+                .coordinate(BlockStateVariantMap.create(GrowingHarvestablePillarBlock.AGE, GrowingHarvestablePillarBlock.AXIS)
+                        .register((integer, axis) -> {
+                            BlockStateVariant variant = BlockStateVariant.create();
+                            variant.put(VariantSettings.MODEL,
+                                    switch (integer) {
+                                        case 0 -> age0;
+                                        case 1 -> age1;
+                                        case 2 -> age2;
+                                        case 3 -> age3;
+                                        case 4 -> age4;
+                                        default -> throw new IllegalStateException("No model for given age: " + integer);
+                                    });
+                            switch (axis) {
+                                case X -> {
+                                    variant.put(VariantSettings.X, VariantSettings.Rotation.R90);
+                                    variant.put(VariantSettings.Y, VariantSettings.Rotation.R90);
+                                }
+                                case Y -> {}
+                                case Z -> variant.put(VariantSettings.X, VariantSettings.Rotation.R90);
+                            }
+                            return variant;
+                        })
+                )
+        );
+        generator.registerParentedItemModel(AylythBlocks.FRUIT_BEARING_YMPE_LOG, age4);
     }
 
     private void registerDarkPodzol(BlockStateModelGenerator generator, Block block) {

@@ -1,0 +1,8 @@
+{
+  "parent": "aylyth:block/fruit_bearing_ympe_log_base",
+  "textures": {
+    "end": "aylyth:block/ympe_log_top",
+    "fruit": "aylyth:block/ympe_fruit_unripe",
+    "side": "aylyth:block/fruit_bearing_ympe_log_side"
+  }
+}
