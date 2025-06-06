@@ -4,6 +4,7 @@ import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.block.types.GrowingHarvestablePillarBlock;
 import moriyashiine.aylyth.common.block.types.JackolanternMushroomBlock;
 import moriyashiine.aylyth.common.block.types.LargeWoodyGrowthBlock;
+import moriyashiine.aylyth.common.block.types.NysianGrapeVineBlock;
 import moriyashiine.aylyth.common.block.types.OneTimeHarvestablePillarBlock;
 import moriyashiine.aylyth.common.block.types.PomegranateLeavesBlock;
 import moriyashiine.aylyth.common.block.types.SmallWoodyGrowthBlock;
@@ -32,6 +33,8 @@ import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.loot.entry.AlternativeEntry;
 import net.minecraft.loot.entry.DynamicEntry;
 import net.minecraft.loot.entry.ItemEntry;
+import net.minecraft.loot.function.ApplyBonusLootFunction;
+import net.minecraft.loot.function.ExplosionDecayLootFunction;
 import net.minecraft.loot.function.SetCountLootFunction;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
@@ -40,6 +43,8 @@ import net.minecraft.predicate.item.ItemPredicate;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.state.property.Property;
+import net.minecraft.util.StringIdentifiable;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -59,7 +64,25 @@ public class AylythBlockLootProvider extends FabricBlockLootTableProvider {
         addDrop(AylythBlocks.JACK_O_LANTERN_MUSHROOM, this::standingJackolantern);
         addDrop(AylythBlocks.SHELF_JACK_O_LANTERN_MUSHROOM);
         addDrop(AylythBlocks.GHOSTCAP_MUSHROOM, () -> AylythItems.GHOSTCAP_MUSHROOM);
-        addDrop(AylythBlocks.YMPE_LEAVES, block -> leavesDrops(block, AylythBlocks.YMPE_SAPLING, 0.05f, 0.0625f, 0.083333336f, 0.1f));
+
+        addDrop(AylythBlocks.YMPE_STRIPPED_LOG);
+        addDrop(AylythBlocks.YMPE_STRIPPED_WOOD);
+        addDrop(AylythBlocks.YMPE_LOG);
+        addDrop(AylythBlocks.YMPE_WOOD);
+        addDrop(AylythBlocks.YMPE_SAPLING);
+        addPottedPlantDrops(AylythBlocks.POTTED_YMPE_SAPLING);
+        addDrop(AylythBlocks.YMPE_PLANKS);
+        addDrop(AylythBlocks.YMPE_STAIRS);
+        addDrop(AylythBlocks.YMPE_SLAB, this::slabDrops);
+        addDrop(AylythBlocks.YMPE_FENCE);
+        addDrop(AylythBlocks.YMPE_FENCE_GATE);
+        addDrop(AylythBlocks.YMPE_PRESSURE_PLATE);
+        addDrop(AylythBlocks.YMPE_BUTTON);
+        addDrop(AylythBlocks.YMPE_DOOR, this::doorDrops);
+        addDrop(AylythBlocks.YMPE_TRAPDOOR);
+        addDrop(AylythBlocks.YMPE_SIGN);
+        addDrop(AylythBlocks.YMPE_LEAVES, block -> leavesDrops(block, AylythBlocks.YMPE_SAPLING, SAPLING_DROP_CHANCE));
+        
         addDrop(AylythBlocks.POMEGRANATE_STRIPPED_LOG);
         addDrop(AylythBlocks.POMEGRANATE_STRIPPED_WOOD);
         addDrop(AylythBlocks.POMEGRANATE_LOG);
@@ -76,7 +99,8 @@ public class AylythBlockLootProvider extends FabricBlockLootTableProvider {
         addDrop(AylythBlocks.POMEGRANATE_DOOR, this::doorDrops);
         addDrop(AylythBlocks.POMEGRANATE_TRAPDOOR);
         addDrop(AylythBlocks.POMEGRANATE_SIGN);
-        addDrop(AylythBlocks.POMEGRANATE_LEAVES, block -> pomegranateLeavesDrop(block, AylythBlocks.POMEGRANATE_SAPLING, 0.05f, 0.0625f, 0.083333336f, 0.1f));
+        addDrop(AylythBlocks.POMEGRANATE_LEAVES, block -> pomegranateLeavesDrop(block, AylythBlocks.POMEGRANATE_SAPLING, SAPLING_DROP_CHANCE));
+        
         addDrop(AylythBlocks.WRITHEWOOD_STRIPPED_LOG);
         addDrop(AylythBlocks.WRITHEWOOD_STRIPPED_WOOD);
         addDrop(AylythBlocks.WRITHEWOOD_LOG);
@@ -93,7 +117,8 @@ public class AylythBlockLootProvider extends FabricBlockLootTableProvider {
         addDrop(AylythBlocks.WRITHEWOOD_DOOR, this::doorDrops);
         addDrop(AylythBlocks.WRITHEWOOD_TRAPDOOR);
         addDrop(AylythBlocks.WRITHEWOOD_SIGN);
-        addDrop(AylythBlocks.WRITHEWOOD_LEAVES, block -> ympeLeaves(block, Items.STICK, 0.05f, 0.0625f, 0.083333336f, 0.1f));
+        addDrop(AylythBlocks.WRITHEWOOD_LEAVES, block -> ympeLeaves(block, SAPLING_DROP_CHANCE));
+
         addDrop(AylythBlocks.VITAL_THURIBLE);
         addDrop(AylythBlocks.SOUL_HEARTH, this::doorDrops);
         addDrop(AylythBlocks.WOODY_GROWTH_CACHE, this::woodyGrowthCaches);
@@ -117,16 +142,22 @@ public class AylythBlockLootProvider extends FabricBlockLootTableProvider {
         addDrop(AylythBlocks.NEPHRITIC_CHTHONIA_WOOD, block -> nephriticChthoniaWood(block, AylythBlocks.CHTHONIA_WOOD));
         addDrop(AylythBlocks.JACK_O_LANTERN_MUSHROOM_BLOCK, block -> mushroomBlockDrops(block, AylythItems.JACK_O_LANTERN_MUSHROOM));
         addDropWithSilkTouch(AylythBlocks.JACK_O_LANTERN_MUSHROOM_STEM);
+
         addDrop(AylythBlocks.SAPSTONE);
         addDrop(AylythBlocks.AMBER_SAPSTONE);
         addDrop(AylythBlocks.LIGNITE_SAPSTONE);
         addDrop(AylythBlocks.OPALESCENT_SAPSTONE);
+
         addDrop(AylythBlocks.DARK_OAK_BRANCH, block -> leafyBranch(block, AylythItems.OAK_STREWN_LEAVES));
         addDrop(AylythBlocks.BARE_DARK_OAK_BRANCH, block -> dropsWithSilkTouchOrShears(block, ItemEntry.builder(Items.STICK).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0, 2)))));
+        addDrop(AylythBlocks.ORANGE_AYLYTHIAN_OAK_BRANCH, block -> leafyBranch(block, AylythItems.OAK_STREWN_LEAVES));
+        addDrop(AylythBlocks.RED_AYLYTHIAN_OAK_BRANCH, block -> leafyBranch(block, AylythItems.OAK_STREWN_LEAVES));
+        addDrop(AylythBlocks.BROWN_AYLYTHIAN_OAK_BRANCH, block -> leafyBranch(block, AylythItems.OAK_STREWN_LEAVES));
         addDrop(AylythBlocks.WRITHEWOOD_BRANCH, block -> dropsWithSilkTouchOrShears(block, ItemEntry.builder(Items.STICK).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0, 2)))));
         addDrop(AylythBlocks.BARE_WRITHEWOOD_BRANCH, block -> dropsWithSilkTouchOrShears(block, ItemEntry.builder(Items.STICK).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0, 2)))));
         addDrop(AylythBlocks.YMPE_BRANCH, block -> leafyBranch(block, AylythItems.YMPE_STREWN_LEAVES));
         addDrop(AylythBlocks.BARE_YMPE_BRANCH, block -> dropsWithSilkTouchOrShears(block, ItemEntry.builder(Items.STICK).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0, 2)))));
+
         addDrop(AylythBlocks.DARK_PODZOL, block -> drops(block, Blocks.DIRT));
         addDrop(AylythBlocks.BROWN_AYLYTHIAN_OAK_SAPLING);
         addPottedPlantDrops(AylythBlocks.POTTED_BROWN_AYLYTHIAN_OAK_SAPLING);
@@ -136,14 +167,45 @@ public class AylythBlockLootProvider extends FabricBlockLootTableProvider {
         addPottedPlantDrops(AylythBlocks.POTTED_ORANGE_AYLYTHIAN_OAK_SAPLING);
         addDrop(AylythBlocks.RED_AYLYTHIAN_OAK_SAPLING);
         addPottedPlantDrops(AylythBlocks.POTTED_RED_AYLYTHIAN_OAK_SAPLING);
-        addDrop(AylythBlocks.ORANGE_AYLYTHIAN_OAK_BRANCH, block -> leafyBranch(block, AylythItems.OAK_STREWN_LEAVES));
-        addDrop(AylythBlocks.RED_AYLYTHIAN_OAK_BRANCH, block -> leafyBranch(block, AylythItems.OAK_STREWN_LEAVES));
-        addDrop(AylythBlocks.BROWN_AYLYTHIAN_OAK_BRANCH, block -> leafyBranch(block, AylythItems.OAK_STREWN_LEAVES));
         addDrop(AylythBlocks.GREEN_AYLYTHIAN_OAK_LEAVES, block -> leavesDrops(block, AylythBlocks.GREEN_AYLYTHIAN_OAK_SAPLING, SAPLING_DROP_CHANCE));
         addDrop(AylythBlocks.ORANGE_AYLYTHIAN_OAK_LEAVES, block -> leavesDrops(block, AylythBlocks.ORANGE_AYLYTHIAN_OAK_SAPLING, SAPLING_DROP_CHANCE));
         addDrop(AylythBlocks.RED_AYLYTHIAN_OAK_LEAVES, block -> leavesDrops(block, AylythBlocks.RED_AYLYTHIAN_OAK_SAPLING, SAPLING_DROP_CHANCE));
         addDrop(AylythBlocks.BROWN_AYLYTHIAN_OAK_LEAVES, block -> leavesDrops(block, AylythBlocks.BROWN_AYLYTHIAN_OAK_SAPLING, SAPLING_DROP_CHANCE));
         addDrop(AylythBlocks.FRUIT_BEARING_YMPE_LOG, this::fruitBearingYmpeLog);
+
+        addDrop(AylythBlocks.OAK_SEEP, Blocks.OAK_LOG);
+        addDrop(AylythBlocks.DARK_OAK_SEEP, Blocks.DARK_OAK_LOG);
+        addDrop(AylythBlocks.SPRUCE_SEEP, Blocks.SPRUCE_LOG);
+        addDrop(AylythBlocks.YMPE_SEEP, AylythBlocks.YMPE_LOG);
+        addDrop(AylythBlocks.SEEPING_WOOD_SEEP, AylythBlocks.SEEPING_WOOD);
+
+        addDrop(AylythBlocks.AYLYTH_BUSH);
+        addDrop(AylythBlocks.ANTLER_SHOOTS, this::shortPlantDrops);
+        addDrop(AylythBlocks.GRIPWEED, this::shortPlantDrops);
+        addDrop(AylythBlocks.NYSIAN_GRAPE_VINE, this::nysianGrapeVine);
+    }
+
+    private LootTable.Builder nysianGrapeVine(Block block) {
+        return LootTable.builder()
+                .pool(addSurvivesExplosionCondition(block, LootPool.builder().with(ItemEntry.builder(block).conditionally(createWithShearsCondition()))))
+                .pool(
+                        applyExplosionDecay(block, dropsWithProperty(block, AylythItems.NYSIAN_GRAPES, NysianGrapeVineBlock.AGE, Integer.toString(3))
+                                .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 2)))
+                                .apply(ApplyBonusLootFunction.uniformBonusCount(registries.getOrThrow(RegistryKeys.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE), 1)))
+                );
+    }
+
+    private LootPool.Builder dropsWithProperty(Block block, ItemConvertible drop, Property<?> property, String value) {
+        return this.addSurvivesExplosionCondition(
+                block,
+                LootPool.builder()
+                        .with(
+                                ItemEntry.builder(drop)
+                                        .conditionally(
+                                                BlockStatePropertyLootCondition.builder(block).properties(StatePredicate.Builder.create().exactMatch(property, value))
+                                        )
+                        )
+        );
     }
 
     private LootTable.Builder fruitBearingYmpeLog(Block block) {
@@ -164,7 +226,7 @@ public class AylythBlockLootProvider extends FabricBlockLootTableProvider {
         );
     }
 
-    private LootTable.Builder ympeLeaves(Block leaves, ItemConvertible sticks, float... chances) {
+    private LootTable.Builder ympeLeaves(Block leaves, float... chances) {
         return LootTable.builder().type(LootContextTypes.BLOCK)
                 .pool(
                         addSurvivesExplosionCondition(leaves, LootPool.builder().with(ItemEntry.builder(leaves)))
@@ -174,7 +236,7 @@ public class AylythBlockLootProvider extends FabricBlockLootTableProvider {
                         LootPool.builder()
                                 .conditionally(createWithoutShearsOrSilkTouchCondition())
                                 .with(
-                                        this.applyExplosionDecay(leaves, ItemEntry.builder(sticks).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0F, 2.0F))))
+                                        this.applyExplosionDecay(leaves, ItemEntry.builder(Items.STICK).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0F, 2.0F))))
                                                 .conditionally(TableBonusLootCondition.builder(registries.getOrThrow(RegistryKeys.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE), LEAVES_STICK_DROP_CHANCE))
                                 )
                 );

@@ -11,7 +11,16 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "aylyth:seeping_wood"
+          "conditions": [
+            {
+              "block": "aylyth:ympe_door",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "half": "lower"
+              }
+            }
+          ],
+          "name": "aylyth:ympe_door"
         }
       ],
       "rolls": 1.0
