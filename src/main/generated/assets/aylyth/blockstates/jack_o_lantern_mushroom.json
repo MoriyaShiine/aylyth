@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "glowing=false,stage=1": {
+      "model": "aylyth:block/jack_o_lantern_mushroom_stage_1"
+    },
+    "glowing=false,stage=2": {
+      "model": "aylyth:block/jack_o_lantern_mushroom_stage_2"
+    },
+    "glowing=false,stage=3": {
+      "model": "aylyth:block/jack_o_lantern_mushroom_stage_3"
+    },
+    "glowing=true,stage=1": {
+      "model": "aylyth:block/jack_o_lantern_mushroom_stage_1_glowing"
+    },
+    "glowing=true,stage=2": {
+      "model": "aylyth:block/jack_o_lantern_mushroom_stage_2_glowing"
+    },
+    "glowing=true,stage=3": {
+      "model": "aylyth:block/jack_o_lantern_mushroom_stage_3_glowing"
+    }
+  }
+}
