@@ -182,6 +182,7 @@ public class AylythModelProvider extends FabricModelProvider {
 
         registerNysianGrapeVine(generator, AylythBlocks.NYSIAN_GRAPE_VINE);
 
+        generator.blockStateCollector.accept(numberedVariants(AylythBlocks.GHOSTCAP_MUSHROOM, 4));
         registerMarigolds(generator, AylythBlocks.MARIGOLD);
     }
 
