@@ -15,8 +15,18 @@ public class AylythianSmithingTemplateUpgradeItem extends SmithingTemplateItem {
                 Text.translatable(Util.createTranslationKey("item", Aylyth.id("smithing_template.aylythian_upgrade.ingredients"))).formatted(Formatting.BLUE),
                 Text.translatable(Util.createTranslationKey("item", Aylyth.id("smithing_template.aylythian_upgrade.base_slot_description"))),
                 Text.translatable(Util.createTranslationKey("item", Aylyth.id("smithing_template.aylythian_upgrade.additions_slot_description"))),
-                List.of(Aylyth.id("item/empty_slot_ympe_sapling")),
-                List.of(Aylyth.id("item/empty_slot_esstline")),
+                List.of(
+                        Aylyth.id("container/slot/ympe_sapling"),
+                        Aylyth.id("container/slot/nephrite_axe"),
+                        Aylyth.id("container/slot/nephrite_hoe"),
+                        Aylyth.id("container/slot/nephrite_pickaxe"),
+                        Aylyth.id("container/slot/nephrite_sword")
+                ),
+                List.of(
+                        Aylyth.id("container/slot/esstline"),
+                        Aylyth.id("container/slot/aylythian_heart"),
+                        Aylyth.id("container/slot/blighted_thorns")
+                ),
                 settings
         );
     }

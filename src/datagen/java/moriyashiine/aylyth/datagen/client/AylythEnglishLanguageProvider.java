@@ -218,10 +218,10 @@ public class AylythEnglishLanguageProvider extends FabricLanguageProvider {
 
         builder.add("item.aylyth.glaive.desc_1", "\u00a76\u00a7oIt is the lament of the fallen");
         builder.add("item.aylyth.glaive.desc_2", "\u00a76\u00a7owhich pushes the living onward.");
-        builder.add("item.aylyth.smithing_template.aylythian_upgrade.applies_to", "Ympe Sapling");
-        builder.add("item.aylyth.smithing_template.aylythian_upgrade.ingredients", "Esstline");
-        builder.add("item.aylyth.smithing_template.aylythian_upgrade.base_slot_description", "Ympe Sapling");
-        builder.add("item.aylyth.smithing_template.aylythian_upgrade.additions_slot_description", "Esstline");
+        builder.add("item.aylyth.smithing_template.aylythian_upgrade.applies_to", "Nephrite Tools");
+        builder.add("item.aylyth.smithing_template.aylythian_upgrade.ingredients", "Aylythian Materials");
+        builder.add("item.aylyth.smithing_template.aylythian_upgrade.base_slot_description", "Add a Ympe Sapling or Nephrite Tool");
+        builder.add("item.aylyth.smithing_template.aylythian_upgrade.additions_slot_description", "Add Esstline, Aylythian Heart, or Blighted Thorns");
         builder.add(transKey("jukebox_song", AylythJukeboxSongs.POMEGRANATE_MUSIC_DISC), "DEMON AND MAX - Pomegranate");
 
         // ENTITIES
