@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "aylyth:block/marigolds_1"
+    "model": "aylyth:item/marigolds"
   }
 }

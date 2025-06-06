@@ -141,10 +141,11 @@ public class AylythModelProvider extends FabricModelProvider {
         generator.registerFlowerPotPlant(AylythBlocks.GIRASOL_SAPLING, AylythBlocks.POTTED_GIRASOL_SAPLING, BlockStateModelGenerator.CrossType.NOT_TINTED);
         singleton(generator, AylythBlocks.BLACK_WELL);
 
-        generator.blockStateCollector.accept(sapstoneBlockStates(AylythBlocks.SAPSTONE, blockId("sapstone")));
-        generator.blockStateCollector.accept(sapstoneBlockStates(AylythBlocks.AMBER_SAPSTONE, blockId("amber_sapstone")));
-        generator.blockStateCollector.accept(sapstoneBlockStates(AylythBlocks.LIGNITE_SAPSTONE, blockId("lignite_sapstone")));
-        generator.blockStateCollector.accept(sapstoneBlockStates(AylythBlocks.OPALESCENT_SAPSTONE, blockId("opalescent_sapstone")));
+        registerSapstone(generator, AylythBlocks.SAPSTONE);
+        registerSapstone(generator, AylythBlocks.AMBER_SAPSTONE);
+        registerSapstone(generator, AylythBlocks.LIGNITE_SAPSTONE);
+        registerSapstone(generator, AylythBlocks.OPALESCENT_SAPSTONE);
+
         generator.blockStateCollector.accept(soulHearthStates(AylythBlocks.SOUL_HEARTH, blockId("soul_hearth_upper"), blockId("soul_hearth_lower"), blockId("soul_hearth_charged_lower")));
 
         registerBranchAndItem(generator, AylythBlocks.DARK_OAK_BRANCH);
@@ -291,7 +292,8 @@ public class AylythModelProvider extends FabricModelProvider {
     }
 
     private void registerMarigolds(BlockStateModelGenerator generator, Block block) {
-        registerModelWithNumberedVariantsAndItem(generator, block, Models.CROSS, i -> TextureMap.cross(ModelIds.getBlockSubModelId(block, "_" + i)), 5);
+        Identifier firstId = registerModelWithNumberedVariants(generator, block, Models.CROSS, i -> TextureMap.cross(ModelIds.getBlockSubModelId(block, "_" + i)), 5);
+        generator.itemModelOutput.accept(block.asItem(), ItemModels.basic(Models.GENERATED.upload(block.asItem(), TextureMap.layer0(firstId), generator.modelCollector)));
     }
 
     private void registerNysianGrapeVine(BlockStateModelGenerator generator, Block block) {
@@ -435,19 +437,19 @@ public class AylythModelProvider extends FabricModelProvider {
     }
 
     private Identifier registerCubeAllWithNumberedVariantsAndItem(BlockStateModelGenerator generator, Block block, int variants) {
-        return registerModelWithNumberedVariantsAndItem(generator, block, Models.CUBE_ALL, key -> TextureMap.all(ModelIds.getBlockSubModelId(block, "_" + key)), variants);
+        Identifier id = registerModelWithNumberedVariants(generator, block, Models.CUBE_ALL, key -> TextureMap.all(ModelIds.getBlockSubModelId(block, "_" + key)), variants);
+        generator.registerItemModel(block.asItem(), id);
+        return id;
     }
 
-    private Identifier registerModelWithNumberedVariantsAndItem(BlockStateModelGenerator generator, Block block, Model model, Int2ObjectFunction<TextureMap> textureMapProvider, int variants) {
-        BlockStateVariant[] stateVariants = new BlockStateVariant[variants];
-        Identifier firstId = ModelIds.getBlockSubModelId(block, "_" + 1);
-        for (int i = 1; i <= variants; i++) {
-            Identifier identifier = model.upload(ModelIds.getBlockSubModelId(block, "_" + i), textureMapProvider.apply(i), generator.modelCollector);
-            stateVariants[i-1] = BlockStateVariant.create().put(VariantSettings.MODEL, identifier);
-        }
-        generator.registerItemModel(block.asItem(), firstId);
-        generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block, stateVariants));
-        return firstId;
+    private Identifier registerModelWithNumberedVariants(BlockStateModelGenerator generator, Block block, Model model, Int2ObjectFunction<TextureMap> textureMapProvider, int variants) {
+        generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block, Util.make(new BlockStateVariant[variants], stateVariants -> {
+            for (int i = 1; i <= variants; i++) {
+                Identifier identifier = model.upload(ModelIds.getBlockSubModelId(block, "_" + i), textureMapProvider.apply(i), generator.modelCollector);
+                stateVariants[i-1] = BlockStateVariant.create().put(VariantSettings.MODEL, identifier);
+            }
+        })));
+        return ModelIds.getBlockSubModelId(block, "_" + 1);
     }
 
     private VariantsBlockStateSupplier numberedVariants(Block block, int variants) {
@@ -464,8 +466,7 @@ public class AylythModelProvider extends FabricModelProvider {
 
     // copy without the regular cross state and model registration
     private void registerFlowerPot(BlockStateModelGenerator generator, Block plantBlock, Block flowerPotBlock, BlockStateModelGenerator.CrossType tintType) {
-        TextureMap textureMap = TextureMap.plant(plantBlock);
-        Identifier identifier = tintType.getFlowerPotCrossModel().upload(flowerPotBlock, textureMap, generator.modelCollector);
+        Identifier identifier = tintType.getFlowerPotCrossModel().upload(flowerPotBlock, TextureMap.plant(plantBlock), generator.modelCollector);
         generator.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(flowerPotBlock, identifier));
     }
 
@@ -475,10 +476,9 @@ public class AylythModelProvider extends FabricModelProvider {
         generator.registerItemModel(block.asItem(), generator.uploadBlockItemModel(block.asItem(), block));
     }
 
-    private VariantsBlockStateSupplier sapstoneBlockStates(Block sapstoneBlock, Identifier verticalModel) {
-        return VariantsBlockStateSupplier.create(
-                sapstoneBlock,
-                createModelVariantWithRandomHorizontalRotations(verticalModel)
+    private void registerSapstone(BlockStateModelGenerator generator, Block sapstoneBlock) {
+        generator.blockStateCollector.accept(
+                VariantsBlockStateSupplier.create(sapstoneBlock, createModelVariantWithRandomHorizontalRotations(ModelIds.getBlockModelId(sapstoneBlock)))
         );
     }
 
