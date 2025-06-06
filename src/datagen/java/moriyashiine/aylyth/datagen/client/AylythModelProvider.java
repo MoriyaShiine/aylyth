@@ -272,11 +272,6 @@ public class AylythModelProvider extends FabricModelProvider {
 //        Models.GENERATED_TWO_LAYERS.upload(Aylyth.id("item/coker_cola"), TextureMap.layered(Aylyth.id("item/blight_potion"), Aylyth.id("item/blight_potion")), generator.writer);
 //        Models.GENERATED_TWO_LAYERS.upload(Aylyth.id("item/coker_cola_splash"), TextureMap.layered(Aylyth.id("item/blight_potion_splash"), Aylyth.id("item/blight_potion_splash")), generator.writer);
 //        Models.GENERATED_TWO_LAYERS.upload(Aylyth.id("item/coker_cola_lingering"), TextureMap.layered(Aylyth.id("item/blight_potion_lingering"), Aylyth.id("item/blight_potion_lingering")), generator.writer);
-
-        registerSimpleParented(ModelIds.getItemModelId(AylythItems.GREEN_AYLYTHIAN_OAK_LEAVES), ModelIds.getBlockSubModelId(AylythBlocks.GREEN_AYLYTHIAN_OAK_LEAVES, "_1"), generator.modelCollector);
-        registerSimpleParented(ModelIds.getItemModelId(AylythItems.ORANGE_AYLYTHIAN_OAK_LEAVES), ModelIds.getBlockSubModelId(AylythBlocks.ORANGE_AYLYTHIAN_OAK_LEAVES, "_1"), generator.modelCollector);
-        registerSimpleParented(ModelIds.getItemModelId(AylythItems.RED_AYLYTHIAN_OAK_LEAVES), ModelIds.getBlockSubModelId(AylythBlocks.RED_AYLYTHIAN_OAK_LEAVES, "_1"), generator.modelCollector);
-        registerSimpleParented(ModelIds.getItemModelId(AylythItems.BROWN_AYLYTHIAN_OAK_LEAVES), ModelIds.getBlockSubModelId(AylythBlocks.BROWN_AYLYTHIAN_OAK_LEAVES, "_1"), generator.modelCollector);
     }
 
     private void registerThrowableWithInHandModel(ItemModelGenerator generator, Item item) {
@@ -445,7 +440,7 @@ public class AylythModelProvider extends FabricModelProvider {
 
     private Identifier registerCubeAllWithNumberedVariantsAndItem(BlockStateModelGenerator generator, Block block, int variants) {
         Identifier id = registerModelWithNumberedVariants(generator, block, Models.CUBE_ALL, key -> TextureMap.all(ModelIds.getBlockSubModelId(block, "_" + key)), variants);
-        generator.registerItemModel(block.asItem(), id);
+        generator.registerParentedItemModel(block, id);
         return id;
     }
 
@@ -617,9 +612,5 @@ public class AylythModelProvider extends FabricModelProvider {
         Identifier modelId = Models.TEMPLATE_SINGLE_FACE.upload(mushroomBlock, TextureMap.texture(mushroomBlock), generator.modelCollector);
         generator.blockStateCollector.accept(MultipartBlockStateSupplier.create(mushroomBlock).with(When.create().set(Properties.NORTH, true), BlockStateVariant.create().put(VariantSettings.MODEL, modelId)).with(When.create().set(Properties.EAST, true), BlockStateVariant.create().put(VariantSettings.MODEL, modelId).put(VariantSettings.Y, VariantSettings.Rotation.R90).put(VariantSettings.UVLOCK, true)).with(When.create().set(Properties.SOUTH, true), BlockStateVariant.create().put(VariantSettings.MODEL, modelId).put(VariantSettings.Y, VariantSettings.Rotation.R180).put(VariantSettings.UVLOCK, true)).with(When.create().set(Properties.WEST, true), BlockStateVariant.create().put(VariantSettings.MODEL, modelId).put(VariantSettings.Y, VariantSettings.Rotation.R270).put(VariantSettings.UVLOCK, true)).with(When.create().set(Properties.UP, true), BlockStateVariant.create().put(VariantSettings.MODEL, modelId).put(VariantSettings.X, VariantSettings.Rotation.R270).put(VariantSettings.UVLOCK, true)).with(When.create().set(Properties.DOWN, true), BlockStateVariant.create().put(VariantSettings.MODEL, modelId).put(VariantSettings.X, VariantSettings.Rotation.R90).put(VariantSettings.UVLOCK, true)).with((When)When.create().set(Properties.NORTH, false), BlockStateVariant.create().put(VariantSettings.MODEL, insideTexture)).with((When)When.create().set(Properties.EAST, false), BlockStateVariant.create().put(VariantSettings.MODEL, insideTexture).put(VariantSettings.Y, VariantSettings.Rotation.R90).put(VariantSettings.UVLOCK, false)).with((When)When.create().set(Properties.SOUTH, false), BlockStateVariant.create().put(VariantSettings.MODEL, insideTexture).put(VariantSettings.Y, VariantSettings.Rotation.R180).put(VariantSettings.UVLOCK, false)).with((When)When.create().set(Properties.WEST, false), BlockStateVariant.create().put(VariantSettings.MODEL, insideTexture).put(VariantSettings.Y, VariantSettings.Rotation.R270).put(VariantSettings.UVLOCK, false)).with((When)When.create().set(Properties.UP, false), BlockStateVariant.create().put(VariantSettings.MODEL, insideTexture).put(VariantSettings.X, VariantSettings.Rotation.R270).put(VariantSettings.UVLOCK, false)).with((When)When.create().set(Properties.DOWN, false), BlockStateVariant.create().put(VariantSettings.MODEL, insideTexture).put(VariantSettings.X, VariantSettings.Rotation.R90).put(VariantSettings.UVLOCK, false)));
         generator.registerParentedItemModel(mushroomBlock, TexturedModel.CUBE_ALL.upload(mushroomBlock, "_inventory", generator.modelCollector));
-    }
-
-    private static void registerSimpleParented(Identifier id, Identifier parent, BiConsumer<Identifier, ModelSupplier> writer) {
-        writer.accept(id, new SimpleModelSupplier(parent));
     }
 }
