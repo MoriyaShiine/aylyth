@@ -1,6 +1,7 @@
 package moriyashiine.aylyth.datagen.client;
 
 import com.mojang.datafixers.util.Pair;
+import it.unimi.dsi.fastutil.ints.Int2ObjectFunction;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import moriyashiine.aylyth.client.render.item.property.FlaskChargesProperty;
 import moriyashiine.aylyth.common.Aylyth;
@@ -79,7 +80,6 @@ public class AylythModelProvider extends FabricModelProvider {
     @Override
     public void generateBlockStateModels(BlockStateModelGenerator generator) {
         generator.registerParentedItemModel(AylythBlocks.SOUL_HEARTH, blockId("soul_hearth_item"));
-        generator.registerItemModel(AylythBlocks.MARIGOLD);
         registerFlowerPot(generator, AylythBlocks.MARIGOLD, AylythBlocks.POTTED_MARIGOLD, BlockStateModelGenerator.CrossType.NOT_TINTED);
         generateStrewnLeaves(generator, AylythBlocks.OAK_STREWN_LEAVES, List.of(blockId("fallen_oak_leaves_01"), blockId("fallen_oak_leaves_02"), blockId("fallen_oak_leaves_03"), blockId("fallen_oak_leaves_04"), blockId("fallen_oak_leaves_05"), blockId("fallen_oak_leaves_06"), blockId("fallen_oak_leaves_07"), blockId("fallen_oak_leaves_08"), blockId("fallen_oak_leaves_09"), blockId("fallen_oak_leaves_10")));
         generateStrewnLeaves(generator, AylythBlocks.YMPE_STREWN_LEAVES, List.of(blockId("fallen_ympe_leaves_01"), blockId("fallen_ympe_leaves_02")));
@@ -157,7 +157,7 @@ public class AylythModelProvider extends FabricModelProvider {
         registerBranchAndItem(generator, AylythBlocks.RED_AYLYTHIAN_OAK_BRANCH);
         registerBranchAndItem(generator, AylythBlocks.BROWN_AYLYTHIAN_OAK_BRANCH);
 
-        registerDarkPodzol(generator, AylythBlocks.DARK_PODZOL);
+        registerDarkPodzol(generator, AylythBlocks.DARK_PODZOL, Blocks.DIRT);
 
         generator.registerFlowerPotPlantAndItem(AylythBlocks.BROWN_AYLYTHIAN_OAK_SAPLING, AylythBlocks.POTTED_BROWN_AYLYTHIAN_OAK_SAPLING, BlockStateModelGenerator.CrossType.NOT_TINTED);
         generator.registerFlowerPotPlantAndItem(AylythBlocks.GREEN_AYLYTHIAN_OAK_SAPLING, AylythBlocks.POTTED_GREEN_AYLYTHIAN_OAK_SAPLING, BlockStateModelGenerator.CrossType.NOT_TINTED);
@@ -181,6 +181,8 @@ public class AylythModelProvider extends FabricModelProvider {
         registerFruitBearingYmpeBlock(generator, AylythBlocks.FRUIT_BEARING_YMPE_LOG, AylythBlocks.YMPE_LOG);
 
         registerNysianGrapeVine(generator, AylythBlocks.NYSIAN_GRAPE_VINE);
+
+        registerMarigolds(generator, AylythBlocks.MARIGOLD);
     }
 
     @Override
@@ -287,6 +289,10 @@ public class AylythModelProvider extends FabricModelProvider {
         generator.output.accept(item, ItemModelGenerator.createModelWithInHandVariant(fallback, variants));
     }
 
+    private void registerMarigolds(BlockStateModelGenerator generator, Block block) {
+        registerModelWithNumberedVariantsAndItem(generator, block, Models.CROSS, i -> TextureMap.cross(ModelIds.getBlockSubModelId(block, "_" + i)), 5);
+    }
+
     private void registerNysianGrapeVine(BlockStateModelGenerator generator, Block block) {
         Identifier[] ids = {
                 AylythModels.NYSIAN_GRAPE_VINE_BASE.upload(block, "_0", TextureMap.of(AylythModels.FRUIT, blockId("nysian_grape_vine_fruit_0")), generator.modelCollector),
@@ -386,14 +392,14 @@ public class AylythModelProvider extends FabricModelProvider {
         generator.registerParentedItemModel(AylythBlocks.FRUIT_BEARING_YMPE_LOG, age4);
     }
 
-    private void registerDarkPodzol(BlockStateModelGenerator generator, Block block) {
+    private void registerDarkPodzol(BlockStateModelGenerator generator, Block block, Block dirtBlock) {
         List<BlockStateVariant> variants = new ObjectArrayList<>();
         for (int i = 1; i <= 4; i++) {
             TextureMap map = TextureMap.of(TextureKey.TOP, blockId("dark_podzol_top_" + i))
-                    .put(TextureKey.BOTTOM, Identifier.ofVanilla("block/dirt"))
-                    .put(TextureKey.SIDE, Identifier.ofVanilla("block/dirt"))
+                    .put(TextureKey.BOTTOM, ModelIds.getBlockModelId(dirtBlock))
+                    .put(TextureKey.SIDE, ModelIds.getBlockModelId(dirtBlock))
                     .put(AylythModels.OVERLAY, blockId("dark_podzol_side_overlay"))
-                    .put(TextureKey.PARTICLE, Identifier.ofVanilla("block/dirt"));
+                    .put(TextureKey.PARTICLE, ModelIds.getBlockModelId(dirtBlock));
             Identifier id = AylythModels.CUBE_BOTTOM_TOP_WITH_OVERLAY.upload(ModelIds.getBlockSubModelId(block, "_" + i), map, generator.modelCollector);
             variants.addAll(List.of(createModelVariantWithRandomHorizontalRotations(id)));
         }
@@ -428,16 +434,31 @@ public class AylythModelProvider extends FabricModelProvider {
     }
 
     private Identifier registerCubeAllWithNumberedVariantsAndItem(BlockStateModelGenerator generator, Block block, int variants) {
+        return registerModelWithNumberedVariantsAndItem(generator, block, Models.CUBE_ALL, key -> TextureMap.all(ModelIds.getBlockSubModelId(block, "_" + key)), variants);
+    }
+
+    private Identifier registerModelWithNumberedVariantsAndItem(BlockStateModelGenerator generator, Block block, Model model, Int2ObjectFunction<TextureMap> textureMapProvider, int variants) {
         BlockStateVariant[] stateVariants = new BlockStateVariant[variants];
         Identifier firstId = ModelIds.getBlockSubModelId(block, "_" + 1);
         for (int i = 1; i <= variants; i++) {
-            Identifier modelId = ModelIds.getBlockSubModelId(block, "_" + i);
-            Identifier identifier = Models.CUBE_ALL.upload(modelId, TextureMap.all(modelId), generator.modelCollector);
+            Identifier identifier = model.upload(ModelIds.getBlockSubModelId(block, "_" + i), textureMapProvider.apply(i), generator.modelCollector);
             stateVariants[i-1] = BlockStateVariant.create().put(VariantSettings.MODEL, identifier);
         }
         generator.registerItemModel(block.asItem(), firstId);
         generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block, stateVariants));
         return firstId;
+    }
+
+    private VariantsBlockStateSupplier numberedVariants(Block block, int variants) {
+        return numberedVariants(block, ModelIds.getBlockModelId(block), variants);
+    }
+
+    private VariantsBlockStateSupplier numberedVariants(Block block, Identifier modelId, int variants) {
+        return VariantsBlockStateSupplier.create(block, Util.make(new BlockStateVariant[variants], stateVariants -> {
+            for (int i = 1; i <= variants; i++) {
+                stateVariants[i-1] = BlockStateVariant.create().put(VariantSettings.MODEL, modelId.withSuffixedPath("_" + i));
+            }
+        }));
     }
 
     // copy without the regular cross state and model registration
@@ -456,10 +477,7 @@ public class AylythModelProvider extends FabricModelProvider {
     private VariantsBlockStateSupplier sapstoneBlockStates(Block sapstoneBlock, Identifier verticalModel) {
         return VariantsBlockStateSupplier.create(
                 sapstoneBlock,
-                BlockStateVariant.create().put(VariantSettings.MODEL, verticalModel),
-                BlockStateVariant.create().put(VariantSettings.MODEL, verticalModel).put(VariantSettings.Y, VariantSettings.Rotation.R90),
-                BlockStateVariant.create().put(VariantSettings.MODEL, verticalModel).put(VariantSettings.Y, VariantSettings.Rotation.R180),
-                BlockStateVariant.create().put(VariantSettings.MODEL, verticalModel).put(VariantSettings.Y, VariantSettings.Rotation.R270)
+                createModelVariantWithRandomHorizontalRotations(verticalModel)
         );
     }
 
