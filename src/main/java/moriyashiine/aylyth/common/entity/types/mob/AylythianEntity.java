@@ -212,7 +212,7 @@ public class AylythianEntity extends HostileEntity implements GeoEntity {
 	public static boolean isTargetInBush(LivingEntity target) {
 		if (target != null && target.isSneaking()) {
 			for (int i = 0; i <= target.getHeight(); i++) {
-				if (target.getWorld().getBlockState(target.getBlockPos().up(i)).getBlock() != AylythBlocks.AYLYTH_BUSH) {
+				if (target.getWorld().getBlockState(target.getBlockPos().up(i)).getBlock() != AylythBlocks.AYLYTHIAN_BUSH) {
 					return false;
 				}
 			}

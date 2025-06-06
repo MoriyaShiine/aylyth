@@ -40,7 +40,6 @@ import moriyashiine.aylyth.client.screen.TulpaScreen;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.block.AylythBlockEntityTypes;
 import moriyashiine.aylyth.common.block.AylythBlocks;
-import moriyashiine.aylyth.common.block.types.LeafPileBlock;
 import moriyashiine.aylyth.common.data.world.AylythDimensionData;
 import moriyashiine.aylyth.common.entity.AylythEntityTypes;
 import moriyashiine.aylyth.common.network.packets.SpawnParticlesAroundPacketS2C;
@@ -120,7 +119,7 @@ public class AylythClient implements ClientModInitializer {
 
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), cutoutBlocks());
 
-		ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.DEFAULT, AylythBlocks.AYLYTH_BUSH);
+		ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.DEFAULT, AylythBlocks.AYLYTHIAN_BUSH);
 		ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.DEFAULT, AylythBlocks.OAK_LEAF_PILE);
 		ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> world != null && pos != null ? BiomeColors.getGrassColor(world, pos) : GrassColors.getDefaultColor(), AylythBlocks.ANTLER_SHOOTS, AylythBlocks.GRIPWEED);
 
@@ -265,7 +264,7 @@ public class AylythClient implements ClientModInitializer {
 				AylythBlocks.POTTED_WRITHEWOOD_SAPLING,
 				AylythBlocks.WRITHEWOOD_DOOR,
 				AylythBlocks.WRITHEWOOD_TRAPDOOR,
-				AylythBlocks.AYLYTH_BUSH,
+				AylythBlocks.AYLYTHIAN_BUSH,
 				AylythBlocks.ANTLER_SHOOTS,
 				AylythBlocks.GRIPWEED,
 				AylythBlocks.NYSIAN_GRAPE_VINE,

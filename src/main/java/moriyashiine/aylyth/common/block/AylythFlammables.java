@@ -41,6 +41,6 @@ public final class AylythFlammables {
         registry.add(WRITHEWOOD_FENCE_GATE, 5, 20);
         registry.add(WRITHEWOOD_LEAVES, 30, 60);
         registry.add(SEEPING_WOOD, 5, 5);
-        registry.add(AYLYTH_BUSH, 60, 100);
+        registry.add(AYLYTHIAN_BUSH, 60, 100);
     }
 }

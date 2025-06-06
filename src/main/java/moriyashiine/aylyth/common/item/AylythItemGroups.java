@@ -116,7 +116,7 @@ public interface AylythItemGroups {
 
                     entries.add(AylythItems.DARK_PODZOL);
 
-                    entries.add(AylythItems.AYLYTH_BUSH);
+                    entries.add(AylythItems.AYLYTHIAN_BUSH);
                     entries.add(AylythItems.ANTLER_SHOOTS);
                     entries.add(AylythItems.GRIPWEED);
                     entries.add(AylythItems.NYSIAN_GRAPE_VINE);

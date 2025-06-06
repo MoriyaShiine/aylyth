@@ -150,7 +150,7 @@ public interface AylythItems {
 
     Item DARK_PODZOL = registerBlockItem("dark_podzol", AylythBlocks.DARK_PODZOL);
 
-    Item AYLYTH_BUSH = registerBlockItem("aylyth_bush", AylythBlocks.AYLYTH_BUSH);
+    Item AYLYTHIAN_BUSH = registerBlockItem("aylythian_bush", AylythBlocks.AYLYTHIAN_BUSH);
     Item ANTLER_SHOOTS = registerBlockItem("antler_shoots", AylythBlocks.ANTLER_SHOOTS);
     Item GRIPWEED = registerBlockItem("gripweed", AylythBlocks.GRIPWEED);
     Item NYSIAN_GRAPE_VINE = registerBlockItem("nysian_grape_vine", AylythBlocks.NYSIAN_GRAPE_VINE);

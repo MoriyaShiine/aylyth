@@ -4,7 +4,6 @@ import com.mojang.serialization.MapCodec;
 import moriyashiine.aylyth.common.block.AylythProperties;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.PlantBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemPlacementContext;
@@ -16,12 +15,12 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class BushBlock extends PlantBlock {
-	public static final BooleanProperty BUSHY = AylythProperties.BUSHY;
+public class AylythianBushBlock extends PlantBlock {
+	public static final BooleanProperty LEAFY = AylythProperties.LEAFY;
 	
-	public BushBlock(Settings settings) {
+	public AylythianBushBlock(Settings settings) {
 		super(settings);
-		setDefaultState(getDefaultState().with(BUSHY, false));
+		setDefaultState(getDefaultState().with(LEAFY, false));
 	}
 
 	@Override
@@ -33,12 +32,12 @@ public class BushBlock extends PlantBlock {
 	@Override
 	public BlockState getPlacementState(ItemPlacementContext ctx) {
 		BlockState downState = ctx.getWorld().getBlockState(ctx.getBlockPos().down());
-		return getDefaultState().with(BUSHY, downState.getBlock() instanceof BushBlock);
+		return getDefaultState().with(LEAFY, downState.getBlock() instanceof AylythianBushBlock);
 	}
 	
 	@Override
 	protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
-		return floor.getBlock() instanceof BushBlock || super.canPlantOnTop(floor, world, pos);
+		return floor.getBlock() instanceof AylythianBushBlock || super.canPlantOnTop(floor, world, pos);
 	}
 	
 	@Override
@@ -53,6 +52,6 @@ public class BushBlock extends PlantBlock {
 	
 	@Override
 	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-		super.appendProperties(builder.add(BUSHY));
+		super.appendProperties(builder.add(LEAFY));
 	}
 }

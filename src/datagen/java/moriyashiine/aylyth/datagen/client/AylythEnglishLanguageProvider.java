@@ -93,7 +93,7 @@ public class AylythEnglishLanguageProvider extends FabricLanguageProvider {
         builder.add(AylythBlocks.WRITHEWOOD_SIGN, "Writhewood Sign");
         builder.add(AylythBlocks.WRITHEWOOD_HANGING_SIGN, "Writhewood Hanging Sign");
         builder.add(AylythBlocks.WRITHEWOOD_LEAVES, "Writhewood Leaves");
-        builder.add(AylythBlocks.AYLYTH_BUSH, "Aylyth Bush");
+        builder.add(AylythBlocks.AYLYTHIAN_BUSH, "Aylythian Bush");
         builder.add(AylythBlocks.ANTLER_SHOOTS, "Antler Shoots");
         builder.add(AylythBlocks.GRIPWEED, "Gripweed");
         builder.add(AylythBlocks.NYSIAN_GRAPE_VINE, "Nysian Grape Vines");

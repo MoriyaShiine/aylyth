@@ -8,7 +8,7 @@ import net.minecraft.state.property.Property;
 
 public interface AylythProperties {
     BooleanProperty GLOWING = BooleanProperty.of("glowing");
-    BooleanProperty BUSHY = BooleanProperty.of("bushy");
+    BooleanProperty LEAFY = BooleanProperty.of("leafy");
     BooleanProperty FAILED = BooleanProperty.of("failed");
     BooleanProperty HARVESTABLE = BooleanProperty.of("harvestable");
     IntProperty AGE_4_STAGES = IntProperty.of("age", 0, 3);

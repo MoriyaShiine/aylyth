@@ -6,6 +6,7 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import moriyashiine.aylyth.client.render.item.property.FlaskChargesProperty;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.block.AylythBlocks;
+import moriyashiine.aylyth.common.block.types.AylythianBushBlock;
 import moriyashiine.aylyth.common.block.types.GrowingHarvestablePillarBlock;
 import moriyashiine.aylyth.common.block.types.LargeWoodyGrowthBlock;
 import moriyashiine.aylyth.common.block.types.NysianGrapeVineBlock;
@@ -86,7 +87,7 @@ public class AylythModelProvider extends FabricModelProvider {
         generateLeafPiles(generator, AylythBlocks.OAK_LEAF_PILE, Blocks.OAK_LEAVES, true);
         generateLeafPiles(generator, AylythBlocks.YMPE_LEAF_PILE, AylythBlocks.YMPE_LEAVES, false);
 
-        generator.registerTintedItemModel(AylythBlocks.AYLYTH_BUSH, ModelIds.getBlockModelId(AylythBlocks.AYLYTH_BUSH), new ConstantTintSource(FoliageColors.DEFAULT));
+        generator.registerTintedItemModel(AylythBlocks.AYLYTHIAN_BUSH, ModelIds.getBlockModelId(AylythBlocks.AYLYTHIAN_BUSH), new ConstantTintSource(FoliageColors.DEFAULT));
         generator.registerTintedItemModel(AylythBlocks.ANTLER_SHOOTS, ModelIds.getBlockModelId(AylythBlocks.ANTLER_SHOOTS), new GrassTintSource());
         generator.registerTintedItemModel(AylythBlocks.GRIPWEED, ModelIds.getBlockModelId(AylythBlocks.GRIPWEED), new GrassTintSource());
 
@@ -175,16 +176,13 @@ public class AylythModelProvider extends FabricModelProvider {
         registerSeep(generator, AylythBlocks.SPRUCE_SEEP, Blocks.SPRUCE_LOG);
         registerSeep(generator, AylythBlocks.YMPE_SEEP, AylythBlocks.YMPE_LOG);
         registerSeep(generator, AylythBlocks.SEEPING_WOOD_SEEP, blockId("aylyth_bush_trunk"), blockId("aylyth_bush_trunk"));
-
         singleton(generator, AylythBlocks.ANTLER_SHOOTS);
         singleton(generator, AylythBlocks.GRIPWEED);
-
         registerFruitBearingYmpeBlock(generator, AylythBlocks.FRUIT_BEARING_YMPE_LOG, AylythBlocks.YMPE_LOG);
-
         registerNysianGrapeVine(generator, AylythBlocks.NYSIAN_GRAPE_VINE);
-
         generator.blockStateCollector.accept(numberedVariants(AylythBlocks.GHOSTCAP_MUSHROOM, 4));
         registerMarigolds(generator, AylythBlocks.MARIGOLD);
+        registerAylythBushStates(generator, AylythBlocks.AYLYTHIAN_BUSH);
     }
 
     @Override
@@ -289,6 +287,15 @@ public class AylythModelProvider extends FabricModelProvider {
                 ItemModels.basic(ModelIds.getItemSubModelId(item, "_in_hand"))
         );
         generator.output.accept(item, ItemModelGenerator.createModelWithInHandVariant(fallback, variants));
+    }
+
+    private void registerAylythBushStates(BlockStateModelGenerator generator, Block block) {
+        generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block)
+                .coordinate(BlockStateVariantMap.create(AylythianBushBlock.LEAFY)
+                        .register(false, BlockStateVariant.create().put(VariantSettings.MODEL, ModelIds.getBlockModelId(block)))
+                        .register(true, BlockStateVariant.create().put(VariantSettings.MODEL, ModelIds.getBlockSubModelId(block, "_leafy")))
+                )
+        );
     }
 
     private void registerMarigolds(BlockStateModelGenerator generator, Block block) {

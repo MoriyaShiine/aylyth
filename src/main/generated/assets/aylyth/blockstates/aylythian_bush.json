@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "leafy=false": {
+      "model": "aylyth:block/aylythian_bush"
+    },
+    "leafy=true": {
+      "model": "aylyth:block/aylythian_bush_leafy"
+    }
+  }
+}

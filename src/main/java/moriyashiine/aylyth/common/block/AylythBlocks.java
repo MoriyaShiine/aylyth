@@ -134,7 +134,7 @@ public interface AylythBlocks {
 
 	Block DARK_PODZOL = register("dark_podzol", SnowyBlock::new, copy(Blocks.PODZOL).mapColor(MapColor.TERRACOTTA_BLACK));
 
-	Block AYLYTH_BUSH = register("aylyth_bush", BushBlock::new, copy(Blocks.SHORT_GRASS));
+	Block AYLYTHIAN_BUSH = register("aylythian_bush", AylythianBushBlock::new, copy(Blocks.SHORT_GRASS));
 	Block ANTLER_SHOOTS = register("antler_shoots", AntlerShootsBlock::new, copy(Blocks.SHORT_GRASS).offset(AbstractBlock.OffsetType.XZ));
 	Block GRIPWEED = register("gripweed", GripweedBlock::new, copy(Blocks.SHORT_GRASS).offset(AbstractBlock.OffsetType.XZ));
 	

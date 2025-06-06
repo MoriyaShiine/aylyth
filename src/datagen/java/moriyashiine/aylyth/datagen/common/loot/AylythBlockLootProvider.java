@@ -34,7 +34,6 @@ import net.minecraft.loot.entry.AlternativeEntry;
 import net.minecraft.loot.entry.DynamicEntry;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.function.ApplyBonusLootFunction;
-import net.minecraft.loot.function.ExplosionDecayLootFunction;
 import net.minecraft.loot.function.SetCountLootFunction;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
@@ -44,7 +43,6 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.state.property.Property;
-import net.minecraft.util.StringIdentifiable;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -179,7 +177,7 @@ public class AylythBlockLootProvider extends FabricBlockLootTableProvider {
         addDrop(AylythBlocks.YMPE_SEEP, AylythBlocks.YMPE_LOG);
         addDrop(AylythBlocks.SEEPING_WOOD_SEEP, AylythBlocks.SEEPING_WOOD);
 
-        addDrop(AylythBlocks.AYLYTH_BUSH);
+        addDrop(AylythBlocks.AYLYTHIAN_BUSH);
         addDrop(AylythBlocks.ANTLER_SHOOTS, this::shortPlantDrops);
         addDrop(AylythBlocks.GRIPWEED, this::shortPlantDrops);
         addDrop(AylythBlocks.NYSIAN_GRAPE_VINE, this::nysianGrapeVine);

@@ -1,7 +1,7 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "aylyth:block/aylyth_bush",
+    "model": "aylyth:block/aylythian_bush",
     "tints": [
       {
         "type": "minecraft:constant",
