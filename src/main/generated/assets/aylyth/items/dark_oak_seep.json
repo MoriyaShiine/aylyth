@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "aylyth:block/dark_oak_seep_log_single"
+    "model": "aylyth:block/dark_oak_seep_single"
   }
 }

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "connection=down": {
+      "model": "aylyth:block/ympe_seep_top"
+    },
+    "connection=none": {
+      "model": "aylyth:block/ympe_seep_single"
+    },
+    "connection=up": {
+      "model": "aylyth:block/ympe_seep_bottom"
+    }
+  }
+}

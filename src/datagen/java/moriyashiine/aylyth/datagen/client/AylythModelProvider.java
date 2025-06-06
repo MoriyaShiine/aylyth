@@ -7,6 +7,7 @@ import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.block.types.LargeWoodyGrowthBlock;
 import moriyashiine.aylyth.common.block.types.PomegranateLeavesBlock;
+import moriyashiine.aylyth.common.block.types.SeepBlock;
 import moriyashiine.aylyth.common.block.types.SoulHearthBlock;
 import moriyashiine.aylyth.common.block.types.LeafPileBlock;
 import moriyashiine.aylyth.common.item.AylythItems;
@@ -72,12 +73,7 @@ public class AylythModelProvider extends FabricModelProvider {
     @Override
     public void generateBlockStateModels(BlockStateModelGenerator generator) {
         generator.registerParentedItemModel(AylythBlocks.SOUL_HEARTH, blockId("soul_hearth_item"));
-        generator.registerParentedItemModel(AylythBlocks.DARK_OAK_SEEP, blockId("dark_oak_seep_log_single"));
         generator.registerParentedItemModel(AylythBlocks.FRUIT_BEARING_YMPE_LOG, blockId("fruit_bearing_ympe_log/4"));
-        generator.registerParentedItemModel(AylythBlocks.OAK_SEEP, blockId("seep_log_single"));
-        generator.registerParentedItemModel(AylythBlocks.SEEPING_WOOD_SEEP, blockId("seeping_wood_seep_log_single"));
-        generator.registerParentedItemModel(AylythBlocks.SPRUCE_SEEP, blockId("spruce_seep_log_single"));
-        generator.registerParentedItemModel(AylythBlocks.YMPE_SEEP, blockId("ympe_seep_log_single"));
         generator.registerItemModel(AylythBlocks.MARIGOLD);
         registerFlowerPot(generator, AylythBlocks.MARIGOLD, AylythBlocks.POTTED_MARIGOLD, BlockStateModelGenerator.CrossType.NOT_TINTED);
         generateStrewnLeaves(generator, AylythBlocks.OAK_STREWN_LEAVES, List.of(blockId("fallen_oak_leaves_01"), blockId("fallen_oak_leaves_02"), blockId("fallen_oak_leaves_03"), blockId("fallen_oak_leaves_04"), blockId("fallen_oak_leaves_05"), blockId("fallen_oak_leaves_06"), blockId("fallen_oak_leaves_07"), blockId("fallen_oak_leaves_08"), blockId("fallen_oak_leaves_09"), blockId("fallen_oak_leaves_10")));
@@ -187,6 +183,12 @@ public class AylythModelProvider extends FabricModelProvider {
         registerCubeAllWithNumberedVariantsAndItem(generator, AylythBlocks.ORANGE_AYLYTHIAN_OAK_LEAVES, 3);
         registerCubeAllWithNumberedVariantsAndItem(generator, AylythBlocks.RED_AYLYTHIAN_OAK_LEAVES, 3);
         registerCubeAllWithNumberedVariantsAndItem(generator, AylythBlocks.BROWN_AYLYTHIAN_OAK_LEAVES, 3);
+
+        registerSeep(generator, AylythBlocks.OAK_SEEP, Blocks.OAK_LOG);
+        registerSeep(generator, AylythBlocks.DARK_OAK_SEEP, Blocks.DARK_OAK_LOG);
+        registerSeep(generator, AylythBlocks.SPRUCE_SEEP, Blocks.SPRUCE_LOG);
+        registerSeep(generator, AylythBlocks.YMPE_SEEP, AylythBlocks.YMPE_LOG);
+        registerSeep(generator, AylythBlocks.SEEPING_WOOD_SEEP, blockId("aylyth_bush_trunk"), blockId("aylyth_bush_trunk"));
     }
 
     @Override
@@ -300,6 +302,27 @@ public class AylythModelProvider extends FabricModelProvider {
                 ItemModels.basic(ModelIds.getItemSubModelId(item, "_in_hand"))
         );
         generator.output.accept(item, ItemModelGenerator.createModelWithInHandVariant(fallback, variants));
+    }
+
+    private void registerSeep(BlockStateModelGenerator generator, Block block, Block logBlock) {
+        registerSeep(generator, block, ModelIds.getBlockModelId(logBlock), ModelIds.getBlockSubModelId(logBlock, "_top"));
+    }
+
+    private void registerSeep(BlockStateModelGenerator generator, Block block, Identifier side, Identifier end) {
+        TextureMap map = TextureMap.sideEnd(side, end);
+        Identifier singleId = AylythModels.SEEP_LOG_SINGLE.upload(block, map, generator.modelCollector);
+        generator.blockStateCollector.accept(
+                VariantsBlockStateSupplier.create(block)
+                        .coordinate(BlockStateVariantMap.create(SeepBlock.CONNECTION)
+                                .register(SeepBlock.Connection.NONE, BlockStateVariant.create()
+                                        .put(VariantSettings.MODEL, singleId))
+                                .register(SeepBlock.Connection.UP, BlockStateVariant.create()
+                                        .put(VariantSettings.MODEL, AylythModels.SEEP_LOG_BOTTOM.upload(block, map, generator.modelCollector)))
+                                .register(SeepBlock.Connection.DOWN, BlockStateVariant.create()
+                                        .put(VariantSettings.MODEL, AylythModels.SEEP_LOG_TOP.upload(block, map, generator.modelCollector)))
+                        )
+        );
+        generator.registerParentedItemModel(block, singleId);
     }
 
     private Identifier registerCubeAllWithNumberedVariantsAndItem(BlockStateModelGenerator generator, Block block, int variants) {

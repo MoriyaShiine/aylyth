@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "connection=down": {
+      "model": "aylyth:block/spruce_seep_top"
+    },
+    "connection=none": {
+      "model": "aylyth:block/spruce_seep_single"
+    },
+    "connection=up": {
+      "model": "aylyth:block/spruce_seep_bottom"
+    }
+  }
+}

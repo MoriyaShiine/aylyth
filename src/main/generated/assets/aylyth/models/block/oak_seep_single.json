@@ -1,0 +1,7 @@
+{
+  "parent": "aylyth:block/seep_log_single",
+  "textures": {
+    "end": "minecraft:block/oak_log_top",
+    "side": "minecraft:block/oak_log"
+  }
+}
