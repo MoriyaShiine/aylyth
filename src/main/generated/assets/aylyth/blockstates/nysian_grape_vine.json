@@ -1,0 +1,508 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "aylyth:block/nysian_grape_vine_0"
+      },
+      "when": {
+        "age": "0",
+        "north": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "aylyth:block/nysian_grape_vine_0"
+      },
+      "when": {
+        "age": "0",
+        "east": "false",
+        "north": "false",
+        "south": "false",
+        "up": "false",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "aylyth:block/nysian_grape_vine_0",
+        "uvlock": true,
+        "y": 90
+      },
+      "when": {
+        "age": "0",
+        "east": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "aylyth:block/nysian_grape_vine_0",
+        "uvlock": true,
+        "y": 90
+      },
+      "when": {
+        "age": "0",
+        "east": "false",
+        "north": "false",
+        "south": "false",
+        "up": "false",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "aylyth:block/nysian_grape_vine_0",
+        "uvlock": true,
+        "y": 180
+      },
+      "when": {
+        "age": "0",
+        "south": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "aylyth:block/nysian_grape_vine_0",
+        "uvlock": true,
+        "y": 180
+      },
+      "when": {
+        "age": "0",
+        "east": "false",
+        "north": "false",
+        "south": "false",
+        "up": "false",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "aylyth:block/nysian_grape_vine_0",
+        "uvlock": true,
+        "y": 270
+      },
+      "when": {
+        "age": "0",
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "aylyth:block/nysian_grape_vine_0",
+        "uvlock": true,
+        "y": 270
+      },
+      "when": {
+        "age": "0",
+        "east": "false",
+        "north": "false",
+        "south": "false",
+        "up": "false",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "aylyth:block/nysian_grape_vine_0",
+        "uvlock": true,
+        "x": 270
+      },
+      "when": {
+        "age": "0",
+        "up": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "aylyth:block/nysian_grape_vine_0",
+        "uvlock": true,
+        "x": 270
+      },
+      "when": {
+        "age": "0",
+        "east": "false",
+        "north": "false",
+        "south": "false",
+        "up": "false",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "aylyth:block/nysian_grape_vine_1"
+      },
+      "when": {
+        "age": "1",
+        "north": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "aylyth:block/nysian_grape_vine_1"
+      },
+      "when": {
+        "age": "1",
+        "east": "false",
+        "north": "false",
+        "south": "false",
+        "up": "false",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "aylyth:block/nysian_grape_vine_1",
+        "uvlock": true,
+        "y": 90
+      },
+      "when": {
+        "age": "1",
+        "east": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "aylyth:block/nysian_grape_vine_1",
+        "uvlock": true,
+        "y": 90
+      },
+      "when": {
+        "age": "1",
+        "east": "false",
+        "north": "false",
+        "south": "false",
+        "up": "false",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "aylyth:block/nysian_grape_vine_1",
+        "uvlock": true,
+        "y": 180
+      },
+      "when": {
+        "age": "1",
+        "south": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "aylyth:block/nysian_grape_vine_1",
+        "uvlock": true,
+        "y": 180
+      },
+      "when": {
+        "age": "1",
+        "east": "false",
+        "north": "false",
+        "south": "false",
+        "up": "false",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "aylyth:block/nysian_grape_vine_1",
+        "uvlock": true,
+        "y": 270
+      },
+      "when": {
+        "age": "1",
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "aylyth:block/nysian_grape_vine_1",
+        "uvlock": true,
+        "y": 270
+      },
+      "when": {
+        "age": "1",
+        "east": "false",
+        "north": "false",
+        "south": "false",
+        "up": "false",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "aylyth:block/nysian_grape_vine_1",
+        "uvlock": true,
+        "x": 270
+      },
+      "when": {
+        "age": "1",
+        "up": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "aylyth:block/nysian_grape_vine_1",
+        "uvlock": true,
+        "x": 270
+      },
+      "when": {
+        "age": "1",
+        "east": "false",
+        "north": "false",
+        "south": "false",
+        "up": "false",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "aylyth:block/nysian_grape_vine_2"
+      },
+      "when": {
+        "age": "2",
+        "north": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "aylyth:block/nysian_grape_vine_2"
+      },
+      "when": {
+        "age": "2",
+        "east": "false",
+        "north": "false",
+        "south": "false",
+        "up": "false",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "aylyth:block/nysian_grape_vine_2",
+        "uvlock": true,
+        "y": 90
+      },
+      "when": {
+        "age": "2",
+        "east": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "aylyth:block/nysian_grape_vine_2",
+        "uvlock": true,
+        "y": 90
+      },
+      "when": {
+        "age": "2",
+        "east": "false",
+        "north": "false",
+        "south": "false",
+        "up": "false",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "aylyth:block/nysian_grape_vine_2",
+        "uvlock": true,
+        "y": 180
+      },
+      "when": {
+        "age": "2",
+        "south": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "aylyth:block/nysian_grape_vine_2",
+        "uvlock": true,
+        "y": 180
+      },
+      "when": {
+        "age": "2",
+        "east": "false",
+        "north": "false",
+        "south": "false",
+        "up": "false",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "aylyth:block/nysian_grape_vine_2",
+        "uvlock": true,
+        "y": 270
+      },
+      "when": {
+        "age": "2",
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "aylyth:block/nysian_grape_vine_2",
+        "uvlock": true,
+        "y": 270
+      },
+      "when": {
+        "age": "2",
+        "east": "false",
+        "north": "false",
+        "south": "false",
+        "up": "false",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "aylyth:block/nysian_grape_vine_2",
+        "uvlock": true,
+        "x": 270
+      },
+      "when": {
+        "age": "2",
+        "up": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "aylyth:block/nysian_grape_vine_2",
+        "uvlock": true,
+        "x": 270
+      },
+      "when": {
+        "age": "2",
+        "east": "false",
+        "north": "false",
+        "south": "false",
+        "up": "false",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "aylyth:block/nysian_grape_vine_3"
+      },
+      "when": {
+        "age": "3",
+        "north": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "aylyth:block/nysian_grape_vine_3"
+      },
+      "when": {
+        "age": "3",
+        "east": "false",
+        "north": "false",
+        "south": "false",
+        "up": "false",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "aylyth:block/nysian_grape_vine_3",
+        "uvlock": true,
+        "y": 90
+      },
+      "when": {
+        "age": "3",
+        "east": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "aylyth:block/nysian_grape_vine_3",
+        "uvlock": true,
+        "y": 90
+      },
+      "when": {
+        "age": "3",
+        "east": "false",
+        "north": "false",
+        "south": "false",
+        "up": "false",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "aylyth:block/nysian_grape_vine_3",
+        "uvlock": true,
+        "y": 180
+      },
+      "when": {
+        "age": "3",
+        "south": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "aylyth:block/nysian_grape_vine_3",
+        "uvlock": true,
+        "y": 180
+      },
+      "when": {
+        "age": "3",
+        "east": "false",
+        "north": "false",
+        "south": "false",
+        "up": "false",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "aylyth:block/nysian_grape_vine_3",
+        "uvlock": true,
+        "y": 270
+      },
+      "when": {
+        "age": "3",
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "aylyth:block/nysian_grape_vine_3",
+        "uvlock": true,
+        "y": 270
+      },
+      "when": {
+        "age": "3",
+        "east": "false",
+        "north": "false",
+        "south": "false",
+        "up": "false",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "aylyth:block/nysian_grape_vine_3",
+        "uvlock": true,
+        "x": 270
+      },
+      "when": {
+        "age": "3",
+        "up": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "aylyth:block/nysian_grape_vine_3",
+        "uvlock": true,
+        "x": 270
+      },
+      "when": {
+        "age": "3",
+        "east": "false",
+        "north": "false",
+        "south": "false",
+        "up": "false",
+        "west": "false"
+      }
+    }
+  ]
+}

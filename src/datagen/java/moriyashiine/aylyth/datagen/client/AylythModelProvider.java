@@ -1,11 +1,13 @@
 package moriyashiine.aylyth.datagen.client;
 
+import com.mojang.datafixers.util.Pair;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import moriyashiine.aylyth.client.render.item.property.FlaskChargesProperty;
 import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.block.types.GrowingHarvestablePillarBlock;
 import moriyashiine.aylyth.common.block.types.LargeWoodyGrowthBlock;
+import moriyashiine.aylyth.common.block.types.NysianGrapeVineBlock;
 import moriyashiine.aylyth.common.block.types.PomegranateLeavesBlock;
 import moriyashiine.aylyth.common.block.types.SeepBlock;
 import moriyashiine.aylyth.common.block.types.SoulHearthBlock;
@@ -17,6 +19,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.LeavesBlock;
+import net.minecraft.block.MultifaceBlock;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.client.data.BlockStateModelGenerator;
 import net.minecraft.client.data.BlockStateSupplier;
@@ -43,8 +46,11 @@ import net.minecraft.client.render.item.tint.GrassTintSource;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
+import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Util;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.biome.FoliageColors;
 
 import java.util.Collections;
@@ -52,6 +58,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 import static net.minecraft.client.data.BlockStateModelGenerator.createModelVariantWithRandomHorizontalRotations;
@@ -172,6 +179,8 @@ public class AylythModelProvider extends FabricModelProvider {
         singleton(generator, AylythBlocks.GRIPWEED);
 
         registerFruitBearingYmpeBlock(generator, AylythBlocks.FRUIT_BEARING_YMPE_LOG, AylythBlocks.YMPE_LOG);
+
+        registerNysianGrapeVine(generator, AylythBlocks.NYSIAN_GRAPE_VINE);
     }
 
     @Override
@@ -236,15 +245,6 @@ public class AylythModelProvider extends FabricModelProvider {
         generator.registerSpawnEgg(AylythItems.BONEFLY_SPAWN_EGG, 0xE2E2D6, 0x3A2E2B);
         generator.registerSpawnEgg(AylythItems.TULPA_SPAWN_EGG, 0xE2E2D6, 0x73868F);
 
-        generator.output.accept(AylythItems.NYSIAN_GRAPE_VINE,
-                ItemModels.basic(
-                        Models.GENERATED_THREE_LAYERS.upload(
-                                ModelIds.getItemModelId(AylythItems.NYSIAN_GRAPE_VINE),
-                                TextureMap.layered(blockId("nysian_grape_vine/vine"), blockId("nysian_grape_vine/leaves"), blockId("nysian_grape_vine/details")),
-                                generator.modelCollector
-                        )
-                ));
-
         generator.output.accept(
                 AylythItems.SHUCKED_YMPE_FRUIT,
                 ItemModels.condition(
@@ -285,6 +285,48 @@ public class AylythModelProvider extends FabricModelProvider {
                 ItemModels.basic(ModelIds.getItemSubModelId(item, "_in_hand"))
         );
         generator.output.accept(item, ItemModelGenerator.createModelWithInHandVariant(fallback, variants));
+    }
+
+    private void registerNysianGrapeVine(BlockStateModelGenerator generator, Block block) {
+        Identifier[] ids = {
+                AylythModels.NYSIAN_GRAPE_VINE_BASE.upload(block, "_0", TextureMap.of(AylythModels.FRUIT, blockId("nysian_grape_vine_fruit_0")), generator.modelCollector),
+                AylythModels.NYSIAN_GRAPE_VINE_BASE.upload(block, "_1", TextureMap.of(AylythModels.FRUIT, blockId("nysian_grape_vine_fruit_1")), generator.modelCollector),
+                AylythModels.NYSIAN_GRAPE_VINE_BASE.upload(block, "_2", TextureMap.of(AylythModels.FRUIT, blockId("nysian_grape_vine_fruit_2")), generator.modelCollector),
+                AylythModels.NYSIAN_GRAPE_VINE_BASE.upload(block, "_3", TextureMap.of(AylythModels.FRUIT, blockId("nysian_grape_vine_fruit_3")), generator.modelCollector)
+        };
+
+        MultipartBlockStateSupplier multipart = MultipartBlockStateSupplier.create(block);
+
+        for (int i = 0; i < 4; i++) {
+            Identifier id = ids[i];
+            for (Pair<Direction, Function<Identifier, BlockStateVariant>> pair : BlockStateModelGenerator.CONNECTION_VARIANT_FUNCTIONS) {
+                When.PropertyCondition propertyCondition = Util.make(
+                        When.create(), propertyConditionx -> BlockStateModelGenerator.CONNECTION_VARIANT_FUNCTIONS.stream().map(Pair::getFirst).map(MultifaceBlock::getProperty).forEach(property -> {
+                            if (block.getDefaultState().contains(property)) {
+                                propertyConditionx.set(property, false);
+                            }
+                        })
+                );
+
+                BooleanProperty direction = MultifaceBlock.getProperty(pair.getFirst());
+                Function<Identifier, BlockStateVariant> variantGetter = pair.getSecond();
+                if (block.getDefaultState().contains(direction)) {
+                    BlockStateVariant variant = variantGetter.apply(id);
+                    multipart.with(When.create().set(direction, true).set(NysianGrapeVineBlock.AGE, i), variant);
+                    multipart.with(propertyCondition.set(NysianGrapeVineBlock.AGE, i), variant);
+                }
+            }
+        }
+
+        generator.blockStateCollector.accept(multipart);
+        generator.itemModelOutput.accept(block.asItem(),
+                ItemModels.basic(
+                        Models.GENERATED_THREE_LAYERS.upload(
+                                ModelIds.getItemModelId(block.asItem()),
+                                TextureMap.layered(blockId("nysian_grape_vine"), blockId("nysian_grape_vine_leaves"), blockId("nysian_grape_vine_details")),
+                                generator.modelCollector
+                        )
+                ));
     }
 
     private void registerFruitBearingYmpeBlock(BlockStateModelGenerator generator, Block block, Block logBlock) {

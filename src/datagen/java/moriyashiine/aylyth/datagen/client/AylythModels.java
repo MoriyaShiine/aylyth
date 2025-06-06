@@ -16,6 +16,7 @@ public interface AylythModels {
     Model SEEP_LOG_SINGLE = block("seep_log_single", "_single", TextureKey.END, TextureKey.SIDE);
     Model SEEP_LOG_TOP = block("seep_log_top", "_top", TextureKey.END, TextureKey.SIDE);
     Model FRUIT_BEARING_YMPE_LOG_BASE = block("fruit_bearing_ympe_log_base", TextureKey.END, TextureKey.SIDE, FRUIT);
+    Model NYSIAN_GRAPE_VINE_BASE = block("nysian_grape_vine_base", FRUIT);
     Model HANDHELD_ROTATED = item("handheld_rotated", TextureKey.LAYER0);
 
     private static Model block(String parent, TextureKey... requiredKeys) {

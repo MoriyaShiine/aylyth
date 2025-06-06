@@ -1,0 +1,6 @@
+{
+  "parent": "aylyth:block/nysian_grape_vine_base",
+  "textures": {
+    "fruit": "aylyth:block/nysian_grape_vine_fruit_1"
+  }
+}
