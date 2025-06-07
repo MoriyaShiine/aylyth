@@ -80,7 +80,6 @@ public class AylythModelProvider extends FabricModelProvider {
     @Override
     public void generateBlockStateModels(BlockStateModelGenerator generator) {
         generator.registerParentedItemModel(AylythBlocks.SOUL_HEARTH, blockId("soul_hearth_item"));
-        registerFlowerPot(generator, AylythBlocks.MARIGOLD, AylythBlocks.POTTED_MARIGOLD, BlockStateModelGenerator.CrossType.NOT_TINTED);
         registerStrewnLeaves(generator, AylythBlocks.OAK_STREWN_LEAVES, List.of(blockId("fallen_oak_leaves_01"), blockId("fallen_oak_leaves_02"), blockId("fallen_oak_leaves_03"), blockId("fallen_oak_leaves_04"), blockId("fallen_oak_leaves_05"), blockId("fallen_oak_leaves_06"), blockId("fallen_oak_leaves_07"), blockId("fallen_oak_leaves_08"), blockId("fallen_oak_leaves_09"), blockId("fallen_oak_leaves_10")));
         registerStrewnLeaves(generator, AylythBlocks.YMPE_STREWN_LEAVES, List.of(blockId("fallen_ympe_leaves_01"), blockId("fallen_ympe_leaves_02")));
         registerLeafPiles(generator, AylythBlocks.OAK_LEAF_PILE, Blocks.OAK_LEAVES, true);
@@ -180,7 +179,7 @@ public class AylythModelProvider extends FabricModelProvider {
         registerFruitBearingYmpeBlock(generator, AylythBlocks.FRUIT_BEARING_YMPE_LOG, AylythBlocks.YMPE_LOG);
         registerNysianGrapeVine(generator, AylythBlocks.NYSIAN_GRAPE_VINE);
         generator.blockStateCollector.accept(numberedVariants(AylythBlocks.GHOSTCAP_MUSHROOM, 4));
-        registerMarigolds(generator, AylythBlocks.MARIGOLD);
+        registerMarigolds(generator, AylythBlocks.MARIGOLD, AylythBlocks.POTTED_MARIGOLD, BlockStateModelGenerator.CrossType.NOT_TINTED);
         registerAylythBushStates(generator, AylythBlocks.AYLYTHIAN_BUSH);
         registerJackOLanternMushroomStates(generator, AylythBlocks.JACK_O_LANTERN_MUSHROOM);
         registerVitalThuribleStates(generator, AylythBlocks.VITAL_THURIBLE);
@@ -345,9 +344,11 @@ public class AylythModelProvider extends FabricModelProvider {
         );
     }
 
-    private void registerMarigolds(BlockStateModelGenerator generator, Block block) {
+    private void registerMarigolds(BlockStateModelGenerator generator, Block block, Block flowerPotBlock, BlockStateModelGenerator.CrossType tintType) {
         Identifier firstId = registerModelWithNumberedVariants(generator, block, Models.CROSS, i -> TextureMap.cross(ModelIds.getBlockSubModelId(block, "_" + i)), 5);
         generator.itemModelOutput.accept(block.asItem(), ItemModels.basic(Models.GENERATED.upload(block.asItem(), TextureMap.layer0(firstId), generator.modelCollector)));
+        Identifier identifier = tintType.getFlowerPotCrossModel().upload(flowerPotBlock, TextureMap.plant(firstId), generator.modelCollector);
+        generator.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(flowerPotBlock, identifier));
     }
 
     private void registerNysianGrapeVine(BlockStateModelGenerator generator, Block block) {
@@ -516,12 +517,6 @@ public class AylythModelProvider extends FabricModelProvider {
                 stateVariants[i-1] = BlockStateVariant.create().put(VariantSettings.MODEL, modelId.withSuffixedPath("_" + i));
             }
         }));
-    }
-
-    // copy without the regular cross state and model registration
-    private void registerFlowerPot(BlockStateModelGenerator generator, Block plantBlock, Block flowerPotBlock, BlockStateModelGenerator.CrossType tintType) {
-        Identifier identifier = tintType.getFlowerPotCrossModel().upload(flowerPotBlock, TextureMap.plant(plantBlock), generator.modelCollector);
-        generator.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(flowerPotBlock, identifier));
     }
 
     private void registerBranchAndItem(BlockStateModelGenerator generator, Block block) {
