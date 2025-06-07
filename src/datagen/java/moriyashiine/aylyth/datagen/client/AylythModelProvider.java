@@ -9,6 +9,7 @@ import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.block.types.AylythianBushBlock;
 import moriyashiine.aylyth.common.block.types.GrowingHarvestablePillarBlock;
 import moriyashiine.aylyth.common.block.types.JackolanternMushroomBlock;
+import moriyashiine.aylyth.common.block.types.JackolanternShelfMushroomBlock;
 import moriyashiine.aylyth.common.block.types.LargeWoodyGrowthBlock;
 import moriyashiine.aylyth.common.block.types.NysianGrapeVineBlock;
 import moriyashiine.aylyth.common.block.types.PomegranateLeavesBlock;
@@ -183,6 +184,7 @@ public class AylythModelProvider extends FabricModelProvider {
         registerAylythBushStates(generator, AylythBlocks.AYLYTHIAN_BUSH);
         registerJackOLanternMushroomStates(generator, AylythBlocks.JACK_O_LANTERN_MUSHROOM);
         registerVitalThuribleStates(generator, AylythBlocks.VITAL_THURIBLE);
+        registerShelfJackOLanternMushroomStates(generator, AylythBlocks.SHELF_JACK_O_LANTERN_MUSHROOM, 5);
     }
 
     @Override
@@ -321,6 +323,31 @@ public class AylythModelProvider extends FabricModelProvider {
                             }
                             return variant;
                         })
+                )
+        );
+    }
+
+    private void registerShelfJackOLanternMushroomStates(BlockStateModelGenerator generator, Block block, int variants) {
+        List<Identifier> normal = Util.make(new ObjectArrayList<>(), list -> {
+            for (int i = 1; i <= variants; i++) {
+                list.add(ModelIds.getBlockSubModelId(block, "_" + i));
+            }
+        });
+        List<Identifier> glowing = Util.make(new ObjectArrayList<>(), list -> {
+            for (int i = 1; i <= variants; i++) {
+                list.add(ModelIds.getBlockSubModelId(block, "_" + i + "_glowing"));
+            }
+        });
+        generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block)
+                .coordinate(BlockStateVariantMap.create(JackolanternShelfMushroomBlock.FACING, JackolanternMushroomBlock.GLOWING)
+                        .register(Direction.NORTH, false, normal.stream().map(id -> BlockStateVariant.create().put(VariantSettings.MODEL, id)).toList())
+                        .register(Direction.EAST, false, normal.stream().map(id -> BlockStateVariant.create().put(VariantSettings.MODEL, id).put(VariantSettings.Y, VariantSettings.Rotation.R90)).toList())
+                        .register(Direction.SOUTH, false, normal.stream().map(id -> BlockStateVariant.create().put(VariantSettings.MODEL, id).put(VariantSettings.Y, VariantSettings.Rotation.R180)).toList())
+                        .register(Direction.WEST, false, normal.stream().map(id -> BlockStateVariant.create().put(VariantSettings.MODEL, id).put(VariantSettings.Y, VariantSettings.Rotation.R270)).toList())
+                        .register(Direction.NORTH, true, glowing.stream().map(id -> BlockStateVariant.create().put(VariantSettings.MODEL, id)).toList())
+                        .register(Direction.EAST, true, glowing.stream().map(id -> BlockStateVariant.create().put(VariantSettings.MODEL, id).put(VariantSettings.Y, VariantSettings.Rotation.R90)).toList())
+                        .register(Direction.SOUTH, true, glowing.stream().map(id -> BlockStateVariant.create().put(VariantSettings.MODEL, id).put(VariantSettings.Y, VariantSettings.Rotation.R180)).toList())
+                        .register(Direction.WEST, true, glowing.stream().map(id -> BlockStateVariant.create().put(VariantSettings.MODEL, id).put(VariantSettings.Y, VariantSettings.Rotation.R270)).toList())
                 )
         );
     }

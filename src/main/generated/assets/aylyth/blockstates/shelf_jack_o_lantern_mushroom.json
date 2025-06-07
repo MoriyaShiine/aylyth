@@ -22,6 +22,28 @@
         "y": 90
       }
     ],
+    "facing=east,glowing=true": [
+      {
+        "model": "aylyth:block/shelf_jack_o_lantern_mushroom_1_glowing",
+        "y": 90
+      },
+      {
+        "model": "aylyth:block/shelf_jack_o_lantern_mushroom_2_glowing",
+        "y": 90
+      },
+      {
+        "model": "aylyth:block/shelf_jack_o_lantern_mushroom_3_glowing",
+        "y": 90
+      },
+      {
+        "model": "aylyth:block/shelf_jack_o_lantern_mushroom_4_glowing",
+        "y": 90
+      },
+      {
+        "model": "aylyth:block/shelf_jack_o_lantern_mushroom_5_glowing",
+        "y": 90
+      }
+    ],
     "facing=north,glowing=false": [
       {
         "model": "aylyth:block/shelf_jack_o_lantern_mushroom_1"
@@ -39,7 +61,24 @@
         "model": "aylyth:block/shelf_jack_o_lantern_mushroom_5"
       }
     ],
-    "facing=south,glowing=false":  [
+    "facing=north,glowing=true": [
+      {
+        "model": "aylyth:block/shelf_jack_o_lantern_mushroom_1_glowing"
+      },
+      {
+        "model": "aylyth:block/shelf_jack_o_lantern_mushroom_2_glowing"
+      },
+      {
+        "model": "aylyth:block/shelf_jack_o_lantern_mushroom_3_glowing"
+      },
+      {
+        "model": "aylyth:block/shelf_jack_o_lantern_mushroom_4_glowing"
+      },
+      {
+        "model": "aylyth:block/shelf_jack_o_lantern_mushroom_5_glowing"
+      }
+    ],
+    "facing=south,glowing=false": [
       {
         "model": "aylyth:block/shelf_jack_o_lantern_mushroom_1",
         "y": 180
@@ -58,6 +97,28 @@
       },
       {
         "model": "aylyth:block/shelf_jack_o_lantern_mushroom_5",
+        "y": 180
+      }
+    ],
+    "facing=south,glowing=true": [
+      {
+        "model": "aylyth:block/shelf_jack_o_lantern_mushroom_1_glowing",
+        "y": 180
+      },
+      {
+        "model": "aylyth:block/shelf_jack_o_lantern_mushroom_2_glowing",
+        "y": 180
+      },
+      {
+        "model": "aylyth:block/shelf_jack_o_lantern_mushroom_3_glowing",
+        "y": 180
+      },
+      {
+        "model": "aylyth:block/shelf_jack_o_lantern_mushroom_4_glowing",
+        "y": 180
+      },
+      {
+        "model": "aylyth:block/shelf_jack_o_lantern_mushroom_5_glowing",
         "y": 180
       }
     ],
@@ -81,67 +142,6 @@
       {
         "model": "aylyth:block/shelf_jack_o_lantern_mushroom_5",
         "y": 270
-      }
-    ],
-    "facing=east,glowing=true": [
-      {
-        "model": "aylyth:block/shelf_jack_o_lantern_mushroom_1_glowing",
-        "y": 90
-      },
-      {
-        "model": "aylyth:block/shelf_jack_o_lantern_mushroom_2_glowing",
-        "y": 90
-      },
-      {
-        "model": "aylyth:block/shelf_jack_o_lantern_mushroom_3_glowing",
-        "y": 90
-      },
-      {
-        "model": "aylyth:block/shelf_jack_o_lantern_mushroom_4_glowing",
-        "y": 90
-      },
-      {
-        "model": "aylyth:block/shelf_jack_o_lantern_mushroom_5_glowing",
-        "y": 90
-      }
-    ],
-    "facing=north,glowing=true": [
-      {
-        "model": "aylyth:block/shelf_jack_o_lantern_mushroom_1_glowing"
-      },
-      {
-        "model": "aylyth:block/shelf_jack_o_lantern_mushroom_2_glowing"
-      },
-      {
-        "model": "aylyth:block/shelf_jack_o_lantern_mushroom_3_glowing"
-      },
-      {
-        "model": "aylyth:block/shelf_jack_o_lantern_mushroom_4_glowing"
-      },
-      {
-        "model": "aylyth:block/shelf_jack_o_lantern_mushroom_5_glowing"
-      }
-    ],
-    "facing=south,glowing=true":  [
-      {
-        "model": "aylyth:block/shelf_jack_o_lantern_mushroom_1_glowing",
-        "y": 180
-      },
-      {
-        "model": "aylyth:block/shelf_jack_o_lantern_mushroom_2_glowing",
-        "y": 180
-      },
-      {
-        "model": "aylyth:block/shelf_jack_o_lantern_mushroom_3_glowing",
-        "y": 180
-      },
-      {
-        "model": "aylyth:block/shelf_jack_o_lantern_mushroom_4_glowing",
-        "y": 180
-      },
-      {
-        "model": "aylyth:block/shelf_jack_o_lantern_mushroom_5_glowing",
-        "y": 180
       }
     ],
     "facing=west,glowing=true": [
