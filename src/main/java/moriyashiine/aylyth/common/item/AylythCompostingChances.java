@@ -17,6 +17,8 @@ public interface AylythCompostingChances {
         registry.add(WRITHEWOOD_SAPLING, 0.3f);
         registry.add(OAK_STREWN_LEAVES, 0.3f);
         registry.add(YMPE_STREWN_LEAVES, 0.3f);
+        registry.add(OAK_LEAF_PILE, 0.3f);
+        registry.add(YMPE_LEAF_PILE, 0.3f);
         registry.add(JACK_O_LANTERN_MUSHROOM, 0.3f);
         registry.add(GHOSTCAP_MUSHROOM, 0.3f);
         registry.add(POMEGRANATE, 0.3f);
