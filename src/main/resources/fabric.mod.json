@@ -49,12 +49,12 @@
         "fabric-api": ">=0.119.0",
         "minecraft": "1.21.4",
         "java": ">=21",
-        "geckolib": "*"
+        "geckolib": "*",
+        "fusion": ">=1.2.0"
     },
     "recommends": {
         "trinkets": "~3.7.1",
-        "smartbrainlib": ">=1.13",
-        "fusion": ">=1.1.1"
+        "smartbrainlib": ">=1.13"
     },
     "custom": {
         "loom:injected_interfaces": {
