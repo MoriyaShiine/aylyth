@@ -1,10 +1,9 @@
 package moriyashiine.aylyth.common.network;
 
 import moriyashiine.aylyth.common.entity.AylythEntityAttachmentTypes;
-import moriyashiine.aylyth.common.entity.attachments.RiderControls;
 import moriyashiine.aylyth.common.item.AylythItems;
 import moriyashiine.aylyth.common.network.packets.GlaivePacketC2S;
-import moriyashiine.aylyth.common.network.packets.UpdatePressingUpDownPacketC2S;
+import moriyashiine.aylyth.common.network.packets.UpdateAdditionalInputPacketC2S;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -15,18 +14,14 @@ import net.minecraft.item.ItemStack;
 public final class AylythServerPacketHandler {
     private AylythServerPacketHandler() {}
 
-    public static void handleUpdatePressingUpDown(UpdatePressingUpDownPacketC2S packet, ServerPlayNetworking.Context context) {
-        RiderControls rider = context.player().getAttached(AylythEntityAttachmentTypes.RIDER);
-        if (rider != null) {
-            rider.setPressingUp(packet.pressingUp());
-            rider.setPressingDown(packet.pressingDown());
-            context.player().setAttached(AylythEntityAttachmentTypes.RIDER, rider);
-        }
+    public static void handleUpdatePressingUpDown(UpdateAdditionalInputPacketC2S packet, ServerPlayNetworking.Context context) {
+        context.player().setAttached(AylythEntityAttachmentTypes.ADDITIONAL_PLAYER_INPUT, packet.input());
     }
 
     public static void handleGlaiveSpecial(GlaivePacketC2S packet, ServerPlayNetworking.Context context) {
         ItemStack mainStack = context.player().getMainHandStack();
         if (mainStack.isOf(AylythItems.YMPE_GLAIVE)) {
+            // TODO: Not safe, need to do checks to make sure the entity is actually a potential crosshair target (nearby? apply cooldown? etc.)
             Entity crosshairTarget = context.player().getWorld().getEntityById(packet.entityId());
             if (crosshairTarget != null) {
                 float baseDamage = (float)context.player().getAttributeValue(EntityAttributes.ATTACK_DAMAGE);

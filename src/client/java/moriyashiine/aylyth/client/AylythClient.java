@@ -41,9 +41,12 @@ import moriyashiine.aylyth.common.Aylyth;
 import moriyashiine.aylyth.common.block.AylythBlockEntityTypes;
 import moriyashiine.aylyth.common.block.AylythBlocks;
 import moriyashiine.aylyth.common.data.world.AylythDimensionData;
+import moriyashiine.aylyth.common.entity.AylythEntityAttachmentTypes;
 import moriyashiine.aylyth.common.entity.AylythEntityTypes;
+import moriyashiine.aylyth.common.entity.attachments.AdditionalPlayerInput;
+import moriyashiine.aylyth.common.entity.types.mob.BoneflyEntity;
 import moriyashiine.aylyth.common.network.packets.SpawnParticlesAroundPacketS2C;
-import moriyashiine.aylyth.common.network.packets.UpdatePressingUpDownPacketC2S;
+import moriyashiine.aylyth.common.network.packets.UpdateAdditionalInputPacketC2S;
 import moriyashiine.aylyth.common.particle.AylythParticleTypes;
 import moriyashiine.aylyth.common.screenhandler.AylythScreenHandlerTypes;
 import net.fabricmc.api.ClientModInitializer;
@@ -65,6 +68,7 @@ import net.minecraft.block.Block;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
@@ -191,10 +195,12 @@ public class AylythClient implements ClientModInitializer {
 		});
 
 		ClientTickEvents.END_CLIENT_TICK.register(ClientTickHandler::clientTickEnd);
-		ClientTickEvents.END_CLIENT_TICK.register((world) -> {
-			PlayerEntity player = MinecraftClient.getInstance().player;
-			if (player != null) {
-				ClientPlayNetworking.send(new UpdatePressingUpDownPacketC2S(MinecraftClient.getInstance().options.jumpKey.isPressed(), DESCEND.isPressed()));
+		ClientTickEvents.END_CLIENT_TICK.register((client) -> {
+			ClientPlayerEntity player = client.player;
+			if (player != null && player.getControllingVehicle().getType() == AylythEntityTypes.BONEFLY) {
+				AdditionalPlayerInput additionalInput = new AdditionalPlayerInput(player.input.playerInput.jump(), DESCEND.isPressed());
+				player.setAttached(AylythEntityAttachmentTypes.ADDITIONAL_PLAYER_INPUT, additionalInput);
+				ClientPlayNetworking.send(new UpdateAdditionalInputPacketC2S(additionalInput));
 			}
 		});
 

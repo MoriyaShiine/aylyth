@@ -41,7 +41,7 @@ import moriyashiine.aylyth.common.loot.display.LootDisplay;
 import moriyashiine.aylyth.common.loot.modifier.LootTableModifier;
 import moriyashiine.aylyth.common.network.AylythServerPacketHandler;
 import moriyashiine.aylyth.common.network.packets.GlaivePacketC2S;
-import moriyashiine.aylyth.common.network.packets.UpdatePressingUpDownPacketC2S;
+import moriyashiine.aylyth.common.network.packets.UpdateAdditionalInputPacketC2S;
 import moriyashiine.aylyth.common.particle.AylythParticleTypes;
 import moriyashiine.aylyth.common.recipe.AylythIngredients;
 import moriyashiine.aylyth.common.recipe.AylythRecipeTypes;
@@ -162,9 +162,9 @@ public class Aylyth implements ModInitializer {
 		AylythModifyLootTableHandler.register();
 
 		PayloadTypeRegistry.playC2S().register(GlaivePacketC2S.ID, GlaivePacketC2S.PACKET_CODEC);
-		PayloadTypeRegistry.playC2S().register(UpdatePressingUpDownPacketC2S.ID, UpdatePressingUpDownPacketC2S.PACKET_CODEC);
+		PayloadTypeRegistry.playC2S().register(UpdateAdditionalInputPacketC2S.ID, UpdateAdditionalInputPacketC2S.PACKET_CODEC);
 		ServerPlayNetworking.registerGlobalReceiver(GlaivePacketC2S.ID, AylythServerPacketHandler::handleGlaiveSpecial);
-		ServerPlayNetworking.registerGlobalReceiver(UpdatePressingUpDownPacketC2S.ID, AylythServerPacketHandler::handleUpdatePressingUpDown);
+		ServerPlayNetworking.registerGlobalReceiver(UpdateAdditionalInputPacketC2S.ID, AylythServerPacketHandler::handleUpdatePressingUpDown);
 	}
 
 	private void registerApis() {

@@ -6,7 +6,7 @@ import moriyashiine.aylyth.common.entity.attachments.YmpeInfestation;
 import moriyashiine.aylyth.common.entity.attachments.CuirassStages;
 import moriyashiine.aylyth.common.entity.attachments.VitalHealth;
 import moriyashiine.aylyth.common.entity.attachments.YmpeThorns;
-import moriyashiine.aylyth.common.entity.attachments.RiderControls;
+import moriyashiine.aylyth.common.entity.attachments.AdditionalPlayerInput;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentSyncPredicate;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
@@ -44,10 +44,8 @@ public interface AylythEntityAttachmentTypes {
                     .syncWith(YmpeThorns.PACKET_CODEC, AttachmentSyncPredicate.all())
     );
 
-    // TODO: Revise and get rid of
-    AttachmentType<RiderControls> RIDER = AttachmentRegistry.create(Aylyth.id("rider"),
-            builder -> builder.initializer(RiderControls::new)
-                    .syncWith(RiderControls.PACKET_CODEC, AttachmentSyncPredicate.targetOnly())
+    AttachmentType<AdditionalPlayerInput> ADDITIONAL_PLAYER_INPUT = AttachmentRegistry.create(Aylyth.id("additional_player_input"),
+            builder -> builder.initializer(() -> AdditionalPlayerInput.DEFAULT)
     );
 
     // Load static initializer
