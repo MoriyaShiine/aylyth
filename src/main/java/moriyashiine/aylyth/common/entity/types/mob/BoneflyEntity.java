@@ -327,18 +327,6 @@ public class BoneflyEntity extends HostileEntity implements GeoEntity, TameableH
         return inAir;
     }
 
-    public boolean isHighEnough(int altitude) {
-        return this.getAltitude(altitude) >= altitude;
-    }
-
-    public double getAltitude(int limit) {
-        BlockPos.Mutable mutable = this.getBlockPos().mutableCopy();
-
-        // limit so we don't do dozens of iterations per tick
-        for (int i = 0; i <= limit && mutable.getY() > this.getWorld().getDimension().minY() && !this.getWorld().getBlockState(mutable.move(Direction.DOWN)).blocksMovement(); i++);
-        return this.getY() - mutable.getY() - 0.11;
-    }
-
     @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack stack = player.getStackInHand(hand);
