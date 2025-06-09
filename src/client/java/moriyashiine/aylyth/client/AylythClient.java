@@ -197,7 +197,7 @@ public class AylythClient implements ClientModInitializer {
 		ClientTickEvents.END_CLIENT_TICK.register(ClientTickHandler::clientTickEnd);
 		ClientTickEvents.END_CLIENT_TICK.register((client) -> {
 			ClientPlayerEntity player = client.player;
-			if (player != null && player.getControllingVehicle().getType() == AylythEntityTypes.BONEFLY) {
+			if (player != null && player.getControllingVehicle() != null && player.getControllingVehicle().getType() == AylythEntityTypes.BONEFLY) {
 				AdditionalPlayerInput additionalInput = new AdditionalPlayerInput(player.input.playerInput.jump(), DESCEND.isPressed());
 				player.setAttached(AylythEntityAttachmentTypes.ADDITIONAL_PLAYER_INPUT, additionalInput);
 				ClientPlayNetworking.send(new UpdateAdditionalInputPacketC2S(additionalInput));
