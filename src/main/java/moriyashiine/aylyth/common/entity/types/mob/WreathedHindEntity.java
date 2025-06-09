@@ -93,6 +93,7 @@ public class WreathedHindEntity extends HostileEntity implements GeoEntity, Pled
                 .add(EntityAttributes.ARMOR, 3)
                 .add(EntityAttributes.MOVEMENT_SPEED, 0.225)
                 .add(EntityAttributes.FOLLOW_RANGE, 32)
+                .add(EntityAttributes.STEP_HEIGHT, 1.0)
                 .add(EntityAttributes.ENTITY_INTERACTION_RANGE, 4);
     }
 
