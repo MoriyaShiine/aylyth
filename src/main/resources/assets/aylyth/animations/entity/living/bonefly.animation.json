@@ -2717,121 +2717,42 @@
 			"animation_length": 0.5,
 			"bones": {
 				"body": {
-					"rotation": {
-						"vector": [-10, 0, 0]
-					},
-					"position": {
-						"vector": [0, 0, 0]
-					}
-				},
-				"rWingPair": {
-					"rotation": {
-						"vector": [61, 0, -12]
-					}
-				},
-				"rWing01": {
-					"rotation": {
-						"vector": [8, 2, -2]
-					}
-				},
-				"rWing02": {
-					"rotation": {
-						"vector": [-23, 4, -9]
-					}
-				},
-				"lWingPair": {
-					"rotation": {
-						"vector": [61, 0, 12]
-					}
-				},
-				"lWing01": {
-					"rotation": {
-						"vector": [8, -2, 2]
-					}
-				},
-				"lWing02": {
-					"rotation": {
-						"vector": [-23, -4, 9]
-					}
-				},
-				"rForeLeg01": {
-					"rotation": {
-						"vector": [3, -13, 2]
-					}
-				},
-				"rForeLeg02": {
-					"rotation": {
-						"vector": [80, 0, 0]
-					}
-				},
-				"lForeLeg01": {
-					"rotation": {
-						"vector": [3, 13, 2]
-					}
-				},
-				"lForeLeg02": {
-					"rotation": {
-						"vector": [80, 0, 0]
-					}
+					"rotation": [-10, 0, 0]
 				},
 				"rHindLeg01": {
 					"rotation": {
-						"0.0": {
-							"vector": [-47.5, -51, 26]
-						},
-						"0.5": {
-							"vector": [-113, -27, 86]
-						}
+						"0.0": [-47.5, -51, 26],
+						"0.5": [-113, -27, 86]
 					}
 				},
 				"rHindLeg02": {
 					"rotation": {
-						"0.0": {
-							"vector": [-193, 62, -227]
-						},
-						"0.5": {
-							"vector": [-289, 45, -334]
-						}
+						"0.0": [-193, 62, -227],
+						"0.5": [-289, 45, -334]
 					}
 				},
 				"lHindLeg01": {
 					"rotation": {
-						"0.0": {
-							"vector": [-47.5, 51, -26]
-						},
-						"0.5": {
-							"vector": [-113, 27, -86]
-						}
+						"0.0": [-47.5, 51, -26],
+						"0.5": [-113, 27, -86]
 					}
 				},
 				"lHindLeg02": {
 					"rotation": {
-						"0.0": {
-							"vector": [-193, -62, 227]
-						},
-						"0.5": {
-							"vector": [-289, -45, 334]
-						}
+						"0.0": [-193, -62, 227],
+						"0.5": [-289, -45, 334]
 					}
 				},
 				"tail01": {
 					"rotation": {
-						"0.0": {
-							"vector": [0, 0, 0]
-						},
-						"0.5": {
-							"vector": [-40, 0, 0]
-						}
+						"0.0": [0, 0, 0],
+						"0.5": [-40, 0, 0]
 					}
 				},
 				"tail02": {
 					"rotation": {
-						"0.0": {
-							"vector": [0, 0, 0]
-						},
-						"0.5": {
-							"vector": [-90, 0, 0]
-						}
+						"0.0": [0, 0, 0],
+						"0.5": [-90, 0, 0]
 					}
 				}
 			}
@@ -2841,92 +2762,25 @@
 			"animation_length": 0.5,
 			"bones": {
 				"body": {
-					"rotation": {
-						"vector": [-10, 0, 0]
-					},
-					"position": {
-						"vector": [0, 0, 0]
-					}
-				},
-				"rWingPair": {
-					"rotation": {
-						"vector": [61, 0, -12]
-					}
-				},
-				"rWing01": {
-					"rotation": {
-						"vector": [8, 2, -2]
-					}
-				},
-				"rWing02": {
-					"rotation": {
-						"vector": [-23, 4, -9]
-					}
-				},
-				"lWingPair": {
-					"rotation": {
-						"vector": [61, 0, 12]
-					}
-				},
-				"lWing01": {
-					"rotation": {
-						"vector": [8, -2, 2]
-					}
-				},
-				"lWing02": {
-					"rotation": {
-						"vector": [-23, -4, 9]
-					}
-				},
-				"rForeLeg01": {
-					"rotation": {
-						"vector": [3, -13, 2]
-					}
-				},
-				"rForeLeg02": {
-					"rotation": {
-						"vector": [80, 0, 0]
-					}
-				},
-				"lForeLeg01": {
-					"rotation": {
-						"vector": [3, 13, 2]
-					}
-				},
-				"lForeLeg02": {
-					"rotation": {
-						"vector": [80, 0, 0]
-					}
+					"rotation": [-10, 0, 0]
 				},
 				"rHindLeg01": {
-					"rotation": {
-						"vector": [-113, -27, 86]
-					}
+					"rotation": [-113, -27, 86]
 				},
 				"rHindLeg02": {
-					"rotation": {
-						"vector": [-289, 45, -334]
-					}
+					"rotation": [-289, 45, -334]
 				},
 				"lHindLeg01": {
-					"rotation": {
-						"vector": [-113, 27, -86]
-					}
+					"rotation": [-113, 27, -86]
 				},
 				"lHindLeg02": {
-					"rotation": {
-						"vector": [-289, -45, 334]
-					}
+					"rotation": [-289, -45, 334]
 				},
 				"tail01": {
-					"rotation": {
-						"vector": [-40, 0, 0]
-					}
+					"rotation": [-40, 0, 0]
 				},
 				"tail02": {
-					"rotation": {
-						"vector": [-90, 0, 0]
-					}
+					"rotation": [-90, 0, 0]
 				}
 			}
 		},
