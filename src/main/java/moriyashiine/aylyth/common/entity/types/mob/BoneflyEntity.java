@@ -334,12 +334,15 @@ public class BoneflyEntity extends HostileEntity implements GeoEntity, TameableH
             stack.decrementUnlessCreative(1, player);
             this.heal(1);
         }
-        if (this.isOwner(player) && stack.isEmpty() && this.isTamed() && !this.hasPassengers()) {
-            if (player.isSneaking()) {
-                this.setDormant(!this.isDormant());
-            } else {
-                player.startRiding(this);
-                this.navigation.stop();
+        if (hand == Hand.MAIN_HAND) {
+            if (this.isOwner(player) && stack.isEmpty() && this.isTamed() && !this.hasPassengers()) {
+                if (player.isSneaking()) {
+                    this.setDormant(!this.isDormant());
+                } else {
+                    this.setDormant(false);
+                    player.startRiding(this);
+                    this.navigation.stop();
+                }
             }
         }
 
@@ -495,6 +498,11 @@ public class BoneflyEntity extends HostileEntity implements GeoEntity, TameableH
         @Override
         public boolean canStart() {
             return !BoneflyEntity.this.isDormant() && !BoneflyEntity.this.hasPassengers() && super.canStart();
+        }
+
+        @Override
+        public boolean shouldContinue() {
+            return !BoneflyEntity.this.isDormant() && !BoneflyEntity.this.hasPassengers() && super.shouldContinue();
         }
 
         @Nullable
