@@ -6,7 +6,7 @@
     },
     {
       "type": "minecraft:surface_water_depth_filter",
-      "max_water_depth": 2
+      "max_water_depth": 16
     },
     {
       "type": "minecraft:heightmap",
