@@ -2,7 +2,6 @@ package moriyashiine.aylyth.common.data.tag;
 
 import moriyashiine.aylyth.common.Aylyth;
 import net.minecraft.block.Block;
-import net.minecraft.item.Item;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
@@ -24,6 +23,7 @@ public interface AylythBlockTags {
     TagKey<Block> BRANCHES = bind("branches");
     TagKey<Block> LEAFY_BRANCHES = bind("branches/leafy");
     TagKey<Block> BARE_BRANCHES = bind("branches/bare");
+    TagKey<Block> POOL_NEIGHBORING = bind("pool_neighboring");
 
     TagKey<Block> STORAGE_BLOCKS_ESSTLINE = bindC("storage_blocks/esstline");
     TagKey<Block> STORAGE_BLOCKS_NEPHRITE = bindC("storage_blocks/nephrite");

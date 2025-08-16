@@ -26,8 +26,8 @@
     "depth": "aylyth:depth",
     "erosion": "aylyth:erosion",
     "final_density": "aylyth:density_final",
-    "fluid_level_floodedness": "aylyth:aquifer_fluid_floodedness",
-    "fluid_level_spread": "aylyth:aquifer_fluid_spread",
+    "fluid_level_floodedness": 0.0,
+    "fluid_level_spread": 0.0,
     "initial_density_without_jaggedness": "aylyth:density_initial_without_jaggedness",
     "lava": 0.0,
     "ridges": "aylyth:ridges",
@@ -38,7 +38,7 @@
     "vein_toggle": 0.0
   },
   "ore_veins_enabled": false,
-  "sea_level": 47,
+  "sea_level": 31,
   "spawn_target": [],
   "surface_rule": {
     "type": "minecraft:sequence",
