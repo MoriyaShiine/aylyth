@@ -4,15 +4,16 @@ plugins {
     id 'maven-publish'
 }
 
+def javaVersion = 21
+
 base {
-    archivesName = project.archives_base_name
+    archivesName = project.mod_id
 }
 
 version = project.mod_version
 group = project.maven_group
 
 sourceSets {
-    main.resources.srcDirs += ['src/main/generated']
     test
 }
 
@@ -22,32 +23,32 @@ loom {
 
 fabricApi {
     configureDataGeneration {
-        setClient(true)
-        setCreateSourceSet(true)
-        setModId("aylyth-datagen")
+        client = true
+        createSourceSet = true
+        modId = "${mod_id}-datagen"
     }
 }
 
 loom {
-    accessWidenerPath = file("src/main/resources/aylyth.accesswidener")
+    accessWidenerPath = file("src/main/resources/${mod_id}.accesswidener")
 
     runs {
         client {
             client()
 
-            name "Minecraft Client"
+            name = "Minecraft Client"
 //            programArgs "--username", "HatsuneMiku"
 //            programArgs "--uuid", "534e8d1c-5d83-4c56-a35d-b8f968ddcd01"
             programArgs "--width", "1280"
             programArgs "--height", "800"
 
-            vmArg "-Daylyth.debug"
+            vmArg "-D${mod_id}.debug"
             vmArg "-Dfabric-tag-conventions-v2.missingTagTranslationWarning=VERBOSE"
         }
 	}
 
     mods {
-        "${archives_base_name}" {
+        "${mod_id}" {
             sourceSet sourceSets.main
             sourceSet sourceSets.client
         }
@@ -61,65 +62,81 @@ idea {
 }
 
 repositories {
-    mavenLocal() {
-        content {
-            includeGroup 'xyz.deftu'
-        }
-    }
+    mavenCentral()
     maven {
-        name "terraform"
-        url "https://maven.terraformersmc.com"
+        name = 'Sonatype Snapshots'
+        url = 'https://oss.sonatype.org/content/repositories/snapshots'
     }
+
     maven {
-        name = 'GeckoLib'
-        url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
-        content {
-            includeGroup("software.bernie.geckolib")
-        }
-    }
-    maven {
-        name = "SmartBrainLib (SBL) Maven Repo"
-        url = "https://dl.cloudsmith.io/public/tslat/sbl/maven/"
-    }
-    maven {
-        name "rei"
-        url "https://maven.shedaniel.me"
-    }
-	maven {
-			url "https://cursemaven.com"
-	}
-    maven {
-        name "patchouli"
-        url "https://maven.blamejared.com"
-    }
-    maven {
-        name "jitpack"
-        url "https://jitpack.io"
+        name = 'TerraformersMC'
+        url = 'https://maven.terraformersmc.com'
     }
     exclusiveContent {
         forRepository {
             maven {
-                name "Modrinth"
-                url "https://api.modrinth.com/maven"
+                name = 'GeckoLib'
+                url = 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven'
+            }
+        }
+        filter {
+            includeGroup('software.bernie.geckolib')
+        }
+    }
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = 'SmartBrainLib (SBL) Maven Repo'
+                url = 'https://dl.cloudsmith.io/public/tslat/sbl/mave'
+            }
+        }
+        filter {
+            includeGroup('net.tslat.smartbrainlib')
+        }
+    }
+    maven {
+        name = "rei"
+        url = "https://maven.shedaniel.me"
+    }
+    maven {
+        name = "BlameJared Maven"
+        url = "https://maven.blamejared.com"
+    }
+    // https://github.com/Ladysnake/Impersonate/tree/1.20.1
+    maven {
+        name = "Ladysnake Mods"
+        url = "https://maven.ladysnake.org/releases"
+        content {
+            includeGroup 'io.github.ladysnake'
+            includeGroupAndSubgroups 'org.ladysnake'
+            includeGroupAndSubgroups 'dev.onyxstudios'
+        }
+    }
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = "Modrinth"
+                url = "https://api.modrinth.com/maven"
             }
         }
         filter {
             includeGroup "maven.modrinth"
         }
     }
-    // https://github.com/Ladysnake/Impersonate/tree/1.20.1
-    maven {
-        name "Ladysnake Mods"
-        url "https://maven.ladysnake.org/releases"
-        content {
-            includeGroup 'io.github.ladysnake'
-            includeGroup 'org.ladysnake'
-            includeGroupByRegex 'dev\\.onyxstudios\\..*'
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = "Curseforge"
+                url = "https://cursemaven.com"
+            }
+        }
+        filter {
+            includeGroup "curse.maven"
         }
     }
     maven {
-        name "Nexus Repository Manager"
-        url 'https://oss.sonatype.org/content/repositories/snapshots'
+        name = "Jitpack"
+        url = "https://jitpack.io"
     }
 }
 
@@ -183,20 +200,29 @@ processResources {
 }
 
 tasks.withType(JavaCompile).configureEach {
-    it.options.release = 21
+    it.options.release = javaVersion
 }
 
 java {
     withSourcesJar()
 
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(javaVersion)
+    }
 }
 
 jar {
     inputs.property "archivesName", project.base.archivesName
 
     from("LICENSE") {
-        rename { "${it}_${inputs.properties.archivesName}"}
+        rename ("LICENSE", "LICENSE_${inputs.properties.archivesName}")
+    }
+}
+
+// IDEA no longer automatically downloads sources/javadoc jars for dependencies, so we need to explicitly enable the behavior.
+idea {
+    module {
+        downloadJavadoc = true
+        downloadSources = true
     }
 }
