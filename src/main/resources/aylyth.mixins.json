@@ -13,6 +13,7 @@
     "NoiseChunkGeneratorMixin",
     "PlayerEntityMixin",
     "PlayerManagerMixin",
+    "SaplingGeneratorAccessor",
     "ServerPlayerEntityMixin",
     "TallPlantBlockAccessor",
     "VineBlockMixin",
